@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */; };
+		AA3578690E3FD91400021989 /* Call.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3578680E3FD91400021989 /* Call.xib */; };
+		AA3578B30E40709900021989 /* AKAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B20E40709900021989 /* AKAccountController.m */; };
+		AA3578B60E4070AD00021989 /* AKCallController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B50E4070AD00021989 /* AKCallController.m */; };
+		AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */; };
+		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
+		AA4BD4DB0E07C513005A71B2 /* AKTelephoneConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DA0E07C513005A71B2 /* AKTelephoneConfig.m */; };
+		AA4BD4DE0E07C51E005A71B2 /* AKTelephoneAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */; };
+		AA4FD3A20E1E895D00D4E6A6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4FD3A10E1E895D00D4E6A6 /* Security.framework */; };
+		AA69ADDA0E89578900CF54B3 /* AddAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA69ADD90E89578900CF54B3 /* AddAccount.xib */; };
+		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
+		AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */; };
+		AAA1AFA90E90487000B0CE36 /* NSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA1AFA80E90487000B0CE36 /* NSString+PJSUA.m */; };
+		AAAE4A240E3F4DAA00110597 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4A230E3F4DAA00110597 /* Account.xib */; };
+		AABAD7ED0E0C171A00CB5930 /* AKPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAD7EC0E0C171A00CB5930 /* AKPreferenceController.m */; };
+		AABAD7F00E0C184200CB5930 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = AABAD7EF0E0C184200CB5930 /* Preferences.xib */; };
+		AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A800E08198800E3AB2D /* CoreAudio.framework */; };
+		AAEA9A870E0819BB00E3AB2D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */; };
+		AAEA9A880E0819BB00E3AB2D /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */; };
+		AAEA9A890E0819BB00E3AB2D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */; };
+		AAECDE8F0E70703100CEAE7B /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* NSString+UUID.m */; };
+		AAECDE940E70729C00CEAE7B /* NSNumber+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE930E70729C00CEAE7B /* NSNumber+PJSUA.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* Telephone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Telephone_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* Telephone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telephone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2CCC820E2E4EEB00871057 /* AKTelephoneCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneCall.h; sourceTree = "<group>"; };
+		AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneCall.m; sourceTree = "<group>"; };
+		AA3578680E3FD91400021989 /* Call.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Call.xib; sourceTree = "<group>"; };
+		AA3578B10E40709900021989 /* AKAccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAccountController.h; sourceTree = "<group>"; };
+		AA3578B20E40709900021989 /* AKAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAccountController.m; sourceTree = "<group>"; };
+		AA3578B40E4070AD00021989 /* AKCallController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCallController.h; sourceTree = "<group>"; };
+		AA3578B50E4070AD00021989 /* AKCallController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCallController.m; sourceTree = "<group>"; };
+		AA4BD4C60E07C28E005A71B2 /* AKTelephone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephone.h; sourceTree = "<group>"; };
+		AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephone.m; sourceTree = "<group>"; };
+		AA4BD4D60E07C305005A71B2 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		AA4BD4D70E07C305005A71B2 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		AA4BD4D90E07C513005A71B2 /* AKTelephoneConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneConfig.h; sourceTree = "<group>"; };
+		AA4BD4DA0E07C513005A71B2 /* AKTelephoneConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneConfig.m; sourceTree = "<group>"; };
+		AA4BD4DC0E07C51E005A71B2 /* AKTelephoneAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneAccount.h; sourceTree = "<group>"; };
+		AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneAccount.m; sourceTree = "<group>"; };
+		AA4FD3A10E1E895D00D4E6A6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		AA69ADD90E89578900CF54B3 /* AddAccount.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAccount.xib; sourceTree = "<group>"; };
+		AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKKeychain.h; sourceTree = "<group>"; };
+		AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKKeychain.m; sourceTree = "<group>"; };
+		AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = telephone.icns; sourceTree = "<group>"; };
+		AAA1AFA70E90487000B0CE36 /* NSString+PJSUA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PJSUA.h"; sourceTree = "<group>"; };
+		AAA1AFA80E90487000B0CE36 /* NSString+PJSUA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PJSUA.m"; sourceTree = "<group>"; };
+		AAAE4A230E3F4DAA00110597 /* Account.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Account.xib; sourceTree = "<group>"; };
+		AABAD7EB0E0C171A00CB5930 /* AKPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPreferenceController.h; sourceTree = "<group>"; };
+		AABAD7EC0E0C171A00CB5930 /* AKPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPreferenceController.m; sourceTree = "<group>"; };
+		AABAD7EF0E0C184200CB5930 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		AAEA9A800E08198800E3AB2D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		AAECDE8D0E70703100CEAE7B /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
+		AAECDE8E0E70703100CEAE7B /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
+		AAECDE920E70729C00CEAE7B /* NSNumber+PJSUA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+PJSUA.h"; sourceTree = "<group>"; };
+		AAECDE930E70729C00CEAE7B /* NSNumber+PJSUA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+PJSUA.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */,
+				AAEA9A870E0819BB00E3AB2D /* AudioToolbox.framework in Frameworks */,
+				AAEA9A880E0819BB00E3AB2D /* AudioUnit.framework in Frameworks */,
+				AAEA9A890E0819BB00E3AB2D /* CoreServices.framework in Frameworks */,
+				AA4FD3A20E1E895D00D4E6A6 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AAF9CBC60E685A2D005DD9C6 /* Model */,
+				AAF9CBC70E685A3F005DD9C6 /* Controller */,
+				AAECDE8C0E70700B00CEAE7B /* Categories */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA4FD3A10E1E895D00D4E6A6 /* Security.framework */,
+				AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */,
+				AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */,
+				AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */,
+				AAEA9A800E08198800E3AB2D /* CoreAudio.framework */,
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Telephone.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* Telephone */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = Telephone;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* Telephone_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				AAAE4A230E3F4DAA00110597 /* Account.xib */,
+				AA3578680E3FD91400021989 /* Call.xib */,
+				AABAD7EF0E0C184200CB5930 /* Preferences.xib */,
+				AA69ADD90E89578900CF54B3 /* AddAccount.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAECDE8C0E70700B00CEAE7B /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				AAECDE8D0E70703100CEAE7B /* NSString+UUID.h */,
+				AAECDE8E0E70703100CEAE7B /* NSString+UUID.m */,
+				AAA1AFA70E90487000B0CE36 /* NSString+PJSUA.h */,
+				AAA1AFA80E90487000B0CE36 /* NSString+PJSUA.m */,
+				AAECDE920E70729C00CEAE7B /* NSNumber+PJSUA.h */,
+				AAECDE930E70729C00CEAE7B /* NSNumber+PJSUA.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		AAF9CBC60E685A2D005DD9C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA4BD4C60E07C28E005A71B2 /* AKTelephone.h */,
+				AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */,
+				AA4BD4DC0E07C51E005A71B2 /* AKTelephoneAccount.h */,
+				AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */,
+				AA2CCC820E2E4EEB00871057 /* AKTelephoneCall.h */,
+				AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */,
+				AA4BD4D90E07C513005A71B2 /* AKTelephoneConfig.h */,
+				AA4BD4DA0E07C513005A71B2 /* AKTelephoneConfig.m */,
+				AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */,
+				AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		AAF9CBC70E685A3F005DD9C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AA4BD4D60E07C305005A71B2 /* AppController.h */,
+				AA4BD4D70E07C305005A71B2 /* AppController.m */,
+				AA3578B10E40709900021989 /* AKAccountController.h */,
+				AA3578B20E40709900021989 /* AKAccountController.m */,
+				AA3578B40E4070AD00021989 /* AKCallController.h */,
+				AA3578B50E4070AD00021989 /* AKCallController.m */,
+				AABAD7EB0E0C171A00CB5930 /* AKPreferenceController.h */,
+				AABAD7EC0E0C171A00CB5930 /* AKPreferenceController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* Telephone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Telephone" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Telephone;
+			productInstallPath = "$(HOME)/Applications";
+			productName = Telephone;
+			productReference = 8D1107320486CEB800E47090 /* Telephone.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Telephone */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* Telephone */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				AABAD7F00E0C184200CB5930 /* Preferences.xib in Resources */,
+				AAAE4A240E3F4DAA00110597 /* Account.xib in Resources */,
+				AA3578690E3FD91400021989 /* Call.xib in Resources */,
+				AA69ADDA0E89578900CF54B3 /* AddAccount.xib in Resources */,
+				AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */,
+				AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */,
+				AA4BD4DB0E07C513005A71B2 /* AKTelephoneConfig.m in Sources */,
+				AA4BD4DE0E07C51E005A71B2 /* AKTelephoneAccount.m in Sources */,
+				AABAD7ED0E0C171A00CB5930 /* AKPreferenceController.m in Sources */,
+				AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */,
+				AA3578B30E40709900021989 /* AKAccountController.m in Sources */,
+				AA3578B60E4070AD00021989 /* AKCallController.m in Sources */,
+				AAECDE8F0E70703100CEAE7B /* NSString+UUID.m in Sources */,
+				AAECDE940E70729C00CEAE7B /* NSNumber+PJSUA.m in Sources */,
+				AAA1AFA90E90487000B0CE36 /* NSString+PJSUA.m in Sources */,
+				AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Telephone_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
+					"\"$(SRCROOT)/../pjproject/pjlib-util/include\"",
+					"\"$(SRCROOT)/../pjproject/pjmedia/include\"",
+					"\"$(SRCROOT)/../pjproject/pjnath/include\"",
+					"\"$(SRCROOT)/../pjproject/pjsip/include\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../pjproject/pjlib/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjlib-util/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjmedia/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjnath/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjsip/lib\"",
+					"\"$(SRCROOT)/../pjproject/third_party/lib\"",
+				);
+				OTHER_CFLAGS = (
+					"-DPJ_AUTOCONF=1",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-lm",
+					"-lpthread",
+					"-lssl",
+					"-lcrypto",
+					"-lpjsua-i386-apple-darwin9.5.0",
+					"-lpjsip-ua-i386-apple-darwin9.5.0",
+					"-lpjsip-simple-i386-apple-darwin9.5.0",
+					"-lpjsip-i386-apple-darwin9.5.0",
+					"-lpjmedia-codec-i386-apple-darwin9.5.0",
+					"-lpjmedia-i386-apple-darwin9.5.0",
+					"-lpjnath-i386-apple-darwin9.5.0",
+					"-lpjlib-util-i386-apple-darwin9.5.0",
+					"-lresample-i386-apple-darwin9.5.0",
+					"-lmilenage-i386-apple-darwin9.5.0",
+					"-lsrtp-i386-apple-darwin9.5.0",
+					"-lgsmcodec-i386-apple-darwin9.5.0",
+					"-lspeex-i386-apple-darwin9.5.0",
+					"-lilbccodec-i386-apple-darwin9.5.0",
+					"-lportaudio-i386-apple-darwin9.5.0",
+					"-lpj-i386-apple-darwin9.5.0",
+				);
+				PRODUCT_NAME = Telephone;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Telephone_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
+					"\"$(SRCROOT)/../pjproject/pjlib-util/include\"",
+					"\"$(SRCROOT)/../pjproject/pjmedia/include\"",
+					"\"$(SRCROOT)/../pjproject/pjnath/include\"",
+					"\"$(SRCROOT)/../pjproject/pjsip/include\"",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../pjproject/pjlib/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjlib-util/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjmedia/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjnath/lib\"",
+					"\"$(SRCROOT)/../pjproject/pjsip/lib\"",
+					"\"$(SRCROOT)/../pjproject/third_party/lib\"",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-DPJ_AUTOCONF=1",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-lm",
+					"-lpthread",
+					"-lssl",
+					"-lcrypto",
+					"-lpjsua-i386-apple-darwin9.5.0",
+					"-lpjsip-ua-i386-apple-darwin9.5.0",
+					"-lpjsip-simple-i386-apple-darwin9.5.0",
+					"-lpjsip-i386-apple-darwin9.5.0",
+					"-lpjmedia-codec-i386-apple-darwin9.5.0",
+					"-lpjmedia-i386-apple-darwin9.5.0",
+					"-lpjnath-i386-apple-darwin9.5.0",
+					"-lpjlib-util-i386-apple-darwin9.5.0",
+					"-lresample-i386-apple-darwin9.5.0",
+					"-lmilenage-i386-apple-darwin9.5.0",
+					"-lsrtp-i386-apple-darwin9.5.0",
+					"-lgsmcodec-i386-apple-darwin9.5.0",
+					"-lspeex-i386-apple-darwin9.5.0",
+					"-lilbccodec-i386-apple-darwin9.5.0",
+					"-lportaudio-i386-apple-darwin9.5.0",
+					"-lpj-i386-apple-darwin9.5.0",
+				);
+				PRODUCT_NAME = Telephone;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Telephone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
