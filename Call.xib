@@ -8,10 +8,10 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="51"/>
+			<integer value="19"/>
 			<integer value="1" id="9"/>
 			<integer value="41"/>
-			<integer value="19"/>
+			<integer value="51"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -48,6 +48,7 @@
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMinSize">{370, 84}</string>
 				<string key="NSMaxSize">{2560, 115}</string>
+				<string key="NSFrameAutosaveName">Call</string>
 			</object>
 			<object class="NSCustomView" id="114774165">
 				<reference key="NSNextResponder"/>
