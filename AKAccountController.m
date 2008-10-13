@@ -87,7 +87,9 @@
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																		  accountController:self];
 		[[self callControllers] addObject:aCallController];
+		[[aCallController window] setContentView:[aCallController activeCallView]];
 		[[aCallController window] setTitle:[[aCallController call] remoteInfo]];
+		[aCallController setStatus:@"Calling..."];
 		[aCallController showWindow:nil];
 		
 		[aCallController release];
@@ -101,8 +103,8 @@
 																	  accountController:self];
 	[[self callControllers] addObject:aCallController];
 	[[aCallController window] setTitle:[[aCallController call] remoteInfo]];
-	[[aCallController window] setDocumentEdited:YES];
 	[aCallController setStatus:@"Incoming"];
+	[[aCallController window] setContentView:[aCallController incomingCallView]];
 	[aCallController showWindow:nil];
 	
 	[aCallController release];

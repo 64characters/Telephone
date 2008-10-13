@@ -14,9 +14,15 @@
 @interface AKCallController : NSWindowController {
 	AKTelephoneCall *call;
 	AKAccountController *accountController;
+	NSString *status;
 	
 //	IBOutlet NSTextField *remoteContact;
+	IBOutlet NSView *activeCallView;
+	IBOutlet NSView *incomingCallView;
+	IBOutlet NSView *endedCallView;
 	IBOutlet NSButton *hangUpButton;
+	IBOutlet NSButton *acceptCallButton;
+	IBOutlet NSButton *declineCallButton;
 	IBOutlet NSTextField *statusField;
 }
 
@@ -24,10 +30,15 @@
 @property(readwrite, assign) AKAccountController *accountController;
 @property(readwrite, copy) NSString *status;
 
+@property(readonly, retain) NSView *incomingCallView;
+@property(readonly, retain) NSView *activeCallView;
+@property(readonly, retain) NSView *endedCallView;
+
 // Designated initializer
 - (id)initWithTelephoneCall:(AKTelephoneCall *)aCall
 		  accountController:(AKAccountController *)anAccountController;
 
+- (IBAction)acceptCall:(id)sender;
 - (IBAction)hangUp:(id)sender;
 
 @end

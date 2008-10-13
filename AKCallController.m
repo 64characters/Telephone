@@ -17,7 +17,11 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 
 @synthesize call;
 @dynamic accountController;
-@dynamic status;
+@synthesize status;
+
+@synthesize incomingCallView;
+@synthesize activeCallView;
+@synthesize endedCallView;
 
 - (AKAccountController *)accountController
 {
@@ -43,16 +47,6 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	}
 	
 	accountController = anAccountController;
-}
-
-- (NSString *)status
-{
-	return [statusField stringValue];
-}
-
-- (void)setStatus:(NSString *)status
-{
-	[statusField setStringValue:status];
 }
 
 - (id)initWithTelephoneCall:(AKTelephoneCall *)aCall
@@ -92,6 +86,12 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	return [[self call] description];
 }
 
+- (IBAction)acceptCall:(id)sender
+{
+	[[self call] answer];
+	[[self window] setContentView:[self activeCallView]];
+}
+
 - (IBAction)hangUp:(id)sender
 {
 	[[self call] hangUp];
@@ -118,30 +118,52 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
-	[statusField setStringValue:@"Calling..."];
-	[[self window] setDocumentEdited:YES];
+	[self setStatus:@"Calling..."];
 }
 
 - (void)telephoneCallEarly:(NSNotification *)notification
 {
-	[statusField setStringValue:@"Calling..."];
-	[[self window] setDocumentEdited:YES];
+	[self setStatus:@"Calling..."];
 }
 
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
-	[statusField setStringValue:@"Connected"];
+	[self setStatus:@"Connected"];
 }
 
 - (void)telephoneCallDidDisconnect:(NSNotification *)notification
 {
 	if ([[[self call] lastStatus] isEqualToNumber:[NSNumber numberWithInt:600]])
-		[statusField setStringValue:@"Busy"];
+		[self setStatus:@"Busy"];
 	else
-		[statusField setStringValue:@"Disconnected"];
+		[self setStatus:@"Call ended"];
 	
-	[[self window] setDocumentEdited:NO];
+	NSWindow *callWindow = [self window];
+	
+	// Compute view size delta
+	NSSize currentSize = [[callWindow contentView] frame].size;
+	NSSize newSize = [[self endedCallView] frame].size;
+	CGFloat deltaWidth = newSize.width - currentSize.width;
+	CGFloat deltaHeight = newSize.height - currentSize.height;
+	
+	// Compute new window size
+	NSRect windowFrame = [callWindow frame];
+	windowFrame.size.height += deltaHeight;
+	windowFrame.origin.y -= deltaHeight;
+	windowFrame.size.width += deltaWidth;
+	
+	// Show temp view while changing views
+	NSView *tempView = [[NSView alloc] initWithFrame:[[callWindow contentView] frame]];
+	[callWindow setContentView:tempView];
+	[tempView release];
+	
+	// Finally, swap views
+	[callWindow setFrame:windowFrame display:YES animate:YES];
+	[callWindow setContentView:[self endedCallView]];
+	
 	[hangUpButton setEnabled:NO];
+	[acceptCallButton setEnabled:NO];
+	[declineCallButton setEnabled:NO];
 }
 
 @end

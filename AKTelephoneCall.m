@@ -162,6 +162,13 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	return [NSString stringWithFormat:@"%@ <=> %@", [self localInfo], [self remoteInfo]];
 }
 
+- (void)answer
+{
+	pj_status_t status = pjsua_call_answer([[self identifier] pjsuaCallIdentifierValue], 200, NULL, NULL);
+	if (status != PJ_SUCCESS)
+		NSLog(@"Error answering call %@", self);
+}
+
 - (void)hangUp
 {
 	pj_status_t status = pjsua_call_hangup([[self identifier] pjsuaCallIdentifierValue], 0, NULL, NULL);

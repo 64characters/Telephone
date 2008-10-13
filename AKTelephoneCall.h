@@ -43,6 +43,7 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
 					identifier:(NSNumber *)anIdentifier;
 
+- (void)answer;
 - (void)hangUp;
 
 @end
