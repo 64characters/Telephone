@@ -55,21 +55,11 @@
 	
 	userAgentConfig.max_calls = AKTelephoneCallsMax;
 	
-//	NSString *stunDomain;
-//	if ((stunDomain = [defaults stringForKey:AKSTUNDomain]) != nil) {
-//		userAgentConfig.nameserver_count = 2;
-//		userAgentConfig.nameserver[0] = pj_str("208.67.222.222");
-//		userAgentConfig.nameserver[1] = pj_str("208.67.220.220");
-//		userAgentConfig.stun_domain = [stunDomain pjString];
-//	}
-	
-	NSString *stunServerHost, *stunServerPort;
-	if ((stunServerHost = [defaults stringForKey:AKSTUNServerHost]) != nil &&
-			   (stunServerPort = [defaults stringForKey:AKSTUNServerPort]) != nil) {
+	NSString *stunServerHost = [defaults stringForKey:AKSTUNServerHost];
+	if (stunServerHost != nil)
 		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%@",
-									  stunServerHost, stunServerPort]
+									  stunServerHost, [defaults objectForKey:AKSTUNServerPort]]
 									 pjString];
-	}
 	
 	loggingConfig.log_filename = [[[defaults stringForKey:AKLogFileName]
 								   stringByExpandingTildeInPath]
@@ -78,8 +68,6 @@
 	loggingConfig.console_level = 3;
 	
 	mediaConfig.no_vad = ![defaults boolForKey:AKVoiceActivityDetection];
-//	mediaConfig.ec_tail_len = 200;
-	mediaConfig.enable_ice = PJ_TRUE;
 	
 	transportConfig.port = [defaults integerForKey:AKTransportPort];
 	
