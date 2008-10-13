@@ -145,18 +145,6 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 		title = @"Preferences";
 	}
 	
-//	switch ([sender tag]) {
-//		case 0:
-//			view = generalView;
-//			break;
-//		case 1:
-//			view = accountsView;
-//			break;
-//		default:
-//			view = nil;
-//			break;
-//	}
-	
 	[self displayView:view withTitle:title];
 }
 
@@ -177,13 +165,6 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	[NSApp endSheet:[sender window]];
 	[[sender window] orderOut:sender];
 }
-
-//- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-//{
-//	NSLog(@"Inside sheetDidEnd:returnCode:contextInfo:");
-//	NSLog(@"End sheet return code: %d", returnCode);
-//	[sheet orderOut:self];
-//}
 
 - (IBAction)addAccount:(id)sender
 {
@@ -375,11 +356,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 // Supply selectable toolbar items
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar
 {	
-//	NSMutableArray *toolbarItemIdentifiers = [[NSMutableArray alloc] init];
-//	for (NSToolbarItem *anItem in [toolbar items])
-//		[toolbarItemIdentifiers addObject:[anItem itemIdentifier]];
-//	
-//	return toolbarItemIdentifiers;
 	return [NSArray arrayWithObjects:
 			[generalToolbarItem itemIdentifier],
 			[accountsToolbarItem itemIdentifier],
