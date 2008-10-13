@@ -101,11 +101,6 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 
 #pragma mark -
 
-- (void)windowDidLoad
-{
-//	[remoteContact setStringValue:[call remoteContact]];
-}
-
 // If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification
 {

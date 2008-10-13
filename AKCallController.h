@@ -16,7 +16,6 @@
 	AKAccountController *accountController;
 	NSString *status;
 	
-//	IBOutlet NSTextField *remoteContact;
 	IBOutlet NSView *activeCallView;
 	IBOutlet NSView *incomingCallView;
 	IBOutlet NSView *endedCallView;
