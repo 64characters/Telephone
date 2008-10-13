@@ -71,6 +71,9 @@
 	for (NSString *accountKey in accountSortOrder) {
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
 		
+		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
+			continue;
+		
 		NSString *fullName = [accountDict objectForKey:AKFullName];
 		NSString *sipAddress = [accountDict objectForKey:AKSIPAddress];
 		NSString *registrar = [accountDict objectForKey:AKRegistrar];
@@ -137,7 +140,31 @@
 {
 	NSString *accountKey = [[notification userInfo] objectForKey:AKAccountKey];
 	AKAccountController *theAccountController = [[self accountControllers] objectForKey:accountKey];
-	[[theAccountController account] setRegistered:[[[notification userInfo] objectForKey:AKAccountEnabled] boolValue]];
+	
+	if (theAccountController != nil)
+		[[theAccountController account] setRegistered:[[[notification userInfo] objectForKey:AKAccountEnabled] boolValue]];
+	else {
+		NSDictionary *savedAccounts = [[NSUserDefaults standardUserDefaults] dictionaryForKey:AKAccounts];
+		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
+		
+		NSString *fullName = [accountDict objectForKey:AKFullName];
+		NSString *sipAddress = [accountDict objectForKey:AKSIPAddress];
+		NSString *registrar = [accountDict objectForKey:AKRegistrar];
+		NSString *realm = [accountDict objectForKey:AKRealm];
+		NSString *username = [accountDict objectForKey:AKUsername];
+		
+		AKAccountController *anAccountController = [[AKAccountController alloc] initWithFullName:fullName
+																					  sipAddress:sipAddress
+																					   registrar:registrar
+																						   realm:realm
+																						username:username];
+		[[self accountControllers] setObject:anAccountController forKey:accountKey];
+		
+		[[anAccountController window] setTitle:[[anAccountController account] sipAddress]];
+		[anAccountController showWindow:self];
+		
+		[anAccountController release];
+	}
 }
 
 #pragma mark -
