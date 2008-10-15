@@ -128,12 +128,7 @@
 - (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification
 {
 	NSString *accountKey = [[notification userInfo] objectForKey:AKAccountKey];
-	AKAccountController *theAccountController = [[self accountControllers] objectForKey:accountKey];
-	BOOL isRemoved = [[self telephone] removeAccount:[theAccountController account]];
-	if (isRemoved) {
-		NSLog(@"Removing %@", theAccountController);
-		[[self accountControllers] removeObjectForKey:accountKey];
-	}
+	[[self accountControllers] removeObjectForKey:accountKey];
 }
 
 - (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification
@@ -141,10 +136,8 @@
 	NSString *accountKey = [[notification userInfo] objectForKey:AKAccountKey];
 	AKAccountController *theAccountController = [[self accountControllers] objectForKey:accountKey];
 	
-	if (theAccountController != nil) {
-		[[self telephone] removeAccount:[theAccountController account]];
+	if (theAccountController != nil)
 		[[self accountControllers] removeObjectForKey:accountKey];
-	}
 	else {
 		NSDictionary *savedAccounts = [[NSUserDefaults standardUserDefaults] dictionaryForKey:AKAccounts];
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
