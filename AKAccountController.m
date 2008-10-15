@@ -129,6 +129,7 @@
 {
 	if ([[self account] isRegistered]) {
 		[callDestination setEnabled:YES];
+		[[self window] makeFirstResponder:callDestination];
 		[callButton setEnabled:YES];
 	} else {
 		[callDestination setEnabled:NO];
