@@ -270,10 +270,6 @@ void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier)
 	
 	AKTelephoneAccount *anAccount = [[AKTelephone sharedTelephone]
 									 accountByIdentifier:[NSNumber numberWithPJSUAAccountIdentifier:accountIdentifier]];
-//	if ([anAccount isRegistered])
-//		NSLog(@"%@ is registered!", anAccount);
-//	else
-//		NSLog(@"%@ is NOT registered (%@)", anAccount, [anAccount registrationStatusText]);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneAccountRegistrationDidChangeNotification
 														object:anAccount];
