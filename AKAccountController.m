@@ -52,6 +52,7 @@
 	if ([[[self account] delegate] isEqual:self])
 		[[self account] setDelegate:nil];
 	
+	[[AKTelephone sharedTelephone] removeAccount:[self account]];
 	[account release];
 	[callControllers release];
 	
