@@ -141,8 +141,10 @@
 	NSString *accountKey = [[notification userInfo] objectForKey:AKAccountKey];
 	AKAccountController *theAccountController = [[self accountControllers] objectForKey:accountKey];
 	
-	if (theAccountController != nil)
-		[[theAccountController account] setRegistered:[[[notification userInfo] objectForKey:AKAccountEnabled] boolValue]];
+	if (theAccountController != nil) {
+		[[self telephone] removeAccount:[theAccountController account]];
+		[[self accountControllers] removeObjectForKey:accountKey];
+	}
 	else {
 		NSDictionary *savedAccounts = [[NSUserDefaults standardUserDefaults] dictionaryForKey:AKAccounts];
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
