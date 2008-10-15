@@ -456,7 +456,7 @@
 										<object class="NSTextField" id="998389754">
 											<reference key="NSNextResponder" ref="8041404"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{190, 162}, {250, 22}}</string>
+											<string key="NSFrame">{{190, 192}, {250, 22}}</string>
 											<reference key="NSSuperview" ref="8041404"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="734300867">
@@ -477,7 +477,7 @@
 										<object class="NSTextField" id="953798264">
 											<reference key="NSNextResponder" ref="8041404"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{190, 192}, {250, 22}}</string>
+											<string key="NSFrame">{{190, 160}, {250, 22}}</string>
 											<reference key="NSSuperview" ref="8041404"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="739696802">
@@ -542,7 +542,7 @@
 										<object class="NSTextField" id="365779455">
 											<reference key="NSNextResponder" ref="8041404"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{114, 164}, {71, 17}}</string>
+											<string key="NSFrame">{{114, 194}, {71, 17}}</string>
 											<reference key="NSSuperview" ref="8041404"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="538266140">
@@ -558,7 +558,7 @@
 										<object class="NSTextField" id="1036930442">
 											<reference key="NSNextResponder" ref="8041404"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{103, 194}, {82, 17}}</string>
+											<string key="NSFrame">{{103, 162}, {82, 17}}</string>
 											<reference key="NSSuperview" ref="8041404"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="399297425">
@@ -768,11 +768,6 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="417290828">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>STUNServerHost</string>
-					<string>STUNServerPort</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
@@ -1152,11 +1147,11 @@
 							<reference ref="997259061"/>
 							<reference ref="632500927"/>
 							<reference ref="784299405"/>
+							<reference ref="335004442"/>
+							<reference ref="998389754"/>
+							<reference ref="953798264"/>
 							<reference ref="1036930442"/>
 							<reference ref="365779455"/>
-							<reference ref="998389754"/>
-							<reference ref="335004442"/>
-							<reference ref="953798264"/>
 						</object>
 						<reference key="parent" ref="401826207"/>
 					</object>
