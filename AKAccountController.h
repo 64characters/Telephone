@@ -15,6 +15,8 @@
 	AKTelephoneAccount *account;
 	NSMutableArray *callControllers;
 	
+	IBOutlet NSView *activeAccountView;
+	IBOutlet NSView *unregisteredAccountView;
 	IBOutlet NSTextField *callDestination;
 	IBOutlet NSButton *callButton;
 }

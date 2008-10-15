@@ -56,6 +56,9 @@
 	[account release];
 	[callControllers release];
 	
+	[activeAccountView release];
+	[unregisteredAccountView release];
+	
 	[super dealloc];
 }
 
@@ -67,7 +70,9 @@
 - (void)awakeFromNib
 {
 	[self setShouldCascadeWindows:NO];
-	[[self window] setFrameAutosaveName:[[self account] sipAddress]];	
+	[[self window] setFrameAutosaveName:[[self account] sipAddress]];
+	[activeAccountView retain];
+	[unregisteredAccountView retain];
 }
 
 // Ask model to make call, create call controller, attach the call to the call contoller
@@ -128,13 +133,11 @@
 - (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
 {
 	if ([[self account] isRegistered]) {
-		[callDestination setEnabled:YES];
+		[[self window] setContentView:activeAccountView];
 		if ([callDestination acceptsFirstResponder])
 			[[self window] makeFirstResponder:callDestination];
-		[callButton setEnabled:YES];
 	} else {
-		[callDestination setEnabled:NO];
-		[callButton setEnabled:NO];
+		[[self window] setContentView:unregisteredAccountView];
 	}
 }
 
