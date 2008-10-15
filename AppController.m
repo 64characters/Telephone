@@ -88,7 +88,7 @@
 		[[self accountControllers] setObject:anAccountController forKey:accountKey];
 		
 		[[anAccountController window] setTitle:[[anAccountController account] sipAddress]];
-		[anAccountController showWindow:self];
+		[[anAccountController window] orderBack:self];
 		
 		[anAccountController release];
 	}
@@ -121,7 +121,7 @@
 	[[self accountControllers] setObject:theAccountController forKey:accountKey];
 	
 	[[theAccountController window] setTitle:[[theAccountController account] sipAddress]];
-	[theAccountController showWindow:self];
+	[[theAccountController window] orderBack:self];
 	[theAccountController release];
 }
 
@@ -156,7 +156,7 @@
 		[[self accountControllers] setObject:anAccountController forKey:accountKey];
 		
 		[[anAccountController window] setTitle:[[anAccountController account] sipAddress]];
-		[anAccountController showWindow:self];
+		[[anAccountController window] orderFront:self];
 		
 		[anAccountController release];
 	}
@@ -164,14 +164,6 @@
 
 #pragma mark -
 #pragma mark NSApplication Delegate Methods
-
-- (void)applicationDidBecomeActive:(NSNotification *)aNotification
-{
-	for (NSString *accountKey in [self accountControllers]) {
-		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
-		[anAccountController showWindow:nil];
-	}
-}
 
 // Shut down underlying sip user agent correctly
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
