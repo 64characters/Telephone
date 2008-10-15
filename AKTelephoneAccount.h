@@ -75,7 +75,7 @@ void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 @end
 
 @interface NSObject(AKTelephoneAccountDelegate)
-- (BOOL)telephoneAccount:(AKTelephoneAccount *)sender shouldReceiveCall:(AKTelephoneCall *)aCall;
+- (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall;
 @end
 
 // Notifications

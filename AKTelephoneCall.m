@@ -216,8 +216,8 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 	[[theAccount calls] addObject:theCall];
 	NSLog(@"%@ was added to the account %@", theCall, theAccount);
 	
-	if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccount:shouldReceiveCall:)])
-		[[theAccount delegate] telephoneAccount:theAccount shouldReceiveCall:theCall];
+	if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccount:didReceiveCall:)])
+		[[theAccount delegate] telephoneAccount:theAccount didReceiveCall:theCall];
 	
 //	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallIncomingNotification
 //														object:theCall];

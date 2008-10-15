@@ -103,7 +103,7 @@
 }
 
 // When the call is received, create call controller, add to array, show call window
-- (BOOL)telephoneAccount:(AKTelephoneAccount *)sender shouldReceiveCall:(AKTelephoneCall *)aCall
+- (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall
 {
 	AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																	  accountController:self];
@@ -114,8 +114,6 @@
 	[aCallController showWindow:nil];
 	
 	[aCallController release];
-	
-	return YES;
 }
 
 - (void)windowDidLoad
