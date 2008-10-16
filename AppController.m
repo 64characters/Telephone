@@ -136,8 +136,9 @@
 	NSString *accountKey = [[notification userInfo] objectForKey:AKAccountKey];
 	AKAccountController *theAccountController = [[self accountControllers] objectForKey:accountKey];
 	
-	if (theAccountController != nil)
+	if (theAccountController != nil) {
 		[[self accountControllers] removeObjectForKey:accountKey];
+	}
 	else {
 		NSDictionary *savedAccounts = [[NSUserDefaults standardUserDefaults] dictionaryForKey:AKAccounts];
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
@@ -148,17 +149,17 @@
 		NSString *realm = [accountDict objectForKey:AKRealm];
 		NSString *username = [accountDict objectForKey:AKUsername];
 		
-		AKAccountController *anAccountController = [[AKAccountController alloc] initWithFullName:fullName
-																					  sipAddress:sipAddress
-																					   registrar:registrar
-																						   realm:realm
-																						username:username];
-		[[self accountControllers] setObject:anAccountController forKey:accountKey];
+		theAccountController = [[AKAccountController alloc] initWithFullName:fullName
+																  sipAddress:sipAddress
+																   registrar:registrar
+																	   realm:realm
+																	username:username];
+		[[self accountControllers] setObject:theAccountController forKey:accountKey];
 		
-		[[anAccountController window] setTitle:[[anAccountController account] sipAddress]];
-		[[anAccountController window] orderFront:self];
+		[[theAccountController window] setTitle:[[theAccountController account] sipAddress]];
+		[[theAccountController window] orderFront:self];
 		
-		[anAccountController release];
+		[theAccountController release];
 	}
 }
 
