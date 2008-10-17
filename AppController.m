@@ -138,8 +138,7 @@
 	
 	if (theAccountController != nil) {
 		[[self accountControllers] removeObjectForKey:accountKey];
-	}
-	else {
+	} else {
 		NSDictionary *savedAccounts = [[NSUserDefaults standardUserDefaults] dictionaryForKey:AKAccounts];
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
 		
