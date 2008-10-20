@@ -23,6 +23,7 @@
 	IBOutlet NSButton *acceptCallButton;
 	IBOutlet NSButton *declineCallButton;
 	IBOutlet NSTextField *statusField;
+	IBOutlet NSProgressIndicator *callProgressIndicator;
 }
 
 @property(readwrite, retain) AKTelephoneCall *call;

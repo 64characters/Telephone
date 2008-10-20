@@ -8,10 +8,10 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="41"/>
 			<integer value="19"/>
 			<integer value="51"/>
 			<integer value="1" id="9"/>
+			<integer value="41"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -176,6 +176,16 @@
 							<int key="NSPeriodicDelay">400</int>
 							<int key="NSPeriodicInterval">75</int>
 						</object>
+					</object>
+					<object class="NSProgressIndicator" id="606148206">
+						<reference key="NSNextResponder" ref="476394797"/>
+						<int key="NSvFlags">1292</int>
+						<object class="NSPSMatrix" key="NSDrawMatrix"/>
+						<string key="NSFrame">{{334, 54}, {16, 16}}</string>
+						<reference key="NSSuperview" ref="476394797"/>
+						<int key="NSpiFlags">28938</int>
+						<double key="NSMinValue">1.600000e+01</double>
+						<double key="NSMaxValue">1.000000e+02</double>
 					</object>
 				</object>
 				<string key="NSFrameSize">{370, 93}</string>
@@ -348,6 +358,14 @@
 					</object>
 					<int key="connectionID">56</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">callProgressIndicator</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="606148206"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -456,6 +474,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="860041225"/>
 							<reference ref="485220627"/>
+							<reference ref="606148206"/>
 						</object>
 						<reference key="parent" ref="1002"/>
 						<string key="objectName">Active Call View</string>
@@ -512,6 +531,11 @@
 						<reference key="object" ref="953430128"/>
 						<reference key="parent" ref="302237661"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">57</int>
+						<reference key="object" ref="606148206"/>
+						<reference key="parent" ref="476394797"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -548,6 +572,7 @@
 					<string>51.IBPluginDependency</string>
 					<string>52.IBPluginDependency</string>
 					<string>53.IBPluginDependency</string>
+					<string>57.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
 				</object>
@@ -585,6 +610,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -607,7 +633,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">58</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -634,6 +660,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>acceptCallButton</string>
 							<string>activeCallView</string>
+							<string>callProgressIndicator</string>
 							<string>declineCallButton</string>
 							<string>endedCallView</string>
 							<string>hangUpButton</string>
@@ -644,6 +671,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSView</string>
+							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
 							<string>NSView</string>
 							<string>NSButton</string>

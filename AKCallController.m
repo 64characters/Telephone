@@ -113,16 +113,25 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
+	[callProgressIndicator startAnimation:self];
 	[self setStatus:@"Calling..."];
 }
 
 - (void)telephoneCallEarly:(NSNotification *)notification
 {
-	[self setStatus:@"Calling..."];
+	NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
+	if (![sipEventCode isEqualToValue:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
+		[callProgressIndicator startAnimation:self];
+		[self setStatus:@"Calling..."];
+	} else {
+		[callProgressIndicator stopAnimation:self];
+		[self setStatus:@"Ringing"];
+	}
 }
 
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
+	[callProgressIndicator stopAnimation:self];
 	[self setStatus:@"Connected"];
 }
 
@@ -156,6 +165,7 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	[callWindow setFrame:windowFrame display:YES animate:YES];
 	[callWindow setContentView:[self endedCallView]];
 	
+	[callProgressIndicator stopAnimation:self];
 	[hangUpButton setEnabled:NO];
 	[acceptCallButton setEnabled:NO];
 	[declineCallButton setEnabled:NO];
