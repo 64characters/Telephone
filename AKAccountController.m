@@ -114,6 +114,11 @@
 - (IBAction)changeAccountRegistration:(id)sender
 {
 	[[self account] setRegistered:[sender tag]];
+	
+	if (![[self account] isRegistered] && [sender tag] == 0)
+		return;
+	
+	[registrationProgressIndicator startAnimation:self];
 }
 
 - (void)windowDidLoad
@@ -125,11 +130,15 @@
 		// Add account to Telephone
 		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
 	}
+	
+	[registrationProgressIndicator startAnimation:self];
 }
 
 // When account registration changes, make appropriate modifications in UI
 - (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
 {
+	[registrationProgressIndicator stopAnimation:self];
+	
 	if ([[self account] isRegistered]) {
 		[accountRegistrationPopUp selectItemWithTag:1];
 		[[self window] setContentView:registeredAccountView];
