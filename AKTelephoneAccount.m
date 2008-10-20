@@ -66,11 +66,8 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 }
 
 - (BOOL)isRegistered
-{
-	if (![[self registrationExpireTime] isEqualToNumber:[NSNumber numberWithInt:-1]])
-		return YES;
-	else
-		return NO;
+{	
+	return ([[self registrationStatus] intValue] / 100 == 2) && ([[self registrationExpireTime] intValue] > 0);
 }
 
 - (void)setRegistered:(BOOL)value
