@@ -112,13 +112,12 @@
 }
 
 - (IBAction)changeAccountRegistration:(id)sender
-{
-	[[self account] setRegistered:[sender tag]];
-	
+{	
 	if (![[self account] isRegistered] && [sender tag] == 0)
 		return;
 	
 	[registrationProgressIndicator startAnimation:self];
+	[[self account] setRegistered:[sender tag]];
 }
 
 - (void)windowDidLoad
