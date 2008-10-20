@@ -48,16 +48,13 @@
 }
 
 - (void)dealloc
-{
+{	
 	if ([[[self account] delegate] isEqual:self])
 		[[self account] setDelegate:nil];
 	
 	[[AKTelephone sharedTelephone] removeAccount:[self account]];
 	[account release];
 	[callControllers release];
-	
-	[activeAccountView release];
-	[unregisteredAccountView release];
 	
 	[super dealloc];
 }
@@ -71,8 +68,6 @@
 {
 	[self setShouldCascadeWindows:NO];
 	[[self window] setFrameAutosaveName:[[self account] sipAddress]];
-	[activeAccountView retain];
-	[unregisteredAccountView retain];
 }
 
 // Ask model to make call, create call controller, attach the call to the call contoller
@@ -116,6 +111,11 @@
 	[aCallController release];
 }
 
+- (IBAction)changeAccountRegistration:(id)sender
+{
+	[[self account] setRegistered:[sender tag]];
+}
+
 - (void)windowDidLoad
 {
 	if ([[AKTelephone sharedTelephone] readyState] == AKTelephoneStarted) {
@@ -131,10 +131,15 @@
 - (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
 {
 	if ([[self account] isRegistered]) {
-		[[self window] setContentView:activeAccountView];
-		if ([callDestination acceptsFirstResponder])
-			[[self window] makeFirstResponder:callDestination];
+		[accountRegistrationPopUp selectItemWithTag:1];
+		[[self window] setContentView:registeredAccountView];
+		
+		// Making callDestination a first responder should also be here.
+		// But if it is, the window is not released and moved away from screen.
+		// I'm skipping it until figuring out why it is so.
+		
 	} else {
+		[accountRegistrationPopUp selectItemWithTag:0];
 		[[self window] setContentView:unregisteredAccountView];
 	}
 }

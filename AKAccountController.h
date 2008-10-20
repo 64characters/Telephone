@@ -15,8 +15,9 @@
 	AKTelephoneAccount *account;
 	NSMutableArray *callControllers;
 	
-	IBOutlet NSView *activeAccountView;
+	IBOutlet NSView *registeredAccountView;
 	IBOutlet NSView *unregisteredAccountView;
+	IBOutlet NSPopUpButton *accountRegistrationPopUp;
 	IBOutlet NSTextField *callDestination;
 	IBOutlet NSButton *callButton;
 }
@@ -34,5 +35,7 @@
 			  username:(NSString *)aUsername;
 
 - (IBAction)makeCall:(id)sender;
+
+- (IBAction)changeAccountRegistration:(id)sender;
 
 @end
