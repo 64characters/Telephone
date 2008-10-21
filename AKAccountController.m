@@ -14,6 +14,10 @@
 #import "AKTelephoneCall.h"
 
 
+const CGFloat AKAccountRegistrationButtonOfflineWidth = 58.0;
+const CGFloat AKAccountRegistrationButtonAvailableWidth = 69.0;
+const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
+
 @implementation AKAccountController
 
 @synthesize account;
@@ -118,7 +122,7 @@
 	
 	if ([sender tag] == AKTelephoneAccountRegisterTag) {
 		NSSize buttonSize = [accountRegistrationPopUp frame].size;
-		buttonSize.width = 90;
+		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
 		[accountRegistrationPopUp setTitle:@"Connecting..."];
 	}
@@ -137,7 +141,7 @@
 	}
 	
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
-	buttonSize.width = 90;
+	buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
 	[accountRegistrationPopUp setTitle:@"Connecting..."];
 }
@@ -148,7 +152,7 @@
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	
 	if ([[self account] isRegistered]) {
-		buttonSize.width = 69;
+		buttonSize.width = AKAccountRegistrationButtonAvailableWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
 		[accountRegistrationPopUp setTitle:@"Available"];
 		[registerAccountMenuItem setState:NSOnState];
@@ -160,7 +164,7 @@
 		// I'm skipping it until figuring out why it is so.
 		
 	} else {
-		buttonSize.width = 58;
+		buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
 		[accountRegistrationPopUp setTitle:@"Offline"];
 		[registerAccountMenuItem setState:NSOffState];
