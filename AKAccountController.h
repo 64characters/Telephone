@@ -11,6 +11,12 @@
 
 @class AKTelephoneAccount;
 
+// Account registration pull-down list tags
+enum {
+	AKTelephoneAccountUnregisterTag	= 0,
+	AKTelephoneAccountRegisterTag	= 1
+};
+
 @interface AKAccountController : NSWindowController {
 	AKTelephoneAccount *account;
 	NSMutableArray *callControllers;

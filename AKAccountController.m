@@ -113,10 +113,10 @@
 
 - (IBAction)changeAccountRegistration:(id)sender
 {	
-	if (![[self account] isRegistered] && [sender tag] == 0)
+	if (![[self account] isRegistered] && [sender tag] == AKTelephoneAccountUnregisterTag)
 		return;
 	
-	if ([sender tag] == 1) {
+	if ([sender tag] == AKTelephoneAccountRegisterTag) {
 		NSSize buttonSize = [accountRegistrationPopUp frame].size;
 		buttonSize.width = 90;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
