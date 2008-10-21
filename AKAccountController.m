@@ -116,7 +116,13 @@
 	if (![[self account] isRegistered] && [sender tag] == 0)
 		return;
 	
-	[registrationProgressIndicator startAnimation:self];
+	if ([sender tag] == 1) {
+		NSSize buttonSize = [accountRegistrationPopUp frame].size;
+		buttonSize.width = 90;
+		[accountRegistrationPopUp setFrameSize:buttonSize];
+		[accountRegistrationPopUp setTitle:@"Connecting..."];
+	}
+	
 	[[self account] setRegistered:[sender tag]];
 }
 
@@ -130,16 +136,23 @@
 		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
 	}
 	
-	[registrationProgressIndicator startAnimation:self];
+	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	buttonSize.width = 90;
+	[accountRegistrationPopUp setFrameSize:buttonSize];
+	[accountRegistrationPopUp setTitle:@"Connecting..."];
 }
 
 // When account registration changes, make appropriate modifications in UI
 - (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
 {
-	[registrationProgressIndicator stopAnimation:self];
+	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	
 	if ([[self account] isRegistered]) {
-		[accountRegistrationPopUp selectItemWithTag:1];
+		buttonSize.width = 69;
+		[accountRegistrationPopUp setFrameSize:buttonSize];
+		[accountRegistrationPopUp setTitle:@"Available"];
+		[registerAccountMenuItem setState:NSOnState];
+		[unregisterAccountMenuItem setState:NSOffState];
 		[[self window] setContentView:registeredAccountView];
 		
 		// Making callDestination a first responder should also be here.
@@ -147,7 +160,11 @@
 		// I'm skipping it until figuring out why it is so.
 		
 	} else {
-		[accountRegistrationPopUp selectItemWithTag:0];
+		buttonSize.width = 58;
+		[accountRegistrationPopUp setFrameSize:buttonSize];
+		[accountRegistrationPopUp setTitle:@"Offline"];
+		[registerAccountMenuItem setState:NSOffState];
+		[unregisterAccountMenuItem setState:NSOnState];
 		[[self window] setContentView:unregisteredAccountView];
 	}
 }

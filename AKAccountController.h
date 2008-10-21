@@ -18,7 +18,8 @@
 	IBOutlet NSView *registeredAccountView;
 	IBOutlet NSView *unregisteredAccountView;
 	IBOutlet NSPopUpButton *accountRegistrationPopUp;
-	IBOutlet NSProgressIndicator *registrationProgressIndicator;
+	IBOutlet NSMenuItem *registerAccountMenuItem;
+	IBOutlet NSMenuItem *unregisterAccountMenuItem;
 	IBOutlet NSTextField *callDestination;
 	IBOutlet NSButton *callButton;
 }
