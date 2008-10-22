@@ -120,7 +120,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	if (![[self account] isRegistered] && [[sender selectedItem] tag] == AKTelephoneAccountUnregisterTag)
 		return;
 	
-	if ([sender tag] == AKTelephoneAccountRegisterTag) {
+	if ([[sender selectedItem] tag] == AKTelephoneAccountRegisterTag) {
 		NSSize buttonSize = [accountRegistrationPopUp frame].size;
 		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
