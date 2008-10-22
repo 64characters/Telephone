@@ -130,6 +130,36 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	[[self account] setRegistered:[[sender selectedItem] tag]];
 }
 
+// Remove old account from Telephone, change username for the account, add to Telephone with new password and update Keychain.
+- (IBAction)changeUsernameAndPassword:(id)sender
+{
+	if (![[newUsername stringValue] isEqualToString:@""]) {
+		[[AKTelephone sharedTelephone] removeAccount:[self account]];
+		[[self account] setUsername:[newUsername stringValue]];
+		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:[newPassword stringValue]];
+		
+		// Set registration button to Connecting... after adding account to Telephone
+		NSSize buttonSize = [accountRegistrationPopUp frame].size;
+		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+		[accountRegistrationPopUp setFrameSize:buttonSize];
+		[accountRegistrationPopUp setTitle:@"Connecting..."];
+		
+		if ([mustSave state] == NSOnState)
+			[AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
+								   accountName:[newUsername stringValue]
+									  password:[newPassword stringValue]];
+	}
+	
+	[newPassword setStringValue:@""];
+	[self closeSheet:sender];
+}
+
+- (IBAction)closeSheet:(id)sender
+{
+	[NSApp endSheet:[sender window]];
+	[[sender window] orderOut:self];
+}
+
 - (void)windowDidLoad
 {
 	if ([[AKTelephone sharedTelephone] readyState] == AKTelephoneStarted) {
@@ -170,6 +200,25 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 		[registerAccountMenuItem setState:NSOffState];
 		[unregisterAccountMenuItem setState:NSOnState];
 		[[self window] setContentView:unregisteredAccountView];
+		
+		// Handle authentication failure
+		if ([[[self account] registrationStatus] intValue] == PJSIP_EFAILEDCREDENTIAL) {
+			if (authenticationFailureSheet == nil)
+				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
+			
+			[updateCredentialsInformativeText setStringValue:
+			 [NSString stringWithFormat:@"Telehone was unable to login to %@.\nChange user name or password and try again.",
+			  [[self account] registrar]]];
+			[newUsername setStringValue:[[self account] username]];
+			[newPassword setStringValue:@""];
+			
+			[NSApp beginSheet:authenticationFailureSheet
+			   modalForWindow:[self window]
+				modalDelegate:nil
+			   didEndSelector:NULL
+				  contextInfo:NULL];
+		}
+		
 	}
 }
 

@@ -28,6 +28,13 @@ enum {
 	IBOutlet NSMenuItem *unregisterAccountMenuItem;
 	IBOutlet NSTextField *callDestination;
 	IBOutlet NSButton *callButton;
+	
+	// Authentication failure sheet outlets
+	IBOutlet NSWindow *authenticationFailureSheet;
+	IBOutlet NSTextField *updateCredentialsInformativeText;
+	IBOutlet NSTextField *newUsername;
+	IBOutlet NSTextField *newPassword;
+	IBOutlet NSButton *mustSave;
 }
 
 @property(readwrite, retain) AKTelephoneAccount *account;
@@ -45,5 +52,11 @@ enum {
 - (IBAction)makeCall:(id)sender;
 
 - (IBAction)changeAccountRegistration:(id)sender;
+
+// When authentication fails, the sheet is being raised.
+// This action method applies new username and password entered by user for the account.
+- (IBAction)changeUsernameAndPassword:(id)sender;
+
+- (IBAction)closeSheet:(id)sender;
 
 @end

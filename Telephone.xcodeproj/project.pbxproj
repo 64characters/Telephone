@@ -11,6 +11,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AA1732180EAF8C14009023F2 /* AuthFailed.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1732170EAF8C14009023F2 /* AuthFailed.xib */; };
 		AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */; };
 		AA3578690E3FD91400021989 /* Call.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3578680E3FD91400021989 /* Call.xib */; };
 		AA3578B30E40709900021989 /* AKAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B20E40709900021989 /* AKAccountController.m */; };
@@ -46,6 +47,7 @@
 		32CA4F630368D1EE00C91783 /* Telephone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Telephone_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Telephone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telephone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA1732170EAF8C14009023F2 /* AuthFailed.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthFailed.xib; sourceTree = "<group>"; };
 		AA2CCC820E2E4EEB00871057 /* AKTelephoneCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneCall.h; sourceTree = "<group>"; };
 		AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneCall.m; sourceTree = "<group>"; };
 		AA3578680E3FD91400021989 /* Call.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Call.xib; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				AA3578680E3FD91400021989 /* Call.xib */,
 				AABAD7EF0E0C184200CB5930 /* Preferences.xib */,
 				AA69ADD90E89578900CF54B3 /* AddAccount.xib */,
+				AA1732170EAF8C14009023F2 /* AuthFailed.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				AA3578690E3FD91400021989 /* Call.xib in Resources */,
 				AA69ADDA0E89578900CF54B3 /* AddAccount.xib in Resources */,
 				AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */,
+				AA1732180EAF8C14009023F2 /* AuthFailed.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
