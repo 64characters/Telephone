@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
 			<integer value="51"/>
+			<integer value="3"/>
 			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -56,9 +56,11 @@
 							<string key="NSToolbarItemPaletteLabel">Registration Menu</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSPopUpButton" key="NSToolbarItemView" id="1059843186">
-								<nil key="NSNextResponder"/>
+								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{8, 14}, {90, 18}}</string>
+								<reference key="NSSuperview"/>
+								<reference key="NSWindow"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="228019211">
 									<int key="NSCellFlags">-2076049856</int>
@@ -125,6 +127,7 @@
 											</object>
 										</object>
 									</object>
+									<int key="NSSelectedIndex">2</int>
 									<bool key="NSPullDown">YES</bool>
 									<int key="NSPreferredEdge">1</int>
 									<bool key="NSUsesItemFromMenu">YES</bool>
@@ -312,22 +315,6 @@
 					<int key="connectionID">56</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeAccountRegistration:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="515758111"/>
-					</object>
-					<int key="connectionID">72</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeAccountRegistration:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="476894059"/>
-					</object>
-					<int key="connectionID">73</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">accountRegistrationPopUp</string>
 						<reference key="source" ref="1001"/>
@@ -374,6 +361,14 @@
 						<reference key="destination" ref="515758111"/>
 					</object>
 					<int key="connectionID">93</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeAccountRegistration:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1059843186"/>
+					</object>
+					<int key="connectionID">96</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -614,7 +609,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{168, 624}, {135, 54}}</string>
+					<string>{{168, 638}, {111, 54}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -643,7 +638,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">95</int>
+			<int key="maxID">96</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

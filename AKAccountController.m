@@ -117,7 +117,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 
 - (IBAction)changeAccountRegistration:(id)sender
 {	
-	if (![[self account] isRegistered] && [sender tag] == AKTelephoneAccountUnregisterTag)
+	if (![[self account] isRegistered] && [[sender selectedItem] tag] == AKTelephoneAccountUnregisterTag)
 		return;
 	
 	if ([sender tag] == AKTelephoneAccountRegisterTag) {
@@ -127,7 +127,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 		[accountRegistrationPopUp setTitle:@"Connecting..."];
 	}
 	
-	[[self account] setRegistered:[sender tag]];
+	[[self account] setRegistered:[[sender selectedItem] tag]];
 }
 
 - (void)windowDidLoad
