@@ -153,6 +153,13 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	if (addAccountSheet == nil)
 		[NSBundle loadNibNamed:@"AddAccount" owner:self];
 	
+	[setupFullName setStringValue:@""];
+	[setupSIPAddress setStringValue:@""];
+	[setupRegistrar setStringValue:@""];
+	[setupUsername setStringValue:@""];
+	[setupPassword setStringValue:@""];
+	[addAccountSheet makeFirstResponder:setupFullName];
+	
 	[NSApp beginSheet:addAccountSheet
 	   modalForWindow:[accountsView window]
 		modalDelegate:nil

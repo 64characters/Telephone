@@ -121,7 +121,7 @@
 	[[self accountControllers] setObject:theAccountController forKey:accountKey];
 	
 	[[theAccountController window] setTitle:[[theAccountController account] sipAddress]];
-	[[theAccountController window] orderBack:self];
+	[[theAccountController window] orderFront:self];
 	[theAccountController release];
 }
 

@@ -40,7 +40,6 @@ APPKIT_EXTERN NSString *AKAccountEnabled;
 	IBOutlet NSView *generalView;
 	IBOutlet NSView *accountsView;
 	IBOutlet NSTableView *accountsTable;
-	IBOutlet NSWindow *addAccountSheet;
 	
 	// Account fields
 	IBOutlet NSButton *accountEnabledCheckBox;
@@ -51,6 +50,7 @@ APPKIT_EXTERN NSString *AKAccountEnabled;
 	IBOutlet NSTextField *password;
 	
 	// Account Setup fields
+	IBOutlet NSWindow *addAccountSheet;
 	IBOutlet NSTextField *setupFullName;
 	IBOutlet NSTextField *setupSIPAddress;
 	IBOutlet NSTextField *setupRegistrar;
