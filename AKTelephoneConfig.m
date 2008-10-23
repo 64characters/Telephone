@@ -64,8 +64,8 @@
 	loggingConfig.log_filename = [[[defaults stringForKey:AKLogFileName]
 								   stringByExpandingTildeInPath]
 								  pjString];
-	loggingConfig.level = 5;
-	loggingConfig.console_level = 3;
+	loggingConfig.level = [defaults integerForKey:AKLogLevel];
+	loggingConfig.console_level = [defaults integerForKey:AKConsoleLogLevel];
 	
 	mediaConfig.no_vad = ![defaults boolForKey:AKVoiceActivityDetection];
 	

@@ -17,6 +17,8 @@ APPKIT_EXTERN NSString *AKSTUNServerHost;
 APPKIT_EXTERN NSString *AKSTUNServerPort;
 APPKIT_EXTERN NSString *AKSTUNDomain;
 APPKIT_EXTERN NSString *AKLogFileName;
+APPKIT_EXTERN NSString *AKLogLevel;
+APPKIT_EXTERN NSString *AKConsoleLogLevel;
 APPKIT_EXTERN NSString *AKVoiceActivityDetection;
 APPKIT_EXTERN NSString *AKTransportPort;
 

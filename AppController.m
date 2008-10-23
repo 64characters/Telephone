@@ -31,6 +31,8 @@
 		[defaultsDict setObject:[NSNumber numberWithInt:3478] forKey:AKSTUNServerPort];
 		[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKVoiceActivityDetection];
 		[defaultsDict setObject:@"~/Library/Logs/Telephone.log" forKey:AKLogFileName];
+		[defaultsDict setObject:[NSNumber numberWithInt:3] forKey:AKLogLevel];
+		[defaultsDict setObject:[NSNumber numberWithInt:0] forKey:AKConsoleLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInt:5060] forKey:AKTransportPort];
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];

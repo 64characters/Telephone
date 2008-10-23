@@ -19,6 +19,8 @@ NSString *AKSTUNServerHost = @"STUNServerHost";
 NSString *AKSTUNServerPort = @"STUNServerPort";
 NSString *AKSTUNDomain = @"STUNDomain";
 NSString *AKLogFileName = @"LogFileName";
+NSString *AKLogLevel = @"LogLevel";
+NSString *AKConsoleLogLevel = @"ConsoleLogLevel";
 NSString *AKVoiceActivityDetection = @"VoiceActivityDetection";
 NSString *AKTransportPort = @"TransportPort";
 
