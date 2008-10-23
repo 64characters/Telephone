@@ -56,6 +56,9 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	if ([[[self account] delegate] isEqual:self])
 		[[self account] setDelegate:nil];
 	
+	// Close authentication failure sheet if it's raised
+	[authenticationFailureCancelButton performClick:nil];
+	
 	[[AKTelephone sharedTelephone] removeAccount:[self account]];
 	[account release];
 	[callControllers release];

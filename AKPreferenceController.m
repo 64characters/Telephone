@@ -284,10 +284,21 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	NSString *accountKey = [[defaults arrayForKey:AKAccountSortOrder] objectAtIndex:index];
 	NSDictionary *accountDict = [[defaults dictionaryForKey:AKAccounts] objectForKey:accountKey];
 	
-	if ([[accountDict objectForKey:AKAccountEnabled] boolValue])
+	if ([[accountDict objectForKey:AKAccountEnabled] boolValue]) {
 		[accountEnabledCheckBox setState:NSOnState];
-	else
+		[fullName setEnabled:NO];
+		[sipAddress setEnabled:NO];
+		[registrar setEnabled:NO];
+		[username setEnabled:NO];
+		[password setEnabled:NO];
+	} else {
 		[accountEnabledCheckBox setState:NSOffState];
+		[fullName setEnabled:YES];
+		[sipAddress setEnabled:YES];
+		[registrar setEnabled:YES];
+		[username setEnabled:YES];
+		[password setEnabled:YES];
+	}
 	
 	[fullName setStringValue:[accountDict objectForKey:AKFullName]];
 	[sipAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
@@ -311,11 +322,41 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	BOOL isChecked = ([accountEnabledCheckBox state] == NSOnState) ? YES : NO;
 	[userInfo setObject:[NSNumber numberWithBool:isChecked] forKey:AKAccountEnabled];
 	
-	// Save to defaults
 	NSMutableDictionary *savedAccounts = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:AKAccounts]];
 	NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:[savedAccounts objectForKey:accountKey]];
+	
 	[accountDict setObject:[NSNumber numberWithBool:isChecked] forKey:AKAccountEnabled];
+	
+	if (isChecked) {
+		// User enabled the account.
+		// Account fields could be edited, save them.
+		[accountDict setObject:[fullName stringValue] forKey:AKFullName];
+		[accountDict setObject:[sipAddress stringValue] forKey:AKSIPAddress];
+		[accountDict setObject:[registrar stringValue] forKey:AKRegistrar];
+		[accountDict setObject:[username stringValue] forKey:AKUsername];
+		[AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [registrar stringValue]]
+							   accountName:[username stringValue]
+								  password:[password stringValue]];
+		
+		// Disable account fields.
+		[fullName setEnabled:NO];
+		[sipAddress setEnabled:NO];
+		[registrar setEnabled:NO];
+		[username setEnabled:NO];
+		[password setEnabled:NO];
+		
+	} else {
+		// User disabled the account, enable account fields.
+		[fullName setEnabled:YES];
+		[sipAddress setEnabled:YES];
+		[registrar setEnabled:YES];
+		[username setEnabled:YES];
+		[password setEnabled:YES];
+	}
+	
 	[savedAccounts setObject:accountDict forKey:accountKey];
+	
+	// Save to defaults
 	[defaults setObject:savedAccounts forKey:AKAccounts];
 	[defaults synchronize];
 	

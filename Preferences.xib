@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="150"/>
 			<integer value="148"/>
+			<integer value="150"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -429,7 +429,7 @@
 										<object class="NSButton" id="335004442">
 											<reference key="NSNextResponder" ref="8041404"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{32, 267}, {126, 18}}</string>
+											<string key="NSFrame">{{32, 259}, {126, 18}}</string>
 											<reference key="NSSuperview" ref="8041404"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="462912071">

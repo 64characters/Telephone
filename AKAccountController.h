@@ -35,6 +35,7 @@ enum {
 	IBOutlet NSTextField *newUsername;
 	IBOutlet NSTextField *newPassword;
 	IBOutlet NSButton *mustSave;
+	IBOutlet NSButton *authenticationFailureCancelButton;
 }
 
 @property(readwrite, retain) AKTelephoneAccount *account;
