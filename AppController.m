@@ -223,19 +223,11 @@
 
 
 #pragma mark -
-#pragma mark NSApplication Delegate Methods
-
-// Shut down underlying sip user agent correctly
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
-{
-	[[self telephone] destroyUserAgent];
-	
-	return NSTerminateNow;
-}
+#pragma mark NSApplication delegate methods
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-//	[self release];
+	[[self telephone] destroyUserAgent];
 }
 
 @end
