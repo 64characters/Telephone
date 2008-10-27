@@ -7,6 +7,7 @@
 //
 
 #import "AKPreferenceController.h"
+#import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
 #import "AKTelephoneConfig.h"
@@ -75,6 +76,7 @@
 	userAgentConfig.cb.on_call_media_state = AKCallMediaStateChanged;
 	userAgentConfig.cb.on_call_state = AKCallStateChanged;
 	userAgentConfig.cb.on_reg_state = AKTelephoneAccountRegistrationStateChanged;
+	userAgentConfig.cb.on_nat_detect = AKTelephoneDetectedNAT;
 	
 	return self;
 }

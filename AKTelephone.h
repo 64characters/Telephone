@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <pjsua-lib/pjsua.h>
 
 
 @class AKTelephoneAccount, AKTelephoneCall, AKTelephoneConfig;
@@ -20,17 +21,22 @@ typedef enum _AKTelephoneReadyState {
 } AKTelephoneReadyState;
 
 @interface AKTelephone : NSObject {
+	id delegate;
+	
 	NSMutableArray *accounts;
 	AKTelephoneReadyState readyState;
 }
 
+@property(readwrite, assign) id delegate;
 @property(readonly, retain) NSMutableArray *accounts;
 @property(readwrite, assign) AKTelephoneReadyState readyState;
 
++ (id)telephoneWithConfig:(AKTelephoneConfig *)config delegate:(id)aDelegate;
 + (id)telephoneWithConfig:(AKTelephoneConfig *)config;
 + (AKTelephone *)sharedTelephone;
 
 // Designated initializer
+- (id)initWithConfig:(AKTelephoneConfig *)config delegate:(id)aDelegate;
 - (id)initWithConfig:(AKTelephoneConfig *)config;
 
 // Dealing with accounts
@@ -46,3 +52,15 @@ typedef enum _AKTelephoneReadyState {
 - (void)destroyUserAgent;
 
 @end
+
+
+// Callback from PJSUA
+void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
+
+
+@interface NSObject(AKTelephoneNotifications)
+- (void)telephoneDidDetectNAT:(NSNotification *)notification;
+@end
+
+// Notifications
+APPKIT_EXTERN NSString *AKTelephoneDidDetectNATNotification;
