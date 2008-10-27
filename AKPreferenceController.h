@@ -58,12 +58,14 @@ APPKIT_EXTERN NSString *AKAccountEnabled;
 	IBOutlet NSTextField *setupRegistrar;
 	IBOutlet NSTextField *setupUsername;
 	IBOutlet NSTextField *setupPassword;
-	IBOutlet NSButton *addAccountWindowCancelButton;
+	IBOutlet NSButton *addAccountWindowDefaultButton;
+	IBOutlet NSButton *addAccountWindowOtherButton;
 }
 
 @property(readwrite, assign) id delegate;
 @property(readonly, retain) NSWindow *addAccountWindow;
-@property(readonly, retain) NSButton *addAccountWindowCancelButton;
+@property(readonly, retain) NSButton *addAccountWindowDefaultButton;
+@property(readonly, retain) NSButton *addAccountWindowOtherButton;
 
 // Display view in Preferences window
 - (void)displayView:(NSView *)aView withTitle:(NSString *)aTitle;

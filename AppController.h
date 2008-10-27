@@ -17,6 +17,8 @@
 	AKTelephone *telephone;
 	NSMutableDictionary *accountControllers;
 	AKPreferenceController *preferenceController;
+	
+	IBOutlet NSMenuItem *preferencesMenuItem;
 }
 
 @property(readonly, retain) AKTelephone *telephone;
@@ -24,5 +26,7 @@
 @property(readwrite, retain) AKPreferenceController *preferenceController;
 
 - (IBAction)showPreferencePanel:(id)sender;
+
+- (IBAction)addAccountOnFirstLaunch:(id)sender;
 
 @end

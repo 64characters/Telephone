@@ -70,7 +70,10 @@
 	NSDictionary *savedAccounts = [defaults dictionaryForKey:AKAccounts];
 	
 	// Setup an account on first launch.
-	if (savedAccounts == nil) {			// There are no saved accounts, prompt user to add one.
+	if ([savedAccounts count] == 0) {			// There are no saved accounts, prompt user to add one.
+		// Disable Preferences during the first account prompt.
+		[preferencesMenuItem setAction:NULL];
+		
 		preferenceController = [[AKPreferenceController alloc] init];
 		[[self preferenceController] setDelegate:self];
 		[NSBundle loadNibNamed:@"AddAccount" owner:[self preferenceController]];
@@ -81,8 +84,12 @@
 													 name:NSWindowWillCloseNotification
 												   object:[[self preferenceController] addAccountWindow]];
 		
-		[[[self preferenceController] addAccountWindowCancelButton] setTarget:[[self preferenceController] addAccountWindow]];
-		[[[self preferenceController] addAccountWindowCancelButton] setAction:@selector(performClose:)];
+		// Set different targets and actions of addAccountWindow buttons to add the first account.
+		[[[self preferenceController] addAccountWindowDefaultButton] setTarget:self];
+		[[[self preferenceController] addAccountWindowDefaultButton] setAction:@selector(addAccountOnFirstLaunch:)];
+		[[[self preferenceController] addAccountWindowOtherButton] setTarget:[[self preferenceController] addAccountWindow]];
+		[[[self preferenceController] addAccountWindowOtherButton] setAction:@selector(performClose:)];
+		
 		[[[self preferenceController] addAccountWindow] center];
 		[[[self preferenceController] addAccountWindow] makeKeyAndOrderFront:self];
 		
@@ -128,6 +135,20 @@
 		[[[self preferenceController] window] center];
 	
 	[[self preferenceController] showWindow:nil];
+}
+		 
+- (IBAction)addAccountOnFirstLaunch:(id)sender
+{
+	[[self preferenceController] addAccount:sender];
+	
+	// Re-enable Preferences.
+	[preferencesMenuItem setAction:@selector(showPreferencePanel:)];
+	
+	// Change back targets and actions of addAccountWindow buttons.
+	[[[self preferenceController] addAccountWindowDefaultButton] setTarget:[self preferenceController]];
+	[[[self preferenceController] addAccountWindowDefaultButton] setAction:@selector(addAccount:)];
+	[[[self preferenceController] addAccountWindowOtherButton] setTarget:[self preferenceController]];
+	[[[self preferenceController] addAccountWindowOtherButton] setAction:@selector(closeSheet:)];
 }
 
 - (void)preferenceControllerDidAddAccount:(NSNotification *)notification

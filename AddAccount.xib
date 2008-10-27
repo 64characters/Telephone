@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -35,7 +36,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="515214309">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -378,6 +379,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{603, 463}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -500,11 +502,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">addAccountWindowCancelButton</string>
+						<string key="label">addAccountWindowOtherButton</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="780226416"/>
 					</object>
-					<int key="connectionID">60</int>
+					<int key="connectionID">61</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">addAccountWindowDefaultButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="857063485"/>
+					</object>
+					<int key="connectionID">62</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -874,7 +884,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">60</int>
+			<int key="maxID">62</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -912,7 +922,8 @@
 							<string>accountsToolbarItem</string>
 							<string>accountsView</string>
 							<string>addAccountWindow</string>
-							<string>addAccountWindowCancelButton</string>
+							<string>addAccountWindowDefaultButton</string>
+							<string>addAccountWindowOtherButton</string>
 							<string>delegate</string>
 							<string>fullName</string>
 							<string>generalToolbarItem</string>
@@ -935,6 +946,7 @@
 							<string>NSToolbarItem</string>
 							<string>NSView</string>
 							<string>NSWindow</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>id</string>
 							<string>NSTextField</string>

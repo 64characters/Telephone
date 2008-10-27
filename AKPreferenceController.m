@@ -42,7 +42,8 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 
 @dynamic delegate;
 @synthesize addAccountWindow;
-@synthesize addAccountWindowCancelButton;
+@synthesize addAccountWindowDefaultButton;
+@synthesize addAccountWindowOtherButton;
 
 - (id)delegate
 {

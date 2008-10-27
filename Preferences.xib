@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="148"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -253,7 +252,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="73891457">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -752,7 +751,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{547, 407}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="417290828">
@@ -1591,7 +1589,7 @@
 							<string>accountsToolbarItem</string>
 							<string>accountsView</string>
 							<string>addAccountWindow</string>
-							<string>addAccountWindowCancelButton</string>
+							<string>addAccountWindowOtherButton</string>
 							<string>delegate</string>
 							<string>fullName</string>
 							<string>generalToolbarItem</string>
