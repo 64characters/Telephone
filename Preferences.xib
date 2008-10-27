@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="148"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -252,7 +253,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="73891457">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -473,7 +474,7 @@
 										<reference key="NSSuperview" ref="884436339"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSButtonCell" key="NSCell" id="462912071">
-											<int key="NSCellFlags">-2080244224</int>
+											<int key="NSCellFlags">-1543373312</int>
 											<int key="NSCellFlags2">0</int>
 											<string key="NSContents">Use this account</string>
 											<reference key="NSSupport" ref="1063122093"/>
@@ -500,7 +501,7 @@
 										<reference key="NSSuperview" ref="884436339"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="734300867">
-											<int key="NSCellFlags">-1804468671</int>
+											<int key="NSCellFlags">-1267597759</int>
 											<int key="NSCellFlags2">272630784</int>
 											<string key="NSContents"/>
 											<reference key="NSSupport" ref="1063122093"/>
@@ -521,7 +522,7 @@
 										<reference key="NSSuperview" ref="884436339"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="739696802">
-											<int key="NSCellFlags">-1804468671</int>
+											<int key="NSCellFlags">-1267597759</int>
 											<int key="NSCellFlags2">272630784</int>
 											<string key="NSContents"/>
 											<reference key="NSSupport" ref="1063122093"/>
@@ -543,7 +544,7 @@
 										<reference key="NSSuperview" ref="884436339"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="131019235">
-											<int key="NSCellFlags">-1804468671</int>
+											<int key="NSCellFlags">-1267597759</int>
 											<int key="NSCellFlags2">272630784</int>
 											<string key="NSContents"/>
 											<reference key="NSSupport" ref="1063122093"/>
@@ -565,7 +566,7 @@
 										<reference key="NSSuperview" ref="884436339"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="530225735">
-											<int key="NSCellFlags">-1804468671</int>
+											<int key="NSCellFlags">-1267597759</int>
 											<int key="NSCellFlags2">272630784</int>
 											<string key="NSContents"/>
 											<reference key="NSSupport" ref="1063122093"/>
@@ -666,7 +667,7 @@
 										<reference key="NSSuperview" ref="884436339"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSSecureTextFieldCell" key="NSCell" id="750941462">
-											<int key="NSCellFlags">343014976</int>
+											<int key="NSCellFlags">879885888</int>
 											<int key="NSCellFlags2">272630784</int>
 											<string key="NSContents"/>
 											<reference key="NSSupport" ref="1063122093"/>
@@ -751,6 +752,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{547, 407}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="417290828">
@@ -1492,7 +1494,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{242, 468}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{347, 451}, {547, 407}}</string>
+					<string>{{197, 116}, {547, 407}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{333, 79}, {485, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1589,6 +1591,7 @@
 							<string>accountsToolbarItem</string>
 							<string>accountsView</string>
 							<string>addAccountWindow</string>
+							<string>addAccountWindowCancelButton</string>
 							<string>delegate</string>
 							<string>fullName</string>
 							<string>generalToolbarItem</string>
@@ -1611,6 +1614,7 @@
 							<string>NSToolbarItem</string>
 							<string>NSView</string>
 							<string>NSWindow</string>
+							<string>NSButton</string>
 							<string>id</string>
 							<string>NSTextField</string>
 							<string>NSToolbarItem</string>
@@ -1642,6 +1646,13 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<reference key="sourceIdentifier" ref="705993573"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">AKTelephone.h</string>
+					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>

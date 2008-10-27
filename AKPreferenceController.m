@@ -288,6 +288,8 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	NSString *accountKey = [[defaults arrayForKey:AKAccountSortOrder] objectAtIndex:index];
 	NSDictionary *accountDict = [[defaults dictionaryForKey:AKAccounts] objectForKey:accountKey];
 	
+	[accountEnabledCheckBox setEnabled:YES];
+	
 	if ([[accountDict objectForKey:AKAccountEnabled] boolValue]) {
 		[accountEnabledCheckBox setState:NSOnState];
 		[fullName setEnabled:NO];
