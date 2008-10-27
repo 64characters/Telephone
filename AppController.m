@@ -68,8 +68,29 @@
 	// Read accounts from defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *savedAccounts = [defaults dictionaryForKey:AKAccounts];
-	NSArray *accountSortOrder = [defaults arrayForKey:AKAccountSortOrder];
 	
+	// Setup an account on first launch.
+	if (savedAccounts == nil) {			// There are no saved accounts, prompt user to add one.
+		preferenceController = [[AKPreferenceController alloc] init];
+		[[self preferenceController] setDelegate:self];
+		[NSBundle loadNibNamed:@"AddAccount" owner:[self preferenceController]];
+		
+		// Subscribe to addAccountWindow close to terminate application.
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(windowWillClose:)
+													 name:NSWindowWillCloseNotification
+												   object:[[self preferenceController] addAccountWindow]];
+		
+		[[[self preferenceController] addAccountWindowCancelButton] setTarget:[[self preferenceController] addAccountWindow]];
+		[[[self preferenceController] addAccountWindowCancelButton] setAction:@selector(performClose:)];
+		[[[self preferenceController] addAccountWindow] center];
+		[[[self preferenceController] addAccountWindow] makeKeyAndOrderFront:self];
+		
+		return;
+	}
+	
+	// There are saved accounts. Add them to Telephone.
+	NSArray *accountSortOrder = [defaults arrayForKey:AKAccountSortOrder];
 	for (NSString *accountKey in accountSortOrder) {
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
 		
@@ -163,6 +184,22 @@
 		[theAccountController release];
 	}
 }
+
+
+#pragma mark -
+#pragma mark NSWindow notifications
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+	// User closed addAccountWindow. Terminate application.
+	if ([[notification object] isEqual:[[self preferenceController] addAccountWindow]]) {
+		[[NSNotificationCenter defaultCenter] removeObserver:self
+														name:NSWindowWillCloseNotification
+													  object:[[self preferenceController] addAccountWindow]];
+		[NSApp terminate:self];
+	}
+}
+
 
 #pragma mark -
 #pragma mark NSApplication Delegate Methods

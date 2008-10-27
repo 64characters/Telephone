@@ -52,15 +52,18 @@ APPKIT_EXTERN NSString *AKAccountEnabled;
 	IBOutlet NSTextField *password;
 	
 	// Account Setup fields
-	IBOutlet NSWindow *addAccountSheet;
+	IBOutlet NSWindow *addAccountWindow;
 	IBOutlet NSTextField *setupFullName;
 	IBOutlet NSTextField *setupSIPAddress;
 	IBOutlet NSTextField *setupRegistrar;
 	IBOutlet NSTextField *setupUsername;
 	IBOutlet NSTextField *setupPassword;
+	IBOutlet NSButton *addAccountWindowCancelButton;
 }
 
 @property(readwrite, assign) id delegate;
+@property(readonly, retain) NSWindow *addAccountWindow;
+@property(readonly, retain) NSButton *addAccountWindowCancelButton;
 
 // Display view in Preferences window
 - (void)displayView:(NSView *)aView withTitle:(NSString *)aTitle;

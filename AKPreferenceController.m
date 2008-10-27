@@ -41,6 +41,8 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 @implementation AKPreferenceController
 
 @dynamic delegate;
+@synthesize addAccountWindow;
+@synthesize addAccountWindowCancelButton;
 
 - (id)delegate
 {
@@ -152,7 +154,7 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 
 - (IBAction)showAddAccountSheet:(id)sender
 {
-	if (addAccountSheet == nil)
+	if (addAccountWindow == nil)
 		[NSBundle loadNibNamed:@"AddAccount" owner:self];
 	
 	[setupFullName setStringValue:@""];
@@ -160,9 +162,9 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	[setupRegistrar setStringValue:@""];
 	[setupUsername setStringValue:@""];
 	[setupPassword setStringValue:@""];
-	[addAccountSheet makeFirstResponder:setupFullName];
+	[addAccountWindow makeFirstResponder:setupFullName];
 	
-	[NSApp beginSheet:addAccountSheet
+	[NSApp beginSheet:addAccountWindow
 	   modalForWindow:[accountsView window]
 		modalDelegate:nil
 	   didEndSelector:NULL
