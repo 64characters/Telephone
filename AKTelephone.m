@@ -15,6 +15,8 @@
 #import "NSNumber+PJSUA.h"
 #import "NSString+PJSUA.h"
 
+#define THIS_FILE "AKTelephone.m"
+
 
 NSString *AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 
@@ -266,9 +268,9 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result)
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	if (result->status != PJ_SUCCESS)
-		pjsua_perror("AKTelephone.h", "NAT detection failed", result->status);
+		pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
 	else {
-		PJ_LOG(3, ("AKTelephone.h", "NAT detected as %s", result->nat_type_name));
+		PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
 		[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneDidDetectNATNotification
 															object:[AKTelephone sharedTelephone]];
 	}
