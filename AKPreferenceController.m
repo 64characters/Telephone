@@ -318,6 +318,9 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 
 - (IBAction)changeAccountEnabled:(id)sender
 {
+	if ([accountsTable selectedRow] == -1)
+		return;	
+	
 	NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
 
 	NSInteger index = [accountsTable selectedRow];
