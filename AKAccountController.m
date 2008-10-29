@@ -99,6 +99,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 		[[aCallController window] setTitle:[[aCallController call] remoteInfo]];
 		[aCallController setStatus:@"Calling..."];
 		[aCallController showWindow:nil];
+		[[aCallController callProgressIndicator] startAnimation:self];
 		
 		[aCallController release];
 	}

@@ -22,6 +22,7 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 @synthesize incomingCallView;
 @synthesize activeCallView;
 @synthesize endedCallView;
+@synthesize callProgressIndicator;
 
 - (AKAccountController *)accountController
 {
@@ -113,7 +114,6 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
-	[callProgressIndicator startAnimation:self];
 	[self setStatus:@"Calling..."];
 }
 
@@ -121,7 +121,6 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 {
 	NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
 	if (![sipEventCode isEqualToValue:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
-		[callProgressIndicator startAnimation:self];
 		[self setStatus:@"Calling..."];
 	} else {
 		[callProgressIndicator stopAnimation:self];

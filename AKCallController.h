@@ -33,6 +33,7 @@
 @property(readonly, retain) NSView *incomingCallView;
 @property(readonly, retain) NSView *activeCallView;
 @property(readonly, retain) NSView *endedCallView;
+@property(readonly, retain) NSProgressIndicator *callProgressIndicator;
 
 // Designated initializer
 - (id)initWithTelephoneCall:(AKTelephoneCall *)aCall
