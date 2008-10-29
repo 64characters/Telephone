@@ -291,7 +291,7 @@ static AKTelephone *sharedTelephone = nil;
 		return NO;
 	}
 	
-	[anAccount setIdentifier:[NSNumber numberWithPJSUAAccountIdentifier:accountIdentifier]];
+	[anAccount setIdentifier:accountIdentifier];
 	
 	[[self accounts] addObject:anAccount];
 	
@@ -302,30 +302,30 @@ static AKTelephone *sharedTelephone = nil;
 
 - (BOOL)removeAccount:(AKTelephoneAccount *)anAccount
 {
-	pj_status_t status = pjsua_acc_del([[anAccount identifier] pjsuaAccountIdentifierValue]);
+	pj_status_t status = pjsua_acc_del([anAccount identifier]);
 	if (status != PJ_SUCCESS)
 		return NO;
 	
-	NSLog(@"Removing account %@ with id %@", anAccount, [anAccount identifier]);
+	NSLog(@"Removing account %@ with id %d", anAccount, [anAccount identifier]);
 	[[self accounts] removeObject:anAccount];
 	
 	return YES;
 }
 
-- (AKTelephoneAccount *)accountByIdentifier:(NSNumber *)anIdentifier
+- (AKTelephoneAccount *)accountByIdentifier:(NSInteger)anIdentifier
 {
 	for (AKTelephoneAccount *anAccount in [self accounts])
-		if ([[anAccount identifier] isEqualToNumber:anIdentifier])
+		if ([anAccount identifier] == anIdentifier)
 			return [[anAccount retain] autorelease];
 	
 	return nil;
 }
 
-- (AKTelephoneCall *)telephoneCallByIdentifier:(NSNumber *)anIdentifier
+- (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier
 {
 	for (AKTelephoneAccount *anAccount in [self accounts])
 		for (AKTelephoneCall *aCall in [anAccount calls])
-			if ([[aCall identifier] isEqualToNumber:anIdentifier])
+			if ([aCall identifier] == anIdentifier)
 				return [[aCall retain] autorelease];
 	
 	return nil;

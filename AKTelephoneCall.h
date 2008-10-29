@@ -18,7 +18,7 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 @interface AKTelephoneCall : NSObject {
 	id delegate;
 	
-	NSNumber *identifier;
+	NSInteger identifier;
 	NSString *localInfo;
 	NSString *remoteInfo;
 	NSNumber *lastStatus;
@@ -29,7 +29,7 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 }
 
 @property(readwrite, assign) id delegate;
-@property(readwrite, copy) NSNumber *identifier;
+@property(readwrite, assign) NSInteger identifier;
 @property(readwrite, copy) NSString *localInfo;
 @property(readwrite, copy) NSString *remoteInfo;
 @property(readonly, copy) NSNumber *state;
@@ -41,7 +41,7 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
-					identifier:(NSNumber *)anIdentifier;
+					identifier:(NSInteger)anIdentifier;
 
 - (void)answer;
 - (void)hangUp;

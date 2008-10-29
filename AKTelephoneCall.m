@@ -9,7 +9,6 @@
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
-#import "NSNumber+PJSUA.h"
 #import "NSString+PJSUA.h"
 
 #define THIS_FILE "AKTelephoneCall.m"
@@ -93,7 +92,7 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	pjsua_call_info callInfo;
 	pj_status_t status;
 	
-	status = pjsua_call_get_info([[self identifier] pjsuaCallIdentifierValue], &callInfo);
+	status = pjsua_call_get_info([self identifier], &callInfo);
 	if (status != PJ_SUCCESS)
 		return nil;
 	
@@ -105,7 +104,7 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	pjsua_call_info callInfo;
 	pj_status_t status;
 	
-	status = pjsua_call_get_info([[self identifier] pjsuaCallIdentifierValue], &callInfo);
+	status = pjsua_call_get_info([self identifier], &callInfo);
 	if (status != PJ_SUCCESS)
 		return nil;
 	
@@ -114,7 +113,7 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 
 - (BOOL)isActive
 {
-	if (pjsua_call_is_active([[self identifier] pjsuaCallIdentifierValue]))
+	if (pjsua_call_is_active([self identifier]))
 		return YES;
 	else
 		return NO;
@@ -123,7 +122,7 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 
 #pragma mark -
 
-- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount identifier:(NSNumber *)anIdentifier
+- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount identifier:(NSInteger)anIdentifier
 {
 	self = [super init];
 	if (self == nil)
@@ -137,17 +136,16 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 
 - (id)init
 {	
-	return [self initWithTelephoneAccount:nil identifier:nil];
+	return [self initWithTelephoneAccount:nil identifier:PJSUA_INVALID_ID];
 }
 
 - (void)dealloc
 {
-	if (![[self identifier] isEqualToNumber:[NSNumber numberWithPJSUACallIdentifier:PJSUA_INVALID_ID]] && [self isActive])
+	if ([self identifier] != PJSUA_INVALID_ID && [self isActive])
 		[self hangUp];
 	
 	[self setDelegate:nil];
 	
-	[identifier release];
 	[localInfo release];
 	[remoteInfo release];
 	[lastStatus release];
@@ -164,14 +162,14 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 
 - (void)answer
 {
-	pj_status_t status = pjsua_call_answer([[self identifier] pjsuaCallIdentifierValue], 200, NULL, NULL);
+	pj_status_t status = pjsua_call_answer([self identifier], 200, NULL, NULL);
 	if (status != PJ_SUCCESS)
 		NSLog(@"Error answering call %@", self);
 }
 
 - (void)hangUp
 {
-	pj_status_t status = pjsua_call_hangup([[self identifier] pjsuaCallIdentifierValue], 0, NULL, NULL);
+	pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
 	if (status != PJ_SUCCESS)
 		NSLog(@"Error hanging up call %@", self);
 }
@@ -181,10 +179,10 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	AKTelephone *telephone = [AKTelephone sharedTelephone];
 	
 	// Use dot syntax for properties to prevent square bracket clutter.
-	if (telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn)
+	if (telephone.callData[self.identifier].ringbackOn)
 		return;
 	
-	telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn = PJ_TRUE;
+	telephone.callData[self.identifier].ringbackOn = PJ_TRUE;
 	
 	[telephone setRingbackCount:[telephone ringbackCount] + 1];
 	if ([telephone ringbackCount] == 1 && [telephone ringbackSlot] != PJSUA_INVALID_ID)
@@ -196,8 +194,8 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	AKTelephone *telephone = [AKTelephone sharedTelephone];
 	
 	// Use dot syntax for properties to prevent square bracket clutter.
-	if (telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn) {
-		telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn = PJ_FALSE;
+	if (telephone.callData[self.identifier].ringbackOn) {
+		telephone.callData[self.identifier].ringbackOn = PJ_FALSE;
 		
 		pj_assert([telephone ringbackCount] > 0);
 		
@@ -235,13 +233,11 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 	NSString *remoteInfo = [NSString stringWithPJString:callInfo.remote_info];
 	NSString *localInfo = [NSString stringWithPJString:callInfo.local_info];
 	
-	AKTelephoneAccount *theAccount = [[AKTelephone sharedTelephone]
-									  accountByIdentifier:[NSNumber numberWithPJSUAAccountIdentifier:accountIdentifier]];
+	AKTelephoneAccount *theAccount = [[AKTelephone sharedTelephone] accountByIdentifier:accountIdentifier];
 	
 	// AKTelephoneCall object is created here when the call is incoming
-	AKTelephoneCall *theCall = [[AKTelephoneCall alloc]
-								initWithTelephoneAccount:theAccount
-								identifier:[NSNumber numberWithPJSUACallIdentifier:callIdentifier]];
+	AKTelephoneCall *theCall = [[AKTelephoneCall alloc] initWithTelephoneAccount:theAccount
+																	  identifier:callIdentifier];
 	[theCall setRemoteInfo:remoteInfo];
 	[theCall setLocalInfo:localInfo];
 	
@@ -270,9 +266,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 	pjsua_call_info callInfo;
 	pjsua_call_get_info(callIdentifier, &callInfo);
 	
-	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone]
-								 telephoneCallByIdentifier:[NSNumber numberWithPJSUACallIdentifier:callIdentifier]]
-								retain];
+	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier] retain];
 	
 	NSString *lastStatusText, *stateText, *reasonText;
 	NSDictionary *userInfo;
@@ -289,7 +283,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 		
 		[theCall setLastStatus:[NSNumber numberWithInt:callInfo.last_status]];
 		[theCall setLastStatusText:lastStatusText];
-		[theCall setIdentifier:[NSNumber numberWithPJSUACallIdentifier:PJSUA_INVALID_ID]];
+		[theCall setIdentifier:PJSUA_INVALID_ID];
 		
 		[notificationCenter postNotificationName:AKTelephoneCallDidDisconnectNotification
 										  object:theCall];
@@ -385,9 +379,7 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
 	
 	pjsua_call_get_info(callIdentifier, &callInfo);
 	
-	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone]
-								telephoneCallByIdentifier:[NSNumber numberWithPJSUACallIdentifier:callIdentifier]]
-								retain];
+	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier] retain];
 	[theCall ringbackStop];
 	[theCall release];
 	

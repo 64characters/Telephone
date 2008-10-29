@@ -65,10 +65,10 @@ typedef struct _AKTelephoneCallData {
 // Dealing with accounts
 - (BOOL)addAccount:(AKTelephoneAccount *)anAccount withPassword:(NSString *)aPassword;
 - (BOOL)removeAccount:(AKTelephoneAccount *)account;
-- (AKTelephoneAccount *)accountByIdentifier:(NSNumber *)anIdentifier;
+- (AKTelephoneAccount *)accountByIdentifier:(NSInteger)anIdentifier;
 
 // Dealing with calls
-- (AKTelephoneCall *)telephoneCallByIdentifier:(NSNumber *)anIdentifier;
+- (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier;
 - (void)hangUpAllCalls;
 
 // Destroy undelying sip user agent correctly

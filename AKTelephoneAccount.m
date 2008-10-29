@@ -73,11 +73,11 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 - (void)setRegistered:(BOOL)value
 {
 	if (value) {
-		pjsua_acc_set_registration([[self identifier] pjsuaAccountIdentifierValue], PJ_TRUE);
+		pjsua_acc_set_registration([self identifier], PJ_TRUE);
 		[self setOnline:YES];
 	} else {
 		[self setOnline:NO];
-		pjsua_acc_set_registration([[self identifier] pjsuaAccountIdentifierValue], PJ_FALSE);
+		pjsua_acc_set_registration([self identifier], PJ_FALSE);
 	}
 }
 
@@ -86,7 +86,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
-	status = pjsua_acc_get_info([[self identifier] pjsuaAccountIdentifierValue], &accountInfo);
+	status = pjsua_acc_get_info([self identifier], &accountInfo);
 	if (status != PJ_SUCCESS)
 		return nil;
 	
@@ -98,7 +98,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
-	status = pjsua_acc_get_info([[self identifier] pjsuaAccountIdentifierValue], &accountInfo);
+	status = pjsua_acc_get_info([self identifier], &accountInfo);
 	if (status != PJ_SUCCESS)
 		return nil;
 	
@@ -110,7 +110,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
-	status = pjsua_acc_get_info([[self identifier] pjsuaAccountIdentifierValue], &accountInfo);
+	status = pjsua_acc_get_info([self identifier], &accountInfo);
 	if (status != PJ_SUCCESS)
 		return nil;
 	
@@ -122,7 +122,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
-	status = pjsua_acc_get_info([[self identifier] pjsuaAccountIdentifierValue], &accountInfo);
+	status = pjsua_acc_get_info([self identifier], &accountInfo);
 	if (status != PJ_SUCCESS)
 		return NO;
 	
@@ -132,9 +132,9 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 - (void)setOnline:(BOOL)value
 {
 	if (value)
-		pjsua_acc_set_online_status([[self identifier] pjsuaAccountIdentifierValue], PJ_TRUE);
+		pjsua_acc_set_online_status([self identifier], PJ_TRUE);
 	else
-		pjsua_acc_set_online_status([[self identifier] pjsuaAccountIdentifierValue], PJ_FALSE);
+		pjsua_acc_set_online_status([self identifier], PJ_FALSE);
 }
 
 - (NSString *)onlineStatusText
@@ -142,7 +142,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
-	status = pjsua_acc_get_info([[self identifier] pjsuaAccountIdentifierValue], &accountInfo);
+	status = pjsua_acc_get_info([self identifier], &accountInfo);
 	if (status != PJ_SUCCESS)
 		return nil;
 	
@@ -178,7 +178,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	[self setRegistrar:aRegistrar];
 	[self setRealm:aRealm];
 	[self setUsername:aUsername];
-	[self setIdentifier:[NSNumber numberWithPJSUAAccountIdentifier:PJSUA_INVALID_ID]];
+	[self setIdentifier:PJSUA_INVALID_ID];
 	
 	calls = [[NSMutableArray alloc] init];
 	
@@ -203,7 +203,6 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	[registrar release];
 	[realm release];
 	[username release];
-	[identifier release];
 	
 	[calls release];
 	
@@ -221,19 +220,17 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	pjsua_call_id callIdentifier;
 	pj_str_t uri = [destinationURI pjString];
 	
-	pj_status_t status = pjsua_call_make_call([[self identifier] pjsuaAccountIdentifierValue],
-											  &uri, 0, NULL, NULL, &callIdentifier);
+	pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
 	if (status != PJ_SUCCESS) {
-		NSLog(@"Error making call to %@ via account %@", destinationURI, [self identifier]);
+		NSLog(@"Error making call to %@ via account %@", destinationURI, self);
 		return nil;
 	}
 	
-	NSLog(@"Calling %@ via account %@", destinationURI, [self identifier]);
+	NSLog(@"Calling %@ via account %@", destinationURI, self);
 	
 	// AKTelephoneCall object is created here when the call is outgoing
-	AKTelephoneCall *theCall = [[AKTelephoneCall alloc]
-								initWithTelephoneAccount:self
-								identifier:[NSNumber numberWithPJSUACallIdentifier:callIdentifier]];
+	AKTelephoneCall *theCall = [[AKTelephoneCall alloc]	initWithTelephoneAccount:self
+																	  identifier:callIdentifier];
 	
 	pjsua_call_info callInfo;
 	pjsua_call_get_info(callIdentifier, &callInfo);
@@ -250,7 +247,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 - (BOOL)unregister
 {
 	pj_status_t status;
-	status = pjsua_acc_set_registration([[self identifier] pjsuaAccountIdentifierValue], PJ_FALSE);
+	status = pjsua_acc_set_registration([self identifier], PJ_FALSE);
 	
 	return (status == PJ_SUCCESS) ? YES : NO;
 }
@@ -265,8 +262,7 @@ void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	AKTelephoneAccount *anAccount = [[AKTelephone sharedTelephone]
-									 accountByIdentifier:[NSNumber numberWithPJSUAAccountIdentifier:accountIdentifier]];
+	AKTelephoneAccount *anAccount = [[AKTelephone sharedTelephone] accountByIdentifier:accountIdentifier];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneAccountRegistrationDidChangeNotification
 														object:anAccount];

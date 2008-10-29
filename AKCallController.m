@@ -105,7 +105,7 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 // If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification
 {
-	if (![[[self call] identifier] isEqualToNumber:[NSNumber numberWithPJSUACallIdentifier:PJSUA_INVALID_ID]] && [[self call] isActive])
+	if ([[self call] identifier] != PJSUA_INVALID_ID && [[self call] isActive])
 		[[self call] hangUp];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallWindowWillCloseNotification

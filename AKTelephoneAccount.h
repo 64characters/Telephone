@@ -29,7 +29,7 @@ APPKIT_EXTERN NSString *AKTelephoneAccountUsername;
 	NSString *realm;
 	NSString *username;
 	
-	NSNumber *identifier;
+	NSInteger identifier;
 	
 	NSMutableArray *calls;
 }
@@ -40,7 +40,7 @@ APPKIT_EXTERN NSString *AKTelephoneAccountUsername;
 @property(readwrite, copy) NSString *registrar;
 @property(readwrite, copy) NSString *realm;
 @property(readwrite, copy) NSString *username;
-@property(readwrite, copy) NSNumber *identifier;
+@property(readwrite, assign) NSInteger identifier;
 @property(readwrite, assign, getter=isRegistered) BOOL registered;
 @property(readonly, copy) NSNumber *registrationStatus;
 @property(readonly, copy) NSString *registrationStatusText;
