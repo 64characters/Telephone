@@ -89,6 +89,12 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	}
 	
 	NSString *uri = [NSString stringWithFormat:@"sip:%@", [callDestination stringValue]];
+	
+	// If callDestination does not contain @, add @registrar to the end
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains \"@\""];
+	if (![predicate evaluateWithObject:[callDestination stringValue]])
+		uri = [NSString stringWithFormat:@"%@@%@", uri, [[self account] registrar]];
+	
 	// Make actual call
 	AKTelephoneCall *aCall = [[self account] makeCallTo:uri];
 	if (aCall != nil) {
