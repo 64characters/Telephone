@@ -12,7 +12,6 @@
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
-#import "NSNumber+PJSUA.h"
 #import "NSString+PJSUA.h"
 
 #define THIS_FILE "AKTelephone.m"

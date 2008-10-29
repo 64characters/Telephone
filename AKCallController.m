@@ -8,7 +8,6 @@
 
 #import "AKCallController.h"
 #import "AKTelephoneCall.h"
-#import "NSNumber+PJSUA.h"
 
 
 NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWillClose";
@@ -134,7 +133,7 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 
 - (void)telephoneCallDidDisconnect:(NSNotification *)notification
 {
-	if ([[[self call] lastStatus] isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_BUSY_EVERYWHERE]])
+	if ([[self call] lastStatus] == PJSIP_SC_BUSY_EVERYWHERE)
 		[self setStatus:@"Busy"];
 	else
 		[self setStatus:@"Call ended"];

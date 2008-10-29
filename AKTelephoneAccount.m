@@ -11,7 +11,6 @@
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
-#import "NSNumber+PJSUA.h"
 #import "NSString+PJSUA.h"
 
 
@@ -67,7 +66,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 - (BOOL)isRegistered
 {	
-	return ([[self registrationStatus] intValue] / 100 == 2) && ([[self registrationExpireTime] intValue] > 0);
+	return ([self registrationStatus] / 100 == 2) && ([self registrationExpireTime] > 0);
 }
 
 - (void)setRegistered:(BOOL)value
@@ -81,16 +80,13 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	}
 }
 
-- (NSNumber *)registrationStatus
+- (NSInteger)registrationStatus
 {
 	pjsua_acc_info accountInfo;
-	pj_status_t status;
 	
-	status = pjsua_acc_get_info([self identifier], &accountInfo);
-	if (status != PJ_SUCCESS)
-		return nil;
+	pjsua_acc_get_info([self identifier], &accountInfo);
 	
-	return [NSNumber numberWithInt:accountInfo.status];
+	return accountInfo.status;
 }
 
 - (NSString *)registrationStatusText
@@ -105,16 +101,13 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	return [NSString stringWithPJString:accountInfo.status_text];
 }
 
-- (NSNumber *)registrationExpireTime
+- (NSInteger)registrationExpireTime
 {
 	pjsua_acc_info accountInfo;
-	pj_status_t status;
 	
-	status = pjsua_acc_get_info([self identifier], &accountInfo);
-	if (status != PJ_SUCCESS)
-		return nil;
+	pjsua_acc_get_info([self identifier], &accountInfo);
 	
-	return [NSNumber numberWithInt:accountInfo.expires];
+	return accountInfo.expires;
 }
 
 - (BOOL)isOnline

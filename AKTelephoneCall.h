@@ -21,7 +21,7 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 	NSInteger identifier;
 	NSString *localInfo;
 	NSString *remoteInfo;
-	NSNumber *lastStatus;
+	NSInteger lastStatus;
 	NSString *lastStatusText;
 	
 	// Account the call belongs to
@@ -32,9 +32,9 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 @property(readwrite, assign) NSInteger identifier;
 @property(readwrite, copy) NSString *localInfo;
 @property(readwrite, copy) NSString *remoteInfo;
-@property(readonly, copy) NSNumber *state;
+@property(readonly, assign) NSInteger state;
 @property(readonly, copy) NSString *stateText;
-@property(readwrite, copy) NSNumber *lastStatus;
+@property(readwrite, assign) NSInteger lastStatus;
 @property(readwrite, copy) NSString *lastStatusText;
 @property(readonly, assign, getter=isActive) BOOL active;
 @property(readwrite, assign) AKTelephoneAccount *account;

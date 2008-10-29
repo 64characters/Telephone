@@ -87,16 +87,13 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	delegate = aDelegate;
 }
 
-- (NSNumber *)state
+- (NSInteger)state
 {
 	pjsua_call_info callInfo;
-	pj_status_t status;
 	
-	status = pjsua_call_get_info([self identifier], &callInfo);
-	if (status != PJ_SUCCESS)
-		return nil;
+	pjsua_call_get_info([self identifier], &callInfo);
 	
-	return [NSNumber numberWithInt:callInfo.state];
+	return callInfo.state;
 }
 
 - (NSString *)stateText
@@ -148,7 +145,6 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	
 	[localInfo release];
 	[remoteInfo release];
-	[lastStatus release];
 	[lastStatusText release];
 	[self setAccount:nil];
 	
@@ -281,7 +277,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 		
 		lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
 		
-		[theCall setLastStatus:[NSNumber numberWithInt:callInfo.last_status]];
+		[theCall setLastStatus:callInfo.last_status];
 		[theCall setLastStatusText:lastStatusText];
 		[theCall setIdentifier:PJSUA_INVALID_ID];
 		

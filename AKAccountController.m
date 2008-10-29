@@ -206,7 +206,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 		[[self window] setContentView:unregisteredAccountView];
 		
 		// Handle authentication failure
-		if ([[[self account] registrationStatus] intValue] == PJSIP_EFAILEDCREDENTIAL) {
+		if ([[self account] registrationStatus] == PJSIP_EFAILEDCREDENTIAL) {
 			if (authenticationFailureSheet == nil)
 				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
 			
