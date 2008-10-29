@@ -120,9 +120,7 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 - (void)telephoneCallEarly:(NSNotification *)notification
 {
 	NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
-	if (![sipEventCode isEqualToValue:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
-		[self setStatus:@"Calling..."];
-	} else {
+	if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
 		[callProgressIndicator stopAnimation:self];
 		[self setStatus:@"Ringing"];
 	}
