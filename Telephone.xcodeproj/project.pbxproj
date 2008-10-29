@@ -18,7 +18,6 @@
 		AA3578B60E4070AD00021989 /* AKCallController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B50E4070AD00021989 /* AKCallController.m */; };
 		AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */; };
 		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
-		AA4BD4DB0E07C513005A71B2 /* AKTelephoneConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DA0E07C513005A71B2 /* AKTelephoneConfig.m */; };
 		AA4BD4DE0E07C51E005A71B2 /* AKTelephoneAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */; };
 		AA4FD3A20E1E895D00D4E6A6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4FD3A10E1E895D00D4E6A6 /* Security.framework */; };
 		AA69ADDA0E89578900CF54B3 /* AddAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA69ADD90E89578900CF54B3 /* AddAccount.xib */; };
@@ -59,8 +58,6 @@
 		AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephone.m; sourceTree = "<group>"; };
 		AA4BD4D60E07C305005A71B2 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		AA4BD4D70E07C305005A71B2 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
-		AA4BD4D90E07C513005A71B2 /* AKTelephoneConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneConfig.h; sourceTree = "<group>"; };
-		AA4BD4DA0E07C513005A71B2 /* AKTelephoneConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneConfig.m; sourceTree = "<group>"; };
 		AA4BD4DC0E07C51E005A71B2 /* AKTelephoneAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneAccount.h; sourceTree = "<group>"; };
 		AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneAccount.m; sourceTree = "<group>"; };
 		AA4FD3A10E1E895D00D4E6A6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
@@ -210,8 +207,6 @@
 				AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */,
 				AA2CCC820E2E4EEB00871057 /* AKTelephoneCall.h */,
 				AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */,
-				AA4BD4D90E07C513005A71B2 /* AKTelephoneConfig.h */,
-				AA4BD4DA0E07C513005A71B2 /* AKTelephoneConfig.m */,
 				AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */,
 				AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */,
 			);
@@ -297,7 +292,6 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */,
 				AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */,
-				AA4BD4DB0E07C513005A71B2 /* AKTelephoneConfig.m in Sources */,
 				AA4BD4DE0E07C51E005A71B2 /* AKTelephoneAccount.m in Sources */,
 				AABAD7ED0E0C171A00CB5930 /* AKPreferenceController.m in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */,

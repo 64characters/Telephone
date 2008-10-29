@@ -11,7 +11,6 @@
 #import "AKPreferenceController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
-#import "AKTelephoneConfig.h"
 
 
 @implementation AppController
@@ -57,11 +56,16 @@
 // Application control starts here
 - (void)awakeFromNib
 {
-	telephone = [AKTelephone telephoneWithConfig:[AKTelephoneConfig telephoneConfig]];
+	telephone = [AKTelephone telephone];
+
 	if (telephone == nil) {
 		NSLog(@"Can't create Telephone");
 		return;
 	}
+	
+	BOOL started = [telephone start];
+	if (!started)
+		NSLog(@"Error starting Telephone");
 	
 	accountControllers = [[NSMutableDictionary alloc] init];
 	
@@ -227,7 +231,9 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-	[[self telephone] destroyUserAgent];
+	BOOL destroyed = [[self telephone] destroyUserAgent];
+	if (!destroyed)
+		NSLog(@"Error destroying user agent");
 }
 
 @end

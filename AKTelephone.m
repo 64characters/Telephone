@@ -8,15 +8,22 @@
 
 #import <pjsua-lib/pjsua.h>
 
+#import "AKPreferenceController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
-#import "AKTelephoneConfig.h"
 #import "NSNumber+PJSUA.h"
 #import "NSString+PJSUA.h"
 
 #define THIS_FILE "AKTelephone.m"
 
+// Ringtones.
+#define RINGBACK_FREQ1		440
+#define RINGBACK_FREQ2		480
+#define RINGBACK_ON			2000
+#define RINGBACK_OFF		4000
+#define RINGBACK_CNT		1
+#define RINGBACK_INTERVAL	4000
 
 NSString *AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 
@@ -27,6 +34,10 @@ static AKTelephone *sharedTelephone = nil;
 @dynamic delegate;
 @synthesize accounts;
 @synthesize readyState;
+@dynamic callData;
+@synthesize ringbackSlot;
+@synthesize ringbackCount;
+@synthesize ringbackPort;
 
 - (id)delegate
 {
@@ -52,22 +63,27 @@ static AKTelephone *sharedTelephone = nil;
 	delegate = aDelegate;
 }
 
+- (AKTelephoneCallData *)callData
+{
+	return callData;
+}
+
 
 #pragma mark Telephone singleton instance
 
-+ (id)telephoneWithConfig:(AKTelephoneConfig *)config delegate:(id)aDelegate
++ (id)telephoneWithDelegate:(id)aDelegate
 {
 	@synchronized(self) {
 		if (sharedTelephone == nil)
-			[[self alloc] initWithConfig:config delegate:aDelegate];	// Assignment not done here
+			[[self alloc] initWithDelegate:aDelegate];	// Assignment not done here
 	}
 	
 	return sharedTelephone;
 }
 
-+ (id)telephoneWithConfig:(AKTelephoneConfig *)config
++ (id)telephone
 {
-	return [self telephoneWithConfig:config delegate:nil];
+	return [self telephoneWithDelegate:nil];
 }
 
 + (id)allocWithZone:(NSZone *)zone
@@ -115,7 +131,7 @@ static AKTelephone *sharedTelephone = nil;
 	return sharedTelephone;
 }
 
-- (id)initWithConfig:(AKTelephoneConfig *)config delegate:(id)aDelegate
+- (id)initWithDelegate:(id)aDelegate
 {
 	self = [super init];
 	if (self == nil)
@@ -123,29 +139,97 @@ static AKTelephone *sharedTelephone = nil;
 	
 	[self setDelegate:aDelegate];
 	accounts = [[NSMutableArray alloc] init];
-
+	
+	pjsua_config_default(&userAgentConfig);
+	pjsua_logging_config_default(&loggingConfig);
+	pjsua_media_config_default(&mediaConfig);
+	pjsua_transport_config_default(&transportConfig);
+	
+	ringbackSlot = PJSUA_INVALID_ID;
+	userAgentConfig.max_calls = AKTelephoneCallsMax;
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSString *stunServerHost = [defaults stringForKey:AKSTUNServerHost];
+	if (stunServerHost != nil)
+		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%@",
+									  stunServerHost, [defaults objectForKey:AKSTUNServerPort]]
+									 pjString];
+	
+	loggingConfig.log_filename = [[[defaults stringForKey:AKLogFileName]
+								   stringByExpandingTildeInPath]
+								  pjString];
+	loggingConfig.level = [defaults integerForKey:AKLogLevel];
+	loggingConfig.console_level = [defaults integerForKey:AKConsoleLogLevel];
+	
+	mediaConfig.no_vad = ![defaults boolForKey:AKVoiceActivityDetection];
+	
+	transportConfig.port = [defaults integerForKey:AKTransportPort];
+	
+	userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;
+	userAgentConfig.cb.on_call_media_state = AKCallMediaStateChanged;
+	userAgentConfig.cb.on_call_state = AKCallStateChanged;
+	userAgentConfig.cb.on_reg_state = AKTelephoneAccountRegistrationStateChanged;
+	userAgentConfig.cb.on_nat_detect = AKTelephoneDetectedNAT;
+	
 	pj_status_t status;
 	
-	NSLog(@"pjsua_create()");
+	// Create pjsua.
 	status = pjsua_create();
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error creating pjsua");
 		[self release];
 		return nil;
 	}
+	// Create pool for pjsua.
+	pool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
 	[self setReadyState:AKTelephoneCreated];
 	
-	NSLog(@"pjsua_init()");
-	status = pjsua_init([config userAgentConfig], [config loggingConfig], [config mediaConfig]);
+	// Initialize pjsua.
+	status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error initializing pjsua");
 		[self release];
 		return nil;
 	}
+	
+	// Create ringback tones.
+	unsigned i, samplesPerFrame;
+	pjmedia_tone_desc tone[RINGBACK_CNT];
+	pj_str_t name;
+	
+	samplesPerFrame = mediaConfig.audio_frame_ptime *
+	mediaConfig.clock_rate *
+	mediaConfig.channel_count / 1000;
+	
+	name = pj_str("ringback");
+	status = pjmedia_tonegen_create2(pool, &name,
+									 mediaConfig.clock_rate,
+									 mediaConfig.channel_count,
+									 samplesPerFrame, 16, PJMEDIA_TONEGEN_LOOP,
+									 &ringbackPort);
+	if (status != PJ_SUCCESS)
+		NSLog(@"Error creating ringback tones");
+	
+	pj_bzero(&tone, sizeof(tone));
+	for (i = 0; i < RINGBACK_CNT; ++i) {
+		tone[i].freq1 = RINGBACK_FREQ1;
+		tone[i].freq2 = RINGBACK_FREQ2;
+		tone[i].on_msec = RINGBACK_ON;
+		tone[i].off_msec = RINGBACK_OFF;
+	}
+	tone[RINGBACK_CNT - 1].off_msec = RINGBACK_INTERVAL;
+	
+	pjmedia_tonegen_play(ringbackPort, RINGBACK_CNT, tone, PJMEDIA_TONEGEN_LOOP);
+	
+	status = pjsua_conf_add_port(pool, ringbackPort, &ringbackSlot);
+	if (status != PJ_SUCCESS)
+		NSLog(@"Error adding media port for ringback tones");
+	
 	[self setReadyState:AKTelephoneConfigured];
 	
-	NSLog(@"pjsua_transport_create()");
-	status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, [config transportConfig], NULL);
+	// Add UDP transport.
+	status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, NULL);
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error creating transport");
 		[self release];
@@ -153,26 +237,12 @@ static AKTelephone *sharedTelephone = nil;
 	}
 	[self setReadyState:AKTelephoneTransportCreated];
 	
-	NSLog(@"pjsua_start()");
-	status = pjsua_start();
-	if (status != PJ_SUCCESS) {
-		NSLog(@"Error starting pjsua");
-		[self release];
-		return nil;
-	}
-	[self setReadyState:AKTelephoneStarted];
-	
 	return self;
-}
-
-- (id)initWithConfig:(AKTelephoneConfig *)config
-{	
-	return [self initWithConfig:config delegate:nil];
 }
 
 - (id)init
 {
-	return [self initWithConfig:[AKTelephoneConfig telephoneConfig]];
+	return [self initWithDelegate:nil];
 }
 
 - (void)dealloc
@@ -184,6 +254,17 @@ static AKTelephone *sharedTelephone = nil;
 
 
 #pragma mark -
+
+- (BOOL)start
+{	
+	pj_status_t status = pjsua_start();
+	if (status != PJ_SUCCESS)
+		return NO;
+	
+	[self setReadyState:AKTelephoneStarted];
+	
+	return YES;
+}
 
 - (BOOL)addAccount:(AKTelephoneAccount *)anAccount withPassword:(NSString *)aPassword
 {
@@ -255,9 +336,27 @@ static AKTelephone *sharedTelephone = nil;
 	pjsua_call_hangup_all();
 }
 
-- (void)destroyUserAgent
+- (BOOL)destroyUserAgent
 {
-	pjsua_destroy();
+	// Close ringback port.
+	if (ringbackPort != NULL &&
+		ringbackSlot != PJSUA_INVALID_ID)
+	{
+		pjsua_conf_remove_port(ringbackSlot);
+		ringbackSlot = PJSUA_INVALID_ID;
+		pjmedia_port_destroy(ringbackPort);
+		ringbackPort = NULL;
+	}
+	
+	if (pool != NULL) {
+		pj_pool_release(pool);
+		pool = NULL;
+	}
+	
+	pj_status_t status;
+	status = pjsua_destroy();
+	
+	return (status == PJ_SUCCESS) ? YES : NO;
 }
 
 @end

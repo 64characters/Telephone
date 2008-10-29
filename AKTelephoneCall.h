@@ -45,6 +45,8 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 
 - (void)answer;
 - (void)hangUp;
+- (void)ringbackStart;
+- (void)ringbackStop;
 
 @end
 

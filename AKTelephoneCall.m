@@ -176,6 +176,39 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 		NSLog(@"Error hanging up call %@", self);
 }
 
+- (void)ringbackStart
+{
+	AKTelephone *telephone = [AKTelephone sharedTelephone];
+	
+	// Use dot syntax for properties to prevent square bracket clutter.
+	if (telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn)
+		return;
+	
+	telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn = PJ_TRUE;
+	
+	[telephone setRingbackCount:[telephone ringbackCount] + 1];
+	if ([telephone ringbackCount] == 1 && [telephone ringbackSlot] != PJSUA_INVALID_ID)
+		pjsua_conf_connect([telephone ringbackSlot], 0);
+}
+
+- (void)ringbackStop
+{
+	AKTelephone *telephone = [AKTelephone sharedTelephone];
+	
+	// Use dot syntax for properties to prevent square bracket clutter.
+	if (telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn) {
+		telephone.callData[self.identifier.pjsuaCallIdentifierValue].ringbackOn = PJ_FALSE;
+		
+		pj_assert([telephone ringbackCount] > 0);
+		
+		[telephone setRingbackCount:[telephone ringbackCount] - 1];
+		if ([telephone ringbackCount] == 0 && [telephone ringbackSlot] != PJSUA_INVALID_ID) {
+			pjsua_conf_disconnect([telephone ringbackSlot], 0);
+			pjmedia_tonegen_rewind([telephone ringbackPort]);
+		}
+	}
+}
+
 @end
 
 
@@ -245,6 +278,8 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 	NSDictionary *userInfo;
 	
 	if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
+		[theCall ringbackStop];
+		
 		PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
 				   callIdentifier,
 				   callInfo.last_status,
@@ -280,6 +315,13 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 			
 			code = msg->line.status.code;
 			reason = msg->line.status.reason;
+			
+			// Start ringback for 180 for UAC unless there's SDP in 180
+			if (callInfo.role == PJSIP_ROLE_UAC && code == 180 &&
+				msg->body == NULL && callInfo.media_status == PJSUA_CALL_MEDIA_NONE)
+			{
+				[theCall ringbackStart];
+			}
 			
 			PJ_LOG(3,(THIS_FILE, "Call %d state changed to %s (%d %.*s)",
 					  callIdentifier, callInfo.state_text.ptr,
@@ -337,9 +379,17 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 // Track and log media changes
 void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	pjsua_call_info callInfo;
 	
 	pjsua_call_get_info(callIdentifier, &callInfo);
+	
+	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone]
+								telephoneCallByIdentifier:[NSNumber numberWithPJSUACallIdentifier:callIdentifier]]
+								retain];
+	[theCall ringbackStop];
+	[theCall release];
 	
 	if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
 		// When media is active, connect call to sound device
@@ -365,4 +415,6 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
 	} else {
 		PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
 	}
+	
+	[pool release];
 }
