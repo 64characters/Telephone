@@ -38,7 +38,7 @@ typedef struct _AKTelephoneCallData {
 	pjsua_media_config mediaConfig;
 	pjsua_transport_config transportConfig;
 	AKTelephoneCallData callData[PJSUA_MAX_CALLS];
-	pj_pool_t *pool;
+	pj_pool_t *pjPool;
 	NSInteger ringbackSlot;
 	NSInteger ringbackCount;
 	pjmedia_port *ringbackPort;
@@ -48,6 +48,7 @@ typedef struct _AKTelephoneCallData {
 @property(readonly, retain) NSMutableArray *accounts;
 @property(readwrite, assign) AKTelephoneReadyState readyState;
 @property(readonly, assign) AKTelephoneCallData *callData;
+@property(readonly, assign) pj_pool_t *pjPool;
 @property(readonly, assign) NSInteger ringbackSlot;
 @property(readwrite, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;

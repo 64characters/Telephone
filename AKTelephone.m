@@ -34,6 +34,7 @@ static AKTelephone *sharedTelephone = nil;
 @synthesize accounts;
 @synthesize readyState;
 @dynamic callData;
+@synthesize pjPool;
 @synthesize ringbackSlot;
 @synthesize ringbackCount;
 @synthesize ringbackPort;
@@ -181,7 +182,7 @@ static AKTelephone *sharedTelephone = nil;
 		return nil;
 	}
 	// Create pool for pjsua.
-	pool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
+	pjPool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
 	[self setReadyState:AKTelephoneCreated];
 	
 	// Initialize pjsua.
@@ -202,7 +203,7 @@ static AKTelephone *sharedTelephone = nil;
 	mediaConfig.channel_count / 1000;
 	
 	name = pj_str("ringback");
-	status = pjmedia_tonegen_create2(pool, &name,
+	status = pjmedia_tonegen_create2(pjPool, &name,
 									 mediaConfig.clock_rate,
 									 mediaConfig.channel_count,
 									 samplesPerFrame, 16, PJMEDIA_TONEGEN_LOOP,
@@ -221,7 +222,7 @@ static AKTelephone *sharedTelephone = nil;
 	
 	pjmedia_tonegen_play(ringbackPort, RINGBACK_CNT, tone, PJMEDIA_TONEGEN_LOOP);
 	
-	status = pjsua_conf_add_port(pool, ringbackPort, &ringbackSlot);
+	status = pjsua_conf_add_port(pjPool, ringbackPort, &ringbackSlot);
 	if (status != PJ_SUCCESS)
 		NSLog(@"Error adding media port for ringback tones");
 	
@@ -347,9 +348,9 @@ static AKTelephone *sharedTelephone = nil;
 		ringbackPort = NULL;
 	}
 	
-	if (pool != NULL) {
-		pj_pool_release(pool);
-		pool = NULL;
+	if (pjPool != NULL) {
+		pj_pool_release(pjPool);
+		pjPool = NULL;
 	}
 	
 	pj_status_t status;
