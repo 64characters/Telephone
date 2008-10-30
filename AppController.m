@@ -109,19 +109,19 @@
 			continue;
 		
 		NSString *fullName = [accountDict objectForKey:AKFullName];
-		NSString *sipAddress = [accountDict objectForKey:AKSIPAddress];
+		NSString *SIPAddress = [accountDict objectForKey:AKSIPAddress];
 		NSString *registrar = [accountDict objectForKey:AKRegistrar];
 		NSString *realm = [accountDict objectForKey:AKRealm];
 		NSString *username = [accountDict objectForKey:AKUsername];
 		
 		AKAccountController *anAccountController = [[AKAccountController alloc] initWithFullName:fullName
-																					  sipAddress:sipAddress
+																					  SIPAddress:SIPAddress
 																					   registrar:registrar
 																						   realm:realm
 																						username:username];
 		[[self accountControllers] setObject:anAccountController forKey:accountKey];
 		
-		[[anAccountController window] setTitle:[[anAccountController account] sipAddress]];
+		[[anAccountController window] setTitle:[[anAccountController account] SIPAddress]];
 		[[anAccountController window] orderBack:self];
 		
 		[anAccountController release];
@@ -161,14 +161,14 @@
 	NSDictionary *accountDict = [[notification userInfo] objectForKey:accountKey];
 	AKAccountController *theAccountController =	[[AKAccountController alloc]
 												 initWithFullName:[accountDict objectForKey:AKFullName]
-												 sipAddress:[accountDict objectForKey:AKSIPAddress]
+												 SIPAddress:[accountDict objectForKey:AKSIPAddress]
 												 registrar:[accountDict objectForKey:AKRegistrar]
 												 realm:[accountDict objectForKey:AKRealm]
 												 username:[accountDict objectForKey:AKUsername]];
 	
 	[[self accountControllers] setObject:theAccountController forKey:accountKey];
 	
-	[[theAccountController window] setTitle:[[theAccountController account] sipAddress]];
+	[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
 	[[theAccountController window] orderFront:self];
 	[theAccountController release];
 }
@@ -191,19 +191,19 @@
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
 		
 		NSString *fullName = [accountDict objectForKey:AKFullName];
-		NSString *sipAddress = [accountDict objectForKey:AKSIPAddress];
+		NSString *SIPAddress = [accountDict objectForKey:AKSIPAddress];
 		NSString *registrar = [accountDict objectForKey:AKRegistrar];
 		NSString *realm = [accountDict objectForKey:AKRealm];
 		NSString *username = [accountDict objectForKey:AKUsername];
 		
 		theAccountController = [[AKAccountController alloc] initWithFullName:fullName
-																  sipAddress:sipAddress
+																  SIPAddress:SIPAddress
 																   registrar:registrar
 																	   realm:realm
 																	username:username];
 		[[self accountControllers] setObject:theAccountController forKey:accountKey];
 		
-		[[theAccountController window] setTitle:[[theAccountController account] sipAddress]];
+		[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
 		[[theAccountController window] orderFront:self];
 		
 		[theAccountController release];

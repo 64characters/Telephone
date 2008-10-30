@@ -39,13 +39,13 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 }
 
 - (id)initWithFullName:(NSString *)aFullName
-			sipAddress:(NSString *)aSIPAddress
+			SIPAddress:(NSString *)aSIPAddress
 			 registrar:(NSString *)aRegistrar
 				 realm:(NSString *)aRealm
 			  username:(NSString *)aUsername
 {
 	AKTelephoneAccount *anAccount = [AKTelephoneAccount telephoneAccountWithFullName:aFullName
-																		  sipAddress:aSIPAddress
+																		  SIPAddress:aSIPAddress
 																		   registrar:aRegistrar
 																			   realm:aRealm
 																			username:aUsername];
@@ -75,7 +75,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 - (void)awakeFromNib
 {
 	[self setShouldCascadeWindows:NO];
-	[[self window] setFrameAutosaveName:[[self account] sipAddress]];
+	[[self window] setFrameAutosaveName:[[self account] SIPAddress]];
 }
 
 // Ask model to make call, create call controller, attach the call to the call contoller

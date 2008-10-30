@@ -294,21 +294,21 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	if ([[accountDict objectForKey:AKAccountEnabled] boolValue]) {
 		[accountEnabledCheckBox setState:NSOnState];
 		[fullName setEnabled:NO];
-		[sipAddress setEnabled:NO];
+		[SIPAddress setEnabled:NO];
 		[registrar setEnabled:NO];
 		[username setEnabled:NO];
 		[password setEnabled:NO];
 	} else {
 		[accountEnabledCheckBox setState:NSOffState];
 		[fullName setEnabled:YES];
-		[sipAddress setEnabled:YES];
+		[SIPAddress setEnabled:YES];
 		[registrar setEnabled:YES];
 		[username setEnabled:YES];
 		[password setEnabled:YES];
 	}
 	
 	[fullName setStringValue:[accountDict objectForKey:AKFullName]];
-	[sipAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
+	[SIPAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
 	[registrar setStringValue:[accountDict objectForKey:AKRegistrar]];
 	[username setStringValue:[accountDict objectForKey:AKUsername]];
 	//	[password setStringValue:[self keychainPasswordForAccountAtIndex:index]];
@@ -341,7 +341,7 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 		// User enabled the account.
 		// Account fields could be edited, save them.
 		[accountDict setObject:[fullName stringValue] forKey:AKFullName];
-		[accountDict setObject:[sipAddress stringValue] forKey:AKSIPAddress];
+		[accountDict setObject:[SIPAddress stringValue] forKey:AKSIPAddress];
 		[accountDict setObject:[registrar stringValue] forKey:AKRegistrar];
 		[accountDict setObject:[username stringValue] forKey:AKUsername];
 		[AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [registrar stringValue]]
@@ -350,7 +350,7 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 		
 		// Disable account fields.
 		[fullName setEnabled:NO];
-		[sipAddress setEnabled:NO];
+		[SIPAddress setEnabled:NO];
 		[registrar setEnabled:NO];
 		[username setEnabled:NO];
 		[password setEnabled:NO];
@@ -358,7 +358,7 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	} else {
 		// User disabled the account, enable account fields.
 		[fullName setEnabled:YES];
-		[sipAddress setEnabled:YES];
+		[SIPAddress setEnabled:YES];
 		[registrar setEnabled:YES];
 		[username setEnabled:YES];
 		[password setEnabled:YES];

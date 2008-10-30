@@ -24,7 +24,7 @@ APPKIT_EXTERN NSString *AKTelephoneAccountUsername;
 	id delegate;
 	
 	NSString *fullName;
-	NSString *sipAddress;
+	NSString *SIPAddress;
 	NSString *registrar;
 	NSString *realm;
 	NSString *username;
@@ -36,7 +36,7 @@ APPKIT_EXTERN NSString *AKTelephoneAccountUsername;
 
 @property(readwrite, assign) id delegate;
 @property(readwrite, copy) NSString *fullName;
-@property(readwrite, copy) NSString *sipAddress;
+@property(readwrite, copy) NSString *SIPAddress;
 @property(readwrite, copy) NSString *registrar;
 @property(readwrite, copy) NSString *realm;
 @property(readwrite, copy) NSString *username;
@@ -50,13 +50,13 @@ APPKIT_EXTERN NSString *AKTelephoneAccountUsername;
 @property(readonly, retain) NSMutableArray *calls;
 
 + (id)telephoneAccountWithFullName:(NSString *)aFullName
-						sipAddress:(NSString *)aSIPAddress
+						SIPAddress:(NSString *)aSIPAddress
 						 registrar:(NSString *)aRegistrar
 							 realm:(NSString *)aRealm
 						  username:(NSString *)aUsername;
 
 - (id)initWithFullName:(NSString *)aFullName
-			sipAddress:(NSString *)aSIPAddress
+			SIPAddress:(NSString *)aSIPAddress
 			 registrar:(NSString *)aRegistrar
 				 realm:(NSString *)aRealm
 			  username:(NSString *)aUsername;

@@ -45,7 +45,7 @@ enum {
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;
 
 - (id)initWithFullName:(NSString *)aFullName
-			sipAddress:(NSString *)aSIPAddress
+			SIPAddress:(NSString *)aSIPAddress
 			 registrar:(NSString *)aRegistrar
 				 realm:(NSString *)aRealm
 			  username:(NSString *)aUsername;

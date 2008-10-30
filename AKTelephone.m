@@ -271,7 +271,7 @@ static AKTelephone *sharedTelephone = nil;
 	pjsua_acc_config accountConfig;
 	pjsua_acc_config_default(&accountConfig);
 	
-	NSString *fullSIPURL = [NSString stringWithFormat:@"%@ <sip:%@>", [anAccount fullName], [anAccount sipAddress]];
+	NSString *fullSIPURL = [NSString stringWithFormat:@"%@ <sip:%@>", [anAccount fullName], [anAccount SIPAddress]];
 	accountConfig.id = [fullSIPURL pjString];
 	
 	NSString *registerURI = [NSString stringWithFormat:@"sip:%@", [anAccount registrar]];

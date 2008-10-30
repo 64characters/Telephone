@@ -46,7 +46,7 @@ APPKIT_EXTERN NSString *AKAccountEnabled;
 	// Account fields
 	IBOutlet NSButton *accountEnabledCheckBox;
 	IBOutlet NSTextField *fullName;
-	IBOutlet NSTextField *sipAddress;
+	IBOutlet NSTextField *SIPAddress;
 	IBOutlet NSTextField *registrar;
 	IBOutlet NSTextField *username;
 	IBOutlet NSTextField *password;

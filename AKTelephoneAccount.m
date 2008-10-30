@@ -15,7 +15,7 @@
 
 
 NSString *AKTelephoneAccountFullName = @"fullName";
-NSString *AKTelephoneAccountSIPAddress = @"sipAddress";
+NSString *AKTelephoneAccountSIPAddress = @"SIPAddress";
 NSString *AKTelephoneAccountRegistrar = @"registrar";
 NSString *AKTelephoneAccountRealm = @"realm";
 NSString *AKTelephoneAccountUsername = @"username";
@@ -27,7 +27,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 @dynamic delegate;
 @synthesize fullName;
-@synthesize sipAddress;
+@synthesize SIPAddress;
 @synthesize registrar;
 @synthesize realm;
 @synthesize username;
@@ -143,13 +143,13 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 }
 
 + (id)telephoneAccountWithFullName:(NSString *)aFullName
-						sipAddress:(NSString *)aSIPAddress
+						SIPAddress:(NSString *)aSIPAddress
 						 registrar:(NSString *)aRegistrar
 							 realm:(NSString *)aRealm
 						  username:(NSString *)aUsername
 {
 	return [[[AKTelephoneAccount alloc] initWithFullName:aFullName
-											  sipAddress:aSIPAddress
+											  SIPAddress:aSIPAddress
 											   registrar:aRegistrar
 												   realm:aRealm
 												username:aUsername]
@@ -157,7 +157,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 }
 
 - (id)initWithFullName:(NSString *)aFullName
-			sipAddress:(NSString *)aSIPAddress
+			SIPAddress:(NSString *)aSIPAddress
 			 registrar:(NSString *)aRegistrar
 				 realm:(NSString *)aRealm
 			  username:(NSString *)aUsername
@@ -167,7 +167,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 		return nil;
 	
 	[self setFullName:aFullName];
-	[self setSipAddress:aSIPAddress];
+	[self setSIPAddress:aSIPAddress];
 	[self setRegistrar:aRegistrar];
 	[self setRealm:aRealm];
 	[self setUsername:aUsername];
@@ -181,7 +181,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 - (id)init
 {
 	return [self initWithFullName:nil
-					   sipAddress:nil
+					   SIPAddress:nil
 						registrar:nil
 							realm:nil
 						 username:nil];
@@ -192,7 +192,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	[self setDelegate:nil];
 	
 	[fullName release];
-	[sipAddress release];
+	[SIPAddress release];
 	[registrar release];
 	[realm release];
 	[username release];
@@ -204,7 +204,7 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 - (NSString *)description
 {
-	return [self sipAddress];
+	return [self SIPAddress];
 }
 
 // Make outgoing call, create call object, set its info, add to the array
