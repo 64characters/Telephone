@@ -9,6 +9,7 @@
 #import "AKAccountController.h"
 #import "AKCallController.h"
 #import "AKKeychain.h"
+#import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
@@ -102,7 +103,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 																		  accountController:self];
 		[[self callControllers] addObject:aCallController];
 		[[aCallController window] setContentView:[aCallController activeCallView]];
-		[[aCallController window] setTitle:[[aCallController call] remoteInfo]];
+		[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
 		[aCallController setStatus:@"Calling..."];
 		[aCallController showWindow:nil];
 		[[aCallController callProgressIndicator] startAnimation:self];
@@ -117,7 +118,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																	  accountController:self];
 	[[self callControllers] addObject:aCallController];
-	[[aCallController window] setTitle:[[aCallController call] remoteInfo]];
+	[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
 	[aCallController setStatus:@"Incoming"];
 	[[aCallController window] setContentView:[aCallController incomingCallView]];
 	[aCallController showWindow:nil];

@@ -225,11 +225,6 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	AKTelephoneCall *theCall = [[AKTelephoneCall alloc]	initWithTelephoneAccount:self
 																	  identifier:callIdentifier];
 	
-	pjsua_call_info callInfo;
-	pjsua_call_get_info(callIdentifier, &callInfo);
-	[theCall setRemoteInfo:[NSString stringWithPJString:callInfo.remote_info]];
-	[theCall setLocalInfo:[NSString stringWithPJString:callInfo.local_info]];
-	
 	// Keep this call in the calls array for this account
 	[[self calls] addObject:theCall];
 	NSLog(@"%@ was added to the account %@", theCall, self);

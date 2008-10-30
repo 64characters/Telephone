@@ -6,6 +6,7 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
@@ -27,8 +28,8 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 
 @dynamic delegate;
 @synthesize identifier;
-@synthesize localInfo;
-@synthesize remoteInfo;
+@synthesize localURI;
+@synthesize remoteURI;
 @dynamic state;
 @dynamic stateText;
 @synthesize lastStatus;
@@ -128,6 +129,11 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	[self setIdentifier:anIdentifier];
 	[self setAccount:anAccount];
 	
+	pjsua_call_info callInfo;
+	pjsua_call_get_info(anIdentifier, &callInfo);
+	[self setRemoteURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]]];
+	[self setLocalURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]]];
+	
 	return self;
 }
 
@@ -143,8 +149,8 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	
 	[self setDelegate:nil];
 	
-	[localInfo release];
-	[remoteInfo release];
+	[localURI release];
+	[remoteURI release];
 	[lastStatusText release];
 	[self setAccount:nil];
 	
@@ -153,7 +159,7 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ <=> %@", [self localInfo], [self remoteInfo]];
+	return [NSString stringWithFormat:@"%@ <=> %@", [self localURI], [self remoteURI]];
 }
 
 - (void)answer
@@ -226,16 +232,11 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 			   callInfo.remote_info.ptr,
 			   callInfo.local_info.ptr));
 	
-	NSString *remoteInfo = [NSString stringWithPJString:callInfo.remote_info];
-	NSString *localInfo = [NSString stringWithPJString:callInfo.local_info];
-	
 	AKTelephoneAccount *theAccount = [[AKTelephone sharedTelephone] accountByIdentifier:accountIdentifier];
 	
 	// AKTelephoneCall object is created here when the call is incoming
 	AKTelephoneCall *theCall = [[AKTelephoneCall alloc] initWithTelephoneAccount:theAccount
 																	  identifier:callIdentifier];
-	[theCall setRemoteInfo:remoteInfo];
-	[theCall setLocalInfo:localInfo];
 	
 	// Keep the new call in the account's calls array
 	[[theAccount calls] addObject:theCall];
@@ -243,9 +244,6 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 	
 	if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccount:didReceiveCall:)])
 		[[theAccount delegate] telephoneAccount:theAccount didReceiveCall:theCall];
-	
-//	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallIncomingNotification
-//														object:theCall];
 	
 	[theCall release];
 	

@@ -11,7 +11,7 @@
 #import <pjsua-lib/pjsua.h>
 
 
-@class AKTelephoneAccount;
+@class AKTelephoneAccount, AKSIPURI;
 
 APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 
@@ -19,8 +19,8 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 	id delegate;
 	
 	NSInteger identifier;
-	NSString *localInfo;
-	NSString *remoteInfo;
+	AKSIPURI *localURI;
+	AKSIPURI *remoteURI;
 	NSInteger lastStatus;
 	NSString *lastStatusText;
 	
@@ -30,8 +30,8 @@ APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
 
 @property(readwrite, assign) id delegate;
 @property(readwrite, assign) NSInteger identifier;
-@property(readwrite, copy) NSString *localInfo;
-@property(readwrite, copy) NSString *remoteInfo;
+@property(readwrite, retain) AKSIPURI *localURI;
+@property(readwrite, retain) AKSIPURI *remoteURI;
 @property(readonly, assign) NSInteger state;
 @property(readonly, copy) NSString *stateText;
 @property(readwrite, assign) NSInteger lastStatus;
