@@ -9,8 +9,8 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="51"/>
-			<integer value="3"/>
 			<integer value="29"/>
+			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,11 +56,9 @@
 							<string key="NSToolbarItemPaletteLabel">Registration Menu</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSPopUpButton" key="NSToolbarItemView" id="1059843186">
-								<reference key="NSNextResponder"/>
+								<nil key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{8, 14}, {90, 18}}</string>
-								<reference key="NSSuperview"/>
-								<reference key="NSWindow"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="228019211">
 									<int key="NSCellFlags">-2076049856</int>
@@ -127,7 +125,7 @@
 											</object>
 										</object>
 									</object>
-									<int key="NSSelectedIndex">2</int>
+									<int key="NSSelectedIndex">1</int>
 									<bool key="NSPullDown">YES</bool>
 									<int key="NSPreferredEdge">1</int>
 									<bool key="NSUsesItemFromMenu">YES</bool>
@@ -345,22 +343,6 @@
 						<reference key="destination" ref="230395515"/>
 					</object>
 					<int key="connectionID">87</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">registerAccountMenuItem</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="476894059"/>
-					</object>
-					<int key="connectionID">92</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">unregisterAccountMenuItem</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="515758111"/>
-					</object>
-					<int key="connectionID">93</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -651,10 +633,14 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>changeAccountRegistration:</string>
+							<string>changeUsernameAndPassword:</string>
+							<string>closeSheet:</string>
 							<string>makeCall:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -664,22 +650,30 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>accountRegistrationPopUp</string>
+							<string>authenticationFailureCancelButton</string>
+							<string>authenticationFailureSheet</string>
 							<string>callButton</string>
 							<string>callDestination</string>
-							<string>registerAccountMenuItem</string>
+							<string>mustSave</string>
+							<string>newPassword</string>
+							<string>newUsername</string>
 							<string>registeredAccountView</string>
-							<string>unregisterAccountMenuItem</string>
 							<string>unregisteredAccountView</string>
+							<string>updateCredentialsInformativeText</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSPopUpButton</string>
 							<string>NSButton</string>
+							<string>NSWindow</string>
+							<string>NSButton</string>
 							<string>NSTextField</string>
-							<string>NSMenuItem</string>
+							<string>NSButton</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
 							<string>NSView</string>
-							<string>NSMenuItem</string>
 							<string>NSView</string>
+							<string>NSTextField</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -699,6 +693,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">AKPreferenceController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">AKTelephone.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

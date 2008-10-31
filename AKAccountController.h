@@ -24,8 +24,6 @@ enum {
 	IBOutlet NSView *registeredAccountView;
 	IBOutlet NSView *unregisteredAccountView;
 	IBOutlet NSPopUpButton *accountRegistrationPopUp;
-	IBOutlet NSMenuItem *registerAccountMenuItem;
-	IBOutlet NSMenuItem *unregisterAccountMenuItem;
 	IBOutlet NSTextField *callDestination;
 	IBOutlet NSButton *callButton;
 	

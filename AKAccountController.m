@@ -196,8 +196,8 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 		buttonSize.width = AKAccountRegistrationButtonAvailableWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
 		[accountRegistrationPopUp setTitle:@"Available"];
-		[registerAccountMenuItem setState:NSOnState];
-		[unregisterAccountMenuItem setState:NSOffState];
+		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOnState];
+		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
 		[[self window] setContentView:registeredAccountView];
 		
 		// Making callDestination a first responder should also be here.
@@ -208,8 +208,8 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 		buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
 		[accountRegistrationPopUp setTitle:@"Offline"];
-		[registerAccountMenuItem setState:NSOffState];
-		[unregisterAccountMenuItem setState:NSOnState];
+		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
+		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
 		[[self window] setContentView:unregisteredAccountView];
 		
 		// Handle authentication failure
