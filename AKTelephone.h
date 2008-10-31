@@ -87,4 +87,4 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
 @end
 
 // Notifications
-APPKIT_EXTERN NSString *AKTelephoneDidDetectNATNotification;
+extern NSString *AKTelephoneDidDetectNATNotification;

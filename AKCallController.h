@@ -51,4 +51,4 @@
 
 // Notifications
 // accountController will be subscribed to this notification in its setter
-APPKIT_EXTERN NSString *AKTelephoneCallWindowWillCloseNotification;
+extern NSString *AKTelephoneCallWindowWillCloseNotification;

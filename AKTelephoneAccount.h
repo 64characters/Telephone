@@ -14,11 +14,11 @@
 @class AKTelephoneCall;
 
 // Keys for AKTelephoneAccount properties
-APPKIT_EXTERN NSString *AKTelephoneAccountFullName;
-APPKIT_EXTERN NSString *AKTelephoneAccountSIPAddress;
-APPKIT_EXTERN NSString *AKTelephoneAccountRegistrar;
-APPKIT_EXTERN NSString *AKTelephoneAccountRealm;
-APPKIT_EXTERN NSString *AKTelephoneAccountUsername;
+extern NSString *AKTelephoneAccountFullName;
+extern NSString *AKTelephoneAccountSIPAddress;
+extern NSString *AKTelephoneAccountRegistrar;
+extern NSString *AKTelephoneAccountRealm;
+extern NSString *AKTelephoneAccountUsername;
 
 @interface AKTelephoneAccount : NSObject {
 	id delegate;
@@ -79,4 +79,4 @@ void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 @end
 
 // Notifications
-APPKIT_EXTERN NSString *AKTelephoneAccountRegistrationDidChangeNotification;
+extern NSString *AKTelephoneAccountRegistrationDidChangeNotification;

@@ -13,7 +13,7 @@
 
 @class AKTelephoneAccount, AKSIPURI;
 
-APPKIT_EXTERN const NSInteger AKTelephoneCallsMax;
+extern const NSInteger AKTelephoneCallsMax;
 
 @interface AKTelephoneCall : NSObject {
 	id delegate;
@@ -68,19 +68,19 @@ void AKCallMediaStateChanged(pjsua_call_id);
 // Notifications
 
 // Calling. After INVITE is sent
-APPKIT_EXTERN NSString *AKTelephoneCallCallingNotification;
+extern NSString *AKTelephoneCallCallingNotification;
 
 // Incoming. After INVITE is received. Delegate is not subscribed to this notification
-APPKIT_EXTERN NSString *AKTelephoneCallIncomingNotification;
+extern NSString *AKTelephoneCallIncomingNotification;
 
 // Early. After response with To tag
-APPKIT_EXTERN NSString *AKTelephoneCallEarlyNotification;	// @"AKTelephoneCallState", @"AKSIPEventCode", @"AKSIPEventReason"
+extern NSString *AKTelephoneCallEarlyNotification;	// @"AKTelephoneCallState", @"AKSIPEventCode", @"AKSIPEventReason"
 
 // Connecting. After 2xx is sent/received; 
-APPKIT_EXTERN NSString *AKTelephoneCallConnectingNotification;
+extern NSString *AKTelephoneCallConnectingNotification;
 
 // Confirmed. After ACK is sent/received
-APPKIT_EXTERN NSString *AKTelephoneCallDidConfirmNotification;
+extern NSString *AKTelephoneCallDidConfirmNotification;
 
 // Disconnected. Session is terminated
-APPKIT_EXTERN NSString *AKTelephoneCallDidDisconnectNotification;
+extern NSString *AKTelephoneCallDidDisconnectNotification;

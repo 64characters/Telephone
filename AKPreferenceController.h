@@ -11,27 +11,27 @@
 
 // Keys for defaults
 
-APPKIT_EXTERN NSString *AKAccounts;
-APPKIT_EXTERN NSString *AKAccountSortOrder;
-APPKIT_EXTERN NSString *AKSTUNServerHost;
-APPKIT_EXTERN NSString *AKSTUNServerPort;
-APPKIT_EXTERN NSString *AKSTUNDomain;
-APPKIT_EXTERN NSString *AKLogFileName;
-APPKIT_EXTERN NSString *AKLogLevel;
-APPKIT_EXTERN NSString *AKConsoleLogLevel;
-APPKIT_EXTERN NSString *AKVoiceActivityDetection;
-APPKIT_EXTERN NSString *AKTransportPort;
+extern NSString *AKAccounts;
+extern NSString *AKAccountSortOrder;
+extern NSString *AKSTUNServerHost;
+extern NSString *AKSTUNServerPort;
+extern NSString *AKSTUNDomain;
+extern NSString *AKLogFileName;
+extern NSString *AKLogLevel;
+extern NSString *AKConsoleLogLevel;
+extern NSString *AKVoiceActivityDetection;
+extern NSString *AKTransportPort;
 
 // Account keys
-APPKIT_EXTERN NSString *AKFullName;
-APPKIT_EXTERN NSString *AKSIPAddress;
-APPKIT_EXTERN NSString *AKRegistrar;
-APPKIT_EXTERN NSString *AKRealm;
-APPKIT_EXTERN NSString *AKUsername;
-APPKIT_EXTERN NSString *AKPassword;
-APPKIT_EXTERN NSString *AKAccountIndex;
-APPKIT_EXTERN NSString *AKAccountKey;
-APPKIT_EXTERN NSString *AKAccountEnabled;
+extern NSString *AKFullName;
+extern NSString *AKSIPAddress;
+extern NSString *AKRegistrar;
+extern NSString *AKRealm;
+extern NSString *AKUsername;
+extern NSString *AKPassword;
+extern NSString *AKAccountIndex;
+extern NSString *AKAccountKey;
+extern NSString *AKAccountEnabled;
 
 @interface AKPreferenceController : NSWindowController {
 	id delegate;
@@ -100,6 +100,6 @@ APPKIT_EXTERN NSString *AKAccountEnabled;
 @end
 
 // Notifications
-APPKIT_EXTERN NSString *AKPreferenceControllerDidAddAccountNotification;
-APPKIT_EXTERN NSString *AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex
-APPKIT_EXTERN NSString *AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex, AKAccountEnabled
+extern NSString *AKPreferenceControllerDidAddAccountNotification;
+extern NSString *AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex
+extern NSString *AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex, AKAccountEnabled
