@@ -173,13 +173,14 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 
 - (void)windowDidLoad
 {
-	if ([[AKTelephone sharedTelephone] readyState] == AKTelephoneStarted) {
-		NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
-													accountName:[[self account] username]];
-		
-		// Add account to Telephone
-		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
-	}
+	if ([[AKTelephone sharedTelephone] readyState] != AKTelephoneStarted)
+		return;
+	
+	NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
+												accountName:[[self account] username]];
+	
+	// Add account to Telephone
+	[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
 	
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	buttonSize.width = AKAccountRegistrationButtonConnectingWidth;

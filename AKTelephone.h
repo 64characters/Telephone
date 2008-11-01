@@ -12,12 +12,11 @@
 
 @class AKTelephoneAccount, AKTelephoneCall;
 
-// Ready state enumerated in reversed order
 typedef enum _AKTelephoneReadyState {
-	AKTelephoneStarted				= 0,	// After pjsua_start(), all OK
-	AKTelephoneTransportCreated		= 1,	// After pjsua_transport_create()
+	AKTelephoneCreated				= 1,	// After pjsua_create()
 	AKTelephoneConfigured			= 2,	// After pjsua_init()
-	AKTelephoneCreated				= 3		// After pjsua_create()
+	AKTelephoneTransportCreated		= 3,	// After pjsua_transport_create()
+	AKTelephoneStarted				= 4		// After pjsua_start(), all OK
 } AKTelephoneReadyState;
 
 typedef struct _AKTelephoneCallData {
