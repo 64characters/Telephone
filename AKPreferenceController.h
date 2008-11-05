@@ -21,6 +21,8 @@ extern NSString *AKLogLevel;
 extern NSString *AKConsoleLogLevel;
 extern NSString *AKVoiceActivityDetection;
 extern NSString *AKTransportPort;
+extern NSString *AKSoundInput;
+extern NSString *AKSoundOutput;
 
 // Account keys
 extern NSString *AKFullName;
@@ -41,9 +43,13 @@ extern NSString *AKAccountEnabled;
 	IBOutlet NSToolbarItem *accountsToolbarItem;
 	IBOutlet NSView *generalView;
 	IBOutlet NSView *accountsView;
-	IBOutlet NSTableView *accountsTable;
+
+	// General
+	IBOutlet NSPopUpButton *soundInputPopUp;
+	IBOutlet NSPopUpButton *soundOutputPopUp;
 	
-	// Account fields
+	// Account
+	IBOutlet NSTableView *accountsTable;
 	IBOutlet NSButton *accountEnabledCheckBox;
 	IBOutlet NSTextField *fullName;
 	IBOutlet NSTextField *SIPAddress;
@@ -51,7 +57,7 @@ extern NSString *AKAccountEnabled;
 	IBOutlet NSTextField *username;
 	IBOutlet NSTextField *password;
 	
-	// Account Setup fields
+	// Account Setup
 	IBOutlet NSWindow *addAccountWindow;
 	IBOutlet NSTextField *setupFullName;
 	IBOutlet NSTextField *setupSIPAddress;
@@ -90,6 +96,12 @@ extern NSString *AKAccountEnabled;
 - (void)populateFieldsForAccountAtIndex:(NSUInteger)index;
 
 - (IBAction)changeAccountEnabled:(id)sender;
+
+// Change sound input and output devices
+- (IBAction)changeSoundIO:(id)sender;
+
+// Refresh list of available sound devices
+- (void)updateSoundDevices;
 
 @end
 

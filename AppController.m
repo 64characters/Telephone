@@ -56,7 +56,7 @@
 // Application control starts here
 - (void)awakeFromNib
 {
-	telephone = [AKTelephone telephone];
+	telephone = [AKTelephone telephoneWithDelegate:self];
 
 	if (telephone == nil) {
 		NSLog(@"Can't create Telephone");
@@ -68,6 +68,11 @@
 		NSLog(@"Error starting Telephone");
 	
 	accountControllers = [[NSMutableDictionary alloc] init];
+	
+	[self selectSoundDevices];
+	
+	// Install audio devices changes callback
+	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AHPropertyListenerProc, [self telephone]);
 	
 	// Read accounts from defaults
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -126,6 +131,48 @@
 		
 		[anAccountController release];
 	}
+}
+
+// If user selected sound devices through preferences before, set these
+// devices as active. Send NSNotFound as a particular device ID if there is no saved sound
+// device in the defaults. This will set a first matched device.
+- (void)selectSoundDevices
+{
+	NSArray *soundDevices = [[self telephone] soundDevices];
+	NSInteger newSoundInput, newSoundOutput;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *deviceDict;
+	NSInteger i;
+	
+	newSoundInput = newSoundOutput = NSNotFound;
+	
+	NSString *lastSoundInputString = [defaults objectForKey:AKSoundInput];
+	if (lastSoundInputString != nil) {
+		for (i = 0; i < [soundDevices count]; ++i) {
+			deviceDict = [soundDevices objectAtIndex:i];
+			if ([[deviceDict objectForKey:AKSoundDeviceName] isEqual:lastSoundInputString] &&
+				[[deviceDict objectForKey:AKSoundDeviceInputCount] intValue] > 0)
+			{
+				newSoundInput = i;
+				break;
+			}
+		}
+	}
+	
+	NSString *lastSoundOutputString = [defaults objectForKey:AKSoundOutput];
+	if (lastSoundOutputString != nil) {
+		for (i = 0; i < [soundDevices count]; ++i) {
+			deviceDict = [soundDevices objectAtIndex:i];
+			if ([[deviceDict objectForKey:AKSoundDeviceName] isEqual:lastSoundOutputString] &&
+				[[deviceDict objectForKey:AKSoundDeviceOutputCount] intValue] > 0)
+			{
+				newSoundOutput = i;
+				break;
+			}
+		}
+	}
+	
+	[[self telephone] setSoundInputDevice:newSoundInput soundOutputDevice:newSoundOutput];
 }
 
 - (IBAction)showPreferencePanel:(id)sender
@@ -212,6 +259,20 @@
 
 
 #pragma mark -
+#pragma mark AKTelephone delegate methods
+
+// Telephone updated sound devices list and left the application silent.
+// Must set appropriate sound IO here!
+// Send message to preference controller to update list of sound devices.
+- (void)telephoneDidUpdateSoundDevices:(NSNotification *)notification
+{
+	[self selectSoundDevices];
+	
+	// Update list of sound devices in preferences.
+	[[self preferenceController] updateSoundDevices];
+}
+
+#pragma mark -
 #pragma mark NSWindow notifications
 
 - (void)windowWillClose:(NSNotification *)notification
@@ -237,3 +298,22 @@
 }
 
 @end
+
+
+#pragma mark -
+
+// Send updateSoundDevices to Telephone. When Telephone updates sound devices, it should post a notification.
+OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData)
+{
+	NSLog(@"Inside AHPropertyListenerProc()");
+	AKTelephone *telephone = (AKTelephone *)inClientData;
+	
+	if (inPropertyID == kAudioHardwarePropertyDevices)
+		[telephone performSelectorOnMainThread:@selector(updateSoundDevices)
+														withObject:nil
+													 waitUntilDone:NO];
+	else
+		NSLog(@"Not handling this property id");
+	
+	return noErr;
+}

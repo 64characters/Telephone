@@ -25,6 +25,13 @@
 #define RINGBACK_INTERVAL	4000
 
 NSString *AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
+NSString *AKTelephoneDidUpdateSoundDevicesNotification = @"AKTelephoneDidUpdateSoundDevices";
+
+// Sound device keys
+NSString *AKSoundDeviceName = @"AKSoundDeviceName";
+NSString *AKSoundDeviceInputCount = @"AKSoundDeviceInputCount";
+NSString *AKSoundDeviceOutputCount = @"AKSoundDeviceOutputCount";
+NSString *AKSoundDeviceDefaultSamplesPerSecond = @"AKSoundDeviceDefaultSamplesPerSecond";
 
 static AKTelephone *sharedTelephone = nil;
 
@@ -32,6 +39,7 @@ static AKTelephone *sharedTelephone = nil;
 
 @dynamic delegate;
 @synthesize accounts;
+@dynamic soundDevices;
 @synthesize readyState;
 @dynamic callData;
 @synthesize pjPool;
@@ -54,13 +62,53 @@ static AKTelephone *sharedTelephone = nil;
 	if (delegate != nil)
 		[notificationCenter removeObserver:delegate name:nil object:self];
 	
-	if (aDelegate != nil)
+	if (aDelegate != nil) {
 		if ([aDelegate respondsToSelector:@selector(telephoneDidDetectNAT:)])
 			[notificationCenter addObserver:aDelegate
 								   selector:@selector(telephoneDidDetectNAT:)
 									   name:AKTelephoneDidDetectNATNotification
 									 object:self];
+		
+		if ([aDelegate respondsToSelector:@selector(telephoneDidUpdateSoundDevices:)])
+			[notificationCenter addObserver:aDelegate
+								   selector:@selector(telephoneDidUpdateSoundDevices:)
+									   name:AKTelephoneDidUpdateSoundDevicesNotification
+									 object:self];
+	}
+	
 	delegate = aDelegate;
+}
+
+- (NSArray *)soundDevices
+{
+	NSUInteger i, devicesCount;
+	devicesCount = pjmedia_snd_get_dev_count();
+	if (devicesCount == 0)
+		NSLog(@"Error getting sound devices");
+	
+	NSMutableArray *devices = [NSMutableArray arrayWithCapacity:devicesCount];
+	for (i = 0; i < devicesCount; ++i) {
+		const pjmedia_snd_dev_info *deviceInfo;
+		
+		deviceInfo = pjmedia_snd_get_dev_info(i);
+		NSAssert(deviceInfo != NULL, @"Could not get sound device info");
+		
+		NSString *deviceName = [NSString stringWithCString:deviceInfo->name encoding:NSASCIIStringEncoding];
+		NSNumber *inputCount = [NSNumber numberWithInt:deviceInfo->input_count];
+		NSNumber *outputCount = [NSNumber numberWithInt:deviceInfo->output_count];
+		NSNumber *defaultSamplesPerSecond = [NSNumber numberWithInt:deviceInfo->default_samples_per_sec];
+		
+		NSDictionary *deviceDict = [NSDictionary dictionaryWithObjectsAndKeys:
+									deviceName, AKSoundDeviceName,
+									inputCount, AKSoundDeviceInputCount,
+									outputCount, AKSoundDeviceOutputCount,
+									defaultSamplesPerSecond, AKSoundDeviceDefaultSamplesPerSecond,
+									nil];
+		
+		[devices addObject:deviceDict];
+	}
+	
+	return [[devices retain] autorelease];
 }
 
 - (AKTelephoneCallData *)callData
@@ -347,6 +395,61 @@ static AKTelephone *sharedTelephone = nil;
 - (void)hangUpAllCalls
 {
 	pjsua_call_hangup_all();
+}
+
+- (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output
+{
+	NSInteger soundInputDevice, soundOutputDevice;
+	pjsua_get_snd_dev(&soundInputDevice, &soundOutputDevice);
+	if (soundInputDevice == input && soundOutputDevice == output)
+		return YES;
+	
+	NSArray *devices = [self soundDevices];
+	NSInteger i;
+	
+	if (input < 0 || input == NSNotFound) {
+		// Determine first matched sound input device.
+		for (i = 0; i < [devices count]; ++i)
+			if ([[[devices objectAtIndex:i] objectForKey:AKSoundDeviceInputCount] intValue] > 0) {
+				input = i;
+				break;
+			}
+	}
+	
+	if (output < 0 || output == NSNotFound) {
+		// Determine first matched sound output device.
+		for (i = 0; i < [devices count]; ++i)
+			if ([[[devices objectAtIndex:i] objectForKey:AKSoundDeviceOutputCount] intValue] > 0) {
+				output = i;
+				break;
+			}
+	}
+	
+	NSLog(@"Setting sound devices to %d, %d", input, output);
+	pj_status_t status = pjsua_set_snd_dev(input, output);
+	
+	return (status == PJ_SUCCESS) ? YES : NO;
+}
+
+// This method will leave application silent.
+// setSoundInputDevice:soundOutputDevice: must be called explicitly after calling this method to enable sound IO.
+// Usually, application controller is responsible of sending setSoundInputDevice:soundOutputDevice: to set sound IO after this method is called.
+// Posts AKTelephoneDidUpdateSoundDevicesNotification asynchronously.
+- (void)updateSoundDevices
+{	
+	// Stop sound device and disconnect it from the conference.
+	pjsua_set_null_snd_dev();
+	
+	// Reinit sound device.
+	pjmedia_snd_deinit();
+	pjmedia_snd_init(pjsua_get_pool_factory());
+	
+	// Post notification asynchronously.
+	NSNotification *notification =
+	[NSNotification notificationWithName:AKTelephoneDidUpdateSoundDevicesNotification
+								  object:self];
+	[[NSNotificationQueue defaultQueue] enqueueNotification:notification
+											   postingStyle:NSPostWhenIdle];
 }
 
 - (BOOL)destroyUserAgent

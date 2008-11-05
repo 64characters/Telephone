@@ -23,6 +23,8 @@ NSString *AKLogLevel = @"LogLevel";
 NSString *AKConsoleLogLevel = @"ConsoleLogLevel";
 NSString *AKVoiceActivityDetection = @"VoiceActivityDetection";
 NSString *AKTransportPort = @"TransportPort";
+NSString *AKSoundInput = @"SoundInput";
+NSString *AKSoundOutput = @"SoundOutput";
 
 NSString *AKFullName = @"FullName";
 NSString *AKSIPAddress = @"SIPAddress";
@@ -102,6 +104,8 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
 	[self displayView:generalView withTitle:@"General"];
 	
+	[self updateSoundDevices];
+		
 	NSInteger row = [accountsTable selectedRow];
 	if (row == -1)
 		return;
@@ -375,6 +379,61 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 													  userInfo:userInfo];
 }
 
+- (IBAction)changeSoundIO:(id)sender
+{
+	BOOL isChanged = [[AKTelephone sharedTelephone] setSoundInputDevice:[[soundInputPopUp selectedItem] tag]
+													soundOutputDevice:[[soundOutputPopUp selectedItem] tag]];
+	if (!isChanged) {
+		NSLog(@"Error changing sound devices");
+		return;
+	}
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[soundInputPopUp titleOfSelectedItem] forKey:AKSoundInput];
+	[defaults setObject:[soundOutputPopUp titleOfSelectedItem] forKey:AKSoundOutput];
+}
+
+- (void)updateSoundDevices
+{
+	// Populate sound IO pop-up buttons
+	NSArray *soundDevices = [[AKTelephone sharedTelephone] soundDevices];
+	NSMenu *soundInputMenu = [[NSMenu alloc] init];
+	NSMenu *soundOutputMenu = [[NSMenu alloc] init];
+	NSInteger i;
+	for (i = 0; i < [soundDevices count]; ++i) {
+		NSDictionary *deviceDict = [soundDevices objectAtIndex:i];
+		
+		NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
+		[aMenuItem setTitle:[deviceDict objectForKey:AKSoundDeviceName]];
+		[aMenuItem setTag:i];
+		
+		if ([[deviceDict objectForKey:AKSoundDeviceInputCount] intValue] > 0)
+			[soundInputMenu addItem:[[aMenuItem copy] autorelease]];
+		
+		if ([[deviceDict objectForKey:AKSoundDeviceOutputCount] intValue] > 0)
+			[soundOutputMenu addItem:[[aMenuItem copy] autorelease]];
+		
+		[aMenuItem release];
+	}
+	
+	[soundInputPopUp setMenu:soundInputMenu];
+	[soundOutputPopUp setMenu:soundOutputMenu];
+	
+	[soundInputMenu release];
+	[soundOutputMenu release];
+	
+	// Select saved sound devices
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSString *lastSoundInput = [defaults stringForKey:AKSoundInput];
+	if (lastSoundInput != nil && [soundInputPopUp itemWithTitle:lastSoundInput] != nil)
+		[soundInputPopUp selectItemWithTitle:lastSoundInput];
+	
+	NSString *lastSoundOutput = [defaults stringForKey:AKSoundOutput];
+	if (lastSoundOutput != nil && [soundOutputPopUp itemWithTitle:lastSoundOutput] != nil)
+		[soundOutputPopUp selectItemWithTitle:lastSoundOutput];
+}
+
 
 #pragma mark NSTableView data source
 
@@ -421,4 +480,3 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 @end
-

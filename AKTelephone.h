@@ -12,6 +12,11 @@
 
 @class AKTelephoneAccount, AKTelephoneCall;
 
+extern NSString *AKSoundDeviceName;
+extern NSString *AKSoundDeviceInputCount;
+extern NSString *AKSoundDeviceOutputCount;
+extern NSString *AKSoundDeviceDefaultSamplesPerSecond;
+
 typedef enum _AKTelephoneReadyState {
 	AKTelephoneCreated				= 1,	// After pjsua_create()
 	AKTelephoneConfigured			= 2,	// After pjsua_init()
@@ -45,6 +50,7 @@ typedef struct _AKTelephoneCallData {
 
 @property(readwrite, assign) id delegate;
 @property(readonly, retain) NSMutableArray *accounts;
+@property(readonly, retain) NSArray *soundDevices;
 @property(readwrite, assign) AKTelephoneReadyState readyState;
 @property(readonly, assign) AKTelephoneCallData *callData;
 @property(readonly, assign) pj_pool_t *pjPool;
@@ -71,6 +77,14 @@ typedef struct _AKTelephoneCallData {
 - (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier;
 - (void)hangUpAllCalls;
 
+// Set new input and output sound devices.
+// If NSNotFound or -1 is passed as either parameter, first matched device will be used.
+- (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output;
+
+// Update list of sound devices. Posts AKTelephoneDidUpdateSoundDevicesNotification.
+// After calling this method, setSoundInputDevice:soundOutputDevice: must be called to set appropriate IO.
+- (void)updateSoundDevices;
+
 // Destroy undelying sip user agent correctly
 - (BOOL)destroyUserAgent;
 
@@ -80,10 +94,11 @@ typedef struct _AKTelephoneCallData {
 // Callback from PJSUA
 void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
 
-
 @interface NSObject(AKTelephoneNotifications)
 - (void)telephoneDidDetectNAT:(NSNotification *)notification;
+- (void)telephoneDidUpdateSoundDevices:(NSNotification *)notification;
 @end
 
 // Notifications
 extern NSString *AKTelephoneDidDetectNATNotification;
+extern NSString *AKTelephoneDidUpdateSoundDevicesNotification;

@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-#import <pjsua-lib/pjsua.h>
+#import <CoreAudio/CoreAudio.h>
 
 
 @class AKTelephone, AKAccountController, AKPreferenceController;
@@ -25,8 +24,15 @@
 @property(readonly, retain) NSMutableDictionary *accountControllers;
 @property(readwrite, retain) AKPreferenceController *preferenceController;
 
+// Choose saved previously or first matched sound devices from the list of available devices.
+- (void)selectSoundDevices;
+
 - (IBAction)showPreferencePanel:(id)sender;
 
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
 
 @end
+
+
+// AudioHardware callback to track adding/removing audio devices
+OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData);
