@@ -20,9 +20,9 @@
 	IBOutlet NSMenuItem *preferencesMenuItem;
 }
 
-@property(readonly, retain) AKTelephone *telephone;
-@property(readonly, retain) NSMutableDictionary *accountControllers;
-@property(readwrite, retain) AKPreferenceController *preferenceController;
+@property(nonatomic, readonly, retain) AKTelephone *telephone;
+@property(nonatomic, readonly, retain) NSMutableDictionary *accountControllers;
+@property(nonatomic, readwrite, retain) AKPreferenceController *preferenceController;
 
 // Choose saved previously or first matched sound devices from the list of available devices.
 - (void)selectSoundDevices;

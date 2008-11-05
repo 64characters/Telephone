@@ -36,8 +36,8 @@ enum {
 	IBOutlet NSButton *authenticationFailureCancelButton;
 }
 
-@property(readwrite, retain) AKTelephoneAccount *account;
-@property(readonly, retain) NSMutableArray *callControllers;
+@property(nonatomic, readwrite, retain) AKTelephoneAccount *account;
+@property(nonatomic, readonly, retain) NSMutableArray *callControllers;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;

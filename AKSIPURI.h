@@ -23,18 +23,18 @@
 	NSString *maddrParameter;
 }
 
-@property(readonly, copy) NSString *SIPAddress;
-@property(readwrite, copy) NSString *displayName;
-@property(readwrite, copy) NSString *user;
-@property(readwrite, copy) NSString *password;
-@property(readwrite, copy) NSString *host;
-@property(readwrite, assign) NSInteger port;
-@property(readwrite, copy) NSString *userParameter;
-@property(readwrite, copy) NSString *methodParameter;
-@property(readwrite, copy) NSString *transportParameter;
-@property(readwrite, assign) NSInteger TTLParameter;
-@property(readwrite, assign) NSInteger looseRoutingParameter;
-@property(readwrite, copy) NSString *maddrParameter;
+@property(nonatomic, readonly, copy) NSString *SIPAddress;
+@property(nonatomic, readwrite, copy) NSString *displayName;
+@property(nonatomic, readwrite, copy) NSString *user;
+@property(nonatomic, readwrite, copy) NSString *password;
+@property(nonatomic, readwrite, copy) NSString *host;
+@property(nonatomic, readwrite, assign) NSInteger port;
+@property(nonatomic, readwrite, copy) NSString *userParameter;
+@property(nonatomic, readwrite, copy) NSString *methodParameter;
+@property(nonatomic, readwrite, copy) NSString *transportParameter;
+@property(nonatomic, readwrite, assign) NSInteger TTLParameter;
+@property(nonatomic, readwrite, assign) NSInteger looseRoutingParameter;
+@property(nonatomic, readwrite, copy) NSString *maddrParameter;
 
 - (id)initWithString:(NSString *)SIPURIString;
 

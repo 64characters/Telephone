@@ -48,15 +48,15 @@ typedef struct _AKTelephoneCallData {
 	pjmedia_port *ringbackPort;
 }
 
-@property(readwrite, assign) id delegate;
-@property(readonly, retain) NSMutableArray *accounts;
-@property(readonly, retain) NSArray *soundDevices;
-@property(readwrite, assign) AKTelephoneReadyState readyState;
-@property(readonly, assign) AKTelephoneCallData *callData;
-@property(readonly, assign) pj_pool_t *pjPool;
-@property(readonly, assign) NSInteger ringbackSlot;
-@property(readwrite, assign) NSInteger ringbackCount;
-@property(readonly, assign) pjmedia_port *ringbackPort;
+@property(nonatomic, readwrite, assign) id delegate;
+@property(nonatomic, readonly, retain) NSMutableArray *accounts;
+@property(nonatomic, readonly, retain) NSArray *soundDevices;
+@property(nonatomic, readwrite, assign) AKTelephoneReadyState readyState;
+@property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
+@property(nonatomic, readonly, assign) pj_pool_t *pjPool;
+@property(nonatomic, readonly, assign) NSInteger ringbackSlot;
+@property(nonatomic, readwrite, assign) NSInteger ringbackCount;
+@property(nonatomic, readonly, assign) pjmedia_port *ringbackPort;
 
 + (id)telephoneWithDelegate:(id)aDelegate;
 + (id)telephone;

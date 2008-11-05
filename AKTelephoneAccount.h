@@ -34,20 +34,20 @@ extern NSString *AKTelephoneAccountUsername;
 	NSMutableArray *calls;
 }
 
-@property(readwrite, assign) id delegate;
-@property(readwrite, copy) NSString *fullName;
-@property(readwrite, copy) NSString *SIPAddress;
-@property(readwrite, copy) NSString *registrar;
-@property(readwrite, copy) NSString *realm;
-@property(readwrite, copy) NSString *username;
-@property(readwrite, assign) NSInteger identifier;
-@property(readwrite, assign, getter=isRegistered) BOOL registered;
-@property(readonly, assign) NSInteger registrationStatus;
-@property(readonly, copy) NSString *registrationStatusText;
-@property(readonly, assign) NSInteger registrationExpireTime;
-@property(readwrite, assign, getter=isOnline) BOOL online;
-@property(readonly, copy) NSString *onlineStatusText;
-@property(readonly, retain) NSMutableArray *calls;
+@property(nonatomic, readwrite, assign) id delegate;
+@property(nonatomic, readwrite, copy) NSString *fullName;
+@property(nonatomic, readwrite, copy) NSString *SIPAddress;
+@property(nonatomic, readwrite, copy) NSString *registrar;
+@property(nonatomic, readwrite, copy) NSString *realm;
+@property(nonatomic, readwrite, copy) NSString *username;
+@property(nonatomic, readwrite, assign) NSInteger identifier;
+@property(nonatomic, readwrite, assign, getter=isRegistered) BOOL registered;
+@property(nonatomic, readonly, assign) NSInteger registrationStatus;
+@property(nonatomic, readonly, copy) NSString *registrationStatusText;
+@property(nonatomic, readonly, assign) NSInteger registrationExpireTime;
+@property(nonatomic, readwrite, assign, getter=isOnline) BOOL online;
+@property(nonatomic, readonly, copy) NSString *onlineStatusText;
+@property(nonatomic, readonly, retain) NSMutableArray *calls;
 
 + (id)telephoneAccountWithFullName:(NSString *)aFullName
 						SIPAddress:(NSString *)aSIPAddress
