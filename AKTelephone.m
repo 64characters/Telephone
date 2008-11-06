@@ -430,7 +430,7 @@ static AKTelephone *sharedTelephone = nil;
 	if (input < 0 || input == NSNotFound) {
 		// Determine first matched sound input device.
 		for (i = 0; i < [devices count]; ++i)
-			if ([[[devices objectAtIndex:i] objectForKey:AKSoundDeviceInputCount] intValue] > 0) {
+			if ([[[devices objectAtIndex:i] objectForKey:AKSoundDeviceInputCount] integerValue] > 0) {
 				input = i;
 				break;
 			}
@@ -439,7 +439,7 @@ static AKTelephone *sharedTelephone = nil;
 	if (output < 0 || output == NSNotFound) {
 		// Determine first matched sound output device.
 		for (i = 0; i < [devices count]; ++i)
-			if ([[[devices objectAtIndex:i] objectForKey:AKSoundDeviceOutputCount] intValue] > 0) {
+			if ([[[devices objectAtIndex:i] objectForKey:AKSoundDeviceOutputCount] integerValue] > 0) {
 				output = i;
 				break;
 			}

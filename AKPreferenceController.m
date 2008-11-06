@@ -427,10 +427,10 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 		[aMenuItem setTitle:[deviceDict objectForKey:AKSoundDeviceName]];
 		[aMenuItem setTag:i];
 		
-		if ([[deviceDict objectForKey:AKSoundDeviceInputCount] intValue] > 0)
+		if ([[deviceDict objectForKey:AKSoundDeviceInputCount] integerValue] > 0)
 			[soundInputMenu addItem:[[aMenuItem copy] autorelease]];
 		
-		if ([[deviceDict objectForKey:AKSoundDeviceOutputCount] intValue] > 0)
+		if ([[deviceDict objectForKey:AKSoundDeviceOutputCount] integerValue] > 0)
 			[soundOutputMenu addItem:[[aMenuItem copy] autorelease]];
 		
 		[aMenuItem release];

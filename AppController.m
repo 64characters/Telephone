@@ -171,7 +171,7 @@
 		for (i = 0; i < [soundDevices count]; ++i) {
 			deviceDict = [soundDevices objectAtIndex:i];
 			if ([[deviceDict objectForKey:AKSoundDeviceName] isEqual:lastSoundInputString] &&
-				[[deviceDict objectForKey:AKSoundDeviceInputCount] intValue] > 0)
+				[[deviceDict objectForKey:AKSoundDeviceInputCount] integerValue] > 0)
 			{
 				newSoundInput = i;
 				break;
@@ -184,7 +184,7 @@
 		for (i = 0; i < [soundDevices count]; ++i) {
 			deviceDict = [soundDevices objectAtIndex:i];
 			if ([[deviceDict objectForKey:AKSoundDeviceName] isEqual:lastSoundOutputString] &&
-				[[deviceDict objectForKey:AKSoundDeviceOutputCount] intValue] > 0)
+				[[deviceDict objectForKey:AKSoundDeviceOutputCount] integerValue] > 0)
 			{
 				newSoundOutput = i;
 				break;
