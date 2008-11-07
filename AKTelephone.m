@@ -36,14 +36,6 @@
 
 #define THIS_FILE "AKTelephone.m"
 
-// Ringtones.
-#define RINGBACK_FREQ1		440
-#define RINGBACK_FREQ2		480
-#define RINGBACK_ON			2000
-#define RINGBACK_OFF		4000
-#define RINGBACK_CNT		1
-#define RINGBACK_INTERVAL	4000
-
 NSString *AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 NSString *AKTelephoneDidUpdateSoundDevicesNotification = @"AKTelephoneDidUpdateSoundDevices";
 
@@ -54,6 +46,15 @@ NSString *AKSoundDeviceOutputCount = @"AKSoundDeviceOutputCount";
 NSString *AKSoundDeviceDefaultSamplesPerSecond = @"AKSoundDeviceDefaultSamplesPerSecond";
 
 static AKTelephone *sharedTelephone = nil;
+
+typedef enum _AKTelephoneRingtones {
+	AKRingbackFrequency1	= 440,
+	AKRingbackFrequency2	= 480,
+	AKRingbackOnDuration	= 2000,
+	AKRingbackOffDuration	= 4000,
+	AKRingbackCount			= 1,
+	AKRingbackInterval		= 4000
+} AKTelephoneRingtones;
 
 @implementation AKTelephone
 
@@ -266,7 +267,7 @@ static AKTelephone *sharedTelephone = nil;
 	
 	// Create ringback tones.
 	unsigned i, samplesPerFrame;
-	pjmedia_tone_desc tone[RINGBACK_CNT];
+	pjmedia_tone_desc tone[AKRingbackCount];
 	pj_str_t name;
 	
 	samplesPerFrame = mediaConfig.audio_frame_ptime *
@@ -287,15 +288,15 @@ static AKTelephone *sharedTelephone = nil;
 	}
 	
 	pj_bzero(&tone, sizeof(tone));
-	for (i = 0; i < RINGBACK_CNT; ++i) {
-		tone[i].freq1 = RINGBACK_FREQ1;
-		tone[i].freq2 = RINGBACK_FREQ2;
-		tone[i].on_msec = RINGBACK_ON;
-		tone[i].off_msec = RINGBACK_OFF;
+	for (i = 0; i < AKRingbackCount; ++i) {
+		tone[i].freq1 = AKRingbackFrequency1;
+		tone[i].freq2 = AKRingbackFrequency2;
+		tone[i].on_msec = AKRingbackOnDuration;
+		tone[i].off_msec = AKRingbackOffDuration;
 	}
-	tone[RINGBACK_CNT - 1].off_msec = RINGBACK_INTERVAL;
+	tone[AKRingbackCount - 1].off_msec = AKRingbackInterval;
 	
-	pjmedia_tonegen_play(ringbackPort, RINGBACK_CNT, tone, PJMEDIA_TONEGEN_LOOP);
+	pjmedia_tonegen_play(ringbackPort, AKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
 	
 	status = pjsua_conf_add_port(pjPool, ringbackPort, &ringbackSlot);
 	if (status != PJ_SUCCESS) {
