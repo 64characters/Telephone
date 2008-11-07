@@ -128,7 +128,7 @@ static AKTelephone *sharedTelephone = nil;
 		[devices addObject:deviceDict];
 	}
 	
-	return [[devices retain] autorelease];
+	return [[devices copy] autorelease];
 }
 
 - (AKTelephoneCallData *)callData
