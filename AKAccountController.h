@@ -38,6 +38,7 @@ enum {
 };
 
 @interface AKAccountController : NSWindowController {
+@private
 	AKTelephoneAccount *account;
 	NSMutableArray *callControllers;
 	

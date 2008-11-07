@@ -30,6 +30,7 @@
 
 
 @interface AKSIPURI : NSObject {
+@private
 	NSString *displayName;
 	NSString *user;
 	NSString *password;

@@ -51,6 +51,7 @@ typedef struct _AKTelephoneCallData {
 } AKTelephoneCallData;
 
 @interface AKTelephone : NSObject {
+@private
 	id delegate;
 	
 	NSMutableArray *accounts;

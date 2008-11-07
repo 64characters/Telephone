@@ -56,6 +56,7 @@ extern NSString *AKAccountKey;
 extern NSString *AKAccountEnabled;
 
 @interface AKPreferenceController : NSWindowController {
+@private
 	id delegate;
 	
 	IBOutlet NSToolbar *toolbar;

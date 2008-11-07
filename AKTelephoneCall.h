@@ -36,6 +36,7 @@
 extern const NSInteger AKTelephoneCallsMax;
 
 @interface AKTelephoneCall : NSObject {
+@private
 	id delegate;
 	
 	NSInteger identifier;

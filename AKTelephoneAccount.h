@@ -41,6 +41,7 @@ extern NSString *AKTelephoneAccountRealm;
 extern NSString *AKTelephoneAccountUsername;
 
 @interface AKTelephoneAccount : NSObject {
+@private
 	id delegate;
 	
 	NSString *fullName;

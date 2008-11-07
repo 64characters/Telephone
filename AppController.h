@@ -33,6 +33,7 @@
 @class AKTelephone, AKAccountController, AKPreferenceController;
 
 @interface AppController : NSObject {
+@private
 	AKTelephone *telephone;
 	NSMutableDictionary *accountControllers;
 	AKPreferenceController *preferenceController;

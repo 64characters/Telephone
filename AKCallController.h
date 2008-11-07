@@ -32,6 +32,7 @@
 @class AKAccountController, AKTelephoneCall;
 
 @interface AKCallController : NSWindowController {
+@private
 	AKTelephoneCall *call;
 	AKAccountController *accountController;
 	NSString *status;
