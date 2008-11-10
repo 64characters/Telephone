@@ -232,6 +232,7 @@ typedef enum _AKTelephoneRingtones {
 	loggingConfig.console_level = [defaults integerForKey:AKConsoleLogLevel];
 	
 	mediaConfig.no_vad = ![defaults boolForKey:AKVoiceActivityDetection];
+	mediaConfig.snd_auto_close_time = 0;
 	
 	transportConfig.port = [defaults integerForKey:AKTransportPort];
 	
