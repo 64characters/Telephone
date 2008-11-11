@@ -91,6 +91,9 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 - (void)setRegistered:(BOOL)value
 {
+	if ([self identifier] == PJSUA_INVALID_ID)
+		return;
+	
 	if (value) {
 		pjsua_acc_set_registration([self identifier], PJ_TRUE);
 		[self setOnline:YES];
@@ -102,15 +105,24 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 - (NSInteger)registrationStatus
 {
-	pjsua_acc_info accountInfo;
+	if ([self identifier] == PJSUA_INVALID_ID)
+		return 0;
 	
-	pjsua_acc_get_info([self identifier], &accountInfo);
+	pjsua_acc_info accountInfo;
+	pj_status_t status;
+	
+	status = pjsua_acc_get_info([self identifier], &accountInfo);
+	if (status != PJ_SUCCESS)
+		return 0;
 	
 	return accountInfo.status;
 }
 
 - (NSString *)registrationStatusText
 {
+	if ([self identifier] == PJSUA_INVALID_ID)
+		return nil;
+	
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
@@ -123,15 +135,24 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 - (NSInteger)registrationExpireTime
 {
-	pjsua_acc_info accountInfo;
+	if ([self identifier] == PJSUA_INVALID_ID)
+		return -1;
 	
-	pjsua_acc_get_info([self identifier], &accountInfo);
+	pjsua_acc_info accountInfo;
+	pj_status_t status;
+	
+	status = pjsua_acc_get_info([self identifier], &accountInfo);
+	if (status != PJ_SUCCESS)
+		return -1;
 	
 	return accountInfo.expires;
 }
 
 - (BOOL)isOnline
 {
+	if ([self identifier] == PJSUA_INVALID_ID)
+		return NO;
+	
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
@@ -144,6 +165,9 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 - (void)setOnline:(BOOL)value
 {
+	if ([self identifier] == PJSUA_INVALID_ID)
+		return;
+	
 	if (value)
 		pjsua_acc_set_online_status([self identifier], PJ_TRUE);
 	else
@@ -152,6 +176,9 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 
 - (NSString *)onlineStatusText
 {
+	if ([self identifier] == PJSUA_INVALID_ID)
+		return nil;
+	
 	pjsua_acc_info accountInfo;
 	pj_status_t status;
 	
