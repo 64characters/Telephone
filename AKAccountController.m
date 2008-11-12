@@ -42,7 +42,33 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 @implementation AKAccountController
 
 @synthesize account;
+@dynamic accountRegistered;
 @synthesize callControllers;
+
+- (BOOL)isAccountRegistered
+{
+	return [[self account] isRegistered];
+}
+
+- (void)setAccountRegistered:(BOOL)flag
+{	
+	if ([[self account] identifier] != PJSUA_INVALID_ID) {		// If account was added to Telephone.
+		if (flag == YES) {
+			NSSize buttonSize = [accountRegistrationPopUp frame].size;
+			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:@"Connecting..."];
+		}
+		
+		[[self account] setRegistered:flag];
+		
+	} else {
+		NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
+													accountName:[[self account] username]];
+		// Add account to Telephone
+		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
+	}
+}
 
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
 {
@@ -148,17 +174,10 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 
 - (IBAction)changeAccountRegistration:(id)sender
 {	
-	if (![[self account] isRegistered] && [[sender selectedItem] tag] == AKTelephoneAccountUnregisterTag)
+	if (![self isAccountRegistered] && [[sender selectedItem] tag] == AKTelephoneAccountUnregisterTag)
 		return;
 	
-	if ([[sender selectedItem] tag] == AKTelephoneAccountRegisterTag) {
-		NSSize buttonSize = [accountRegistrationPopUp frame].size;
-		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
-		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:@"Connecting..."];
-	}
-	
-	[[self account] setRegistered:[[sender selectedItem] tag]];
+	[self setAccountRegistered:[[sender selectedItem] tag]];
 }
 
 // Remove old account from Telephone, change username for the account, add to Telephone with new password and update Keychain.
@@ -193,19 +212,10 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 
 - (void)windowDidLoad
 {
-	if ([[AKTelephone sharedTelephone] readyState] != AKTelephoneStarted)
-		return;
-	
-	NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
-												accountName:[[self account] username]];
-	
-	// Add account to Telephone
-	[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
-	
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
-	buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+	buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:@"Connecting..."];
+	[accountRegistrationPopUp setTitle:@"Offline"];
 }
 
 // When account registration changes, make appropriate modifications in UI

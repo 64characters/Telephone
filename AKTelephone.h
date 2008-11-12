@@ -37,13 +37,6 @@ extern NSString *AKSoundDeviceInputCount;
 extern NSString *AKSoundDeviceOutputCount;
 extern NSString *AKSoundDeviceDefaultSamplesPerSecond;
 
-typedef enum _AKTelephoneReadyState {
-	AKTelephoneCreated				= 1,	// After pjsua_create()
-	AKTelephoneConfigured			= 2,	// After pjsua_init()
-	AKTelephoneTransportCreated		= 3,	// After pjsua_transport_create()
-	AKTelephoneStarted				= 4		// After pjsua_start(), all OK
-} AKTelephoneReadyState;
-
 typedef struct _AKTelephoneCallData {
 	pj_timer_entry timer;
 	pj_bool_t ringbackOn;
@@ -55,7 +48,7 @@ typedef struct _AKTelephoneCallData {
 	id delegate;
 	
 	NSMutableArray *accounts;
-	AKTelephoneReadyState readyState;
+	BOOL started;
 
 	// PJSUA config
 	pjsua_config userAgentConfig;
@@ -71,8 +64,8 @@ typedef struct _AKTelephoneCallData {
 
 @property(nonatomic, readwrite, assign) id delegate;
 @property(nonatomic, readonly, retain) NSMutableArray *accounts;
+@property(nonatomic, readonly, assign) BOOL started;
 @property(nonatomic, readonly, retain) NSArray *soundDevices;
-@property(nonatomic, readwrite, assign) AKTelephoneReadyState readyState;
 @property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
 @property(nonatomic, readonly, assign) pj_pool_t *pjPool;
 @property(nonatomic, readonly, assign) NSInteger ringbackSlot;
@@ -86,8 +79,11 @@ typedef struct _AKTelephoneCallData {
 // Designated initializer
 - (id)initWithDelegate:(id)aDelegate;
 
-// Start Telephone
-- (BOOL)start;
+// Start user agent.
+- (BOOL)startUserAgent;
+
+// Destroy undelying sip user agent correctly
+- (BOOL)destroyUserAgent;
 
 // Dealing with accounts
 - (BOOL)addAccount:(AKTelephoneAccount *)anAccount withPassword:(NSString *)aPassword;
@@ -106,14 +102,16 @@ typedef struct _AKTelephoneCallData {
 // After calling this method, setSoundInputDevice:soundOutputDevice: must be called to set appropriate IO.
 - (void)updateSoundDevices;
 
-// Destroy undelying sip user agent correctly
-- (BOOL)destroyUserAgent;
-
 @end
 
 
 // Callback from PJSUA
 void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
+
+
+@interface NSObject(AKTelephoneDelegate)
+- (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount;
+@end
 
 @interface NSObject(AKTelephoneNotifications)
 - (void)telephoneDidDetectNAT:(NSNotification *)notification;

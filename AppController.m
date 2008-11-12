@@ -77,19 +77,7 @@
 - (void)awakeFromNib
 {
 	telephone = [AKTelephone telephoneWithDelegate:self];
-
-	if (telephone == nil) {
-		NSLog(@"Can't create Telephone");
-		return;
-	}
-	
-	BOOL started = [telephone start];
-	if (!started)
-		NSLog(@"Error starting Telephone");
-	
 	accountControllers = [[NSMutableDictionary alloc] init];
-	
-	[self selectSoundDevices];
 	
 	// Install audio devices changes callback
 	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AHPropertyListenerProc, [self telephone]);
@@ -125,9 +113,12 @@
 		return;
 	}
 	
-	// There are saved accounts. Add them to Telephone.
 	NSArray *accountSortOrder = [defaults arrayForKey:AKAccountSortOrder];
-	for (NSString *accountKey in accountSortOrder) {
+	NSString *accountKey;
+	AKAccountController *anAccountController;
+	
+	// There are saved accounts. Open account windows.
+	for (accountKey in accountSortOrder) {
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
 		
 		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
@@ -139,17 +130,27 @@
 		NSString *realm = [accountDict objectForKey:AKRealm];
 		NSString *username = [accountDict objectForKey:AKUsername];
 		
-		AKAccountController *anAccountController = [[AKAccountController alloc] initWithFullName:fullName
-																					  SIPAddress:SIPAddress
-																					   registrar:registrar
-																						   realm:realm
-																						username:username];
+		anAccountController = [[AKAccountController alloc] initWithFullName:fullName
+																 SIPAddress:SIPAddress
+																  registrar:registrar
+																	  realm:realm
+																   username:username];
 		[[self accountControllers] setObject:anAccountController forKey:accountKey];
 		
 		[[anAccountController window] setTitle:[[anAccountController account] SIPAddress]];
 		[[anAccountController window] orderBack:self];
 		
 		[anAccountController release];
+	}
+	
+	// Add accounts to Telephone.
+	for (accountKey in accountSortOrder) {
+		anAccountController = [[self accountControllers] objectForKey:accountKey];
+		[anAccountController setAccountRegistered:YES];
+		
+		// Don't add subsequent accounts if Telephone could not start.
+		if (![[self telephone] started])
+			break;
 	}
 }
 
@@ -273,6 +274,9 @@
 		[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
 		[[theAccountController window] orderFront:self];
 		
+		// Add account to Telephone.
+		[theAccountController setAccountRegistered:YES];
+		
 		[theAccountController release];
 	}
 }
@@ -280,6 +284,35 @@
 
 #pragma mark -
 #pragma mark AKTelephone delegate methods
+
+// This method decides whether Telephone should add an account.
+// Telephone is started in this method if needed.
+- (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount
+{
+	BOOL started;
+	if ([[self telephone] started])
+		return YES;
+	else
+		started = [[self telephone] startUserAgent];
+	
+	if (!started) {
+		NSLog(@"Could not start Telephone agent. Please, check your network connection and STUN server settings.");
+		
+		// Display application modal alert.
+		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+		[alert addButtonWithTitle:@"OK"];
+		[alert setMessageText:@"Could not start Telephone agent."];
+		[alert setInformativeText:@"Please, check your network connection and STUN server settings."];
+		[alert runModal];
+		
+		return NO;
+	}
+	
+	[self selectSoundDevices];
+	[[self preferenceController] updateSoundDevices];
+	
+	return YES;
+}
 
 // Telephone updated sound devices list and left the application silent.
 // Must set appropriate sound IO here!

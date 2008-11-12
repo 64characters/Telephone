@@ -36,6 +36,7 @@
 
 #define THIS_FILE "AKTelephone.m"
 
+
 NSString *AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 NSString *AKTelephoneDidUpdateSoundDevicesNotification = @"AKTelephoneDidUpdateSoundDevices";
 
@@ -56,12 +57,20 @@ typedef enum _AKTelephoneRingtones {
 	AKRingbackInterval		= 4000
 } AKTelephoneRingtones;
 
+
+@interface AKTelephone()
+
+@property(nonatomic, readwrite, assign) BOOL started;
+
+@end
+
+
 @implementation AKTelephone
 
 @dynamic delegate;
 @synthesize accounts;
+@synthesize started;
 @dynamic soundDevices;
-@synthesize readyState;
 @dynamic callData;
 @synthesize pjPool;
 @synthesize ringbackSlot;
@@ -208,6 +217,38 @@ typedef enum _AKTelephoneRingtones {
 	
 	[self setDelegate:aDelegate];
 	accounts = [[NSMutableArray alloc] init];
+	[self setStarted:NO];
+	
+	return self;
+}
+
+- (id)init
+{
+	return [self initWithDelegate:nil];
+}
+
+- (void)dealloc
+{
+	[accounts release];
+	
+	[super dealloc];
+}
+
+
+#pragma mark -
+
+- (BOOL)startUserAgent
+{
+	pj_status_t status;
+	
+	// Create PJSUA.
+	status = pjsua_create();
+	if (status != PJ_SUCCESS) {
+		NSLog(@"Error creating PJSUA");
+		return NO;
+	}
+	// Create pool for PJSUA.
+	pjPool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
 	
 	pjsua_config_default(&userAgentConfig);
 	pjsua_logging_config_default(&loggingConfig);
@@ -242,28 +283,12 @@ typedef enum _AKTelephoneRingtones {
 	userAgentConfig.cb.on_reg_state = AKTelephoneAccountRegistrationStateChanged;
 	userAgentConfig.cb.on_nat_detect = AKTelephoneDetectedNAT;
 	
-	pj_status_t status;
-	
-	// Create pjsua.
-	status = pjsua_create();
-	if (status != PJ_SUCCESS) {
-		NSLog(@"Error creating pjsua");
-		[self release];
-		sharedTelephone = nil;
-		return nil;
-	}
-	// Create pool for pjsua.
-	pjPool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
-	
-	[self setReadyState:AKTelephoneCreated];
-	
-	// Initialize pjsua.
+	// Initialize PJSUA.
 	status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
 	if (status != PJ_SUCCESS) {
-		NSLog(@"Error initializing pjsua");
-		[self release];
-		sharedTelephone = nil;
-		return nil;
+		NSLog(@"Error initializing PJSUA");
+		[self destroyUserAgent];
+		return NO;
 	}
 	
 	// Create ringback tones.
@@ -283,9 +308,8 @@ typedef enum _AKTelephoneRingtones {
 									 &ringbackPort);
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error creating ringback tones");
-		[self release];
-		sharedTelephone = nil;
-		return nil;
+		[self destroyUserAgent];
+		return NO;
 	}
 	
 	pj_bzero(&tone, sizeof(tone));
@@ -302,55 +326,67 @@ typedef enum _AKTelephoneRingtones {
 	status = pjsua_conf_add_port(pjPool, ringbackPort, &ringbackSlot);
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error adding media port for ringback tones");
-		[self release];
-		sharedTelephone = nil;
-		return nil;
+		[self destroyUserAgent];
+		return NO;
 	}
-	
-	[self setReadyState:AKTelephoneConfigured];
 	
 	// Add UDP transport.
 	status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, NULL);
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error creating transport");
-		[self release];
-		sharedTelephone = nil;
-		return nil;
+		[self destroyUserAgent];
+		return NO;
 	}
 	
-	[self setReadyState:AKTelephoneTransportCreated];
-	
-	return self;
-}
-
-- (id)init
-{
-	return [self initWithDelegate:nil];
-}
-
-- (void)dealloc
-{
-	[accounts release];
-	
-	[super dealloc];
-}
-
-
-#pragma mark -
-
-- (BOOL)start
-{	
-	pj_status_t status = pjsua_start();
-	if (status != PJ_SUCCESS)
+	// Start PJSUA.
+	status = pjsua_start();
+	if (status != PJ_SUCCESS) {
+		NSLog(@"Error starting PJSUA");
+		[self destroyUserAgent];
 		return NO;
+	}
 	
-	[self setReadyState:AKTelephoneStarted];
+	[self setStarted:YES];
+	
+	return YES;
+}
+
+- (BOOL)destroyUserAgent
+{
+	// Close ringback port.
+	if (ringbackPort != NULL &&
+		ringbackSlot != PJSUA_INVALID_ID)
+	{
+		pjsua_conf_remove_port(ringbackSlot);
+		ringbackSlot = PJSUA_INVALID_ID;
+		pjmedia_port_destroy(ringbackPort);
+		ringbackPort = NULL;
+	}
+	
+	if (pjPool != NULL) {
+		pj_pool_release(pjPool);
+		pjPool = NULL;
+	}
+	
+	// Destroy PJSUA.
+	pj_status_t status;
+	status = pjsua_destroy();
+	[self setStarted:NO];
+	
+	if (status != PJ_SUCCESS) {
+		NSLog(@"Error destroying PJSUA");
+		return NO;
+	}
 	
 	return YES;
 }
 
 - (BOOL)addAccount:(AKTelephoneAccount *)anAccount withPassword:(NSString *)aPassword
 {
+	if ([[self delegate] respondsToSelector:@selector(telephoneShouldAddAccount:)])
+		if (![[self delegate] telephoneShouldAddAccount:anAccount])
+			return NO;
+	
 	pjsua_acc_config accountConfig;
 	pjsua_acc_config_default(&accountConfig);
 	
@@ -385,12 +421,16 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)removeAccount:(AKTelephoneAccount *)anAccount
 {
+	if (![self started])
+		return NO;
+	
 	pj_status_t status = pjsua_acc_del([anAccount identifier]);
 	if (status != PJ_SUCCESS)
 		return NO;
 	
 	NSLog(@"Removing account %@ with id %d", anAccount, [anAccount identifier]);
 	[[self accounts] removeObject:anAccount];
+	[anAccount setIdentifier:PJSUA_INVALID_ID];
 	
 	return YES;
 }
@@ -458,7 +498,10 @@ typedef enum _AKTelephoneRingtones {
 // Usually, application controller is responsible of sending setSoundInputDevice:soundOutputDevice: to set sound IO after this method is called.
 // Posts AKTelephoneDidUpdateSoundDevicesNotification asynchronously.
 - (void)updateSoundDevices
-{	
+{
+	if (![self started])
+		return;
+	
 	// Stop sound device and disconnect it from the conference.
 	pjsua_set_null_snd_dev();
 	
@@ -472,29 +515,6 @@ typedef enum _AKTelephoneRingtones {
 								  object:self];
 	[[NSNotificationQueue defaultQueue] enqueueNotification:notification
 											   postingStyle:NSPostWhenIdle];
-}
-
-- (BOOL)destroyUserAgent
-{
-	// Close ringback port.
-	if (ringbackPort != NULL &&
-		ringbackSlot != PJSUA_INVALID_ID)
-	{
-		pjsua_conf_remove_port(ringbackSlot);
-		ringbackSlot = PJSUA_INVALID_ID;
-		pjmedia_port_destroy(ringbackPort);
-		ringbackPort = NULL;
-	}
-	
-	if (pjPool != NULL) {
-		pj_pool_release(pjPool);
-		pjPool = NULL;
-	}
-	
-	pj_status_t status;
-	status = pjsua_destroy();
-	
-	return (status == PJ_SUCCESS) ? YES : NO;
 }
 
 @end
