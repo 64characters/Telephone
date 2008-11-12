@@ -52,7 +52,7 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 
 - (void)setAccountRegistered:(BOOL)flag
 {	
-	if ([[self account] identifier] != PJSUA_INVALID_ID) {		// If account was added to Telephone.
+	if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {		// If account was added to Telephone.
 		if (flag == YES) {
 			NSSize buttonSize = [accountRegistrationPopUp frame].size;
 			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;

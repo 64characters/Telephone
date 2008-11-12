@@ -37,6 +37,8 @@
 #define THIS_FILE "AKTelephone.m"
 
 
+NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
+
 NSString *AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 NSString *AKTelephoneDidUpdateSoundDevicesNotification = @"AKTelephoneDidUpdateSoundDevices";
 

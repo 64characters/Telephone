@@ -32,6 +32,8 @@
 
 @class AKTelephoneAccount, AKTelephoneCall;
 
+extern NSInteger AKTelephoneInvalidIdentifier;
+
 extern NSString *AKSoundDeviceName;
 extern NSString *AKSoundDeviceInputCount;
 extern NSString *AKSoundDeviceOutputCount;
