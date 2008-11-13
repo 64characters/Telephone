@@ -80,4 +80,7 @@ enum {
 
 - (IBAction)closeSheet:(id)sender;
 
+// Show alert saying that connection to the registrar failed.
+- (void)showRegistrarConnectionErrorSheet;
+
 @end

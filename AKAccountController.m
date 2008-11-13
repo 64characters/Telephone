@@ -35,9 +35,17 @@
 #import "AKTelephoneCall.h"
 
 
+// Account registration pull-down button widths.
 const CGFloat AKAccountRegistrationButtonOfflineWidth = 58.0;
 const CGFloat AKAccountRegistrationButtonAvailableWidth = 69.0;
 const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
+const CGFloat AKAccountRegistrationButtonDisconnectedWidth = 91.0;
+
+// Account registration pull-down button titles.
+NSString * const AKAccountRegistrationButtonOfflineTitle = @"Offline";
+NSString * const AKAccountRegistrationButtonAvailableTitle = @"Available";
+NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
+NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 
 @implementation AKAccountController
 
@@ -51,13 +59,15 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 }
 
 - (void)setAccountRegistered:(BOOL)flag
-{	
+{
+	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	
 	if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {		// If account was added to Telephone.
 		if (flag == YES) {
-			NSSize buttonSize = [accountRegistrationPopUp frame].size;
+			// Set registraton button title to Connecting...
 			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:@"Connecting..."];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
 		}
 		
 		[[self account] setRegistered:flag];
@@ -65,8 +75,26 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	} else {
 		NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
 													accountName:[[self account] username]];
+		
+		// Set registraton button title to Connecting...
+		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+		[accountRegistrationPopUp setFrameSize:buttonSize];
+		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+		
 		// Add account to Telephone
 		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
+		
+		// Error connecting to registrar.
+		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
+			// Set registraton button title to Disconnected.
+			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
+			
+			// Show sheet only if Telephone didn't start.
+			if ([[AKTelephone sharedTelephone] started])
+				[self showRegistrarConnectionErrorSheet];
+		}
 	}
 }
 
@@ -183,16 +211,31 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 // Remove old account from Telephone, change username for the account, add to Telephone with new password and update Keychain.
 - (IBAction)changeUsernameAndPassword:(id)sender
 {
+	[self closeSheet:sender];
+	
+	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	
 	if (![[newUsername stringValue] isEqualToString:@""]) {
 		[[AKTelephone sharedTelephone] removeAccount:[self account]];
 		[[self account] setUsername:[newUsername stringValue]];
-		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:[newPassword stringValue]];
 		
-		// Set registration button to Connecting... after adding account to Telephone
-		NSSize buttonSize = [accountRegistrationPopUp frame].size;
+		// Set registraton button title to Connecting...
 		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:@"Connecting..."];
+		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+		
+		// Add account to Telephone.
+		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:[newPassword stringValue]];
+		
+		// Error connecting to registrar.
+		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
+			// Set registraton button title to Disconnected.
+			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
+			
+			[self showRegistrarConnectionErrorSheet];
+		}
 		
 		if ([mustSave state] == NSOnState)
 			[AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
@@ -201,7 +244,6 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	}
 	
 	[newPassword setStringValue:@""];
-	[self closeSheet:sender];
 }
 
 - (IBAction)closeSheet:(id)sender
@@ -210,12 +252,27 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	[[sender window] orderOut:self];
 }
 
+- (void)showRegistrarConnectionErrorSheet
+{
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"OK"];
+	[alert setMessageText:[NSString stringWithFormat:@"Could not connect to server %@.", [[self account] registrar]]];
+	[alert setInformativeText:[NSString stringWithFormat:
+							   @"Please, check network connection and Registry Server setting.",
+							   [[self account] registrar]]];
+	[alert beginSheetModalForWindow:[self window]
+					  modalDelegate:nil
+					 didEndSelector:NULL
+						contextInfo:NULL];
+}
+
 - (void)windowDidLoad
 {
+	// Set registraton button title to Offline.
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:@"Offline"];
+	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonOfflineTitle];
 }
 
 // When account registration changes, make appropriate modifications in UI
@@ -224,9 +281,11 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	
 	if ([[self account] isRegistered]) {
+		// Set registraton button title to Available.
 		buttonSize.width = AKAccountRegistrationButtonAvailableWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:@"Available"];
+		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonAvailableTitle];
+		
 		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOnState];
 		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
 		[[self window] setContentView:registeredAccountView];
@@ -236,15 +295,17 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 		// I'm skipping it until figuring out why it is so.
 		
 	} else {
-		buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
-		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:@"Offline"];
 		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
 		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
 		[[self window] setContentView:unregisteredAccountView];
 		
 		// Handle authentication failure
 		if ([[self account] registrationStatus] == PJSIP_EFAILEDCREDENTIAL) {
+			// Set registraton button title to Disconnected.
+			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
+			
 			if (authenticationFailureSheet == nil)
 				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
 			
@@ -259,8 +320,25 @@ const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 				modalDelegate:nil
 			   didEndSelector:NULL
 				  contextInfo:NULL];
+			
+		} else if (([[self account] registrationStatus] / 100 != 2) && ([[self account] registrationExpireTime] < 0)) {
+			// Change registration status button title and raise sheet if connection to the registrar failed.
+			// If last registration status is 2xx and expiration interval is less than zero, it is unregistration, not failure.
+			// Condition of failure is: last registration status != 2xx AND expiration interval < 0.
+			
+			// Set registraton button title to Disconnected.
+			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
+			
+			[self showRegistrarConnectionErrorSheet];
+			
+		} else {
+			// Set registraton button title to Offline.
+			buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonOfflineTitle];
 		}
-		
 	}
 }
 

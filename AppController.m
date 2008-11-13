@@ -117,7 +117,7 @@
 	NSString *accountKey;
 	AKAccountController *anAccountController;
 	
-	// There are saved accounts. Open account windows.
+	// There are saved accounts. Add accounts to Telephone, open account windows.
 	for (accountKey in accountSortOrder) {
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
 		
@@ -143,12 +143,12 @@
 		[anAccountController release];
 	}
 	
-	// Add accounts to Telephone.
-	for (accountKey in accountSortOrder) {
+	// Register accounts.
+	for (accountKey in [self accountControllers]) {
 		anAccountController = [[self accountControllers] objectForKey:accountKey];
 		[anAccountController setAccountRegistered:YES];
 		
-		// Don't add subsequent accounts if Telephone could not start.
+		// Don't register subsequent accounts if Telephone could not start.
 		if (![[self telephone] started])
 			break;
 	}
@@ -238,6 +238,10 @@
 	
 	[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
 	[[theAccountController window] orderFront:self];
+	
+	// Register account.
+	[theAccountController setAccountRegistered:YES];
+	
 	[theAccountController release];
 }
 
@@ -274,7 +278,7 @@
 		[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
 		[[theAccountController window] orderFront:self];
 		
-		// Add account to Telephone.
+		// Register account.
 		[theAccountController setAccountRegistered:YES];
 		
 		[theAccountController release];
