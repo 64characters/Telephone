@@ -43,13 +43,13 @@
 						<object class="NSTextField" id="692651810">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{106, 195}, {84, 17}}</string>
+							<string key="NSFrame">{{106, 195}, {87, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="360792746">
-								<int key="NSCellFlags">68288064</int>
+								<int key="NSCellFlags">70385217</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Login failed</string>
+								<string key="NSContents">Login failed.</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande-Bold</string>
 									<double key="NSSize">1.300000e+01</double>
@@ -83,7 +83,7 @@
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="141756788">
-								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags">69336577</int>
 								<int key="NSCellFlags2">272629760</int>
 								<string key="NSContents">Telehone was unable to login to the registry server. Change user name or password and try again.</string>
 								<object class="NSFont" key="NSSupport">
@@ -616,13 +616,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>changeAccountRegistration:</string>
 							<string>changeUsernameAndPassword:</string>
-							<string>closeAuthenticationFailureSheet:</string>
 							<string>closeSheet:</string>
 							<string>makeCall:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -641,9 +639,7 @@
 							<string>mustSave</string>
 							<string>newPassword</string>
 							<string>newUsername</string>
-							<string>registerAccountMenuItem</string>
 							<string>registeredAccountView</string>
-							<string>unregisterAccountMenuItem</string>
 							<string>unregisteredAccountView</string>
 							<string>updateCredentialsInformativeText</string>
 						</object>
@@ -657,9 +653,7 @@
 							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
-							<string>NSMenuItem</string>
 							<string>NSView</string>
-							<string>NSMenuItem</string>
 							<string>NSView</string>
 							<string>NSTextField</string>
 						</object>
@@ -681,6 +675,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">AKPreferenceController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">AKTelephone.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

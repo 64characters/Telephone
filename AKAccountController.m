@@ -310,7 +310,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
 			
 			[updateCredentialsInformativeText setStringValue:
-			 [NSString stringWithFormat:@"Telehone was unable to login to %@.\nChange user name or password and try again.",
+			 [NSString stringWithFormat:@"Telehone was unable to login to %@. Change user name or password and try again.",
 			  [[self account] registrar]]];
 			[newUsername setStringValue:[[self account] username]];
 			[newPassword setStringValue:@""];
