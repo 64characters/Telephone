@@ -46,7 +46,6 @@ enum {
 	IBOutlet NSView *unregisteredAccountView;
 	IBOutlet NSPopUpButton *accountRegistrationPopUp;
 	IBOutlet NSTextField *callDestination;
-	IBOutlet NSButton *callButton;
 	
 	// Authentication failure sheet outlets
 	IBOutlet NSWindow *authenticationFailureSheet;
