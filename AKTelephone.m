@@ -28,7 +28,6 @@
 
 #import <pjsua-lib/pjsua.h>
 
-#import "AKPreferenceController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
@@ -78,6 +77,14 @@ typedef enum _AKTelephoneRingtones {
 @synthesize ringbackSlot;
 @synthesize ringbackCount;
 @synthesize ringbackPort;
+
+@synthesize STUNServerHost;
+@synthesize STUNServerPort;
+@synthesize logFileName;
+@synthesize logLevel;
+@synthesize consoleLogLevel;
+@synthesize detectsVoiceActivity;
+@synthesize transportPort;
 
 - (id)delegate
 {
@@ -221,6 +228,14 @@ typedef enum _AKTelephoneRingtones {
 	accounts = [[NSMutableArray alloc] init];
 	[self setStarted:NO];
 	
+	[self setSTUNServerHost:@""];
+	[self setSTUNServerPort:3478];
+	[self setLogFileName:@"~/Library/Logs/Telephone.log"];
+	[self setLogLevel:3];
+	[self setConsoleLogLevel:0];
+	[self setDetectsVoiceActivity:YES];
+	[self setTransportPort:0];
+	
 	return self;
 }
 
@@ -232,6 +247,8 @@ typedef enum _AKTelephoneRingtones {
 - (void)dealloc
 {
 	[accounts release];
+	[STUNServerHost release];
+	[logFileName release];
 	
 	[super dealloc];
 }
@@ -252,6 +269,11 @@ typedef enum _AKTelephoneRingtones {
 	// Create pool for PJSUA.
 	pjPool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
 	
+	pjsua_config userAgentConfig;
+	pjsua_logging_config loggingConfig;
+	pjsua_media_config mediaConfig;
+	pjsua_transport_config transportConfig;
+	
 	pjsua_config_default(&userAgentConfig);
 	pjsua_logging_config_default(&loggingConfig);
 	pjsua_media_config_default(&mediaConfig);
@@ -260,24 +282,16 @@ typedef enum _AKTelephoneRingtones {
 	ringbackSlot = PJSUA_INVALID_ID;
 	userAgentConfig.max_calls = AKTelephoneCallsMax;
 	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	NSString *stunServerHost = [defaults stringForKey:AKSTUNServerHost];
-	if (stunServerHost != nil)
-		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%@",
-									  stunServerHost, [defaults objectForKey:AKSTUNServerPort]]
+	if (![[self STUNServerHost] isEqualToString:@""])
+		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%u",
+									  [self STUNServerHost], [self STUNServerPort]]
 									 pjString];
-	
-	loggingConfig.log_filename = [[[defaults stringForKey:AKLogFileName]
-								   stringByExpandingTildeInPath]
-								  pjString];
-	loggingConfig.level = [defaults integerForKey:AKLogLevel];
-	loggingConfig.console_level = [defaults integerForKey:AKConsoleLogLevel];
-	
-	mediaConfig.no_vad = ![defaults boolForKey:AKVoiceActivityDetection];
+	loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
+	loggingConfig.level = [self logLevel];
+	loggingConfig.console_level = [self consoleLogLevel];
+	mediaConfig.no_vad = ![self detectsVoiceActivity];
 	mediaConfig.snd_auto_close_time = 0;
-	
-	transportConfig.port = [defaults integerForKey:AKTransportPort];
+	transportConfig.port = [self transportPort];
 	
 	userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;
 	userAgentConfig.cb.on_call_media_state = AKCallMediaStateChanged;
@@ -333,12 +347,23 @@ typedef enum _AKTelephoneRingtones {
 	}
 	
 	// Add UDP transport.
-	status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, NULL);
+	pjsua_transport_id transportIdentifier;
+	status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, &transportIdentifier);
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error creating transport");
 		[self destroyUserAgent];
 		return NO;
 	}
+	
+	// Get transport port chosen by PJSUA.
+	if ([self transportPort] == 0) {
+		pjsua_transport_info transportInfo;
+		status = pjsua_transport_get_info(transportIdentifier, &transportInfo);
+		if (status != PJ_SUCCESS)
+			NSLog(@"Error getting transport info");
+		[self setTransportPort:transportInfo.local_name.port];
+	}
+	NSLog(@"Bound to local port %u", [self transportPort]);
 	
 	// Start PJSUA.
 	status = pjsua_start();

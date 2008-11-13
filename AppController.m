@@ -52,7 +52,7 @@
 		[defaultsDict setObject:@"~/Library/Logs/Telephone.log" forKey:AKLogFileName];
 		[defaultsDict setObject:[NSNumber numberWithInt:3] forKey:AKLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInt:0] forKey:AKConsoleLogLevel];
-		[defaultsDict setObject:[NSNumber numberWithInt:5060] forKey:AKTransportPort];
+		[defaultsDict setObject:[NSNumber numberWithInt:0] forKey:AKTransportPort];
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
 		
@@ -78,12 +78,22 @@
 {
 	telephone = [AKTelephone telephoneWithDelegate:self];
 	accountControllers = [[NSMutableDictionary alloc] init];
+	[self setPreferenceController:nil];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	[telephone setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
+	[telephone setSTUNServerPort:[defaults integerForKey:AKSTUNServerPort]];
+	[telephone setLogFileName:[defaults stringForKey:AKLogFileName]];
+	[telephone setLogLevel:[defaults integerForKey:AKLogLevel]];
+	[telephone setConsoleLogLevel:[defaults integerForKey:AKConsoleLogLevel]];
+	[telephone setDetectsVoiceActivity:[defaults boolForKey:AKVoiceActivityDetection]];
+	[telephone setTransportPort:[defaults integerForKey:AKTransportPort]];
 	
 	// Install audio devices changes callback
 	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AHPropertyListenerProc, [self telephone]);
 	
 	// Read accounts from defaults
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *savedAccounts = [defaults dictionaryForKey:AKAccounts];
 	
 	// Setup an account on first launch.
