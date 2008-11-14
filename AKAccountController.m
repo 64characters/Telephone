@@ -332,7 +332,9 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			[accountRegistrationPopUp setFrameSize:buttonSize];
 			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
 			
-			[self showRegistrarConnectionErrorSheet];
+			// Show a sheet only if Telephone has started. Don't show if user agent is being destroyed right now.
+			if ([[AKTelephone sharedTelephone] started])
+				[self showRegistrarConnectionErrorSheet];
 			
 		} else {
 			// Set registraton button title to Offline.

@@ -380,6 +380,8 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)destroyUserAgent
 {
+	[self setStarted:NO];
+	
 	// Close ringback port.
 	if (ringbackPort != NULL &&
 		ringbackSlot != PJSUA_INVALID_ID)
@@ -398,7 +400,6 @@ typedef enum _AKTelephoneRingtones {
 	// Destroy PJSUA.
 	pj_status_t status;
 	status = pjsua_destroy();
-	[self setStarted:NO];
 	
 	if (status != PJ_SUCCESS) {
 		NSLog(@"Error destroying PJSUA");
