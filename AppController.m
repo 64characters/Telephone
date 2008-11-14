@@ -128,7 +128,8 @@
 	AKAccountController *anAccountController;
 	
 	// There are saved accounts. Add accounts to Telephone, open account windows.
-	for (accountKey in accountSortOrder) {
+	for (NSUInteger i = 0; i < [accountSortOrder count]; ++i) {
+		accountKey = [accountSortOrder objectAtIndex:i];
 		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
 		
 		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
@@ -148,8 +149,14 @@
 		[[self accountControllers] setObject:anAccountController forKey:accountKey];
 		
 		[[anAccountController window] setTitle:[[anAccountController account] SIPAddress]];
-//		[[anAccountController window] orderBack:self];
-		[[anAccountController window] makeKeyAndOrderFront:self];
+		
+		if (i == 0)
+			[[anAccountController window] makeKeyAndOrderFront:self];
+		else {
+			NSString *previousAccountKey = [accountSortOrder objectAtIndex:(i - 1)];
+			NSWindow *previousAccountWindow = [[[self accountControllers] objectForKey:previousAccountKey] window];
+			[[anAccountController window] orderWindow:NSWindowBelow relativeTo:[previousAccountWindow windowNumber]];
+		}
 		
 		[anAccountController release];
 	}
