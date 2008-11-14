@@ -82,7 +82,6 @@ extern NSString *AKTelephoneAccountUsername;
 			  username:(NSString *)aUsername;
 
 - (AKTelephoneCall *)makeCallTo:(NSString *)destinationURI;
-- (BOOL)unregister;
 
 @end
 

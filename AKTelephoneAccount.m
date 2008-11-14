@@ -276,14 +276,6 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 	return [theCall autorelease];
 }
 
-- (BOOL)unregister
-{
-	pj_status_t status;
-	status = pjsua_acc_set_registration([self identifier], PJ_FALSE);
-	
-	return (status == PJ_SUCCESS) ? YES : NO;
-}
-
 @end
 
 
