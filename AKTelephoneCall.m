@@ -257,10 +257,11 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 	// AKTelephoneCall object is created here when the call is incoming
 	AKTelephoneCall *theCall = [[AKTelephoneCall alloc] initWithTelephoneAccount:theAccount
 																	  identifier:callIdentifier];
+	[theCall setLastStatus:callInfo.last_status];
+	[theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
 	
 	// Keep the new call in the account's calls array
 	[[theAccount calls] addObject:theCall];
-	NSLog(@"%@ was added to the account %@", theCall, theAccount);
 	
 	if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccount:didReceiveCall:)])
 		[[theAccount delegate] telephoneAccount:theAccount didReceiveCall:theCall];
@@ -282,7 +283,10 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 	
 	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier] retain];
 	
-	NSString *lastStatusText, *stateText, *reasonText;
+	[theCall setLastStatus:callInfo.last_status];
+	[theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
+	
+	NSString *stateText, *reasonText;
 	NSDictionary *userInfo;
 	
 	if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
@@ -293,17 +297,12 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 				   callInfo.last_status,
 				   callInfo.last_status_text.ptr));
 		
-		lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
-		
-		[theCall setLastStatus:callInfo.last_status];
-		[theCall setLastStatusText:lastStatusText];
 		[theCall setIdentifier:PJSUA_INVALID_ID];
 		
 		[notificationCenter postNotificationName:AKTelephoneCallDidDisconnectNotification
 										  object:theCall];
 		
 		// Finally, remove the call from its account's calls array
-		NSLog(@"%@ will be removed from the account %@", theCall, [theCall account]);
 		[[[theCall account] calls] removeObject:theCall];
 		
 	} else {

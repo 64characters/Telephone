@@ -455,7 +455,6 @@ typedef enum _AKTelephoneRingtones {
 	if (status != PJ_SUCCESS)
 		return NO;
 	
-	NSLog(@"Removing account %@ with id %d", anAccount, [anAccount identifier]);
 	[[self accounts] removeObject:anAccount];
 	[anAccount setIdentifier:PJSUA_INVALID_ID];
 	

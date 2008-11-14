@@ -33,6 +33,7 @@
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
+#import "NSWindowAdditions.h"
 
 
 // Account registration pull-down button widths.
@@ -159,7 +160,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		return;
 	
 	if ([[[self account] calls] count] == AKTelephoneCallsMax) {
-		NSLog(@"Won't call, maximum number of calls is reached!");
+		NSLog(@"Can't call, maximum number of calls is reached!");
 		return;
 	}
 	
@@ -194,7 +195,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	[[self callControllers] addObject:aCallController];
 	[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
 	[aCallController setStatus:@"Incoming"];
-	[[aCallController window] setContentView:[aCallController incomingCallView]];
+	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	[aCallController showWindow:nil];
 	
 	[aCallController release];
@@ -346,9 +347,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 - (void)telephoneCallWindowWillClose:(NSNotification *)notification
 {
 	AKCallController *aCallController = [notification object];
-	NSString *description = [aCallController description];
 	[[self callControllers] removeObject:aCallController];
-	NSLog(@"%@ window removed", description);
 }
 
 @end

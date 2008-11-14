@@ -266,15 +266,12 @@ NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDid
 		return nil;
 	}
 	
-	NSLog(@"Calling %@ via account %@", destinationURI, self);
-	
 	// AKTelephoneCall object is created here when the call is outgoing
 	AKTelephoneCall *theCall = [[AKTelephoneCall alloc]	initWithTelephoneAccount:self
 																	  identifier:callIdentifier];
 	
 	// Keep this call in the calls array for this account
 	[[self calls] addObject:theCall];
-	NSLog(@"%@ was added to the account %@", theCall, self);
 	
 	return [theCall autorelease];
 }

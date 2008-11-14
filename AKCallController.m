@@ -29,6 +29,7 @@
 #import "AKCallController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
+#import "NSWindowAdditions.h"
 
 
 NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWillClose";
@@ -110,7 +111,6 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 - (IBAction)acceptCall:(id)sender
 {
 	[[self call] answer];
-	[[self window] setContentView:[self activeCallView]];
 }
 
 - (IBAction)hangUp:(id)sender
@@ -135,6 +135,7 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
 	[self setStatus:@"Calling..."];
+	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
 - (void)telephoneCallEarly:(NSNotification *)notification
@@ -144,12 +145,15 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 		[callProgressIndicator stopAnimation:self];
 		[self setStatus:@"Ringing"];
 	}
+	
+	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
 	[callProgressIndicator stopAnimation:self];
 	[self setStatus:@"Connected"];
+	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
 - (void)telephoneCallDidDisconnect:(NSNotification *)notification
@@ -159,28 +163,7 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	else
 		[self setStatus:@"Call ended"];
 	
-	NSWindow *callWindow = [self window];
-	
-	// Compute view size delta
-	NSSize currentSize = [[callWindow contentView] frame].size;
-	NSSize newSize = [[self endedCallView] frame].size;
-	CGFloat deltaWidth = newSize.width - currentSize.width;
-	CGFloat deltaHeight = newSize.height - currentSize.height;
-	
-	// Compute new window size
-	NSRect windowFrame = [callWindow frame];
-	windowFrame.size.height += deltaHeight;
-	windowFrame.origin.y -= deltaHeight;
-	windowFrame.size.width += deltaWidth;
-	
-	// Show temp view while changing views
-	NSView *tempView = [[NSView alloc] initWithFrame:[[callWindow contentView] frame]];
-	[callWindow setContentView:tempView];
-	[tempView release];
-	
-	// Finally, swap views
-	[callWindow setFrame:windowFrame display:YES animate:YES];
-	[callWindow setContentView:[self endedCallView]];
+	[[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
 	
 	[callProgressIndicator stopAnimation:self];
 	[hangUpButton setEnabled:NO];

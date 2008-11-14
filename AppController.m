@@ -372,7 +372,6 @@
 // Send updateSoundDevices to Telephone. When Telephone updates sound devices, it should post a notification.
 OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData)
 {
-	NSLog(@"Inside AHPropertyListenerProc()");
 	AKTelephone *telephone = (AKTelephone *)inClientData;
 	
 	if (inPropertyID == kAudioHardwarePropertyDevices)
