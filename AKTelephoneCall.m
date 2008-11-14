@@ -389,7 +389,6 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	pjsua_call_info callInfo;
-	
 	pjsua_call_get_info(callIdentifier, &callInfo);
 	
 	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier] retain];
