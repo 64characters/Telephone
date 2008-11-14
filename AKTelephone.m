@@ -282,15 +282,20 @@ typedef enum _AKTelephoneRingtones {
 	ringbackSlot = PJSUA_INVALID_ID;
 	userAgentConfig.max_calls = AKTelephoneCallsMax;
 	
-	if (![[self STUNServerHost] isEqualToString:@""])
+	if (![[self STUNServerHost] isEqualToString:@""] && [self STUNServerHost] != nil)
 		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%u",
 									  [self STUNServerHost], [self STUNServerPort]]
 									 pjString];
-	loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
+	
+	if (![[self logFileName] isEqualToString:@""] && [self logFileName] != nil)
+		loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
+	
 	loggingConfig.level = [self logLevel];
 	loggingConfig.console_level = [self consoleLogLevel];
+	
 	mediaConfig.no_vad = ![self detectsVoiceActivity];
 	mediaConfig.snd_auto_close_time = 0;
+	
 	transportConfig.port = [self transportPort];
 	
 	userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;
