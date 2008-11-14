@@ -69,7 +69,11 @@
 	if (nameAddr == NULL)
 		return nil;
 	
-	[self setDisplayName:[NSString stringWithPJString:nameAddr->display]];
+	NSString *aDisplayName = [NSString stringWithPJString:nameAddr->display];
+	if ([aDisplayName isEqualToString:@""])
+		[self setDisplayName:@"Anonymous"];
+	else
+		[self setDisplayName:aDisplayName];
 	
 	pjsip_sip_uri *uri = (pjsip_sip_uri *)pjsip_uri_get_uri(nameAddr);
 	[self setUser:[NSString stringWithPJString:uri->user]];
