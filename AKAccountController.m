@@ -69,6 +69,9 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 			[accountRegistrationPopUp setFrameSize:buttonSize];
 			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+			
+			// Explicitly redisplay button before DNS looks up registrar host name.
+			[[accountRegistrationPopUp superview] display];
 		}
 		
 		[[self account] setRegistered:flag];
@@ -81,6 +84,9 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
 		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+		
+		// Explicitly redisplay button before DNS looks up registrar host name.
+		[[accountRegistrationPopUp superview] display];
 		
 		// Add account to Telephone
 		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];

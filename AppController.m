@@ -148,7 +148,8 @@
 		[[self accountControllers] setObject:anAccountController forKey:accountKey];
 		
 		[[anAccountController window] setTitle:[[anAccountController account] SIPAddress]];
-		[[anAccountController window] orderBack:self];
+//		[[anAccountController window] orderBack:self];
+		[[anAccountController window] makeKeyAndOrderFront:self];
 		
 		[anAccountController release];
 	}
