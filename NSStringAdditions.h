@@ -1,5 +1,5 @@
 //
-//  NSString+UUID.h
+//  NSStringAdditions.h
 //  Telephone
 //
 //  Copyright (c) 2008 Alexei Kuznetsov. All rights reserved.
@@ -27,10 +27,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <pjsua-lib/pjsua.h>
 
 
 @interface NSString(UUID)
 
 + (NSString *)uuidString;
+
+@end
+
+@interface NSString(PJSUA)
+
++ (NSString *)stringWithPJString:(pj_str_t)pjString;
+- (pj_str_t)pjString;
 
 @end

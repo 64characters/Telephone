@@ -30,7 +30,7 @@
 
 #import "AKSIPURI.h"
 #import "AKTelephone.h"
-#import "NSString+PJSUA.h"
+#import "NSStringAdditions.h"
 
 
 @implementation AKSIPURI

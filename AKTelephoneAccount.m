@@ -31,7 +31,7 @@
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
-#import "NSString+PJSUA.h"
+#import "NSStringAdditions.h"
 
 
 NSString *AKTelephoneAccountFullName = @"fullName";

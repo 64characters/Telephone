@@ -30,7 +30,7 @@
 #import "AKPreferenceController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
-#import "NSString+UUID.h"
+#import "NSStringAdditions.h"
 
 
 NSString *AKAccounts = @"Accounts";

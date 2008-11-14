@@ -1,5 +1,5 @@
 //
-//  NSString+UUID.m
+//  NSStringAdditions.m
 //  Telephone
 //
 //  Copyright (c) 2008 Alexei Kuznetsov. All rights reserved.
@@ -26,7 +26,7 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "NSString+UUID.h"
+#import "NSStringAdditions.h"
 
 
 @implementation NSString(UUID)
@@ -38,6 +38,23 @@
 	CFRelease(theUUID);
 	
 	return [(NSString *)string autorelease];
+}
+
+@end
+
+@implementation NSString(PJSUA)
+
++ (NSString *)stringWithPJString:(pj_str_t)pjString
+{
+	return [[[NSString alloc] initWithBytes:pjString.ptr
+									 length:(NSUInteger)pjString.slen
+								   encoding:NSASCIIStringEncoding]
+			autorelease];
+}
+
+- (pj_str_t)pjString
+{
+	return pj_str((char *)[self cStringUsingEncoding:NSASCIIStringEncoding]);
 }
 
 @end
