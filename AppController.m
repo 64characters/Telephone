@@ -60,6 +60,19 @@
 	}
 }
 
+- (id)init
+{
+	self = [super init];
+	if (self == nil)
+		return nil;
+	
+	telephone = [AKTelephone telephoneWithDelegate:self];
+	accountControllers = [[NSMutableDictionary alloc] init];
+	[self setPreferenceController:nil];
+	
+	return self;
+}
+
 - (void)dealloc
 {
 	[telephone dealloc];
@@ -76,10 +89,6 @@
 // Application control starts here
 - (void)awakeFromNib
 {
-	telephone = [AKTelephone telephoneWithDelegate:self];
-	accountControllers = [[NSMutableDictionary alloc] init];
-	[self setPreferenceController:nil];
-	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	[telephone setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
