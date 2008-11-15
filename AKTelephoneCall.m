@@ -164,7 +164,7 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 
 - (void)dealloc
 {
-	if ([self identifier] != PJSUA_INVALID_ID && [self isActive])
+	if ([[AKTelephone sharedTelephone] started] && [self identifier] != PJSUA_INVALID_ID && [self isActive])
 		[self hangUp];
 	
 	[self setDelegate:nil];

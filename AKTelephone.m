@@ -385,11 +385,6 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)destroyUserAgent
 {
-	[self hangUpAllCalls];
-	
-	for (AKTelephoneAccount *anAccount in [self accounts])
-		[anAccount setRegistered:NO];
-	
 	[self setStarted:NO];
 	
 	// Close ringback port.

@@ -28,6 +28,7 @@
 
 #import "AppController.h"
 #import "AKAccountController.h"
+#import "AKCallController.h"
 #import "AKPreferenceController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
@@ -374,8 +375,38 @@
 #pragma mark -
 #pragma mark NSApplication delegate methods
 
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+	for (AKTelephoneAccount *anAccount in [[self telephone] accounts])
+		if ([[anAccount calls] count] > 0) {
+			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+			[alert addButtonWithTitle:@"Quit"];
+			[alert addButtonWithTitle:@"Cancel"];
+			[alert setMessageText:@"Are you shure you want to quit Telephone?"];
+			[alert setInformativeText:@"All active calls will be disconnected."];
+			
+			NSInteger choice = [alert runModal];
+			if (choice == NSAlertFirstButtonReturn)
+				return NSTerminateNow;
+			else if (choice == NSAlertSecondButtonReturn)
+				return NSTerminateCancel;
+		}
+	
+	return NSTerminateNow;
+}
+
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
+	// Close all calls.
+	for (NSString *accountKey in [self accountControllers]) {
+		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
+		for (AKCallController *aCallController in [anAccountController callControllers])
+			[aCallController close];
+	}
+	
+	// Remove all accounts.
+	[[self accountControllers] removeAllObjects];
+	
 	BOOL destroyed = [[self telephone] destroyUserAgent];
 	if (!destroyed)
 		NSLog(@"Error destroying user agent");
