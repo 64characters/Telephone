@@ -39,6 +39,8 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 @synthesize call;
 @dynamic accountController;
 @synthesize status;
+@synthesize callStartTime;
+@synthesize callTimer;
 
 @synthesize incomingCallView;
 @synthesize activeCallView;
@@ -82,6 +84,8 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	[call setDelegate:self];
 	
 	[self setAccountController:anAccountController];
+	[self setCallStartTime:0.0];
+	[self setCallTimer:nil];
 	
 	return self;
 }
@@ -119,6 +123,32 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	[hangUpButton setEnabled:NO];
 }
 
+- (void)startCallTimer
+{
+	[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
+	[self setCallTimer:[NSTimer scheduledTimerWithTimeInterval:0.2
+														target:self
+													  selector:@selector(callTimerTick:)
+													  userInfo:nil
+													   repeats:YES]];
+}
+
+- (void)stopCallTimer
+{
+	[[self callTimer] invalidate];
+	[self setCallTimer:nil];
+}
+
+- (void)callTimerTick:(NSTimer *)theTimer
+{
+	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+	NSInteger seconds = (NSInteger)(now - [self callStartTime]);
+	
+	[self setStatus:[NSString stringWithFormat:@"%02d:%02d",
+					 (seconds / 60) % 60,
+					 seconds % 60]];
+}
+
 
 #pragma mark -
 
@@ -127,6 +157,9 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 {
 	if ([[self call] identifier] != AKTelephoneInvalidIdentifier && [[self call] isActive])
 		[[self call] hangUp];
+	
+	// Make shure the timer is stopped even if the call hasn't received disconnect.
+	[self stopCallTimer];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallWindowWillCloseNotification
 														object:self];
@@ -152,12 +185,17 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
 	[callProgressIndicator stopAnimation:self];
-	[self setStatus:@"Connected"];
+	[self setStatus:@"00:00"];
+	
+	[self performSelectorOnMainThread:@selector(startCallTimer) withObject:nil waitUntilDone:NO];
+	
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
 - (void)telephoneCallDidDisconnect:(NSNotification *)notification
 {
+	[self performSelectorOnMainThread:@selector(stopCallTimer) withObject:self waitUntilDone:NO];
+	
 	if ([[self call] lastStatus] == PJSIP_SC_BUSY_EVERYWHERE)
 		[self setStatus:@"Busy"];
 	else

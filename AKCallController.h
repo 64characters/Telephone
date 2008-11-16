@@ -36,6 +36,8 @@
 	AKTelephoneCall *call;
 	AKAccountController *accountController;
 	NSString *status;
+	NSTimeInterval callStartTime;
+	NSTimer *callTimer;
 	
 	IBOutlet NSView *activeCallView;
 	IBOutlet NSView *incomingCallView;
@@ -50,6 +52,8 @@
 @property(nonatomic, readwrite, retain) AKTelephoneCall *call;
 @property(nonatomic, readwrite, assign) AKAccountController *accountController;
 @property(nonatomic, readwrite, copy) NSString *status;
+@property(nonatomic, readwrite, assign) NSTimeInterval callStartTime;
+@property(nonatomic, readwrite, retain) NSTimer *callTimer;
 
 @property(nonatomic, readonly, retain) NSView *incomingCallView;
 @property(nonatomic, readonly, retain) NSView *activeCallView;
@@ -62,6 +66,11 @@
 
 - (IBAction)acceptCall:(id)sender;
 - (IBAction)hangUp:(id)sender;
+
+// Dealing with the timer of active call.
+- (void)startCallTimer;
+- (void)stopCallTimer;
+- (void)callTimerTick:(NSTimer *)theTimer;
 
 @end
 
