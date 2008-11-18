@@ -48,12 +48,13 @@
 	if (!initialized) {
 		NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
 		
-		[defaultsDict setObject:[NSNumber numberWithInt:3478] forKey:AKSTUNServerPort];
+		[defaultsDict setObject:@"" forKey:AKSTUNServerHost];
+		[defaultsDict setObject:[NSNumber numberWithInteger:3478] forKey:AKSTUNServerPort];
 		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKVoiceActivityDetection];
 		[defaultsDict setObject:@"~/Library/Logs/Telephone.log" forKey:AKLogFileName];
-		[defaultsDict setObject:[NSNumber numberWithInt:3] forKey:AKLogLevel];
-		[defaultsDict setObject:[NSNumber numberWithInt:0] forKey:AKConsoleLogLevel];
-		[defaultsDict setObject:[NSNumber numberWithInt:0] forKey:AKTransportPort];
+		[defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:AKLogLevel];
+		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKConsoleLogLevel];
+		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKTransportPort];
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
 		
@@ -92,13 +93,23 @@
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	[telephone setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
-	[telephone setSTUNServerPort:[defaults integerForKey:AKSTUNServerPort]];
-	[telephone setLogFileName:[defaults stringForKey:AKLogFileName]];
-	[telephone setLogLevel:[defaults integerForKey:AKLogLevel]];
-	[telephone setConsoleLogLevel:[defaults integerForKey:AKConsoleLogLevel]];
-	[telephone setDetectsVoiceActivity:[defaults boolForKey:AKVoiceActivityDetection]];
-	[telephone setTransportPort:[defaults integerForKey:AKTransportPort]];
+	NSString *STUNServerHost = [defaults stringForKey:AKSTUNServerHost];
+	if ([STUNServerHost length] > 0)
+		[telephone setSTUNServerHost:STUNServerHost];
+	
+	[telephone setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	
+	NSString *logFileName = [defaults stringForKey:AKLogFileName];
+	if ([logFileName length] > 0)
+		[telephone setLogFileName:logFileName];
+	
+	[telephone setLogLevel:[[defaults objectForKey:AKLogLevel] integerValue]];
+	[telephone setConsoleLogLevel:[[defaults objectForKey:AKConsoleLogLevel] integerValue]];
+	[telephone setDetectsVoiceActivity:[[defaults objectForKey:AKVoiceActivityDetection] boolValue]];
+	
+	NSInteger transportPort = [[defaults objectForKey:AKTransportPort] integerValue];
+	if (transportPort > 0 && transportPort <= 65535)
+		[telephone setTransportPort:transportPort];
 	
 	// Install audio devices changes callback
 	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AHPropertyListenerProc, [self telephone]);
@@ -251,6 +262,9 @@
 	[[[self preferenceController] addAccountWindowOtherButton] setAction:@selector(closeSheet:)];
 }
 
+
+#pragma mark AKPreferenceController delegate
+
 - (void)preferenceControllerDidAddAccount:(NSNotification *)notification
 {
 	NSString *accountKey = [[[notification userInfo] allKeys] lastObject];
@@ -310,6 +324,26 @@
 		[theAccountController setAccountRegistered:YES];
 		
 		[theAccountController release];
+	}
+}
+
+- (void)preferenceControllerDidChangeSTUNServer:(NSNotification *)notification
+{
+	for (NSString *accountKey in [self accountControllers]) {
+		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
+		[[self telephone] removeAccount:[anAccountController account]];
+	}
+
+	[[self telephone] destroyUserAgent];
+	[[self telephone] startUserAgent];
+	
+	for (NSString *accountKey in [self accountControllers]) {
+		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
+		[anAccountController setAccountRegistered:YES];
+		
+		// Don't register subsequent accounts if Telephone could not start.
+		if (![[self telephone] started])
+			break;
 	}
 }
 

@@ -68,6 +68,8 @@ extern NSString *AKAccountEnabled;
 	// General
 	IBOutlet NSPopUpButton *soundInputPopUp;
 	IBOutlet NSPopUpButton *soundOutputPopUp;
+	IBOutlet NSTextField *STUNServerHost;
+	IBOutlet NSTextField *STUNServerPort;
 	
 	// Account
 	IBOutlet NSTableView *accountsTable;
@@ -130,9 +132,11 @@ extern NSString *AKAccountEnabled;
 - (void)preferenceControllerDidAddAccount:(NSNotification *)notification;
 - (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification;
 - (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification;
+- (void)preferenceControllerDidChangeSTUNServer:(NSNotification *)notification;
 @end
 
 // Notifications
 extern NSString *AKPreferenceControllerDidAddAccountNotification;
 extern NSString *AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex
 extern NSString *AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex, AKAccountEnabled
+extern NSString *AKPreferenceControllerDidChangeSTUNServerNotification;

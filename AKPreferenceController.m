@@ -33,6 +33,12 @@
 #import "NSStringAdditions.h"
 
 
+@interface AKPreferenceController()
+
+- (BOOL)checkForSTUNServerChanges:(id)sender;
+
+@end
+
 NSString *AKAccounts = @"Accounts";
 NSString *AKAccountSortOrder = @"AccountSortOrder";
 NSString *AKSTUNServerHost = @"STUNServerHost";
@@ -59,6 +65,7 @@ NSString *AKAccountEnabled = @"AccountEnabled";
 NSString *AKPreferenceControllerDidAddAccountNotification = @"AKPreferenceControllerDidAddAccount";
 NSString *AKPreferenceControllerDidRemoveAccountNotification = @"AKPreferenceControllerDidRemoveAccount";
 NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPreferenceControllerDidChangeAccountEnabled";
+NSString *AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreferenceControllerDidChangeSTUNServer";
 
 @implementation AKPreferenceController
 
@@ -100,6 +107,12 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 								   selector:@selector(preferenceControllerDidChangeAccountEnabled:)
 									   name:AKPreferenceControllerDidChangeAccountEnabledNotification
 									 object:self];
+		
+		if ([aDelegate respondsToSelector:@selector(preferenceControllerDidChangeSTUNServer:)])
+			[notificationCenter addObserver:aDelegate
+								   selector:@selector(preferenceControllerDidChangeSTUNServer:)
+									   name:AKPreferenceControllerDidChangeSTUNServerNotification
+									 object:self];
 	}
 	
 	delegate = aDelegate;
@@ -125,6 +138,10 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 	[self displayView:generalView withTitle:@"General"];
 	
 	[self updateSoundDevices];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[STUNServerHost setStringValue:[defaults stringForKey:AKSTUNServerHost]];
+	[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 		
 	NSInteger row = [accountsTable selectedRow];
 	if (row == -1)
@@ -160,6 +177,13 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 
 - (IBAction)changeView:(id)sender
 {
+	// Check for STUN server changes if the user switches from General to some another view.
+	if ([[[self window] contentView] isEqual:generalView] && ![sender isEqual:generalToolbarItem]) {
+		BOOL STUNServerChanged = [self checkForSTUNServerChanges:sender];
+		if (STUNServerChanged)
+			return;
+	}
+	
 	NSView *view;
 	NSString *title;
 	
@@ -454,6 +478,64 @@ NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPrefer
 		[soundOutputPopUp selectItemWithTitle:lastSoundOutput];
 }
 
+// Check if STUN server settings were changed, show alert sheet to save, cancel or don't save.
+// Returns YES if changes were made to STUN server hostname or port; returns NO otherwise.
+- (BOOL)checkForSTUNServerChanges:(id)sender
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSString *newSTUNServerHost = [STUNServerHost stringValue];
+	NSNumber *newSTUNServerPort = [NSNumber numberWithInteger:[STUNServerPort integerValue]];
+	
+	if (![[defaults objectForKey:AKSTUNServerHost] isEqualToString:newSTUNServerHost] ||
+		![[defaults objectForKey:AKSTUNServerPort] isEqualToNumber:newSTUNServerPort])
+	{
+		// Explicitly select General toolbar item.
+		[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
+		
+		// Show alert to the user.
+		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+		[alert addButtonWithTitle:@"Save"];
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert addButtonWithTitle:@"Don't Save"];
+		[alert setMessageText:@"Save changes to STUN server settings?"];
+		[alert setInformativeText:@"New STUN server settings will be applied immediately, all accounts will be reconnected."];
+		[alert beginSheetModalForWindow:[self window]
+						  modalDelegate:self
+						 didEndSelector:@selector(STUNServerAlertDidEnd:returnCode:contextInfo:)
+							contextInfo:sender];
+		return YES;
+	}
+	
+	return NO;
+}
+
+- (void)STUNServerAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	if (returnCode == NSAlertSecondButtonReturn)
+		return;
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	id sender = (id)contextInfo;
+	
+	if (returnCode == NSAlertFirstButtonReturn) {
+		[defaults setObject:[STUNServerHost stringValue] forKey:AKSTUNServerHost];
+		[defaults setObject:[NSNumber numberWithInteger:[STUNServerPort integerValue]] forKey:AKSTUNServerPort];
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidChangeSTUNServerNotification
+															object:self];
+	} else if (returnCode == NSAlertThirdButtonReturn) {
+		[STUNServerHost setStringValue:[defaults objectForKey:AKSTUNServerHost]];
+		[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	}
+	
+	if ([sender isMemberOfClass:[NSToolbarItem class]]) {
+		[toolbar setSelectedItemIdentifier:[sender itemIdentifier]];
+		[self changeView:sender];
+	} else if ([sender isMemberOfClass:[NSWindow class]])
+		[sender close];
+}
+
 
 #pragma mark NSTableView data source
 
@@ -497,6 +579,18 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			[generalToolbarItem itemIdentifier],
 			[accountsToolbarItem itemIdentifier],
 			nil];
+}
+
+
+#pragma mark NSWindow delegate
+
+- (BOOL)windowShouldClose:(id)window
+{
+	BOOL STUNServerChanged = [self checkForSTUNServerChanges:window];
+	if (STUNServerChanged)
+		return NO;
+	
+	return YES;
 }
 
 @end
