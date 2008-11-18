@@ -63,45 +63,59 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 {
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	
-	if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {		// If account was added to Telephone.
-		if (flag == YES) {
+	if (flag) {
+		if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {	// If account was added to Telephone.
 			// Set registraton button title to Connecting...
 			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
 			[accountRegistrationPopUp setFrameSize:buttonSize];
 			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
 			
-			// Explicitly redisplay button before DNS looks up registrar host name.
+			// Explicitly redisplay button before DNS will look up the registrar host name.
 			[[accountRegistrationPopUp superview] display];
+			
+			[[self account] setRegistered:flag];
+		} else {
+			NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
+														accountName:[[self account] username]];
+			
+			// Set registraton button title to Connecting...
+			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+			
+			// Explicitly redisplay button before DNS will look up the registrar host name.
+			[[accountRegistrationPopUp superview] display];
+			
+			// Add account to Telephone
+			[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
+			
+			// Error connecting to registrar.
+			if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
+				// Set registraton button title to Disconnected.
+				buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
+				[accountRegistrationPopUp setFrameSize:buttonSize];
+				[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
+				
+				// Show sheet only if Telephone didn't start.
+				if ([[AKTelephone sharedTelephone] started])
+					[self showRegistrarConnectionErrorSheet];
+			}
 		}
-		
-		[[self account] setRegistered:flag];
 		
 	} else {
-		NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
-													accountName:[[self account] username]];
+		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
+		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
+		[[self window] setContentView:unregisteredAccountView];
 		
-		// Set registraton button title to Connecting...
-		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+		// Set registraton button title to Offline.
+		buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
 		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonOfflineTitle];
 		
-		// Explicitly redisplay button before DNS looks up registrar host name.
-		[[accountRegistrationPopUp superview] display];
+		// Explicitly redisplay account window before DNS will look up the registrar host name.
+		[[self window] display];
 		
-		// Add account to Telephone
-		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
-		
-		// Error connecting to registrar.
-		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
-			// Set registraton button title to Disconnected.
-			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
-			
-			// Show sheet only if Telephone didn't start.
-			if ([[AKTelephone sharedTelephone] started])
-				[self showRegistrarConnectionErrorSheet];
-		}
+		[[self account] setRegistered:flag];
 	}
 }
 

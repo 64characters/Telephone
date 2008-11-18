@@ -331,6 +331,16 @@
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
+	// Unregister accounts.
+	for (NSString *accountKey in [self accountControllers]) {
+		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
+		[anAccountController setAccountRegistered:NO];
+	}
+	
+	// Wait one second to receive unregistrations confirmations.
+	sleep(1);
+	
+	// Remove accounts from Telephone.
 	for (NSString *accountKey in [self accountControllers]) {
 		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
 		[[self telephone] removeAccount:[anAccountController account]];
@@ -339,13 +349,13 @@
 	[[self telephone] destroyUserAgent];
 	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
-	[[self telephone] startUserAgent];
 	
+	// Add accounts to Telephone.
 	for (NSString *accountKey in [self accountControllers]) {
 		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
 		[anAccountController setAccountRegistered:YES];
 		
-		// Don't register subsequent accounts if Telephone could not start.
+		// Don't add subsequent accounts if Telephone could not start.
 		if (![[self telephone] started])
 			break;
 	}
