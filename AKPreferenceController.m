@@ -141,7 +141,8 @@ NSString *AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreference
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[STUNServerHost setStringValue:[defaults stringForKey:AKSTUNServerHost]];
-	[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	if ([[defaults objectForKey:AKSTUNServerPort] integerValue] > 0)
+		[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 		
 	NSInteger row = [accountsTable selectedRow];
 	if (row == -1)

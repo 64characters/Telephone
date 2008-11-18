@@ -329,12 +329,16 @@
 
 - (void)preferenceControllerDidChangeSTUNServer:(NSNotification *)notification
 {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
 	for (NSString *accountKey in [self accountControllers]) {
 		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
 		[[self telephone] removeAccount:[anAccountController account]];
 	}
 
 	[[self telephone] destroyUserAgent];
+	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
+	[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 	[[self telephone] startUserAgent];
 	
 	for (NSString *accountKey in [self accountControllers]) {
