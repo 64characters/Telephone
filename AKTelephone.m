@@ -47,6 +47,15 @@ NSString *AKSoundDeviceInputCount = @"AKSoundDeviceInputCount";
 NSString *AKSoundDeviceOutputCount = @"AKSoundDeviceOutputCount";
 NSString *AKSoundDeviceDefaultSamplesPerSecond = @"AKSoundDeviceDefaultSamplesPerSecond";
 
+// Generic config defaults.
+NSString * const AKTelephoneSTUNServerHostDefault = @"";
+const NSInteger AKTelephoneSTUNServerPortDefault = 3478;
+NSString * const AKTelephoneLogFileNameDefault = @"~/Library/Logs/Telephone.log";
+const NSInteger AKTelephoneLogLevelDefault = 3;
+const NSInteger AKTelephoneConsoleLogLevelDefault = 0;
+const BOOL AKTelephoneDetectsVoiceActivityDefault = YES;
+const NSInteger AKTelephoneTransportPortDefault = 0;	// 0 for any available port.
+
 static AKTelephone *sharedTelephone = nil;
 
 typedef enum _AKTelephoneRingtones {
@@ -79,12 +88,12 @@ typedef enum _AKTelephoneRingtones {
 @synthesize ringbackPort;
 
 @synthesize STUNServerHost;
-@synthesize STUNServerPort;
-@synthesize logFileName;
+@dynamic STUNServerPort;
+@dynamic logFileName;
 @synthesize logLevel;
 @synthesize consoleLogLevel;
 @synthesize detectsVoiceActivity;
-@synthesize transportPort;
+@dynamic transportPort;
 
 - (id)delegate
 {
@@ -153,6 +162,51 @@ typedef enum _AKTelephoneRingtones {
 - (AKTelephoneCallData *)callData
 {
 	return callData;
+}
+
+- (NSUInteger)STUNServerPort
+{
+	return STUNServerPort;
+}
+
+- (void)setSTUNServerPort:(NSUInteger)port
+{
+	if (port > 0 && port < 65535)
+		STUNServerPort = port;
+	else
+		STUNServerPort = AKTelephoneSTUNServerPortDefault;
+}
+
+- (NSString *)logFileName
+{
+	return [[logFileName copy] autorelease];
+}
+
+- (void)setLogFileName:(NSString *)pathToFile
+{
+	if (logFileName != pathToFile) {
+		if ([pathToFile length] > 0) {
+			[logFileName release];
+			logFileName = [pathToFile copy];
+		} else {
+			[logFileName release];
+			logFileName = AKTelephoneLogFileNameDefault;
+		}
+			
+	}
+}
+
+- (NSUInteger)transportPort
+{
+	return transportPort;
+}
+
+- (void)setTransportPort:(NSUInteger)port
+{
+	if (port > 0 && port < 65535)
+		transportPort = port;
+	else
+		transportPort = AKTelephoneTransportPortDefault;
 }
 
 
@@ -228,13 +282,13 @@ typedef enum _AKTelephoneRingtones {
 	accounts = [[NSMutableArray alloc] init];
 	[self setStarted:NO];
 	
-	[self setSTUNServerHost:@""];
-	[self setSTUNServerPort:3478];
-	[self setLogFileName:@"~/Library/Logs/Telephone.log"];
-	[self setLogLevel:3];
-	[self setConsoleLogLevel:0];
-	[self setDetectsVoiceActivity:YES];
-	[self setTransportPort:0];
+	[self setSTUNServerHost:AKTelephoneSTUNServerHostDefault];
+	[self setSTUNServerPort:AKTelephoneSTUNServerPortDefault];
+	[self setLogFileName:AKTelephoneLogFileNameDefault];
+	[self setLogLevel:AKTelephoneLogLevelDefault];
+	[self setConsoleLogLevel:AKTelephoneConsoleLogLevelDefault];
+	[self setDetectsVoiceActivity:AKTelephoneDetectsVoiceActivityDefault];
+	[self setTransportPort:AKTelephoneTransportPortDefault];
 	
 	return self;
 }
@@ -282,25 +336,15 @@ typedef enum _AKTelephoneRingtones {
 	ringbackSlot = PJSUA_INVALID_ID;
 	userAgentConfig.max_calls = AKTelephoneCallsMax;
 	
-	if ([[self STUNServerHost] length] > 0) {
-		NSString *STUNServerString;
-		if ([self STUNServerPort] > 0)
-			STUNServerString = [NSString stringWithFormat:@"%@:%u", [self STUNServerHost], [self STUNServerPort]];
-		else
-			STUNServerString = [self STUNServerHost];
-			
-		userAgentConfig.stun_host = [STUNServerString pjString];
-	}
-	
-	if ([[self logFileName] length] > 0)
-		loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
-	
+	if ([[self STUNServerHost] length] > 0)
+		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%u",
+									  [self STUNServerHost], [self STUNServerPort]]
+									 pjString];
+	loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
 	loggingConfig.level = [self logLevel];
 	loggingConfig.console_level = [self consoleLogLevel];
-	
 	mediaConfig.no_vad = ![self detectsVoiceActivity];
 	mediaConfig.snd_auto_close_time = 0;
-	
 	transportConfig.port = [self transportPort];
 	
 	userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;

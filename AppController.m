@@ -93,23 +93,13 @@
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	NSString *STUNServerHost = [defaults stringForKey:AKSTUNServerHost];
-	if ([STUNServerHost length] > 0)
-		[telephone setSTUNServerHost:STUNServerHost];
-	
+	[telephone setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[telephone setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
-	
-	NSString *logFileName = [defaults stringForKey:AKLogFileName];
-	if ([logFileName length] > 0)
-		[telephone setLogFileName:logFileName];
-	
+	[telephone setLogFileName:[defaults stringForKey:AKLogFileName]];
 	[telephone setLogLevel:[[defaults objectForKey:AKLogLevel] integerValue]];
 	[telephone setConsoleLogLevel:[[defaults objectForKey:AKConsoleLogLevel] integerValue]];
 	[telephone setDetectsVoiceActivity:[[defaults objectForKey:AKVoiceActivityDetection] boolValue]];
-	
-	NSInteger transportPort = [[defaults objectForKey:AKTransportPort] integerValue];
-	if (transportPort > 0 && transportPort <= 65535)
-		[telephone setTransportPort:transportPort];
+	[telephone setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
 	
 	// Install audio devices changes callback
 	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AHPropertyListenerProc, [self telephone]);
