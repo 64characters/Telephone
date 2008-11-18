@@ -178,7 +178,7 @@ NSString *AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreference
 
 - (IBAction)changeView:(id)sender
 {
-	// Check for STUN server changes if the user switches from General to some another view.
+	// If the user switches from General to some other view, check for STUN server changes.
 	if ([[[self window] contentView] isEqual:generalView] && ![sender isEqual:generalToolbarItem]) {
 		BOOL STUNServerChanged = [self checkForSTUNServerChanges:sender];
 		if (STUNServerChanged)
@@ -479,7 +479,7 @@ NSString *AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreference
 		[soundOutputPopUp selectItemWithTitle:lastSoundOutput];
 }
 
-// Check if STUN server settings were changed, show alert sheet to save, cancel or don't save.
+// Check if STUN server settings were changed, show an alert sheet to save, cancel or don't save.
 // Returns YES if changes were made to STUN server hostname or port; returns NO otherwise.
 - (BOOL)checkForSTUNServerChanges:(id)sender
 {
