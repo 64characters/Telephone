@@ -229,6 +229,33 @@ NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconn
 	}
 }
 
+- (void)sendDTMFDigits:(NSString *)digits
+{
+	pj_status_t status;
+	pj_str_t pjDigits = [digits pjString];
+	
+	// Try to send RFC2833 DTMF first.
+	status = pjsua_call_dial_dtmf([self identifier], &pjDigits);
+	
+	if (status != PJ_SUCCESS) {		// Okay, that didn't work. Send INFO DTMF.
+		const pj_str_t SIPINFO = pj_str("INFO");
+		
+		for (NSUInteger i = 0; i < [digits length]; ++i) {
+			pjsua_msg_data messageData;
+			pjsua_msg_data_init(&messageData);
+			messageData.content_type = pj_str("application/dtmf-relay");
+			
+			NSString *messageBody = [NSString stringWithFormat:@"Signal=%C\r\nDuration=160",
+									 [digits characterAtIndex:i]];
+			messageData.msg_body = [messageBody pjString];
+			
+			status = pjsua_call_send_request([self identifier], &SIPINFO, &messageData);
+			if (status != PJ_SUCCESS)
+				NSLog(@"Error sending DTMF");
+		}
+	}
+}
+
 @end
 
 

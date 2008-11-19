@@ -67,6 +67,7 @@ extern const NSInteger AKTelephoneCallsMax;
 - (void)hangUp;
 - (void)ringbackStart;
 - (void)ringbackStop;
+- (void)sendDTMFDigits:(NSString *)digits;
 
 @end
 
