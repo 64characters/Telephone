@@ -34,6 +34,9 @@
 #import "AKTelephoneAccount.h"
 
 
+// AudioHardware callback to track adding/removing audio devices
+static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData);
+
 @implementation AppController
 
 @synthesize telephone;
@@ -456,7 +459,7 @@
 #pragma mark -
 
 // Send updateSoundDevices to Telephone. When Telephone updates sound devices, it should post a notification.
-OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData)
+static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData)
 {
 	AKTelephone *telephone = (AKTelephone *)inClientData;
 	

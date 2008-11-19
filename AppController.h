@@ -53,7 +53,3 @@
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
 
 @end
-
-
-// AudioHardware callback to track adding/removing audio devices
-OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData);
