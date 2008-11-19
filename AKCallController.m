@@ -26,6 +26,7 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#import "AKActiveCallView.h"
 #import "AKCallController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
@@ -190,6 +191,8 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	[self performSelectorOnMainThread:@selector(startCallTimer) withObject:nil waitUntilDone:NO];
 	
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
+	if ([[self activeCallView] acceptsFirstResponder])
+		[[self window] makeFirstResponder:[self activeCallView]];
 }
 
 - (void)telephoneCallDidDisconnect:(NSNotification *)notification
@@ -207,6 +210,27 @@ NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWi
 	[hangUpButton setEnabled:NO];
 	[acceptCallButton setEnabled:NO];
 	[declineCallButton setEnabled:NO];
+}
+
+
+#pragma mark AKActiveCallView delegate
+
+- (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString
+{
+	NSCharacterSet *DTMFCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#"];
+	
+	BOOL isValid = YES;
+	
+	for (NSUInteger i = 0; i < [aString length]; ++i) {
+		unichar digit = [aString characterAtIndex:i];
+		if (![DTMFCharacterSet characterIsMember:digit]) {
+			isValid = NO;
+			break;
+		}
+	}
+	
+	if (isValid)
+		[[self call] sendDTMFDigits:aString];
 }
 
 @end
