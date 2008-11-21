@@ -27,7 +27,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CoreAudio/CoreAudio.h>
 
 
 @class AKTelephone, AKAccountController, AKPreferenceController;
@@ -37,19 +36,36 @@
 	AKTelephone *telephone;
 	NSMutableDictionary *accountControllers;
 	AKPreferenceController *preferenceController;
+	NSMutableArray *audioDevices;
+	NSInteger soundInputDeviceIndex;
+	NSInteger soundOutputDeviceIndex;
+	BOOL soundIOIndexesChanged;
 	
 	IBOutlet NSMenuItem *preferencesMenuItem;
 }
 
-@property(nonatomic, readonly, retain) AKTelephone *telephone;
-@property(nonatomic, readonly, retain) NSMutableDictionary *accountControllers;
-@property(nonatomic, readwrite, retain) AKPreferenceController *preferenceController;
+@property(readonly, retain) AKTelephone *telephone;
+@property(readonly, retain) NSMutableDictionary *accountControllers;
+@property(readwrite, retain) AKPreferenceController *preferenceController;
+@property(readonly, retain) NSMutableArray *audioDevices;
+@property(readwrite, assign) NSInteger soundInputDeviceIndex;
+@property(readwrite, assign) NSInteger soundOutputDeviceIndex;
+@property(readwrite, assign) BOOL soundIOIndexesChanged;
 
-// Choose saved previously or first matched sound devices from the list of available devices.
-- (void)selectSoundDevices;
+// Update list of available audio devices.
+- (void)updateAudioDevices;
+
+// Choose appropriate audio devices for sound IO.
+- (void)selectSoundIO;
 
 - (IBAction)showPreferencePanel:(id)sender;
-
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
 
 @end
+
+
+// Audio device dictionary keys.
+extern NSString * const AKAudioDeviceIdentifier;
+extern NSString * const AKAudioDeviceName;
+extern NSString * const AKAudioDeviceInputsCount;
+extern NSString * const AKAudioDeviceOutputsCount;

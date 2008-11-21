@@ -34,11 +34,6 @@
 
 extern NSInteger AKTelephoneInvalidIdentifier;
 
-extern NSString *AKSoundDeviceName;
-extern NSString *AKSoundDeviceInputCount;
-extern NSString *AKSoundDeviceOutputCount;
-extern NSString *AKSoundDeviceDefaultSamplesPerSecond;
-
 typedef struct _AKTelephoneCallData {
 	pj_timer_entry timer;
 	pj_bool_t ringbackOn;
@@ -71,7 +66,7 @@ typedef struct _AKTelephoneCallData {
 @property(nonatomic, readwrite, assign) id delegate;
 @property(nonatomic, readonly, retain) NSMutableArray *accounts;
 @property(nonatomic, readonly, assign) BOOL started;
-@property(nonatomic, readonly, retain) NSArray *soundDevices;
+@property(readonly, assign) NSUInteger activeCallsCount;
 @property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
 @property(nonatomic, readonly, assign) pj_pool_t *pjPool;
 @property(nonatomic, readonly, assign) NSInteger ringbackSlot;
@@ -109,13 +104,12 @@ typedef struct _AKTelephoneCallData {
 - (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier;
 - (void)hangUpAllCalls;
 
-// Set new input and output sound devices.
-// If NSNotFound or -1 is passed as either parameter, first matched device will be used.
+// Set new sound IO.
 - (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output;
 
-// Update list of sound devices. Posts AKTelephoneDidUpdateSoundDevicesNotification.
+// Update list of audio devices.
 // After calling this method, setSoundInputDevice:soundOutputDevice: must be called to set appropriate IO.
-- (void)updateSoundDevices;
+- (void)updateAudioDevices;
 
 @end
 
@@ -135,4 +129,3 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
 
 // Notifications
 extern NSString *AKTelephoneDidDetectNATNotification;
-extern NSString *AKTelephoneDidUpdateSoundDevicesNotification;

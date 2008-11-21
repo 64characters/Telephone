@@ -49,16 +49,16 @@
 	IBOutlet NSProgressIndicator *callProgressIndicator;
 }
 
-@property(nonatomic, readwrite, retain) AKTelephoneCall *call;
-@property(nonatomic, readwrite, assign) AKAccountController *accountController;
-@property(nonatomic, readwrite, copy) NSString *status;
-@property(nonatomic, readwrite, assign) NSTimeInterval callStartTime;
-@property(nonatomic, readwrite, retain) NSTimer *callTimer;
+@property(readwrite, retain) AKTelephoneCall *call;
+@property(readwrite, assign) AKAccountController *accountController;
+@property(readwrite, copy) NSString *status;
+@property(readwrite, assign) NSTimeInterval callStartTime;
+@property(readwrite, retain) NSTimer *callTimer;
 
-@property(nonatomic, readonly, retain) NSView *incomingCallView;
-@property(nonatomic, readonly, retain) NSView *activeCallView;
-@property(nonatomic, readonly, retain) NSView *endedCallView;
-@property(nonatomic, readonly, retain) NSProgressIndicator *callProgressIndicator;
+@property(readonly, retain) NSView *incomingCallView;
+@property(readonly, retain) NSView *activeCallView;
+@property(readonly, retain) NSView *endedCallView;
+@property(readonly, retain) NSProgressIndicator *callProgressIndicator;
 
 // Designated initializer
 - (id)initWithTelephoneCall:(AKTelephoneCall *)aCall

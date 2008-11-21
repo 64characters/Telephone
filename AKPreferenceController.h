@@ -123,8 +123,8 @@ extern NSString *AKAccountEnabled;
 // Change sound input and output devices
 - (IBAction)changeSoundIO:(id)sender;
 
-// Refresh list of available sound devices
-- (void)updateSoundDevices;
+// Refresh list of available audio devices.
+- (void)updateAudioDevices;
 
 @end
 

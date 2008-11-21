@@ -30,6 +30,7 @@
 #import "AKPreferenceController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
+#import "AppController.h"
 #import "NSStringAdditions.h"
 
 
@@ -137,7 +138,7 @@ NSString *AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreference
 	[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
 	[self displayView:generalView withTitle:@"General"];
 	
-	[self updateSoundDevices];
+	[self updateAudioDevices];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[STUNServerHost setStringValue:[defaults stringForKey:AKSTUNServerHost]];
@@ -426,36 +427,31 @@ NSString *AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreference
 
 - (IBAction)changeSoundIO:(id)sender
 {
-	BOOL isChanged = [[AKTelephone sharedTelephone] setSoundInputDevice:[[soundInputPopUp selectedItem] tag]
-													soundOutputDevice:[[soundOutputPopUp selectedItem] tag]];
-	if (!isChanged) {
-		NSLog(@"Error changing sound devices");
-		return;
-	}
-	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:[soundInputPopUp titleOfSelectedItem] forKey:AKSoundInput];
 	[defaults setObject:[soundOutputPopUp titleOfSelectedItem] forKey:AKSoundOutput];
+	
+	[[NSApp delegate] selectSoundIO];
 }
 
-- (void)updateSoundDevices
+- (void)updateAudioDevices
 {
 	// Populate sound IO pop-up buttons
-	NSArray *soundDevices = [[AKTelephone sharedTelephone] soundDevices];
+	NSArray *audioDevices = [[NSApp delegate] audioDevices];
 	NSMenu *soundInputMenu = [[NSMenu alloc] init];
 	NSMenu *soundOutputMenu = [[NSMenu alloc] init];
 	NSInteger i;
-	for (i = 0; i < [soundDevices count]; ++i) {
-		NSDictionary *deviceDict = [soundDevices objectAtIndex:i];
+	for (i = 0; i < [audioDevices count]; ++i) {
+		NSDictionary *deviceDict = [audioDevices objectAtIndex:i];
 		
 		NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-		[aMenuItem setTitle:[deviceDict objectForKey:AKSoundDeviceName]];
+		[aMenuItem setTitle:[deviceDict objectForKey:AKAudioDeviceName]];
 		[aMenuItem setTag:i];
 		
-		if ([[deviceDict objectForKey:AKSoundDeviceInputCount] integerValue] > 0)
+		if ([[deviceDict objectForKey:AKAudioDeviceInputsCount] integerValue] > 0)
 			[soundInputMenu addItem:[[aMenuItem copy] autorelease]];
 		
-		if ([[deviceDict objectForKey:AKSoundDeviceOutputCount] integerValue] > 0)
+		if ([[deviceDict objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0)
 			[soundOutputMenu addItem:[[aMenuItem copy] autorelease]];
 		
 		[aMenuItem release];

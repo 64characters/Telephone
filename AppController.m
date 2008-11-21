@@ -26,22 +26,43 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#import <CoreAudio/CoreAudio.h>
+
 #import "AppController.h"
 #import "AKAccountController.h"
 #import "AKCallController.h"
 #import "AKPreferenceController.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
+#import "AKTelephoneCall.h"
 
 
 // AudioHardware callback to track adding/removing audio devices
-static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData);
+static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID, void *clientData);
+// Get audio devices data.
+static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount);
+
+// Audio device dictionary keys.
+NSString * const AKAudioDeviceIdentifier = @"AKAudioDeviceIdentifier";
+NSString * const AKAudioDeviceName = @"AKAudioDeviceName";
+NSString * const AKAudioDeviceInputsCount = @"AKAudioDeviceInputsCount";
+NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
+
+@interface AppController()
+
+- (void)setSelectedSoundIOToTelephone;
+
+@end
 
 @implementation AppController
 
 @synthesize telephone;
 @synthesize accountControllers;
 @synthesize preferenceController;
+@synthesize audioDevices;
+@synthesize soundInputDeviceIndex;
+@synthesize soundOutputDeviceIndex;
+@synthesize soundIOIndexesChanged;
 
 + (void)initialize
 {
@@ -74,6 +95,21 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 	telephone = [AKTelephone telephoneWithDelegate:self];
 	accountControllers = [[NSMutableDictionary alloc] init];
 	[self setPreferenceController:nil];
+	audioDevices = [[NSMutableArray alloc] init];
+	[self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
+	[self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
+	[self setSoundIOIndexesChanged:NO];
+	
+	// Subscribe to Early and Confirmed call states to set sound IO to Telephone.
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter addObserver:self
+						   selector:@selector(telephoneCallEarly:)
+							   name:AKTelephoneCallEarlyNotification
+							 object:nil];
+	[notificationCenter addObserver:self
+						   selector:@selector(telephoneCallDidConfirm:)
+							   name:AKTelephoneCallDidConfirmNotification
+							 object:nil];
 	
 	return self;
 }
@@ -85,8 +121,11 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 	
 	if ([[[self preferenceController] delegate] isEqual:self])
 		[[self preferenceController] setDelegate:nil];
-	
 	[preferenceController release];
+	
+	[audioDevices release];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	[super dealloc];
 }
@@ -105,7 +144,10 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 	[telephone setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
 	
 	// Install audio devices changes callback
-	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AHPropertyListenerProc, [self telephone]);
+	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AKAudioDevicesChanged, self);
+	
+	// Get available audio devices, select devices for sound input and output.
+	[self updateAudioDevices];
 	
 	// Read accounts from defaults
 	NSDictionary *savedAccounts = [defaults dictionaryForKey:AKAccounts];
@@ -186,25 +228,119 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 	}
 }
 
-// If user selected sound devices through preferences before, set these
-// devices as active. Send NSNotFound as a particular device ID if there is no saved sound
-// device in the defaults. This will set a first matched device.
-- (void)selectSoundDevices
+- (void)updateAudioDevices
 {
-	NSArray *soundDevices = [[self telephone] soundDevices];
+	OSStatus err = noErr;
+    UInt32 size = 0;
+	NSUInteger i = 0;
+	AudioBufferList *theBufferList = NULL;
+	
+	// Flush current devices array.
+	[[self audioDevices] removeAllObjects];
+	
+	// Fetch a pointer to the list of available devices.
+	AudioDeviceID *devices = NULL;
+	UInt16 devicesCount = 0;
+	err = AKGetAudioDevices((Ptr *)&devices, &devicesCount);
+	if (err != noErr)
+		return;
+	
+	// Iterate over each device gathering information.
+	for (NSUInteger loopCount = 0; loopCount < devicesCount; ++loopCount) {
+		NSMutableDictionary *deviceDict = [[NSMutableDictionary alloc] init];
+		
+		// Get device identifier.
+		NSUInteger deviceIdentifier = devices[loopCount];
+		[deviceDict setObject:[NSNumber numberWithUnsignedInteger:deviceIdentifier]
+					   forKey: AKAudioDeviceIdentifier];
+		
+		// Get device name.
+		CFStringRef tempStringRef = NULL;
+		size = sizeof(CFStringRef);
+		err = AudioDeviceGetProperty(devices[loopCount], 0, 0, kAudioDevicePropertyDeviceNameCFString, &size, &tempStringRef);
+		[deviceDict setObject:(NSString *)tempStringRef forKey:AKAudioDeviceName];
+		CFRelease(tempStringRef);
+		
+		// Get number of input channels.
+		size = 0;
+		NSUInteger inputChannelsCount = 0;
+		err = AudioDeviceGetPropertyInfo(devices[loopCount], 0, 1, kAudioDevicePropertyStreamConfiguration, &size, NULL);
+		if ((err == noErr) && (size != 0)) {
+			theBufferList = (AudioBufferList *)malloc(size);
+			if (theBufferList != NULL) {
+				// Get the input stream configuration.
+				err = AudioDeviceGetProperty(devices[loopCount], 0, 1, kAudioDevicePropertyStreamConfiguration, &size, theBufferList);
+				if (err == noErr) {
+					// Count the total number of input channels in the stream.
+					for(i = 0; i < theBufferList->mNumberBuffers; ++i)
+						inputChannelsCount += theBufferList->mBuffers[i].mNumberChannels;
+				}
+				free(theBufferList);
+				
+				[deviceDict setObject:[NSNumber numberWithUnsignedInteger:inputChannelsCount]
+							   forKey:AKAudioDeviceInputsCount];
+			}
+		}
+		
+		// Get number of output channels.
+		size = 0;
+		NSUInteger outputChannelsCount = 0;
+		err = AudioDeviceGetPropertyInfo(devices[loopCount], 0, 0, kAudioDevicePropertyStreamConfiguration, &size, NULL);
+		if((err == noErr) && (size != 0)) {
+			theBufferList = (AudioBufferList *)malloc(size);
+			if(theBufferList != NULL) {
+				// Get the input stream configuration.
+				err = AudioDeviceGetProperty(devices[loopCount], 0, 0, kAudioDevicePropertyStreamConfiguration, &size, theBufferList);
+				if(err == noErr) {
+					// Count the total number of output channels in the stream.
+					for (i = 0; i < theBufferList->mNumberBuffers; ++i)
+						outputChannelsCount += theBufferList->mBuffers[i].mNumberChannels;
+				}
+				free(theBufferList);
+				
+				[deviceDict setObject:[NSNumber numberWithUnsignedInteger:outputChannelsCount]
+							   forKey:AKAudioDeviceOutputsCount];
+			}
+		}
+		
+		[[self audioDevices] addObject:deviceDict];
+		[deviceDict release];
+	}
+	
+	// Update audio devices in Telephone.
+	[[self telephone] performSelectorOnMainThread:@selector(updateAudioDevices)
+									   withObject:nil
+									waitUntilDone:YES];
+	
+	// Select sound IO from the updated audio devices list.
+	// This method will change sound IO in Telephone if there are active calls.
+	[self selectSoundIO];
+	
+	// Update audio devices in preferences.
+	[[self preferenceController] updateAudioDevices];
+}
+
+// Select appropriate sound IO from the list of available audio devices.
+// Lookup in the defaults database for devices selected earlier. If not found, use first matched.
+// Select sound IO at Telephone if there are active calls.
+- (void)selectSoundIO
+{
+	NSArray *devices = [self audioDevices];
 	NSInteger newSoundInput, newSoundOutput;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *deviceDict;
 	NSInteger i;
 	
+	// Lookup devices records in the defaults.
+	
 	newSoundInput = newSoundOutput = NSNotFound;
 	
 	NSString *lastSoundInputString = [defaults objectForKey:AKSoundInput];
 	if (lastSoundInputString != nil) {
-		for (i = 0; i < [soundDevices count]; ++i) {
-			deviceDict = [soundDevices objectAtIndex:i];
-			if ([[deviceDict objectForKey:AKSoundDeviceName] isEqual:lastSoundInputString] &&
-				[[deviceDict objectForKey:AKSoundDeviceInputCount] integerValue] > 0)
+		for (i = 0; i < [devices count]; ++i) {
+			deviceDict = [devices objectAtIndex:i];
+			if ([[deviceDict objectForKey:AKAudioDeviceName] isEqual:lastSoundInputString] &&
+				[[deviceDict objectForKey:AKAudioDeviceInputsCount] integerValue] > 0)
 			{
 				newSoundInput = i;
 				break;
@@ -214,10 +350,10 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 	
 	NSString *lastSoundOutputString = [defaults objectForKey:AKSoundOutput];
 	if (lastSoundOutputString != nil) {
-		for (i = 0; i < [soundDevices count]; ++i) {
-			deviceDict = [soundDevices objectAtIndex:i];
-			if ([[deviceDict objectForKey:AKSoundDeviceName] isEqual:lastSoundOutputString] &&
-				[[deviceDict objectForKey:AKSoundDeviceOutputCount] integerValue] > 0)
+		for (i = 0; i < [devices count]; ++i) {
+			deviceDict = [devices objectAtIndex:i];
+			if ([[deviceDict objectForKey:AKAudioDeviceName] isEqual:lastSoundOutputString] &&
+				[[deviceDict objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0)
 			{
 				newSoundOutput = i;
 				break;
@@ -225,7 +361,47 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 		}
 	}
 	
-	[[self telephone] setSoundInputDevice:newSoundInput soundOutputDevice:newSoundOutput];
+	// If still not found, select first matched.
+	
+	if (newSoundInput == NSNotFound) {
+		for (i = 0; i < [devices count]; ++i)
+			if ([[[devices objectAtIndex:i] objectForKey:AKAudioDeviceInputsCount] integerValue] > 0) {
+				newSoundInput = i;
+				break;
+			}
+	}
+	
+	if (newSoundOutput == NSNotFound) {
+		for (i = 0; i < [devices count]; ++i)
+			if ([[[devices objectAtIndex:i] objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0) {
+				newSoundOutput = i;
+				break;
+			}
+	}
+	
+	// Mark sound IO indexes as changed.
+	// We need this to change Telephone sound IO laizily, when the next call enters
+	// state that involves sound input or output (for example, Ringing or Confirmed).
+	[self setSoundIOIndexesChanged:YES];
+	
+	[self setSoundInputDeviceIndex:newSoundInput];
+	[self setSoundOutputDeviceIndex:newSoundOutput];
+	
+	// Set selected sound IO to Telephone if there are active calls.
+	if ([[self telephone] activeCallsCount] > 0)
+		[self performSelectorOnMainThread:@selector(setSelectedSoundIOToTelephone)
+							   withObject:nil
+							waitUntilDone:NO];
+}
+
+- (void)setSelectedSoundIOToTelephone
+{
+	NSLog(@"Setting sound IO to Telephone: %d, %d", [self soundInputDeviceIndex], [self soundOutputDeviceIndex]);
+	[[self telephone] setSoundInputDevice:[self soundInputDeviceIndex]
+						soundOutputDevice:[self soundOutputDeviceIndex]];
+	
+	// Clear changed status of sound IO indexes.
+	[self setSoundIOIndexesChanged:NO];
 }
 
 - (IBAction)showPreferencePanel:(id)sender
@@ -381,22 +557,9 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 		return NO;
 	}
 	
-	[self selectSoundDevices];
-	[[self preferenceController] updateSoundDevices];
-	
 	return YES;
 }
 
-// Telephone updated sound devices list and left the application silent.
-// Must set appropriate sound IO here!
-// Send message to preference controller to update list of sound devices.
-- (void)telephoneDidUpdateSoundDevices:(NSNotification *)notification
-{
-	[self selectSoundDevices];
-	
-	// Update list of sound devices in preferences.
-	[[self preferenceController] updateSoundDevices];
-}
 
 #pragma mark -
 #pragma mark NSWindow notifications
@@ -453,22 +616,78 @@ static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, voi
 		NSLog(@"Error destroying user agent");
 }
 
+
+#pragma mark -
+#pragma mark AKTelephoneCall notifications
+
+- (void)telephoneCallEarly:(NSNotification *)notification
+{
+	// If this is the first call and sound IO indexes were changed when Telephone was idle...
+	if ([self soundIOIndexesChanged])
+		[self performSelectorOnMainThread:@selector(setSelectedSoundIOToTelephone)
+							   withObject:nil
+							waitUntilDone:NO];
+}
+
+- (void)telephoneCallDidConfirm:(NSNotification *)notification
+{
+	// If this is the first call and sound IO indexes were changed when Telephone was idle...
+	if ([self soundIOIndexesChanged])
+		[self performSelectorOnMainThread:@selector(setSelectedSoundIOToTelephone)
+							   withObject:nil
+							waitUntilDone:NO];
+}
+
 @end
 
 
 #pragma mark -
 
-// Send updateSoundDevices to Telephone. When Telephone updates sound devices, it should post a notification.
-static OSStatus AHPropertyListenerProc(AudioHardwarePropertyID inPropertyID, void *inClientData)
+// Send updateAudioDevices to AppController.
+static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID, void *clientData)
 {
-	AKTelephone *telephone = (AKTelephone *)inClientData;
+	AppController *appController = (AppController *)clientData;
 	
-	if (inPropertyID == kAudioHardwarePropertyDevices)
-		[telephone performSelectorOnMainThread:@selector(updateSoundDevices)
-														withObject:nil
-													 waitUntilDone:NO];
-	else
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	if (propertyID == kAudioHardwarePropertyDevices) {
+		[NSObject cancelPreviousPerformRequestsWithTarget:appController
+												 selector:@selector(updateAudioDevices)
+												   object:nil];
+		[appController performSelector:@selector(updateAudioDevices)
+							withObject:nil
+							afterDelay:0.2];
+	} else
 		NSLog(@"Not handling this property id");
 	
+	[pool drain];
+	
 	return noErr;
+}
+
+static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount)
+{
+    OSStatus err = noErr;
+    UInt32 size;
+    Boolean isWritable;
+    
+	// Get sound devices count.
+    err = AudioHardwareGetPropertyInfo(kAudioHardwarePropertyDevices, &size, &isWritable);
+    if (err != noErr)
+		return err;
+	
+	*devicesCount = size / sizeof(AudioDeviceID);
+    if (*devicesCount < 1)
+		return err;
+    
+    // Allocate space for devcies.
+    *devices = (Ptr)malloc(size);
+    memset(*devices, 0, size);
+	
+	// Get the data.
+    err = AudioHardwareGetProperty(kAudioHardwarePropertyDevices, &size, (void *)*devices);	
+    if (err != noErr)
+		return err;
+	
+    return err;
 }
