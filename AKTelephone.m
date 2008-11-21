@@ -36,10 +36,9 @@
 #define THIS_FILE "AKTelephone.m"
 
 
-NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
+const NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
 
-NSString *AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
-NSString *AKTelephoneDidUpdateSoundDevicesNotification = @"AKTelephoneDidUpdateSoundDevices";
+NSString * const AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 
 // Generic config defaults.
 NSString * const AKTelephoneSTUNServerHostDefault = @"";

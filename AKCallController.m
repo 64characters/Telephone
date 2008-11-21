@@ -33,7 +33,7 @@
 #import "NSWindowAdditions.h"
 
 
-NSString *AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWillClose";
+NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWillClose";
 
 @implementation AKCallController
 

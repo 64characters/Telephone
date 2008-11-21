@@ -40,33 +40,33 @@
 
 @end
 
-NSString *AKAccounts = @"Accounts";
-NSString *AKAccountSortOrder = @"AccountSortOrder";
-NSString *AKSTUNServerHost = @"STUNServerHost";
-NSString *AKSTUNServerPort = @"STUNServerPort";
-NSString *AKSTUNDomain = @"STUNDomain";
-NSString *AKLogFileName = @"LogFileName";
-NSString *AKLogLevel = @"LogLevel";
-NSString *AKConsoleLogLevel = @"ConsoleLogLevel";
-NSString *AKVoiceActivityDetection = @"VoiceActivityDetection";
-NSString *AKTransportPort = @"TransportPort";
-NSString *AKSoundInput = @"SoundInput";
-NSString *AKSoundOutput = @"SoundOutput";
+NSString * const AKAccounts = @"Accounts";
+NSString * const AKAccountSortOrder = @"AccountSortOrder";
+NSString * const AKSTUNServerHost = @"STUNServerHost";
+NSString * const AKSTUNServerPort = @"STUNServerPort";
+NSString * const AKSTUNDomain = @"STUNDomain";
+NSString * const AKLogFileName = @"LogFileName";
+NSString * const AKLogLevel = @"LogLevel";
+NSString * const AKConsoleLogLevel = @"ConsoleLogLevel";
+NSString * const AKVoiceActivityDetection = @"VoiceActivityDetection";
+NSString * const AKTransportPort = @"TransportPort";
+NSString * const AKSoundInput = @"SoundInput";
+NSString * const AKSoundOutput = @"SoundOutput";
 
-NSString *AKFullName = @"FullName";
-NSString *AKSIPAddress = @"SIPAddress";
-NSString *AKRegistrar = @"Registrar";
-NSString *AKRealm = @"Realm";
-NSString *AKUsername = @"Username";
-NSString *AKPassword = @"Password";
-NSString *AKAccountIndex = @"AccountIndex";
-NSString *AKAccountKey = @"AccountKey";
-NSString *AKAccountEnabled = @"AccountEnabled";
+NSString * const AKFullName = @"FullName";
+NSString * const AKSIPAddress = @"SIPAddress";
+NSString * const AKRegistrar = @"Registrar";
+NSString * const AKRealm = @"Realm";
+NSString * const AKUsername = @"Username";
+NSString * const AKPassword = @"Password";
+NSString * const AKAccountIndex = @"AccountIndex";
+NSString * const AKAccountKey = @"AccountKey";
+NSString * const AKAccountEnabled = @"AccountEnabled";
 
-NSString *AKPreferenceControllerDidAddAccountNotification = @"AKPreferenceControllerDidAddAccount";
-NSString *AKPreferenceControllerDidRemoveAccountNotification = @"AKPreferenceControllerDidRemoveAccount";
-NSString *AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPreferenceControllerDidChangeAccountEnabled";
-NSString *AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreferenceControllerDidChangeSTUNServer";
+NSString * const AKPreferenceControllerDidAddAccountNotification = @"AKPreferenceControllerDidAddAccount";
+NSString * const AKPreferenceControllerDidRemoveAccountNotification = @"AKPreferenceControllerDidRemoveAccount";
+NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPreferenceControllerDidChangeAccountEnabled";
+NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreferenceControllerDidChangeSTUNServer";
 
 @implementation AKPreferenceController
 

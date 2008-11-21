@@ -34,14 +34,7 @@
 #import "NSStringAdditions.h"
 
 
-NSString *AKTelephoneAccountFullName = @"fullName";
-NSString *AKTelephoneAccountSIPAddress = @"SIPAddress";
-NSString *AKTelephoneAccountRegistrar = @"registrar";
-NSString *AKTelephoneAccountRealm = @"realm";
-NSString *AKTelephoneAccountUsername = @"username";
-
-NSString *AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelephoneAccountRegistrationDidChange";
-NSString *AKTelephoneAccountDidReceiveCallNotification = @"AKTelephoneAccountDidReceiveCall";
+NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelephoneAccountRegistrationDidChange";
 
 @implementation AKTelephoneAccount
 

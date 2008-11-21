@@ -77,31 +77,22 @@ void AKCallStateChanged(pjsua_call_id, pjsip_event *);
 void AKCallMediaStateChanged(pjsua_call_id);
 
 
-@interface NSObject(AKTelephoneCallNotifications)
-- (void)telephoneCallCalling:(NSNotification *)notification;
-- (void)telephoneCallIncoming:(NSNotification *)notification;
-- (void)telephoneCallEarly:(NSNotification *)notification;
-- (void)telephoneCallConnecting:(NSNotification *)notification;
-- (void)telephoneCallDidConfirm:(NSNotification *)notification;
-- (void)telephoneCallDidDisconnect:(NSNotification *)notification;
-@end
+// Notifications.
 
-// Notifications
+// Calling. After INVITE is sent.
+extern NSString * const AKTelephoneCallCallingNotification;
 
-// Calling. After INVITE is sent
-extern NSString *AKTelephoneCallCallingNotification;
+// Incoming. After INVITE is received. Delegate is not subscribed to this notification.
+extern NSString * const AKTelephoneCallIncomingNotification;
 
-// Incoming. After INVITE is received. Delegate is not subscribed to this notification
-extern NSString *AKTelephoneCallIncomingNotification;
+// Early. After response with To tag.
+extern NSString * const AKTelephoneCallEarlyNotification;	// @"AKTelephoneCallState", @"AKSIPEventCode", @"AKSIPEventReason".
 
-// Early. After response with To tag
-extern NSString *AKTelephoneCallEarlyNotification;	// @"AKTelephoneCallState", @"AKSIPEventCode", @"AKSIPEventReason"
+// Connecting. After 2xx is sent/received.
+extern NSString * const AKTelephoneCallConnectingNotification;
 
-// Connecting. After 2xx is sent/received; 
-extern NSString *AKTelephoneCallConnectingNotification;
+// Confirmed. After ACK is sent/received.
+extern NSString * const AKTelephoneCallDidConfirmNotification;
 
-// Confirmed. After ACK is sent/received
-extern NSString *AKTelephoneCallDidConfirmNotification;
-
-// Disconnected. Session is terminated
-extern NSString *AKTelephoneCallDidDisconnectNotification;
+// Disconnected. Session is terminated.
+extern NSString * const AKTelephoneCallDidDisconnectNotification;

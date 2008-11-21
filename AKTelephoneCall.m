@@ -37,12 +37,12 @@
 
 const NSInteger AKTelephoneCallsMax = 4;
 
-NSString *AKTelephoneCallCallingNotification = @"AKTelephoneCallCalling";
-NSString *AKTelephoneCallIncomingNotification = @"AKTelephoneCallIncoming";
-NSString *AKTelephoneCallEarlyNotification = @"AKTelephoneCallEarly";
-NSString *AKTelephoneCallConnectingNotification = @"AKTelephoneCallConnecting";
-NSString *AKTelephoneCallDidConfirmNotification = @"AKTelephoneCallDidConfirm";
-NSString *AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconnect";
+NSString * const AKTelephoneCallCallingNotification = @"AKTelephoneCallCalling";
+NSString * const AKTelephoneCallIncomingNotification = @"AKTelephoneCallIncoming";
+NSString * const AKTelephoneCallEarlyNotification = @"AKTelephoneCallEarly";
+NSString * const AKTelephoneCallConnectingNotification = @"AKTelephoneCallConnecting";
+NSString * const AKTelephoneCallDidConfirmNotification = @"AKTelephoneCallDidConfirm";
+NSString * const AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconnect";
 
 @implementation AKTelephoneCall
 

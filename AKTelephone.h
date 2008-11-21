@@ -32,7 +32,7 @@
 
 @class AKTelephoneAccount, AKTelephoneCall;
 
-extern NSInteger AKTelephoneInvalidIdentifier;
+extern const NSInteger AKTelephoneInvalidIdentifier;
 
 typedef struct _AKTelephoneCallData {
 	pj_timer_entry timer;
@@ -122,10 +122,5 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
 - (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount;
 @end
 
-@interface NSObject(AKTelephoneNotifications)
-- (void)telephoneDidDetectNAT:(NSNotification *)notification;
-- (void)telephoneDidUpdateSoundDevices:(NSNotification *)notification;
-@end
-
-// Notifications
-extern NSString *AKTelephoneDidDetectNATNotification;
+// Notifications.
+extern NSString * const AKTelephoneDidDetectNATNotification;

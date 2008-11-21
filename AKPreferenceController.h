@@ -31,29 +31,29 @@
 
 // Keys for defaults
 
-extern NSString *AKAccounts;
-extern NSString *AKAccountSortOrder;
-extern NSString *AKSTUNServerHost;
-extern NSString *AKSTUNServerPort;
-extern NSString *AKSTUNDomain;
-extern NSString *AKLogFileName;
-extern NSString *AKLogLevel;
-extern NSString *AKConsoleLogLevel;
-extern NSString *AKVoiceActivityDetection;
-extern NSString *AKTransportPort;
-extern NSString *AKSoundInput;
-extern NSString *AKSoundOutput;
+extern NSString * const AKAccounts;
+extern NSString * const AKAccountSortOrder;
+extern NSString * const AKSTUNServerHost;
+extern NSString * const AKSTUNServerPort;
+extern NSString * const AKSTUNDomain;
+extern NSString * const AKLogFileName;
+extern NSString * const AKLogLevel;
+extern NSString * const AKConsoleLogLevel;
+extern NSString * const AKVoiceActivityDetection;
+extern NSString * const AKTransportPort;
+extern NSString * const AKSoundInput;
+extern NSString * const AKSoundOutput;
 
 // Account keys
-extern NSString *AKFullName;
-extern NSString *AKSIPAddress;
-extern NSString *AKRegistrar;
-extern NSString *AKRealm;
-extern NSString *AKUsername;
-extern NSString *AKPassword;
-extern NSString *AKAccountIndex;
-extern NSString *AKAccountKey;
-extern NSString *AKAccountEnabled;
+extern NSString * const AKFullName;
+extern NSString * const AKSIPAddress;
+extern NSString * const AKRegistrar;
+extern NSString * const AKRealm;
+extern NSString * const AKUsername;
+extern NSString * const AKPassword;
+extern NSString * const AKAccountIndex;
+extern NSString * const AKAccountKey;
+extern NSString * const AKAccountEnabled;
 
 @interface AKPreferenceController : NSWindowController {
 @private
@@ -128,15 +128,9 @@ extern NSString *AKAccountEnabled;
 
 @end
 
-@interface NSObject(AKPreferenceControllerNotifications)
-- (void)preferenceControllerDidAddAccount:(NSNotification *)notification;
-- (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification;
-- (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification;
-- (void)preferenceControllerDidChangeSTUNServer:(NSNotification *)notification;
-@end
 
-// Notifications
-extern NSString *AKPreferenceControllerDidAddAccountNotification;
-extern NSString *AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex
-extern NSString *AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex, AKAccountEnabled
-extern NSString *AKPreferenceControllerDidChangeSTUNServerNotification;
+// Notifications.
+extern NSString * const AKPreferenceControllerDidAddAccountNotification;
+extern NSString * const AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex.
+extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex, AKAccountEnabled.
+extern NSString * const AKPreferenceControllerDidChangeSTUNServerNotification;

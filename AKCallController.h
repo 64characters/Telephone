@@ -75,10 +75,6 @@
 @end
 
 
-@interface NSObject(AKCallControllerNotifications)
-- (void)telephoneCallWindowWillClose:(NSNotification *)notification;
-@end
-
-// Notifications
-// accountController will be subscribed to this notification in its setter
-extern NSString *AKTelephoneCallWindowWillCloseNotification;
+// Notifications.
+// accountController will be subscribed to this notification in its setter.
+extern NSString * const AKTelephoneCallWindowWillCloseNotification;

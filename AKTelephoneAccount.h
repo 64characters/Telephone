@@ -32,13 +32,6 @@
 
 @class AKTelephoneCall;
 
-// Keys for AKTelephoneAccount properties
-extern NSString *AKTelephoneAccountFullName;
-extern NSString *AKTelephoneAccountSIPAddress;
-extern NSString *AKTelephoneAccountRegistrar;
-extern NSString *AKTelephoneAccountRealm;
-extern NSString *AKTelephoneAccountUsername;
-
 @interface AKTelephoneAccount : NSObject {
 @private
 	id delegate;
@@ -89,13 +82,9 @@ extern NSString *AKTelephoneAccountUsername;
 void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 
 
-@interface NSObject(AKTelephoneAccountNotifications)
-- (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification;
-@end
-
 @interface NSObject(AKTelephoneAccountDelegate)
 - (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall;
 @end
 
-// Notifications
-extern NSString *AKTelephoneAccountRegistrationDidChangeNotification;
+// Notifications.
+extern NSString * const AKTelephoneAccountRegistrationDidChangeNotification;
