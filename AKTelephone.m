@@ -64,7 +64,7 @@ typedef enum _AKTelephoneRingtones {
 
 @interface AKTelephone()
 
-@property(nonatomic, readwrite, assign) BOOL started;
+@property(readwrite, assign) BOOL started;
 
 @end
 

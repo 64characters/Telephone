@@ -91,10 +91,10 @@ extern NSString *AKAccountEnabled;
 	IBOutlet NSButton *addAccountWindowOtherButton;
 }
 
-@property(nonatomic, readwrite, assign) id delegate;
-@property(nonatomic, readonly, retain) NSWindow *addAccountWindow;
-@property(nonatomic, readonly, retain) NSButton *addAccountWindowDefaultButton;
-@property(nonatomic, readonly, retain) NSButton *addAccountWindowOtherButton;
+@property(readwrite, assign) id delegate;
+@property(readonly, retain) NSWindow *addAccountWindow;
+@property(readonly, retain) NSButton *addAccountWindowDefaultButton;
+@property(readonly, retain) NSButton *addAccountWindowOtherButton;
 
 // Display view in Preferences window
 - (void)displayView:(NSView *)aView withTitle:(NSString *)aTitle;

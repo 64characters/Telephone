@@ -63,23 +63,23 @@ typedef struct _AKTelephoneCallData {
 	pjmedia_port *ringbackPort;
 }
 
-@property(nonatomic, readwrite, assign) id delegate;
-@property(nonatomic, readonly, retain) NSMutableArray *accounts;
-@property(nonatomic, readonly, assign) BOOL started;
+@property(readwrite, assign) id delegate;
+@property(readonly, retain) NSMutableArray *accounts;
+@property(readonly, assign) BOOL started;
 @property(readonly, assign) NSUInteger activeCallsCount;
-@property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
-@property(nonatomic, readonly, assign) pj_pool_t *pjPool;
-@property(nonatomic, readonly, assign) NSInteger ringbackSlot;
-@property(nonatomic, readwrite, assign) NSInteger ringbackCount;
-@property(nonatomic, readonly, assign) pjmedia_port *ringbackPort;
+@property(readonly, assign) AKTelephoneCallData *callData;
+@property(readonly, assign) pj_pool_t *pjPool;
+@property(readonly, assign) NSInteger ringbackSlot;
+@property(readwrite, assign) NSInteger ringbackCount;
+@property(readonly, assign) pjmedia_port *ringbackPort;
 
-@property(nonatomic, readwrite, copy) NSString *STUNServerHost;		// Default: @"".
-@property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;	// Default: 3478.
-@property(nonatomic, readwrite, copy) NSString *logFileName;		// Default: @"~/Library/Logs/Telephone.log".
-@property(nonatomic, readwrite, assign) NSUInteger logLevel;		// Default: 3.
-@property(nonatomic, readwrite, assign) NSUInteger consoleLogLevel;	// Default: 0.
-@property(nonatomic, readwrite, assign) BOOL detectsVoiceActivity;	// Default: YES.
-@property(nonatomic, readwrite, assign) NSUInteger transportPort;	// Default: 0 for any available port.
+@property(readwrite, copy) NSString *STUNServerHost;		// Default: @"".
+@property(readwrite, assign) NSUInteger STUNServerPort;		// Default: 3478.
+@property(readwrite, copy) NSString *logFileName;			// Default: @"~/Library/Logs/Telephone.log".
+@property(readwrite, assign) NSUInteger logLevel;			// Default: 3.
+@property(readwrite, assign) NSUInteger consoleLogLevel;	// Default: 0.
+@property(readwrite, assign) BOOL detectsVoiceActivity;		// Default: YES.
+@property(readwrite, assign) NSUInteger transportPort;		// Default: 0 for any available port.
 
 
 + (id)telephoneWithDelegate:(id)aDelegate;

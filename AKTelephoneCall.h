@@ -48,16 +48,16 @@ extern const NSInteger AKTelephoneCallsMax;
 	AKTelephoneAccount *account;
 }
 
-@property(nonatomic, readwrite, assign) id delegate;
-@property(nonatomic, readwrite, assign) NSInteger identifier;
-@property(nonatomic, readwrite, retain) AKSIPURI *localURI;
-@property(nonatomic, readwrite, retain) AKSIPURI *remoteURI;
-@property(nonatomic, readonly, assign) NSInteger state;
-@property(nonatomic, readonly, copy) NSString *stateText;
-@property(nonatomic, readwrite, assign) NSInteger lastStatus;
-@property(nonatomic, readwrite, copy) NSString *lastStatusText;
-@property(nonatomic, readonly, assign, getter=isActive) BOOL active;
-@property(nonatomic, readwrite, assign) AKTelephoneAccount *account;
+@property(readwrite, assign) id delegate;
+@property(readwrite, assign) NSInteger identifier;
+@property(readwrite, retain) AKSIPURI *localURI;
+@property(readwrite, retain) AKSIPURI *remoteURI;
+@property(readonly, assign) NSInteger state;
+@property(readonly, copy) NSString *stateText;
+@property(readwrite, assign) NSInteger lastStatus;
+@property(readwrite, copy) NSString *lastStatusText;
+@property(readonly, assign, getter=isActive) BOOL active;
+@property(readwrite, assign) AKTelephoneAccount *account;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
