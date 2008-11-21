@@ -55,9 +55,11 @@ extern NSString * const AKAccountIndex;
 extern NSString * const AKAccountKey;
 extern NSString * const AKAccountEnabled;
 
+@protocol AKPreferenceControllerDelegate;
+
 @interface AKPreferenceController : NSWindowController {
 @private
-	id delegate;
+	id <AKPreferenceControllerDelegate> delegate;
 	
 	IBOutlet NSToolbar *toolbar;
 	IBOutlet NSToolbarItem *generalToolbarItem;
@@ -91,7 +93,7 @@ extern NSString * const AKAccountEnabled;
 	IBOutlet NSButton *addAccountWindowOtherButton;
 }
 
-@property(readwrite, assign) id delegate;
+@property(readwrite, assign) id <AKPreferenceControllerDelegate> delegate;
 @property(readonly, retain) NSWindow *addAccountWindow;
 @property(readonly, retain) NSButton *addAccountWindowDefaultButton;
 @property(readonly, retain) NSButton *addAccountWindowOtherButton;
@@ -125,6 +127,17 @@ extern NSString * const AKAccountEnabled;
 
 // Refresh list of available audio devices.
 - (void)updateAudioDevices;
+
+@end
+
+
+@protocol AKPreferenceControllerDelegate <NSObject>
+
+@optional
+- (void)preferenceControllerDidAddAccount:(NSNotification *)notification;
+- (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification;
+- (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification;
+- (void)preferenceControllerDidChangeSTUNServer:(NSNotification *)notification;
 
 @end
 

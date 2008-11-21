@@ -207,20 +207,6 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	}
 }
 
-// When the call is received, create call controller, add to array, show call window
-- (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall
-{
-	AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
-																	  accountController:self];
-	[[self callControllers] addObject:aCallController];
-	[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
-	[aCallController setStatus:@"Incoming"];
-	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
-	[aCallController showWindow:nil];
-	
-	[aCallController release];
-}
-
 - (IBAction)changeAccountRegistration:(id)sender
 {	
 	if (![self isAccountRegistered] && [[sender selectedItem] tag] == AKTelephoneAccountUnregisterTag)
@@ -370,6 +356,24 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 {
 	AKCallController *aCallController = [notification object];
 	[[self callControllers] removeObject:aCallController];
+}
+
+
+#pragma mark -
+#pragma mark AKTelephoneAccountDelegate protocol
+
+// When the call is received, create call controller, add to array, show call window
+- (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall
+{
+	AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
+																	  accountController:self];
+	[[self callControllers] addObject:aCallController];
+	[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
+	[aCallController setStatus:@"Incoming"];
+	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
+	[aCallController showWindow:nil];
+	
+	[aCallController release];
 }
 
 @end

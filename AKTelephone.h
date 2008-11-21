@@ -30,8 +30,6 @@
 #import <pjsua-lib/pjsua.h>
 
 
-@class AKTelephoneAccount, AKTelephoneCall;
-
 extern const NSInteger AKTelephoneInvalidIdentifier;
 
 typedef struct _AKTelephoneCallData {
@@ -40,9 +38,12 @@ typedef struct _AKTelephoneCallData {
 	pj_bool_t ringbackOff;
 } AKTelephoneCallData;
 
+@class AKTelephoneAccount, AKTelephoneCall;
+@protocol AKTelephoneDelegate;
+
 @interface AKTelephone : NSObject {
 @private
-	id delegate;
+	id <AKTelephoneDelegate> delegate;
 	
 	NSMutableArray *accounts;
 	BOOL started;
@@ -63,7 +64,7 @@ typedef struct _AKTelephoneCallData {
 	pjmedia_port *ringbackPort;
 }
 
-@property(readwrite, assign) id delegate;
+@property(readwrite, assign) id <AKTelephoneDelegate> delegate;
 @property(readonly, retain) NSMutableArray *accounts;
 @property(readonly, assign) BOOL started;
 @property(readonly, assign) NSUInteger activeCallsCount;
@@ -118,9 +119,14 @@ typedef struct _AKTelephoneCallData {
 void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
 
 
-@interface NSObject(AKTelephoneDelegate)
+@protocol AKTelephoneDelegate <NSObject>
+
+@optional
 - (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount;
+- (void)telephoneDidDetectNAT:(NSNotification *)notification;
+
 @end
+
 
 // Notifications.
 extern NSString * const AKTelephoneDidDetectNATNotification;

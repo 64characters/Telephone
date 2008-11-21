@@ -29,8 +29,10 @@
 #import <Cocoa/Cocoa.h>
 
 
+@protocol AKActiveCallViewDelegate;
+
 @interface AKActiveCallView : NSView {
-	id _delegate;
+	id <AKActiveCallViewDelegate> _delegate;
 }
 
 @property(readwrite, assign) IBOutlet id delegate;
@@ -38,6 +40,10 @@
 @end
 
 
-@interface NSObject(AKActiveCallViewDelegate)
+@protocol AKActiveCallViewDelegate <NSObject>
+
+@optional
+
 - (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString;
+
 @end

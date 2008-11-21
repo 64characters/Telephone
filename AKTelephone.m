@@ -88,12 +88,12 @@ typedef enum _AKTelephoneRingtones {
 @synthesize detectsVoiceActivity;
 @dynamic transportPort;
 
-- (id)delegate
+- (id <AKTelephoneDelegate>)delegate
 {
 	return delegate;
 }
 
-- (void)setDelegate:(id)aDelegate
+- (void)setDelegate:(id <AKTelephoneDelegate>)aDelegate
 {
 	if (delegate == aDelegate)
 		return;

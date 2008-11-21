@@ -75,12 +75,12 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 @synthesize addAccountWindowDefaultButton;
 @synthesize addAccountWindowOtherButton;
 
-- (id)delegate
+- (id <AKPreferenceControllerDelegate>)delegate
 {
 	return delegate;
 }
 
-- (void)setDelegate:(id)aDelegate
+- (void)setDelegate:(id <AKPreferenceControllerDelegate>)aDelegate
 {
 	if (delegate == aDelegate)
 		return;

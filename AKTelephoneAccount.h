@@ -31,10 +31,11 @@
 
 
 @class AKTelephoneCall;
+@protocol AKTelephoneAccountDelegate;
 
 @interface AKTelephoneAccount : NSObject {
 @private
-	id delegate;
+	id <AKTelephoneAccountDelegate> delegate;
 	
 	NSString *fullName;
 	NSString *SIPAddress;
@@ -47,7 +48,7 @@
 	NSMutableArray *calls;
 }
 
-@property(readwrite, assign) id delegate;
+@property(readwrite, assign) id <AKTelephoneAccountDelegate> delegate;
 @property(readwrite, copy) NSString *fullName;
 @property(readwrite, copy) NSString *SIPAddress;
 @property(readwrite, copy) NSString *registrar;
@@ -78,13 +79,19 @@
 
 @end
 
+
 // Callback from PJSUA
 void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 
 
-@interface NSObject(AKTelephoneAccountDelegate)
+@protocol AKTelephoneAccountDelegate <NSObject>
+
+@optional
 - (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall;
+- (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification;
+
 @end
+
 
 // Notifications.
 extern NSString * const AKTelephoneAccountRegistrationDidChangeNotification;

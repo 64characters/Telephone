@@ -213,7 +213,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 }
 
 
-#pragma mark AKActiveCallView delegate
+#pragma mark AKActiveCallViewDelegate protocol
 
 - (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString
 {

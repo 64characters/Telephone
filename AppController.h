@@ -28,10 +28,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "AKTelephone.h"
+#import "AKPreferenceController.h"
+
 
 @class AKTelephone, AKAccountController, AKPreferenceController;
 
-@interface AppController : NSObject {
+@interface AppController : NSObject <AKTelephoneDelegate, AKPreferenceControllerDelegate> {
 @private
 	AKTelephone *telephone;
 	NSMutableDictionary *accountControllers;

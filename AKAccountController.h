@@ -28,8 +28,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "AKTelephoneAccount.h"
 
-@class AKTelephoneAccount;
 
 // Account registration pull-down list tags
 enum {
@@ -37,7 +37,9 @@ enum {
 	AKTelephoneAccountRegisterTag	= 1
 };
 
-@interface AKAccountController : NSWindowController {
+@class AKTelephoneAccount;
+
+@interface AKAccountController : NSWindowController <AKTelephoneAccountDelegate> {
 @private
 	AKTelephoneAccount *account;
 	NSMutableArray *callControllers;

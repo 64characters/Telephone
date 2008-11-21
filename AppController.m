@@ -532,7 +532,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 
 #pragma mark -
-#pragma mark AKTelephone delegate methods
+#pragma mark AKTelephoneDelegate protocol
 
 // This method decides whether Telephone should add an account.
 // Telephone is started in this method if needed.

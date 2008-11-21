@@ -57,12 +57,12 @@ NSString * const AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDid
 @dynamic active;
 @synthesize account;
 
-- (id)delegate
+- (id <AKTelephoneCallDelegate>)delegate
 {
 	return delegate;
 }
 
-- (void)setDelegate:(id)aDelegate
+- (void)setDelegate:(id <AKTelephoneCallDelegate>)aDelegate
 {
 	if (delegate == aDelegate)
 		return;

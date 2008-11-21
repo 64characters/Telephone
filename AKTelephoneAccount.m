@@ -53,12 +53,12 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelep
 @dynamic onlineStatusText;
 @synthesize calls;
 
-- (id)delegate
+- (id <AKTelephoneAccountDelegate>)delegate
 {
 	return delegate;
 }
 
-- (void)setDelegate:(id)aDelegate
+- (void)setDelegate:(id <AKTelephoneAccountDelegate>)aDelegate
 {
 	if (delegate == aDelegate)
 		return;
