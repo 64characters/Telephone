@@ -33,6 +33,22 @@
 #import "NSStringAdditions.h"
 
 
+@interface AKSIPURI()
+
+@property(readwrite, copy) NSString *displayName;
+@property(readwrite, copy) NSString *user;
+@property(readwrite, copy) NSString *password;
+@property(readwrite, copy) NSString *host;
+@property(readwrite, assign) NSInteger port;
+@property(readwrite, copy) NSString *userParameter;
+@property(readwrite, copy) NSString *methodParameter;
+@property(readwrite, copy) NSString *transportParameter;
+@property(readwrite, assign) NSInteger TTLParameter;
+@property(readwrite, assign) NSInteger looseRoutingParameter;
+@property(readwrite, copy) NSString *maddrParameter;
+
+@end
+
 @implementation AKSIPURI
 
 @dynamic SIPAddress;
@@ -50,10 +66,10 @@
 
 - (NSString *)SIPAddress
 {
-	if ([[self user] isEqualToString:@""])
-		return [self host];
-	else
+	if ([[self user] length] > 0)
 		return [NSString stringWithFormat:@"%@@%@", [self user], [self host]];
+	else
+		return [self host];
 }
 
 - (id)initWithString:(NSString *)SIPURIString
@@ -116,10 +132,7 @@
 
 - (NSString *)description
 {
-	if ([[self displayName] isEqualToString:@""])
-		return [NSString stringWithFormat:@"<sip:%@>", [self SIPAddress]];
-	else
-		return [NSString stringWithFormat:@"\"%@\" <sip:%@>", [self displayName], [self SIPAddress]];
+	return [NSString stringWithFormat:@"\"%@\" <sip:%@>", [self displayName], [self SIPAddress]];
 }
 
 @end
