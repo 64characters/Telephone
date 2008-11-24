@@ -181,12 +181,13 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	NSArray *accountSortOrder = [defaults arrayForKey:AKAccountSortOrder];
 	NSString *accountKey;
+	NSDictionary *accountDict;
 	AKAccountController *anAccountController;
 	
-	// There are saved accounts. Add accounts to Telephone, open account windows.
+	// There are saved accounts, open account windows.
 	for (NSUInteger i = 0; i < [accountSortOrder count]; ++i) {
 		accountKey = [accountSortOrder objectAtIndex:i];
-		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
+		accountDict = [savedAccounts objectForKey:accountKey];
 		
 		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
 			continue;
@@ -217,12 +218,16 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[anAccountController release];
 	}
 	
-	// Register accounts.
-	for (accountKey in [self accountControllers]) {
+	// Add accounts to Telephone.
+	for (accountKey in accountSortOrder) {
+		accountDict = [savedAccounts objectForKey:accountKey];
+		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
+			continue;
+		
 		anAccountController = [[self accountControllers] objectForKey:accountKey];
 		[anAccountController setAccountRegistered:YES];
 		
-		// Don't register subsequent accounts if Telephone could not start.
+		// Don't add subsequent accounts if Telephone could not start.
 		if (![[self telephone] started])
 			break;
 	}
@@ -519,8 +524,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 	
+	
 	// Add accounts to Telephone.
-	for (NSString *accountKey in [self accountControllers]) {
+	NSDictionary *savedAccounts = [defaults objectForKey:AKAccounts];
+	NSArray *accountSortOrder = [defaults objectForKey:AKAccountSortOrder];
+	for (NSString *accountKey in accountSortOrder) {
+		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
+		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
+			continue;
+		
 		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
 		[anAccountController setAccountRegistered:YES];
 		
