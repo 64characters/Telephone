@@ -123,7 +123,6 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
 
 @optional
 - (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount;
-- (void)telephoneDidDetectNAT:(NSNotification *)notification;
 
 @end
 

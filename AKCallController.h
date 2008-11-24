@@ -29,12 +29,11 @@
 #import <Cocoa/Cocoa.h>
 
 #import "AKActiveCallView.h"
-#import "AKTelephoneCall.h"
 
 
 @class AKAccountController, AKTelephoneCall;
 
-@interface AKCallController : NSWindowController <AKTelephoneCallDelegate, AKActiveCallViewDelegate> {
+@interface AKCallController : NSWindowController <AKActiveCallViewDelegate> {
 @private
 	AKTelephoneCall *call;
 	AKAccountController *accountController;

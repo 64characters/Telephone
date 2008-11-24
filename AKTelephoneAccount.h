@@ -88,7 +88,6 @@ void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 
 @optional
 - (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall;
-- (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification;
 
 @end
 

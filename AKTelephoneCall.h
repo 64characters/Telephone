@@ -33,11 +33,10 @@
 extern const NSInteger AKTelephoneCallsMax;
 
 @class AKTelephoneAccount, AKSIPURI;
-@protocol AKTelephoneCallDelegate;
 
 @interface AKTelephoneCall : NSObject {
 @private
-	id <AKTelephoneCallDelegate> delegate;
+	id delegate;
 	
 	NSInteger identifier;
 	AKSIPURI *localURI;
@@ -49,7 +48,7 @@ extern const NSInteger AKTelephoneCallsMax;
 	AKTelephoneAccount *account;
 }
 
-@property(readwrite, assign) id <AKTelephoneCallDelegate> delegate;
+@property(readwrite, assign) id delegate;
 @property(readwrite, assign) NSInteger identifier;
 @property(readwrite, retain) AKSIPURI *localURI;
 @property(readwrite, retain) AKSIPURI *remoteURI;
@@ -76,19 +75,6 @@ extern const NSInteger AKTelephoneCallsMax;
 void AKIncomingCallReceived(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
 void AKCallStateChanged(pjsua_call_id, pjsip_event *);
 void AKCallMediaStateChanged(pjsua_call_id);
-
-
-@protocol AKTelephoneCallDelegate <NSObject>
-
-@optional
-- (void)telephoneCallCalling:(NSNotification *)notification;
-- (void)telephoneCallIncoming:(NSNotification *)notification;
-- (void)telephoneCallEarly:(NSNotification *)notification;
-- (void)telephoneCallConnecting:(NSNotification *)notification;
-- (void)telephoneCallDidConfirm:(NSNotification *)notification;
-- (void)telephoneCallDidDisconnect:(NSNotification *)notification;
-
-@end
 
 
 // Notifications.
