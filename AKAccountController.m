@@ -265,7 +265,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	[alert addButtonWithTitle:@"OK"];
 	[alert setMessageText:[NSString stringWithFormat:@"Could not connect to server %@.", [[self account] registrar]]];
 	[alert setInformativeText:[NSString stringWithFormat:
-							   @"Please, check network connection and Registry Server setting.",
+							   @"Please, check network connection and Registry Server settings.",
 							   [[self account] registrar]]];
 	[alert beginSheetModalForWindow:[self window]
 					  modalDelegate:nil
@@ -327,6 +327,24 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 				modalDelegate:nil
 			   didEndSelector:NULL
 				  contextInfo:NULL];
+			
+		} else if ([[self account] registrationStatus] == PJSIP_SC_NOT_FOUND ||
+				   [[self account] registrationStatus] == PJSIP_SC_FORBIDDEN ||
+				   [[self account] registrationStatus] == PJSIP_EAUTHNOCHAL) {
+			// Set registraton button title to Disconnected.
+			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
+			[accountRegistrationPopUp setFrameSize:buttonSize];
+			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
+			
+			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+			[alert addButtonWithTitle:@"OK"];
+			[alert setMessageText:[NSString stringWithFormat:@"SIP address “%@” does not match the user name “%@”.",
+								   [[self account] SIPAddress], [[self account] username]]];
+			[alert setInformativeText:@"Please, check your SIP Address."];
+			[alert beginSheetModalForWindow:[self window]
+							  modalDelegate:nil
+							 didEndSelector:NULL
+								contextInfo:NULL];
 			
 		} else if (([[self account] registrationStatus] / 100 != 2) && ([[self account] registrationExpireTime] < 0)) {
 			// Change registration status button title and raise sheet if connection to the registrar failed.
