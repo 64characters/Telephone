@@ -74,6 +74,9 @@
 
 - (id)initWithString:(NSString *)SIPURIString
 {
+	if (![[AKTelephone sharedTelephone] started])
+		return nil;
+	
 	self = [super init];
 	if (self == nil)
 		return nil;
