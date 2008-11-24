@@ -405,6 +405,9 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		[username setEnabled:NO];
 		[password setEnabled:NO];
 		
+		// Mark accounts table as needing redisplay.
+		[accountsTable reloadData];
+		
 	} else {
 		// User disabled the account, enable account fields.
 		[fullName setEnabled:YES];
