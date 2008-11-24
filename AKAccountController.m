@@ -87,7 +87,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			[[accountRegistrationPopUp superview] display];
 			
 			// Add account to Telephone
-			[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:password];
+			[[[NSApp delegate] telephone] addAccount:[self account] withPassword:password];
 			
 			// Error connecting to registrar.
 			if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
@@ -97,7 +97,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 				[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
 				
 				// Show sheet only if Telephone didn't start.
-				if ([[AKTelephone sharedTelephone] started])
+				if ([[[NSApp delegate] telephone] started])
 					[self showRegistrarConnectionErrorSheet];
 			}
 		}
@@ -155,7 +155,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	// Close authentication failure sheet if it's raised
 	[authenticationFailureCancelButton performClick:nil];
 	
-	[[AKTelephone sharedTelephone] removeAccount:[self account]];
+	[[[NSApp delegate] telephone] removeAccount:[self account]];
 	[account release];
 	[callControllers release];
 	
@@ -223,7 +223,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	
 	if (![[newUsername stringValue] isEqualToString:@""]) {
-		[[AKTelephone sharedTelephone] removeAccount:[self account]];
+		[[[NSApp delegate] telephone] removeAccount:[self account]];
 		[[self account] setUsername:[newUsername stringValue]];
 		
 		// Set registraton button title to Connecting...
@@ -232,7 +232,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
 		
 		// Add account to Telephone.
-		[[AKTelephone sharedTelephone] addAccount:[self account] withPassword:[newPassword stringValue]];
+		[[[NSApp delegate] telephone] addAccount:[self account] withPassword:[newPassword stringValue]];
 		
 		// Error connecting to registrar.
 		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
@@ -339,7 +339,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
 			
 			// Show a sheet only if Telephone has started. Don't show if user agent is being destroyed right now.
-			if ([[AKTelephone sharedTelephone] started])
+			if ([[[NSApp delegate] telephone] started])
 				[self showRegistrarConnectionErrorSheet];
 			
 		} else {
