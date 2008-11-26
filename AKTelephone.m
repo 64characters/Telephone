@@ -74,6 +74,7 @@ typedef enum _AKTelephoneRingtones {
 @synthesize accounts;
 @synthesize started;
 @dynamic activeCallsCount;
+@dynamic hasIncomingCalls;
 @dynamic callData;
 @synthesize pjPool;
 @synthesize ringbackSlot;
@@ -117,6 +118,19 @@ typedef enum _AKTelephoneRingtones {
 - (NSUInteger)activeCallsCount
 {
 	return pjsua_call_get_count();
+}
+
+- (BOOL)hasIncomingCalls
+{
+	NSArray *immutableAccounts = [[self accounts] copy];
+	for (AKTelephoneAccount *anAccount in immutableAccounts) {
+		NSArray *immutableCalls = [[anAccount calls] copy];
+		for (AKTelephoneCall *aCall in immutableCalls)
+			if ([aCall identifier] != AKTelephoneInvalidIdentifier && [aCall state] == AKTelephoneCallIncomingState)
+				return YES;
+	}
+	
+	return NO;
 }
 
 - (AKTelephoneCallData *)callData

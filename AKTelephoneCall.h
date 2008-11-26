@@ -32,6 +32,16 @@
 
 extern const NSInteger AKTelephoneCallsMax;
 
+typedef enum _AKTelephoneCallState {
+	AKTelephoneCallNullState =			PJSIP_INV_STATE_NULL,			// Before INVITE is sent or received.
+	AKTelephoneCallCallingState =		PJSIP_INV_STATE_CALLING,		// After INVITE is sent.
+	AKTelephoneCallIncomingState =		PJSIP_INV_STATE_INCOMING,		// After INVITE is received.
+	AKTelephoneCallEarlyState =			PJSIP_INV_STATE_EARLY,			// After response with To tag.
+	AKTelephoneCallConnectingState =	PJSIP_INV_STATE_CONNECTING,		// After 2xx is sent/received.
+	AKTelephoneCallConfirmedState =		PJSIP_INV_STATE_CONFIRMED,		// After ACK is sent/received.
+	AKTelephoneCallDisconnectedState =	PJSIP_INV_STATE_DISCONNECTED	// Session is terminated.
+} AKTelephoneCallState;
+
 @class AKTelephoneAccount, AKSIPURI;
 
 @interface AKTelephoneCall : NSObject {
@@ -41,8 +51,11 @@ extern const NSInteger AKTelephoneCallsMax;
 	NSInteger identifier;
 	AKSIPURI *localURI;
 	AKSIPURI *remoteURI;
+	AKTelephoneCallState state;
+	NSString *stateText;
 	NSInteger lastStatus;
 	NSString *lastStatusText;
+	BOOL incoming;
 	
 	// Account the call belongs to
 	AKTelephoneAccount *account;
@@ -52,11 +65,12 @@ extern const NSInteger AKTelephoneCallsMax;
 @property(readwrite, assign) NSInteger identifier;
 @property(readwrite, retain) AKSIPURI *localURI;
 @property(readwrite, retain) AKSIPURI *remoteURI;
-@property(readonly, assign) NSInteger state;
-@property(readonly, copy) NSString *stateText;
+@property(readwrite, assign) AKTelephoneCallState state;
+@property(readwrite, copy) NSString *stateText;
 @property(readwrite, assign) NSInteger lastStatus;
 @property(readwrite, copy) NSString *lastStatusText;
 @property(readonly, assign, getter=isActive) BOOL active;
+@property(readwrite, assign, getter=isIncoming) BOOL incoming;
 @property(readwrite, assign) AKTelephoneAccount *account;
 
 // Designated initializer
@@ -86,7 +100,7 @@ extern NSString * const AKTelephoneCallCallingNotification;
 extern NSString * const AKTelephoneCallIncomingNotification;
 
 // Early. After response with To tag.
-extern NSString * const AKTelephoneCallEarlyNotification;	// @"AKTelephoneCallState", @"AKSIPEventCode", @"AKSIPEventReason".
+extern NSString * const AKTelephoneCallEarlyNotification;	// @"AKSIPEventCode", @"AKSIPEventReason".
 
 // Connecting. After 2xx is sent/received.
 extern NSString * const AKTelephoneCallConnectingNotification;

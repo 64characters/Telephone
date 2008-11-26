@@ -50,11 +50,12 @@ NSString * const AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDid
 @synthesize identifier;
 @synthesize localURI;
 @synthesize remoteURI;
-@dynamic state;
-@dynamic stateText;
+@synthesize state;
+@synthesize stateText;
 @synthesize lastStatus;
 @synthesize lastStatusText;
 @dynamic active;
+@synthesize incoming;
 @synthesize account;
 
 - (id)delegate
@@ -78,6 +79,12 @@ NSString * const AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDid
 			[notificationCenter addObserver:aDelegate
 								   selector:@selector(telephoneCallCalling:)
 									   name:AKTelephoneCallCallingNotification
+									 object:self];
+		
+		if ([aDelegate respondsToSelector:@selector(telephoneCallIncoming:)])
+			[notificationCenter addObserver:aDelegate
+								   selector:@selector(telephoneCallIncoming:)
+									   name:AKTelephoneCallIncomingNotification
 									 object:self];
 		
 		if ([aDelegate respondsToSelector:@selector(telephoneCallEarly:)])
@@ -108,27 +115,6 @@ NSString * const AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDid
 	delegate = aDelegate;
 }
 
-- (NSInteger)state
-{
-	pjsua_call_info callInfo;
-	
-	pjsua_call_get_info([self identifier], &callInfo);
-	
-	return callInfo.state;
-}
-
-- (NSString *)stateText
-{
-	pjsua_call_info callInfo;
-	pj_status_t status;
-	
-	status = pjsua_call_get_info([self identifier], &callInfo);
-	if (status != PJ_SUCCESS)
-		return nil;
-	
-	return [NSString stringWithPJString:callInfo.state_text];
-}
-
 - (BOOL)isActive
 {
 	if (pjsua_call_is_active([self identifier]))
@@ -153,6 +139,8 @@ NSString * const AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDid
 	pjsua_call_get_info(anIdentifier, &callInfo);
 	[self setRemoteURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]]];
 	[self setLocalURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]]];
+	
+	[self setIncoming:NO];
 	
 	return self;
 }
@@ -284,14 +272,19 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 	// AKTelephoneCall object is created here when the call is incoming
 	AKTelephoneCall *theCall = [[AKTelephoneCall alloc] initWithTelephoneAccount:theAccount
 																	  identifier:callIdentifier];
+	[theCall setState:callInfo.state];
+	[theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
 	[theCall setLastStatus:callInfo.last_status];
 	[theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
+	[theCall setIncoming:YES];
 	
 	// Keep the new call in the account's calls array
 	[[theAccount calls] addObject:theCall];
 	
 	if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccount:didReceiveCall:)])
 		[[theAccount delegate] telephoneAccount:theAccount didReceiveCall:theCall];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallIncomingNotification object:theCall];
 	
 	[theCall release];
 	
@@ -310,11 +303,10 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 	
 	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier] retain];
 	
+	[theCall setState:callInfo.state];
+	[theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
 	[theCall setLastStatus:callInfo.last_status];
 	[theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
-	
-	NSString *stateText, *reasonText;
-	NSDictionary *userInfo;
 	
 	if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
 		[theCall ringbackStop];
@@ -361,13 +353,10 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 					  callIdentifier, callInfo.state_text.ptr,
 					  code, (int)reason.slen, reason.ptr));
 			
-			stateText = [NSString stringWithPJString:callInfo.state_text];
-			reasonText = [NSString stringWithPJString:reason];
-			userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-						stateText, @"AKTelephoneCallState",
-						[NSNumber numberWithInt:code], @"AKSIPEventCode",
-						reasonText, @"AKSIPEventReason",
-						nil];
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+									  [NSNumber numberWithInt:code], @"AKSIPEventCode",
+									  [NSString stringWithPJString:reason], @"AKSIPEventReason",
+									  nil];
 			
 			[notificationCenter postNotificationName:AKTelephoneCallEarlyNotification
 											  object:theCall
@@ -378,17 +367,12 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 					   callIdentifier,
 					   callInfo.state_text.ptr));
 			
-			stateText = [NSString stringWithPJString:callInfo.state_text];
-			
 			// Incoming call notification is posted in another funcion: AKIncomingCallReceived()
 			NSString *notificationName = nil;
 			switch (callInfo.state) {
 				case PJSIP_INV_STATE_CALLING:
 					notificationName = AKTelephoneCallCallingNotification;
 					break;
-					//				case PJSIP_INV_STATE_INCOMING:
-					//					notificationName = AKTelephoneCallIncomingNotification;
-					//					break;
 				case PJSIP_INV_STATE_CONNECTING:
 					notificationName = AKTelephoneCallConnectingNotification;
 					break;
