@@ -42,6 +42,8 @@
 	NSInteger soundInputDeviceIndex;
 	NSInteger soundOutputDeviceIndex;
 	BOOL soundIOIndexesChanged;
+	NSSound *incomingCallSound;
+	NSTimer *incomingCallSoundTimer;
 	
 	IBOutlet NSMenuItem *preferencesMenuItem;
 }
@@ -53,6 +55,8 @@
 @property(readwrite, assign) NSInteger soundInputDeviceIndex;
 @property(readwrite, assign) NSInteger soundOutputDeviceIndex;
 @property(readwrite, assign) BOOL soundIOIndexesChanged;
+@property(readwrite, retain) NSSound *incomingCallSound;
+@property(readwrite, retain) NSTimer *incomingCallSoundTimer;
 
 // Update list of available audio devices.
 - (void)updateAudioDevices;
@@ -62,6 +66,10 @@
 
 - (IBAction)showPreferencePanel:(id)sender;
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
+
+- (void)startIncomingCallSoundTimer;
+- (void)stopIncomingCallSoundTimer;
+- (void)incomingCallSoundTimerTick:(NSTimer *)theTimer;
 
 @end
 

@@ -33,6 +33,7 @@
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
+#import "AppController.h"
 #import "NSWindowAdditions.h"
 
 
@@ -387,9 +388,14 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 																	  accountController:self];
 	[[self callControllers] addObject:aCallController];
 	[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
-	[aCallController setStatus:@"Incoming"];
+	[aCallController setStatus:@"Calling"];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	[aCallController showWindow:nil];
+	
+	[[[NSApp delegate] incomingCallSound] play];
+	[[NSApp delegate] performSelectorOnMainThread:@selector(startIncomingCallSoundTimer)
+									   withObject:nil
+									waitUntilDone:NO];
 	
 	[aCallController release];
 }

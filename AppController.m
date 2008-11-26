@@ -63,6 +63,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @synthesize soundInputDeviceIndex;
 @synthesize soundOutputDeviceIndex;
 @synthesize soundIOIndexesChanged;
+@synthesize incomingCallSound;
+@synthesize incomingCallSoundTimer;
 
 + (void)initialize
 {
@@ -99,6 +101,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
 	[self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
 	[self setSoundIOIndexesChanged:NO];
+	incomingCallSound = [NSSound soundNamed:@"Purr"];
+	[self setIncomingCallSoundTimer:nil];
 	
 	// Subscribe to Early and Confirmed call states to set sound IO to Telephone.
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -124,6 +128,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[preferenceController release];
 	
 	[audioDevices release];
+	[incomingCallSound release];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
@@ -434,6 +439,31 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[[self preferenceController] addAccountWindowDefaultButton] setAction:@selector(addAccount:)];
 	[[[self preferenceController] addAccountWindowOtherButton] setTarget:[self preferenceController]];
 	[[[self preferenceController] addAccountWindowOtherButton] setAction:@selector(closeSheet:)];
+}
+
+- (void)startIncomingCallSoundTimer
+{
+	if ([self incomingCallSoundTimer] != nil)
+		[[self incomingCallSoundTimer] invalidate];
+	
+	[self setIncomingCallSoundTimer:[NSTimer scheduledTimerWithTimeInterval:4
+																	 target:self
+																   selector:@selector(incomingCallSoundTimerTick:)
+																   userInfo:nil
+																	repeats:YES]];
+}
+
+- (void)stopIncomingCallSoundTimer
+{
+	if (![[self telephone] hasIncomingCalls] && [self incomingCallSoundTimer] != nil) {
+		[[self incomingCallSoundTimer] invalidate];
+		[self setIncomingCallSoundTimer:nil];
+	}
+}
+
+- (void)incomingCallSoundTimerTick:(NSTimer *)theTimer
+{
+	[[self incomingCallSound] play];
 }
 
 
