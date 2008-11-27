@@ -200,7 +200,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		[[self callControllers] addObject:aCallController];
 		[[aCallController window] setContentView:[aCallController activeCallView]];
 		[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
-		[aCallController setStatus:@"Calling..."];
+		[aCallController setStatus:@"calling..."];
 		[aCallController showWindow:nil];
 		[[aCallController callProgressIndicator] startAnimation:self];
 		
@@ -387,7 +387,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 																	  accountController:self];
 	[[self callControllers] addObject:aCallController];
 	[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
-	[aCallController setStatus:@"Calling"];
+	[aCallController setStatus:@"calling"];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	[aCallController showWindow:nil];
 	

@@ -169,7 +169,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
-	[self setStatus:@"Calling..."];
+	[self setStatus:@"calling..."];
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
@@ -178,7 +178,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
 	if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
 		[callProgressIndicator stopAnimation:self];
-		[self setStatus:@"Ringing"];
+		[self setStatus:@"ringing"];
 	}
 	
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
@@ -207,9 +207,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		[[NSApp delegate] stopIncomingCallSoundTimer];
 	
 	if ([[self call] lastStatus] == PJSIP_SC_BUSY_EVERYWHERE || [[self call] lastStatus] == PJSIP_SC_BUSY_HERE)
-		[self setStatus:@"Busy"];
+		[self setStatus:@"busy"];
 	else
-		[self setStatus:@"Call ended"];
+		[self setStatus:@"call ended"];
 	
 	[[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
 	
