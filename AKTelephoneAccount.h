@@ -35,7 +35,7 @@
 
 @interface AKTelephoneAccount : NSObject {
 @private
-	id <AKTelephoneAccountDelegate> delegate;
+	NSObject <AKTelephoneAccountDelegate> *delegate;
 	
 	NSString *fullName;
 	NSString *SIPAddress;
@@ -48,7 +48,7 @@
 	NSMutableArray *calls;
 }
 
-@property(readwrite, assign) id <AKTelephoneAccountDelegate> delegate;
+@property(readwrite, assign) NSObject <AKTelephoneAccountDelegate> *delegate;
 @property(readwrite, copy) NSString *fullName;
 @property(readwrite, copy) NSString *SIPAddress;
 @property(readwrite, copy) NSString *registrar;
@@ -84,10 +84,10 @@
 void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 
 
-@protocol AKTelephoneAccountDelegate <NSObject>
+@protocol AKTelephoneAccountDelegate
 
 @optional
-- (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall;
+- (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall;
 
 @end
 

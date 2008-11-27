@@ -83,7 +83,6 @@ typedef struct _AKTelephoneCallData {
 @property(readwrite, assign) BOOL detectsVoiceActivity;		// Default: YES.
 @property(readwrite, assign) NSUInteger transportPort;		// Default: 0 for any available port.
 
-
 + (id)telephoneWithDelegate:(id)aDelegate;
 + (id)telephone;
 + (AKTelephone *)sharedTelephone;

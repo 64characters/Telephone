@@ -53,12 +53,12 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelep
 @dynamic onlineStatusText;
 @synthesize calls;
 
-- (id <AKTelephoneAccountDelegate>)delegate
+- (NSObject <AKTelephoneAccountDelegate> *)delegate
 {
 	return delegate;
 }
 
-- (void)setDelegate:(id <AKTelephoneAccountDelegate>)aDelegate
+- (void)setDelegate:(NSObject <AKTelephoneAccountDelegate> *)aDelegate
 {
 	if (delegate == aDelegate)
 		return;
@@ -281,7 +281,10 @@ void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier)
 	
 	AKTelephoneAccount *anAccount = [[AKTelephone sharedTelephone] accountByIdentifier:accountIdentifier];
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneAccountRegistrationDidChangeNotification
-														object:anAccount];
+	NSNotification *notification = [NSNotification notificationWithName:AKTelephoneAccountRegistrationDidChangeNotification
+																 object:anAccount];
+	[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+														   withObject:notification
+														waitUntilDone:NO];
 	[pool release];
 }

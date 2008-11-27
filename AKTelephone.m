@@ -551,8 +551,11 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result)
 		pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
 	else {
 		PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
-		[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneDidDetectNATNotification
-															object:[AKTelephone sharedTelephone]];
+		NSNotification *notification = [NSNotification notificationWithName:AKTelephoneDidDetectNATNotification
+																	 object:[AKTelephone sharedTelephone]];
+		[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+															   withObject:notification
+															waitUntilDone:NO];
 	}
 	
 	[pool release];

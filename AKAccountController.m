@@ -298,9 +298,8 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
 		[[self window] setContentView:registeredAccountView];
 		
-		// Making callDestination a first responder should also be here.
-		// But if it is, the window is not released and moved away from screen.
-		// I'm skipping it until figuring out why it is so.
+		if ([callDestination acceptsFirstResponder])
+			[[self window] makeFirstResponder:callDestination];
 		
 	} else {
 		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
@@ -382,7 +381,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 #pragma mark AKTelephoneAccountDelegate protocol
 
 // When the call is received, create call controller, add to array, show call window
-- (void)telephoneAccount:(AKTelephoneAccount *)sender didReceiveCall:(AKTelephoneCall *)aCall
+- (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall
 {
 	AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																	  accountController:self];
@@ -393,9 +392,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	[aCallController showWindow:nil];
 	
 	[[[NSApp delegate] incomingCallSound] play];
-	[[NSApp delegate] performSelectorOnMainThread:@selector(startIncomingCallSoundTimer)
-									   withObject:nil
-									waitUntilDone:NO];
+	[[NSApp delegate] startIncomingCallSoundTimer];
 	
 	[aCallController release];
 }

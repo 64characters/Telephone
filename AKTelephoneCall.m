@@ -281,11 +281,16 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 	// Keep the new call in the account's calls array
 	[[theAccount calls] addObject:theCall];
 	
-	if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccount:didReceiveCall:)])
-		[[theAccount delegate] telephoneAccount:theAccount didReceiveCall:theCall];
+	if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccountDidReceiveCall:)])
+		[[theAccount delegate] performSelectorOnMainThread:@selector(telephoneAccountDidReceiveCall:)
+												withObject:theCall
+											 waitUntilDone:NO];
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallIncomingNotification object:theCall];
-	
+	NSNotification *notification = [NSNotification notificationWithName:AKTelephoneCallIncomingNotification
+																 object:theCall];
+	[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+														   withObject:notification
+														waitUntilDone:NO];
 	[theCall release];
 	
 	[pool release];
@@ -297,6 +302,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	NSNotification *notification = nil;
 	
 	pjsua_call_info callInfo;
 	pjsua_call_get_info(callIdentifier, &callInfo);
@@ -318,8 +324,12 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 		
 		[theCall setIdentifier:PJSUA_INVALID_ID];
 		
-		[notificationCenter postNotificationName:AKTelephoneCallDidDisconnectNotification
-										  object:theCall];
+		notification = [NSNotification notificationWithName:AKTelephoneCallDidDisconnectNotification
+													 object:theCall];
+		// waitUntilDone:YES to wait before removing the call from the account's calls array.
+		[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+											 withObject:notification
+										  waitUntilDone:YES];
 		
 		// Finally, remove the call from its account's calls array
 		[[[theCall account] calls] removeObject:theCall];
@@ -358,10 +368,12 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 									  [NSString stringWithPJString:reason], @"AKSIPEventReason",
 									  nil];
 			
-			[notificationCenter postNotificationName:AKTelephoneCallEarlyNotification
-											  object:theCall
-											userInfo:userInfo];
-			
+			notification = [NSNotification notificationWithName:AKTelephoneCallEarlyNotification
+														 object:theCall
+													   userInfo:userInfo];
+			[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+												 withObject:notification
+											  waitUntilDone:NO];
 		} else {
 			PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s",
 					   callIdentifier,
@@ -383,9 +395,13 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 					break;
 			}
 			
-			if (notificationName != nil)
-				[notificationCenter postNotificationName:notificationName
-												  object:theCall];
+			if (notificationName != nil) {
+				notification = [NSNotification notificationWithName:notificationName
+															 object:theCall];
+				[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+													 withObject:notification
+												  waitUntilDone:NO];
+			}
 		}
 	}
 	

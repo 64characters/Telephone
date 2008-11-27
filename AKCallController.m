@@ -187,14 +187,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
 	if ([[notification object] isIncoming])
-		[[NSApp delegate] performSelectorOnMainThread:@selector(stopIncomingCallSoundTimer)
-										   withObject:nil
-										waitUntilDone:NO];
+		[[NSApp delegate] stopIncomingCallSoundTimer];
 	
 	[callProgressIndicator stopAnimation:self];
 	[self setStatus:@"00:00"];
 	
-	[self performSelectorOnMainThread:@selector(startCallTimer) withObject:nil waitUntilDone:NO];
+	[self startCallTimer];
 	
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 	if ([[self activeCallView] acceptsFirstResponder])
@@ -203,12 +201,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallDidDisconnect:(NSNotification *)notification
 {
-	[self performSelectorOnMainThread:@selector(stopCallTimer) withObject:nil waitUntilDone:NO];
+	[self stopCallTimer];
 	
 	if ([[notification object] isIncoming])
-		[[NSApp delegate] performSelectorOnMainThread:@selector(stopIncomingCallSoundTimer)
-										   withObject:nil
-										waitUntilDone:NO];
+		[[NSApp delegate] stopIncomingCallSoundTimer];
 	
 	if ([[self call] lastStatus] == PJSIP_SC_BUSY_EVERYWHERE || [[self call] lastStatus] == PJSIP_SC_BUSY_HERE)
 		[self setStatus:@"Busy"];
