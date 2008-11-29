@@ -326,10 +326,9 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 		
 		notification = [NSNotification notificationWithName:AKTelephoneCallDidDisconnectNotification
 													 object:theCall];
-		// waitUntilDone:YES to wait before removing the call from the account's calls array.
 		[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
 											 withObject:notification
-										  waitUntilDone:YES];
+										  waitUntilDone:NO];
 		
 		// Finally, remove the call from its account's calls array
 		[[[theCall account] calls] removeObject:theCall];

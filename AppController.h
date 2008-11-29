@@ -57,6 +57,7 @@
 @property(readwrite, assign) BOOL soundIOIndexesChanged;
 @property(readwrite, retain) NSSound *incomingCallSound;
 @property(readwrite, retain) NSTimer *incomingCallSoundTimer;
+@property(readonly, assign) BOOL hasIncomingCallControllers;
 
 // Update list of available audio devices.
 - (void)updateAudioDevices;

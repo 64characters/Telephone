@@ -65,6 +65,21 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @synthesize soundIOIndexesChanged;
 @synthesize incomingCallSound;
 @synthesize incomingCallSoundTimer;
+@dynamic hasIncomingCallControllers;
+
+- (BOOL)hasIncomingCallControllers
+{
+	NSDictionary *immutableAccountControllers = [[[self accountControllers] copy] autorelease];
+	for (NSString *accountKey in immutableAccountControllers) {
+		AKAccountController *anAccountController = [immutableAccountControllers objectForKey:accountKey];
+		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+			if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
+				[[aCallController call] state] == AKTelephoneCallIncomingState)
+				return YES;
+	}
+	
+	return NO;
+}
 
 + (void)initialize
 {
@@ -455,7 +470,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)stopIncomingCallSoundTimer
 {
-	if (![[self telephone] hasIncomingCalls] && [self incomingCallSoundTimer] != nil) {
+	if (![self hasIncomingCallControllers] && [self incomingCallSoundTimer] != nil) {
 		[[self incomingCallSoundTimer] invalidate];
 		[self setIncomingCallSoundTimer:nil];
 	}
@@ -643,13 +658,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-	// Close all calls.
-	for (NSString *accountKey in [self accountControllers]) {
-		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
-		for (AKCallController *aCallController in [anAccountController callControllers])
-			[aCallController close];
-	}
-	
 	// Remove all accounts.
 	[[self accountControllers] removeAllObjects];
 	

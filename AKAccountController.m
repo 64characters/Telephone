@@ -149,7 +149,11 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 }
 
 - (void)dealloc
-{	
+{
+	// Close all call controllers.
+	for (AKCallController *aCallController in [[[self callControllers] copy] autorelease])
+		[aCallController close];
+	
 	if ([[[self account] delegate] isEqual:self])
 		[[self account] setDelegate:nil];
 	

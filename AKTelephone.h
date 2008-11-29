@@ -68,7 +68,6 @@ typedef struct _AKTelephoneCallData {
 @property(readonly, retain) NSMutableArray *accounts;
 @property(readonly, assign) BOOL started;
 @property(readonly, assign) NSUInteger activeCallsCount;
-@property(readonly, assign) BOOL hasIncomingCalls;
 @property(readonly, assign) AKTelephoneCallData *callData;
 @property(readonly, assign) pj_pool_t *pjPool;
 @property(readonly, assign) NSInteger ringbackSlot;
