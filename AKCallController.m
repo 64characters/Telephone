@@ -206,10 +206,21 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	if ([[notification object] isIncoming])
 		[[NSApp delegate] stopIncomingCallSoundTimer];
 	
-	if ([[self call] lastStatus] == PJSIP_SC_BUSY_EVERYWHERE || [[self call] lastStatus] == PJSIP_SC_BUSY_HERE)
-		[self setStatus:@"busy"];
-	else
-		[self setStatus:@"call ended"];
+	switch ([[self call] lastStatus]) {
+		case PJSIP_SC_OK:
+			[self setStatus:@"call ended"];
+			break;
+		case PJSIP_SC_BUSY_HERE:
+		case PJSIP_SC_BUSY_EVERYWHERE:
+			[self setStatus:@"busy"];
+			break;
+		case PJSIP_SC_DECLINE:
+			[self setStatus:@"call declined"];
+				break;
+		default:
+			[self setStatus:[[[self call] lastStatusText] lowercaseString]];
+			break;
+	}
 	
 	[[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
 	
