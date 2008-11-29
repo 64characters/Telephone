@@ -210,6 +210,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		case PJSIP_SC_OK:
 			[self setStatus:@"call ended"];
 			break;
+		case PJSIP_SC_NOT_FOUND:
+			[self setStatus:@"address not found"];
+			break;
+
 		case PJSIP_SC_BUSY_HERE:
 		case PJSIP_SC_BUSY_EVERYWHERE:
 			[self setStatus:@"busy"];
