@@ -195,6 +195,9 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	} else if ([sender isEqual:accountsToolbarItem]) {
 		view = accountsView;
 		title = @"Accounts";
+	} else if ([sender isEqual:soundToolbarItem]) {
+		view = soundView;
+		title = @"Sound";
 	} else { 
 		view = nil;
 		title = @"Preferences";
@@ -578,6 +581,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	return [NSArray arrayWithObjects:
 			[generalToolbarItem itemIdentifier],
 			[accountsToolbarItem itemIdentifier],
+			[soundToolbarItem itemIdentifier],
 			nil];
 }
 

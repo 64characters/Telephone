@@ -62,8 +62,10 @@ extern NSString * const AKAccountEnabled;
 	IBOutlet NSToolbar *toolbar;
 	IBOutlet NSToolbarItem *generalToolbarItem;
 	IBOutlet NSToolbarItem *accountsToolbarItem;
+	IBOutlet NSToolbarItem *soundToolbarItem;
 	IBOutlet NSView *generalView;
 	IBOutlet NSView *accountsView;
+	IBOutlet NSView *soundView;
 
 	// General
 	IBOutlet NSPopUpButton *soundInputPopUp;
