@@ -131,6 +131,14 @@ extern NSString * const AKAccountEnabled;
 @end
 
 
+// Preferences window toolbar items tags.
+enum {
+	AKGeneralPreferencesTag		= 0,
+	AKAccountsPreferencesTag	= 1,
+	AKSoundPreferencesTag		= 2
+};
+
+
 // Notifications.
 extern NSString * const AKPreferenceControllerDidAddAccountNotification;
 extern NSString * const AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex.

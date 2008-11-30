@@ -180,7 +180,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 - (IBAction)changeView:(id)sender
 {
 	// If the user switches from General to some other view, check for STUN server changes.
-	if ([[[self window] contentView] isEqual:generalView] && ![sender isEqual:generalToolbarItem]) {
+	if ([[[self window] contentView] isEqual:generalView] && [sender tag] != AKGeneralPreferencesTag) {
 		BOOL STUNServerChanged = [self checkForSTUNServerChanges:sender];
 		if (STUNServerChanged)
 			return;
@@ -189,18 +189,23 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	NSView *view;
 	NSString *title;
 	
-	if ([sender isEqual:generalToolbarItem]) {
-		view = generalView;
-		title = @"General";
-	} else if ([sender isEqual:accountsToolbarItem]) {
-		view = accountsView;
-		title = @"Accounts";
-	} else if ([sender isEqual:soundToolbarItem]) {
-		view = soundView;
-		title = @"Sound";
-	} else { 
-		view = nil;
-		title = @"Preferences";
+	switch ([sender tag]) {
+		case AKGeneralPreferencesTag:
+			view = generalView;
+			title = @"General";
+			break;
+		case AKAccountsPreferencesTag:
+			view = accountsView;
+			title = @"Accounts";
+			break;
+		case AKSoundPreferencesTag:
+			view = soundView;
+			title = @"Sound";
+			break;
+		default:
+			view = nil;
+			title = @"Telephone Preferences";
+			break;
 	}
 	
 	[self displayView:view withTitle:title];
