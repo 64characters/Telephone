@@ -29,7 +29,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface AKSIPURI : NSObject {
+@interface AKSIPURI : NSObject <NSCopying> {
 @private
 	NSString *displayName;
 	NSString *user;

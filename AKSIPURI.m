@@ -80,7 +80,7 @@
 	self = [super init];
 	if (self == nil)
 		return nil;
-	
+
 	pjsip_name_addr *nameAddr;
 	nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKTelephone sharedTelephone] pjPool],
 												  (char *)[SIPURIString cStringUsingEncoding:NSASCIIStringEncoding],
@@ -88,11 +88,7 @@
 	if (nameAddr == NULL)
 		return nil;
 	
-	NSString *aDisplayName = [NSString stringWithPJString:nameAddr->display];
-	if ([aDisplayName isEqualToString:@""])
-		[self setDisplayName:@"Anonymous"];
-	else
-		[self setDisplayName:aDisplayName];
+	[self setDisplayName:[NSString stringWithPJString:nameAddr->display]];
 	
 	pjsip_sip_uri *uri = (pjsip_sip_uri *)pjsip_uri_get_uri(nameAddr);
 	[self setUser:[NSString stringWithPJString:uri->user]];
@@ -111,7 +107,23 @@
 
 - (id)init
 {
-	return [self initWithString:nil];
+	self = [super init];
+	if (self == nil)
+		return nil;
+	
+	[self setDisplayName:nil];
+	[self setUser:nil];
+	[self setPassword:nil];
+	[self setHost:nil];
+	[self setPort:0];
+	[self setUserParameter:nil];
+	[self setMethodParameter:nil];
+	[self setTransportParameter:nil];
+	[self setTTLParameter:0];
+	[self setLooseRoutingParameter:0];
+	[self setMaddrParameter:nil];
+	
+	return self;
 }
 
 + (id)SIPURIWithString:(NSString *)SIPURIString
@@ -135,7 +147,33 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"\"%@\" <sip:%@>", [self displayName], [self SIPAddress]];
+	if ([[self displayName] length] > 0)
+		return [NSString stringWithFormat:@"\"%@\" <sip:%@>", [self displayName], [self SIPAddress]];
+	else
+		return [NSString stringWithFormat:@"<sip:%@>", [self SIPAddress]];
+}
+
+
+#pragma mark -
+#pragma mark NSCopying protocol
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	AKSIPURI *newURI = [[AKSIPURI allocWithZone:zone] init];
+	
+	[newURI setDisplayName:[self displayName]];
+	[newURI setUser:[self user]];
+	[newURI setPassword:[self password]];
+	[newURI setHost:[self host]];
+	[newURI setPort:[self port]];
+	[newURI setUserParameter:[self userParameter]];
+	[newURI setMethodParameter:[self methodParameter]];
+	[newURI setTransportParameter:[self transportParameter]];
+	[newURI setTTLParameter:[self TTLParameter]];
+	[newURI setLooseRoutingParameter:[self looseRoutingParameter]];
+	[newURI setMaddrParameter:[self maddrParameter]];
+	
+	return newURI;
 }
 
 @end
