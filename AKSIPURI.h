@@ -57,8 +57,10 @@
 @property(readonly, assign) NSInteger looseRoutingParameter;
 @property(readonly, copy) NSString *maddrParameter;
 
-- (id)initWithString:(NSString *)SIPURIString;
-
++ (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
 + (id)SIPURIWithString:(NSString *)SIPURIString;
+
+- (id)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;	// Designated initializer.
+- (id)initWithString:(NSString *)SIPURIString;
 
 @end

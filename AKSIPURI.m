@@ -72,6 +72,45 @@
 		return [self host];
 }
 
+#pragma mark -
+
++ (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName
+{
+	return [[[self alloc] initWithUser:aUser host:aHost displayName:aDisplayName] autorelease];
+}
+
++ (id)SIPURIWithString:(NSString *)SIPURIString
+{
+	return [[[self alloc] initWithString:SIPURIString] autorelease];
+}
+
+// Designated initializer.
+- (id)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName
+{
+	self = [super init];
+	if (self == nil)
+		return nil;
+	
+	[self setDisplayName:aDisplayName];
+	[self setUser:aUser];
+	[self setPassword:nil];
+	[self setHost:aHost];
+	[self setPort:0];
+	[self setUserParameter:nil];
+	[self setMethodParameter:nil];
+	[self setTransportParameter:nil];
+	[self setTTLParameter:0];
+	[self setLooseRoutingParameter:0];
+	[self setMaddrParameter:nil];
+	
+	return self;
+}
+
+- (id)init
+{
+	return [self initWithUser:nil host:nil displayName:nil];
+}
+
 - (id)initWithString:(NSString *)SIPURIString
 {
 	if (![[AKTelephone sharedTelephone] started])
@@ -85,8 +124,11 @@
 	nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKTelephone sharedTelephone] pjPool],
 												  (char *)[SIPURIString cStringUsingEncoding:NSASCIIStringEncoding],
 												  [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
-	if (nameAddr == NULL)
+	if (nameAddr == NULL) {
+		NSLog(@"Could not convert %@ to SIP URI", SIPURIString);
+		[self release];
 		return nil;
+	}
 	
 	[self setDisplayName:[NSString stringWithPJString:nameAddr->display]];
 	
@@ -103,32 +145,6 @@
 	[self setMaddrParameter:[NSString stringWithPJString:uri->maddr_param]];
 	
 	return self;
-}
-
-- (id)init
-{
-	self = [super init];
-	if (self == nil)
-		return nil;
-	
-	[self setDisplayName:nil];
-	[self setUser:nil];
-	[self setPassword:nil];
-	[self setHost:nil];
-	[self setPort:0];
-	[self setUserParameter:nil];
-	[self setMethodParameter:nil];
-	[self setTransportParameter:nil];
-	[self setTTLParameter:0];
-	[self setLooseRoutingParameter:0];
-	[self setMaddrParameter:nil];
-	
-	return self;
-}
-
-+ (id)SIPURIWithString:(NSString *)SIPURIString
-{
-	return [[[self alloc] initWithString:SIPURIString] autorelease];
 }
 
 - (void)dealloc
@@ -159,12 +175,10 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	AKSIPURI *newURI = [[AKSIPURI allocWithZone:zone] init];
-	
-	[newURI setDisplayName:[self displayName]];
-	[newURI setUser:[self user]];
+	AKSIPURI *newURI = [[AKSIPURI allocWithZone:zone] initWithUser:[self user]
+															  host:[self host]
+													   displayName:[self displayName]];
 	[newURI setPassword:[self password]];
-	[newURI setHost:[self host]];
 	[newURI setPort:[self port]];
 	[newURI setUserParameter:[self userParameter]];
 	[newURI setMethodParameter:[self methodParameter]];
