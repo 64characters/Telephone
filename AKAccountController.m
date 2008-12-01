@@ -189,12 +189,16 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		return;
 	}
 	
-	NSString *uri = [NSString stringWithFormat:@"sip:%@", [callDestination stringValue]];
+	NSString *destinationString = [callDestination stringValue];
 	
 	// If callDestination does not contain @, add @registrar to the end
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains \"@\""];
-	if (![predicate evaluateWithObject:[callDestination stringValue]])
-		uri = [NSString stringWithFormat:@"%@@%@", uri, [[self account] registrar]];
+	if (![predicate evaluateWithObject:destinationString])
+		destinationString = [destinationString stringByAppendingFormat:@"@%@", [[self account] registrar]];
+	
+	AKSIPURI *uri = [AKSIPURI SIPURIWithString:[@"sip:" stringByAppendingString:destinationString]];
+	if (uri == nil)
+		return;
 	
 	// Make actual call
 	AKTelephoneCall *aCall = [[self account] makeCallTo:uri];

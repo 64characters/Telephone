@@ -28,6 +28,7 @@
 
 #import <pjsua-lib/pjsua.h>
 
+#import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
@@ -248,10 +249,10 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelep
 }
 
 // Make outgoing call, create call object, set its info, add to the array
-- (AKTelephoneCall *)makeCallTo:(NSString *)destinationURI
+- (AKTelephoneCall *)makeCallTo:(AKSIPURI *)destinationURI
 {
 	pjsua_call_id callIdentifier;
-	pj_str_t uri = [destinationURI pjString];
+	pj_str_t uri = [[destinationURI description] pjString];
 	
 	pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
 	if (status != PJ_SUCCESS) {

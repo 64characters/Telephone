@@ -30,7 +30,7 @@
 #import <pjsua-lib/pjsua.h>
 
 
-@class AKTelephoneCall;
+@class AKTelephoneCall, AKSIPURI;
 @protocol AKTelephoneAccountDelegate;
 
 @interface AKTelephoneAccount : NSObject {
@@ -75,7 +75,7 @@
 				 realm:(NSString *)aRealm
 			  username:(NSString *)aUsername;
 
-- (AKTelephoneCall *)makeCallTo:(NSString *)destinationURI;
+- (AKTelephoneCall *)makeCallTo:(AKSIPURI *)destinationURI;
 
 @end
 
