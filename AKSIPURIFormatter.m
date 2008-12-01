@@ -45,4 +45,34 @@
 		return [anObject host];
 }
 
+- (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error
+{
+	BOOL returnValue = NO;
+	
+	AKSIPURI *uri = [AKSIPURI SIPURIWithString:string];
+	if (uri != nil) {
+		returnValue = YES;
+		if (anObject != NULL)
+			*anObject = uri;
+	} else {
+		if (error != NULL)
+			*error = @"Couldn't convert to SIP URI";
+	}
+	
+	return returnValue;
+}
+
+- (AKSIPURI *)SIPURIFromString:(NSString *)SIPURIString
+{
+	AKSIPURI *uri;
+	NSString *error;
+	BOOL converted = [self getObjectValue:&uri forString:SIPURIString errorDescription:&error];
+	if (converted)
+		return uri;
+	else {
+		NSLog(@"%@", error);
+		return nil;
+	}
+}
+
 @end

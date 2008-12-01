@@ -33,4 +33,6 @@
 
 }
 
+- (AKSIPURI *)SIPURIFromString:(NSString *)SIPURIString;
+
 @end
