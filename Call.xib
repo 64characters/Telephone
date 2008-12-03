@@ -8,9 +8,9 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="19"/>
-			<integer value="51"/>
 			<integer value="1"/>
+			<integer value="51"/>
+			<integer value="19"/>
 			<integer value="41"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -405,76 +405,68 @@
 					<int key="connectionID">101</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">formatter</string>
-						<reference key="source" ref="725809836"/>
-						<reference key="destination" ref="1044513530"/>
-					</object>
-					<int key="connectionID">103</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">formatter</string>
-						<reference key="source" ref="344047073"/>
-						<reference key="destination" ref="1044513530"/>
-					</object>
-					<int key="connectionID">104</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">formatter</string>
-						<reference key="source" ref="753896719"/>
-						<reference key="destination" ref="1044513530"/>
-					</object>
-					<int key="connectionID">105</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: call.remoteURI</string>
+						<string key="label">value: displayedName</string>
 						<reference key="source" ref="725809836"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="725809836"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: call.remoteURI</string>
+							<string key="NSLabel">value: displayedName</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">call.remoteURI</string>
+							<string key="NSKeyPath">displayedName</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">106</int>
+					<int key="connectionID">109</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: call.remoteURI</string>
+						<string key="label">value: displayedName</string>
 						<reference key="source" ref="344047073"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="344047073"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: call.remoteURI</string>
+							<string key="NSLabel">value: displayedName</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">call.remoteURI</string>
+							<string key="NSKeyPath">displayedName</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">107</int>
+					<int key="connectionID">110</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: call.remoteURI</string>
+						<string key="label">value: displayedName</string>
 						<reference key="source" ref="753896719"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="753896719"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: call.remoteURI</string>
+							<string key="NSLabel">value: displayedName</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">call.remoteURI</string>
+							<string key="NSKeyPath">displayedName</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">108</int>
+					<int key="connectionID">111</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">title: call.remoteURI.SIPAddress</string>
+						<reference key="source" ref="1005"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1005"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">title: call.remoteURI.SIPAddress</string>
+							<string key="NSBinding">title</string>
+							<string key="NSKeyPath">call.remoteURI.SIPAddress</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">112</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -735,9 +727,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilderKit</string>
-					<string>{{325, 814}, {300, 90}}</string>
+					<string>{{325, 766}, {300, 90}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{325, 814}, {300, 90}}</string>
+					<string>{{325, 766}, {300, 90}}</string>
 					<integer value="0" id="8"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -797,7 +789,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">108</int>
+			<int key="maxID">112</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

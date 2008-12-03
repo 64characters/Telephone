@@ -26,8 +26,10 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#import "AKPreferenceController.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
+#import "AKTelephoneNumberFormatter.h"
 
 
 @implementation AKSIPURIFormatter
@@ -37,12 +39,24 @@
 	if (![anObject isKindOfClass:[AKSIPURI class]])
 		return nil;
 	
+	NSString *returnValue = nil;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
 	if ([[anObject displayName] length] > 0)
-		return [anObject displayName];
-	else if ([[anObject user] length] > 0)
-		return [anObject user];
-	else
-		return [anObject host];
+		returnValue = [anObject displayName];
+	else if ([[anObject user] length] > 0) {
+		if ([defaults boolForKey:AKFormatsTelephoneNumbers]) {
+			AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+			[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
+			returnValue = [telephoneNumberFormatter stringForObjectValue:[anObject user]];
+		} else {
+			returnValue = [anObject user];
+		}
+	} else {
+		returnValue = [anObject host];
+	}
+	
+	return returnValue;
 }
 
 - (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error

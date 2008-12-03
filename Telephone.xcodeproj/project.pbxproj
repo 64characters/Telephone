@@ -37,6 +37,7 @@
 		AAEE7C310ECD953200A7DEB4 /* NSWindowAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* NSWindowAdditions.m */; };
 		AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */; };
 		AAFA9B980EE2BFC4009A45CB /* Sound.tiff in Resources */ = {isa = PBXBuildFile; fileRef = AAFA9B970EE2BFC4009A45CB /* Sound.tiff */; };
+		AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,8 @@
 		AAFA9B1B0EE1D8FC009A45CB /* AKSIPURIFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPURIFormatter.h; sourceTree = "<group>"; };
 		AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPURIFormatter.m; sourceTree = "<group>"; };
 		AAFA9B970EE2BFC4009A45CB /* Sound.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Sound.tiff; sourceTree = "<group>"; };
+		AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneNumberFormatter.h; sourceTree = "<group>"; };
+		AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneNumberFormatter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +208,8 @@
 				AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */,
 				AAFA9B1B0EE1D8FC009A45CB /* AKSIPURIFormatter.h */,
 				AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */,
+				AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */,
+				AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 				AAEE7C310ECD953200A7DEB4 /* NSWindowAdditions.m in Sources */,
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
+				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

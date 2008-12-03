@@ -96,6 +96,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:AKLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKConsoleLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKTransportPort];
+		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKFormatsTelephoneNumbers];
+		[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKTelephoneNumberFormatterSplitsLastFourDigits];
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
 		

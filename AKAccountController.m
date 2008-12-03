@@ -30,9 +30,11 @@
 #import "AKCallController.h"
 #import "AKKeychain.h"
 #import "AKSIPURI.h"
+#import "AKSIPURIFormatter.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
+#import "AKTelephoneNumberFormatter.h"
 #import "AppController.h"
 #import "NSWindowAdditions.h"
 
@@ -181,22 +183,37 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
-	if ([[callDestination stringValue] isEqualToString:@""])
+	NSString *userInput = [callDestination stringValue];
+	
+	if ([userInput isEqualToString:@""])
 		return;
 	
-	if ([[[self account] calls] count] == AKTelephoneCallsMax) {
-		NSLog(@"Can't call, maximum number of calls is reached!");
-		return;
+	NSString *SIPAddress;
+	AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+	AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
+	NSPredicate *containsATPredicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS \"@\""];
+	
+	// Modifications of userInput string based on the presence of @ character.
+	if ([containsATPredicate evaluateWithObject:userInput]) {
+		SIPAddress = userInput;
+	
+	} else {
+		NSString *userURIPart;
+		
+		NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
+		NSPredicate *containsNumbersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[0-9].*'"];
+
+		if ([containsLettersPredicate evaluateWithObject:userInput])
+			userURIPart = userInput;
+		else if ([containsNumbersPredicate evaluateWithObject:userInput])
+			userURIPart = [telephoneNumberFormatter telephoneNumberFromString:userInput];
+		else
+			return;
+		
+		SIPAddress = [userURIPart stringByAppendingFormat:@"@%@", [[self account] registrar]];
 	}
 	
-	NSString *destinationString = [callDestination stringValue];
-	
-	// If callDestination does not contain @, add @registrar to the end
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains \"@\""];
-	if (![predicate evaluateWithObject:destinationString])
-		destinationString = [destinationString stringByAppendingFormat:@"@%@", [[self account] registrar]];
-	
-	AKSIPURI *uri = [AKSIPURI SIPURIWithString:[@"sip:" stringByAppendingString:destinationString]];
+	AKSIPURI *uri = [AKSIPURI SIPURIWithString:[@"sip:" stringByAppendingString:SIPAddress]];
 	if (uri == nil)
 		return;
 	
@@ -206,8 +223,15 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																		  accountController:self];
 		[[self callControllers] addObject:aCallController];
+		
+		// If userInput is a string of countiguous digits, format it. Else, display string as is.
+		NSPredicate *contiguousDigitsPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?[0-9]+'"];
+		if ([contiguousDigitsPredicate evaluateWithObject:userInput])
+			[aCallController setDisplayedName:[SIPURIFormatter stringForObjectValue:[aCall remoteURI]]];
+		else
+			[aCallController setDisplayedName:userInput];
+
 		[[aCallController window] setContentView:[aCallController activeCallView]];
-		[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
 		[aCallController setStatus:@"calling..."];
 		[aCallController showWindow:nil];
 		[[aCallController callProgressIndicator] startAnimation:self];
@@ -394,7 +418,9 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																	  accountController:self];
 	[[self callControllers] addObject:aCallController];
-	[[aCallController window] setTitle:[[[aCallController call] remoteURI] SIPAddress]];
+	
+	AKSIPURIFormatter *formatter = [[[AKSIPURIFormatter alloc] init] autorelease];
+	[aCallController setDisplayedName:[formatter stringForObjectValue:[aCall remoteURI]]];
 	[aCallController setStatus:@"calling"];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	[aCallController showWindow:nil];

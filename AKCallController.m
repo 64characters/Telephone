@@ -40,6 +40,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 @synthesize call;
 @dynamic accountController;
+@synthesize displayedName;
 @synthesize status;
 @synthesize callStartTime;
 @synthesize callTimer;

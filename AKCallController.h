@@ -37,6 +37,7 @@
 @private
 	AKTelephoneCall *call;
 	AKAccountController *accountController;
+	NSString *displayedName;
 	NSString *status;
 	NSTimeInterval callStartTime;
 	NSTimer *callTimer;
@@ -53,6 +54,7 @@
 
 @property(readwrite, retain) AKTelephoneCall *call;
 @property(readwrite, assign) AKAccountController *accountController;
+@property(readwrite, copy) NSString *displayedName;
 @property(readwrite, copy) NSString *status;
 @property(readwrite, assign) NSTimeInterval callStartTime;
 @property(readwrite, retain) NSTimer *callTimer;

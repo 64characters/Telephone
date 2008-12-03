@@ -52,6 +52,8 @@ NSString * const AKVoiceActivityDetection = @"VoiceActivityDetection";
 NSString * const AKTransportPort = @"TransportPort";
 NSString * const AKSoundInput = @"SoundInput";
 NSString * const AKSoundOutput = @"SoundOutput";
+NSString * const AKFormatsTelephoneNumbers = @"FormatsTelephoneNumbers";
+NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";
 
 NSString * const AKFullName = @"FullName";
 NSString * const AKSIPAddress = @"SIPAddress";
