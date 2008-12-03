@@ -182,7 +182,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 - (IBAction)changeView:(id)sender
 {
 	// If the user switches from General to some other view, check for STUN server changes.
-	if ([[[self window] contentView] isEqual:generalView] && [sender tag] != AKGeneralPreferencesTag) {
+	if ([[[self window] contentView] isEqual:networkView] && [sender tag] != AKNetworkPreferencesTag) {
 		BOOL STUNServerChanged = [self checkForSTUNServerChanges:sender];
 		if (STUNServerChanged)
 			return;
@@ -203,6 +203,10 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		case AKSoundPreferencesTag:
 			view = soundView;
 			title = @"Sound";
+			break;
+		case AKNetworkPreferencesTag:
+			view = networkView;
+			title = @"Network";
 			break;
 		default:
 			view = nil;
@@ -589,6 +593,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			[generalToolbarItem itemIdentifier],
 			[accountsToolbarItem itemIdentifier],
 			[soundToolbarItem itemIdentifier],
+			[networkToolbarItem itemIdentifier],
 			nil];
 }
 

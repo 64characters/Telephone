@@ -65,17 +65,21 @@ extern NSString * const AKAccountEnabled;
 	IBOutlet NSToolbarItem *generalToolbarItem;
 	IBOutlet NSToolbarItem *accountsToolbarItem;
 	IBOutlet NSToolbarItem *soundToolbarItem;
+	IBOutlet NSToolbarItem *networkToolbarItem;
 	IBOutlet NSView *generalView;
 	IBOutlet NSView *accountsView;
 	IBOutlet NSView *soundView;
+	IBOutlet NSView *networkView;
 
-	// General
+	// Sound.
 	IBOutlet NSPopUpButton *soundInputPopUp;
 	IBOutlet NSPopUpButton *soundOutputPopUp;
+	
+	// Network.
 	IBOutlet NSTextField *STUNServerHost;
 	IBOutlet NSTextField *STUNServerPort;
 	
-	// Account
+	// Account.
 	IBOutlet NSTableView *accountsTable;
 	IBOutlet NSButton *accountEnabledCheckBox;
 	IBOutlet NSTextField *fullName;
@@ -84,7 +88,7 @@ extern NSString * const AKAccountEnabled;
 	IBOutlet NSTextField *username;
 	IBOutlet NSTextField *password;
 	
-	// Account Setup
+	// Account Setup.
 	IBOutlet NSWindow *addAccountWindow;
 	IBOutlet NSTextField *setupFullName;
 	IBOutlet NSTextField *setupSIPAddress;
@@ -137,7 +141,8 @@ extern NSString * const AKAccountEnabled;
 enum {
 	AKGeneralPreferencesTag		= 0,
 	AKAccountsPreferencesTag	= 1,
-	AKSoundPreferencesTag		= 2
+	AKSoundPreferencesTag		= 2,
+	AKNetworkPreferencesTag		= 3
 };
 
 
