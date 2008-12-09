@@ -40,6 +40,7 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelep
 @implementation AKTelephoneAccount
 
 @dynamic delegate;
+@synthesize registrationURI;
 @synthesize fullName;
 @synthesize SIPAddress;
 @synthesize registrar;
@@ -207,6 +208,8 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelep
 	if (self == nil)
 		return nil;
 	
+	[self setRegistrationURI:[AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", aFullName, aSIPAddress]]];
+	
 	[self setFullName:aFullName];
 	[self setSIPAddress:aSIPAddress];
 	[self setRegistrar:aRegistrar];
@@ -231,6 +234,8 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelep
 - (void)dealloc
 {
 	[self setDelegate:nil];
+	
+	[registrationURI dealloc];
 	
 	[fullName release];
 	[SIPAddress release];

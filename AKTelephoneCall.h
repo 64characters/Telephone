@@ -63,8 +63,8 @@ typedef enum _AKTelephoneCallState {
 
 @property(readwrite, assign) id delegate;
 @property(readwrite, assign) NSInteger identifier;
-@property(readwrite, retain) AKSIPURI *localURI;
-@property(readwrite, retain) AKSIPURI *remoteURI;
+@property(readwrite, copy) AKSIPURI *localURI;
+@property(readwrite, copy) AKSIPURI *remoteURI;
 @property(readwrite, assign) AKTelephoneCallState state;
 @property(readwrite, copy) NSString *stateText;
 @property(readwrite, assign) NSInteger lastStatus;

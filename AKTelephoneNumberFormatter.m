@@ -221,7 +221,7 @@
 	NSScanner *scanner = [NSScanner scannerWithString:string];
 	NSMutableString *telephoneNumber = [[NSMutableString alloc] init];
 	
-	if ([[string substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"+"]) {
+	if ([string hasPrefix:@"+"]) {
 		[telephoneNumber appendString:@"+"];
 		[scanner setScanLocation:1];
 	} else {

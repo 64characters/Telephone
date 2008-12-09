@@ -33,22 +33,6 @@
 #import "NSStringAdditions.h"
 
 
-@interface AKSIPURI()
-
-@property(readwrite, copy) NSString *displayName;
-@property(readwrite, copy) NSString *user;
-@property(readwrite, copy) NSString *password;
-@property(readwrite, copy) NSString *host;
-@property(readwrite, assign) NSInteger port;
-@property(readwrite, copy) NSString *userParameter;
-@property(readwrite, copy) NSString *methodParameter;
-@property(readwrite, copy) NSString *transportParameter;
-@property(readwrite, assign) NSInteger TTLParameter;
-@property(readwrite, assign) NSInteger looseRoutingParameter;
-@property(readwrite, copy) NSString *maddrParameter;
-
-@end
-
 @implementation AKSIPURI
 
 @dynamic SIPAddress;
@@ -113,19 +97,45 @@
 
 - (id)initWithString:(NSString *)SIPURIString
 {
-	if (![[AKTelephone sharedTelephone] started])
-		return nil;
-	
-	self = [super init];
+	[self init];
 	if (self == nil)
 		return nil;
 
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s<sip:(.+@)?.+>'"];
+	if ([predicate evaluateWithObject:SIPURIString]) {
+		NSRange delimiterRange = [SIPURIString rangeOfString:@" <"];
+		
+		NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
+		[trimmingCharacterSet addCharactersInString:@"\""];
+		[self setDisplayName:[[SIPURIString substringToIndex:delimiterRange.location]
+							  stringByTrimmingCharactersInSet:trimmingCharacterSet]];
+		[trimmingCharacterSet release];
+		
+		NSRange userAndHostRange = [SIPURIString rangeOfString:@"<sip:" options:NSCaseInsensitiveSearch];
+		userAndHostRange.location += 5;
+		userAndHostRange.length = [SIPURIString length] - userAndHostRange.location - 1;
+		NSString *userAndHost = [SIPURIString substringWithRange:userAndHostRange];
+		
+		NSRange atSignRange = [userAndHost rangeOfString:@"@" options:NSBackwardsSearch];
+		if (atSignRange.location != NSNotFound) {
+			[self setUser:[userAndHost substringToIndex:atSignRange.location]];
+			[self setHost:[userAndHost substringFromIndex:(atSignRange.location + 1)]];
+		} else
+			[self setHost:userAndHost];
+		
+		return self;
+	}
+
+	if (![[AKTelephone sharedTelephone] started]) {
+		[self release];
+		return nil;
+	}
+	
 	pjsip_name_addr *nameAddr;
 	nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKTelephone sharedTelephone] pjPool],
-												  (char *)[SIPURIString cStringUsingEncoding:NSASCIIStringEncoding],
+												  (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
 												  [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
 	if (nameAddr == NULL) {
-		NSLog(@"Could not convert %@ to SIP URI", SIPURIString);
 		[self release];
 		return nil;
 	}

@@ -48,13 +48,56 @@
 {
 	return [[[NSString alloc] initWithBytes:pjString.ptr
 									 length:(NSUInteger)pjString.slen
-								   encoding:NSASCIIStringEncoding]
+								   encoding:NSUTF8StringEncoding]
 			autorelease];
 }
 
 - (pj_str_t)pjString
 {
-	return pj_str((char *)[self cStringUsingEncoding:NSASCIIStringEncoding]);
+	return pj_str((char *)[self cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
+@end
+
+@implementation NSString(Additions)
+
+@dynamic AK_isTelephoneNumber;
+
+- (BOOL)AK_isTelephoneNumber
+{
+	NSPredicate *telephoneNumberPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
+	if ([telephoneNumberPredicate evaluateWithObject:self])
+		return YES;
+	
+	return NO;
+}
+
+- (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string
+{
+	NSMutableString *newString = [NSMutableString stringWithString:self];
+	NSString *escapeCharacterString = [string substringWithRange:NSMakeRange(0, 1)];
+	NSRange escapeCharacterRange = [newString rangeOfString:escapeCharacterString];
+	while (escapeCharacterRange.location != NSNotFound) {
+		[newString insertString:@"\\" atIndex:escapeCharacterRange.location];
+		NSRange searchRange;
+		searchRange.location = escapeCharacterRange.location + 2;
+		searchRange.length = [newString length] - searchRange.location;
+		escapeCharacterRange = [newString rangeOfString:escapeCharacterString options:0 range:searchRange];
+	}
+	
+	return [[newString copy] autorelease];
+}
+
+- (NSString *)AK_escapeQuotes
+{
+	return [self AK_escapeFirstCharacterFromString:@"\""];
+}
+
+- (NSString *)AK_escapeParentheses
+{
+	NSString *returnString = [self AK_escapeFirstCharacterFromString:@")"];
+	
+	return [returnString AK_escapeFirstCharacterFromString:@"("];
 }
 
 @end

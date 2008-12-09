@@ -47,7 +47,8 @@ enum {
 	IBOutlet NSView *registeredAccountView;
 	IBOutlet NSView *unregisteredAccountView;
 	IBOutlet NSPopUpButton *accountRegistrationPopUp;
-	IBOutlet NSTextField *callDestination;
+	IBOutlet NSTokenField *callDestination;
+	NSUInteger callDestinationURIIndex;
 	
 	// Authentication failure sheet outlets
 	IBOutlet NSWindow *authenticationFailureSheet;
@@ -61,6 +62,7 @@ enum {
 @property(readwrite, retain) AKTelephoneAccount *account;
 @property(readwrite, assign, getter=isAccountRegistered) BOOL accountRegistered;
 @property(readonly, retain) NSMutableArray *callControllers;
+@property(readwrite, assign) NSUInteger callDestinationURIIndex;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;
@@ -80,6 +82,9 @@ enum {
 - (IBAction)changeUsernameAndPassword:(id)sender;
 
 - (IBAction)closeSheet:(id)sender;
+
+// Change the active SIP URI index in the call destination token.
+- (IBAction)changeCallDestinationURIIndex:(id)sender;
 
 // Show alert saying that connection to the registrar failed.
 - (void)showRegistrarConnectionErrorSheet;

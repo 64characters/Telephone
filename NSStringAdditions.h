@@ -42,3 +42,15 @@
 - (pj_str_t)pjString;
 
 @end
+
+@interface NSString(Additions)
+
+@property(readonly, assign) BOOL AK_isTelephoneNumber;
+
+// Inserts backslash before every occurrence of the first character from string in the receiver.
+- (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string;
+
+- (NSString *)AK_escapeQuotes;
+- (NSString *)AK_escapeParentheses;
+
+@end

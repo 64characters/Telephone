@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.02">
+<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
 		<string key="IBDocument.SystemVersion">9F33</string>
-		<string key="IBDocument.InterfaceBuilderVersion">672</string>
+		<string key="IBDocument.InterfaceBuilderVersion">677</string>
 		<string key="IBDocument.AppKitVersion">949.34</string>
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="98"/>
 			<integer value="3"/>
+			<integer value="98"/>
 			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<string>com.apple.InterfaceBuilderKit</string>
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+		</object>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -174,24 +183,29 @@
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="NSTextField" id="571791211">
+					<object class="NSTokenField" id="964762988">
 						<reference key="NSNextResponder" ref="230395515"/>
 						<int key="NSvFlags">266</int>
+						<object class="NSMutableSet" key="NSDragTypes">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="NSArray" key="set.sortedObjects">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<string>NSStringPboardType</string>
+							</object>
+						</object>
 						<string key="NSFrame">{{20, 20}, {220, 22}}</string>
 						<reference key="NSSuperview" ref="230395515"/>
 						<bool key="NSEnabled">YES</bool>
-						<object class="NSTextFieldCell" key="NSCell" id="1450462">
-							<int key="NSCellFlags">-1804468671</int>
-							<int key="NSCellFlags2">268436480</int>
-							<string key="NSContents"/>
+						<object class="NSTokenFieldCell" key="NSCell" id="411309983">
+							<int key="NSCellFlags">343014976</int>
+							<int key="NSCellFlags2">1024</int>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
-								<double key="NSSize">1.300000e+01</double>
-								<int key="NSfFlags">1044</int>
+								<double key="NSSize">1.200000e+01</double>
+								<int key="NSfFlags">16</int>
 							</object>
-							<reference key="NSControlView" ref="571791211"/>
+							<reference key="NSControlView" ref="964762988"/>
 							<bool key="NSDrawsBackground">YES</bool>
-							<int key="NSTextBezelStyle">1</int>
 							<object class="NSColor" key="NSBackgroundColor">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
@@ -204,17 +218,17 @@
 							<object class="NSColor" key="NSTextColor">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">textColor</string>
+								<string key="NSColorName">controlTextColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
 							</object>
-							<object class="NSArray" key="NSAllowedInputLocales">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<string>NSAllRomanInputSourcesLocaleIdentifier</string>
-							</object>
+							<reference key="NSDelegate" ref="964762988"/>
+							<double key="NSCompletionDelay">0.000000e+00</double>
+							<int key="NSTokenStyle">0</int>
 						</object>
+						<int key="NSTokenFieldVersion">2</int>
 					</object>
 				</object>
 				<string key="NSFrameSize">{260, 62}</string>
@@ -258,14 +272,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">callDestination</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="571791211"/>
-					</object>
-					<int key="connectionID">80</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">registeredAccountView</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="230395515"/>
@@ -289,12 +295,28 @@
 					<int key="connectionID">101</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">callDestination</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="964762988"/>
+					</object>
+					<int key="connectionID">109</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">makeCall:</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="571791211"/>
+						<reference key="destination" ref="964762988"/>
 					</object>
-					<int key="connectionID">102</int>
+					<int key="connectionID">110</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="964762988"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">111</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -349,7 +371,7 @@
 						<reference key="object" ref="230395515"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="571791211"/>
+							<reference ref="964762988"/>
 						</object>
 						<reference key="parent" ref="1002"/>
 						<string key="objectName">Registered View</string>
@@ -426,18 +448,18 @@
 						<string key="objectName">Unregistered View</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">78</int>
-						<reference key="object" ref="571791211"/>
+						<int key="objectID">107</int>
+						<reference key="object" ref="964762988"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1450462"/>
+							<reference ref="411309983"/>
 						</object>
 						<reference key="parent" ref="230395515"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">79</int>
-						<reference key="object" ref="1450462"/>
-						<reference key="parent" ref="571791211"/>
+						<int key="objectID">108</int>
+						<reference key="object" ref="411309983"/>
+						<reference key="parent" ref="964762988"/>
 					</object>
 				</object>
 			</object>
@@ -448,6 +470,8 @@
 					<string>-1.IBPluginDependency</string>
 					<string>-2.IBPluginDependency</string>
 					<string>-3.IBPluginDependency</string>
+					<string>107.IBPluginDependency</string>
+					<string>108.IBPluginDependency</string>
 					<string>29.IBEditorWindowLastContentRect</string>
 					<string>29.IBPluginDependency</string>
 					<string>3.IBEditorWindowLastContentRect</string>
@@ -468,8 +492,6 @@
 					<string>67.IBPluginDependency</string>
 					<string>68.IBPluginDependency</string>
 					<string>69.IBPluginDependency</string>
-					<string>78.IBPluginDependency</string>
-					<string>79.IBPluginDependency</string>
 					<string>91.IBPluginDependency</string>
 					<string>98.IBEditorWindowLastContentRect</string>
 					<string>98.IBPluginDependency</string>
@@ -479,6 +501,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilderKit</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{128, 477}, {260, 62}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{131, 576}, {260, 62}}</string>
@@ -496,8 +520,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{168, 638}, {111, 54}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -526,7 +548,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">106</int>
+			<int key="maxID">111</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -539,12 +561,14 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>changeAccountRegistration:</string>
+							<string>changeCallDestinationURIIndex:</string>
 							<string>changeUsernameAndPassword:</string>
 							<string>closeSheet:</string>
 							<string>makeCall:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -571,7 +595,7 @@
 							<string>NSPopUpButton</string>
 							<string>NSButton</string>
 							<string>NSWindow</string>
-							<string>NSTextField</string>
+							<string>NSTokenField</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
@@ -583,48 +607,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">AKAccountController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKActiveCallView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKCallController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKPreferenceController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKTelephone.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKTelephoneAccount.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKTelephoneCall.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

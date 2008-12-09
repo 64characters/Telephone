@@ -37,6 +37,8 @@
 @private
 	NSObject <AKTelephoneAccountDelegate> *delegate;
 	
+	AKSIPURI *registrationURI;
+	
 	NSString *fullName;
 	NSString *SIPAddress;
 	NSString *registrar;
@@ -49,6 +51,7 @@
 }
 
 @property(readwrite, assign) NSObject <AKTelephoneAccountDelegate> *delegate;
+@property(readwrite, copy) AKSIPURI *registrationURI;
 @property(readwrite, copy) NSString *fullName;
 @property(readwrite, copy) NSString *SIPAddress;
 @property(readwrite, copy) NSString *registrar;

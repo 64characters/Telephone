@@ -45,17 +45,17 @@
 }
 
 @property(readonly, copy) NSString *SIPAddress;
-@property(readonly, copy) NSString *displayName;
-@property(readonly, copy) NSString *user;
-@property(readonly, copy) NSString *password;
-@property(readonly, copy) NSString *host;
-@property(readonly, assign) NSInteger port;
-@property(readonly, copy) NSString *userParameter;
-@property(readonly, copy) NSString *methodParameter;
-@property(readonly, copy) NSString *transportParameter;
-@property(readonly, assign) NSInteger TTLParameter;
-@property(readonly, assign) NSInteger looseRoutingParameter;
-@property(readonly, copy) NSString *maddrParameter;
+@property(readwrite, copy) NSString *displayName;
+@property(readwrite, copy) NSString *user;
+@property(readwrite, copy) NSString *password;
+@property(readwrite, copy) NSString *host;
+@property(readwrite, assign) NSInteger port;
+@property(readwrite, copy) NSString *userParameter;
+@property(readwrite, copy) NSString *methodParameter;
+@property(readwrite, copy) NSString *transportParameter;
+@property(readwrite, assign) NSInteger TTLParameter;
+@property(readwrite, assign) NSInteger looseRoutingParameter;
+@property(readwrite, copy) NSString *maddrParameter;
 
 + (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
 + (id)SIPURIWithString:(NSString *)SIPURIString;
