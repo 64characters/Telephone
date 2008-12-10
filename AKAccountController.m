@@ -220,7 +220,6 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	[cleanURI setDisplayName:nil];
 	
 	// Make actual call.
-	NSLog(@"Calling %@", uri);
 	AKTelephoneCall *aCall = [[self account] makeCallTo:cleanURI];
 	if (aCall != nil) {
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
