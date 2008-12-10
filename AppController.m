@@ -606,13 +606,13 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		started = [[self telephone] startUserAgent];
 	
 	if (!started) {
-		NSLog(@"Could not start Telephone agent. Please, check your network connection and STUN server settings.");
+		NSLog(@"Could not start Telephone agent. Please check your network connection and STUN server settings.");
 		
 		// Display application modal alert.
 		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 		[alert addButtonWithTitle:@"OK"];
 		[alert setMessageText:@"Could not start Telephone agent."];
-		[alert setInformativeText:@"Please, check your network connection and STUN server settings."];
+		[alert setInformativeText:@"Please check your network connection and STUN server settings."];
 		[alert runModal];
 		
 		return NO;

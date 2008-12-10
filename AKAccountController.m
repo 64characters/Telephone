@@ -320,7 +320,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	[alert addButtonWithTitle:@"OK"];
 	[alert setMessageText:[NSString stringWithFormat:@"Could not connect to server %@.", [[self account] registrar]]];
 	[alert setInformativeText:[NSString stringWithFormat:
-							   @"Please, check network connection and Registry Server settings.",
+							   @"Please check network connection and Registry Server settings.",
 							   [[self account] registrar]]];
 	[alert beginSheetModalForWindow:[self window]
 					  modalDelegate:nil
@@ -394,7 +394,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			[alert addButtonWithTitle:@"OK"];
 			[alert setMessageText:[NSString stringWithFormat:@"SIP address “%@” does not match the user name “%@”.",
 								   [[self account] SIPAddress], [[self account] username]]];
-			[alert setInformativeText:@"Please, check your SIP Address."];
+			[alert setInformativeText:@"Please check your SIP Address."];
 			[alert beginSheetModalForWindow:[self window]
 							  modalDelegate:nil
 							 didEndSelector:NULL
