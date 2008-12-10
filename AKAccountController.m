@@ -104,9 +104,12 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 				[accountRegistrationPopUp setFrameSize:buttonSize];
 				[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
 				
-				// Show sheet only if Telephone didn't start.
-				if ([[[NSApp delegate] telephone] started])
-					[self showRegistrarConnectionErrorSheet];
+				// Show sheet only if Telephone started.
+				if ([[[NSApp delegate] telephone] started]) {
+					NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
+									   [[self account] registrationStatus], [[self account] registrationStatusText]];
+					[self showRegistrarConnectionErrorSheetWithError:error];
+				}
 			}
 		}
 		
@@ -291,7 +294,9 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			[accountRegistrationPopUp setFrameSize:buttonSize];
 			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
 			
-			[self showRegistrarConnectionErrorSheet];
+			NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
+							   [[self account] registrationStatus], [[self account] registrationStatusText]];
+			[self showRegistrarConnectionErrorSheetWithError:error];
 		}
 		
 		if ([mustSave state] == NSOnState)
@@ -314,14 +319,19 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	[self setCallDestinationURIIndex:[sender tag]];
 }
 
-- (void)showRegistrarConnectionErrorSheet
+- (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error
 {
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:@"OK"];
 	[alert setMessageText:[NSString stringWithFormat:@"Could not connect to server %@.", [[self account] registrar]]];
-	[alert setInformativeText:[NSString stringWithFormat:
-							   @"Please check network connection and Registry Server settings.",
-							   [[self account] registrar]]];
+	
+	if (error == nil)
+		[alert setInformativeText:[NSString stringWithFormat:
+								   @"Please check network connection and Registry Server settings.",
+								   [[self account] registrar]]];
+	else
+		[alert setInformativeText:error];
+		
 	[alert beginSheetModalForWindow:[self window]
 					  modalDelegate:nil
 					 didEndSelector:NULL
@@ -392,7 +402,8 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 			[alert addButtonWithTitle:@"OK"];
-			[alert setMessageText:[NSString stringWithFormat:@"SIP address “%@” does not match the user name “%@”.",
+			[alert setMessageText:[NSString stringWithFormat:@"SIP address \xe2\x80\x9c%@\xe2\x80\x9d does not match " \
+								   "the user name \xe2\x80\x9c%@\xe2\x80\x9d.",
 								   [[self account] SIPAddress], [[self account] username]]];
 			[alert setInformativeText:@"Please check your SIP Address."];
 			[alert beginSheetModalForWindow:[self window]
@@ -411,8 +422,11 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
 			
 			// Show a sheet only if Telephone has started. Don't show if user agent is being destroyed right now.
-			if ([[[NSApp delegate] telephone] started])
-				[self showRegistrarConnectionErrorSheet];
+			if ([[[NSApp delegate] telephone] started]) {
+				NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
+								   [[self account] registrationStatus], [[self account] registrationStatusText]];
+				[self showRegistrarConnectionErrorSheetWithError:error];
+			}
 			
 		} else {
 			// Set registraton button title to Offline.

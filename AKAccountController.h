@@ -87,6 +87,6 @@ enum {
 - (IBAction)changeCallDestinationURIIndex:(id)sender;
 
 // Show alert saying that connection to the registrar failed.
-- (void)showRegistrarConnectionErrorSheet;
+- (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error;
 
 @end

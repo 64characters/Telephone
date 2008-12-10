@@ -314,8 +314,9 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:@"Delete"];
 	[alert addButtonWithTitle:@"Cancel"];
-	[alert setMessageText:[NSString stringWithFormat:@"Delete “%@”?", selectedAccount]];
-	[alert setInformativeText:[NSString stringWithFormat:@"This will delete your currently set up account “%@”.", selectedAccount]];
+	[alert setMessageText:[NSString stringWithFormat:@"Delete \xe2\x80\x9c%@\xe2\x80\x9d?", selectedAccount]];
+	[alert setInformativeText:[NSString stringWithFormat:@"This will delete your currently set up account " \
+							   "\xe2\x80\x9c%@\xe2\x80\x9d.", selectedAccount]];
 	[alert setAlertStyle:NSWarningAlertStyle];
 	[alert beginSheetModalForWindow:[accountsTable window]
 					  modalDelegate:self
