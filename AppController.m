@@ -640,6 +640,17 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark NSApplication delegate methods
 
+// Reopen all account windows when the user clicks the dock icon.
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+{
+	for (NSString *accountKey in [self accountControllers]) {
+		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
+		[[anAccountController window] makeKeyAndOrderFront:nil];
+	}
+	
+	return YES;
+}
+
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
 	for (AKTelephoneAccount *anAccount in [[self telephone] accounts])
