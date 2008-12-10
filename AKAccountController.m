@@ -194,6 +194,9 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
+	if ([[callDestination stringValue] isEqualToString:@""])
+		return;
+	
 	AKSIPURI *originalURI = [[[[[callDestination objectValue] objectAtIndex:0]
 							   objectAtIndex:[self callDestinationURIIndex]] copy] autorelease];
 	
