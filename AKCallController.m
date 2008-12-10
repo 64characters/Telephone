@@ -120,6 +120,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	if ([[self call] isIncoming])
 		[[NSApp delegate] stopIncomingCallSoundTimer];
 	
+	// Return to the normal window level.
+	[[self window] setLevel:NSNormalWindowLevel];
+	
 	[[self call] answer];
 }
 
@@ -127,6 +130,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 {
 	if ([[self call] isIncoming])
 		[[NSApp delegate] stopIncomingCallSoundTimer];
+	
+	// Return to the normal window level.
+	[[self window] setLevel:NSNormalWindowLevel];
 	
 	[[self call] hangUp];
 	[hangUpButton setEnabled:NO];

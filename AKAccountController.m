@@ -443,6 +443,9 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	[aCallController setDisplayedName:[formatter stringForObjectValue:[aCall remoteURI]]];
 	[aCallController setStatus:@"calling"];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
+	
+	// Incoming call is very important, show the window higher than usual.
+	[[aCallController window] setLevel:NSStatusWindowLevel];
 	[aCallController showWindow:nil];
 	
 	[[[NSApp delegate] incomingCallSound] play];

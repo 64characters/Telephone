@@ -645,7 +645,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
 	for (NSString *accountKey in [self accountControllers]) {
 		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
-		[[anAccountController window] makeKeyAndOrderFront:nil];
+		if (![[anAccountController window] isVisible])
+			[anAccountController showWindow:nil];
 	}
 	
 	return YES;
