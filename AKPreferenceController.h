@@ -43,6 +43,7 @@ extern NSString * const AKVoiceActivityDetection;
 extern NSString * const AKTransportPort;
 extern NSString * const AKSoundInput;
 extern NSString * const AKSoundOutput;
+extern NSString * const AKRingingSound;
 extern NSString * const AKFormatsTelephoneNumbers;
 extern NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits;
 
@@ -133,6 +134,8 @@ extern NSString * const AKAccountEnabled;
 
 // Refresh list of available audio devices.
 - (void)updateAudioDevices;
+
+- (IBAction)changeIncomingCallSound:(id)sender;
 
 @end
 

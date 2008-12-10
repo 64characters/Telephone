@@ -52,6 +52,7 @@ NSString * const AKVoiceActivityDetection = @"VoiceActivityDetection";
 NSString * const AKTransportPort = @"TransportPort";
 NSString * const AKSoundInput = @"SoundInput";
 NSString * const AKSoundOutput = @"SoundOutput";
+NSString * const AKRingingSound = @"RingingSound";
 NSString * const AKFormatsTelephoneNumbers = @"FormatsTelephoneNumbers";
 NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";
 
@@ -490,6 +491,14 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	NSString *lastSoundOutput = [defaults stringForKey:AKSoundOutput];
 	if (lastSoundOutput != nil && [soundOutputPopUp itemWithTitle:lastSoundOutput] != nil)
 		[soundOutputPopUp selectItemWithTitle:lastSoundOutput];
+}
+
+- (IBAction)changeIncomingCallSound:(id)sender
+{
+	[[NSApp delegate] setIncomingCallSound:[NSSound soundNamed:[sender title]]];
+	
+	// Play selected sound once.
+	[[[NSApp delegate] incomingCallSound] play];
 }
 
 // Check if STUN server settings were changed, show an alert sheet to save, cancel or don't save.

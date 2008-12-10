@@ -117,11 +117,17 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (IBAction)acceptCall:(id)sender
 {
+	if ([[self call] isIncoming])
+		[[NSApp delegate] stopIncomingCallSoundTimer];
+	
 	[[self call] answer];
 }
 
 - (IBAction)hangUp:(id)sender
 {
+	if ([[self call] isIncoming])
+		[[NSApp delegate] stopIncomingCallSoundTimer];
+	
 	[[self call] hangUp];
 	[hangUpButton setEnabled:NO];
 }
@@ -138,8 +144,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)stopCallTimer
 {
-	[[self callTimer] invalidate];
-	[self setCallTimer:nil];
+	if ([self callTimer] != nil) {
+		[[self callTimer] invalidate];
+		[self setCallTimer:nil];
+	}
 }
 
 - (void)callTimerTick:(NSTimer *)theTimer
@@ -158,14 +166,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 // If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification
 {
-	if ([[self call] identifier] != AKTelephoneInvalidIdentifier && [[self call] isActive])
-		[[self call] hangUp];
-	
 	// Make shure the timer is stopped even if the call hasn't received disconnect.
 	[self stopCallTimer];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallWindowWillCloseNotification
 														object:self];
+	
+	if ([[self call] identifier] != AKTelephoneInvalidIdentifier && [[self call] isActive])
+		[self hangUp:nil];
 }
 
 - (void)telephoneCallCalling:(NSNotification *)notification

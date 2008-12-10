@@ -96,6 +96,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:AKLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKConsoleLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKTransportPort];
+		[defaultsDict setObject:@"Purr" forKey:AKRingingSound];
 		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKFormatsTelephoneNumbers];
 		[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKTelephoneNumberFormatterSplitsLastFourDigits];
 		
@@ -118,7 +119,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
 	[self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
 	[self setSoundIOIndexesChanged:NO];
-	incomingCallSound = [NSSound soundNamed:@"Purr"];
 	[self setIncomingCallSoundTimer:nil];
 	
 	// Subscribe to Early and Confirmed call states to set sound IO to Telephone.
@@ -164,6 +164,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[telephone setConsoleLogLevel:[[defaults objectForKey:AKConsoleLogLevel] integerValue]];
 	[telephone setDetectsVoiceActivity:[[defaults objectForKey:AKVoiceActivityDetection] boolValue]];
 	[telephone setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
+	
+	[self setIncomingCallSound:[NSSound soundNamed:[defaults stringForKey:AKRingingSound]]];
 	
 	// Install audio devices changes callback
 	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AKAudioDevicesChanged, self);
