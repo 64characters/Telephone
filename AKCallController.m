@@ -218,8 +218,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 {
 	[self stopCallTimer];
 	
-	if ([[notification object] isIncoming])
+	if ([[notification object] isIncoming]) {
+		// Stop ringing sound.
 		[[NSApp delegate] stopIncomingCallSoundTimer];
+		// Set normal window level.
+		[[self window] setLevel:NSNormalWindowLevel];
+	}
 	
 	switch ([[self call] lastStatus]) {
 		case PJSIP_SC_OK:
