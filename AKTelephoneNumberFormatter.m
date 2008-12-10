@@ -242,7 +242,7 @@
 		if (anObject != NULL)
 			*anObject = [[telephoneNumber copy] autorelease];
 	} else if (error != NULL)
-		*error = @"Couldn't convert to telephone number";
+		*error = [NSString stringWithFormat:@"Couldn't convert \"%@\" to telephone number", string];
 	
 	[telephoneNumber release];
 	[phoneNumberCharacterSet release];

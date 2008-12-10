@@ -134,7 +134,7 @@
 			*anObject = theURI;
 	} else {
 		if (error != NULL)
-			*error = @"Couldn't convert to SIP URI";
+			*error = [NSString stringWithFormat:@"Couldn't convert \"%@\" to SIP URI", string];
 	}
 	
 	return returnValue;
