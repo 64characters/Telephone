@@ -425,7 +425,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)setSelectedSoundIOToTelephone
 {
-	NSLog(@"Setting sound IO to Telephone: %d, %d", [self soundInputDeviceIndex], [self soundOutputDeviceIndex]);
 	[[self telephone] setSoundInputDevice:[self soundInputDeviceIndex]
 						soundOutputDevice:[self soundOutputDeviceIndex]];
 	

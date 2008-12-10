@@ -259,13 +259,7 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 	pjsua_call_info callInfo;
 	pjsua_call_get_info(callIdentifier, &callInfo);
 	
-	PJ_LOG(3, (THIS_FILE,
-			   "Incoming call for account %d!\n"
-			   "From: %s\n"
-			   "To: %s\n",
-			   accountIdentifier,
-			   callInfo.remote_info.ptr,
-			   callInfo.local_info.ptr));
+	PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
 	
 	AKTelephoneAccount *theAccount = [[AKTelephone sharedTelephone] accountByIdentifier:accountIdentifier];
 	

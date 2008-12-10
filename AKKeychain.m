@@ -82,7 +82,6 @@
 	);
 	
 	if (addStatus == noErr) {
-		NSLog(@"Added keychain item for %@", serviceName);
 		success = YES;
 	} else if (addStatus == errSecDuplicateItem) {
 		// Get the pointer to the duplicate item
@@ -107,7 +106,6 @@
 			);
 			
 			if (modifyStatus == noErr) {
-				NSLog(@"Modified keychain password for %@", serviceName);
 				success = YES;
 			}
 		}
