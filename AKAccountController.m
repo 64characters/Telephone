@@ -194,29 +194,29 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
-	AKSIPURI *uri = [[[[[callDestination objectValue] objectAtIndex:0] objectAtIndex:[self callDestinationURIIndex]] copy] autorelease];
+	AKSIPURI *originalURI = [[[[[callDestination objectValue] objectAtIndex:0]
+							   objectAtIndex:[self callDestinationURIIndex]] copy] autorelease];
+	
+	AKSIPURI *uri = [[originalURI copy] autorelease];
 	if (![uri isKindOfClass:[AKSIPURI class]])
 		return;
 	
-	if ([[uri user] length] <= 0)
+	if ([[uri user] length] == 0)
 		return;
 	
-	if ([[uri host] length] <= 0)
+	if ([[uri host] length] == 0)
 		[uri setHost:[[[self account] registrationURI] host]];
 	
-	// Preserve the original string entered by the user or found in the Address Book.
-	NSString *userInput = [uri user];
-	
-	// Get the clean string of contigiuous digits if the user part does not contain letters.
+	// Get the clean string of contiguous digits if the user part does not contain letters.
+	AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
 	NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
 	if (![containsLettersPredicate evaluateWithObject:[uri user]]) {
-		AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
 		[uri setUser:[telephoneNumberFormatter telephoneNumberFromString:[uri user]]];
 	}
 	
 	// Actually, the call will be made to the copy of the URI without
 	// display-name part to prevent another call party to see local Address Book record.
-	AKSIPURI *cleanURI = [uri copy];
+	AKSIPURI *cleanURI = [[uri copy] autorelease];
 	[cleanURI setDisplayName:nil];
 	
 	// Make actual call.
@@ -226,8 +226,20 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 																		  accountController:self];
 		[[self callControllers] addObject:aCallController];
 		
-		if ([[uri displayName] length] == 0 && ![userInput AK_isTelephoneNumber]) {
-			[aCallController setDisplayedName:userInput];
+		// Set title.
+		if ([[originalURI host] length] > 0) {
+			[[aCallController window] setTitle:[uri SIPAddress]];
+		} else if ([[originalURI user] AK_isTelephoneNumber]) {
+			[telephoneNumberFormatter setSplitsLastFourDigits:[[NSUserDefaults standardUserDefaults]
+															   boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
+			[[aCallController window] setTitle:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
+		} else {
+			[[aCallController window] setTitle:[originalURI user]];
+		}
+		
+		// Set displayed name.
+		if ([[uri displayName] length] == 0 && ![[originalURI user] AK_isTelephoneNumber]) {
+			[aCallController setDisplayedName:[originalURI user]];
 		} else {	
 			AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
 			[aCallController setDisplayedName:[SIPURIFormatter stringForObjectValue:uri]];
@@ -426,6 +438,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 																	  accountController:self];
 	[[self callControllers] addObject:aCallController];
 	
+	[[aCallController window] setTitle:[[aCall remoteURI] SIPAddress]];
 	AKSIPURIFormatter *formatter = [[[AKSIPURIFormatter alloc] init] autorelease];
 	[aCallController setDisplayedName:[formatter stringForObjectValue:[aCall remoteURI]]];
 	[aCallController setStatus:@"calling"];
