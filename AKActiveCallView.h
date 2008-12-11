@@ -32,6 +32,7 @@
 @protocol AKActiveCallViewDelegate;
 
 @interface AKActiveCallView : NSView {
+@private
 	id <AKActiveCallViewDelegate> _delegate;
 }
 
