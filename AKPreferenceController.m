@@ -497,7 +497,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		![[defaults objectForKey:AKSTUNServerPort] isEqualToNumber:newSTUNServerPort])
 	{
 		// Explicitly select General toolbar item.
-		[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
+		[toolbar setSelectedItemIdentifier:[networkToolbarItem itemIdentifier]];
 		
 		// Show alert to the user.
 		NSAlert *alert = [[[NSAlert alloc] init] autorelease];

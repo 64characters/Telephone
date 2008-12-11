@@ -541,15 +541,24 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
+	if (![[self telephone] started]) {
+		[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
+		[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+		
+		return;
+	}
+	
+	AKAccountController *anAccountController;
+	
 	// Unregister accounts.
-	for (AKAccountController *anAccountController in [self accountControllers])
+	for (anAccountController in [self accountControllers])
 		[anAccountController setAccountRegistered:NO];
 	
 	// Wait one second to receive unregistrations confirmations.
 	sleep(1);
 	
 	// Remove accounts from Telephone.
-	for (AKAccountController *anAccountController in [self accountControllers])
+	for (anAccountController in [self accountControllers])
 		[[self telephone] removeAccount:[anAccountController account]];
 
 	[[self telephone] destroyUserAgent];
@@ -558,7 +567,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	
 	// Add accounts to Telephone.
-	for (AKAccountController *anAccountController in [self accountControllers]) {
+	for (anAccountController in [self accountControllers]) {
 		if (![anAccountController isEnabled])
 			continue;
 		
