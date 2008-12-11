@@ -69,9 +69,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (BOOL)hasIncomingCallControllers
 {
-	NSDictionary *immutableAccountControllers = [[[self accountControllers] copy] autorelease];
-	for (NSString *accountKey in immutableAccountControllers) {
-		AKAccountController *anAccountController = [immutableAccountControllers objectForKey:accountKey];
+	for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease]) {
 		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
 			if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
 				[[aCallController call] state] == AKTelephoneCallIncomingState)
