@@ -57,6 +57,7 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 
 @implementation AKAccountController
 
+@synthesize enabled;
 @synthesize account;
 @dynamic accountRegistered;
 @synthesize callControllers;
@@ -171,7 +172,6 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	// Close authentication failure sheet if it's raised
 	[authenticationFailureCancelButton performClick:nil];
 	
-	[[[NSApp delegate] telephone] removeAccount:[self account]];
 	[account release];
 	[callControllers release];
 	

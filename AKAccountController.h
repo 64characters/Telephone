@@ -41,6 +41,7 @@ enum {
 
 @interface AKAccountController : NSWindowController <AKTelephoneAccountDelegate> {
 @private
+	BOOL enabled;
 	AKTelephoneAccount *account;
 	NSMutableArray *callControllers;
 	
@@ -59,6 +60,7 @@ enum {
 	IBOutlet NSButton *authenticationFailureCancelButton;
 }
 
+@property(readwrite, assign, getter=isEnabled) BOOL enabled;
 @property(readwrite, retain) AKTelephoneAccount *account;
 @property(readwrite, assign, getter=isAccountRegistered) BOOL accountRegistered;
 @property(readonly, retain) NSMutableArray *callControllers;

@@ -36,7 +36,7 @@
 @interface AppController : NSObject <AKTelephoneDelegate> {
 @private
 	AKTelephone *telephone;
-	NSMutableDictionary *accountControllers;
+	NSMutableArray *accountControllers;
 	AKPreferenceController *preferenceController;
 	NSMutableArray *audioDevices;
 	NSInteger soundInputDeviceIndex;
@@ -49,7 +49,7 @@
 }
 
 @property(readonly, retain) AKTelephone *telephone;
-@property(readonly, retain) NSMutableDictionary *accountControllers;
+@property(readonly, retain) NSMutableArray *accountControllers;
 @property(readwrite, retain) AKPreferenceController *preferenceController;
 @property(readonly, retain) NSMutableArray *audioDevices;
 @property(readwrite, assign) NSInteger soundInputDeviceIndex;

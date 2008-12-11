@@ -41,7 +41,6 @@
 @end
 
 NSString * const AKAccounts = @"Accounts";
-NSString * const AKAccountSortOrder = @"AccountSortOrder";
 NSString * const AKSTUNServerHost = @"STUNServerHost";
 NSString * const AKSTUNServerPort = @"STUNServerPort";
 NSString * const AKSTUNDomain = @"STUNDomain";
@@ -63,7 +62,6 @@ NSString * const AKRealm = @"Realm";
 NSString * const AKUsername = @"Username";
 NSString * const AKPassword = @"Password";
 NSString * const AKAccountIndex = @"AccountIndex";
-NSString * const AKAccountKey = @"AccountKey";
 NSString * const AKAccountEnabled = @"AccountEnabled";
 
 NSString * const AKPreferenceControllerDidAddAccountNotification = @"AKPreferenceControllerDidAddAccount";
@@ -262,13 +260,9 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	[accountDict setObject:[setupUsername stringValue] forKey:AKUsername];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *uuid = [NSString uuidString];
-	NSMutableDictionary *savedAccounts = [NSMutableDictionary dictionaryWithDictionary:[defaults dictionaryForKey:AKAccounts]];
-	NSMutableArray *savedAccountSortOrder = [NSMutableArray arrayWithArray:[defaults arrayForKey:AKAccountSortOrder]];
-	[savedAccounts setObject:accountDict forKey:uuid];
-	[savedAccountSortOrder addObject:uuid];
+	NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:AKAccounts]];
+	[savedAccounts addObject:accountDict];
 	[defaults setObject:savedAccounts forKey:AKAccounts];
-	[defaults setObject:savedAccountSortOrder forKey:AKAccountSortOrder];
 	[defaults synchronize];
 	
 	// Inform accounts table about update
@@ -280,19 +274,16 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 										password:[setupPassword stringValue]];
 	
 	if (success) {
-		// Complete account dictionary with password info
-		[accountDict setObject:[setupPassword stringValue] forKey:AKPassword];
-		
 		// Post notification with account just added
 		[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidAddAccountNotification
 															object:self
-														  userInfo:[NSDictionary dictionaryWithObject:accountDict forKey:uuid]];
+														  userInfo:accountDict];
 	}
 	
 	[self closeSheet:sender];
 	
 	// Set the selection to the new account
-	NSUInteger index = [[defaults arrayForKey:AKAccountSortOrder] count] - 1;
+	NSUInteger index = [[defaults arrayForKey:AKAccounts] count] - 1;
 	if (index != 0) {
 		[accountsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index]
 				   byExtendingSelection:NO];
@@ -333,27 +324,22 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 - (void)removeAccountAtIndex:(NSInteger)index
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSMutableDictionary *savedAccounts = [NSMutableDictionary dictionaryWithDictionary:[defaults dictionaryForKey:AKAccounts]];
-	NSMutableArray *savedAccountSortOrder = [NSMutableArray arrayWithArray:[defaults arrayForKey:AKAccountSortOrder]];
-	NSString *accountKey = [savedAccountSortOrder objectAtIndex:index];
-	[savedAccounts removeObjectForKey:accountKey];
-	[savedAccountSortOrder removeObject:accountKey];
+	NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:AKAccounts]];
+	[savedAccounts removeObjectAtIndex:index];
 	[defaults setObject:savedAccounts forKey:AKAccounts];
-	[defaults setObject:savedAccountSortOrder forKey:AKAccountSortOrder];
 	[defaults synchronize];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidRemoveAccountNotification
 														object:self
-													  userInfo:[NSDictionary dictionaryWithObject:accountKey
-																						   forKey:AKAccountKey]];
+													  userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:index]
+																						   forKey:AKAccountIndex]];
 	[accountsTable reloadData];
 }
 
 - (void)populateFieldsForAccountAtIndex:(NSUInteger)index
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *accountKey = [[defaults arrayForKey:AKAccountSortOrder] objectAtIndex:index];
-	NSDictionary *accountDict = [[defaults dictionaryForKey:AKAccounts] objectForKey:accountKey];
+	NSDictionary *accountDict = [[defaults arrayForKey:AKAccounts] objectAtIndex:index];
 	
 	[accountEnabledCheckBox setEnabled:YES];
 	
@@ -377,7 +363,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	[SIPAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
 	[registrar setStringValue:[accountDict objectForKey:AKRegistrar]];
 	[username setStringValue:[accountDict objectForKey:AKUsername]];
-	//	[password setStringValue:[self keychainPasswordForAccountAtIndex:index]];
+
 	[password setStringValue:[AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [accountDict objectForKey:AKRegistrar]]
 													accountName:[accountDict objectForKey:AKUsername]]];
 }
@@ -387,20 +373,16 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	if ([accountsTable selectedRow] == -1)
 		return;	
 	
-	NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 
 	NSInteger index = [accountsTable selectedRow];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *accountKey = [[defaults arrayForKey:AKAccountSortOrder] objectAtIndex:index];
+	[userInfo setObject:[NSNumber numberWithInteger:index] forKey:AKAccountIndex];
 	
-	[userInfo setObject:accountKey forKey:AKAccountKey];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:AKAccounts]];
+	NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:[savedAccounts objectAtIndex:index]];
 	
 	BOOL isChecked = ([accountEnabledCheckBox state] == NSOnState) ? YES : NO;
-	[userInfo setObject:[NSNumber numberWithBool:isChecked] forKey:AKAccountEnabled];
-	
-	NSMutableDictionary *savedAccounts = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:AKAccounts]];
-	NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:[savedAccounts objectForKey:accountKey]];
-	
 	[accountDict setObject:[NSNumber numberWithBool:isChecked] forKey:AKAccountEnabled];
 	
 	if (isChecked) {
@@ -433,7 +415,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		[password setEnabled:YES];
 	}
 	
-	[savedAccounts setObject:accountDict forKey:accountKey];
+	[savedAccounts replaceObjectAtIndex:index withObject:accountDict];
 	
 	// Save to defaults
 	[defaults setObject:savedAccounts forKey:AKAccounts];
@@ -567,7 +549,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	return [[defaults objectForKey:AKAccountSortOrder] count];
+	return [[defaults arrayForKey:AKAccounts] count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
@@ -575,8 +557,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			row:(NSInteger)rowIndex
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *accountKey = [[defaults objectForKey:AKAccountSortOrder] objectAtIndex:rowIndex];
-	NSDictionary *accountDict = [[defaults objectForKey:AKAccounts] objectForKey:accountKey];
+	NSDictionary *accountDict = [[defaults arrayForKey:AKAccounts] objectAtIndex:rowIndex];
 	
 	return [accountDict objectForKey:[aTableColumn identifier]];
 }

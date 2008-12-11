@@ -32,7 +32,6 @@
 // Keys for defaults
 
 extern NSString * const AKAccounts;
-extern NSString * const AKAccountSortOrder;
 extern NSString * const AKSTUNServerHost;
 extern NSString * const AKSTUNServerPort;
 extern NSString * const AKSTUNDomain;
@@ -55,7 +54,6 @@ extern NSString * const AKRealm;
 extern NSString * const AKUsername;
 extern NSString * const AKPassword;
 extern NSString * const AKAccountIndex;
-extern NSString * const AKAccountKey;
 extern NSString * const AKAccountEnabled;
 
 @interface AKPreferenceController : NSWindowController {
@@ -152,5 +150,5 @@ enum {
 // Notifications.
 extern NSString * const AKPreferenceControllerDidAddAccountNotification;
 extern NSString * const AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex.
-extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex, AKAccountEnabled.
+extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex.
 extern NSString * const AKPreferenceControllerDidChangeSTUNServerNotification;

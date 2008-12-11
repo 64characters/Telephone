@@ -113,7 +113,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		return nil;
 	
 	telephone = [AKTelephone telephoneWithDelegate:self];
-	accountControllers = [[NSMutableDictionary alloc] init];
+	accountControllers = [[NSMutableArray alloc] init];
 	[self setPreferenceController:nil];
 	audioDevices = [[NSMutableArray alloc] init];
 	[self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
@@ -174,7 +174,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[self updateAudioDevices];
 	
 	// Read accounts from defaults
-	NSDictionary *savedAccounts = [defaults dictionaryForKey:AKAccounts];
+	NSArray *savedAccounts = [defaults arrayForKey:AKAccounts];
 	
 	// Setup an account on first launch.
 	if ([savedAccounts count] == 0) {			// There are no saved accounts, prompt user to add one.
@@ -203,18 +203,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		return;
 	}
 	
-	NSArray *accountSortOrder = [defaults arrayForKey:AKAccountSortOrder];
-	NSString *accountKey;
 	NSDictionary *accountDict;
 	AKAccountController *anAccountController;
 	
 	// There are saved accounts, open account windows.
-	for (NSUInteger i = 0; i < [accountSortOrder count]; ++i) {
-		accountKey = [accountSortOrder objectAtIndex:i];
-		accountDict = [savedAccounts objectForKey:accountKey];
-		
-		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
-			continue;
+	for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
+		accountDict = [savedAccounts objectAtIndex:i];
 		
 		NSString *fullName = [accountDict objectForKey:AKFullName];
 		NSString *SIPAddress = [accountDict objectForKey:AKSIPAddress];
@@ -227,15 +221,19 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 																  registrar:registrar
 																	  realm:realm
 																   username:username];
-		[[self accountControllers] setObject:anAccountController forKey:accountKey];
 		
+		[anAccountController setEnabled:[[accountDict objectForKey:AKAccountEnabled] boolValue]];
 		[[anAccountController window] setTitle:[[anAccountController account] SIPAddress]];
+		
+		[[self accountControllers] addObject:anAccountController];
+		
+		if (![anAccountController isEnabled])
+			continue;
 		
 		if (i == 0)
 			[[anAccountController window] makeKeyAndOrderFront:self];
 		else {
-			NSString *previousAccountKey = [accountSortOrder objectAtIndex:(i - 1)];
-			NSWindow *previousAccountWindow = [[[self accountControllers] objectForKey:previousAccountKey] window];
+			NSWindow *previousAccountWindow = [[[self accountControllers] objectAtIndex:(i - 1)] window];
 			[[anAccountController window] orderWindow:NSWindowBelow relativeTo:[previousAccountWindow windowNumber]];
 		}
 		
@@ -243,12 +241,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	}
 	
 	// Add accounts to Telephone.
-	for (accountKey in accountSortOrder) {
-		accountDict = [savedAccounts objectForKey:accountKey];
-		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
+	for (anAccountController in [self accountControllers]) {
+		if (![anAccountController isEnabled])
 			continue;
-		
-		anAccountController = [[self accountControllers] objectForKey:accountKey];
+
 		[anAccountController setAccountRegistered:YES];
 		
 		// Don't add subsequent accounts if Telephone could not start.
@@ -489,63 +485,55 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)preferenceControllerDidAddAccount:(NSNotification *)notification
 {
-	NSString *accountKey = [[[notification userInfo] allKeys] lastObject];
-	NSDictionary *accountDict = [[notification userInfo] objectForKey:accountKey];
-	AKAccountController *theAccountController =	[[AKAccountController alloc]
-												 initWithFullName:[accountDict objectForKey:AKFullName]
-												 SIPAddress:[accountDict objectForKey:AKSIPAddress]
-												 registrar:[accountDict objectForKey:AKRegistrar]
-												 realm:[accountDict objectForKey:AKRealm]
-												 username:[accountDict objectForKey:AKUsername]];
+	NSDictionary *accountDict = [notification userInfo];
+	AKAccountController *theAccountController =	[[[AKAccountController alloc]
+												  initWithFullName:[accountDict objectForKey:AKFullName]
+												  SIPAddress:[accountDict objectForKey:AKSIPAddress]
+												  registrar:[accountDict objectForKey:AKRegistrar]
+												  realm:[accountDict objectForKey:AKRealm]
+												  username:[accountDict objectForKey:AKUsername]]
+												 autorelease];
 	
-	[[self accountControllers] setObject:theAccountController forKey:accountKey];
+	[[self accountControllers] addObject:theAccountController];
 	
 	[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
 	[[theAccountController window] orderFront:self];
 	
 	// Register account.
 	[theAccountController setAccountRegistered:YES];
-	
-	[theAccountController release];
 }
 
 - (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification
 {
-	NSString *accountKey = [[notification userInfo] objectForKey:AKAccountKey];
-	[[self accountControllers] removeObjectForKey:accountKey];
+	NSInteger index = [[[notification userInfo] objectForKey:AKAccountIndex] integerValue];
+	AKAccountController *anAccountController = [[self accountControllers] objectAtIndex:index];
+	
+	if ([anAccountController isEnabled])
+		[[self telephone] removeAccount:[anAccountController account]];
+	
+	[[self accountControllers] removeObjectAtIndex:index];
 }
 
 - (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification
 {
-	NSString *accountKey = [[notification userInfo] objectForKey:AKAccountKey];
-	AKAccountController *theAccountController = [[self accountControllers] objectForKey:accountKey];
+	NSUInteger index = [[[notification userInfo] objectForKey:AKAccountIndex] integerValue];
+	AKAccountController *theAccountController = [[self accountControllers] objectAtIndex:index];
 	
-	if (theAccountController != nil) {
-		[[self accountControllers] removeObjectForKey:accountKey];
-	} else {
-		NSDictionary *savedAccounts = [[NSUserDefaults standardUserDefaults] dictionaryForKey:AKAccounts];
-		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSArray *savedAccounts = [defaults arrayForKey:AKAccounts];
+	NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
+	[theAccountController setEnabled:[[accountDict objectForKey:AKAccountEnabled] boolValue]];
+	
+	if ([theAccountController isEnabled]) {
+		[[theAccountController window] orderFront:nil];
 		
-		NSString *fullName = [accountDict objectForKey:AKFullName];
-		NSString *SIPAddress = [accountDict objectForKey:AKSIPAddress];
-		NSString *registrar = [accountDict objectForKey:AKRegistrar];
-		NSString *realm = [accountDict objectForKey:AKRealm];
-		NSString *username = [accountDict objectForKey:AKUsername];
-		
-		theAccountController = [[AKAccountController alloc] initWithFullName:fullName
-																  SIPAddress:SIPAddress
-																   registrar:registrar
-																	   realm:realm
-																	username:username];
-		[[self accountControllers] setObject:theAccountController forKey:accountKey];
-		
-		[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
-		[[theAccountController window] orderFront:self];
-		
-		// Register account.
+		// Register account (as a result, it will be added to Telephone).
 		[theAccountController setAccountRegistered:YES];
+	} else {
+		// Remove account from Telephone.
+		[[self telephone] removeAccount:[theAccountController account]];
 		
-		[theAccountController release];
+		[[theAccountController window] orderOut:nil];
 	}
 }
 
@@ -554,19 +542,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	// Unregister accounts.
-	for (NSString *accountKey in [self accountControllers]) {
-		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
+	for (AKAccountController *anAccountController in [self accountControllers])
 		[anAccountController setAccountRegistered:NO];
-	}
 	
 	// Wait one second to receive unregistrations confirmations.
 	sleep(1);
 	
 	// Remove accounts from Telephone.
-	for (NSString *accountKey in [self accountControllers]) {
-		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
+	for (AKAccountController *anAccountController in [self accountControllers])
 		[[self telephone] removeAccount:[anAccountController account]];
-	}
 
 	[[self telephone] destroyUserAgent];
 	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
@@ -574,14 +558,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	
 	// Add accounts to Telephone.
-	NSDictionary *savedAccounts = [defaults objectForKey:AKAccounts];
-	NSArray *accountSortOrder = [defaults objectForKey:AKAccountSortOrder];
-	for (NSString *accountKey in accountSortOrder) {
-		NSDictionary *accountDict = [savedAccounts objectForKey:accountKey];
-		if (![[accountDict objectForKey:AKAccountEnabled] boolValue])
+	for (AKAccountController *anAccountController in [self accountControllers]) {
+		if (![anAccountController isEnabled])
 			continue;
 		
-		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
 		[anAccountController setAccountRegistered:YES];
 		
 		// Don't add subsequent accounts if Telephone could not start.
@@ -642,9 +622,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // Reopen all account windows when the user clicks the dock icon.
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
-	for (NSString *accountKey in [self accountControllers]) {
-		AKAccountController *anAccountController = [[self accountControllers] objectForKey:accountKey];
-		if (![[anAccountController window] isVisible])
+	for (AKAccountController *anAccountController in [self accountControllers]) {
+		if ([anAccountController isEnabled] && ![[anAccountController window] isVisible])
 			[anAccountController showWindow:nil];
 	}
 	
