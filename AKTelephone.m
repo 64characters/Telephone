@@ -463,7 +463,7 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)removeAccount:(AKTelephoneAccount *)anAccount
 {
-	if (![self started])
+	if (![self started] || [anAccount identifier] == PJSUA_INVALID_ID)
 		return NO;
 	
 	pj_status_t status = pjsua_acc_del([anAccount identifier]);
