@@ -64,6 +64,7 @@ typedef enum _AKTelephoneRingtones {
 @interface AKTelephone()
 
 @property(readwrite, assign) BOOL started;
+@property(readwrite, assign) BOOL soundStopped;
 
 @end
 
@@ -73,6 +74,7 @@ typedef enum _AKTelephoneRingtones {
 @dynamic delegate;
 @synthesize accounts;
 @synthesize started;
+@synthesize soundStopped;
 @dynamic activeCallsCount;
 @dynamic callData;
 @synthesize pjPool;
@@ -241,6 +243,7 @@ typedef enum _AKTelephoneRingtones {
 	[self setDelegate:aDelegate];
 	accounts = [[NSMutableArray alloc] init];
 	[self setStarted:NO];
+	[self setSoundStopped:YES];
 	
 	[self setSTUNServerHost:AKTelephoneSTUNServerHostDefault];
 	[self setSTUNServerPort:AKTelephoneSTUNServerPortDefault];
@@ -304,7 +307,6 @@ typedef enum _AKTelephoneRingtones {
 	loggingConfig.level = [self logLevel];
 	loggingConfig.console_level = [self consoleLogLevel];
 	mediaConfig.no_vad = ![self detectsVoiceActivity];
-	mediaConfig.snd_auto_close_time = 0;
 	transportConfig.port = [self transportPort];
 	
 	userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;
@@ -507,6 +509,20 @@ typedef enum _AKTelephoneRingtones {
 	
 	pj_status_t status = pjsua_set_snd_dev(input, output);
 	
+	[self setSoundStopped:NO];
+	
+	return (status == PJ_SUCCESS) ? YES : NO;
+}
+
+- (BOOL)stopSound
+{
+	if (![self started])
+		return NO;
+	
+	pj_status_t status = pjsua_set_null_snd_dev();
+	
+	[self setSoundStopped:YES];
+
 	return (status == PJ_SUCCESS) ? YES : NO;
 }
 

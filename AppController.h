@@ -41,7 +41,6 @@
 	NSMutableArray *audioDevices;
 	NSInteger soundInputDeviceIndex;
 	NSInteger soundOutputDeviceIndex;
-	BOOL soundIOIndexesChanged;
 	NSSound *incomingCallSound;
 	NSTimer *incomingCallSoundTimer;
 	
@@ -54,7 +53,6 @@
 @property(readonly, retain) NSMutableArray *audioDevices;
 @property(readwrite, assign) NSInteger soundInputDeviceIndex;
 @property(readwrite, assign) NSInteger soundOutputDeviceIndex;
-@property(readwrite, assign) BOOL soundIOIndexesChanged;
 @property(readwrite, retain) NSSound *incomingCallSound;
 @property(readwrite, retain) NSTimer *incomingCallSoundTimer;
 @property(readonly, assign) BOOL hasIncomingCallControllers;

@@ -47,6 +47,7 @@ typedef struct _AKTelephoneCallData {
 	
 	NSMutableArray *accounts;
 	BOOL started;
+	BOOL soundStopped;
 	
 	NSString *STUNServerHost;
 	NSUInteger STUNServerPort;
@@ -67,6 +68,7 @@ typedef struct _AKTelephoneCallData {
 @property(readwrite, assign) id <AKTelephoneDelegate> delegate;
 @property(readonly, retain) NSMutableArray *accounts;
 @property(readonly, assign) BOOL started;
+@property(readonly, assign) BOOL soundStopped;
 @property(readonly, assign) NSUInteger activeCallsCount;
 @property(readonly, assign) AKTelephoneCallData *callData;
 @property(readonly, assign) pj_pool_t *pjPool;
@@ -106,6 +108,7 @@ typedef struct _AKTelephoneCallData {
 
 // Set new sound IO.
 - (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output;
+- (BOOL)stopSound;
 
 // Update list of audio devices.
 // After calling this method, setSoundInputDevice:soundOutputDevice: must be called to set appropriate IO.

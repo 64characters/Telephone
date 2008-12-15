@@ -51,6 +51,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @interface AppController()
 
 - (void)setSelectedSoundIOToTelephone;
+- (void)stopTelephoneSoundTick:(NSTimer *)theTimer;
 
 @end
 
@@ -62,7 +63,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @synthesize audioDevices;
 @synthesize soundInputDeviceIndex;
 @synthesize soundOutputDeviceIndex;
-@synthesize soundIOIndexesChanged;
 @synthesize incomingCallSound;
 @synthesize incomingCallSoundTimer;
 @dynamic hasIncomingCallControllers;
@@ -116,20 +116,22 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	audioDevices = [[NSMutableArray alloc] init];
 	[self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
 	[self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
-	[self setSoundIOIndexesChanged:NO];
 	[self setIncomingCallSoundTimer:nil];
 	
 	// Subscribe to Early and Confirmed call states to set sound IO to Telephone.
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter addObserver:self
-						   selector:@selector(telephoneCallEarly:)
-							   name:AKTelephoneCallEarlyNotification
+						   selector:@selector(telephoneCallCalling:)
+							   name:AKTelephoneCallCallingNotification
 							 object:nil];
 	[notificationCenter addObserver:self
-						   selector:@selector(telephoneCallDidConfirm:)
-							   name:AKTelephoneCallDidConfirmNotification
+						   selector:@selector(telephoneCallIncoming:)
+							   name:AKTelephoneCallIncomingNotification
 							 object:nil];
-	
+	[notificationCenter addObserver:self
+						   selector:@selector(telephoneCallDidDisconnect:)
+							   name:AKTelephoneCallDidDisconnectNotification
+							 object:nil];
 	return self;
 }
 
@@ -402,11 +404,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			}
 	}
 	
-	// Mark sound IO indexes as changed.
-	// We need this to change Telephone sound IO laizily, when the next call enters
-	// state that involves sound input or output (for example, Ringing or Confirmed).
-	[self setSoundIOIndexesChanged:YES];
-	
 	[self setSoundInputDeviceIndex:newSoundInput];
 	[self setSoundOutputDeviceIndex:newSoundOutput];
 	
@@ -421,9 +418,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
 	[[self telephone] setSoundInputDevice:[self soundInputDeviceIndex]
 						soundOutputDevice:[self soundOutputDeviceIndex]];
-	
-	// Clear changed status of sound IO indexes.
-	[self setSoundIOIndexesChanged:NO];
+}
+
+- (void)stopTelephoneSoundTick:(NSTimer *)theTimer
+{
+	if ([[self telephone] activeCallsCount] == 0 && ![[self telephone] soundStopped])
+		[[self telephone] stopSound];
 }
 
 - (IBAction)showPreferencePanel:(id)sender
@@ -671,22 +671,25 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark AKTelephoneCall notifications
 
-- (void)telephoneCallEarly:(NSNotification *)notification
+- (void)telephoneCallCalling:(NSNotification *)notification
 {
-	// If this is the first call and sound IO indexes were changed when Telephone was idle...
-	if ([self soundIOIndexesChanged])
-		[self performSelectorOnMainThread:@selector(setSelectedSoundIOToTelephone)
-							   withObject:nil
-							waitUntilDone:NO];
+	if ([[self telephone] activeCallsCount] > 0 && [[self telephone] soundStopped])
+		[self setSelectedSoundIOToTelephone];
 }
 
-- (void)telephoneCallDidConfirm:(NSNotification *)notification
+- (void)telephoneCallIncoming:(NSNotification *)notification
 {
-	// If this is the first call and sound IO indexes were changed when Telephone was idle...
-	if ([self soundIOIndexesChanged])
-		[self performSelectorOnMainThread:@selector(setSelectedSoundIOToTelephone)
-							   withObject:nil
-							waitUntilDone:NO];
+	if ([[self telephone] activeCallsCount] > 0 && [[self telephone] soundStopped])
+		[self setSelectedSoundIOToTelephone];
+}
+
+- (void)telephoneCallDidDisconnect:(NSNotification *)notification
+{
+	[NSTimer scheduledTimerWithTimeInterval:1
+									 target:self
+								   selector:@selector(stopTelephoneSoundTick:)
+								   userInfo:nil
+									repeats:NO];
 }
 
 @end
