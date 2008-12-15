@@ -28,5 +28,9 @@
 	<string>NSApplication</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2008 Alexei Kuznetsov</string>
+	<key>SUFeedURL</key>
+	<string>http://telephone.googlecode.com/svn/appcast/appcast.xml</string>
+	<key>SUEnableAutomaticChecks</key>
+	<string>YES</string>
 </dict>
 </plist>
