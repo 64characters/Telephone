@@ -213,8 +213,11 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	if ([[uri host] length] == 0)
 		[uri setHost:[[[self account] registrationURI] host]];
 	
-	// Get the clean string of contiguous digits if the user part does not contain letters.
 	AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+	[telephoneNumberFormatter setSplitsLastFourDigits:[[NSUserDefaults standardUserDefaults]
+													   boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
+	
+	// Get the clean string of contiguous digits if the user part does not contain letters.
 	NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
 	if (![containsLettersPredicate evaluateWithObject:[uri user]]) {
 		[uri setUser:[telephoneNumberFormatter telephoneNumberFromString:[uri user]]];
@@ -232,23 +235,27 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 																		  accountController:self];
 		[[self callControllers] addObject:aCallController];
 		
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		
 		// Set title.
 		if ([[originalURI host] length] > 0) {
 			[[aCallController window] setTitle:[uri SIPAddress]];
-		} else if ([[originalURI user] AK_isTelephoneNumber]) {
-			[telephoneNumberFormatter setSplitsLastFourDigits:[[NSUserDefaults standardUserDefaults]
-															   boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
+		} else if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers]) {
 			[[aCallController window] setTitle:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
 		} else {
 			[[aCallController window] setTitle:[originalURI user]];
 		}
 		
 		// Set displayed name.
-		if ([[uri displayName] length] == 0 && ![[originalURI user] AK_isTelephoneNumber]) {
-			[aCallController setDisplayedName:[originalURI user]];
-		} else {	
-			AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
-			[aCallController setDisplayedName:[SIPURIFormatter stringForObjectValue:uri]];
+		if ([[uri displayName] length] == 0) {
+			if ([[originalURI host] length] > 0)
+				[aCallController setDisplayedName:[uri SIPAddress]];
+			else if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
+				[aCallController setDisplayedName:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
+			else
+				[aCallController setDisplayedName:[originalURI user]];
+		} else {
+			[aCallController setDisplayedName:[uri displayName]];
 		}
 		
 		[[aCallController window] setContentView:[aCallController activeCallView]];

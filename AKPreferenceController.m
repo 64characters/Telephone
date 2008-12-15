@@ -52,7 +52,7 @@ NSString * const AKTransportPort = @"TransportPort";
 NSString * const AKSoundInput = @"SoundInput";
 NSString * const AKSoundOutput = @"SoundOutput";
 NSString * const AKRingingSound = @"RingingSound";
-NSString * const AKFormatsTelephoneNumbers = @"FormatsTelephoneNumbers";
+NSString * const AKFormatTelephoneNumbers = @"FormatTelephoneNumbers";
 NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";
 
 NSString * const AKFullName = @"FullName";

@@ -43,7 +43,7 @@ extern NSString * const AKTransportPort;
 extern NSString * const AKSoundInput;
 extern NSString * const AKSoundOutput;
 extern NSString * const AKRingingSound;
-extern NSString * const AKFormatsTelephoneNumbers;
+extern NSString * const AKFormatTelephoneNumbers;
 extern NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits;
 
 // Account keys

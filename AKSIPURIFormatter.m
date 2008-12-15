@@ -45,7 +45,7 @@
 	if ([[anObject displayName] length] > 0)
 		returnValue = [anObject displayName];
 	else if ([[anObject user] length] > 0) {
-		if ([defaults boolForKey:AKFormatsTelephoneNumbers]) {
+		if ([defaults boolForKey:AKFormatTelephoneNumbers]) {
 			AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
 			[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
 			returnValue = [telephoneNumberFormatter stringForObjectValue:[anObject user]];
