@@ -161,9 +161,15 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	NSInteger seconds = (NSInteger)(now - [self callStartTime]);
 	
-	[self setStatus:[NSString stringWithFormat:@"%02d:%02d",
-					 (seconds / 60) % 60,
-					 seconds % 60]];
+	if (seconds < 3600)
+		[self setStatus:[NSString stringWithFormat:@"%02d:%02d",
+						 (seconds / 60) % 60,
+						 seconds % 60]];
+	else
+		[self setStatus:[NSString stringWithFormat:@"%02d:%02d:%02d",
+						 (seconds / 3600) % 24,
+						 (seconds / 60) % 60,
+						 seconds % 60]];
 }
 
 
