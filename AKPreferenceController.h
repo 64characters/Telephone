@@ -120,7 +120,7 @@ extern NSString * const AKAccountEnabled;
 // Remove account, save notification
 - (void)removeAccountAtIndex:(NSInteger)index;
 
-- (void)populateFieldsForAccountAtIndex:(NSUInteger)index;
+- (void)populateFieldsForAccountAtIndex:(NSInteger)index;
 
 - (IBAction)changeAccountEnabled:(id)sender;
 

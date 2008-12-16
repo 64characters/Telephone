@@ -510,6 +510,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[[self telephone] removeAccount:[anAccountController account]];
 	
 	[[self accountControllers] removeObjectAtIndex:index];
+	[[anAccountController window] orderOut:nil];
 }
 
 - (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification

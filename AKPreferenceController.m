@@ -312,38 +312,68 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 													  userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:index]
 																						   forKey:AKAccountIndex]];
 	[accountsTable reloadData];
+	
+	// Select none, last or previous account.
+	if ([savedAccounts count] == 0) {
+		return;
+	} else if (index >= ([savedAccounts count] - 1)) {
+		[accountsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:([savedAccounts count] - 1)] byExtendingSelection:NO];
+		[self populateFieldsForAccountAtIndex:([savedAccounts count] - 1)];
+	} else {
+		[accountsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
+		[self populateFieldsForAccountAtIndex:index];
+	}
 }
 
-- (void)populateFieldsForAccountAtIndex:(NSUInteger)index
+- (void)populateFieldsForAccountAtIndex:(NSInteger)index
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *accountDict = [[defaults arrayForKey:AKAccounts] objectAtIndex:index];
+	NSArray *savedAccounts = [defaults arrayForKey:AKAccounts];
 	
-	[accountEnabledCheckBox setEnabled:YES];
-	
-	if ([[accountDict objectForKey:AKAccountEnabled] boolValue]) {
-		[accountEnabledCheckBox setState:NSOnState];
+	if (index >= 0) {
+		NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
+		
+		[accountEnabledCheckBox setEnabled:YES];
+		
+		if ([[accountDict objectForKey:AKAccountEnabled] boolValue]) {
+			[accountEnabledCheckBox setState:NSOnState];
+			[fullName setEnabled:NO];
+			[SIPAddress setEnabled:NO];
+			[registrar setEnabled:NO];
+			[username setEnabled:NO];
+			[password setEnabled:NO];
+		} else {
+			[accountEnabledCheckBox setState:NSOffState];
+			[fullName setEnabled:YES];
+			[SIPAddress setEnabled:YES];
+			[registrar setEnabled:YES];
+			[username setEnabled:YES];
+			[password setEnabled:YES];
+		}
+		
+		[fullName setStringValue:[accountDict objectForKey:AKFullName]];
+		[SIPAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
+		[registrar setStringValue:[accountDict objectForKey:AKRegistrar]];
+		[username setStringValue:[accountDict objectForKey:AKUsername]];
+
+		[password setStringValue:[AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
+																	 [accountDict objectForKey:AKRegistrar]]
+														accountName:[accountDict objectForKey:AKUsername]]];
+	} else {
+		[accountEnabledCheckBox setState:NSOffState];
+		[fullName setStringValue:@""];
+		[SIPAddress setStringValue:@""];
+		[registrar setStringValue:@""];
+		[username setStringValue:@""];
+		[password setStringValue:@""];
+		
+		[accountEnabledCheckBox setEnabled:NO];
 		[fullName setEnabled:NO];
 		[SIPAddress setEnabled:NO];
 		[registrar setEnabled:NO];
 		[username setEnabled:NO];
 		[password setEnabled:NO];
-	} else {
-		[accountEnabledCheckBox setState:NSOffState];
-		[fullName setEnabled:YES];
-		[SIPAddress setEnabled:YES];
-		[registrar setEnabled:YES];
-		[username setEnabled:YES];
-		[password setEnabled:YES];
 	}
-	
-	[fullName setStringValue:[accountDict objectForKey:AKFullName]];
-	[SIPAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
-	[registrar setStringValue:[accountDict objectForKey:AKRegistrar]];
-	[username setStringValue:[accountDict objectForKey:AKUsername]];
-
-	[password setStringValue:[AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [accountDict objectForKey:AKRegistrar]]
-													accountName:[accountDict objectForKey:AKUsername]]];
 }
 
 - (IBAction)changeAccountEnabled:(id)sender
@@ -546,8 +576,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
 	NSInteger row = [accountsTable selectedRow];
-	if (row == -1)
-		return;
 
 	[self populateFieldsForAccountAtIndex:row];
 }
