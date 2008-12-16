@@ -61,7 +61,7 @@ typedef enum _AKTelephoneCallState {
 	AKTelephoneAccount *account;
 }
 
-@property(readwrite, assign) id delegate;
+@property(nonatomic, readwrite, assign) id delegate;
 @property(readwrite, assign) NSInteger identifier;
 @property(readwrite, copy) AKSIPURI *localURI;
 @property(readwrite, copy) AKSIPURI *remoteURI;
@@ -69,7 +69,7 @@ typedef enum _AKTelephoneCallState {
 @property(readwrite, copy) NSString *stateText;
 @property(readwrite, assign) NSInteger lastStatus;
 @property(readwrite, copy) NSString *lastStatusText;
-@property(readonly, assign, getter=isActive) BOOL active;
+@property(nonatomic, readonly, assign, getter=isActive) BOOL active;
 @property(readwrite, assign, getter=isIncoming) BOOL incoming;
 @property(readwrite, assign) AKTelephoneAccount *account;
 

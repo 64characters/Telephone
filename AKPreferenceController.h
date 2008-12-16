@@ -98,7 +98,7 @@ extern NSString * const AKAccountEnabled;
 	IBOutlet NSButton *addAccountWindowOtherButton;
 }
 
-@property(readwrite, assign) id delegate;
+@property(nonatomic, readwrite, assign) id delegate;
 @property(readonly, retain) NSWindow *addAccountWindow;
 @property(readonly, retain) NSButton *addAccountWindowDefaultButton;
 @property(readonly, retain) NSButton *addAccountWindowOtherButton;

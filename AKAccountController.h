@@ -62,7 +62,7 @@ enum {
 
 @property(readwrite, assign, getter=isEnabled) BOOL enabled;
 @property(readwrite, retain) AKTelephoneAccount *account;
-@property(readwrite, assign, getter=isAccountRegistered) BOOL accountRegistered;
+@property(nonatomic, readwrite, assign, getter=isAccountRegistered) BOOL accountRegistered;
 @property(readonly, retain) NSMutableArray *callControllers;
 @property(readwrite, assign) NSUInteger callDestinationURIIndex;
 

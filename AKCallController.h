@@ -53,7 +53,7 @@
 }
 
 @property(readwrite, retain) AKTelephoneCall *call;
-@property(readwrite, assign) AKAccountController *accountController;
+@property(nonatomic, readwrite, assign) AKAccountController *accountController;
 @property(readwrite, copy) NSString *displayedName;
 @property(readwrite, copy) NSString *status;
 @property(readwrite, assign) NSTimeInterval callStartTime;

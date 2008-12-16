@@ -45,7 +45,7 @@
 
 @interface NSString(Additions)
 
-@property(readonly, assign) BOOL AK_isTelephoneNumber;
+@property(nonatomic, readonly, assign) BOOL AK_isTelephoneNumber;
 
 // Inserts backslash before every occurrence of the first character from string in the receiver.
 - (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string;

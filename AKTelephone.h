@@ -65,24 +65,24 @@ typedef struct _AKTelephoneCallData {
 	pjmedia_port *ringbackPort;
 }
 
-@property(readwrite, assign) id <AKTelephoneDelegate> delegate;
+@property(nonatomic, readwrite, assign) id <AKTelephoneDelegate> delegate;
 @property(readonly, retain) NSMutableArray *accounts;
 @property(readonly, assign) BOOL started;
 @property(readonly, assign) BOOL soundStopped;
-@property(readonly, assign) NSUInteger activeCallsCount;
-@property(readonly, assign) AKTelephoneCallData *callData;
+@property(nonatomic, readonly, assign) NSUInteger activeCallsCount;
+@property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
 @property(readonly, assign) pj_pool_t *pjPool;
 @property(readonly, assign) NSInteger ringbackSlot;
 @property(readwrite, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;
 
 @property(readwrite, copy) NSString *STUNServerHost;		// Default: @"".
-@property(readwrite, assign) NSUInteger STUNServerPort;		// Default: 3478.
-@property(readwrite, copy) NSString *logFileName;			// Default: @"~/Library/Logs/Telephone.log".
+@property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;		// Default: 3478.
+@property(nonatomic, readwrite, copy) NSString *logFileName;			// Default: @"~/Library/Logs/Telephone.log".
 @property(readwrite, assign) NSUInteger logLevel;			// Default: 3.
 @property(readwrite, assign) NSUInteger consoleLogLevel;	// Default: 0.
 @property(readwrite, assign) BOOL detectsVoiceActivity;		// Default: YES.
-@property(readwrite, assign) NSUInteger transportPort;		// Default: 0 for any available port.
+@property(nonatomic, readwrite, assign) NSUInteger transportPort;		// Default: 0 for any available port.
 
 + (id)telephoneWithDelegate:(id)aDelegate;
 + (id)telephone;

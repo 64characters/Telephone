@@ -44,7 +44,7 @@
 	NSString *maddrParameter;
 }
 
-@property(readonly, copy) NSString *SIPAddress;
+@property(nonatomic, readonly, copy) NSString *SIPAddress;
 @property(readwrite, copy) NSString *displayName;
 @property(readwrite, copy) NSString *user;
 @property(readwrite, copy) NSString *password;
