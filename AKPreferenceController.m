@@ -32,6 +32,7 @@
 #import "AKTelephoneAccount.h"
 #import "AppController.h"
 #import "NSStringAdditions.h"
+#import "NSWindowAdditions.h"
 
 
 @interface AKPreferenceController()
@@ -137,7 +138,8 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 - (void)windowDidLoad
 {
 	[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
-	[self displayView:generalView withTitle:@"General"];
+	[[self window] resizeAndSwapToContentView:generalView];
+	[[self window] setTitle:@"General"];
 	
 	[self updateAudioDevices];
 	
@@ -151,31 +153,6 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		return;
 	
 	[self populateFieldsForAccountAtIndex:row];
-}
-
-- (void)displayView:(NSView *)aView withTitle:(NSString *)aTitle
-{
-	NSWindow *preferencesWindow = [self window];
-	
-	// Compute the new window frame
-	NSSize currentSize = [[preferencesWindow contentView] frame].size;
-	NSSize newSize = [aView frame].size;
-	float deltaWidth = newSize.width - currentSize.width;
-	float deltaHeight = newSize.height - currentSize.height;
-	
-	NSRect windowFrame = [preferencesWindow frame];
-	windowFrame.size.height += deltaHeight;
-	windowFrame.origin.y -= deltaHeight;
-	windowFrame.size.width += deltaWidth;
-	
-	// Show temporary view for smoother resize animation
-	NSView *tempView = [[NSView alloc] initWithFrame:[[preferencesWindow contentView] frame]];
-	[preferencesWindow setContentView:tempView];
-	[tempView release];
-	
-	[preferencesWindow setFrame:windowFrame display:YES animate:YES];
-	[preferencesWindow setTitle:aTitle];
-	[preferencesWindow setContentView:aView];
 }
 
 - (IBAction)changeView:(id)sender
@@ -213,7 +190,8 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 			break;
 	}
 	
-	[self displayView:view withTitle:title];
+	[[self window] resizeAndSwapToContentView:view animate:YES];
+	[[self window] setTitle:title];
 }
 
 - (IBAction)showAddAccountSheet:(id)sender

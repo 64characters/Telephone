@@ -8,11 +8,11 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="148"/>
 			<integer value="260"/>
-			<integer value="251"/>
 			<integer value="78"/>
 			<integer value="150"/>
+			<integer value="148"/>
+			<integer value="251"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1117,7 +1117,7 @@
 			<object class="NSUserDefaultsController" id="417290828">
 				<object class="NSMutableArray" key="NSDeclaredKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>RingingSound</string>
+					<string>FormatTelephoneNumbers</string>
 				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
@@ -1375,22 +1375,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.FormatsTelephoneNumbers</string>
-						<reference key="source" ref="867919663"/>
-						<reference key="destination" ref="417290828"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="867919663"/>
-							<reference key="NSDestination" ref="417290828"/>
-							<string key="NSLabel">value: values.FormatsTelephoneNumbers</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.FormatsTelephoneNumbers</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">262</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.TelephoneNumberFormatterSplitsLastFourDigits</string>
 						<reference key="source" ref="479032740"/>
 						<reference key="destination" ref="417290828"/>
@@ -1430,22 +1414,6 @@
 					<int key="connectionID">268</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: values.FormatsTelephoneNumbers</string>
-						<reference key="source" ref="479032740"/>
-						<reference key="destination" ref="417290828"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="479032740"/>
-							<reference key="NSDestination" ref="417290828"/>
-							<string key="NSLabel">enabled: values.FormatsTelephoneNumbers</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">values.FormatsTelephoneNumbers</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">270</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">changeIncomingCallSound:</string>
 						<reference key="source" ref="1001"/>
@@ -1468,6 +1436,38 @@
 						</object>
 					</object>
 					<int key="connectionID">302</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.FormatTelephoneNumbers</string>
+						<reference key="source" ref="867919663"/>
+						<reference key="destination" ref="417290828"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="867919663"/>
+							<reference key="NSDestination" ref="417290828"/>
+							<string key="NSLabel">value: values.FormatTelephoneNumbers</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.FormatTelephoneNumbers</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">303</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: values.FormatTelephoneNumbers</string>
+						<reference key="source" ref="479032740"/>
+						<reference key="destination" ref="417290828"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="479032740"/>
+							<reference key="NSDestination" ref="417290828"/>
+							<string key="NSLabel">enabled: values.FormatTelephoneNumbers</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">values.FormatTelephoneNumbers</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">304</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2373,7 +2373,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">302</int>
+			<int key="maxID">304</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

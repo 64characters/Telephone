@@ -103,9 +103,6 @@ extern NSString * const AKAccountEnabled;
 @property(readonly, retain) NSButton *addAccountWindowDefaultButton;
 @property(readonly, retain) NSButton *addAccountWindowOtherButton;
 
-// Display view in Preferences window
-- (void)displayView:(NSView *)aView withTitle:(NSString *)aTitle;
-
 // Change view in Preferences window
 - (IBAction)changeView:(id)sender;
 
