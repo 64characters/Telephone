@@ -16,6 +16,7 @@
 		AA1732180EAF8C14009023F2 /* AuthFailed.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1732170EAF8C14009023F2 /* AuthFailed.xib */; };
 		AA2404970EE7F77D00E66882 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */; };
+		AA2D599D0EF924F800F65074 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = AA2D599C0EF924F800F65074 /* dsa_pub.pem */; };
 		AA3578690E3FD91400021989 /* Call.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3578680E3FD91400021989 /* Call.xib */; };
 		AA3578B30E40709900021989 /* AKAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B20E40709900021989 /* AKAccountController.m */; };
 		AA3578B60E4070AD00021989 /* AKCallController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B50E4070AD00021989 /* AKCallController.m */; };
@@ -74,6 +75,7 @@
 		AA2404960EE7F77D00E66882 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		AA2CCC820E2E4EEB00871057 /* AKTelephoneCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneCall.h; sourceTree = "<group>"; };
 		AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneCall.m; sourceTree = "<group>"; };
+		AA2D599C0EF924F800F65074 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		AA3578680E3FD91400021989 /* Call.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Call.xib; sourceTree = "<group>"; };
 		AA3578B10E40709900021989 /* AKAccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAccountController.h; sourceTree = "<group>"; };
 		AA3578B20E40709900021989 /* AKAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAccountController.m; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				AA69ADD90E89578900CF54B3 /* AddAccount.xib */,
 				AA1732170EAF8C14009023F2 /* AuthFailed.xib */,
 				AAFA9B970EE2BFC4009A45CB /* Sound.tiff */,
+				AA2D599C0EF924F800F65074 /* dsa_pub.pem */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				AA1732180EAF8C14009023F2 /* AuthFailed.xib in Resources */,
 				AA0910CC0EC21F44004912A5 /* COPYRIGHT in Resources */,
 				AAFA9B980EE2BFC4009A45CB /* Sound.tiff in Resources */,
+				AA2D599D0EF924F800F65074 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
