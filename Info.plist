@@ -32,5 +32,9 @@
 	<string>http://telephone.googlecode.com/svn/appcast/appcast.xml</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>YES</string>
+	<key>SUShowReleaseNotes</key>
+	<string>NO</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 </dict>
 </plist>
