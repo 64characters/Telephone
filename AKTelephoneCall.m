@@ -35,7 +35,7 @@
 #define THIS_FILE "AKTelephoneCall.m"
 
 
-const NSInteger AKTelephoneCallsMax = 4;
+const NSInteger AKTelephoneCallsMax = 8;
 
 NSString * const AKTelephoneCallCallingNotification = @"AKTelephoneCallCalling";
 NSString * const AKTelephoneCallIncomingNotification = @"AKTelephoneCallIncoming";
