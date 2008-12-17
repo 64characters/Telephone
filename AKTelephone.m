@@ -84,6 +84,7 @@ typedef enum _AKTelephoneRingtones {
 
 @synthesize STUNServerHost;
 @dynamic STUNServerPort;
+@synthesize userAgentString;
 @dynamic logFileName;
 @synthesize logLevel;
 @synthesize consoleLogLevel;
@@ -303,6 +304,7 @@ typedef enum _AKTelephoneRingtones {
 		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%u",
 									  [self STUNServerHost], [self STUNServerPort]]
 									 pjString];
+	userAgentConfig.user_agent = [[self userAgentString] pjString];
 	loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
 	loggingConfig.level = [self logLevel];
 	loggingConfig.console_level = [self consoleLogLevel];

@@ -51,6 +51,7 @@ typedef struct _AKTelephoneCallData {
 	
 	NSString *STUNServerHost;
 	NSUInteger STUNServerPort;
+	NSString *userAgentString;
 	NSString *logFileName;
 	NSUInteger logLevel;
 	NSUInteger consoleLogLevel;
@@ -76,13 +77,14 @@ typedef struct _AKTelephoneCallData {
 @property(readwrite, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;
 
-@property(readwrite, copy) NSString *STUNServerHost;		// Default: @"".
-@property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;		// Default: 3478.
-@property(nonatomic, readwrite, copy) NSString *logFileName;			// Default: @"~/Library/Logs/Telephone.log".
-@property(readwrite, assign) NSUInteger logLevel;			// Default: 3.
-@property(readwrite, assign) NSUInteger consoleLogLevel;	// Default: 0.
-@property(readwrite, assign) BOOL detectsVoiceActivity;		// Default: YES.
-@property(nonatomic, readwrite, assign) NSUInteger transportPort;		// Default: 0 for any available port.
+@property(readwrite, copy) NSString *STUNServerHost;				// Default: @"".
+@property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;	// Default: 3478.
+@property(readwrite, copy) NSString *userAgentString;				// Default: @"".
+@property(nonatomic, readwrite, copy) NSString *logFileName;		// Default: @"~/Library/Logs/Telephone.log".
+@property(readwrite, assign) NSUInteger logLevel;					// Default: 3.
+@property(readwrite, assign) NSUInteger consoleLogLevel;			// Default: 0.
+@property(readwrite, assign) BOOL detectsVoiceActivity;				// Default: YES.
+@property(nonatomic, readwrite, assign) NSUInteger transportPort;	// Default: 0 for any available port.
 
 + (id)telephoneWithDelegate:(id)aDelegate;
 + (id)telephone;
