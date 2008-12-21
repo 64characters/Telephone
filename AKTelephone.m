@@ -379,9 +379,9 @@ typedef enum _AKTelephoneRingtones {
 		status = pjsua_transport_get_info(transportIdentifier, &transportInfo);
 		if (status != PJ_SUCCESS)
 			NSLog(@"Error getting transport info");
+		PJ_LOG(3, (THIS_FILE, "SIP UDP port: %u", transportInfo.local_name.port));
 		[self setTransportPort:transportInfo.local_name.port];
 	}
-	NSLog(@"Bound to local port %u", [self transportPort]);
 	
 	// Start PJSUA.
 	status = pjsua_start();
