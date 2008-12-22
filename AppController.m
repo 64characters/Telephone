@@ -552,14 +552,20 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	// Unregister accounts.
 	for (anAccountController in [self accountControllers])
-		[anAccountController setAccountRegistered:NO];
+		if ([anAccountController isEnabled])
+			[[anAccountController account] setRegistered:NO];
 	
 	// Wait one second to receive unregistrations confirmations.
 	sleep(1);
 	
 	// Remove accounts from Telephone.
-	for (anAccountController in [self accountControllers])
+	for (anAccountController in [self accountControllers]) {
+		[anAccountController showOfflineMode];
+		[[anAccountController window] display];
+		
+		// Remove account from Telephone.
 		[[self telephone] removeAccount:[anAccountController account]];
+	}
 
 	[[self telephone] destroyUserAgent];
 	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];

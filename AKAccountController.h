@@ -33,8 +33,9 @@
 
 // Account registration pull-down list tags
 enum {
-	AKTelephoneAccountUnregisterTag	= 0,
-	AKTelephoneAccountRegisterTag	= 1
+	AKTelephoneAccountOfflineTag	= 1,
+	AKTelephoneAccountUnregisterTag	= 2,
+	AKTelephoneAccountRegisterTag	= 3
 };
 
 @class AKTelephoneAccount;
@@ -44,9 +45,11 @@ enum {
 	BOOL enabled;
 	AKTelephoneAccount *account;
 	NSMutableArray *callControllers;
+	BOOL attemptsToRegisterAccount;
+	BOOL attemptsToUnregisterAccount;
 	
-	IBOutlet NSView *registeredAccountView;
-	IBOutlet NSView *unregisteredAccountView;
+	IBOutlet NSView *activeAccountView;
+	IBOutlet NSView *offlineAccountView;
 	IBOutlet NSPopUpButton *accountRegistrationPopUp;
 	IBOutlet NSTokenField *callDestination;
 	NSUInteger callDestinationURIIndex;
@@ -90,5 +93,12 @@ enum {
 
 // Show alert saying that connection to the registrar failed.
 - (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error;
+
+// Set accountRegistrationPopUp button title, change account window content view,
+// set accountRegistrationPopUp menu items states.
+- (void)showRegisteredMode;
+- (void)showUnregisteredMode;
+- (void)showOfflineMode;
+- (void)showConnectingMode;
 
 @end

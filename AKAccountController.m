@@ -46,14 +46,21 @@
 // Account registration pull-down button widths.
 const CGFloat AKAccountRegistrationButtonOfflineWidth = 58.0;
 const CGFloat AKAccountRegistrationButtonAvailableWidth = 69.0;
+const CGFloat AKAccountRegistrationButtonUnavailableWidth = 81.0;
 const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
-const CGFloat AKAccountRegistrationButtonDisconnectedWidth = 91.0;
 
 // Account registration pull-down button titles.
 NSString * const AKAccountRegistrationButtonOfflineTitle = @"Offline";
 NSString * const AKAccountRegistrationButtonAvailableTitle = @"Available";
+NSString * const AKAccountRegistrationButtonUnavailableTitle = @"Unavailable";
 NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
-NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
+
+@interface AKAccountController()
+
+@property(readwrite, assign) BOOL attemptsToRegisterAccount;
+@property(readwrite, assign) BOOL attemptsToUnregisterAccount;
+
+@end
 
 @implementation AKAccountController
 
@@ -61,6 +68,8 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 @synthesize account;
 @dynamic accountRegistered;
 @synthesize callControllers;
+@synthesize attemptsToRegisterAccount;
+@synthesize attemptsToUnregisterAccount;
 @synthesize callDestinationURIIndex;
 
 - (BOOL)isAccountRegistered
@@ -70,64 +79,40 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 
 - (void)setAccountRegistered:(BOOL)flag
 {
-	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	if (flag)
+		[self setAttemptsToRegisterAccount:YES];
+	else
+		[self setAttemptsToUnregisterAccount:YES];
 	
-	if (flag) {
-		if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {	// If account was added to Telephone.
-			// Set registraton button title to Connecting...
-			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
-			
-			// Explicitly redisplay button before DNS will look up the registrar host name.
-			[[accountRegistrationPopUp superview] display];
-			
-			[[self account] setRegistered:flag];
-		} else {
-			NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
-														accountName:[[self account] username]];
-			
-			// Set registraton button title to Connecting...
-			buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
-			
-			// Explicitly redisplay button before DNS will look up the registrar host name.
-			[[accountRegistrationPopUp superview] display];
-			
-			// Add account to Telephone
-			[[[NSApp delegate] telephone] addAccount:[self account] withPassword:password];
-			
-			// Error connecting to registrar.
-			if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
-				// Set registraton button title to Disconnected.
-				buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
-				[accountRegistrationPopUp setFrameSize:buttonSize];
-				[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
-				
-				// Show sheet only if Telephone started.
-				if ([[[NSApp delegate] telephone] started]) {
-					NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
-									   [[self account] registrationStatus], [[self account] registrationStatusText]];
-					[self showRegistrarConnectionErrorSheetWithError:error];
-				}
-			}
-		}
-		
-	} else {
-		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
-		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
-		[[self window] setContentView:unregisteredAccountView];
-		
-		// Set registraton button title to Offline.
-		buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
-		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonOfflineTitle];
-		
-		// Explicitly redisplay account window before DNS will look up the registrar host name.
-		[[self window] display];
+	if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {	// If account was added to Telephone.
+		[self showConnectingMode];
+		// Explicitly redisplay button before DNS will look up the registrar host name.
+		[[accountRegistrationPopUp superview] display];
 		
 		[[self account] setRegistered:flag];
+	} else {
+		NSString *password = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
+													accountName:[[self account] username]];
+		
+		[self showConnectingMode];
+		// Explicitly redisplay button before DNS will look up the registrar host name.
+		[[accountRegistrationPopUp superview] display];
+		
+		// Add account to Telephone
+		[[[NSApp delegate] telephone] addAccount:[self account] withPassword:password];
+		
+		// Error connecting to registrar.
+		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
+			if ([[[NSApp delegate] telephone] started]) {
+				[self showUnregisteredMode];
+				// Show a sheet.
+				NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
+								   [[self account] registrationStatus], [[self account] registrationStatusText]];
+				[self showRegistrarConnectionErrorSheetWithError:error];
+			} else {
+				[self showOfflineMode];
+			}
+		}
 	}
 }
 
@@ -139,6 +124,8 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 	
 	[self setAccount:anAccount];
 	callControllers = [[NSMutableArray alloc] init];
+	[self setAttemptsToRegisterAccount:NO];
+	[self setAttemptsToUnregisterAccount:NO];
 	[self setCallDestinationURIIndex:0];
 	
 	[account setDelegate:self];
@@ -268,11 +255,20 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 }
 
 - (IBAction)changeAccountRegistration:(id)sender
-{	
-	if (![self isAccountRegistered] && [[sender selectedItem] tag] == AKTelephoneAccountUnregisterTag)
-		return;
+{
+	NSInteger selectedItemTag = [[sender selectedItem] tag];
 	
-	[self setAccountRegistered:[[sender selectedItem] tag]];
+	if (selectedItemTag == AKTelephoneAccountOfflineTag) {
+		[self showOfflineMode];
+		// Remove account from Telephone.
+		[[[NSApp delegate] telephone] removeAccount:[self account]];
+	} else if (selectedItemTag == AKTelephoneAccountUnregisterTag) {
+		// Unregister account only if it is registered or it wasn't added to Telephone.
+		if ([self isAccountRegistered] || [[self account] identifier] == AKTelephoneInvalidIdentifier)
+			[self setAccountRegistered:NO];
+	} else if (selectedItemTag == AKTelephoneAccountRegisterTag) {
+		[self setAccountRegistered:YES];
+	}
 }
 
 // Remove old account from Telephone, change username for the account, add to Telephone with new password and update Keychain.
@@ -280,27 +276,18 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 {
 	[self closeSheet:sender];
 	
-	NSSize buttonSize = [accountRegistrationPopUp frame].size;
-	
 	if (![[newUsername stringValue] isEqualToString:@""]) {
 		[[[NSApp delegate] telephone] removeAccount:[self account]];
 		[[self account] setUsername:[newUsername stringValue]];
 		
-		// Set registraton button title to Connecting...
-		buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
-		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+		[self showConnectingMode];
 		
 		// Add account to Telephone.
 		[[[NSApp delegate] telephone] addAccount:[self account] withPassword:[newPassword stringValue]];
 		
 		// Error connecting to registrar.
 		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
-			// Set registraton button title to Disconnected.
-			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
-			
+			[self showUnregisteredMode];
 			NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
 							   [[self account] registrationStatus], [[self account] registrationStatusText]];
 			[self showRegistrarConnectionErrorSheetWithError:error];
@@ -345,45 +332,86 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 						contextInfo:NULL];
 }
 
-- (void)windowDidLoad
+
+- (void)showRegisteredMode
 {
-	// Set registraton button title to Offline.
+	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	buttonSize.width = AKAccountRegistrationButtonAvailableWidth;
+	[accountRegistrationPopUp setFrameSize:buttonSize];
+	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonAvailableTitle];
+	
+	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOnState];
+	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
+	[[self window] setContentView:activeAccountView];
+	
+	if ([callDestination acceptsFirstResponder])
+		[[self window] makeFirstResponder:callDestination];
+}
+
+- (void)showUnregisteredMode
+{
+	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	buttonSize.width = AKAccountRegistrationButtonUnavailableWidth;
+	[accountRegistrationPopUp setFrameSize:buttonSize];
+	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonUnavailableTitle];
+	
+	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
+	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
+	[[self window] setContentView:activeAccountView];
+	
+	if ([callDestination acceptsFirstResponder])
+		[[self window] makeFirstResponder:callDestination];
+}
+
+- (void)showOfflineMode
+{
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
 	buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
 	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonOfflineTitle];
+	
+	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
+	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
+	[[self window] setContentView:offlineAccountView];
+}
+
+- (void)showConnectingMode
+{
+	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+	[accountRegistrationPopUp setFrameSize:buttonSize];
+	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+}
+
+- (void)windowDidLoad
+{
+	[self showOfflineMode];
 }
 
 // When account registration changes, make appropriate modifications in UI
 - (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
 {
-	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	// Account identifier can be AKTelephoneInvalidIdentifier if notification
+	// on the main thread was delivered after Telephone had removed the account.
+	// Don't bother in that case.
+	if ([[self account] identifier] == AKTelephoneInvalidIdentifier)
+		return;
 	
 	if ([[self account] isRegistered]) {
-		// Set registraton button title to Available.
-		buttonSize.width = AKAccountRegistrationButtonAvailableWidth;
-		[accountRegistrationPopUp setFrameSize:buttonSize];
-		[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonAvailableTitle];
-		
-		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOnState];
-		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
-		[[self window] setContentView:registeredAccountView];
-		
-		if ([callDestination acceptsFirstResponder])
-			[[self window] makeFirstResponder:callDestination];
+		// If the account was offline and the user chose Unavailable state,
+		// setAccountRegistered:NO will add the account to Telephone. Telephone
+		// will register the account. Set the account to Unavailable (unregister
+		// it) here.
+		if ([self attemptsToUnregisterAccount])
+			[self setAccountRegistered:NO];
+		else
+			[self showRegisteredMode];
 		
 	} else {
-		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
-		[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
-		[[self window] setContentView:unregisteredAccountView];
+		[self showUnregisteredMode];
 		
 		// Handle authentication failure
 		if ([[self account] registrationStatus] == PJSIP_EFAILEDCREDENTIAL) {
-			// Set registraton button title to Disconnected.
-			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
-			
 			if (authenticationFailureSheet == nil)
 				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
 			
@@ -402,11 +430,6 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 		} else if ([[self account] registrationStatus] == PJSIP_SC_NOT_FOUND ||
 				   [[self account] registrationStatus] == PJSIP_SC_FORBIDDEN ||
 				   [[self account] registrationStatus] == PJSIP_EAUTHNOCHAL) {
-			// Set registraton button title to Disconnected.
-			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
-			
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 			[alert addButtonWithTitle:@"OK"];
 			[alert setMessageText:[NSString stringWithFormat:@"SIP address \xe2\x80\x9c%@\xe2\x80\x9d does not match " \
@@ -419,29 +442,23 @@ NSString * const AKAccountRegistrationButtonDisconnectedTitle = @"Disconnected";
 								contextInfo:NULL];
 			
 		} else if (([[self account] registrationStatus] / 100 != 2) && ([[self account] registrationExpireTime] < 0)) {
-			// Change registration status button title and raise sheet if connection to the registrar failed.
+			// Raise a sheet if connection to the registrar failed.
 			// If last registration status is 2xx and expiration interval is less than zero, it is unregistration, not failure.
 			// Condition of failure is: last registration status != 2xx AND expiration interval < 0.
 			
-			// Set registraton button title to Disconnected.
-			buttonSize.width = AKAccountRegistrationButtonDisconnectedWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonDisconnectedTitle];
-			
 			// Show a sheet only if Telephone has started. Don't show if user agent is being destroyed right now.
-			if ([[[NSApp delegate] telephone] started]) {
+			// Also don't show if setAccountRegistered: wasn't called explicitly.
+			if ([[[NSApp delegate] telephone] started] && ([self attemptsToRegisterAccount] || [self attemptsToUnregisterAccount])) {
 				NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
 								   [[self account] registrationStatus], [[self account] registrationStatusText]];
 				[self showRegistrarConnectionErrorSheetWithError:error];
 			}
 			
-		} else {
-			// Set registraton button title to Offline.
-			buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
-			[accountRegistrationPopUp setFrameSize:buttonSize];
-			[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonOfflineTitle];
 		}
 	}
+	
+	[self setAttemptsToRegisterAccount:NO];
+	[self setAttemptsToUnregisterAccount:NO];
 }
 
 // Remove call controller from array of controllers before the window is closed
