@@ -67,7 +67,6 @@ enum {
 @property(readwrite, retain) AKTelephoneAccount *account;
 @property(nonatomic, readwrite, assign, getter=isAccountRegistered) BOOL accountRegistered;
 @property(readonly, retain) NSMutableArray *callControllers;
-@property(readwrite, assign) NSUInteger callDestinationURIIndex;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;

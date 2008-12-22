@@ -59,6 +59,7 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 
 @property(readwrite, assign) BOOL attemptsToRegisterAccount;
 @property(readwrite, assign) BOOL attemptsToUnregisterAccount;
+@property(readwrite, assign) NSUInteger callDestinationURIIndex;
 
 @end
 
