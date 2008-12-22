@@ -480,6 +480,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 }
 
 
+#pragma mark -
 #pragma mark AKPreferenceController delegate
 
 - (void)preferenceControllerDidAddAccount:(NSNotification *)notification

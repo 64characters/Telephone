@@ -388,6 +388,10 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 	[self showOfflineMode];
 }
 
+
+#pragma mark -
+#pragma mark AKTelephoneAccount notifications
+
 // When account registration changes, make appropriate modifications in UI
 - (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
 {
@@ -460,6 +464,10 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 	[self setAttemptsToRegisterAccount:NO];
 	[self setAttemptsToUnregisterAccount:NO];
 }
+
+
+#pragma mark -
+#pragma mark AKCallController notifications
 
 // Remove call controller from array of controllers before the window is closed
 - (void)telephoneCallWindowWillClose:(NSNotification *)notification

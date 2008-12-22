@@ -551,6 +551,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 }
 
 
+#pragma mark -
 #pragma mark NSTableView data source
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
@@ -571,6 +572,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 
+#pragma mark -
 #pragma mark NSTableView delegate
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
@@ -581,6 +583,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 
+#pragma mark -
 #pragma mark NSToolbar delegate
 
 // Supply selectable toolbar items
@@ -595,6 +598,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 
+#pragma mark -
 #pragma mark NSWindow delegate
 
 - (BOOL)windowShouldClose:(id)window

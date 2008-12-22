@@ -174,6 +174,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 
 #pragma mark -
+#pragma mark NSWindow delegate methods
 
 // If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification
@@ -187,6 +188,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	if ([[self call] identifier] != AKTelephoneInvalidIdentifier && [[self call] isActive])
 		[self hangUp:nil];
 }
+
+
+#pragma mark -
+#pragma mark AKTelephoneCall notifications
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
@@ -260,6 +265,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 }
 
 
+#pragma mark -
 #pragma mark AKActiveCallViewDelegate protocol
 
 - (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString
