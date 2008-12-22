@@ -284,7 +284,7 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier, pjsua_call_id callId
 																 object:theCall];
 	[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
 														   withObject:notification
-														waitUntilDone:YES];
+														waitUntilDone:NO];
 	[theCall release];
 	
 	[pool release];
@@ -322,7 +322,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 													 object:theCall];
 		[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
 											 withObject:notification
-										  waitUntilDone:YES];
+										  waitUntilDone:NO];
 		
 		// Finally, remove the call from its account's calls array
 		[[[theCall account] calls] removeObject:theCall];
@@ -366,7 +366,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 													   userInfo:userInfo];
 			[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
 												 withObject:notification
-											  waitUntilDone:YES];
+											  waitUntilDone:NO];
 		} else {
 			PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s",
 					   callIdentifier,
@@ -393,7 +393,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 															 object:theCall];
 				[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
 													 withObject:notification
-												  waitUntilDone:YES];
+												  waitUntilDone:NO];
 			}
 		}
 	}
