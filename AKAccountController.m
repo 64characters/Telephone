@@ -90,8 +90,10 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 		[self setAttemptsToUnregisterAccount:YES];
 	
 	// Invalidate account automatic re-registration timer.
-	[[self reRegistrationTimer] invalidate];
-	[self setReRegistrationTimer:nil];
+	if ([self reRegistrationTimer] != nil) {
+		[[self reRegistrationTimer] invalidate];
+		[self setReRegistrationTimer:nil];
+	}
 	
 	if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {	// If account was added to Telephone.
 		[self showConnectingMode];
@@ -171,6 +173,7 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 	
 	[account release];
 	[callControllers release];
+	[self setReRegistrationTimer:nil];
 	
 	[super dealloc];
 }
@@ -266,6 +269,12 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 
 - (IBAction)changeAccountRegistration:(id)sender
 {
+	// Invalidate account automatic re-registration timer.
+	if ([self reRegistrationTimer] != nil) {
+		[[self reRegistrationTimer] invalidate];
+		[self setReRegistrationTimer:nil];
+	}
+	
 	NSInteger selectedItemTag = [[sender selectedItem] tag];
 	
 	if (selectedItemTag == AKTelephoneAccountOfflineTag) {
@@ -418,8 +427,10 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 	
 	if ([[self account] isRegistered]) {
 		// Invalidate account automatic re-registration timer.
-		[[self reRegistrationTimer] invalidate];
-		[self setReRegistrationTimer:nil];
+		if ([self reRegistrationTimer] != nil) {
+			[[self reRegistrationTimer] invalidate];
+			[self setReRegistrationTimer:nil];
+		}
 		
 		// If the account was offline and the user chose Unavailable state,
 		// setAccountRegistered:NO will add the account to Telephone. Telephone
@@ -477,8 +488,8 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 					[self showRegistrarConnectionErrorSheetWithError:error];
 				} else {
 					// Schedule account automatic re-registration timer.
-					if (![[self reRegistrationTimer] isValid])
-						[self setReRegistrationTimer:[NSTimer scheduledTimerWithTimeInterval:300.0
+					if ([self reRegistrationTimer] == nil)
+						[self setReRegistrationTimer:[NSTimer scheduledTimerWithTimeInterval:30.0
 																					  target:self
 																					selector:@selector(reRegistrationTimerTick:)
 																					userInfo:nil
@@ -495,8 +506,11 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 
 - (void)telephoneAccountWillRemove:(NSNotification *)notification
 {
-	[[self reRegistrationTimer] invalidate];
-	[self setReRegistrationTimer:nil];
+	// Invalidate account automatic re-registration timer.
+	if ([self reRegistrationTimer] != nil) {
+		[[self reRegistrationTimer] invalidate];
+		[self setReRegistrationTimer:nil];
+	}
 }
 
 
