@@ -47,6 +47,7 @@ enum {
 	NSMutableArray *callControllers;
 	BOOL attemptsToRegisterAccount;
 	BOOL attemptsToUnregisterAccount;
+	NSTimer *reRegistrationTimer;
 	
 	IBOutlet NSView *activeAccountView;
 	IBOutlet NSView *offlineAccountView;
