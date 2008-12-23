@@ -489,7 +489,7 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 				} else {
 					// Schedule account automatic re-registration timer.
 					if ([self reRegistrationTimer] == nil)
-						[self setReRegistrationTimer:[NSTimer scheduledTimerWithTimeInterval:30.0
+						[self setReRegistrationTimer:[NSTimer scheduledTimerWithTimeInterval:300.0
 																					  target:self
 																					selector:@selector(reRegistrationTimerTick:)
 																					userInfo:nil
