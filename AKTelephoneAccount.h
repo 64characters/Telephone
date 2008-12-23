@@ -97,3 +97,4 @@ void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 
 // Notifications.
 extern NSString * const AKTelephoneAccountRegistrationDidChangeNotification;
+extern NSString * const AKTelephoneAccountWillRemoveNotification;

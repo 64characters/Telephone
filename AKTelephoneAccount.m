@@ -36,6 +36,7 @@
 
 
 NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelephoneAccountRegistrationDidChange";
+NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccountWillRemove";
 
 @implementation AKTelephoneAccount
 
@@ -70,12 +71,20 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelep
 	if (delegate != nil)
 		[notificationCenter removeObserver:delegate name:nil object:self];
 	
-	if (aDelegate != nil)
+	if (aDelegate != nil) {
 		if ([aDelegate respondsToSelector:@selector(telephoneAccountRegistrationDidChange:)])
 			[notificationCenter addObserver:aDelegate
 								   selector:@selector(telephoneAccountRegistrationDidChange:)
 									   name:AKTelephoneAccountRegistrationDidChangeNotification
 									 object:self];
+		
+		if ([aDelegate respondsToSelector:@selector(telephoneAccountWillRemove:)])
+			[notificationCenter addObserver:aDelegate
+								   selector:@selector(telephoneAccountWillRemove:)
+									   name:AKTelephoneAccountWillRemoveNotification
+									 object:self];
+	}
+	
 	delegate = aDelegate;
 }
 

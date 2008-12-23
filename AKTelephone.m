@@ -470,6 +470,9 @@ typedef enum _AKTelephoneRingtones {
 	if (![self started] || [anAccount identifier] == PJSUA_INVALID_ID)
 		return NO;
 	
+	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneAccountWillRemoveNotification
+														object:anAccount];
+	
 	pj_status_t status = pjsua_acc_del([anAccount identifier]);
 	if (status != PJ_SUCCESS)
 		return NO;
