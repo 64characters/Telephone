@@ -159,7 +159,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	[telephone setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[telephone setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
-	[telephone setUserAgentString:@"Telephone 0.8.3"];
+	[telephone setUserAgentString:@"Telephone 0.8.4"];
 	[telephone setLogFileName:[defaults stringForKey:AKLogFileName]];
 	[telephone setLogLevel:[[defaults objectForKey:AKLogLevel] integerValue]];
 	[telephone setConsoleLogLevel:[[defaults objectForKey:AKConsoleLogLevel] integerValue]];
