@@ -651,8 +651,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
 	for (AKAccountController *anAccountController in [self accountControllers]) {
 		if ([anAccountController isEnabled] && ![[anAccountController window] isVisible])
-			[anAccountController showWindow:nil];
+			[[anAccountController window] orderFront:nil];
 	}
+	
+	BOOL keyWindowExists = NO;
+	for (AKAccountController *anAccountController in [self accountControllers])
+		if ([[anAccountController window] isKeyWindow]) {
+			keyWindowExists = YES;
+			break;
+		}
+	
+	if (!keyWindowExists)
+		[[[[self accountControllers] objectAtIndex:0] window] makeKeyWindow];
 	
 	return YES;
 }
