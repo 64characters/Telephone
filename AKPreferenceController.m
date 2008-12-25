@@ -166,32 +166,40 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	
 	NSView *view;
 	NSString *title;
+	NSView *firstResponderView;
 	
 	switch ([sender tag]) {
 		case AKGeneralPreferencesTag:
 			view = generalView;
 			title = @"General";
+			firstResponderView = nil;
 			break;
 		case AKAccountsPreferencesTag:
 			view = accountsView;
 			title = @"Accounts";
+			firstResponderView = accountsTable;
 			break;
 		case AKSoundPreferencesTag:
 			view = soundView;
 			title = @"Sound";
+			firstResponderView = nil;
 			break;
 		case AKNetworkPreferencesTag:
 			view = networkView;
 			title = @"Network";
+			firstResponderView = STUNServerHost;
 			break;
 		default:
 			view = nil;
 			title = @"Telephone Preferences";
+			firstResponderView = nil;
 			break;
 	}
 	
 	[[self window] resizeAndSwapToContentView:view animate:YES];
 	[[self window] setTitle:title];
+	if ([firstResponderView acceptsFirstResponder])
+		[[self window] makeFirstResponder:firstResponderView];
 }
 
 - (IBAction)showAddAccountSheet:(id)sender
