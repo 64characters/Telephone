@@ -224,7 +224,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 																   username:username];
 		
 		[anAccountController setEnabled:[[accountDict objectForKey:AKAccountEnabled] boolValue]];
-		[[anAccountController window] setTitle:[[anAccountController account] SIPAddress]];
 		
 		[[self accountControllers] addObject:anAccountController];
 		
@@ -496,7 +495,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	[[self accountControllers] addObject:theAccountController];
 	
-	[[theAccountController window] setTitle:[[theAccountController account] SIPAddress]];
 	[[theAccountController window] orderFront:self];
 	
 	// Register account.
@@ -518,22 +516,35 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification
 {
 	NSUInteger index = [[[notification userInfo] objectForKey:AKAccountIndex] integerValue];
-	AKAccountController *theAccountController = [[self accountControllers] objectAtIndex:index];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *savedAccounts = [defaults arrayForKey:AKAccounts];
 	NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
-	[theAccountController setEnabled:[[accountDict objectForKey:AKAccountEnabled] boolValue]];
 	
-	if ([theAccountController isEnabled]) {
+	BOOL isEnabled = [[accountDict objectForKey:AKAccountEnabled] boolValue];
+	
+	AKAccountController *theAccountController;
+	if (isEnabled) {
+		theAccountController = [[[AKAccountController alloc] initWithFullName:[accountDict objectForKey:AKFullName]
+																   SIPAddress:[accountDict objectForKey:AKSIPAddress]
+																	registrar:[accountDict objectForKey:AKRegistrar]
+																		realm:[accountDict objectForKey:AKRealm]
+																	 username:[accountDict objectForKey:AKUsername]]
+								autorelease];
+		
+		[theAccountController setEnabled:isEnabled];
+		
+		[[self accountControllers] replaceObjectAtIndex:index withObject:theAccountController];
+
 		[[theAccountController window] orderFront:nil];
 		
 		// Register account (as a result, it will be added to Telephone).
 		[theAccountController setAccountRegistered:YES];
+		
 	} else {
+		theAccountController = [[self accountControllers] objectAtIndex:index];
 		// Remove account from Telephone.
 		[[self telephone] removeAccount:[theAccountController account]];
-		
 		[[theAccountController window] orderOut:nil];
 	}
 }

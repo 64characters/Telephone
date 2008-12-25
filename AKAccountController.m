@@ -142,6 +142,8 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 	
 	[account setDelegate:self];
 	
+	[[self window] setTitle:[[self account] SIPAddress]];
+	
 	return self;
 }
 
