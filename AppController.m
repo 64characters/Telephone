@@ -523,18 +523,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	BOOL isEnabled = [[accountDict objectForKey:AKAccountEnabled] boolValue];
 	
-	AKAccountController *theAccountController;
+	AKAccountController *theAccountController = [[self accountControllers] objectAtIndex:index];
+	[theAccountController setEnabled:isEnabled];
 	if (isEnabled) {
-		theAccountController = [[[AKAccountController alloc] initWithFullName:[accountDict objectForKey:AKFullName]
-																   SIPAddress:[accountDict objectForKey:AKSIPAddress]
-																	registrar:[accountDict objectForKey:AKRegistrar]
-																		realm:[accountDict objectForKey:AKRealm]
-																	 username:[accountDict objectForKey:AKUsername]]
-								autorelease];
+		AKTelephoneAccount *theAccount = [[[AKTelephoneAccount alloc] initWithFullName:[accountDict objectForKey:AKFullName]
+																			SIPAddress:[accountDict objectForKey:AKSIPAddress]
+																			 registrar:[accountDict objectForKey:AKRegistrar]
+																				 realm:[accountDict objectForKey:AKRealm]
+																			  username:[accountDict objectForKey:AKUsername]]
+										  autorelease];
 		
-		[theAccountController setEnabled:isEnabled];
-		
-		[[self accountControllers] replaceObjectAtIndex:index withObject:theAccountController];
+		[theAccountController setAccount:theAccount];
+		[theAccount setDelegate:theAccountController];
 
 		[[theAccountController window] orderFront:nil];
 		
@@ -542,7 +542,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[theAccountController setAccountRegistered:YES];
 		
 	} else {
-		theAccountController = [[self accountControllers] objectAtIndex:index];
 		// Remove account from Telephone.
 		[[self telephone] removeAccount:[theAccountController account]];
 		[[theAccountController window] orderOut:nil];
