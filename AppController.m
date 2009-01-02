@@ -96,7 +96,13 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKTransportPort];
 		[defaultsDict setObject:@"Purr" forKey:AKRingingSound];
 		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKFormatTelephoneNumbers];
-		[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKTelephoneNumberFormatterSplitsLastFourDigits];
+		
+		// Split last four digits in Russian localization by default.
+		NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+		if ([preferredLocalization isEqualToString:@"Russian"])
+			[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKTelephoneNumberFormatterSplitsLastFourDigits];
+		else
+			[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKTelephoneNumberFormatterSplitsLastFourDigits];
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
 		
