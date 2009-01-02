@@ -1,0 +1,5 @@
+﻿/* Localized versions of Info.plist keys */
+
+CFBundleName				= "Телефон";
+CFBundleDisplayName			= "Телефон";
+NSHumanReadableCopyright	= "\U00A9 2008 Алексей Кузнецов";

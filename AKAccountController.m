@@ -44,16 +44,19 @@
 
 
 // Account registration pull-down button widths.
-const CGFloat AKAccountRegistrationButtonOfflineWidth = 58.0;
-const CGFloat AKAccountRegistrationButtonAvailableWidth = 69.0;
-const CGFloat AKAccountRegistrationButtonUnavailableWidth = 81.0;
-const CGFloat AKAccountRegistrationButtonConnectingWidth = 90.0;
 
-// Account registration pull-down button titles.
-NSString * const AKAccountRegistrationButtonOfflineTitle = @"Offline";
-NSString * const AKAccountRegistrationButtonAvailableTitle = @"Available";
-NSString * const AKAccountRegistrationButtonUnavailableTitle = @"Unavailable";
-NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
+// English.
+const CGFloat AKAccountRegistrationButtonOfflineEnglishWidth = 58.0;
+const CGFloat AKAccountRegistrationButtonAvailableEnglishWidth = 69.0;
+const CGFloat AKAccountRegistrationButtonUnavailableEnglishWidth = 81.0;
+const CGFloat AKAccountRegistrationButtonConnectingEnglishWidth = 90.0;
+
+// Russian.
+const CGFloat AKAccountRegistrationButtonOfflineRussianWidth = 65.0;
+const CGFloat AKAccountRegistrationButtonAvailableRussianWidth = 73.0;
+const CGFloat AKAccountRegistrationButtonUnavailableRussianWidth = 85.0;
+const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
+
 
 @interface AKAccountController()
 
@@ -117,7 +120,8 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 			if ([[[NSApp delegate] telephone] started]) {
 				[self showUnregisteredMode];
 				// Show a sheet.
-				NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
+				NSString *error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
+																			   @"Error description."),
 								   [[self account] registrationStatus], [[self account] registrationStatusText]];
 				[self showRegistrarConnectionErrorSheetWithError:error];
 			} else {
@@ -187,6 +191,7 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 
 - (void)awakeFromNib
 {
+	NSLog(@"Localizations: %@", [[NSBundle mainBundle] preferredLocalizations]);
 	[self setShouldCascadeWindows:NO];
 	[[self window] setFrameAutosaveName:[[self account] SIPAddress]];
 	
@@ -261,7 +266,7 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 		}
 		
 		[[aCallController window] setContentView:[aCallController activeCallView]];
-		[aCallController setStatus:@"calling..."];
+		[aCallController setStatus:[NSLocalizedString(@"Calling...", @"Outgoing call in progress.") lowercaseString]];
 		[aCallController showWindow:nil];
 		[[aCallController callProgressIndicator] startAnimation:self];
 		
@@ -309,7 +314,8 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 		// Error connecting to registrar.
 		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
 			[self showUnregisteredMode];
-			NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
+			NSString *error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
+																		   @"Error description."),
 							   [[self account] registrationStatus], [[self account] registrationStatusText]];
 			[self showRegistrarConnectionErrorSheetWithError:error];
 		}
@@ -338,11 +344,14 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 {
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:@"OK"];
-	[alert setMessageText:[NSString stringWithFormat:@"Could not connect to server %@.", [[self account] registrar]]];
+	[alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Could not connect to server %@.",
+																	   @"Registrar connection error."),
+						   [[self account] registrar]]];
 	
 	if (error == nil)
 		[alert setInformativeText:[NSString stringWithFormat:
-								   @"Please check network connection and Registry Server settings.",
+								   NSLocalizedString(@"Please check network connection and Registry Server settings.",
+													 @"Registrar connection error informative text."),
 								   [[self account] registrar]]];
 	else
 		[alert setInformativeText:error];
@@ -357,9 +366,13 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 - (void)showRegisteredMode
 {
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
-	buttonSize.width = AKAccountRegistrationButtonAvailableWidth;
+	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+	if ([preferredLocalization isEqualToString:@"English"])
+		buttonSize.width = AKAccountRegistrationButtonAvailableEnglishWidth;
+	else if ([preferredLocalization isEqualToString:@"Russian"])
+		buttonSize.width = AKAccountRegistrationButtonAvailableRussianWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonAvailableTitle];
+	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Available", @"Account registration Available menu item.")];
 	
 	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOnState];
 	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
@@ -372,9 +385,13 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 - (void)showUnregisteredMode
 {
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
-	buttonSize.width = AKAccountRegistrationButtonUnavailableWidth;
+	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+	if ([preferredLocalization isEqualToString:@"English"])
+		buttonSize.width = AKAccountRegistrationButtonUnavailableEnglishWidth;
+	else if ([preferredLocalization isEqualToString:@"Russian"])
+		buttonSize.width = AKAccountRegistrationButtonUnavailableRussianWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonUnavailableTitle];
+	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
 	
 	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
 	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
@@ -387,9 +404,13 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 - (void)showOfflineMode
 {
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
-	buttonSize.width = AKAccountRegistrationButtonOfflineWidth;
+	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+	if ([preferredLocalization isEqualToString:@"English"])
+		buttonSize.width = AKAccountRegistrationButtonOfflineEnglishWidth;
+	else if ([preferredLocalization isEqualToString:@"Russian"])
+		buttonSize.width = AKAccountRegistrationButtonOfflineRussianWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonOfflineTitle];
+	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Offline", @"Account registration Offline menu item.")];
 	
 	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
 	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
@@ -399,9 +420,13 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 - (void)showConnectingMode
 {
 	NSSize buttonSize = [accountRegistrationPopUp frame].size;
-	buttonSize.width = AKAccountRegistrationButtonConnectingWidth;
+	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+	if ([preferredLocalization isEqualToString:@"English"])
+		buttonSize.width = AKAccountRegistrationButtonConnectingEnglishWidth;
+	else if ([preferredLocalization isEqualToString:@"Russian"])
+		buttonSize.width = AKAccountRegistrationButtonConnectingRussianWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:AKAccountRegistrationButtonConnectingTitle];
+	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Connecting...", @"Account registration Connecting... menu item.")];
 }
 
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer
@@ -452,7 +477,9 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
 			
 			[updateCredentialsInformativeText setStringValue:
-			 [NSString stringWithFormat:@"Telehone was unable to login to %@. Change user name or password and try again.",
+			 [NSString stringWithFormat:NSLocalizedString(@"Telehone was unable to login to %@. " \
+														  "Change user name or password and try again.",
+														  @"Registrar authentication failed."),
 			  [[self account] registrar]]];
 			[newUsername setStringValue:[[self account] username]];
 			[newPassword setStringValue:@""];
@@ -468,10 +495,11 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 				   [[self account] registrationStatus] == PJSIP_EAUTHNOCHAL) {
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 			[alert addButtonWithTitle:@"OK"];
-			[alert setMessageText:[NSString stringWithFormat:@"SIP address \xe2\x80\x9c%@\xe2\x80\x9d does not match " \
-								   "the user name \xe2\x80\x9c%@\xe2\x80\x9d.",
+			[alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SIP address \\U201C%@\\U201D does not match " \
+								   "the user name \\U201C%@\\U201D.", @"SIP address does not match the user name."),
 								   [[self account] SIPAddress], [[self account] username]]];
-			[alert setInformativeText:@"Please check your SIP Address."];
+			[alert setInformativeText:NSLocalizedString(@"Please check your SIP Address.",
+														@"SIP address does not match the user name informative text.")];
 			[alert beginSheetModalForWindow:[self window]
 							  modalDelegate:nil
 							 didEndSelector:NULL
@@ -485,7 +513,8 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 			if ([[[NSApp delegate] telephone] started]) {
 				// Show a sheet if setAccountRegistered: was called.
 				if ([self attemptsToRegisterAccount] || [self attemptsToUnregisterAccount]) {
-					NSString *error = [NSString stringWithFormat:@"The error was: \xe2\x80\x9c%d %@\xe2\x80\x9d.",
+					NSString *error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
+																				   @"Error description."),
 									   [[self account] registrationStatus], [[self account] registrationStatusText]];
 					[self showRegistrarConnectionErrorSheetWithError:error];
 				} else {
@@ -540,7 +569,7 @@ NSString * const AKAccountRegistrationButtonConnectingTitle = @"Connecting...";
 	[[aCallController window] setTitle:[[aCall remoteURI] SIPAddress]];
 	AKSIPURIFormatter *formatter = [[[AKSIPURIFormatter alloc] init] autorelease];
 	[aCallController setDisplayedName:[formatter stringForObjectValue:[aCall remoteURI]]];
-	[aCallController setStatus:@"calling"];
+	[aCallController setStatus:[NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString]];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	
 	// Incoming call is very important, show the window higher than usual.

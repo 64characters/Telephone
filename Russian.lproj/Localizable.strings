@@ -1,0 +1,84 @@
+﻿/* Address not found. */
+"Address not found" = "Адрес не найден";
+
+/* Telephone quit confirmation informative text. */
+"All active calls will be disconnected." = "Будут прекращены все незавершенные звонки.";
+
+/* Telephone quit confirmation. */
+"Are you shure you want to quit Telephone?" = "Вы действительно хотите выйти из Телефона?";
+
+/* Account registration Available menu item. */
+"Available" = "Доступен";
+
+/* Busy. */
+"Busy" = "Занято";
+
+/* Call declined. */
+"Call declined" = "Звонок отклонен";
+
+/* Call ended. */
+"Call ended" = "Звонок завершен";
+
+/* Incoming call received. */
+"Calling" = "Звонит";
+
+/* Outgoing call in progress. */
+"Calling..." = "Звоним...";
+
+/* Cancel button. */
+"Cancel" = "Отмена";
+
+/* Account registration Connecting... menu item. */
+"Connecting..." = "Соединение...";
+
+/* Registrar connection error. */
+"Could not connect to server %@." = "Не удалось соединиться с сервером %@.";
+
+/* SIP user agent start error. */
+"Could not start SIP user agent." = "Не удалось запустить SIP-подсистему.";
+
+/* Account removal confirmation. */
+"Delete \\U201C%@\\U201D?" = "Удалить «%@»?";
+
+/* Don't save button. */
+"Don't Save" = "Не сохранять";
+
+/* STUN server change confirmation informative text. */
+"New STUN server settings will be applied immediately, all accounts will be reconnected." = "Настройки STUN-сервера сразу вступят в силу, все аккаунты будут переподсоединены.";
+
+/* Account registration Offline menu item. */
+"Offline" = "Офлайн";
+
+/* Registrar connection error informative text. */
+"Please check network connection and Registry Server settings." = "Пожалуйста, проверьте настройки сети и сервера регистраций.";
+
+/* SIP user agent start error informative text. */
+"Please check your network connection and STUN server settings." = "Пожалуйста, проверьте настройки сети и STUN-сервера.";
+
+/* SIP address does not match the user name informative text. */
+"Please check your SIP Address." = "Пожалуйста, проверьте SIP-адрес.";
+
+/* Remote party ringing. */
+"Ringing" = "Идет оповещение";
+
+/* Save button. */
+"Save" = "Сохранить";
+
+/* STUN server change confirmation. */
+"Save changes to STUN server settings?" = "Сохранить настройки STUN-сервера?";
+
+/* SIP address does not match the user name. */
+"SIP address \\U201C%@\\U201D does not match the user name \\U201C%@\\U201D." = "SIP-адрес «%1$@» не соответствует имени пользователя «%2$@».";
+
+/* Registrar authentication failed. */
+"Telehone was unable to login to %@. Change user name or password and try again." = "Телефон не смог залогиниться на сервер %@. Скорректируйте имя пользователя или пароль и попробуйте еще раз.";
+
+/* Error description. */
+"The error was: \\U201C%d %@\\U201D." = "Описание ошибки: «%1$d %2$@».";
+
+/* Account removal confirmation informative text. */
+"This will delete your currently set up account \\U201C%@\\U201D." = "Настроенный аккаунт «%@» будет удален.";
+
+/* Account registration Unavailable menu item. */
+"Unavailable" = "Недоступен";
+

@@ -195,7 +195,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
-	[self setStatus:@"calling..."];
+	[self setStatus:[NSLocalizedString(@"Calling...", @"Outgoing call in progress.") lowercaseString]];
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
@@ -204,7 +204,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
 	if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
 		[callProgressIndicator stopAnimation:self];
-		[self setStatus:@"ringing"];
+		[self setStatus:[NSLocalizedString(@"Ringing", @"Remote party ringing.") lowercaseString]];
 	}
 	
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
@@ -236,23 +236,27 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		[[self window] setLevel:NSNormalWindowLevel];
 	}
 	
+	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	switch ([[self call] lastStatus]) {
 		case PJSIP_SC_OK:
-			[self setStatus:@"call ended"];
+			[self setStatus:[NSLocalizedString(@"Call ended", @"Call ended.") lowercaseString]];
 			break;
 		case PJSIP_SC_NOT_FOUND:
-			[self setStatus:@"address not found"];
+			[self setStatus:[NSLocalizedString(@"Address not found", @"Address not found.") lowercaseString]];
 			break;
 
 		case PJSIP_SC_BUSY_HERE:
 		case PJSIP_SC_BUSY_EVERYWHERE:
-			[self setStatus:@"busy"];
+			[self setStatus:[NSLocalizedString(@"Busy", @"Busy.") lowercaseString]];
 			break;
 		case PJSIP_SC_DECLINE:
-			[self setStatus:@"call declined"];
+			[self setStatus:[NSLocalizedString(@"Call declined", @"Call declined.") lowercaseString]];
 				break;
 		default:
-			[self setStatus:[[[self call] lastStatusText] lowercaseString]];
+			if ([preferredLocalization isEqualToString:@"English"])
+				[self setStatus:[[[self call] lastStatusText] lowercaseString]];
+			else
+				[self setStatus:[[[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]] lowercaseString]];
 			break;
 	}
 	

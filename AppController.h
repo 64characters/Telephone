@@ -70,6 +70,8 @@
 - (void)stopIncomingCallSoundTimer;
 - (void)incomingCallSoundTimerTick:(NSTimer *)theTimer;
 
+- (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode;
+
 @end
 
 

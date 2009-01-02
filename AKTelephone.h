@@ -116,6 +116,8 @@ typedef struct _AKTelephoneCallData {
 // After calling this method, setSoundInputDevice:soundOutputDevice: must be called to set appropriate IO.
 - (void)updateAudioDevices;
 
+- (NSString *)stringForSIPResponseCode:(NSInteger)responseCode;
+
 @end
 
 

@@ -547,6 +547,195 @@ typedef enum _AKTelephoneRingtones {
 	pjmedia_snd_init(pjsua_get_pool_factory());
 }
 
+- (NSString *)stringForSIPResponseCode:(NSInteger)responseCode
+{
+	NSString *theString = nil;
+	
+	switch (responseCode) {
+			// Provisional 1xx.
+		case PJSIP_SC_TRYING:
+			theString = @"Trying";
+			break;
+		case PJSIP_SC_RINGING:
+			theString = @"Ringing";
+			break;
+		case PJSIP_SC_CALL_BEING_FORWARDED:
+			theString = @"Call Is Being Forwarded";
+			break;
+		case PJSIP_SC_QUEUED:
+			theString = @"Queued";
+			break;
+		case PJSIP_SC_PROGRESS:
+			theString = @"Session Progress";
+			break;
+			
+			// Successful 2xx.
+		case PJSIP_SC_OK:
+			theString = @"OK";
+			break;
+		case PJSIP_SC_ACCEPTED:
+			theString = @"Accepted";
+			break;
+			
+			// Redirection 3xx.
+		case PJSIP_SC_MULTIPLE_CHOICES:
+			theString = @"Multiple Choices";
+			break;
+		case PJSIP_SC_MOVED_PERMANENTLY:
+			theString = @"Moved Permanently";
+			break;
+		case PJSIP_SC_MOVED_TEMPORARILY:
+			theString = @"Moved Temporarily";
+			break;
+		case PJSIP_SC_USE_PROXY:
+			theString = @"Use Proxy";
+			break;
+		case PJSIP_SC_ALTERNATIVE_SERVICE:
+			theString = @"Alternative Service";
+			break;
+			
+			// Request Failure 4xx.
+		case PJSIP_SC_BAD_REQUEST:
+			theString = @"Bad Request";
+			break;
+		case PJSIP_SC_UNAUTHORIZED:
+			theString = @"Unauthorized";
+			break;
+		case PJSIP_SC_PAYMENT_REQUIRED:
+			theString = @"Payment Required";
+			break;
+		case PJSIP_SC_FORBIDDEN:
+			theString = @"Forbidden";
+			break;
+		case PJSIP_SC_NOT_FOUND:
+			theString = @"Not Found";
+			break;
+		case PJSIP_SC_METHOD_NOT_ALLOWED:
+			theString = @"Method Not Allowed";
+			break;
+		case PJSIP_SC_NOT_ACCEPTABLE:
+			theString = @"Not Acceptable";
+			break;
+		case PJSIP_SC_PROXY_AUTHENTICATION_REQUIRED:
+			theString = @"Proxy Authentication Required";
+			break;
+		case PJSIP_SC_REQUEST_TIMEOUT:
+			theString = @"Request Timeout";
+			break;
+		case PJSIP_SC_GONE:
+			theString = @"Gone";
+			break;
+		case PJSIP_SC_REQUEST_ENTITY_TOO_LARGE:
+			theString = @"Request Entity Too Large";
+			break;
+		case PJSIP_SC_REQUEST_URI_TOO_LONG:
+			theString = @"Request-URI Too Long";
+			break;
+		case PJSIP_SC_UNSUPPORTED_MEDIA_TYPE:
+			theString = @"Unsupported Media Type";
+			break;
+		case PJSIP_SC_UNSUPPORTED_URI_SCHEME:
+			theString = @"Unsupported URI Scheme";
+			break;
+		case PJSIP_SC_BAD_EXTENSION:
+			theString = @"Bad Extension";
+			break;
+		case PJSIP_SC_EXTENSION_REQUIRED:
+			theString = @"Extension Required";
+			break;
+		case PJSIP_SC_SESSION_TIMER_TOO_SMALL:
+			theString = @"Session Timer Too Small";
+			break;
+		case PJSIP_SC_INTERVAL_TOO_BRIEF:
+			theString = @"Interval Too Brief";
+			break;
+		case PJSIP_SC_TEMPORARILY_UNAVAILABLE:
+			theString = @"Temporarily Unavailable";
+			break;
+		case PJSIP_SC_CALL_TSX_DOES_NOT_EXIST:
+			theString = @"Call/Transaction Does Not Exist";
+			break;
+		case PJSIP_SC_LOOP_DETECTED:
+			theString = @"Loop Detected";
+			break;
+		case PJSIP_SC_TOO_MANY_HOPS:
+			theString = @"Too Many Hops";
+			break;
+		case PJSIP_SC_ADDRESS_INCOMPLETE:
+			theString = @"Address Incomplete";
+			break;
+		case PJSIP_AC_AMBIGUOUS:
+			theString = @"Ambiguous";
+			break;
+		case PJSIP_SC_BUSY_HERE:
+			theString = @"Busy Here";
+			break;
+		case PJSIP_SC_REQUEST_TERMINATED:
+			theString = @"Request Terminated";
+			break;
+		case PJSIP_SC_NOT_ACCEPTABLE_HERE:
+			theString = @"Not Acceptable Here";
+			break;
+		case PJSIP_SC_BAD_EVENT:
+			theString = @"Bad Event";
+			break;
+		case PJSIP_SC_REQUEST_UPDATED:
+			theString = @"Request Updated";
+			break;
+		case PJSIP_SC_REQUEST_PENDING:
+			theString = @"Request Pending";
+			break;
+		case PJSIP_SC_UNDECIPHERABLE:
+			theString = @"Undecipherable";
+			break;
+			
+			// Server Failure 5xx.
+		case PJSIP_SC_INTERNAL_SERVER_ERROR:
+			theString = @"Server Internal Error";
+			break;
+		case PJSIP_SC_NOT_IMPLEMENTED:
+			theString = @"Not Implemented";
+			break;
+		case PJSIP_SC_BAD_GATEWAY:
+			theString = @"Bad Gateway";
+			break;
+		case PJSIP_SC_SERVICE_UNAVAILABLE:
+			theString = @"Service Unavailable";
+			break;
+		case PJSIP_SC_SERVER_TIMEOUT:
+			theString = @"Server Time-out";
+			break;
+		case PJSIP_SC_VERSION_NOT_SUPPORTED:
+			theString = @"Version Not Supported";
+			break;
+		case PJSIP_SC_MESSAGE_TOO_LARGE:
+			theString = @"Message Too Large";
+			break;
+		case PJSIP_SC_PRECONDITION_FAILURE:
+			theString = @"Precondition Failure";
+			break;
+			
+			// Global Failures 6xx.
+		case PJSIP_SC_BUSY_EVERYWHERE:
+			theString = @"Busy Everywhere";
+			break;
+		case PJSIP_SC_DECLINE:
+			theString = @"Decline";
+			break;
+		case PJSIP_SC_DOES_NOT_EXIST_ANYWHERE:
+			theString = @"Does Not Exist Anywhere";
+			break;
+		case PJSIP_SC_NOT_ACCEPTABLE_ANYWHERE:
+			theString = @"Not Acceptable";
+			break;
+		default:
+			theString = [NSString stringWithFormat:@"Response code: %d", responseCode];
+			break;
+	}
+	
+	return theString;
+}
+
 @end
 
 

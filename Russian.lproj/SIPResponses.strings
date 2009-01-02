@@ -1,0 +1,166 @@
+﻿/* 202 Accepted. */
+"Accepted" = "Принято для обработки";
+
+/* 484 Address Incomplete. */
+"Address Incomplete" = "Неполный адрес";
+
+/* 380 Alternative Service. */
+"Alternative Service" = "Доступны альтернативные услуги";
+
+/* 485 Ambiguous. */
+"Ambiguous" = "Адрес неоднозначен";
+
+/* 489 Bad Event. */
+"Bad Event" = "Bad Event";
+
+/* 420 Bad Extension. */
+"Bad Extension" = "Неизвестное расширение";
+
+/* 502 Bad Gateway. */
+"Bad Gateway" = "Сервер получил некорректный ответ от запрашиваемого сервера";
+
+/* 400 Bad Request. */
+"Bad Request" = "Запрос не распознан";
+
+/* 600 Busy Everywhere. */
+"Busy Everywhere" = "Занято";
+
+/* 486 Busy Here. */
+"Busy Here" = "Занято";
+
+/* 181 Call Is Being Forwarded. */
+"Call Is Being Forwarded" = "Звонок переводится";
+
+/* 481 Call/Transaction Does Not Exist. */
+"Call/Transaction Does Not Exist" = "Не существует такого звонка или транзакции";
+
+/* 603 Decline. */
+"Decline" = "Звонок отклонен";
+
+/* 604 Does Not Exist Anywhere. */
+"Does Not Exist Anywhere" = "Нет такого пользователя";
+
+/* 421 Extension Required. */
+"Extension Required" = "Не указано расширение";
+
+/* 403 Forbidden. */
+"Forbidden" = "Запрещено";
+
+/* 410 Gone. */
+"Gone" = "Больше не доступно";
+
+/* 423 Interval Too Brief. */
+"Interval Too Brief" = "Недостаточный временной интервал";
+
+/* 482 Loop Detected. */
+"Loop Detected" = "Замкнутый маршрут";
+
+/* 513 Message Too Large. */
+"Message Too Large" = "Слишком большое сообщение";
+
+/* 405 Method Not Allowed. */
+"Method Not Allowed" = "Метод не поддерживается";
+
+/* 301 Moved Permanently. */
+"Moved Permanently" = "Больше не доступен по этому адресу";
+
+/* 302 Moved Temporarily. */
+"Moved Temporarily" = "Временно сменил местоположение";
+
+/* 300 Multiple Choices. */
+"Multiple Choices" = "Несколько вариантов";
+
+/* 406 Not Acceptable.
+   606 Not Acceptable. */
+"Not Acceptable" = "Недопустимо";
+
+/* 488 Not Acceptable Here. */
+"Not Acceptable Here" = "Недопустимо для данного адреса";
+
+/* 404 Not Found. */
+"Not Found" = "Не найдено";
+
+/* 501 Not Implemented. */
+"Not Implemented" = "Не поддерживается сервером";
+
+/* 200 OK. */
+"OK" = "OK";
+
+/* 402 Payment Required. */
+"Payment Required" = "Требуется оплата";
+
+/* 580 Precondition Failure. */
+"Precondition Failure" = "Предварительная ошибка";
+
+/* 407 Proxy Authentication Required. */
+"Proxy Authentication Required" = "Необходима аутентификация на прокси-сервере";
+
+/* 182 Queued. */
+"Queued" = "Звонок поставлен в очередь";
+
+/* 413 Request Entity Too Large. */
+"Request Entity Too Large" = "Размер запроса слишком велик";
+
+/* 491 Request Pending. */
+"Request Pending" = "Для данного диалога уже существует запрос";
+
+/* 487 Request Terminated. */
+"Request Terminated" = "Запрос отменен";
+
+/* 408 Request Timeout. */
+"Request Timeout" = "Максимальное время обработки запроса истекло";
+
+/* 490 Request Updated. */
+"Request Updated" = "Запрос обновлен";
+
+/* 414 Request-URI Too Long. */
+"Request-URI Too Long" = "Слишком длинный Request-URI";
+
+/* Unknown response codes. */
+"Response code: %d" = "Код ответа: %d";
+
+/* 180 Ringing. */
+"Ringing" = "Идет оповещение";
+
+/* 500 Server Internal Error. */
+"Server Internal Error" = "Ошибка сервера";
+
+/* 504 Server Time-out. */
+"Server Time-out" = "Тайм-аут сервера";
+
+/* 503 Service Unavailable. */
+"Service Unavailable" = "Сервер не может обслужить запрос";
+
+/* 183 Session Progress. */
+"Session Progress" = "В процессе";
+
+/* 422 Session Timer Too Small. */
+"Session Timer Too Small" = "Session Timer Too Small";
+
+/* 480 Temporarily Unavailable. */
+"Temporarily Unavailable" = "Временно недоступен";
+
+/* 483 Too Many Hops. */
+"Too Many Hops" = "Превышено число промежуточных узлов";
+
+/* 100 Trying. */
+"Trying" = "Запрос обрабатывается";
+
+/* 401 Unauthorized. */
+"Unauthorized" = "Не авторизован";
+
+/* 493 Undecipherable. */
+"Undecipherable" = "Невозможно расшифровать";
+
+/* 415 Unsupported Media Type. */
+"Unsupported Media Type" = "Неподдерживаемый кодек";
+
+/* 416 Unsupported URI Scheme. */
+"Unsupported URI Scheme" = "Неподдерживаемая структура URI";
+
+/* 305 Use Proxy. */
+"Use Proxy" = "Следует связываться через прокси";
+
+/* 505 Version Not Supported. */
+"Version Not Supported" = "Версия протокола не поддерживается";
+

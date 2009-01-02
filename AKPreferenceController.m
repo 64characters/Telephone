@@ -259,14 +259,14 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 									 accountName:[setupUsername stringValue]
 										password:[setupPassword stringValue]];
 	
+	[self closeSheet:sender];
+	
 	if (success) {
 		// Post notification with account just added
 		[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidAddAccountNotification
 															object:self
 														  userInfo:accountDict];
 	}
-	
-	[self closeSheet:sender];
 	
 	// Set the selection to the new account
 	NSUInteger index = [[defaults arrayForKey:AKAccounts] count] - 1;
@@ -291,9 +291,13 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:@"Delete"];
 	[alert addButtonWithTitle:@"Cancel"];
-	[alert setMessageText:[NSString stringWithFormat:@"Delete \xe2\x80\x9c%@\xe2\x80\x9d?", selectedAccount]];
-	[alert setInformativeText:[NSString stringWithFormat:@"This will delete your currently set up account " \
-							   "\xe2\x80\x9c%@\xe2\x80\x9d.", selectedAccount]];
+	[alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Delete \\U201C%@\\U201D?",
+																	   @"Account removal confirmation."),
+						   selectedAccount]];
+	[alert setInformativeText:[NSString stringWithFormat:
+							   NSLocalizedString(@"This will delete your currently set up account \\U201C%@\\U201D.",
+												 @"Account removal confirmation informative text."),
+							   selectedAccount]];
 	[alert setAlertStyle:NSWarningAlertStyle];
 	[alert beginSheetModalForWindow:[accountsTable window]
 					  modalDelegate:self
@@ -517,11 +521,12 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		
 		// Show alert to the user.
 		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-		[alert addButtonWithTitle:@"Save"];
-		[alert addButtonWithTitle:@"Cancel"];
-		[alert addButtonWithTitle:@"Don't Save"];
-		[alert setMessageText:@"Save changes to STUN server settings?"];
-		[alert setInformativeText:@"New STUN server settings will be applied immediately, all accounts will be reconnected."];
+		[alert addButtonWithTitle:NSLocalizedString(@"Save", @"Save button.")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
+		[alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't save button.")];
+		[alert setMessageText:NSLocalizedString(@"Save changes to STUN server settings?", @"STUN server change confirmation.")];
+		[alert setInformativeText:NSLocalizedString(@"New STUN server settings will be applied immediately, all accounts will be reconnected.",
+													@"STUN server change confirmation informative text.")];
 		[alert beginSheetModalForWindow:[self window]
 						  modalDelegate:self
 						 didEndSelector:@selector(STUNServerAlertDidEnd:returnCode:contextInfo:)
@@ -534,6 +539,9 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 
 - (void)STUNServerAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
+	// Close the sheet.
+	[[alert window] orderOut:nil];
+	
 	if (returnCode == NSAlertSecondButtonReturn)
 		return;
 	

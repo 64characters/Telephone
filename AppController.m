@@ -478,6 +478,196 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[self incomingCallSound] play];
 }
 
+- (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode
+{
+	NSString *localizedString = nil;
+	
+	switch (responseCode) {
+			// Provisional 1xx.
+		case PJSIP_SC_TRYING:
+			localizedString = NSLocalizedStringFromTable(@"Trying", @"SIPResponses", @"100 Trying.");
+			break;
+		case PJSIP_SC_RINGING:
+			localizedString = NSLocalizedStringFromTable(@"Ringing", @"SIPResponses", @"180 Ringing.");
+			break;
+		case PJSIP_SC_CALL_BEING_FORWARDED:
+			localizedString = NSLocalizedStringFromTable(@"Call Is Being Forwarded", @"SIPResponses", @"181 Call Is Being Forwarded.");
+			break;
+		case PJSIP_SC_QUEUED:
+			localizedString = NSLocalizedStringFromTable(@"Queued", @"SIPResponses", @"182 Queued.");
+			break;
+		case PJSIP_SC_PROGRESS:
+			localizedString = NSLocalizedStringFromTable(@"Session Progress", @"SIPResponses", @"183 Session Progress.");
+			break;
+			
+			// Successful 2xx.
+		case PJSIP_SC_OK:
+			localizedString = NSLocalizedStringFromTable(@"OK", @"SIPResponses", @"200 OK.");
+			break;
+		case PJSIP_SC_ACCEPTED:
+			localizedString = NSLocalizedStringFromTable(@"Accepted", @"SIPResponses", @"202 Accepted.");
+			break;
+			
+			// Redirection 3xx.
+		case PJSIP_SC_MULTIPLE_CHOICES:
+			localizedString = NSLocalizedStringFromTable(@"Multiple Choices", @"SIPResponses", @"300 Multiple Choices.");
+			break;
+		case PJSIP_SC_MOVED_PERMANENTLY:
+			localizedString = NSLocalizedStringFromTable(@"Moved Permanently", @"SIPResponses", @"301 Moved Permanently.");
+			break;
+		case PJSIP_SC_MOVED_TEMPORARILY:
+			localizedString = NSLocalizedStringFromTable(@"Moved Temporarily", @"SIPResponses", @"302 Moved Temporarily.");
+			break;
+		case PJSIP_SC_USE_PROXY:
+			localizedString = NSLocalizedStringFromTable(@"Use Proxy", @"SIPResponses", @"305 Use Proxy.");
+			break;
+		case PJSIP_SC_ALTERNATIVE_SERVICE:
+			localizedString = NSLocalizedStringFromTable(@"Alternative Service", @"SIPResponses", @"380 Alternative Service.");
+			break;
+			
+			// Request Failure 4xx.
+		case PJSIP_SC_BAD_REQUEST:
+			localizedString = NSLocalizedStringFromTable(@"Bad Request", @"SIPResponses", @"400 Bad Request.");
+			break;
+		case PJSIP_SC_UNAUTHORIZED:
+			localizedString = NSLocalizedStringFromTable(@"Unauthorized", @"SIPResponses", @"401 Unauthorized.");
+			break;
+		case PJSIP_SC_PAYMENT_REQUIRED:
+			localizedString = NSLocalizedStringFromTable(@"Payment Required", @"SIPResponses", @"402 Payment Required.");
+			break;
+		case PJSIP_SC_FORBIDDEN:
+			localizedString = NSLocalizedStringFromTable(@"Forbidden", @"SIPResponses", @"403 Forbidden.");
+			break;
+		case PJSIP_SC_NOT_FOUND:
+			localizedString = NSLocalizedStringFromTable(@"Not Found", @"SIPResponses", @"404 Not Found.");
+			break;
+		case PJSIP_SC_METHOD_NOT_ALLOWED:
+			localizedString = NSLocalizedStringFromTable(@"Method Not Allowed", @"SIPResponses", @"405 Method Not Allowed.");
+			break;
+		case PJSIP_SC_NOT_ACCEPTABLE:
+			localizedString = NSLocalizedStringFromTable(@"Not Acceptable", @"SIPResponses", @"406 Not Acceptable.");
+			break;
+		case PJSIP_SC_PROXY_AUTHENTICATION_REQUIRED:
+			localizedString = NSLocalizedStringFromTable(@"Proxy Authentication Required", @"SIPResponses", @"407 Proxy Authentication Required.");
+			break;
+		case PJSIP_SC_REQUEST_TIMEOUT:
+			localizedString = NSLocalizedStringFromTable(@"Request Timeout", @"SIPResponses", @"408 Request Timeout.");
+			break;
+		case PJSIP_SC_GONE:
+			localizedString = NSLocalizedStringFromTable(@"Gone", @"SIPResponses", @"410 Gone.");
+			break;
+		case PJSIP_SC_REQUEST_ENTITY_TOO_LARGE:
+			localizedString = NSLocalizedStringFromTable(@"Request Entity Too Large", @"SIPResponses", @"413 Request Entity Too Large.");
+			break;
+		case PJSIP_SC_REQUEST_URI_TOO_LONG:
+			localizedString = NSLocalizedStringFromTable(@"Request-URI Too Long", @"SIPResponses", @"414 Request-URI Too Long.");
+			break;
+		case PJSIP_SC_UNSUPPORTED_MEDIA_TYPE:
+			localizedString = NSLocalizedStringFromTable(@"Unsupported Media Type", @"SIPResponses", @"415 Unsupported Media Type.");
+			break;
+		case PJSIP_SC_UNSUPPORTED_URI_SCHEME:
+			localizedString = NSLocalizedStringFromTable(@"Unsupported URI Scheme", @"SIPResponses", @"416 Unsupported URI Scheme.");
+			break;
+		case PJSIP_SC_BAD_EXTENSION:
+			localizedString = NSLocalizedStringFromTable(@"Bad Extension", @"SIPResponses", @"420 Bad Extension.");
+			break;
+		case PJSIP_SC_EXTENSION_REQUIRED:
+			localizedString = NSLocalizedStringFromTable(@"Extension Required", @"SIPResponses", @"421 Extension Required.");
+			break;
+		case PJSIP_SC_SESSION_TIMER_TOO_SMALL:
+			localizedString = NSLocalizedStringFromTable(@"Session Timer Too Small", @"SIPResponses", @"422 Session Timer Too Small.");
+			break;
+		case PJSIP_SC_INTERVAL_TOO_BRIEF:
+			localizedString = NSLocalizedStringFromTable(@"Interval Too Brief", @"SIPResponses", @"423 Interval Too Brief.");
+			break;
+		case PJSIP_SC_TEMPORARILY_UNAVAILABLE:
+			localizedString = NSLocalizedStringFromTable(@"Temporarily Unavailable", @"SIPResponses", @"480 Temporarily Unavailable.");
+			break;
+		case PJSIP_SC_CALL_TSX_DOES_NOT_EXIST:
+			localizedString = NSLocalizedStringFromTable(@"Call/Transaction Does Not Exist", @"SIPResponses", @"481 Call/Transaction Does Not Exist.");
+			break;
+		case PJSIP_SC_LOOP_DETECTED:
+			localizedString = NSLocalizedStringFromTable(@"Loop Detected", @"SIPResponses", @"482 Loop Detected.");
+			break;
+		case PJSIP_SC_TOO_MANY_HOPS:
+			localizedString = NSLocalizedStringFromTable(@"Too Many Hops", @"SIPResponses", @"483 Too Many Hops.");
+			break;
+		case PJSIP_SC_ADDRESS_INCOMPLETE:
+			localizedString = NSLocalizedStringFromTable(@"Address Incomplete", @"SIPResponses", @"484 Address Incomplete.");
+			break;
+		case PJSIP_AC_AMBIGUOUS:
+			localizedString = NSLocalizedStringFromTable(@"Ambiguous", @"SIPResponses", @"485 Ambiguous.");
+			break;
+		case PJSIP_SC_BUSY_HERE:
+			localizedString = NSLocalizedStringFromTable(@"Busy Here", @"SIPResponses", @"486 Busy Here.");
+			break;
+		case PJSIP_SC_REQUEST_TERMINATED:
+			localizedString = NSLocalizedStringFromTable(@"Request Terminated", @"SIPResponses", @"487 Request Terminated.");
+			break;
+		case PJSIP_SC_NOT_ACCEPTABLE_HERE:
+			localizedString = NSLocalizedStringFromTable(@"Not Acceptable Here", @"SIPResponses", @"488 Not Acceptable Here.");
+			break;
+		case PJSIP_SC_BAD_EVENT:
+			localizedString = NSLocalizedStringFromTable(@"Bad Event", @"SIPResponses", @"489 Bad Event.");
+			break;
+		case PJSIP_SC_REQUEST_UPDATED:
+			localizedString = NSLocalizedStringFromTable(@"Request Updated", @"SIPResponses", @"490 Request Updated.");
+			break;
+		case PJSIP_SC_REQUEST_PENDING:
+			localizedString = NSLocalizedStringFromTable(@"Request Pending", @"SIPResponses", @"491 Request Pending.");
+			break;
+		case PJSIP_SC_UNDECIPHERABLE:
+			localizedString = NSLocalizedStringFromTable(@"Undecipherable", @"SIPResponses", @"493 Undecipherable.");
+			break;
+			
+			// Server Failure 5xx.
+		case PJSIP_SC_INTERNAL_SERVER_ERROR:
+			localizedString = NSLocalizedStringFromTable(@"Server Internal Error", @"SIPResponses", @"500 Server Internal Error.");
+			break;
+		case PJSIP_SC_NOT_IMPLEMENTED:
+			localizedString = NSLocalizedStringFromTable(@"Not Implemented", @"SIPResponses", @"501 Not Implemented.");
+			break;
+		case PJSIP_SC_BAD_GATEWAY:
+			localizedString = NSLocalizedStringFromTable(@"Bad Gateway", @"SIPResponses", @"502 Bad Gateway.");
+			break;
+		case PJSIP_SC_SERVICE_UNAVAILABLE:
+			localizedString = NSLocalizedStringFromTable(@"Service Unavailable", @"SIPResponses", @"503 Service Unavailable.");
+			break;
+		case PJSIP_SC_SERVER_TIMEOUT:
+			localizedString = NSLocalizedStringFromTable(@"Server Time-out", @"SIPResponses", @"504 Server Time-out.");
+			break;
+		case PJSIP_SC_VERSION_NOT_SUPPORTED:
+			localizedString = NSLocalizedStringFromTable(@"Version Not Supported", @"SIPResponses", @"505 Version Not Supported.");
+			break;
+		case PJSIP_SC_MESSAGE_TOO_LARGE:
+			localizedString = NSLocalizedStringFromTable(@"Message Too Large", @"SIPResponses", @"513 Message Too Large.");
+			break;
+		case PJSIP_SC_PRECONDITION_FAILURE:
+			localizedString = NSLocalizedStringFromTable(@"Precondition Failure", @"SIPResponses", @"580 Precondition Failure.");
+			break;
+			
+			// Global Failures 6xx.
+		case PJSIP_SC_BUSY_EVERYWHERE:
+			localizedString = NSLocalizedStringFromTable(@"Busy Everywhere", @"SIPResponses", @"600 Busy Everywhere.");
+			break;
+		case PJSIP_SC_DECLINE:
+			localizedString = NSLocalizedStringFromTable(@"Decline", @"SIPResponses", @"603 Decline.");
+			break;
+		case PJSIP_SC_DOES_NOT_EXIST_ANYWHERE:
+			localizedString = NSLocalizedStringFromTable(@"Does Not Exist Anywhere", @"SIPResponses", @"604 Does Not Exist Anywhere.");
+			break;
+		case PJSIP_SC_NOT_ACCEPTABLE_ANYWHERE:
+			localizedString = NSLocalizedStringFromTable(@"Not Acceptable", @"SIPResponses", @"606 Not Acceptable.");
+			break;
+		default:
+			localizedString = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Response code: %d", @"SIPResponses", @"Unknown response codes."),
+							   responseCode];
+			break;
+	}
+	
+	return localizedString;
+}
+
 
 #pragma mark -
 #pragma mark AKPreferenceController delegate
@@ -510,7 +700,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[[self telephone] removeAccount:[anAccountController account]];
 	
 	[[self accountControllers] removeObjectAtIndex:index];
-	[[anAccountController window] orderOut:nil];
 }
 
 - (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification
@@ -611,13 +800,14 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		started = [[self telephone] startUserAgent];
 	
 	if (!started) {
-		NSLog(@"Could not start Telephone agent. Please check your network connection and STUN server settings.");
+		NSLog(@"Could not start SIP user agent. Please check your network connection and STUN server settings.");
 		
 		// Display application modal alert.
 		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 		[alert addButtonWithTitle:@"OK"];
-		[alert setMessageText:@"Could not start Telephone agent."];
-		[alert setInformativeText:@"Please check your network connection and STUN server settings."];
+		[alert setMessageText:NSLocalizedString(@"Could not start SIP user agent.", @"SIP user agent start error.")];
+		[alert setInformativeText:NSLocalizedString(@"Please check your network connection and STUN server settings.",
+													@"SIP user agent start error informative text.")];
 		[alert runModal];
 		
 		return NO;
@@ -673,8 +863,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 			[alert addButtonWithTitle:@"Quit"];
 			[alert addButtonWithTitle:@"Cancel"];
-			[alert setMessageText:@"Are you shure you want to quit Telephone?"];
-			[alert setInformativeText:@"All active calls will be disconnected."];
+			[alert setMessageText:NSLocalizedString(@"Are you shure you want to quit Telephone?", @"Telephone quit confirmation.")];
+			[alert setInformativeText:NSLocalizedString(@"All active calls will be disconnected.", @"Telephone quit confirmation informative text.")];
 			
 			NSInteger choice = [alert runModal];
 			if (choice == NSAlertFirstButtonReturn)
