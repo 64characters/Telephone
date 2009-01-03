@@ -191,7 +191,6 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 
 - (void)awakeFromNib
 {
-	NSLog(@"Localizations: %@", [[NSBundle mainBundle] preferredLocalizations]);
 	[self setShouldCascadeWindows:NO];
 	[[self window] setFrameAutosaveName:[[self account] SIPAddress]];
 	

@@ -688,6 +688,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 												  realm:[accountDict objectForKey:AKRealm]
 												  username:[accountDict objectForKey:AKUsername]]
 												 autorelease];
+	[theAccountController setEnabled:YES];
 	
 	[[self accountControllers] addObject:theAccountController];
 	
@@ -717,29 +718,34 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
 	
 	BOOL isEnabled = [[accountDict objectForKey:AKAccountEnabled] boolValue];
-	
-	AKAccountController *theAccountController = [[self accountControllers] objectAtIndex:index];
-	[theAccountController setEnabled:isEnabled];
 	if (isEnabled) {
-		AKTelephoneAccount *theAccount = [[[AKTelephoneAccount alloc] initWithFullName:[accountDict objectForKey:AKFullName]
-																			SIPAddress:[accountDict objectForKey:AKSIPAddress]
-																			 registrar:[accountDict objectForKey:AKRegistrar]
-																				 realm:[accountDict objectForKey:AKRealm]
-																			  username:[accountDict objectForKey:AKUsername]]
-										  autorelease];
+		AKAccountController *theAccountController = [[AKAccountController alloc]
+													  initWithFullName:[accountDict objectForKey:AKFullName]
+													  SIPAddress:[accountDict objectForKey:AKSIPAddress]
+													  registrar:[accountDict objectForKey:AKRegistrar]
+													  realm:[accountDict objectForKey:AKRealm]
+													  username:[accountDict objectForKey:AKUsername]];
+		[theAccountController setEnabled:isEnabled];
 		
-		[theAccountController setAccount:theAccount];
-		[theAccount setDelegate:theAccountController];
+		[[self accountControllers] replaceObjectAtIndex:index withObject:theAccountController];
 
 		[[theAccountController window] orderFront:nil];
 		
 		// Register account (as a result, it will be added to Telephone).
 		[theAccountController setAccountRegistered:YES];
 		
+		[theAccountController release];
+		
 	} else {
+		AKAccountController *theAccountController = [[self accountControllers] objectAtIndex:index];
+		[theAccountController setEnabled:isEnabled];
+		
 		// Remove account from Telephone.
 		[[self telephone] removeAccount:[theAccountController account]];
 		[[theAccountController window] orderOut:nil];
+
+		// Prevent conflict with setFrameAutosaveName: when re-enabling the account.
+		[theAccountController setWindow:nil];
 	}
 }
 
