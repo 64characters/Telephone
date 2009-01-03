@@ -8,10 +8,10 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="41"/>
-			<integer value="51"/>
 			<integer value="1"/>
+			<integer value="51"/>
 			<integer value="19"/>
+			<integer value="41"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -150,7 +150,7 @@
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="935489398">
 							<int key="NSCellFlags">68288064</int>
-							<int key="NSCellFlags2">272630784</int>
+							<int key="NSCellFlags2">272761856</int>
 							<string key="NSContents">Status</string>
 							<object class="NSFont" key="NSSupport" id="613328177">
 								<string key="NSName">LucidaGrande</string>
@@ -206,7 +206,7 @@
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="43986684">
 							<int key="NSCellFlags">68288064</int>
-							<int key="NSCellFlags2">272630784</int>
+							<int key="NSCellFlags2">272761856</int>
 							<string key="NSContents">Status</string>
 							<reference key="NSSupport" ref="613328177"/>
 							<reference key="NSControlView" ref="517167432"/>
@@ -248,7 +248,7 @@
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="773608666">
 							<int key="NSCellFlags">68288064</int>
-							<int key="NSCellFlags2">272630784</int>
+							<int key="NSCellFlags2">272761856</int>
 							<string key="NSContents">Status</string>
 							<reference key="NSSupport" ref="613328177"/>
 							<reference key="NSControlView" ref="65984957"/>
@@ -711,9 +711,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilderKit</string>
-					<string>{{324, 808}, {300, 90}}</string>
+					<string>{{324, 766}, {300, 90}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{324, 808}, {300, 90}}</string>
+					<string>{{324, 766}, {300, 90}}</string>
 					<integer value="0" id="8"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
