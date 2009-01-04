@@ -119,11 +119,25 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
 			if ([[[NSApp delegate] telephone] started]) {
 				[self showUnregisteredMode];
+				
+				NSString *statusText;
+				NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+				if ([preferredLocalization isEqualToString:@"English"])
+					statusText = [[self account] registrationStatusText];
+				else
+					statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
+				
+				NSString *error;
+				if (statusText == nil)
+					error = [NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."), [[self account] registrationStatus]];
+				else
+					error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
+																		 @"Error description."),
+							 [[self account] registrationStatus], statusText];
+				
 				// Show a sheet.
-				NSString *error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
-																			   @"Error description."),
-								   [[self account] registrationStatus], [[self account] registrationStatusText]];
 				[self showRegistrarConnectionErrorSheetWithError:error];
+				
 			} else {
 				[self showOfflineMode];
 			}
@@ -313,9 +327,22 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		// Error connecting to registrar.
 		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
 			[self showUnregisteredMode];
-			NSString *error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
-																		   @"Error description."),
-							   [[self account] registrationStatus], [[self account] registrationStatusText]];
+			
+			NSString *statusText;
+			NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+			if ([preferredLocalization isEqualToString:@"English"])
+				statusText = [[self account] registrationStatusText];
+			else
+				statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
+			
+			NSString *error;
+			if (statusText == nil)
+				error = [NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."), [[self account] registrationStatus]];
+			else
+				error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
+																	 @"Error description."),
+						 [[self account] registrationStatus], statusText];
+			
 			[self showRegistrarConnectionErrorSheetWithError:error];
 		}
 		
@@ -512,10 +539,23 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 			if ([[[NSApp delegate] telephone] started]) {
 				// Show a sheet if setAccountRegistered: was called.
 				if ([self attemptsToRegisterAccount] || [self attemptsToUnregisterAccount]) {
-					NSString *error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
-																				   @"Error description."),
-									   [[self account] registrationStatus], [[self account] registrationStatusText]];
+					NSString *statusText;
+					NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+					if ([preferredLocalization isEqualToString:@"English"])
+						statusText = [[self account] registrationStatusText];
+					else
+						statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
+					
+					NSString *error;
+					if (statusText == nil)
+						error = [NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."), [[self account] registrationStatus]];
+					else
+						error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
+																			 @"Error description."),
+								 [[self account] registrationStatus], statusText];
+					
 					[self showRegistrarConnectionErrorSheetWithError:error];
+
 				} else {
 					// Schedule account automatic re-registration timer.
 					if ([self reRegistrationTimer] == nil)

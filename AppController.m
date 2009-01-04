@@ -666,8 +666,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			localizedString = NSLocalizedStringFromTable(@"Not Acceptable", @"SIPResponses", @"606 Not Acceptable.");
 			break;
 		default:
-			localizedString = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Response code: %d", @"SIPResponses", @"Unknown response codes."),
-							   responseCode];
+			localizedString = nil;
 			break;
 	}
 	

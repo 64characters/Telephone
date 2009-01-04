@@ -116,9 +116,6 @@
 /* 414 Request-URI Too Long. */
 "Request-URI Too Long" = "Слишком длинный Request-URI";
 
-/* Unknown response codes. */
-"Response code: %d" = "Код ответа: %d";
-
 /* 180 Ringing. */
 "Ringing" = "Идет оповещение";
 
