@@ -8,11 +8,11 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="148"/>
 			<integer value="150"/>
 			<integer value="77"/>
 			<integer value="260"/>
 			<integer value="251"/>
+			<integer value="148"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -578,13 +578,13 @@ A</string>
 									<object class="NSTextField" id="365779455">
 										<reference key="NSNextResponder" ref="884436339"/>
 										<int key="NSvFlags">268</int>
-										<string key="NSFrame">{{117, 183}, {30, 14}}</string>
+										<string key="NSFrame">{{49, 183}, {98, 14}}</string>
 										<reference key="NSSuperview" ref="884436339"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="538266140">
 											<int key="NSCellFlags">68288064</int>
 											<int key="NSCellFlags2">272761856</int>
-											<string type="base64-UTF8" key="NSContents">0JjQvNGPOg</string>
+											<string type="base64-UTF8" key="NSContents">0JjQvNGPINGBINGE0LDQvNC40LvQuNC10Lk6A</string>
 											<reference key="NSSupport" ref="1063122093"/>
 											<reference key="NSControlView" ref="365779455"/>
 											<object class="NSColor" key="NSBackgroundColor" id="1048032501">

@@ -222,13 +222,13 @@
 										<object class="NSTextField" id="266594306">
 											<reference key="NSNextResponder" ref="791951035"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{159, 239}, {34, 17}}</string>
+											<string key="NSFrame">{{78, 239}, {115, 17}}</string>
 											<reference key="NSSuperview" ref="791951035"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="195881564">
 												<int key="NSCellFlags">68288064</int>
 												<int key="NSCellFlags2">272630784</int>
-												<string type="base64-UTF8" key="NSContents">0JjQvNGPOg</string>
+												<string type="base64-UTF8" key="NSContents">0JjQvNGPINGBINGE0LDQvNC40LvQuNC10Lk6A</string>
 												<reference key="NSSupport" ref="781281528"/>
 												<reference key="NSControlView" ref="266594306"/>
 												<reference key="NSBackgroundColor" ref="1026103737"/>
