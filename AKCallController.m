@@ -253,10 +253,17 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 			[self setStatus:[NSLocalizedString(@"Call declined", @"Call declined.") lowercaseString]];
 				break;
 		default:
-			if ([preferredLocalization isEqualToString:@"English"])
+			if ([preferredLocalization isEqualToString:@"English"]) {
 				[self setStatus:[[[self call] lastStatusText] lowercaseString]];
-			else
-				[self setStatus:[[[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]] lowercaseString]];
+			} else {
+				NSString *statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]];
+				if (statusText == nil)
+					[self setStatus:[[NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."),
+									  [[self call] lastStatus]]
+									 lowercaseString]];
+				else
+					[self setStatus:[[[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]] lowercaseString]];
+			}
 			break;
 	}
 	
