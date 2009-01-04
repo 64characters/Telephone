@@ -44,7 +44,7 @@
 "Don't Save" = "Не сохранять";
 
 /* Error #. */
-"Error %d." = "Ошибка %d.";
+"Error %d" = "Ошибка %d";
 
 /* STUN server change confirmation informative text. */
 "New STUN server settings will be applied immediately, all accounts will be reconnected." = "Настройки STUN-сервера сразу вступят в силу, все аккаунты будут переподсоединены.";

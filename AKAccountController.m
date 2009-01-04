@@ -128,12 +128,14 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 					statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
 				
 				NSString *error;
-				if (statusText == nil)
-					error = [NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."), [[self account] registrationStatus]];
-				else
+				if (statusText == nil) {
+					error = [NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."), [[self account] registrationStatus]];
+					error = [error stringByAppendingString:@"."];
+				} else {
 					error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
 																		 @"Error description."),
 							 [[self account] registrationStatus], statusText];
+				}
 				
 				// Show a sheet.
 				[self showRegistrarConnectionErrorSheetWithError:error];
@@ -336,12 +338,14 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 				statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
 			
 			NSString *error;
-			if (statusText == nil)
-				error = [NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."), [[self account] registrationStatus]];
-			else
+			if (statusText == nil) {
+				error = [NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."), [[self account] registrationStatus]];
+				error = [error stringByAppendingString:@"."];
+			} else {
 				error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
 																	 @"Error description."),
 						 [[self account] registrationStatus], statusText];
+			}
 			
 			[self showRegistrarConnectionErrorSheetWithError:error];
 		}
@@ -547,12 +551,14 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 						statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
 					
 					NSString *error;
-					if (statusText == nil)
-						error = [NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."), [[self account] registrationStatus]];
-					else
+					if (statusText == nil) {
+						error = [NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."), [[self account] registrationStatus]];
+						error = [error stringByAppendingString:@"."];
+					} else {
 						error = [NSString stringWithFormat:NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.",
 																			 @"Error description."),
 								 [[self account] registrationStatus], statusText];
+					}
 					
 					[self showRegistrarConnectionErrorSheetWithError:error];
 

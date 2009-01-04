@@ -258,7 +258,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 			} else {
 				NSString *statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]];
 				if (statusText == nil)
-					[self setStatus:[[NSString stringWithFormat:NSLocalizedString(@"Error %d.", @"Error #."),
+					[self setStatus:[[NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."),
 									  [[self call] lastStatus]]
 									 lowercaseString]];
 				else
