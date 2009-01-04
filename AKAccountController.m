@@ -464,9 +464,25 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 	[[self account] setRegistered:YES];
 }
 
+
+#pragma mark -
+#pragma mark NSWindow delegate methods
+
 - (void)windowDidLoad
 {
 	[self showOfflineMode];
+}
+
+- (BOOL)windowShouldClose:(id)sender
+{
+	BOOL result = YES;
+	
+	if (sender == [self window]) {
+		[[self window] orderOut:self];
+		result = NO;
+	}
+	
+	return result;
 }
 
 
