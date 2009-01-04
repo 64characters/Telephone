@@ -37,6 +37,9 @@
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Не удалось запустить SIP-подсистему.";
 
+/* Delete button. */
+"Delete" = "Удалить";
+
 /* Account removal confirmation. */
 "Delete \\U201C%@\\U201D?" = "Удалить «%@»?";
 
@@ -60,6 +63,9 @@
 
 /* SIP address does not match the user name informative text. */
 "Please check your SIP Address." = "Пожалуйста, проверьте SIP-адрес.";
+
+/* Quit button. */
+"Quit" = "Выйти";
 
 /* Remote party ringing. */
 "Ringing" = "Идет оповещение";

@@ -289,8 +289,9 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 											objectValueForTableColumn:theColumn row:index];
 	
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-	[alert addButtonWithTitle:@"Delete"];
-	[alert addButtonWithTitle:@"Cancel"];
+	[alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
+	[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\0"];
 	[alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Delete \\U201C%@\\U201D?",
 																	   @"Account removal confirmation."),
 						   selectedAccount]];
@@ -524,6 +525,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		[alert addButtonWithTitle:NSLocalizedString(@"Save", @"Save button.")];
 		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
 		[alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't save button.")];
+		[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\0"];
 		[alert setMessageText:NSLocalizedString(@"Save changes to STUN server settings?", @"STUN server change confirmation.")];
 		[alert setInformativeText:NSLocalizedString(@"New STUN server settings will be applied immediately, all accounts will be reconnected.",
 													@"STUN server change confirmation informative text.")];

@@ -872,8 +872,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	for (AKTelephoneAccount *anAccount in [[self telephone] accounts])
 		if ([[anAccount calls] count] > 0) {
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-			[alert addButtonWithTitle:@"Quit"];
-			[alert addButtonWithTitle:@"Cancel"];
+			[alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
+			[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
+			[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\0"];
 			[alert setMessageText:NSLocalizedString(@"Are you shure you want to quit Telephone?", @"Telephone quit confirmation.")];
 			[alert setInformativeText:NSLocalizedString(@"All active calls will be disconnected.", @"Telephone quit confirmation informative text.")];
 			
