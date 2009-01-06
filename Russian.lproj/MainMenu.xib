@@ -322,7 +322,7 @@
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSMenuItem" id="731782645">
 												<reference key="NSMenu" ref="785027613"/>
-												<string type="base64-UTF8" key="NSTitle">0JLQutC70Y7Rh9C40YLRjA</string>
+												<string type="base64-UTF8" key="NSTitle">0J3QsNGH0LDRgtGMA</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSKeyEquivModMask">1048576</int>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -331,7 +331,7 @@
 											</object>
 											<object class="NSMenuItem" id="680220178">
 												<reference key="NSMenu" ref="785027613"/>
-												<string type="base64-UTF8" key="NSTitle">0JLRi9C60LvRjtGH0LjRgtGMA</string>
+												<string type="base64-UTF8" key="NSTitle">0J7RgdGC0LDQvdC+0LLQuNGC0Yw</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSKeyEquivModMask">1048576</int>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -1123,7 +1123,7 @@
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{563, 633}, {145, 43}}</string>
+					<string>{{563, 633}, {149, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{608, 612}, {167, 43}}</string>
