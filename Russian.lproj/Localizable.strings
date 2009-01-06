@@ -83,7 +83,7 @@
 "Telehone was unable to login to %@. Change user name or password and try again." = "Телефон не смог залогиниться на сервер %@. Скорректируйте имя пользователя или пароль и попробуйте еще раз.";
 
 /* Error description. */
-"The error was: \\U201C%d %@\\U201D." = "Описание ошибки: «%1$d %2$@».";
+"The error was: \\U201C%d %@\\U201D." = "%2$@, ошибка %1$d.";
 
 /* Account removal confirmation informative text. */
 "This will delete your currently set up account \\U201C%@\\U201D." = "Настроенный аккаунт «%@» будет удален.";
