@@ -1,4 +1,7 @@
-﻿/* Address not found. */
+﻿/* Accounts preferences window title. */
+"Accounts" = "Аккаунты";
+
+/* Address not found. */
 "Address not found" = "Адрес не найден";
 
 /* Telephone quit confirmation informative text. */
@@ -49,6 +52,12 @@
 /* Error #. */
 "Error %d" = "Ошибка %d";
 
+/* General preferences window title. */
+"General" = "Основные";
+
+/* Network preferences window title. */
+"Network" = "Сеть";
+
 /* STUN server change confirmation informative text. */
 "New STUN server settings will be applied immediately, all accounts will be reconnected." = "Настройки STUN-сервера сразу вступят в силу, все аккаунты будут переподсоединены.";
 
@@ -78,6 +87,12 @@
 
 /* SIP address does not match the user name. */
 "SIP address \\U201C%@\\U201D does not match the user name \\U201C%@\\U201D." = "SIP-адрес «%1$@» не соответствует имени пользователя «%2$@».";
+
+/* Sound preferences window title. */
+"Sound" = "Звук";
+
+/* Preferences default window title. */
+"Telephone Preferences" = "Настройки Телефона";
 
 /* Registrar authentication failed. */
 "Telehone was unable to login to %@. Change user name or password and try again." = "Телефон не смог залогиниться на сервер %@. Скорректируйте имя пользователя или пароль и попробуйте еще раз.";

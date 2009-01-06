@@ -139,7 +139,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 {
 	[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
 	[[self window] resizeAndSwapToContentView:generalView];
-	[[self window] setTitle:@"General"];
+	[[self window] setTitle:NSLocalizedString(@"General", @"General preferences window title.")];
 	
 	[self updateAudioDevices];
 	
@@ -171,27 +171,27 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	switch ([sender tag]) {
 		case AKGeneralPreferencesTag:
 			view = generalView;
-			title = @"General";
+			title = NSLocalizedString(@"General", @"General preferences window title.");
 			firstResponderView = nil;
 			break;
 		case AKAccountsPreferencesTag:
 			view = accountsView;
-			title = @"Accounts";
+			title = NSLocalizedString(@"Accounts", @"Accounts preferences window title.");
 			firstResponderView = accountsTable;
 			break;
 		case AKSoundPreferencesTag:
 			view = soundView;
-			title = @"Sound";
+			title = NSLocalizedString(@"Sound", @"Sound preferences window title.");
 			firstResponderView = nil;
 			break;
 		case AKNetworkPreferencesTag:
 			view = networkView;
-			title = @"Network";
+			title = NSLocalizedString(@"Network", @"Network preferences window title.");
 			firstResponderView = STUNServerHost;
 			break;
 		default:
 			view = nil;
-			title = @"Telephone Preferences";
+			title = NSLocalizedString(@"Telephone Preferences", @"Preferences default window title.");
 			firstResponderView = nil;
 			break;
 	}
