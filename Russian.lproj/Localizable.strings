@@ -95,7 +95,7 @@
 "Telephone Preferences" = "Настройки Телефона";
 
 /* Registrar authentication failed. */
-"Telehone was unable to login to %@. Change user name or password and try again." = "Телефон не смог залогиниться на сервер %@. Скорректируйте имя пользователя или пароль и попробуйте еще раз.";
+"Telehone was unable to login to %@. Change user name or password and try again." = "Телефон не смог зарегистрироваться на сервере %@. Проверьте имя пользователя и пароль.";
 
 /* Error description. */
 "The error was: \\U201C%d %@\\U201D." = "%2$@, ошибка %1$d.";

@@ -88,15 +88,15 @@
 						<object class="NSTextField" id="409430353">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{135, 159}, {317, 28}}</string>
+							<string key="NSFrame">{{135, 145}, {317, 42}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="141756788">
 								<int key="NSCellFlags">69336577</int>
 								<int key="NSCellFlags2">272629760</int>
-								<string type="base64-UTF8" key="NSContents">0J3QtSDQv9C+0LvRg9GH0LjQu9C+0YHRjCDQt9Cw0LvQvtCz0LjQvdC40YLRjNGB0Y8g0L3QsCDRgdC1
-0YDQstC10YAg0YDQtdCz0LjRgdGC0YDQsNGG0LjQuS4g0J/RgNC+0LLQtdGA0YzRgtC1INC40LzRjyDQ
-v9C+0LvRjNC30L7QstCw0YLQtdC70Y8g0Lgg0L/QsNGA0L7Qu9GMLg</string>
+								<string type="base64-UTF8" key="NSContents">0KLQtdC70LXRhNC+0L0g0L3QtSDRgdC80L7QsyDQt9Cw0YDQtdCz0LjRgdGC0YDQuNGA0L7QstCw0YLR
+jNGB0Y8g0L3QsCDRgdC10YDQstC10YDQtSBleGFtcGxlLmNvbS4g0J/RgNC+0LLQtdGA0YzRgtC1INC4
+0LzRjyDQv9C+0LvRjNC30L7QstCw0YLQtdC70Y8g0Lgg0L/QsNGA0L7Qu9GMLg</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">1.100000e+01</double>
