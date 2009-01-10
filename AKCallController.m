@@ -42,6 +42,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @dynamic accountController;
 @synthesize displayedName;
 @synthesize status;
+@synthesize intermediateStatusTimer;
 @synthesize callStartTime;
 @synthesize callTimer;
 
@@ -87,6 +88,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[call setDelegate:self];
 	
 	[self setAccountController:anAccountController];
+	[self setIntermediateStatusTimer:nil];
 	[self setCallStartTime:0.0];
 	[self setCallTimer:nil];
 	
@@ -140,7 +142,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)startCallTimer
 {
-	[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
+	if ([self callTimer] != nil && [[self callTimer] isValid])
+		return;
+	
 	[self setCallTimer:[NSTimer scheduledTimerWithTimeInterval:0.2
 														target:self
 													  selector:@selector(callTimerTick:)
@@ -170,6 +174,32 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 						 (seconds / 3600) % 24,
 						 (seconds / 60) % 60,
 						 seconds % 60]];
+}
+
+- (void)setIntermediateStatus:(NSString *)newIntermediateStatus
+{
+	if ([self intermediateStatusTimer] != nil)
+		[[self intermediateStatusTimer] invalidate];
+	
+	[self stopCallTimer];
+	[self setStatus:newIntermediateStatus];
+	[self setIntermediateStatusTimer:[NSTimer scheduledTimerWithTimeInterval:3.0
+																	  target:self
+																	selector:@selector(intermediateStatusTimerTick:)
+																	userInfo:nil
+																	 repeats:NO]];
+}
+
+- (void)intermediateStatusTimerTick:(NSTimer *)theTimer
+{
+	if ([[self call] isOnLocalHold])
+		[self setStatus:[NSLocalizedString(@"On hold", @"Call on local hold status text.") lowercaseString]];
+	else if ([[self call] isOnRemoteHold])
+		[self setStatus:[NSLocalizedString(@"On remote hold", @"Call on remote hold status text.") lowercaseString]];
+	else if ([[self call] isActive])
+		[self startCallTimer];
+	
+	[self setIntermediateStatusTimer:nil];
 }
 
 
@@ -212,6 +242,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
+	if ([self callStartTime] == 0.0)
+		[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
+	
 	if ([[notification object] isIncoming])
 		[[NSApp delegate] stopIncomingCallSoundTimer];
 	
@@ -275,26 +308,71 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[declineCallButton setEnabled:NO];
 }
 
+- (void)telephoneCallMediaActive:(NSNotification *)notification
+{
+	if ([self callStartTime] == 0.0)
+		[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
+	[self startCallTimer];
+}
+
+- (void)telephoneCallDidLocalHold:(NSNotification *)notification
+{
+	[self stopCallTimer];
+	[self setStatus:[NSLocalizedString(@"On hold", @"Call on local hold status text.") lowercaseString]];
+}
+
+- (void)telephoneCallDidRemoteHold:(NSNotification *)notification
+{
+	[self stopCallTimer];
+	[self setStatus:[NSLocalizedString(@"On remote hold", @"Call on remote hold status text.") lowercaseString]];
+}
+
 
 #pragma mark -
 #pragma mark AKActiveCallViewDelegate protocol
 
 - (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString
 {
+	NSCharacterSet *commandsCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"mMhH"];
+	NSCharacterSet *microphoneMuteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"mM"];
+	NSCharacterSet *holdCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"hH"];
 	NSCharacterSet *DTMFCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#"];
 	
-	BOOL isValid = YES;
-	
-	for (NSUInteger i = 0; i < [aString length]; ++i) {
-		unichar digit = [aString characterAtIndex:i];
-		if (![DTMFCharacterSet characterIsMember:digit]) {
-			isValid = NO;
-			break;
+	unichar firstCharacter = [aString characterAtIndex:0];
+	if ([commandsCharacterSet characterIsMember:firstCharacter]) {
+		if ([microphoneMuteCharacterSet characterIsMember:firstCharacter]) {
+			[[self call] toggleMicrophoneMute];
+			if ([[self call] isMicrophoneMuted])
+				[self setIntermediateStatus:[NSLocalizedString(@"Mic muted",
+															   @"Microphone muted status text.")
+											 lowercaseString]];
+			else
+				[self setIntermediateStatus:[NSLocalizedString(@"Mic unmuted",
+															   @"Microphone unmuted status text.")
+											 lowercaseString]];
+			
+		} else if ([holdCharacterSet characterIsMember:firstCharacter]) {
+			[[self call] toggleHold];
+		}
+		
+	} else {
+		BOOL isDTMFValid = YES;
+		
+		for (NSUInteger i = 0; i < [aString length]; ++i) {
+			unichar digit = [aString characterAtIndex:i];
+			if (![DTMFCharacterSet characterIsMember:digit]) {
+				isDTMFValid = NO;
+				break;
+			}
+		}
+		
+		if (isDTMFValid) {
+			[[self call] sendDTMFDigits:aString];
+			[self setIntermediateStatus:[NSLocalizedString(@"Sending tone signals",
+														   @"Sending DTMF status text.")
+										 lowercaseString]];
 		}
 	}
-	
-	if (isValid)
-		[[self call] sendDTMFDigits:aString];
 }
 
 @end

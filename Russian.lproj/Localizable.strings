@@ -55,6 +55,12 @@
 /* General preferences window title. */
 "General" = "Основные";
 
+/* Microphone muted status text. */
+"Mic muted" = "Микрофон выключен";
+
+/* Microphone unmuted status text. */
+"Mic unmuted" = "Микрофон работает";
+
 /* Network preferences window title. */
 "Network" = "Сеть";
 
@@ -63,6 +69,12 @@
 
 /* Account registration Offline menu item. */
 "Offline" = "Офлайн";
+
+/* Call on local hold status text. */
+"On hold" = "На ожидании";
+
+/* Call on remote hold status text. */
+"On remote hold" = "Поставили на ожидание";
 
 /* Registrar connection error informative text. */
 "Please check network connection and Registry Server settings." = "Пожалуйста, проверьте настройки сети и сервера регистраций.";
@@ -85,17 +97,20 @@
 /* STUN server change confirmation. */
 "Save changes to STUN server settings?" = "Сохранить настройки STUN-сервера?";
 
+/* Sending DTMF status text. */
+"Sending tone signals" = "Отправка тональных сигналов";
+
 /* SIP address does not match the user name. */
 "SIP address \\U201C%@\\U201D does not match the user name \\U201C%@\\U201D." = "SIP-адрес «%1$@» не соответствует имени пользователя «%2$@».";
 
 /* Sound preferences window title. */
 "Sound" = "Звук";
 
-/* Preferences default window title. */
-"Telephone Preferences" = "Настройки Телефона";
-
 /* Registrar authentication failed. */
 "Telehone was unable to login to %@. Change user name or password and try again." = "Телефон не смог зарегистрироваться на сервере %@. Проверьте имя пользователя и пароль.";
+
+/* Preferences default window title. */
+"Telephone Preferences" = "Настройки Телефона";
 
 /* Error description. */
 "The error was: \\U201C%d %@\\U201D." = "%2$@, ошибка %1$d.";

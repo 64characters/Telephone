@@ -56,6 +56,7 @@ typedef enum _AKTelephoneCallState {
 	NSInteger lastStatus;
 	NSString *lastStatusText;
 	BOOL incoming;
+	BOOL microphoneMuted;
 	
 	// Account the call belongs to
 	AKTelephoneAccount *account;
@@ -71,6 +72,9 @@ typedef enum _AKTelephoneCallState {
 @property(readwrite, copy) NSString *lastStatusText;
 @property(nonatomic, readonly, assign, getter=isActive) BOOL active;
 @property(readwrite, assign, getter=isIncoming) BOOL incoming;
+@property(readwrite, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
+@property(readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
+@property(readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
 @property(readwrite, assign) AKTelephoneAccount *account;
 
 // Designated initializer
@@ -82,6 +86,12 @@ typedef enum _AKTelephoneCallState {
 - (void)ringbackStart;
 - (void)ringbackStop;
 - (void)sendDTMFDigits:(NSString *)digits;
+- (void)muteMicrophone;
+- (void)unmuteMicrophone;
+- (void)toggleMicrophoneMute;
+- (void)hold;
+- (void)unhold;
+- (void)toggleHold;
 
 @end
 
@@ -110,3 +120,12 @@ extern NSString * const AKTelephoneCallDidConfirmNotification;
 
 // Disconnected. Session is terminated.
 extern NSString * const AKTelephoneCallDidDisconnectNotification;
+
+// Call media is active.
+extern NSString * const AKTelephoneCallMediaActiveNotification;
+
+// Call media is put on hold by local endpoint.
+extern NSString * const AKTelephoneCallDidLocalHoldNotification;
+
+// Call media is put on hold by remote endpoint.
+extern NSString * const AKTelephoneCallDidRemoteHoldNotification;
