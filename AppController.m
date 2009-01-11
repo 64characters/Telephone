@@ -833,17 +833,31 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)telephoneDidDetectNAT:(NSNotification *)notification
 {
-	if ([[self telephone] detectedNATType] == AKNATTypeSymmetric) {
-		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-		[alert addButtonWithTitle:@"OK"];
-		[alert setMessageText:NSLocalizedString(@"Symmetric NAT detected.", @"Detected Symmetric NAT.")];
-		[alert setInformativeText:NSLocalizedString(@"It very unlikely that two-way conversations will be possible " \
-													"with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. " \
-													"If you are connected to the internet through the personal router, try to replace it with the one " \
-													"that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or " \
-													"\\U201Cport restricted cone\\U201D NAT types.",
-													@"Detected Symmetric NAT informative text.")];
-		[alert runModal];
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"OK"];
+	
+	switch ([[self telephone] detectedNATType]) {
+		case AKNATTypeBlocked:
+			[alert setMessageText:NSLocalizedString(@"Failed to communicate with STUN server.", @"Failed to communicate with STUN server.")];
+			[alert setInformativeText:NSLocalizedString(@"UDP packets are probably blocked. It is impossible to make or receive calls without that. " \
+														@"Make shure that your local firewall and the firewall at your router allow UDP protocol.",
+														@"Failed to communicate with STUN server informative text.")];
+			[alert runModal];
+			break;
+			
+		case AKNATTypeSymmetric:
+			[alert setMessageText:NSLocalizedString(@"Symmetric NAT detected.", @"Detected Symmetric NAT.")];
+			[alert setInformativeText:NSLocalizedString(@"It very unlikely that two-way conversations will be possible " \
+														"with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. " \
+														"If you are connected to the internet through the personal router, try to replace it with the one " \
+														"that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or " \
+														"\\U201Cport restricted cone\\U201D NAT types.",
+														@"Detected Symmetric NAT informative text.")];
+			[alert runModal];
+			break;
+			
+		default:
+			break;
 	}
 }
 
