@@ -246,6 +246,7 @@ typedef enum _AKTelephoneRingtones {
 	accounts = [[NSMutableArray alloc] init];
 	[self setStarted:NO];
 	[self setSoundStopped:YES];
+	[self setDetectedNATType:AKNATTypeUnknown];
 	
 	[self setSTUNServerHost:AKTelephoneSTUNServerHostDefault];
 	[self setSTUNServerPort:AKTelephoneSTUNServerPortDefault];
