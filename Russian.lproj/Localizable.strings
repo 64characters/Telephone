@@ -55,6 +55,9 @@
 /* General preferences window title. */
 "General" = "Основные";
 
+/* Detected Symmetric NAT informative text. */
+"It very unlikely that two-way conversations will be possible with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. If you are connected to the internet through the personal router, try to replace it with the one that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or \\U201Cport restricted cone\\U201D NAT types." = "Достичь двусторонней слышимости скорее всего не удастся. Попробуйте узнать у своего SIP-провайдера другие способы преодоления NAT. Если у вас свой маршрутизатор для выхода в интернет, попробуйте заменить его на другой, поддерживающий «full cone», «restricted cone» или «port restricted cone» NAT.";
+
 /* Microphone muted status text. */
 "Mic muted" = "Микрофон выключен";
 
@@ -105,6 +108,9 @@
 
 /* Sound preferences window title. */
 "Sound" = "Звук";
+
+/* Detected Symmetric NAT. */
+"Symmetric NAT detected." = "Тип NAT определен как «симметричный».";
 
 /* Registrar authentication failed. */
 "Telehone was unable to login to %@. Change user name or password and try again." = "Телефон не смог зарегистрироваться на сервере %@. Проверьте имя пользователя и пароль.";

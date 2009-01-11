@@ -829,6 +829,26 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 
 #pragma mark -
+#pragma mark AKTelephone notifications
+
+- (void)telephoneDidDetectNAT:(NSNotification *)notification
+{
+	if ([[self telephone] detectedNATType] == AKNATTypeSymmetric) {
+		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+		[alert addButtonWithTitle:@"OK"];
+		[alert setMessageText:NSLocalizedString(@"Symmetric NAT detected.", @"Detected Symmetric NAT.")];
+		[alert setInformativeText:NSLocalizedString(@"It very unlikely that two-way conversations will be possible " \
+													"with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. " \
+													"If you are connected to the internet through the personal router, try to replace it with the one " \
+													"that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or " \
+													"\\U201Cport restricted cone\\U201D NAT types.",
+													@"Detected Symmetric NAT informative text.")];
+		[alert runModal];
+	}
+}
+
+
+#pragma mark -
 #pragma mark NSWindow notifications
 
 - (void)windowWillClose:(NSNotification *)notification

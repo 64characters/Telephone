@@ -38,6 +38,18 @@ typedef struct _AKTelephoneCallData {
 	pj_bool_t ringbackOff;
 } AKTelephoneCallData;
 
+typedef enum _AKNATType {
+	AKNATTypeUnknown		= PJ_STUN_NAT_TYPE_UNKNOWN,
+	AKNATTypeErrorUnknown	= PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
+	AKNATTypeOpen			= PJ_STUN_NAT_TYPE_OPEN,
+	AKNATTypeBlocked		= PJ_STUN_NAT_TYPE_BLOCKED,
+	AKNATTypeSymmetricUDP	= PJ_STUN_NAT_TYPE_SYMMETRIC_UDP,
+	AKNATTypeFullCone		= PJ_STUN_NAT_TYPE_FULL_CONE,
+	AKNATTypeSymmetric		= PJ_STUN_NAT_TYPE_SYMMETRIC,
+	AKNATTypeRestricted		= PJ_STUN_NAT_TYPE_RESTRICTED,
+	AKNATTypePortRestricted	= PJ_STUN_NAT_TYPE_PORT_RESTRICTED
+} AKNATType;
+
 @class AKTelephoneAccount, AKTelephoneCall;
 @protocol AKTelephoneDelegate;
 
@@ -48,6 +60,7 @@ typedef struct _AKTelephoneCallData {
 	NSMutableArray *accounts;
 	BOOL started;
 	BOOL soundStopped;
+	AKNATType detectedNATType;
 	
 	NSString *STUNServerHost;
 	NSUInteger STUNServerPort;
@@ -70,6 +83,7 @@ typedef struct _AKTelephoneCallData {
 @property(readonly, retain) NSMutableArray *accounts;
 @property(readonly, assign) BOOL started;
 @property(readonly, assign) BOOL soundStopped;
+@property(readwrite, assign) AKNATType detectedNATType;
 @property(nonatomic, readonly, assign) NSUInteger activeCallsCount;
 @property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
 @property(readonly, assign) pj_pool_t *pjPool;
