@@ -372,9 +372,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		
 		if (isDTMFValid) {
 			[[self call] sendDTMFDigits:aString];
-			[self setIntermediateStatus:[NSLocalizedString(@"Sending tone signals",
-														   @"Sending DTMF status text.")
-										 lowercaseString]];
+			[self setIntermediateStatus:aString];
 		}
 	}
 }

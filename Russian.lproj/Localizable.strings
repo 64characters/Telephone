@@ -103,9 +103,6 @@
 /* STUN server change confirmation. */
 "Save changes to STUN server settings?" = "Сохранить настройки STUN-сервера?";
 
-/* Sending DTMF status text. */
-"Sending tone signals" = "Отправка тональных сигналов";
-
 /* SIP address does not match the user name. */
 "SIP address \\U201C%@\\U201D does not match the user name \\U201C%@\\U201D." = "SIP-адрес «%1$@» не соответствует имени пользователя «%2$@».";
 
