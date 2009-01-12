@@ -233,8 +233,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		
 		[[self accountControllers] addObject:anAccountController];
 		
-		if (![anAccountController isEnabled])
+		if (![anAccountController isEnabled]) {
+			// Prevent conflict with setFrameAutosaveName: when enabling the account.
+			[anAccountController setWindow:nil];
+			
 			continue;
+		}
 		
 		if (i == 0)
 			[[anAccountController window] makeKeyAndOrderFront:self];
