@@ -45,6 +45,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @synthesize intermediateStatusTimer;
 @synthesize callStartTime;
 @synthesize callTimer;
+@synthesize callOnHold;
 
 @synthesize incomingCallView;
 @synthesize activeCallView;
@@ -91,6 +92,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[self setIntermediateStatusTimer:nil];
 	[self setCallStartTime:0.0];
 	[self setCallTimer:nil];
+	[self setCallOnHold:NO];
 	
 	return self;
 }
@@ -242,8 +244,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
-	if ([self callStartTime] == 0.0)
-		[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
+	[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
 	
 	if ([[notification object] isIncoming])
 		[[NSApp delegate] stopIncomingCallSoundTimer];
@@ -310,19 +311,22 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallMediaActive:(NSNotification *)notification
 {
-	if ([self callStartTime] == 0.0)
-		[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
-	[self startCallTimer];
+	if ([self callOnHold]) {
+		[self startCallTimer];
+		[self setCallOnHold:NO];
+	}
 }
 
 - (void)telephoneCallDidLocalHold:(NSNotification *)notification
 {
+	[self setCallOnHold:YES];
 	[self stopCallTimer];
 	[self setStatus:[NSLocalizedString(@"On hold", @"Call on local hold status text.") lowercaseString]];
 }
 
 - (void)telephoneCallDidRemoteHold:(NSNotification *)notification
 {
+	[self setCallOnHold:YES];
 	[self stopCallTimer];
 	[self setStatus:[NSLocalizedString(@"On remote hold", @"Call on remote hold status text.") lowercaseString]];
 }

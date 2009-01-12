@@ -42,6 +42,7 @@
 	NSTimer *intermediateStatusTimer;
 	NSTimeInterval callStartTime;
 	NSTimer *callTimer;
+	BOOL callOnHold;
 	
 	IBOutlet NSView *activeCallView;
 	IBOutlet NSView *incomingCallView;
@@ -60,6 +61,7 @@
 @property(readwrite, retain) NSTimer *intermediateStatusTimer;
 @property(readwrite, assign) NSTimeInterval callStartTime;
 @property(readwrite, retain) NSTimer *callTimer;
+@property(readwrite, assign) BOOL callOnHold;
 
 @property(readonly, retain) NSView *incomingCallView;
 @property(readonly, retain) NSView *activeCallView;
