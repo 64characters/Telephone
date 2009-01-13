@@ -8,10 +8,10 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
-			<integer value="19"/>
-			<integer value="51"/>
 			<integer value="41"/>
+			<integer value="1"/>
+			<integer value="51"/>
+			<integer value="19"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -113,8 +113,8 @@
 						<reference key="NSSuperview" ref="114774165"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="297585814">
-							<int key="NSCellFlags">68288064</int>
-							<int key="NSCellFlags2">272630784</int>
+							<int key="NSCellFlags">67239488</int>
+							<int key="NSCellFlags2">272631808</int>
 							<string type="base64-UTF8" key="NSContents">0JjQvNGPA</string>
 							<object class="NSFont" key="NSSupport" id="196034787">
 								<string key="NSName">LucidaGrande-Bold</string>
@@ -189,8 +189,8 @@
 						<reference key="NSSuperview" ref="476394797"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1035035149">
-							<int key="NSCellFlags">68288064</int>
-							<int key="NSCellFlags2">272630784</int>
+							<int key="NSCellFlags">67239488</int>
+							<int key="NSCellFlags2">272631808</int>
 							<string type="base64-UTF8" key="NSContents">0JjQvNGPA</string>
 							<reference key="NSSupport" ref="196034787"/>
 							<reference key="NSControlView" ref="344047073"/>
@@ -231,7 +231,7 @@
 						<reference key="NSSuperview" ref="29922304"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="994670433">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">70385217</int>
 							<int key="NSCellFlags2">272630784</int>
 							<string type="base64-UTF8" key="NSContents">0JjQvNGPA</string>
 							<reference key="NSSupport" ref="196034787"/>
@@ -455,6 +455,14 @@
 						</object>
 					</object>
 					<int key="connectionID">115</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">displayedNameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="344047073"/>
+					</object>
+					<int key="connectionID">116</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -715,9 +723,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilderKit</string>
-					<string>{{324, 766}, {300, 90}}</string>
+					<string>{{324, 807}, {300, 90}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{324, 766}, {300, 90}}</string>
+					<string>{{324, 807}, {300, 90}}</string>
 					<integer value="0" id="8"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -777,7 +785,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">115</int>
+			<int key="maxID">116</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -818,6 +826,7 @@
 							<string>activeCallView</string>
 							<string>callProgressIndicator</string>
 							<string>declineCallButton</string>
+							<string>displayedNameField</string>
 							<string>endedCallView</string>
 							<string>hangUpButton</string>
 							<string>incomingCallView</string>
@@ -829,6 +838,7 @@
 							<string>NSView</string>
 							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSView</string>
 							<string>NSButton</string>
 							<string>NSView</string>

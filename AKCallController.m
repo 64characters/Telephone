@@ -46,6 +46,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @synthesize callStartTime;
 @synthesize callTimer;
 @synthesize callOnHold;
+@synthesize enteredDTMF;
 
 @synthesize incomingCallView;
 @synthesize activeCallView;
@@ -93,6 +94,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[self setCallStartTime:0.0];
 	[self setCallTimer:nil];
 	[self setCallOnHold:NO];
+	enteredDTMF = [[NSMutableString alloc] init];
 	
 	return self;
 }
@@ -110,6 +112,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[call release];
 	
 	[self setAccountController:nil];
+	[enteredDTMF release];
 	
 	[super dealloc];
 }
@@ -371,8 +374,17 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		}
 		
 		if (isDTMFValid) {
+			if ([[self enteredDTMF] length] == 0) {
+				[[self enteredDTMF] appendString:aString];
+				[[self window] setTitle:[self displayedName]];
+				[[displayedNameField cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+				[self setDisplayedName:aString];
+			} else {
+				[[self enteredDTMF] appendString:aString];
+				[self setDisplayedName:[self enteredDTMF]];
+			}
+			
 			[[self call] sendDTMFDigits:aString];
-			[self setIntermediateStatus:aString];
 		}
 	}
 }

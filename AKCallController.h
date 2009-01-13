@@ -43,6 +43,7 @@
 	NSTimeInterval callStartTime;
 	NSTimer *callTimer;
 	BOOL callOnHold;
+	NSMutableString *enteredDTMF;
 	
 	IBOutlet NSView *activeCallView;
 	IBOutlet NSView *incomingCallView;
@@ -50,6 +51,7 @@
 	IBOutlet NSButton *hangUpButton;
 	IBOutlet NSButton *acceptCallButton;
 	IBOutlet NSButton *declineCallButton;
+	IBOutlet NSTextField *displayedNameField;
 	IBOutlet NSTextField *statusField;
 	IBOutlet NSProgressIndicator *callProgressIndicator;
 }
@@ -62,6 +64,7 @@
 @property(readwrite, assign) NSTimeInterval callStartTime;
 @property(readwrite, retain) NSTimer *callTimer;
 @property(readwrite, assign) BOOL callOnHold;
+@property(readwrite, retain) NSMutableString *enteredDTMF;
 
 @property(readonly, retain) NSView *incomingCallView;
 @property(readonly, retain) NSView *activeCallView;
