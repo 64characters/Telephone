@@ -887,11 +887,26 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // Reopen all account windows when the user clicks the dock icon.
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
+	// Show incoming call window, if any.
+	if ([self hasIncomingCallControllers]) {
+		for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease]) {
+			for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+				if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
+					[[aCallController call] state] == AKTelephoneCallIncomingState)
+				{
+					[aCallController showWindow:nil];
+					return YES;
+				}
+		}
+	}
+	
+	// No incoming calls, show window of the enabled accounts.
 	for (AKAccountController *anAccountController in [self accountControllers]) {
 		if ([anAccountController isEnabled] && ![[anAccountController window] isVisible])
 			[[anAccountController window] orderFront:nil];
 	}
 	
+	// Is there a key window already?
 	BOOL keyWindowExists = NO;
 	for (AKAccountController *anAccountController in [self accountControllers])
 		if ([[anAccountController window] isKeyWindow]) {

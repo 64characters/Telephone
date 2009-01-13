@@ -633,12 +633,11 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 	[aCallController setStatus:[NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString]];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	
-	// Incoming call is very important, show the window higher than usual.
-	[[aCallController window] setLevel:NSStatusWindowLevel];
 	[aCallController showWindow:nil];
 	
 	[[[NSApp delegate] incomingCallSound] play];
 	[[NSApp delegate] startIncomingCallSoundTimer];
+	[NSApp requestUserAttention:NSCriticalRequest];
 	
 	[aCallController release];
 }
