@@ -31,7 +31,7 @@
 
 @implementation NSString(UUID)
 
-+ (NSString *)uuidString
++ (NSString *)AK_uuidString
 {
 	CFUUIDRef theUUID = CFUUIDCreate(NULL);
 	CFStringRef string = CFUUIDCreateString(NULL, theUUID);

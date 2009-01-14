@@ -32,7 +32,7 @@
 
 @interface NSString(UUID)
 
-+ (NSString *)uuidString;
++ (NSString *)AK_uuidString;
 
 @end
 
