@@ -27,13 +27,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Growl/Growl.h>
 
 #import "AKTelephone.h"
 
 
 @class AKTelephone, AKAccountController, AKPreferenceController;
 
-@interface AppController : NSObject <AKTelephoneDelegate> {
+@interface AppController : NSObject <AKTelephoneDelegate, GrowlApplicationBridgeDelegate> {
 @private
 	AKTelephone *telephone;
 	NSMutableArray *accountControllers;

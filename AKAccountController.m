@@ -27,6 +27,7 @@
 //
 
 #import <AddressBook/AddressBook.h>
+#import <Growl/Growl.h>
 
 #import "AKAccountController.h"
 #import "AKCallController.h"
@@ -635,6 +636,27 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	
 	[aCallController showWindow:nil];
+	
+	// Show Growl notification.
+	if ([[[aCall remoteURI] displayName] length] > 0) {
+		[GrowlApplicationBridge notifyWithTitle:[[aCall remoteURI] displayName]
+									description:[NSString stringWithFormat:[NSLocalizedString(@"Calling from %@", @"Incoming call from ... received.")
+																			lowercaseString],
+												 [[aCall remoteURI] SIPAddress]]
+							   notificationName:@"Incoming Call"
+									   iconData:nil
+									   priority:0
+									   isSticky:NO
+								   clickContext:nil];
+	} else {
+		[GrowlApplicationBridge notifyWithTitle:[[aCall remoteURI] SIPAddress]
+									description:[NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString]
+							   notificationName:@"Incoming Call"
+									   iconData:nil
+									   priority:0
+									   isSticky:NO
+								   clickContext:nil];
+	}
 	
 	[[[NSApp delegate] incomingCallSound] play];
 	[[NSApp delegate] startIncomingCallSoundTimer];

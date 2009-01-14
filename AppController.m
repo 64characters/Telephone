@@ -27,6 +27,7 @@
 //
 
 #import <CoreAudio/CoreAudio.h>
+#import <Growl/Growl.h>
 
 #import "AppController.h"
 #import "AKAccountController.h"
@@ -179,6 +180,14 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	// Get available audio devices, select devices for sound input and output.
 	[self updateAudioDevices];
+	
+	// Load Growl.
+	NSString *growlPath = [[[NSBundle mainBundle] privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
+	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+	if (growlBundle != nil && [growlBundle load])
+		[GrowlApplicationBridge setGrowlDelegate:self];
+	else
+		NSLog(@"Could not load Growl.framework");
 	
 	// Read accounts from defaults
 	NSArray *savedAccounts = [defaults arrayForKey:AKAccounts];
@@ -975,6 +984,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 								   userInfo:nil
 									repeats:NO];
 }
+
+
+#pragma mark -
+#pragma mark GrowlApplicationBridgeDelegate protocol
+
+
 
 @end
 

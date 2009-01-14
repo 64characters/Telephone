@@ -25,6 +25,9 @@
 /* Incoming call received. */
 "Calling" = "Звонит";
 
+/* Incoming call from ... received. */
+"Calling from %@" = "Звонит с %@";
+
 /* Outgoing call in progress. */
 "Calling..." = "Звоним...";
 
