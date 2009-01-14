@@ -101,6 +101,8 @@ typedef enum _AKNATType {
 	BOOL soundStopped;
 	AKNATType detectedNATType;
 	
+	NSString *outboundProxyHost;
+	NSUInteger outboundProxyPort;
 	NSString *STUNServerHost;
 	NSUInteger STUNServerPort;
 	NSString *userAgentString;
@@ -130,6 +132,8 @@ typedef enum _AKNATType {
 @property(readwrite, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;
 
+@property(readwrite, copy) NSString *outboundProxyHost;				// Default: @"".
+@property(nonatomic, readwrite, assign) NSUInteger outboundProxyPort;	// Default: 5060.
 @property(readwrite, copy) NSString *STUNServerHost;				// Default: @"".
 @property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;	// Default: 3478.
 @property(readwrite, copy) NSString *userAgentString;				// Default: @"".

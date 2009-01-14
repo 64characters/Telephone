@@ -41,6 +41,8 @@ const NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
 NSString * const AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 
 // Generic config defaults.
+NSString * const AKTelephoneOutboundProxyHostDefault = @"";
+const NSInteger AKTelephoneOutboundProxyPortDefault = 5060;
 NSString * const AKTelephoneSTUNServerHostDefault = @"";
 const NSInteger AKTelephoneSTUNServerPortDefault = 3478;
 NSString * const AKTelephoneLogFileNameDefault = @"~/Library/Logs/Telephone.log";
@@ -83,6 +85,8 @@ typedef enum _AKTelephoneRingtones {
 @synthesize ringbackCount;
 @synthesize ringbackPort;
 
+@synthesize outboundProxyHost;
+@dynamic outboundProxyPort;
 @synthesize STUNServerHost;
 @dynamic STUNServerPort;
 @synthesize userAgentString;
@@ -126,6 +130,19 @@ typedef enum _AKTelephoneRingtones {
 - (AKTelephoneCallData *)callData
 {
 	return callData;
+}
+
+- (NSUInteger)outboundProxyPort
+{
+	return outboundProxyPort;
+}
+
+- (void)setOutboundProxyPort:(NSUInteger)port
+{
+	if (port > 0 && port < 65535)
+		outboundProxyPort = port;
+	else
+		outboundProxyPort = AKTelephoneOutboundProxyPortDefault;
 }
 
 - (NSUInteger)STUNServerPort
@@ -248,6 +265,8 @@ typedef enum _AKTelephoneRingtones {
 	[self setSoundStopped:YES];
 	[self setDetectedNATType:AKNATTypeUnknown];
 	
+	[self setOutboundProxyHost:AKTelephoneOutboundProxyHostDefault];
+	[self setOutboundProxyPort:AKTelephoneOutboundProxyPortDefault];
 	[self setSTUNServerHost:AKTelephoneSTUNServerHostDefault];
 	[self setSTUNServerPort:AKTelephoneSTUNServerPortDefault];
 	[self setLogFileName:AKTelephoneLogFileNameDefault];
@@ -301,6 +320,21 @@ typedef enum _AKTelephoneRingtones {
 	
 	ringbackSlot = PJSUA_INVALID_ID;
 	userAgentConfig.max_calls = AKTelephoneCallsMax;
+	
+	if ([[self outboundProxyHost] length] > 0) {
+		userAgentConfig.outbound_proxy_cnt = 1;
+		
+		if ([self outboundProxyPort] == AKTelephoneOutboundProxyPortDefault) {
+			userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@",
+												  [self outboundProxyHost]]
+												 pjString];
+		} else {
+			userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@:%u",
+												  [self outboundProxyHost], [self outboundProxyPort]]
+												 pjString];
+		}
+	}
+		
 	
 	if ([[self STUNServerHost] length] > 0)
 		userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%u",

@@ -88,6 +88,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	if (!initialized) {
 		NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
 		
+		[defaultsDict setObject:@"" forKey:AKOutboundProxyHost];
+		[defaultsDict setObject:[NSNumber numberWithInteger:5060] forKey:AKOutboundProxyPort];
 		[defaultsDict setObject:@"" forKey:AKSTUNServerHost];
 		[defaultsDict setObject:[NSNumber numberWithInteger:3478] forKey:AKSTUNServerPort];
 		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKVoiceActivityDetection];
@@ -164,6 +166,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
+	[telephone setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
+	[telephone setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 	[telephone setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[telephone setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 	[telephone setUserAgentString:@"Telephone 0.8.6"];

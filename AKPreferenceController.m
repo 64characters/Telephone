@@ -55,6 +55,8 @@ NSString * const AKSoundOutput = @"SoundOutput";
 NSString * const AKRingingSound = @"RingingSound";
 NSString * const AKFormatTelephoneNumbers = @"FormatTelephoneNumbers";
 NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";
+NSString * const AKOutboundProxyHost = @"OutboundProxyHost";
+NSString * const AKOutboundProxyPort = @"OutboundProxyPort";
 
 NSString * const AKFullName = @"FullName";
 NSString * const AKSIPAddress = @"SIPAddress";
