@@ -896,9 +896,11 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // Reopen all account windows when the user clicks the dock icon.
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
+	NSArray *immutableAccountControllers = [[[self accountControllers] copy] autorelease];
+	
 	// Show incoming call window, if any.
 	if ([self hasIncomingCallControllers]) {
-		for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease]) {
+		for (AKAccountController *anAccountController in immutableAccountControllers) {
 			for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
 				if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
 					[[aCallController call] state] == AKTelephoneCallIncomingState)
@@ -910,19 +912,30 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	}
 	
 	// No incoming calls, show window of the enabled accounts.
-	for (AKAccountController *anAccountController in [self accountControllers]) {
+	for (AKAccountController *anAccountController in immutableAccountControllers) {
 		if ([anAccountController isEnabled] && ![[anAccountController window] isVisible])
 			[[anAccountController window] orderFront:nil];
 	}
 	
 	// Is there a key window already?
 	BOOL keyWindowExists = NO;
-	for (AKAccountController *anAccountController in [self accountControllers])
+	for (AKAccountController *anAccountController in immutableAccountControllers) {
+		if (keyWindowExists)	// Break this cicle from the included cicle below.
+			break;
+		// Check the account window itsef.
 		if ([[anAccountController window] isKeyWindow]) {
 			keyWindowExists = YES;
 			break;
 		}
+		// Check call windows.
+		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+			if ([[aCallController window] isKeyWindow]) {
+				keyWindowExists = YES;
+				break;
+			}
+	}
 	
+	// Make first account window key if there are no other key windows.
 	if (!keyWindowExists)
 		[[[[self accountControllers] objectAtIndex:0] window] makeKeyWindow];
 	
