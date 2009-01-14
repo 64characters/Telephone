@@ -26,8 +26,11 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#import <Growl/Growl.h>
+
 #import "AKActiveCallView.h"
 #import "AKCallController.h"
+#import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
 #import "AppController.h"
@@ -302,6 +305,21 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[hangUpButton setEnabled:NO];
 	[acceptCallButton setEnabled:NO];
 	[declineCallButton setEnabled:NO];
+	
+	// Show Growl notification.
+	NSString *notificationTitle;
+	if ([[[[self call] remoteURI] displayName] length] > 0)
+		notificationTitle = [[[self call] remoteURI] displayName];
+	else
+		notificationTitle = [[[self call] remoteURI] SIPAddress];
+	if (![NSApp isActive])
+		[GrowlApplicationBridge notifyWithTitle:notificationTitle
+									description:[self status]
+							   notificationName:AKGrowlNotificationCallEnded
+									   iconData:nil
+									   priority:0
+									   isSticky:NO
+								   clickContext:nil];
 }
 
 - (void)telephoneCallMediaActive:(NSNotification *)notification

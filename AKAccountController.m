@@ -643,7 +643,7 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 									description:[NSString stringWithFormat:[NSLocalizedString(@"Calling from %@", @"Incoming call from ... received.")
 																			lowercaseString],
 												 [[aCall remoteURI] SIPAddress]]
-							   notificationName:@"Incoming Call"
+							   notificationName:AKGrowlNotificationIncomingCall
 									   iconData:nil
 									   priority:0
 									   isSticky:NO
@@ -651,7 +651,7 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 	} else {
 		[GrowlApplicationBridge notifyWithTitle:[[aCall remoteURI] SIPAddress]
 									description:[NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString]
-							   notificationName:@"Incoming Call"
+							   notificationName:AKGrowlNotificationIncomingCall
 									   iconData:nil
 									   priority:0
 									   isSticky:NO

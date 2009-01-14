@@ -1044,3 +1044,8 @@ static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount)
 	
     return err;
 }
+
+
+// Growl notification names.
+NSString * const AKGrowlNotificationIncomingCall = @"Incoming Call";
+NSString * const AKGrowlNotificationCallEnded = @"Call Ended";

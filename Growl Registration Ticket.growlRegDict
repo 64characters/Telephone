@@ -5,10 +5,12 @@
 	<key>AllNotifications</key>
 	<array>
 		<string>Incoming Call</string>
+		<string>Call Ended</string>
 	</array>
 	<key>DefaultNotifications</key>
 	<array>
 		<string>Incoming Call</string>
+		<string>Call Ended</string>
 	</array>
 	<key>TicketVersion</key>
 	<integer>1</integer>

@@ -81,3 +81,7 @@ extern NSString * const AKAudioDeviceIdentifier;
 extern NSString * const AKAudioDeviceName;
 extern NSString * const AKAudioDeviceInputsCount;
 extern NSString * const AKAudioDeviceOutputsCount;
+
+// Growl notification names.
+extern NSString * const AKGrowlNotificationIncomingCall;
+extern NSString * const AKGrowlNotificationCallEnded;
