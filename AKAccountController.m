@@ -262,8 +262,8 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		
 		// Set title.
-		if ([[originalURI user] AK_isTelephoneNumber] && [[originalURI host] length] == 0) {
-			if ([defaults boolForKey:AKFormatTelephoneNumbers])
+		if ([[originalURI host] length] == 0 && ![containsLettersPredicate evaluateWithObject:[originalURI user]]) {
+			if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
 				[[aCallController window] setTitle:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
 			else
 				[[aCallController window] setTitle:[originalURI user]];
