@@ -39,6 +39,7 @@
 	AKAccountController *accountController;
 	NSString *displayedName;
 	NSString *status;
+	NSString *nameFromAddressBook;
 	NSTimer *intermediateStatusTimer;
 	NSTimeInterval callStartTime;
 	NSTimer *callTimer;
@@ -60,6 +61,7 @@
 @property(nonatomic, readwrite, assign) AKAccountController *accountController;
 @property(readwrite, copy) NSString *displayedName;
 @property(readwrite, copy) NSString *status;
+@property(readwrite, copy) NSString *nameFromAddressBook;
 @property(readwrite, retain) NSTimer *intermediateStatusTimer;
 @property(readwrite, assign) NSTimeInterval callStartTime;
 @property(readwrite, retain) NSTimer *callTimer;

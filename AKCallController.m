@@ -45,6 +45,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @dynamic accountController;
 @synthesize displayedName;
 @synthesize status;
+@synthesize nameFromAddressBook;
 @synthesize intermediateStatusTimer;
 @synthesize callStartTime;
 @synthesize callTimer;
@@ -93,6 +94,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[call setDelegate:self];
 	
 	[self setAccountController:anAccountController];
+	[self setDisplayedName:nil];
+	[self setStatus:nil];
+	[self setNameFromAddressBook:nil];
 	[self setIntermediateStatusTimer:nil];
 	[self setCallStartTime:0.0];
 	[self setCallTimer:nil];
@@ -115,6 +119,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[call release];
 	
 	[self setAccountController:nil];
+	[displayedName release];
+	[status release];
+	[nameFromAddressBook release];
 	[enteredDTMF release];
 	
 	[super dealloc];
@@ -308,10 +315,13 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	
 	// Show Growl notification.
 	NSString *notificationTitle;
-	if ([[[[self call] remoteURI] displayName] length] > 0)
+	if ([[self nameFromAddressBook] length] > 0)
+		notificationTitle = [self nameFromAddressBook];
+	else if ([[[[self call] remoteURI] displayName] length] > 0)
 		notificationTitle = [[[self call] remoteURI] displayName];
 	else
 		notificationTitle = [[[self call] remoteURI] SIPAddress];
+	
 	if (![NSApp isActive])
 		[GrowlApplicationBridge notifyWithTitle:notificationTitle
 									description:[self status]

@@ -256,6 +256,7 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 	if (aCall != nil) {
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																		  accountController:self];
+		[aCallController setNameFromAddressBook:[originalURI displayName]];
 		[[self callControllers] addObject:aCallController];
 		
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
