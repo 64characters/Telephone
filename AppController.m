@@ -89,9 +89,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
 		
 		[defaultsDict setObject:@"" forKey:AKOutboundProxyHost];
-		[defaultsDict setObject:[NSNumber numberWithInteger:5060] forKey:AKOutboundProxyPort];
+		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKOutboundProxyPort];
 		[defaultsDict setObject:@"" forKey:AKSTUNServerHost];
-		[defaultsDict setObject:[NSNumber numberWithInteger:3478] forKey:AKSTUNServerPort];
+		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKSTUNServerPort];
 		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKVoiceActivityDetection];
 		[defaultsDict setObject:@"~/Library/Logs/Telephone.log" forKey:AKLogFileName];
 		[defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:AKLogLevel];
