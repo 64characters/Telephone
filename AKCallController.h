@@ -35,6 +35,7 @@
 
 @interface AKCallController : NSWindowController <AKActiveCallViewDelegate> {
 @private
+	NSString *identifier;
 	AKTelephoneCall *call;
 	AKAccountController *accountController;
 	NSString *displayedName;
@@ -57,6 +58,7 @@
 	IBOutlet NSProgressIndicator *callProgressIndicator;
 }
 
+@property(readwrite, copy) NSString *identifier;
 @property(readwrite, retain) AKTelephoneCall *call;
 @property(nonatomic, readwrite, assign) AKAccountController *accountController;
 @property(readwrite, copy) NSString *displayedName;

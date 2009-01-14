@@ -34,6 +34,7 @@
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
 #import "AppController.h"
+#import "NSStringAdditions.h"
 #import "NSWindowAdditions.h"
 
 
@@ -41,6 +42,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 @implementation AKCallController
 
+@synthesize identifier;
 @synthesize call;
 @dynamic accountController;
 @synthesize displayedName;
@@ -90,6 +92,8 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	if (self == nil)
 		return nil;
 	
+	[self setIdentifier:[NSString AK_uuidString]];
+	
 	[self setCall:aCall];
 	[call setDelegate:self];
 	
@@ -113,6 +117,8 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)dealloc
 {
+	[identifier release];
+	
 	if ([[[self call] delegate] isEqual:self])
 		[[self call] setDelegate:nil];
 	
@@ -329,7 +335,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 									   iconData:nil
 									   priority:0
 									   isSticky:NO
-								   clickContext:nil];
+								   clickContext:[self identifier]];
 }
 
 - (void)telephoneCallMediaActive:(NSNotification *)notification

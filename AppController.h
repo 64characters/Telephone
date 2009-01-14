@@ -32,7 +32,7 @@
 #import "AKTelephone.h"
 
 
-@class AKTelephone, AKAccountController, AKPreferenceController;
+@class AKTelephone, AKAccountController, AKPreferenceController, AKCallController;
 
 @interface AppController : NSObject <AKTelephoneDelegate, GrowlApplicationBridgeDelegate> {
 @private
@@ -70,6 +70,9 @@
 - (void)startIncomingCallSoundTimer;
 - (void)stopIncomingCallSoundTimer;
 - (void)incomingCallSoundTimerTick:(NSTimer *)theTimer;
+
+// Search all account controllers for the call controller with given identifier (uuid).
+- (AKCallController *)callControllerByIdentifier:(NSString *)identifier;
 
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode;
 

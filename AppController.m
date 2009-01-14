@@ -497,6 +497,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[self incomingCallSound] play];
 }
 
+- (AKCallController *)callControllerByIdentifier:(NSString *)identifier
+{
+	for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease])
+		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+			if ([[aCallController identifier] isEqualToString:identifier])
+				return aCallController;
+	return nil;
+}
+
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode
 {
 	NSString *localizedString = nil;
@@ -1002,7 +1011,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark GrowlApplicationBridgeDelegate protocol
 
-
+- (void)growlNotificationWasClicked:(id)clickContext
+{
+	NSString *identifier = (NSString *)clickContext;
+	AKCallController *aCallController = [self callControllerByIdentifier:identifier];
+	
+	// Make application active.
+	if (![NSApp isActive])
+		[NSApp activateIgnoringOtherApps:YES];
+	
+	// Make corresponding call window key.
+	[aCallController showWindow:nil];
+}
 
 @end
 

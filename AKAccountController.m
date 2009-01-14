@@ -639,25 +639,25 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 	[aCallController showWindow:nil];
 	
 	// Show Growl notification.
+	NSString *notificationTitle, *notificationDescription;
 	if ([[[aCall remoteURI] displayName] length] > 0) {
-		[GrowlApplicationBridge notifyWithTitle:[[aCall remoteURI] displayName]
-									description:[NSString stringWithFormat:[NSLocalizedString(@"Calling from %@", @"Incoming call from ... received.")
-																			lowercaseString],
-												 [[aCall remoteURI] SIPAddress]]
-							   notificationName:AKGrowlNotificationIncomingCall
-									   iconData:nil
-									   priority:0
-									   isSticky:NO
-								   clickContext:nil];
+		notificationTitle = [[aCall remoteURI] displayName];
+		notificationDescription = [NSString stringWithFormat:[NSLocalizedString(@"Calling from %@",
+																				@"Incoming call from ... received.")
+															  lowercaseString],
+								   [[aCall remoteURI] SIPAddress]];
 	} else {
-		[GrowlApplicationBridge notifyWithTitle:[[aCall remoteURI] SIPAddress]
-									description:[NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString]
-							   notificationName:AKGrowlNotificationIncomingCall
-									   iconData:nil
-									   priority:0
-									   isSticky:NO
-								   clickContext:nil];
+		notificationTitle = [[aCall remoteURI] SIPAddress];
+		notificationDescription = [NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString];
 	}
+	
+	[GrowlApplicationBridge notifyWithTitle:notificationTitle
+								description:notificationDescription
+						   notificationName:AKGrowlNotificationIncomingCall
+								   iconData:nil
+								   priority:0
+								   isSticky:NO
+							   clickContext:[aCallController identifier]];
 	
 	[[[NSApp delegate] incomingCallSound] play];
 	[[NSApp delegate] startIncomingCallSoundTimer];
