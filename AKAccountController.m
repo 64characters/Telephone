@@ -257,6 +257,7 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																		  accountController:self];
 		[aCallController setNameFromAddressBook:[originalURI displayName]];
+		[aCallController setEnteredCallDestination:[callDestination stringValue]];
 		[[self callControllers] addObject:aCallController];
 		
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -631,23 +632,40 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 	[[self callControllers] addObject:aCallController];
 	
 	[[aCallController window] setTitle:[[aCall remoteURI] SIPAddress]];
-	AKSIPURIFormatter *formatter = [[[AKSIPURIFormatter alloc] init] autorelease];
-	[aCallController setDisplayedName:[formatter stringForObjectValue:[aCall remoteURI]]];
+	AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
+	[aCallController setDisplayedName:[SIPURIFormatter stringForObjectValue:[aCall remoteURI]]];
 	[aCallController setStatus:[NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString]];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	
 	[aCallController showWindow:nil];
 	
 	// Show Growl notification.
+	NSString *callSource;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+	[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
+	if ([[[aCall remoteURI] user] length] > 0) {
+		if ([[[aCall remoteURI] user] AK_isTelephoneNumber]) {
+			if ([defaults boolForKey:AKFormatTelephoneNumbers]) {
+				callSource = [telephoneNumberFormatter stringForObjectValue:[[aCall remoteURI] user]];
+			} else {
+				callSource = [[aCall remoteURI] user];
+			}
+		} else {
+			callSource = [[aCall remoteURI] SIPAddress];
+		}
+	} else {
+		callSource = [[aCall remoteURI] host];
+	}
+	
 	NSString *notificationTitle, *notificationDescription;
 	if ([[[aCall remoteURI] displayName] length] > 0) {
 		notificationTitle = [[aCall remoteURI] displayName];
-		notificationDescription = [NSString stringWithFormat:[NSLocalizedString(@"Calling from %@",
-																				@"Incoming call from ... received.")
+		notificationDescription = [NSString stringWithFormat:[NSLocalizedString(@"Calling from %@",	@"Incoming call from ... received.")
 															  lowercaseString],
-								   [[aCall remoteURI] SIPAddress]];
+								   callSource];
 	} else {
-		notificationTitle = [[aCall remoteURI] SIPAddress];
+		notificationTitle = callSource;
 		notificationDescription = [NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString];
 	}
 	

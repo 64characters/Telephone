@@ -30,6 +30,7 @@
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
 #import "AKTelephoneNumberFormatter.h"
+#import "NSStringAdditions.h"
 
 
 @implementation AKSIPURIFormatter
@@ -42,15 +43,19 @@
 	NSString *returnValue = nil;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	if ([[anObject displayName] length] > 0)
+	if ([[anObject displayName] length] > 0) {
 		returnValue = [anObject displayName];
-	else if ([[anObject user] length] > 0) {
-		if ([defaults boolForKey:AKFormatTelephoneNumbers]) {
-			AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
-			[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
-			returnValue = [telephoneNumberFormatter stringForObjectValue:[anObject user]];
+	} else if ([[anObject user] length] > 0) {
+		if ([[anObject user] AK_isTelephoneNumber]) {
+			if ([defaults boolForKey:AKFormatTelephoneNumbers]) {
+				AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+				[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
+				returnValue = [telephoneNumberFormatter stringForObjectValue:[anObject user]];
+			} else {
+				returnValue = [anObject user];
+			}	
 		} else {
-			returnValue = [anObject user];
+			returnValue = [anObject SIPAddress];
 		}
 	} else {
 		returnValue = [anObject host];

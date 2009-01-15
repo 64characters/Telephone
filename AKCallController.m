@@ -31,6 +31,7 @@
 #import "AKActiveCallView.h"
 #import "AKCallController.h"
 #import "AKSIPURI.h"
+#import "AKSIPURIFormatter.h"
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
 #import "AppController.h"
@@ -48,6 +49,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @synthesize displayedName;
 @synthesize status;
 @synthesize nameFromAddressBook;
+@synthesize enteredCallDestination;
 @synthesize intermediateStatusTimer;
 @synthesize callStartTime;
 @synthesize callTimer;
@@ -101,6 +103,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[self setDisplayedName:nil];
 	[self setStatus:nil];
 	[self setNameFromAddressBook:nil];
+	[self setEnteredCallDestination:nil];
 	[self setIntermediateStatusTimer:nil];
 	[self setCallStartTime:0.0];
 	[self setCallTimer:nil];
@@ -128,6 +131,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[displayedName release];
 	[status release];
 	[nameFromAddressBook release];
+	[enteredCallDestination release];
 	[enteredDTMF release];
 	
 	[super dealloc];
@@ -321,12 +325,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	
 	// Show Growl notification.
 	NSString *notificationTitle;
-	if ([[self nameFromAddressBook] length] > 0)
+	if ([[self nameFromAddressBook] length] > 0) {
 		notificationTitle = [self nameFromAddressBook];
-	else if ([[[[self call] remoteURI] displayName] length] > 0)
-		notificationTitle = [[[self call] remoteURI] displayName];
-	else
-		notificationTitle = [[[self call] remoteURI] SIPAddress];
+	} else if ([[self enteredCallDestination] length] > 0) {
+		notificationTitle = [self enteredCallDestination];
+	} else {
+		AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
+		notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
+	}
 	
 	if (![NSApp isActive])
 		[GrowlApplicationBridge notifyWithTitle:notificationTitle
