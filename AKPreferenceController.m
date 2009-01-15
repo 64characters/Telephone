@@ -37,7 +37,8 @@
 
 @interface AKPreferenceController()
 
-- (BOOL)checkForSTUNServerChanges:(id)sender;
+- (BOOL)checkForNetworkSettingsChanges:(id)sender;
+- (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 
 @end
 
@@ -70,7 +71,7 @@ NSString * const AKAccountEnabled = @"AccountEnabled";
 NSString * const AKPreferenceControllerDidAddAccountNotification = @"AKPreferenceControllerDidAddAccount";
 NSString * const AKPreferenceControllerDidRemoveAccountNotification = @"AKPreferenceControllerDidRemoveAccount";
 NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPreferenceControllerDidChangeAccountEnabled";
-NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPreferenceControllerDidChangeSTUNServer";
+NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"AKPreferenceControllerDidChangeNetworkSettings";
 
 @implementation AKPreferenceController
 
@@ -113,10 +114,10 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 									   name:AKPreferenceControllerDidChangeAccountEnabledNotification
 									 object:self];
 		
-		if ([aDelegate respondsToSelector:@selector(preferenceControllerDidChangeSTUNServer:)])
+		if ([aDelegate respondsToSelector:@selector(preferenceControllerDidChangeNetworkSettings:)])
 			[notificationCenter addObserver:aDelegate
-								   selector:@selector(preferenceControllerDidChangeSTUNServer:)
-									   name:AKPreferenceControllerDidChangeSTUNServerNotification
+								   selector:@selector(preferenceControllerDidChangeNetworkSettings:)
+									   name:AKPreferenceControllerDidChangeNetworkSettingsNotification
 									 object:self];
 	}
 	
@@ -149,6 +150,9 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	[STUNServerHost setStringValue:[defaults stringForKey:AKSTUNServerHost]];
 	if ([[defaults objectForKey:AKSTUNServerPort] integerValue] > 0)
 		[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	[outboundProxyHost setStringValue:[defaults stringForKey:AKOutboundProxyHost]];
+	if ([[defaults objectForKey:AKOutboundProxyPort] integerValue] > 0)
+		[outboundProxyPort setIntegerValue:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 		
 	NSInteger row = [accountsTable selectedRow];
 	if (row == -1)
@@ -159,10 +163,10 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 
 - (IBAction)changeView:(id)sender
 {
-	// If the user switches from General to some other view, check for STUN server changes.
+	// If the user switches from Network to some other view, check for network settings changes.
 	if ([[[self window] contentView] isEqual:networkView] && [sender tag] != AKNetworkPreferencesTag) {
-		BOOL STUNServerChanged = [self checkForSTUNServerChanges:sender];
-		if (STUNServerChanged)
+		BOOL networkSettingsChanged = [self checkForNetworkSettingsChanges:sender];
+		if (networkSettingsChanged)
 			return;
 	}
 	
@@ -293,7 +297,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
 	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
-	[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\0"];
+	[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
 	[alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Delete \\U201C%@\\U201D?",
 																	   @"Account removal confirmation."),
 						   selectedAccount]];
@@ -507,19 +511,23 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	[[[NSApp delegate] incomingCallSound] play];
 }
 
-// Check if STUN server settings were changed, show an alert sheet to save, cancel or don't save.
-// Returns YES if changes were made to STUN server hostname or port; returns NO otherwise.
-- (BOOL)checkForSTUNServerChanges:(id)sender
+// Check if network settings were changed, show an alert sheet to save, cancel or don't save.
+// Returns YES if changes were made to the network settings; returns NO otherwise.
+- (BOOL)checkForNetworkSettingsChanges:(id)sender
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	NSString *newSTUNServerHost = [STUNServerHost stringValue];
 	NSNumber *newSTUNServerPort = [NSNumber numberWithInteger:[STUNServerPort integerValue]];
+	NSString *newOutboundProxyHost = [outboundProxyHost stringValue];
+	NSNumber *newOutboundProxyPort = [NSNumber numberWithInteger:[outboundProxyPort integerValue]];
 	
 	if (![[defaults objectForKey:AKSTUNServerHost] isEqualToString:newSTUNServerHost] ||
-		![[defaults objectForKey:AKSTUNServerPort] isEqualToNumber:newSTUNServerPort])
+		![[defaults objectForKey:AKSTUNServerPort] isEqualToNumber:newSTUNServerPort] ||
+		![[defaults objectForKey:AKOutboundProxyHost] isEqualToString:newOutboundProxyHost] ||
+		![[defaults objectForKey:AKOutboundProxyPort] isEqualToNumber:newOutboundProxyPort])
 	{
-		// Explicitly select General toolbar item.
+		// Explicitly select Network toolbar item.
 		[toolbar setSelectedItemIdentifier:[networkToolbarItem itemIdentifier]];
 		
 		// Show alert to the user.
@@ -527,13 +535,13 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 		[alert addButtonWithTitle:NSLocalizedString(@"Save", @"Save button.")];
 		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
 		[alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't save button.")];
-		[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\0"];
-		[alert setMessageText:NSLocalizedString(@"Save changes to STUN server settings?", @"STUN server change confirmation.")];
-		[alert setInformativeText:NSLocalizedString(@"New STUN server settings will be applied immediately, all accounts will be reconnected.",
-													@"STUN server change confirmation informative text.")];
+		[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
+		[alert setMessageText:NSLocalizedString(@"Save changes to the network settings?", @"Network settings change confirmation.")];
+		[alert setInformativeText:NSLocalizedString(@"New network settings will be applied immediately, all accounts will be reconnected.",
+													@"Network settings change confirmation informative text.")];
 		[alert beginSheetModalForWindow:[self window]
 						  modalDelegate:self
-						 didEndSelector:@selector(STUNServerAlertDidEnd:returnCode:contextInfo:)
+						 didEndSelector:@selector(networkSettingsChangeAlertDidEnd:returnCode:contextInfo:)
 							contextInfo:sender];
 		return YES;
 	}
@@ -541,7 +549,7 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	return NO;
 }
 
-- (void)STUNServerAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	// Close the sheet.
 	[[alert window] orderOut:nil];
@@ -555,12 +563,23 @@ NSString * const AKPreferenceControllerDidChangeSTUNServerNotification = @"AKPre
 	if (returnCode == NSAlertFirstButtonReturn) {
 		[defaults setObject:[STUNServerHost stringValue] forKey:AKSTUNServerHost];
 		[defaults setObject:[NSNumber numberWithInteger:[STUNServerPort integerValue]] forKey:AKSTUNServerPort];
+		[defaults setObject:[outboundProxyHost stringValue] forKey:AKOutboundProxyHost];
+		[defaults setObject:[NSNumber numberWithInteger:[outboundProxyPort integerValue]] forKey:AKOutboundProxyPort];
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidChangeSTUNServerNotification
+		[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidChangeNetworkSettingsNotification
 															object:self];
 	} else if (returnCode == NSAlertThirdButtonReturn) {
 		[STUNServerHost setStringValue:[defaults objectForKey:AKSTUNServerHost]];
-		[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+		if ([[defaults objectForKey:AKSTUNServerPort] integerValue] == 0)
+			[STUNServerPort setStringValue:@""];
+		else
+			[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+		
+		[outboundProxyHost setStringValue:[defaults objectForKey:AKOutboundProxyHost]];
+		if ([[defaults objectForKey:AKOutboundProxyPort] integerValue] == 0)
+			[outboundProxyPort setStringValue:@""];
+		else
+			[outboundProxyPort setIntegerValue:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 	}
 	
 	if ([sender isMemberOfClass:[NSToolbarItem class]]) {
@@ -623,8 +642,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (BOOL)windowShouldClose:(id)window
 {
-	BOOL STUNServerChanged = [self checkForSTUNServerChanges:window];
-	if (STUNServerChanged)
+	BOOL networkSettingsChanged = [self checkForNetworkSettingsChanges:window];
+	if (networkSettingsChanged)
 		return NO;
 	
 	return YES;

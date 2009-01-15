@@ -73,8 +73,8 @@
 /* Network preferences window title. */
 "Network" = "Сеть";
 
-/* STUN server change confirmation informative text. */
-"New STUN server settings will be applied immediately, all accounts will be reconnected." = "Настройки STUN-сервера сразу вступят в силу, все аккаунты будут переподсоединены.";
+/* Network settings change confirmation informative text. */
+"New network settings will be applied immediately, all accounts will be reconnected." = "Настройки вступят в силу сразу, все аккаунты будут переподсоединены.";
 
 /* Account registration Offline menu item. */
 "Offline" = "Офлайн";
@@ -103,8 +103,8 @@
 /* Save button. */
 "Save" = "Сохранить";
 
-/* STUN server change confirmation. */
-"Save changes to STUN server settings?" = "Сохранить настройки STUN-сервера?";
+/* Network settings change confirmation. */
+"Save changes to the network settings?" = "Сохранить сетевые настройки?";
 
 /* SIP address does not match the user name. */
 "SIP address \\U201C%@\\U201D does not match the user name \\U201C%@\\U201D." = "SIP-адрес «%1$@» не соответствует имени пользователя «%2$@».";

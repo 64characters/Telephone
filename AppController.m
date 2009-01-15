@@ -774,13 +774,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	}
 }
 
-- (void)preferenceControllerDidChangeSTUNServer:(NSNotification *)notification
+- (void)preferenceControllerDidChangeNetworkSettings:(NSNotification *)notification
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	if (![[self telephone] started]) {
 		[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 		[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+		[[self telephone] setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
+		[[self telephone] setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 		
 		return;
 	}
@@ -807,6 +809,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[self telephone] destroyUserAgent];
 	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	[[self telephone] setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
+	[[self telephone] setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 	
 	
 	// Add accounts to Telephone.
@@ -962,7 +966,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 			[alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
-			[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\0"];
+			[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
 			[alert setMessageText:NSLocalizedString(@"Are you shure you want to quit Telephone?", @"Telephone quit confirmation.")];
 			[alert setInformativeText:NSLocalizedString(@"All active calls will be disconnected.", @"Telephone quit confirmation informative text.")];
 			

@@ -79,6 +79,8 @@ extern NSString * const AKAccountEnabled;
 	// Network.
 	IBOutlet NSTextField *STUNServerHost;
 	IBOutlet NSTextField *STUNServerPort;
+	IBOutlet NSTextField *outboundProxyHost;
+	IBOutlet NSTextField *outboundProxyPort;
 	
 	// Account.
 	IBOutlet NSTableView *accountsTable;
@@ -150,4 +152,4 @@ enum {
 extern NSString * const AKPreferenceControllerDidAddAccountNotification;
 extern NSString * const AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex.
 extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex.
-extern NSString * const AKPreferenceControllerDidChangeSTUNServerNotification;
+extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification;
