@@ -71,6 +71,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (BOOL)hasIncomingCallControllers
 {
 	for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease]) {
+		if (![anAccountController isEnabled])
+			continue;
+		
 		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
 			if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
 				[[aCallController call] state] == AKTelephoneCallIncomingState)
@@ -503,10 +506,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (AKCallController *)callControllerByIdentifier:(NSString *)identifier
 {
-	for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease])
+	for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease]) {
+		if (![anAccountController isEnabled])
+			continue;
+	
 		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
 			if ([[aCallController identifier] isEqualToString:identifier])
 				return aCallController;
+	}
+	
 	return nil;
 }
 
@@ -799,6 +807,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	// Remove accounts from Telephone.
 	for (anAccountController in [self accountControllers]) {
+		if (![anAccountController isEnabled])
+			continue;
+		
 		[anAccountController showOfflineMode];
 		[[anAccountController window] display];
 		
@@ -918,6 +929,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	// Show incoming call window, if any.
 	if ([self hasIncomingCallControllers]) {
 		for (AKAccountController *anAccountController in immutableAccountControllers) {
+			if (![anAccountController isEnabled])
+				continue;
+			
 			for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
 				if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
 					[[aCallController call] state] == AKTelephoneCallIncomingState)
@@ -939,6 +953,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	for (AKAccountController *anAccountController in immutableAccountControllers) {
 		if (keyWindowExists)	// Break this cicle from the included cicle below.
 			break;
+		
+		if (![anAccountController isEnabled])
+			continue;
+		
 		// Check the account window itsef.
 		if ([[anAccountController window] isKeyWindow]) {
 			keyWindowExists = YES;
