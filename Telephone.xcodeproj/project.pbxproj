@@ -103,6 +103,8 @@
 		AA4BD4DC0E07C51E005A71B2 /* AKTelephoneAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneAccount.h; sourceTree = "<group>"; };
 		AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneAccount.m; sourceTree = "<group>"; };
 		AA4FD3A10E1E895D00D4E6A6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		AA5100010F1FE302003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AA5100020F1FE32F003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA51FAC80F1D5673003CE94C /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		AA51FC6E0F1D6700003CE94C /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AA584A690F06CFD2003C4992 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 			children = (
 				089C165DFE840E0CC02AAC07 /* English */,
 				AA2ED9DF0F05C1E3004A13C6 /* Russian */,
+				AA5100010F1FE302003CE94C /* German */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 			children = (
 				AA584A690F06CFD2003C4992 /* English */,
 				AA584A6B0F06D007003C4992 /* Russian */,
+				AA5100020F1FE32F003CE94C /* German */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
