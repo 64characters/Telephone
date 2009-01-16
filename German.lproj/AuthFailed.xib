@@ -175,13 +175,13 @@ aWUgQmVudXR6ZXJuYW1lIG9kZXIgUGFzc3dvcnQgdW5kIHZlcnN1Y2hlbiBTaWUgZXMgZXJuZXV0Lg</
 						<object class="NSButton" id="712841233">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{140, 58}, {130, 18}}</string>
+							<string key="NSFrame">{{140, 58}, {258, 18}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="409363457">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Passwort merken</string>
+								<string type="base64-UTF8" key="NSContents">UGFzc3dvcnQgaW0gU2NobMO8c3NlbGJ1bmQgc3BlaWNoZXJuA</string>
 								<reference key="NSSupport" ref="510173553"/>
 								<reference key="NSControlView" ref="712841233"/>
 								<int key="NSButtonFlags">1211912703</int>
