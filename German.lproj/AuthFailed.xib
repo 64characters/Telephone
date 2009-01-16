@@ -38,7 +38,7 @@
 			<object class="NSWindowTemplate" id="510659113">
 				<int key="NSWindowStyleMask">3</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{196, 284}, {454, 226}}</string>
+				<string key="NSWindowRect">{{196, 284}, {479, 226}}</string>
 				<int key="NSWTFlags">603979776</int>
 				<string key="NSWindowTitle">Authentication Failure</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -52,13 +52,13 @@
 						<object class="NSTextField" id="692651810">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{106, 195}, {87, 17}}</string>
+							<string key="NSFrame">{{139, 195}, {190, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="360792746">
 								<int key="NSCellFlags">70385217</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Login failed.</string>
+								<string key="NSContents">Anmeldung fehlgeschlagen.</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande-Bold</string>
 									<double key="NSSize">1.300000e+01</double>
@@ -88,13 +88,14 @@
 						<object class="NSTextField" id="409430353">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{106, 159}, {292, 28}}</string>
+							<string key="NSFrame">{{139, 145}, {292, 42}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="141756788">
 								<int key="NSCellFlags">69336577</int>
 								<int key="NSCellFlags2">272629760</int>
-								<string key="NSContents">Telehone was unable to login to the registry server. Change user name or password and try again.</string>
+								<string type="base64-UTF8" key="NSContents">VGVsZWZvbiBrb25udGUgc2ljaCBuaWNodCBpbiBleGFtcGxlLmNvbSBhbm1lbGRlbi4gw4RuZGVybiBT
+aWUgQmVudXR6ZXJuYW1lIG9kZXIgUGFzc3dvcnQgdW5kIHZlcnN1Y2hlbiBTaWUgZXMgZXJuZXV0Lg</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">1.100000e+01</double>
@@ -108,7 +109,7 @@
 						<object class="NSTextField" id="911413864">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{109, 114}, {286, 22}}</string>
+							<string key="NSFrame">{{142, 114}, {286, 22}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="801708064">
@@ -142,13 +143,13 @@
 						<object class="NSTextField" id="568511117">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{67, 116}, {37, 17}}</string>
+							<string key="NSFrame">{{38, 116}, {99, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="222958690">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">User:</string>
+								<string key="NSContents">Benutzername:</string>
 								<reference key="NSSupport" ref="510173553"/>
 								<reference key="NSControlView" ref="568511117"/>
 								<reference key="NSBackgroundColor" ref="18470986"/>
@@ -158,13 +159,13 @@
 						<object class="NSTextField" id="252347240">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{36, 84}, {68, 17}}</string>
+							<string key="NSFrame">{{73, 84}, {64, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="45790673">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Password:</string>
+								<string key="NSContents">Passwort:</string>
 								<reference key="NSSupport" ref="510173553"/>
 								<reference key="NSControlView" ref="252347240"/>
 								<reference key="NSBackgroundColor" ref="18470986"/>
@@ -174,13 +175,13 @@
 						<object class="NSButton" id="712841233">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{107, 58}, {281, 18}}</string>
+							<string key="NSFrame">{{140, 58}, {130, 18}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="409363457">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Remember this password in my Keychain</string>
+								<string key="NSContents">Passwort merken</string>
 								<reference key="NSSupport" ref="510173553"/>
 								<reference key="NSControlView" ref="712841233"/>
 								<int key="NSButtonFlags">1211912703</int>
@@ -201,13 +202,13 @@
 						<object class="NSButton" id="352657902">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{344, 12}, {96, 32}}</string>
+							<string key="NSFrame">{{361, 12}, {104, 32}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="628245886">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Log In</string>
+								<string key="NSContents">Anmelden</string>
 								<reference key="NSSupport" ref="510173553"/>
 								<reference key="NSControlView" ref="352657902"/>
 								<int key="NSButtonFlags">-2038284033</int>
@@ -221,13 +222,13 @@
 						<object class="NSButton" id="642151646">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{248, 12}, {96, 32}}</string>
+							<string key="NSFrame">{{253, 12}, {108, 32}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="377522656">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Cancel</string>
+								<string key="NSContents">Abbrechen</string>
 								<reference key="NSSupport" ref="510173553"/>
 								<reference key="NSControlView" ref="642151646"/>
 								<int key="NSButtonFlags">-2038284033</int>
@@ -241,7 +242,7 @@
 						<object class="NSSecureTextField" id="756083729">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{109, 82}, {286, 22}}</string>
+							<string key="NSFrame">{{142, 82}, {286, 22}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSecureTextFieldCell" key="NSCell" id="464481493">
@@ -260,7 +261,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{454, 226}</string>
+					<string key="NSFrameSize">{479, 226}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
@@ -564,11 +565,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilderKit</string>
-					<string>{{141, 477}, {454, 226}}</string>
+					<string>{{162, 756}, {479, 226}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="0" id="6"/>
 					<reference ref="6"/>
-					<string>{{141, 477}, {454, 226}}</string>
+					<string>{{162, 756}, {479, 226}}</string>
 					<reference ref="6"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

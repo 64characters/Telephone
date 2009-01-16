@@ -105,6 +105,12 @@
 		AA4FD3A10E1E895D00D4E6A6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		AA5100010F1FE302003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA5100020F1FE32F003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA51002A0F1FF943003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		AA51002C0F1FF956003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/Account.xib; sourceTree = "<group>"; };
+		AA5100400F200066003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/Call.xib; sourceTree = "<group>"; };
+		AA5100590F200E2F003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/Preferences.xib; sourceTree = "<group>"; };
+		AA51005C0F20117F003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/AuthFailed.xib; sourceTree = "<group>"; };
+		AA5100970F20CD11003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/AddAccount.xib; sourceTree = "<group>"; };
 		AA51FAC80F1D5673003CE94C /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		AA51FC6E0F1D6700003CE94C /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AA584A690F06CFD2003C4992 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -419,6 +425,7 @@
 			children = (
 				1DDD58150DA1D0A300B32029 /* English */,
 				AA2ED9930F05AD1E004A13C6 /* Russian */,
+				AA51002A0F1FF943003CE94C /* German */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -437,6 +444,7 @@
 			children = (
 				AAAE4A230E3F4DAA00110597 /* English */,
 				AA2ED99D0F05B36B004A13C6 /* Russian */,
+				AA51002C0F1FF956003CE94C /* German */,
 			);
 			name = Account.xib;
 			sourceTree = "<group>";
@@ -446,6 +454,7 @@
 			children = (
 				AA3578680E3FD91400021989 /* English */,
 				AA2ED9A10F05B3BD004A13C6 /* Russian */,
+				AA5100400F200066003CE94C /* German */,
 			);
 			name = Call.xib;
 			sourceTree = "<group>";
@@ -455,6 +464,7 @@
 			children = (
 				AABAD7EF0E0C184200CB5930 /* English */,
 				AA2ED9A60F05B5CE004A13C6 /* Russian */,
+				AA5100590F200E2F003CE94C /* German */,
 			);
 			name = Preferences.xib;
 			sourceTree = "<group>";
@@ -464,6 +474,7 @@
 			children = (
 				AA69ADD90E89578900CF54B3 /* English */,
 				AA2ED9AD0F05BA16004A13C6 /* Russian */,
+				AA5100970F20CD11003CE94C /* German */,
 			);
 			name = AddAccount.xib;
 			sourceTree = "<group>";
@@ -473,6 +484,7 @@
 			children = (
 				AA1732170EAF8C14009023F2 /* English */,
 				AA2ED9B30F05BB64004A13C6 /* Russian */,
+				AA51005C0F20117F003CE94C /* German */,
 			);
 			name = AuthFailed.xib;
 			sourceTree = "<group>";

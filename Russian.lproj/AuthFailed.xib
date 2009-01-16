@@ -38,7 +38,7 @@
 			<object class="NSWindowTemplate" id="510659113">
 				<int key="NSWindowStyleMask">3</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{196, 278}, {482, 232}}</string>
+				<string key="NSWindowRect">{{196, 284}, {482, 226}}</string>
 				<int key="NSWTFlags">603979776</int>
 				<string type="base64-UTF8" key="NSWindowTitle">0J7RiNC40LHQutCwINCw0YPRgtC10L3RgtC40YTQuNC60LDRhtC40Lg</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -262,7 +262,7 @@ jNGB0Y8g0L3QsCDRgdC10YDQstC10YDQtSBleGFtcGxlLmNvbS4g0J/RgNC+0LLQtdGA0YzRgtC1INC4
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{482, 232}</string>
+					<string key="NSFrameSize">{482, 226}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
@@ -566,11 +566,11 @@ jNGB0Y8g0L3QsCDRgdC10YDQstC10YDQtSBleGFtcGxlLmNvbS4g0J/RgNC+0LLQtdGA0YzRgtC1INC4
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilderKit</string>
-					<string>{{159, 484}, {482, 232}}</string>
+					<string>{{159, 490}, {482, 226}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="0" id="6"/>
 					<reference ref="6"/>
-					<string>{{159, 484}, {482, 232}}</string>
+					<string>{{159, 490}, {482, 226}}</string>
 					<reference ref="6"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

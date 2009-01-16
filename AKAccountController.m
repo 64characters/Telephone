@@ -58,6 +58,12 @@ const CGFloat AKAccountRegistrationButtonAvailableRussianWidth = 73.0;
 const CGFloat AKAccountRegistrationButtonUnavailableRussianWidth = 85.0;
 const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 
+// German.
+const CGFloat AKAccountRegistrationButtonOfflineGermanWidth = 65.0;
+const CGFloat AKAccountRegistrationButtonAvailableGermanWidth = 84.0;
+const CGFloat AKAccountRegistrationButtonUnavailableGermanWidth = 111.0;
+const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
+
 
 @interface AKAccountController()
 
@@ -123,10 +129,10 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 				
 				NSString *statusText;
 				NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
-				if ([preferredLocalization isEqualToString:@"English"])
-					statusText = [[self account] registrationStatusText];
-				else
+				if ([preferredLocalization isEqualToString:@"Russian"])
 					statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
+				else
+					statusText = [[self account] registrationStatusText];
 				
 				NSString *error;
 				if (statusText == nil) {
@@ -336,10 +342,10 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 			
 			NSString *statusText;
 			NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
-			if ([preferredLocalization isEqualToString:@"English"])
-				statusText = [[self account] registrationStatusText];
-			else
+			if ([preferredLocalization isEqualToString:@"Russian"])
 				statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
+			else
+				statusText = [[self account] registrationStatusText];
 			
 			NSString *error;
 			if (statusText == nil) {
@@ -405,6 +411,8 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		buttonSize.width = AKAccountRegistrationButtonAvailableEnglishWidth;
 	else if ([preferredLocalization isEqualToString:@"Russian"])
 		buttonSize.width = AKAccountRegistrationButtonAvailableRussianWidth;
+	else if ([preferredLocalization isEqualToString:@"German"])
+		buttonSize.width = AKAccountRegistrationButtonAvailableGermanWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
 	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Available", @"Account registration Available menu item.")];
 	
@@ -424,6 +432,8 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		buttonSize.width = AKAccountRegistrationButtonUnavailableEnglishWidth;
 	else if ([preferredLocalization isEqualToString:@"Russian"])
 		buttonSize.width = AKAccountRegistrationButtonUnavailableRussianWidth;
+	else if ([preferredLocalization isEqualToString:@"German"])
+		buttonSize.width = AKAccountRegistrationButtonUnavailableGermanWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
 	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
 	
@@ -443,6 +453,8 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		buttonSize.width = AKAccountRegistrationButtonOfflineEnglishWidth;
 	else if ([preferredLocalization isEqualToString:@"Russian"])
 		buttonSize.width = AKAccountRegistrationButtonOfflineRussianWidth;
+	else if ([preferredLocalization isEqualToString:@"German"])
+		buttonSize.width = AKAccountRegistrationButtonOfflineGermanWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
 	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Offline", @"Account registration Offline menu item.")];
 	
@@ -459,6 +471,8 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 		buttonSize.width = AKAccountRegistrationButtonConnectingEnglishWidth;
 	else if ([preferredLocalization isEqualToString:@"Russian"])
 		buttonSize.width = AKAccountRegistrationButtonConnectingRussianWidth;
+	else if ([preferredLocalization isEqualToString:@"German"])
+		buttonSize.width = AKAccountRegistrationButtonConnectingGermanWidth;
 	[accountRegistrationPopUp setFrameSize:buttonSize];
 	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Connecting...", @"Account registration Connecting... menu item.")];
 }
@@ -565,10 +579,10 @@ const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 				if ([self attemptsToRegisterAccount] || [self attemptsToUnregisterAccount]) {
 					NSString *statusText;
 					NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
-					if ([preferredLocalization isEqualToString:@"English"])
-						statusText = [[self account] registrationStatusText];
-					else
+					if ([preferredLocalization isEqualToString:@"Russian"])
 						statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self account] registrationStatus]];
+					else
+						statusText = [[self account] registrationStatusText];
 					
 					NSString *error;
 					if (statusText == nil) {
