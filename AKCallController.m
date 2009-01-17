@@ -212,9 +212,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 - (void)intermediateStatusTimerTick:(NSTimer *)theTimer
 {
 	if ([[self call] isOnLocalHold])
-		[self setStatus:[NSLocalizedString(@"On hold", @"Call on local hold status text.") lowercaseString]];
+		[self setStatus:NSLocalizedString(@"On hold", @"Call on local hold status text.")];
 	else if ([[self call] isOnRemoteHold])
-		[self setStatus:[NSLocalizedString(@"On remote hold", @"Call on remote hold status text.") lowercaseString]];
+		[self setStatus:NSLocalizedString(@"On remote hold", @"Call on remote hold status text.")];
 	else if ([[self call] isActive])
 		[self startCallTimer];
 	
@@ -244,7 +244,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
-	[self setStatus:[NSLocalizedString(@"Calling...", @"Outgoing call in progress.") lowercaseString]];
+	[self setStatus:NSLocalizedString(@"Calling...", @"Outgoing call in progress.")];
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
@@ -253,7 +253,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
 	if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
 		[callProgressIndicator stopAnimation:self];
-		[self setStatus:[NSLocalizedString(@"Ringing", @"Remote party ringing.") lowercaseString]];
+		[self setStatus:NSLocalizedString(@"Ringing", @"Remote party ringing.")];
 	}
 	
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
@@ -288,30 +288,28 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	switch ([[self call] lastStatus]) {
 		case PJSIP_SC_OK:
-			[self setStatus:[NSLocalizedString(@"Call ended", @"Call ended.") lowercaseString]];
+			[self setStatus:NSLocalizedString(@"Call ended", @"Call ended.")];
 			break;
 		case PJSIP_SC_NOT_FOUND:
-			[self setStatus:[NSLocalizedString(@"Address not found", @"Address not found.") lowercaseString]];
+			[self setStatus:NSLocalizedString(@"Address not found", @"Address not found.")];
 			break;
 
 		case PJSIP_SC_BUSY_HERE:
 		case PJSIP_SC_BUSY_EVERYWHERE:
-			[self setStatus:[NSLocalizedString(@"Busy", @"Busy.") lowercaseString]];
+			[self setStatus:NSLocalizedString(@"Busy", @"Busy.")];
 			break;
 		case PJSIP_SC_DECLINE:
-			[self setStatus:[NSLocalizedString(@"Call declined", @"Call declined.") lowercaseString]];
+			[self setStatus:NSLocalizedString(@"Call declined", @"Call declined.")];
 				break;
 		default:
 			if ([preferredLocalization isEqualToString:@"Russian"]) {
 				NSString *statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]];
 				if (statusText == nil)
-					[self setStatus:[[NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."),
-									  [[self call] lastStatus]]
-									 lowercaseString]];
+					[self setStatus:[NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."), [[self call] lastStatus]]];
 				else
-					[self setStatus:[[[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]] lowercaseString]];
+					[self setStatus:[[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]]];
 			} else {
-				[self setStatus:[[[self call] lastStatusText] lowercaseString]];
+				[self setStatus:[[self call] lastStatusText]];
 			}
 			break;
 	}
@@ -356,14 +354,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 {
 	[self setCallOnHold:YES];
 	[self stopCallTimer];
-	[self setStatus:[NSLocalizedString(@"On hold", @"Call on local hold status text.") lowercaseString]];
+	[self setStatus:NSLocalizedString(@"On hold", @"Call on local hold status text.")];
 }
 
 - (void)telephoneCallDidRemoteHold:(NSNotification *)notification
 {
 	[self setCallOnHold:YES];
 	[self stopCallTimer];
-	[self setStatus:[NSLocalizedString(@"On remote hold", @"Call on remote hold status text.") lowercaseString]];
+	[self setStatus:NSLocalizedString(@"On remote hold", @"Call on remote hold status text.")];
 }
 
 
@@ -382,13 +380,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		if ([microphoneMuteCharacterSet characterIsMember:firstCharacter]) {
 			[[self call] toggleMicrophoneMute];
 			if ([[self call] isMicrophoneMuted])
-				[self setIntermediateStatus:[NSLocalizedString(@"Mic muted",
-															   @"Microphone muted status text.")
-											 lowercaseString]];
+				[self setIntermediateStatus:NSLocalizedString(@"Mic muted", @"Microphone muted status text.")];
 			else
-				[self setIntermediateStatus:[NSLocalizedString(@"Mic unmuted",
-															   @"Microphone unmuted status text.")
-											 lowercaseString]];
+				[self setIntermediateStatus:NSLocalizedString(@"Mic unmuted", @"Microphone unmuted status text.")];
 			
 		} else if ([holdCharacterSet characterIsMember:firstCharacter]) {
 			[[self call] toggleHold];

@@ -291,7 +291,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 		}
 		
 		[[aCallController window] setContentView:[aCallController activeCallView]];
-		[aCallController setStatus:[NSLocalizedString(@"Calling...", @"Outgoing call in progress.") lowercaseString]];
+		[aCallController setStatus:NSLocalizedString(@"Calling...", @"Outgoing call in progress.")];
 		[aCallController showWindow:nil];
 		[[aCallController callProgressIndicator] startAnimation:self];
 		

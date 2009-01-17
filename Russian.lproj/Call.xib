@@ -8,10 +8,10 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="19"/>
+			<integer value="51"/>
 			<integer value="41"/>
 			<integer value="1"/>
-			<integer value="51"/>
-			<integer value="19"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -109,7 +109,7 @@
 					<object class="NSTextField" id="725809836">
 						<reference key="NSNextResponder" ref="114774165"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 66}, {266, 18}}</string>
+						<string key="NSFrame">{{17, 67}, {266, 18}}</string>
 						<reference key="NSSuperview" ref="114774165"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="297585814">
@@ -163,7 +163,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{300, 104}</string>
+				<string key="NSFrameSize">{300, 105}</string>
 				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -201,7 +201,7 @@
 					<object class="NSTextField" id="517167432">
 						<reference key="NSNextResponder" ref="476394797"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 37}, {266, 14}}</string>
+						<string key="NSFrame">{{17, 36}, {266, 14}}</string>
 						<reference key="NSSuperview" ref="476394797"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="43986684">
@@ -243,7 +243,7 @@
 					<object class="NSTextField" id="530249698">
 						<reference key="NSNextResponder" ref="29922304"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 23}, {266, 28}}</string>
+						<string key="NSFrame">{{17, 22}, {266, 28}}</string>
 						<reference key="NSSuperview" ref="29922304"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="936309773">
@@ -736,7 +736,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{324, 676}, {300, 104}}</string>
+					<string>{{324, 675}, {300, 105}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
