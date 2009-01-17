@@ -59,7 +59,7 @@ const CGFloat AKAccountRegistrationButtonUnavailableRussianWidth = 85.0;
 const CGFloat AKAccountRegistrationButtonConnectingRussianWidth = 96.0;
 
 // German.
-const CGFloat AKAccountRegistrationButtonOfflineGermanWidth = 65.0;
+const CGFloat AKAccountRegistrationButtonOfflineGermanWidth = 58.0;
 const CGFloat AKAccountRegistrationButtonAvailableGermanWidth = 84.0;
 const CGFloat AKAccountRegistrationButtonUnavailableGermanWidth = 111.0;
 const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
