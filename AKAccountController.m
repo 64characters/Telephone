@@ -648,7 +648,8 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	[[aCallController window] setTitle:[[aCall remoteURI] SIPAddress]];
 	AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
 	[aCallController setDisplayedName:[SIPURIFormatter stringForObjectValue:[aCall remoteURI]]];
-	[aCallController setStatus:[NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString]];
+	[aCallController setStatus:NSLocalizedString(@"calling", @"John Smith calling. Somebody is calling us right now. Call status string. " \
+												 "Deliberately in lower case, translators should do the same, if possible.")];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	
 	[aCallController showWindow:nil];
@@ -675,12 +676,16 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	NSString *notificationTitle, *notificationDescription;
 	if ([[[aCall remoteURI] displayName] length] > 0) {
 		notificationTitle = [[aCall remoteURI] displayName];
-		notificationDescription = [NSString stringWithFormat:[NSLocalizedString(@"Calling from %@",	@"Incoming call from ... received.")
-															  lowercaseString],
+		notificationDescription = [NSString
+								   stringWithFormat:NSLocalizedString(@"calling from %@", @"John Smith calling from 1234567. " \
+																	  "Somebody is calling us right now from some source. " \
+																	  "Growl notification description. Deliberately in lower case, " \
+																	  "translators should do the same, if possible."),
 								   callSource];
 	} else {
 		notificationTitle = callSource;
-		notificationDescription = [NSLocalizedString(@"Calling", @"Incoming call received.") lowercaseString];
+		notificationDescription = NSLocalizedString(@"calling", @"John Smith calling. Somebody is calling us right now. Growl notification description. " \
+													"Deliberately in lower case, translators should do the same, if possible.");
 	}
 	
 	[GrowlApplicationBridge notifyWithTitle:notificationTitle

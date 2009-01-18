@@ -22,11 +22,12 @@
 /* Call ended. */
 "Call ended" = "Звонок завершен";
 
-/* Incoming call received. */
-"Calling" = "Звонит";
+/* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
+   John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
+"calling" = "звонит";
 
-/* Incoming call from ... received. */
-"Calling from %@" = "Звонит с %@";
+/* John Smith calling from 1234567. Somebody is calling us right now from some source. Growl notification description. Deliberately in lower case, translators should do the same, if possible. */
+"calling from %@" = "звонит с %@";
 
 /* Outgoing call in progress. */
 "Calling..." = "Звоним...";
