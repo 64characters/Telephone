@@ -2,7 +2,7 @@
 "Accounts" = "Аккаунты";
 
 /* Address not found. */
-"Address not found" = "Адрес не найден";
+"Address Not Found" = "Адрес не найден";
 
 /* Telephone quit confirmation informative text. */
 "All active calls will be disconnected." = "Будут прекращены все незавершенные звонки.";
@@ -17,10 +17,10 @@
 "Busy" = "Занято";
 
 /* Call declined. */
-"Call declined" = "Звонок отклонен";
+"Call Declined" = "Звонок отклонен";
 
 /* Call ended. */
-"Call ended" = "Звонок завершен";
+"Call Ended" = "Звонок завершен";
 
 /* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */

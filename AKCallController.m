@@ -291,18 +291,20 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	switch ([[self call] lastStatus]) {
 		case PJSIP_SC_OK:
-			[self setStatus:NSLocalizedString(@"Call ended", @"Call ended.")];
+			[self setStatus:NSLocalizedString(@"Call Ended", @"Call ended.")];
 			break;
 		case PJSIP_SC_NOT_FOUND:
-			[self setStatus:NSLocalizedString(@"Address not found", @"Address not found.")];
+			[self setStatus:NSLocalizedString(@"Address Not Found", @"Address not found.")];
 			break;
-
+		case PJSIP_SC_REQUEST_TERMINATED:
+			[self setStatus:NSLocalizedString(@"Call Ended", @"Call ended.")];
+			break;
 		case PJSIP_SC_BUSY_HERE:
 		case PJSIP_SC_BUSY_EVERYWHERE:
 			[self setStatus:NSLocalizedString(@"Busy", @"Busy.")];
 			break;
 		case PJSIP_SC_DECLINE:
-			[self setStatus:NSLocalizedString(@"Call declined", @"Call declined.")];
+			[self setStatus:NSLocalizedString(@"Call Declined", @"Call declined.")];
 				break;
 		default:
 			if ([preferredLocalization isEqualToString:@"Russian"]) {
