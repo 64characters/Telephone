@@ -30,10 +30,12 @@
 
 #import "AKActiveCallView.h"
 #import "AKCallController.h"
+#import "AKPreferenceController.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
+#import "AKTelephoneNumberFormatter.h"
 #import "AppController.h"
 #import "NSStringAdditions.h"
 #import "NSWindowAdditions.h"
@@ -331,7 +333,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	if ([[self nameFromAddressBook] length] > 0) {
 		notificationTitle = [self nameFromAddressBook];
 	} else if ([[self enteredCallDestination] length] > 0) {
-		notificationTitle = [self enteredCallDestination];
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+		if ([[self enteredCallDestination] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
+			notificationTitle = [telephoneNumberFormatter stringForObjectValue:[self enteredCallDestination]];
+		else
+			notificationTitle = [self enteredCallDestination];
 	} else {
 		AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
 		notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];

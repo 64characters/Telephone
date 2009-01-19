@@ -226,11 +226,11 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
-	if ([[callDestination stringValue] isEqualToString:@""])
-		return;
-	
 	AKSIPURI *originalURI = [[[[[callDestination objectValue] objectAtIndex:0]
 							   objectAtIndex:[self callDestinationURIIndex]] copy] autorelease];
+	
+	if ([[originalURI user] length] == 0)
+		return;
 	
 	AKSIPURI *uri = [[originalURI copy] autorelease];
 	if (![uri isKindOfClass:[AKSIPURI class]])
@@ -263,7 +263,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																		  accountController:self];
 		[aCallController setNameFromAddressBook:[originalURI displayName]];
-		[aCallController setEnteredCallDestination:[callDestination stringValue]];
+		[aCallController setEnteredCallDestination:[originalURI user]];
 		[[self callControllers] addObject:aCallController];
 		
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
