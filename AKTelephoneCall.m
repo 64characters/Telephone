@@ -221,7 +221,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)answer
 {
-	pj_status_t status = pjsua_call_answer([self identifier], 200, NULL, NULL);
+	pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_OK, NULL, NULL);
 	if (status != PJ_SUCCESS)
 		NSLog(@"Error answering call %@", self);
 }
@@ -231,6 +231,13 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 	pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
 	if (status != PJ_SUCCESS)
 		NSLog(@"Error hanging up call %@", self);
+}
+
+- (void)sendRingingNotification
+{
+	pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_RINGING, NULL, NULL);
+	if (status != PJ_SUCCESS)
+		NSLog(@"Error sending ringing notification in call %@", self);
 }
 
 - (void)ringbackStart

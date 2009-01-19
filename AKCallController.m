@@ -251,12 +251,15 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 - (void)telephoneCallEarly:(NSNotification *)notification
 {
 	NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
-	if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
-		[callProgressIndicator stopAnimation:self];
-		[self setStatus:NSLocalizedString(@"Ringing", @"Remote party ringing.")];
-	}
 	
-	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
+	if (![[self call] isIncoming]) {
+		if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
+			[callProgressIndicator stopAnimation:self];
+			[self setStatus:NSLocalizedString(@"Ringing", @"Remote party ringing.")];
+		}
+		
+		[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
+	}
 }
 
 - (void)telephoneCallDidConfirm:(NSNotification *)notification

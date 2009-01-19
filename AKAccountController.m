@@ -699,6 +699,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	[[[NSApp delegate] incomingCallSound] play];
 	[[NSApp delegate] startIncomingCallSoundTimer];
 	[NSApp requestUserAttention:NSCriticalRequest];
+	[aCall sendRingingNotification];
 	
 	[aCallController release];
 }

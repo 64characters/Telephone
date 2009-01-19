@@ -83,6 +83,7 @@ typedef enum _AKTelephoneCallState {
 
 - (void)answer;
 - (void)hangUp;
+- (void)sendRingingNotification;
 - (void)ringbackStart;
 - (void)ringbackStop;
 - (void)sendDTMFDigits:(NSString *)digits;
