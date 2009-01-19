@@ -494,6 +494,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)stopIncomingCallSoundTimer
 {
 	if (![self hasIncomingCallControllers] && [self incomingCallSoundTimer] != nil) {
+		[[self incomingCallSound] stop];
 		[[self incomingCallSoundTimer] invalidate];
 		[self setIncomingCallSoundTimer:nil];
 	}

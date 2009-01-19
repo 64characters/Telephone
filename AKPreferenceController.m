@@ -128,6 +128,12 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 {
 	self = [super initWithWindowNibName:@"Preferences"];
 	
+	// Subscribe on mouse-down event of the ringing sound selection.
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(popUpButtonWillPopUpNotification:)
+												 name:NSPopUpButtonWillPopUpNotification
+											   object:ringingSoundPopUp];
+	
 	return self;
 }
 
@@ -135,11 +141,15 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 {
 	[self setDelegate:nil];
 	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[super dealloc];
 }
 
 - (void)windowDidLoad
 {
+	[self updateAvailableSounds];
+	
 	[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
 	[[self window] resizeAndSwapToContentView:generalView];
 	[[self window] setTitle:NSLocalizedString(@"General", @"General preferences window title.")];
@@ -503,9 +513,91 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[soundOutputPopUp selectItemWithTitle:lastSoundOutput];
 }
 
+- (void)updateAvailableSounds
+{
+	NSMenu *soundsMenu = [[NSMenu alloc] init];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSSet *allowedSoundFileExtensions = [NSSet setWithObjects:@"aiff", @"aif", @"aifc",
+										 @"mp3", @"wav", @"sd2", @"au", @"snd", @"m4a", @"m4p", nil];
+	
+	// Get sounds from ~/Library/Sounds.
+	NSArray *userSoundFiles = [fileManager contentsOfDirectoryAtPath:[@"~/Library/Sounds" stringByExpandingTildeInPath] error:NULL];
+	for (NSString *aFile in userSoundFiles) {
+		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
+			continue;
+		NSString *aSound = [aFile stringByDeletingPathExtension];
+		if ([soundsMenu itemWithTitle:aSound] == nil) {
+			NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
+			[aMenuItem setTitle:aSound];
+			[soundsMenu addItem:aMenuItem];
+			[aMenuItem release];
+		}
+	}
+	
+	// Get sounds from /Library/Sounds.
+	NSArray *sharedLocalSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/Library/Sounds" error:NULL];
+	if ([sharedLocalSoundFiles count] > 0)
+		[soundsMenu addItem:[NSMenuItem separatorItem]];
+	for (NSString *aFile in sharedLocalSoundFiles) {
+		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
+			continue;
+		NSString *aSound = [aFile stringByDeletingPathExtension];
+		if ([soundsMenu itemWithTitle:aSound] == nil) {
+			NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
+			[aMenuItem setTitle:aSound];
+			[soundsMenu addItem:aMenuItem];
+			[aMenuItem release];
+		}
+	}
+	
+	// Get sounds from /Network/Library/Sounds.
+	NSArray *networkSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/Network/Library/Sounds" error:NULL];
+	if ([networkSoundFiles count] > 0)
+		[soundsMenu addItem:[NSMenuItem separatorItem]];
+	for (NSString *aFile in networkSoundFiles) {
+		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
+			continue;
+		NSString *aSound = [aFile stringByDeletingPathExtension];
+		if ([soundsMenu itemWithTitle:aSound] == nil) {
+			NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
+			[aMenuItem setTitle:aSound];
+			[soundsMenu addItem:aMenuItem];
+			[aMenuItem release];
+		}
+	}
+	
+	// Get sounds from /System/Library/Sounds.
+	NSArray *systemSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/System/Library/Sounds" error:NULL];
+	if ([systemSoundFiles count] > 0)
+		[soundsMenu addItem:[NSMenuItem separatorItem]];
+	for (NSString *aFile in systemSoundFiles) {
+		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
+			continue;
+		NSString *aSound = [aFile stringByDeletingPathExtension];
+		if ([soundsMenu itemWithTitle:aSound] == nil) {
+			NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
+			[aMenuItem setTitle:aSound];
+			[soundsMenu addItem:aMenuItem];
+			[aMenuItem release];
+		}
+	}
+	
+	[ringingSoundPopUp setMenu:soundsMenu];
+	NSString *savedSound = [[NSUserDefaults standardUserDefaults] stringForKey:AKRingingSound];
+	if ([soundsMenu itemWithTitle:savedSound] != nil)
+		[ringingSoundPopUp selectItemWithTitle:savedSound];
+	
+	[soundsMenu release];
+}
+
 - (IBAction)changeIncomingCallSound:(id)sender
 {
-	[[NSApp delegate] setIncomingCallSound:[NSSound soundNamed:[sender title]]];
+	// Stop currently playing sound.
+	[[[NSApp delegate] incomingCallSound] stop];
+	
+	NSString *soundName = [sender title];
+	[[NSUserDefaults standardUserDefaults] setObject:soundName forKey:AKRingingSound];
+	[[NSApp delegate] setIncomingCallSound:[NSSound soundNamed:soundName]];
 	
 	// Play selected sound once.
 	[[[NSApp delegate] incomingCallSound] play];
@@ -647,6 +739,21 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		return NO;
 	
 	return YES;
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+	// Stop currently playing incoming call sound that might be selected in Preferences.
+	[[[NSApp delegate] incomingCallSound] stop];
+}
+
+
+#pragma mark -
+#pragma mark NSPopUpButton notification
+
+- (void)popUpButtonWillPopUpNotification:(NSNotification *)notification
+{
+	[self updateAvailableSounds];
 }
 
 @end

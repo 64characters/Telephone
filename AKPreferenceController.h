@@ -75,6 +75,7 @@ extern NSString * const AKAccountEnabled;
 	// Sound.
 	IBOutlet NSPopUpButton *soundInputPopUp;
 	IBOutlet NSPopUpButton *soundOutputPopUp;
+	IBOutlet NSPopUpButton *ringingSoundPopUp;
 	
 	// Network.
 	IBOutlet NSTextField *STUNServerHost;
@@ -134,6 +135,7 @@ extern NSString * const AKAccountEnabled;
 // Refresh list of available audio devices.
 - (void)updateAudioDevices;
 
+- (void)updateAvailableSounds;
 - (IBAction)changeIncomingCallSound:(id)sender;
 
 @end
