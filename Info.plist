@@ -28,6 +28,8 @@
 	<string>NSApplication</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2008 Alexei Kuznetsov</string>
+	<key>LSHasLocalizedDisplayName</key>
+	<true/>
 	<key>SUFeedURL</key>
 	<string>http://telephone.googlecode.com/svn/appcast/appcast.xml</string>
 	<key>SUEnableAutomaticChecks</key>
