@@ -536,7 +536,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	// Get sounds from /Library/Sounds.
 	NSArray *sharedLocalSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/Library/Sounds" error:NULL];
-	if ([sharedLocalSoundFiles count] > 0)
+	if ([sharedLocalSoundFiles count] > 0 && [soundsMenu numberOfItems] > 0)
 		[soundsMenu addItem:[NSMenuItem separatorItem]];
 	for (NSString *aFile in sharedLocalSoundFiles) {
 		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
@@ -552,7 +552,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	// Get sounds from /Network/Library/Sounds.
 	NSArray *networkSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/Network/Library/Sounds" error:NULL];
-	if ([networkSoundFiles count] > 0)
+	if ([networkSoundFiles count] > 0 && [soundsMenu numberOfItems] > 0)
 		[soundsMenu addItem:[NSMenuItem separatorItem]];
 	for (NSString *aFile in networkSoundFiles) {
 		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
@@ -568,7 +568,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	// Get sounds from /System/Library/Sounds.
 	NSArray *systemSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/System/Library/Sounds" error:NULL];
-	if ([systemSoundFiles count] > 0)
+	if ([systemSoundFiles count] > 0 && [soundsMenu numberOfItems] > 0)
 		[soundsMenu addItem:[NSMenuItem separatorItem]];
 	for (NSString *aFile in systemSoundFiles) {
 		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
