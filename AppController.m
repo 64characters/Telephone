@@ -1088,6 +1088,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)workspaceDidWakeNotification:(NSNotification *)notification
 {
+	sleep(1);
+	
 	// Add accounts to Telephone starting SIP user agent lazily.
 	for (AKAccountController *anAccountController in [self accountControllers]) {
 		if (![anAccountController isEnabled])
