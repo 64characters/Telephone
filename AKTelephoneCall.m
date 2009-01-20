@@ -228,6 +228,9 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)hangUp
 {
+	if ([self identifier] == AKTelephoneInvalidIdentifier)
+		return;
+	
 	pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
 	if (status != PJ_SUCCESS)
 		NSLog(@"Error hanging up call %@", self);

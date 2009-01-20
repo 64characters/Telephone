@@ -78,6 +78,9 @@ enum {
 				 realm:(NSString *)aRealm
 			  username:(NSString *)aUsername;
 
+// Remove account from Telehpone making appropriate changes in UI, timers, etc.
+- (void)removeAccountFromTelephone;
+
 - (IBAction)makeCall:(id)sender;
 
 - (IBAction)changeAccountRegistration:(id)sender;

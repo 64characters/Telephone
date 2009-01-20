@@ -436,6 +436,9 @@ typedef enum _AKTelephoneRingtones {
 {
 	[self setStarted:NO];
 	
+	// Explicitly remove all accounts.
+	[[self accounts] removeAllObjects];
+	
 	// Close ringback port.
 	if (ringbackPort != NULL &&
 		ringbackSlot != PJSUA_INVALID_ID)
@@ -508,6 +511,9 @@ typedef enum _AKTelephoneRingtones {
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneAccountWillRemoveNotification
 														object:anAccount];
+	
+	// Explicitly remove all calls.
+	[[anAccount calls] removeAllObjects];
 	
 	pj_status_t status = pjsua_acc_del([anAccount identifier]);
 	if (status != PJ_SUCCESS)

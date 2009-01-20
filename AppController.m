@@ -150,6 +150,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 						   selector:@selector(telephoneCallDidDisconnect:)
 							   name:AKTelephoneCallDidDisconnectNotification
 							 object:nil];
+	
+	// Subscribe to NSWorkspace notifications about sleep, poweroff, etc.
+	notificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+	[notificationCenter addObserver:self
+						   selector:@selector(workspaceWillSleepNotification:)
+							   name:NSWorkspaceWillSleepNotification
+							 object:nil];
+	[notificationCenter addObserver:self
+						   selector:@selector(workspaceDidWakeNotification:)
+							   name:NSWorkspaceDidWakeNotification
+							 object:nil];
+	
 	return self;
 }
 
@@ -166,6 +178,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[incomingCallSound release];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 	
 	[super dealloc];
 }
@@ -744,7 +757,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	AKAccountController *anAccountController = [[self accountControllers] objectAtIndex:index];
 	
 	if ([anAccountController isEnabled])
-		[[self telephone] removeAccount:[anAccountController account]];
+		[anAccountController removeAccountFromTelephone];
 	
 	[[self accountControllers] removeObjectAtIndex:index];
 }
@@ -781,7 +794,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[theAccountController setEnabled:isEnabled];
 		
 		// Remove account from Telephone.
-		[[self telephone] removeAccount:[theAccountController account]];
+		[theAccountController removeAccountFromTelephone];
 		[[theAccountController window] orderOut:nil];
 
 		// Prevent conflict with setFrameAutosaveName: when re-enabling the account.
@@ -817,11 +830,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		if (![anAccountController isEnabled])
 			continue;
 		
-		[anAccountController showOfflineMode];
-		[[anAccountController window] display];
-		
-		// Remove account from Telephone.
-		[[self telephone] removeAccount:[anAccountController account]];
+		[anAccountController removeAccountFromTelephone];
 	}
 
 	[[self telephone] destroyUserAgent];
@@ -1055,6 +1064,41 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	// Make corresponding call window key.
 	[aCallController showWindow:nil];
+}
+
+
+#pragma mark -
+#pragma mark NSWorkspace notifications
+
+- (void)workspaceWillSleepNotification:(NSNotification *)notification
+{
+	// Force hang up all calls and remove accounts from Telephone.
+	for (AKAccountController *anAccountController in [self accountControllers]) {
+		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+			[aCallController forceCallHangUp];
+		
+		if (![anAccountController isEnabled])
+			continue;
+		
+		[anAccountController removeAccountFromTelephone];
+	}
+	
+	[[self telephone] destroyUserAgent];
+}
+
+- (void)workspaceDidWakeNotification:(NSNotification *)notification
+{
+	// Add accounts to Telephone starting SIP user agent lazily.
+	for (AKAccountController *anAccountController in [self accountControllers]) {
+		if (![anAccountController isEnabled])
+			continue;
+		
+		[anAccountController setAccountRegistered:YES];
+		
+		// Don't add subsequent accounts if Telephone could not start.
+		if (![[self telephone] started])
+			break;
+	}
 }
 
 @end

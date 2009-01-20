@@ -223,6 +223,24 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	[callDestination setCompletionDelay:0.4];
 }
 
+- (void)removeAccountFromTelephone
+{
+	if (![self isEnabled])
+		return;
+	
+	// Invalidate account automatic re-registration timer if it's valid.
+	if ([self reRegistrationTimer] != nil) {
+		[[self reRegistrationTimer] invalidate];
+		[self setReRegistrationTimer:nil];
+	}
+	
+	[self showOfflineMode];
+	[[self window] display];
+	
+	// Remove account from Telephone.
+	[[[NSApp delegate] telephone] removeAccount:[self account]];
+}
+
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
@@ -312,7 +330,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	if (selectedItemTag == AKTelephoneAccountOfflineTag) {
 		[self showOfflineMode];
 		// Remove account from Telephone.
-		[[[NSApp delegate] telephone] removeAccount:[self account]];
+		[self removeAccountFromTelephone];
 	} else if (selectedItemTag == AKTelephoneAccountUnregisterTag) {
 		// Unregister account only if it is registered or it wasn't added to Telephone.
 		if ([self isAccountRegistered] || [[self account] identifier] == AKTelephoneInvalidIdentifier)
@@ -328,7 +346,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	[self closeSheet:sender];
 	
 	if (![[newUsername stringValue] isEqualToString:@""]) {
-		[[[NSApp delegate] telephone] removeAccount:[self account]];
+		[self removeAccountFromTelephone];
 		[[self account] setUsername:[newUsername stringValue]];
 		
 		[self showConnectingMode];

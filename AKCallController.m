@@ -159,6 +159,19 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	
 	[[self call] hangUp];
 	[hangUpButton setEnabled:NO];
+	[callProgressIndicator stopAnimation:self];
+}
+
+- (void)forceCallHangUp
+{
+	[[self call] setDelegate:nil];
+	[self hangUp:nil];
+	[[self call] setIdentifier:AKTelephoneInvalidIdentifier];
+	[self stopCallTimer];
+	if ([[self call] isIncoming])
+		[[NSApp delegate] stopIncomingCallSoundTimer];
+	[self setStatus:NSLocalizedString(@"Call Ended", @"Call ended.")];
+	[[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
 }
 
 - (void)startCallTimer

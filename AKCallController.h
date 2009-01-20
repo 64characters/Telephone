@@ -84,6 +84,9 @@
 - (IBAction)acceptCall:(id)sender;
 - (IBAction)hangUp:(id)sender;
 
+// Force call hang up not waiting for the callbacks, make appropriate window modifications.
+- (void)forceCallHangUp;
+
 // Dealing with the timer of active call.
 - (void)startCallTimer;
 - (void)stopCallTimer;
