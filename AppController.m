@@ -1115,7 +1115,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // computer wakes up from sleep.
 - (void)workspaceDidWakeNotification:(NSNotification *)notification
 {
-	sleep(1);
+	sleep(3);
+	
+	if ([[self telephone] started])
+		return;
 	
 	// Add accounts to Telephone starting SIP user agent lazily.
 	for (AKAccountController *anAccountController in [self accountControllers]) {
