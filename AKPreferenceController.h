@@ -57,6 +57,11 @@ extern NSString * const AKUsername;
 extern NSString * const AKPassword;
 extern NSString * const AKAccountIndex;
 extern NSString * const AKAccountEnabled;
+extern NSString * const AKSubstitutePlusCharacter;
+extern NSString * const AKPlusCharacterSubstitutionString;
+extern NSString * const AKUseProxy;
+extern NSString * const AKProxyHost;
+extern NSString * const AKProxyPort;
 
 @interface AKPreferenceController : NSWindowController {
 @private
@@ -91,6 +96,11 @@ extern NSString * const AKAccountEnabled;
 	IBOutlet NSTextField *registrar;
 	IBOutlet NSTextField *username;
 	IBOutlet NSTextField *password;
+	IBOutlet NSButton *substitutePlusCharacterCheckBox;
+	IBOutlet NSTextField *plusCharacterSubstitution;
+	IBOutlet NSButton *useProxyCheckBox;
+	IBOutlet NSTextField *proxyHost;
+	IBOutlet NSTextField *proxyPort;
 	
 	// Account Setup.
 	IBOutlet NSWindow *addAccountWindow;
@@ -128,6 +138,8 @@ extern NSString * const AKAccountEnabled;
 - (void)populateFieldsForAccountAtIndex:(NSInteger)index;
 
 - (IBAction)changeAccountEnabled:(id)sender;
+- (IBAction)changeSubstitutePlusCharacter:(id)sender;
+- (IBAction)changeUseProxy:(id)sender;
 
 // Change sound input and output devices
 - (IBAction)changeSoundIO:(id)sender;

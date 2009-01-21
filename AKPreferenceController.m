@@ -67,6 +67,11 @@ NSString * const AKUsername = @"Username";
 NSString * const AKPassword = @"Password";
 NSString * const AKAccountIndex = @"AccountIndex";
 NSString * const AKAccountEnabled = @"AccountEnabled";
+NSString * const AKSubstitutePlusCharacter = @"SubstitutePlusCharacter";
+NSString * const AKPlusCharacterSubstitutionString = @"PlusCharacterSubstitutionString";
+NSString * const AKUseProxy = @"UseProxy";
+NSString * const AKProxyHost = @"ProxyHost";
+NSString * const AKProxyPort = @"ProxyPort";
 
 NSString * const AKPreferenceControllerDidAddAccountNotification = @"AKPreferenceControllerDidAddAccount";
 NSString * const AKPreferenceControllerDidRemoveAccountNotification = @"AKPreferenceControllerDidRemoveAccount";
@@ -260,6 +265,11 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[accountDict setObject:[setupRegistrar stringValue] forKey:AKRegistrar];
 	[accountDict setObject:@"*" forKey:AKRealm];
 	[accountDict setObject:[setupUsername stringValue] forKey:AKUsername];
+	[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKSubstitutePlusCharacter];
+	[accountDict setObject:@"00" forKey:AKPlusCharacterSubstitutionString];
+	[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKUseProxy];
+	[accountDict setObject:@"" forKey:AKProxyHost];
+	[accountDict setObject:[NSNumber numberWithInteger:0] forKey:AKProxyPort];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:AKAccounts]];
@@ -364,6 +374,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		
 		[accountEnabledCheckBox setEnabled:YES];
 		
+		// Conditionally enable fields and set checkboxes state.
 		if ([[accountDict objectForKey:AKAccountEnabled] boolValue]) {
 			[accountEnabledCheckBox setState:NSOnState];
 			[fullName setEnabled:NO];
@@ -371,6 +382,11 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 			[registrar setEnabled:NO];
 			[username setEnabled:NO];
 			[password setEnabled:NO];
+			[substitutePlusCharacterCheckBox setEnabled:NO];
+			[plusCharacterSubstitution setEnabled:NO];
+			[useProxyCheckBox setEnabled:NO];
+			[proxyHost setEnabled:NO];
+			[proxyPort setEnabled:NO];
 		} else {
 			[accountEnabledCheckBox setState:NSOffState];
 			[fullName setEnabled:YES];
@@ -378,8 +394,21 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 			[registrar setEnabled:YES];
 			[username setEnabled:YES];
 			[password setEnabled:YES];
+			
+			[substitutePlusCharacterCheckBox setEnabled:YES];
+			[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
+			if ([substitutePlusCharacterCheckBox state] == NSOnState)
+				[plusCharacterSubstitution setEnabled:YES];
+			
+			[useProxyCheckBox setEnabled:YES];
+			[useProxyCheckBox setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
+			if ([useProxyCheckBox state] == NSOnState) {
+				[proxyHost setEnabled:YES];
+				[proxyPort setEnabled:YES];
+			}
 		}
 		
+		// Populate fields.
 		[fullName setStringValue:[accountDict objectForKey:AKFullName]];
 		[SIPAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
 		[registrar setStringValue:[accountDict objectForKey:AKRegistrar]];
@@ -388,6 +417,14 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[password setStringValue:[AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
 																	 [accountDict objectForKey:AKRegistrar]]
 														accountName:[accountDict objectForKey:AKUsername]]];
+		
+		if ([accountDict objectForKey:AKPlusCharacterSubstitutionString] != nil)
+			[plusCharacterSubstitution setStringValue:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
+		if ([accountDict objectForKey:AKProxyHost] != nil)
+			[proxyHost setStringValue:[accountDict objectForKey:AKProxyHost]];
+		if ([[accountDict objectForKey:AKProxyPort] integerValue] > 0)
+			[proxyPort setIntegerValue:[[accountDict objectForKey:AKProxyPort] integerValue]];
+		
 	} else {
 		[accountEnabledCheckBox setState:NSOffState];
 		[fullName setStringValue:@""];
@@ -395,6 +432,11 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[registrar setStringValue:@""];
 		[username setStringValue:@""];
 		[password setStringValue:@""];
+		[substitutePlusCharacterCheckBox setState:NSOffState];
+		[plusCharacterSubstitution setStringValue:@"00"];
+		[useProxyCheckBox setState:NSOffState];
+		[proxyHost setStringValue:@""];
+		[proxyPort setStringValue:@""];
 		
 		[accountEnabledCheckBox setEnabled:NO];
 		[fullName setEnabled:NO];
@@ -402,17 +444,22 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[registrar setEnabled:NO];
 		[username setEnabled:NO];
 		[password setEnabled:NO];
+		[substitutePlusCharacterCheckBox setEnabled:NO];
+		[plusCharacterSubstitution setEnabled:NO];
+		[useProxyCheckBox setEnabled:NO];
+		[proxyHost setEnabled:NO];
+		[proxyPort setEnabled:NO];
 	}
 }
 
 - (IBAction)changeAccountEnabled:(id)sender
 {
-	if ([accountsTable selectedRow] == -1)
+	NSInteger index = [accountsTable selectedRow];
+	if (index == -1)
 		return;	
 	
 	NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 
-	NSInteger index = [accountsTable selectedRow];
 	[userInfo setObject:[NSNumber numberWithInteger:index] forKey:AKAccountIndex];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -433,6 +480,19 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 							   accountName:[username stringValue]
 								  password:[password stringValue]];
 		
+		if ([substitutePlusCharacterCheckBox state] == NSOnState)		
+			[accountDict setObject:[NSNumber numberWithBool:YES] forKey:AKSubstitutePlusCharacter];
+		else
+			[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKSubstitutePlusCharacter];
+		[accountDict setObject:[plusCharacterSubstitution stringValue] forKey:AKPlusCharacterSubstitutionString];
+		
+		if ([useProxyCheckBox state] == NSOnState)
+			[accountDict setObject:[NSNumber numberWithBool:YES] forKey:AKUseProxy];
+		else
+			[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKUseProxy];
+		[accountDict setObject:[proxyHost stringValue] forKey:AKProxyHost];
+		[accountDict setObject:[NSNumber numberWithInteger:[proxyPort integerValue]] forKey:AKProxyPort];
+		
 		// Disable account fields.
 		[fullName setEnabled:NO];
 		[SIPAddress setEnabled:NO];
@@ -440,16 +500,34 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[username setEnabled:NO];
 		[password setEnabled:NO];
 		
+		[substitutePlusCharacterCheckBox setEnabled:NO];
+		[plusCharacterSubstitution setEnabled:NO];
+		[useProxyCheckBox setEnabled:NO];
+		[proxyHost setEnabled:NO];
+		[proxyPort setEnabled:NO];
+		
 		// Mark accounts table as needing redisplay.
 		[accountsTable reloadData];
 		
 	} else {
-		// User disabled the account, enable account fields.
+		// User disabled the account - enable account fields, set checkboxes state.
 		[fullName setEnabled:YES];
 		[SIPAddress setEnabled:YES];
 		[registrar setEnabled:YES];
 		[username setEnabled:YES];
 		[password setEnabled:YES];
+		
+		[substitutePlusCharacterCheckBox setEnabled:YES];
+		[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
+		if ([substitutePlusCharacterCheckBox state] == NSOnState)
+			[plusCharacterSubstitution setEnabled:YES];
+		
+		[useProxyCheckBox setEnabled:YES];
+		[useProxyCheckBox setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
+		if ([useProxyCheckBox state] == NSOnState) {
+			[proxyHost setEnabled:YES];
+			[proxyPort setEnabled:YES];
+		}
 	}
 	
 	[savedAccounts replaceObjectAtIndex:index withObject:accountDict];
@@ -461,6 +539,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidChangeAccountEnabledNotification
 														object:self
 													  userInfo:userInfo];
+}
+
+- (IBAction)changeSubstitutePlusCharacter:(id)sender
+{
+	[plusCharacterSubstitution setEnabled:([substitutePlusCharacterCheckBox state] == NSOnState)];
+}
+
+- (IBAction)changeUseProxy:(id)sender
+{	
+	BOOL isChecked = ([useProxyCheckBox state] == NSOnState) ? YES : NO;
+	[proxyHost setEnabled:isChecked];
+	[proxyPort setEnabled:isChecked];
 }
 
 - (IBAction)changeSoundIO:(id)sender

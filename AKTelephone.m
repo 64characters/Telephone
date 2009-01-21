@@ -488,6 +488,16 @@ typedef enum _AKTelephoneRingtones {
 	accountConfig.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
 	accountConfig.cred_info[0].data = [aPassword pjString];
 	
+	if ([[anAccount proxyHost] length] > 0) {
+		accountConfig.proxy_cnt = 1;
+		
+		if ([anAccount proxyPort] == AKSIPProxyPortDefault)
+			accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@", [anAccount proxyHost]] pjString];
+		else
+			accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@:%u",
+									   [anAccount proxyHost], [anAccount proxyPort]] pjString];
+	}
+	
 	pjsua_acc_id accountIdentifier;
 	pj_status_t status = pjsua_acc_add(&accountConfig, PJ_FALSE, &accountIdentifier);
 	if (status != PJ_SUCCESS) {

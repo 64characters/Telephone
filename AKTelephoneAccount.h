@@ -30,6 +30,9 @@
 #import <pjsua-lib/pjsua.h>
 
 
+extern NSString * const AKSIPProxyHostDefault;
+extern const NSInteger AKSIPProxyPortDefault;
+
 @class AKTelephoneCall, AKSIPURI;
 @protocol AKTelephoneAccountDelegate;
 
@@ -44,6 +47,8 @@
 	NSString *registrar;
 	NSString *realm;
 	NSString *username;
+	NSString *proxyHost;
+	NSUInteger proxyPort;
 	
 	NSInteger identifier;
 	
@@ -57,6 +62,8 @@
 @property(readwrite, copy) NSString *registrar;
 @property(readwrite, copy) NSString *realm;
 @property(readwrite, copy) NSString *username;
+@property(readwrite, copy) NSString *proxyHost;		// Default: @"".
+@property(readwrite, assign) NSUInteger proxyPort;	// Default: 5060.
 @property(readwrite, assign) NSInteger identifier;
 @property(nonatomic, readwrite, assign, getter=isRegistered) BOOL registered;
 @property(nonatomic, readonly, assign) NSInteger registrationStatus;

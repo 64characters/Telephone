@@ -82,6 +82,8 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 @synthesize account;
 @dynamic accountRegistered;
 @synthesize callControllers;
+@synthesize substitutesPlusCharacter;
+@synthesize plusCharacterSubstitution;
 @synthesize attemptsToRegisterAccount;
 @synthesize attemptsToUnregisterAccount;
 @synthesize reRegistrationTimer;
@@ -162,6 +164,9 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	
 	[self setAccount:anAccount];
 	callControllers = [[NSMutableArray alloc] init];
+	[self setSubstitutesPlusCharacter:NO];
+	[self setPlusCharacterSubstitution:nil];
+	
 	[self setAttemptsToRegisterAccount:NO];
 	[self setAttemptsToUnregisterAccount:NO];
 	[self setReRegistrationTimer:nil];
@@ -202,6 +207,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	
 	[account release];
 	[callControllers release];
+	[plusCharacterSubstitution release];
 	[self setReRegistrationTimer:nil];
 	
 	[super dealloc];
@@ -260,9 +266,10 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	if ([[uri host] length] == 0)
 		[uri setHost:[[[self account] registrationURI] host]];
 	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
 	AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
-	[telephoneNumberFormatter setSplitsLastFourDigits:[[NSUserDefaults standardUserDefaults]
-													   boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
+	[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
 	
 	// Get the clean string of contiguous digits if the user part does not contain letters.
 	NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
@@ -275,6 +282,14 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	AKSIPURI *cleanURI = [[uri copy] autorelease];
 	[cleanURI setDisplayName:nil];
 	
+	// Substitute plus character if needed.
+	if ([self substitutesPlusCharacter] && [[cleanURI user] hasPrefix:@"+"]) {
+		[cleanURI setUser:[[cleanURI user] stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+																	withString:[self plusCharacterSubstitution]]];
+		[originalURI setUser:[[originalURI user] stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+																		 withString:[self plusCharacterSubstitution]]];
+	}
+	
 	// Make actual call.
 	AKTelephoneCall *aCall = [[self account] makeCallTo:cleanURI];
 	if (aCall != nil) {
@@ -283,8 +298,6 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 		[aCallController setNameFromAddressBook:[originalURI displayName]];
 		[aCallController setEnteredCallDestination:[originalURI user]];
 		[[self callControllers] addObject:aCallController];
-		
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		
 		// Set title.
 		if ([[originalURI host] length] == 0 && ![containsLettersPredicate evaluateWithObject:[originalURI user]]) {

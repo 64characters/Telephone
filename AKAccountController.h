@@ -49,6 +49,9 @@ enum {
 	BOOL attemptsToUnregisterAccount;
 	NSTimer *reRegistrationTimer;
 	
+	BOOL substitutesPlusCharacter;
+	NSString *plusCharacterSubstitution;
+	
 	IBOutlet NSView *activeAccountView;
 	IBOutlet NSView *offlineAccountView;
 	IBOutlet NSPopUpButton *accountRegistrationPopUp;
@@ -68,6 +71,8 @@ enum {
 @property(readwrite, retain) AKTelephoneAccount *account;
 @property(nonatomic, readwrite, assign, getter=isAccountRegistered) BOOL accountRegistered;
 @property(readonly, retain) NSMutableArray *callControllers;
+@property(readwrite, assign) BOOL substitutesPlusCharacter;
+@property(readwrite, copy) NSString *plusCharacterSubstitution;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;

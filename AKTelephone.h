@@ -32,6 +32,17 @@
 
 extern const NSInteger AKTelephoneInvalidIdentifier;
 
+// Generic config defaults.
+extern NSString * const AKTelephoneOutboundProxyHostDefault;
+extern const NSInteger AKTelephoneOutboundProxyPortDefault;
+extern NSString * const AKTelephoneSTUNServerHostDefault;
+extern const NSInteger AKTelephoneSTUNServerPortDefault;
+extern NSString * const AKTelephoneLogFileNameDefault;
+extern const NSInteger AKTelephoneLogLevelDefault;
+extern const NSInteger AKTelephoneConsoleLogLevelDefault;
+extern const BOOL AKTelephoneDetectsVoiceActivityDefault;
+extern const NSInteger AKTelephoneTransportPortDefault;
+
 typedef struct _AKTelephoneCallData {
 	pj_timer_entry timer;
 	pj_bool_t ringbackOn;

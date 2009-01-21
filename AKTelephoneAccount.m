@@ -38,6 +38,9 @@
 NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelephoneAccountRegistrationDidChange";
 NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccountWillRemove";
 
+NSString * const AKSIPProxyHostDefault = @"";
+const NSInteger AKSIPProxyPortDefault = 5060;
+
 @implementation AKTelephoneAccount
 
 @dynamic delegate;
@@ -47,6 +50,8 @@ NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccount
 @synthesize registrar;
 @synthesize realm;
 @synthesize username;
+@synthesize proxyHost;
+@dynamic proxyPort;
 @synthesize identifier;
 @dynamic registered;
 @dynamic registrationStatus;
@@ -86,6 +91,19 @@ NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccount
 	}
 	
 	delegate = aDelegate;
+}
+
+- (NSUInteger)proxyPort
+{
+	return proxyPort;
+}
+
+- (void)setProxyPort:(NSUInteger)port
+{
+	if (port > 0 && port < 65535)
+		proxyPort = port;
+	else
+		proxyPort = AKSIPProxyPortDefault;
 }
 
 - (BOOL)isRegistered
@@ -224,6 +242,8 @@ NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccount
 	[self setRegistrar:aRegistrar];
 	[self setRealm:aRealm];
 	[self setUsername:aUsername];
+	[self setProxyHost:AKSIPProxyHostDefault];
+	[self setProxyPort:AKSIPProxyPortDefault];
 	[self setIdentifier:PJSUA_INVALID_ID];
 	
 	calls = [[NSMutableArray alloc] init];
@@ -251,6 +271,7 @@ NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccount
 	[registrar release];
 	[realm release];
 	[username release];
+	[proxyHost release];
 	
 	[calls release];
 	

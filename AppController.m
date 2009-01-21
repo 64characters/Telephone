@@ -272,8 +272,14 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 																  registrar:registrar
 																	  realm:realm
 																   username:username];
+		if ([[accountDict objectForKey:AKUseProxy] boolValue]) {
+			[[anAccountController account] setProxyHost:[accountDict objectForKey:AKProxyHost]];
+			[[anAccountController account] setProxyPort:[[accountDict objectForKey:AKProxyPort] integerValue]];
+		}
 		
 		[anAccountController setEnabled:[[accountDict objectForKey:AKAccountEnabled] boolValue]];
+		[anAccountController setSubstitutesPlusCharacter:[[accountDict objectForKey:AKSubstitutePlusCharacter] boolValue]];
+		[anAccountController setPlusCharacterSubstitution:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
 		
 		[[self accountControllers] addObject:anAccountController];
 		
@@ -787,7 +793,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 													  registrar:[accountDict objectForKey:AKRegistrar]
 													  realm:[accountDict objectForKey:AKRealm]
 													  username:[accountDict objectForKey:AKUsername]];
+		
+		if ([[accountDict objectForKey:AKUseProxy] boolValue]) {
+			[[theAccountController account] setProxyHost:[accountDict objectForKey:AKProxyHost]];
+			[[theAccountController account] setProxyPort:[[accountDict objectForKey:AKProxyPort] integerValue]];
+		}
+		
 		[theAccountController setEnabled:isEnabled];
+		[theAccountController setSubstitutesPlusCharacter:[[accountDict objectForKey:AKSubstitutePlusCharacter] boolValue]];
+		[theAccountController setPlusCharacterSubstitution:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
 		
 		[[self accountControllers] replaceObjectAtIndex:index withObject:theAccountController];
 
