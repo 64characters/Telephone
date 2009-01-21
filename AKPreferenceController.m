@@ -383,7 +383,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 			[username setEnabled:NO];
 			[password setEnabled:NO];
 			[substitutePlusCharacterCheckBox setEnabled:NO];
+			[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
 			[plusCharacterSubstitution setEnabled:NO];
+			[useProxyCheckBox setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
 			[useProxyCheckBox setEnabled:NO];
 			[proxyHost setEnabled:NO];
 			[proxyPort setEnabled:NO];
@@ -399,12 +401,17 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 			[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
 			if ([substitutePlusCharacterCheckBox state] == NSOnState)
 				[plusCharacterSubstitution setEnabled:YES];
+			else
+				[plusCharacterSubstitution setEnabled:NO];
 			
 			[useProxyCheckBox setEnabled:YES];
 			[useProxyCheckBox setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
 			if ([useProxyCheckBox state] == NSOnState) {
 				[proxyHost setEnabled:YES];
 				[proxyPort setEnabled:YES];
+			} else {
+				[proxyHost setEnabled:NO];
+				[proxyPort setEnabled:NO];
 			}
 		}
 		
@@ -420,10 +427,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		
 		if ([accountDict objectForKey:AKPlusCharacterSubstitutionString] != nil)
 			[plusCharacterSubstitution setStringValue:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
+		else
+			[plusCharacterSubstitution setStringValue:@"00"];
+		
 		if ([accountDict objectForKey:AKProxyHost] != nil)
 			[proxyHost setStringValue:[accountDict objectForKey:AKProxyHost]];
+		else
+			[proxyHost setStringValue:@""];
+		
 		if ([[accountDict objectForKey:AKProxyPort] integerValue] > 0)
 			[proxyPort setIntegerValue:[[accountDict objectForKey:AKProxyPort] integerValue]];
+		else
+			[proxyPort setStringValue:@""];
 		
 	} else {
 		[accountEnabledCheckBox setState:NSOffState];
