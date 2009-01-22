@@ -639,15 +639,22 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		}
 	}
 	
+	BOOL isFirstItemInSection;
+	
 	// Get sounds from /Library/Sounds.
 	NSArray *sharedLocalSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/Library/Sounds" error:NULL];
-	if ([sharedLocalSoundFiles count] > 0 && [soundsMenu numberOfItems] > 0)
-		[soundsMenu addItem:[NSMenuItem separatorItem]];
+	isFirstItemInSection = YES;
 	for (NSString *aFile in sharedLocalSoundFiles) {
 		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
 			continue;
+		
 		NSString *aSound = [aFile stringByDeletingPathExtension];
 		if ([soundsMenu itemWithTitle:aSound] == nil) {
+			if (isFirstItemInSection && [soundsMenu numberOfItems] > 0) {
+				[soundsMenu addItem:[NSMenuItem separatorItem]];
+				isFirstItemInSection = NO;
+			}
+			
 			NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
 			[aMenuItem setTitle:aSound];
 			[soundsMenu addItem:aMenuItem];
@@ -657,13 +664,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	// Get sounds from /Network/Library/Sounds.
 	NSArray *networkSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/Network/Library/Sounds" error:NULL];
-	if ([networkSoundFiles count] > 0 && [soundsMenu numberOfItems] > 0)
-		[soundsMenu addItem:[NSMenuItem separatorItem]];
+	isFirstItemInSection = YES;
 	for (NSString *aFile in networkSoundFiles) {
 		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
 			continue;
+		
 		NSString *aSound = [aFile stringByDeletingPathExtension];
 		if ([soundsMenu itemWithTitle:aSound] == nil) {
+			if (isFirstItemInSection && [soundsMenu numberOfItems] > 0) {
+				[soundsMenu addItem:[NSMenuItem separatorItem]];
+				isFirstItemInSection = NO;
+			}
+			
 			NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
 			[aMenuItem setTitle:aSound];
 			[soundsMenu addItem:aMenuItem];
@@ -673,13 +685,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	// Get sounds from /System/Library/Sounds.
 	NSArray *systemSoundFiles = [fileManager contentsOfDirectoryAtPath:@"/System/Library/Sounds" error:NULL];
-	if ([systemSoundFiles count] > 0 && [soundsMenu numberOfItems] > 0)
-		[soundsMenu addItem:[NSMenuItem separatorItem]];
+	isFirstItemInSection = YES;
 	for (NSString *aFile in systemSoundFiles) {
 		if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
 			continue;
+		
 		NSString *aSound = [aFile stringByDeletingPathExtension];
 		if ([soundsMenu itemWithTitle:aSound] == nil) {
+			if (isFirstItemInSection && [soundsMenu numberOfItems] > 0) {
+				[soundsMenu addItem:[NSMenuItem separatorItem]];
+				isFirstItemInSection = NO;
+			}
+			
 			NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
 			[aMenuItem setTitle:aSound];
 			[soundsMenu addItem:aMenuItem];
