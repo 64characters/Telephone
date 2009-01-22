@@ -30,7 +30,7 @@
 "calling from %@" = "звонит с %@";
 
 /* Outgoing call in progress. */
-"Calling..." = "Звоним...";
+"calling..." = "звоним...";
 
 /* Cancel button. */
 "Cancel" = "Отмена";

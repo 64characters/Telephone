@@ -32,7 +32,7 @@
 "calling from %@" = "%@";
 
 /* Outgoing call in progress. */
-"Calling..." = "Anrufen ...";
+"calling..." = "Anrufen ...";
 
 /* Cancel button. */
 "Cancel" = "Abbrechen";
