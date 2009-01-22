@@ -22,7 +22,7 @@
 "Call Declined" = "Anruf abgelehnt";
 
 /* Call ended. */
-"Call Ended" = "Gespräch beendet";
+"Call Ended" = "Anruf beendet";
 
 /* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
