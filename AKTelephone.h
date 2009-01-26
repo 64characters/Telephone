@@ -121,6 +121,7 @@ typedef enum _AKNATType {
 	NSUInteger logLevel;
 	NSUInteger consoleLogLevel;
 	BOOL detectsVoiceActivity;
+	BOOL usesICE;
 	NSUInteger transportPort;
 
 	// PJSUA config
@@ -152,6 +153,7 @@ typedef enum _AKNATType {
 @property(readwrite, assign) NSUInteger logLevel;					// Default: 3.
 @property(readwrite, assign) NSUInteger consoleLogLevel;			// Default: 0.
 @property(readwrite, assign) BOOL detectsVoiceActivity;				// Default: YES.
+@property(readwrite, assign) BOOL usesICE;							// Default: NO.
 @property(nonatomic, readwrite, assign) NSUInteger transportPort;	// Default: 0 for any available port.
 
 + (id)telephoneWithDelegate:(id)aDelegate;

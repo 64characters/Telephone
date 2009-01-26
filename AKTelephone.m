@@ -49,6 +49,7 @@ NSString * const AKTelephoneLogFileNameDefault = @"~/Library/Logs/Telephone.log"
 const NSInteger AKTelephoneLogLevelDefault = 3;
 const NSInteger AKTelephoneConsoleLogLevelDefault = 0;
 const BOOL AKTelephoneDetectsVoiceActivityDefault = YES;
+const BOOL AKTelephoneUsesICEDefault = NO;
 const NSInteger AKTelephoneTransportPortDefault = 0;	// 0 for any available port.
 
 static AKTelephone *sharedTelephone = nil;
@@ -94,6 +95,7 @@ typedef enum _AKTelephoneRingtones {
 @synthesize logLevel;
 @synthesize consoleLogLevel;
 @synthesize detectsVoiceActivity;
+@synthesize usesICE;
 @dynamic transportPort;
 
 - (id <AKTelephoneDelegate>)delegate
@@ -273,6 +275,7 @@ typedef enum _AKTelephoneRingtones {
 	[self setLogLevel:AKTelephoneLogLevelDefault];
 	[self setConsoleLogLevel:AKTelephoneConsoleLogLevelDefault];
 	[self setDetectsVoiceActivity:AKTelephoneDetectsVoiceActivityDefault];
+	[self setUsesICE:AKTelephoneUsesICEDefault];
 	[self setTransportPort:AKTelephoneTransportPortDefault];
 	
 	return self;
@@ -345,6 +348,7 @@ typedef enum _AKTelephoneRingtones {
 	loggingConfig.level = [self logLevel];
 	loggingConfig.console_level = [self consoleLogLevel];
 	mediaConfig.no_vad = ![self detectsVoiceActivity];
+	mediaConfig.enable_ice = [self usesICE];
 	transportConfig.port = [self transportPort];
 	
 	userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;
