@@ -71,6 +71,7 @@ typedef enum _AKTelephoneCallState {
 @property(readwrite, assign) NSInteger lastStatus;
 @property(readwrite, copy) NSString *lastStatusText;
 @property(nonatomic, readonly, assign, getter=isActive) BOOL active;
+@property(nonatomic, readonly, assign) BOOL hasMedia;
 @property(readwrite, assign, getter=isIncoming) BOOL incoming;
 @property(readwrite, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
 @property(readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;

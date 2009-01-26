@@ -58,6 +58,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 @synthesize lastStatus;
 @synthesize lastStatusText;
 @dynamic active;
+@dynamic hasMedia;
 @synthesize incoming;
 @synthesize microphoneMuted;
 @dynamic onLocalHold;
@@ -144,10 +145,15 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 	if ([self identifier] == AKTelephoneInvalidIdentifier)
 		return NO;
 	
-	if (pjsua_call_is_active([self identifier]))
-		return YES;
-	else
+	return (pjsua_call_is_active([self identifier])) ? YES : NO;
+}
+
+- (BOOL)hasMedia
+{
+	if ([self identifier] == AKTelephoneInvalidIdentifier)
 		return NO;
+	
+	return (pjsua_call_has_media([self identifier])) ? YES : NO;
 }
 
 - (BOOL)isOnLocalHold
@@ -305,7 +311,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)muteMicrophone
 {
-	if ([self isMicrophoneMuted])
+	if ([self isMicrophoneMuted] || [self state] != AKTelephoneCallConfirmedState)
 		return;
 	
 	pjsua_call_info callInfo;
@@ -320,7 +326,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)unmuteMicrophone
 {
-	if (![self isMicrophoneMuted])
+	if (![self isMicrophoneMuted] || [self state] != AKTelephoneCallConfirmedState)
 		return;
 	
 	pjsua_call_info callInfo;
