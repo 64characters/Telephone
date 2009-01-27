@@ -685,6 +685,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 											  "Deliberately in lower case, translators should do the same, if possible.");
 	
 	// Search Address Book for caller's name.
+
 	if ([[[aCall remoteURI] displayName] AK_isTelephoneNumber] ||
 		([[[aCall remoteURI] displayName] length] == 0 && [[[aCall remoteURI] user] AK_isTelephoneNumber]))
 	{
@@ -705,6 +706,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 		[searchElements addObject:phoneNumberMatch];
 
 		const NSUInteger AKSignificantPhoneNumberLength = 10;
+		
 		NSString *significantPhoneSuffix;
 		if ([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) {
 			significantPhoneSuffix = [phoneNumberToSearch substringFromIndex:([phoneNumberToSearch length] - AKSignificantPhoneNumberLength)];
@@ -729,10 +731,58 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 			
 			finalDisplayedName = [theRecord AK_fullName];
 			[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+			NSLog(@"Found in the primary search: %@", finalDisplayedName);
 			
 			break;
-		}	
+		}
+		
+		// Continue searching the match hasn't been found. Search phone numbers
+		// that can contain spaces, dashes, etc.
+		if ([[aCallController nameFromAddressBook] length] == 0) {
+			NSArray *allPeople = [AB people];
+			
+			AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+			BOOL recordFound = NO;
+			for (id theRecord in allPeople) {
+				ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
+				
+				for (NSUInteger i = 0; i < [phones count]; ++i) {
+					NSString *phoneNumber = [phones valueAtIndex:i];
+					
+					// Don't bother if the phone number contains only contiguous
+					// digits, we should have covered such numbers in previous search.
+					if ([phoneNumber AK_isTelephoneNumber])
+						continue;
+					
+					// Don't bother if the phone number has letters.
+					if ([phoneNumber AK_hasLetters])
+						continue;
+					
+					// Here phone number probably includes spaces or other dividers.
+					// Scan valid phone characters to compare with a given string.
+					NSString *scannedPhoneNumber = [telephoneNumberFormatter telephoneNumberFromString:phoneNumber];
+					if ([phoneNumberToSearch isEqualToString:scannedPhoneNumber]) {
+						recordFound = YES;
+						break;
+					} else if (([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) &&
+							   [phoneNumberToSearch hasSuffix:significantPhoneSuffix]) {
+						recordFound = YES;
+						break;
+						
+					}
+				}
+				
+				if (recordFound) {
+					finalDisplayedName = [theRecord AK_fullName];
+					[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+					NSLog(@"Found in the secondary search: %@", finalDisplayedName);
+					break;
+				}
+			}
+		}
 	}
+	
+	// Address Book search ends here.
 	
 	[[aCallController window] setTitle:finalTitle];
 	[aCallController setDisplayedName:finalDisplayedName];
