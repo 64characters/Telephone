@@ -834,6 +834,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	if (![[self telephone] started]) {
 		[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 		[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+		[[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
 		[[self telephone] setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
 		[[self telephone] setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 		
@@ -861,6 +862,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[self telephone] destroyUserAgent];
 	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	[[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
 	[[self telephone] setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
 	[[self telephone] setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 	

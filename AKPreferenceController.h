@@ -86,6 +86,7 @@ extern NSString * const AKProxyPort;
 	// Network.
 	IBOutlet NSTextField *STUNServerHost;
 	IBOutlet NSTextField *STUNServerPort;
+	IBOutlet NSButton *useICECheckBox;
 	IBOutlet NSTextField *outboundProxyHost;
 	IBOutlet NSTextField *outboundProxyPort;
 	

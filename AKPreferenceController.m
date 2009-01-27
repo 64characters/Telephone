@@ -166,6 +166,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[STUNServerHost setStringValue:[defaults stringForKey:AKSTUNServerHost]];
 	if ([[defaults objectForKey:AKSTUNServerPort] integerValue] > 0)
 		[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	[useICECheckBox setState:[[defaults objectForKey:AKUseICE] integerValue]];
 	[outboundProxyHost setStringValue:[defaults stringForKey:AKOutboundProxyHost]];
 	if ([[defaults objectForKey:AKOutboundProxyPort] integerValue] > 0)
 		[outboundProxyPort setIntegerValue:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
@@ -734,11 +735,13 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	NSString *newSTUNServerHost = [STUNServerHost stringValue];
 	NSNumber *newSTUNServerPort = [NSNumber numberWithInteger:[STUNServerPort integerValue]];
+	BOOL newUseICE = ([useICECheckBox state] == NSOnState) ? YES : NO;
 	NSString *newOutboundProxyHost = [outboundProxyHost stringValue];
 	NSNumber *newOutboundProxyPort = [NSNumber numberWithInteger:[outboundProxyPort integerValue]];
 	
 	if (![[defaults objectForKey:AKSTUNServerHost] isEqualToString:newSTUNServerHost] ||
 		![[defaults objectForKey:AKSTUNServerPort] isEqualToNumber:newSTUNServerPort] ||
+		[defaults boolForKey:AKUseICE] != newUseICE ||
 		![[defaults objectForKey:AKOutboundProxyHost] isEqualToString:newOutboundProxyHost] ||
 		![[defaults objectForKey:AKOutboundProxyPort] isEqualToNumber:newOutboundProxyPort])
 	{
@@ -778,6 +781,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	if (returnCode == NSAlertFirstButtonReturn) {
 		[defaults setObject:[STUNServerHost stringValue] forKey:AKSTUNServerHost];
 		[defaults setObject:[NSNumber numberWithInteger:[STUNServerPort integerValue]] forKey:AKSTUNServerPort];
+		BOOL useICEFlag = ([useICECheckBox state] == NSOnState) ? YES : NO;
+		[defaults setBool:useICEFlag forKey:AKUseICE];
 		[defaults setObject:[outboundProxyHost stringValue] forKey:AKOutboundProxyHost];
 		[defaults setObject:[NSNumber numberWithInteger:[outboundProxyPort integerValue]] forKey:AKOutboundProxyPort];
 		
@@ -789,6 +794,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 			[STUNServerPort setStringValue:@""];
 		else
 			[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+		
+		[useICECheckBox setState:[[defaults objectForKey:AKUseICE] integerValue]];
 		
 		[outboundProxyHost setStringValue:[defaults objectForKey:AKOutboundProxyHost]];
 		if ([[defaults objectForKey:AKOutboundProxyPort] integerValue] == 0)
