@@ -62,6 +62,7 @@
 @implementation NSString(Additions)
 
 @dynamic AK_isTelephoneNumber;
+@dynamic AK_hasLetters;
 
 - (BOOL)AK_isTelephoneNumber
 {
@@ -70,6 +71,13 @@
 		return YES;
 	
 	return NO;
+}
+
+- (BOOL)AK_hasLetters
+{
+	NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
+	
+	return ([containsLettersPredicate evaluateWithObject:self])	? YES : NO;
 }
 
 - (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string

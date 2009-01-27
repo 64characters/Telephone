@@ -45,7 +45,11 @@
 
 @interface NSString(Additions)
 
+// Returns YES if the receiver is a string of contiguous digits with possible plus character in the beginning.
 @property(nonatomic, readonly, assign) BOOL AK_isTelephoneNumber;
+
+// Returns YES if the receiver contains a-z or A-Z.
+@property(nonatomic, readonly, assign) BOOL AK_hasLetters;
 
 // Inserts backslash before every occurrence of the first character from string in the receiver.
 - (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string;
