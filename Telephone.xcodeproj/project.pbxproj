@@ -34,6 +34,7 @@
 		AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA584A680F06CFD2003C4992 /* Localizable.strings */; };
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
 		AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */; };
+		AAB5AAC20F2E7A7D00A57531 /* ABRecordAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */; };
 		AABAD7ED0E0C171A00CB5930 /* AKPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAD7EC0E0C171A00CB5930 /* AKPreferenceController.m */; };
 		AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */; };
 		AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A800E08198800E3AB2D /* CoreAudio.framework */; };
@@ -120,6 +121,8 @@
 		AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKKeychain.m; sourceTree = "<group>"; };
 		AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = telephone.icns; sourceTree = "<group>"; };
 		AAAE4A230E3F4DAA00110597 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Account.xib; sourceTree = "<group>"; };
+		AAB5AAC00F2E7A7D00A57531 /* ABRecordAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABRecordAdditions.h; sourceTree = "<group>"; };
+		AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABRecordAdditions.m; sourceTree = "<group>"; };
 		AABAD7EB0E0C171A00CB5930 /* AKPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPreferenceController.h; sourceTree = "<group>"; };
 		AABAD7EC0E0C171A00CB5930 /* AKPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPreferenceController.m; sourceTree = "<group>"; };
 		AABAD7EF0E0C184200CB5930 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 				AAECDE8E0E70703100CEAE7B /* NSStringAdditions.m */,
 				AAEE7C2F0ECD953200A7DEB4 /* NSWindowAdditions.h */,
 				AAEE7C300ECD953200A7DEB4 /* NSWindowAdditions.m */,
+				AAB5AAC00F2E7A7D00A57531 /* ABRecordAdditions.h */,
+				AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
+				AAB5AAC20F2E7A7D00A57531 /* ABRecordAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

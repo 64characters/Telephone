@@ -29,6 +29,7 @@
 #import <AddressBook/AddressBook.h>
 #import <Growl/Growl.h>
 
+#import "ABRecordAdditions.h"
 #import "AKAccountController.h"
 #import "AKCallController.h"
 #import "AKKeychain.h"
@@ -676,11 +677,65 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 																	  accountController:self];
 	[[self callControllers] addObject:aCallController];
 	
-	[[aCallController window] setTitle:[[aCall remoteURI] SIPAddress]];
 	AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
-	[aCallController setDisplayedName:[SIPURIFormatter stringForObjectValue:[aCall remoteURI]]];
-	[aCallController setStatus:NSLocalizedString(@"calling", @"John Smith calling. Somebody is calling us right now. Call status string. " \
-												 "Deliberately in lower case, translators should do the same, if possible.")];
+	NSString *finalTitle = [[aCall remoteURI] SIPAddress];
+	NSString *finalDisplayedName = [SIPURIFormatter stringForObjectValue:[aCall remoteURI]];
+	NSString *finalStatus = NSLocalizedString(@"calling", @"John Smith calling. Somebody is calling us right now. Call status string. " \
+											  "Deliberately in lower case, translators should do the same, if possible.");
+	
+	// Search Address Book for caller's name.
+	if ([[[aCall remoteURI] displayName] AK_isTelephoneNumber] ||
+		([[[aCall remoteURI] displayName] length] == 0 && [[[aCall remoteURI] user] AK_isTelephoneNumber]))
+	{
+		NSString *phoneNumberToSearch;
+		if ([[[aCall remoteURI] displayName] length] > 0)
+			phoneNumberToSearch = [[aCall remoteURI] displayName];
+		else 
+			phoneNumberToSearch = [[aCall remoteURI] user];
+			
+		
+		ABAddressBook *AB = [ABAddressBook sharedAddressBook];
+		NSMutableArray *searchElements = [NSMutableArray array];
+		ABSearchElement *phoneNumberMatch = [ABPerson searchElementForProperty:kABPhoneProperty
+																		 label:nil
+																		   key:nil
+																		 value:phoneNumberToSearch
+																	comparison:kABEqual];
+		[searchElements addObject:phoneNumberMatch];
+
+		const NSUInteger AKSignificantPhoneNumberLength = 10;
+		NSString *significantPhoneSuffix;
+		if ([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) {
+			significantPhoneSuffix = [phoneNumberToSearch substringFromIndex:([phoneNumberToSearch length] - AKSignificantPhoneNumberLength)];
+			NSLog(@"Significant phone suffix: %@", significantPhoneSuffix);
+			ABSearchElement *phoneNumberSuffixMatch = [ABPerson searchElementForProperty:kABPhoneProperty
+																				   label:nil
+																					 key:nil
+																				   value:significantPhoneSuffix
+																			  comparison:kABSuffixMatch];
+			[searchElements addObject:phoneNumberSuffixMatch];
+		}
+		
+		// Perform the search.
+		for (ABSearchElement *aSearchElement in searchElements) {
+			NSArray *recordsFound = [AB recordsMatchingSearchElement:aSearchElement];
+			if ([recordsFound count] == 0)
+				continue;
+			
+			id theRecord = [recordsFound objectAtIndex:0];
+			if (![theRecord isKindOfClass:[ABPerson class]])
+				continue;
+			
+			finalDisplayedName = [theRecord AK_fullName];
+			[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+			
+			break;
+		}	
+	}
+	
+	[[aCallController window] setTitle:finalTitle];
+	[aCallController setDisplayedName:finalDisplayedName];
+	[aCallController setStatus:finalStatus];
 	[[aCallController window] resizeAndSwapToContentView:[aCallController incomingCallView]];
 	
 	[aCallController showWindow:nil];
@@ -705,7 +760,16 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	}
 	
 	NSString *notificationTitle, *notificationDescription;
-	if ([[[aCall remoteURI] displayName] length] > 0) {
+	if ([[aCallController nameFromAddressBook] length] > 0) {
+		notificationTitle = [aCallController nameFromAddressBook];
+		notificationDescription = [NSString
+								   stringWithFormat:NSLocalizedString(@"calling from %@", @"John Smith calling from 1234567. " \
+																	  "Somebody is calling us right now from some source. " \
+																	  "Growl notification description. Deliberately in lower case, " \
+																	  "translators should do the same, if possible."),
+								   callSource];
+		
+	} else if ([[[aCall remoteURI] displayName] length] > 0) {
 		notificationTitle = [[aCall remoteURI] displayName];
 		notificationDescription = [NSString
 								   stringWithFormat:NSLocalizedString(@"calling from %@", @"John Smith calling from 1234567. " \
