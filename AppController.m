@@ -801,7 +801,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			[[theAccountController account] setProxyPort:[[accountDict objectForKey:AKProxyPort] integerValue]];
 		}
 		
-		[theAccountController setEnabled:isEnabled];
+		[theAccountController setEnabled:YES];
 		[theAccountController setSubstitutesPlusCharacter:[[accountDict objectForKey:AKSubstitutePlusCharacter] boolValue]];
 		[theAccountController setPlusCharacterSubstitution:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
 		
@@ -816,10 +816,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		
 	} else {
 		AKAccountController *theAccountController = [[self accountControllers] objectAtIndex:index];
-		[theAccountController setEnabled:isEnabled];
 		
 		// Remove account from Telephone.
 		[theAccountController removeAccountFromTelephone];
+		[theAccountController setEnabled:NO];
 		[[theAccountController window] orderOut:nil];
 
 		// Prevent conflict with setFrameAutosaveName: when re-enabling the account.

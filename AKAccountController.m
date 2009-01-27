@@ -232,6 +232,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 
 - (void)removeAccountFromTelephone
 {
+	NSAssert([self isEnabled], @"Account conroller must be enabled to remove account from Telephone.");
 	if (![self isEnabled])
 		return;
 	
