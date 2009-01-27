@@ -696,13 +696,13 @@ A</string>
 										<object class="NSButton" id="687650332">
 											<reference key="NSNextResponder" ref="299672903"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{24, 206}, {116, 18}}</string>
+											<string key="NSFrame">{{24, 206}, {159, 18}}</string>
 											<reference key="NSSuperview" ref="299672903"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="422438768">
 												<int key="NSCellFlags">604110336</int>
 												<int key="NSCellFlags2">131072</int>
-												<string type="base64-UTF8" key="NSContents">0JfQsNC80LXQvdGP0YLRjCDCqyvCuyDQvdCwA</string>
+												<string type="base64-UTF8" key="NSContents">0JfQsNC80LXQvdGP0YLRjCDCqyvCuyDQvdCwIMKrICAgICAgIMK7A</string>
 												<reference key="NSSupport" ref="26"/>
 												<reference key="NSControlView" ref="687650332"/>
 												<int key="NSButtonFlags">1211912703</int>
@@ -718,7 +718,7 @@ A</string>
 										<object class="NSTextField" id="247260880">
 											<reference key="NSNextResponder" ref="299672903"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{143, 206}, {22, 19}}</string>
+											<string key="NSFrame">{{145, 206}, {22, 19}}</string>
 											<reference key="NSSuperview" ref="299672903"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="228972209">
@@ -734,38 +734,6 @@ A</string>
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<string>NSAllRomanInputSourcesLocaleIdentifier</string>
 												</object>
-											</object>
-										</object>
-										<object class="NSTextField" id="725309830">
-											<reference key="NSNextResponder" ref="299672903"/>
-											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{164, 208}, {13, 14}}</string>
-											<reference key="NSSuperview" ref="299672903"/>
-											<bool key="NSEnabled">YES</bool>
-											<object class="NSTextFieldCell" key="NSCell" id="918308742">
-												<int key="NSCellFlags">605158976</int>
-												<int key="NSCellFlags2">272761856</int>
-												<string type="base64-UTF8" key="NSContents">wrs</string>
-												<reference key="NSSupport" ref="26"/>
-												<reference key="NSControlView" ref="725309830"/>
-												<reference key="NSBackgroundColor" ref="1048032501"/>
-												<reference key="NSTextColor" ref="954480591"/>
-											</object>
-										</object>
-										<object class="NSTextField" id="353146150">
-											<reference key="NSNextResponder" ref="299672903"/>
-											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{135, 208}, {13, 14}}</string>
-											<reference key="NSSuperview" ref="299672903"/>
-											<bool key="NSEnabled">YES</bool>
-											<object class="NSTextFieldCell" key="NSCell" id="980339024">
-												<int key="NSCellFlags">605158976</int>
-												<int key="NSCellFlags2">272761856</int>
-												<string type="base64-UTF8" key="NSContents">wqs</string>
-												<reference key="NSSupport" ref="26"/>
-												<reference key="NSControlView" ref="353146150"/>
-												<reference key="NSBackgroundColor" ref="1048032501"/>
-												<reference key="NSTextColor" ref="954480591"/>
 											</object>
 										</object>
 										<object class="NSButton" id="630929724">
@@ -2380,8 +2348,6 @@ A</string>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="687650332"/>
 							<reference ref="247260880"/>
-							<reference ref="725309830"/>
-							<reference ref="353146150"/>
 							<reference ref="630929724"/>
 							<reference ref="383941550"/>
 							<reference ref="257103432"/>
@@ -2407,34 +2373,6 @@ A</string>
 							<reference ref="228972209"/>
 						</object>
 						<reference key="parent" ref="299672903"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">341</int>
-						<reference key="object" ref="725309830"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="918308742"/>
-						</object>
-						<reference key="parent" ref="299672903"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">342</int>
-						<reference key="object" ref="353146150"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="980339024"/>
-						</object>
-						<reference key="parent" ref="299672903"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">343</int>
-						<reference key="object" ref="980339024"/>
-						<reference key="parent" ref="353146150"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">344</int>
-						<reference key="object" ref="918308742"/>
-						<reference key="parent" ref="725309830"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">345</int>
@@ -2603,10 +2541,6 @@ A</string>
 					<string>338.IBPluginDependency</string>
 					<string>339.IBPluginDependency</string>
 					<string>340.IBPluginDependency</string>
-					<string>341.IBPluginDependency</string>
-					<string>342.IBPluginDependency</string>
-					<string>343.IBPluginDependency</string>
-					<string>344.IBPluginDependency</string>
 					<string>345.IBPluginDependency</string>
 					<string>346.IBPluginDependency</string>
 					<string>347.IBPluginDependency</string>
@@ -2728,10 +2662,6 @@ A</string>
 						</object>
 					</object>
 					<string>{{342, 285}, {369, 275}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
