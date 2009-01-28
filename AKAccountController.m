@@ -262,6 +262,8 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 	AKSIPURI *originalURI = [[[primaryDestinationDict objectForKey:AKURI] copy] autorelease];
 	NSString *phoneLabel = [primaryDestinationDict objectForKey:AKPhoneLabel];
 	
+	AKSIPURI *firstURI = [[[[callDestination objectValue] objectAtIndex:0] objectAtIndex:0] objectForKey:AKURI];
+	
 	if ([[originalURI user] length] == 0)
 		return;
 	
@@ -302,7 +304,7 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 	if (aCall != nil) {
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																		  accountController:self];
-		[aCallController setNameFromAddressBook:[originalURI displayName]];
+		[aCallController setNameFromAddressBook:[firstURI displayName]];
 		[aCallController setPhoneLabelFromAddressBook:phoneLabel];
 		[aCallController setEnteredCallDestination:[originalURI user]];
 		[[self callControllers] addObject:aCallController];
@@ -318,7 +320,7 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 		}
 		
 		// Set displayed name.
-		if ([[uri displayName] length] == 0) {
+		if ([[firstURI displayName] length] == 0) {
 			if ([[originalURI host] length] > 0)
 				[aCallController setDisplayedName:[uri SIPAddress]];
 			else if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
@@ -326,7 +328,7 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 			else
 				[aCallController setDisplayedName:[originalURI user]];
 		} else {
-			[aCallController setDisplayedName:[uri displayName]];
+			[aCallController setDisplayedName:[firstURI displayName]];
 		}
 		
 		[[aCallController window] setContentView:[aCallController activeCallView]];
