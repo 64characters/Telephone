@@ -16,13 +16,13 @@
 "Available" = "Angemeldet";
 
 /* Busy. */
-"Busy" = "Besetzt";
+"busy" = "Besetzt";
 
 /* Call declined. */
-"Call Declined" = "Anruf abgelehnt";
+"call declined" = "Anruf abgelehnt";
 
 /* Call ended. */
-"Call Ended" = "Anruf beendet";
+"call ended" = "Anruf beendet";
 
 /* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
@@ -104,7 +104,7 @@
 "Quit" = "Beenden";
 
 /* Remote party ringing. */
-"Ringing" = "Es klingelt";
+"ringing" = "Es klingelt";
 
 /* Save button. */
 "Save" = "Sichern";

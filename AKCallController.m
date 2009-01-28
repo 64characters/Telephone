@@ -173,7 +173,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[self stopCallTimer];
 	if ([[self call] isIncoming])
 		[[NSApp delegate] stopIncomingCallSoundTimer];
-	[self setStatus:NSLocalizedString(@"Call Ended", @"Call ended.")];
+	[self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
 	[[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
 }
 
@@ -280,7 +280,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	if (![[self call] isIncoming]) {
 		if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
 			[callProgressIndicator stopAnimation:self];
-			[self setStatus:NSLocalizedString(@"Ringing", @"Remote party ringing.")];
+			[self setStatus:NSLocalizedString(@"ringing", @"Remote party ringing.")];
 		}
 		
 		[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
@@ -316,20 +316,20 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	switch ([[self call] lastStatus]) {
 		case PJSIP_SC_OK:
-			[self setStatus:NSLocalizedString(@"Call Ended", @"Call ended.")];
+			[self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
 			break;
 		case PJSIP_SC_NOT_FOUND:
 			[self setStatus:NSLocalizedString(@"Address Not Found", @"Address not found.")];
 			break;
 		case PJSIP_SC_REQUEST_TERMINATED:
-			[self setStatus:NSLocalizedString(@"Call Ended", @"Call ended.")];
+			[self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
 			break;
 		case PJSIP_SC_BUSY_HERE:
 		case PJSIP_SC_BUSY_EVERYWHERE:
-			[self setStatus:NSLocalizedString(@"Busy", @"Busy.")];
+			[self setStatus:NSLocalizedString(@"busy", @"Busy.")];
 			break;
 		case PJSIP_SC_DECLINE:
-			[self setStatus:NSLocalizedString(@"Call Declined", @"Call declined.")];
+			[self setStatus:NSLocalizedString(@"call declined", @"Call declined.")];
 				break;
 		default:
 			if ([preferredLocalization isEqualToString:@"Russian"]) {

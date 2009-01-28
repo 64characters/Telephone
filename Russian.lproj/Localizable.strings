@@ -14,13 +14,13 @@
 "Available" = "Доступен";
 
 /* Busy. */
-"Busy" = "Занято";
+"busy" = "занято";
 
 /* Call declined. */
-"Call Declined" = "Звонок отклонен";
+"call declined" = "звонок отклонен";
 
 /* Call ended. */
-"Call Ended" = "Звонок завершен";
+"call ended" = "звонок завершен";
 
 /* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
@@ -102,7 +102,7 @@
 "Quit" = "Выйти";
 
 /* Remote party ringing. */
-"Ringing" = "Идет оповещение";
+"ringing" = "идет оповещение";
 
 /* Save button. */
 "Save" = "Сохранить";
