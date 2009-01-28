@@ -274,10 +274,8 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
 	
 	// Get the clean string of contiguous digits if the user part does not contain letters.
-	NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
-	if (![containsLettersPredicate evaluateWithObject:[uri user]]) {
+	if (![[uri user] AK_hasLetters])
 		[uri setUser:[telephoneNumberFormatter telephoneNumberFromString:[uri user]]];
-	}
 	
 	// Actually, the call will be made to the copy of the URI without
 	// display-name part to prevent another call party to see local Address Book record.
@@ -302,7 +300,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 		[[self callControllers] addObject:aCallController];
 		
 		// Set title.
-		if ([[originalURI host] length] == 0 && ![containsLettersPredicate evaluateWithObject:[originalURI user]]) {
+		if ([[originalURI host] length] == 0 && ![[originalURI user] AK_hasLetters]) {
 			if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
 				[[aCallController window] setTitle:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
 			else
