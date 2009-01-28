@@ -262,7 +262,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)telephoneCallCalling:(NSNotification *)notification
 {
-	[self setStatus:NSLocalizedString(@"calling...", @"Outgoing call in progress.")];
+	if ([[self phoneLabelFromAddressBook] length] > 0)
+		[self setStatus:[NSString stringWithFormat:
+						 NSLocalizedString(@"calling %@...",
+										   @"Outgoing call in progress. Calling specific phone type (mobile, home, etc)."),
+						 [self phoneLabelFromAddressBook]]];
+	else
+		[self setStatus:NSLocalizedString(@"calling...", @"Outgoing call in progress.")];
+	
 	[[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 

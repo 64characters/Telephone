@@ -67,6 +67,11 @@ const CGFloat AKAccountRegistrationButtonUnavailableGermanWidth = 111.0;
 const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 
 
+// Call destination keys.
+NSString * const AKURI = @"AKURI";
+NSString * const AKPhoneLabel = @"AKPhoneLabel";
+
+
 @interface AKAccountController()
 
 @property(readwrite, assign) BOOL attemptsToRegisterAccount;
@@ -253,8 +258,9 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
-	AKSIPURI *originalURI = [[[[[callDestination objectValue] objectAtIndex:0]
-							   objectAtIndex:[self callDestinationURIIndex]] copy] autorelease];
+	NSDictionary *primaryDestinationDict = [[[callDestination objectValue] objectAtIndex:0] objectAtIndex:[self callDestinationURIIndex]];
+	AKSIPURI *originalURI = [[[primaryDestinationDict objectForKey:AKURI] copy] autorelease];
+	NSString *phoneLabel = [primaryDestinationDict objectForKey:AKPhoneLabel];
 	
 	if ([[originalURI user] length] == 0)
 		return;
@@ -297,6 +303,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
 																		  accountController:self];
 		[aCallController setNameFromAddressBook:[originalURI displayName]];
+		[aCallController setPhoneLabelFromAddressBook:phoneLabel];
 		[aCallController setEnteredCallDestination:[originalURI user]];
 		[[self callControllers] addObject:aCallController];
 		
@@ -323,7 +330,15 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 		}
 		
 		[[aCallController window] setContentView:[aCallController activeCallView]];
-		[aCallController setStatus:NSLocalizedString(@"calling...", @"Outgoing call in progress.")];
+		
+		if ([phoneLabel length] > 0)
+			[aCallController setStatus:[NSString stringWithFormat:
+										NSLocalizedString(@"calling %@...",
+														  @"Outgoing call in progress. Calling specific phone type (mobile, home, etc)."),
+										phoneLabel]];
+		else
+			[aCallController setStatus:NSLocalizedString(@"calling...", @"Outgoing call in progress.")];
+		
 		[aCallController showWindow:nil];
 		[[aCallController callProgressIndicator] startAnimation:self];
 		
@@ -1133,7 +1148,8 @@ completionsForSubstring:(NSString *)substring
 	return [[completions copy] autorelease];
 }
 
-// Convert input text to the array of AKSIPURIs.
+// Convert input text to the array of dictionaries containing AKSIPURIs and phone labels (mobile, home, etc).
+// Dictionary keys are @"URI" and @"phoneLabel".
 // If there is no @ sign, the input is treated as a user part of the URI and host part will be nil.
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString
 {
@@ -1142,8 +1158,8 @@ completionsForSubstring:(NSString *)substring
 	if (theURI == nil)
 		return nil;
 	
-	NSMutableArray *URIs = [[[NSMutableArray alloc] init] autorelease];
-	[URIs addObject:theURI];
+	NSMutableArray *callDestinations = [[[NSMutableArray alloc] init] autorelease];
+	[callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:theURI, AKURI, @"", AKPhoneLabel, nil]];
 	
 	ABAddressBook *AB = [ABAddressBook sharedAddressBook];
 	NSArray *recordsFound;
@@ -1323,21 +1339,31 @@ completionsForSubstring:(NSString *)substring
 		ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
 		for (NSUInteger i = 0; i < [phones count]; ++i) {
 			NSString *phoneNumber = [phones valueAtIndex:i];
+			NSString *localizedPhoneLabel = [AB AK_localizedLabel:[phones labelAtIndex:i]];
 			
 			NSRange atSignRange = [phoneNumber rangeOfString:@"@"];
 			if (atSignRange.location == NSNotFound && [[theURI host] length] == 0) {		// No @ sign, treat as telephone number.
 				if ([[telephoneNumberFormatter telephoneNumberFromString:phoneNumber]
 					 isEqualToString:[telephoneNumberFormatter telephoneNumberFromString:[theURI user]]])
 				{
+					// Set phone label of the first URI.
+					NSDictionary *firstElementReplacement = [NSDictionary dictionaryWithObjectsAndKeys:
+															 theURI, AKURI, localizedPhoneLabel, AKPhoneLabel, nil];
+					[callDestinations replaceObjectAtIndex:0 withObject:firstElementReplacement];
 					continue;
 				}
 			} else {
-				if ([phoneNumber isEqualToString:[theURI SIPAddress]])
+				if ([phoneNumber isEqualToString:[theURI SIPAddress]]) {
+					// Set phone label of the first URI.
+					NSDictionary *firstElementReplacement = [NSDictionary dictionaryWithObjectsAndKeys:
+															 theURI, AKURI, localizedPhoneLabel, AKPhoneLabel, nil];
+					[callDestinations replaceObjectAtIndex:0 withObject:firstElementReplacement];
 					continue;
+				}
 			}
 			
 			AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:phoneNumber];
-			[URIs addObject:uri];
+			[callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:uri, AKURI, localizedPhoneLabel, AKPhoneLabel, nil]];
 		}
 		
 	}
@@ -1345,7 +1371,7 @@ completionsForSubstring:(NSString *)substring
 	// First URI in the array is a default call destination.
 	[self setCallDestinationURIIndex:0];
 	
-	return [[URIs copy] autorelease];
+	return [[callDestinations copy] autorelease];
 }
 
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
@@ -1353,7 +1379,7 @@ completionsForSubstring:(NSString *)substring
 	if (![representedObject isKindOfClass:[NSArray class]])
 		return nil;
 	
-	AKSIPURI *mainURI = [representedObject objectAtIndex:0];
+	AKSIPURI *mainURI = [[representedObject objectAtIndex:0] objectForKey:AKURI];
 	
 	NSString *returnString = nil;
 	
@@ -1382,8 +1408,8 @@ completionsForSubstring:(NSString *)substring
 	if (![representedObject isKindOfClass:[NSArray class]])
 		return nil;
 	
-	AKSIPURI *mainURI = [representedObject objectAtIndex:0];
-	AKSIPURI *selectedURI = [representedObject objectAtIndex:[self callDestinationURIIndex]];
+	AKSIPURI *mainURI = [[representedObject objectAtIndex:0] objectForKey:AKURI];
+	AKSIPURI *selectedURI = [[representedObject objectAtIndex:[self callDestinationURIIndex]] objectForKey:AKURI];
 	NSAssert(([[selectedURI user] length] > 0), @"User part of the URI must not have zero length in this context");
 	
 	if ([[mainURI displayName] length] > 0) {
@@ -1400,7 +1426,8 @@ completionsForSubstring:(NSString *)substring
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject
 {
-	if ([representedObject isKindOfClass:[NSArray class]] && [[[representedObject objectAtIndex:0] displayName] length] > 0)
+	if ([representedObject isKindOfClass:[NSArray class]] &&
+		[[[[representedObject objectAtIndex:0] objectForKey:AKURI] displayName] length] > 0)
 		return YES;
 	else
 		return NO;
@@ -1411,24 +1438,25 @@ completionsForSubstring:(NSString *)substring
 	NSMenu *tokenMenu = [[[NSMenu alloc] init] autorelease];
 	
 	for (NSUInteger i = 0; i < [representedObject count]; ++i) {
-		AKSIPURI *aURI = [representedObject objectAtIndex:i];
-		NSMenuItem *callDestinationURIItem = [[[NSMenuItem alloc] init] autorelease];
+		AKSIPURI *aURI = [[representedObject objectAtIndex:i] objectForKey:AKURI];
+		NSString *phoneLabel = [[representedObject objectAtIndex:i] objectForKey:AKPhoneLabel];
+		NSMenuItem *menuItem = [[[NSMenuItem alloc] init] autorelease];
 		
 		if ([[aURI host] length] > 0) {
-			[callDestinationURIItem setTitle:[aURI SIPAddress]];
+			[menuItem setTitle:[NSString stringWithFormat:@"%@: %@", phoneLabel, [aURI SIPAddress]]];
 		} else if ([[aURI user] AK_isTelephoneNumber]) {
 			AKTelephoneNumberFormatter *formatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
 			[formatter setSplitsLastFourDigits:[[NSUserDefaults standardUserDefaults]
 												boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
-			[callDestinationURIItem setTitle:[formatter stringForObjectValue:[aURI user]]];
+			[menuItem setTitle:[NSString stringWithFormat:@"%@: %@", phoneLabel, [formatter stringForObjectValue:[aURI user]]]];
 		} else {
-			[callDestinationURIItem setTitle:[aURI user]];
+			[menuItem setTitle:[NSString stringWithFormat:@"%@: %@", phoneLabel, [aURI user]]];
 		}
 		
-		[callDestinationURIItem setTag:i];
-		[callDestinationURIItem setAction:@selector(changeCallDestinationURIIndex:)];
+		[menuItem setTag:i];
+		[menuItem setAction:@selector(changeCallDestinationURIIndex:)];
 		
-		[tokenMenu addItem:callDestinationURIItem];
+		[tokenMenu addItem:menuItem];
 	}
 	
 	[[tokenMenu itemWithTag:[self callDestinationURIIndex]] setState:NSOnState];

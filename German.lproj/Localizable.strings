@@ -28,6 +28,9 @@
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
 "calling" = "ruft an";
 
+/* Outgoing call in progress. Calling specific phone type (mobile, home, etc). */
+"calling %@..." = "%@ ...";
+
 /* John Smith calling from 1234567. Somebody is calling us right now from some source. Growl notification description. Deliberately in lower case, translators should do the same, if possible. */
 "calling from %@" = "%@";
 
