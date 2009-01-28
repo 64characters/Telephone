@@ -1149,7 +1149,7 @@ completionsForSubstring:(NSString *)substring
 }
 
 // Convert input text to the array of dictionaries containing AKSIPURIs and phone labels (mobile, home, etc).
-// Dictionary keys are @"URI" and @"phoneLabel".
+// Dictionary keys are AKURI and AKPhoneLabel.
 // If there is no @ sign, the input is treated as a user part of the URI and host part will be nil.
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString
 {
