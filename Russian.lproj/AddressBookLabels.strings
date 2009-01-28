@@ -1,0 +1,24 @@
+﻿/* Home phone number. */
+"home" = "домашний";
+
+/* Home FAX number. */
+"home fax" = "домашний факс";
+
+/* Main phone number. */
+"main" = "основной";
+
+/* Mobile phone number. */
+"mobile" = "мобильный";
+
+/* Other number. */
+"other" = "другой";
+
+/* Pager number. */
+"pager" = "пейджер";
+
+/* Work phone number. */
+"work" = "рабочий";
+
+/* Work FAX number. */
+"work fax" = "рабочий факс";
+

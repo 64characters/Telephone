@@ -1,0 +1,24 @@
+﻿/* Home phone number. */
+"home" = "Privat";
+
+/* Home FAX number. */
+"home fax" = "Fax, Privat";
+
+/* Main phone number. */
+"main" = "Zentrale";
+
+/* Mobile phone number. */
+"mobile" = "Mobil";
+
+/* Other number. */
+"other" = "Andere";
+
+/* Pager number. */
+"pager" = "Pager";
+
+/* Work phone number. */
+"work" = "Arbeit";
+
+/* Work FAX number. */
+"work fax" = "Fax, Arbeit";
+

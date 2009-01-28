@@ -29,6 +29,7 @@
 #import <AddressBook/AddressBook.h>
 #import <Growl/Growl.h>
 
+#import "ABAddressBookAdditions.h"
 #import "ABRecordAdditions.h"
 #import "AKAccountController.h"
 #import "AKCallController.h"
@@ -677,6 +678,8 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	[[self callControllers] addObject:aCallController];
 	
 	AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
+	
+	// These variables will be changed during the Address Book search if the record is found.
 	NSString *finalTitle = [[aCall remoteURI] SIPAddress];
 	NSString *finalDisplayedName = [SIPURIFormatter stringForObjectValue:[aCall remoteURI]];
 	NSString *finalStatus = NSLocalizedString(@"calling", @"John Smith calling. Somebody is calling us right now. Call status string. " \
@@ -692,55 +695,86 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 			phoneNumberToSearch = [[aCall remoteURI] displayName];
 		else 
 			phoneNumberToSearch = [[aCall remoteURI] user];
+		
+		NSLog(@"Looking up phone number: %@", phoneNumberToSearch);
 			
 		
 		ABAddressBook *AB = [ABAddressBook sharedAddressBook];
-		NSMutableArray *searchElements = [NSMutableArray array];
+		NSArray *records = nil;
+		BOOL recordFound = NO;
+		
+		// Look for the whole phone number match first.
 		ABSearchElement *phoneNumberMatch = [ABPerson searchElementForProperty:kABPhoneProperty
 																		 label:nil
 																		   key:nil
 																		 value:phoneNumberToSearch
 																	comparison:kABEqual];
-		[searchElements addObject:phoneNumberMatch];
+		
+		records = [AB recordsMatchingSearchElement:phoneNumberMatch];
+		if ([records count] > 0) {
+			recordFound = YES;
+			id theRecord = [records objectAtIndex:0];
+			finalDisplayedName = [theRecord AK_fullName];
+			[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+			
+			// Find the phone label.
+			ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
+			for (NSUInteger i = 0; i < [phones count]; ++i)
+				if ([[phones valueAtIndex:i] isEqualToString:phoneNumberToSearch]) {
+					NSString *localizedLabel = [AB AK_localizedLabel:[phones labelAtIndex:i]];
+					finalStatus = localizedLabel;
+					[aCallController setPhoneLabelFromAddressBook:localizedLabel];
+					break;
+				}
+		}
+		
+		if (recordFound)
+			NSLog(@"Found: %@, %@", finalDisplayedName, finalStatus);
 
 		const NSUInteger AKSignificantPhoneNumberLength = 10;
 		
+		// Get the significant phone suffix if the phone number length is greater that we defined.
 		NSString *significantPhoneSuffix;
 		if ([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) {
 			significantPhoneSuffix = [phoneNumberToSearch substringFromIndex:([phoneNumberToSearch length] - AKSignificantPhoneNumberLength)];
 			NSLog(@"Significant phone suffix: %@", significantPhoneSuffix);
-			ABSearchElement *phoneNumberSuffixMatch = [ABPerson searchElementForProperty:kABPhoneProperty
-																				   label:nil
-																					 key:nil
-																				   value:significantPhoneSuffix
-																			  comparison:kABSuffixMatch];
-			[searchElements addObject:phoneNumberSuffixMatch];
+			
+			// If the the record hasn't been found with the whole number, look for significant suffix match.
+			if (!recordFound) {
+				ABSearchElement *phoneNumberSuffixMatch = [ABPerson searchElementForProperty:kABPhoneProperty
+																					   label:nil
+																						 key:nil
+																					   value:significantPhoneSuffix
+																				  comparison:kABSuffixMatch];
+				
+				records = [AB recordsMatchingSearchElement:phoneNumberSuffixMatch];
+				if ([records count] > 0) {
+					recordFound = YES;
+					id theRecord = [records objectAtIndex:0];
+					finalDisplayedName = [theRecord AK_fullName];
+					[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+					
+					// Find the phone label.
+					ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
+					for (NSUInteger i = 0; i < [phones count]; ++i)
+						if ([[phones valueAtIndex:i] hasSuffix:significantPhoneSuffix]) {
+							NSString *localizedLabel = [AB AK_localizedLabel:[phones labelAtIndex:i]];
+							finalStatus = localizedLabel;
+							[aCallController setPhoneLabelFromAddressBook:localizedLabel];
+							break;
+						}
+				}
+				
+				if (recordFound)
+					NSLog(@"Found matching suffix: %@, %@", finalDisplayedName, finalStatus);
+			}
 		}
 		
-		// Perform the search.
-		for (ABSearchElement *aSearchElement in searchElements) {
-			NSArray *recordsFound = [AB recordsMatchingSearchElement:aSearchElement];
-			if ([recordsFound count] == 0)
-				continue;
-			
-			id theRecord = [recordsFound objectAtIndex:0];
-			if (![theRecord isKindOfClass:[ABPerson class]])
-				continue;
-			
-			finalDisplayedName = [theRecord AK_fullName];
-			[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
-			NSLog(@"Found in the primary search: %@", finalDisplayedName);
-			
-			break;
-		}
-		
-		// Continue searching the match hasn't been found. Search phone numbers
-		// that can contain spaces, dashes, etc.
-		if ([[aCallController nameFromAddressBook] length] == 0) {
+		// If still not found, search phone numbers that contain spaces, dashes, etc.
+		if (!recordFound) {
 			NSArray *allPeople = [AB people];
 			
 			AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
-			BOOL recordFound = NO;
 			for (id theRecord in allPeople) {
 				ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
 				
@@ -759,21 +793,25 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 					// Here phone number probably includes spaces or other dividers.
 					// Scan valid phone characters to compare with a given string.
 					NSString *scannedPhoneNumber = [telephoneNumberFormatter telephoneNumberFromString:phoneNumber];
-					if ([phoneNumberToSearch isEqualToString:scannedPhoneNumber]) {
+					if ([scannedPhoneNumber isEqualToString:phoneNumberToSearch]) {
 						recordFound = YES;
-						break;
 					} else if (([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) &&
-							   [phoneNumberToSearch hasSuffix:significantPhoneSuffix]) {
+							   [scannedPhoneNumber hasSuffix:significantPhoneSuffix]) {
 						recordFound = YES;
+					}
+					
+					if (recordFound) {
+						NSString *localizedLabel = [AB AK_localizedLabel:[phones labelAtIndex:i]];
+						finalStatus = localizedLabel;
+						[aCallController setPhoneLabelFromAddressBook:localizedLabel];
 						break;
-						
 					}
 				}
 				
 				if (recordFound) {
 					finalDisplayedName = [theRecord AK_fullName];
 					[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
-					NSLog(@"Found in the secondary search: %@", finalDisplayedName);
+					NSLog(@"Found in the secondary search: %@, %@", finalDisplayedName, finalStatus);
 					break;
 				}
 			}
@@ -794,7 +832,9 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
 	[telephoneNumberFormatter setSplitsLastFourDigits:[defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
-	if ([[[aCall remoteURI] user] length] > 0) {
+	if ([[aCallController phoneLabelFromAddressBook] length] > 0) {
+		callSource = [aCallController phoneLabelFromAddressBook];
+	} else if ([[[aCall remoteURI] user] length] > 0) {
 		if ([[[aCall remoteURI] user] AK_isTelephoneNumber]) {
 			if ([defaults boolForKey:AKFormatTelephoneNumbers]) {
 				callSource = [telephoneNumberFormatter stringForObjectValue:[[aCall remoteURI] user]];
@@ -811,12 +851,7 @@ const CGFloat AKAccountRegistrationButtonConnectingGermanWidth = 88.0;
 	NSString *notificationTitle, *notificationDescription;
 	if ([[aCallController nameFromAddressBook] length] > 0) {
 		notificationTitle = [aCallController nameFromAddressBook];
-		notificationDescription = [NSString
-								   stringWithFormat:NSLocalizedString(@"calling from %@", @"John Smith calling from 1234567. " \
-																	  "Somebody is calling us right now from some source. " \
-																	  "Growl notification description. Deliberately in lower case, " \
-																	  "translators should do the same, if possible."),
-								   callSource];
+		notificationDescription = callSource;
 		
 	} else if ([[[aCall remoteURI] displayName] length] > 0) {
 		notificationTitle = [[aCall remoteURI] displayName];

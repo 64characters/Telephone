@@ -41,6 +41,7 @@
 	NSString *displayedName;
 	NSString *status;
 	NSString *nameFromAddressBook;
+	NSString *phoneLabelFromAddressBook;
 	NSString *enteredCallDestination;
 	NSTimer *intermediateStatusTimer;
 	NSTimeInterval callStartTime;
@@ -65,6 +66,7 @@
 @property(readwrite, copy) NSString *displayedName;
 @property(readwrite, copy) NSString *status;
 @property(readwrite, copy) NSString *nameFromAddressBook;
+@property(readwrite, copy) NSString *phoneLabelFromAddressBook;
 @property(readwrite, copy) NSString *enteredCallDestination;
 @property(readwrite, retain) NSTimer *intermediateStatusTimer;
 @property(readwrite, assign) NSTimeInterval callStartTime;

@@ -51,6 +51,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @synthesize displayedName;
 @synthesize status;
 @synthesize nameFromAddressBook;
+@synthesize phoneLabelFromAddressBook;
 @synthesize enteredCallDestination;
 @synthesize intermediateStatusTimer;
 @synthesize callStartTime;
@@ -105,6 +106,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[self setDisplayedName:nil];
 	[self setStatus:nil];
 	[self setNameFromAddressBook:nil];
+	[self setPhoneLabelFromAddressBook:nil];
 	[self setEnteredCallDestination:nil];
 	[self setIntermediateStatusTimer:nil];
 	[self setCallStartTime:0.0];
@@ -133,6 +135,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[displayedName release];
 	[status release];
 	[nameFromAddressBook release];
+	[phoneLabelFromAddressBook release];
 	[enteredCallDestination release];
 	[enteredDTMF release];
 	

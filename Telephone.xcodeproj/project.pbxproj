@@ -24,6 +24,8 @@
 		AA2ED9B20F05BB5D004A13C6 /* AuthFailed.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2ED9B10F05BB5D004A13C6 /* AuthFailed.xib */; };
 		AA3578B30E40709900021989 /* AKAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B20E40709900021989 /* AKAccountController.m */; };
 		AA3578B60E4070AD00021989 /* AKCallController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B50E4070AD00021989 /* AKCallController.m */; };
+		AA3A14FB0F309C7C00C45739 /* ABAddressBookAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A14FA0F309C7C00C45739 /* ABAddressBookAdditions.m */; };
+		AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */; };
 		AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */; };
 		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
 		AA4BD4DE0E07C51E005A71B2 /* AKTelephoneAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */; };
@@ -97,6 +99,11 @@
 		AA3578B20E40709900021989 /* AKAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAccountController.m; sourceTree = "<group>"; };
 		AA3578B40E4070AD00021989 /* AKCallController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCallController.h; sourceTree = "<group>"; };
 		AA3578B50E4070AD00021989 /* AKCallController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCallController.m; sourceTree = "<group>"; };
+		AA3A14F90F309C7C00C45739 /* ABAddressBookAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABAddressBookAdditions.h; sourceTree = "<group>"; };
+		AA3A14FA0F309C7C00C45739 /* ABAddressBookAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABAddressBookAdditions.m; sourceTree = "<group>"; };
+		AA3A153F0F30A49C00C45739 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
+		AA3A15470F30A4C200C45739 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
+		AA3A15480F30A4C700C45739 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
 		AA4BD4C60E07C28E005A71B2 /* AKTelephone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephone.h; sourceTree = "<group>"; };
 		AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephone.m; sourceTree = "<group>"; };
 		AA4BD4D60E07C305005A71B2 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -239,6 +246,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				AA584A680F06CFD2003C4992 /* Localizable.strings */,
 				AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */,
+				AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				AA2ED99B0F05B362004A13C6 /* Account.xib */,
 				AA2ED99F0F05B3B5004A13C6 /* Call.xib */,
@@ -283,6 +291,8 @@
 				AAEE7C300ECD953200A7DEB4 /* NSWindowAdditions.m */,
 				AAB5AAC00F2E7A7D00A57531 /* ABRecordAdditions.h */,
 				AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */,
+				AA3A14F90F309C7C00C45739 /* ABAddressBookAdditions.h */,
+				AA3A14FA0F309C7C00C45739 /* ABAddressBookAdditions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -384,6 +394,7 @@
 				AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */,
 				AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */,
 				AA51FC6F0F1D6700003CE94C /* Growl Registration Ticket.growlRegDict in Resources */,
+				AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +421,7 @@
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* ABRecordAdditions.m in Sources */,
+				AA3A14FB0F309C7C00C45739 /* ABAddressBookAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +505,16 @@
 				AA51005C0F20117F003CE94C /* German */,
 			);
 			name = AuthFailed.xib;
+			sourceTree = "<group>";
+		};
+		AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA3A153F0F30A49C00C45739 /* English */,
+				AA3A15470F30A4C200C45739 /* Russian */,
+				AA3A15480F30A4C700C45739 /* German */,
+			);
+			name = AddressBookLabels.strings;
 			sourceTree = "<group>";
 		};
 		AA584A680F06CFD2003C4992 /* Localizable.strings */ = {
