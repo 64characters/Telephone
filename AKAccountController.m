@@ -1033,29 +1033,10 @@ completionsForSubstring:(NSString *)substring
 				
 				NSString *completionString = nil;
 				
-				if (isPerson) {
-					if ([firstName length] > 0 && [lastName length] > 0) {
-						if ([AB defaultNameOrdering] == kABFirstNameFirst) {
-							completionString = [[NSString alloc] initWithFormat:@"%@ (%@ %@)",
-												phoneNumber, [firstName AK_escapeParentheses], [lastName AK_escapeParentheses]];
-						} else {
-							completionString = [[NSString alloc] initWithFormat:@"%@ (%@ %@)",
-												phoneNumber, [lastName AK_escapeParentheses], [firstName AK_escapeParentheses]];
-						}
-					} else if ([firstName length] > 0) {
-						completionString = [[NSString alloc] initWithFormat:@"%@ (%@)", phoneNumber, [firstName AK_escapeParentheses]];
-					} else if ([lastName length] > 0) {
-						completionString = [[NSString alloc] initWithFormat:@"%@ (%@)", phoneNumber, [lastName AK_escapeParentheses]];
-					} else {
-						completionString = [[NSString alloc] initWithFormat:@"%@", phoneNumber];
-					}
-				} else if (isCompany) {
-					if ([company length] > 0) {
-						completionString = [[NSString alloc] initWithFormat:@"%@ (%@)", phoneNumber, [company AK_escapeParentheses]];
-					} else {
-						completionString = [[NSString alloc] initWithFormat:@"%@", phoneNumber];
-					}
-				}
+				if ([[theRecord AK_fullName] length] > 0)
+					completionString = [[NSString alloc] initWithFormat:@"%@ (%@)", phoneNumber, [theRecord AK_fullName]];
+				else
+					completionString = [phoneNumber copy];
 				
 				if (completionString != nil) {
 					[completions addObject:completionString];
@@ -1301,31 +1282,8 @@ completionsForSubstring:(NSString *)substring
 	if ([recordsFound count] > 0) {
 		ABRecord *theRecord = [recordsFound objectAtIndex:0];
 		
-		NSString *firstName = [theRecord valueForProperty:kABFirstNameProperty];
-		NSString *lastName = [theRecord valueForProperty:kABLastNameProperty];
-		NSString *company = [theRecord valueForProperty:kABOrganizationProperty];
-		NSInteger personFlags = [[theRecord valueForProperty:kABPersonFlags] integerValue];
-		BOOL isPerson = (personFlags & kABShowAsMask) == kABShowAsPerson;
-		BOOL isCompany = (personFlags & kABShowAsMask) == kABShowAsCompany;
-		
-		// Set person name as a displayName.
-		if (isPerson) {
-			if ([firstName length] > 0 && [lastName length] > 0) {
-				if ([AB defaultNameOrdering] == kABFirstNameFirst) {
-					[theURI setDisplayName:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
-				} else {
-					[theURI setDisplayName:[NSString stringWithFormat:@"%@ %@", lastName, firstName]];
-				}
-			} else if ([firstName length] > 0) {
-				[theURI setDisplayName:firstName];
-			} else if ([lastName length] > 0) {
-				[theURI setDisplayName:lastName];
-			}
-			
-		} else if (isCompany) {
-			if ([company length] > 0)
-				[theURI setDisplayName:company];
-		}
+		if ([[theRecord AK_fullName] length] > 0)
+			[theURI setDisplayName:[theRecord AK_fullName]];
 		
 		// Get other available call destinations.
 		AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
