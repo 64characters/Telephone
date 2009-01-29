@@ -713,9 +713,6 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 		else 
 			phoneNumberToSearch = [[aCall remoteURI] user];
 		
-		NSLog(@"Looking up phone number: %@", phoneNumberToSearch);
-			
-		
 		ABAddressBook *AB = [ABAddressBook sharedAddressBook];
 		NSArray *records = nil;
 		BOOL recordFound = NO;
@@ -744,9 +741,6 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 					break;
 				}
 		}
-		
-		if (recordFound)
-			NSLog(@"Found: %@, %@", finalDisplayedName, finalStatus);
 
 		const NSUInteger AKSignificantPhoneNumberLength = 10;
 		
@@ -754,7 +748,6 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 		NSString *significantPhoneSuffix;
 		if ([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) {
 			significantPhoneSuffix = [phoneNumberToSearch substringFromIndex:([phoneNumberToSearch length] - AKSignificantPhoneNumberLength)];
-			NSLog(@"Significant phone suffix: %@", significantPhoneSuffix);
 			
 			// If the the record hasn't been found with the whole number, look for significant suffix match.
 			if (!recordFound) {
@@ -781,9 +774,6 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 							break;
 						}
 				}
-				
-				if (recordFound)
-					NSLog(@"Found matching suffix: %@, %@", finalDisplayedName, finalStatus);
 			}
 		}
 		
@@ -828,7 +818,6 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 				if (recordFound) {
 					finalDisplayedName = [theRecord AK_fullName];
 					[aCallController setNameFromAddressBook:[theRecord AK_fullName]];
-					NSLog(@"Found in the secondary search: %@, %@", finalDisplayedName, finalStatus);
 					break;
 				}
 			}
