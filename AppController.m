@@ -96,7 +96,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[defaultsDict setObject:@"" forKey:AKSTUNServerHost];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKSTUNServerPort];
 		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKVoiceActivityDetection];
-		[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKUseICE];
+		[defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKUseICE];
 		[defaultsDict setObject:@"~/Library/Logs/Telephone.log" forKey:AKLogFileName];
 		[defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:AKLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKConsoleLogLevel];
