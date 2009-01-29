@@ -94,7 +94,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="141756788">
 								<int key="NSCellFlags">69336577</int>
 								<int key="NSCellFlags2">272629760</int>
-								<string key="NSContents">Telehone was unable to login to the registry server. Change user name or password and try again.</string>
+								<string key="NSContents">Telephone was unable to login to the registry server. Change user name or password and try again.</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">1.100000e+01</double>
