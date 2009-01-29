@@ -56,6 +56,7 @@
 	IBOutlet NSButton *acceptCallButton;
 	IBOutlet NSButton *declineCallButton;
 	IBOutlet NSTextField *displayedNameField;
+	IBOutlet NSTextField *endedCallDisplayedNameField;
 	IBOutlet NSTextField *statusField;
 	IBOutlet NSProgressIndicator *callProgressIndicator;
 }

@@ -438,7 +438,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 			if ([[self enteredDTMF] length] == 0) {
 				[[self enteredDTMF] appendString:aString];
 				[[self window] setTitle:[self displayedName]];
-				[[displayedNameField cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+				if ([[displayedNameField cell] lineBreakMode] != NSLineBreakByTruncatingHead) {
+					[[displayedNameField cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+					[endedCallDisplayedNameField setSelectable:YES];
+				}
 				[self setDisplayedName:aString];
 			} else {
 				[[self enteredDTMF] appendString:aString];
