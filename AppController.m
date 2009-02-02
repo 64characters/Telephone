@@ -1013,9 +1013,16 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			}
 	}
 	
-	// Make first account window key if there are no other key windows.
-	if (!keyWindowExists)
-		[[[[self accountControllers] objectAtIndex:0] window] makeKeyWindow];
+	// Make first enabled account window key if there are no other key windows.
+	if (!keyWindowExists) {
+		for (NSUInteger i = 0; i < [immutableAccountControllers count]; ++i) {
+			AKAccountController *anAccountController = [immutableAccountControllers objectAtIndex:i];
+			if ([anAccountController isEnabled]) {
+				[[anAccountController window] makeKeyWindow];
+				break;
+			}
+		}
+	}
 	
 	return YES;
 }
