@@ -81,8 +81,7 @@
 @property(readonly, retain) NSProgressIndicator *callProgressIndicator;
 
 // Designated initializer
-- (id)initWithTelephoneCall:(AKTelephoneCall *)aCall
-		  accountController:(AKAccountController *)anAccountController;
+- (id)initWithAccountController:(AKAccountController *)anAccountController;
 
 - (IBAction)acceptCall:(id)sender;
 - (IBAction)hangUp:(id)sender;

@@ -299,53 +299,57 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 																		 withString:[self plusCharacterSubstitution]]];
 	}
 	
+	AKCallController *aCallController = [[AKCallController alloc] initWithAccountController:self];
+	[aCallController setNameFromAddressBook:[firstURI displayName]];
+	[aCallController setPhoneLabelFromAddressBook:phoneLabel];
+	[aCallController setEnteredCallDestination:[originalURI user]];
+	[[self callControllers] addObject:aCallController];
+	
+	// Set title.
+	if ([[originalURI host] length] == 0 && ![[originalURI user] AK_hasLetters]) {
+		if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
+			[[aCallController window] setTitle:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
+		else
+			[[aCallController window] setTitle:[originalURI user]];
+	} else {
+		[[aCallController window] setTitle:[uri SIPAddress]];
+	}
+	
+	// Set displayed name.
+	if ([[firstURI displayName] length] == 0) {
+		if ([[originalURI host] length] > 0)
+			[aCallController setDisplayedName:[uri SIPAddress]];
+		else if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
+			[aCallController setDisplayedName:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
+		else
+			[aCallController setDisplayedName:[originalURI user]];
+	} else {
+		[aCallController setDisplayedName:[firstURI displayName]];
+	}
+	
+	[[aCallController window] setContentView:[aCallController activeCallView]];
+	
+	if ([phoneLabel length] > 0)
+		[aCallController setStatus:[NSString stringWithFormat:
+									NSLocalizedString(@"calling %@...",
+													  @"Outgoing call in progress. Calling specific phone type (mobile, home, etc)."),
+									phoneLabel]];
+	else
+		[aCallController setStatus:NSLocalizedString(@"calling...", @"Outgoing call in progress.")];
+	
+	[aCallController showWindow:nil];
+	[[aCallController callProgressIndicator] startAnimation:self];
+	
 	// Make actual call.
 	AKTelephoneCall *aCall = [[self account] makeCallTo:cleanURI];
 	if (aCall != nil) {
-		AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
-																		  accountController:self];
-		[aCallController setNameFromAddressBook:[firstURI displayName]];
-		[aCallController setPhoneLabelFromAddressBook:phoneLabel];
-		[aCallController setEnteredCallDestination:[originalURI user]];
-		[[self callControllers] addObject:aCallController];
-		
-		// Set title.
-		if ([[originalURI host] length] == 0 && ![[originalURI user] AK_hasLetters]) {
-			if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
-				[[aCallController window] setTitle:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
-			else
-				[[aCallController window] setTitle:[originalURI user]];
-		} else {
-			[[aCallController window] setTitle:[uri SIPAddress]];
-		}
-		
-		// Set displayed name.
-		if ([[firstURI displayName] length] == 0) {
-			if ([[originalURI host] length] > 0)
-				[aCallController setDisplayedName:[uri SIPAddress]];
-			else if ([[originalURI user] AK_isTelephoneNumber] && [defaults boolForKey:AKFormatTelephoneNumbers])
-				[aCallController setDisplayedName:[telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
-			else
-				[aCallController setDisplayedName:[originalURI user]];
-		} else {
-			[aCallController setDisplayedName:[firstURI displayName]];
-		}
-		
-		[[aCallController window] setContentView:[aCallController activeCallView]];
-		
-		if ([phoneLabel length] > 0)
-			[aCallController setStatus:[NSString stringWithFormat:
-										NSLocalizedString(@"calling %@...",
-														  @"Outgoing call in progress. Calling specific phone type (mobile, home, etc)."),
-										phoneLabel]];
-		else
-			[aCallController setStatus:NSLocalizedString(@"calling...", @"Outgoing call in progress.")];
-		
-		[aCallController showWindow:nil];
-		[[aCallController callProgressIndicator] startAnimation:self];
-		
-		[aCallController release];
+		[aCallController setCall:aCall];
+	} else {
+		[[aCallController window] setContentView:[aCallController endedCallView]];
+		[aCallController setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
 	}
+	
+	[aCallController release];
 }
 
 - (IBAction)changeAccountRegistration:(id)sender
@@ -690,8 +694,8 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 // When the call is received, create call controller, add to array, show call window
 - (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall
 {
-	AKCallController *aCallController = [[AKCallController alloc] initWithTelephoneCall:aCall
-																	  accountController:self];
+	AKCallController *aCallController = [[AKCallController alloc] initWithAccountController:self];
+	[aCallController setCall:aCall];
 	[[self callControllers] addObject:aCallController];
 	
 	AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];

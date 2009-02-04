@@ -22,6 +22,9 @@
 /* Call ended. */
 "call ended" = "звонок завершен";
 
+/* Call failed. */
+"Call Failed" = "Не удалось дозвониться";
+
 /* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
 "calling" = "звонит";

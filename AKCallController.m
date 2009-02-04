@@ -46,7 +46,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @implementation AKCallController
 
 @synthesize identifier;
-@synthesize call;
+@dynamic call;
 @dynamic accountController;
 @synthesize displayedName;
 @synthesize status;
@@ -63,6 +63,24 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @synthesize activeCallView;
 @synthesize endedCallView;
 @synthesize callProgressIndicator;
+
+- (AKTelephoneCall *)call
+{
+	return [[call retain] autorelease];
+}
+
+- (void)setCall:(AKTelephoneCall *)aCall
+{
+	if (call != aCall) {
+		if ([[call delegate] isEqual:self])
+			[call setDelegate:nil];
+		
+		[call release];
+		call = [aCall retain];
+		
+		[call setDelegate:self];
+	}
+}
 
 - (AKAccountController *)accountController
 {
@@ -90,18 +108,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	accountController = anAccountController;
 }
 
-- (id)initWithTelephoneCall:(AKTelephoneCall *)aCall
-		  accountController:(AKAccountController *)anAccountController
+- (id)initWithAccountController:(AKAccountController *)anAccountController
 {
 	self = [super initWithWindowNibName:@"Call"];
 	if (self == nil)
 		return nil;
 	
 	[self setIdentifier:[NSString AK_uuidString]];
-	
-	[self setCall:aCall];
-	[call setDelegate:self];
-	
+	[self setCall:nil];
 	[self setAccountController:anAccountController];
 	[self setDisplayedName:nil];
 	[self setStatus:nil];
@@ -119,18 +133,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (id)init
 {	
-	return [self initWithTelephoneCall:nil accountController:nil];
+	return [self initWithAccountController:nil];
 }
 
 - (void)dealloc
 {
 	[identifier release];
 	
-	if ([[[self call] delegate] isEqual:self])
-		[[self call] setDelegate:nil];
-	
-	[call release];
-	
+	[self setCall:nil];
 	[self setAccountController:nil];
 	[displayedName release];
 	[status release];
