@@ -912,13 +912,23 @@ completionsForSubstring:(NSString *)substring
 	NSMutableArray *searchElements = [[NSMutableArray alloc] init];
 	NSArray *substringComponents = [substring componentsSeparatedByString:@" "];
 	
+	ABSearchElement *isPersonRecord = [ABPerson searchElementForProperty:kABPersonFlags
+																   label:nil
+																	 key:nil
+																   value:[NSNumber numberWithInteger:kABShowAsPerson]
+															  comparison:kABBitsInBitFieldMatch];
 	// Entered substring matches the first name prefix.
 	ABSearchElement *firstNamePrefixMatch = [ABPerson searchElementForProperty:kABFirstNameProperty
 																		 label:nil
 																		   key:nil
 																		 value:substring
 																	comparison:kABPrefixMatchCaseInsensitive];
-	[searchElements addObject:firstNamePrefixMatch];
+	ABSearchElement *firstNamePrefixPersonMatch = [ABSearchElement searchElementForConjunction:kABSearchAnd
+																					  children:[NSArray arrayWithObjects:
+																								firstNamePrefixMatch,
+																								isPersonRecord,
+																								nil]];
+	[searchElements addObject:firstNamePrefixPersonMatch];
 	
 	// Entered substring matches the last name prefix.
 	ABSearchElement *lastNamePrefixMatch =  [ABPerson searchElementForProperty:kABLastNameProperty
@@ -926,7 +936,12 @@ completionsForSubstring:(NSString *)substring
 																		   key:nil
 																		 value:substring
 																	comparison:kABPrefixMatchCaseInsensitive];
-	[searchElements addObject:lastNamePrefixMatch];
+	ABSearchElement *lastNamePrefixPersonMatch = [ABSearchElement searchElementForConjunction:kABSearchAnd
+																					 children:[NSArray arrayWithObjects:
+																							   lastNamePrefixMatch,
+																							   isPersonRecord,
+																							   nil]];
+	[searchElements addObject:lastNamePrefixPersonMatch];
 	
 	
 	// If entered substring consists of several words separated by spaces,
@@ -974,6 +989,7 @@ completionsForSubstring:(NSString *)substring
 																							   children:[NSArray arrayWithObjects:
 																										 firstNameMatch,
 																										 lastNamePrefixMatch,
+																										 isPersonRecord,
 																										 nil]];
 		[searchElements addObject:firstNameAndLastNamePrefixMatch];
 		
@@ -1002,6 +1018,7 @@ completionsForSubstring:(NSString *)substring
 																							   children:[NSArray arrayWithObjects:
 																										 lastNameMatch,
 																										 firstNamePrefixMatch,
+																										 isPersonRecord,
 																										 nil]];
 		[searchElements addObject:lastNameAndFirstNamePrefixMatch];
 	}
