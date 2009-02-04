@@ -37,6 +37,7 @@
 
 
 const NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
+const NSInteger AKTelephoneNameserversMax = 4;
 
 NSString * const AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 
@@ -86,6 +87,7 @@ typedef enum _AKTelephoneRingtones {
 @synthesize ringbackCount;
 @synthesize ringbackPort;
 
+@dynamic nameservers;
 @synthesize outboundProxyHost;
 @dynamic outboundProxyPort;
 @synthesize STUNServerHost;
@@ -132,6 +134,23 @@ typedef enum _AKTelephoneRingtones {
 - (AKTelephoneCallData *)callData
 {
 	return callData;
+}
+
+- (NSArray *)nameservers
+{
+	return [[nameservers copy] autorelease];
+}
+
+- (void)setNameservers:(NSArray *)newNameservers
+{
+	if (nameservers != newNameservers) {
+		[nameservers release];
+		
+		if ([newNameservers count] > AKTelephoneNameserversMax)
+			nameservers = [[newNameservers subarrayWithRange:NSMakeRange(0, AKTelephoneNameserversMax)] retain];
+		else
+			nameservers = [newNameservers copy];
+	}
 }
 
 - (NSUInteger)outboundProxyPort
@@ -267,6 +286,7 @@ typedef enum _AKTelephoneRingtones {
 	[self setSoundStopped:YES];
 	[self setDetectedNATType:AKNATTypeUnknown];
 	
+	[self setNameservers:nil];
 	[self setOutboundProxyHost:AKTelephoneOutboundProxyHostDefault];
 	[self setOutboundProxyPort:AKTelephoneOutboundProxyPortDefault];
 	[self setSTUNServerHost:AKTelephoneSTUNServerHostDefault];
@@ -289,7 +309,10 @@ typedef enum _AKTelephoneRingtones {
 - (void)dealloc
 {
 	[accounts release];
+	[nameservers release];
+	[outboundProxyHost release];
 	[STUNServerHost release];
+	[userAgentString release];
 	[logFileName release];
 	
 	[super dealloc];
@@ -323,6 +346,12 @@ typedef enum _AKTelephoneRingtones {
 	
 	ringbackSlot = PJSUA_INVALID_ID;
 	userAgentConfig.max_calls = AKTelephoneCallsMax;
+	
+	if ([[self nameservers] count] > 0) {
+		userAgentConfig.nameserver_count = [[self nameservers] count];
+		for (NSUInteger i = 0; i < [[self nameservers] count]; ++i)
+			userAgentConfig.nameserver[i] = [[[self nameservers] objectAtIndex:i] pjString];
+	}
 	
 	if ([[self outboundProxyHost] length] > 0) {
 		userAgentConfig.outbound_proxy_cnt = 1;

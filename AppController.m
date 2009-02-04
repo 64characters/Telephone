@@ -27,6 +27,7 @@
 //
 
 #import <CoreAudio/CoreAudio.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 #import <Growl/Growl.h>
 
 #import "AppController.h"
@@ -91,6 +92,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	if (!initialized) {
 		NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
 		
+		[defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKUseDNSSRV];
 		[defaultsDict setObject:@"" forKey:AKOutboundProxyHost];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKOutboundProxyPort];
 		[defaultsDict setObject:@"" forKey:AKSTUNServerHost];
@@ -197,18 +199,30 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)awakeFromNib
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSBundle *mainBundle = [NSBundle mainBundle];
+	NSString *bundleName = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
+	NSString *bundleShortVersion = [[mainBundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 	
-	[telephone setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
-	[telephone setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
-	[telephone setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
-	[telephone setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
-	[telephone setUserAgentString:@"Telephone 0.11"];
-	[telephone setLogFileName:[defaults stringForKey:AKLogFileName]];
-	[telephone setLogLevel:[[defaults objectForKey:AKLogLevel] integerValue]];
-	[telephone setConsoleLogLevel:[[defaults objectForKey:AKConsoleLogLevel] integerValue]];
-	[telephone setDetectsVoiceActivity:[[defaults objectForKey:AKVoiceActivityDetection] boolValue]];
-	[telephone setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
-	[telephone setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
+	if ([defaults boolForKey:AKUseDNSSRV]) {
+		SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(NULL, (CFStringRef)bundleName, NULL, NULL);
+		CFPropertyListRef DNSSettings = SCDynamicStoreCopyValue(dynamicStore, CFSTR("State:/Network/Global/DNS"));
+		NSArray *nameservers = [(NSDictionary *)DNSSettings objectForKey:@"ServerAddresses"];
+		[[self telephone] setNameservers:nameservers];
+		CFRelease(DNSSettings);
+		CFRelease(dynamicStore);
+	}
+	
+	[[self telephone] setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
+	[[self telephone] setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
+	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
+	[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	[[self telephone] setUserAgentString:[NSString stringWithFormat:@"%@ %@", bundleName, bundleShortVersion]];
+	[[self telephone] setLogFileName:[defaults stringForKey:AKLogFileName]];
+	[[self telephone] setLogLevel:[[defaults objectForKey:AKLogLevel] integerValue]];
+	[[self telephone] setConsoleLogLevel:[[defaults objectForKey:AKConsoleLogLevel] integerValue]];
+	[[self telephone] setDetectsVoiceActivity:[[defaults objectForKey:AKVoiceActivityDetection] boolValue]];
+	[[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
+	[[self telephone] setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
 	
 	[self setIncomingCallSound:[NSSound soundNamed:[defaults stringForKey:AKRingingSound]]];
 	
@@ -219,7 +233,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[self updateAudioDevices];
 	
 	// Load Growl.
-	NSString *growlPath = [[[NSBundle mainBundle] privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
+	NSString *growlPath = [[mainBundle privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
 	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
 	if (growlBundle != nil && [growlBundle load])
 		[GrowlApplicationBridge setGrowlDelegate:self];

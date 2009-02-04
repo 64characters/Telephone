@@ -59,6 +59,7 @@ NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNum
 NSString * const AKOutboundProxyHost = @"OutboundProxyHost";
 NSString * const AKOutboundProxyPort = @"OutboundProxyPort";
 NSString * const AKUseICE = @"UseICE";
+NSString * const AKUseDNSSRV = @"UseDNSSRV";
 
 NSString * const AKFullName = @"FullName";
 NSString * const AKSIPAddress = @"SIPAddress";

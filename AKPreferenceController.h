@@ -48,6 +48,7 @@ extern NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits;
 extern NSString * const AKOutboundProxyHost;
 extern NSString * const AKOutboundProxyPort;
 extern NSString * const AKUseICE;
+extern NSString * const AKUseDNSSRV;
 
 // Account keys
 extern NSString * const AKFullName;

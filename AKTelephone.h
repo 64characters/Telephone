@@ -31,6 +31,7 @@
 
 
 extern const NSInteger AKTelephoneInvalidIdentifier;
+extern const NSInteger AKTelephoneNameserversMax;
 
 // Generic config defaults.
 extern NSString * const AKTelephoneOutboundProxyHostDefault;
@@ -112,6 +113,7 @@ typedef enum _AKNATType {
 	BOOL soundStopped;
 	AKNATType detectedNATType;
 	
+	NSArray *nameservers;
 	NSString *outboundProxyHost;
 	NSUInteger outboundProxyPort;
 	NSString *STUNServerHost;
@@ -144,6 +146,7 @@ typedef enum _AKNATType {
 @property(readwrite, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;
 
+@property(readwrite, copy) NSArray *nameservers;					// Default: nil. If set, DNS SRV will be enabled. Only first AKTelephoneNameserversMax are used.
 @property(readwrite, copy) NSString *outboundProxyHost;				// Default: @"".
 @property(nonatomic, readwrite, assign) NSUInteger outboundProxyPort;	// Default: 5060.
 @property(readwrite, copy) NSString *STUNServerHost;				// Default: @"".
