@@ -214,6 +214,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 	
 	[localURI release];
 	[remoteURI release];
+	[stateText release];
 	[lastStatusText release];
 	[self setAccount:nil];
 	
