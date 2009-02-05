@@ -885,8 +885,8 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 								   isSticky:NO
 							   clickContext:[aCallController identifier]];
 	
-	[[[NSApp delegate] incomingCallSound] play];
-	[[NSApp delegate] startIncomingCallSoundTimer];
+	[[[NSApp delegate] ringtone] play];
+	[[NSApp delegate] startRingtoneTimer];
 	[NSApp requestUserAttention:NSCriticalRequest];
 	[aCall sendRingingNotification];
 	

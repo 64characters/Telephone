@@ -53,6 +53,7 @@ NSString * const AKVoiceActivityDetection = @"VoiceActivityDetection";
 NSString * const AKTransportPort = @"TransportPort";
 NSString * const AKSoundInput = @"SoundInput";
 NSString * const AKSoundOutput = @"SoundOutput";
+NSString * const AKRingtoneOutput = @"RingtoneOutput";
 NSString * const AKRingingSound = @"RingingSound";
 NSString * const AKFormatTelephoneNumbers = @"FormatTelephoneNumbers";
 NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";
@@ -139,7 +140,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(popUpButtonWillPopUpNotification:)
 												 name:NSPopUpButtonWillPopUpNotification
-											   object:ringingSoundPopUp];
+											   object:ringtonePopUp];
 	
 	return self;
 }
@@ -576,6 +577,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:[soundInputPopUp titleOfSelectedItem] forKey:AKSoundInput];
 	[defaults setObject:[soundOutputPopUp titleOfSelectedItem] forKey:AKSoundOutput];
+	[defaults setObject:[ringtoneOutputPopUp titleOfSelectedItem] forKey:AKRingtoneOutput];
 	
 	[[NSApp delegate] selectSoundIO];
 }
@@ -586,6 +588,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	NSArray *audioDevices = [[NSApp delegate] audioDevices];
 	NSMenu *soundInputMenu = [[NSMenu alloc] init];
 	NSMenu *soundOutputMenu = [[NSMenu alloc] init];
+	NSMenu *ringtoneOutputMenu = [[NSMenu alloc] init];
 	NSInteger i;
 	for (i = 0; i < [audioDevices count]; ++i) {
 		NSDictionary *deviceDict = [audioDevices objectAtIndex:i];
@@ -597,17 +600,21 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		if ([[deviceDict objectForKey:AKAudioDeviceInputsCount] integerValue] > 0)
 			[soundInputMenu addItem:[[aMenuItem copy] autorelease]];
 		
-		if ([[deviceDict objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0)
+		if ([[deviceDict objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0) {
 			[soundOutputMenu addItem:[[aMenuItem copy] autorelease]];
+			[ringtoneOutputMenu addItem:[[aMenuItem copy] autorelease]];
+		}
 		
 		[aMenuItem release];
 	}
 	
 	[soundInputPopUp setMenu:soundInputMenu];
 	[soundOutputPopUp setMenu:soundOutputMenu];
+	[ringtoneOutputPopUp setMenu:ringtoneOutputMenu];
 	
 	[soundInputMenu release];
 	[soundOutputMenu release];
+	[ringtoneOutputMenu release];
 	
 	// Select saved sound devices
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -619,6 +626,10 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	NSString *lastSoundOutput = [defaults stringForKey:AKSoundOutput];
 	if (lastSoundOutput != nil && [soundOutputPopUp itemWithTitle:lastSoundOutput] != nil)
 		[soundOutputPopUp selectItemWithTitle:lastSoundOutput];
+	
+	NSString *lastRingtoneOutput = [defaults stringForKey:AKRingtoneOutput];
+	if (lastRingtoneOutput != nil && [ringtoneOutputPopUp itemWithTitle:lastRingtoneOutput] != nil)
+		[ringtoneOutputPopUp selectItemWithTitle:lastRingtoneOutput];
 }
 
 - (void)updateAvailableSounds
@@ -707,25 +718,25 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		}
 	}
 	
-	[ringingSoundPopUp setMenu:soundsMenu];
+	[ringtonePopUp setMenu:soundsMenu];
 	NSString *savedSound = [[NSUserDefaults standardUserDefaults] stringForKey:AKRingingSound];
 	if ([soundsMenu itemWithTitle:savedSound] != nil)
-		[ringingSoundPopUp selectItemWithTitle:savedSound];
+		[ringtonePopUp selectItemWithTitle:savedSound];
 	
 	[soundsMenu release];
 }
 
-- (IBAction)changeIncomingCallSound:(id)sender
+- (IBAction)changeRingtone:(id)sender
 {
-	// Stop currently playing sound.
-	[[[NSApp delegate] incomingCallSound] stop];
+	// Stop currently playing ringtone.
+	[[[NSApp delegate] ringtone] stop];
 	
 	NSString *soundName = [sender title];
 	[[NSUserDefaults standardUserDefaults] setObject:soundName forKey:AKRingingSound];
-	[[NSApp delegate] setIncomingCallSound:[NSSound soundNamed:soundName]];
+	[[NSApp delegate] setRingtone:[NSSound soundNamed:soundName]];
 	
-	// Play selected sound once.
-	[[[NSApp delegate] incomingCallSound] play];
+	// Play selected ringtone once.
+	[[[NSApp delegate] ringtone] play];
 }
 
 // Check if network settings were changed, show an alert sheet to save, cancel or don't save.
@@ -874,8 +885,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	// Stop currently playing incoming call sound that might be selected in Preferences.
-	[[[NSApp delegate] incomingCallSound] stop];
+	// Stop currently playing ringtone that might be selected in Preferences.
+	[[[NSApp delegate] ringtone] stop];
 }
 
 

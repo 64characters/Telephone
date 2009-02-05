@@ -46,6 +46,7 @@ static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 
 // Audio device dictionary keys.
 NSString * const AKAudioDeviceIdentifier = @"AKAudioDeviceIdentifier";
+NSString * const AKAudioDeviceUID = @"AKAudioDeviceUID";
 NSString * const AKAudioDeviceName = @"AKAudioDeviceName";
 NSString * const AKAudioDeviceInputsCount = @"AKAudioDeviceInputsCount";
 NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
@@ -65,9 +66,31 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @synthesize audioDevices;
 @synthesize soundInputDeviceIndex;
 @synthesize soundOutputDeviceIndex;
-@synthesize incomingCallSound;
-@synthesize incomingCallSoundTimer;
+@synthesize ringtoneOutputDeviceIndex;
+@dynamic ringtone;
+@synthesize ringtoneTimer;
 @dynamic hasIncomingCallControllers;
+
+- (NSSound *)ringtone
+{
+	return [[ringtone retain] autorelease];
+}
+
+- (void)setRingtone:(NSSound *)aRingtone
+{
+	if (ringtone != aRingtone) {
+		[ringtone release];
+		ringtone = [aRingtone retain];
+		
+		if ([[self audioDevices] count] > [self ringtoneOutputDeviceIndex]) {
+			[ringtone setPlaybackDeviceIdentifier:[[[self audioDevices]
+													objectAtIndex:[self ringtoneOutputDeviceIndex]]
+												   objectForKey:AKAudioDeviceUID]];
+		} else {
+			[ringtone setPlaybackDeviceIdentifier:nil];
+		}
+	}
+}
 
 - (BOOL)hasIncomingCallControllers
 {
@@ -75,10 +98,13 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		if (![anAccountController isEnabled])
 			continue;
 		
-		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease]) {
 			if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
-				[[aCallController call] state] == AKTelephoneCallIncomingState)
+				[[aCallController call] isIncoming] &&
+				([[aCallController call] state] == AKTelephoneCallIncomingState ||
+				 [[aCallController call] state] == AKTelephoneCallEarlyState))
 				return YES;
+		}
 	}
 	
 	return NO;
@@ -134,10 +160,11 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	telephone = [AKTelephone telephoneWithDelegate:self];
 	accountControllers = [[NSMutableArray alloc] init];
 	[self setPreferenceController:nil];
-	audioDevices = [[NSMutableArray alloc] init];
+	[self setAudioDevices:nil];
 	[self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
 	[self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
-	[self setIncomingCallSoundTimer:nil];
+	[self setRingtoneOutputDeviceIndex:0];
+	[self setRingtoneTimer:nil];
 	
 	// Subscribe to Early and Confirmed call states to set sound IO to Telephone.
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -187,7 +214,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[preferenceController release];
 	
 	[audioDevices release];
-	[incomingCallSound release];
+	[ringtone release];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
@@ -224,7 +251,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
 	[[self telephone] setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
 	
-	[self setIncomingCallSound:[NSSound soundNamed:[defaults stringForKey:AKRingingSound]]];
+	[self setRingtone:[NSSound soundNamed:[defaults stringForKey:AKRingingSound]]];
 	
 	// Install audio devices changes callback
 	AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, AKAudioDevicesChanged, self);
@@ -336,8 +363,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	NSUInteger i = 0;
 	AudioBufferList *theBufferList = NULL;
 	
-	// Flush current devices array.
-	[[self audioDevices] removeAllObjects];
+	NSMutableArray *devicesArray = [NSMutableArray array];
 	
 	// Fetch a pointer to the list of available devices.
 	AudioDeviceID *devices = NULL;
@@ -355,12 +381,19 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[deviceDict setObject:[NSNumber numberWithUnsignedInteger:deviceIdentifier]
 					   forKey: AKAudioDeviceIdentifier];
 		
-		// Get device name.
-		CFStringRef tempStringRef = NULL;
+		// Get device UID.
+		CFStringRef UIDStringRef = NULL;
 		size = sizeof(CFStringRef);
-		err = AudioDeviceGetProperty(devices[loopCount], 0, 0, kAudioDevicePropertyDeviceNameCFString, &size, &tempStringRef);
-		[deviceDict setObject:(NSString *)tempStringRef forKey:AKAudioDeviceName];
-		CFRelease(tempStringRef);
+		err = AudioDeviceGetProperty(devices[loopCount], 0, 0, kAudioDevicePropertyDeviceUID, &size, &UIDStringRef);
+		[deviceDict setObject:(NSString *)UIDStringRef forKey:AKAudioDeviceUID];
+		CFRelease(UIDStringRef);
+		
+		// Get device name.
+		CFStringRef nameStringRef = NULL;
+		size = sizeof(CFStringRef);
+		err = AudioDeviceGetProperty(devices[loopCount], 0, 0, kAudioDevicePropertyDeviceNameCFString, &size, &nameStringRef);
+		[deviceDict setObject:(NSString *)nameStringRef forKey:AKAudioDeviceName];
+		CFRelease(nameStringRef);
 		
 		// Get number of input channels.
 		size = 0;
@@ -404,9 +437,11 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			}
 		}
 		
-		[[self audioDevices] addObject:deviceDict];
+		[devicesArray addObject:deviceDict];
 		[deviceDict release];
 	}
+	
+	[self setAudioDevices:[[devicesArray copy] autorelease]];
 	
 	// Update audio devices in Telephone.
 	[[self telephone] performSelectorOnMainThread:@selector(updateAudioDevices)
@@ -415,7 +450,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	
 	// Select sound IO from the updated audio devices list.
 	// This method will change sound IO in Telephone if there are active calls.
-	[self selectSoundIO];
+	[self performSelectorOnMainThread:@selector(selectSoundIO) withObject:nil waitUntilDone:YES];
 	
 	// Update audio devices in preferences.
 	[[self preferenceController] updateAudioDevices];
@@ -427,14 +462,14 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)selectSoundIO
 {
 	NSArray *devices = [self audioDevices];
-	NSInteger newSoundInput, newSoundOutput;
+	NSInteger newSoundInput, newSoundOutput, newRingtoneOutput;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *deviceDict;
 	NSInteger i;
 	
 	// Lookup devices records in the defaults.
 	
-	newSoundInput = newSoundOutput = NSNotFound;
+	newSoundInput = newSoundOutput = newRingtoneOutput = NSNotFound;
 	
 	NSString *lastSoundInputString = [defaults objectForKey:AKSoundInput];
 	if (lastSoundInputString != nil) {
@@ -462,6 +497,19 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		}
 	}
 	
+	NSString *lastRingtoneOutputString = [defaults objectForKey:AKRingtoneOutput];
+	if (lastRingtoneOutputString != nil) {
+		for (i = 0; i < [devices count]; ++i) {
+			deviceDict = [devices objectAtIndex:i];
+			if ([[deviceDict objectForKey:AKAudioDeviceName] isEqual:lastRingtoneOutputString] &&
+				[[deviceDict objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0)
+			{
+				newRingtoneOutput = i;
+				break;
+			}
+		}
+	}
+	
 	// If still not found, select first matched.
 	
 	if (newSoundInput == NSNotFound) {
@@ -480,14 +528,26 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			}
 	}
 	
+	if (newRingtoneOutput == NSNotFound) {
+		for (i = 0; i < [devices count]; ++i)
+			if ([[[devices objectAtIndex:i] objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0) {
+				newRingtoneOutput = i;
+				break;
+			}
+	}
+	
 	[self setSoundInputDeviceIndex:newSoundInput];
 	[self setSoundOutputDeviceIndex:newSoundOutput];
+	[self setRingtoneOutputDeviceIndex:newRingtoneOutput];
 	
 	// Set selected sound IO to Telephone if there are active calls.
 	if ([[self telephone] activeCallsCount] > 0)
-		[self performSelectorOnMainThread:@selector(setSelectedSoundIOToTelephone)
-							   withObject:nil
-							waitUntilDone:NO];
+		[[self telephone] setSoundInputDevice:newSoundInput
+							soundOutputDevice:newSoundOutput];
+	
+	// Set selected ringtone output.
+	[[self ringtone] setPlaybackDeviceIdentifier:[[devices objectAtIndex:newRingtoneOutput]
+															objectForKey:AKAudioDeviceUID]];
 }
 
 - (void)setSelectedSoundIOToTelephone
@@ -529,30 +589,30 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[[self preferenceController] addAccountWindowOtherButton] setAction:@selector(closeSheet:)];
 }
 
-- (void)startIncomingCallSoundTimer
+- (void)startRingtoneTimer
 {
-	if ([self incomingCallSoundTimer] != nil)
-		[[self incomingCallSoundTimer] invalidate];
+	if ([self ringtoneTimer] != nil)
+		[[self ringtoneTimer] invalidate];
 	
-	[self setIncomingCallSoundTimer:[NSTimer scheduledTimerWithTimeInterval:4
-																	 target:self
-																   selector:@selector(incomingCallSoundTimerTick:)
-																   userInfo:nil
-																	repeats:YES]];
+	[self setRingtoneTimer:[NSTimer scheduledTimerWithTimeInterval:4
+															target:self
+														  selector:@selector(ringtoneTimerTick:)
+														  userInfo:nil
+														   repeats:YES]];
 }
 
-- (void)stopIncomingCallSoundTimer
+- (void)stopRingtoneTimer
 {
-	if (![self hasIncomingCallControllers] && [self incomingCallSoundTimer] != nil) {
-		[[self incomingCallSound] stop];
-		[[self incomingCallSoundTimer] invalidate];
-		[self setIncomingCallSoundTimer:nil];
+	if (![self hasIncomingCallControllers] && [self ringtoneTimer] != nil) {
+		[[self ringtone] stop];
+		[[self ringtoneTimer] invalidate];
+		[self setRingtoneTimer:nil];
 	}
 }
 
-- (void)incomingCallSoundTimerTick:(NSTimer *)theTimer
+- (void)ringtoneTimerTick:(NSTimer *)theTimer
 {
-	[[self incomingCallSound] play];
+	[[self ringtone] play];
 }
 
 - (AKCallController *)callControllerByIdentifier:(NSString *)identifier

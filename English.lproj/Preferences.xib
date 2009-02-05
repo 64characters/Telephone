@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="260"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -885,7 +884,7 @@
 					<object class="NSTextField" id="221793147">
 						<reference key="NSNextResponder" ref="506588176"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{105, 114}, {85, 17}}</string>
+						<string key="NSFrame">{{105, 144}, {85, 17}}</string>
 						<reference key="NSSuperview" ref="506588176"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="585112663">
@@ -901,7 +900,7 @@
 					<object class="NSTextField" id="196090278">
 						<reference key="NSNextResponder" ref="506588176"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{94, 84}, {96, 17}}</string>
+						<string key="NSFrame">{{94, 114}, {96, 17}}</string>
 						<reference key="NSSuperview" ref="506588176"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="158757002">
@@ -917,7 +916,7 @@
 					<object class="NSPopUpButton" id="1007491468">
 						<reference key="NSNextResponder" ref="506588176"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{192, 108}, {230, 26}}</string>
+						<string key="NSFrame">{{192, 138}, {230, 26}}</string>
 						<reference key="NSSuperview" ref="506588176"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="705488819">
@@ -949,7 +948,7 @@
 					<object class="NSPopUpButton" id="872213969">
 						<reference key="NSNextResponder" ref="506588176"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{192, 78}, {230, 26}}</string>
+						<string key="NSFrame">{{192, 108}, {230, 26}}</string>
 						<reference key="NSSuperview" ref="506588176"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="996423399">
@@ -1042,12 +1041,60 @@
 							<reference key="NSTextColor" ref="954480591"/>
 						</object>
 					</object>
+					<object class="NSTextField" id="994176089">
+						<reference key="NSNextResponder" ref="506588176"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{77, 84}, {113, 17}}</string>
+						<reference key="NSSuperview" ref="506588176"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="411854386">
+							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags2">272630784</int>
+							<string key="NSContents">Ringtone Output:</string>
+							<reference key="NSSupport" ref="698646905"/>
+							<reference key="NSControlView" ref="994176089"/>
+							<reference key="NSBackgroundColor" ref="1048032501"/>
+							<reference key="NSTextColor" ref="954480591"/>
+						</object>
+					</object>
+					<object class="NSPopUpButton" id="836400043">
+						<reference key="NSNextResponder" ref="506588176"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{192, 78}, {230, 26}}</string>
+						<reference key="NSSuperview" ref="506588176"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSPopUpButtonCell" key="NSCell" id="585213404">
+							<int key="NSCellFlags">-2076049856</int>
+							<int key="NSCellFlags2">2048</int>
+							<reference key="NSSupport" ref="698646905"/>
+							<reference key="NSControlView" ref="836400043"/>
+							<int key="NSButtonFlags">109199615</int>
+							<int key="NSButtonFlags2">129</int>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">400</int>
+							<int key="NSPeriodicInterval">75</int>
+							<nil key="NSMenuItem"/>
+							<bool key="NSMenuItemRespectAlignment">YES</bool>
+							<object class="NSMenu" key="NSMenu" id="1035063803">
+								<string key="NSTitle">OtherViews</string>
+								<object class="NSMutableArray" key="NSMenuItems">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+								</object>
+							</object>
+							<int key="NSSelectedIndex">-1</int>
+							<int key="NSPreferredEdge">1</int>
+							<bool key="NSUsesItemFromMenu">YES</bool>
+							<bool key="NSAltersState">YES</bool>
+							<int key="NSArrowPosition">2</int>
+						</object>
+					</object>
 				</object>
-				<string key="NSFrameSize">{508, 146}</string>
+				<string key="NSFrameSize">{508, 176}</string>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="526940081">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1240,7 +1287,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{508, 196}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="417290828">
@@ -1539,14 +1585,6 @@
 					<int key="connectionID">268</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeIncomingCallSound:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="27197638"/>
-					</object>
-					<int key="connectionID">294</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.FormatTelephoneNumbers</string>
 						<reference key="source" ref="867919663"/>
@@ -1660,14 +1698,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">ringingSoundPopUp</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="27197638"/>
-					</object>
-					<int key="connectionID">344</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">substitutePlusCharacterCheckBox</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="62696054"/>
@@ -1769,6 +1799,38 @@
 						<reference key="destination" ref="484650982"/>
 					</object>
 					<int key="connectionID">471</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">ringtoneOutputPopUp</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="836400043"/>
+					</object>
+					<int key="connectionID">478</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSoundIO:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="836400043"/>
+					</object>
+					<int key="connectionID">479</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeRingtone:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="27197638"/>
+					</object>
+					<int key="connectionID">480</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">ringtonePopUp</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="27197638"/>
+					</object>
+					<int key="connectionID">481</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1965,6 +2027,8 @@
 							<reference ref="467015672"/>
 							<reference ref="27197638"/>
 							<reference ref="227924378"/>
+							<reference ref="994176089"/>
+							<reference ref="836400043"/>
 						</object>
 						<reference key="parent" ref="1002"/>
 						<string key="objectName">Sound View</string>
@@ -2594,6 +2658,43 @@
 						<reference key="object" ref="635674517"/>
 						<reference key="parent" ref="526940081"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">473</int>
+						<reference key="object" ref="994176089"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="411854386"/>
+						</object>
+						<reference key="parent" ref="506588176"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">474</int>
+						<reference key="object" ref="836400043"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="585213404"/>
+						</object>
+						<reference key="parent" ref="506588176"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">475</int>
+						<reference key="object" ref="585213404"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="1035063803"/>
+						</object>
+						<reference key="parent" ref="836400043"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">476</int>
+						<reference key="object" ref="1035063803"/>
+						<reference key="parent" ref="585213404"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">477</int>
+						<reference key="object" ref="411854386"/>
+						<reference key="parent" ref="994176089"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2698,6 +2799,12 @@
 					<string>466.IBPluginDependency</string>
 					<string>467.IBPluginDependency</string>
 					<string>472.IBPluginDependency</string>
+					<string>473.IBPluginDependency</string>
+					<string>474.IBPluginDependency</string>
+					<string>475.IBPluginDependency</string>
+					<string>476.IBEditorWindowLastContentRect</string>
+					<string>476.IBPluginDependency</string>
+					<string>477.IBPluginDependency</string>
 					<string>77.IBEditorWindowLastContentRect</string>
 					<string>77.IBPluginDependency</string>
 					<string>77.IBViewEditorWindowController.showingLayoutRectangles</string>
@@ -2773,7 +2880,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{452, 689}, {230, 4}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{282, 552}, {508, 146}}</string>
+					<string>{{285, 639}, {508, 176}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2831,6 +2938,12 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{452, 689}, {230, 4}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{291, 900}, {508, 94}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="0" id="8"/>
@@ -2874,7 +2987,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">472</int>
+			<int key="maxID">481</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2888,7 +3001,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addAccount:</string>
 							<string>changeAccountEnabled:</string>
-							<string>changeIncomingCallSound:</string>
+							<string>changeRingtone:</string>
 							<string>changeSoundIO:</string>
 							<string>changeSubstitutePlusCharacter:</string>
 							<string>changeUseProxy:</string>
@@ -2938,7 +3051,8 @@
 							<string>proxyHost</string>
 							<string>proxyPort</string>
 							<string>registrar</string>
-							<string>ringingSoundPopUp</string>
+							<string>ringtoneOutputPopUp</string>
+							<string>ringtonePopUp</string>
 							<string>setupFullName</string>
 							<string>setupPassword</string>
 							<string>setupRegistrar</string>
@@ -2979,6 +3093,7 @@
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
+							<string>NSPopUpButton</string>
 							<string>NSPopUpButton</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>

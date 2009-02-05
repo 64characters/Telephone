@@ -160,7 +160,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 - (IBAction)acceptCall:(id)sender
 {
 	if ([[self call] isIncoming])
-		[[NSApp delegate] stopIncomingCallSoundTimer];
+		[[NSApp delegate] stopRingtoneTimer];
 	
 	[[self call] answer];
 }
@@ -168,7 +168,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 - (IBAction)hangUp:(id)sender
 {
 	if ([[self call] isIncoming])
-		[[NSApp delegate] stopIncomingCallSoundTimer];
+		[[NSApp delegate] stopRingtoneTimer];
 	
 	[[self call] hangUp];
 	[hangUpButton setEnabled:NO];
@@ -182,7 +182,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[[self call] setIdentifier:AKTelephoneInvalidIdentifier];
 	[self stopCallTimer];
 	if ([[self call] isIncoming])
-		[[NSApp delegate] stopIncomingCallSoundTimer];
+		[[NSApp delegate] stopRingtoneTimer];
 	[self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
 	[[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
 }
@@ -262,8 +262,8 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallWindowWillCloseNotification
 														object:self];
 	
-	if ([[self call] identifier] != AKTelephoneInvalidIdentifier && [[self call] isActive])
-		[self hangUp:nil];
+	if ([[self call] identifier] != AKTelephoneInvalidIdentifier)
+		[self forceCallHangUp];
 }
 
 
@@ -302,7 +302,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
 	
 	if ([[notification object] isIncoming])
-		[[NSApp delegate] stopIncomingCallSoundTimer];
+		[[NSApp delegate] stopRingtoneTimer];
 	
 	[callProgressIndicator stopAnimation:self];
 	[self setStatus:@"00:00"];
@@ -320,7 +320,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	
 	if ([[notification object] isIncoming]) {
 		// Stop ringing sound.
-		[[NSApp delegate] stopIncomingCallSoundTimer];
+		[[NSApp delegate] stopRingtoneTimer];
 	}
 	
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];

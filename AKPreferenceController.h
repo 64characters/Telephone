@@ -42,6 +42,7 @@ extern NSString * const AKVoiceActivityDetection;
 extern NSString * const AKTransportPort;
 extern NSString * const AKSoundInput;
 extern NSString * const AKSoundOutput;
+extern NSString * const AKRingtoneOutput;
 extern NSString * const AKRingingSound;
 extern NSString * const AKFormatTelephoneNumbers;
 extern NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits;
@@ -82,7 +83,8 @@ extern NSString * const AKProxyPort;
 	// Sound.
 	IBOutlet NSPopUpButton *soundInputPopUp;
 	IBOutlet NSPopUpButton *soundOutputPopUp;
-	IBOutlet NSPopUpButton *ringingSoundPopUp;
+	IBOutlet NSPopUpButton *ringtoneOutputPopUp;
+	IBOutlet NSPopUpButton *ringtonePopUp;
 	
 	// Network.
 	IBOutlet NSTextField *STUNServerHost;
@@ -151,7 +153,7 @@ extern NSString * const AKProxyPort;
 - (void)updateAudioDevices;
 
 - (void)updateAvailableSounds;
-- (IBAction)changeIncomingCallSound:(id)sender;
+- (IBAction)changeRingtone:(id)sender;
 
 @end
 

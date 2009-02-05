@@ -39,11 +39,12 @@
 	AKTelephone *telephone;
 	NSMutableArray *accountControllers;
 	AKPreferenceController *preferenceController;
-	NSMutableArray *audioDevices;
+	NSArray *audioDevices;
 	NSInteger soundInputDeviceIndex;
 	NSInteger soundOutputDeviceIndex;
-	NSSound *incomingCallSound;
-	NSTimer *incomingCallSoundTimer;
+	NSInteger ringtoneOutputDeviceIndex;
+	NSSound *ringtone;
+	NSTimer *ringtoneTimer;
 	
 	IBOutlet NSMenuItem *preferencesMenuItem;
 }
@@ -51,11 +52,12 @@
 @property(readonly, retain) AKTelephone *telephone;
 @property(readonly, retain) NSMutableArray *accountControllers;
 @property(readwrite, retain) AKPreferenceController *preferenceController;
-@property(readonly, retain) NSMutableArray *audioDevices;
+@property(readwrite, retain) NSArray *audioDevices;
 @property(readwrite, assign) NSInteger soundInputDeviceIndex;
 @property(readwrite, assign) NSInteger soundOutputDeviceIndex;
-@property(readwrite, retain) NSSound *incomingCallSound;
-@property(readwrite, retain) NSTimer *incomingCallSoundTimer;
+@property(readwrite, assign) NSInteger ringtoneOutputDeviceIndex;
+@property(readwrite, retain) NSSound *ringtone;
+@property(readwrite, retain) NSTimer *ringtoneTimer;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 
 // Update list of available audio devices.
@@ -67,9 +69,9 @@
 - (IBAction)showPreferencePanel:(id)sender;
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
 
-- (void)startIncomingCallSoundTimer;
-- (void)stopIncomingCallSoundTimer;
-- (void)incomingCallSoundTimerTick:(NSTimer *)theTimer;
+- (void)startRingtoneTimer;
+- (void)stopRingtoneTimer;
+- (void)ringtoneTimerTick:(NSTimer *)theTimer;
 
 // Search all account controllers for the call controller with given identifier (uuid).
 - (AKCallController *)callControllerByIdentifier:(NSString *)identifier;
@@ -81,6 +83,7 @@
 
 // Audio device dictionary keys.
 extern NSString * const AKAudioDeviceIdentifier;
+extern NSString * const AKAudioDeviceUID;
 extern NSString * const AKAudioDeviceName;
 extern NSString * const AKAudioDeviceInputsCount;
 extern NSString * const AKAudioDeviceOutputsCount;
