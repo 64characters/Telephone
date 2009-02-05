@@ -258,6 +258,9 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
+	if ([[callDestination objectValue] count] == 0)
+		return;
+		
 	NSDictionary *primaryDestinationDict = [[[callDestination objectValue] objectAtIndex:0] objectAtIndex:[self callDestinationURIIndex]];
 	AKSIPURI *originalURI = [[[primaryDestinationDict objectForKey:AKURI] copy] autorelease];
 	NSString *phoneLabel = [primaryDestinationDict objectForKey:AKPhoneLabel];
