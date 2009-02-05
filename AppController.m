@@ -1124,12 +1124,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-	// Remove all accounts.
-	[[self accountControllers] removeAllObjects];
+	// Force hang up all calls and remove accounts from Telephone.
+	for (AKAccountController *anAccountController in [self accountControllers]) {
+		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+			[aCallController forceCallHangUp];
+		
+		if (![anAccountController isEnabled])
+			continue;
+		
+		[anAccountController removeAccountFromTelephone];
+	}
 	
-	BOOL destroyed = [[self telephone] destroyUserAgent];
-	if (!destroyed)
-		NSLog(@"Error destroying user agent");
+	[[self telephone] destroyUserAgent];
 }
 
 
