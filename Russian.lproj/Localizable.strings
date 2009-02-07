@@ -8,7 +8,7 @@
 "All active calls will be disconnected." = "Будут прекращены все незавершенные звонки.";
 
 /* Telephone quit confirmation. */
-"Are you shure you want to quit Telephone?" = "Вы действительно хотите выйти из Телефона?";
+"Are you sure you want to quit Telephone?" = "Вы действительно хотите выйти из Телефона?";
 
 /* Account registration Available menu item. */
 "Available" = "Доступен";
@@ -144,7 +144,7 @@
 "This will delete your currently set up account \\U201C%@\\U201D." = "Настроенный аккаунт «%@» будет удален.";
 
 /* Failed to communicate with STUN server informative text. */
-"UDP packets are probably blocked. It is impossible to make or receive calls without that. Make shure that your local firewall and the firewall at your router allow UDP protocol." = "Скорее всего, прохождение UDP-пакетов заблокировано, а без этого невозможно совершать звонки. Убедитесь, что на компьютере и на маршрутизаторе разрешен протокол UDP.";
+"UDP packets are probably blocked. It is impossible to make or receive calls without that. Make sure that your local firewall and the firewall at your router allow UDP protocol." = "Скорее всего, прохождение UDP-пакетов заблокировано, а без этого невозможно совершать звонки. Убедитесь, что на компьютере и на маршрутизаторе разрешен протокол UDP.";
 
 /* Account registration Unavailable menu item. */
 "Unavailable" = "Недоступен";

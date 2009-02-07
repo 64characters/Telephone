@@ -271,7 +271,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 // If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification
 {
-	// Make shure the timer is stopped even if the call hasn't received disconnect.
+	// Make sure the timer is stopped even if the call hasn't received disconnect.
 	[self stopCallTimer];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallWindowWillCloseNotification

@@ -998,7 +998,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		case AKNATTypeBlocked:
 			[alert setMessageText:NSLocalizedString(@"Failed to communicate with STUN server.", @"Failed to communicate with STUN server.")];
 			[alert setInformativeText:NSLocalizedString(@"UDP packets are probably blocked. It is impossible to make or receive calls without that. " \
-														@"Make shure that your local firewall and the firewall at your router allow UDP protocol.",
+														@"Make sure that your local firewall and the firewall at your router allow UDP protocol.",
 														@"Failed to communicate with STUN server informative text.")];
 			[alert runModal];
 			break;
@@ -1109,7 +1109,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			[alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
 			[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
 			[[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
-			[alert setMessageText:NSLocalizedString(@"Are you shure you want to quit Telephone?", @"Telephone quit confirmation.")];
+			[alert setMessageText:NSLocalizedString(@"Are you sure you want to quit Telephone?", @"Telephone quit confirmation.")];
 			[alert setInformativeText:NSLocalizedString(@"All active calls will be disconnected.", @"Telephone quit confirmation informative text.")];
 			
 			NSInteger choice = [alert runModal];
