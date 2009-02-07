@@ -43,7 +43,7 @@ NSString * const AKTelephoneCallEarlyNotification = @"AKTelephoneCallEarly";
 NSString * const AKTelephoneCallConnectingNotification = @"AKTelephoneCallConnecting";
 NSString * const AKTelephoneCallDidConfirmNotification = @"AKTelephoneCallDidConfirm";
 NSString * const AKTelephoneCallDidDisconnectNotification = @"AKTelephoneCallDidDisconnect";
-NSString * const AKTelephoneCallMediaActiveNotification = @"AKTelephoneCallMediaActive";
+NSString * const AKTelephoneCallMediaDidBecomeActiveNotification = @"AKTelephoneCallMediaDidBecomeActive";
 NSString * const AKTelephoneCallDidLocalHoldNotification = @"AKTelephoneCallDidLocalHold";
 NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDidRemoteHold";
 
@@ -59,6 +59,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 @synthesize lastStatusText;
 @dynamic active;
 @dynamic hasMedia;
+@dynamic hasActiveMedia;
 @synthesize incoming;
 @synthesize microphoneMuted;
 @dynamic onLocalHold;
@@ -118,10 +119,10 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 									   name:AKTelephoneCallDidDisconnectNotification
 									 object:self];
 		
-		if ([aDelegate respondsToSelector:@selector(telephoneCallMediaActive:)])
+		if ([aDelegate respondsToSelector:@selector(telephoneCallMediaDidBecomeActive:)])
 			[notificationCenter addObserver:aDelegate
-								   selector:@selector(telephoneCallMediaActive:)
-									   name:AKTelephoneCallMediaActiveNotification
+								   selector:@selector(telephoneCallMediaDidBecomeActive:)
+									   name:AKTelephoneCallMediaDidBecomeActiveNotification
 									 object:self];
 		
 		if ([aDelegate respondsToSelector:@selector(telephoneCallDidLocalHold:)])
@@ -154,6 +155,17 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 		return NO;
 	
 	return (pjsua_call_has_media([self identifier])) ? YES : NO;
+}
+
+- (BOOL)hasActiveMedia
+{
+	if ([self identifier] == AKTelephoneInvalidIdentifier)
+		return NO;
+	
+	pjsua_call_info callInfo;
+	pjsua_call_get_info([self identifier], &callInfo);
+	
+	return (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) ? YES : NO;
 }
 
 - (BOOL)isOnLocalHold
@@ -351,7 +363,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 - (void)hold
 {
 	if (![self isOnRemoteHold])
-	pjsua_call_set_hold([self identifier], NULL);
+		pjsua_call_set_hold([self identifier], NULL);
 }
 
 - (void)unhold
@@ -546,7 +558,7 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
 		pjsua_conf_connect(0, callInfo.conf_slot);
 		
 		PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
-		notification = [NSNotification notificationWithName:AKTelephoneCallMediaActiveNotification
+		notification = [NSNotification notificationWithName:AKTelephoneCallMediaDidBecomeActiveNotification
 													 object:theCall];
 		[notificationCenter performSelectorOnMainThread:@selector(postNotification:)
 											 withObject:notification

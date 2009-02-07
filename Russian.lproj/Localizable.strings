@@ -68,14 +68,20 @@
 /* General preferences window title. */
 "General" = "Основные";
 
+/* Hold. Call menu item. */
+"Hold" = "Поставить на ожидание";
+
 /* Detected Symmetric NAT informative text. */
 "It very unlikely that two-way conversations will be possible with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. If you are connected to the internet through the personal router, try to replace it with the one that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or \\U201Cport restricted cone\\U201D NAT types." = "Достичь двусторонней слышимости скорее всего не удастся. Попробуйте узнать у своего SIP-провайдера другие способы преодоления NAT. Если у вас свой маршрутизатор для выхода в интернет, попробуйте заменить его на другой, поддерживающий «full cone», «restricted cone» или «port restricted cone» NAT.";
 
 /* Microphone muted status text. */
-"Mic muted" = "Микрофон выключен";
+"mic muted" = "микрофон выключен";
 
 /* Microphone unmuted status text. */
-"Mic unmuted" = "Микрофон работает";
+"mic unmuted" = "микрофон работает";
+
+/* Mute. Call menu item. */
+"Mute" = "Выключить микрофон";
 
 /* Network preferences window title. */
 "Network" = "Сеть";
@@ -87,10 +93,10 @@
 "Offline" = "Офлайн";
 
 /* Call on local hold status text. */
-"On hold" = "На ожидании";
+"on hold" = "на ожидании";
 
 /* Call on remote hold status text. */
-"On remote hold" = "Поставили на ожидание";
+"on remote hold" = "поставили на ожидание";
 
 /* Registrar connection error informative text. */
 "Please check network connection and Registry Server settings." = "Пожалуйста, проверьте настройки сети и сервера регистраций.";
@@ -103,6 +109,9 @@
 
 /* Quit button. */
 "Quit" = "Выйти";
+
+/* Resume. Call menu item. */
+"Resume" = "Продолжить разговор";
 
 /* Remote party ringing. */
 "ringing" = "идет оповещение";
@@ -139,4 +148,7 @@
 
 /* Account registration Unavailable menu item. */
 "Unavailable" = "Недоступен";
+
+/* Unmute. Call menu item. */
+"Unmute" = "Включить микрофон";
 

@@ -74,10 +74,10 @@
 "It very unlikely that two-way conversations will be possible with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. If you are connected to the internet through the personal router, try to replace it with the one that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or \\U201Cport restricted cone\\U201D NAT types." = "Es ist sehr unwahrscheinlich, dass Sie über symmetrisches NAT wechselseitige Telefonate herstellen können. Informieren Sie sich bei Ihrem SIP-Provider über andere Möglichkeiten, NAT zu überbrücken. Wenn Sie über einen eigenen Router mit dem Internet verbunden sind, versuchen Sie diesen durch einen zu ersetzen, der „full cone“, „restricted cone“ oder „port restricted cone“ NAT unterstützt.";
 
 /* Microphone muted status text. */
-"Mic muted" = "Mikrofon stumm";
+"mic muted" = "Mikrofon stumm";
 
 /* Microphone unmuted status text. */
-"Mic unmuted" = "Mikrofon aktiv";
+"mic unmuted" = "Mikrofon aktiv";
 
 /* Network preferences window title. */
 "Network" = "Netzwerk";
@@ -89,10 +89,10 @@
 "Offline" = "Offline";
 
 /* Call on local hold status text. */
-"On hold" = "Anruf gehalten";
+"on hold" = "Anruf gehalten";
 
 /* Call on remote hold status text. */
-"On remote hold" = "Anruf vom Gesprächspartner gehalten";
+"on remote hold" = "Anruf vom Gesprächspartner gehalten";
 
 /* Registrar connection error informative text. */
 "Please check network connection and Registry Server settings." = "Bitte überprüfen Sie Ihre Netzwerkverbindung und die Registrierungsserver-Einstellungen.";

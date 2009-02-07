@@ -86,6 +86,9 @@
 - (IBAction)acceptCall:(id)sender;
 - (IBAction)hangUp:(id)sender;
 
+- (IBAction)toggleCallHold:(id)sender;
+- (IBAction)toggleMicrophoneMute:(id)sender;
+
 // Force call hang up not waiting for the callbacks, make appropriate window modifications.
 - (void)forceCallHangUp;
 

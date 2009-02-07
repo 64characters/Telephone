@@ -175,6 +175,21 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[callProgressIndicator stopAnimation:self];
 }
 
+- (IBAction)toggleCallHold:(id)sender
+{
+	[[self call] toggleHold];
+}
+
+- (IBAction)toggleMicrophoneMute:(id)sender
+{
+	[[self call] toggleMicrophoneMute];
+	
+	if ([[self call] isMicrophoneMuted])
+		[self setIntermediateStatus:NSLocalizedString(@"mic muted", @"Microphone muted status text.")];
+	else
+		[self setIntermediateStatus:NSLocalizedString(@"mic unmuted", @"Microphone unmuted status text.")];
+}
+
 - (void)forceCallHangUp
 {
 	[[self call] setDelegate:nil];
@@ -240,9 +255,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 - (void)intermediateStatusTimerTick:(NSTimer *)theTimer
 {
 	if ([[self call] isOnLocalHold])
-		[self setStatus:NSLocalizedString(@"On hold", @"Call on local hold status text.")];
+		[self setStatus:NSLocalizedString(@"on hold", @"Call on local hold status text.")];
 	else if ([[self call] isOnRemoteHold])
-		[self setStatus:NSLocalizedString(@"On remote hold", @"Call on remote hold status text.")];
+		[self setStatus:NSLocalizedString(@"on remote hold", @"Call on remote hold status text.")];
 	else if ([[self call] isActive])
 		[self startCallTimer];
 	
@@ -387,7 +402,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 								   clickContext:[self identifier]];
 }
 
-- (void)telephoneCallMediaActive:(NSNotification *)notification
+- (void)telephoneCallMediaDidBecomeActive:(NSNotification *)notification
 {
 	if ([self callOnHold]) {
 		[self startCallTimer];
@@ -399,14 +414,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 {
 	[self setCallOnHold:YES];
 	[self stopCallTimer];
-	[self setStatus:NSLocalizedString(@"On hold", @"Call on local hold status text.")];
+	[self setStatus:NSLocalizedString(@"on hold", @"Call on local hold status text.")];
 }
 
 - (void)telephoneCallDidRemoteHold:(NSNotification *)notification
 {
 	[self setCallOnHold:YES];
 	[self stopCallTimer];
-	[self setStatus:NSLocalizedString(@"On remote hold", @"Call on remote hold status text.")];
+	[self setStatus:NSLocalizedString(@"on remote hold", @"Call on remote hold status text.")];
 }
 
 
@@ -423,14 +438,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	unichar firstCharacter = [aString characterAtIndex:0];
 	if ([commandsCharacterSet characterIsMember:firstCharacter]) {
 		if ([microphoneMuteCharacterSet characterIsMember:firstCharacter]) {
-			[[self call] toggleMicrophoneMute];
-			if ([[self call] isMicrophoneMuted])
-				[self setIntermediateStatus:NSLocalizedString(@"Mic muted", @"Microphone muted status text.")];
-			else
-				[self setIntermediateStatus:NSLocalizedString(@"Mic unmuted", @"Microphone unmuted status text.")];
-			
+			[self toggleMicrophoneMute:nil];
 		} else if ([holdCharacterSet characterIsMember:firstCharacter]) {
-			[[self call] toggleHold];
+			[self toggleCallHold:nil];
 		}
 		
 	} else {
@@ -461,6 +471,38 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 			[[self call] sendDTMFDigits:aString];
 		}
 	}
+}
+
+
+#pragma mark -
+#pragma mark NSMenuValidation protocol
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+	if ([menuItem action] == @selector(toggleMicrophoneMute:)) {
+		if ([[self call] isMicrophoneMuted])
+			[menuItem setTitle:NSLocalizedString(@"Unmute", @"Unmute. Call menu item.")];
+		else
+			[menuItem setTitle:NSLocalizedString(@"Mute", @"Mute. Call menu item.")];
+		
+		if ([[self call] hasMedia])
+			return YES;
+		
+		return NO;
+		
+	} else if ([menuItem action] == @selector(toggleCallHold:)) {
+		if ([[self call] isOnLocalHold])
+			[menuItem setTitle:NSLocalizedString(@"Resume", @"Resume. Call menu item.")];
+		else
+			[menuItem setTitle:NSLocalizedString(@"Hold", @"Hold. Call menu item.")];
+		
+		if ([[self call] hasActiveMedia] || [[self call] isOnLocalHold])
+			return YES;
+		
+		return NO;
+	}
+	
+	return YES;
 }
 
 @end

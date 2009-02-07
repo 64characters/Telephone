@@ -72,6 +72,7 @@ typedef enum _AKTelephoneCallState {
 @property(readwrite, copy) NSString *lastStatusText;
 @property(nonatomic, readonly, assign, getter=isActive) BOOL active;
 @property(nonatomic, readonly, assign) BOOL hasMedia;
+@property(nonatomic, readonly, assign) BOOL hasActiveMedia;
 @property(readwrite, assign, getter=isIncoming) BOOL incoming;
 @property(readwrite, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
 @property(readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
@@ -124,7 +125,7 @@ extern NSString * const AKTelephoneCallDidConfirmNotification;
 extern NSString * const AKTelephoneCallDidDisconnectNotification;
 
 // Call media is active.
-extern NSString * const AKTelephoneCallMediaActiveNotification;
+extern NSString * const AKTelephoneCallMediaDidBecomeActiveNotification;
 
 // Call media is put on hold by local endpoint.
 extern NSString * const AKTelephoneCallDidLocalHoldNotification;
