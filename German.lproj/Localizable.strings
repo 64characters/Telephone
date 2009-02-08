@@ -70,6 +70,9 @@
 /* General preferences window title. */
 "General" = "Allgemein";
 
+/* Hold. Call menu item. */
+"Hold" = "Halten";
+
 /* Detected Symmetric NAT informative text. */
 "It very unlikely that two-way conversations will be possible with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. If you are connected to the internet through the personal router, try to replace it with the one that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or \\U201Cport restricted cone\\U201D NAT types." = "Es ist sehr unwahrscheinlich, dass Sie über symmetrisches NAT wechselseitige Telefonate herstellen können. Informieren Sie sich bei Ihrem SIP-Provider über andere Möglichkeiten, NAT zu überbrücken. Wenn Sie über einen eigenen Router mit dem Internet verbunden sind, versuchen Sie diesen durch einen zu ersetzen, der „full cone“, „restricted cone“ oder „port restricted cone“ NAT unterstützt.";
 
@@ -78,6 +81,9 @@
 
 /* Microphone unmuted status text. */
 "mic unmuted" = "Mikrofon aktiv";
+
+/* Mute. Call menu item. */
+"Mute" = "Mikrofon aus";
 
 /* Network preferences window title. */
 "Network" = "Netzwerk";
@@ -105,6 +111,9 @@
 
 /* Quit button. */
 "Quit" = "Beenden";
+
+/* Resume. Call menu item. */
+"Resume" = "Fortsetzen";
 
 /* Remote party ringing. */
 "ringing" = "Es klingelt";
@@ -141,4 +150,7 @@
 
 /* Account registration Unavailable menu item. */
 "Unavailable" = "Nicht аngemeldet";
+
+/* Unmute. Call menu item. */
+"Unmute" = "Mikrofon an";
 
