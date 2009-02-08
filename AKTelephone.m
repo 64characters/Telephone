@@ -579,11 +579,11 @@ typedef enum _AKTelephoneRingtones {
 
 - (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier
 {
-	for (AKTelephoneAccount *anAccount in [self accounts])
-		for (AKTelephoneCall *aCall in [anAccount calls])
+	for (AKTelephoneAccount *anAccount in [[[self accounts] copy] autorelease])
+		for (AKTelephoneCall *aCall in [[[anAccount calls] copy] autorelease])
 			if ([aCall identifier] == anIdentifier)
 				return [[aCall retain] autorelease];
-	
+
 	return nil;
 }
 

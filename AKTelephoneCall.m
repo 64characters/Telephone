@@ -219,7 +219,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)dealloc
 {
-	if ([[AKTelephone sharedTelephone] started] && [self identifier] != PJSUA_INVALID_ID && [self isActive])
+	if ([[AKTelephone sharedTelephone] started])
 		[self hangUp];
 	
 	[self setDelegate:nil];
@@ -247,9 +247,9 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)hangUp
 {
-	if ([self identifier] == AKTelephoneInvalidIdentifier)
+	if (([self identifier] == AKTelephoneInvalidIdentifier) || ([self state] == AKTelephoneCallDisconnectedState))
 		return;
-	
+
 	pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
 	if (status != PJ_SUCCESS)
 		NSLog(@"Error hanging up call %@", self);
@@ -436,7 +436,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 	pjsua_call_info callInfo;
 	pjsua_call_get_info(callIdentifier, &callInfo);
 	
-	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier] retain];
+	AKTelephoneCall *theCall = [[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier];
 	
 	[theCall setState:callInfo.state];
 	[theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
@@ -450,8 +450,6 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 				   callIdentifier,
 				   callInfo.last_status,
 				   callInfo.last_status_text.ptr));
-		
-		[theCall setIdentifier:PJSUA_INVALID_ID];
 		
 		notification = [NSNotification notificationWithName:AKTelephoneCallDidDisconnectNotification
 													 object:theCall];
@@ -533,8 +531,6 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 		}
 	}
 	
-	[theCall release];
-	
 	[pool release];
 }
 
@@ -546,7 +542,7 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
 	pjsua_call_info callInfo;
 	pjsua_call_get_info(callIdentifier, &callInfo);
 	
-	AKTelephoneCall *theCall = [[[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier] retain];
+	AKTelephoneCall *theCall = [[AKTelephone sharedTelephone] telephoneCallByIdentifier:callIdentifier];
 	[theCall ringbackStop];
 	
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -591,8 +587,6 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
 	} else {
 		PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
 	}
-	
-	[theCall release];
 	
 	[pool release];
 }

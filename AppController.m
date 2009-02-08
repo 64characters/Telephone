@@ -356,6 +356,25 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	}
 }
 
+- (void)stopTelephone
+{
+	// Hang up all calls.
+	[[self telephone] hangUpAllCalls];
+	
+	// Force ended state for all calls and remove accounts from Telephone.
+	for (AKAccountController *anAccountController in [self accountControllers]) {
+		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+			[aCallController forceEndedCallState];
+		
+		if (![anAccountController isEnabled])
+			continue;
+		
+		[anAccountController removeAccountFromTelephone];
+	}
+	
+	[[self telephone] destroyUserAgent];
+}
+
 - (void)updateAudioDevices
 {
 	OSStatus err = noErr;
@@ -1124,18 +1143,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-	// Force hang up all calls and remove accounts from Telephone.
-	for (AKAccountController *anAccountController in [self accountControllers]) {
-		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
-			[aCallController forceCallHangUp];
-		
-		if (![anAccountController isEnabled])
-			continue;
-		
-		[anAccountController removeAccountFromTelephone];
-	}
-	
-	[[self telephone] destroyUserAgent];
+	[self stopTelephone];
 }
 
 
@@ -1188,18 +1196,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // before computer goes to sleep.
 - (void)workspaceWillSleepNotification:(NSNotification *)notification
 {
-	// Force hang up all calls and remove accounts from Telephone.
-	for (AKAccountController *anAccountController in [self accountControllers]) {
-		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
-			[aCallController forceCallHangUp];
-		
-		if (![anAccountController isEnabled])
-			continue;
-		
-		[anAccountController removeAccountFromTelephone];
-	}
-	
-	[[self telephone] destroyUserAgent];
+	[self stopTelephone];
 }
 
 // Re-add all accounts to Telephone starting SIP user agent laizily after

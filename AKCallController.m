@@ -165,7 +165,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[[self call] answer];
 }
 
-- (IBAction)hangUp:(id)sender
+- (IBAction)hangUpCall:(id)sender
 {
 	if ([[self call] isIncoming])
 		[[NSApp delegate] stopRingtoneTimer];
@@ -190,11 +190,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		[self setIntermediateStatus:NSLocalizedString(@"mic unmuted", @"Microphone unmuted status text.")];
 }
 
-- (void)forceCallHangUp
+- (void)forceEndedCallState
 {
 	[[self call] setDelegate:nil];
-	[self hangUp:nil];
-	[[self call] setIdentifier:AKTelephoneInvalidIdentifier];
+	[[self call] setState:AKTelephoneCallDisconnectedState];
 	[self stopCallTimer];
 	if ([[self call] isIncoming])
 		[[NSApp delegate] stopRingtoneTimer];
@@ -277,8 +276,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneCallWindowWillCloseNotification
 														object:self];
 	
-	if ([[self call] identifier] != AKTelephoneInvalidIdentifier)
-		[self forceCallHangUp];
+	[self hangUpCall:nil];
 }
 
 

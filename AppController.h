@@ -60,6 +60,9 @@
 @property(readwrite, retain) NSTimer *ringtoneTimer;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 
+// Hang up all calls, disconnect all accounts, destroy SIP user agent.
+- (void)stopTelephone;
+
 // Update list of available audio devices.
 - (void)updateAudioDevices;
 

@@ -84,13 +84,14 @@
 - (id)initWithAccountController:(AKAccountController *)anAccountController;
 
 - (IBAction)acceptCall:(id)sender;
-- (IBAction)hangUp:(id)sender;
+- (IBAction)hangUpCall:(id)sender;
 
 - (IBAction)toggleCallHold:(id)sender;
 - (IBAction)toggleMicrophoneMute:(id)sender;
 
-// Force call hang up not waiting for the callbacks, make appropriate window modifications.
-- (void)forceCallHangUp;
+// Force ended call state not waiting for the callbacks. This is useful with
+// AKTelephone's hangUpAllCalls when computer goes to sleep or before app shuts down.
+- (void)forceEndedCallState;
 
 // Dealing with the timer of active call.
 - (void)startCallTimer;
