@@ -45,7 +45,7 @@
 	BOOL isCompany = (personFlags & kABShowAsMask) == kABShowAsCompany;
 	
 	ABAddressBook *AB = [ABAddressBook sharedAddressBook];
-	NSString *theString;
+	NSString *theString = nil;
 	if (isPerson) {
 		if ([firstName length] > 0 && [lastName length] > 0) {
 			if ([AB defaultNameOrdering] == kABFirstNameFirst) {
@@ -62,8 +62,6 @@
 	} else if (isCompany) {
 		if ([company length] > 0)
 			theString = company;
-	} else {
-		theString = nil;
 	}
 	
 	return theString;
