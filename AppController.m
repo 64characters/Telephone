@@ -1143,7 +1143,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-	[self stopTelephone];
+	if ([[self telephone] started])
+		[self stopTelephone];
 }
 
 
@@ -1196,7 +1197,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // before computer goes to sleep.
 - (void)workspaceWillSleepNotification:(NSNotification *)notification
 {
-	[self stopTelephone];
+	if ([[self telephone] started])
+		[self stopTelephone];
 }
 
 // Re-add all accounts to Telephone starting SIP user agent laizily after
