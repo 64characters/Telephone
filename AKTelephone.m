@@ -214,19 +214,14 @@ typedef enum _AKTelephoneRingtones {
 
 #pragma mark Telephone singleton instance
 
-+ (id)telephoneWithDelegate:(id)aDelegate
++ (AKTelephone *)sharedTelephone
 {
 	@synchronized(self) {
 		if (sharedTelephone == nil)
-			[[self alloc] initWithDelegate:aDelegate];	// Assignment not done here
+			[[self alloc] init];	// Assignment not done here
 	}
 	
 	return sharedTelephone;
-}
-
-+ (id)telephone
-{
-	return [self telephoneWithDelegate:nil];
 }
 
 + (id)allocWithZone:(NSZone *)zone
@@ -269,10 +264,6 @@ typedef enum _AKTelephoneRingtones {
 
 #pragma mark -
 
-+ (AKTelephone *)sharedTelephone
-{
-	return sharedTelephone;
-}
 
 - (id)initWithDelegate:(id)aDelegate
 {

@@ -159,8 +159,6 @@ typedef enum _AKNATType {
 @property(readwrite, assign) BOOL usesICE;							// Default: NO.
 @property(nonatomic, readwrite, assign) NSUInteger transportPort;	// Default: 0 for any available port.
 
-+ (id)telephoneWithDelegate:(id)aDelegate;
-+ (id)telephone;
 + (AKTelephone *)sharedTelephone;
 
 // Designated initializer

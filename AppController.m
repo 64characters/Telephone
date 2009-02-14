@@ -157,7 +157,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	if (self == nil)
 		return nil;
 	
-	telephone = [AKTelephone telephoneWithDelegate:self];
+	telephone = [AKTelephone sharedTelephone];
+	[telephone setDelegate:self];
 	accountControllers = [[NSMutableArray alloc] init];
 	[self setPreferenceController:nil];
 	[self setAudioDevices:nil];
