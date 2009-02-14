@@ -483,18 +483,18 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		else
 			[menuItem setTitle:NSLocalizedString(@"Mute", @"Mute. Call menu item.")];
 		
-		if ([[self call] hasMedia])
+		if ([[self call] state] == AKTelephoneCallConfirmedState)
 			return YES;
 		
 		return NO;
 		
 	} else if ([menuItem action] == @selector(toggleCallHold:)) {
-		if ([[self call] isOnLocalHold])
+		if ([[self call] state] == AKTelephoneCallConfirmedState && [[self call] isOnLocalHold])
 			[menuItem setTitle:NSLocalizedString(@"Resume", @"Resume. Call menu item.")];
 		else
 			[menuItem setTitle:NSLocalizedString(@"Hold", @"Hold. Call menu item.")];
 		
-		if ([[self call] hasActiveMedia] || [[self call] isOnLocalHold])
+		if ([[self call] state] == AKTelephoneCallConfirmedState && ![[self call] isOnRemoteHold])
 			return YES;
 		
 		return NO;

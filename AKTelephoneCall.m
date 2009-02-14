@@ -324,7 +324,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)muteMicrophone
 {
-	if ([self isMicrophoneMuted] || [self state] != AKTelephoneCallConfirmedState)
+	if ([self isMicrophoneMuted])
 		return;
 	
 	pjsua_call_info callInfo;
@@ -339,7 +339,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 
 - (void)unmuteMicrophone
 {
-	if (![self isMicrophoneMuted] || [self state] != AKTelephoneCallConfirmedState)
+	if (![self isMicrophoneMuted])
 		return;
 	
 	pjsua_call_info callInfo;
