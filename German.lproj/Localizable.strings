@@ -134,7 +134,7 @@
 "Symmetric NAT detected." = "Symmetrisches NAT festgestellt.";
 
 /* Registrar authentication failed. */
-"Telehone was unable to login to %@. Change user name or password and try again." = "Telephone konnte sich nicht in %@ anmelden. Ändern Sie Benutzername oder Passwort und versuchen Sie es erneut.";
+"Telephone was unable to login to %@. Change user name or password and try again." = "Telephone konnte sich nicht in %@ anmelden. Ändern Sie Benutzername oder Passwort und versuchen Sie es erneut.";
 
 /* Preferences default window title. */
 "Telephone Preferences" = "Telephone Einstellungen";

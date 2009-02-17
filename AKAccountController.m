@@ -597,7 +597,7 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
 			
 			[updateCredentialsInformativeText setStringValue:
-			 [NSString stringWithFormat:NSLocalizedString(@"Telehone was unable to login to %@. " \
+			 [NSString stringWithFormat:NSLocalizedString(@"Telephone was unable to login to %@. " \
 														  "Change user name or password and try again.",
 														  @"Registrar authentication failed."),
 			  [[self account] registrar]]];
