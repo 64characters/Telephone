@@ -532,6 +532,8 @@ typedef enum _AKTelephoneRingtones {
 									   [anAccount proxyHost], [anAccount proxyPort]] pjString];
 	}
 	
+	accountConfig.reg_timeout = [anAccount reregistrationTime];
+	
 	pjsua_acc_id accountIdentifier;
 	pj_status_t status = pjsua_acc_add(&accountConfig, PJ_FALSE, &accountIdentifier);
 	if (status != PJ_SUCCESS) {

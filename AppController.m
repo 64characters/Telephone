@@ -316,6 +316,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 																  registrar:registrar
 																	  realm:realm
 																   username:username];
+		
+		[[anAccountController account] setReregistrationTime:[[accountDict objectForKey:AKReregistrationTime] integerValue]];
+		
 		if ([[accountDict objectForKey:AKUseProxy] boolValue]) {
 			[[anAccountController account] setProxyHost:[accountDict objectForKey:AKProxyHost]];
 			[[anAccountController account] setProxyPort:[[accountDict objectForKey:AKProxyPort] integerValue]];
@@ -889,6 +892,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 													  registrar:[accountDict objectForKey:AKRegistrar]
 													  realm:[accountDict objectForKey:AKRealm]
 													  username:[accountDict objectForKey:AKUsername]];
+		
+		[[theAccountController account] setReregistrationTime:[[accountDict objectForKey:AKReregistrationTime] integerValue]];
 		
 		if ([[accountDict objectForKey:AKUseProxy] boolValue]) {
 			[[theAccountController account] setProxyHost:[accountDict objectForKey:AKProxyHost]];

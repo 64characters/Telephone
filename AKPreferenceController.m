@@ -70,6 +70,7 @@ NSString * const AKUsername = @"Username";
 NSString * const AKPassword = @"Password";
 NSString * const AKAccountIndex = @"AccountIndex";
 NSString * const AKAccountEnabled = @"AccountEnabled";
+NSString * const AKReregistrationTime = @"ReregistrationTime";
 NSString * const AKSubstitutePlusCharacter = @"SubstitutePlusCharacter";
 NSString * const AKPlusCharacterSubstitutionString = @"PlusCharacterSubstitutionString";
 NSString * const AKUseProxy = @"UseProxy";
@@ -284,6 +285,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[accountDict setObject:[setupRegistrar stringValue] forKey:AKRegistrar];
 	[accountDict setObject:@"*" forKey:AKRealm];
 	[accountDict setObject:[setupUsername stringValue] forKey:AKUsername];
+	[accountDict setObject:[NSNumber numberWithInteger:0] forKey:AKReregistrationTime];
 	[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKSubstitutePlusCharacter];
 	[accountDict setObject:@"00" forKey:AKPlusCharacterSubstitutionString];
 	[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKUseProxy];
@@ -401,6 +403,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 			[registrar setEnabled:NO];
 			[username setEnabled:NO];
 			[password setEnabled:NO];
+			[reregistrationTime setEnabled:NO];
 			[substitutePlusCharacterCheckBox setEnabled:NO];
 			[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
 			[plusCharacterSubstitution setEnabled:NO];
@@ -416,6 +419,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 			[username setEnabled:YES];
 			[password setEnabled:YES];
 			
+			[reregistrationTime setEnabled:YES];
 			[substitutePlusCharacterCheckBox setEnabled:YES];
 			[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
 			if ([substitutePlusCharacterCheckBox state] == NSOnState)
@@ -444,6 +448,11 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 																	 [accountDict objectForKey:AKRegistrar]]
 														accountName:[accountDict objectForKey:AKUsername]]];
 		
+		if ([[accountDict objectForKey:AKReregistrationTime] integerValue] > 0)
+			[reregistrationTime setIntegerValue:[[accountDict objectForKey:AKReregistrationTime] integerValue]];
+		else
+			[reregistrationTime setStringValue:@""];
+		
 		if ([accountDict objectForKey:AKPlusCharacterSubstitutionString] != nil)
 			[plusCharacterSubstitution setStringValue:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
 		else
@@ -466,6 +475,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[registrar setStringValue:@""];
 		[username setStringValue:@""];
 		[password setStringValue:@""];
+		[reregistrationTime setStringValue:@""];
 		[substitutePlusCharacterCheckBox setState:NSOffState];
 		[plusCharacterSubstitution setStringValue:@"00"];
 		[useProxyCheckBox setState:NSOffState];
@@ -478,6 +488,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[registrar setEnabled:NO];
 		[username setEnabled:NO];
 		[password setEnabled:NO];
+		[reregistrationTime setEnabled:NO];
 		[substitutePlusCharacterCheckBox setEnabled:NO];
 		[plusCharacterSubstitution setEnabled:NO];
 		[useProxyCheckBox setEnabled:NO];
@@ -514,6 +525,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 							   accountName:[username stringValue]
 								  password:[password stringValue]];
 		
+		[accountDict setObject:[NSNumber numberWithInteger:[reregistrationTime integerValue]] forKey:AKReregistrationTime];
+		
 		if ([substitutePlusCharacterCheckBox state] == NSOnState)		
 			[accountDict setObject:[NSNumber numberWithBool:YES] forKey:AKSubstitutePlusCharacter];
 		else
@@ -534,6 +547,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[username setEnabled:NO];
 		[password setEnabled:NO];
 		
+		[reregistrationTime setEnabled:NO];
 		[substitutePlusCharacterCheckBox setEnabled:NO];
 		[plusCharacterSubstitution setEnabled:NO];
 		[useProxyCheckBox setEnabled:NO];
@@ -551,6 +565,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[username setEnabled:YES];
 		[password setEnabled:YES];
 		
+		[reregistrationTime setEnabled:YES];
 		[substitutePlusCharacterCheckBox setEnabled:YES];
 		[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
 		if ([substitutePlusCharacterCheckBox state] == NSOnState)

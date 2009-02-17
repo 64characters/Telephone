@@ -32,6 +32,7 @@
 
 extern NSString * const AKSIPProxyHostDefault;
 extern const NSInteger AKSIPProxyPortDefault;
+extern const NSInteger AKAccountReregistrationTimeDefault;
 
 @class AKTelephoneCall, AKSIPURI;
 @protocol AKTelephoneAccountDelegate;
@@ -49,6 +50,7 @@ extern const NSInteger AKSIPProxyPortDefault;
 	NSString *username;
 	NSString *proxyHost;
 	NSUInteger proxyPort;
+	NSUInteger reregistrationTime;
 	
 	NSInteger identifier;
 	
@@ -64,6 +66,7 @@ extern const NSInteger AKSIPProxyPortDefault;
 @property(readwrite, copy) NSString *username;
 @property(readwrite, copy) NSString *proxyHost;		// Default: @"".
 @property(readwrite, assign) NSUInteger proxyPort;	// Default: 5060.
+@property(readwrite, assign) NSUInteger reregistrationTime;	// Default: 300 (sec).
 @property(readwrite, assign) NSInteger identifier;
 @property(nonatomic, readwrite, assign, getter=isRegistered) BOOL registered;
 @property(nonatomic, readonly, assign) NSInteger registrationStatus;

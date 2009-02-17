@@ -40,6 +40,7 @@ NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccount
 
 NSString * const AKSIPProxyHostDefault = @"";
 const NSInteger AKSIPProxyPortDefault = 5060;
+const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 @implementation AKTelephoneAccount
 
@@ -52,6 +53,7 @@ const NSInteger AKSIPProxyPortDefault = 5060;
 @synthesize username;
 @synthesize proxyHost;
 @dynamic proxyPort;
+@dynamic reregistrationTime;
 @synthesize identifier;
 @dynamic registered;
 @dynamic registrationStatus;
@@ -104,6 +106,23 @@ const NSInteger AKSIPProxyPortDefault = 5060;
 		proxyPort = port;
 	else
 		proxyPort = AKSIPProxyPortDefault;
+}
+
+- (NSUInteger)reregistrationTime
+{
+	return reregistrationTime;
+}
+
+- (void)setReregistrationTime:(NSUInteger)seconds
+{
+	if (seconds == 0)
+		reregistrationTime = AKAccountReregistrationTimeDefault;
+	else if (seconds < 60)
+		reregistrationTime = 60;
+	else if (seconds > 3600)
+		reregistrationTime = 3600;
+	else
+		reregistrationTime = seconds;
 }
 
 - (BOOL)isRegistered
@@ -244,6 +263,7 @@ const NSInteger AKSIPProxyPortDefault = 5060;
 	[self setUsername:aUsername];
 	[self setProxyHost:AKSIPProxyHostDefault];
 	[self setProxyPort:AKSIPProxyPortDefault];
+	[self setReregistrationTime:AKAccountReregistrationTimeDefault];
 	[self setIdentifier:PJSUA_INVALID_ID];
 	
 	calls = [[NSMutableArray alloc] init];
