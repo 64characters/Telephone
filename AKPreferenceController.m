@@ -61,6 +61,7 @@ NSString * const AKOutboundProxyHost = @"OutboundProxyHost";
 NSString * const AKOutboundProxyPort = @"OutboundProxyPort";
 NSString * const AKUseICE = @"UseICE";
 NSString * const AKUseDNSSRV = @"UseDNSSRV";
+NSString * const AKSignificantPhoneNumberLength = @"SignificantPhoneNumberLength";
 
 NSString * const AKFullName = @"FullName";
 NSString * const AKSIPAddress = @"SIPAddress";

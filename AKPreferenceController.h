@@ -50,6 +50,7 @@ extern NSString * const AKOutboundProxyHost;
 extern NSString * const AKOutboundProxyPort;
 extern NSString * const AKUseICE;
 extern NSString * const AKUseDNSSRV;
+extern NSString * const AKSignificantPhoneNumberLength;
 
 // Account keys
 extern NSString * const AKFullName;

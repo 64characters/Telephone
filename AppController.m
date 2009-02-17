@@ -130,6 +130,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKConsoleLogLevel];
 		[defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:AKTransportPort];
 		[defaultsDict setObject:@"Purr" forKey:AKRingingSound];
+		[defaultsDict setObject:[NSNumber numberWithInteger:10] forKey:AKSignificantPhoneNumberLength];
 		
 		NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 		

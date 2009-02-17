@@ -749,12 +749,12 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 				}
 		}
 
-		const NSUInteger AKSignificantPhoneNumberLength = 10;
+		NSUInteger significantPhoneNumberLength = [[NSUserDefaults standardUserDefaults] integerForKey:AKSignificantPhoneNumberLength];
 		
 		// Get the significant phone suffix if the phone number length is greater that we defined.
 		NSString *significantPhoneSuffix;
-		if ([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) {
-			significantPhoneSuffix = [phoneNumberToSearch substringFromIndex:([phoneNumberToSearch length] - AKSignificantPhoneNumberLength)];
+		if ([phoneNumberToSearch length] > significantPhoneNumberLength) {
+			significantPhoneSuffix = [phoneNumberToSearch substringFromIndex:([phoneNumberToSearch length] - significantPhoneNumberLength)];
 			
 			// If the the record hasn't been found with the whole number, look for significant suffix match.
 			if (!recordFound) {
@@ -809,7 +809,7 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 					NSString *scannedPhoneNumber = [telephoneNumberFormatter telephoneNumberFromString:phoneNumber];
 					if ([scannedPhoneNumber isEqualToString:phoneNumberToSearch]) {
 						recordFound = YES;
-					} else if (([phoneNumberToSearch length] > AKSignificantPhoneNumberLength) &&
+					} else if (([phoneNumberToSearch length] > significantPhoneNumberLength) &&
 							   [scannedPhoneNumber hasSuffix:significantPhoneSuffix]) {
 						recordFound = YES;
 					}
