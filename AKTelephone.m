@@ -446,9 +446,17 @@ typedef enum _AKTelephoneRingtones {
 		status = pjsua_transport_get_info(transportIdentifier, &transportInfo);
 		if (status != PJ_SUCCESS)
 			NSLog(@"Error getting transport info");
-		PJ_LOG(3, (THIS_FILE, "SIP UDP port: %u", transportInfo.local_name.port));
+		
 		[self setTransportPort:transportInfo.local_name.port];
+		
+		// Set chosen port back to transportConfig to add TCP transport below.
+		transportConfig.port = [self transportPort];
 	}
+	
+	// Add TCP transport. Don't return NO, just leave a log message on error.
+	status = pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
+	if (status != PJ_SUCCESS)
+		NSLog(@"Error creating TCP transport");
 	
 	// Start PJSUA.
 	status = pjsua_start();
