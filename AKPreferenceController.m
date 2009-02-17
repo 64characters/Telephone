@@ -228,7 +228,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		case AKNetworkPreferencesTag:
 			view = networkView;
 			title = NSLocalizedString(@"Network", @"Network preferences window title.");
-			firstResponderView = transportPort;
+			firstResponderView = nil;
 			break;
 		default:
 			view = nil;
