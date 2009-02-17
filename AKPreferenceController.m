@@ -165,6 +165,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[self updateAudioDevices];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ([[defaults objectForKey:AKTransportPort] integerValue] > 0)
+		[transportPort setIntegerValue:[[defaults objectForKey:AKTransportPort] integerValue]];
 	[STUNServerHost setStringValue:[defaults stringForKey:AKSTUNServerHost]];
 	if ([[defaults objectForKey:AKSTUNServerPort] integerValue] > 0)
 		[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
@@ -212,7 +214,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		case AKNetworkPreferencesTag:
 			view = networkView;
 			title = NSLocalizedString(@"Network", @"Network preferences window title.");
-			firstResponderView = STUNServerHost;
+			firstResponderView = transportPort;
 			break;
 		default:
 			view = nil;
@@ -745,13 +747,15 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
+	NSNumber *newTransportPort = [NSNumber numberWithInteger:[transportPort integerValue]];
 	NSString *newSTUNServerHost = [STUNServerHost stringValue];
 	NSNumber *newSTUNServerPort = [NSNumber numberWithInteger:[STUNServerPort integerValue]];
 	BOOL newUseICE = ([useICECheckBox state] == NSOnState) ? YES : NO;
 	NSString *newOutboundProxyHost = [outboundProxyHost stringValue];
 	NSNumber *newOutboundProxyPort = [NSNumber numberWithInteger:[outboundProxyPort integerValue]];
 	
-	if (![[defaults objectForKey:AKSTUNServerHost] isEqualToString:newSTUNServerHost] ||
+	if (![[defaults objectForKey:AKTransportPort] isEqualToNumber:newTransportPort] ||
+		![[defaults objectForKey:AKSTUNServerHost] isEqualToString:newSTUNServerHost] ||
 		![[defaults objectForKey:AKSTUNServerPort] isEqualToNumber:newSTUNServerPort] ||
 		[defaults boolForKey:AKUseICE] != newUseICE ||
 		![[defaults objectForKey:AKOutboundProxyHost] isEqualToString:newOutboundProxyHost] ||
@@ -791,6 +795,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	id sender = (id)contextInfo;
 	
 	if (returnCode == NSAlertFirstButtonReturn) {
+		[defaults setObject:[NSNumber numberWithInteger:[transportPort integerValue]] forKey:AKTransportPort];
 		[defaults setObject:[STUNServerHost stringValue] forKey:AKSTUNServerHost];
 		[defaults setObject:[NSNumber numberWithInteger:[STUNServerPort integerValue]] forKey:AKSTUNServerPort];
 		BOOL useICEFlag = ([useICECheckBox state] == NSOnState) ? YES : NO;
@@ -801,6 +806,11 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidChangeNetworkSettingsNotification
 															object:self];
 	} else if (returnCode == NSAlertThirdButtonReturn) {
+		if ([[defaults objectForKey:AKTransportPort] integerValue] == 0)
+			[transportPort setStringValue:@""];
+		else
+			[transportPort setIntegerValue:[[defaults objectForKey:AKTransportPort] integerValue]];
+		
 		[STUNServerHost setStringValue:[defaults objectForKey:AKSTUNServerHost]];
 		if ([[defaults objectForKey:AKSTUNServerPort] integerValue] == 0)
 			[STUNServerPort setStringValue:@""];

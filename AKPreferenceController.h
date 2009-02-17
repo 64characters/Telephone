@@ -87,6 +87,7 @@ extern NSString * const AKProxyPort;
 	IBOutlet NSPopUpButton *ringtonePopUp;
 	
 	// Network.
+	IBOutlet NSTextField *transportPort;
 	IBOutlet NSTextField *STUNServerHost;
 	IBOutlet NSTextField *STUNServerPort;
 	IBOutlet NSButton *useICECheckBox;

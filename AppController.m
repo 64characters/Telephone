@@ -926,6 +926,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	if (![[self telephone] started]) {
+		[[self telephone] setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
 		[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 		[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 		[[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
@@ -954,6 +955,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	}
 
 	[[self telephone] destroyUserAgent];
+	[[self telephone] setTransportPort:[[defaults objectForKey:AKTransportPort] integerValue]];
 	[[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
 	[[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 	[[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
