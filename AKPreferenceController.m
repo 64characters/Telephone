@@ -136,11 +136,19 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 {
 	self = [super initWithWindowNibName:@"Preferences"];
 	
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	
 	// Subscribe on mouse-down event of the ringing sound selection.
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(popUpButtonWillPopUpNotification:)
-												 name:NSPopUpButtonWillPopUpNotification
-											   object:ringtonePopUp];
+	[notificationCenter addObserver:self
+						   selector:@selector(popUpButtonWillPopUpNotification:)
+							   name:NSPopUpButtonWillPopUpNotification
+							 object:ringtonePopUp];
+	
+	// Subscribe to User Agent start events.
+	[notificationCenter addObserver:self
+						   selector:@selector(telephoneDidStartUserAgent:)
+							   name:AKTelephoneDidStartUserAgentNotification
+							 object:nil];
 	
 	return self;
 }
@@ -163,6 +171,11 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[[self window] setTitle:NSLocalizedString(@"General", @"General preferences window title.")];
 	
 	[self updateAudioDevices];
+	
+	// Show transport port in the network preferences as a placeholder string.
+	if ([[[NSApp delegate] telephone] started])
+		[transportPortCell setPlaceholderString:
+		 [[NSNumber numberWithUnsignedInteger:[[[NSApp delegate] telephone] transportPort]] stringValue]];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([[defaults objectForKey:AKTransportPort] integerValue] > 0)
@@ -795,6 +808,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	id sender = (id)contextInfo;
 	
 	if (returnCode == NSAlertFirstButtonReturn) {
+		[transportPortCell setPlaceholderString:[transportPort stringValue]];
 		[defaults setObject:[NSNumber numberWithInteger:[transportPort integerValue]] forKey:AKTransportPort];
 		[defaults setObject:[STUNServerHost stringValue] forKey:AKSTUNServerHost];
 		[defaults setObject:[NSNumber numberWithInteger:[STUNServerPort integerValue]] forKey:AKSTUNServerPort];
@@ -906,6 +920,17 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (void)popUpButtonWillPopUpNotification:(NSNotification *)notification
 {
 	[self updateAvailableSounds];
+}
+
+
+#pragma mark -
+#pragma mark AKTelephone notifications
+
+- (void)telephoneDidStartUserAgent:(NSNotification *)notification
+{
+	// Show transport port in the network preferences as a placeholder string.
+	[transportPortCell setPlaceholderString:
+	 [[NSNumber numberWithUnsignedInteger:[[[NSApp delegate] telephone] transportPort]] stringValue]];
 }
 
 @end

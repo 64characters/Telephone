@@ -39,6 +39,7 @@
 const NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
 const NSInteger AKTelephoneNameserversMax = 4;
 
+NSString * const AKTelephoneDidStartUserAgentNotification = @"AKTelephoneDidStartUserAgent";
 NSString * const AKTelephoneDidDetectNATNotification = @"AKTelephoneDidDetectNAT";
 
 // Generic config defaults.
@@ -120,6 +121,12 @@ typedef enum _AKTelephoneRingtones {
 			[notificationCenter addObserver:aDelegate
 								   selector:@selector(telephoneDidDetectNAT:)
 									   name:AKTelephoneDidDetectNATNotification
+									 object:self];
+		
+		if ([aDelegate respondsToSelector:@selector(telephoneDidStartUserAgent:)])
+			[notificationCenter addObserver:aDelegate
+								   selector:@selector(telephoneDidStartUserAgent:)
+									   name:AKTelephoneDidStartUserAgentNotification
 									 object:self];
 	}
 	
@@ -452,6 +459,9 @@ typedef enum _AKTelephoneRingtones {
 	}
 	
 	[self setStarted:YES];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:AKTelephoneDidStartUserAgentNotification
+														object:self];
 	
 	return YES;
 }

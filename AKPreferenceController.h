@@ -88,6 +88,7 @@ extern NSString * const AKProxyPort;
 	
 	// Network.
 	IBOutlet NSTextField *transportPort;
+	IBOutlet NSTextFieldCell *transportPortCell;
 	IBOutlet NSTextField *STUNServerHost;
 	IBOutlet NSTextField *STUNServerPort;
 	IBOutlet NSButton *useICECheckBox;

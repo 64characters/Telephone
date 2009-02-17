@@ -1877,6 +1877,14 @@
 					</object>
 					<int key="connectionID">495</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">transportPortCell</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="375863925"/>
+					</object>
+					<int key="connectionID">496</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3081,7 +3089,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">495</int>
+			<int key="maxID">496</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3159,6 +3167,7 @@
 							<string>substitutePlusCharacterCheckBox</string>
 							<string>toolbar</string>
 							<string>transportPort</string>
+							<string>transportPortCell</string>
 							<string>useICECheckBox</string>
 							<string>useProxyCheckBox</string>
 							<string>username</string>
@@ -3202,6 +3211,7 @@
 							<string>NSButton</string>
 							<string>NSToolbar</string>
 							<string>NSTextField</string>
+							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
