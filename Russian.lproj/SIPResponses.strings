@@ -23,13 +23,13 @@
 "Bad Request" = "Запрос не распознан";
 
 /* 600 Busy Everywhere. */
-"Busy Everywhere" = "Занято";
+"Busy Everywhere" = "Занято по всем направлениям";
 
 /* 486 Busy Here. */
 "Busy Here" = "Занято";
 
 /* 181 Call Is Being Forwarded. */
-"Call Is Being Forwarded" = "Звонок переводится";
+"Call Is Being Forwarded" = "Звонок переадресуется";
 
 /* 481 Call/Transaction Does Not Exist. */
 "Call/Transaction Does Not Exist" = "Не существует такого звонка или транзакции";
@@ -132,7 +132,7 @@
 "Session Progress" = "В процессе";
 
 /* 422 Session Timer Too Small. */
-"Session Timer Too Small" = "Session Timer Too Small";
+"Session Timer Too Small" = "Слишком короткий интервал обновления сессии";
 
 /* 480 Temporarily Unavailable. */
 "Temporarily Unavailable" = "Временно недоступен";
