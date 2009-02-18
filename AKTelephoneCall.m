@@ -207,6 +207,8 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification = @"AKTelephoneCallDid
 	[self setRemoteURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]]];
 	[self setLocalURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]]];
 	
+	[self setState:AKTelephoneCallNullState];
+	
 	[self setIncoming:NO];
 	
 	return self;

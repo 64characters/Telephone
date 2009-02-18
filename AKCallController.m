@@ -498,6 +498,13 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 			return YES;
 		
 		return NO;
+		
+	} else if ([menuItem action] == @selector(hangUpCall:)) {
+		if ([[self call] state] == AKTelephoneCallNullState ||
+			[[self call] state] == AKTelephoneCallDisconnectedState)
+			return NO;
+		
+		return YES;
 	}
 	
 	return YES;
