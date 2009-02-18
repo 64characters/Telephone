@@ -79,6 +79,8 @@
 // Search all account controllers for the call controller with given identifier (uuid).
 - (AKCallController *)callControllerByIdentifier:(NSString *)identifier;
 
+- (IBAction)openFAQURL:(id)sender;
+
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode;
 
 @end
