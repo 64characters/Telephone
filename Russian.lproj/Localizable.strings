@@ -131,11 +131,11 @@
 /* Detected Symmetric NAT. */
 "Symmetric NAT detected." = "Тип NAT определен как «симметричный».";
 
-/* Registrar authentication failed. */
-"Telephone was unable to login to %@. Change user name or password and try again." = "Телефон не смог зарегистрироваться на сервере %@. Проверьте имя пользователя и пароль.";
-
 /* Preferences default window title. */
 "Telephone Preferences" = "Настройки Телефона";
+
+/* Registrar authentication failed. */
+"Telephone was unable to login to %@. Change user name or password and try again." = "Телефон не смог зарегистрироваться на сервере %@. Проверьте имя пользователя и пароль.";
 
 /* Error description. */
 "The error was: \\U201C%d %@\\U201D." = "%2$@, ошибка %1$d.";

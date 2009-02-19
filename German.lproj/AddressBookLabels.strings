@@ -16,6 +16,9 @@
 /* Pager number. */
 "pager" = "Pager";
 
+/* SIP address. */
+"sip" = "SIP";
+
 /* Work phone number. */
 "work" = "Arbeit";
 

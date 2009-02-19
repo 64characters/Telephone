@@ -54,6 +54,8 @@
 		theString = NSLocalizedStringFromTable(@"pager", @"AddressBookLabels", @"Pager number.");
 	else if ([label isEqualToString:kABOtherLabel])
 		theString = NSLocalizedStringFromTable(@"other", @"AddressBookLabels", @"Other number.");
+	else if ([label isEqualToString:@"sip"])
+		theString = NSLocalizedStringFromTable(@"sip", @"AddressBookLabels", @"SIP address.");
 	else {
 		CFStringRef localizedLabel = ABCopyLocalizedPropertyOrLabel((CFStringRef)label);
 		theString = [(NSString *)localizedLabel autorelease];

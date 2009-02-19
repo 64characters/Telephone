@@ -110,3 +110,7 @@ enum {
 - (void)showConnectingMode;
 
 @end
+
+
+// Address Book label for SIP address in the email field.
+extern NSString * const AKEmailSIPLabel;

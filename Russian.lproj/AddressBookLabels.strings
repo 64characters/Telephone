@@ -16,6 +16,9 @@
 /* Pager number. */
 "pager" = "пейджер";
 
+/* SIP address. */
+"sip" = "sip";
+
 /* Work phone number. */
 "work" = "рабочий";
 
