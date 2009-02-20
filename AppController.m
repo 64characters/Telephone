@@ -1110,30 +1110,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 			[[anAccountController window] orderFront:nil];
 	}
 	
-	// Is there a key window already?
-	BOOL keyWindowExists = NO;
-	for (AKAccountController *anAccountController in immutableAccountControllers) {
-		if (keyWindowExists)	// Break this cicle from the included cicle below.
-			break;
-		
-		if (![anAccountController isEnabled])
-			continue;
-		
-		// Check the account window itsef.
-		if ([[anAccountController window] isKeyWindow]) {
-			keyWindowExists = YES;
-			break;
-		}
-		// Check call windows.
-		for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
-			if ([[aCallController window] isKeyWindow]) {
-				keyWindowExists = YES;
-				break;
-			}
-	}
-	
 	// Make first enabled account window key if there are no other key windows.
-	if (!keyWindowExists) {
+	if ([NSApp keyWindow] == nil) {
 		for (NSUInteger i = 0; i < [immutableAccountControllers count]; ++i) {
 			AKAccountController *anAccountController = [immutableAccountControllers objectAtIndex:i];
 			if ([anAccountController isEnabled]) {
