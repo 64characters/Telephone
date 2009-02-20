@@ -70,6 +70,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @dynamic ringtone;
 @synthesize ringtoneTimer;
 @dynamic hasIncomingCallControllers;
+@dynamic currentNameservers;
 
 - (NSSound *)ringtone
 {
@@ -108,6 +109,19 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	}
 	
 	return NO;
+}
+
+- (NSArray *)currentNameservers
+{
+	NSBundle *mainBundle = [NSBundle mainBundle];
+	NSString *bundleName = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
+	SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(NULL, (CFStringRef)bundleName, NULL, NULL);
+	CFPropertyListRef DNSSettings = SCDynamicStoreCopyValue(dynamicStore, CFSTR("State:/Network/Global/DNS"));
+	NSArray *nameservers = [[(NSDictionary *)DNSSettings objectForKey:@"ServerAddresses"] retain];
+	CFRelease(DNSSettings);
+	CFRelease(dynamicStore);
+	
+	return [nameservers autorelease];
 }
 
 + (void)initialize
@@ -233,12 +247,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	NSString *bundleShortVersion = [[mainBundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 	
 	if ([defaults boolForKey:AKUseDNSSRV]) {
-		SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(NULL, (CFStringRef)bundleName, NULL, NULL);
-		CFPropertyListRef DNSSettings = SCDynamicStoreCopyValue(dynamicStore, CFSTR("State:/Network/Global/DNS"));
-		NSArray *nameservers = [(NSDictionary *)DNSSettings objectForKey:@"ServerAddresses"];
-		[[self telephone] setNameservers:nameservers];
-		CFRelease(DNSSettings);
-		CFRelease(dynamicStore);
+		[[self telephone] setNameservers:[self currentNameservers]];
 	}
 	
 	[[self telephone] setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];

@@ -59,6 +59,7 @@
 @property(readwrite, retain) NSSound *ringtone;
 @property(readwrite, retain) NSTimer *ringtoneTimer;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
+@property(nonatomic, readonly, retain) NSArray *currentNameservers;
 
 // Hang up all calls, disconnect all accounts, destroy SIP user agent.
 - (void)stopTelephone;
