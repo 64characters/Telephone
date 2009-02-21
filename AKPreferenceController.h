@@ -68,6 +68,9 @@ extern NSString * const AKUseProxy;
 extern NSString * const AKProxyHost;
 extern NSString * const AKProxyPort;
 
+extern NSString * const AKSourceIndex;
+extern NSString * const AKDestinationIndex;
+
 @interface AKPreferenceController : NSWindowController {
 @private
 	id delegate;
@@ -176,4 +179,5 @@ enum {
 extern NSString * const AKPreferenceControllerDidAddAccountNotification;
 extern NSString * const AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex.
 extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex.
+extern NSString * const AKPreferenceControllerDidSwapAccountsNotification;	// AKSourceIndex, AKDestinationIndex.
 extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification;

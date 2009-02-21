@@ -944,6 +944,22 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	}
 }
 
+- (void)preferenceControllerDidSwapAccounts:(NSNotification *)notification
+{
+	NSDictionary *userInfo = [notification userInfo];
+	NSInteger sourceIndex = [[userInfo objectForKey:AKSourceIndex] integerValue];
+	NSInteger destinationIndex = [[userInfo objectForKey:AKDestinationIndex] integerValue];
+	
+	if (sourceIndex == destinationIndex)
+		return;
+	
+	[[self accountControllers] insertObject:[[self accountControllers] objectAtIndex:sourceIndex] atIndex:destinationIndex];
+	if (sourceIndex < destinationIndex)
+		[[self accountControllers] removeObjectAtIndex:sourceIndex];
+	else if (sourceIndex > destinationIndex)
+		[[self accountControllers] removeObjectAtIndex:(sourceIndex + 1)];
+}
+
 - (void)preferenceControllerDidChangeNetworkSettings:(NSNotification *)notification
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

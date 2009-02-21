@@ -35,6 +35,8 @@
 #import "NSWindowAdditions.h"
 
 
+NSString * const AKTelephoneAccountPboardType = @"AKTelephoneAccountPboardType";
+
 @interface AKPreferenceController()
 
 - (BOOL)checkForNetworkSettingsChanges:(id)sender;
@@ -78,9 +80,13 @@ NSString * const AKUseProxy = @"UseProxy";
 NSString * const AKProxyHost = @"ProxyHost";
 NSString * const AKProxyPort = @"ProxyPort";
 
+NSString * const AKSourceIndex = @"AKSourceIndex";
+NSString * const AKDestinationIndex = @"AKDestinationIndex";
+
 NSString * const AKPreferenceControllerDidAddAccountNotification = @"AKPreferenceControllerDidAddAccount";
 NSString * const AKPreferenceControllerDidRemoveAccountNotification = @"AKPreferenceControllerDidRemoveAccount";
 NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification = @"AKPreferenceControllerDidChangeAccountEnabled";
+NSString * const AKPreferenceControllerDidSwapAccountsNotification = @"AKPreferenceControllerDidSwapAccounts";
 NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"AKPreferenceControllerDidChangeNetworkSettings";
 
 @implementation AKPreferenceController
@@ -124,6 +130,12 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 									   name:AKPreferenceControllerDidChangeAccountEnabledNotification
 									 object:self];
 		
+		if ([aDelegate respondsToSelector:@selector(preferenceControllerDidSwapAccounts:)])
+			[notificationCenter addObserver:aDelegate
+								   selector:@selector(preferenceControllerDidSwapAccounts:)
+									   name:AKPreferenceControllerDidSwapAccountsNotification
+									 object:self];
+		
 		if ([aDelegate respondsToSelector:@selector(preferenceControllerDidChangeNetworkSettings:)])
 			[notificationCenter addObserver:aDelegate
 								   selector:@selector(preferenceControllerDidChangeNetworkSettings:)
@@ -162,6 +174,12 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	[super dealloc];
+}
+
+- (void)awakeFromNib
+{
+	// Register a pasteboard type to rearrange accounts with drag and drop.
+	[accountsTable registerForDraggedTypes:[NSArray arrayWithObject:AKTelephoneAccountPboardType]];
 }
 
 - (void)windowDidLoad
@@ -882,6 +900,72 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	NSDictionary *accountDict = [[defaults arrayForKey:AKAccounts] objectAtIndex:rowIndex];
 	
 	return [accountDict objectForKey:[aTableColumn identifier]];
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
+{
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
+	[pboard declareTypes:[NSArray arrayWithObject:AKTelephoneAccountPboardType] owner:self];
+	[pboard setData:data forType:AKTelephoneAccountPboardType];
+	
+	return YES;
+}
+
+- (NSDragOperation)tableView:(NSTableView *)aTableView
+				validateDrop:(id <NSDraggingInfo>)info
+				 proposedRow:(NSInteger)row
+	   proposedDropOperation:(NSTableViewDropOperation)operation
+{
+	NSData *data = [[info draggingPasteboard] dataForType:AKTelephoneAccountPboardType];
+	NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	NSInteger draggingRow = [indexes firstIndex];
+	
+	if (row == draggingRow || row == draggingRow + 1)
+		return NSDragOperationNone;
+	
+	[accountsTable setDropRow:row dropOperation:NSTableViewDropAbove];
+	
+	return NSDragOperationMove;
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView
+	   acceptDrop:(id <NSDraggingInfo>)info
+			  row:(NSInteger)row
+	dropOperation:(NSTableViewDropOperation)operation
+{
+	NSData *data = [[info draggingPasteboard] dataForType:AKTelephoneAccountPboardType];
+	NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	NSInteger draggingRow = [indexes firstIndex];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSMutableArray *accounts = [[defaults arrayForKey:AKAccounts] mutableCopy];
+	id selectedAccount = [accounts objectAtIndex:[accountsTable selectedRow]];
+	
+	// Swap accounts.
+	[accounts insertObject:[accounts objectAtIndex:draggingRow] atIndex:row];
+	if (draggingRow < row)
+		[accounts removeObjectAtIndex:draggingRow];
+	else if (draggingRow > row)
+		[accounts removeObjectAtIndex:(draggingRow + 1)];
+	else	// This should never happen because we don't validate such drop.
+		return NO;
+	
+	[defaults setObject:accounts forKey:AKAccounts];
+	[defaults synchronize];
+	
+	[accountsTable reloadData];
+	
+	// Preserve account selection.
+	[accountsTable selectRow:[accounts indexOfObject:selectedAccount] byExtendingSelection:NO];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidSwapAccountsNotification
+														object:self
+													  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																[NSNumber numberWithInteger:draggingRow], AKSourceIndex,
+																[NSNumber numberWithInteger:row], AKDestinationIndex,
+																nil]];
+	
+	return YES;
 }
 
 
