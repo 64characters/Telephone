@@ -201,19 +201,19 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	// waking up from sleep, switching user sesstion in and out.
 	notificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
 	[notificationCenter addObserver:self
-						   selector:@selector(workspaceWillSleepNotification:)
+						   selector:@selector(workspaceWillSleep:)
 							   name:NSWorkspaceWillSleepNotification
 							 object:nil];
 	[notificationCenter addObserver:self
-						   selector:@selector(workspaceDidWakeNotification:)
+						   selector:@selector(workspaceDidWake:)
 							   name:NSWorkspaceDidWakeNotification
 							 object:nil];
 	[notificationCenter addObserver:self
-						   selector:@selector(workspaceSessionDidResignActiveNotification:)
+						   selector:@selector(workspaceSessionDidResignActive:)
 							   name:NSWorkspaceSessionDidResignActiveNotification
 							 object:nil];
 	[notificationCenter addObserver:self
-						   selector:@selector(workspaceSessionDidBecomeActiveNotification:)
+						   selector:@selector(workspaceSessionDidBecomeActive:)
 							   name:NSWorkspaceSessionDidBecomeActiveNotification
 							 object:nil];
 	
@@ -1215,7 +1215,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 // End all calls, remove all accounts from Telephone and destroy SIP user agent
 // before computer goes to sleep.
-- (void)workspaceWillSleepNotification:(NSNotification *)notification
+- (void)workspaceWillSleep:(NSNotification *)notification
 {
 	if ([[self telephone] started])
 		[self stopTelephone];
@@ -1223,7 +1223,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 // Re-add all accounts to Telephone starting SIP user agent laizily after
 // computer wakes up from sleep.
-- (void)workspaceDidWakeNotification:(NSNotification *)notification
+- (void)workspaceDidWake:(NSNotification *)notification
 {
 	sleep(3);
 	
@@ -1244,7 +1244,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 }
 
 // Unregister all accounts when a user session is switched out.
-- (void)workspaceSessionDidResignActiveNotification:(NSNotification *)notification
+- (void)workspaceSessionDidResignActive:(NSNotification *)notification
 {
 	for (AKAccountController *anAccountController in [self accountControllers])
 		if ([anAccountController isEnabled])
@@ -1252,7 +1252,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 }
 
 // Re-register all accounts when a user session in switched in.
-- (void)workspaceSessionDidBecomeActiveNotification:(NSNotification *)notification
+- (void)workspaceSessionDidBecomeActive:(NSNotification *)notification
 {
 	for (AKAccountController *anAccountController in [self accountControllers])
 		if ([anAccountController isEnabled])

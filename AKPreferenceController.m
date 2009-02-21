@@ -154,7 +154,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	// Subscribe on mouse-down event of the ringing sound selection.
 	[notificationCenter addObserver:self
-						   selector:@selector(popUpButtonWillPopUpNotification:)
+						   selector:@selector(popUpButtonWillPopUp:)
 							   name:NSPopUpButtonWillPopUpNotification
 							 object:ringtonePopUp];
 	
@@ -1017,7 +1017,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 #pragma mark -
 #pragma mark NSPopUpButton notification
 
-- (void)popUpButtonWillPopUpNotification:(NSNotification *)notification
+- (void)popUpButtonWillPopUp:(NSNotification *)notification
 {
 	[self updateAvailableSounds];
 }
