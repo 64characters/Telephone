@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -45,7 +44,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="997324232">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -262,7 +261,6 @@ aWUgQmVudXR6ZXJuYW1lIG9kZXIgUGFzc3dvcnQgdW5kIHZlcnN1Y2hlbiBTaWUgZXMgZXJuZXV0Lg</
 						</object>
 					</object>
 					<string key="NSFrameSize">{479, 226}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -289,35 +287,11 @@ aWUgQmVudXR6ZXJuYW1lIG9kZXIgUGFzc3dvcnQgdW5kIHZlcnN1Y2hlbiBTaWUgZXMgZXJuZXV0Lg</
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">newUsername</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="911413864"/>
-					</object>
-					<int key="connectionID">27</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">newPassword</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="756083729"/>
-					</object>
-					<int key="connectionID">28</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">initialFirstResponder</string>
 						<reference key="source" ref="510659113"/>
 						<reference key="destination" ref="756083729"/>
 					</object>
 					<int key="connectionID">29</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mustSave</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="712841233"/>
-					</object>
-					<int key="connectionID">30</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -342,6 +316,30 @@ aWUgQmVudXR6ZXJuYW1lIG9kZXIgUGFzc3dvcnQgdW5kIHZlcnN1Y2hlbiBTaWUgZXMgZXJuZXV0Lg</
 						<reference key="destination" ref="642151646"/>
 					</object>
 					<int key="connectionID">36</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">newUsernameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="911413864"/>
+					</object>
+					<int key="connectionID">37</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">newPasswordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="756083729"/>
+					</object>
+					<int key="connectionID">38</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mustSaveCheckBox</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="712841233"/>
+					</object>
+					<int key="connectionID">39</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -612,7 +610,7 @@ aWUgQmVudXR6ZXJuYW1lIG9kZXIgUGFzc3dvcnQgdW5kIHZlcnN1Y2hlbiBTaWUgZXMgZXJuZXV0Lg</
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">36</int>
+			<int key="maxID">39</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -647,10 +645,10 @@ aWUgQmVudXR6ZXJuYW1lIG9kZXIgUGFzc3dvcnQgdW5kIHZlcnN1Y2hlbiBTaWUgZXMgZXJuZXV0Lg</
 							<string>activeAccountView</string>
 							<string>authenticationFailureCancelButton</string>
 							<string>authenticationFailureSheet</string>
-							<string>callDestination</string>
-							<string>mustSave</string>
-							<string>newPassword</string>
-							<string>newUsername</string>
+							<string>callDestinationField</string>
+							<string>mustSaveCheckBox</string>
+							<string>newPasswordField</string>
+							<string>newUsernameField</string>
 							<string>offlineAccountView</string>
 							<string>updateCredentialsInformativeText</string>
 						</object>

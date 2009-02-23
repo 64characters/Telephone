@@ -92,36 +92,36 @@ extern NSString * const AKDestinationIndex;
 	NSPopUpButton *ringtonePopUp;
 	
 	// Network.
-	NSTextField *transportPort;
+	NSTextField *transportPortField;
 	NSTextFieldCell *transportPortCell;
-	NSTextField *STUNServerHost;
-	NSTextField *STUNServerPort;
+	NSTextField *STUNServerHostField;
+	NSTextField *STUNServerPortField;
 	NSButton *useICECheckBox;
-	NSTextField *outboundProxyHost;
-	NSTextField *outboundProxyPort;
+	NSTextField *outboundProxyHostField;
+	NSTextField *outboundProxyPortField;
 	
 	// Account.
 	NSTableView *accountsTable;
 	NSButton *accountEnabledCheckBox;
-	NSTextField *fullName;
-	NSTextField *SIPAddress;
-	NSTextField *registrar;
-	NSTextField *username;
-	NSTextField *password;
-	NSTextField *reregistrationTime;
+	NSTextField *fullNameField;
+	NSTextField *SIPAddressField;
+	NSTextField *registrarField;
+	NSTextField *usernameField;
+	NSTextField *passwordField;
+	NSTextField *reregistrationTimeField;
 	NSButton *substitutePlusCharacterCheckBox;
-	NSTextField *plusCharacterSubstitution;
+	NSTextField *plusCharacterSubstitutionField;
 	NSButton *useProxyCheckBox;
-	NSTextField *proxyHost;
-	NSTextField *proxyPort;
+	NSTextField *proxyHostField;
+	NSTextField *proxyPortField;
 	
 	// Account Setup.
 	NSWindow *addAccountWindow;
-	NSTextField *setupFullName;
-	NSTextField *setupSIPAddress;
-	NSTextField *setupRegistrar;
-	NSTextField *setupUsername;
-	NSTextField *setupPassword;
+	NSTextField *setupFullNameField;
+	NSTextField *setupSIPAddressField;
+	NSTextField *setupRegistrarField;
+	NSTextField *setupUsernameField;
+	NSTextField *setupPasswordField;
 	NSButton *addAccountWindowDefaultButton;
 	NSButton *addAccountWindowOtherButton;
 }
@@ -143,34 +143,34 @@ extern NSString * const AKDestinationIndex;
 @property(nonatomic, retain) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
 @property(nonatomic, retain) IBOutlet NSPopUpButton *ringtonePopUp;
 
-@property(nonatomic, retain) IBOutlet NSTextField *transportPort;
+@property(nonatomic, retain) IBOutlet NSTextField *transportPortField;
 @property(nonatomic, retain) IBOutlet NSTextFieldCell *transportPortCell;
-@property(nonatomic, retain) IBOutlet NSTextField *STUNServerHost;
-@property(nonatomic, retain) IBOutlet NSTextField *STUNServerPort;
+@property(nonatomic, retain) IBOutlet NSTextField *STUNServerHostField;
+@property(nonatomic, retain) IBOutlet NSTextField *STUNServerPortField;
 @property(nonatomic, retain) IBOutlet NSButton *useICECheckBox;
-@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyHost;
-@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyPort;
+@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyHostField;
+@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyPortField;
 
 @property(nonatomic, retain) IBOutlet NSTableView *accountsTable;
 @property(nonatomic, retain) IBOutlet NSButton *accountEnabledCheckBox;
-@property(nonatomic, retain) IBOutlet NSTextField *fullName;
-@property(nonatomic, retain) IBOutlet NSTextField *SIPAddress;
-@property(nonatomic, retain) IBOutlet NSTextField *registrar;
-@property(nonatomic, retain) IBOutlet NSTextField *username;
-@property(nonatomic, retain) IBOutlet NSTextField *password;
-@property(nonatomic, retain) IBOutlet NSTextField *reregistrationTime;
+@property(nonatomic, retain) IBOutlet NSTextField *fullNameField;
+@property(nonatomic, retain) IBOutlet NSTextField *SIPAddressField;
+@property(nonatomic, retain) IBOutlet NSTextField *registrarField;
+@property(nonatomic, retain) IBOutlet NSTextField *usernameField;
+@property(nonatomic, retain) IBOutlet NSTextField *passwordField;
+@property(nonatomic, retain) IBOutlet NSTextField *reregistrationTimeField;
 @property(nonatomic, retain) IBOutlet NSButton *substitutePlusCharacterCheckBox;
-@property(nonatomic, retain) IBOutlet NSTextField *plusCharacterSubstitution;
+@property(nonatomic, retain) IBOutlet NSTextField *plusCharacterSubstitutionField;
 @property(nonatomic, retain) IBOutlet NSButton *useProxyCheckBox;
-@property(nonatomic, retain) IBOutlet NSTextField *proxyHost;
-@property(nonatomic, retain) IBOutlet NSTextField *proxyPort;
+@property(nonatomic, retain) IBOutlet NSTextField *proxyHostField;
+@property(nonatomic, retain) IBOutlet NSTextField *proxyPortField;
 
 @property(nonatomic, retain) IBOutlet NSWindow *addAccountWindow;
-@property(nonatomic, retain) IBOutlet NSTextField *setupFullName;
-@property(nonatomic, retain) IBOutlet NSTextField *setupSIPAddress;
-@property(nonatomic, retain) IBOutlet NSTextField *setupRegistrar;
-@property(nonatomic, retain) IBOutlet NSTextField *setupUsername;
-@property(nonatomic, retain) IBOutlet NSTextField *setupPassword;
+@property(nonatomic, retain) IBOutlet NSTextField *setupFullNameField;
+@property(nonatomic, retain) IBOutlet NSTextField *setupSIPAddressField;
+@property(nonatomic, retain) IBOutlet NSTextField *setupRegistrarField;
+@property(nonatomic, retain) IBOutlet NSTextField *setupUsernameField;
+@property(nonatomic, retain) IBOutlet NSTextField *setupPasswordField;
 @property(nonatomic, retain) IBOutlet NSButton *addAccountWindowDefaultButton;
 @property(nonatomic, retain) IBOutlet NSButton *addAccountWindowOtherButton;
 

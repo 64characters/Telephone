@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="148"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -223,7 +222,7 @@ A</string>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="73891457">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -904,7 +903,6 @@ A</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{539, 327}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="506588176">
@@ -1382,38 +1380,6 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">fullName</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="998389754"/>
-					</object>
-					<int key="connectionID">127</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">registrar</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="632500927"/>
-					</object>
-					<int key="connectionID">129</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">username</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="997259061"/>
-					</object>
-					<int key="connectionID">130</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">password</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="707445139"/>
-					</object>
-					<int key="connectionID">131</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="386726521"/>
 						<reference key="destination" ref="1001"/>
@@ -1517,14 +1483,6 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 					<int key="connectionID">189</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">SIPAddress</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="953798264"/>
-					</object>
-					<int key="connectionID">209</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">changeSoundIO:</string>
 						<reference key="source" ref="1001"/>
@@ -1555,22 +1513,6 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 						<reference key="destination" ref="872213969"/>
 					</object>
 					<int key="connectionID">234</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">STUNServerHost</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="166487519"/>
-					</object>
-					<int key="connectionID">239</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">STUNServerPort</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="904016809"/>
-					</object>
-					<int key="connectionID">240</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1717,22 +1659,6 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 					<int key="connectionID">327</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">outboundProxyHost</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="605483558"/>
-					</object>
-					<int key="connectionID">329</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">outboundProxyPort</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="534410664"/>
-					</object>
-					<int key="connectionID">330</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">changeSubstitutePlusCharacter:</string>
 						<reference key="source" ref="1001"/>
@@ -1749,36 +1675,12 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 					<int key="connectionID">359</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">plusCharacterSubstitution</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="247260880"/>
-					</object>
-					<int key="connectionID">360</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">changeUseProxy:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="630929724"/>
 					</object>
 					<int key="connectionID">361</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">proxyHost</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="383941550"/>
-					</object>
-					<int key="connectionID">362</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">proxyPort</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="257103432"/>
-					</object>
-					<int key="connectionID">363</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1862,14 +1764,6 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">transportPort</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="660245475"/>
-					</object>
-					<int key="connectionID">393</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">transportPortCell</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="164953311"/>
@@ -1894,11 +1788,115 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">reregistrationTime</string>
+						<string key="label">transportPortField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="660245475"/>
+					</object>
+					<int key="connectionID">404</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">STUNServerHostField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="166487519"/>
+					</object>
+					<int key="connectionID">405</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">STUNServerPortField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="904016809"/>
+					</object>
+					<int key="connectionID">406</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">outboundProxyHostField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="605483558"/>
+					</object>
+					<int key="connectionID">407</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">outboundProxyPortField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="534410664"/>
+					</object>
+					<int key="connectionID">408</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">fullNameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="998389754"/>
+					</object>
+					<int key="connectionID">409</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">SIPAddressField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="953798264"/>
+					</object>
+					<int key="connectionID">410</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">registrarField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="632500927"/>
+					</object>
+					<int key="connectionID">411</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">usernameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="997259061"/>
+					</object>
+					<int key="connectionID">412</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">passwordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="707445139"/>
+					</object>
+					<int key="connectionID">413</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">reregistrationTimeField</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="674665364"/>
 					</object>
-					<int key="connectionID">403</int>
+					<int key="connectionID">414</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">plusCharacterSubstitutionField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="247260880"/>
+					</object>
+					<int key="connectionID">415</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">proxyHostField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="383941550"/>
+					</object>
+					<int key="connectionID">416</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">proxyPortField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="257103432"/>
+					</object>
+					<int key="connectionID">417</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3142,7 +3140,7 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">403</int>
+			<int key="maxID">417</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3183,9 +3181,9 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>SIPAddress</string>
-							<string>STUNServerHost</string>
-							<string>STUNServerPort</string>
+							<string>SIPAddressField</string>
+							<string>STUNServerHostField</string>
+							<string>STUNServerPortField</string>
 							<string>accountEnabledCheckBox</string>
 							<string>accountsTable</string>
 							<string>accountsToolbarItem</string>
@@ -3194,37 +3192,37 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 							<string>addAccountWindowDefaultButton</string>
 							<string>addAccountWindowOtherButton</string>
 							<string>delegate</string>
-							<string>fullName</string>
+							<string>fullNameField</string>
 							<string>generalToolbarItem</string>
 							<string>generalView</string>
 							<string>networkToolbarItem</string>
 							<string>networkView</string>
-							<string>outboundProxyHost</string>
-							<string>outboundProxyPort</string>
-							<string>password</string>
-							<string>plusCharacterSubstitution</string>
-							<string>proxyHost</string>
-							<string>proxyPort</string>
-							<string>registrar</string>
-							<string>reregistrationTime</string>
+							<string>outboundProxyHostField</string>
+							<string>outboundProxyPortField</string>
+							<string>passwordField</string>
+							<string>plusCharacterSubstitutionField</string>
+							<string>proxyHostField</string>
+							<string>proxyPortField</string>
+							<string>registrarField</string>
+							<string>reregistrationTimeField</string>
 							<string>ringtoneOutputPopUp</string>
 							<string>ringtonePopUp</string>
-							<string>setupFullName</string>
-							<string>setupPassword</string>
-							<string>setupRegistrar</string>
-							<string>setupSIPAddress</string>
-							<string>setupUsername</string>
+							<string>setupFullNameField</string>
+							<string>setupPasswordField</string>
+							<string>setupRegistrarField</string>
+							<string>setupSIPAddressField</string>
+							<string>setupUsernameField</string>
 							<string>soundInputPopUp</string>
 							<string>soundOutputPopUp</string>
 							<string>soundToolbarItem</string>
 							<string>soundView</string>
 							<string>substitutePlusCharacterCheckBox</string>
 							<string>toolbar</string>
-							<string>transportPort</string>
 							<string>transportPortCell</string>
+							<string>transportPortField</string>
 							<string>useICECheckBox</string>
 							<string>useProxyCheckBox</string>
-							<string>username</string>
+							<string>usernameField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3265,8 +3263,8 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 							<string>NSView</string>
 							<string>NSButton</string>
 							<string>NSToolbar</string>
-							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
+							<string>NSTextField</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>

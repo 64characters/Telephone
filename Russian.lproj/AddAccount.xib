@@ -412,38 +412,6 @@
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">setupFullName</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="762787743"/>
-					</object>
-					<int key="connectionID">33</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">setupSIPAddress</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="972132702"/>
-					</object>
-					<int key="connectionID">34</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">setupRegistrar</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="709365429"/>
-					</object>
-					<int key="connectionID">35</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">setupUsername</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="401929333"/>
-					</object>
-					<int key="connectionID">36</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">closeSheet:</string>
 						<reference key="source" ref="1001"/>
@@ -458,14 +426,6 @@
 						<reference key="destination" ref="857063485"/>
 					</object>
 					<int key="connectionID">41</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">setupPassword</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="364435396"/>
-					</object>
-					<int key="connectionID">44</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -538,6 +498,46 @@
 						<reference key="destination" ref="857063485"/>
 					</object>
 					<int key="connectionID">62</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">setupFullNameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="762787743"/>
+					</object>
+					<int key="connectionID">63</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">setupSIPAddressField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="972132702"/>
+					</object>
+					<int key="connectionID">64</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">setupRegistrarField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="709365429"/>
+					</object>
+					<int key="connectionID">65</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">setupUsernameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="401929333"/>
+					</object>
+					<int key="connectionID">66</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">setupPasswordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="364435396"/>
+					</object>
+					<int key="connectionID">67</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -907,7 +907,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">62</int>
+			<int key="maxID">67</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -944,9 +944,9 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>SIPAddress</string>
-							<string>STUNServerHost</string>
-							<string>STUNServerPort</string>
+							<string>SIPAddressField</string>
+							<string>STUNServerHostField</string>
+							<string>STUNServerPortField</string>
 							<string>accountEnabledCheckBox</string>
 							<string>accountsTable</string>
 							<string>accountsToolbarItem</string>
@@ -955,24 +955,24 @@
 							<string>addAccountWindowDefaultButton</string>
 							<string>addAccountWindowOtherButton</string>
 							<string>delegate</string>
-							<string>fullName</string>
+							<string>fullNameField</string>
 							<string>generalToolbarItem</string>
 							<string>generalView</string>
 							<string>networkToolbarItem</string>
 							<string>networkView</string>
-							<string>password</string>
-							<string>registrar</string>
-							<string>setupFullName</string>
-							<string>setupPassword</string>
-							<string>setupRegistrar</string>
-							<string>setupSIPAddress</string>
-							<string>setupUsername</string>
+							<string>passwordField</string>
+							<string>registrarField</string>
+							<string>setupFullNameField</string>
+							<string>setupPasswordField</string>
+							<string>setupRegistrarField</string>
+							<string>setupSIPAddressField</string>
+							<string>setupUsernameField</string>
 							<string>soundInputPopUp</string>
 							<string>soundOutputPopUp</string>
 							<string>soundToolbarItem</string>
 							<string>soundView</string>
 							<string>toolbar</string>
-							<string>username</string>
+							<string>usernameField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>

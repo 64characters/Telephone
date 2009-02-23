@@ -104,13 +104,13 @@ NSString * const AKEmailSIPLabel = @"sip";
 @synthesize activeAccountView;
 @synthesize offlineAccountView;
 @synthesize accountRegistrationPopUp;
-@synthesize callDestination;
+@synthesize callDestinationField;
 
 @synthesize authenticationFailureSheet;
 @synthesize updateCredentialsInformativeText;
-@synthesize newUsername;
-@synthesize newPassword;
-@synthesize mustSave;
+@synthesize newUsernameField;
+@synthesize newPasswordField;
+@synthesize mustSaveCheckBox;
 @synthesize authenticationFailureCancelButton;
 
 - (BOOL)isAccountRegistered
@@ -227,7 +227,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 		[[self account] setDelegate:nil];
 	
 	// Close authentication failure sheet if it's raised
-	[authenticationFailureCancelButton performClick:nil];
+	[[self authenticationFailureCancelButton] performClick:nil];
 	
 	[account release];
 	[callControllers release];
@@ -237,12 +237,12 @@ NSString * const AKEmailSIPLabel = @"sip";
 	[activeAccountView release];
 	[offlineAccountView release];
 	[accountRegistrationPopUp release];
-	[callDestination release];
+	[callDestinationField release];
 	[authenticationFailureSheet release];
 	[updateCredentialsInformativeText release];
-	[newUsername release];
-	[newPassword release];
-	[mustSave release];
+	[newUsernameField release];
+	[newPasswordField release];
+	[mustSaveCheckBox release];
 	[authenticationFailureCancelButton release];
 	
 	[super dealloc];
@@ -259,9 +259,9 @@ NSString * const AKEmailSIPLabel = @"sip";
 	[[self window] setFrameAutosaveName:[[self account] SIPAddress]];
 	
 	// Exclude comma from the callDestination tokenizing character set.
-	[callDestination setTokenizingCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
+	[[self callDestinationField] setTokenizingCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
 	
-	[callDestination setCompletionDelay:0.4];
+	[[self callDestinationField] setCompletionDelay:0.4];
 }
 
 - (void)removeAccountFromTelephone
@@ -286,14 +286,14 @@ NSString * const AKEmailSIPLabel = @"sip";
 // Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender
 {
-	if ([[callDestination objectValue] count] == 0)
+	if ([[[self callDestinationField] objectValue] count] == 0)
 		return;
 		
-	NSDictionary *primaryDestinationDict = [[[callDestination objectValue] objectAtIndex:0] objectAtIndex:[self callDestinationURIIndex]];
+	NSDictionary *primaryDestinationDict = [[[[self callDestinationField] objectValue] objectAtIndex:0] objectAtIndex:[self callDestinationURIIndex]];
 	AKSIPURI *originalURI = [[[primaryDestinationDict objectForKey:AKURI] copy] autorelease];
 	NSString *phoneLabel = [primaryDestinationDict objectForKey:AKPhoneLabel];
 	
-	AKSIPURI *firstURI = [[[[callDestination objectValue] objectAtIndex:0] objectAtIndex:0] objectForKey:AKURI];
+	AKSIPURI *firstURI = [[[[[self callDestinationField] objectValue] objectAtIndex:0] objectAtIndex:0] objectForKey:AKURI];
 	
 	if ([[originalURI user] length] == 0)
 		return;
@@ -411,14 +411,14 @@ NSString * const AKEmailSIPLabel = @"sip";
 {
 	[self closeSheet:sender];
 	
-	if (![[newUsername stringValue] isEqualToString:@""]) {
+	if (![[[self newUsernameField] stringValue] isEqualToString:@""]) {
 		[self removeAccountFromTelephone];
-		[[self account] setUsername:[newUsername stringValue]];
+		[[self account] setUsername:[[self newUsernameField] stringValue]];
 		
 		[self showConnectingMode];
 		
 		// Add account to Telephone.
-		[[[NSApp delegate] telephone] addAccount:[self account] withPassword:[newPassword stringValue]];
+		[[[NSApp delegate] telephone] addAccount:[self account] withPassword:[[self newPasswordField] stringValue]];
 		
 		// Error connecting to registrar.
 		if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
@@ -444,13 +444,13 @@ NSString * const AKEmailSIPLabel = @"sip";
 			[self showRegistrarConnectionErrorSheetWithError:error];
 		}
 		
-		if ([mustSave state] == NSOnState)
+		if ([[self mustSaveCheckBox] state] == NSOnState)
 			[AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [[self account] registrar]]
-								   accountName:[newUsername stringValue]
-									  password:[newPassword stringValue]];
+								   accountName:[[self newUsernameField] stringValue]
+									  password:[[self newPasswordField] stringValue]];
 	}
 	
-	[newPassword setStringValue:@""];
+	[[self newPasswordField] setStringValue:@""];
 }
 
 - (IBAction)closeSheet:(id)sender
@@ -504,8 +504,8 @@ NSString * const AKEmailSIPLabel = @"sip";
 	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
 	[[self window] setContentView:[self activeAccountView]];
 	
-	if ([callDestination acceptsFirstResponder])
-		[[self window] makeFirstResponder:callDestination];
+	if ([[self callDestinationField] acceptsFirstResponder])
+		[[self window] makeFirstResponder:[self callDestinationField]];
 }
 
 - (void)showUnregisteredMode
@@ -525,8 +525,8 @@ NSString * const AKEmailSIPLabel = @"sip";
 	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
 	[[self window] setContentView:[self activeAccountView]];
 	
-	if ([callDestination acceptsFirstResponder])
-		[[self window] makeFirstResponder:callDestination];
+	if ([[self callDestinationField] acceptsFirstResponder])
+		[[self window] makeFirstResponder:[self callDestinationField]];
 }
 
 - (void)showOfflineMode
@@ -621,18 +621,18 @@ NSString * const AKEmailSIPLabel = @"sip";
 		
 		// Handle authentication failure
 		if ([[self account] registrationStatus] == PJSIP_EFAILEDCREDENTIAL) {
-			if (authenticationFailureSheet == nil)
+			if ([self authenticationFailureSheet] == nil)
 				[NSBundle loadNibNamed:@"AuthFailed" owner:self];
 			
-			[updateCredentialsInformativeText setStringValue:
+			[[self updateCredentialsInformativeText] setStringValue:
 			 [NSString stringWithFormat:NSLocalizedString(@"Telephone was unable to login to %@. " \
 														  "Change user name or password and try again.",
 														  @"Registrar authentication failed."),
 			  [[self account] registrar]]];
-			[newUsername setStringValue:[[self account] username]];
-			[newPassword setStringValue:@""];
+			[[self newUsernameField] setStringValue:[[self account] username]];
+			[[self newPasswordField] setStringValue:@""];
 			
-			[NSApp beginSheet:authenticationFailureSheet
+			[NSApp beginSheet:[self authenticationFailureSheet]
 			   modalForWindow:[self window]
 				modalDelegate:nil
 			   didEndSelector:NULL

@@ -55,15 +55,15 @@ enum {
 	NSView *activeAccountView;
 	NSView *offlineAccountView;
 	NSPopUpButton *accountRegistrationPopUp;
-	NSTokenField *callDestination;
+	NSTokenField *callDestinationField;
 	NSUInteger callDestinationURIIndex;
 	
 	// Authentication failure sheet elements.
 	NSWindow *authenticationFailureSheet;
 	NSTextField *updateCredentialsInformativeText;
-	NSTextField *newUsername;
-	NSTextField *newPassword;
-	NSButton *mustSave;
+	NSTextField *newUsernameField;
+	NSTextField *newPasswordField;
+	NSButton *mustSaveCheckBox;
 	NSButton *authenticationFailureCancelButton;
 }
 
@@ -77,13 +77,13 @@ enum {
 @property(nonatomic, retain) IBOutlet NSView *activeAccountView;
 @property(nonatomic, retain) IBOutlet NSView *offlineAccountView;
 @property(nonatomic, retain) IBOutlet NSPopUpButton *accountRegistrationPopUp;
-@property(nonatomic, retain) IBOutlet NSTokenField *callDestination;
+@property(nonatomic, retain) IBOutlet NSTokenField *callDestinationField;
 
 @property(nonatomic, retain) IBOutlet NSWindow *authenticationFailureSheet;
 @property(nonatomic, retain) IBOutlet NSTextField *updateCredentialsInformativeText;
-@property(nonatomic, retain) IBOutlet NSTextField *newUsername;
-@property(nonatomic, retain) IBOutlet NSTextField *newPassword;
-@property(nonatomic, retain) IBOutlet NSButton *mustSave;
+@property(nonatomic, retain) IBOutlet NSTextField *newUsernameField;
+@property(nonatomic, retain) IBOutlet NSTextField *newPasswordField;
+@property(nonatomic, retain) IBOutlet NSButton *mustSaveCheckBox;
 @property(nonatomic, retain) IBOutlet NSButton *authenticationFailureCancelButton;
 
 // Designated initializer

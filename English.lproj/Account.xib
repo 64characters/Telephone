@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -63,11 +62,9 @@
 							<string key="NSToolbarItemPaletteLabel">Registration Menu</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSPopUpButton" key="NSToolbarItemView" id="1059843186">
-								<reference key="NSNextResponder"/>
+								<nil key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{8, 14}, {90, 18}}</string>
-								<reference key="NSSuperview"/>
-								<reference key="NSWindow"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="228019211">
 									<int key="NSCellFlags">-2076049856</int>
@@ -155,7 +152,6 @@
 											</object>
 										</object>
 									</object>
-									<int key="NSSelectedIndex">4</int>
 									<bool key="NSPullDown">YES</bool>
 									<int key="NSPreferredEdge">1</int>
 									<bool key="NSUsesItemFromMenu">YES</bool>
@@ -190,10 +186,9 @@
 				<string key="NSWindowContentMaxSize">{2560, 62}</string>
 				<string key="NSWindowContentMinSize">{260, 62}</string>
 				<object class="NSView" key="NSWindowView" id="501585761">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<string key="NSFrameSize">{260, 62}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{260, 110}</string>
@@ -298,14 +293,6 @@
 					<int key="connectionID">96</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">callDestination</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="964762988"/>
-					</object>
-					<int key="connectionID">109</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">makeCall:</string>
 						<reference key="source" ref="1001"/>
@@ -336,6 +323,14 @@
 						<reference key="destination" ref="230395515"/>
 					</object>
 					<int key="connectionID">114</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">callDestinationField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="964762988"/>
+					</object>
+					<int key="connectionID">116</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -583,7 +578,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">115</int>
+			<int key="maxID">116</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -618,10 +613,10 @@
 							<string>activeAccountView</string>
 							<string>authenticationFailureCancelButton</string>
 							<string>authenticationFailureSheet</string>
-							<string>callDestination</string>
-							<string>mustSave</string>
-							<string>newPassword</string>
-							<string>newUsername</string>
+							<string>callDestinationField</string>
+							<string>mustSaveCheckBox</string>
+							<string>newPasswordField</string>
+							<string>newUsernameField</string>
 							<string>offlineAccountView</string>
 							<string>updateCredentialsInformativeText</string>
 						</object>
