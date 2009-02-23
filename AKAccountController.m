@@ -95,10 +95,23 @@ NSString * const AKEmailSIPLabel = @"sip";
 @synthesize callControllers;
 @synthesize substitutesPlusCharacter;
 @synthesize plusCharacterSubstitution;
+
 @synthesize attemptsToRegisterAccount;
 @synthesize attemptsToUnregisterAccount;
 @synthesize reRegistrationTimer;
 @synthesize callDestinationURIIndex;
+
+@synthesize activeAccountView;
+@synthesize offlineAccountView;
+@synthesize accountRegistrationPopUp;
+@synthesize callDestination;
+
+@synthesize authenticationFailureSheet;
+@synthesize updateCredentialsInformativeText;
+@synthesize newUsername;
+@synthesize newPassword;
+@synthesize mustSave;
+@synthesize authenticationFailureCancelButton;
 
 - (BOOL)isAccountRegistered
 {
@@ -121,7 +134,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 	if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {	// If account was added to Telephone.
 		[self showConnectingMode];
 		// Explicitly redisplay button before DNS will look up the registrar host name.
-		[[accountRegistrationPopUp superview] display];
+		[[[self accountRegistrationPopUp] superview] display];
 		
 		[[self account] setRegistered:flag];
 	} else {
@@ -130,7 +143,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 		
 		[self showConnectingMode];
 		// Explicitly redisplay button before DNS will look up the registrar host name.
-		[[accountRegistrationPopUp superview] display];
+		[[[self accountRegistrationPopUp] superview] display];
 		
 		// Add account to Telephone
 		[[[NSApp delegate] telephone] addAccount:[self account] withPassword:password];
@@ -220,6 +233,17 @@ NSString * const AKEmailSIPLabel = @"sip";
 	[callControllers release];
 	[plusCharacterSubstitution release];
 	[self setReRegistrationTimer:nil];
+	
+	[activeAccountView release];
+	[offlineAccountView release];
+	[accountRegistrationPopUp release];
+	[callDestination release];
+	[authenticationFailureSheet release];
+	[updateCredentialsInformativeText release];
+	[newUsername release];
+	[newPassword release];
+	[mustSave release];
+	[authenticationFailureCancelButton release];
 	
 	[super dealloc];
 }
@@ -465,7 +489,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 - (void)showRegisteredMode
 {
-	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	if ([preferredLocalization isEqualToString:@"English"])
 		buttonSize.width = AKAccountRegistrationButtonAvailableEnglishWidth;
@@ -473,12 +497,12 @@ NSString * const AKEmailSIPLabel = @"sip";
 		buttonSize.width = AKAccountRegistrationButtonAvailableRussianWidth;
 	else if ([preferredLocalization isEqualToString:@"German"])
 		buttonSize.width = AKAccountRegistrationButtonAvailableGermanWidth;
-	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Available", @"Account registration Available menu item.")];
+	[[self accountRegistrationPopUp] setFrameSize:buttonSize];
+	[[self accountRegistrationPopUp] setTitle:NSLocalizedString(@"Available", @"Account registration Available menu item.")];
 	
-	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOnState];
-	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
-	[[self window] setContentView:activeAccountView];
+	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOnState];
+	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
+	[[self window] setContentView:[self activeAccountView]];
 	
 	if ([callDestination acceptsFirstResponder])
 		[[self window] makeFirstResponder:callDestination];
@@ -486,7 +510,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 - (void)showUnregisteredMode
 {
-	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	if ([preferredLocalization isEqualToString:@"English"])
 		buttonSize.width = AKAccountRegistrationButtonUnavailableEnglishWidth;
@@ -494,12 +518,12 @@ NSString * const AKEmailSIPLabel = @"sip";
 		buttonSize.width = AKAccountRegistrationButtonUnavailableRussianWidth;
 	else if ([preferredLocalization isEqualToString:@"German"])
 		buttonSize.width = AKAccountRegistrationButtonUnavailableGermanWidth;
-	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
+	[[self accountRegistrationPopUp] setFrameSize:buttonSize];
+	[[self accountRegistrationPopUp] setTitle:NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
 	
-	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
-	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
-	[[self window] setContentView:activeAccountView];
+	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
+	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOnState];
+	[[self window] setContentView:[self activeAccountView]];
 	
 	if ([callDestination acceptsFirstResponder])
 		[[self window] makeFirstResponder:callDestination];
@@ -507,7 +531,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 - (void)showOfflineMode
 {
-	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	if ([preferredLocalization isEqualToString:@"English"])
 		buttonSize.width = AKAccountRegistrationButtonOfflineEnglishWidth;
@@ -515,17 +539,17 @@ NSString * const AKEmailSIPLabel = @"sip";
 		buttonSize.width = AKAccountRegistrationButtonOfflineRussianWidth;
 	else if ([preferredLocalization isEqualToString:@"German"])
 		buttonSize.width = AKAccountRegistrationButtonOfflineGermanWidth;
-	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Offline", @"Account registration Offline menu item.")];
+	[[self accountRegistrationPopUp] setFrameSize:buttonSize];
+	[[self accountRegistrationPopUp] setTitle:NSLocalizedString(@"Offline", @"Account registration Offline menu item.")];
 	
-	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
-	[[[accountRegistrationPopUp menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
-	[[self window] setContentView:offlineAccountView];
+	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountRegisterTag] setState:NSOffState];
+	[[[[self accountRegistrationPopUp] menu] itemWithTag:AKTelephoneAccountUnregisterTag] setState:NSOffState];
+	[[self window] setContentView:[self offlineAccountView]];
 }
 
 - (void)showConnectingMode
 {
-	NSSize buttonSize = [accountRegistrationPopUp frame].size;
+	NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
 	NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 	if ([preferredLocalization isEqualToString:@"English"])
 		buttonSize.width = AKAccountRegistrationButtonConnectingEnglishWidth;
@@ -533,8 +557,8 @@ NSString * const AKEmailSIPLabel = @"sip";
 		buttonSize.width = AKAccountRegistrationButtonConnectingRussianWidth;
 	else if ([preferredLocalization isEqualToString:@"German"])
 		buttonSize.width = AKAccountRegistrationButtonConnectingGermanWidth;
-	[accountRegistrationPopUp setFrameSize:buttonSize];
-	[accountRegistrationPopUp setTitle:NSLocalizedString(@"Connecting...", @"Account registration Connecting... menu item.")];
+	[[self accountRegistrationPopUp] setFrameSize:buttonSize];
+	[[self accountRegistrationPopUp] setTitle:NSLocalizedString(@"Connecting...", @"Account registration Connecting... menu item.")];
 }
 
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer

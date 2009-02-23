@@ -52,19 +52,19 @@ enum {
 	BOOL substitutesPlusCharacter;
 	NSString *plusCharacterSubstitution;
 	
-	IBOutlet NSView *activeAccountView;
-	IBOutlet NSView *offlineAccountView;
-	IBOutlet NSPopUpButton *accountRegistrationPopUp;
-	IBOutlet NSTokenField *callDestination;
+	NSView *activeAccountView;
+	NSView *offlineAccountView;
+	NSPopUpButton *accountRegistrationPopUp;
+	NSTokenField *callDestination;
 	NSUInteger callDestinationURIIndex;
 	
-	// Authentication failure sheet outlets
-	IBOutlet NSWindow *authenticationFailureSheet;
-	IBOutlet NSTextField *updateCredentialsInformativeText;
-	IBOutlet NSTextField *newUsername;
-	IBOutlet NSTextField *newPassword;
-	IBOutlet NSButton *mustSave;
-	IBOutlet NSButton *authenticationFailureCancelButton;
+	// Authentication failure sheet elements.
+	NSWindow *authenticationFailureSheet;
+	NSTextField *updateCredentialsInformativeText;
+	NSTextField *newUsername;
+	NSTextField *newPassword;
+	NSButton *mustSave;
+	NSButton *authenticationFailureCancelButton;
 }
 
 @property(readwrite, assign, getter=isEnabled) BOOL enabled;
@@ -73,6 +73,18 @@ enum {
 @property(readonly, retain) NSMutableArray *callControllers;
 @property(readwrite, assign) BOOL substitutesPlusCharacter;
 @property(readwrite, copy) NSString *plusCharacterSubstitution;
+
+@property(nonatomic, retain) IBOutlet NSView *activeAccountView;
+@property(nonatomic, retain) IBOutlet NSView *offlineAccountView;
+@property(nonatomic, retain) IBOutlet NSPopUpButton *accountRegistrationPopUp;
+@property(nonatomic, retain) IBOutlet NSTokenField *callDestination;
+
+@property(nonatomic, retain) IBOutlet NSWindow *authenticationFailureSheet;
+@property(nonatomic, retain) IBOutlet NSTextField *updateCredentialsInformativeText;
+@property(nonatomic, retain) IBOutlet NSTextField *newUsername;
+@property(nonatomic, retain) IBOutlet NSTextField *newPassword;
+@property(nonatomic, retain) IBOutlet NSButton *mustSave;
+@property(nonatomic, retain) IBOutlet NSButton *authenticationFailureCancelButton;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;

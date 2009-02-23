@@ -62,6 +62,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 @synthesize incomingCallView;
 @synthesize activeCallView;
 @synthesize endedCallView;
+@synthesize hangUpButton;
+@synthesize acceptCallButton;
+@synthesize declineCallButton;
+@synthesize displayedNameField;
+@synthesize endedCallDisplayedNameField;
+@synthesize statusField;
 @synthesize callProgressIndicator;
 
 - (AKTelephoneCall *)call
@@ -149,6 +155,17 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	[enteredCallDestination release];
 	[enteredDTMF release];
 	
+	[incomingCallView release];
+	[activeCallView release];
+	[endedCallView release];
+	[hangUpButton release];
+	[acceptCallButton release];
+	[declineCallButton release];
+	[displayedNameField release];
+	[endedCallDisplayedNameField release];
+	[statusField release];
+	[callProgressIndicator release];
+	
 	[super dealloc];
 }
 
@@ -171,8 +188,8 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 		[[NSApp delegate] stopRingtoneTimer];
 	
 	[[self call] hangUp];
-	[hangUpButton setEnabled:NO];
-	[callProgressIndicator stopAnimation:self];
+	[[self hangUpButton] setEnabled:NO];
+	[[self callProgressIndicator] stopAnimation:self];
 }
 
 - (IBAction)toggleCallHold:(id)sender
@@ -302,7 +319,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	
 	if (![[self call] isIncoming]) {
 		if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
-			[callProgressIndicator stopAnimation:self];
+			[[self callProgressIndicator] stopAnimation:self];
 			[self setStatus:NSLocalizedString(@"ringing", @"Remote party ringing.")];
 		}
 		
@@ -317,7 +334,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	if ([[notification object] isIncoming])
 		[[NSApp delegate] stopRingtoneTimer];
 	
-	[callProgressIndicator stopAnimation:self];
+	[[self callProgressIndicator] stopAnimation:self];
 	[self setStatus:@"00:00"];
 	
 	[self startCallTimer];
@@ -369,10 +386,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 	
 	[[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
 	
-	[callProgressIndicator stopAnimation:self];
-	[hangUpButton setEnabled:NO];
-	[acceptCallButton setEnabled:NO];
-	[declineCallButton setEnabled:NO];
+	[[self callProgressIndicator] stopAnimation:self];
+	[[self hangUpButton] setEnabled:NO];
+	[[self acceptCallButton] setEnabled:NO];
+	[[self declineCallButton] setEnabled:NO];
 	
 	// Show Growl notification.
 	NSString *notificationTitle;
@@ -456,9 +473,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 			if ([[self enteredDTMF] length] == 0) {
 				[[self enteredDTMF] appendString:aString];
 				[[self window] setTitle:[self displayedName]];
-				if ([[displayedNameField cell] lineBreakMode] != NSLineBreakByTruncatingHead) {
-					[[displayedNameField cell] setLineBreakMode:NSLineBreakByTruncatingHead];
-					[endedCallDisplayedNameField setSelectable:YES];
+				if ([[[self displayedNameField] cell] lineBreakMode] != NSLineBreakByTruncatingHead) {
+					[[[self displayedNameField] cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+					[[self endedCallDisplayedNameField] setSelectable:YES];
 				}
 				[self setDisplayedName:aString];
 			} else {

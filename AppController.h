@@ -46,7 +46,7 @@
 	NSSound *ringtone;
 	NSTimer *ringtoneTimer;
 	
-	IBOutlet NSMenuItem *preferencesMenuItem;
+	NSMenuItem *preferencesMenuItem;
 }
 
 @property(readonly, retain) AKTelephone *telephone;
@@ -60,6 +60,8 @@
 @property(readwrite, retain) NSTimer *ringtoneTimer;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 @property(nonatomic, readonly, retain) NSArray *currentNameservers;
+
+@property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
 // Hang up all calls, disconnect all accounts, destroy SIP user agent.
 - (void)stopTelephone;

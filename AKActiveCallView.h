@@ -36,7 +36,7 @@
 	id <AKActiveCallViewDelegate> _delegate;
 }
 
-@property(readwrite, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;
+@property(nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;
 
 @end
 

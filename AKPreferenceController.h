@@ -75,61 +75,104 @@ extern NSString * const AKDestinationIndex;
 @private
 	id delegate;
 	
-	IBOutlet NSToolbar *toolbar;
-	IBOutlet NSToolbarItem *generalToolbarItem;
-	IBOutlet NSToolbarItem *accountsToolbarItem;
-	IBOutlet NSToolbarItem *soundToolbarItem;
-	IBOutlet NSToolbarItem *networkToolbarItem;
-	IBOutlet NSView *generalView;
-	IBOutlet NSView *accountsView;
-	IBOutlet NSView *soundView;
-	IBOutlet NSView *networkView;
+	NSToolbar *toolbar;
+	NSToolbarItem *generalToolbarItem;
+	NSToolbarItem *accountsToolbarItem;
+	NSToolbarItem *soundToolbarItem;
+	NSToolbarItem *networkToolbarItem;
+	NSView *generalView;
+	NSView *accountsView;
+	NSView *soundView;
+	NSView *networkView;
 
 	// Sound.
-	IBOutlet NSPopUpButton *soundInputPopUp;
-	IBOutlet NSPopUpButton *soundOutputPopUp;
-	IBOutlet NSPopUpButton *ringtoneOutputPopUp;
-	IBOutlet NSPopUpButton *ringtonePopUp;
+	NSPopUpButton *soundInputPopUp;
+	NSPopUpButton *soundOutputPopUp;
+	NSPopUpButton *ringtoneOutputPopUp;
+	NSPopUpButton *ringtonePopUp;
 	
 	// Network.
-	IBOutlet NSTextField *transportPort;
-	IBOutlet NSTextFieldCell *transportPortCell;
-	IBOutlet NSTextField *STUNServerHost;
-	IBOutlet NSTextField *STUNServerPort;
-	IBOutlet NSButton *useICECheckBox;
-	IBOutlet NSTextField *outboundProxyHost;
-	IBOutlet NSTextField *outboundProxyPort;
+	NSTextField *transportPort;
+	NSTextFieldCell *transportPortCell;
+	NSTextField *STUNServerHost;
+	NSTextField *STUNServerPort;
+	NSButton *useICECheckBox;
+	NSTextField *outboundProxyHost;
+	NSTextField *outboundProxyPort;
 	
 	// Account.
-	IBOutlet NSTableView *accountsTable;
-	IBOutlet NSButton *accountEnabledCheckBox;
-	IBOutlet NSTextField *fullName;
-	IBOutlet NSTextField *SIPAddress;
-	IBOutlet NSTextField *registrar;
-	IBOutlet NSTextField *username;
-	IBOutlet NSTextField *password;
-	IBOutlet NSTextField *reregistrationTime;
-	IBOutlet NSButton *substitutePlusCharacterCheckBox;
-	IBOutlet NSTextField *plusCharacterSubstitution;
-	IBOutlet NSButton *useProxyCheckBox;
-	IBOutlet NSTextField *proxyHost;
-	IBOutlet NSTextField *proxyPort;
+	NSTableView *accountsTable;
+	NSButton *accountEnabledCheckBox;
+	NSTextField *fullName;
+	NSTextField *SIPAddress;
+	NSTextField *registrar;
+	NSTextField *username;
+	NSTextField *password;
+	NSTextField *reregistrationTime;
+	NSButton *substitutePlusCharacterCheckBox;
+	NSTextField *plusCharacterSubstitution;
+	NSButton *useProxyCheckBox;
+	NSTextField *proxyHost;
+	NSTextField *proxyPort;
 	
 	// Account Setup.
-	IBOutlet NSWindow *addAccountWindow;
-	IBOutlet NSTextField *setupFullName;
-	IBOutlet NSTextField *setupSIPAddress;
-	IBOutlet NSTextField *setupRegistrar;
-	IBOutlet NSTextField *setupUsername;
-	IBOutlet NSTextField *setupPassword;
-	IBOutlet NSButton *addAccountWindowDefaultButton;
-	IBOutlet NSButton *addAccountWindowOtherButton;
+	NSWindow *addAccountWindow;
+	NSTextField *setupFullName;
+	NSTextField *setupSIPAddress;
+	NSTextField *setupRegistrar;
+	NSTextField *setupUsername;
+	NSTextField *setupPassword;
+	NSButton *addAccountWindowDefaultButton;
+	NSButton *addAccountWindowOtherButton;
 }
 
 @property(nonatomic, readwrite, assign) id delegate;
-@property(readonly, retain) NSWindow *addAccountWindow;
-@property(readonly, retain) NSButton *addAccountWindowDefaultButton;
-@property(readonly, retain) NSButton *addAccountWindowOtherButton;
+
+@property(nonatomic, retain) IBOutlet NSToolbar *toolbar;
+@property(nonatomic, retain) IBOutlet NSToolbarItem *generalToolbarItem;
+@property(nonatomic, retain) IBOutlet NSToolbarItem *accountsToolbarItem;
+@property(nonatomic, retain) IBOutlet NSToolbarItem *soundToolbarItem;
+@property(nonatomic, retain) IBOutlet NSToolbarItem *networkToolbarItem;
+@property(nonatomic, retain) IBOutlet NSView *generalView;
+@property(nonatomic, retain) IBOutlet NSView *accountsView;
+@property(nonatomic, retain) IBOutlet NSView *soundView;
+@property(nonatomic, retain) IBOutlet NSView *networkView;
+
+@property(nonatomic, retain) IBOutlet NSPopUpButton *soundInputPopUp;
+@property(nonatomic, retain) IBOutlet NSPopUpButton *soundOutputPopUp;
+@property(nonatomic, retain) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
+@property(nonatomic, retain) IBOutlet NSPopUpButton *ringtonePopUp;
+
+@property(nonatomic, retain) IBOutlet NSTextField *transportPort;
+@property(nonatomic, retain) IBOutlet NSTextFieldCell *transportPortCell;
+@property(nonatomic, retain) IBOutlet NSTextField *STUNServerHost;
+@property(nonatomic, retain) IBOutlet NSTextField *STUNServerPort;
+@property(nonatomic, retain) IBOutlet NSButton *useICECheckBox;
+@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyHost;
+@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyPort;
+
+@property(nonatomic, retain) IBOutlet NSTableView *accountsTable;
+@property(nonatomic, retain) IBOutlet NSButton *accountEnabledCheckBox;
+@property(nonatomic, retain) IBOutlet NSTextField *fullName;
+@property(nonatomic, retain) IBOutlet NSTextField *SIPAddress;
+@property(nonatomic, retain) IBOutlet NSTextField *registrar;
+@property(nonatomic, retain) IBOutlet NSTextField *username;
+@property(nonatomic, retain) IBOutlet NSTextField *password;
+@property(nonatomic, retain) IBOutlet NSTextField *reregistrationTime;
+@property(nonatomic, retain) IBOutlet NSButton *substitutePlusCharacterCheckBox;
+@property(nonatomic, retain) IBOutlet NSTextField *plusCharacterSubstitution;
+@property(nonatomic, retain) IBOutlet NSButton *useProxyCheckBox;
+@property(nonatomic, retain) IBOutlet NSTextField *proxyHost;
+@property(nonatomic, retain) IBOutlet NSTextField *proxyPort;
+
+@property(nonatomic, retain) IBOutlet NSWindow *addAccountWindow;
+@property(nonatomic, retain) IBOutlet NSTextField *setupFullName;
+@property(nonatomic, retain) IBOutlet NSTextField *setupSIPAddress;
+@property(nonatomic, retain) IBOutlet NSTextField *setupRegistrar;
+@property(nonatomic, retain) IBOutlet NSTextField *setupUsername;
+@property(nonatomic, retain) IBOutlet NSTextField *setupPassword;
+@property(nonatomic, retain) IBOutlet NSButton *addAccountWindowDefaultButton;
+@property(nonatomic, retain) IBOutlet NSButton *addAccountWindowOtherButton;
 
 // Change view in Preferences window
 - (IBAction)changeView:(id)sender;

@@ -72,6 +72,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @dynamic hasIncomingCallControllers;
 @dynamic currentNameservers;
 
+@synthesize preferencesMenuItem;
+
 - (NSSound *)ringtone
 {
 	return [[ringtone retain] autorelease];
@@ -232,6 +234,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[audioDevices release];
 	[ringtone release];
 	
+	[preferencesMenuItem release];
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 	
@@ -284,7 +288,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	// Setup an account on first launch.
 	if ([savedAccounts count] == 0) {			// There are no saved accounts, prompt user to add one.
 		// Disable Preferences during the first account prompt.
-		[preferencesMenuItem setAction:NULL];
+		[[self preferencesMenuItem] setAction:NULL];
 		
 		preferenceController = [[AKPreferenceController alloc] init];
 		[[self preferenceController] setDelegate:self];
@@ -613,7 +617,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 	[[self preferenceController] addAccount:sender];
 	
 	// Re-enable Preferences.
-	[preferencesMenuItem setAction:@selector(showPreferencePanel:)];
+	[[self preferencesMenuItem] setAction:@selector(showPreferencePanel:)];
 	
 	// Change back targets and actions of addAccountWindow buttons.
 	[[[self preferenceController] addAccountWindowDefaultButton] setTarget:[self preferenceController]];

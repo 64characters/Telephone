@@ -92,7 +92,50 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 @implementation AKPreferenceController
 
 @dynamic delegate;
+
+@synthesize toolbar;
+@synthesize generalToolbarItem;
+@synthesize accountsToolbarItem;
+@synthesize soundToolbarItem;
+@synthesize networkToolbarItem;
+@synthesize generalView;
+@synthesize accountsView;
+@synthesize soundView;
+@synthesize networkView;
+
+@synthesize soundInputPopUp;
+@synthesize soundOutputPopUp;
+@synthesize ringtoneOutputPopUp;
+@synthesize ringtonePopUp;
+
+@synthesize transportPort;
+@synthesize transportPortCell;
+@synthesize STUNServerHost;
+@synthesize STUNServerPort;
+@synthesize useICECheckBox;
+@synthesize outboundProxyHost;
+@synthesize outboundProxyPort;
+
+@synthesize accountsTable;
+@synthesize accountEnabledCheckBox;
+@synthesize fullName;
+@synthesize SIPAddress;
+@synthesize registrar;
+@synthesize username;
+@synthesize password;
+@synthesize reregistrationTime;
+@synthesize substitutePlusCharacterCheckBox;
+@synthesize plusCharacterSubstitution;
+@synthesize useProxyCheckBox;
+@synthesize proxyHost;
+@synthesize proxyPort;
+
 @synthesize addAccountWindow;
+@synthesize setupFullName;
+@synthesize setupSIPAddress;
+@synthesize setupRegistrar;
+@synthesize setupUsername;
+@synthesize setupPassword;
 @synthesize addAccountWindowDefaultButton;
 @synthesize addAccountWindowOtherButton;
 
@@ -156,7 +199,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[notificationCenter addObserver:self
 						   selector:@selector(popUpButtonWillPopUp:)
 							   name:NSPopUpButtonWillPopUpNotification
-							 object:ringtonePopUp];
+							 object:[self ringtonePopUp]];
 	
 	// Subscribe to User Agent start events.
 	[notificationCenter addObserver:self
@@ -173,42 +216,88 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+	[toolbar release];
+	[generalToolbarItem release];
+	[accountsToolbarItem release];
+	[soundToolbarItem release];
+	[networkToolbarItem release];
+	[generalView release];
+	[accountsView release];
+	[soundView release];
+	[networkView release];
+	
+	[soundInputPopUp release];
+	[soundOutputPopUp release];
+	[ringtoneOutputPopUp release];
+	[ringtonePopUp release];
+	
+	[transportPort release];
+	[transportPortCell release];
+	[STUNServerHost release];
+	[STUNServerPort release];
+	[useICECheckBox release];
+	[outboundProxyHost release];
+	[outboundProxyPort release];
+	
+	[accountsTable release];
+	[accountEnabledCheckBox release];
+	[fullName release];
+	[SIPAddress release];
+	[registrar release];
+	[username release];
+	[password release];
+	[reregistrationTime release];
+	[substitutePlusCharacterCheckBox release];
+	[plusCharacterSubstitution release];
+	[useProxyCheckBox release];
+	[proxyHost release];
+	[proxyPort release];
+	
+	[addAccountWindow release];
+	[setupFullName release];
+	[setupSIPAddress release];
+	[setupRegistrar release];
+	[setupUsername release];
+	[setupPassword release];
+	[addAccountWindowDefaultButton release];
+	[addAccountWindowOtherButton release];
+	
 	[super dealloc];
 }
 
 - (void)awakeFromNib
 {
 	// Register a pasteboard type to rearrange accounts with drag and drop.
-	[accountsTable registerForDraggedTypes:[NSArray arrayWithObject:AKTelephoneAccountPboardType]];
+	[[self accountsTable] registerForDraggedTypes:[NSArray arrayWithObject:AKTelephoneAccountPboardType]];
 }
 
 - (void)windowDidLoad
 {
 	[self updateAvailableSounds];
 	
-	[toolbar setSelectedItemIdentifier:[generalToolbarItem itemIdentifier]];
-	[[self window] resizeAndSwapToContentView:generalView];
+	[[self toolbar] setSelectedItemIdentifier:[[self generalToolbarItem] itemIdentifier]];
+	[[self window] resizeAndSwapToContentView:[self generalView]];
 	[[self window] setTitle:NSLocalizedString(@"General", @"General preferences window title.")];
 	
 	[self updateAudioDevices];
 	
 	// Show transport port in the network preferences as a placeholder string.
 	if ([[[NSApp delegate] telephone] started])
-		[transportPortCell setPlaceholderString:
+		[[self transportPortCell] setPlaceholderString:
 		 [[NSNumber numberWithUnsignedInteger:[[[NSApp delegate] telephone] transportPort]] stringValue]];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([[defaults objectForKey:AKTransportPort] integerValue] > 0)
-		[transportPort setIntegerValue:[[defaults objectForKey:AKTransportPort] integerValue]];
-	[STUNServerHost setStringValue:[defaults stringForKey:AKSTUNServerHost]];
+		[[self transportPort] setIntegerValue:[[defaults objectForKey:AKTransportPort] integerValue]];
+	[[self STUNServerHost] setStringValue:[defaults stringForKey:AKSTUNServerHost]];
 	if ([[defaults objectForKey:AKSTUNServerPort] integerValue] > 0)
-		[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
-	[useICECheckBox setState:[[defaults objectForKey:AKUseICE] integerValue]];
-	[outboundProxyHost setStringValue:[defaults stringForKey:AKOutboundProxyHost]];
+		[[self STUNServerPort] setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+	[[self useICECheckBox] setState:[[defaults objectForKey:AKUseICE] integerValue]];
+	[[self outboundProxyHost] setStringValue:[defaults stringForKey:AKOutboundProxyHost]];
 	if ([[defaults objectForKey:AKOutboundProxyPort] integerValue] > 0)
-		[outboundProxyPort setIntegerValue:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
+		[[self outboundProxyPort] setIntegerValue:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 		
-	NSInteger row = [accountsTable selectedRow];
+	NSInteger row = [[self accountsTable] selectedRow];
 	if (row == -1)
 		return;
 	
@@ -218,7 +307,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 - (IBAction)changeView:(id)sender
 {
 	// If the user switches from Network to some other view, check for network settings changes.
-	if ([[[self window] contentView] isEqual:networkView] && [sender tag] != AKNetworkPreferencesTag) {
+	if ([[[self window] contentView] isEqual:[self networkView]] && [sender tag] != AKNetworkPreferencesTag) {
 		BOOL networkSettingsChanged = [self checkForNetworkSettingsChanges:sender];
 		if (networkSettingsChanged)
 			return;
@@ -230,22 +319,22 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	
 	switch ([sender tag]) {
 		case AKGeneralPreferencesTag:
-			view = generalView;
+			view = [self generalView];
 			title = NSLocalizedString(@"General", @"General preferences window title.");
 			firstResponderView = nil;
 			break;
 		case AKAccountsPreferencesTag:
-			view = accountsView;
+			view = [self accountsView];
 			title = NSLocalizedString(@"Accounts", @"Accounts preferences window title.");
-			firstResponderView = accountsTable;
+			firstResponderView = [self accountsTable];
 			break;
 		case AKSoundPreferencesTag:
-			view = soundView;
+			view = [self soundView];
 			title = NSLocalizedString(@"Sound", @"Sound preferences window title.");
 			firstResponderView = nil;
 			break;
 		case AKNetworkPreferencesTag:
-			view = networkView;
+			view = [self networkView];
 			title = NSLocalizedString(@"Network", @"Network preferences window title.");
 			firstResponderView = nil;
 			break;
@@ -264,18 +353,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 
 - (IBAction)showAddAccountSheet:(id)sender
 {
-	if (addAccountWindow == nil)
+	if ([self addAccountWindow] == nil)
 		[NSBundle loadNibNamed:@"AddAccount" owner:self];
 	
-	[setupFullName setStringValue:@""];
-	[setupSIPAddress setStringValue:@""];
-	[setupRegistrar setStringValue:@""];
-	[setupUsername setStringValue:@""];
-	[setupPassword setStringValue:@""];
-	[addAccountWindow makeFirstResponder:setupFullName];
+	[[self setupFullName] setStringValue:@""];
+	[[self setupSIPAddress] setStringValue:@""];
+	[[self setupRegistrar] setStringValue:@""];
+	[[self setupUsername] setStringValue:@""];
+	[[self setupPassword] setStringValue:@""];
+	[[self addAccountWindow] makeFirstResponder:[self setupFullName]];
 	
-	[NSApp beginSheet:addAccountWindow
-	   modalForWindow:[accountsView window]
+	[NSApp beginSheet:[self addAccountWindow]
+	   modalForWindow:[[self accountsView] window]
 		modalDelegate:nil
 	   didEndSelector:NULL
 		  contextInfo:NULL];
@@ -289,21 +378,21 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 
 - (IBAction)addAccount:(id)sender
 {
-	if ([[setupFullName stringValue] isEqual:@""] ||
-		[[setupSIPAddress stringValue] isEqual:@""] ||
-		[[setupRegistrar stringValue] isEqual:@""] ||
-		[[setupUsername stringValue] isEqual:@""])
+	if ([[[self setupFullName] stringValue] isEqual:@""] ||
+		[[[self setupSIPAddress] stringValue] isEqual:@""] ||
+		[[[self setupRegistrar] stringValue] isEqual:@""] ||
+		[[[self setupUsername] stringValue] isEqual:@""])
 	{
 		return;
 	}
 	
 	NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
 	[accountDict setObject:[NSNumber numberWithBool:YES] forKey:AKAccountEnabled];
-	[accountDict setObject:[setupFullName stringValue] forKey:AKFullName];
-	[accountDict setObject:[setupSIPAddress stringValue] forKey:AKSIPAddress];
-	[accountDict setObject:[setupRegistrar stringValue] forKey:AKRegistrar];
+	[accountDict setObject:[[self setupFullName] stringValue] forKey:AKFullName];
+	[accountDict setObject:[[self setupSIPAddress] stringValue] forKey:AKSIPAddress];
+	[accountDict setObject:[[self setupRegistrar] stringValue] forKey:AKRegistrar];
 	[accountDict setObject:@"*" forKey:AKRealm];
-	[accountDict setObject:[setupUsername stringValue] forKey:AKUsername];
+	[accountDict setObject:[[self setupUsername] stringValue] forKey:AKUsername];
 	[accountDict setObject:[NSNumber numberWithInteger:0] forKey:AKReregistrationTime];
 	[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKSubstitutePlusCharacter];
 	[accountDict setObject:@"00" forKey:AKPlusCharacterSubstitutionString];
@@ -318,12 +407,12 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	[defaults synchronize];
 	
 	// Inform accounts table about update
-	[accountsTable reloadData];
+	[[self accountsTable] reloadData];
 	
 	BOOL success;
-	success = [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [setupRegistrar stringValue]]
-									 accountName:[setupUsername stringValue]
-										password:[setupPassword stringValue]];
+	success = [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [[self setupRegistrar] stringValue]]
+									 accountName:[[self setupUsername] stringValue]
+										password:[[self setupPassword] stringValue]];
 	
 	[self closeSheet:sender];
 	
@@ -337,22 +426,22 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	// Set the selection to the new account
 	NSUInteger index = [[defaults arrayForKey:AKAccounts] count] - 1;
 	if (index != 0) {
-		[accountsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index]
-				   byExtendingSelection:NO];
+		[[self accountsTable] selectRowIndexes:[NSIndexSet indexSetWithIndex:index]
+						  byExtendingSelection:NO];
 	}
 }
 
 - (IBAction)showRemoveAccountSheet:(id)sender
 {
-	NSInteger index = [accountsTable selectedRow];
+	NSInteger index = [[self accountsTable] selectedRow];
 	if (index == -1) {
 		NSBeep();
 		return;
 	}
 	
 	NSTableColumn *theColumn = [[[NSTableColumn alloc] initWithIdentifier:@"SIPAddress"] autorelease];
-	NSString *selectedAccount = [[accountsTable dataSource] tableView:accountsTable
-											objectValueForTableColumn:theColumn row:index];
+	NSString *selectedAccount = [[[self accountsTable] dataSource] tableView:[self accountsTable]
+												   objectValueForTableColumn:theColumn row:index];
 	
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
@@ -366,7 +455,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 												 @"Account removal confirmation informative text."),
 							   selectedAccount]];
 	[alert setAlertStyle:NSWarningAlertStyle];
-	[alert beginSheetModalForWindow:[accountsTable window]
+	[alert beginSheetModalForWindow:[[self accountsTable] window]
 					  modalDelegate:self
 					 didEndSelector:@selector(removeAccountAlertDidEnd:returnCode:contextInfo:)
 						contextInfo:NULL];
@@ -375,7 +464,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 - (void)removeAccountAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	if (returnCode == NSAlertFirstButtonReturn)
-		[self removeAccountAtIndex:[accountsTable selectedRow]];
+		[self removeAccountAtIndex:[[self accountsTable] selectedRow]];
 }
 
 - (void)removeAccountAtIndex:(NSInteger)index
@@ -390,16 +479,16 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 														object:self
 													  userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:index]
 																						   forKey:AKAccountIndex]];
-	[accountsTable reloadData];
+	[[self accountsTable] reloadData];
 	
 	// Select none, last or previous account.
 	if ([savedAccounts count] == 0) {
 		return;
 	} else if (index >= ([savedAccounts count] - 1)) {
-		[accountsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:([savedAccounts count] - 1)] byExtendingSelection:NO];
+		[[self accountsTable] selectRowIndexes:[NSIndexSet indexSetWithIndex:([savedAccounts count] - 1)] byExtendingSelection:NO];
 		[self populateFieldsForAccountAtIndex:([savedAccounts count] - 1)];
 	} else {
-		[accountsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
+		[[self accountsTable] selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
 		[self populateFieldsForAccountAtIndex:index];
 	}
 }
@@ -412,113 +501,113 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	if (index >= 0) {
 		NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
 		
-		[accountEnabledCheckBox setEnabled:YES];
+		[[self accountEnabledCheckBox] setEnabled:YES];
 		
 		// Conditionally enable fields and set checkboxes state.
 		if ([[accountDict objectForKey:AKAccountEnabled] boolValue]) {
-			[accountEnabledCheckBox setState:NSOnState];
-			[fullName setEnabled:NO];
-			[SIPAddress setEnabled:NO];
-			[registrar setEnabled:NO];
-			[username setEnabled:NO];
-			[password setEnabled:NO];
-			[reregistrationTime setEnabled:NO];
-			[substitutePlusCharacterCheckBox setEnabled:NO];
-			[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
-			[plusCharacterSubstitution setEnabled:NO];
-			[useProxyCheckBox setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
-			[useProxyCheckBox setEnabled:NO];
-			[proxyHost setEnabled:NO];
-			[proxyPort setEnabled:NO];
+			[[self accountEnabledCheckBox] setState:NSOnState];
+			[[self fullName] setEnabled:NO];
+			[[self SIPAddress] setEnabled:NO];
+			[[self registrar] setEnabled:NO];
+			[[self username] setEnabled:NO];
+			[[self password] setEnabled:NO];
+			[[self reregistrationTime] setEnabled:NO];
+			[[self substitutePlusCharacterCheckBox] setEnabled:NO];
+			[[self substitutePlusCharacterCheckBox] setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
+			[[self plusCharacterSubstitution] setEnabled:NO];
+			[[self useProxyCheckBox] setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
+			[[self useProxyCheckBox] setEnabled:NO];
+			[[self proxyHost] setEnabled:NO];
+			[[self proxyPort] setEnabled:NO];
 		} else {
-			[accountEnabledCheckBox setState:NSOffState];
-			[fullName setEnabled:YES];
-			[SIPAddress setEnabled:YES];
-			[registrar setEnabled:YES];
-			[username setEnabled:YES];
-			[password setEnabled:YES];
+			[[self accountEnabledCheckBox] setState:NSOffState];
+			[[self fullName] setEnabled:YES];
+			[[self SIPAddress] setEnabled:YES];
+			[[self registrar] setEnabled:YES];
+			[[self username] setEnabled:YES];
+			[[self password] setEnabled:YES];
 			
-			[reregistrationTime setEnabled:YES];
-			[substitutePlusCharacterCheckBox setEnabled:YES];
-			[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
-			if ([substitutePlusCharacterCheckBox state] == NSOnState)
-				[plusCharacterSubstitution setEnabled:YES];
+			[[self reregistrationTime] setEnabled:YES];
+			[[self substitutePlusCharacterCheckBox] setEnabled:YES];
+			[[self substitutePlusCharacterCheckBox] setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
+			if ([[self substitutePlusCharacterCheckBox] state] == NSOnState)
+				[[self plusCharacterSubstitution] setEnabled:YES];
 			else
-				[plusCharacterSubstitution setEnabled:NO];
+				[[self plusCharacterSubstitution] setEnabled:NO];
 			
-			[useProxyCheckBox setEnabled:YES];
-			[useProxyCheckBox setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
-			if ([useProxyCheckBox state] == NSOnState) {
-				[proxyHost setEnabled:YES];
-				[proxyPort setEnabled:YES];
+			[[self useProxyCheckBox] setEnabled:YES];
+			[[self useProxyCheckBox] setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
+			if ([[self useProxyCheckBox] state] == NSOnState) {
+				[[self proxyHost] setEnabled:YES];
+				[[self proxyPort] setEnabled:YES];
 			} else {
-				[proxyHost setEnabled:NO];
-				[proxyPort setEnabled:NO];
+				[[self proxyHost] setEnabled:NO];
+				[[self proxyPort] setEnabled:NO];
 			}
 		}
 		
 		// Populate fields.
-		[fullName setStringValue:[accountDict objectForKey:AKFullName]];
-		[SIPAddress setStringValue:[accountDict objectForKey:AKSIPAddress]];
-		[registrar setStringValue:[accountDict objectForKey:AKRegistrar]];
-		[username setStringValue:[accountDict objectForKey:AKUsername]];
+		[[self fullName] setStringValue:[accountDict objectForKey:AKFullName]];
+		[[self SIPAddress] setStringValue:[accountDict objectForKey:AKSIPAddress]];
+		[[self registrar] setStringValue:[accountDict objectForKey:AKRegistrar]];
+		[[self username] setStringValue:[accountDict objectForKey:AKUsername]];
 
-		[password setStringValue:[AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
-																	 [accountDict objectForKey:AKRegistrar]]
-														accountName:[accountDict objectForKey:AKUsername]]];
+		[[self password] setStringValue:[AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
+																			[accountDict objectForKey:AKRegistrar]]
+															   accountName:[accountDict objectForKey:AKUsername]]];
 		
 		if ([[accountDict objectForKey:AKReregistrationTime] integerValue] > 0)
-			[reregistrationTime setIntegerValue:[[accountDict objectForKey:AKReregistrationTime] integerValue]];
+			[[self reregistrationTime] setIntegerValue:[[accountDict objectForKey:AKReregistrationTime] integerValue]];
 		else
-			[reregistrationTime setStringValue:@""];
+			[[self reregistrationTime] setStringValue:@""];
 		
 		if ([accountDict objectForKey:AKPlusCharacterSubstitutionString] != nil)
-			[plusCharacterSubstitution setStringValue:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
+			[[self plusCharacterSubstitution] setStringValue:[accountDict objectForKey:AKPlusCharacterSubstitutionString]];
 		else
-			[plusCharacterSubstitution setStringValue:@"00"];
+			[[self plusCharacterSubstitution] setStringValue:@"00"];
 		
 		if ([accountDict objectForKey:AKProxyHost] != nil)
-			[proxyHost setStringValue:[accountDict objectForKey:AKProxyHost]];
+			[[self proxyHost] setStringValue:[accountDict objectForKey:AKProxyHost]];
 		else
-			[proxyHost setStringValue:@""];
+			[[self proxyHost] setStringValue:@""];
 		
 		if ([[accountDict objectForKey:AKProxyPort] integerValue] > 0)
-			[proxyPort setIntegerValue:[[accountDict objectForKey:AKProxyPort] integerValue]];
+			[[self proxyPort] setIntegerValue:[[accountDict objectForKey:AKProxyPort] integerValue]];
 		else
-			[proxyPort setStringValue:@""];
+			[[self proxyPort] setStringValue:@""];
 		
 	} else {
-		[accountEnabledCheckBox setState:NSOffState];
-		[fullName setStringValue:@""];
-		[SIPAddress setStringValue:@""];
-		[registrar setStringValue:@""];
-		[username setStringValue:@""];
-		[password setStringValue:@""];
-		[reregistrationTime setStringValue:@""];
-		[substitutePlusCharacterCheckBox setState:NSOffState];
-		[plusCharacterSubstitution setStringValue:@"00"];
-		[useProxyCheckBox setState:NSOffState];
-		[proxyHost setStringValue:@""];
-		[proxyPort setStringValue:@""];
+		[[self accountEnabledCheckBox] setState:NSOffState];
+		[[self fullName] setStringValue:@""];
+		[[self SIPAddress] setStringValue:@""];
+		[[self registrar] setStringValue:@""];
+		[[self username] setStringValue:@""];
+		[[self password] setStringValue:@""];
+		[[self reregistrationTime] setStringValue:@""];
+		[[self substitutePlusCharacterCheckBox] setState:NSOffState];
+		[[self plusCharacterSubstitution] setStringValue:@"00"];
+		[[self useProxyCheckBox] setState:NSOffState];
+		[[self proxyHost] setStringValue:@""];
+		[[self proxyPort] setStringValue:@""];
 		
-		[accountEnabledCheckBox setEnabled:NO];
-		[fullName setEnabled:NO];
-		[SIPAddress setEnabled:NO];
-		[registrar setEnabled:NO];
-		[username setEnabled:NO];
-		[password setEnabled:NO];
-		[reregistrationTime setEnabled:NO];
-		[substitutePlusCharacterCheckBox setEnabled:NO];
-		[plusCharacterSubstitution setEnabled:NO];
-		[useProxyCheckBox setEnabled:NO];
-		[proxyHost setEnabled:NO];
-		[proxyPort setEnabled:NO];
+		[[self accountEnabledCheckBox] setEnabled:NO];
+		[[self fullName] setEnabled:NO];
+		[[self SIPAddress] setEnabled:NO];
+		[[self registrar] setEnabled:NO];
+		[[self username] setEnabled:NO];
+		[[self password] setEnabled:NO];
+		[[self reregistrationTime] setEnabled:NO];
+		[[self substitutePlusCharacterCheckBox] setEnabled:NO];
+		[[self plusCharacterSubstitution] setEnabled:NO];
+		[[self useProxyCheckBox] setEnabled:NO];
+		[[self proxyHost] setEnabled:NO];
+		[[self proxyPort] setEnabled:NO];
 	}
 }
 
 - (IBAction)changeAccountEnabled:(id)sender
 {
-	NSInteger index = [accountsTable selectedRow];
+	NSInteger index = [[self accountsTable] selectedRow];
 	if (index == -1)
 		return;	
 	
@@ -530,71 +619,71 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:AKAccounts]];
 	NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:[savedAccounts objectAtIndex:index]];
 	
-	BOOL isChecked = ([accountEnabledCheckBox state] == NSOnState) ? YES : NO;
+	BOOL isChecked = ([[self accountEnabledCheckBox] state] == NSOnState) ? YES : NO;
 	[accountDict setObject:[NSNumber numberWithBool:isChecked] forKey:AKAccountEnabled];
 	
 	if (isChecked) {
 		// User enabled the account.
 		// Account fields could be edited, save them.
-		[accountDict setObject:[fullName stringValue] forKey:AKFullName];
-		[accountDict setObject:[SIPAddress stringValue] forKey:AKSIPAddress];
-		[accountDict setObject:[registrar stringValue] forKey:AKRegistrar];
-		[accountDict setObject:[username stringValue] forKey:AKUsername];
-		[AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [registrar stringValue]]
-							   accountName:[username stringValue]
-								  password:[password stringValue]];
+		[accountDict setObject:[[self fullName] stringValue] forKey:AKFullName];
+		[accountDict setObject:[[self SIPAddress] stringValue] forKey:AKSIPAddress];
+		[accountDict setObject:[[self registrar] stringValue] forKey:AKRegistrar];
+		[accountDict setObject:[[self username] stringValue] forKey:AKUsername];
+		[AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", [[self registrar] stringValue]]
+							   accountName:[[self username] stringValue]
+								  password:[[self password] stringValue]];
 		
-		[accountDict setObject:[NSNumber numberWithInteger:[reregistrationTime integerValue]] forKey:AKReregistrationTime];
+		[accountDict setObject:[NSNumber numberWithInteger:[[self reregistrationTime] integerValue]] forKey:AKReregistrationTime];
 		
-		if ([substitutePlusCharacterCheckBox state] == NSOnState)		
+		if ([[self substitutePlusCharacterCheckBox] state] == NSOnState)		
 			[accountDict setObject:[NSNumber numberWithBool:YES] forKey:AKSubstitutePlusCharacter];
 		else
 			[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKSubstitutePlusCharacter];
-		[accountDict setObject:[plusCharacterSubstitution stringValue] forKey:AKPlusCharacterSubstitutionString];
+		[accountDict setObject:[[self plusCharacterSubstitution] stringValue] forKey:AKPlusCharacterSubstitutionString];
 		
-		if ([useProxyCheckBox state] == NSOnState)
+		if ([[self useProxyCheckBox] state] == NSOnState)
 			[accountDict setObject:[NSNumber numberWithBool:YES] forKey:AKUseProxy];
 		else
 			[accountDict setObject:[NSNumber numberWithBool:NO] forKey:AKUseProxy];
-		[accountDict setObject:[proxyHost stringValue] forKey:AKProxyHost];
-		[accountDict setObject:[NSNumber numberWithInteger:[proxyPort integerValue]] forKey:AKProxyPort];
+		[accountDict setObject:[[self proxyHost] stringValue] forKey:AKProxyHost];
+		[accountDict setObject:[NSNumber numberWithInteger:[[self proxyPort] integerValue]] forKey:AKProxyPort];
 		
 		// Disable account fields.
-		[fullName setEnabled:NO];
-		[SIPAddress setEnabled:NO];
-		[registrar setEnabled:NO];
-		[username setEnabled:NO];
-		[password setEnabled:NO];
+		[[self fullName] setEnabled:NO];
+		[[self SIPAddress] setEnabled:NO];
+		[[self registrar] setEnabled:NO];
+		[[self username] setEnabled:NO];
+		[[self password] setEnabled:NO];
 		
-		[reregistrationTime setEnabled:NO];
-		[substitutePlusCharacterCheckBox setEnabled:NO];
-		[plusCharacterSubstitution setEnabled:NO];
-		[useProxyCheckBox setEnabled:NO];
-		[proxyHost setEnabled:NO];
-		[proxyPort setEnabled:NO];
+		[[self reregistrationTime] setEnabled:NO];
+		[[self substitutePlusCharacterCheckBox] setEnabled:NO];
+		[[self plusCharacterSubstitution] setEnabled:NO];
+		[[self useProxyCheckBox] setEnabled:NO];
+		[[self proxyHost] setEnabled:NO];
+		[[self proxyPort] setEnabled:NO];
 		
 		// Mark accounts table as needing redisplay.
-		[accountsTable reloadData];
+		[[self accountsTable] reloadData];
 		
 	} else {
 		// User disabled the account - enable account fields, set checkboxes state.
-		[fullName setEnabled:YES];
-		[SIPAddress setEnabled:YES];
-		[registrar setEnabled:YES];
-		[username setEnabled:YES];
-		[password setEnabled:YES];
+		[[self fullName] setEnabled:YES];
+		[[self SIPAddress] setEnabled:YES];
+		[[self registrar] setEnabled:YES];
+		[[self username] setEnabled:YES];
+		[[self password] setEnabled:YES];
 		
-		[reregistrationTime setEnabled:YES];
-		[substitutePlusCharacterCheckBox setEnabled:YES];
-		[substitutePlusCharacterCheckBox setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
-		if ([substitutePlusCharacterCheckBox state] == NSOnState)
-			[plusCharacterSubstitution setEnabled:YES];
+		[[self reregistrationTime] setEnabled:YES];
+		[[self substitutePlusCharacterCheckBox] setEnabled:YES];
+		[[self substitutePlusCharacterCheckBox] setState:[[accountDict objectForKey:AKSubstitutePlusCharacter] integerValue]];
+		if ([[self substitutePlusCharacterCheckBox] state] == NSOnState)
+			[[self plusCharacterSubstitution] setEnabled:YES];
 		
-		[useProxyCheckBox setEnabled:YES];
-		[useProxyCheckBox setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
-		if ([useProxyCheckBox state] == NSOnState) {
-			[proxyHost setEnabled:YES];
-			[proxyPort setEnabled:YES];
+		[[self useProxyCheckBox] setEnabled:YES];
+		[[self useProxyCheckBox] setState:[[accountDict objectForKey:AKUseProxy] integerValue]];
+		if ([[self useProxyCheckBox] state] == NSOnState) {
+			[[self proxyHost] setEnabled:YES];
+			[[self proxyPort] setEnabled:YES];
 		}
 	}
 	
@@ -611,22 +700,22 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 
 - (IBAction)changeSubstitutePlusCharacter:(id)sender
 {
-	[plusCharacterSubstitution setEnabled:([substitutePlusCharacterCheckBox state] == NSOnState)];
+	[[self plusCharacterSubstitution] setEnabled:([[self substitutePlusCharacterCheckBox] state] == NSOnState)];
 }
 
 - (IBAction)changeUseProxy:(id)sender
 {	
-	BOOL isChecked = ([useProxyCheckBox state] == NSOnState) ? YES : NO;
-	[proxyHost setEnabled:isChecked];
-	[proxyPort setEnabled:isChecked];
+	BOOL isChecked = ([[self useProxyCheckBox] state] == NSOnState) ? YES : NO;
+	[[self proxyHost] setEnabled:isChecked];
+	[[self proxyPort] setEnabled:isChecked];
 }
 
 - (IBAction)changeSoundIO:(id)sender
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[soundInputPopUp titleOfSelectedItem] forKey:AKSoundInput];
-	[defaults setObject:[soundOutputPopUp titleOfSelectedItem] forKey:AKSoundOutput];
-	[defaults setObject:[ringtoneOutputPopUp titleOfSelectedItem] forKey:AKRingtoneOutput];
+	[defaults setObject:[[self soundInputPopUp] titleOfSelectedItem] forKey:AKSoundInput];
+	[defaults setObject:[[self soundOutputPopUp] titleOfSelectedItem] forKey:AKSoundOutput];
+	[defaults setObject:[[self ringtoneOutputPopUp] titleOfSelectedItem] forKey:AKRingtoneOutput];
 	
 	[[NSApp delegate] selectSoundIO];
 }
@@ -657,9 +746,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		[aMenuItem release];
 	}
 	
-	[soundInputPopUp setMenu:soundInputMenu];
-	[soundOutputPopUp setMenu:soundOutputMenu];
-	[ringtoneOutputPopUp setMenu:ringtoneOutputMenu];
+	[[self soundInputPopUp] setMenu:soundInputMenu];
+	[[self soundOutputPopUp] setMenu:soundOutputMenu];
+	[[self ringtoneOutputPopUp] setMenu:ringtoneOutputMenu];
 	
 	[soundInputMenu release];
 	[soundOutputMenu release];
@@ -669,16 +758,16 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	NSString *lastSoundInput = [defaults stringForKey:AKSoundInput];
-	if (lastSoundInput != nil && [soundInputPopUp itemWithTitle:lastSoundInput] != nil)
-		[soundInputPopUp selectItemWithTitle:lastSoundInput];
+	if (lastSoundInput != nil && [[self soundInputPopUp] itemWithTitle:lastSoundInput] != nil)
+		[[self soundInputPopUp] selectItemWithTitle:lastSoundInput];
 	
 	NSString *lastSoundOutput = [defaults stringForKey:AKSoundOutput];
-	if (lastSoundOutput != nil && [soundOutputPopUp itemWithTitle:lastSoundOutput] != nil)
-		[soundOutputPopUp selectItemWithTitle:lastSoundOutput];
+	if (lastSoundOutput != nil && [[self soundOutputPopUp] itemWithTitle:lastSoundOutput] != nil)
+		[[self soundOutputPopUp] selectItemWithTitle:lastSoundOutput];
 	
 	NSString *lastRingtoneOutput = [defaults stringForKey:AKRingtoneOutput];
-	if (lastRingtoneOutput != nil && [ringtoneOutputPopUp itemWithTitle:lastRingtoneOutput] != nil)
-		[ringtoneOutputPopUp selectItemWithTitle:lastRingtoneOutput];
+	if (lastRingtoneOutput != nil && [[self ringtoneOutputPopUp] itemWithTitle:lastRingtoneOutput] != nil)
+		[[self ringtoneOutputPopUp] selectItemWithTitle:lastRingtoneOutput];
 }
 
 - (void)updateAvailableSounds
@@ -767,10 +856,10 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		}
 	}
 	
-	[ringtonePopUp setMenu:soundsMenu];
+	[[self ringtonePopUp] setMenu:soundsMenu];
 	NSString *savedSound = [[NSUserDefaults standardUserDefaults] stringForKey:AKRingingSound];
 	if ([soundsMenu itemWithTitle:savedSound] != nil)
-		[ringtonePopUp selectItemWithTitle:savedSound];
+		[[self ringtonePopUp] selectItemWithTitle:savedSound];
 	
 	[soundsMenu release];
 }
@@ -794,12 +883,12 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	NSNumber *newTransportPort = [NSNumber numberWithInteger:[transportPort integerValue]];
-	NSString *newSTUNServerHost = [STUNServerHost stringValue];
-	NSNumber *newSTUNServerPort = [NSNumber numberWithInteger:[STUNServerPort integerValue]];
-	BOOL newUseICE = ([useICECheckBox state] == NSOnState) ? YES : NO;
-	NSString *newOutboundProxyHost = [outboundProxyHost stringValue];
-	NSNumber *newOutboundProxyPort = [NSNumber numberWithInteger:[outboundProxyPort integerValue]];
+	NSNumber *newTransportPort = [NSNumber numberWithInteger:[[self transportPort] integerValue]];
+	NSString *newSTUNServerHost = [[self STUNServerHost] stringValue];
+	NSNumber *newSTUNServerPort = [NSNumber numberWithInteger:[[self STUNServerPort] integerValue]];
+	BOOL newUseICE = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
+	NSString *newOutboundProxyHost = [[self outboundProxyHost] stringValue];
+	NSNumber *newOutboundProxyPort = [NSNumber numberWithInteger:[[self outboundProxyPort] integerValue]];
 	
 	if (![[defaults objectForKey:AKTransportPort] isEqualToNumber:newTransportPort] ||
 		![[defaults objectForKey:AKSTUNServerHost] isEqualToString:newSTUNServerHost] ||
@@ -809,7 +898,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 		![[defaults objectForKey:AKOutboundProxyPort] isEqualToNumber:newOutboundProxyPort])
 	{
 		// Explicitly select Network toolbar item.
-		[toolbar setSelectedItemIdentifier:[networkToolbarItem itemIdentifier]];
+		[[self toolbar] setSelectedItemIdentifier:[[self networkToolbarItem] itemIdentifier]];
 		
 		// Show alert to the user.
 		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -842,40 +931,40 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification = @"
 	id sender = (id)contextInfo;
 	
 	if (returnCode == NSAlertFirstButtonReturn) {
-		[transportPortCell setPlaceholderString:[transportPort stringValue]];
-		[defaults setObject:[NSNumber numberWithInteger:[transportPort integerValue]] forKey:AKTransportPort];
-		[defaults setObject:[STUNServerHost stringValue] forKey:AKSTUNServerHost];
-		[defaults setObject:[NSNumber numberWithInteger:[STUNServerPort integerValue]] forKey:AKSTUNServerPort];
-		BOOL useICEFlag = ([useICECheckBox state] == NSOnState) ? YES : NO;
+		[[self transportPortCell] setPlaceholderString:[[self transportPort] stringValue]];
+		[defaults setObject:[NSNumber numberWithInteger:[[self transportPort] integerValue]] forKey:AKTransportPort];
+		[defaults setObject:[[self STUNServerHost] stringValue] forKey:AKSTUNServerHost];
+		[defaults setObject:[NSNumber numberWithInteger:[[self STUNServerPort] integerValue]] forKey:AKSTUNServerPort];
+		BOOL useICEFlag = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
 		[defaults setBool:useICEFlag forKey:AKUseICE];
-		[defaults setObject:[outboundProxyHost stringValue] forKey:AKOutboundProxyHost];
-		[defaults setObject:[NSNumber numberWithInteger:[outboundProxyPort integerValue]] forKey:AKOutboundProxyPort];
+		[defaults setObject:[[self outboundProxyHost] stringValue] forKey:AKOutboundProxyHost];
+		[defaults setObject:[NSNumber numberWithInteger:[[self outboundProxyPort] integerValue]] forKey:AKOutboundProxyPort];
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidChangeNetworkSettingsNotification
 															object:self];
 	} else if (returnCode == NSAlertThirdButtonReturn) {
 		if ([[defaults objectForKey:AKTransportPort] integerValue] == 0)
-			[transportPort setStringValue:@""];
+			[[self transportPort] setStringValue:@""];
 		else
-			[transportPort setIntegerValue:[[defaults objectForKey:AKTransportPort] integerValue]];
+			[[self transportPort] setIntegerValue:[[defaults objectForKey:AKTransportPort] integerValue]];
 		
-		[STUNServerHost setStringValue:[defaults objectForKey:AKSTUNServerHost]];
+		[[self STUNServerHost] setStringValue:[defaults objectForKey:AKSTUNServerHost]];
 		if ([[defaults objectForKey:AKSTUNServerPort] integerValue] == 0)
-			[STUNServerPort setStringValue:@""];
+			[[self STUNServerPort] setStringValue:@""];
 		else
-			[STUNServerPort setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
+			[[self STUNServerPort] setIntegerValue:[[defaults objectForKey:AKSTUNServerPort] integerValue]];
 		
-		[useICECheckBox setState:[[defaults objectForKey:AKUseICE] integerValue]];
+		[[self useICECheckBox] setState:[[defaults objectForKey:AKUseICE] integerValue]];
 		
-		[outboundProxyHost setStringValue:[defaults objectForKey:AKOutboundProxyHost]];
+		[[self outboundProxyHost] setStringValue:[defaults objectForKey:AKOutboundProxyHost]];
 		if ([[defaults objectForKey:AKOutboundProxyPort] integerValue] == 0)
-			[outboundProxyPort setStringValue:@""];
+			[[self outboundProxyPort] setStringValue:@""];
 		else
-			[outboundProxyPort setIntegerValue:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
+			[[self outboundProxyPort] setIntegerValue:[[defaults objectForKey:AKOutboundProxyPort] integerValue]];
 	}
 	
 	if ([sender isMemberOfClass:[NSToolbarItem class]]) {
-		[toolbar setSelectedItemIdentifier:[sender itemIdentifier]];
+		[[self toolbar] setSelectedItemIdentifier:[sender itemIdentifier]];
 		[self changeView:sender];
 	} else if ([sender isMemberOfClass:[NSWindow class]])
 		[sender close];
@@ -923,7 +1012,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if (row == draggingRow || row == draggingRow + 1)
 		return NSDragOperationNone;
 	
-	[accountsTable setDropRow:row dropOperation:NSTableViewDropAbove];
+	[[self accountsTable] setDropRow:row dropOperation:NSTableViewDropAbove];
 	
 	return NSDragOperationMove;
 }
@@ -939,7 +1028,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSMutableArray *accounts = [[defaults arrayForKey:AKAccounts] mutableCopy];
-	id selectedAccount = [accounts objectAtIndex:[accountsTable selectedRow]];
+	id selectedAccount = [accounts objectAtIndex:[[self accountsTable] selectedRow]];
 	
 	// Swap accounts.
 	[accounts insertObject:[accounts objectAtIndex:draggingRow] atIndex:row];
@@ -953,10 +1042,10 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	[defaults setObject:accounts forKey:AKAccounts];
 	[defaults synchronize];
 	
-	[accountsTable reloadData];
+	[[self accountsTable] reloadData];
 	
 	// Preserve account selection.
-	[accountsTable selectRow:[accounts indexOfObject:selectedAccount] byExtendingSelection:NO];
+	[[self accountsTable] selectRow:[accounts indexOfObject:selectedAccount] byExtendingSelection:NO];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:AKPreferenceControllerDidSwapAccountsNotification
 														object:self
@@ -974,7 +1063,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	NSInteger row = [accountsTable selectedRow];
+	NSInteger row = [[self accountsTable] selectedRow];
 
 	[self populateFieldsForAccountAtIndex:row];
 }
@@ -987,10 +1076,10 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar
 {	
 	return [NSArray arrayWithObjects:
-			[generalToolbarItem itemIdentifier],
-			[accountsToolbarItem itemIdentifier],
-			[soundToolbarItem itemIdentifier],
-			[networkToolbarItem itemIdentifier],
+			[[self generalToolbarItem] itemIdentifier],
+			[[self accountsToolbarItem] itemIdentifier],
+			[[self soundToolbarItem] itemIdentifier],
+			[[self networkToolbarItem] itemIdentifier],
 			nil];
 }
 
@@ -1029,7 +1118,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (void)telephoneDidStartUserAgent:(NSNotification *)notification
 {
 	// Show transport port in the network preferences as a placeholder string.
-	[transportPortCell setPlaceholderString:
+	[[self transportPortCell] setPlaceholderString:
 	 [[NSNumber numberWithUnsignedInteger:[[[NSApp delegate] telephone] transportPort]] stringValue]];
 }
 

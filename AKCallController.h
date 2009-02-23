@@ -49,16 +49,16 @@
 	BOOL callOnHold;
 	NSMutableString *enteredDTMF;
 	
-	IBOutlet NSView *activeCallView;
-	IBOutlet NSView *incomingCallView;
-	IBOutlet NSView *endedCallView;
-	IBOutlet NSButton *hangUpButton;
-	IBOutlet NSButton *acceptCallButton;
-	IBOutlet NSButton *declineCallButton;
-	IBOutlet NSTextField *displayedNameField;
-	IBOutlet NSTextField *endedCallDisplayedNameField;
-	IBOutlet NSTextField *statusField;
-	IBOutlet NSProgressIndicator *callProgressIndicator;
+	NSView *incomingCallView;
+	NSView *activeCallView;
+	NSView *endedCallView;
+	NSButton *hangUpButton;
+	NSButton *acceptCallButton;
+	NSButton *declineCallButton;
+	NSTextField *displayedNameField;
+	NSTextField *endedCallDisplayedNameField;
+	NSTextField *statusField;
+	NSProgressIndicator *callProgressIndicator;
 }
 
 @property(readwrite, copy) NSString *identifier;
@@ -75,10 +75,16 @@
 @property(readwrite, assign) BOOL callOnHold;
 @property(readwrite, retain) NSMutableString *enteredDTMF;
 
-@property(readonly, retain) NSView *incomingCallView;
-@property(readonly, retain) NSView *activeCallView;
-@property(readonly, retain) NSView *endedCallView;
-@property(readonly, retain) NSProgressIndicator *callProgressIndicator;
+@property(nonatomic, retain) IBOutlet NSView *incomingCallView;
+@property(nonatomic, retain) IBOutlet NSView *activeCallView;
+@property(nonatomic, retain) IBOutlet NSView *endedCallView;
+@property(nonatomic, retain) IBOutlet NSButton *hangUpButton;
+@property(nonatomic, retain) IBOutlet NSButton *acceptCallButton;
+@property(nonatomic, retain) IBOutlet NSButton *declineCallButton;
+@property(nonatomic, retain) IBOutlet NSTextField *displayedNameField;
+@property(nonatomic, retain) IBOutlet NSTextField *endedCallDisplayedNameField;
+@property(nonatomic, retain) IBOutlet NSTextField *statusField;
+@property(nonatomic, retain) IBOutlet NSProgressIndicator *callProgressIndicator;
 
 // Designated initializer
 - (id)initWithAccountController:(AKAccountController *)anAccountController;
