@@ -29,7 +29,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NSWindow(Resizing)
+@interface NSWindow (Resizing)
 
 - (void)resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation;
 - (void)resizeAndSwapToContentView:(NSView *)aView;

@@ -30,14 +30,14 @@
 
 
 @interface AKKeychain : NSObject {
-
+  
 }
 
 + (NSString *)passwordForServiceName:(NSString *)serviceName
-						 accountName:(NSString *)accountName;
+                         accountName:(NSString *)accountName;
 
 + (BOOL)addItemWithServiceName:(NSString *)serviceName
-				   accountName:(NSString *)accountName
-					  password:(NSString *)password;
+                   accountName:(NSString *)accountName
+                      password:(NSString *)password;
 
 @end

@@ -29,37 +29,37 @@
 #import "NSWindowAdditions.h"
 
 
-@implementation NSWindow(Resizing)
+@implementation NSWindow (Resizing)
 
 - (void)resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation
-{	
-	// Compute view size delta.
-	NSSize currentSize = [[self contentView] frame].size;
-	NSSize newSize = [aView frame].size;
-	CGFloat deltaWidth = newSize.width - currentSize.width;
-	CGFloat deltaHeight = newSize.height - currentSize.height;
-	
-	// Compute new window size.
-	NSRect windowFrame = [self frame];
-	windowFrame.size.height += deltaHeight;
-	windowFrame.origin.y -= deltaHeight;
-	windowFrame.size.width += deltaWidth;
-	
-	// Show temp view while changing views.
-	NSView *tempView = [[NSView alloc] initWithFrame:[[self contentView] frame]];
-	[self setContentView:tempView];
-	[tempView release];
-	
-	// Set new window frame.
-	[self setFrame:windowFrame display:YES animate:performAnimation];
-	
-	// Swap to the new view.
-	[self setContentView:aView];
+{
+  // Compute view size delta.
+  NSSize currentSize = [[self contentView] frame].size;
+  NSSize newSize = [aView frame].size;
+  CGFloat deltaWidth = newSize.width - currentSize.width;
+  CGFloat deltaHeight = newSize.height - currentSize.height;
+  
+  // Compute new window size.
+  NSRect windowFrame = [self frame];
+  windowFrame.size.height += deltaHeight;
+  windowFrame.origin.y -= deltaHeight;
+  windowFrame.size.width += deltaWidth;
+  
+  // Show temp view while changing views.
+  NSView *tempView = [[NSView alloc] initWithFrame:[[self contentView] frame]];
+  [self setContentView:tempView];
+  [tempView release];
+  
+  // Set new window frame.
+  [self setFrame:windowFrame display:YES animate:performAnimation];
+  
+  // Swap to the new view.
+  [self setContentView:aView];
 }
 
 - (void)resizeAndSwapToContentView:(NSView *)aView
 {
-	[self resizeAndSwapToContentView:aView animate:NO];
+  [self resizeAndSwapToContentView:aView animate:NO];
 }
 
 @end

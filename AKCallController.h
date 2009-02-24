@@ -35,30 +35,30 @@
 
 @interface AKCallController : NSWindowController <AKActiveCallViewDelegate> {
 @private
-	NSString *identifier;
-	AKTelephoneCall *call;
-	AKAccountController *accountController;
-	NSString *displayedName;
-	NSString *status;
-	NSString *nameFromAddressBook;
-	NSString *phoneLabelFromAddressBook;
-	NSString *enteredCallDestination;
-	NSTimer *intermediateStatusTimer;
-	NSTimeInterval callStartTime;
-	NSTimer *callTimer;
-	BOOL callOnHold;
-	NSMutableString *enteredDTMF;
-	
-	NSView *incomingCallView;
-	NSView *activeCallView;
-	NSView *endedCallView;
-	NSButton *hangUpButton;
-	NSButton *acceptCallButton;
-	NSButton *declineCallButton;
-	NSTextField *displayedNameField;
-	NSTextField *endedCallDisplayedNameField;
-	NSTextField *statusField;
-	NSProgressIndicator *callProgressIndicator;
+  NSString *identifier;
+  AKTelephoneCall *call;
+  AKAccountController *accountController;
+  NSString *displayedName;
+  NSString *status;
+  NSString *nameFromAddressBook;
+  NSString *phoneLabelFromAddressBook;
+  NSString *enteredCallDestination;
+  NSTimer *intermediateStatusTimer;
+  NSTimeInterval callStartTime;
+  NSTimer *callTimer;
+  BOOL callOnHold;
+  NSMutableString *enteredDTMF;
+  
+  NSView *incomingCallView;
+  NSView *activeCallView;
+  NSView *endedCallView;
+  NSButton *hangUpButton;
+  NSButton *acceptCallButton;
+  NSButton *declineCallButton;
+  NSTextField *displayedNameField;
+  NSTextField *endedCallDisplayedNameField;
+  NSTextField *statusField;
+  NSProgressIndicator *callProgressIndicator;
 }
 
 @property(readwrite, copy) NSString *identifier;
@@ -96,7 +96,8 @@
 - (IBAction)toggleMicrophoneMute:(id)sender;
 
 // Force ended call state not waiting for the callbacks. This is useful with
-// AKTelephone's hangUpAllCalls when computer goes to sleep or before app shuts down.
+// AKTelephone's hangUpAllCalls when computer goes to sleep or before app
+// shuts down.
 - (void)forceEndedCallState;
 
 // Dealing with the timer of active call.

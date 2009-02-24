@@ -28,6 +28,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class AKSIPURI;
 
 @interface AKSIPURIFormatter : NSFormatter {
 

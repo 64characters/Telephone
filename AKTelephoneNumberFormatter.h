@@ -31,7 +31,7 @@
 
 @interface AKTelephoneNumberFormatter : NSFormatter {
 @private
-	BOOL splitsLastFourDigits;
+  BOOL splitsLastFourDigits;
 }
 
 @property(readwrite, assign) BOOL splitsLastFourDigits;

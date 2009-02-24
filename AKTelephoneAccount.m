@@ -26,17 +26,18 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <pjsua-lib/pjsua.h>
+#import "AKTelephoneAccount.h"
 
 #import "AKSIPURI.h"
 #import "AKTelephone.h"
-#import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
 #import "NSStringAdditions.h"
 
 
-NSString * const AKTelephoneAccountRegistrationDidChangeNotification = @"AKTelephoneAccountRegistrationDidChange";
-NSString * const AKTelephoneAccountWillRemoveNotification = @"AKTelephoneAccountWillRemove";
+NSString * const AKTelephoneAccountRegistrationDidChangeNotification
+  = @"AKTelephoneAccountRegistrationDidChange";
+NSString * const AKTelephoneAccountWillRemoveNotification
+  = @"AKTelephoneAccountWillRemove";
 
 NSString * const AKSIPProxyHostDefault = @"";
 const NSInteger AKSIPProxyPortDefault = 5060;
@@ -65,264 +66,268 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSObject <AKTelephoneAccountDelegate> *)delegate
 {
-	return delegate;
+  return delegate;
 }
 
 - (void)setDelegate:(NSObject <AKTelephoneAccountDelegate> *)aDelegate
 {
-	if (delegate == aDelegate)
-		return;
-	
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	
-	if (delegate != nil)
-		[notificationCenter removeObserver:delegate name:nil object:self];
-	
-	if (aDelegate != nil) {
-		if ([aDelegate respondsToSelector:@selector(telephoneAccountRegistrationDidChange:)])
-			[notificationCenter addObserver:aDelegate
-								   selector:@selector(telephoneAccountRegistrationDidChange:)
-									   name:AKTelephoneAccountRegistrationDidChangeNotification
-									 object:self];
-		
-		if ([aDelegate respondsToSelector:@selector(telephoneAccountWillRemove:)])
-			[notificationCenter addObserver:aDelegate
-								   selector:@selector(telephoneAccountWillRemove:)
-									   name:AKTelephoneAccountWillRemoveNotification
-									 object:self];
-	}
-	
-	delegate = aDelegate;
+  if (delegate == aDelegate)
+    return;
+  
+  NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+  
+  if (delegate != nil)
+    [notificationCenter removeObserver:delegate name:nil object:self];
+  
+  if (aDelegate != nil) {
+    if ([aDelegate respondsToSelector:@selector(telephoneAccountRegistrationDidChange:)])
+      [notificationCenter addObserver:aDelegate
+                             selector:@selector(telephoneAccountRegistrationDidChange:)
+                                 name:AKTelephoneAccountRegistrationDidChangeNotification
+                               object:self];
+    
+    if ([aDelegate respondsToSelector:@selector(telephoneAccountWillRemove:)])
+      [notificationCenter addObserver:aDelegate
+                             selector:@selector(telephoneAccountWillRemove:)
+                                 name:AKTelephoneAccountWillRemoveNotification
+                               object:self];
+  }
+  
+  delegate = aDelegate;
 }
 
 - (NSUInteger)proxyPort
 {
-	return proxyPort;
+  return proxyPort;
 }
 
 - (void)setProxyPort:(NSUInteger)port
 {
-	if (port > 0 && port < 65535)
-		proxyPort = port;
-	else
-		proxyPort = AKSIPProxyPortDefault;
+  if (port > 0 && port < 65535)
+    proxyPort = port;
+  else
+    proxyPort = AKSIPProxyPortDefault;
 }
 
 - (NSUInteger)reregistrationTime
 {
-	return reregistrationTime;
+  return reregistrationTime;
 }
 
 - (void)setReregistrationTime:(NSUInteger)seconds
 {
-	if (seconds == 0)
-		reregistrationTime = AKAccountReregistrationTimeDefault;
-	else if (seconds < 60)
-		reregistrationTime = 60;
-	else if (seconds > 3600)
-		reregistrationTime = 3600;
-	else
-		reregistrationTime = seconds;
+  if (seconds == 0)
+    reregistrationTime = AKAccountReregistrationTimeDefault;
+  else if (seconds < 60)
+    reregistrationTime = 60;
+  else if (seconds > 3600)
+    reregistrationTime = 3600;
+  else
+    reregistrationTime = seconds;
 }
 
 - (BOOL)isRegistered
-{	
-	return ([self registrationStatus] / 100 == 2) && ([self registrationExpireTime] > 0);
+{
+  return ([self registrationStatus] / 100 == 2) && ([self registrationExpireTime] > 0);
 }
 
 - (void)setRegistered:(BOOL)value
 {
-	if ([self identifier] == PJSUA_INVALID_ID)
-		return;
-	
-	if (value) {
-		pjsua_acc_set_registration([self identifier], PJ_TRUE);
-		[self setOnline:YES];
-	} else {
-		[self setOnline:NO];
-		pjsua_acc_set_registration([self identifier], PJ_FALSE);
-	}
+  if ([self identifier] == PJSUA_INVALID_ID)
+    return;
+  
+  if (value) {
+    pjsua_acc_set_registration([self identifier], PJ_TRUE);
+    [self setOnline:YES];
+  } else {
+    [self setOnline:NO];
+    pjsua_acc_set_registration([self identifier], PJ_FALSE);
+  }
 }
 
 - (NSInteger)registrationStatus
 {
-	if ([self identifier] == PJSUA_INVALID_ID)
-		return 0;
-	
-	pjsua_acc_info accountInfo;
-	pj_status_t status;
-	
-	status = pjsua_acc_get_info([self identifier], &accountInfo);
-	if (status != PJ_SUCCESS)
-		return 0;
-	
-	return accountInfo.status;
+  if ([self identifier] == PJSUA_INVALID_ID)
+    return 0;
+  
+  pjsua_acc_info accountInfo;
+  pj_status_t status;
+  
+  status = pjsua_acc_get_info([self identifier], &accountInfo);
+  if (status != PJ_SUCCESS)
+    return 0;
+  
+  return accountInfo.status;
 }
 
 - (NSString *)registrationStatusText
 {
-	if ([self identifier] == PJSUA_INVALID_ID)
-		return nil;
-	
-	pjsua_acc_info accountInfo;
-	pj_status_t status;
-	
-	status = pjsua_acc_get_info([self identifier], &accountInfo);
-	if (status != PJ_SUCCESS)
-		return nil;
-	
-	return [NSString stringWithPJString:accountInfo.status_text];
+  if ([self identifier] == PJSUA_INVALID_ID)
+    return nil;
+  
+  pjsua_acc_info accountInfo;
+  pj_status_t status;
+  
+  status = pjsua_acc_get_info([self identifier], &accountInfo);
+  if (status != PJ_SUCCESS)
+    return nil;
+  
+  return [NSString stringWithPJString:accountInfo.status_text];
 }
 
 - (NSInteger)registrationExpireTime
 {
-	if ([self identifier] == PJSUA_INVALID_ID)
-		return -1;
-	
-	pjsua_acc_info accountInfo;
-	pj_status_t status;
-	
-	status = pjsua_acc_get_info([self identifier], &accountInfo);
-	if (status != PJ_SUCCESS)
-		return -1;
-	
-	return accountInfo.expires;
+  if ([self identifier] == PJSUA_INVALID_ID)
+    return -1;
+  
+  pjsua_acc_info accountInfo;
+  pj_status_t status;
+  
+  status = pjsua_acc_get_info([self identifier], &accountInfo);
+  if (status != PJ_SUCCESS)
+    return -1;
+  
+  return accountInfo.expires;
 }
 
 - (BOOL)isOnline
 {
-	if ([self identifier] == PJSUA_INVALID_ID)
-		return NO;
-	
-	pjsua_acc_info accountInfo;
-	pj_status_t status;
-	
-	status = pjsua_acc_get_info([self identifier], &accountInfo);
-	if (status != PJ_SUCCESS)
-		return NO;
-	
-	return (accountInfo.online_status == PJ_TRUE) ? YES : NO;
+  if ([self identifier] == PJSUA_INVALID_ID)
+    return NO;
+  
+  pjsua_acc_info accountInfo;
+  pj_status_t status;
+  
+  status = pjsua_acc_get_info([self identifier], &accountInfo);
+  if (status != PJ_SUCCESS)
+    return NO;
+  
+  return (accountInfo.online_status == PJ_TRUE) ? YES : NO;
 }
 
 - (void)setOnline:(BOOL)value
 {
-	if ([self identifier] == PJSUA_INVALID_ID)
-		return;
-	
-	if (value)
-		pjsua_acc_set_online_status([self identifier], PJ_TRUE);
-	else
-		pjsua_acc_set_online_status([self identifier], PJ_FALSE);
+  if ([self identifier] == PJSUA_INVALID_ID)
+    return;
+  
+  if (value)
+    pjsua_acc_set_online_status([self identifier], PJ_TRUE);
+  else
+    pjsua_acc_set_online_status([self identifier], PJ_FALSE);
 }
 
 - (NSString *)onlineStatusText
 {
-	if ([self identifier] == PJSUA_INVALID_ID)
-		return nil;
-	
-	pjsua_acc_info accountInfo;
-	pj_status_t status;
-	
-	status = pjsua_acc_get_info([self identifier], &accountInfo);
-	if (status != PJ_SUCCESS)
-		return nil;
-	
-	return [NSString stringWithPJString:accountInfo.online_status_text];
+  if ([self identifier] == PJSUA_INVALID_ID)
+    return nil;
+  
+  pjsua_acc_info accountInfo;
+  pj_status_t status;
+  
+  status = pjsua_acc_get_info([self identifier], &accountInfo);
+  if (status != PJ_SUCCESS)
+    return nil;
+  
+  return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
 + (id)telephoneAccountWithFullName:(NSString *)aFullName
-						SIPAddress:(NSString *)aSIPAddress
-						 registrar:(NSString *)aRegistrar
-							 realm:(NSString *)aRealm
-						  username:(NSString *)aUsername
+                        SIPAddress:(NSString *)aSIPAddress
+                         registrar:(NSString *)aRegistrar
+                             realm:(NSString *)aRealm
+                          username:(NSString *)aUsername
 {
-	return [[[AKTelephoneAccount alloc] initWithFullName:aFullName
-											  SIPAddress:aSIPAddress
-											   registrar:aRegistrar
-												   realm:aRealm
-												username:aUsername]
-			autorelease];
+  return [[[AKTelephoneAccount alloc] initWithFullName:aFullName
+                                            SIPAddress:aSIPAddress
+                                             registrar:aRegistrar
+                                                 realm:aRealm
+                                              username:aUsername]
+          autorelease];
 }
 
 - (id)initWithFullName:(NSString *)aFullName
-			SIPAddress:(NSString *)aSIPAddress
-			 registrar:(NSString *)aRegistrar
-				 realm:(NSString *)aRealm
-			  username:(NSString *)aUsername
+            SIPAddress:(NSString *)aSIPAddress
+             registrar:(NSString *)aRegistrar
+                 realm:(NSString *)aRealm
+              username:(NSString *)aUsername
 {
-	self = [super init];
-	if (self == nil)
-		return nil;
-	
-	[self setRegistrationURI:[AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", aFullName, aSIPAddress]]];
-	
-	[self setFullName:aFullName];
-	[self setSIPAddress:aSIPAddress];
-	[self setRegistrar:aRegistrar];
-	[self setRealm:aRealm];
-	[self setUsername:aUsername];
-	[self setProxyHost:AKSIPProxyHostDefault];
-	[self setProxyPort:AKSIPProxyPortDefault];
-	[self setReregistrationTime:AKAccountReregistrationTimeDefault];
-	[self setIdentifier:PJSUA_INVALID_ID];
-	
-	calls = [[NSMutableArray alloc] init];
-	
-	return self;
+  self = [super init];
+  if (self == nil)
+    return nil;
+  
+  [self setRegistrationURI:[AKSIPURI SIPURIWithString:
+                            [NSString stringWithFormat:@"\"%@\" <sip:%@>",
+                             aFullName, aSIPAddress]]];
+  
+  [self setFullName:aFullName];
+  [self setSIPAddress:aSIPAddress];
+  [self setRegistrar:aRegistrar];
+  [self setRealm:aRealm];
+  [self setUsername:aUsername];
+  [self setProxyHost:AKSIPProxyHostDefault];
+  [self setProxyPort:AKSIPProxyPortDefault];
+  [self setReregistrationTime:AKAccountReregistrationTimeDefault];
+  [self setIdentifier:PJSUA_INVALID_ID];
+  
+  calls = [[NSMutableArray alloc] init];
+  
+  return self;
 }
 
 - (id)init
 {
-	return [self initWithFullName:nil
-					   SIPAddress:nil
-						registrar:nil
-							realm:nil
-						 username:nil];
+  return [self initWithFullName:nil
+                     SIPAddress:nil
+                      registrar:nil
+                          realm:nil
+                       username:nil];
 }
 
 - (void)dealloc
 {
-	[self setDelegate:nil];
-	
-	[registrationURI dealloc];
-	
-	[fullName release];
-	[SIPAddress release];
-	[registrar release];
-	[realm release];
-	[username release];
-	[proxyHost release];
-	
-	[calls release];
-	
-	[super dealloc];
+  [self setDelegate:nil];
+  
+  [registrationURI dealloc];
+  
+  [fullName release];
+  [SIPAddress release];
+  [registrar release];
+  [realm release];
+  [username release];
+  [proxyHost release];
+  
+  [calls release];
+  
+  [super dealloc];
 }
 
 - (NSString *)description
 {
-	return [self SIPAddress];
+  return [self SIPAddress];
 }
 
 // Make outgoing call, create call object, set its info, add to the array
 - (AKTelephoneCall *)makeCallTo:(AKSIPURI *)destinationURI
 {
-	pjsua_call_id callIdentifier;
-	pj_str_t uri = [[destinationURI description] pjString];
-	
-	pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
-	if (status != PJ_SUCCESS) {
-		NSLog(@"Error making call to %@ via account %@", destinationURI, self);
-		return nil;
-	}
-	
-	// AKTelephoneCall object is created here when the call is outgoing
-	AKTelephoneCall *theCall = [[AKTelephoneCall alloc]	initWithTelephoneAccount:self
-																	  identifier:callIdentifier];
-	
-	// Keep this call in the calls array for this account
-	[[self calls] addObject:theCall];
-	
-	return [theCall autorelease];
+  pjsua_call_id callIdentifier;
+  pj_str_t uri = [[destinationURI description] pjString];
+  
+  pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL,
+                                            NULL, &callIdentifier);
+  if (status != PJ_SUCCESS) {
+    NSLog(@"Error making call to %@ via account %@", destinationURI, self);
+    return nil;
+  }
+  
+  // AKTelephoneCall object is created here when the call is outgoing
+  AKTelephoneCall *theCall
+    = [[AKTelephoneCall alloc] initWithTelephoneAccount:self
+                                             identifier:callIdentifier];
+  
+  // Keep this call in the calls array for this account
+  [[self calls] addObject:theCall];
+  
+  return [theCall autorelease];
 }
 
 @end
@@ -333,14 +338,19 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier)
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	AKTelephoneAccount *anAccount = [[AKTelephone sharedTelephone] accountByIdentifier:accountIdentifier];
-	
-	NSNotification *notification = [NSNotification notificationWithName:AKTelephoneAccountRegistrationDidChangeNotification
-																 object:anAccount];
-	[[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-														   withObject:notification
-														waitUntilDone:NO];
-	[pool release];
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  AKTelephoneAccount *anAccount = [[AKTelephone sharedTelephone]
+                                   accountByIdentifier:accountIdentifier];
+  
+  NSNotification *notification
+    = [NSNotification
+       notificationWithName:AKTelephoneAccountRegistrationDidChangeNotification
+                     object:anAccount];
+  
+  [[NSNotificationCenter defaultCenter]
+   performSelectorOnMainThread:@selector(postNotification:)
+                    withObject:notification
+                 waitUntilDone:NO];
+  [pool release];
 }

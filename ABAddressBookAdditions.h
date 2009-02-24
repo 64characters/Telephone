@@ -26,10 +26,11 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#import <AddressBook/AddressBook.h>
 #import <Foundation/Foundation.h>
 
 
-@interface ABAddressBook(Additions)
+@interface ABAddressBook (Additions)
 
 - (NSString *)AK_localizedLabel:(NSString *)label;
 

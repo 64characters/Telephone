@@ -29,83 +29,87 @@
 #import "NSStringAdditions.h"
 
 
-@implementation NSString(UUID)
+@implementation NSString (UUID)
 
 + (NSString *)AK_uuidString
 {
-	CFUUIDRef theUUID = CFUUIDCreate(NULL);
-	CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-	CFRelease(theUUID);
-	
-	return [(NSString *)string autorelease];
+  CFUUIDRef theUUID = CFUUIDCreate(NULL);
+  CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+  CFRelease(theUUID);
+  
+  return [(NSString *)string autorelease];
 }
 
 @end
 
-@implementation NSString(PJSUA)
+@implementation NSString (PJSUA)
 
 + (NSString *)stringWithPJString:(pj_str_t)pjString
 {
-	return [[[NSString alloc] initWithBytes:pjString.ptr
-									 length:(NSUInteger)pjString.slen
-								   encoding:NSUTF8StringEncoding]
-			autorelease];
+  return [[[NSString alloc] initWithBytes:pjString.ptr
+                                   length:(NSUInteger)pjString.slen
+                                 encoding:NSUTF8StringEncoding]
+          autorelease];
 }
 
 - (pj_str_t)pjString
 {
-	return pj_str((char *)[self cStringUsingEncoding:NSUTF8StringEncoding]);
+  return pj_str((char *)[self cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 @end
 
-@implementation NSString(Additions)
+@implementation NSString (Additions)
 
 @dynamic AK_isTelephoneNumber;
 @dynamic AK_hasLetters;
 
 - (BOOL)AK_isTelephoneNumber
 {
-	NSPredicate *telephoneNumberPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
-	if ([telephoneNumberPredicate evaluateWithObject:self])
-		return YES;
-	
-	return NO;
+  NSPredicate *telephoneNumberPredicate
+    = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
+  if ([telephoneNumberPredicate evaluateWithObject:self])
+    return YES;
+  
+  return NO;
 }
 
 - (BOOL)AK_hasLetters
 {
-	NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
-	
-	return ([containsLettersPredicate evaluateWithObject:self])	? YES : NO;
+  NSPredicate *containsLettersPredicate
+    = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
+  
+  return ([containsLettersPredicate evaluateWithObject:self]) ? YES : NO;
 }
 
 - (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string
 {
-	NSMutableString *newString = [NSMutableString stringWithString:self];
-	NSString *escapeCharacterString = [string substringWithRange:NSMakeRange(0, 1)];
-	NSRange escapeCharacterRange = [newString rangeOfString:escapeCharacterString];
-	while (escapeCharacterRange.location != NSNotFound) {
-		[newString insertString:@"\\" atIndex:escapeCharacterRange.location];
-		NSRange searchRange;
-		searchRange.location = escapeCharacterRange.location + 2;
-		searchRange.length = [newString length] - searchRange.location;
-		escapeCharacterRange = [newString rangeOfString:escapeCharacterString options:0 range:searchRange];
-	}
-	
-	return [[newString copy] autorelease];
+  NSMutableString *newString = [NSMutableString stringWithString:self];
+  NSString *escapeCharacterString = [string substringWithRange:NSMakeRange(0, 1)];
+  NSRange escapeCharacterRange = [newString rangeOfString:escapeCharacterString];
+  while (escapeCharacterRange.location != NSNotFound) {
+    [newString insertString:@"\\" atIndex:escapeCharacterRange.location];
+    NSRange searchRange;
+    searchRange.location = escapeCharacterRange.location + 2;
+    searchRange.length = [newString length] - searchRange.location;
+    escapeCharacterRange = [newString rangeOfString:escapeCharacterString
+                                            options:0
+                                              range:searchRange];
+  }
+  
+  return [[newString copy] autorelease];
 }
 
 - (NSString *)AK_escapeQuotes
 {
-	return [self AK_escapeFirstCharacterFromString:@"\""];
+  return [self AK_escapeFirstCharacterFromString:@"\""];
 }
 
 - (NSString *)AK_escapeParentheses
 {
-	NSString *returnString = [self AK_escapeFirstCharacterFromString:@")"];
-	
-	return [returnString AK_escapeFirstCharacterFromString:@"("];
+  NSString *returnString = [self AK_escapeFirstCharacterFromString:@")"];
+  
+  return [returnString AK_escapeFirstCharacterFromString:@"("];
 }
 
 @end

@@ -38,23 +38,23 @@ extern const NSInteger AKAccountReregistrationTimeDefault;
 @protocol AKTelephoneAccountDelegate;
 
 @interface AKTelephoneAccount : NSObject {
-@private
-	NSObject <AKTelephoneAccountDelegate> *delegate;
-	
-	AKSIPURI *registrationURI;
-	
-	NSString *fullName;
-	NSString *SIPAddress;
-	NSString *registrar;
-	NSString *realm;
-	NSString *username;
-	NSString *proxyHost;
-	NSUInteger proxyPort;
-	NSUInteger reregistrationTime;
-	
-	NSInteger identifier;
-	
-	NSMutableArray *calls;
+ @private
+  NSObject <AKTelephoneAccountDelegate> *delegate;
+  
+  AKSIPURI *registrationURI;
+  
+  NSString *fullName;
+  NSString *SIPAddress;
+  NSString *registrar;
+  NSString *realm;
+  NSString *username;
+  NSString *proxyHost;
+  NSUInteger proxyPort;
+  NSUInteger reregistrationTime;
+  
+  NSInteger identifier;
+  
+  NSMutableArray *calls;
 }
 
 @property(nonatomic, readwrite, assign) NSObject <AKTelephoneAccountDelegate> *delegate;
@@ -64,9 +64,9 @@ extern const NSInteger AKAccountReregistrationTimeDefault;
 @property(readwrite, copy) NSString *registrar;
 @property(readwrite, copy) NSString *realm;
 @property(readwrite, copy) NSString *username;
-@property(readwrite, copy) NSString *proxyHost;		// Default: @"".
-@property(readwrite, assign) NSUInteger proxyPort;	// Default: 5060.
-@property(readwrite, assign) NSUInteger reregistrationTime;	// Default: 300 (sec).
+@property(readwrite, copy) NSString *proxyHost;     // Default: @"".
+@property(readwrite, assign) NSUInteger proxyPort;  // Default: 5060.
+@property(readwrite, assign) NSUInteger reregistrationTime;  // Default: 300 (sec).
 @property(readwrite, assign) NSInteger identifier;
 @property(nonatomic, readwrite, assign, getter=isRegistered) BOOL registered;
 @property(nonatomic, readonly, assign) NSInteger registrationStatus;
@@ -77,16 +77,16 @@ extern const NSInteger AKAccountReregistrationTimeDefault;
 @property(readonly, retain) NSMutableArray *calls;
 
 + (id)telephoneAccountWithFullName:(NSString *)aFullName
-						SIPAddress:(NSString *)aSIPAddress
-						 registrar:(NSString *)aRegistrar
-							 realm:(NSString *)aRealm
-						  username:(NSString *)aUsername;
+                        SIPAddress:(NSString *)aSIPAddress
+                         registrar:(NSString *)aRegistrar
+                             realm:(NSString *)aRealm
+                          username:(NSString *)aUsername;
 
 - (id)initWithFullName:(NSString *)aFullName
-			SIPAddress:(NSString *)aSIPAddress
-			 registrar:(NSString *)aRegistrar
-				 realm:(NSString *)aRealm
-			  username:(NSString *)aUsername;
+            SIPAddress:(NSString *)aSIPAddress
+             registrar:(NSString *)aRegistrar
+                 realm:(NSString *)aRealm
+              username:(NSString *)aUsername;
 
 - (AKTelephoneCall *)makeCallTo:(AKSIPURI *)destinationURI;
 

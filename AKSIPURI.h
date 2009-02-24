@@ -30,18 +30,18 @@
 
 
 @interface AKSIPURI : NSObject <NSCopying> {
-@private
-	NSString *displayName;
-	NSString *user;
-	NSString *password;
-	NSString *host;
-	NSInteger port;
-	NSString *userParameter;
-	NSString *methodParameter;
-	NSString *transportParameter;
-	NSInteger TTLParameter;
-	NSInteger looseRoutingParameter;
-	NSString *maddrParameter;
+ @private
+  NSString *displayName;
+  NSString *user;
+  NSString *password;
+  NSString *host;
+  NSInteger port;
+  NSString *userParameter;
+  NSString *methodParameter;
+  NSString *transportParameter;
+  NSInteger TTLParameter;
+  NSInteger looseRoutingParameter;
+  NSString *maddrParameter;
 }
 
 @property(nonatomic, readonly, copy) NSString *SIPAddress;
@@ -57,10 +57,17 @@
 @property(readwrite, assign) NSInteger looseRoutingParameter;
 @property(readwrite, copy) NSString *maddrParameter;
 
-+ (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
++ (id)SIPURIWithUser:(NSString *)aUser
+                host:(NSString *)aHost
+         displayName:(NSString *)aDisplayName;
+
 + (id)SIPURIWithString:(NSString *)SIPURIString;
 
-- (id)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;	// Designated initializer.
+// Designated initializer.
+- (id)initWithUser:(NSString *)aUser
+              host:(NSString *)aHost
+       displayName:(NSString *)aDisplayName;
+
 - (id)initWithString:(NSString *)SIPURIString;
 
 @end

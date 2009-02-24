@@ -73,57 +73,57 @@ extern NSString * const AKDestinationIndex;
 
 @interface AKPreferenceController : NSWindowController {
 @private
-	id delegate;
-	
-	NSToolbar *toolbar;
-	NSToolbarItem *generalToolbarItem;
-	NSToolbarItem *accountsToolbarItem;
-	NSToolbarItem *soundToolbarItem;
-	NSToolbarItem *networkToolbarItem;
-	NSView *generalView;
-	NSView *accountsView;
-	NSView *soundView;
-	NSView *networkView;
-
-	// Sound.
-	NSPopUpButton *soundInputPopUp;
-	NSPopUpButton *soundOutputPopUp;
-	NSPopUpButton *ringtoneOutputPopUp;
-	NSPopUpButton *ringtonePopUp;
-	
-	// Network.
-	NSTextField *transportPortField;
-	NSTextFieldCell *transportPortCell;
-	NSTextField *STUNServerHostField;
-	NSTextField *STUNServerPortField;
-	NSButton *useICECheckBox;
-	NSTextField *outboundProxyHostField;
-	NSTextField *outboundProxyPortField;
-	
-	// Account.
-	NSTableView *accountsTable;
-	NSButton *accountEnabledCheckBox;
-	NSTextField *fullNameField;
-	NSTextField *SIPAddressField;
-	NSTextField *registrarField;
-	NSTextField *usernameField;
-	NSTextField *passwordField;
-	NSTextField *reregistrationTimeField;
-	NSButton *substitutePlusCharacterCheckBox;
-	NSTextField *plusCharacterSubstitutionField;
-	NSButton *useProxyCheckBox;
-	NSTextField *proxyHostField;
-	NSTextField *proxyPortField;
-	
-	// Account Setup.
-	NSWindow *addAccountWindow;
-	NSTextField *setupFullNameField;
-	NSTextField *setupSIPAddressField;
-	NSTextField *setupRegistrarField;
-	NSTextField *setupUsernameField;
-	NSTextField *setupPasswordField;
-	NSButton *addAccountWindowDefaultButton;
-	NSButton *addAccountWindowOtherButton;
+  id delegate;
+  
+  NSToolbar *toolbar;
+  NSToolbarItem *generalToolbarItem;
+  NSToolbarItem *accountsToolbarItem;
+  NSToolbarItem *soundToolbarItem;
+  NSToolbarItem *networkToolbarItem;
+  NSView *generalView;
+  NSView *accountsView;
+  NSView *soundView;
+  NSView *networkView;
+  
+  // Sound.
+  NSPopUpButton *soundInputPopUp;
+  NSPopUpButton *soundOutputPopUp;
+  NSPopUpButton *ringtoneOutputPopUp;
+  NSPopUpButton *ringtonePopUp;
+  
+  // Network.
+  NSTextField *transportPortField;
+  NSTextFieldCell *transportPortCell;
+  NSTextField *STUNServerHostField;
+  NSTextField *STUNServerPortField;
+  NSButton *useICECheckBox;
+  NSTextField *outboundProxyHostField;
+  NSTextField *outboundProxyPortField;
+  
+  // Account.
+  NSTableView *accountsTable;
+  NSButton *accountEnabledCheckBox;
+  NSTextField *fullNameField;
+  NSTextField *SIPAddressField;
+  NSTextField *registrarField;
+  NSTextField *usernameField;
+  NSTextField *passwordField;
+  NSTextField *reregistrationTimeField;
+  NSButton *substitutePlusCharacterCheckBox;
+  NSTextField *plusCharacterSubstitutionField;
+  NSButton *useProxyCheckBox;
+  NSTextField *proxyHostField;
+  NSTextField *proxyPortField;
+  
+  // Account Setup.
+  NSWindow *addAccountWindow;
+  NSTextField *setupFullNameField;
+  NSTextField *setupSIPAddressField;
+  NSTextField *setupRegistrarField;
+  NSTextField *setupUsernameField;
+  NSTextField *setupPasswordField;
+  NSButton *addAccountWindowDefaultButton;
+  NSButton *addAccountWindowOtherButton;
 }
 
 @property(nonatomic, readwrite, assign) id delegate;
@@ -211,16 +211,24 @@ extern NSString * const AKDestinationIndex;
 
 // Preferences window toolbar items tags.
 enum {
-	AKGeneralPreferencesTag		= 0,
-	AKAccountsPreferencesTag	= 1,
-	AKSoundPreferencesTag		= 2,
-	AKNetworkPreferencesTag		= 3
+  AKGeneralPreferencesTag  = 0,
+  AKAccountsPreferencesTag = 1,
+  AKSoundPreferencesTag    = 2,
+  AKNetworkPreferencesTag  = 3
 };
 
 
 // Notifications.
+
 extern NSString * const AKPreferenceControllerDidAddAccountNotification;
-extern NSString * const AKPreferenceControllerDidRemoveAccountNotification; // AKAccountIndex.
-extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification; // AKAccountIndex.
-extern NSString * const AKPreferenceControllerDidSwapAccountsNotification;	// AKSourceIndex, AKDestinationIndex.
+
+// Key: AKAccountIndex.
+extern NSString * const AKPreferenceControllerDidRemoveAccountNotification;
+
+// Key: AKAccountIndex.
+extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification;
+
+// Keys: AKSourceIndex, AKDestinationIndex.
+extern NSString * const AKPreferenceControllerDidSwapAccountsNotification;
+
 extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification;

@@ -32,8 +32,8 @@
 @protocol AKActiveCallViewDelegate;
 
 @interface AKActiveCallView : NSView {
-@private
-	id <AKActiveCallViewDelegate> _delegate;
+ @private
+  id <AKActiveCallViewDelegate> _delegate;
 }
 
 @property(nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;
@@ -45,6 +45,7 @@
 
 @optional
 
-- (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString;
+- (void)activeCallView:(AKActiveCallView *)sender
+        didReceiveText:(NSString *)aString;
 
 @end

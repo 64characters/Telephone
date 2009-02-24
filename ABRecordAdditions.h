@@ -26,10 +26,11 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#import <AddressBook/AddressBook.h>
 #import <Foundation/Foundation.h>
 
 
-@interface ABRecord(Additions)
+@interface ABRecord (Additions)
 
 // Addressbook record's full name in the proper order or company name.
 @property(nonatomic, readonly, copy) NSString *AK_fullName;

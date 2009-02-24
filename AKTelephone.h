@@ -45,54 +45,54 @@ extern const BOOL AKTelephoneDetectsVoiceActivityDefault;
 extern const NSInteger AKTelephoneTransportPortDefault;
 
 typedef struct _AKTelephoneCallData {
-	pj_timer_entry timer;
-	pj_bool_t ringbackOn;
-	pj_bool_t ringbackOff;
+  pj_timer_entry timer;
+  pj_bool_t ringbackOn;
+  pj_bool_t ringbackOff;
 } AKTelephoneCallData;
 
 typedef enum _AKNATType {
-	AKNATTypeUnknown		= PJ_STUN_NAT_TYPE_UNKNOWN,
-	AKNATTypeErrorUnknown	= PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
-	AKNATTypeOpen			= PJ_STUN_NAT_TYPE_OPEN,
-	AKNATTypeBlocked		= PJ_STUN_NAT_TYPE_BLOCKED,
-	AKNATTypeSymmetricUDP	= PJ_STUN_NAT_TYPE_SYMMETRIC_UDP,
-	AKNATTypeFullCone		= PJ_STUN_NAT_TYPE_FULL_CONE,
-	AKNATTypeSymmetric		= PJ_STUN_NAT_TYPE_SYMMETRIC,
-	AKNATTypeRestricted		= PJ_STUN_NAT_TYPE_RESTRICTED,
-	AKNATTypePortRestricted	= PJ_STUN_NAT_TYPE_PORT_RESTRICTED
+  AKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
+  AKNATTypeErrorUnknown   = PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
+  AKNATTypeOpen           = PJ_STUN_NAT_TYPE_OPEN,
+  AKNATTypeBlocked        = PJ_STUN_NAT_TYPE_BLOCKED,
+  AKNATTypeSymmetricUDP   = PJ_STUN_NAT_TYPE_SYMMETRIC_UDP,
+  AKNATTypeFullCone       = PJ_STUN_NAT_TYPE_FULL_CONE,
+  AKNATTypeSymmetric      = PJ_STUN_NAT_TYPE_SYMMETRIC,
+  AKNATTypeRestricted     = PJ_STUN_NAT_TYPE_RESTRICTED,
+  AKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
 } AKNATType;
 
 @class AKTelephoneAccount, AKTelephoneCall;
 @protocol AKTelephoneDelegate;
 
 @interface AKTelephone : NSObject {
-@private
-	id <AKTelephoneDelegate> delegate;
-	
-	NSMutableArray *accounts;
-	BOOL started;
-	BOOL soundStopped;
-	AKNATType detectedNATType;
-	
-	NSArray *nameservers;
-	NSString *outboundProxyHost;
-	NSUInteger outboundProxyPort;
-	NSString *STUNServerHost;
-	NSUInteger STUNServerPort;
-	NSString *userAgentString;
-	NSString *logFileName;
-	NSUInteger logLevel;
-	NSUInteger consoleLogLevel;
-	BOOL detectsVoiceActivity;
-	BOOL usesICE;
-	NSUInteger transportPort;
-
-	// PJSUA config
-	AKTelephoneCallData callData[PJSUA_MAX_CALLS];
-	pj_pool_t *pjPool;
-	NSInteger ringbackSlot;
-	NSInteger ringbackCount;
-	pjmedia_port *ringbackPort;
+ @private
+  id <AKTelephoneDelegate> delegate;
+  
+  NSMutableArray *accounts;
+  BOOL started;
+  BOOL soundStopped;
+  AKNATType detectedNATType;
+  
+  NSArray *nameservers;
+  NSString *outboundProxyHost;
+  NSUInteger outboundProxyPort;
+  NSString *STUNServerHost;
+  NSUInteger STUNServerPort;
+  NSString *userAgentString;
+  NSString *logFileName;
+  NSUInteger logLevel;
+  NSUInteger consoleLogLevel;
+  BOOL detectsVoiceActivity;
+  BOOL usesICE;
+  NSUInteger transportPort;
+  
+  // PJSUA config
+  AKTelephoneCallData callData[PJSUA_MAX_CALLS];
+  pj_pool_t *pjPool;
+  NSInteger ringbackSlot;
+  NSInteger ringbackCount;
+  pjmedia_port *ringbackPort;
 }
 
 @property(nonatomic, readwrite, assign) id <AKTelephoneDelegate> delegate;
@@ -107,18 +107,18 @@ typedef enum _AKNATType {
 @property(readwrite, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;
 
-@property(readwrite, copy) NSArray *nameservers;					// Default: nil. If set, DNS SRV will be enabled. Only first AKTelephoneNameserversMax are used.
-@property(readwrite, copy) NSString *outboundProxyHost;				// Default: @"".
-@property(nonatomic, readwrite, assign) NSUInteger outboundProxyPort;	// Default: 5060.
-@property(readwrite, copy) NSString *STUNServerHost;				// Default: @"".
-@property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;	// Default: 3478.
-@property(readwrite, copy) NSString *userAgentString;				// Default: @"".
-@property(nonatomic, readwrite, copy) NSString *logFileName;		// Default: @"~/Library/Logs/Telephone.log".
-@property(readwrite, assign) NSUInteger logLevel;					// Default: 3.
-@property(readwrite, assign) NSUInteger consoleLogLevel;			// Default: 0.
-@property(readwrite, assign) BOOL detectsVoiceActivity;				// Default: YES.
-@property(readwrite, assign) BOOL usesICE;							// Default: NO.
-@property(nonatomic, readwrite, assign) NSUInteger transportPort;	// Default: 0 for any available port.
+@property(readwrite, copy) NSArray *nameservers;                    // Default: nil. If set, DNS SRV will be enabled. Only first AKTelephoneNameserversMax are used.
+@property(readwrite, copy) NSString *outboundProxyHost;             // Default: @"".
+@property(nonatomic, readwrite, assign) NSUInteger outboundProxyPort;  // Default: 5060.
+@property(readwrite, copy) NSString *STUNServerHost;                // Default: @"".
+@property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;  // Default: 3478.
+@property(readwrite, copy) NSString *userAgentString;               // Default: @"".
+@property(nonatomic, readwrite, copy) NSString *logFileName;        // Default: @"~/Library/Logs/Telephone.log".
+@property(readwrite, assign) NSUInteger logLevel;                   // Default: 3.
+@property(readwrite, assign) NSUInteger consoleLogLevel;            // Default: 0.
+@property(readwrite, assign) BOOL detectsVoiceActivity;             // Default: YES.
+@property(readwrite, assign) BOOL usesICE;                          // Default: NO.
+@property(nonatomic, readwrite, assign) NSUInteger transportPort;   // Default: 0 for any available port.
 
 + (AKTelephone *)sharedTelephone;
 
@@ -145,7 +145,8 @@ typedef enum _AKNATType {
 - (BOOL)stopSound;
 
 // Update list of audio devices.
-// After calling this method, setSoundInputDevice:soundOutputDevice: must be called to set appropriate IO.
+// After calling this method, setSoundInputDevice:soundOutputDevice: must be called
+// to set appropriate IO.
 - (void)updateAudioDevices;
 
 - (NSString *)stringForSIPResponseCode:(NSInteger)responseCode;

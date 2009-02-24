@@ -35,22 +35,22 @@
 
 - (BOOL)acceptsFirstResponder
 {
-	return YES;
+  return YES;
 }
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-	if ([theEvent isARepeat])
-		return;
-		
-	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
+  if ([theEvent isARepeat])
+    return;
+  
+  [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
 }
 
 - (void)insertText:(id)aString
 {
-	if ([[self delegate] respondsToSelector:@selector(activeCallView:didReceiveText:)]) {
-		[[self delegate] activeCallView:self didReceiveText:aString];
-	}
+  if ([[self delegate] respondsToSelector:@selector(activeCallView:didReceiveText:)]) {
+    [[self delegate] activeCallView:self didReceiveText:aString];
+  }
 }
 
 @end

@@ -33,38 +33,38 @@
 
 // Account registration pull-down list tags
 enum {
-	AKTelephoneAccountOfflineTag	= 1,
-	AKTelephoneAccountUnregisterTag	= 2,
-	AKTelephoneAccountRegisterTag	= 3
+  AKTelephoneAccountOfflineTag    = 1,
+  AKTelephoneAccountUnregisterTag = 2,
+  AKTelephoneAccountRegisterTag   = 3
 };
 
 @class AKTelephoneAccount;
 
 @interface AKAccountController : NSWindowController <AKTelephoneAccountDelegate> {
-@private
-	BOOL enabled;
-	AKTelephoneAccount *account;
-	NSMutableArray *callControllers;
-	BOOL attemptsToRegisterAccount;
-	BOOL attemptsToUnregisterAccount;
-	NSTimer *reRegistrationTimer;
-	
-	BOOL substitutesPlusCharacter;
-	NSString *plusCharacterSubstitution;
-	
-	NSView *activeAccountView;
-	NSView *offlineAccountView;
-	NSPopUpButton *accountRegistrationPopUp;
-	NSTokenField *callDestinationField;
-	NSUInteger callDestinationURIIndex;
-	
-	// Authentication failure sheet elements.
-	NSWindow *authenticationFailureSheet;
-	NSTextField *updateCredentialsInformativeText;
-	NSTextField *newUsernameField;
-	NSTextField *newPasswordField;
-	NSButton *mustSaveCheckBox;
-	NSButton *authenticationFailureCancelButton;
+ @private
+  BOOL enabled;
+  AKTelephoneAccount *account;
+  NSMutableArray *callControllers;
+  BOOL attemptsToRegisterAccount;
+  BOOL attemptsToUnregisterAccount;
+  NSTimer *reRegistrationTimer;
+  
+  BOOL substitutesPlusCharacter;
+  NSString *plusCharacterSubstitution;
+  
+  NSView *activeAccountView;
+  NSView *offlineAccountView;
+  NSPopUpButton *accountRegistrationPopUp;
+  NSTokenField *callDestinationField;
+  NSUInteger callDestinationURIIndex;
+  
+  // Authentication failure sheet elements.
+  NSWindow *authenticationFailureSheet;
+  NSTextField *updateCredentialsInformativeText;
+  NSTextField *newUsernameField;
+  NSTextField *newPasswordField;
+  NSButton *mustSaveCheckBox;
+  NSButton *authenticationFailureCancelButton;
 }
 
 @property(readwrite, assign, getter=isEnabled) BOOL enabled;
@@ -90,10 +90,10 @@ enum {
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;
 
 - (id)initWithFullName:(NSString *)aFullName
-			SIPAddress:(NSString *)aSIPAddress
-			 registrar:(NSString *)aRegistrar
-				 realm:(NSString *)aRealm
-			  username:(NSString *)aUsername;
+            SIPAddress:(NSString *)aSIPAddress
+             registrar:(NSString *)aRegistrar
+                 realm:(NSString *)aRealm
+              username:(NSString *)aUsername;
 
 // Remove account from Telehpone making appropriate changes in UI, timers, etc.
 - (void)removeAccountFromTelephone;
@@ -103,7 +103,8 @@ enum {
 - (IBAction)changeAccountRegistration:(id)sender;
 
 // When authentication fails, the sheet is being raised.
-// This action method applies new username and password entered by user for the account.
+// This action method applies new username and password entered
+// by user for the account.
 - (IBAction)changeUsernameAndPassword:(id)sender;
 
 - (IBAction)closeSheet:(id)sender;

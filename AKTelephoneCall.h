@@ -33,33 +33,46 @@
 extern const NSInteger AKTelephoneCallsMax;
 
 typedef enum _AKTelephoneCallState {
-	AKTelephoneCallNullState =			PJSIP_INV_STATE_NULL,			// Before INVITE is sent or received.
-	AKTelephoneCallCallingState =		PJSIP_INV_STATE_CALLING,		// After INVITE is sent.
-	AKTelephoneCallIncomingState =		PJSIP_INV_STATE_INCOMING,		// After INVITE is received.
-	AKTelephoneCallEarlyState =			PJSIP_INV_STATE_EARLY,			// After response with To tag.
-	AKTelephoneCallConnectingState =	PJSIP_INV_STATE_CONNECTING,		// After 2xx is sent/received.
-	AKTelephoneCallConfirmedState =		PJSIP_INV_STATE_CONFIRMED,		// After ACK is sent/received.
-	AKTelephoneCallDisconnectedState =	PJSIP_INV_STATE_DISCONNECTED	// Session is terminated.
+  // Before INVITE is sent or received.
+  AKTelephoneCallNullState =         PJSIP_INV_STATE_NULL,
+  
+  // After INVITE is sent.
+  AKTelephoneCallCallingState =      PJSIP_INV_STATE_CALLING,
+  
+  // After INVITE is received.
+  AKTelephoneCallIncomingState =     PJSIP_INV_STATE_INCOMING,
+  
+  // After response with To tag.
+  AKTelephoneCallEarlyState =        PJSIP_INV_STATE_EARLY,
+  
+  // After 2xx is sent/received.
+  AKTelephoneCallConnectingState =   PJSIP_INV_STATE_CONNECTING,
+  
+  // After ACK is sent/received.
+  AKTelephoneCallConfirmedState =    PJSIP_INV_STATE_CONFIRMED,
+  
+  // Session is terminated.
+  AKTelephoneCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
 } AKTelephoneCallState;
 
 @class AKTelephoneAccount, AKSIPURI;
 
 @interface AKTelephoneCall : NSObject {
-@private
-	id delegate;
-	
-	NSInteger identifier;
-	AKSIPURI *localURI;
-	AKSIPURI *remoteURI;
-	AKTelephoneCallState state;
-	NSString *stateText;
-	NSInteger lastStatus;
-	NSString *lastStatusText;
-	BOOL incoming;
-	BOOL microphoneMuted;
-	
-	// Account the call belongs to
-	AKTelephoneAccount *account;
+ @private
+  id delegate;
+  
+  NSInteger identifier;
+  AKSIPURI *localURI;
+  AKSIPURI *remoteURI;
+  AKTelephoneCallState state;
+  NSString *stateText;
+  NSInteger lastStatus;
+  NSString *lastStatusText;
+  BOOL incoming;
+  BOOL microphoneMuted;
+  
+  // Account the call belongs to
+  AKTelephoneAccount *account;
 }
 
 @property(nonatomic, readwrite, assign) id delegate;
@@ -81,7 +94,7 @@ typedef enum _AKTelephoneCallState {
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
-					identifier:(NSInteger)anIdentifier;
+                    identifier:(NSInteger)anIdentifier;
 
 - (void)answer;
 - (void)hangUp;
@@ -109,11 +122,13 @@ void AKCallMediaStateChanged(pjsua_call_id);
 // Calling. After INVITE is sent.
 extern NSString * const AKTelephoneCallCallingNotification;
 
-// Incoming. After INVITE is received. Delegate is not subscribed to this notification.
+// Incoming. After INVITE is received.
+// Delegate is not subscribed to this notification.
 extern NSString * const AKTelephoneCallIncomingNotification;
 
 // Early. After response with To tag.
-extern NSString * const AKTelephoneCallEarlyNotification;	// @"AKSIPEventCode", @"AKSIPEventReason".
+// Keys: // @"AKSIPEventCode", @"AKSIPEventReason".
+extern NSString * const AKTelephoneCallEarlyNotification;
 
 // Connecting. After 2xx is sent/received.
 extern NSString * const AKTelephoneCallConnectingNotification;

@@ -35,18 +35,18 @@
 @class AKTelephone, AKAccountController, AKPreferenceController, AKCallController;
 
 @interface AppController : NSObject <AKTelephoneDelegate, GrowlApplicationBridgeDelegate> {
-@private
-	AKTelephone *telephone;
-	NSMutableArray *accountControllers;
-	AKPreferenceController *preferenceController;
-	NSArray *audioDevices;
-	NSInteger soundInputDeviceIndex;
-	NSInteger soundOutputDeviceIndex;
-	NSInteger ringtoneOutputDeviceIndex;
-	NSSound *ringtone;
-	NSTimer *ringtoneTimer;
-	
-	NSMenuItem *preferencesMenuItem;
+ @private
+  AKTelephone *telephone;
+  NSMutableArray *accountControllers;
+  AKPreferenceController *preferenceController;
+  NSArray *audioDevices;
+  NSInteger soundInputDeviceIndex;
+  NSInteger soundOutputDeviceIndex;
+  NSInteger ringtoneOutputDeviceIndex;
+  NSSound *ringtone;
+  NSTimer *ringtoneTimer;
+  
+  NSMenuItem *preferencesMenuItem;
 }
 
 @property(readonly, retain) AKTelephone *telephone;
@@ -79,7 +79,8 @@
 - (void)stopRingtoneTimer;
 - (void)ringtoneTimerTick:(NSTimer *)theTimer;
 
-// Search all account controllers for the call controller with given identifier (uuid).
+// Search all account controllers for the call controller
+// with the given identifier (uuid).
 - (AKCallController *)callControllerByIdentifier:(NSString *)identifier;
 
 - (IBAction)openFAQURL:(id)sender;

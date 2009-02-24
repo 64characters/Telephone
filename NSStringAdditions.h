@@ -30,28 +30,30 @@
 #import <pjsua-lib/pjsua.h>
 
 
-@interface NSString(UUID)
+@interface NSString (UUID)
 
 + (NSString *)AK_uuidString;
 
 @end
 
-@interface NSString(PJSUA)
+@interface NSString (PJSUA)
 
 + (NSString *)stringWithPJString:(pj_str_t)pjString;
 - (pj_str_t)pjString;
 
 @end
 
-@interface NSString(Additions)
+@interface NSString (Additions)
 
-// Returns YES if the receiver is a string of contiguous digits with possible plus character in the beginning.
+// Returns YES if the receiver is a string of contiguous digits with possible
+// plus character in the beginning.
 @property(nonatomic, readonly, assign) BOOL AK_isTelephoneNumber;
 
 // Returns YES if the receiver contains a-z or A-Z.
 @property(nonatomic, readonly, assign) BOOL AK_hasLetters;
 
-// Inserts backslash before every occurrence of the first character from string in the receiver.
+// Inserts backslash before every occurrence of the first character from string
+// in the receiver.
 - (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string;
 
 - (NSString *)AK_escapeQuotes;
