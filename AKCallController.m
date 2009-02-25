@@ -42,67 +42,68 @@
 #import "NSWindowAdditions.h"
 
 
-NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallWindowWillClose";
+NSString * const AKTelephoneCallWindowWillCloseNotification
+  = @"AKTelephoneCallWindowWillClose";
 
 @implementation AKCallController
 
-@synthesize identifier;
+@synthesize identifier = identifier_;
 @dynamic call;
 @dynamic accountController;
-@synthesize displayedName;
-@synthesize status;
-@synthesize nameFromAddressBook;
-@synthesize phoneLabelFromAddressBook;
-@synthesize enteredCallDestination;
-@synthesize intermediateStatusTimer;
-@synthesize callStartTime;
-@synthesize callTimer;
-@synthesize callOnHold;
-@synthesize enteredDTMF;
+@synthesize displayedName = displayedName_;
+@synthesize status = status_;
+@synthesize nameFromAddressBook = nameFromAddressBook_;
+@synthesize phoneLabelFromAddressBook = phoneLabelFromAddressBook_;
+@synthesize enteredCallDestination = enteredCallDestination_;
+@synthesize intermediateStatusTimer = intermediateStatusTimer_;
+@synthesize callStartTime = callStartTime_;
+@synthesize callTimer = callTimer_;
+@synthesize callOnHold = callOnHold_;
+@synthesize enteredDTMF = enteredDTMF_;
 
-@synthesize incomingCallView;
-@synthesize activeCallView;
-@synthesize endedCallView;
-@synthesize hangUpButton;
-@synthesize acceptCallButton;
-@synthesize declineCallButton;
-@synthesize displayedNameField;
-@synthesize endedCallDisplayedNameField;
-@synthesize statusField;
-@synthesize callProgressIndicator;
+@synthesize incomingCallView = incomingCallView_;
+@synthesize activeCallView = activeCallView_;
+@synthesize endedCallView = endedCallView_;
+@synthesize hangUpButton = hangUpButton_;
+@synthesize acceptCallButton = acceptCallButton_;
+@synthesize declineCallButton = declineCallButton_;
+@synthesize displayedNameField = displayedNameField_;
+@synthesize endedCallDisplayedNameField = endedCallDisplayedNameField_;
+@synthesize statusField = statusField_;
+@synthesize callProgressIndicator = callProgressIndicator_;
 
 - (AKTelephoneCall *)call
 {
-  return [[call retain] autorelease];
+  return [[call_ retain] autorelease];
 }
 
 - (void)setCall:(AKTelephoneCall *)aCall
 {
-  if (call != aCall) {
-    if ([[call delegate] isEqual:self])
-      [call setDelegate:nil];
+  if (call_ != aCall) {
+    if ([[call_ delegate] isEqual:self])
+      [call_ setDelegate:nil];
     
-    [call release];
-    call = [aCall retain];
+    [call_ release];
+    call_ = [aCall retain];
     
-    [call setDelegate:self];
+    [call_ setDelegate:self];
   }
 }
 
 - (AKAccountController *)accountController
 {
-  return accountController;
+  return accountController_;
 }
 
 - (void)setAccountController:(AKAccountController *)anAccountController
 {
-  if (accountController == anAccountController)
+  if (accountController_ == anAccountController)
     return;
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   
-  if (accountController != nil)
-    [notificationCenter removeObserver:accountController name:nil object:self];
+  if (accountController_ != nil)
+    [notificationCenter removeObserver:accountController_ name:nil object:self];
   
   if (anAccountController != nil) {
     if ([anAccountController respondsToSelector:@selector(telephoneCallWindowWillClose:)])
@@ -112,7 +113,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
                                object:self];
   }
   
-  accountController = anAccountController;
+  accountController_ = anAccountController;
 }
 
 - (id)initWithAccountController:(AKAccountController *)anAccountController
@@ -133,7 +134,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
   [self setCallStartTime:0.0];
   [self setCallTimer:nil];
   [self setCallOnHold:NO];
-  enteredDTMF = [[NSMutableString alloc] init];
+  enteredDTMF_ = [[NSMutableString alloc] init];
   
   return self;
 }
@@ -145,27 +146,27 @@ NSString * const AKTelephoneCallWindowWillCloseNotification = @"AKTelephoneCallW
 
 - (void)dealloc
 {
-  [identifier release];
+  [identifier_ release];
   
   [self setCall:nil];
   [self setAccountController:nil];
-  [displayedName release];
-  [status release];
-  [nameFromAddressBook release];
-  [phoneLabelFromAddressBook release];
-  [enteredCallDestination release];
-  [enteredDTMF release];
+  [displayedName_ release];
+  [status_ release];
+  [nameFromAddressBook_ release];
+  [phoneLabelFromAddressBook_ release];
+  [enteredCallDestination_ release];
+  [enteredDTMF_ release];
   
-  [incomingCallView release];
-  [activeCallView release];
-  [endedCallView release];
-  [hangUpButton release];
-  [acceptCallButton release];
-  [declineCallButton release];
-  [displayedNameField release];
-  [endedCallDisplayedNameField release];
-  [statusField release];
-  [callProgressIndicator release];
+  [incomingCallView_ release];
+  [activeCallView_ release];
+  [endedCallView_ release];
+  [hangUpButton_ release];
+  [acceptCallButton_ release];
+  [declineCallButton_ release];
+  [displayedNameField_ release];
+  [endedCallDisplayedNameField_ release];
+  [statusField_ release];
+  [callProgressIndicator_ release];
   
   [super dealloc];
 }

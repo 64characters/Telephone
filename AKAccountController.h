@@ -42,29 +42,29 @@ enum {
 
 @interface AKAccountController : NSWindowController <AKTelephoneAccountDelegate> {
  @private
-  BOOL enabled;
-  AKTelephoneAccount *account;
-  NSMutableArray *callControllers;
-  BOOL attemptsToRegisterAccount;
-  BOOL attemptsToUnregisterAccount;
-  NSTimer *reRegistrationTimer;
+  BOOL enabled_;
+  AKTelephoneAccount *account_;
+  NSMutableArray *callControllers_;
+  BOOL attemptsToRegisterAccount_;
+  BOOL attemptsToUnregisterAccount_;
+  NSTimer *reRegistrationTimer_;
   
-  BOOL substitutesPlusCharacter;
-  NSString *plusCharacterSubstitution;
+  BOOL substitutesPlusCharacter_;
+  NSString *plusCharacterSubstitution_;
   
-  NSView *activeAccountView;
-  NSView *offlineAccountView;
-  NSPopUpButton *accountRegistrationPopUp;
-  NSTokenField *callDestinationField;
-  NSUInteger callDestinationURIIndex;
+  NSView *activeAccountView_;
+  NSView *offlineAccountView_;
+  NSPopUpButton *accountRegistrationPopUp_;
+  NSTokenField *callDestinationField_;
+  NSUInteger callDestinationURIIndex_;
   
   // Authentication failure sheet elements.
-  NSWindow *authenticationFailureSheet;
-  NSTextField *updateCredentialsInformativeText;
-  NSTextField *newUsernameField;
-  NSTextField *newPasswordField;
-  NSButton *mustSaveCheckBox;
-  NSButton *authenticationFailureCancelButton;
+  NSWindow *authenticationFailureSheet_;
+  NSTextField *updateCredentialsInformativeText_;
+  NSTextField *newUsernameField_;
+  NSTextField *newPasswordField_;
+  NSButton *mustSaveCheckBox_;
+  NSButton *authenticationFailureCancelButton_;
 }
 
 @property(readwrite, assign, getter=isEnabled) BOOL enabled;

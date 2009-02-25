@@ -46,38 +46,38 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 @implementation AKTelephoneAccount
 
 @dynamic delegate;
-@synthesize registrationURI;
-@synthesize fullName;
-@synthesize SIPAddress;
-@synthesize registrar;
-@synthesize realm;
-@synthesize username;
-@synthesize proxyHost;
+@synthesize registrationURI = registrationURI_;
+@synthesize fullName = fullName_;
+@synthesize SIPAddress = SIPAddress_;
+@synthesize registrar = registrar_;
+@synthesize realm = realm_;
+@synthesize username = username_;
+@synthesize proxyHost = proxyHost_;
 @dynamic proxyPort;
 @dynamic reregistrationTime;
-@synthesize identifier;
+@synthesize identifier = identifier_;
 @dynamic registered;
 @dynamic registrationStatus;
 @dynamic registrationStatusText;
 @dynamic registrationExpireTime;
 @dynamic online;
 @dynamic onlineStatusText;
-@synthesize calls;
+@synthesize calls = calls_;
 
 - (NSObject <AKTelephoneAccountDelegate> *)delegate
 {
-  return delegate;
+  return delegate_;
 }
 
 - (void)setDelegate:(NSObject <AKTelephoneAccountDelegate> *)aDelegate
 {
-  if (delegate == aDelegate)
+  if (delegate_ == aDelegate)
     return;
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   
-  if (delegate != nil)
-    [notificationCenter removeObserver:delegate name:nil object:self];
+  if (delegate_ != nil)
+    [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
     if ([aDelegate respondsToSelector:@selector(telephoneAccountRegistrationDidChange:)])
@@ -93,37 +93,37 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
                                object:self];
   }
   
-  delegate = aDelegate;
+  delegate_ = aDelegate;
 }
 
 - (NSUInteger)proxyPort
 {
-  return proxyPort;
+  return proxyPort_;
 }
 
 - (void)setProxyPort:(NSUInteger)port
 {
   if (port > 0 && port < 65535)
-    proxyPort = port;
+    proxyPort_ = port;
   else
-    proxyPort = AKSIPProxyPortDefault;
+    proxyPort_ = AKSIPProxyPortDefault;
 }
 
 - (NSUInteger)reregistrationTime
 {
-  return reregistrationTime;
+  return reregistrationTime_;
 }
 
 - (void)setReregistrationTime:(NSUInteger)seconds
 {
   if (seconds == 0)
-    reregistrationTime = AKAccountReregistrationTimeDefault;
+    reregistrationTime_ = AKAccountReregistrationTimeDefault;
   else if (seconds < 60)
-    reregistrationTime = 60;
+    reregistrationTime_ = 60;
   else if (seconds > 3600)
-    reregistrationTime = 3600;
+    reregistrationTime_ = 3600;
   else
-    reregistrationTime = seconds;
+    reregistrationTime_ = seconds;
 }
 
 - (BOOL)isRegistered
@@ -269,7 +269,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
   [self setReregistrationTime:AKAccountReregistrationTimeDefault];
   [self setIdentifier:PJSUA_INVALID_ID];
   
-  calls = [[NSMutableArray alloc] init];
+  calls_ = [[NSMutableArray alloc] init];
   
   return self;
 }
@@ -287,16 +287,16 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 {
   [self setDelegate:nil];
   
-  [registrationURI dealloc];
+  [registrationURI_ release];
   
-  [fullName release];
-  [SIPAddress release];
-  [registrar release];
-  [realm release];
-  [username release];
-  [proxyHost release];
+  [fullName_ release];
+  [SIPAddress_ release];
+  [registrar_ release];
+  [realm_ release];
+  [username_ release];
+  [proxyHost_ release];
   
-  [calls release];
+  [calls_ release];
   
   [super dealloc];
 }

@@ -31,17 +31,17 @@
 
 @interface AKSIPURI : NSObject <NSCopying> {
  @private
-  NSString *displayName;
-  NSString *user;
-  NSString *password;
-  NSString *host;
-  NSInteger port;
-  NSString *userParameter;
-  NSString *methodParameter;
-  NSString *transportParameter;
-  NSInteger TTLParameter;
-  NSInteger looseRoutingParameter;
-  NSString *maddrParameter;
+  NSString *displayName_;
+  NSString *user_;
+  NSString *password_;
+  NSString *host_;
+  NSInteger port_;
+  NSString *userParameter_;
+  NSString *methodParameter_;
+  NSString *transportParameter_;
+  NSInteger TTLParameter_;
+  NSInteger looseRoutingParameter_;
+  NSString *maddrParameter_;
 }
 
 @property(nonatomic, readonly, copy) NSString *SIPAddress;

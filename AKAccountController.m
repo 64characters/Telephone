@@ -90,29 +90,29 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 @implementation AKAccountController
 
-@synthesize enabled;
-@synthesize account;
+@synthesize enabled = enabled_;
+@synthesize account = account_;
 @dynamic accountRegistered;
-@synthesize callControllers;
-@synthesize substitutesPlusCharacter;
-@synthesize plusCharacterSubstitution;
+@synthesize callControllers = callControllers_;
+@synthesize substitutesPlusCharacter = substitutesPlusCharacter_;
+@synthesize plusCharacterSubstitution = plusCharacterSubstitution_;
 
-@synthesize attemptsToRegisterAccount;
-@synthesize attemptsToUnregisterAccount;
-@synthesize reRegistrationTimer;
-@synthesize callDestinationURIIndex;
+@synthesize attemptsToRegisterAccount = attemptsToRegisterAccount_;
+@synthesize attemptsToUnregisterAccount = attemptsToUnregisterAccount_;
+@synthesize reRegistrationTimer = reRegistrationTimer_;
+@synthesize callDestinationURIIndex = callDestinationURIIndex_;
 
-@synthesize activeAccountView;
-@synthesize offlineAccountView;
-@synthesize accountRegistrationPopUp;
-@synthesize callDestinationField;
+@synthesize activeAccountView = activeAccountView_;
+@synthesize offlineAccountView = offlineAccountView_;
+@synthesize accountRegistrationPopUp = accountRegistrationPopUp_;
+@synthesize callDestinationField = callDestinationField_;
 
-@synthesize authenticationFailureSheet;
-@synthesize updateCredentialsInformativeText;
-@synthesize newUsernameField;
-@synthesize newPasswordField;
-@synthesize mustSaveCheckBox;
-@synthesize authenticationFailureCancelButton;
+@synthesize authenticationFailureSheet = authenticationFailureSheet_;
+@synthesize updateCredentialsInformativeText = updateCredentialsInformativeText_;
+@synthesize newUsernameField = newUsernameField_;
+@synthesize newPasswordField = newPasswordField_;
+@synthesize mustSaveCheckBox = mustSaveCheckBox_;
+@synthesize authenticationFailureCancelButton = authenticationFailureCancelButton_;
 
 - (BOOL)isAccountRegistered
 {
@@ -195,7 +195,7 @@ NSString * const AKEmailSIPLabel = @"sip";
     return nil;
   
   [self setAccount:anAccount];
-  callControllers = [[NSMutableArray alloc] init];
+  callControllers_ = [[NSMutableArray alloc] init];
   [self setSubstitutesPlusCharacter:NO];
   [self setPlusCharacterSubstitution:nil];
   
@@ -204,7 +204,7 @@ NSString * const AKEmailSIPLabel = @"sip";
   [self setReRegistrationTimer:nil];
   [self setCallDestinationURIIndex:0];
   
-  [account setDelegate:self];
+  [[self account] setDelegate:self];
   
   [[self window] setTitle:[[self account] SIPAddress]];
   
@@ -239,21 +239,21 @@ NSString * const AKEmailSIPLabel = @"sip";
   // Close authentication failure sheet if it's raised
   [[self authenticationFailureCancelButton] performClick:nil];
   
-  [account release];
-  [callControllers release];
-  [plusCharacterSubstitution release];
+  [account_ release];
+  [callControllers_ release];
+  [plusCharacterSubstitution_ release];
   [self setReRegistrationTimer:nil];
   
-  [activeAccountView release];
-  [offlineAccountView release];
-  [accountRegistrationPopUp release];
-  [callDestinationField release];
-  [authenticationFailureSheet release];
-  [updateCredentialsInformativeText release];
-  [newUsernameField release];
-  [newPasswordField release];
-  [mustSaveCheckBox release];
-  [authenticationFailureCancelButton release];
+  [activeAccountView_ release];
+  [offlineAccountView_ release];
+  [accountRegistrationPopUp_ release];
+  [callDestinationField_ release];
+  [authenticationFailureSheet_ release];
+  [updateCredentialsInformativeText_ release];
+  [newUsernameField_ release];
+  [newPasswordField_ release];
+  [mustSaveCheckBox_ release];
+  [authenticationFailureCancelButton_ release];
   
   [super dealloc];
 }

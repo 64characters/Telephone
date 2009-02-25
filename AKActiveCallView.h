@@ -33,7 +33,7 @@
 
 @interface AKActiveCallView : NSView {
  @private
-  id <AKActiveCallViewDelegate> _delegate;
+  id <AKActiveCallViewDelegate> delegate_;
 }
 
 @property(nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;

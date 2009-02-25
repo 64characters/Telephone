@@ -36,17 +36,17 @@
 
 @interface AppController : NSObject <AKTelephoneDelegate, GrowlApplicationBridgeDelegate> {
  @private
-  AKTelephone *telephone;
-  NSMutableArray *accountControllers;
-  AKPreferenceController *preferenceController;
-  NSArray *audioDevices;
-  NSInteger soundInputDeviceIndex;
-  NSInteger soundOutputDeviceIndex;
-  NSInteger ringtoneOutputDeviceIndex;
-  NSSound *ringtone;
-  NSTimer *ringtoneTimer;
+  AKTelephone *telephone_;
+  NSMutableArray *accountControllers_;
+  AKPreferenceController *preferenceController_;
+  NSArray *audioDevices_;
+  NSInteger soundInputDeviceIndex_;
+  NSInteger soundOutputDeviceIndex_;
+  NSInteger ringtoneOutputDeviceIndex_;
+  NSSound *ringtone_;
+  NSTimer *ringtoneTimer_;
   
-  NSMenuItem *preferencesMenuItem;
+  NSMenuItem *preferencesMenuItem_;
 }
 
 @property(readonly, retain) AKTelephone *telephone;

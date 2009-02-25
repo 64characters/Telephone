@@ -35,30 +35,30 @@
 
 @interface AKCallController : NSWindowController <AKActiveCallViewDelegate> {
 @private
-  NSString *identifier;
-  AKTelephoneCall *call;
-  AKAccountController *accountController;
-  NSString *displayedName;
-  NSString *status;
-  NSString *nameFromAddressBook;
-  NSString *phoneLabelFromAddressBook;
-  NSString *enteredCallDestination;
-  NSTimer *intermediateStatusTimer;
-  NSTimeInterval callStartTime;
-  NSTimer *callTimer;
-  BOOL callOnHold;
-  NSMutableString *enteredDTMF;
+  NSString *identifier_;
+  AKTelephoneCall *call_;
+  AKAccountController *accountController_;
+  NSString *displayedName_;
+  NSString *status_;
+  NSString *nameFromAddressBook_;
+  NSString *phoneLabelFromAddressBook_;
+  NSString *enteredCallDestination_;
+  NSTimer *intermediateStatusTimer_;
+  NSTimeInterval callStartTime_;
+  NSTimer *callTimer_;
+  BOOL callOnHold_;
+  NSMutableString *enteredDTMF_;
   
-  NSView *incomingCallView;
-  NSView *activeCallView;
-  NSView *endedCallView;
-  NSButton *hangUpButton;
-  NSButton *acceptCallButton;
-  NSButton *declineCallButton;
-  NSTextField *displayedNameField;
-  NSTextField *endedCallDisplayedNameField;
-  NSTextField *statusField;
-  NSProgressIndicator *callProgressIndicator;
+  NSView *incomingCallView_;
+  NSView *activeCallView_;
+  NSView *endedCallView_;
+  NSButton *hangUpButton_;
+  NSButton *acceptCallButton_;
+  NSButton *declineCallButton_;
+  NSTextField *displayedNameField_;
+  NSTextField *endedCallDisplayedNameField_;
+  NSTextField *statusField_;
+  NSProgressIndicator *callProgressIndicator_;
 }
 
 @property(readwrite, copy) NSString *identifier;

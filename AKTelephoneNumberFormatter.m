@@ -31,7 +31,7 @@
 
 @implementation AKTelephoneNumberFormatter
 
-@synthesize splitsLastFourDigits;
+@synthesize splitsLastFourDigits = splitsLastFourDigits_;
 
 - (NSString *)stringForObjectValue:(id)anObject
 {

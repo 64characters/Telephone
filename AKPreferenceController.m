@@ -103,66 +103,66 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 
 @dynamic delegate;
 
-@synthesize toolbar;
-@synthesize generalToolbarItem;
-@synthesize accountsToolbarItem;
-@synthesize soundToolbarItem;
-@synthesize networkToolbarItem;
-@synthesize generalView;
-@synthesize accountsView;
-@synthesize soundView;
-@synthesize networkView;
+@synthesize toolbar = toolbar_;
+@synthesize generalToolbarItem = generalToolbarItem_;
+@synthesize accountsToolbarItem = accountsToolbarItem_;
+@synthesize soundToolbarItem = soundToolbarItem_;
+@synthesize networkToolbarItem = networkToolbarItem_;
+@synthesize generalView = generalView_;
+@synthesize accountsView = accountsView_;
+@synthesize soundView = soundView_;
+@synthesize networkView = networkView_;
 
-@synthesize soundInputPopUp;
-@synthesize soundOutputPopUp;
-@synthesize ringtoneOutputPopUp;
-@synthesize ringtonePopUp;
+@synthesize soundInputPopUp = soundInputPopUp_;
+@synthesize soundOutputPopUp = soundOutputPopUp_;
+@synthesize ringtoneOutputPopUp = ringtoneOutputPopUp_;
+@synthesize ringtonePopUp = ringtonePopUp_;
 
-@synthesize transportPortField;
-@synthesize transportPortCell;
-@synthesize STUNServerHostField;
-@synthesize STUNServerPortField;
-@synthesize useICECheckBox;
-@synthesize outboundProxyHostField;
-@synthesize outboundProxyPortField;
+@synthesize transportPortField = transportPortField_;
+@synthesize transportPortCell = transportPortCell_;
+@synthesize STUNServerHostField = STUNServerHostField_;
+@synthesize STUNServerPortField = STUNServerPortField_;
+@synthesize useICECheckBox = useICECheckBox_;
+@synthesize outboundProxyHostField = outboundProxyHostField_;
+@synthesize outboundProxyPortField = outboundProxyPortField_;
 
-@synthesize accountsTable;
-@synthesize accountEnabledCheckBox;
-@synthesize fullNameField;
-@synthesize SIPAddressField;
-@synthesize registrarField;
-@synthesize usernameField;
-@synthesize passwordField;
-@synthesize reregistrationTimeField;
-@synthesize substitutePlusCharacterCheckBox;
-@synthesize plusCharacterSubstitutionField;
-@synthesize useProxyCheckBox;
-@synthesize proxyHostField;
-@synthesize proxyPortField;
+@synthesize accountsTable = accountsTable_;
+@synthesize accountEnabledCheckBox = accountEnabledCheckBox_;
+@synthesize fullNameField = fullNameField_;
+@synthesize SIPAddressField = SIPAddressField_;
+@synthesize registrarField = registrarField_;
+@synthesize usernameField = usernameField_;
+@synthesize passwordField = passwordField_;
+@synthesize reregistrationTimeField = reregistrationTimeField_;
+@synthesize substitutePlusCharacterCheckBox = substitutePlusCharacterCheckBox_;
+@synthesize plusCharacterSubstitutionField = plusCharacterSubstitutionField_;
+@synthesize useProxyCheckBox = useProxyCheckBox_;
+@synthesize proxyHostField = proxyHostField_;
+@synthesize proxyPortField = proxyPortField_;
 
-@synthesize addAccountWindow;
-@synthesize setupFullNameField;
-@synthesize setupSIPAddressField;
-@synthesize setupRegistrarField;
-@synthesize setupUsernameField;
-@synthesize setupPasswordField;
-@synthesize addAccountWindowDefaultButton;
-@synthesize addAccountWindowOtherButton;
+@synthesize addAccountWindow = addAccountWindow_;
+@synthesize setupFullNameField = setupFullNameField_;
+@synthesize setupSIPAddressField = setupSIPAddressField_;
+@synthesize setupRegistrarField = setupRegistrarField_;
+@synthesize setupUsernameField = setupUsernameField_;
+@synthesize setupPasswordField = setupPasswordField_;
+@synthesize addAccountWindowDefaultButton = addAccountWindowDefaultButton_;
+@synthesize addAccountWindowOtherButton = addAccountWindowOtherButton_;
 
 - (id)delegate
 {
-  return delegate;
+  return delegate_;
 }
 
 - (void)setDelegate:(id)aDelegate
 {
-  if (delegate == aDelegate)
+  if (delegate_ == aDelegate)
     return;
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   
-  if (delegate != nil)
-    [notificationCenter removeObserver:delegate name:nil object:self];
+  if (delegate_ != nil)
+    [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
     if ([aDelegate respondsToSelector:@selector(preferenceControllerDidAddAccount:)])
@@ -196,7 +196,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
                                object:self];
   }
   
-  delegate = aDelegate;
+  delegate_ = aDelegate;
 }
 
 - (id)init
@@ -226,51 +226,51 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   
-  [toolbar release];
-  [generalToolbarItem release];
-  [accountsToolbarItem release];
-  [soundToolbarItem release];
-  [networkToolbarItem release];
-  [generalView release];
-  [accountsView release];
-  [soundView release];
-  [networkView release];
+  [toolbar_ release];
+  [generalToolbarItem_ release];
+  [accountsToolbarItem_ release];
+  [soundToolbarItem_ release];
+  [networkToolbarItem_ release];
+  [generalView_ release];
+  [accountsView_ release];
+  [soundView_ release];
+  [networkView_ release];
   
-  [soundInputPopUp release];
-  [soundOutputPopUp release];
-  [ringtoneOutputPopUp release];
-  [ringtonePopUp release];
+  [soundInputPopUp_ release];
+  [soundOutputPopUp_ release];
+  [ringtoneOutputPopUp_ release];
+  [ringtonePopUp_ release];
   
-  [transportPortField release];
-  [transportPortCell release];
-  [STUNServerHostField release];
-  [STUNServerPortField release];
-  [useICECheckBox release];
-  [outboundProxyHostField release];
-  [outboundProxyPortField release];
+  [transportPortField_ release];
+  [transportPortCell_ release];
+  [STUNServerHostField_ release];
+  [STUNServerPortField_ release];
+  [useICECheckBox_ release];
+  [outboundProxyHostField_ release];
+  [outboundProxyPortField_ release];
   
-  [accountsTable release];
-  [accountEnabledCheckBox release];
-  [fullNameField release];
-  [SIPAddressField release];
-  [registrarField release];
-  [usernameField release];
-  [passwordField release];
-  [reregistrationTimeField release];
-  [substitutePlusCharacterCheckBox release];
-  [plusCharacterSubstitutionField release];
-  [useProxyCheckBox release];
-  [proxyHostField release];
-  [proxyPortField release];
+  [accountsTable_ release];
+  [accountEnabledCheckBox_ release];
+  [fullNameField_ release];
+  [SIPAddressField_ release];
+  [registrarField_ release];
+  [usernameField_ release];
+  [passwordField_ release];
+  [reregistrationTimeField_ release];
+  [substitutePlusCharacterCheckBox_ release];
+  [plusCharacterSubstitutionField_ release];
+  [useProxyCheckBox_ release];
+  [proxyHostField_ release];
+  [proxyPortField_ release];
   
-  [addAccountWindow release];
-  [setupFullNameField release];
-  [setupSIPAddressField release];
-  [setupRegistrarField release];
-  [setupUsernameField release];
-  [setupPasswordField release];
-  [addAccountWindowDefaultButton release];
-  [addAccountWindowOtherButton release];
+  [addAccountWindow_ release];
+  [setupFullNameField_ release];
+  [setupSIPAddressField_ release];
+  [setupRegistrarField_ release];
+  [setupUsernameField_ release];
+  [setupPasswordField_ release];
+  [addAccountWindowDefaultButton_ release];
+  [addAccountWindowOtherButton_ release];
   
   [super dealloc];
 }

@@ -62,39 +62,39 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 @implementation AppController
 
-@synthesize telephone;
-@synthesize accountControllers;
-@synthesize preferenceController;
-@synthesize audioDevices;
-@synthesize soundInputDeviceIndex;
-@synthesize soundOutputDeviceIndex;
-@synthesize ringtoneOutputDeviceIndex;
+@synthesize telephone = telephone_;
+@synthesize accountControllers = accountControllers_;
+@synthesize preferenceController = preferenceController_;
+@synthesize audioDevices = audioDevices_;
+@synthesize soundInputDeviceIndex = soundInputDeviceIndex_;
+@synthesize soundOutputDeviceIndex = soundOutputDeviceIndex_;
+@synthesize ringtoneOutputDeviceIndex = ringtoneOutputDeviceIndex_;
 @dynamic ringtone;
-@synthesize ringtoneTimer;
+@synthesize ringtoneTimer = ringtoneTimer_;
 @dynamic hasIncomingCallControllers;
 @dynamic currentNameservers;
 
-@synthesize preferencesMenuItem;
+@synthesize preferencesMenuItem = preferencesMenuItem_;
 
 - (NSSound *)ringtone
 {
-  return [[ringtone retain] autorelease];
+  return [[ringtone_ retain] autorelease];
 }
 
 - (void)setRingtone:(NSSound *)aRingtone
 {
-  if (ringtone != aRingtone) {
-    [ringtone release];
-    ringtone = [aRingtone retain];
+  if (ringtone_ != aRingtone) {
+    [ringtone_ release];
+    ringtone_ = [aRingtone retain];
     
     if ([[self audioDevices] count] > [self ringtoneOutputDeviceIndex]) {
       NSDictionary *ringtoneOutputDeviceDict
         = [[self audioDevices] objectAtIndex:[self ringtoneOutputDeviceIndex]];
-      [ringtone setPlaybackDeviceIdentifier:
+      [ringtone_ setPlaybackDeviceIdentifier:
        [ringtoneOutputDeviceDict objectForKey:AKAudioDeviceUID]];
       
     } else {
-      [ringtone setPlaybackDeviceIdentifier:nil];
+      [ringtone_ setPlaybackDeviceIdentifier:nil];
     }
   }
 }
@@ -193,9 +193,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   if (self == nil)
     return nil;
   
-  telephone = [AKTelephone sharedTelephone];
-  [telephone setDelegate:self];
-  accountControllers = [[NSMutableArray alloc] init];
+  telephone_ = [AKTelephone sharedTelephone];
+  [[self telephone] setDelegate:self];
+  accountControllers_ = [[NSMutableArray alloc] init];
   [self setPreferenceController:nil];
   [self setAudioDevices:nil];
   [self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
@@ -243,17 +243,17 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (void)dealloc
 {
-  [telephone dealloc];
-  [accountControllers release];
+  [telephone_ dealloc];
+  [accountControllers_ release];
   
   if ([[[self preferenceController] delegate] isEqual:self])
     [[self preferenceController] setDelegate:nil];
-  [preferenceController release];
+  [preferenceController_ release];
   
-  [audioDevices release];
-  [ringtone release];
+  [audioDevices_ release];
+  [ringtone_ release];
   
-  [preferencesMenuItem release];
+  [preferencesMenuItem_ release];
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
@@ -321,7 +321,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     // Disable Preferences during the first account prompt.
     [[self preferencesMenuItem] setAction:NULL];
     
-    preferenceController = [[AKPreferenceController alloc] init];
+    preferenceController_ = [[AKPreferenceController alloc] init];
     [[self preferenceController] setDelegate:self];
     [NSBundle loadNibNamed:@"AddAccount" owner:[self preferenceController]];
     
@@ -655,8 +655,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (IBAction)showPreferencePanel:(id)sender
 {
-  if (preferenceController == nil) {
-    preferenceController = [[AKPreferenceController alloc] init];
+  if (preferenceController_ == nil) {
+    preferenceController_ = [[AKPreferenceController alloc] init];
     [[self preferenceController] setDelegate:self];
   }
   

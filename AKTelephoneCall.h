@@ -59,20 +59,20 @@ typedef enum _AKTelephoneCallState {
 
 @interface AKTelephoneCall : NSObject {
  @private
-  id delegate;
+  id delegate_;
   
-  NSInteger identifier;
-  AKSIPURI *localURI;
-  AKSIPURI *remoteURI;
-  AKTelephoneCallState state;
-  NSString *stateText;
-  NSInteger lastStatus;
-  NSString *lastStatusText;
-  BOOL incoming;
-  BOOL microphoneMuted;
+  NSInteger identifier_;
+  AKSIPURI *localURI_;
+  AKSIPURI *remoteURI_;
+  AKTelephoneCallState state_;
+  NSString *stateText_;
+  NSInteger lastStatus_;
+  NSString *lastStatusText_;
+  BOOL incoming_;
+  BOOL microphoneMuted_;
   
   // Account the call belongs to
-  AKTelephoneAccount *account;
+  AKTelephoneAccount *account_;
 }
 
 @property(nonatomic, readwrite, assign) id delegate;

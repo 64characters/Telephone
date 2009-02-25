@@ -57,36 +57,36 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 @implementation AKTelephoneCall
 
 @dynamic delegate;
-@synthesize identifier;
-@synthesize localURI;
-@synthesize remoteURI;
-@synthesize state;
-@synthesize stateText;
-@synthesize lastStatus;
-@synthesize lastStatusText;
+@synthesize identifier = identifier_;
+@synthesize localURI = localURI_;
+@synthesize remoteURI = remoteURI_;
+@synthesize state = state_;
+@synthesize stateText = stateText_;
+@synthesize lastStatus = lastStatus_;
+@synthesize lastStatusText = lastStatusText_;
 @dynamic active;
 @dynamic hasMedia;
 @dynamic hasActiveMedia;
-@synthesize incoming;
-@synthesize microphoneMuted;
+@synthesize incoming = incoming_;
+@synthesize microphoneMuted = microphoneMuted_;
 @dynamic onLocalHold;
 @dynamic onRemoteHold;
-@synthesize account;
+@synthesize account = account_;
 
 - (id)delegate
 {
-  return delegate;
+  return delegate_;
 }
 
 - (void)setDelegate:(id)aDelegate
 {
-  if (delegate == aDelegate)
+  if (delegate_ == aDelegate)
     return;
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   
-  if (delegate != nil)
-    [notificationCenter removeObserver:delegate name:nil object:self];
+  if (delegate_ != nil)
+    [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
     // Subscribe to notifications
@@ -145,7 +145,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
                                object:self];
   }
   
-  delegate = aDelegate;
+  delegate_ = aDelegate;
 }
 
 - (BOOL)isActive
@@ -236,10 +236,10 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   
   [self setDelegate:nil];
   
-  [localURI release];
-  [remoteURI release];
-  [stateText release];
-  [lastStatusText release];
+  [localURI_ release];
+  [remoteURI_ release];
+  [stateText_ release];
+  [lastStatusText_ release];
   [self setAccount:nil];
   
   [super dealloc];

@@ -80,44 +80,44 @@ typedef enum _AKTelephoneRingtones {
 @implementation AKTelephone
 
 @dynamic delegate;
-@synthesize accounts;
-@synthesize started;
-@synthesize soundStopped;
-@synthesize detectedNATType;
+@synthesize accounts = accounts_;
+@synthesize started = started_;
+@synthesize soundStopped = soundStopped_;
+@synthesize detectedNATType = detectedNATType_;
 @dynamic activeCallsCount;
 @dynamic callData;
-@synthesize pjPool;
-@synthesize ringbackSlot;
-@synthesize ringbackCount;
-@synthesize ringbackPort;
+@synthesize pjPool = pjPool_;
+@synthesize ringbackSlot = ringbackSlot_;
+@synthesize ringbackCount = ringbackCount_;
+@synthesize ringbackPort = ringbackPort_;
 
 @dynamic nameservers;
-@synthesize outboundProxyHost;
+@synthesize outboundProxyHost = outboundProxyHost_;
 @dynamic outboundProxyPort;
-@synthesize STUNServerHost;
+@synthesize STUNServerHost = STUNServerHost_;
 @dynamic STUNServerPort;
-@synthesize userAgentString;
+@synthesize userAgentString = userAgentString_;
 @dynamic logFileName;
-@synthesize logLevel;
-@synthesize consoleLogLevel;
-@synthesize detectsVoiceActivity;
-@synthesize usesICE;
+@synthesize logLevel = logLevel_;
+@synthesize consoleLogLevel = consoleLogLevel_;
+@synthesize detectsVoiceActivity = detectsVoiceActivity_;
+@synthesize usesICE = usesICE_;
 @dynamic transportPort;
 
 - (id <AKTelephoneDelegate>)delegate
 {
-  return delegate;
+  return delegate_;
 }
 
 - (void)setDelegate:(id <AKTelephoneDelegate>)aDelegate
 {
-  if (delegate == aDelegate)
+  if (delegate_ == aDelegate)
     return;
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   
-  if (delegate != nil)
-    [notificationCenter removeObserver:delegate name:nil object:self];
+  if (delegate_ != nil)
+    [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
     if ([aDelegate respondsToSelector:@selector(telephoneDidDetectNAT:)])
@@ -133,7 +133,7 @@ typedef enum _AKTelephoneRingtones {
                                object:self];
   }
   
-  delegate = aDelegate;
+  delegate_ = aDelegate;
 }
 
 - (NSUInteger)activeCallsCount
@@ -143,68 +143,68 @@ typedef enum _AKTelephoneRingtones {
 
 - (AKTelephoneCallData *)callData
 {
-  return callData;
+  return callData_;
 }
 
 - (NSArray *)nameservers
 {
-  return [[nameservers copy] autorelease];
+  return [[nameservers_ copy] autorelease];
 }
 
 - (void)setNameservers:(NSArray *)newNameservers
 {
-  if (nameservers != newNameservers) {
-    [nameservers release];
+  if (nameservers_ != newNameservers) {
+    [nameservers_ release];
     
     if ([newNameservers count] > AKTelephoneNameserversMax) {
-      nameservers = [[newNameservers subarrayWithRange:
+      nameservers_ = [[newNameservers subarrayWithRange:
                       NSMakeRange(0, AKTelephoneNameserversMax)] retain];
     } else {
-      nameservers = [newNameservers copy];
+      nameservers_ = [newNameservers copy];
     }
   }
 }
 
 - (NSUInteger)outboundProxyPort
 {
-  return outboundProxyPort;
+  return outboundProxyPort_;
 }
 
 - (void)setOutboundProxyPort:(NSUInteger)port
 {
   if (port > 0 && port < 65535)
-    outboundProxyPort = port;
+    outboundProxyPort_ = port;
   else
-    outboundProxyPort = AKTelephoneOutboundProxyPortDefault;
+    outboundProxyPort_ = AKTelephoneOutboundProxyPortDefault;
 }
 
 - (NSUInteger)STUNServerPort
 {
-  return STUNServerPort;
+  return STUNServerPort_;
 }
 
 - (void)setSTUNServerPort:(NSUInteger)port
 {
   if (port > 0 && port < 65535)
-    STUNServerPort = port;
+    STUNServerPort_ = port;
   else
-    STUNServerPort = AKTelephoneSTUNServerPortDefault;
+    STUNServerPort_ = AKTelephoneSTUNServerPortDefault;
 }
 
 - (NSString *)logFileName
 {
-  return [[logFileName copy] autorelease];
+  return [[logFileName_ copy] autorelease];
 }
 
 - (void)setLogFileName:(NSString *)pathToFile
 {
-  if (logFileName != pathToFile) {
+  if (logFileName_ != pathToFile) {
     if ([pathToFile length] > 0) {
-      [logFileName release];
-      logFileName = [pathToFile copy];
+      [logFileName_ release];
+      logFileName_ = [pathToFile copy];
     } else {
-      [logFileName release];
-      logFileName = AKTelephoneLogFileNameDefault;
+      [logFileName_ release];
+      logFileName_ = AKTelephoneLogFileNameDefault;
     }
     
   }
@@ -212,15 +212,15 @@ typedef enum _AKTelephoneRingtones {
 
 - (NSUInteger)transportPort
 {
-  return transportPort;
+  return transportPort_;
 }
 
 - (void)setTransportPort:(NSUInteger)port
 {
   if (port > 0 && port < 65535)
-    transportPort = port;
+    transportPort_ = port;
   else
-    transportPort = AKTelephoneTransportPortDefault;
+    transportPort_ = AKTelephoneTransportPortDefault;
 }
 
 
@@ -284,7 +284,7 @@ typedef enum _AKTelephoneRingtones {
     return nil;
   
   [self setDelegate:aDelegate];
-  accounts = [[NSMutableArray alloc] init];
+  accounts_ = [[NSMutableArray alloc] init];
   [self setStarted:NO];
   [self setSoundStopped:YES];
   [self setDetectedNATType:AKNATTypeUnknown];
@@ -311,12 +311,12 @@ typedef enum _AKTelephoneRingtones {
 
 - (void)dealloc
 {
-  [accounts release];
-  [nameservers release];
-  [outboundProxyHost release];
-  [STUNServerHost release];
-  [userAgentString release];
-  [logFileName release];
+  [accounts_ release];
+  [nameservers_ release];
+  [outboundProxyHost_ release];
+  [STUNServerHost_ release];
+  [userAgentString_ release];
+  [logFileName_ release];
   
   [super dealloc];
 }
@@ -335,7 +335,7 @@ typedef enum _AKTelephoneRingtones {
     return NO;
   }
   // Create pool for PJSUA.
-  pjPool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
+  pjPool_ = pjsua_pool_create("telephone-pjsua", 1000, 1000);
   
   pjsua_config userAgentConfig;
   pjsua_logging_config loggingConfig;
@@ -347,7 +347,7 @@ typedef enum _AKTelephoneRingtones {
   pjsua_media_config_default(&mediaConfig);
   pjsua_transport_config_default(&transportConfig);
   
-  ringbackSlot = PJSUA_INVALID_ID;
+  ringbackSlot_ = PJSUA_INVALID_ID;
   userAgentConfig.max_calls = AKTelephoneCallsMax;
   
   if ([[self nameservers] count] > 0) {
@@ -410,11 +410,11 @@ typedef enum _AKTelephoneRingtones {
   mediaConfig.channel_count / 1000;
   
   name = pj_str("ringback");
-  status = pjmedia_tonegen_create2(pjPool, &name,
+  status = pjmedia_tonegen_create2(pjPool_, &name,
                                    mediaConfig.clock_rate,
                                    mediaConfig.channel_count,
                                    samplesPerFrame, 16, PJMEDIA_TONEGEN_LOOP,
-                                   &ringbackPort);
+                                   &ringbackPort_);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating ringback tones");
     [self destroyUserAgent];
@@ -430,9 +430,9 @@ typedef enum _AKTelephoneRingtones {
   }
   tone[AKRingbackCount - 1].off_msec = AKRingbackInterval;
   
-  pjmedia_tonegen_play(ringbackPort, AKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
+  pjmedia_tonegen_play(ringbackPort_, AKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
   
-  status = pjsua_conf_add_port(pjPool, ringbackPort, &ringbackSlot);
+  status = pjsua_conf_add_port(pjPool_, ringbackPort_, &ringbackSlot_);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error adding media port for ringback tones");
     [self destroyUserAgent];
@@ -492,18 +492,18 @@ typedef enum _AKTelephoneRingtones {
   [[self accounts] removeAllObjects];
   
   // Close ringback port.
-  if (ringbackPort != NULL &&
-      ringbackSlot != PJSUA_INVALID_ID)
+  if (ringbackPort_ != NULL &&
+      ringbackSlot_ != PJSUA_INVALID_ID)
   {
-    pjsua_conf_remove_port(ringbackSlot);
-    ringbackSlot = PJSUA_INVALID_ID;
-    pjmedia_port_destroy(ringbackPort);
-    ringbackPort = NULL;
+    pjsua_conf_remove_port(ringbackSlot_);
+    ringbackSlot_ = PJSUA_INVALID_ID;
+    pjmedia_port_destroy(ringbackPort_);
+    ringbackPort_ = NULL;
   }
   
-  if (pjPool != NULL) {
-    pj_pool_release(pjPool);
-    pjPool = NULL;
+  if (pjPool_ != NULL) {
+    pj_pool_release(pjPool_);
+    pjPool_ = NULL;
   }
   
   // Destroy PJSUA.

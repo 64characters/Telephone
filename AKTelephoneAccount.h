@@ -39,22 +39,22 @@ extern const NSInteger AKAccountReregistrationTimeDefault;
 
 @interface AKTelephoneAccount : NSObject {
  @private
-  NSObject <AKTelephoneAccountDelegate> *delegate;
+  NSObject <AKTelephoneAccountDelegate> *delegate_;
   
-  AKSIPURI *registrationURI;
+  AKSIPURI *registrationURI_;
   
-  NSString *fullName;
-  NSString *SIPAddress;
-  NSString *registrar;
-  NSString *realm;
-  NSString *username;
-  NSString *proxyHost;
-  NSUInteger proxyPort;
-  NSUInteger reregistrationTime;
+  NSString *fullName_;
+  NSString *SIPAddress_;
+  NSString *registrar_;
+  NSString *realm_;
+  NSString *username_;
+  NSString *proxyHost_;
+  NSUInteger proxyPort_;
+  NSUInteger reregistrationTime_;
   
-  NSInteger identifier;
+  NSInteger identifier_;
   
-  NSMutableArray *calls;
+  NSMutableArray *calls_;
 }
 
 @property(nonatomic, readwrite, assign) NSObject <AKTelephoneAccountDelegate> *delegate;

@@ -73,57 +73,57 @@ extern NSString * const AKDestinationIndex;
 
 @interface AKPreferenceController : NSWindowController {
 @private
-  id delegate;
+  id delegate_;
   
-  NSToolbar *toolbar;
-  NSToolbarItem *generalToolbarItem;
-  NSToolbarItem *accountsToolbarItem;
-  NSToolbarItem *soundToolbarItem;
-  NSToolbarItem *networkToolbarItem;
-  NSView *generalView;
-  NSView *accountsView;
-  NSView *soundView;
-  NSView *networkView;
+  NSToolbar *toolbar_;
+  NSToolbarItem *generalToolbarItem_;
+  NSToolbarItem *accountsToolbarItem_;
+  NSToolbarItem *soundToolbarItem_;
+  NSToolbarItem *networkToolbarItem_;
+  NSView *generalView_;
+  NSView *accountsView_;
+  NSView *soundView_;
+  NSView *networkView_;
   
   // Sound.
-  NSPopUpButton *soundInputPopUp;
-  NSPopUpButton *soundOutputPopUp;
-  NSPopUpButton *ringtoneOutputPopUp;
-  NSPopUpButton *ringtonePopUp;
+  NSPopUpButton *soundInputPopUp_;
+  NSPopUpButton *soundOutputPopUp_;
+  NSPopUpButton *ringtoneOutputPopUp_;
+  NSPopUpButton *ringtonePopUp_;
   
   // Network.
-  NSTextField *transportPortField;
-  NSTextFieldCell *transportPortCell;
-  NSTextField *STUNServerHostField;
-  NSTextField *STUNServerPortField;
-  NSButton *useICECheckBox;
-  NSTextField *outboundProxyHostField;
-  NSTextField *outboundProxyPortField;
+  NSTextField *transportPortField_;
+  NSTextFieldCell *transportPortCell_;
+  NSTextField *STUNServerHostField_;
+  NSTextField *STUNServerPortField_;
+  NSButton *useICECheckBox_;
+  NSTextField *outboundProxyHostField_;
+  NSTextField *outboundProxyPortField_;
   
   // Account.
-  NSTableView *accountsTable;
-  NSButton *accountEnabledCheckBox;
-  NSTextField *fullNameField;
-  NSTextField *SIPAddressField;
-  NSTextField *registrarField;
-  NSTextField *usernameField;
-  NSTextField *passwordField;
-  NSTextField *reregistrationTimeField;
-  NSButton *substitutePlusCharacterCheckBox;
-  NSTextField *plusCharacterSubstitutionField;
-  NSButton *useProxyCheckBox;
-  NSTextField *proxyHostField;
-  NSTextField *proxyPortField;
+  NSTableView *accountsTable_;
+  NSButton *accountEnabledCheckBox_;
+  NSTextField *fullNameField_;
+  NSTextField *SIPAddressField_;
+  NSTextField *registrarField_;
+  NSTextField *usernameField_;
+  NSTextField *passwordField_;
+  NSTextField *reregistrationTimeField_;
+  NSButton *substitutePlusCharacterCheckBox_;
+  NSTextField *plusCharacterSubstitutionField_;
+  NSButton *useProxyCheckBox_;
+  NSTextField *proxyHostField_;
+  NSTextField *proxyPortField_;
   
   // Account Setup.
-  NSWindow *addAccountWindow;
-  NSTextField *setupFullNameField;
-  NSTextField *setupSIPAddressField;
-  NSTextField *setupRegistrarField;
-  NSTextField *setupUsernameField;
-  NSTextField *setupPasswordField;
-  NSButton *addAccountWindowDefaultButton;
-  NSButton *addAccountWindowOtherButton;
+  NSWindow *addAccountWindow_;
+  NSTextField *setupFullNameField_;
+  NSTextField *setupSIPAddressField_;
+  NSTextField *setupRegistrarField_;
+  NSTextField *setupUsernameField_;
+  NSTextField *setupPasswordField_;
+  NSButton *addAccountWindowDefaultButton_;
+  NSButton *addAccountWindowOtherButton_;
 }
 
 @property(nonatomic, readwrite, assign) id delegate;

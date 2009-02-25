@@ -37,17 +37,17 @@
 @implementation AKSIPURI
 
 @dynamic SIPAddress;
-@synthesize displayName;
-@synthesize user;
-@synthesize password;
-@synthesize host;
-@synthesize port;
-@synthesize userParameter;
-@synthesize methodParameter;
-@synthesize transportParameter;
-@synthesize TTLParameter;
-@synthesize looseRoutingParameter;
-@synthesize maddrParameter;
+@synthesize displayName = displayName_;
+@synthesize user = user_;
+@synthesize password = password_;
+@synthesize host = host_;
+@synthesize port = port_;
+@synthesize userParameter = userParameter_;
+@synthesize methodParameter = methodParameter_;
+@synthesize transportParameter = transportParameter_;
+@synthesize TTLParameter = TTLParameter_;
+@synthesize looseRoutingParameter = looseRoutingParameter_;
+@synthesize maddrParameter = maddrParameter_;
 
 - (NSString *)SIPAddress
 {
@@ -170,14 +170,14 @@
 
 - (void)dealloc
 {
-  [displayName release];
-  [user release];
-  [password release];
-  [host release];
-  [userParameter release];
-  [methodParameter release];
-  [transportParameter release];
-  [maddrParameter release];
+  [displayName_ release];
+  [user_ release];
+  [password_ release];
+  [host_ release];
+  [userParameter_ release];
+  [methodParameter_ release];
+  [transportParameter_ release];
+  [maddrParameter_ release];
   
   [super dealloc];
 }

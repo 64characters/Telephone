@@ -67,32 +67,32 @@ typedef enum _AKNATType {
 
 @interface AKTelephone : NSObject {
  @private
-  id <AKTelephoneDelegate> delegate;
+  id <AKTelephoneDelegate> delegate_;
   
-  NSMutableArray *accounts;
-  BOOL started;
-  BOOL soundStopped;
-  AKNATType detectedNATType;
+  NSMutableArray *accounts_;
+  BOOL started_;
+  BOOL soundStopped_;
+  AKNATType detectedNATType_;
   
-  NSArray *nameservers;
-  NSString *outboundProxyHost;
-  NSUInteger outboundProxyPort;
-  NSString *STUNServerHost;
-  NSUInteger STUNServerPort;
-  NSString *userAgentString;
-  NSString *logFileName;
-  NSUInteger logLevel;
-  NSUInteger consoleLogLevel;
-  BOOL detectsVoiceActivity;
-  BOOL usesICE;
-  NSUInteger transportPort;
+  NSArray *nameservers_;
+  NSString *outboundProxyHost_;
+  NSUInteger outboundProxyPort_;
+  NSString *STUNServerHost_;
+  NSUInteger STUNServerPort_;
+  NSString *userAgentString_;
+  NSString *logFileName_;
+  NSUInteger logLevel_;
+  NSUInteger consoleLogLevel_;
+  BOOL detectsVoiceActivity_;
+  BOOL usesICE_;
+  NSUInteger transportPort_;
   
   // PJSUA config
-  AKTelephoneCallData callData[PJSUA_MAX_CALLS];
-  pj_pool_t *pjPool;
-  NSInteger ringbackSlot;
-  NSInteger ringbackCount;
-  pjmedia_port *ringbackPort;
+  AKTelephoneCallData callData_[PJSUA_MAX_CALLS];
+  pj_pool_t *pjPool_;
+  NSInteger ringbackSlot_;
+  NSInteger ringbackCount_;
+  pjmedia_port *ringbackPort_;
 }
 
 @property(nonatomic, readwrite, assign) id <AKTelephoneDelegate> delegate;
