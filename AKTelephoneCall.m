@@ -240,7 +240,6 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   [remoteURI_ release];
   [stateText_ release];
   [lastStatusText_ release];
-  [self setAccount:nil];
   
   [super dealloc];
 }

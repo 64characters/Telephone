@@ -197,12 +197,9 @@ NSString * const AKEmailSIPLabel = @"sip";
   [self setAccount:anAccount];
   callControllers_ = [[NSMutableArray alloc] init];
   [self setSubstitutesPlusCharacter:NO];
-  [self setPlusCharacterSubstitution:nil];
   
   [self setAttemptsToRegisterAccount:NO];
   [self setAttemptsToUnregisterAccount:NO];
-  [self setReRegistrationTimer:nil];
-  [self setCallDestinationURIIndex:0];
   
   [[self account] setDelegate:self];
   
@@ -242,7 +239,6 @@ NSString * const AKEmailSIPLabel = @"sip";
   [account_ release];
   [callControllers_ release];
   [plusCharacterSubstitution_ release];
-  [self setReRegistrationTimer:nil];
   
   [activeAccountView_ release];
   [offlineAccountView_ release];

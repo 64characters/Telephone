@@ -196,12 +196,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   telephone_ = [AKTelephone sharedTelephone];
   [[self telephone] setDelegate:self];
   accountControllers_ = [[NSMutableArray alloc] init];
-  [self setPreferenceController:nil];
-  [self setAudioDevices:nil];
   [self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
   [self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
-  [self setRingtoneOutputDeviceIndex:0];
-  [self setRingtoneTimer:nil];
   
   // Subscribe to Early and Confirmed call states to set sound IO to Telephone.
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];

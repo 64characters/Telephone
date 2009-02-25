@@ -289,7 +289,6 @@ typedef enum _AKTelephoneRingtones {
   [self setSoundStopped:YES];
   [self setDetectedNATType:AKNATTypeUnknown];
   
-  [self setNameservers:nil];
   [self setOutboundProxyHost:AKTelephoneOutboundProxyHostDefault];
   [self setOutboundProxyPort:AKTelephoneOutboundProxyPortDefault];
   [self setSTUNServerHost:AKTelephoneSTUNServerHostDefault];

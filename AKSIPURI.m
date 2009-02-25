@@ -85,15 +85,7 @@
   
   [self setDisplayName:aDisplayName];
   [self setUser:aUser];
-  [self setPassword:nil];
   [self setHost:aHost];
-  [self setPort:0];
-  [self setUserParameter:nil];
-  [self setMethodParameter:nil];
-  [self setTransportParameter:nil];
-  [self setTTLParameter:0];
-  [self setLooseRoutingParameter:0];
-  [self setMaddrParameter:nil];
   
   return self;
 }

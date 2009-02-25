@@ -123,16 +123,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
     return nil;
   
   [self setIdentifier:[NSString AK_uuidString]];
-  [self setCall:nil];
   [self setAccountController:anAccountController];
-  [self setDisplayedName:nil];
-  [self setStatus:nil];
-  [self setNameFromAddressBook:nil];
-  [self setPhoneLabelFromAddressBook:nil];
-  [self setEnteredCallDestination:nil];
-  [self setIntermediateStatusTimer:nil];
-  [self setCallStartTime:0.0];
-  [self setCallTimer:nil];
   [self setCallOnHold:NO];
   enteredDTMF_ = [[NSMutableString alloc] init];
   
