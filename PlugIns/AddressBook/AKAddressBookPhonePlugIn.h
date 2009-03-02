@@ -52,5 +52,6 @@
 
 @end
 
+// Object: @"AddressBook".
 // Keys: @"AKPhoneNumber", @"AKFullName".
 extern NSString * const AKAddressBookDidDialPhoneNumberNotification;

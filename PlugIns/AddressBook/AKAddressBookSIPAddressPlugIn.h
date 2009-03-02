@@ -52,5 +52,6 @@
 
 @end
 
+// Object: @"AddressBook".
 // Keys: @"AKSIPAddress", @"AKFullName".
 extern NSString * const AKAddressBookDidDialSIPAddressNotification;
