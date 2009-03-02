@@ -881,6 +881,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     = [NSSet setWithObjects:@"aiff", @"aif", @"aifc",
        @"mp3", @"wav", @"sd2", @"au", @"snd", @"m4a", @"m4p", nil];
   
+  // TODO(eofster): hard-coded paths must be replaced with function calls.
   // Get sounds from ~/Library/Sounds.
   NSArray *userSoundFiles
     = [fileManager contentsOfDirectoryAtPath:[@"~/Library/Sounds"

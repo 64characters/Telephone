@@ -85,6 +85,11 @@
 
 - (IBAction)openFAQURL:(id)sender;
 
+// Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|.
+// Updates plug-ins if the installed versions are outdated.
+// Does not guaranteed to return a valid |error| if the method returns NO.
+- (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error;
+
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode;
 
 @end

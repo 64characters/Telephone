@@ -1,4 +1,4 @@
-﻿/* Thanks Jan-Kaspar Münnich for help with translation. */
+﻿/* Thanks to Jan-Kaspar Münnich for help with translation. */
 
 /* Accounts preferences window title. */
 "Accounts" = "Accounts";
@@ -49,6 +49,9 @@
 /* Registrar connection error. */
 "Could not connect to server %@." = "Konnte nicht mit Server %@ verbinden.";
 
+/* Address Book plug-ins install error, alert message text. */
+"Could not install Address Book plug-ins." = "Die Adressbuch-Plugins konnten nicht installiert werden.";
+
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Konnte SIP user agent nicht starten.";
 
@@ -75,6 +78,9 @@
 
 /* Detected Symmetric NAT informative text. */
 "It very unlikely that two-way conversations will be possible with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. If you are connected to the internet through the personal router, try to replace it with the one that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or \\U201Cport restricted cone\\U201D NAT types." = "Es ist sehr unwahrscheinlich, dass Sie über symmetrisches NAT wechselseitige Telefonate herstellen können. Informieren Sie sich bei Ihrem SIP-Provider über andere Möglichkeiten, NAT zu überbrücken. Wenn Sie über einen eigenen Router mit dem Internet verbunden sind, versuchen Sie diesen durch einen zu ersetzen, der „full cone“, „restricted cone“ oder „port restricted cone“ NAT unterstützt.";
+
+/* Address Book plug-ins install error, alert informative text. */
+"Make sure you have write permission to \\U201C%@\\U201D." = "Stellen Sie sicher, dass Sie Schreibrechte in „%@“ haben.";
 
 /* Microphone muted status text. */
 "mic muted" = "Mikrofon stumm";

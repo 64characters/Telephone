@@ -33,6 +33,8 @@
 #import <Growl/Growl.h>
 
 #import "AKAccountController.h"
+#import "AKAddressBookPhonePlugIn.h"
+#import "AKAddressBookSIPAddressPlugIn.h"
 #import "AKCallController.h"
 #import "AKPreferenceController.h"
 #import "AKTelephone.h"
@@ -151,6 +153,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     [defaultsDict setObject:[NSNumber numberWithBool:YES]
                      forKey:AKVoiceActivityDetection];
     [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKUseICE];
+    // TODO(eofster): hard-coded path must be replaced with a function call.
     [defaultsDict setObject:@"~/Library/Logs/Telephone.log"
                      forKey:AKLogFileName];
     [defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:AKLogLevel];
@@ -234,6 +237,23 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
                              name:NSWorkspaceSessionDidBecomeActiveNotification
                            object:nil];
   
+  // Subscribe to Address Book plug-in notifications via
+  // NSDistributedNotificationCenter.
+  NSDistributedNotificationCenter *distributedNotificationCenter
+    = [NSDistributedNotificationCenter defaultCenter];
+  
+  [distributedNotificationCenter
+   addObserver:self
+      selector:@selector(addressBookDidDialCallDestination:)
+          name:AKAddressBookDidDialPhoneNumberNotification
+        object:@"AddressBook"];
+  
+  [distributedNotificationCenter
+   addObserver:self
+      selector:@selector(addressBookDidDialCallDestination:)
+          name:AKAddressBookDidDialSIPAddressNotification
+        object:@"AddressBook"];
+  
   return self;
 }
 
@@ -253,6 +273,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
+  [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
   
   [super dealloc];
 }
@@ -297,6 +318,37 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   // Get available audio devices, select devices for sound input and output.
   [self updateAudioDevices];
+  
+  // Install Address Book plug-ins.
+  NSError *error = nil;
+  BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
+  if (!installed && error != nil) {
+    NSLog(@"%@", error);
+    
+    NSString *libraryPath
+      = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                             NSUserDomainMask,
+                                             NO)
+         objectAtIndex:0];
+    
+    if ([libraryPath length] > 0) {
+      NSString *addressBookPlugInsInstallPath
+        = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
+      
+      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+      [alert addButtonWithTitle:@"OK"];
+      [alert setMessageText:
+       NSLocalizedString(@"Could not install Address Book plug-ins.",
+                         @"Address Book plug-ins install error, alert message text.")];
+      [alert setInformativeText:
+       [NSString stringWithFormat:
+        NSLocalizedString(@"Make sure you have write permission to \\U201C%@\\U201D.",
+                          @"Address Book plug-ins install error, alert informative text."),
+        addressBookPlugInsInstallPath]];
+      
+      [alert runModal];
+    }
+  }
   
   // Load Growl.
   NSString *growlPath = [[mainBundle privateFrameworksPath]
@@ -733,6 +785,129 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   }
 }
 
+- (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error
+{
+  NSBundle *mainBundle = [NSBundle mainBundle];
+  NSString *plugInsPath = [mainBundle builtInPlugInsPath];
+  
+  NSString *phonePlugInPath
+    = [plugInsPath
+       stringByAppendingPathComponent:@"TelephoneAddressBookPhonePlugIn.bundle"];
+  NSString *SIPAddressPlugInPath
+    = [plugInsPath
+       stringByAppendingPathComponent:@"TelephoneAddressBookSIPAddressPlugIn.bundle"];
+  
+  NSArray *libraryPaths
+    = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                          NSUserDomainMask, YES);
+  if ([libraryPaths count] < 0)
+    return NO;
+  
+  NSString *installPath
+    = [[libraryPaths objectAtIndex:0]
+       stringByAppendingPathComponent:@"Address Book Plug-Ins"];
+  
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  
+  // Create |~/Library/Address Book Plug-Ins| if needed.
+  BOOL isDir;
+  BOOL pathExists = [fileManager fileExistsAtPath:installPath
+                                      isDirectory:&isDir];
+  if (!pathExists) {
+    BOOL created = [fileManager createDirectoryAtPath:installPath
+                          withIntermediateDirectories:YES
+                                           attributes:nil
+                                                error:error];
+    if (!created)
+      return NO;
+    
+  } else if (!isDir) {
+    NSLog(@"%@ is not a directory", installPath);
+    return NO;
+  }
+  
+  
+  NSBundle *phonePlugInBundle = [NSBundle bundleWithPath:phonePlugInPath];
+  NSInteger phonePlugInVersion
+    = [[[phonePlugInBundle infoDictionary]
+        objectForKey:@"CFBundleVersion"] integerValue];
+  NSString *phonePlugInInstallPath
+    = [installPath stringByAppendingPathComponent:
+       [phonePlugInPath lastPathComponent]];
+  NSBundle *installedPhonePlugInBundle
+    = [NSBundle bundleWithPath:phonePlugInInstallPath];
+  
+  BOOL shouldInstallPhonePlugIn = YES;
+  if (installedPhonePlugInBundle != nil) {
+    NSInteger installedPhonePlugInVersion
+      = [[[installedPhonePlugInBundle infoDictionary]
+          objectForKey:@"CFBundleVersion"] integerValue];
+    
+    // Remove the old plug-in version if it needs updating.
+    if (installedPhonePlugInVersion < phonePlugInVersion) {
+      BOOL removed = [fileManager removeItemAtPath:phonePlugInInstallPath
+                                             error:error];
+      if (!removed)
+        return NO;
+      
+    } else {
+      // Don't copy the new version if it's not newer.
+      shouldInstallPhonePlugIn = NO;
+    }
+  }
+  
+  NSBundle *SIPAddressPlugInBundle
+    = [NSBundle bundleWithPath:SIPAddressPlugInPath];
+  NSInteger SIPAddressPlugInVersion
+    = [[[SIPAddressPlugInBundle infoDictionary]
+        objectForKey:@"CFBundleVersion"] integerValue];
+  NSString *SIPAddressPlugInInstallPath
+    = [installPath stringByAppendingPathComponent:
+       [SIPAddressPlugInPath lastPathComponent]];
+  NSBundle *installedSIPAddressPlugInBundle
+    = [NSBundle bundleWithPath:SIPAddressPlugInInstallPath];
+  
+  BOOL shouldInstallSIPAddressPlugIn = YES;
+  if (installedSIPAddressPlugInBundle != nil) {
+    NSInteger installedSIPAddressPlugInVersion
+      = [[[installedSIPAddressPlugInBundle infoDictionary]
+          objectForKey:@"CFBundleVersion"] integerValue];
+    
+    // Remove the old plug-in version if it needs updating.
+    if (installedSIPAddressPlugInVersion < SIPAddressPlugInVersion) {
+      BOOL removed = [fileManager removeItemAtPath:SIPAddressPlugInInstallPath
+                                             error:error];
+      if (!removed)
+        return NO;
+      
+    } else {
+      // Don't copy the new version if it's not newer.
+      shouldInstallSIPAddressPlugIn = NO;
+    }
+  }
+  
+  BOOL installed;
+  
+  if (shouldInstallPhonePlugIn) {
+    installed = [fileManager copyItemAtPath:phonePlugInPath
+                                     toPath:phonePlugInInstallPath
+                                      error:error];
+    if (!installed)
+      return NO;
+  }
+  
+  if (shouldInstallSIPAddressPlugIn) {
+    installed = [fileManager copyItemAtPath:SIPAddressPlugInPath
+                                     toPath:SIPAddressPlugInInstallPath
+                                      error:error];
+    
+    if (!installed)
+      return NO;
+  }
+  
+  return YES;
+}
+
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode
 {
   NSString *localizedString = nil;
@@ -751,7 +926,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
         break;
       case PJSIP_SC_CALL_BEING_FORWARDED:
         localizedString
-          = NSLocalizedStringFromTable(@"Call Is Being Forwarded", @"SIPResponses",
+          = NSLocalizedStringFromTable(@"Call Is Being Forwarded",
+                                       @"SIPResponses",
                                        @"181 Call Is Being Forwarded.");
         break;
       case PJSIP_SC_QUEUED:
@@ -1476,6 +1652,61 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   for (AKAccountController *anAccountController in [self accountControllers])
     if ([anAccountController isEnabled])
       [anAccountController setAccountRegistered:YES];
+}
+
+
+#pragma mark -
+#pragma mark Address Book plug-in notifications
+
+// TODO(eofster): Here we receive contact's name and call destination (phone or
+// SIP address). Then we set text field string value as when the user types in
+// the name directly and Telephone autocomplets input. The result is that
+// Address Book is being searched to find the person record. As an alternative
+// we could send person and selected call destination identifiers and only
+// get another destinations here (no new AB search).
+// If we change it to work with identifiers, we'll probably want to somehow
+// change AKAccountController's tokenField:representedObjectForEditingString:.
+- (void)addressBookDidDialCallDestination:(NSNotification *)notification
+{
+  // Do nothing if there is a modal window.
+  if ([NSApp modalWindow] != nil)
+    return;
+  
+  NSDictionary *userInfo = [notification userInfo];
+  
+  NSString *callDestination;
+  if ([[notification name] isEqualToString:AKAddressBookDidDialPhoneNumberNotification])
+    callDestination = [userInfo objectForKey:@"AKPhoneNumber"];
+  else if ([[notification name] isEqualToString:AKAddressBookDidDialSIPAddressNotification])
+    callDestination = [userInfo objectForKey:@"AKSIPAddress"];
+
+  NSString *fullName = [userInfo objectForKey:@"AKFullName"];
+  
+  AKAccountController *firstAccountController
+    = [[self accountControllers] objectAtIndex:0];
+  
+  if (![firstAccountController isEnabled])
+    return;
+  
+  // Go Available if it's Offline.
+  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier)
+    [firstAccountController setAccountRegistered:YES];
+  
+  if (![[self telephone] started])
+    return;
+  
+  [[firstAccountController callDestinationField] setTokenStyle:NSRoundedTokenStyle];
+  
+  [NSApp activateIgnoringOtherApps:YES];
+  
+  NSString *theString;
+  if ([fullName length] > 0)
+    theString = [NSString stringWithFormat:@"%@ <%@>", fullName, callDestination];
+  else
+    theString = callDestination;
+
+  [[firstAccountController callDestinationField] setStringValue:theString];
+  [firstAccountController makeCall:[firstAccountController callDestinationField]];
 }
 
 @end

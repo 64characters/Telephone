@@ -300,8 +300,10 @@ NSString * const AKEmailSIPLabel = @"sip";
   NSDictionary *primaryDestinationDict
     = [[[[self callDestinationField] objectValue] objectAtIndex:0]
        objectAtIndex:[self callDestinationURIIndex]];
+  
   AKSIPURI *originalURI
     = [[[primaryDestinationDict objectForKey:AKURI] copy] autorelease];
+  
   NSString *phoneLabel = [primaryDestinationDict objectForKey:AKPhoneLabel];
   
   AKSIPURI *firstURI
@@ -328,12 +330,14 @@ NSString * const AKEmailSIPLabel = @"sip";
   [telephoneNumberFormatter setSplitsLastFourDigits:
    [defaults boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
   
-  // Get the clean string of contiguous digits if the user part does not contain letters.
+  // Get the clean string of contiguous digits if the user part
+  // does not contain letters.
   if (![[uri user] AK_hasLetters])
     [uri setUser:[telephoneNumberFormatter telephoneNumberFromString:[uri user]]];
   
   // Actually, the call will be made to the copy of the URI without
-  // display-name part to prevent another call party to see local Address Book record.
+  // display-name part to prevent another call party to see local
+  // Address Book record.
   AKSIPURI *cleanURI = [[uri copy] autorelease];
   [cleanURI setDisplayName:nil];
   
@@ -534,14 +538,17 @@ NSString * const AKEmailSIPLabel = @"sip";
 - (void)showRegisteredMode
 {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
+  
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+  
   if ([preferredLocalization isEqualToString:@"English"])
     buttonSize.width = AKAccountRegistrationButtonAvailableEnglishWidth;
   else if ([preferredLocalization isEqualToString:@"Russian"])
     buttonSize.width = AKAccountRegistrationButtonAvailableRussianWidth;
   else if ([preferredLocalization isEqualToString:@"German"])
     buttonSize.width = AKAccountRegistrationButtonAvailableGermanWidth;
+  
   [[self accountRegistrationPopUp] setFrameSize:buttonSize];
   [[self accountRegistrationPopUp] setTitle:
    NSLocalizedString(@"Available",
@@ -560,14 +567,17 @@ NSString * const AKEmailSIPLabel = @"sip";
 - (void)showUnregisteredMode
 {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
+  
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+  
   if ([preferredLocalization isEqualToString:@"English"])
     buttonSize.width = AKAccountRegistrationButtonUnavailableEnglishWidth;
   else if ([preferredLocalization isEqualToString:@"Russian"])
     buttonSize.width = AKAccountRegistrationButtonUnavailableRussianWidth;
   else if ([preferredLocalization isEqualToString:@"German"])
     buttonSize.width = AKAccountRegistrationButtonUnavailableGermanWidth;
+  
   [[self accountRegistrationPopUp] setFrameSize:buttonSize];
   [[self accountRegistrationPopUp] setTitle:
    NSLocalizedString(@"Unavailable",
@@ -586,14 +596,17 @@ NSString * const AKEmailSIPLabel = @"sip";
 - (void)showOfflineMode
 {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
+  
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+  
   if ([preferredLocalization isEqualToString:@"English"])
     buttonSize.width = AKAccountRegistrationButtonOfflineEnglishWidth;
   else if ([preferredLocalization isEqualToString:@"Russian"])
     buttonSize.width = AKAccountRegistrationButtonOfflineRussianWidth;
   else if ([preferredLocalization isEqualToString:@"German"])
     buttonSize.width = AKAccountRegistrationButtonOfflineGermanWidth;
+  
   [[self accountRegistrationPopUp] setFrameSize:buttonSize];
   [[self accountRegistrationPopUp] setTitle:
    NSLocalizedString(@"Offline",
@@ -609,14 +622,17 @@ NSString * const AKEmailSIPLabel = @"sip";
 - (void)showConnectingMode
 {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
+  
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+  
   if ([preferredLocalization isEqualToString:@"English"])
     buttonSize.width = AKAccountRegistrationButtonConnectingEnglishWidth;
   else if ([preferredLocalization isEqualToString:@"Russian"])
     buttonSize.width = AKAccountRegistrationButtonConnectingRussianWidth;
   else if ([preferredLocalization isEqualToString:@"German"])
     buttonSize.width = AKAccountRegistrationButtonConnectingGermanWidth;
+  
   [[self accountRegistrationPopUp] setFrameSize:buttonSize];
   [[self accountRegistrationPopUp] setTitle:
    NSLocalizedString(@"Connecting...",
@@ -1454,11 +1470,6 @@ representedObjectForEditingString:(NSString *)editingString
   if (theURI == nil)
     return nil;
   
-  NSMutableArray *callDestinations = [[[NSMutableArray alloc] init] autorelease];
-  [callDestinations addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                                theURI, AKURI,
-                                @"", AKPhoneLabel, nil]];
-  
   ABAddressBook *AB = [ABAddressBook sharedAddressBook];
   NSArray *recordsFound;
   
@@ -1664,13 +1675,16 @@ representedObjectForEditingString:(NSString *)editingString
     recordsFound = [AB recordsMatchingSearchElement:phoneNumberMatch];
   }
   
+  NSMutableArray *callDestinations = [[[NSMutableArray alloc] init] autorelease];
+  NSUInteger destinationIndex = 0;
+  
   if ([recordsFound count] > 0) {
     ABRecord *theRecord = [recordsFound objectAtIndex:0];
     
     if ([[theRecord AK_fullName] length] > 0)
       [theURI setDisplayName:[theRecord AK_fullName]];
     
-    // Get other available call destinations from phones.
+    // Get phones.
     AKTelephoneNumberFormatter *telephoneNumberFormatter
       = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
     ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
@@ -1678,7 +1692,7 @@ representedObjectForEditingString:(NSString *)editingString
       NSString *phoneNumber = [phones valueAtIndex:i];
       NSString *localizedPhoneLabel = [AB AK_localizedLabel:[phones labelAtIndex:i]];
       
-      // If we've met the first URI, set its label.
+      // If we've met entered URI, store its index.
       NSRange atSignRange = [phoneNumber rangeOfString:@"@"];
       if (atSignRange.location == NSNotFound && [[theURI host] length] == 0) {
         // No @ sign, treat as telephone number.
@@ -1686,36 +1700,23 @@ representedObjectForEditingString:(NSString *)editingString
              isEqualToString:
              [telephoneNumberFormatter telephoneNumberFromString:[theURI user]]])
         {
-          NSDictionary *firstElementReplacement
-            = [NSDictionary dictionaryWithObjectsAndKeys:
-               theURI, AKURI, localizedPhoneLabel, AKPhoneLabel, nil];
-          
-          [callDestinations replaceObjectAtIndex:0
-                                      withObject:firstElementReplacement];
-          
-          continue;
+          destinationIndex = i;
         }
       } else {
         if ([phoneNumber isEqualToString:[theURI SIPAddress]]) {
-          NSDictionary *firstElementReplacement
-            = [NSDictionary dictionaryWithObjectsAndKeys:
-               theURI, AKURI, localizedPhoneLabel, AKPhoneLabel, nil];
-          
-          [callDestinations replaceObjectAtIndex:0
-                                      withObject:firstElementReplacement];
-          
-          continue;
+          destinationIndex = i;
         }
       }
       
       AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:phoneNumber];
+      [uri setDisplayName:[theURI displayName]];
       [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                    uri, AKURI,
                                    localizedPhoneLabel, AKPhoneLabel,
                                    nil]];
     }
     
-    // Get other available call destinations from emails.
+    // Get SIP addresses.
     ABMultiValue *emails = [theRecord valueForProperty:kABEmailProperty];
     for (NSUInteger i = 0; i < [emails count]; ++i) {
       if ([[emails labelAtIndex:i] caseInsensitiveCompare:AKEmailSIPLabel]
@@ -1725,29 +1726,27 @@ representedObjectForEditingString:(NSString *)editingString
       NSString *anEmail = [emails valueAtIndex:i];
       NSString *localizedPhoneLabel = [AB AK_localizedLabel:AKEmailSIPLabel];
       
-      // If we've met the first URI, set its label.
+      // If we've met entered URI, store its index.
       if ([anEmail caseInsensitiveCompare:[theURI SIPAddress]] == NSOrderedSame) {
-        NSDictionary *firstElementReplacement
-          = [NSDictionary dictionaryWithObjectsAndKeys:
-             theURI, AKURI, localizedPhoneLabel, AKPhoneLabel, nil];
-        
-        [callDestinations replaceObjectAtIndex:0
-                                    withObject:firstElementReplacement];
-        
-        continue;
+        destinationIndex = i;
       }
       
       AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:anEmail];
+      [uri setDisplayName:[theURI displayName]];
       [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                    uri, AKURI,
                                    localizedPhoneLabel, AKPhoneLabel,
                                    nil]];
     }
     
+  } else {
+    [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                 theURI, AKURI,
+                                 @"", AKPhoneLabel, nil]];
   }
   
   // First URI in the array is the default call destination.
-  [self setCallDestinationURIIndex:0];
+  [self setCallDestinationURIIndex:destinationIndex];
   
   return [[callDestinations copy] autorelease];
 }
@@ -1758,33 +1757,35 @@ displayStringForRepresentedObject:(id)representedObject
   if (![representedObject isKindOfClass:[NSArray class]])
     return nil;
   
-  AKSIPURI *mainURI = [[representedObject objectAtIndex:0] objectForKey:AKURI];
+  AKSIPURI *uri
+    = [[representedObject objectAtIndex:[self callDestinationURIIndex]]
+       objectForKey:AKURI];
   
   NSString *returnString = nil;
   
-  if ([[mainURI displayName] length] > 0) {
-    returnString = [mainURI displayName];
+  if ([[uri displayName] length] > 0) {
+    returnString = [uri displayName];
     
-  } else if ([[mainURI host] length] > 0) {
-    NSAssert(([[mainURI user] length] > 0),
+  } else if ([[uri host] length] > 0) {
+    NSAssert(([[uri user] length] > 0),
              @"User part of the URI must not have zero length in this context");
     
-    returnString = [mainURI SIPAddress];
+    returnString = [uri SIPAddress];
     
   } else {
-    NSAssert(([[mainURI user] length] > 0),
+    NSAssert(([[uri user] length] > 0),
              @"User part of the URI must not have zero length in this context");
     
-    if ([[mainURI user] AK_isTelephoneNumber]) {
+    if ([[uri user] AK_isTelephoneNumber]) {
       AKTelephoneNumberFormatter *formatter
         = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
       [formatter setSplitsLastFourDigits:
        [[NSUserDefaults standardUserDefaults]
         boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
-      returnString = [formatter stringForObjectValue:[mainURI user]];
+      returnString = [formatter stringForObjectValue:[uri user]];
       
     } else {
-      returnString = [mainURI user];
+      returnString = [uri user];
     }
   }
   
@@ -1797,36 +1798,42 @@ editingStringForRepresentedObject:(id)representedObject
   if (![representedObject isKindOfClass:[NSArray class]])
     return nil;
   
-  AKSIPURI *mainURI = [[representedObject objectAtIndex:0] objectForKey:AKURI];
-  AKSIPURI *selectedURI
+  AKSIPURI *uri
     = [[representedObject objectAtIndex:[self callDestinationURIIndex]]
        objectForKey:AKURI];
   
-  NSAssert(([[selectedURI user] length] > 0),
+  NSAssert(([[uri user] length] > 0),
            @"User part of the URI must not have zero length in this context");
   
-  if ([[mainURI displayName] length] > 0) {
-    if ([[selectedURI host] length] > 0) {
-      return [NSString stringWithFormat:@"%@ <%@>",
-              [mainURI displayName], [selectedURI SIPAddress]];
+  NSString *returnString = nil;
+  
+  if ([[uri displayName] length] > 0) {
+    if ([[uri host] length] > 0) {
+      returnString = [NSString stringWithFormat:@"%@ <%@>",
+                      [uri displayName], [uri SIPAddress]];
     } else {
-      return [NSString stringWithFormat:@"%@ <%@>",
-              [mainURI displayName], [selectedURI user]];
+      returnString =  [NSString stringWithFormat:@"%@ <%@>",
+                       [uri displayName], [uri user]];
     }
-  } else if ([[selectedURI host] length] > 0) {
-    return [selectedURI SIPAddress];
+  } else if ([[uri host] length] > 0) {
+    returnString =  [uri SIPAddress];
     
   } else {
-    return [selectedURI user];
+    returnString =  [uri user];
   }
+  
+  return returnString;
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField
 hasMenuForRepresentedObject:(id)representedObject
 {
+  AKSIPURI *uri
+    = [[representedObject objectAtIndex:[self callDestinationURIIndex]]
+       objectForKey:AKURI];
+  
   if ([representedObject isKindOfClass:[NSArray class]] &&
-      [[[[representedObject objectAtIndex:0] objectForKey:AKURI]
-        displayName] length] > 0)
+      [[uri displayName] length] > 0)
     return YES;
   else
     return NO;
@@ -1838,7 +1845,7 @@ menuForRepresentedObject:(id)representedObject
   NSMenu *tokenMenu = [[[NSMenu alloc] init] autorelease];
   
   for (NSUInteger i = 0; i < [representedObject count]; ++i) {
-    AKSIPURI *aURI = [[representedObject objectAtIndex:i] objectForKey:AKURI];
+    AKSIPURI *uri = [[representedObject objectAtIndex:i] objectForKey:AKURI];
     
     NSString *phoneLabel
       = [[representedObject objectAtIndex:i] objectForKey:AKPhoneLabel];
@@ -1851,17 +1858,17 @@ menuForRepresentedObject:(id)representedObject
      [[NSUserDefaults standardUserDefaults]
       boolForKey:AKTelephoneNumberFormatterSplitsLastFourDigits]];
     
-    if ([[aURI host] length] > 0) {
+    if ([[uri host] length] > 0) {
       [menuItem setTitle:[NSString stringWithFormat:@"%@: %@",
-                          phoneLabel, [aURI SIPAddress]]];
+                          phoneLabel, [uri SIPAddress]]];
       
-    } else if ([[aURI user] AK_isTelephoneNumber]) {
+    } else if ([[uri user] AK_isTelephoneNumber]) {
       [menuItem setTitle:[NSString stringWithFormat:@"%@: %@",
                           phoneLabel,
-                          [formatter stringForObjectValue:[aURI user]]]];
+                          [formatter stringForObjectValue:[uri user]]]];
     } else {
       [menuItem setTitle:[NSString stringWithFormat:@"%@: %@",
-                          phoneLabel, [aURI user]]];
+                          phoneLabel, [uri user]]];
     }
     
     [menuItem setTag:i];
