@@ -115,8 +115,7 @@
     [[NSDistributedNotificationCenter defaultCenter]
      postNotificationName:AKAddressBookDidDialSIPAddressNotification
                    object:@"AddressBook"
-                 userInfo:userInfo
-       deliverImmediately:YES];
+                 userInfo:userInfo];
   }
 }
 
@@ -150,8 +149,7 @@
     [[NSDistributedNotificationCenter defaultCenter]
      postNotificationName:AKAddressBookDidDialSIPAddressNotification
                    object:@"AddressBook"
-                 userInfo:userInfo
-       deliverImmediately:YES];
+                 userInfo:userInfo];
   }
 }
 

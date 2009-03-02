@@ -246,13 +246,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
    addObserver:self
       selector:@selector(addressBookDidDialCallDestination:)
           name:AKAddressBookDidDialPhoneNumberNotification
-        object:@"AddressBook"];
+        object:@"AddressBook"
+   suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
   
   [distributedNotificationCenter
    addObserver:self
       selector:@selector(addressBookDidDialCallDestination:)
           name:AKAddressBookDidDialSIPAddressNotification
-        object:@"AddressBook"];
+        object:@"AddressBook"
+   suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
   
   return self;
 }
