@@ -369,8 +369,7 @@
 								<object class="NSMenuItem" id="572780769">
 									<reference key="NSMenu" ref="13312721"/>
 									<string type="base64-UTF8" key="NSTitle">0J7RgtC60LvRjtGH0LjRgtGMINC80LjQutGA0L7RhNC+0L0</string>
-									<string key="NSKeyEquiv">M</string>
-									<int key="NSKeyEquivModMask">1048576</int>
+									<string key="NSKeyEquiv">m</string>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
@@ -378,8 +377,7 @@
 								<object class="NSMenuItem" id="429049841">
 									<reference key="NSMenu" ref="13312721"/>
 									<string type="base64-UTF8" key="NSTitle">0J/QvtGB0YLQsNCy0LjRgtGMINC90LAg0L7QttC40LTQsNC90LjQtQ</string>
-									<string key="NSKeyEquiv">H</string>
-									<int key="NSKeyEquivModMask">1048576</int>
+									<string key="NSKeyEquiv">h</string>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
@@ -1319,7 +1317,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{446, 763}, {262, 73}}</string>
+					<string>{{446, 763}, {248, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
