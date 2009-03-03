@@ -556,6 +556,11 @@ typedef enum _AKTelephoneRingtones {
   
   accountConfig.reg_timeout = [anAccount reregistrationTime];
   
+  if ([self usesICE] && [[self STUNServerHost] length] > 0)
+    accountConfig.allow_contact_rewrite = PJ_TRUE;
+  else
+    accountConfig.allow_contact_rewrite = PJ_FALSE;
+  
   pjsua_acc_id accountIdentifier;
   pj_status_t status = pjsua_acc_add(&accountConfig, PJ_FALSE,
                                      &accountIdentifier);
