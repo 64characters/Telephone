@@ -37,6 +37,7 @@
 #import "AKAddressBookSIPAddressPlugIn.h"
 #import "AKCallController.h"
 #import "AKPreferenceController.h"
+#import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
@@ -255,6 +256,13 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
           name:AKAddressBookDidDialSIPAddressNotification
         object:@"AddressBook"
    suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
+  
+  // Register Apple event handler for the URLs support.
+  [[NSAppleEventManager sharedAppleEventManager]
+   setEventHandler:self
+       andSelector:@selector(handleGetURLEvent:withReplyEvent:)
+     forEventClass:kInternetEventClass
+        andEventID:kAEGetURL];
   
   return self;
 }
@@ -1707,6 +1715,46 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   else
     theString = callDestination;
 
+  [[firstAccountController callDestinationField] setStringValue:theString];
+  [firstAccountController makeCall:[firstAccountController callDestinationField]];
+}
+
+
+#pragma mark -
+#pragma mark Apple event handler for URLs support
+
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+  NSString *URLString = [[event paramDescriptorForKeyword:keyDirectObject]
+                         stringValue];
+  
+  AKSIPURI *uri = [AKSIPURI SIPURIWithString:URLString];
+  
+  if ([[uri user] length] == 0)
+    return;
+  
+  AKAccountController *firstAccountController
+    = [[self accountControllers] objectAtIndex:0];
+  
+  if (![firstAccountController isEnabled])
+    return;
+  
+  // Go Available if it's Offline.
+  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier)
+    [firstAccountController setAccountRegistered:YES];
+  
+  if (![[self telephone] started])
+    return;
+  
+  [[firstAccountController callDestinationField]
+   setTokenStyle:NSPlainTextTokenStyle];
+  
+  NSString *theString;
+  if ([[uri host] length] > 0)
+    theString = [uri SIPAddress];
+  else
+    theString = [uri user];
+  
   [[firstAccountController callDestinationField] setStringValue:theString];
   [firstAccountController makeCall:[firstAccountController callDestinationField]];
 }

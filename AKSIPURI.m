@@ -145,17 +145,33 @@
   
   [self setDisplayName:[NSString stringWithPJString:nameAddr->display]];
   
-  pjsip_sip_uri *uri = (pjsip_sip_uri *)pjsip_uri_get_uri(nameAddr);
-  [self setUser:[NSString stringWithPJString:uri->user]];
-  [self setPassword:[NSString stringWithPJString:uri->passwd]];
-  [self setHost:[NSString stringWithPJString:uri->host]];
-  [self setPort:uri->port];
-  [self setUserParameter:[NSString stringWithPJString:uri->user_param]];
-  [self setMethodParameter:[NSString stringWithPJString:uri->method_param]];
-  [self setTransportParameter:[NSString stringWithPJString:uri->transport_param]];
-  [self setTTLParameter:uri->ttl_param];
-  [self setLooseRoutingParameter:uri->lr_param];
-  [self setMaddrParameter:[NSString stringWithPJString:uri->maddr_param]];
+  pj_str_t *schemePJString = (pj_str_t *)pjsip_uri_get_scheme(nameAddr);
+  NSString *scheme = [NSString stringWithPJString:*schemePJString];
+  
+  if ([scheme isEqualToString:@"sip"] || [scheme isEqualToString:@"sips"]) {
+    pjsip_sip_uri *uri = (pjsip_sip_uri *)pjsip_uri_get_uri(nameAddr);
+    
+    [self setUser:[NSString stringWithPJString:uri->user]];
+    [self setPassword:[NSString stringWithPJString:uri->passwd]];
+    [self setHost:[NSString stringWithPJString:uri->host]];
+    [self setPort:uri->port];
+    [self setUserParameter:[NSString stringWithPJString:uri->user_param]];
+    [self setMethodParameter:[NSString stringWithPJString:uri->method_param]];
+    [self setTransportParameter:[NSString stringWithPJString:uri->transport_param]];
+    [self setTTLParameter:uri->ttl_param];
+    [self setLooseRoutingParameter:uri->lr_param];
+    [self setMaddrParameter:[NSString stringWithPJString:uri->maddr_param]];
+    
+  } else if ([scheme isEqualToString:@"tel"]) {
+    // TODO(eofster): we really must have some kind of AKTelURI here instead.
+    pjsip_tel_uri *uri = (pjsip_tel_uri *)pjsip_uri_get_uri(nameAddr);
+    
+    [self setUser:[NSString stringWithPJString:uri->number]];
+    
+  } else {
+    [self release];
+    return nil;
+  }
   
   return self;
 }
