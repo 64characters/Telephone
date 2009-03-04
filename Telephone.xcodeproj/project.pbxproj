@@ -302,8 +302,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */,
-				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
 			);
 			name = Telephone;
 			sourceTree = "<group>";
@@ -384,6 +382,8 @@
 				AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */,
 				AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */,
 				AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */,
+				AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */,
+				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
 				AAF29A420F5759F7007B5036 /* Localizable.strings */,
 			);
 			name = PlugIns;
