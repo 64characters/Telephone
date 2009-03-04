@@ -585,6 +585,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     [devicesArray addObject:deviceDict];
   }
   
+  free(devices);
+  
   [self setAudioDevices:[[devicesArray copy] autorelease]];
   
   // Update audio devices in Telephone.
