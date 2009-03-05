@@ -1692,6 +1692,13 @@ representedObjectForEditingString:(NSString *)editingString
       NSString *phoneNumber = [phones valueAtIndex:i];
       NSString *localizedPhoneLabel = [AB AK_localizedLabel:[phones labelAtIndex:i]];
       
+      AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:phoneNumber];
+      [uri setDisplayName:[theURI displayName]];
+      [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   uri, AKURI,
+                                   localizedPhoneLabel, AKPhoneLabel,
+                                   nil]];
+      
       // If we've met entered URI, store its index.
       NSRange atSignRange = [phoneNumber rangeOfString:@"@"];
       if (atSignRange.location == NSNotFound && [[theURI host] length] == 0) {
@@ -1700,20 +1707,13 @@ representedObjectForEditingString:(NSString *)editingString
              isEqualToString:
              [telephoneNumberFormatter telephoneNumberFromString:[theURI user]]])
         {
-          destinationIndex = i;
+          destinationIndex = [callDestinations count] - 1;
         }
       } else {
         if ([phoneNumber isEqualToString:[theURI SIPAddress]]) {
-          destinationIndex = i;
+          destinationIndex = [callDestinations count] - 1;
         }
       }
-      
-      AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:phoneNumber];
-      [uri setDisplayName:[theURI displayName]];
-      [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   uri, AKURI,
-                                   localizedPhoneLabel, AKPhoneLabel,
-                                   nil]];
     }
     
     // Get SIP addresses.
@@ -1726,17 +1726,17 @@ representedObjectForEditingString:(NSString *)editingString
       NSString *anEmail = [emails valueAtIndex:i];
       NSString *localizedPhoneLabel = [AB AK_localizedLabel:AKEmailSIPLabel];
       
-      // If we've met entered URI, store its index.
-      if ([anEmail caseInsensitiveCompare:[theURI SIPAddress]] == NSOrderedSame) {
-        destinationIndex = i;
-      }
-      
       AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:anEmail];
       [uri setDisplayName:[theURI displayName]];
       [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                    uri, AKURI,
                                    localizedPhoneLabel, AKPhoneLabel,
                                    nil]];
+      
+      // If we've met entered URI, store its index.
+      if ([anEmail caseInsensitiveCompare:[theURI SIPAddress]] == NSOrderedSame) {
+        destinationIndex = [callDestinations count] - 1;
+      }
     }
     
   } else {
