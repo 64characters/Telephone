@@ -19,9 +19,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>17</string>
+	<string>18</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.13.1</string>
+	<string>0.13.2</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
