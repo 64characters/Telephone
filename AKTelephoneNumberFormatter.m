@@ -230,8 +230,9 @@
     [telephoneNumber appendString:@"+"];
     [scanner setScanLocation:1];
   } else {
-    // If the number is not in the international format, allow asterisk.
-    [phoneNumberCharacterSet addCharactersInString:@"*"];
+    // If the number is not in the international format, allow asterisk and
+    // number sign.
+    [phoneNumberCharacterSet addCharactersInString:@"*#"];
   }
   
   NSString *aString;
