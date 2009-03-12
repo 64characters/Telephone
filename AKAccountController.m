@@ -1273,13 +1273,7 @@ completionsForSubstring:(NSString *)substring
   // Perform Address Book search.
   NSArray *recordsFound = [AB recordsMatchingSearchElement:compoundMatch];
   
-  // Set appropriate token style depending on the search success.
-  if ([recordsFound count] > 0)
-    [tokenField setTokenStyle:NSRoundedTokenStyle];
-  else
-    [tokenField setTokenStyle:NSPlainTextTokenStyle];
-  
-  
+
   // Populate the completions array.
   
   NSMutableArray *completions
@@ -1452,6 +1446,12 @@ completionsForSubstring:(NSString *)substring
       [completions replaceObjectAtIndex:0 withObject:newFirstElement];
     }
   }
+  
+  // Set appropriate token style depending on the search success.
+  if ([completions count] > 0)
+    [tokenField setTokenStyle:NSRoundedTokenStyle];
+  else
+    [tokenField setTokenStyle:NSPlainTextTokenStyle];
   
   return [[completions copy] autorelease];
 }

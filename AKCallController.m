@@ -67,9 +67,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 @synthesize hangUpButton = hangUpButton_;
 @synthesize acceptCallButton = acceptCallButton_;
 @synthesize declineCallButton = declineCallButton_;
-@synthesize displayedNameField = displayedNameField_;
+@synthesize incomingCallDisplayedNameField = incomingCallDisplayedNameField_;
+@synthesize activeCallDisplayedNameField = activeCallDisplayedNameField_;
 @synthesize endedCallDisplayedNameField = endedCallDisplayedNameField_;
-@synthesize statusField = statusField_;
+@synthesize incomingCallStatusField = incomingCallStatusField_;
+@synthesize activeCallStatusField = activeCallStatusField_;
+@synthesize endedCallStatusField = endedCallStatusField_;
 @synthesize callProgressIndicator = callProgressIndicator_;
 
 - (AKTelephoneCall *)call
@@ -154,9 +157,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   [hangUpButton_ release];
   [acceptCallButton_ release];
   [declineCallButton_ release];
-  [displayedNameField_ release];
+  [incomingCallDisplayedNameField_ release];
+  [activeCallDisplayedNameField_ release];
   [endedCallDisplayedNameField_ release];
-  [statusField_ release];
+  [incomingCallStatusField_ release];
+  [activeCallStatusField_ release];
+  [endedCallStatusField_ release];
   [callProgressIndicator_ release];
   
   [super dealloc];
@@ -165,6 +171,29 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 - (NSString *)description
 {
   return [[self call] description];
+}
+
+- (void)awakeFromNib
+{
+  // Set raised background style for display name and status.
+  
+  [[[self incomingCallDisplayedNameField] cell]
+   setBackgroundStyle:NSBackgroundStyleRaised];
+  
+  [[[self activeCallDisplayedNameField] cell]
+   setBackgroundStyle:NSBackgroundStyleRaised];
+  
+  [[[self endedCallDisplayedNameField] cell]
+   setBackgroundStyle:NSBackgroundStyleRaised];
+  
+  [[[self incomingCallStatusField] cell]
+   setBackgroundStyle:NSBackgroundStyleRaised];
+  
+  [[[self activeCallStatusField] cell]
+   setBackgroundStyle:NSBackgroundStyleRaised];
+  
+  [[[self endedCallStatusField] cell]
+   setBackgroundStyle:NSBackgroundStyleRaised];
 }
 
 - (IBAction)acceptCall:(id)sender
@@ -505,9 +534,9 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
         [[self enteredDTMF] appendString:aString];
         [[self window] setTitle:[self displayedName]];
         
-        if ([[[self displayedNameField] cell] lineBreakMode]
+        if ([[[self activeCallDisplayedNameField] cell] lineBreakMode]
             != NSLineBreakByTruncatingHead) {
-          [[[self displayedNameField] cell]
+          [[[self activeCallDisplayedNameField] cell]
            setLineBreakMode:NSLineBreakByTruncatingHead];
           [[self endedCallDisplayedNameField] setSelectable:YES];
         }

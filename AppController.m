@@ -123,14 +123,23 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (NSArray *)currentNameservers
 {
   NSBundle *mainBundle = [NSBundle mainBundle];
-  NSString *bundleName = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
+  NSString *bundleName
+    = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
+  
   SCDynamicStoreRef dynamicStore
     = SCDynamicStoreCreate(NULL, (CFStringRef)bundleName, NULL, NULL);
+  
   CFPropertyListRef DNSSettings
     = SCDynamicStoreCopyValue(dynamicStore, CFSTR("State:/Network/Global/DNS"));
-  NSArray *nameservers
-    = [[(NSDictionary *)DNSSettings objectForKey:@"ServerAddresses"] retain];
-  CFRelease(DNSSettings);
+  
+  NSArray *nameservers = nil;
+  if (DNSSettings != NULL) {
+    nameservers = [[(NSDictionary *)DNSSettings objectForKey:@"ServerAddresses"]
+                   retain];
+    
+    CFRelease(DNSSettings);
+  }
+  
   CFRelease(dynamicStore);
   
   return [nameservers autorelease];
