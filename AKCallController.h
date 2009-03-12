@@ -55,9 +55,12 @@
   NSButton *hangUpButton_;
   NSButton *acceptCallButton_;
   NSButton *declineCallButton_;
-  NSTextField *displayedNameField_;
+  NSTextField *incomingCallDisplayedNameField_;
+  NSTextField *activeCallDisplayedNameField_;
   NSTextField *endedCallDisplayedNameField_;
-  NSTextField *statusField_;
+  NSTextField *incomingCallStatusField_;
+  NSTextField *activeCallStatusField_;
+  NSTextField *endedCallStatusField_;
   NSProgressIndicator *callProgressIndicator_;
 }
 
@@ -81,9 +84,12 @@
 @property(nonatomic, retain) IBOutlet NSButton *hangUpButton;
 @property(nonatomic, retain) IBOutlet NSButton *acceptCallButton;
 @property(nonatomic, retain) IBOutlet NSButton *declineCallButton;
-@property(nonatomic, retain) IBOutlet NSTextField *displayedNameField;
+@property(nonatomic, retain) IBOutlet NSTextField *incomingCallDisplayedNameField;
+@property(nonatomic, retain) IBOutlet NSTextField *activeCallDisplayedNameField;
 @property(nonatomic, retain) IBOutlet NSTextField *endedCallDisplayedNameField;
-@property(nonatomic, retain) IBOutlet NSTextField *statusField;
+@property(nonatomic, retain) IBOutlet NSTextField *incomingCallStatusField;
+@property(nonatomic, retain) IBOutlet NSTextField *activeCallStatusField;
+@property(nonatomic, retain) IBOutlet NSTextField *endedCallStatusField;
 @property(nonatomic, retain) IBOutlet NSProgressIndicator *callProgressIndicator;
 
 // Designated initializer

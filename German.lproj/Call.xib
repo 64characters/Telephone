@@ -8,6 +8,9 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="19"/>
+			<integer value="41"/>
+			<integer value="51"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -53,7 +56,7 @@
 				<string key="NSFrameAutosaveName">Call</string>
 			</object>
 			<object class="NSCustomView" id="114774165">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -159,10 +162,11 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{300, 105}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="476394797">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -210,10 +214,11 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{300, 90}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">AKActiveCallView</string>
 			</object>
 			<object class="NSCustomView" id="29922304">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -251,6 +256,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{300, 90}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomObject" id="1044513530">
@@ -438,14 +444,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">displayedNameField</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="344047073"/>
-					</object>
-					<int key="connectionID">116</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">endedCallDisplayedNameField</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="753896719"/>
@@ -459,6 +457,46 @@
 						<reference key="destination" ref="297718295"/>
 					</object>
 					<int key="connectionID">118</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">activeCallDisplayedNameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="344047073"/>
+					</object>
+					<int key="connectionID">119</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">incomingCallDisplayedNameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="725809836"/>
+					</object>
+					<int key="connectionID">120</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">incomingCallStatusField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="924808597"/>
+					</object>
+					<int key="connectionID">121</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">activeCallStatusField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="517167432"/>
+					</object>
+					<int key="connectionID">122</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">endedCallStatusField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="65984957"/>
+					</object>
+					<int key="connectionID">123</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -781,7 +819,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">118</int>
+			<int key="maxID">123</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -790,8 +828,17 @@
 					<string key="className">AKActiveCallView</string>
 					<string key="superclassName">NSView</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">delegate</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>delegate</string>
+							<string>delegate_</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -807,9 +854,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>acceptCall:</string>
 							<string>hangUpCall:</string>
+							<string>toggleCallHold:</string>
+							<string>toggleMicrophoneMute:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -819,19 +870,24 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>acceptCallButton</string>
+							<string>activeCallDisplayedNameField</string>
+							<string>activeCallStatusField</string>
 							<string>activeCallView</string>
 							<string>callProgressIndicator</string>
 							<string>declineCallButton</string>
-							<string>displayedNameField</string>
 							<string>endedCallDisplayedNameField</string>
+							<string>endedCallStatusField</string>
 							<string>endedCallView</string>
 							<string>hangUpButton</string>
+							<string>incomingCallDisplayedNameField</string>
+							<string>incomingCallStatusField</string>
 							<string>incomingCallView</string>
-							<string>statusField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
 							<string>NSView</string>
 							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
@@ -839,8 +895,9 @@
 							<string>NSTextField</string>
 							<string>NSView</string>
 							<string>NSButton</string>
-							<string>NSView</string>
 							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
