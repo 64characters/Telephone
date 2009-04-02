@@ -32,7 +32,7 @@
 
 @interface NSString (UUID)
 
-+ (NSString *)AK_uuidString;
++ (NSString *)ak_uuidString;
 
 @end
 
@@ -47,16 +47,16 @@
 
 // Returns YES if the receiver is a string of contiguous digits with possible
 // plus character in the beginning.
-@property(nonatomic, readonly, assign) BOOL AK_isTelephoneNumber;
+@property(nonatomic, readonly, assign) BOOL ak_isTelephoneNumber;
 
 // Returns YES if the receiver contains a-z or A-Z.
-@property(nonatomic, readonly, assign) BOOL AK_hasLetters;
+@property(nonatomic, readonly, assign) BOOL ak_hasLetters;
 
 // Inserts backslash before every occurrence of the first character from string
 // in the receiver.
-- (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string;
+- (NSString *)ak_escapeFirstCharacterFromString:(NSString *)string;
 
-- (NSString *)AK_escapeQuotes;
-- (NSString *)AK_escapeParentheses;
+- (NSString *)ak_escapeQuotes;
+- (NSString *)ak_escapeParentheses;
 
 @end

@@ -31,7 +31,7 @@
 
 @interface NSWindow (Resizing)
 
-- (void)resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation;
-- (void)resizeAndSwapToContentView:(NSView *)aView;
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation;
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView;
 
 @end

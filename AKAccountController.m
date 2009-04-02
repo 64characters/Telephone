@@ -333,7 +333,7 @@ NSString * const AKEmailSIPLabel = @"sip";
   
   // Get the clean string of contiguous digits if the user part
   // does not contain letters.
-  if (![[uri user] AK_hasLetters])
+  if (![[uri user] ak_hasLetters])
     [uri setUser:[telephoneNumberFormatter telephoneNumberFromString:[uri user]]];
   
   // Actually, the call will be made to the copy of the URI without
@@ -362,8 +362,8 @@ NSString * const AKEmailSIPLabel = @"sip";
   [[self callControllers] addObject:aCallController];
   
   // Set title.
-  if ([[originalURI host] length] == 0 && ![[originalURI user] AK_hasLetters]) {
-    if ([[originalURI user] AK_isTelephoneNumber] &&
+  if ([[originalURI host] length] == 0 && ![[originalURI user] ak_hasLetters]) {
+    if ([[originalURI user] ak_isTelephoneNumber] &&
         [defaults boolForKey:AKFormatTelephoneNumbers]) {
       [[aCallController window] setTitle:
        [telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
@@ -378,7 +378,7 @@ NSString * const AKEmailSIPLabel = @"sip";
   if ([[firstURI displayName] length] == 0) {
     if ([[originalURI host] length] > 0) {
       [aCallController setDisplayedName:[uri SIPAddress]];
-    } else if ([[originalURI user] AK_isTelephoneNumber] &&
+    } else if ([[originalURI user] ak_isTelephoneNumber] &&
                [defaults boolForKey:AKFormatTelephoneNumbers]) {
       [aCallController setDisplayedName:
        [telephoneNumberFormatter stringForObjectValue:[originalURI user]]];
@@ -900,16 +900,16 @@ NSString * const AKEmailSIPLabel = @"sip";
   if ([records count] > 0) {
     id theRecord = [records objectAtIndex:0];
     
-    finalDisplayedName = [theRecord AK_fullName];
-    [aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+    finalDisplayedName = [theRecord ak_fullName];
+    [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
     
-    NSString *localizedLabel = [AB AK_localizedLabel:AKEmailSIPLabel];
+    NSString *localizedLabel = [AB ak_localizedLabel:AKEmailSIPLabel];
     finalStatus = localizedLabel;
     [aCallController setPhoneLabelFromAddressBook:localizedLabel];
     
-  } else if ([[[aCall remoteURI] displayName] AK_isTelephoneNumber] ||
+  } else if ([[[aCall remoteURI] displayName] ak_isTelephoneNumber] ||
              ([[[aCall remoteURI] displayName] length] == 0 &&
-              [[[aCall remoteURI] user] AK_isTelephoneNumber]))
+              [[[aCall remoteURI] user] ak_isTelephoneNumber]))
   {  // No SIP Address found, search for the phone number.
     NSString *phoneNumberToSearch;
     if ([[[aCall remoteURI] displayName] length] > 0)
@@ -931,15 +931,15 @@ NSString * const AKEmailSIPLabel = @"sip";
     if ([records count] > 0) {
       recordFound = YES;
       id theRecord = [records objectAtIndex:0];
-      finalDisplayedName = [theRecord AK_fullName];
-      [aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+      finalDisplayedName = [theRecord ak_fullName];
+      [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
       
       // Find the phone label.
       ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
       for (NSUInteger i = 0; i < [phones count]; ++i)
         if ([[phones valueAtIndex:i] isEqualToString:phoneNumberToSearch]) {
           NSString *localizedLabel
-            = [AB AK_localizedLabel:[phones labelAtIndex:i]];
+            = [AB ak_localizedLabel:[phones labelAtIndex:i]];
           finalStatus = localizedLabel;
           [aCallController setPhoneLabelFromAddressBook:localizedLabel];
           break;
@@ -972,15 +972,15 @@ NSString * const AKEmailSIPLabel = @"sip";
         if ([records count] > 0) {
           recordFound = YES;
           id theRecord = [records objectAtIndex:0];
-          finalDisplayedName = [theRecord AK_fullName];
-          [aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+          finalDisplayedName = [theRecord ak_fullName];
+          [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
           
           // Find the phone label.
           ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
           for (NSUInteger i = 0; i < [phones count]; ++i)
             if ([[phones valueAtIndex:i] hasSuffix:significantPhoneSuffix]) {
               NSString *localizedLabel
-                = [AB AK_localizedLabel:[phones labelAtIndex:i]];
+                = [AB ak_localizedLabel:[phones labelAtIndex:i]];
               finalStatus = localizedLabel;
               [aCallController setPhoneLabelFromAddressBook:localizedLabel];
               break;
@@ -1003,11 +1003,11 @@ NSString * const AKEmailSIPLabel = @"sip";
           
           // Don't bother if the phone number contains only contiguous
           // digits, we should have covered such numbers in previous search.
-          if ([phoneNumber AK_isTelephoneNumber])
+          if ([phoneNumber ak_isTelephoneNumber])
             continue;
           
           // Don't bother if the phone number has letters.
-          if ([phoneNumber AK_hasLetters])
+          if ([phoneNumber ak_hasLetters])
             continue;
           
           // Here phone number probably includes spaces or other dividers.
@@ -1023,7 +1023,7 @@ NSString * const AKEmailSIPLabel = @"sip";
           
           if (recordFound) {
             NSString *localizedLabel
-              = [AB AK_localizedLabel:[phones labelAtIndex:i]];
+              = [AB ak_localizedLabel:[phones labelAtIndex:i]];
             finalStatus = localizedLabel;
             [aCallController setPhoneLabelFromAddressBook:localizedLabel];
             break;
@@ -1031,8 +1031,8 @@ NSString * const AKEmailSIPLabel = @"sip";
         }
         
         if (recordFound) {
-          finalDisplayedName = [theRecord AK_fullName];
-          [aCallController setNameFromAddressBook:[theRecord AK_fullName]];
+          finalDisplayedName = [theRecord ak_fullName];
+          [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
           break;
         }
       }
@@ -1044,7 +1044,7 @@ NSString * const AKEmailSIPLabel = @"sip";
   [[aCallController window] setTitle:finalTitle];
   [aCallController setDisplayedName:finalDisplayedName];
   [aCallController setStatus:finalStatus];
-  [[aCallController window] resizeAndSwapToContentView:
+  [[aCallController window] ak_resizeAndSwapToContentView:
    [aCallController incomingCallView]];
   
   [aCallController showWindow:nil];
@@ -1059,7 +1059,7 @@ NSString * const AKEmailSIPLabel = @"sip";
   if ([[aCallController phoneLabelFromAddressBook] length] > 0) {
     callSource = [aCallController phoneLabelFromAddressBook];
   } else if ([[[aCall remoteURI] user] length] > 0) {
-    if ([[[aCall remoteURI] user] AK_isTelephoneNumber]) {
+    if ([[[aCall remoteURI] user] ak_isTelephoneNumber]) {
       if ([defaults boolForKey:AKFormatTelephoneNumbers]) {
         callSource = [telephoneNumberFormatter stringForObjectValue:
                       [[aCall remoteURI] user]];
@@ -1369,9 +1369,9 @@ completionsForSubstring:(NSString *)substring
       NSRange range = [phoneNumber rangeOfString:substring];
       if (range.location == 0) {
         NSString *completionString = nil;
-        if ([[theRecord AK_fullName] length] > 0) {
+        if ([[theRecord ak_fullName] length] > 0) {
           completionString = [NSString stringWithFormat:@"%@ (%@)",
-                              phoneNumber, [theRecord AK_fullName]];
+                              phoneNumber, [theRecord ak_fullName]];
         } else {
           completionString = phoneNumber;
         }
@@ -1395,9 +1395,9 @@ completionsForSubstring:(NSString *)substring
       if (range.location == 0) {
         NSString *completionString = nil;
         
-        if ([[theRecord AK_fullName] length] > 0)
+        if ([[theRecord ak_fullName] length] > 0)
           completionString = [NSString stringWithFormat:@"%@ (%@)",
-                              anEmail, [theRecord AK_fullName]];
+                              anEmail, [theRecord ak_fullName]];
         else
           completionString = anEmail;
         
@@ -1749,8 +1749,8 @@ representedObjectForEditingString:(NSString *)editingString
   if ([recordsFound count] > 0) {
     ABRecord *theRecord = [recordsFound objectAtIndex:0];
     
-    if ([[theRecord AK_fullName] length] > 0)
-      [theURI setDisplayName:[theRecord AK_fullName]];
+    if ([[theRecord ak_fullName] length] > 0)
+      [theURI setDisplayName:[theRecord ak_fullName]];
     
     // Get phones.
     AKTelephoneNumberFormatter *telephoneNumberFormatter
@@ -1758,7 +1758,7 @@ representedObjectForEditingString:(NSString *)editingString
     ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
     for (NSUInteger i = 0; i < [phones count]; ++i) {
       NSString *phoneNumber = [phones valueAtIndex:i];
-      NSString *localizedPhoneLabel = [AB AK_localizedLabel:[phones labelAtIndex:i]];
+      NSString *localizedPhoneLabel = [AB ak_localizedLabel:[phones labelAtIndex:i]];
       
       AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:phoneNumber];
       [uri setDisplayName:[theURI displayName]];
@@ -1792,7 +1792,7 @@ representedObjectForEditingString:(NSString *)editingString
         continue;
       
       NSString *anEmail = [emails valueAtIndex:i];
-      NSString *localizedPhoneLabel = [AB AK_localizedLabel:AKEmailSIPLabel];
+      NSString *localizedPhoneLabel = [AB ak_localizedLabel:AKEmailSIPLabel];
       
       AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:anEmail];
       [uri setDisplayName:[theURI displayName]];
@@ -1844,7 +1844,7 @@ displayStringForRepresentedObject:(id)representedObject
     NSAssert(([[uri user] length] > 0),
              @"User part of the URI must not have zero length in this context");
     
-    if ([[uri user] AK_isTelephoneNumber]) {
+    if ([[uri user] ak_isTelephoneNumber]) {
       AKTelephoneNumberFormatter *formatter
         = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
       [formatter setSplitsLastFourDigits:
@@ -1930,7 +1930,7 @@ menuForRepresentedObject:(id)representedObject
       [menuItem setTitle:[NSString stringWithFormat:@"%@: %@",
                           phoneLabel, [uri SIPAddress]]];
       
-    } else if ([[uri user] AK_isTelephoneNumber]) {
+    } else if ([[uri user] ak_isTelephoneNumber]) {
       [menuItem setTitle:[NSString stringWithFormat:@"%@: %@",
                           phoneLabel,
                           [formatter stringForObjectValue:[uri user]]]];

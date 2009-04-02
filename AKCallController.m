@@ -125,7 +125,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   if (self == nil)
     return nil;
   
-  [self setIdentifier:[NSString AK_uuidString]];
+  [self setIdentifier:[NSString ak_uuidString]];
   [self setAccountController:anAccountController];
   [self setCallOnHold:NO];
   enteredDTMF_ = [[NSMutableString alloc] init];
@@ -240,7 +240,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   if ([[self call] isIncoming])
     [[NSApp delegate] stopRingtoneTimer];
   [self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
-  [[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:[self endedCallView] animate:YES];
 }
 
 - (void)startCallTimer
@@ -345,7 +345,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
                                       @"Outgoing call in progress.")];
   }
   
-  [[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
 - (void)telephoneCallEarly:(NSNotification *)notification
@@ -358,7 +358,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
       [self setStatus:NSLocalizedString(@"ringing", @"Remote party ringing.")];
     }
     
-    [[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
+    [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
   }
 }
 
@@ -374,7 +374,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   
   [self startCallTimer];
   
-  [[self window] resizeAndSwapToContentView:[self activeCallView] animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
   if ([[self activeCallView] acceptsFirstResponder])
     [[self window] makeFirstResponder:[self activeCallView]];
 }
@@ -433,7 +433,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
         break;
   }
   
-  [[self window] resizeAndSwapToContentView:[self endedCallView] animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:[self endedCallView] animate:YES];
   
   [[self callProgressIndicator] stopAnimation:self];
   [[self hangUpButton] setEnabled:NO];
@@ -452,7 +452,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
     AKTelephoneNumberFormatter *telephoneNumberFormatter
       = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
     
-    if ([[self enteredCallDestination] AK_isTelephoneNumber] &&
+    if ([[self enteredCallDestination] ak_isTelephoneNumber] &&
         [defaults boolForKey:AKFormatTelephoneNumbers]) {
       notificationTitle = [telephoneNumberFormatter stringForObjectValue:
                            [self enteredCallDestination]];

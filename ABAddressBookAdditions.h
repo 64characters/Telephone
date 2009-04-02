@@ -32,6 +32,6 @@
 
 @interface ABAddressBook (Additions)
 
-- (NSString *)AK_localizedLabel:(NSString *)label;
+- (NSString *)ak_localizedLabel:(NSString *)label;
 
 @end

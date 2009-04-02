@@ -48,7 +48,7 @@
     returnValue = [anObject displayName];
     
   } else if ([[anObject user] length] > 0) {
-    if ([[anObject user] AK_isTelephoneNumber]) {
+    if ([[anObject user] ak_isTelephoneNumber]) {
       if ([defaults boolForKey:AKFormatTelephoneNumbers]) {
         AKTelephoneNumberFormatter *telephoneNumberFormatter
           = [[[AKTelephoneNumberFormatter alloc] init] autorelease];

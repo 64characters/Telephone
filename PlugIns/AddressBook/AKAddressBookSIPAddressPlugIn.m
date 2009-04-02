@@ -98,7 +98,7 @@
   
   ABMultiValue *emails = [person valueForProperty:[self actionProperty]];
   NSString *anEmail = [emails valueForIdentifier:identifier];
-  NSString *fullName = [person AK_fullName];
+  NSString *fullName = [person ak_fullName];
   
   if (!isTelephoneLaunched) {
     [[NSWorkspace sharedWorkspace] launchApplication:@"Telephone"];

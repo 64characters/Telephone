@@ -288,7 +288,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   [[self toolbar] setSelectedItemIdentifier:[[self generalToolbarItem]
                                              itemIdentifier]];
-  [[self window] resizeAndSwapToContentView:[self generalView]];
+  [[self window] ak_resizeAndSwapToContentView:[self generalView]];
   [[self window] setTitle:
    NSLocalizedString(@"General", @"General preferences window title.")];
   
@@ -378,7 +378,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
         break;
   }
   
-  [[self window] resizeAndSwapToContentView:view animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:view animate:YES];
   [[self window] setTitle:title];
   if ([firstResponderView acceptsFirstResponder])
     [[self window] makeFirstResponder:firstResponderView];

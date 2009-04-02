@@ -31,7 +31,7 @@
 
 @implementation NSString (UUID)
 
-+ (NSString *)AK_uuidString
++ (NSString *)ak_uuidString
 {
   CFUUIDRef theUUID = CFUUIDCreate(NULL);
   CFStringRef string = CFUUIDCreateString(NULL, theUUID);
@@ -61,10 +61,10 @@
 
 @implementation NSString (Additions)
 
-@dynamic AK_isTelephoneNumber;
-@dynamic AK_hasLetters;
+@dynamic ak_isTelephoneNumber;
+@dynamic ak_hasLetters;
 
-- (BOOL)AK_isTelephoneNumber
+- (BOOL)ak_isTelephoneNumber
 {
   NSPredicate *telephoneNumberPredicate
     = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
@@ -74,7 +74,7 @@
   return NO;
 }
 
-- (BOOL)AK_hasLetters
+- (BOOL)ak_hasLetters
 {
   NSPredicate *containsLettersPredicate
     = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
@@ -82,7 +82,7 @@
   return ([containsLettersPredicate evaluateWithObject:self]) ? YES : NO;
 }
 
-- (NSString *)AK_escapeFirstCharacterFromString:(NSString *)string
+- (NSString *)ak_escapeFirstCharacterFromString:(NSString *)string
 {
   NSMutableString *newString = [NSMutableString stringWithString:self];
   NSString *escapeCharacterString = [string substringWithRange:NSMakeRange(0, 1)];
@@ -100,16 +100,16 @@
   return [[newString copy] autorelease];
 }
 
-- (NSString *)AK_escapeQuotes
+- (NSString *)ak_escapeQuotes
 {
-  return [self AK_escapeFirstCharacterFromString:@"\""];
+  return [self ak_escapeFirstCharacterFromString:@"\""];
 }
 
-- (NSString *)AK_escapeParentheses
+- (NSString *)ak_escapeParentheses
 {
-  NSString *returnString = [self AK_escapeFirstCharacterFromString:@")"];
+  NSString *returnString = [self ak_escapeFirstCharacterFromString:@")"];
   
-  return [returnString AK_escapeFirstCharacterFromString:@"("];
+  return [returnString ak_escapeFirstCharacterFromString:@"("];
 }
 
 @end

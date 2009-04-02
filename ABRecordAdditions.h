@@ -33,6 +33,6 @@
 @interface ABRecord (Additions)
 
 // Addressbook record's full name in the proper order or company name.
-@property(nonatomic, readonly, copy) NSString *AK_fullName;
+@property(nonatomic, readonly, copy) NSString *ak_fullName;
 
 @end

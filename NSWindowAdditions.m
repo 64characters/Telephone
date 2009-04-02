@@ -31,7 +31,7 @@
 
 @implementation NSWindow (Resizing)
 
-- (void)resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation
 {
   // Compute view size delta.
   NSSize currentSize = [[self contentView] frame].size;
@@ -57,9 +57,9 @@
   [self setContentView:aView];
 }
 
-- (void)resizeAndSwapToContentView:(NSView *)aView
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView
 {
-  [self resizeAndSwapToContentView:aView animate:NO];
+  [self ak_resizeAndSwapToContentView:aView animate:NO];
 }
 
 @end
