@@ -129,7 +129,7 @@
     return self;
   }
   
-  if (![[AKTelephone sharedTelephone] started]) {
+  if (![[AKTelephone sharedTelephone] userAgentStarted]) {
     [self release];
     return nil;
   }

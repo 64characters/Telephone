@@ -213,8 +213,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   // Subscribe to User Agent start events.
   [notificationCenter addObserver:self
-                         selector:@selector(telephoneDidStartUserAgent:)
-                             name:AKTelephoneDidStartUserAgentNotification
+                         selector:@selector(telephoneUserAgentDidFinishStarting:)
+                             name:AKTelephoneUserAgentDidFinishStartingNotification
                            object:nil];
   
   return self;
@@ -295,7 +295,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [self updateAudioDevices];
   
   // Show transport port in the network preferences as a placeholder string.
-  if ([[[NSApp delegate] telephone] started]) {
+  if ([[[NSApp delegate] telephone] userAgentStarted]) {
     [[self transportPortCell] setPlaceholderString:
      [[NSNumber numberWithUnsignedInteger:
        [[[NSApp delegate] telephone] transportPort]] stringValue]];
@@ -1291,8 +1291,11 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 #pragma mark -
 #pragma mark AKTelephone notifications
 
-- (void)telephoneDidStartUserAgent:(NSNotification *)notification
+- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification
 {
+  if (![[[NSApp delegate] telephone] userAgentStarted])
+    return;
+  
   // Show transport port in the network preferences as a placeholder string.
   [[self transportPortCell] setPlaceholderString:
    [[NSNumber numberWithUnsignedInteger:

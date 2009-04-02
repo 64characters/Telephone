@@ -45,19 +45,24 @@
   NSInteger ringtoneOutputDeviceIndex_;
   NSSound *ringtone_;
   NSTimer *ringtoneTimer_;
+  BOOL shouldRegisterAllAccounts_;
+  BOOL terminating_;
   
   NSMenuItem *preferencesMenuItem_;
 }
 
-@property(readonly, retain) AKTelephone *telephone;
-@property(readonly, retain) NSMutableArray *accountControllers;
-@property(readwrite, retain) AKPreferenceController *preferenceController;
-@property(readwrite, retain) NSArray *audioDevices;
-@property(readwrite, assign) NSInteger soundInputDeviceIndex;
-@property(readwrite, assign) NSInteger soundOutputDeviceIndex;
-@property(readwrite, assign) NSInteger ringtoneOutputDeviceIndex;
-@property(readwrite, retain) NSSound *ringtone;
-@property(readwrite, retain) NSTimer *ringtoneTimer;
+@property(nonatomic, readonly, retain) AKTelephone *telephone;
+@property(nonatomic, readonly, retain) NSMutableArray *accountControllers;
+@property(nonatomic, readonly, retain) NSArray *enabledAccountControllers;
+@property(nonatomic, retain) AKPreferenceController *preferenceController;
+@property(retain) NSArray *audioDevices;
+@property(nonatomic, assign) NSInteger soundInputDeviceIndex;
+@property(nonatomic, assign) NSInteger soundOutputDeviceIndex;
+@property(nonatomic, assign) NSInteger ringtoneOutputDeviceIndex;
+@property(nonatomic, retain) NSSound *ringtone;
+@property(nonatomic, retain) NSTimer *ringtoneTimer;
+@property(nonatomic, assign) BOOL shouldRegisterAllAccounts;
+@property(nonatomic, assign, getter=isTerminating) BOOL terminating;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 @property(nonatomic, readonly, retain) NSArray *currentNameservers;
 

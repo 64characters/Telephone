@@ -67,6 +67,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 @synthesize telephone = telephone_;
 @synthesize accountControllers = accountControllers_;
+@dynamic enabledAccountControllers;
 @synthesize preferenceController = preferenceController_;
 @synthesize audioDevices = audioDevices_;
 @synthesize soundInputDeviceIndex = soundInputDeviceIndex_;
@@ -74,10 +75,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @synthesize ringtoneOutputDeviceIndex = ringtoneOutputDeviceIndex_;
 @dynamic ringtone;
 @synthesize ringtoneTimer = ringtoneTimer_;
+@synthesize shouldRegisterAllAccounts = shouldRegisterAllAccounts_;
+@synthesize terminating = terminating_;
 @dynamic hasIncomingCallControllers;
 @dynamic currentNameservers;
 
 @synthesize preferencesMenuItem = preferencesMenuItem_;
+
+- (NSArray *)enabledAccountControllers
+{
+  return [[self accountControllers] filteredArrayUsingPredicate:
+          [NSPredicate predicateWithFormat:@"enabled == YES"]];
+}
 
 - (NSSound *)ringtone
 {
@@ -104,11 +113,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (BOOL)hasIncomingCallControllers
 {
-  for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease]) {
-    if (![anAccountController isEnabled])
-      continue;
-    
-    for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease]) {
+  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
+    for (AKCallController *aCallController in [anAccountController callControllers]) {
       if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
           [[aCallController call] isIncoming] &&
           ([[aCallController call] state] == AKTelephoneCallIncomingState ||
@@ -211,6 +217,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   accountControllers_ = [[NSMutableArray alloc] init];
   [self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
   [self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
+  [self setShouldRegisterAllAccounts:NO];
+  [self setTerminating:NO];
   
   // Subscribe to Early and Confirmed call states to set sound IO to Telephone.
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -468,16 +476,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     }
   }
   
-  // Add accounts to Telephone.
-  for (AKAccountController *anAccountController in [self accountControllers]) {
-    if (![anAccountController isEnabled])
-      continue;
+  if ([[self enabledAccountControllers] count] > 0) {
+    // Register all acounts from the callback.
+    [self setShouldRegisterAllAccounts:YES];
     
-    [anAccountController setAccountRegistered:YES];
-    
-    // Don't add subsequent accounts if Telephone could not start.
-    if (![[self telephone] started])
-      break;
+    // Start user agent.
+    [[self telephone] startUserAgent];
   }
 }
 
@@ -487,15 +491,14 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   [[self telephone] hangUpAllCalls];
   
   // Force ended state for all calls and remove accounts from Telephone.
-  for (AKAccountController *anAccountController in [self accountControllers]) {
-    for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
+    for (AKCallController *aCallController in [anAccountController callControllers])
       [aCallController forceEndedCallState];
     
-    if ([anAccountController isEnabled])
-      [anAccountController removeAccountFromTelephone];
+    [anAccountController removeAccountFromTelephone];
   }
   
-  [[self telephone] destroyUserAgent];
+  [[self telephone] stopUserAgent];
 }
 
 - (void)updateAudioDevices
@@ -610,7 +613,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
                       waitUntilDone:YES];
   
   // Update audio devices in preferences.
-  [[self preferenceController] updateAudioDevices];
+  [[self preferenceController]
+   performSelectorOnMainThread:@selector(updateAudioDevices)
+                    withObject:nil
+                 waitUntilDone:NO];
 }
 
 // Select appropriate sound IO from the list of available audio devices.
@@ -782,11 +788,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (AKCallController *)callControllerByIdentifier:(NSString *)identifier
 {
-  for (AKAccountController *anAccountController in [[[self accountControllers] copy] autorelease]) {
-    if (![anAccountController isEnabled])
-      continue;
-
-    for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
+    for (AKCallController *aCallController in [anAccountController callControllers])
       if ([[aCallController identifier] isEqualToString:identifier])
         return aCallController;
   }
@@ -1311,6 +1314,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     [[theAccountController window] orderFront:nil];
     
     // Register account (as a result, it will be added to Telephone).
+    [theAccountController setAttemptingToRegisterAccount:YES];
     [theAccountController setAccountRegistered:YES];
     
   } else {
@@ -1320,6 +1324,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     // Remove account from Telephone.
     [theAccountController removeAccountFromTelephone];
     [theAccountController setEnabled:NO];
+    [theAccountController setAttemptingToRegisterAccount:NO];
+    [theAccountController setAttemptingToUnregisterAccount:NO];
     [[theAccountController window] orderOut:nil];
     
     // Prevent conflict with setFrameAutosaveName: when re-enabling the account.
@@ -1350,7 +1356,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
-  if (![[self telephone] started]) {
+  if (![[self telephone] userAgentStarted]) {
     [[self telephone] setTransportPort:
      [[defaults objectForKey:AKTransportPort] integerValue]];
     [[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
@@ -1365,25 +1371,9 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     return;
   }
   
-  AKAccountController *anAccountController;
-  
-  // Unregister accounts.
-  for (anAccountController in [self accountControllers])
-    if ([anAccountController isEnabled])
-      [[anAccountController account] setRegistered:NO];
-  
-  // Wait one second to receive unregistrations confirmations.
-  sleep(1);
-  
-  // Remove accounts from Telephone.
-  for (anAccountController in [self accountControllers]) {
-    if (![anAccountController isEnabled])
-      continue;
-    
+  for (AKAccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController removeAccountFromTelephone];
-  }
-  
-  [[self telephone] destroyUserAgent];
+
   [[self telephone] setTransportPort:
    [[defaults objectForKey:AKTransportPort] integerValue]];
   [[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
@@ -1394,19 +1384,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
    [defaults stringForKey:AKOutboundProxyHost]];
   [[self telephone] setOutboundProxyPort:
    [[defaults objectForKey:AKOutboundProxyPort] integerValue]];
-  
-  
-  // Add accounts to Telephone.
-  for (anAccountController in [self accountControllers]) {
-    if (![anAccountController isEnabled])
-      continue;
     
-    [anAccountController setAccountRegistered:YES];
-    
-    // Don't add subsequent accounts if Telephone could not start.
-    if (![[self telephone] started])
-      break;
-  }
+  [self setShouldRegisterAllAccounts:YES];
+  
+  [[self telephone] stopUserAgent];
 }
 
 
@@ -1417,15 +1398,40 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // Telephone is started in this method if needed.
 - (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount
 {
-  BOOL started;
-  if ([[self telephone] started])
-    return YES;
-  else
-    started = [[self telephone] startUserAgent];
+  if ([[self telephone] userAgentState] < AKTelephoneUserAgentStarting) {
+    [[self telephone] startUserAgent];
+    
+    // Don't add the account right now, let user agent start first.
+    // The account should be added later, from the callback.
+    return NO;
+    
+  } else if ([[self telephone] userAgentState] < AKTelephoneUserAgentStarted) {
+    // User agent is starting, don't add account right now.
+    // The account should be added later, from the callback.
+    return NO;
+  }
   
-  if (!started) {
+  return YES;
+}
+
+
+#pragma mark -
+#pragma mark AKTelephone notifications
+
+- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification
+{
+  if ([[self telephone] userAgentStarted]) {
+    if ([self shouldRegisterAllAccounts])
+      for (AKAccountController *anAccountController in [self enabledAccountControllers])
+        [anAccountController setAccountRegistered:YES];
+    
+    [self setShouldRegisterAllAccounts:NO];
+    
+  } else {
     NSLog(@"Could not start SIP user agent. "
           "Please check your network connection and STUN server settings.");
+    
+    [self setShouldRegisterAllAccounts:NO];
     
     // Display application modal alert.
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -1436,16 +1442,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
      NSLocalizedString(@"Please check your network connection and STUN server settings.",
                        @"SIP user agent start error informative text.")];
     [alert runModal];
-    
-    return NO;
   }
-  
-  return YES;
 }
 
-
-#pragma mark -
-#pragma mark AKTelephone notifications
+- (void)telephoneUserAgentDidFinishStopping:(NSNotification *)notification
+{
+  if ([self isTerminating])
+    [NSApp replyToApplicationShouldTerminate:YES];
+  
+  else if ([self shouldRegisterAllAccounts] &&
+           [[self enabledAccountControllers] count] > 0)
+    [[self telephone] startUserAgent];
+}
 
 - (void)telephoneDidDetectNAT:(NSNotification *)notification
 {
@@ -1512,16 +1520,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication
                     hasVisibleWindows:(BOOL)flag
 {
-  NSArray *immutableAccountControllers
-    = [[[self accountControllers] copy] autorelease];
-  
   // Show incoming call window, if any.
   if ([self hasIncomingCallControllers]) {
-    for (AKAccountController *anAccountController in immutableAccountControllers) {
-      if (![anAccountController isEnabled])
-        continue;
-      
-      for (AKCallController *aCallController in [[[anAccountController callControllers] copy] autorelease])
+    for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
+      for (AKCallController *aCallController in [anAccountController callControllers])
         if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
             [[aCallController call] state] == AKTelephoneCallIncomingState)
         {
@@ -1532,55 +1534,54 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   }
   
   // No incoming calls, show window of the enabled accounts.
-  for (AKAccountController *anAccountController in immutableAccountControllers) {
-    if ([anAccountController isEnabled] && ![[anAccountController window] isVisible])
+  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
+    if (![[anAccountController window] isVisible])
       [[anAccountController window] orderFront:nil];
   }
   
   // Make first enabled account window key if there are no other key windows.
-  if ([NSApp keyWindow] == nil) {
-    for (NSUInteger i = 0; i < [immutableAccountControllers count]; ++i) {
-      AKAccountController *anAccountController
-        = [immutableAccountControllers objectAtIndex:i];
-      if ([anAccountController isEnabled]) {
-        [[anAccountController window] makeKeyWindow];
-        break;
-      }
-    }
-  }
+  if ([NSApp keyWindow] == nil && [[self enabledAccountControllers] count] > 0)
+    [[[[self enabledAccountControllers] objectAtIndex:0] window] makeKeyWindow];
   
   return YES;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-  for (AKTelephoneAccount *anAccount in [[self telephone] accounts])
-    if ([[anAccount calls] count] > 0) {
-      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-      [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
-      [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
-      [[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
-      [alert setMessageText:
-       NSLocalizedString(@"Are you sure you want to quit Telephone?",
-                         @"Telephone quit confirmation.")];
-      [alert setInformativeText:
-       NSLocalizedString(@"All active calls will be disconnected.",
-                         @"Telephone quit confirmation informative text.")];
-      
-      NSInteger choice = [alert runModal];
-      if (choice == NSAlertFirstButtonReturn)
-        return NSTerminateNow;
-      else if (choice == NSAlertSecondButtonReturn)
-        return NSTerminateCancel;
-    }
+  if ([[self telephone] activeCallsCount] > 0) {
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
+    [[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
+    [alert setMessageText:
+     NSLocalizedString(@"Are you sure you want to quit Telephone?",
+                       @"Telephone quit confirmation.")];
+    [alert setInformativeText:
+     NSLocalizedString(@"All active calls will be disconnected.",
+                       @"Telephone quit confirmation informative text.")];
+    
+    NSInteger choice = [alert runModal];
+
+    if (choice == NSAlertSecondButtonReturn)
+      return NSTerminateCancel;
+  }
+  
+  if ([[self telephone] userAgentStarted]) {
+    [self setTerminating:YES];
+    [self stopTelephone];
+    
+    // Terminate after SIP user agent is stopped in the secondary thread.
+    // We should send replyToApplicationShouldTerminate: to NSApp from
+    // AKTelephoneUserAgentDidFinishStoppingNotification.
+    return NSTerminateLater;
+  }
   
   return NSTerminateNow;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-  if ([[self telephone] started])
-    [self stopTelephone];
+  // TODO(eofster): we should save preferences on quit.
 }
 
 
@@ -1633,46 +1634,32 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // before computer goes to sleep.
 - (void)workspaceWillSleep:(NSNotification *)notification
 {
-  if ([[self telephone] started])
+  if ([[self telephone] userAgentStarted])
     [self stopTelephone];
 }
 
-// Re-add all accounts to Telephone starting SIP user agent laizily after
-// computer wakes up from sleep.
 - (void)workspaceDidWake:(NSNotification *)notification
 {
   sleep(3);
   
-  if ([[self telephone] started])
-    return;
-  
-  // Add accounts to Telephone starting SIP user agent lazily.
-  for (AKAccountController *anAccountController in [self accountControllers]) {
-    if (![anAccountController isEnabled])
-      continue;
-    
-    [anAccountController setAccountRegistered:YES];
-    
-    // Don't add subsequent accounts if Telephone could not start.
-    if (![[self telephone] started])
-      break;
+  if (![[self telephone] userAgentStarted]) {
+    [self setShouldRegisterAllAccounts:YES];
+    [[self telephone] startUserAgent];
   }
 }
 
 // Unregister all accounts when a user session is switched out.
 - (void)workspaceSessionDidResignActive:(NSNotification *)notification
 {
-  for (AKAccountController *anAccountController in [self accountControllers])
-    if ([anAccountController isEnabled])
-      [anAccountController setAccountRegistered:NO];
+  for (AKAccountController *anAccountController in [self enabledAccountControllers])
+    [anAccountController setAccountRegistered:NO];
 }
 
 // Re-register all accounts when a user session in switched in.
 - (void)workspaceSessionDidBecomeActive:(NSNotification *)notification
 {
-  for (AKAccountController *anAccountController in [self accountControllers])
-    if ([anAccountController isEnabled])
-      [anAccountController setAccountRegistered:YES];
+  for (AKAccountController *anAccountController in [self enabledAccountControllers])
+    [anAccountController setAccountRegistered:YES];
 }
 
 
@@ -1709,13 +1696,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   if (![firstAccountController isEnabled])
     return;
   
-  // Go Available if it's Offline.
-  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier)
-    [firstAccountController setAccountRegistered:YES];
-  
-  if (![[self telephone] started])
-    return;
-  
   [[firstAccountController callDestinationField] setTokenStyle:NSRoundedTokenStyle];
   
   [NSApp activateIgnoringOtherApps:YES];
@@ -1727,47 +1707,41 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     theString = callDestination;
 
   [[firstAccountController callDestinationField] setStringValue:theString];
-  [firstAccountController makeCall:[firstAccountController callDestinationField]];
+  
+  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier) {
+    // Go Available if it's Offline. Make call from the callback.
+    [firstAccountController setShouldMakeCall:YES];
+    [firstAccountController setAccountRegistered:YES];
+    
+  } else {
+    [firstAccountController makeCall:[firstAccountController callDestinationField]];
+  }
 }
 
 
 #pragma mark -
 #pragma mark Apple event handler for URLs support
 
-- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event
+           withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
-  NSString *URLString = [[event paramDescriptorForKeyword:keyDirectObject]
-                         stringValue];
-  
-  AKSIPURI *uri = [AKSIPURI SIPURIWithString:URLString];
-  
-  if ([[uri user] length] == 0)
-    return;
-  
   AKAccountController *firstAccountController
     = [[self accountControllers] objectAtIndex:0];
   
   if (![firstAccountController isEnabled])
     return;
   
-  // Go Available if it's Offline.
-  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier)
+  NSString *URLString = [[event paramDescriptorForKeyword:keyDirectObject]
+                         stringValue];
+  
+  [firstAccountController setCatchedURLString:URLString];
+  
+  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier) {
+    // Go Available if it's Offline. Make call from the callback.
     [firstAccountController setAccountRegistered:YES];
-  
-  if (![[self telephone] started])
-    return;
-  
-  [[firstAccountController callDestinationField]
-   setTokenStyle:NSPlainTextTokenStyle];
-  
-  NSString *theString;
-  if ([[uri host] length] > 0)
-    theString = [uri SIPAddress];
-  else
-    theString = [uri user];
-  
-  [[firstAccountController callDestinationField] setStringValue:theString];
-  [firstAccountController makeCall:[firstAccountController callDestinationField]];
+  } else {
+    [firstAccountController handleCatchedURL];
+  }
 }
 
 @end
@@ -1793,7 +1767,7 @@ static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
   } else
     NSLog(@"Not handling this property id");
   
-  [pool drain];
+  [pool release];
   
   return noErr;
 }

@@ -226,12 +226,13 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (id)init
 {
-  return [self initWithTelephoneAccount:nil identifier:PJSUA_INVALID_ID];
+  return [self initWithTelephoneAccount:nil
+                             identifier:AKTelephoneInvalidIdentifier];
 }
 
 - (void)dealloc
 {
-  if ([[AKTelephone sharedTelephone] started])
+  if ([[AKTelephone sharedTelephone] userAgentStarted])
     [self hangUp];
   
   [self setDelegate:nil];
@@ -289,7 +290,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   
   [telephone setRingbackCount:[telephone ringbackCount] + 1];
   if ([telephone ringbackCount] == 1 &&
-      [telephone ringbackSlot] != PJSUA_INVALID_ID)
+      [telephone ringbackSlot] != AKTelephoneInvalidIdentifier)
     pjsua_conf_connect([telephone ringbackSlot], 0);
 }
 
@@ -305,7 +306,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
     
     [telephone setRingbackCount:[telephone ringbackCount] - 1];
     if ([telephone ringbackCount] == 0 &&
-        [telephone ringbackSlot] != PJSUA_INVALID_ID) {
+        [telephone ringbackSlot] != AKTelephoneInvalidIdentifier) {
       pjsua_conf_disconnect([telephone ringbackSlot], 0);
       pjmedia_tonegen_rewind([telephone ringbackPort]);
     }
@@ -421,8 +422,10 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
   
   // AKTelephoneCall object is created here when the call is incoming
   AKTelephoneCall *theCall
-    = [[AKTelephoneCall alloc] initWithTelephoneAccount:theAccount
-                                             identifier:callIdentifier];
+    = [[[AKTelephoneCall alloc] initWithTelephoneAccount:theAccount
+                                             identifier:callIdentifier]
+       autorelease];
+  
   [theCall setState:callInfo.state];
   [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
   [theCall setLastStatus:callInfo.last_status];
@@ -432,11 +435,12 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
   // Keep the new call in the account's calls array
   [[theAccount calls] addObject:theCall];
   
-  if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccountDidReceiveCall:)])
+  if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccountDidReceiveCall:)]) {
     [[theAccount delegate]
      performSelectorOnMainThread:@selector(telephoneAccountDidReceiveCall:)
                       withObject:theCall
                    waitUntilDone:NO];
+  }
   
   NSNotification *notification
     = [NSNotification notificationWithName:AKTelephoneCallIncomingNotification
@@ -446,7 +450,6 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
    performSelectorOnMainThread:@selector(postNotification:)
                     withObject:notification
                  waitUntilDone:NO];
-  [theCall release];
   
   [pool release];
 }
@@ -474,6 +477,9 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
   if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
     [theCall ringbackStop];
     
+    // Remove the call from its account's calls list.
+    [[[theCall account] calls] removeObject:theCall];
+    
     PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
                callIdentifier,
                callInfo.last_status,
@@ -486,9 +492,6 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
     [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
                                          withObject:notification
                                       waitUntilDone:NO];
-    
-    // Finally, remove the call from its account's calls array
-    [[[theCall account] calls] removeObject:theCall];
     
   } else {
     if (callInfo.state == PJSIP_INV_STATE_EARLY) {
@@ -588,6 +591,7 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
     pjsua_conf_connect(0, callInfo.conf_slot);
     
     PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
+    
     notification
       = [NSNotification notificationWithName:AKTelephoneCallMediaDidBecomeActiveNotification
                                       object:theCall];

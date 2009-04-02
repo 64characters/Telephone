@@ -64,19 +64,19 @@
   NSProgressIndicator *callProgressIndicator_;
 }
 
-@property(readwrite, copy) NSString *identifier;
-@property(readwrite, retain) AKTelephoneCall *call;
-@property(nonatomic, readwrite, assign) AKAccountController *accountController;
-@property(readwrite, copy) NSString *displayedName;
-@property(readwrite, copy) NSString *status;
-@property(readwrite, copy) NSString *nameFromAddressBook;
-@property(readwrite, copy) NSString *phoneLabelFromAddressBook;
-@property(readwrite, copy) NSString *enteredCallDestination;
-@property(readwrite, retain) NSTimer *intermediateStatusTimer;
-@property(readwrite, assign) NSTimeInterval callStartTime;
-@property(readwrite, retain) NSTimer *callTimer;
-@property(readwrite, assign) BOOL callOnHold;
-@property(readwrite, retain) NSMutableString *enteredDTMF;
+@property(nonatomic, copy) NSString *identifier;
+@property(nonatomic, retain) AKTelephoneCall *call;
+@property(nonatomic, assign) AKAccountController *accountController;
+@property(nonatomic, copy) NSString *displayedName;
+@property(nonatomic, copy) NSString *status;
+@property(nonatomic, copy) NSString *nameFromAddressBook;
+@property(nonatomic, copy) NSString *phoneLabelFromAddressBook;
+@property(nonatomic, copy) NSString *enteredCallDestination;
+@property(nonatomic, retain) NSTimer *intermediateStatusTimer;
+@property(nonatomic, assign) NSTimeInterval callStartTime;
+@property(nonatomic, retain) NSTimer *callTimer;
+@property(nonatomic, assign) BOOL callOnHold;
+@property(nonatomic, retain) NSMutableString *enteredDTMF;
 
 @property(nonatomic, retain) IBOutlet NSView *incomingCallView;
 @property(nonatomic, retain) IBOutlet NSView *activeCallView;

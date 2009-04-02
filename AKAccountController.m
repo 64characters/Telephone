@@ -79,10 +79,8 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 @interface AKAccountController ()
 
-@property(readwrite, assign) BOOL attemptsToRegisterAccount;
-@property(readwrite, assign) BOOL attemptsToUnregisterAccount;
-@property(readwrite, assign) NSTimer *reRegistrationTimer;
-@property(readwrite, assign) NSUInteger callDestinationURIIndex;
+@property(nonatomic, assign) NSTimer *reRegistrationTimer;
+@property(nonatomic, assign) NSUInteger callDestinationURIIndex;
 
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer;
 
@@ -94,18 +92,20 @@ NSString * const AKEmailSIPLabel = @"sip";
 @synthesize account = account_;
 @dynamic accountRegistered;
 @synthesize callControllers = callControllers_;
+@synthesize attemptingToRegisterAccount = attemptingToRegisterAccount_;
+@synthesize attemptingToUnregisterAccount = attemptingToUnregisterAccount_;
+@synthesize reRegistrationTimer = reRegistrationTimer_;
+@synthesize shouldMakeCall = shouldMakeCall_;
+@synthesize catchedURLString = catchedURLString_;
+
 @synthesize substitutesPlusCharacter = substitutesPlusCharacter_;
 @synthesize plusCharacterSubstitution = plusCharacterSubstitution_;
-
-@synthesize attemptsToRegisterAccount = attemptsToRegisterAccount_;
-@synthesize attemptsToUnregisterAccount = attemptsToUnregisterAccount_;
-@synthesize reRegistrationTimer = reRegistrationTimer_;
-@synthesize callDestinationURIIndex = callDestinationURIIndex_;
 
 @synthesize activeAccountView = activeAccountView_;
 @synthesize offlineAccountView = offlineAccountView_;
 @synthesize accountRegistrationPopUp = accountRegistrationPopUp_;
 @synthesize callDestinationField = callDestinationField_;
+@synthesize callDestinationURIIndex = callDestinationURIIndex_;
 
 @synthesize authenticationFailureSheet = authenticationFailureSheet_;
 @synthesize updateCredentialsInformativeText = updateCredentialsInformativeText_;
@@ -121,23 +121,17 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 - (void)setAccountRegistered:(BOOL)flag
 {
-  if (flag)
-    [self setAttemptsToRegisterAccount:YES];
-  else
-    [self setAttemptsToUnregisterAccount:YES];
-  
   // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
     [self setReRegistrationTimer:nil];
   }
   
-  if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {  // If account has been added.
+  if ([[self account] identifier] != AKTelephoneInvalidIdentifier) {  // Account has been added.
     [self showConnectingMode];
-    // Explicitly redisplay button before DNS will look up the registrar host name.
-    [[[self accountRegistrationPopUp] superview] display];
     
     [[self account] setRegistered:flag];
+    
   } else {
     NSString *password
       = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
@@ -145,15 +139,17 @@ NSString * const AKEmailSIPLabel = @"sip";
                                accountName:[[self account] username]];
     
     [self showConnectingMode];
-    // Explicitly redisplay button before DNS will look up the registrar host name.
-    [[[self accountRegistrationPopUp] superview] display];
     
     // Add account to Telephone
-    [[[NSApp delegate] telephone] addAccount:[self account] withPassword:password];
+    BOOL added = [[[NSApp delegate] telephone] addAccount:[self account]
+                                             withPassword:password];
     
     // Error connecting to registrar.
-    if (![self isAccountRegistered] && [[self account] registrationExpireTime] < 0) {
-      if ([[[NSApp delegate] telephone] started]) {
+    if (added &&
+        ![self isAccountRegistered] &&
+        [[self account] registrationExpireTime] < 0)
+    {
+      if ([[[NSApp delegate] telephone] userAgentStarted]) {
         [self showUnregisteredMode];
         
         NSString *statusText;
@@ -181,8 +177,6 @@ NSString * const AKEmailSIPLabel = @"sip";
         // Show a sheet.
         [self showRegistrarConnectionErrorSheetWithError:error];
         
-      } else {
-        [self showOfflineMode];
       }
     }
   }
@@ -198,12 +192,19 @@ NSString * const AKEmailSIPLabel = @"sip";
   callControllers_ = [[NSMutableArray alloc] init];
   [self setSubstitutesPlusCharacter:NO];
   
-  [self setAttemptsToRegisterAccount:NO];
-  [self setAttemptsToUnregisterAccount:NO];
+  [self setAttemptingToRegisterAccount:NO];
+  [self setAttemptingToUnregisterAccount:NO];
+  [self setShouldMakeCall:NO];
   
   [[self account] setDelegate:self];
   
   [[self window] setTitle:[[self account] SIPAddress]];
+  
+  [[NSNotificationCenter defaultCenter]
+   addObserver:self
+      selector:@selector(telephoneUserAgentDidFinishStarting:)
+          name:AKTelephoneUserAgentDidFinishStartingNotification
+        object:nil];
   
   return self;
 }
@@ -227,17 +228,20 @@ NSString * const AKEmailSIPLabel = @"sip";
 - (void)dealloc
 {
   // Close all call controllers.
-  for (AKCallController *aCallController in [[[self callControllers] copy] autorelease])
+  for (AKCallController *aCallController in [self callControllers])
     [aCallController close];
   
   if ([[[self account] delegate] isEqual:self])
     [[self account] setDelegate:nil];
+  
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   
   // Close authentication failure sheet if it's raised
   [[self authenticationFailureCancelButton] performClick:nil];
   
   [account_ release];
   [callControllers_ release];
+  [catchedURLString_ release];
   [plusCharacterSubstitution_ release];
   
   [activeAccountView_ release];
@@ -275,8 +279,6 @@ NSString * const AKEmailSIPLabel = @"sip";
 {
   NSAssert([self isEnabled],
            @"Account conroller must be enabled to remove account from Telephone.");
-  if (![self isEnabled])
-    return;
   
   // Invalidate account automatic re-registration timer if it's valid.
   if ([self reRegistrationTimer] != nil) {
@@ -285,7 +287,6 @@ NSString * const AKEmailSIPLabel = @"sip";
   }
   
   [self showOfflineMode];
-  [[self window] display];
   
   // Remove account from Telephone.
   [[[NSApp delegate] telephone] removeAccount:[self account]];
@@ -429,13 +430,17 @@ NSString * const AKEmailSIPLabel = @"sip";
     [self showOfflineMode];
     // Remove account from Telephone.
     [self removeAccountFromTelephone];
+    
   } else if (selectedItemTag == AKTelephoneAccountUnregisterTag) {
     // Unregister account only if it is registered or it wasn't added to Telephone.
     if ([self isAccountRegistered] ||
         [[self account] identifier] == AKTelephoneInvalidIdentifier) {
+      [self setAttemptingToUnregisterAccount:YES];
       [self setAccountRegistered:NO];
     }
+    
   } else if (selectedItemTag == AKTelephoneAccountRegisterTag) {
+    [self setAttemptingToRegisterAccount:YES];
     [self setAccountRegistered:YES];
   }
 }
@@ -644,6 +649,28 @@ NSString * const AKEmailSIPLabel = @"sip";
   [[self account] setRegistered:YES];
 }
 
+- (void)handleCatchedURL
+{
+  AKSIPURI *uri = [AKSIPURI SIPURIWithString:[self catchedURLString]];
+  
+  // Clear |catchedURLString|.
+  [self setCatchedURLString:nil];
+  
+  if ([[uri user] length] == 0)
+    return;
+  
+  [[self callDestinationField] setTokenStyle:NSPlainTextTokenStyle];
+  
+  NSString *theString;
+  if ([[uri host] length] > 0)
+    theString = [uri SIPAddress];
+  else
+    theString = [uri user];
+  
+  [[self callDestinationField] setStringValue:theString];
+  [self makeCall:[self callDestinationField]];
+}
+
 
 #pragma mark -
 #pragma mark NSWindow delegate methods
@@ -669,7 +696,9 @@ NSString * const AKEmailSIPLabel = @"sip";
 #pragma mark -
 #pragma mark AKTelephoneAccount notifications
 
-// When account registration changes, make appropriate modifications in UI
+// When account registration changes, make appropriate modifications to the UI.
+// A call can also be made from here if the user called from the Address Book
+// or from the application URL handler.
 - (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
 {
   // Account identifier can be AKTelephoneInvalidIdentifier if notification
@@ -689,10 +718,29 @@ NSString * const AKEmailSIPLabel = @"sip";
     // setAccountRegistered:NO will add the account to Telephone. Telephone
     // will register the account. Set the account to Unavailable (unregister
     // it) here.
-    if ([self attemptsToUnregisterAccount])
+    if ([self attemptingToUnregisterAccount]) {
       [self setAccountRegistered:NO];
-    else
+      
+    } else {
       [self showRegisteredMode];
+      
+      // The user could initiate a call from the Address Book plug-in.
+      if ([self shouldMakeCall]) {
+        // Explicitly display registered mode before calling.
+        [[self window] display];
+        
+        [self setShouldMakeCall:NO];
+        [self makeCall:[self callDestinationField]];
+      }
+      
+      // The user could click a URL.
+      if ([self catchedURLString] != nil) {
+        // Explicitly display registered mode before calling.
+        [[self window] display];
+        
+        [self handleCatchedURL];
+      }
+    }
     
   } else {
     [self showUnregisteredMode];
@@ -743,9 +791,10 @@ NSString * const AKEmailSIPLabel = @"sip";
       // than zero, it is unregistration, not failure. Condition of failure is:
       // last registration status != 2xx AND expiration interval < 0.
       
-      if ([[[NSApp delegate] telephone] started]) {
+      if ([[[NSApp delegate] telephone] userAgentStarted]) {
         // Show a sheet if setAccountRegistered: was called.
-        if ([self attemptsToRegisterAccount] || [self attemptsToUnregisterAccount]) {
+        if ([self attemptingToRegisterAccount] ||
+            [self attemptingToUnregisterAccount]) {
           NSString *statusText;
           NSString *preferredLocalization
             = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
@@ -785,8 +834,8 @@ NSString * const AKEmailSIPLabel = @"sip";
     }
   }
   
-  [self setAttemptsToRegisterAccount:NO];
-  [self setAttemptsToUnregisterAccount:NO];
+  [self setAttemptingToRegisterAccount:NO];
+  [self setAttemptingToUnregisterAccount:NO];
 }
 
 - (void)telephoneAccountWillRemove:(NSNotification *)notification
@@ -1060,6 +1109,25 @@ NSString * const AKEmailSIPLabel = @"sip";
   [[NSApp delegate] startRingtoneTimer];
   [NSApp requestUserAttention:NSCriticalRequest];
   [aCall sendRingingNotification];
+}
+
+
+#pragma mark -
+#pragma mark AKTelephone notifications
+
+- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification
+{
+  if (![[notification object] userAgentStarted]) {
+    [self showOfflineMode];
+    
+    return;
+  }
+  
+  if ([self attemptingToRegisterAccount])
+    [self setAccountRegistered:YES];
+  
+  else if ([self attemptingToUnregisterAccount])
+    [self setAccountRegistered:NO];
 }
 
 

@@ -133,7 +133,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (void)setRegistered:(BOOL)value
 {
-  if ([self identifier] == PJSUA_INVALID_ID)
+  if ([self identifier] == AKTelephoneInvalidIdentifier)
     return;
   
   if (value) {
@@ -147,7 +147,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSInteger)registrationStatus
 {
-  if ([self identifier] == PJSUA_INVALID_ID)
+  if ([self identifier] == AKTelephoneInvalidIdentifier)
     return 0;
   
   pjsua_acc_info accountInfo;
@@ -162,7 +162,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSString *)registrationStatusText
 {
-  if ([self identifier] == PJSUA_INVALID_ID)
+  if ([self identifier] == AKTelephoneInvalidIdentifier)
     return nil;
   
   pjsua_acc_info accountInfo;
@@ -177,7 +177,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSInteger)registrationExpireTime
 {
-  if ([self identifier] == PJSUA_INVALID_ID)
+  if ([self identifier] == AKTelephoneInvalidIdentifier)
     return -1;
   
   pjsua_acc_info accountInfo;
@@ -192,7 +192,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (BOOL)isOnline
 {
-  if ([self identifier] == PJSUA_INVALID_ID)
+  if ([self identifier] == AKTelephoneInvalidIdentifier)
     return NO;
   
   pjsua_acc_info accountInfo;
@@ -207,7 +207,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (void)setOnline:(BOOL)value
 {
-  if ([self identifier] == PJSUA_INVALID_ID)
+  if ([self identifier] == AKTelephoneInvalidIdentifier)
     return;
   
   if (value)
@@ -218,7 +218,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSString *)onlineStatusText
 {
-  if ([self identifier] == PJSUA_INVALID_ID)
+  if ([self identifier] == AKTelephoneInvalidIdentifier)
     return nil;
   
   pjsua_acc_info accountInfo;
@@ -267,7 +267,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
   [self setProxyHost:AKSIPProxyHostDefault];
   [self setProxyPort:AKSIPProxyPortDefault];
   [self setReregistrationTime:AKAccountReregistrationTimeDefault];
-  [self setIdentifier:PJSUA_INVALID_ID];
+  [self setIdentifier:AKTelephoneInvalidIdentifier];
   
   calls_ = [[NSMutableArray alloc] init];
   

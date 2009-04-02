@@ -62,6 +62,12 @@ typedef enum _AKNATType {
   AKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
 } AKNATType;
 
+typedef enum _AKTelephoneUserAgentState {
+  AKTelephoneUserAgentStopped,
+  AKTelephoneUserAgentStarting,
+  AKTelephoneUserAgentStarted
+} AKTelephoneUserAgentState;
+
 @class AKTelephoneAccount, AKTelephoneCall;
 @protocol AKTelephoneDelegate;
 
@@ -70,9 +76,10 @@ typedef enum _AKNATType {
   id <AKTelephoneDelegate> delegate_;
   
   NSMutableArray *accounts_;
-  BOOL started_;
+  AKTelephoneUserAgentState userAgentState_;
   BOOL soundStopped_;
   AKNATType detectedNATType_;
+  NSLock *pjsuaLock_;
   
   NSArray *nameservers_;
   NSString *outboundProxyHost_;
@@ -95,41 +102,43 @@ typedef enum _AKNATType {
   pjmedia_port *ringbackPort_;
 }
 
-@property(nonatomic, readwrite, assign) id <AKTelephoneDelegate> delegate;
+@property(nonatomic, assign) id <AKTelephoneDelegate> delegate;
 @property(readonly, retain) NSMutableArray *accounts;
-@property(readonly, assign) BOOL started;
-@property(readonly, assign) BOOL soundStopped;
-@property(readwrite, assign) AKNATType detectedNATType;
+@property(nonatomic, readonly, assign) BOOL userAgentStarted;
+@property(readonly, assign) AKTelephoneUserAgentState userAgentState;
+@property(nonatomic, readonly, assign) BOOL soundStopped;
+@property(assign) AKNATType detectedNATType;
+@property(retain) NSLock *pjsuaLock;
 @property(nonatomic, readonly, assign) NSUInteger activeCallsCount;
 @property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
 @property(readonly, assign) pj_pool_t *pjPool;
 @property(readonly, assign) NSInteger ringbackSlot;
-@property(readwrite, assign) NSInteger ringbackCount;
+@property(nonatomic, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;
 
-@property(readwrite, copy) NSArray *nameservers;                    // Default: nil. If set, DNS SRV will be enabled. Only first AKTelephoneNameserversMax are used.
-@property(readwrite, copy) NSString *outboundProxyHost;             // Default: @"".
-@property(nonatomic, readwrite, assign) NSUInteger outboundProxyPort;  // Default: 5060.
-@property(readwrite, copy) NSString *STUNServerHost;                // Default: @"".
-@property(nonatomic, readwrite, assign) NSUInteger STUNServerPort;  // Default: 3478.
-@property(readwrite, copy) NSString *userAgentString;               // Default: @"".
-@property(nonatomic, readwrite, copy) NSString *logFileName;        // Default: @"~/Library/Logs/Telephone.log".
-@property(readwrite, assign) NSUInteger logLevel;                   // Default: 3.
-@property(readwrite, assign) NSUInteger consoleLogLevel;            // Default: 0.
-@property(readwrite, assign) BOOL detectsVoiceActivity;             // Default: YES.
-@property(readwrite, assign) BOOL usesICE;                          // Default: NO.
-@property(nonatomic, readwrite, assign) NSUInteger transportPort;   // Default: 0 for any available port.
+@property(nonatomic, copy) NSArray *nameservers;         // Default: nil. If set, DNS SRV will be enabled. Only first AKTelephoneNameserversMax are used.
+@property(nonatomic, copy) NSString *outboundProxyHost;  // Default: @"".
+@property(nonatomic, assign) NSUInteger outboundProxyPort;  // Default: 5060.
+@property(nonatomic, copy) NSString *STUNServerHost;     // Default: @"".
+@property(nonatomic, assign) NSUInteger STUNServerPort;  // Default: 3478.
+@property(nonatomic, copy) NSString *userAgentString;    // Default: @"".
+@property(nonatomic, copy) NSString *logFileName;        // Default: @"~/Library/Logs/Telephone.log".
+@property(nonatomic, assign) NSUInteger logLevel;        // Default: 3.
+@property(nonatomic, assign) NSUInteger consoleLogLevel; // Default: 0.
+@property(nonatomic, assign) BOOL detectsVoiceActivity;  // Default: YES.
+@property(nonatomic, assign) BOOL usesICE;               // Default: NO.
+@property(nonatomic, assign) NSUInteger transportPort;   // Default: 0 for any available port.
 
 + (AKTelephone *)sharedTelephone;
 
 // Designated initializer
 - (id)initWithDelegate:(id)aDelegate;
 
-// Start user agent.
-- (BOOL)startUserAgent;
+// Start SIP user agent.
+- (void)startUserAgent;
 
-// Destroy undelying sip user agent correctly
-- (BOOL)destroyUserAgent;
+// Stop SIP user agent.
+- (void)stopUserAgent;
 
 // Dealing with accounts
 - (BOOL)addAccount:(AKTelephoneAccount *)anAccount withPassword:(NSString *)aPassword;
@@ -167,5 +176,6 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
 
 
 // Notifications.
-extern NSString * const AKTelephoneDidStartUserAgentNotification;
+extern NSString * const AKTelephoneUserAgentDidFinishStartingNotification;
+extern NSString * const AKTelephoneUserAgentDidFinishStoppingNotification;
 extern NSString * const AKTelephoneDidDetectNATNotification;

@@ -75,22 +75,22 @@ typedef enum _AKTelephoneCallState {
   AKTelephoneAccount *account_;
 }
 
-@property(nonatomic, readwrite, assign) id delegate;
-@property(readwrite, assign) NSInteger identifier;
-@property(readwrite, copy) AKSIPURI *localURI;
-@property(readwrite, copy) AKSIPURI *remoteURI;
-@property(readwrite, assign) AKTelephoneCallState state;
-@property(readwrite, copy) NSString *stateText;
-@property(readwrite, assign) NSInteger lastStatus;
-@property(readwrite, copy) NSString *lastStatusText;
+@property(nonatomic, assign) id delegate;
+@property(nonatomic, assign) NSInteger identifier;
+@property(nonatomic, copy) AKSIPURI *localURI;
+@property(nonatomic, copy) AKSIPURI *remoteURI;
+@property(assign) AKTelephoneCallState state;
+@property(copy) NSString *stateText;
+@property(assign) NSInteger lastStatus;
+@property(copy) NSString *lastStatusText;
 @property(nonatomic, readonly, assign, getter=isActive) BOOL active;
 @property(nonatomic, readonly, assign) BOOL hasMedia;
 @property(nonatomic, readonly, assign) BOOL hasActiveMedia;
-@property(readwrite, assign, getter=isIncoming) BOOL incoming;
-@property(readwrite, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
-@property(readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
-@property(readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
-@property(readwrite, assign) AKTelephoneAccount *account;
+@property(assign, getter=isIncoming) BOOL incoming;
+@property(nonatomic, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
+@property(nonatomic, readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
+@property(nonatomic, readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
+@property(nonatomic, assign) AKTelephoneAccount *account;
 
 // Designated initializer
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount

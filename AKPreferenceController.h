@@ -126,7 +126,7 @@ extern NSString * const AKDestinationIndex;
   NSButton *addAccountWindowOtherButton_;
 }
 
-@property(nonatomic, readwrite, assign) id delegate;
+@property(nonatomic, assign) id delegate;
 
 @property(nonatomic, retain) IBOutlet NSToolbar *toolbar;
 @property(nonatomic, retain) IBOutlet NSToolbarItem *generalToolbarItem;

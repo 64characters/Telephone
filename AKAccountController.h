@@ -45,9 +45,11 @@ enum {
   BOOL enabled_;
   AKTelephoneAccount *account_;
   NSMutableArray *callControllers_;
-  BOOL attemptsToRegisterAccount_;
-  BOOL attemptsToUnregisterAccount_;
+  BOOL attemptingToRegisterAccount_;
+  BOOL attemptingToUnregisterAccount_;
   NSTimer *reRegistrationTimer_;
+  BOOL shouldMakeCall_;
+  NSString *catchedURLString_;
   
   BOOL substitutesPlusCharacter_;
   NSString *plusCharacterSubstitution_;
@@ -67,12 +69,16 @@ enum {
   NSButton *authenticationFailureCancelButton_;
 }
 
-@property(readwrite, assign, getter=isEnabled) BOOL enabled;
-@property(readwrite, retain) AKTelephoneAccount *account;
-@property(nonatomic, readwrite, assign, getter=isAccountRegistered) BOOL accountRegistered;
-@property(readonly, retain) NSMutableArray *callControllers;
-@property(readwrite, assign) BOOL substitutesPlusCharacter;
-@property(readwrite, copy) NSString *plusCharacterSubstitution;
+@property(nonatomic, assign, getter=isEnabled) BOOL enabled;
+@property(nonatomic, retain) AKTelephoneAccount *account;
+@property(nonatomic, assign, getter=isAccountRegistered) BOOL accountRegistered;
+@property(nonatomic, retain) NSMutableArray *callControllers;
+@property(nonatomic, assign) BOOL attemptingToRegisterAccount;
+@property(nonatomic, assign) BOOL attemptingToUnregisterAccount;
+@property(nonatomic, assign) BOOL shouldMakeCall;
+@property(nonatomic, copy) NSString *catchedURLString;
+@property(nonatomic, assign) BOOL substitutesPlusCharacter;
+@property(nonatomic, copy) NSString *plusCharacterSubstitution;
 
 @property(nonatomic, retain) IBOutlet NSView *activeAccountView;
 @property(nonatomic, retain) IBOutlet NSView *offlineAccountView;
@@ -121,6 +127,9 @@ enum {
 - (void)showUnregisteredMode;
 - (void)showOfflineMode;
 - (void)showConnectingMode;
+
+// Handle |catchedURLString| populated by application URL handler.
+- (void)handleCatchedURL;
 
 @end
 

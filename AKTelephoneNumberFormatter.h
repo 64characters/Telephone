@@ -34,7 +34,7 @@
   BOOL splitsLastFourDigits_;
 }
 
-@property(readwrite, assign) BOOL splitsLastFourDigits;
+@property(nonatomic, assign) BOOL splitsLastFourDigits;
 
 // Scans the string for numbers and returns them as a contiguous digits string.
 - (NSString *)telephoneNumberFromString:(NSString *)string;

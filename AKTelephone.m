@@ -40,8 +40,10 @@
 const NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
 const NSInteger AKTelephoneNameserversMax = 4;
 
-NSString * const AKTelephoneDidStartUserAgentNotification
-  = @"AKTelephoneDidStartUserAgent";
+NSString * const AKTelephoneUserAgentDidFinishStartingNotification
+  = @"AKTelephoneUserAgentDidFinishStarting";
+NSString * const AKTelephoneUserAgentDidFinishStoppingNotification
+  = @"AKTelephoneUserAgentDidFinishStopping";
 NSString * const AKTelephoneDidDetectNATNotification
   = @"AKTelephoneDidDetectNAT";
 
@@ -71,8 +73,18 @@ typedef enum _AKTelephoneRingtones {
 
 @interface AKTelephone ()
 
-@property(readwrite, assign) BOOL started;
-@property(readwrite, assign) BOOL soundStopped;
+@property(assign) AKTelephoneUserAgentState userAgentState;
+@property(nonatomic, assign) BOOL soundStopped;
+
+@property(assign) pj_pool_t *pjPool;
+@property(assign) NSInteger ringbackSlot;
+@property(assign) pjmedia_port *ringbackPort;
+
+// Create and start SIP user agent. Supposed to be run on the secondary thread.
+- (void)ak_startUserAgent;
+
+// Stop and destroy SIP user agent. Supposed to be run on the secondary thread.
+- (void)ak_stopUserAgent;
 
 @end
 
@@ -81,9 +93,11 @@ typedef enum _AKTelephoneRingtones {
 
 @dynamic delegate;
 @synthesize accounts = accounts_;
-@synthesize started = started_;
+@dynamic userAgentStarted;
+@synthesize userAgentState = userAgentState_;
 @synthesize soundStopped = soundStopped_;
 @synthesize detectedNATType = detectedNATType_;
+@synthesize pjsuaLock = pjsuaLock_;
 @dynamic activeCallsCount;
 @dynamic callData;
 @synthesize pjPool = pjPool_;
@@ -120,20 +134,31 @@ typedef enum _AKTelephoneRingtones {
     [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
+    if ([aDelegate respondsToSelector:@selector(telephoneUserAgentDidFinishStarting:)])
+      [notificationCenter addObserver:aDelegate
+                             selector:@selector(telephoneUserAgentDidFinishStarting:)
+                                 name:AKTelephoneUserAgentDidFinishStartingNotification
+                               object:self];
+    
+    if ([aDelegate respondsToSelector:@selector(telephoneUserAgentDidFinishStopping:)])
+      [notificationCenter addObserver:aDelegate
+                             selector:@selector(telephoneUserAgentDidFinishStopping:)
+                                 name:AKTelephoneUserAgentDidFinishStoppingNotification
+                               object:self];
+    
     if ([aDelegate respondsToSelector:@selector(telephoneDidDetectNAT:)])
       [notificationCenter addObserver:aDelegate
                              selector:@selector(telephoneDidDetectNAT:)
                                  name:AKTelephoneDidDetectNATNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(telephoneDidStartUserAgent:)])
-      [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneDidStartUserAgent:)
-                                 name:AKTelephoneDidStartUserAgentNotification
-                               object:self];
   }
   
   delegate_ = aDelegate;
+}
+
+- (BOOL)userAgentStarted
+{
+  return ([self userAgentState] == AKTelephoneUserAgentStarted) ? YES : NO;
 }
 
 - (NSUInteger)activeCallsCount
@@ -285,9 +310,9 @@ typedef enum _AKTelephoneRingtones {
   
   [self setDelegate:aDelegate];
   accounts_ = [[NSMutableArray alloc] init];
-  [self setStarted:NO];
   [self setSoundStopped:YES];
   [self setDetectedNATType:AKNATTypeUnknown];
+  pjsuaLock_ = [[NSLock alloc] init];
   
   [self setOutboundProxyHost:AKTelephoneOutboundProxyHostDefault];
   [self setOutboundProxyPort:AKTelephoneOutboundProxyPortDefault];
@@ -300,6 +325,8 @@ typedef enum _AKTelephoneRingtones {
   [self setUsesICE:AKTelephoneUsesICEDefault];
   [self setTransportPort:AKTelephoneTransportPortDefault];
   
+  [self setRingbackSlot:AKTelephoneInvalidIdentifier];
+  
   return self;
 }
 
@@ -311,6 +338,7 @@ typedef enum _AKTelephoneRingtones {
 - (void)dealloc
 {
   [accounts_ release];
+  [pjsuaLock_ release];
   [nameservers_ release];
   [outboundProxyHost_ release];
   [STUNServerHost_ release];
@@ -323,18 +351,55 @@ typedef enum _AKTelephoneRingtones {
 
 #pragma mark -
 
-- (BOOL)startUserAgent
+- (void)startUserAgent
 {
-  pj_status_t status;
+  // Do nothing if it's already started or being started.
+  if ([self userAgentState] > AKTelephoneUserAgentStopped)
+    return;
   
-  // Create PJSUA.
-  status = pjsua_create();
+  [[self pjsuaLock] lock];
+  
+  [self setUserAgentState:AKTelephoneUserAgentStarting];
+  
+  // Create PJSUA on the main thread to make all subsequent calls from the main
+  // thread.
+  pj_status_t status = pjsua_create();
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating PJSUA");
-    return NO;
+    [self setUserAgentState:AKTelephoneUserAgentStopped];
+    [[self pjsuaLock] unlock];
+    return;
   }
+  
+  [[self pjsuaLock] unlock];
+  
+  [self performSelectorInBackground:@selector(ak_startUserAgent)
+                         withObject:nil];
+}
+
+// This method is supposed to run in the secondary thread.
+- (void)ak_startUserAgent
+{
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  [[self pjsuaLock] lock];
+  
+  [self setUserAgentState:AKTelephoneUserAgentStarting];
+  
+  pj_status_t status;
+  
+  pj_thread_desc aPJThreadDesc;
+  if (!pj_thread_is_registered()) {
+    pj_thread_t *pjThread;
+    status = pj_thread_register(NULL, aPJThreadDesc, &pjThread);
+    if (status != PJ_SUCCESS)
+      NSLog(@"Error registering thread at PJSUA");
+  }
+  
   // Create pool for PJSUA.
-  pjPool_ = pjsua_pool_create("telephone-pjsua", 1000, 1000);
+  pj_pool_t *aPJPool;
+  aPJPool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
+  [self setPjPool:aPJPool];
   
   pjsua_config userAgentConfig;
   pjsua_logging_config loggingConfig;
@@ -346,7 +411,6 @@ typedef enum _AKTelephoneRingtones {
   pjsua_media_config_default(&mediaConfig);
   pjsua_transport_config_default(&transportConfig);
   
-  ringbackSlot_ = PJSUA_INVALID_ID;
   userAgentConfig.max_calls = AKTelephoneCallsMax;
   
   if ([[self nameservers] count] > 0) {
@@ -395,8 +459,10 @@ typedef enum _AKTelephoneRingtones {
   status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error initializing PJSUA");
-    [self destroyUserAgent];
-    return NO;
+    [self stopUserAgent];
+    [[self pjsuaLock] unlock];
+    [pool release];
+    return;
   }
   
   // Create ringback tones.
@@ -409,16 +475,21 @@ typedef enum _AKTelephoneRingtones {
   mediaConfig.channel_count / 1000;
   
   name = pj_str("ringback");
-  status = pjmedia_tonegen_create2(pjPool_, &name,
+  pjmedia_port *aRingbackPort;
+  status = pjmedia_tonegen_create2([self pjPool], &name,
                                    mediaConfig.clock_rate,
                                    mediaConfig.channel_count,
                                    samplesPerFrame, 16, PJMEDIA_TONEGEN_LOOP,
-                                   &ringbackPort_);
+                                   &aRingbackPort);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating ringback tones");
-    [self destroyUserAgent];
-    return NO;
+    [self stopUserAgent];
+    [[self pjsuaLock] unlock];
+    [pool release];
+    return;
   }
+  
+  [self setRingbackPort:aRingbackPort];
   
   pj_bzero(&tone, sizeof(tone));
   for (i = 0; i < AKRingbackCount; ++i) {
@@ -429,14 +500,19 @@ typedef enum _AKTelephoneRingtones {
   }
   tone[AKRingbackCount - 1].off_msec = AKRingbackInterval;
   
-  pjmedia_tonegen_play(ringbackPort_, AKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
+  pjmedia_tonegen_play([self ringbackPort], AKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
   
-  status = pjsua_conf_add_port(pjPool_, ringbackPort_, &ringbackSlot_);
+  NSInteger aRingbackSlot;
+  status = pjsua_conf_add_port([self pjPool], [self ringbackPort], &aRingbackSlot);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error adding media port for ringback tones");
-    [self destroyUserAgent];
-    return NO;
+    [self stopUserAgent];
+    [[self pjsuaLock] unlock];
+    [pool release];
+    return;
   }
+  
+  [self setRingbackSlot:aRingbackSlot];
   
   // Add UDP transport.
   pjsua_transport_id transportIdentifier;
@@ -444,8 +520,10 @@ typedef enum _AKTelephoneRingtones {
                                   &transportIdentifier);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating transport");
-    [self destroyUserAgent];
-    return NO;
+    [self stopUserAgent];
+    [[self pjsuaLock] unlock];
+    [pool release];
+    return;
   }
   
   // Get transport port chosen by PJSUA.
@@ -461,7 +539,7 @@ typedef enum _AKTelephoneRingtones {
     transportConfig.port = [self transportPort];
   }
   
-  // Add TCP transport. Don't return NO, just leave a log message on error.
+  // Add TCP transport. Don't return, just leave a log message on error.
   status = pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
   if (status != PJ_SUCCESS)
     NSLog(@"Error creating TCP transport");
@@ -470,51 +548,101 @@ typedef enum _AKTelephoneRingtones {
   status = pjsua_start();
   if (status != PJ_SUCCESS) {
     NSLog(@"Error starting PJSUA");
-    [self destroyUserAgent];
-    return NO;
+    [self stopUserAgent];
+    [[self pjsuaLock] unlock];
+    [pool release];
+    return;
   }
   
-  [self setStarted:YES];
+  [self setUserAgentState:AKTelephoneUserAgentStarted];
+  
+  NSNotification *notification
+  = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStartingNotification
+                                  object:self];
   
   [[NSNotificationCenter defaultCenter]
-   postNotificationName:AKTelephoneDidStartUserAgentNotification
-                 object:self];
+   performSelectorOnMainThread:@selector(postNotification:)
+                    withObject:notification
+                 waitUntilDone:NO];
   
-  return YES;
+  [[self pjsuaLock] unlock];
+  
+  [pool release];
 }
 
-- (BOOL)destroyUserAgent
+- (void)stopUserAgent
 {
-  [self setStarted:NO];
+  // If there was an error while starting, post a notification from here.
+  if ([self userAgentState] == AKTelephoneUserAgentStarting) {
+    NSNotification *notification
+    = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStartingNotification
+                                    object:self];
+    
+    [[NSNotificationCenter defaultCenter]
+     performSelectorOnMainThread:@selector(postNotification:)
+                      withObject:notification
+                   waitUntilDone:NO];
+  }
+  
+  [self performSelectorInBackground:@selector(ak_stopUserAgent)
+                         withObject:nil];
+}
+
+- (void)ak_stopUserAgent
+{
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  pj_status_t status;
+  pj_thread_desc aPJThreadDesc;
+  
+  if (!pj_thread_is_registered()) {
+    pj_thread_t *pjThread;
+    pj_status_t status = pj_thread_register(NULL, aPJThreadDesc, &pjThread);
+    
+    if (status != PJ_SUCCESS)
+      NSLog(@"Error registering thread at PJSUA");
+  }
+  
+  [[self pjsuaLock] lock];
+  
+  [self setUserAgentState:AKTelephoneUserAgentStopped];
   
   // Explicitly remove all accounts.
   [[self accounts] removeAllObjects];
   
   // Close ringback port.
-  if (ringbackPort_ != NULL &&
-      ringbackSlot_ != PJSUA_INVALID_ID)
+  if ([self ringbackPort] != NULL &&
+      [self ringbackSlot] != AKTelephoneInvalidIdentifier)
   {
-    pjsua_conf_remove_port(ringbackSlot_);
-    ringbackSlot_ = PJSUA_INVALID_ID;
-    pjmedia_port_destroy(ringbackPort_);
-    ringbackPort_ = NULL;
+    pjsua_conf_remove_port([self ringbackSlot]);
+    [self setRingbackSlot:AKTelephoneInvalidIdentifier];
+    pjmedia_port_destroy([self ringbackPort]);
+    [self setRingbackPort:NULL];
   }
   
-  if (pjPool_ != NULL) {
-    pj_pool_release(pjPool_);
-    pjPool_ = NULL;
+  if ([self pjPool] != NULL) {
+    pj_pool_release([self pjPool]);
+    [self setPjPool:NULL];
   }
   
   // Destroy PJSUA.
-  pj_status_t status;
   status = pjsua_destroy();
   
-  if (status != PJ_SUCCESS) {
-    NSLog(@"Error destroying PJSUA");
-    return NO;
-  }
+  if (status != PJ_SUCCESS)
+    NSLog(@"Error stopping SIP user agent");
   
-  return YES;
+  NSNotification *notification
+  = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStoppingNotification
+                                  object:self];
+  
+  [[NSNotificationCenter defaultCenter]
+   performSelectorOnMainThread:@selector(postNotification:)
+                    withObject:notification
+                 waitUntilDone:NO];
+  
+  [[self pjsuaLock] unlock];
+  
+  [pool release];
 }
 
 - (BOOL)addAccount:(AKTelephoneAccount *)anAccount
@@ -580,7 +708,8 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)removeAccount:(AKTelephoneAccount *)anAccount
 {
-  if (![self started] || [anAccount identifier] == PJSUA_INVALID_ID)
+  if (![self userAgentStarted] ||
+      [anAccount identifier] == AKTelephoneInvalidIdentifier)
     return NO;
   
   [[NSNotificationCenter defaultCenter]
@@ -595,14 +724,14 @@ typedef enum _AKTelephoneRingtones {
     return NO;
   
   [[self accounts] removeObject:anAccount];
-  [anAccount setIdentifier:PJSUA_INVALID_ID];
+  [anAccount setIdentifier:AKTelephoneInvalidIdentifier];
   
   return YES;
 }
 
 - (AKTelephoneAccount *)accountByIdentifier:(NSInteger)anIdentifier
 {
-  for (AKTelephoneAccount *anAccount in [self accounts])
+  for (AKTelephoneAccount *anAccount in [[[self accounts] copy] autorelease])
     if ([anAccount identifier] == anIdentifier)
       return [[anAccount retain] autorelease];
   
@@ -626,7 +755,7 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output
 {
-  if (![self started])
+  if (![self userAgentStarted])
     return NO;
   
   pj_status_t status = pjsua_set_snd_dev(input, output);
@@ -638,7 +767,7 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)stopSound
 {
-  if (![self started])
+  if (![self userAgentStarted])
     return NO;
   
   pj_status_t status = pjsua_set_null_snd_dev();
@@ -655,7 +784,7 @@ typedef enum _AKTelephoneRingtones {
 // setSoundInputDevice:soundOutputDevice: to set sound IO after this method is called.
 - (void)updateAudioDevices
 {
-  if (![self started])
+  if (![self userAgentStarted])
     return;
   
   // Stop sound device and disconnect it from the conference.
@@ -863,10 +992,12 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result)
 {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
-  if (result->status != PJ_SUCCESS)
+  if (result->status != PJ_SUCCESS) {
     pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
-  else {
+    
+  } else {
     PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
+    
     [[AKTelephone sharedTelephone] setDetectedNATType:result->nat_type];
     
     NSNotification *notification

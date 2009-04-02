@@ -57,22 +57,22 @@ extern const NSInteger AKAccountReregistrationTimeDefault;
   NSMutableArray *calls_;
 }
 
-@property(nonatomic, readwrite, assign) NSObject <AKTelephoneAccountDelegate> *delegate;
-@property(readwrite, copy) AKSIPURI *registrationURI;
-@property(readwrite, copy) NSString *fullName;
-@property(readwrite, copy) NSString *SIPAddress;
-@property(readwrite, copy) NSString *registrar;
-@property(readwrite, copy) NSString *realm;
-@property(readwrite, copy) NSString *username;
-@property(readwrite, copy) NSString *proxyHost;     // Default: @"".
-@property(readwrite, assign) NSUInteger proxyPort;  // Default: 5060.
-@property(readwrite, assign) NSUInteger reregistrationTime;  // Default: 300 (sec).
-@property(readwrite, assign) NSInteger identifier;
-@property(nonatomic, readwrite, assign, getter=isRegistered) BOOL registered;
+@property(nonatomic, assign) NSObject <AKTelephoneAccountDelegate> *delegate;
+@property(nonatomic, copy) AKSIPURI *registrationURI;
+@property(nonatomic, copy) NSString *fullName;
+@property(nonatomic, copy) NSString *SIPAddress;
+@property(nonatomic, copy) NSString *registrar;
+@property(nonatomic, copy) NSString *realm;
+@property(nonatomic, copy) NSString *username;
+@property(nonatomic, copy) NSString *proxyHost;     // Default: @"".
+@property(nonatomic, assign) NSUInteger proxyPort;  // Default: 5060.
+@property(nonatomic, assign) NSUInteger reregistrationTime;  // Default: 300 (sec).
+@property(nonatomic, assign) NSInteger identifier;
+@property(nonatomic, assign, getter=isRegistered) BOOL registered;
 @property(nonatomic, readonly, assign) NSInteger registrationStatus;
 @property(nonatomic, readonly, copy) NSString *registrationStatusText;
 @property(nonatomic, readonly, assign) NSInteger registrationExpireTime;
-@property(nonatomic, readwrite, assign, getter=isOnline) BOOL online;
+@property(nonatomic, assign, getter=isOnline) BOOL online;
 @property(nonatomic, readonly, copy) NSString *onlineStatusText;
 @property(readonly, retain) NSMutableArray *calls;
 
