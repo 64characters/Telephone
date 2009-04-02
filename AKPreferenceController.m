@@ -29,11 +29,10 @@
 #import "AKPreferenceController.h"
 
 #import "AKKeychain.h"
+#import "AKNSWindow+Resizing.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AppController.h"
-#import "NSStringAdditions.h"
-#import "NSWindowAdditions.h"
 
 
 NSString * const AKTelephoneAccountPboardType = @"AKTelephoneAccountPboardType";

@@ -1,5 +1,5 @@
 //
-//  ABRecordAdditions.h
+//  AKNSString+PJSUA.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,13 +26,22 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <AddressBook/AddressBook.h>
-#import <Foundation/Foundation.h>
+#import "AKNSString+PJSUA.h"
 
 
-@interface ABRecord (Additions)
+@implementation NSString (AKStringPJSUAAdditions)
 
-// Addressbook record's full name in the proper order or company name.
-@property(nonatomic, readonly, copy) NSString *ak_fullName;
++ (NSString *)stringWithPJString:(pj_str_t)pjString
+{
+  return [[[NSString alloc] initWithBytes:pjString.ptr
+                                   length:(NSUInteger)pjString.slen
+                                 encoding:NSUTF8StringEncoding]
+          autorelease];
+}
+
+- (pj_str_t)pjString
+{
+  return pj_str((char *)[self cStringUsingEncoding:NSUTF8StringEncoding]);
+}
 
 @end

@@ -1,8 +1,6 @@
 //
-//  NSWindowAdditions.h
+//  AKNSString+Creating.m
 //  Telephone
-//
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -26,12 +24,18 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "AKNSString+Creating.h"
 
 
-@interface NSWindow (Resizing)
+@implementation NSString (AKStringCreatingAdditions)
 
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation;
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView;
++ (NSString *)ak_uuidString
+{
+  CFUUIDRef theUUID = CFUUIDCreate(NULL);
+  CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+  CFRelease(theUUID);
+  
+  return [(NSString *)string autorelease];
+}
 
 @end

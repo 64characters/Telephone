@@ -1,5 +1,5 @@
 //
-//  ABAddressBookAdditions.m
+//  AKABAddressBook+Localizing.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,12 +26,12 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "ABAddressBookAdditions.h"
+#import "AKABAddressBook+Localizing.h"
 
 #import <AddressBook/ABAddressBookC.h>
 
 
-@implementation ABAddressBook (Additions)
+@implementation ABAddressBook (AKAddressBookLocalizingAdditions)
 
 - (NSString *)ak_localizedLabel:(NSString *)label
 {

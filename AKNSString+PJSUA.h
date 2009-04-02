@@ -1,5 +1,5 @@
 //
-//  ABRecordAdditions.m
+//  AKNSString+PJSUA.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,43 +26,13 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "ABRecordAdditions.h"
+#import <Foundation/Foundation.h>
+#import <pjsua-lib/pjsua.h>
 
 
-@implementation ABRecord (Additions)
+@interface NSString (AKStringPJSUAAdditions)
 
-@dynamic ak_fullName;
-
-- (NSString *)ak_fullName
-{
-  NSString *firstName = [self valueForProperty:kABFirstNameProperty];
-  NSString *lastName = [self valueForProperty:kABLastNameProperty];
-  NSString *company = [self valueForProperty:kABOrganizationProperty];
-  NSInteger personFlags = [[self valueForProperty:kABPersonFlags] integerValue];
-  BOOL isPerson = (personFlags & kABShowAsMask) == kABShowAsPerson;
-  BOOL isCompany = (personFlags & kABShowAsMask) == kABShowAsCompany;
-  
-  ABAddressBook *AB = [ABAddressBook sharedAddressBook];
-  NSString *theString = nil;
-  if (isPerson) {
-    if ([firstName length] > 0 && [lastName length] > 0) {
-      if ([AB defaultNameOrdering] == kABFirstNameFirst) {
-        theString = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
-      } else {
-        theString = [NSString stringWithFormat:@"%@ %@", lastName, firstName];
-      }
-    } else if ([firstName length] > 0) {
-      theString = firstName;
-    } else if ([lastName length] > 0) {
-      theString = lastName;
-    }
-    
-  } else if (isCompany) {
-    if ([company length] > 0)
-      theString = company;
-  }
-  
-  return theString;
-}
++ (NSString *)stringWithPJString:(pj_str_t)pjString;
+- (pj_str_t)pjString;
 
 @end

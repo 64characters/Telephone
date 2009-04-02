@@ -1,5 +1,5 @@
 //
-//  NSWindowAdditions.m
+//  AKABRecord+Querying.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,40 +26,43 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "NSWindowAdditions.h"
+#import "AKABRecord+Querying.h"
 
 
-@implementation NSWindow (Resizing)
+@implementation ABRecord (AKRecordQueryingAdditions)
 
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation
+@dynamic ak_fullName;
+
+- (NSString *)ak_fullName
 {
-  // Compute view size delta.
-  NSSize currentSize = [[self contentView] frame].size;
-  NSSize newSize = [aView frame].size;
-  CGFloat deltaWidth = newSize.width - currentSize.width;
-  CGFloat deltaHeight = newSize.height - currentSize.height;
+  NSString *firstName = [self valueForProperty:kABFirstNameProperty];
+  NSString *lastName = [self valueForProperty:kABLastNameProperty];
+  NSString *company = [self valueForProperty:kABOrganizationProperty];
+  NSInteger personFlags = [[self valueForProperty:kABPersonFlags] integerValue];
+  BOOL isPerson = (personFlags & kABShowAsMask) == kABShowAsPerson;
+  BOOL isCompany = (personFlags & kABShowAsMask) == kABShowAsCompany;
   
-  // Compute new window size.
-  NSRect windowFrame = [self frame];
-  windowFrame.size.height += deltaHeight;
-  windowFrame.origin.y -= deltaHeight;
-  windowFrame.size.width += deltaWidth;
+  ABAddressBook *AB = [ABAddressBook sharedAddressBook];
+  NSString *theString = nil;
+  if (isPerson) {
+    if ([firstName length] > 0 && [lastName length] > 0) {
+      if ([AB defaultNameOrdering] == kABFirstNameFirst) {
+        theString = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+      } else {
+        theString = [NSString stringWithFormat:@"%@ %@", lastName, firstName];
+      }
+    } else if ([firstName length] > 0) {
+      theString = firstName;
+    } else if ([lastName length] > 0) {
+      theString = lastName;
+    }
+    
+  } else if (isCompany) {
+    if ([company length] > 0)
+      theString = company;
+  }
   
-  // Show temp view while changing views.
-  NSView *tempView = [[NSView alloc] initWithFrame:[[self contentView] frame]];
-  [self setContentView:tempView];
-  [tempView release];
-  
-  // Set new window frame.
-  [self setFrame:windowFrame display:YES animate:performAnimation];
-  
-  // Swap to the new view.
-  [self setContentView:aView];
-}
-
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView
-{
-  [self ak_resizeAndSwapToContentView:aView animate:NO];
+  return theString;
 }
 
 @end

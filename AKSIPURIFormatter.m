@@ -28,10 +28,10 @@
 
 #import "AKSIPURIFormatter.h"
 
+#import "AKNSString+Parsing.h"
 #import "AKPreferenceController.h"
 #import "AKSIPURI.h"
 #import "AKTelephoneNumberFormatter.h"
-#import "NSStringAdditions.h"
 
 
 @implementation AKSIPURIFormatter

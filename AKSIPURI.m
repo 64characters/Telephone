@@ -30,8 +30,8 @@
 
 #import <pjsua-lib/pjsua.h>
 
+#import "AKNSString+PJSUA.h"
 #import "AKTelephone.h"
-#import "NSStringAdditions.h"
 
 
 @implementation AKSIPURI

@@ -28,10 +28,10 @@
 
 #import "AKTelephoneCall.h"
 
+#import "AKNSString+PJSUA.h"
 #import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
-#import "NSStringAdditions.h"
 
 #define THIS_FILE "AKTelephoneCall.m"
 

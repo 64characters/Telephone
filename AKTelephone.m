@@ -30,9 +30,9 @@
 
 #import <pjsua-lib/pjsua.h>
 
+#import "AKNSString+PJSUA.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
-#import "NSStringAdditions.h"
 
 #define THIS_FILE "AKTelephone.m"
 

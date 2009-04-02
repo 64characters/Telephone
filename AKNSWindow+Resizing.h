@@ -1,5 +1,5 @@
 //
-//  NSStringAdditions.h
+//  AKNSWindow+Resizing.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,37 +26,12 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
-#import <pjsua-lib/pjsua.h>
+#import <Cocoa/Cocoa.h>
 
 
-@interface NSString (UUID)
+@interface NSWindow (AKWindowResizingAdditions)
 
-+ (NSString *)ak_uuidString;
-
-@end
-
-@interface NSString (PJSUA)
-
-+ (NSString *)stringWithPJString:(pj_str_t)pjString;
-- (pj_str_t)pjString;
-
-@end
-
-@interface NSString (Additions)
-
-// Returns YES if the receiver is a string of contiguous digits with possible
-// plus character in the beginning.
-@property(nonatomic, readonly, assign) BOOL ak_isTelephoneNumber;
-
-// Returns YES if the receiver contains a-z or A-Z.
-@property(nonatomic, readonly, assign) BOOL ak_hasLetters;
-
-// Inserts backslash before every occurrence of the first character from string
-// in the receiver.
-- (NSString *)ak_escapeFirstCharacterFromString:(NSString *)string;
-
-- (NSString *)ak_escapeQuotes;
-- (NSString *)ak_escapeParentheses;
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation;
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView;
 
 @end

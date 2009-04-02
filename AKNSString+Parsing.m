@@ -1,5 +1,5 @@
 //
-//  NSStringAdditions.m
+//  AKNSString+Parsing.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,40 +26,10 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "NSStringAdditions.h"
+#import "AKNSString+Parsing.h"
 
 
-@implementation NSString (UUID)
-
-+ (NSString *)ak_uuidString
-{
-  CFUUIDRef theUUID = CFUUIDCreate(NULL);
-  CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-  CFRelease(theUUID);
-  
-  return [(NSString *)string autorelease];
-}
-
-@end
-
-@implementation NSString (PJSUA)
-
-+ (NSString *)stringWithPJString:(pj_str_t)pjString
-{
-  return [[[NSString alloc] initWithBytes:pjString.ptr
-                                   length:(NSUInteger)pjString.slen
-                                 encoding:NSUTF8StringEncoding]
-          autorelease];
-}
-
-- (pj_str_t)pjString
-{
-  return pj_str((char *)[self cStringUsingEncoding:NSUTF8StringEncoding]);
-}
-
-@end
-
-@implementation NSString (Additions)
+@implementation NSString (AKStringScanningAdditions)
 
 @dynamic ak_isTelephoneNumber;
 @dynamic ak_hasLetters;
@@ -80,36 +50,6 @@
     = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
   
   return ([containsLettersPredicate evaluateWithObject:self]) ? YES : NO;
-}
-
-- (NSString *)ak_escapeFirstCharacterFromString:(NSString *)string
-{
-  NSMutableString *newString = [NSMutableString stringWithString:self];
-  NSString *escapeCharacterString = [string substringWithRange:NSMakeRange(0, 1)];
-  NSRange escapeCharacterRange = [newString rangeOfString:escapeCharacterString];
-  while (escapeCharacterRange.location != NSNotFound) {
-    [newString insertString:@"\\" atIndex:escapeCharacterRange.location];
-    NSRange searchRange;
-    searchRange.location = escapeCharacterRange.location + 2;
-    searchRange.length = [newString length] - searchRange.location;
-    escapeCharacterRange = [newString rangeOfString:escapeCharacterString
-                                            options:0
-                                              range:searchRange];
-  }
-  
-  return [[newString copy] autorelease];
-}
-
-- (NSString *)ak_escapeQuotes
-{
-  return [self ak_escapeFirstCharacterFromString:@"\""];
-}
-
-- (NSString *)ak_escapeParentheses
-{
-  NSString *returnString = [self ak_escapeFirstCharacterFromString:@")"];
-  
-  return [returnString ak_escapeFirstCharacterFromString:@"("];
 }
 
 @end

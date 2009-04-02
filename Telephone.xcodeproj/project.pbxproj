@@ -15,6 +15,9 @@
 		AA0910CC0EC21F44004912A5 /* COPYRIGHT in Resources */ = {isa = PBXBuildFile; fileRef = AA0910CB0EC21F44004912A5 /* COPYRIGHT */; };
 		AA0F7B720F38FCDF0071C3CA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
+		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
+		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
+		AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */; };
 		AA2404970EE7F77D00E66882 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */; };
 		AA2D599D0EF924F800F65074 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = AA2D599C0EF924F800F65074 /* dsa_pub.pem */; };
@@ -25,7 +28,7 @@
 		AA2ED9B20F05BB5D004A13C6 /* AuthFailed.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2ED9B10F05BB5D004A13C6 /* AuthFailed.xib */; };
 		AA3578B30E40709900021989 /* AKAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B20E40709900021989 /* AKAccountController.m */; };
 		AA3578B60E4070AD00021989 /* AKCallController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B50E4070AD00021989 /* AKCallController.m */; };
-		AA3A14FB0F309C7C00C45739 /* ABAddressBookAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A14FA0F309C7C00C45739 /* ABAddressBookAdditions.m */; };
+		AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */; };
 		AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */; };
 		AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */; };
 		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
@@ -37,15 +40,15 @@
 		AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA584A680F06CFD2003C4992 /* Localizable.strings */; };
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
 		AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */; };
-		AAB5AAC20F2E7A7D00A57531 /* ABRecordAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */; };
+		AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AABAD7ED0E0C171A00CB5930 /* AKPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAD7EC0E0C171A00CB5930 /* AKPreferenceController.m */; };
 		AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */; };
 		AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A800E08198800E3AB2D /* CoreAudio.framework */; };
 		AAEA9A870E0819BB00E3AB2D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */; };
 		AAEA9A880E0819BB00E3AB2D /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */; };
 		AAEA9A890E0819BB00E3AB2D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */; };
-		AAECDE8F0E70703100CEAE7B /* NSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* NSStringAdditions.m */; };
-		AAEE7C310ECD953200A7DEB4 /* NSWindowAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* NSWindowAdditions.m */; };
+		AAECDE8F0E70703100CEAE7B /* AKNSString+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Parsing.m */; };
+		AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */; };
 		AAF299320F575101007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AAF299330F57510B007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
@@ -58,8 +61,8 @@
 		AAF299CC0F575754007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */; };
 		AAF29A450F5759F7007B5036 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAF29A420F5759F7007B5036 /* Localizable.strings */; };
 		AAF29A480F575A18007B5036 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAF29A420F5759F7007B5036 /* Localizable.strings */; };
-		AAF29B170F58107E007B5036 /* ABRecordAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */; };
-		AAF29B180F58107F007B5036 /* ABRecordAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */; };
+		AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
+		AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF51C480EF6CF100098A372 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF51C470EF6CF100098A372 /* Sparkle.framework */; };
 		AAF51C4C0EF6CF290098A372 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF51C470EF6CF100098A372 /* Sparkle.framework */; };
 		AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */; };
@@ -126,6 +129,12 @@
 		AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		AA167A1D0F07BF9E00AF8B71 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/SIPResponses.strings; sourceTree = "<group>"; };
+		AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Creating.h"; sourceTree = "<group>"; };
+		AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Creating.m"; sourceTree = "<group>"; };
+		AA16CBE40F856ACD000CAFD1 /* AKNSString+PJSUA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+PJSUA.h"; sourceTree = "<group>"; };
+		AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+PJSUA.m"; sourceTree = "<group>"; };
+		AA16CC9C0F857009000CAFD1 /* AKNSString+Escaping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Escaping.h"; sourceTree = "<group>"; };
+		AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Escaping.m"; sourceTree = "<group>"; };
 		AA1732170EAF8C14009023F2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AuthFailed.xib; sourceTree = "<group>"; };
 		AA2404960EE7F77D00E66882 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		AA2CCC820E2E4EEB00871057 /* AKTelephoneCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneCall.h; sourceTree = "<group>"; };
@@ -143,8 +152,8 @@
 		AA3578B20E40709900021989 /* AKAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAccountController.m; sourceTree = "<group>"; };
 		AA3578B40E4070AD00021989 /* AKCallController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCallController.h; sourceTree = "<group>"; };
 		AA3578B50E4070AD00021989 /* AKCallController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCallController.m; sourceTree = "<group>"; };
-		AA3A14F90F309C7C00C45739 /* ABAddressBookAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABAddressBookAdditions.h; sourceTree = "<group>"; };
-		AA3A14FA0F309C7C00C45739 /* ABAddressBookAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABAddressBookAdditions.m; sourceTree = "<group>"; };
+		AA3A14F90F309C7C00C45739 /* AKABAddressBook+Localizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKABAddressBook+Localizing.h"; sourceTree = "<group>"; };
+		AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKABAddressBook+Localizing.m"; sourceTree = "<group>"; };
 		AA3A153F0F30A49C00C45739 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
 		AA3A15470F30A4C200C45739 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
 		AA3A15480F30A4C700C45739 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
@@ -172,8 +181,8 @@
 		AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKKeychain.m; sourceTree = "<group>"; };
 		AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = telephone.icns; sourceTree = "<group>"; };
 		AAAE4A230E3F4DAA00110597 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Account.xib; sourceTree = "<group>"; };
-		AAB5AAC00F2E7A7D00A57531 /* ABRecordAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABRecordAdditions.h; sourceTree = "<group>"; };
-		AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABRecordAdditions.m; sourceTree = "<group>"; };
+		AAB5AAC00F2E7A7D00A57531 /* AKABRecord+Querying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKABRecord+Querying.h"; sourceTree = "<group>"; };
+		AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKABRecord+Querying.m"; sourceTree = "<group>"; };
 		AABAD7EB0E0C171A00CB5930 /* AKPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPreferenceController.h; sourceTree = "<group>"; };
 		AABAD7EC0E0C171A00CB5930 /* AKPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPreferenceController.m; sourceTree = "<group>"; };
 		AABAD7EF0E0C184200CB5930 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
@@ -183,10 +192,10 @@
 		AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		AAECDE8D0E70703100CEAE7B /* NSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringAdditions.h; sourceTree = "<group>"; };
-		AAECDE8E0E70703100CEAE7B /* NSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringAdditions.m; sourceTree = "<group>"; };
-		AAEE7C2F0ECD953200A7DEB4 /* NSWindowAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWindowAdditions.h; sourceTree = "<group>"; };
-		AAEE7C300ECD953200A7DEB4 /* NSWindowAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWindowAdditions.m; sourceTree = "<group>"; };
+		AAECDE8D0E70703100CEAE7B /* AKNSString+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Parsing.h"; sourceTree = "<group>"; };
+		AAECDE8E0E70703100CEAE7B /* AKNSString+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Parsing.m"; sourceTree = "<group>"; };
+		AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSWindow+Resizing.h"; sourceTree = "<group>"; };
+		AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSWindow+Resizing.m"; sourceTree = "<group>"; };
 		AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKAddressBookPhonePlugIn.h; path = PlugIns/AddressBook/AKAddressBookPhonePlugIn.h; sourceTree = "<group>"; };
 		AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKAddressBookPhonePlugIn.m; path = PlugIns/AddressBook/AKAddressBookPhonePlugIn.m; sourceTree = "<group>"; };
 		AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneAddressBookPhonePlugIn.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -363,14 +372,20 @@
 		AAECDE8C0E70700B00CEAE7B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				AAECDE8D0E70703100CEAE7B /* NSStringAdditions.h */,
-				AAECDE8E0E70703100CEAE7B /* NSStringAdditions.m */,
-				AAEE7C2F0ECD953200A7DEB4 /* NSWindowAdditions.h */,
-				AAEE7C300ECD953200A7DEB4 /* NSWindowAdditions.m */,
-				AAB5AAC00F2E7A7D00A57531 /* ABRecordAdditions.h */,
-				AAB5AAC10F2E7A7D00A57531 /* ABRecordAdditions.m */,
-				AA3A14F90F309C7C00C45739 /* ABAddressBookAdditions.h */,
-				AA3A14FA0F309C7C00C45739 /* ABAddressBookAdditions.m */,
+				AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */,
+				AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */,
+				AA16CBE40F856ACD000CAFD1 /* AKNSString+PJSUA.h */,
+				AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */,
+				AAECDE8D0E70703100CEAE7B /* AKNSString+Parsing.h */,
+				AAECDE8E0E70703100CEAE7B /* AKNSString+Parsing.m */,
+				AA16CC9C0F857009000CAFD1 /* AKNSString+Escaping.h */,
+				AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */,
+				AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */,
+				AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */,
+				AAB5AAC00F2E7A7D00A57531 /* AKABRecord+Querying.h */,
+				AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */,
+				AA3A14F90F309C7C00C45739 /* AKABAddressBook+Localizing.h */,
+				AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -560,17 +575,20 @@
 				AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */,
 				AA3578B30E40709900021989 /* AKAccountController.m in Sources */,
 				AA3578B60E4070AD00021989 /* AKCallController.m in Sources */,
-				AAECDE8F0E70703100CEAE7B /* NSStringAdditions.m in Sources */,
+				AAECDE8F0E70703100CEAE7B /* AKNSString+Parsing.m in Sources */,
 				AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */,
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
-				AAEE7C310ECD953200A7DEB4 /* NSWindowAdditions.m in Sources */,
+				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
-				AAB5AAC20F2E7A7D00A57531 /* ABRecordAdditions.m in Sources */,
-				AA3A14FB0F309C7C00C45739 /* ABAddressBookAdditions.m in Sources */,
+				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
+				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
 				AAF2997A0F575408007B5036 /* AKAddressBookPhonePlugIn.m in Sources */,
 				AAF2998E0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */,
+				AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */,
+				AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */,
+				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,7 +597,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */,
-				AAF29B170F58107E007B5036 /* ABRecordAdditions.m in Sources */,
+				AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,7 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */,
-				AAF29B180F58107F007B5036 /* ABRecordAdditions.m in Sources */,
+				AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

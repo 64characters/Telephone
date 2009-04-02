@@ -28,7 +28,7 @@
 
 #import "AKAddressBookSIPAddressPlugIn.h"
 
-#import "ABRecordAdditions.h"
+#import "AKABRecord+Querying.h"
 
 
 @implementation AKAddressBookSIPAddressPlugIn

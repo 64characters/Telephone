@@ -28,7 +28,7 @@
 
 #import "AKAddressBookPhonePlugIn.h"
 
-#import "ABRecordAdditions.h"
+#import "AKABRecord+Querying.h"
 
 
 @implementation AKAddressBookPhonePlugIn

@@ -31,10 +31,12 @@
 #import <AddressBook/AddressBook.h>
 #import <Growl/Growl.h>
 
-#import "ABAddressBookAdditions.h"
-#import "ABRecordAdditions.h"
+#import "AKABAddressBook+Localizing.h"
+#import "AKABRecord+Querying.h"
 #import "AKCallController.h"
 #import "AKKeychain.h"
+#import "AKNSString+Parsing.h"
+#import "AKNSWindow+Resizing.h"
 #import "AKPreferenceController.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
@@ -43,8 +45,6 @@
 #import "AKTelephoneCall.h"
 #import "AKTelephoneNumberFormatter.h"
 #import "AppController.h"
-#import "NSStringAdditions.h"
-#import "NSWindowAdditions.h"
 
 
 // Account registration pull-down button widths.

@@ -28,10 +28,10 @@
 
 #import "AKTelephoneAccount.h"
 
+#import "AKNSString+PJSUA.h"
 #import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
-#import "NSStringAdditions.h"
 
 
 NSString * const AKTelephoneAccountRegistrationDidChangeNotification
