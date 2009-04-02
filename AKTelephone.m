@@ -447,6 +447,7 @@ typedef enum _AKTelephoneRingtones {
   loggingConfig.console_level = [self consoleLogLevel];
   mediaConfig.no_vad = ![self detectsVoiceActivity];
   mediaConfig.enable_ice = [self usesICE];
+  mediaConfig.snd_auto_close_time = 1;
   transportConfig.port = [self transportPort];
   
   userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;

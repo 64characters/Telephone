@@ -59,7 +59,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 @interface AppController()
 
 - (void)setSelectedSoundIOToTelephone;
-- (void)stopTelephoneSoundTick:(NSTimer *)theTimer;
 
 @end
 
@@ -229,10 +228,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   [notificationCenter addObserver:self
                          selector:@selector(telephoneCallIncoming:)
                              name:AKTelephoneCallIncomingNotification
-                           object:nil];
-  [notificationCenter addObserver:self
-                         selector:@selector(telephoneCallDidDisconnect:)
-                             name:AKTelephoneCallDidDisconnectNotification
                            object:nil];
   
   // Subscribe to NSWorkspace notifications about going computer to sleep,
@@ -720,12 +715,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
   [[self telephone] setSoundInputDevice:[self soundInputDeviceIndex]
                       soundOutputDevice:[self soundOutputDeviceIndex]];
-}
-
-- (void)stopTelephoneSoundTick:(NSTimer *)theTimer
-{
-  if ([[self telephone] activeCallsCount] == 0 && ![[self telephone] soundStopped])
-    [[self telephone] stopSound];
 }
 
 - (IBAction)showPreferencePanel:(id)sender
@@ -1598,15 +1587,6 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
   if ([[self telephone] activeCallsCount] > 0 && [[self telephone] soundStopped])
     [self setSelectedSoundIOToTelephone];
-}
-
-- (void)telephoneCallDidDisconnect:(NSNotification *)notification
-{
-  [NSTimer scheduledTimerWithTimeInterval:1
-                                   target:self
-                                 selector:@selector(stopTelephoneSoundTick:)
-                                 userInfo:nil
-                                  repeats:NO];
 }
 
 
