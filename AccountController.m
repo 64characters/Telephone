@@ -1,5 +1,5 @@
 //
-//  AKAccountController.m
+//  AccountController.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,25 +26,26 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKAccountController.h"
+#import "AccountController.h"
 
 #import <AddressBook/AddressBook.h>
 #import <Growl/Growl.h>
 
 #import "AKABAddressBook+Localizing.h"
 #import "AKABRecord+Querying.h"
-#import "AKCallController.h"
 #import "AKKeychain.h"
 #import "AKNSString+Parsing.h"
 #import "AKNSWindow+Resizing.h"
-#import "AKPreferenceController.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
 #import "AKTelephoneNumberFormatter.h"
+
 #import "AppController.h"
+#import "CallController.h"
+#import "PreferenceController.h"
 
 
 // Account registration pull-down button widths.
@@ -77,7 +78,7 @@ NSString * const AKPhoneLabel = @"AKPhoneLabel";
 NSString * const AKEmailSIPLabel = @"sip";
 
 
-@interface AKAccountController ()
+@interface AccountController ()
 
 @property(nonatomic, assign) NSTimer *reRegistrationTimer;
 @property(nonatomic, assign) NSUInteger callDestinationURIIndex;
@@ -86,7 +87,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 @end
 
-@implementation AKAccountController
+@implementation AccountController
 
 @synthesize enabled = enabled_;
 @synthesize account = account_;
@@ -228,7 +229,7 @@ NSString * const AKEmailSIPLabel = @"sip";
 - (void)dealloc
 {
   // Close all call controllers.
-  for (AKCallController *aCallController in [self callControllers])
+  for (CallController *aCallController in [self callControllers])
     [aCallController close];
   
   if ([[[self account] delegate] isEqual:self])
@@ -354,8 +355,8 @@ NSString * const AKEmailSIPLabel = @"sip";
                               withString:[self plusCharacterSubstitution]]];
   }
   
-  AKCallController *aCallController
-    = [[[AKCallController alloc] initWithAccountController:self] autorelease];
+  CallController *aCallController
+    = [[[CallController alloc] initWithAccountController:self] autorelease];
   [aCallController setNameFromAddressBook:[firstURI displayName]];
   [aCallController setPhoneLabelFromAddressBook:phoneLabel];
   [aCallController setEnteredCallDestination:[originalURI user]];
@@ -849,12 +850,12 @@ NSString * const AKEmailSIPLabel = @"sip";
 
 
 #pragma mark -
-#pragma mark AKCallController notifications
+#pragma mark CallController notifications
 
 // Remove call controller from array of controllers before the window is closed
 - (void)telephoneCallWindowWillClose:(NSNotification *)notification
 {
-  AKCallController *aCallController = [notification object];
+  CallController *aCallController = [notification object];
   [[self callControllers] removeObject:aCallController];
 }
 
@@ -865,8 +866,8 @@ NSString * const AKEmailSIPLabel = @"sip";
 // When the call is received, create call controller, add to array, show call window
 - (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall
 {
-  AKCallController *aCallController
-    = [[[AKCallController alloc] initWithAccountController:self] autorelease];
+  CallController *aCallController
+    = [[[CallController alloc] initWithAccountController:self] autorelease];
   [aCallController setCall:aCall];
   [[self callControllers] addObject:aCallController];
   

@@ -1,5 +1,5 @@
 //
-//  AKAccountController.h
+//  AccountController.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -40,7 +40,7 @@ enum {
 
 @class AKTelephoneAccount;
 
-@interface AKAccountController : NSWindowController <AKTelephoneAccountDelegate> {
+@interface AccountController : NSWindowController <AKTelephoneAccountDelegate> {
  @private
   BOOL enabled_;
   AKTelephoneAccount *account_;

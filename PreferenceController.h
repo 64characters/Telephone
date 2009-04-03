@@ -1,5 +1,5 @@
 //
-//  AKPreferenceController.h
+//  PreferenceController.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -71,8 +71,8 @@ extern NSString * const AKProxyPort;
 extern NSString * const AKSourceIndex;
 extern NSString * const AKDestinationIndex;
 
-@interface AKPreferenceController : NSWindowController {
-@private
+@interface PreferenceController : NSWindowController {
+ @private
   id delegate_;
   
   NSToolbar *toolbar_;

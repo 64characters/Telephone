@@ -32,15 +32,16 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <Growl/Growl.h>
 
-#import "AKAccountController.h"
 #import "AKAddressBookPhonePlugIn.h"
 #import "AKAddressBookSIPAddressPlugIn.h"
-#import "AKCallController.h"
-#import "AKPreferenceController.h"
 #import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
+
+#import "AccountController.h"
+#import "CallController.h"
+#import "PreferenceController.h"
 
 
 // AudioHardware callback to track adding/removing audio devices
@@ -112,8 +113,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 - (BOOL)hasIncomingCallControllers
 {
-  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
-    for (AKCallController *aCallController in [anAccountController callControllers]) {
+  for (AccountController *anAccountController in [self enabledAccountControllers]) {
+    for (CallController *aCallController in [anAccountController callControllers]) {
       if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
           [[aCallController call] isIncoming] &&
           ([[aCallController call] state] == AKTelephoneCallIncomingState ||
@@ -391,7 +392,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     // Disable Preferences during the first account prompt.
     [[self preferencesMenuItem] setAction:NULL];
     
-    preferenceController_ = [[AKPreferenceController alloc] init];
+    preferenceController_ = [[PreferenceController alloc] init];
     [[self preferenceController] setDelegate:self];
     [NSBundle loadNibNamed:@"AddAccount" owner:[self preferenceController]];
     
@@ -427,12 +428,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     NSString *realm = [accountDict objectForKey:AKRealm];
     NSString *username = [accountDict objectForKey:AKUsername];
     
-    AKAccountController *anAccountController
-      = [[[AKAccountController alloc] initWithFullName:fullName
-                                            SIPAddress:SIPAddress
-                                             registrar:registrar
-                                                 realm:realm
-                                              username:username]
+    AccountController *anAccountController
+      = [[[AccountController alloc] initWithFullName:fullName
+                                          SIPAddress:SIPAddress
+                                           registrar:registrar
+                                               realm:realm
+                                            username:username]
          autorelease];
     
     [[anAccountController account] setReregistrationTime:
@@ -486,8 +487,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   [[self telephone] hangUpAllCalls];
   
   // Force ended state for all calls and remove accounts from Telephone.
-  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
-    for (AKCallController *aCallController in [anAccountController callControllers])
+  for (AccountController *anAccountController in [self enabledAccountControllers]) {
+    for (CallController *aCallController in [anAccountController callControllers])
       [aCallController forceEndedCallState];
     
     [anAccountController removeAccountFromTelephone];
@@ -720,7 +721,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (IBAction)showPreferencePanel:(id)sender
 {
   if (preferenceController_ == nil) {
-    preferenceController_ = [[AKPreferenceController alloc] init];
+    preferenceController_ = [[PreferenceController alloc] init];
     [[self preferenceController] setDelegate:self];
   }
   
@@ -775,10 +776,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   [[self ringtone] play];
 }
 
-- (AKCallController *)callControllerByIdentifier:(NSString *)identifier
+- (CallController *)callControllerByIdentifier:(NSString *)identifier
 {
-  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
-    for (AKCallController *aCallController in [anAccountController callControllers])
+  for (AccountController *anAccountController in [self enabledAccountControllers]) {
+    for (CallController *aCallController in [anAccountController callControllers])
       if ([[aCallController identifier] isEqualToString:identifier])
         return aCallController;
   }
@@ -1224,13 +1225,13 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
 
 #pragma mark -
-#pragma mark AKPreferenceController delegate
+#pragma mark PreferenceController delegate
 
 - (void)preferenceControllerDidAddAccount:(NSNotification *)notification
 {
   NSDictionary *accountDict = [notification userInfo];
-  AKAccountController *theAccountController
-    = [[[AKAccountController alloc]
+  AccountController *theAccountController
+    = [[[AccountController alloc]
         initWithFullName:[accountDict objectForKey:AKFullName]
               SIPAddress:[accountDict objectForKey:AKSIPAddress]
                registrar:[accountDict objectForKey:AKRegistrar]
@@ -1252,7 +1253,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
   NSInteger index
     = [[[notification userInfo] objectForKey:AKAccountIndex] integerValue];
-  AKAccountController *anAccountController
+  AccountController *anAccountController
     = [[self accountControllers] objectAtIndex:index];
   
   if ([anAccountController isEnabled])
@@ -1272,8 +1273,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   BOOL isEnabled = [[accountDict objectForKey:AKAccountEnabled] boolValue];
   if (isEnabled) {
-    AKAccountController *theAccountController
-      = [[[AKAccountController alloc]
+    AccountController *theAccountController
+      = [[[AccountController alloc]
          initWithFullName:[accountDict objectForKey:AKFullName]
                SIPAddress:[accountDict objectForKey:AKSIPAddress]
                 registrar:[accountDict objectForKey:AKRegistrar]
@@ -1307,7 +1308,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     [theAccountController setAccountRegistered:YES];
     
   } else {
-    AKAccountController *theAccountController
+    AccountController *theAccountController
       = [[self accountControllers] objectAtIndex:index];
     
     // Remove account from Telephone.
@@ -1360,7 +1361,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     return;
   }
   
-  for (AKAccountController *anAccountController in [self enabledAccountControllers])
+  for (AccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController removeAccountFromTelephone];
 
   [[self telephone] setTransportPort:
@@ -1411,7 +1412,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
   if ([[self telephone] userAgentStarted]) {
     if ([self shouldRegisterAllAccounts])
-      for (AKAccountController *anAccountController in [self enabledAccountControllers])
+      for (AccountController *anAccountController in [self enabledAccountControllers])
         [anAccountController setAccountRegistered:YES];
     
     [self setShouldRegisterAllAccounts:NO];
@@ -1511,8 +1512,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
   // Show incoming call window, if any.
   if ([self hasIncomingCallControllers]) {
-    for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
-      for (AKCallController *aCallController in [anAccountController callControllers])
+    for (AccountController *anAccountController in [self enabledAccountControllers]) {
+      for (CallController *aCallController in [anAccountController callControllers])
         if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
             [[aCallController call] state] == AKTelephoneCallIncomingState)
         {
@@ -1523,7 +1524,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   }
   
   // No incoming calls, show window of the enabled accounts.
-  for (AKAccountController *anAccountController in [self enabledAccountControllers]) {
+  for (AccountController *anAccountController in [self enabledAccountControllers]) {
     if (![[anAccountController window] isVisible])
       [[anAccountController window] orderFront:nil];
   }
@@ -1596,7 +1597,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)growlNotificationWasClicked:(id)clickContext
 {
   NSString *identifier = (NSString *)clickContext;
-  AKCallController *aCallController = [self callControllerByIdentifier:identifier];
+  CallController *aCallController = [self callControllerByIdentifier:identifier];
   
   // Make application active.
   if (![NSApp isActive])
@@ -1631,14 +1632,14 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // Unregister all accounts when a user session is switched out.
 - (void)workspaceSessionDidResignActive:(NSNotification *)notification
 {
-  for (AKAccountController *anAccountController in [self enabledAccountControllers])
+  for (AccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController setAccountRegistered:NO];
 }
 
 // Re-register all accounts when a user session in switched in.
 - (void)workspaceSessionDidBecomeActive:(NSNotification *)notification
 {
-  for (AKAccountController *anAccountController in [self enabledAccountControllers])
+  for (AccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController setAccountRegistered:YES];
 }
 
@@ -1653,7 +1654,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // we could send person and selected call destination identifiers and only
 // get another destinations here (no new AB search).
 // If we change it to work with identifiers, we'll probably want to somehow
-// change AKAccountController's tokenField:representedObjectForEditingString:.
+// change AccountController's tokenField:representedObjectForEditingString:.
 - (void)addressBookDidDialCallDestination:(NSNotification *)notification
 {
   // Do nothing if there is a modal window.
@@ -1670,7 +1671,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
   NSString *fullName = [userInfo objectForKey:@"AKFullName"];
   
-  AKAccountController *firstAccountController
+  AccountController *firstAccountController
     = [[self accountControllers] objectAtIndex:0];
   
   if (![firstAccountController isEnabled])
@@ -1705,7 +1706,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event
            withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
-  AKAccountController *firstAccountController
+  AccountController *firstAccountController
     = [[self accountControllers] objectAtIndex:0];
   
   if (![firstAccountController isEnabled])

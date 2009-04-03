@@ -1,5 +1,5 @@
 //
-//  AKCallController.m
+//  CallController.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,7 +26,7 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKCallController.h"
+#import "CallController.h"
 
 #import <Growl/Growl.h>
 
@@ -34,19 +34,20 @@
 #import "AKNSString+Creating.h"
 #import "AKNSString+Parsing.h"
 #import "AKNSWindow+Resizing.h"
-#import "AKPreferenceController.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
 #import "AKTelephone.h"
 #import "AKTelephoneCall.h"
 #import "AKTelephoneNumberFormatter.h"
+
 #import "AppController.h"
+#import "PreferenceController.h"
 
 
 NSString * const AKTelephoneCallWindowWillCloseNotification
   = @"AKTelephoneCallWindowWillClose";
 
-@implementation AKCallController
+@implementation CallController
 
 @synthesize identifier = identifier_;
 @dynamic call;
@@ -94,12 +95,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   }
 }
 
-- (AKAccountController *)accountController
+- (AccountController *)accountController
 {
   return accountController_;
 }
 
-- (void)setAccountController:(AKAccountController *)anAccountController
+- (void)setAccountController:(AccountController *)anAccountController
 {
   if (accountController_ == anAccountController)
     return;
@@ -120,7 +121,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   accountController_ = anAccountController;
 }
 
-- (id)initWithAccountController:(AKAccountController *)anAccountController
+- (id)initWithAccountController:(AccountController *)anAccountController
 {
   self = [super initWithWindowNibName:@"Call"];
   if (self == nil)

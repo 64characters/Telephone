@@ -32,13 +32,13 @@
 #import "AKTelephone.h"
 
 
-@class AKTelephone, AKAccountController, AKPreferenceController, AKCallController;
+@class AKTelephone, PreferenceController, CallController;
 
 @interface AppController : NSObject <AKTelephoneDelegate, GrowlApplicationBridgeDelegate> {
  @private
   AKTelephone *telephone_;
   NSMutableArray *accountControllers_;
-  AKPreferenceController *preferenceController_;
+  PreferenceController *preferenceController_;
   NSArray *audioDevices_;
   NSInteger soundInputDeviceIndex_;
   NSInteger soundOutputDeviceIndex_;
@@ -54,7 +54,7 @@
 @property(nonatomic, readonly, retain) AKTelephone *telephone;
 @property(nonatomic, readonly, retain) NSMutableArray *accountControllers;
 @property(nonatomic, readonly, retain) NSArray *enabledAccountControllers;
-@property(nonatomic, retain) AKPreferenceController *preferenceController;
+@property(nonatomic, retain) PreferenceController *preferenceController;
 @property(retain) NSArray *audioDevices;
 @property(nonatomic, assign) NSInteger soundInputDeviceIndex;
 @property(nonatomic, assign) NSInteger soundOutputDeviceIndex;
@@ -86,7 +86,7 @@
 
 // Search all account controllers for the call controller
 // with the given identifier (uuid).
-- (AKCallController *)callControllerByIdentifier:(NSString *)identifier;
+- (CallController *)callControllerByIdentifier:(NSString *)identifier;
 
 - (IBAction)openFAQURL:(id)sender;
 

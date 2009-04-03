@@ -1,5 +1,5 @@
 //
-//  AKCallController.h
+//  CallController.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -31,13 +31,13 @@
 #import "AKActiveCallView.h"
 
 
-@class AKAccountController, AKTelephoneCall;
+@class AccountController, AKTelephoneCall;
 
-@interface AKCallController : NSWindowController <AKActiveCallViewDelegate> {
-@private
+@interface CallController : NSWindowController <AKActiveCallViewDelegate> {
+ @private
   NSString *identifier_;
   AKTelephoneCall *call_;
-  AKAccountController *accountController_;
+  AccountController *accountController_;
   NSString *displayedName_;
   NSString *status_;
   NSString *nameFromAddressBook_;
@@ -66,7 +66,7 @@
 
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, retain) AKTelephoneCall *call;
-@property(nonatomic, assign) AKAccountController *accountController;
+@property(nonatomic, assign) AccountController *accountController;
 @property(nonatomic, copy) NSString *displayedName;
 @property(nonatomic, copy) NSString *status;
 @property(nonatomic, copy) NSString *nameFromAddressBook;
@@ -93,7 +93,7 @@
 @property(nonatomic, retain) IBOutlet NSProgressIndicator *callProgressIndicator;
 
 // Designated initializer
-- (id)initWithAccountController:(AKAccountController *)anAccountController;
+- (id)initWithAccountController:(AccountController *)anAccountController;
 
 - (IBAction)acceptCall:(id)sender;
 - (IBAction)hangUpCall:(id)sender;

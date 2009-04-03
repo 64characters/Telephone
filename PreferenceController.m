@@ -1,5 +1,5 @@
 //
-//  AKPreferenceController.m
+//  PreferenceController.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,18 +26,19 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKPreferenceController.h"
+#import "PreferenceController.h"
 
 #import "AKKeychain.h"
 #import "AKNSWindow+Resizing.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
+
 #import "AppController.h"
 
 
 NSString * const AKTelephoneAccountPboardType = @"AKTelephoneAccountPboardType";
 
-@interface AKPreferenceController ()
+@interface PreferenceController ()
 
 - (BOOL)checkForNetworkSettingsChanges:(id)sender;
 - (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert
@@ -98,7 +99,7 @@ NSString * const AKPreferenceControllerDidSwapAccountsNotification
 NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   = @"AKPreferenceControllerDidChangeNetworkSettings";
 
-@implementation AKPreferenceController
+@implementation PreferenceController
 
 @dynamic delegate;
 

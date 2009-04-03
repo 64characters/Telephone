@@ -26,7 +26,7 @@
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSCustomObject" id="1001">
-				<string key="NSClassName">AKAccountController</string>
+				<string key="NSClassName">AccountController</string>
 			</object>
 			<object class="NSCustomObject" id="1003">
 				<string key="NSClassName">FirstResponder</string>
@@ -617,7 +617,7 @@ jNGB0Y8g0L3QsCDRgdC10YDQstC10YDQtSBleGFtcGxlLmNvbS4g0J/RgNC+0LLQtdGA0YzRgtC1INC4
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">AKAccountController</string>
+					<string key="className">AccountController</string>
 					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -668,8 +668,8 @@ jNGB0Y8g0L3QsCDRgdC10YDQstC10YDQtSBleGFtcGxlLmNvbS4g0J/RgNC+0LLQtdGA0YzRgtC1INC4
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKAccountController.h</string>
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
