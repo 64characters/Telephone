@@ -33,9 +33,9 @@
 
 // Account registration pull-down list tags
 enum {
-  AKTelephoneAccountOfflineTag    = 1,
-  AKTelephoneAccountUnregisterTag = 2,
-  AKTelephoneAccountRegisterTag   = 3
+  kTelephoneAccountOfflineTag    = 1,
+  kTelephoneAccountUnregisterTag = 2,
+  kTelephoneAccountRegisterTag   = 3
 };
 
 @class AKTelephoneAccount;
@@ -135,4 +135,4 @@ enum {
 
 
 // Address Book label for SIP address in the email field.
-extern NSString * const AKEmailSIPLabel;
+extern NSString * const kEmailSIPLabel;

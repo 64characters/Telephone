@@ -32,7 +32,6 @@
 		AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */; };
 		AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */; };
 		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
-		AA4BD4DE0E07C51E005A71B2 /* AKTelephoneAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */; };
 		AA4FD3A20E1E895D00D4E6A6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4FD3A10E1E895D00D4E6A6 /* Security.framework */; };
 		AA51FAC90F1D5673003CE94C /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA51FAC80F1D5673003CE94C /* Growl.framework */; };
 		AA51FBDE0F1D576D003CE94C /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA51FAC80F1D5673003CE94C /* Growl.framework */; };
@@ -41,6 +40,7 @@
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
 		AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */; };
 		AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
+		AABA3A740F8A2B93009E1005 /* AKTelephoneAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */; };
 		AABAD7ED0E0C171A00CB5930 /* PreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAD7EC0E0C171A00CB5930 /* PreferenceController.m */; };
 		AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */; };
 		AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A800E08198800E3AB2D /* CoreAudio.framework */; };
@@ -570,7 +570,6 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				AA4BD4C80E07C28E005A71B2 /* AKTelephone.m in Sources */,
 				AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */,
-				AA4BD4DE0E07C51E005A71B2 /* AKTelephoneAccount.m in Sources */,
 				AABAD7ED0E0C171A00CB5930 /* PreferenceController.m in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
@@ -589,6 +588,7 @@
 				AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */,
 				AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
+				AABA3A740F8A2B93009E1005 /* AKTelephoneAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

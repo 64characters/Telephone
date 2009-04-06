@@ -30,19 +30,20 @@
 #import <pjsua-lib/pjsua.h>
 
 
-extern const NSInteger AKTelephoneInvalidIdentifier;
-extern const NSInteger AKTelephoneNameserversMax;
+extern const NSInteger kAKTelephoneInvalidIdentifier;
+extern const NSInteger kAKTelephoneNameserversMax;
 
 // Generic config defaults.
-extern NSString * const AKTelephoneOutboundProxyHostDefault;
-extern const NSInteger AKTelephoneOutboundProxyPortDefault;
-extern NSString * const AKTelephoneSTUNServerHostDefault;
-extern const NSInteger AKTelephoneSTUNServerPortDefault;
-extern NSString * const AKTelephoneLogFileNameDefault;
-extern const NSInteger AKTelephoneLogLevelDefault;
-extern const NSInteger AKTelephoneConsoleLogLevelDefault;
-extern const BOOL AKTelephoneDetectsVoiceActivityDefault;
-extern const NSInteger AKTelephoneTransportPortDefault;
+extern NSString * const kAKTelephoneDefaultOutboundProxyHost;
+extern const NSInteger kAKTelephoneDefaultOutboundProxyPort;
+extern NSString * const kAKTelephoneDefaultSTUNServerHost;
+extern const NSInteger kAKTelephoneDefaultSTUNServerPort;
+extern NSString * const kAKTelephoneDefaultLogFileName;
+extern const NSInteger kAKTelephoneDefaultLogLevel;
+extern const NSInteger kAKTelephoneDefaultConsoleLogLevel;
+extern const BOOL kAKTelephoneDefaultDetectsVoiceActivity;
+extern const BOOL kAKTelephoneDefaultUsesICE;
+extern const NSInteger kAKTelephoneDefaultTransportPort;
 
 typedef struct _AKTelephoneCallData {
   pj_timer_entry timer;
@@ -51,21 +52,21 @@ typedef struct _AKTelephoneCallData {
 } AKTelephoneCallData;
 
 typedef enum _AKNATType {
-  AKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
-  AKNATTypeErrorUnknown   = PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
-  AKNATTypeOpen           = PJ_STUN_NAT_TYPE_OPEN,
-  AKNATTypeBlocked        = PJ_STUN_NAT_TYPE_BLOCKED,
-  AKNATTypeSymmetricUDP   = PJ_STUN_NAT_TYPE_SYMMETRIC_UDP,
-  AKNATTypeFullCone       = PJ_STUN_NAT_TYPE_FULL_CONE,
-  AKNATTypeSymmetric      = PJ_STUN_NAT_TYPE_SYMMETRIC,
-  AKNATTypeRestricted     = PJ_STUN_NAT_TYPE_RESTRICTED,
-  AKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
+  kAKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
+  kAKNATTypeErrorUnknown   = PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
+  kAKNATTypeOpen           = PJ_STUN_NAT_TYPE_OPEN,
+  kAKNATTypeBlocked        = PJ_STUN_NAT_TYPE_BLOCKED,
+  kAKNATTypeSymmetricUDP   = PJ_STUN_NAT_TYPE_SYMMETRIC_UDP,
+  kAKNATTypeFullCone       = PJ_STUN_NAT_TYPE_FULL_CONE,
+  kAKNATTypeSymmetric      = PJ_STUN_NAT_TYPE_SYMMETRIC,
+  kAKNATTypeRestricted     = PJ_STUN_NAT_TYPE_RESTRICTED,
+  kAKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
 } AKNATType;
 
 typedef enum _AKTelephoneUserAgentState {
-  AKTelephoneUserAgentStopped,
-  AKTelephoneUserAgentStarting,
-  AKTelephoneUserAgentStarted
+  kAKTelephoneUserAgentStopped,
+  kAKTelephoneUserAgentStarting,
+  kAKTelephoneUserAgentStarted
 } AKTelephoneUserAgentState;
 
 @class AKTelephoneAccount, AKTelephoneCall;

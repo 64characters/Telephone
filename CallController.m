@@ -237,7 +237,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 - (void)forceEndedCallState
 {
   [[self call] setDelegate:nil];
-  [[self call] setState:AKTelephoneCallDisconnectedState];
+  [[self call] setState:kAKTelephoneCallDisconnectedState];
   [self stopCallTimer];
   if ([[self call] isIncoming])
     [[NSApp delegate] stopRingtoneTimer];
@@ -455,7 +455,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
       = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
     
     if ([[self enteredCallDestination] ak_isTelephoneNumber] &&
-        [defaults boolForKey:AKFormatTelephoneNumbers]) {
+        [defaults boolForKey:kFormatTelephoneNumbers]) {
       notificationTitle = [telephoneNumberFormatter stringForObjectValue:
                            [self enteredCallDestination]];
     } else {
@@ -471,7 +471,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   if (![NSApp isActive])
     [GrowlApplicationBridge notifyWithTitle:notificationTitle
                                 description:[self status]
-                           notificationName:AKGrowlNotificationCallEnded
+                           notificationName:kGrowlNotificationCallEnded
                                    iconData:nil
                                    priority:0
                                    isSticky:NO
@@ -573,28 +573,28 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
     else
       [menuItem setTitle:NSLocalizedString(@"Mute", @"Mute. Call menu item.")];
     
-    if ([[self call] state] == AKTelephoneCallConfirmedState)
+    if ([[self call] state] == kAKTelephoneCallConfirmedState)
       return YES;
     
     return NO;
     
   } else if ([menuItem action] == @selector(toggleCallHold:)) {
-    if ([[self call] state] == AKTelephoneCallConfirmedState &&
+    if ([[self call] state] == kAKTelephoneCallConfirmedState &&
         [[self call] isOnLocalHold])
       [menuItem setTitle:NSLocalizedString(@"Resume",
                                            @"Resume. Call menu item.")];
     else
       [menuItem setTitle:NSLocalizedString(@"Hold", @"Hold. Call menu item.")];
     
-    if ([[self call] state] == AKTelephoneCallConfirmedState &&
+    if ([[self call] state] == kAKTelephoneCallConfirmedState &&
         ![[self call] isOnRemoteHold])
       return YES;
     
     return NO;
     
   } else if ([menuItem action] == @selector(hangUpCall:)) {
-    if ([[self call] state] == AKTelephoneCallNullState ||
-        [[self call] state] == AKTelephoneCallDisconnectedState)
+    if ([[self call] state] == kAKTelephoneCallNullState ||
+        [[self call] state] == kAKTelephoneCallDisconnectedState)
       return NO;
     
     return YES;

@@ -101,12 +101,12 @@
 
 
 // Audio device dictionary keys.
-extern NSString * const AKAudioDeviceIdentifier;
-extern NSString * const AKAudioDeviceUID;
-extern NSString * const AKAudioDeviceName;
-extern NSString * const AKAudioDeviceInputsCount;
-extern NSString * const AKAudioDeviceOutputsCount;
+extern NSString * const kAudioDeviceIdentifier;
+extern NSString * const kAudioDeviceUID;
+extern NSString * const kAudioDeviceName;
+extern NSString * const kAudioDeviceInputsCount;
+extern NSString * const kAudioDeviceOutputsCount;
 
 // Growl notification names.
-extern NSString * const AKGrowlNotificationIncomingCall;
-extern NSString * const AKGrowlNotificationCallEnded;
+extern NSString * const kGrowlNotificationIncomingCall;
+extern NSString * const kGrowlNotificationCallEnded;

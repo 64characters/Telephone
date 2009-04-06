@@ -36,7 +36,7 @@
 #define THIS_FILE "AKTelephoneCall.m"
 
 
-const NSInteger AKTelephoneCallsMax = 8;
+const NSInteger kAKTelephoneCallsMax = 8;
 
 NSString * const AKTelephoneCallCallingNotification = @"AKTelephoneCallCalling";
 NSString * const AKTelephoneCallIncomingNotification = @"AKTelephoneCallIncoming";
@@ -150,7 +150,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (BOOL)isActive
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   return (pjsua_call_is_active([self identifier])) ? YES : NO;
@@ -158,7 +158,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (BOOL)hasMedia
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   return (pjsua_call_has_media([self identifier])) ? YES : NO;
@@ -166,7 +166,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (BOOL)hasActiveMedia
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   pjsua_call_info callInfo;
@@ -177,7 +177,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (BOOL)isOnLocalHold
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   pjsua_call_info callInfo;
@@ -188,7 +188,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (BOOL)isOnRemoteHold
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   pjsua_call_info callInfo;
@@ -217,7 +217,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   [self setLocalURI:[AKSIPURI SIPURIWithString:
                      [NSString stringWithPJString:callInfo.local_info]]];
   
-  [self setState:AKTelephoneCallNullState];
+  [self setState:kAKTelephoneCallNullState];
   
   [self setIncoming:NO];
   
@@ -227,7 +227,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 - (id)init
 {
   return [self initWithTelephoneAccount:nil
-                             identifier:AKTelephoneInvalidIdentifier];
+                             identifier:kAKTelephoneInvalidIdentifier];
 }
 
 - (void)dealloc
@@ -261,8 +261,8 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (void)hangUp
 {
-  if (([self identifier] == AKTelephoneInvalidIdentifier) ||
-      ([self state] == AKTelephoneCallDisconnectedState))
+  if (([self identifier] == kAKTelephoneInvalidIdentifier) ||
+      ([self state] == kAKTelephoneCallDisconnectedState))
     return;
   
   pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
@@ -290,7 +290,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   
   [telephone setRingbackCount:[telephone ringbackCount] + 1];
   if ([telephone ringbackCount] == 1 &&
-      [telephone ringbackSlot] != AKTelephoneInvalidIdentifier)
+      [telephone ringbackSlot] != kAKTelephoneInvalidIdentifier)
     pjsua_conf_connect([telephone ringbackSlot], 0);
 }
 
@@ -306,7 +306,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
     
     [telephone setRingbackCount:[telephone ringbackCount] - 1];
     if ([telephone ringbackCount] == 0 &&
-        [telephone ringbackSlot] != AKTelephoneInvalidIdentifier) {
+        [telephone ringbackSlot] != kAKTelephoneInvalidIdentifier) {
       pjsua_conf_disconnect([telephone ringbackSlot], 0);
       pjmedia_tonegen_rewind([telephone ringbackPort]);
     }
@@ -322,7 +322,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   status = pjsua_call_dial_dtmf([self identifier], &pjDigits);
   
   if (status != PJ_SUCCESS) {  // Okay, that didn't work. Send INFO DTMF.
-    const pj_str_t SIPINFO = pj_str("INFO");
+    const pj_str_t kSIPINFO = pj_str("INFO");
     
     for (NSUInteger i = 0; i < [digits length]; ++i) {
       pjsua_msg_data messageData;
@@ -334,7 +334,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
            [digits characterAtIndex:i]];
       messageData.msg_body = [messageBody pjString];
       
-      status = pjsua_call_send_request([self identifier], &SIPINFO, &messageData);
+      status = pjsua_call_send_request([self identifier], &kSIPINFO, &messageData);
       if (status != PJ_SUCCESS)
         NSLog(@"Error sending DTMF");
     }

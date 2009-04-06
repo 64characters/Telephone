@@ -31,45 +31,44 @@
 
 // Keys for defaults
 
-extern NSString * const AKAccounts;
-extern NSString * const AKSTUNServerHost;
-extern NSString * const AKSTUNServerPort;
-extern NSString * const AKSTUNDomain;
-extern NSString * const AKLogFileName;
-extern NSString * const AKLogLevel;
-extern NSString * const AKConsoleLogLevel;
-extern NSString * const AKVoiceActivityDetection;
-extern NSString * const AKTransportPort;
-extern NSString * const AKSoundInput;
-extern NSString * const AKSoundOutput;
-extern NSString * const AKRingtoneOutput;
-extern NSString * const AKRingingSound;
-extern NSString * const AKFormatTelephoneNumbers;
-extern NSString * const AKTelephoneNumberFormatterSplitsLastFourDigits;
-extern NSString * const AKOutboundProxyHost;
-extern NSString * const AKOutboundProxyPort;
-extern NSString * const AKUseICE;
-extern NSString * const AKUseDNSSRV;
-extern NSString * const AKSignificantPhoneNumberLength;
+extern NSString * const kAccounts;
+extern NSString * const kSTUNServerHost;
+extern NSString * const kSTUNServerPort;
+extern NSString * const kSTUNDomain;
+extern NSString * const kLogFileName;
+extern NSString * const kLogLevel;
+extern NSString * const kConsoleLogLevel;
+extern NSString * const kVoiceActivityDetection;
+extern NSString * const kTransportPort;
+extern NSString * const kSoundInput;
+extern NSString * const kSoundOutput;
+extern NSString * const kRingtoneOutput;
+extern NSString * const kRingingSound;
+extern NSString * const kFormatTelephoneNumbers;
+extern NSString * const kTelephoneNumberFormatterSplitsLastFourDigits;
+extern NSString * const kOutboundProxyHost;
+extern NSString * const kOutboundProxyPort;
+extern NSString * const kUseICE;
+extern NSString * const kUseDNSSRV;
+extern NSString * const kSignificantPhoneNumberLength;
 
 // Account keys
-extern NSString * const AKFullName;
-extern NSString * const AKSIPAddress;
-extern NSString * const AKRegistrar;
-extern NSString * const AKRealm;
-extern NSString * const AKUsername;
-extern NSString * const AKPassword;
-extern NSString * const AKAccountIndex;
-extern NSString * const AKAccountEnabled;
-extern NSString * const AKReregistrationTime;
-extern NSString * const AKSubstitutePlusCharacter;
-extern NSString * const AKPlusCharacterSubstitutionString;
-extern NSString * const AKUseProxy;
-extern NSString * const AKProxyHost;
-extern NSString * const AKProxyPort;
+extern NSString * const kFullName;
+extern NSString * const kSIPAddress;
+extern NSString * const kRegistrar;
+extern NSString * const kRealm;
+extern NSString * const kUsername;
+extern NSString * const kAccountIndex;
+extern NSString * const kAccountEnabled;
+extern NSString * const kReregistrationTime;
+extern NSString * const kSubstitutePlusCharacter;
+extern NSString * const kPlusCharacterSubstitutionString;
+extern NSString * const kUseProxy;
+extern NSString * const kProxyHost;
+extern NSString * const kProxyPort;
 
-extern NSString * const AKSourceIndex;
-extern NSString * const AKDestinationIndex;
+extern NSString * const kSourceIndex;
+extern NSString * const kDestinationIndex;
 
 @interface PreferenceController : NSWindowController {
  @private
@@ -211,10 +210,10 @@ extern NSString * const AKDestinationIndex;
 
 // Preferences window toolbar items tags.
 enum {
-  AKGeneralPreferencesTag  = 0,
-  AKAccountsPreferencesTag = 1,
-  AKSoundPreferencesTag    = 2,
-  AKNetworkPreferencesTag  = 3
+  kGeneralPreferencesTag  = 0,
+  kAccountsPreferencesTag = 1,
+  kSoundPreferencesTag    = 2,
+  kNetworkPreferencesTag  = 3
 };
 
 

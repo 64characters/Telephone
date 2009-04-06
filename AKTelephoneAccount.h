@@ -30,9 +30,9 @@
 #import <pjsua-lib/pjsua.h>
 
 
-extern NSString * const AKSIPProxyHostDefault;
-extern const NSInteger AKSIPProxyPortDefault;
-extern const NSInteger AKAccountReregistrationTimeDefault;
+extern NSString * const kAKDefaultSIPProxyHost;
+extern const NSInteger kAKDefaultSIPProxyPort;
+extern const NSInteger kAKDefaultAccountReregistrationTime;
 
 @class AKTelephoneCall, AKSIPURI;
 @protocol AKTelephoneAccountDelegate;

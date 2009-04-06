@@ -30,29 +30,29 @@
 #import <pjsua-lib/pjsua.h>
 
 
-extern const NSInteger AKTelephoneCallsMax;
+extern const NSInteger kAKTelephoneCallsMax;
 
 typedef enum _AKTelephoneCallState {
   // Before INVITE is sent or received.
-  AKTelephoneCallNullState =         PJSIP_INV_STATE_NULL,
+  kAKTelephoneCallNullState =         PJSIP_INV_STATE_NULL,
   
   // After INVITE is sent.
-  AKTelephoneCallCallingState =      PJSIP_INV_STATE_CALLING,
+  kAKTelephoneCallCallingState =      PJSIP_INV_STATE_CALLING,
   
   // After INVITE is received.
-  AKTelephoneCallIncomingState =     PJSIP_INV_STATE_INCOMING,
+  kAKTelephoneCallIncomingState =     PJSIP_INV_STATE_INCOMING,
   
   // After response with To tag.
-  AKTelephoneCallEarlyState =        PJSIP_INV_STATE_EARLY,
+  kAKTelephoneCallEarlyState =        PJSIP_INV_STATE_EARLY,
   
   // After 2xx is sent/received.
-  AKTelephoneCallConnectingState =   PJSIP_INV_STATE_CONNECTING,
+  kAKTelephoneCallConnectingState =   PJSIP_INV_STATE_CONNECTING,
   
   // After ACK is sent/received.
-  AKTelephoneCallConfirmedState =    PJSIP_INV_STATE_CONFIRMED,
+  kAKTelephoneCallConfirmedState =    PJSIP_INV_STATE_CONFIRMED,
   
   // Session is terminated.
-  AKTelephoneCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
+  kAKTelephoneCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
 } AKTelephoneCallState;
 
 @class AKTelephoneAccount, AKSIPURI;

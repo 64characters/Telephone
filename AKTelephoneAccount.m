@@ -39,9 +39,9 @@ NSString * const AKTelephoneAccountRegistrationDidChangeNotification
 NSString * const AKTelephoneAccountWillRemoveNotification
   = @"AKTelephoneAccountWillRemove";
 
-NSString * const AKSIPProxyHostDefault = @"";
-const NSInteger AKSIPProxyPortDefault = 5060;
-const NSInteger AKAccountReregistrationTimeDefault = 300;
+NSString * const kAKDefaultSIPProxyHost = @"";
+const NSInteger kAKDefaultSIPProxyPort = 5060;
+const NSInteger kAKDefaultAccountReregistrationTime = 300;
 
 @implementation AKTelephoneAccount
 
@@ -106,7 +106,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
   if (port > 0 && port < 65535)
     proxyPort_ = port;
   else
-    proxyPort_ = AKSIPProxyPortDefault;
+    proxyPort_ = kAKDefaultSIPProxyPort;
 }
 
 - (NSUInteger)reregistrationTime
@@ -117,7 +117,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 - (void)setReregistrationTime:(NSUInteger)seconds
 {
   if (seconds == 0)
-    reregistrationTime_ = AKAccountReregistrationTimeDefault;
+    reregistrationTime_ = kAKDefaultAccountReregistrationTime;
   else if (seconds < 60)
     reregistrationTime_ = 60;
   else if (seconds > 3600)
@@ -133,7 +133,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (void)setRegistered:(BOOL)value
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return;
   
   if (value) {
@@ -147,7 +147,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSInteger)registrationStatus
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return 0;
   
   pjsua_acc_info accountInfo;
@@ -162,7 +162,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSString *)registrationStatusText
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return nil;
   
   pjsua_acc_info accountInfo;
@@ -177,7 +177,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSInteger)registrationExpireTime
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return -1;
   
   pjsua_acc_info accountInfo;
@@ -192,7 +192,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (BOOL)isOnline
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   pjsua_acc_info accountInfo;
@@ -207,7 +207,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (void)setOnline:(BOOL)value
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return;
   
   if (value)
@@ -218,7 +218,7 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
 
 - (NSString *)onlineStatusText
 {
-  if ([self identifier] == AKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return nil;
   
   pjsua_acc_info accountInfo;
@@ -264,10 +264,10 @@ const NSInteger AKAccountReregistrationTimeDefault = 300;
   [self setRegistrar:aRegistrar];
   [self setRealm:aRealm];
   [self setUsername:aUsername];
-  [self setProxyHost:AKSIPProxyHostDefault];
-  [self setProxyPort:AKSIPProxyPortDefault];
-  [self setReregistrationTime:AKAccountReregistrationTimeDefault];
-  [self setIdentifier:AKTelephoneInvalidIdentifier];
+  [self setProxyHost:kAKDefaultSIPProxyHost];
+  [self setProxyPort:kAKDefaultSIPProxyPort];
+  [self setReregistrationTime:kAKDefaultAccountReregistrationTime];
+  [self setIdentifier:kAKTelephoneInvalidIdentifier];
   
   calls_ = [[NSMutableArray alloc] init];
   

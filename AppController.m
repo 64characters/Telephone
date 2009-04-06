@@ -51,11 +51,11 @@ static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
 static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 
 // Audio device dictionary keys.
-NSString * const AKAudioDeviceIdentifier = @"AKAudioDeviceIdentifier";
-NSString * const AKAudioDeviceUID = @"AKAudioDeviceUID";
-NSString * const AKAudioDeviceName = @"AKAudioDeviceName";
-NSString * const AKAudioDeviceInputsCount = @"AKAudioDeviceInputsCount";
-NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
+NSString * const kAudioDeviceIdentifier = @"AudioDeviceIdentifier";
+NSString * const kAudioDeviceUID = @"AudioDeviceUID";
+NSString * const kAudioDeviceName = @"AudioDeviceName";
+NSString * const kAudioDeviceInputsCount = @"AudioDeviceInputsCount";
+NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 @interface AppController()
 
@@ -103,7 +103,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
       NSDictionary *ringtoneOutputDeviceDict
         = [[self audioDevices] objectAtIndex:[self ringtoneOutputDeviceIndex]];
       [ringtone_ setPlaybackDeviceIdentifier:
-       [ringtoneOutputDeviceDict objectForKey:AKAudioDeviceUID]];
+       [ringtoneOutputDeviceDict objectForKey:kAudioDeviceUID]];
       
     } else {
       [ringtone_ setPlaybackDeviceIdentifier:nil];
@@ -115,10 +115,10 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 {
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers]) {
-      if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
+      if ([[aCallController call] identifier] != kAKTelephoneInvalidIdentifier &&
           [[aCallController call] isIncoming] &&
-          ([[aCallController call] state] == AKTelephoneCallIncomingState ||
-           [[aCallController call] state] == AKTelephoneCallEarlyState))
+          ([[aCallController call] state] == kAKTelephoneCallIncomingState ||
+           [[aCallController call] state] == kAKTelephoneCallEarlyState))
         return YES;
     }
   }
@@ -159,27 +159,27 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   if (!initialized) {
     NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
     
-    [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:AKUseDNSSRV];
-    [defaultsDict setObject:@"" forKey:AKOutboundProxyHost];
+    [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseDNSSRV];
+    [defaultsDict setObject:@"" forKey:kOutboundProxyHost];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
-                     forKey:AKOutboundProxyPort];
-    [defaultsDict setObject:@"" forKey:AKSTUNServerHost];
+                     forKey:kOutboundProxyPort];
+    [defaultsDict setObject:@"" forKey:kSTUNServerHost];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
-                     forKey:AKSTUNServerPort];
+                     forKey:kSTUNServerPort];
     [defaultsDict setObject:[NSNumber numberWithBool:YES]
-                     forKey:AKVoiceActivityDetection];
-    [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:AKUseICE];
+                     forKey:kVoiceActivityDetection];
+    [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kUseICE];
     // TODO(eofster): hard-coded path must be replaced with a function call.
     [defaultsDict setObject:@"~/Library/Logs/Telephone.log"
-                     forKey:AKLogFileName];
-    [defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:AKLogLevel];
+                     forKey:kLogFileName];
+    [defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:kLogLevel];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
-                     forKey:AKConsoleLogLevel];
+                     forKey:kConsoleLogLevel];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
-                     forKey:AKTransportPort];
-    [defaultsDict setObject:@"Purr" forKey:AKRingingSound];
+                     forKey:kTransportPort];
+    [defaultsDict setObject:@"Purr" forKey:kRingingSound];
     [defaultsDict setObject:[NSNumber numberWithInteger:10]
-                     forKey:AKSignificantPhoneNumberLength];
+                     forKey:kSignificantPhoneNumberLength];
     
     NSString *preferredLocalization
       = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
@@ -187,18 +187,18 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     // Do not format phone numbers in German localization by default.
     if ([preferredLocalization isEqualToString:@"German"])
       [defaultsDict setObject:[NSNumber numberWithBool:NO]
-                       forKey:AKFormatTelephoneNumbers];
+                       forKey:kFormatTelephoneNumbers];
     else
       [defaultsDict setObject:[NSNumber numberWithBool:YES]
-                       forKey:AKFormatTelephoneNumbers];
+                       forKey:kFormatTelephoneNumbers];
     
     // Split last four digits in Russian localization by default.
     if ([preferredLocalization isEqualToString:@"Russian"])
       [defaultsDict setObject:[NSNumber numberWithBool:YES]
-                       forKey:AKTelephoneNumberFormatterSplitsLastFourDigits];
+                       forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
     else
       [defaultsDict setObject:[NSNumber numberWithBool:NO]
-                       forKey:AKTelephoneNumberFormatterSplitsLastFourDigits];
+                       forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
     
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
     
@@ -215,8 +215,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   telephone_ = [AKTelephone sharedTelephone];
   [[self telephone] setDelegate:self];
   accountControllers_ = [[NSMutableArray alloc] init];
-  [self setSoundInputDeviceIndex:AKTelephoneInvalidIdentifier];
-  [self setSoundOutputDeviceIndex:AKTelephoneInvalidIdentifier];
+  [self setSoundInputDeviceIndex:kAKTelephoneInvalidIdentifier];
+  [self setSoundOutputDeviceIndex:kAKTelephoneInvalidIdentifier];
   [self setShouldRegisterAllAccounts:NO];
   [self setTerminating:NO];
   
@@ -311,29 +311,29 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   NSString *bundleShortVersion
     = [[mainBundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
   
-  if ([defaults boolForKey:AKUseDNSSRV]) {
+  if ([defaults boolForKey:kUseDNSSRV]) {
     [[self telephone] setNameservers:[self currentNameservers]];
   }
   
-  [[self telephone] setOutboundProxyHost:[defaults stringForKey:AKOutboundProxyHost]];
-  [[self telephone] setOutboundProxyPort:[[defaults objectForKey:AKOutboundProxyPort]
+  [[self telephone] setOutboundProxyHost:[defaults stringForKey:kOutboundProxyHost]];
+  [[self telephone] setOutboundProxyPort:[[defaults objectForKey:kOutboundProxyPort]
                                           integerValue]];
-  [[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
-  [[self telephone] setSTUNServerPort:[[defaults objectForKey:AKSTUNServerPort]
+  [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
+  [[self telephone] setSTUNServerPort:[[defaults objectForKey:kSTUNServerPort]
                                        integerValue]];
   [[self telephone] setUserAgentString:[NSString stringWithFormat:@"%@ %@",
                                         bundleName, bundleShortVersion]];
-  [[self telephone] setLogFileName:[defaults stringForKey:AKLogFileName]];
-  [[self telephone] setLogLevel:[[defaults objectForKey:AKLogLevel] integerValue]];
-  [[self telephone] setConsoleLogLevel:[[defaults objectForKey:AKConsoleLogLevel]
+  [[self telephone] setLogFileName:[defaults stringForKey:kLogFileName]];
+  [[self telephone] setLogLevel:[[defaults objectForKey:kLogLevel] integerValue]];
+  [[self telephone] setConsoleLogLevel:[[defaults objectForKey:kConsoleLogLevel]
                                         integerValue]];
-  [[self telephone] setDetectsVoiceActivity:[[defaults objectForKey:AKVoiceActivityDetection]
+  [[self telephone] setDetectsVoiceActivity:[[defaults objectForKey:kVoiceActivityDetection]
                                              boolValue]];
-  [[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
-  [[self telephone] setTransportPort:[[defaults objectForKey:AKTransportPort]
+  [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
+  [[self telephone] setTransportPort:[[defaults objectForKey:kTransportPort]
                                       integerValue]];
   
-  [self setRingtone:[NSSound soundNamed:[defaults stringForKey:AKRingingSound]]];
+  [self setRingtone:[NSSound soundNamed:[defaults stringForKey:kRingingSound]]];
   
   // Install audio devices changes callback
   AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
@@ -383,7 +383,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     NSLog(@"Could not load Growl.framework");
   
   // Read accounts from defaults
-  NSArray *savedAccounts = [defaults arrayForKey:AKAccounts];
+  NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
   
   // Setup an account on first launch.
   if ([savedAccounts count] == 0) {
@@ -422,11 +422,11 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
     NSDictionary *accountDict = [savedAccounts objectAtIndex:i];
     
-    NSString *fullName = [accountDict objectForKey:AKFullName];
-    NSString *SIPAddress = [accountDict objectForKey:AKSIPAddress];
-    NSString *registrar = [accountDict objectForKey:AKRegistrar];
-    NSString *realm = [accountDict objectForKey:AKRealm];
-    NSString *username = [accountDict objectForKey:AKUsername];
+    NSString *fullName = [accountDict objectForKey:kFullName];
+    NSString *SIPAddress = [accountDict objectForKey:kSIPAddress];
+    NSString *registrar = [accountDict objectForKey:kRegistrar];
+    NSString *realm = [accountDict objectForKey:kRealm];
+    NSString *username = [accountDict objectForKey:kUsername];
     
     AccountController *anAccountController
       = [[[AccountController alloc] initWithFullName:fullName
@@ -437,21 +437,21 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
          autorelease];
     
     [[anAccountController account] setReregistrationTime:
-     [[accountDict objectForKey:AKReregistrationTime] integerValue]];
+     [[accountDict objectForKey:kReregistrationTime] integerValue]];
     
-    if ([[accountDict objectForKey:AKUseProxy] boolValue]) {
+    if ([[accountDict objectForKey:kUseProxy] boolValue]) {
       [[anAccountController account] setProxyHost:
-       [accountDict objectForKey:AKProxyHost]];
+       [accountDict objectForKey:kProxyHost]];
       [[anAccountController account] setProxyPort:
-       [[accountDict objectForKey:AKProxyPort] integerValue]];
+       [[accountDict objectForKey:kProxyPort] integerValue]];
     }
     
     [anAccountController setEnabled:
-     [[accountDict objectForKey:AKAccountEnabled] boolValue]];
+     [[accountDict objectForKey:kAccountEnabled] boolValue]];
     [anAccountController setSubstitutesPlusCharacter:
-     [[accountDict objectForKey:AKSubstitutePlusCharacter] boolValue]];
+     [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
     [anAccountController setPlusCharacterSubstitution:
-     [accountDict objectForKey:AKPlusCharacterSubstitutionString]];
+     [accountDict objectForKey:kPlusCharacterSubstitutionString]];
     
     [[self accountControllers] addObject:anAccountController];
     
@@ -520,7 +520,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     // Get device identifier.
     NSUInteger deviceIdentifier = devices[loopCount];
     [deviceDict setObject:[NSNumber numberWithUnsignedInteger:deviceIdentifier]
-                   forKey: AKAudioDeviceIdentifier];
+                   forKey:kAudioDeviceIdentifier];
     
     // Get device UID.
     CFStringRef UIDStringRef = NULL;
@@ -528,7 +528,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     err = AudioDeviceGetProperty(devices[loopCount], 0, 0,
                                  kAudioDevicePropertyDeviceUID,
                                  &size, &UIDStringRef);
-    [deviceDict setObject:(NSString *)UIDStringRef forKey:AKAudioDeviceUID];
+    [deviceDict setObject:(NSString *)UIDStringRef forKey:kAudioDeviceUID];
     CFRelease(UIDStringRef);
     
     // Get device name.
@@ -537,7 +537,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     err = AudioDeviceGetProperty(devices[loopCount], 0, 0,
                                  kAudioDevicePropertyDeviceNameCFString,
                                  &size, &nameStringRef);
-    [deviceDict setObject:(NSString *)nameStringRef forKey:AKAudioDeviceName];
+    [deviceDict setObject:(NSString *)nameStringRef forKey:kAudioDeviceName];
     CFRelease(nameStringRef);
     
     // Get number of input channels.
@@ -561,7 +561,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
         free(theBufferList);
         
         [deviceDict setObject:[NSNumber numberWithUnsignedInteger:inputChannelsCount]
-                       forKey:AKAudioDeviceInputsCount];
+                       forKey:kAudioDeviceInputsCount];
       }
     }
     
@@ -586,7 +586,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
         free(theBufferList);
         
         [deviceDict setObject:[NSNumber numberWithUnsignedInteger:outputChannelsCount]
-                       forKey:AKAudioDeviceOutputsCount];
+                       forKey:kAudioDeviceOutputsCount];
       }
     }
     
@@ -630,12 +630,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   newSoundInput = newSoundOutput = newRingtoneOutput = NSNotFound;
   
-  NSString *lastSoundInputString = [defaults objectForKey:AKSoundInput];
+  NSString *lastSoundInputString = [defaults objectForKey:kSoundInput];
   if (lastSoundInputString != nil) {
     for (i = 0; i < [devices count]; ++i) {
       deviceDict = [devices objectAtIndex:i];
-      if ([[deviceDict objectForKey:AKAudioDeviceName] isEqual:lastSoundInputString] &&
-          [[deviceDict objectForKey:AKAudioDeviceInputsCount] integerValue] > 0)
+      if ([[deviceDict objectForKey:kAudioDeviceName] isEqual:lastSoundInputString] &&
+          [[deviceDict objectForKey:kAudioDeviceInputsCount] integerValue] > 0)
       {
         newSoundInput = i;
         break;
@@ -643,12 +643,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     }
   }
   
-  NSString *lastSoundOutputString = [defaults objectForKey:AKSoundOutput];
+  NSString *lastSoundOutputString = [defaults objectForKey:kSoundOutput];
   if (lastSoundOutputString != nil) {
     for (i = 0; i < [devices count]; ++i) {
       deviceDict = [devices objectAtIndex:i];
-      if ([[deviceDict objectForKey:AKAudioDeviceName] isEqual:lastSoundOutputString] &&
-          [[deviceDict objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0)
+      if ([[deviceDict objectForKey:kAudioDeviceName] isEqual:lastSoundOutputString] &&
+          [[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0)
       {
         newSoundOutput = i;
         break;
@@ -656,12 +656,12 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     }
   }
   
-  NSString *lastRingtoneOutputString = [defaults objectForKey:AKRingtoneOutput];
+  NSString *lastRingtoneOutputString = [defaults objectForKey:kRingtoneOutput];
   if (lastRingtoneOutputString != nil) {
     for (i = 0; i < [devices count]; ++i) {
       deviceDict = [devices objectAtIndex:i];
-      if ([[deviceDict objectForKey:AKAudioDeviceName] isEqual:lastRingtoneOutputString] &&
-          [[deviceDict objectForKey:AKAudioDeviceOutputsCount] integerValue] > 0)
+      if ([[deviceDict objectForKey:kAudioDeviceName] isEqual:lastRingtoneOutputString] &&
+          [[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0)
       {
         newRingtoneOutput = i;
         break;
@@ -673,7 +673,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   if (newSoundInput == NSNotFound) {
     for (i = 0; i < [devices count]; ++i)
-      if ([[[devices objectAtIndex:i] objectForKey:AKAudioDeviceInputsCount]
+      if ([[[devices objectAtIndex:i] objectForKey:kAudioDeviceInputsCount]
            integerValue] > 0) {
         newSoundInput = i;
         break;
@@ -682,7 +682,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   if (newSoundOutput == NSNotFound) {
     for (i = 0; i < [devices count]; ++i)
-      if ([[[devices objectAtIndex:i] objectForKey:AKAudioDeviceOutputsCount]
+      if ([[[devices objectAtIndex:i] objectForKey:kAudioDeviceOutputsCount]
            integerValue] > 0) {
         newSoundOutput = i;
         break;
@@ -691,7 +691,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   if (newRingtoneOutput == NSNotFound) {
     for (i = 0; i < [devices count]; ++i)
-      if ([[[devices objectAtIndex:i] objectForKey:AKAudioDeviceOutputsCount]
+      if ([[[devices objectAtIndex:i] objectForKey:kAudioDeviceOutputsCount]
            integerValue] > 0) {
         newRingtoneOutput = i;
         break;
@@ -709,7 +709,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   // Set selected ringtone output.
   [[self ringtone] setPlaybackDeviceIdentifier:
-   [[devices objectAtIndex:newRingtoneOutput] objectForKey:AKAudioDeviceUID]];
+   [[devices objectAtIndex:newRingtoneOutput] objectForKey:kAudioDeviceUID]];
 }
 
 - (void)setSelectedSoundIOToTelephone
@@ -1232,11 +1232,11 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   NSDictionary *accountDict = [notification userInfo];
   AccountController *theAccountController
     = [[[AccountController alloc]
-        initWithFullName:[accountDict objectForKey:AKFullName]
-              SIPAddress:[accountDict objectForKey:AKSIPAddress]
-               registrar:[accountDict objectForKey:AKRegistrar]
-                   realm:[accountDict objectForKey:AKRealm]
-                username:[accountDict objectForKey:AKUsername]]
+        initWithFullName:[accountDict objectForKey:kFullName]
+              SIPAddress:[accountDict objectForKey:kSIPAddress]
+               registrar:[accountDict objectForKey:kRegistrar]
+                   realm:[accountDict objectForKey:kRealm]
+                username:[accountDict objectForKey:kUsername]]
        autorelease];
   
   [theAccountController setEnabled:YES];
@@ -1252,7 +1252,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification
 {
   NSInteger index
-    = [[[notification userInfo] objectForKey:AKAccountIndex] integerValue];
+    = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
   AccountController *anAccountController
     = [[self accountControllers] objectAtIndex:index];
   
@@ -1265,38 +1265,38 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification
 {
   NSUInteger index
-    = [[[notification userInfo] objectForKey:AKAccountIndex] integerValue];
+    = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSArray *savedAccounts = [defaults arrayForKey:AKAccounts];
+  NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
   NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
   
-  BOOL isEnabled = [[accountDict objectForKey:AKAccountEnabled] boolValue];
+  BOOL isEnabled = [[accountDict objectForKey:kAccountEnabled] boolValue];
   if (isEnabled) {
     AccountController *theAccountController
       = [[[AccountController alloc]
-         initWithFullName:[accountDict objectForKey:AKFullName]
-               SIPAddress:[accountDict objectForKey:AKSIPAddress]
-                registrar:[accountDict objectForKey:AKRegistrar]
-                    realm:[accountDict objectForKey:AKRealm]
-                 username:[accountDict objectForKey:AKUsername]]
+         initWithFullName:[accountDict objectForKey:kFullName]
+               SIPAddress:[accountDict objectForKey:kSIPAddress]
+                registrar:[accountDict objectForKey:kRegistrar]
+                    realm:[accountDict objectForKey:kRealm]
+                 username:[accountDict objectForKey:kUsername]]
          autorelease];
     
     [[theAccountController account] setReregistrationTime:
-     [[accountDict objectForKey:AKReregistrationTime] integerValue]];
+     [[accountDict objectForKey:kReregistrationTime] integerValue]];
     
-    if ([[accountDict objectForKey:AKUseProxy] boolValue]) {
+    if ([[accountDict objectForKey:kUseProxy] boolValue]) {
       [[theAccountController account] setProxyHost:
-       [accountDict objectForKey:AKProxyHost]];
+       [accountDict objectForKey:kProxyHost]];
       [[theAccountController account] setProxyPort:
-       [[accountDict objectForKey:AKProxyPort] integerValue]];
+       [[accountDict objectForKey:kProxyPort] integerValue]];
     }
     
     [theAccountController setEnabled:YES];
     [theAccountController setSubstitutesPlusCharacter:
-     [[accountDict objectForKey:AKSubstitutePlusCharacter] boolValue]];
+     [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
     [theAccountController setPlusCharacterSubstitution:
-     [accountDict objectForKey:AKPlusCharacterSubstitutionString]];
+     [accountDict objectForKey:kPlusCharacterSubstitutionString]];
     
     [[self accountControllers] replaceObjectAtIndex:index
                                          withObject:theAccountController];
@@ -1326,8 +1326,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 - (void)preferenceControllerDidSwapAccounts:(NSNotification *)notification
 {
   NSDictionary *userInfo = [notification userInfo];
-  NSInteger sourceIndex = [[userInfo objectForKey:AKSourceIndex] integerValue];
-  NSInteger destinationIndex = [[userInfo objectForKey:AKDestinationIndex]
+  NSInteger sourceIndex = [[userInfo objectForKey:kSourceIndex] integerValue];
+  NSInteger destinationIndex = [[userInfo objectForKey:kDestinationIndex]
                                 integerValue];
   
   if (sourceIndex == destinationIndex)
@@ -1348,15 +1348,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   if (![[self telephone] userAgentStarted]) {
     [[self telephone] setTransportPort:
-     [[defaults objectForKey:AKTransportPort] integerValue]];
-    [[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
+     [[defaults objectForKey:kTransportPort] integerValue]];
+    [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
     [[self telephone] setSTUNServerPort:
-     [[defaults objectForKey:AKSTUNServerPort] integerValue]];
-    [[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
+     [[defaults objectForKey:kSTUNServerPort] integerValue]];
+    [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
     [[self telephone] setOutboundProxyHost:
-     [defaults stringForKey:AKOutboundProxyHost]];
+     [defaults stringForKey:kOutboundProxyHost]];
     [[self telephone] setOutboundProxyPort:
-     [[defaults objectForKey:AKOutboundProxyPort] integerValue]];
+     [[defaults objectForKey:kOutboundProxyPort] integerValue]];
     
     return;
   }
@@ -1365,15 +1365,15 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
     [anAccountController removeAccountFromTelephone];
 
   [[self telephone] setTransportPort:
-   [[defaults objectForKey:AKTransportPort] integerValue]];
-  [[self telephone] setSTUNServerHost:[defaults stringForKey:AKSTUNServerHost]];
+   [[defaults objectForKey:kTransportPort] integerValue]];
+  [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
   [[self telephone] setSTUNServerPort:
-   [[defaults objectForKey:AKSTUNServerPort] integerValue]];
-  [[self telephone] setUsesICE:[[defaults objectForKey:AKUseICE] boolValue]];
+   [[defaults objectForKey:kSTUNServerPort] integerValue]];
+  [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
   [[self telephone] setOutboundProxyHost:
-   [defaults stringForKey:AKOutboundProxyHost]];
+   [defaults stringForKey:kOutboundProxyHost]];
   [[self telephone] setOutboundProxyPort:
-   [[defaults objectForKey:AKOutboundProxyPort] integerValue]];
+   [[defaults objectForKey:kOutboundProxyPort] integerValue]];
     
   [self setShouldRegisterAllAccounts:YES];
   
@@ -1388,14 +1388,14 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 // Telephone is started in this method if needed.
 - (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount
 {
-  if ([[self telephone] userAgentState] < AKTelephoneUserAgentStarting) {
+  if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
     [[self telephone] startUserAgent];
     
     // Don't add the account right now, let user agent start first.
     // The account should be added later, from the callback.
     return NO;
     
-  } else if ([[self telephone] userAgentState] < AKTelephoneUserAgentStarted) {
+  } else if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarted) {
     // User agent is starting, don't add account right now.
     // The account should be added later, from the callback.
     return NO;
@@ -1451,7 +1451,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   [alert addButtonWithTitle:@"OK"];
   
   switch ([[self telephone] detectedNATType]) {
-      case AKNATTypeBlocked:
+      case kAKNATTypeBlocked:
         [alert setMessageText:
          NSLocalizedString(@"Failed to communicate with STUN server.",
                            @"Failed to communicate with STUN server.")];
@@ -1464,7 +1464,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
         [alert runModal];
         break;
         
-      case AKNATTypeSymmetric:
+      case kAKNATTypeSymmetric:
         [alert setMessageText:
          NSLocalizedString(@"Symmetric NAT detected.", @"Detected Symmetric NAT.")];
         [alert setInformativeText:
@@ -1514,8 +1514,8 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   if ([self hasIncomingCallControllers]) {
     for (AccountController *anAccountController in [self enabledAccountControllers]) {
       for (CallController *aCallController in [anAccountController callControllers])
-        if ([[aCallController call] identifier] != AKTelephoneInvalidIdentifier &&
-            [[aCallController call] state] == AKTelephoneCallIncomingState)
+        if ([[aCallController call] identifier] != kAKTelephoneInvalidIdentifier &&
+            [[aCallController call] state] == kAKTelephoneCallIncomingState)
         {
           [aCallController showWindow:nil];
           return YES;
@@ -1689,7 +1689,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
 
   [[firstAccountController callDestinationField] setStringValue:theString];
   
-  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier) {
+  if ([[firstAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
     [firstAccountController setShouldMakeCall:YES];
     [firstAccountController setAccountRegistered:YES];
@@ -1717,7 +1717,7 @@ NSString * const AKAudioDeviceOutputsCount = @"AKAudioDeviceOutputsCount";
   
   [firstAccountController setCatchedURLString:URLString];
   
-  if ([[firstAccountController account] identifier] == AKTelephoneInvalidIdentifier) {
+  if ([[firstAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
     [firstAccountController setAccountRegistered:YES];
   } else {
@@ -1784,5 +1784,5 @@ static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount)
 
 
 // Growl notification names.
-NSString * const AKGrowlNotificationIncomingCall = @"Incoming Call";
-NSString * const AKGrowlNotificationCallEnded = @"Call Ended";
+NSString * const kGrowlNotificationIncomingCall = @"Incoming Call";
+NSString * const kGrowlNotificationCallEnded = @"Call Ended";

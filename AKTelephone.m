@@ -37,8 +37,8 @@
 #define THIS_FILE "AKTelephone.m"
 
 
-const NSInteger AKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
-const NSInteger AKTelephoneNameserversMax = 4;
+const NSInteger kAKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
+const NSInteger kAKTelephoneNameserversMax = 4;
 
 NSString * const AKTelephoneUserAgentDidFinishStartingNotification
   = @"AKTelephoneUserAgentDidFinishStarting";
@@ -48,16 +48,16 @@ NSString * const AKTelephoneDidDetectNATNotification
   = @"AKTelephoneDidDetectNAT";
 
 // Generic config defaults.
-NSString * const AKTelephoneOutboundProxyHostDefault = @"";
-const NSInteger AKTelephoneOutboundProxyPortDefault = 5060;
-NSString * const AKTelephoneSTUNServerHostDefault = @"";
-const NSInteger AKTelephoneSTUNServerPortDefault = 3478;
-NSString * const AKTelephoneLogFileNameDefault = @"~/Library/Logs/Telephone.log";
-const NSInteger AKTelephoneLogLevelDefault = 3;
-const NSInteger AKTelephoneConsoleLogLevelDefault = 0;
-const BOOL AKTelephoneDetectsVoiceActivityDefault = YES;
-const BOOL AKTelephoneUsesICEDefault = NO;
-const NSInteger AKTelephoneTransportPortDefault = 0;  // 0 for any available port.
+NSString * const kAKTelephoneDefaultOutboundProxyHost = @"";
+const NSInteger kAKTelephoneDefaultOutboundProxyPort = 5060;
+NSString * const kAKTelephoneDefaultSTUNServerHost = @"";
+const NSInteger kAKTelephoneDefaultSTUNServerPort = 3478;
+NSString * const kAKTelephoneDefaultLogFileName = @"~/Library/Logs/Telephone.log";
+const NSInteger kAKTelephoneDefaultLogLevel = 3;
+const NSInteger kAKTelephoneDefaultConsoleLogLevel = 0;
+const BOOL kAKTelephoneDefaultDetectsVoiceActivity = YES;
+const BOOL kAKTelephoneDefaultUsesICE = NO;
+const NSInteger kAKTelephoneDefaultTransportPort = 0;  // 0 for any available port.
 
 static AKTelephone *sharedTelephone = nil;
 
@@ -158,7 +158,7 @@ typedef enum _AKTelephoneRingtones {
 
 - (BOOL)userAgentStarted
 {
-  return ([self userAgentState] == AKTelephoneUserAgentStarted) ? YES : NO;
+  return ([self userAgentState] == kAKTelephoneUserAgentStarted) ? YES : NO;
 }
 
 - (NSUInteger)activeCallsCount
@@ -181,9 +181,9 @@ typedef enum _AKTelephoneRingtones {
   if (nameservers_ != newNameservers) {
     [nameservers_ release];
     
-    if ([newNameservers count] > AKTelephoneNameserversMax) {
+    if ([newNameservers count] > kAKTelephoneNameserversMax) {
       nameservers_ = [[newNameservers subarrayWithRange:
-                      NSMakeRange(0, AKTelephoneNameserversMax)] retain];
+                      NSMakeRange(0, kAKTelephoneNameserversMax)] retain];
     } else {
       nameservers_ = [newNameservers copy];
     }
@@ -200,7 +200,7 @@ typedef enum _AKTelephoneRingtones {
   if (port > 0 && port < 65535)
     outboundProxyPort_ = port;
   else
-    outboundProxyPort_ = AKTelephoneOutboundProxyPortDefault;
+    outboundProxyPort_ = kAKTelephoneDefaultOutboundProxyPort;
 }
 
 - (NSUInteger)STUNServerPort
@@ -213,7 +213,7 @@ typedef enum _AKTelephoneRingtones {
   if (port > 0 && port < 65535)
     STUNServerPort_ = port;
   else
-    STUNServerPort_ = AKTelephoneSTUNServerPortDefault;
+    STUNServerPort_ = kAKTelephoneDefaultSTUNServerPort;
 }
 
 - (NSString *)logFileName
@@ -229,7 +229,7 @@ typedef enum _AKTelephoneRingtones {
       logFileName_ = [pathToFile copy];
     } else {
       [logFileName_ release];
-      logFileName_ = AKTelephoneLogFileNameDefault;
+      logFileName_ = kAKTelephoneDefaultLogFileName;
     }
     
   }
@@ -245,7 +245,7 @@ typedef enum _AKTelephoneRingtones {
   if (port > 0 && port < 65535)
     transportPort_ = port;
   else
-    transportPort_ = AKTelephoneTransportPortDefault;
+    transportPort_ = kAKTelephoneDefaultTransportPort;
 }
 
 
@@ -311,21 +311,21 @@ typedef enum _AKTelephoneRingtones {
   [self setDelegate:aDelegate];
   accounts_ = [[NSMutableArray alloc] init];
   [self setSoundStopped:YES];
-  [self setDetectedNATType:AKNATTypeUnknown];
+  [self setDetectedNATType:kAKNATTypeUnknown];
   pjsuaLock_ = [[NSLock alloc] init];
   
-  [self setOutboundProxyHost:AKTelephoneOutboundProxyHostDefault];
-  [self setOutboundProxyPort:AKTelephoneOutboundProxyPortDefault];
-  [self setSTUNServerHost:AKTelephoneSTUNServerHostDefault];
-  [self setSTUNServerPort:AKTelephoneSTUNServerPortDefault];
-  [self setLogFileName:AKTelephoneLogFileNameDefault];
-  [self setLogLevel:AKTelephoneLogLevelDefault];
-  [self setConsoleLogLevel:AKTelephoneConsoleLogLevelDefault];
-  [self setDetectsVoiceActivity:AKTelephoneDetectsVoiceActivityDefault];
-  [self setUsesICE:AKTelephoneUsesICEDefault];
-  [self setTransportPort:AKTelephoneTransportPortDefault];
+  [self setOutboundProxyHost:kAKTelephoneDefaultOutboundProxyHost];
+  [self setOutboundProxyPort:kAKTelephoneDefaultOutboundProxyPort];
+  [self setSTUNServerHost:kAKTelephoneDefaultSTUNServerHost];
+  [self setSTUNServerPort:kAKTelephoneDefaultSTUNServerPort];
+  [self setLogFileName:kAKTelephoneDefaultLogFileName];
+  [self setLogLevel:kAKTelephoneDefaultLogLevel];
+  [self setConsoleLogLevel:kAKTelephoneDefaultConsoleLogLevel];
+  [self setDetectsVoiceActivity:kAKTelephoneDefaultDetectsVoiceActivity];
+  [self setUsesICE:kAKTelephoneDefaultUsesICE];
+  [self setTransportPort:kAKTelephoneDefaultTransportPort];
   
-  [self setRingbackSlot:AKTelephoneInvalidIdentifier];
+  [self setRingbackSlot:kAKTelephoneInvalidIdentifier];
   
   return self;
 }
@@ -354,19 +354,19 @@ typedef enum _AKTelephoneRingtones {
 - (void)startUserAgent
 {
   // Do nothing if it's already started or being started.
-  if ([self userAgentState] > AKTelephoneUserAgentStopped)
+  if ([self userAgentState] > kAKTelephoneUserAgentStopped)
     return;
   
   [[self pjsuaLock] lock];
   
-  [self setUserAgentState:AKTelephoneUserAgentStarting];
+  [self setUserAgentState:kAKTelephoneUserAgentStarting];
   
   // Create PJSUA on the main thread to make all subsequent calls from the main
   // thread.
   pj_status_t status = pjsua_create();
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating PJSUA");
-    [self setUserAgentState:AKTelephoneUserAgentStopped];
+    [self setUserAgentState:kAKTelephoneUserAgentStopped];
     [[self pjsuaLock] unlock];
     return;
   }
@@ -384,7 +384,7 @@ typedef enum _AKTelephoneRingtones {
   
   [[self pjsuaLock] lock];
   
-  [self setUserAgentState:AKTelephoneUserAgentStarting];
+  [self setUserAgentState:kAKTelephoneUserAgentStarting];
   
   pj_status_t status;
   
@@ -411,7 +411,7 @@ typedef enum _AKTelephoneRingtones {
   pjsua_media_config_default(&mediaConfig);
   pjsua_transport_config_default(&transportConfig);
   
-  userAgentConfig.max_calls = AKTelephoneCallsMax;
+  userAgentConfig.max_calls = kAKTelephoneCallsMax;
   
   if ([[self nameservers] count] > 0) {
     userAgentConfig.nameserver_count = [[self nameservers] count];
@@ -423,7 +423,7 @@ typedef enum _AKTelephoneRingtones {
   if ([[self outboundProxyHost] length] > 0) {
     userAgentConfig.outbound_proxy_cnt = 1;
     
-    if ([self outboundProxyPort] == AKTelephoneOutboundProxyPortDefault) {
+    if ([self outboundProxyPort] == kAKTelephoneDefaultOutboundProxyPort) {
       userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@",
                                             [self outboundProxyHost]]
                                            pjString];
@@ -555,7 +555,7 @@ typedef enum _AKTelephoneRingtones {
     return;
   }
   
-  [self setUserAgentState:AKTelephoneUserAgentStarted];
+  [self setUserAgentState:kAKTelephoneUserAgentStarted];
   
   NSNotification *notification
   = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStartingNotification
@@ -574,7 +574,7 @@ typedef enum _AKTelephoneRingtones {
 - (void)stopUserAgent
 {
   // If there was an error while starting, post a notification from here.
-  if ([self userAgentState] == AKTelephoneUserAgentStarting) {
+  if ([self userAgentState] == kAKTelephoneUserAgentStarting) {
     NSNotification *notification
     = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStartingNotification
                                     object:self];
@@ -606,17 +606,17 @@ typedef enum _AKTelephoneRingtones {
   
   [[self pjsuaLock] lock];
   
-  [self setUserAgentState:AKTelephoneUserAgentStopped];
+  [self setUserAgentState:kAKTelephoneUserAgentStopped];
   
   // Explicitly remove all accounts.
   [[self accounts] removeAllObjects];
   
   // Close ringback port.
   if ([self ringbackPort] != NULL &&
-      [self ringbackSlot] != AKTelephoneInvalidIdentifier)
+      [self ringbackSlot] != kAKTelephoneInvalidIdentifier)
   {
     pjsua_conf_remove_port([self ringbackSlot]);
-    [self setRingbackSlot:AKTelephoneInvalidIdentifier];
+    [self setRingbackSlot:kAKTelephoneInvalidIdentifier];
     pjmedia_port_destroy([self ringbackPort]);
     [self setRingbackPort:NULL];
   }
@@ -674,7 +674,7 @@ typedef enum _AKTelephoneRingtones {
   if ([[anAccount proxyHost] length] > 0) {
     accountConfig.proxy_cnt = 1;
     
-    if ([anAccount proxyPort] == AKSIPProxyPortDefault)
+    if ([anAccount proxyPort] == kAKDefaultSIPProxyPort)
       accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@",
                                  [anAccount proxyHost]] pjString];
     else
@@ -710,7 +710,7 @@ typedef enum _AKTelephoneRingtones {
 - (BOOL)removeAccount:(AKTelephoneAccount *)anAccount
 {
   if (![self userAgentStarted] ||
-      [anAccount identifier] == AKTelephoneInvalidIdentifier)
+      [anAccount identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   [[NSNotificationCenter defaultCenter]
@@ -725,7 +725,7 @@ typedef enum _AKTelephoneRingtones {
     return NO;
   
   [[self accounts] removeObject:anAccount];
-  [anAccount setIdentifier:AKTelephoneInvalidIdentifier];
+  [anAccount setIdentifier:kAKTelephoneInvalidIdentifier];
   
   return YES;
 }
