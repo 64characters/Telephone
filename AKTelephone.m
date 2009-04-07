@@ -61,14 +61,14 @@ const NSInteger kAKTelephoneDefaultTransportPort = 0;  // 0 for any available po
 
 static AKTelephone *sharedTelephone = nil;
 
-typedef enum _AKTelephoneRingtones {
-  AKRingbackFrequency1  = 440,
-  AKRingbackFrequency2  = 480,
-  AKRingbackOnDuration  = 2000,
-  AKRingbackOffDuration = 4000,
-  AKRingbackCount       = 1,
-  AKRingbackInterval    = 4000
-} AKTelephoneRingtones;
+enum {
+  kAKRingbackFrequency1  = 440,
+  kAKRingbackFrequency2  = 480,
+  kAKRingbackOnDuration  = 2000,
+  kAKRingbackOffDuration = 4000,
+  kAKRingbackCount       = 1,
+  kAKRingbackInterval    = 4000
+};
 
 
 @interface AKTelephone ()
@@ -468,7 +468,7 @@ typedef enum _AKTelephoneRingtones {
   
   // Create ringback tones.
   unsigned i, samplesPerFrame;
-  pjmedia_tone_desc tone[AKRingbackCount];
+  pjmedia_tone_desc tone[kAKRingbackCount];
   pj_str_t name;
   
   samplesPerFrame = mediaConfig.audio_frame_ptime *
@@ -493,15 +493,15 @@ typedef enum _AKTelephoneRingtones {
   [self setRingbackPort:aRingbackPort];
   
   pj_bzero(&tone, sizeof(tone));
-  for (i = 0; i < AKRingbackCount; ++i) {
-    tone[i].freq1 = AKRingbackFrequency1;
-    tone[i].freq2 = AKRingbackFrequency2;
-    tone[i].on_msec = AKRingbackOnDuration;
-    tone[i].off_msec = AKRingbackOffDuration;
+  for (i = 0; i < kAKRingbackCount; ++i) {
+    tone[i].freq1 = kAKRingbackFrequency1;
+    tone[i].freq2 = kAKRingbackFrequency2;
+    tone[i].on_msec = kAKRingbackOnDuration;
+    tone[i].off_msec = kAKRingbackOffDuration;
   }
-  tone[AKRingbackCount - 1].off_msec = AKRingbackInterval;
+  tone[kAKRingbackCount - 1].off_msec = kAKRingbackInterval;
   
-  pjmedia_tonegen_play([self ringbackPort], AKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
+  pjmedia_tonegen_play([self ringbackPort], kAKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
   
   NSInteger aRingbackSlot;
   status = pjsua_conf_add_port([self pjPool], [self ringbackPort], &aRingbackSlot);
