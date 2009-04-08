@@ -1,5 +1,5 @@
 //
-//  AKNSString+Parsing.h
+//  AKNSString+Scanning.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.

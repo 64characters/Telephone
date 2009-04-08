@@ -47,7 +47,7 @@
 		AAEA9A870E0819BB00E3AB2D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */; };
 		AAEA9A880E0819BB00E3AB2D /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */; };
 		AAEA9A890E0819BB00E3AB2D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */; };
-		AAECDE8F0E70703100CEAE7B /* AKNSString+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Parsing.m */; };
+		AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */; };
 		AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */; };
 		AAF299320F575101007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AAF299330F57510B007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
@@ -192,8 +192,8 @@
 		AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
 		AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		AAECDE8D0E70703100CEAE7B /* AKNSString+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Parsing.h"; sourceTree = "<group>"; };
-		AAECDE8E0E70703100CEAE7B /* AKNSString+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Parsing.m"; sourceTree = "<group>"; };
+		AAECDE8D0E70703100CEAE7B /* AKNSString+Scanning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Scanning.h"; sourceTree = "<group>"; };
+		AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Scanning.m"; sourceTree = "<group>"; };
 		AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSWindow+Resizing.h"; sourceTree = "<group>"; };
 		AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSWindow+Resizing.m"; sourceTree = "<group>"; };
 		AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKAddressBookPhonePlugIn.h; path = PlugIns/AddressBook/AKAddressBookPhonePlugIn.h; sourceTree = "<group>"; };
@@ -376,8 +376,8 @@
 				AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */,
 				AA16CBE40F856ACD000CAFD1 /* AKNSString+PJSUA.h */,
 				AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */,
-				AAECDE8D0E70703100CEAE7B /* AKNSString+Parsing.h */,
-				AAECDE8E0E70703100CEAE7B /* AKNSString+Parsing.m */,
+				AAECDE8D0E70703100CEAE7B /* AKNSString+Scanning.h */,
+				AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */,
 				AA16CC9C0F857009000CAFD1 /* AKNSString+Escaping.h */,
 				AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */,
 				AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */,
@@ -574,7 +574,7 @@
 				AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
-				AAECDE8F0E70703100CEAE7B /* AKNSString+Parsing.m in Sources */,
+				AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */,
 				AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */,
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
 				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
