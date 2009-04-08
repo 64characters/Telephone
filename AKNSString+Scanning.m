@@ -26,7 +26,7 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKNSString+Parsing.h"
+#import "AKNSString+Scanning.h"
 
 
 @implementation NSString (AKStringScanningAdditions)
