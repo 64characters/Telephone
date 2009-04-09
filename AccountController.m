@@ -34,7 +34,7 @@
 #import "AKABAddressBook+Localizing.h"
 #import "AKABRecord+Querying.h"
 #import "AKKeychain.h"
-#import "AKNSString+Parsing.h"
+#import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"

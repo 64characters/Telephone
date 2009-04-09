@@ -32,7 +32,7 @@
 
 #import "AKActiveCallView.h"
 #import "AKNSString+Creating.h"
-#import "AKNSString+Parsing.h"
+#import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
