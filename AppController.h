@@ -47,6 +47,7 @@
   NSTimer *ringtoneTimer_;
   BOOL shouldRegisterAllAccounts_;
   BOOL terminating_;
+  BOOL didPauseITunes_;
   
   NSMenuItem *preferencesMenuItem_;
 }
@@ -64,7 +65,9 @@
 @property(nonatomic, assign) BOOL shouldRegisterAllAccounts;
 @property(nonatomic, assign, getter=isTerminating) BOOL terminating;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
+@property(nonatomic, readonly, assign) BOOL hasActiveCallControllers;
 @property(nonatomic, readonly, retain) NSArray *currentNameservers;
+@property(nonatomic, assign) BOOL didPauseITunes;
 
 @property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
@@ -83,6 +86,9 @@
 - (void)startRingtoneTimer;
 - (void)stopRingtoneTimer;
 - (void)ringtoneTimerTick:(NSTimer *)theTimer;
+
+- (void)pauseITunes;
+- (void)resumeITunesIfNeeded;
 
 // Search all account controllers for the call controller
 // with the given identifier (uuid).

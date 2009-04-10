@@ -48,6 +48,7 @@
   NSTimer *callTimer_;
   BOOL callOnHold_;
   NSMutableString *enteredDTMF_;
+  BOOL callActive_;
   
   NSView *incomingCallView_;
   NSView *activeCallView_;
@@ -77,6 +78,7 @@
 @property(nonatomic, retain) NSTimer *callTimer;
 @property(nonatomic, assign) BOOL callOnHold;
 @property(nonatomic, retain) NSMutableString *enteredDTMF;
+@property(nonatomic, assign) BOOL callActive;
 
 @property(nonatomic, retain) IBOutlet NSView *incomingCallView;
 @property(nonatomic, retain) IBOutlet NSView *activeCallView;
@@ -100,11 +102,6 @@
 
 - (IBAction)toggleCallHold:(id)sender;
 - (IBAction)toggleMicrophoneMute:(id)sender;
-
-// Force ended call state not waiting for the callbacks. This is useful with
-// AKTelephone's hangUpAllCalls when computer goes to sleep or before app
-// shuts down.
-- (void)forceEndedCallState;
 
 // Dealing with the timer of active call.
 - (void)startCallTimer;

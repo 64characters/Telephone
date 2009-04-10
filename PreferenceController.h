@@ -51,6 +51,7 @@ extern NSString * const kOutboundProxyPort;
 extern NSString * const kUseICE;
 extern NSString * const kUseDNSSRV;
 extern NSString * const kSignificantPhoneNumberLength;
+extern NSString * const kPauseITunes;
 
 // Account keys
 extern NSString * const kFullName;

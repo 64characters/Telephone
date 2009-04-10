@@ -38,6 +38,7 @@
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
 #import "AKTelephoneCall.h"
+#import "iTunes.h"
 
 #import "AccountController.h"
 #import "CallController.h"
@@ -78,7 +79,9 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 @synthesize shouldRegisterAllAccounts = shouldRegisterAllAccounts_;
 @synthesize terminating = terminating_;
 @dynamic hasIncomingCallControllers;
+@dynamic hasActiveCallControllers;
 @dynamic currentNameservers;
+@synthesize didPauseITunes = didPauseITunes_;
 
 @synthesize preferencesMenuItem = preferencesMenuItem_;
 
@@ -117,8 +120,21 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     for (CallController *aCallController in [anAccountController callControllers]) {
       if ([[aCallController call] identifier] != kAKTelephoneInvalidIdentifier &&
           [[aCallController call] isIncoming] &&
+          [aCallController callActive] &&
           ([[aCallController call] state] == kAKTelephoneCallIncomingState ||
            [[aCallController call] state] == kAKTelephoneCallEarlyState))
+        return YES;
+    }
+  }
+  
+  return NO;
+}
+
+- (BOOL)hasActiveCallControllers
+{
+  for (AccountController *anAccountController in [self enabledAccountControllers]) {
+    for (CallController *aCallController in [anAccountController callControllers]) {
+      if ([aCallController callActive])
         return YES;
     }
   }
@@ -180,6 +196,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [defaultsDict setObject:@"Purr" forKey:kRingingSound];
     [defaultsDict setObject:[NSNumber numberWithInteger:10]
                      forKey:kSignificantPhoneNumberLength];
+    [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kPauseITunes];
     
     NSString *preferredLocalization
       = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
@@ -219,6 +236,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [self setSoundOutputDeviceIndex:kAKTelephoneInvalidIdentifier];
   [self setShouldRegisterAllAccounts:NO];
   [self setTerminating:NO];
+  [self setDidPauseITunes:NO];
   
   // Subscribe to Early and Confirmed call states to set sound IO to Telephone.
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -483,13 +501,10 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 - (void)stopTelephone
 {
-  // Hang up all calls.
-  [[self telephone] hangUpAllCalls];
-  
   // Force ended state for all calls and remove accounts from Telephone.
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers])
-      [aCallController forceEndedCallState];
+      [aCallController hangUpCall:nil];
     
     [anAccountController removeAccountFromTelephone];
   }
@@ -774,6 +789,42 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 - (void)ringtoneTimerTick:(NSTimer *)theTimer
 {
   [[self ringtone] play];
+}
+
+- (void)pauseITunes
+{
+  if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes])
+    return;
+  
+  iTunesApplication *iTunes
+    = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+  
+  if (![iTunes isRunning])
+    return;
+  
+  if ([iTunes playerState] == iTunesEPlSPlaying) {
+    [iTunes pause];
+    [self setDidPauseITunes:YES];
+  }
+}
+
+- (void)resumeITunesIfNeeded
+{
+  if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes])
+    return;
+  
+  iTunesApplication *iTunes
+    = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+  
+  if (![iTunes isRunning])
+    return;
+  
+  if ([self didPauseITunes] && ![self hasActiveCallControllers]) {
+    if ([iTunes playerState] == iTunesEPlSPaused)
+      [iTunes playOnce:NO];
+    
+    [self setDidPauseITunes:NO];
+  }
 }
 
 - (CallController *)callControllerByIdentifier:(NSString *)identifier
@@ -1538,7 +1589,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-  if ([[self telephone] activeCallsCount] > 0) {
+  if ([self hasActiveCallControllers]) {
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];

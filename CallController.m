@@ -62,6 +62,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 @synthesize callTimer = callTimer_;
 @synthesize callOnHold = callOnHold_;
 @synthesize enteredDTMF = enteredDTMF_;
+@synthesize callActive = callActive_;
 
 @synthesize incomingCallView = incomingCallView_;
 @synthesize activeCallView = activeCallView_;
@@ -131,6 +132,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   [self setAccountController:anAccountController];
   [self setCallOnHold:NO];
   enteredDTMF_ = [[NSMutableString alloc] init];
+  [self setCallActive:NO];
   
   return self;
 }
@@ -208,12 +210,29 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 
 - (IBAction)hangUpCall:(id)sender
 {
+  [self setCallActive:NO];
+  [self stopCallTimer];
+  
   if ([[self call] isIncoming])
     [[NSApp delegate] stopRingtoneTimer];
   
+  // If remote party hasn't sent back any replies, call hang-up will not happen
+  // immediately. Unsubscribe from any notifications about the call state and
+  // set disconnected look to the call window.
+  
+  if ([[[self call] delegate] isEqual:self])
+    [[self call] setDelegate:nil];
+  
   [[self call] hangUp];
-  [[self hangUpButton] setEnabled:NO];
+  
+  [self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
+  [[self window] ak_resizeAndSwapToContentView:[self endedCallView] animate:YES];
   [[self callProgressIndicator] stopAnimation:self];
+  [[self hangUpButton] setEnabled:NO];
+  [[self acceptCallButton] setEnabled:NO];
+  [[self declineCallButton] setEnabled:NO];
+  
+  [[NSApp delegate] resumeITunesIfNeeded];
 }
 
 - (IBAction)toggleCallHold:(id)sender
@@ -232,17 +251,6 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
     [self setIntermediateStatus:
      NSLocalizedString(@"mic unmuted", @"Microphone unmuted status text.")];
   }
-}
-
-- (void)forceEndedCallState
-{
-  [[self call] setDelegate:nil];
-  [[self call] setState:kAKTelephoneCallDisconnectedState];
-  [self stopCallTimer];
-  if ([[self call] isIncoming])
-    [[NSApp delegate] stopRingtoneTimer];
-  [self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
-  [[self window] ak_resizeAndSwapToContentView:[self endedCallView] animate:YES];
 }
 
 - (void)startCallTimer
@@ -319,14 +327,24 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 // If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification
 {
-  // Make sure the timer is stopped even if the call hasn't received disconnect.
-  [self stopCallTimer];
+  if ([self callActive]) {
+    [self setCallActive:NO];
+    [self stopCallTimer];
+    
+    if ([[self call] isIncoming])
+      [[NSApp delegate] stopRingtoneTimer];
+    
+    if ([[[self call] delegate] isEqual:self])
+      [[self call] setDelegate:nil];
+    
+    [[self call] hangUp];
+    
+    [[NSApp delegate] resumeITunesIfNeeded];
+  }
   
   [[NSNotificationCenter defaultCenter]
    postNotificationName:AKTelephoneCallWindowWillCloseNotification
                  object:self];
-  
-  [self hangUpCall:nil];
 }
 
 
@@ -352,6 +370,8 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 
 - (void)telephoneCallEarly:(NSNotification *)notification
 {
+  [[NSApp delegate] pauseITunes];
+  
   NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
   
   if (![[self call] isIncoming]) {
@@ -367,6 +387,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 - (void)telephoneCallDidConfirm:(NSNotification *)notification
 {
   [self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
+  [[NSApp delegate] pauseITunes];
   
   if ([[notification object] isIncoming])
     [[NSApp delegate] stopRingtoneTimer];
@@ -383,6 +404,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 
 - (void)telephoneCallDidDisconnect:(NSNotification *)notification
 {
+  [self setCallActive:NO];
   [self stopCallTimer];
   
   if ([[notification object] isIncoming]) {
@@ -441,6 +463,8 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   [[self hangUpButton] setEnabled:NO];
   [[self acceptCallButton] setEnabled:NO];
   [[self declineCallButton] setEnabled:NO];
+  
+  [[NSApp delegate] resumeITunesIfNeeded];
   
   // Show Growl notification.
   
@@ -593,11 +617,10 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
     return NO;
     
   } else if ([menuItem action] == @selector(hangUpCall:)) {
-    if ([[self call] state] == kAKTelephoneCallNullState ||
-        [[self call] state] == kAKTelephoneCallDisconnectedState)
-      return NO;
+    if ([self callActive])
+      return YES;
     
-    return YES;
+    return NO;
   }
   
   return YES;

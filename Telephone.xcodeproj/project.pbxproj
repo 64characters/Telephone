@@ -18,6 +18,7 @@
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
 		AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */; };
+		AA19172A0F8EAF87002BA093 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1917290F8EAF87002BA093 /* ScriptingBridge.framework */; };
 		AA2404970EE7F77D00E66882 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AA2CCC840E2E4EEB00871057 /* AKTelephoneCall.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */; };
 		AA2D599D0EF924F800F65074 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = AA2D599C0EF924F800F65074 /* dsa_pub.pem */; };
@@ -136,6 +137,8 @@
 		AA16CC9C0F857009000CAFD1 /* AKNSString+Escaping.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Escaping.h"; sourceTree = "<group>"; tabWidth = 2; };
 		AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Escaping.m"; sourceTree = "<group>"; tabWidth = 2; };
 		AA1732170EAF8C14009023F2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AuthFailed.xib; sourceTree = "<group>"; };
+		AA19171B0F8EA627002BA093 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
+		AA1917290F8EAF87002BA093 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		AA2404960EE7F77D00E66882 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		AA2CCC820E2E4EEB00871057 /* AKTelephoneCall.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKTelephoneCall.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA2CCC830E2E4EEB00871057 /* AKTelephoneCall.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneCall.m; sourceTree = "<group>"; tabWidth = 2; };
@@ -230,6 +233,7 @@
 				AAF51C480EF6CF100098A372 /* Sparkle.framework in Frameworks */,
 				AA51FAC90F1D5673003CE94C /* Growl.framework in Frameworks */,
 				AA0F7B720F38FCDF0071C3CA /* SystemConfiguration.framework in Frameworks */,
+				AA19172A0F8EAF87002BA093 /* ScriptingBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +277,7 @@
 				AA2404960EE7F77D00E66882 /* AddressBook.framework */,
 				AAF51C470EF6CF100098A372 /* Sparkle.framework */,
 				AA51FAC80F1D5673003CE94C /* Growl.framework */,
+				AA1917290F8EAF87002BA093 /* ScriptingBridge.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* Telephone_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				AA19171B0F8EA627002BA093 /* iTunes.h */,
 				AA0910CB0EC21F44004912A5 /* COPYRIGHT */,
 			);
 			name = "Other Sources";

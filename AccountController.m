@@ -411,6 +411,7 @@ NSString * const kEmailSIPLabel = @"sip";
   AKTelephoneCall *aCall = [[self account] makeCallTo:cleanURI];
   if (aCall != nil) {
     [aCallController setCall:aCall];
+    [aCallController setCallActive:YES];
   } else {
     [[aCallController window] setContentView:[aCallController endedCallView]];
     [aCallController setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
@@ -866,9 +867,12 @@ NSString * const kEmailSIPLabel = @"sip";
 // When the call is received, create call controller, add to array, show call window
 - (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall
 {
+  [[NSApp delegate] pauseITunes];
+  
   CallController *aCallController
     = [[[CallController alloc] initWithAccountController:self] autorelease];
   [aCallController setCall:aCall];
+  [aCallController setCallActive:YES];
   [[self callControllers] addObject:aCallController];
   
   AKSIPURIFormatter *SIPURIFormatter
