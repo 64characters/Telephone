@@ -1362,6 +1362,10 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     AccountController *theAccountController
       = [[self accountControllers] objectAtIndex:index];
     
+    // Close all call windows hanging up all calls.
+    [[theAccountController callControllers]
+     makeObjectsPerformSelector:@selector(close)];
+    
     // Remove account from Telephone.
     [theAccountController removeAccountFromTelephone];
     [theAccountController setEnabled:NO];
@@ -1397,24 +1401,6 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
-  if (![[self telephone] userAgentStarted]) {
-    [[self telephone] setTransportPort:
-     [[defaults objectForKey:kTransportPort] integerValue]];
-    [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
-    [[self telephone] setSTUNServerPort:
-     [[defaults objectForKey:kSTUNServerPort] integerValue]];
-    [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
-    [[self telephone] setOutboundProxyHost:
-     [defaults stringForKey:kOutboundProxyHost]];
-    [[self telephone] setOutboundProxyPort:
-     [[defaults objectForKey:kOutboundProxyPort] integerValue]];
-    
-    return;
-  }
-  
-  for (AccountController *anAccountController in [self enabledAccountControllers])
-    [anAccountController removeAccountFromTelephone];
-
   [[self telephone] setTransportPort:
    [[defaults objectForKey:kTransportPort] integerValue]];
   [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
@@ -1426,9 +1412,11 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [[self telephone] setOutboundProxyPort:
    [[defaults objectForKey:kOutboundProxyPort] integerValue]];
     
-  [self setShouldRegisterAllAccounts:YES];
   
-  [[self telephone] stopUserAgent];
+  if ([[self telephone] userAgentStarted]) {
+    [self setShouldRegisterAllAccounts:YES];
+    [self stopTelephone];
+  }
 }
 
 
@@ -1488,12 +1476,15 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 - (void)telephoneUserAgentDidFinishStopping:(NSNotification *)notification
 {
-  if ([self isTerminating])
+  if ([self isTerminating]) {
     [NSApp replyToApplicationShouldTerminate:YES];
   
-  else if ([self shouldRegisterAllAccounts] &&
-           [[self enabledAccountControllers] count] > 0)
-    [[self telephone] startUserAgent];
+  } else if ([self shouldRegisterAllAccounts]) {
+    if ([[self enabledAccountControllers] count] > 0)
+      [[self telephone] startUserAgent];
+    else
+      [self setShouldRegisterAllAccounts:NO];
+  }
 }
 
 - (void)telephoneDidDetectNAT:(NSNotification *)notification
