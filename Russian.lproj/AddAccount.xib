@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -44,7 +45,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="515214309">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -109,6 +110,7 @@
 													<double key="NSSize">1.300000e+01</double>
 													<int key="NSfFlags">1044</int>
 												</object>
+												<string key="NSPlaceholderString">Pavel Smirnov</string>
 												<reference key="NSControlView" ref="762787743"/>
 												<bool key="NSDrawsBackground">YES</bool>
 												<object class="NSColor" key="NSBackgroundColor" id="541675152">
@@ -403,6 +405,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{603, 463}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -916,7 +919,7 @@
 					<string key="className">NSWindow</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">NSWindowAdditions.h</string>
+						<string key="minorKey">AKNSWindow+Resizing.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -930,6 +933,8 @@
 							<string>changeAccountEnabled:</string>
 							<string>changeRingtone:</string>
 							<string>changeSoundIO:</string>
+							<string>changeSubstitutePlusCharacter:</string>
+							<string>changeUseProxy:</string>
 							<string>changeView:</string>
 							<string>closeSheet:</string>
 							<string>showAddAccountSheet:</string>
@@ -937,6 +942,8 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -961,14 +968,22 @@
 							<string>addAccountWindow</string>
 							<string>addAccountWindowDefaultButton</string>
 							<string>addAccountWindowOtherButton</string>
-							<string>delegate</string>
+							<string>delegate_</string>
 							<string>fullNameField</string>
 							<string>generalToolbarItem</string>
 							<string>generalView</string>
 							<string>networkToolbarItem</string>
 							<string>networkView</string>
+							<string>outboundProxyHostField</string>
+							<string>outboundProxyPortField</string>
 							<string>passwordField</string>
+							<string>plusCharacterSubstitutionField</string>
+							<string>proxyHostField</string>
+							<string>proxyPortField</string>
 							<string>registrarField</string>
+							<string>reregistrationTimeField</string>
+							<string>ringtoneOutputPopUp</string>
+							<string>ringtonePopUp</string>
 							<string>setupFullNameField</string>
 							<string>setupPasswordField</string>
 							<string>setupRegistrarField</string>
@@ -978,7 +993,12 @@
 							<string>soundOutputPopUp</string>
 							<string>soundToolbarItem</string>
 							<string>soundView</string>
+							<string>substitutePlusCharacterCheckBox</string>
 							<string>toolbar</string>
+							<string>transportPortCell</string>
+							<string>transportPortField</string>
+							<string>useICECheckBox</string>
+							<string>useProxyCheckBox</string>
 							<string>usernameField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1006,13 +1026,38 @@
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSPopUpButton</string>
+							<string>NSPopUpButton</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
 							<string>NSPopUpButton</string>
 							<string>NSPopUpButton</string>
 							<string>NSToolbarItem</string>
 							<string>NSView</string>
+							<string>NSButton</string>
 							<string>NSToolbar</string>
+							<string>NSTextFieldCell</string>
+							<string>NSTextField</string>
+							<string>NSButton</string>
+							<string>NSButton</string>
 							<string>NSTextField</string>
 						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">PreferenceController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PreferenceController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">delegate</string>
+						<string key="NS.object.0">id</string>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
