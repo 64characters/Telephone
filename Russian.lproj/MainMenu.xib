@@ -78,7 +78,7 @@
 								</object>
 								<object class="NSMenuItem" id="609285721">
 									<reference key="NSMenu" ref="110575045"/>
-									<string type="base64-UTF8" key="NSTitle">0J3QsNGB0YLRgNC+0LnQutC44oCmA</string>
+									<string type="base64-UTF8" key="NSTitle">0J3QsNGB0YLRgNC+0LnQutCw4oCmA</string>
 									<string key="NSKeyEquiv">,</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -1428,8 +1428,11 @@
 							<string>callProgressIndicator</string>
 							<string>declineCallButton</string>
 							<string>endedCallDisplayedNameField</string>
+							<string>endedCallStatusField</string>
 							<string>endedCallView</string>
 							<string>hangUpButton</string>
+							<string>incomingCallDisplayedNameField</string>
+							<string>incomingCallStatusField</string>
 							<string>incomingCallView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1441,11 +1444,22 @@
 							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
+							<string>NSTextField</string>
 							<string>NSView</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
 							<string>NSView</string>
 						</object>
 					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">CallController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">CallController</string>
+					<string key="superclassName">NSWindowController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -1455,7 +1469,7 @@
 					<string key="className">NSWindow</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">NSWindowAdditions.h</string>
+						<string key="minorKey">AKNSWindow+Resizing.h</string>
 					</object>
 				</object>
 			</object>
