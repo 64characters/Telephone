@@ -706,10 +706,23 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     [accountDict setObject:[[self usernameField] stringValue]
                     forKey:kUsername];
     
-    [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                        [[self registrarField] stringValue]]
-                           accountName:[[self usernameField] stringValue]
-                              password:[[self passwordField] stringValue]];
+    NSString *keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
+                                     [[self registrarField] stringValue]];
+    
+    NSString *keychainAccountName = [[self usernameField] stringValue];
+    
+    NSString *keychainPassword
+      = [AKKeychain passwordForServiceName:keychainServiceName
+                               accountName:keychainAccountName];
+    
+    NSString *currentPassword = [[self passwordField] stringValue];
+    
+    // Save password only if it's been changed.
+    if (![keychainPassword isEqualToString:currentPassword]) {
+      [AKKeychain addItemWithServiceName:keychainServiceName
+                             accountName:keychainAccountName
+                                password:currentPassword];
+    }
     
     [accountDict setObject:[NSNumber numberWithInteger:
                             [[self reregistrationTimeField] integerValue]]
