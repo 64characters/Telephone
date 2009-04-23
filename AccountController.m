@@ -824,13 +824,17 @@ NSString * const kEmailSIPLabel = @"sip";
           
         } else {
           // Schedule account automatic re-registration timer.
-          if ([self reRegistrationTimer] == nil)
+          if ([self reRegistrationTimer] == nil) {
+            NSTimeInterval reregistrationTimeInterval
+              = (NSTimeInterval)[[self account] reregistrationTime];
+            
             [self setReRegistrationTimer:
-             [NSTimer scheduledTimerWithTimeInterval:300.0
+             [NSTimer scheduledTimerWithTimeInterval:reregistrationTimeInterval
                                               target:self
                                             selector:@selector(reRegistrationTimerTick:)
                                             userInfo:nil
                                              repeats:YES]];
+          }
         }
       }
     }
