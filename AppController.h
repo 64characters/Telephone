@@ -43,6 +43,7 @@
   NSInteger soundInputDeviceIndex_;
   NSInteger soundOutputDeviceIndex_;
   NSInteger ringtoneOutputDeviceIndex_;
+  BOOL shouldSetTelephoneSoundIO_;
   NSSound *ringtone_;
   NSTimer *ringtoneTimer_;
   BOOL shouldRegisterAllAccounts_;
@@ -61,6 +62,7 @@
 @property(nonatomic, assign) NSInteger soundInputDeviceIndex;
 @property(nonatomic, assign) NSInteger soundOutputDeviceIndex;
 @property(nonatomic, assign) NSInteger ringtoneOutputDeviceIndex;
+@property(nonatomic, assign) BOOL shouldSetTelephoneSoundIO;
 @property(nonatomic, retain) NSSound *ringtone;
 @property(nonatomic, retain) NSTimer *ringtoneTimer;
 @property(nonatomic, assign) BOOL shouldRegisterAllAccounts;

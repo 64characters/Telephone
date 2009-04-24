@@ -78,7 +78,6 @@ typedef enum _AKTelephoneUserAgentState {
   
   NSMutableArray *accounts_;
   AKTelephoneUserAgentState userAgentState_;
-  BOOL soundStopped_;
   AKNATType detectedNATType_;
   NSLock *pjsuaLock_;
   
@@ -107,7 +106,6 @@ typedef enum _AKTelephoneUserAgentState {
 @property(readonly, retain) NSMutableArray *accounts;
 @property(nonatomic, readonly, assign) BOOL userAgentStarted;
 @property(readonly, assign) AKTelephoneUserAgentState userAgentState;
-@property(nonatomic, readonly, assign) BOOL soundStopped;
 @property(assign) AKNATType detectedNATType;
 @property(retain) NSLock *pjsuaLock;
 @property(nonatomic, readonly, assign) NSUInteger activeCallsCount;

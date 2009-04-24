@@ -74,7 +74,6 @@ enum {
 @interface AKTelephone ()
 
 @property(assign) AKTelephoneUserAgentState userAgentState;
-@property(nonatomic, assign) BOOL soundStopped;
 
 @property(assign) pj_pool_t *pjPool;
 @property(assign) NSInteger ringbackSlot;
@@ -95,7 +94,6 @@ enum {
 @synthesize accounts = accounts_;
 @dynamic userAgentStarted;
 @synthesize userAgentState = userAgentState_;
-@synthesize soundStopped = soundStopped_;
 @synthesize detectedNATType = detectedNATType_;
 @synthesize pjsuaLock = pjsuaLock_;
 @dynamic activeCallsCount;
@@ -285,7 +283,6 @@ enum {
   
   [self setDelegate:aDelegate];
   accounts_ = [[NSMutableArray alloc] init];
-  [self setSoundStopped:YES];
   [self setDetectedNATType:kAKNATTypeUnknown];
   pjsuaLock_ = [[NSLock alloc] init];
   
@@ -726,8 +723,6 @@ enum {
   
   pj_status_t status = pjsua_set_snd_dev(input, output);
   
-  [self setSoundStopped:NO];
-  
   return (status == PJ_SUCCESS) ? YES : NO;
 }
 
@@ -736,8 +731,6 @@ enum {
     return NO;
   
   pj_status_t status = pjsua_set_null_snd_dev();
-  
-  [self setSoundStopped:YES];
   
   return (status == PJ_SUCCESS) ? YES : NO;
 }

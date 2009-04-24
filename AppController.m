@@ -74,6 +74,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 @synthesize soundInputDeviceIndex = soundInputDeviceIndex_;
 @synthesize soundOutputDeviceIndex = soundOutputDeviceIndex_;
 @synthesize ringtoneOutputDeviceIndex = ringtoneOutputDeviceIndex_;
+@synthesize shouldSetTelephoneSoundIO = shouldSetTelephoneSoundIO_;
 @dynamic ringtone;
 @synthesize ringtoneTimer = ringtoneTimer_;
 @synthesize shouldRegisterAllAccounts = shouldRegisterAllAccounts_;
@@ -227,6 +228,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   accountControllers_ = [[NSMutableArray alloc] init];
   [self setSoundInputDeviceIndex:kAKTelephoneInvalidIdentifier];
   [self setSoundOutputDeviceIndex:kAKTelephoneInvalidIdentifier];
+  [self setShouldSetTelephoneSoundIO:NO];
   [self setShouldRegisterAllAccounts:NO];
   [self setTerminating:NO];
   [self setDidPauseITunes:NO];
@@ -707,9 +709,12 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [self setRingtoneOutputDeviceIndex:newRingtoneOutput];
   
   // Set selected sound IO to Telephone if there are active calls.
-  if ([[self telephone] activeCallsCount] > 0)
+  if ([[self telephone] activeCallsCount] > 0) {
     [[self telephone] setSoundInputDevice:newSoundInput
                         soundOutputDevice:newSoundOutput];
+  } else {
+    [self setShouldSetTelephoneSoundIO:YES];
+  }
   
   // Set selected ringtone output.
   [[self ringtone] setPlaybackDeviceIdentifier:
@@ -1602,13 +1607,19 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 #pragma mark AKTelephoneCall notifications
 
 - (void)telephoneCallCalling:(NSNotification *)notification {
-  if ([[self telephone] activeCallsCount] > 0 && [[self telephone] soundStopped])
+  if ([self shouldSetTelephoneSoundIO] &&
+      [[self telephone] activeCallsCount] > 0) {
     [self setSelectedSoundIOToTelephone];
+    [self setShouldSetTelephoneSoundIO:NO];
+  }
 }
 
 - (void)telephoneCallIncoming:(NSNotification *)notification {
-  if ([[self telephone] activeCallsCount] > 0 && [[self telephone] soundStopped])
+  if ([self shouldSetTelephoneSoundIO] &&
+      [[self telephone] activeCallsCount] > 0) {
     [self setSelectedSoundIOToTelephone];
+    [self setShouldSetTelephoneSoundIO:NO];
+  }
 }
 
 
