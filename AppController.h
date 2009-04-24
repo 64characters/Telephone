@@ -98,8 +98,6 @@
 // with the given identifier (uuid).
 - (CallController *)callControllerByIdentifier:(NSString *)identifier;
 
-- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
-
 - (IBAction)openFAQURL:(id)sender;
 
 // Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|.

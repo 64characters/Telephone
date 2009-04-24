@@ -62,6 +62,8 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 - (void)setSelectedSoundIOToTelephone;
 
+- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
+
 @end
 
 @implementation AppController
