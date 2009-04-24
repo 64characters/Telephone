@@ -82,6 +82,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 @dynamic hasActiveCallControllers;
 @dynamic currentNameservers;
 @synthesize didPauseITunes = didPauseITunes_;
+@synthesize didWakeFromSleep = didWakeFromSleep_;
 
 @synthesize preferencesMenuItem = preferencesMenuItem_;
 
@@ -237,6 +238,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [self setShouldRegisterAllAccounts:NO];
   [self setTerminating:NO];
   [self setDidPauseITunes:NO];
+  [self setDidWakeFromSleep:NO];
   
   // Subscribe to Early and Confirmed call states to set sound IO to Telephone.
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -838,9 +840,14 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return nil;
 }
 
-- (void)startUserAgentTick:(NSTimer *)theTimer
+- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer
 {
   if (![[self telephone] userAgentStarted]) {
+    // Set |didWakeFromSleep| here because the user can manually initiate user
+    // agent start-up by setting an account's status to Online. And that can
+    // happen before we get here.
+    [self setDidWakeFromSleep:YES];
+    
     [self setShouldRegisterAllAccounts:YES];
     [[self telephone] startUserAgent];
   }
@@ -1470,15 +1477,20 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     
     [self setShouldRegisterAllAccounts:NO];
     
-    // Display application modal alert.
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:NSLocalizedString(@"Could not start SIP user agent.",
-                                            @"SIP user agent start error.")];
-    [alert setInformativeText:
-     NSLocalizedString(@"Please check your network connection and STUN server settings.",
-                       @"SIP user agent start error informative text.")];
-    [alert runModal];
+    if (![self didWakeFromSleep]) {
+      // Display application modal alert.
+      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+      [alert addButtonWithTitle:@"OK"];
+      [alert setMessageText:NSLocalizedString(@"Could not start SIP user agent.",
+                                              @"SIP user agent start error.")];
+      [alert setInformativeText:
+       NSLocalizedString(@"Please check your network connection and STUN server settings.",
+                         @"SIP user agent start error informative text.")];
+      [alert runModal];
+      
+    } else {
+      [self setDidWakeFromSleep:NO];
+    }
   }
 }
 
@@ -1673,7 +1685,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 {
   [NSTimer scheduledTimerWithTimeInterval:3.0
                                    target:self
-                                 selector:@selector(startUserAgentTick:)
+                                 selector:@selector(startUserAgentAfterDidWakeTick:)
                                  userInfo:nil
                                   repeats:NO];
 }

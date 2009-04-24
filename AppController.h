@@ -48,6 +48,7 @@
   BOOL shouldRegisterAllAccounts_;
   BOOL terminating_;
   BOOL didPauseITunes_;
+  BOOL didWakeFromSleep_;
   
   NSMenuItem *preferencesMenuItem_;
 }
@@ -68,6 +69,7 @@
 @property(nonatomic, readonly, assign) BOOL hasActiveCallControllers;
 @property(nonatomic, readonly, retain) NSArray *currentNameservers;
 @property(nonatomic, assign) BOOL didPauseITunes;
+@property(nonatomic, assign) BOOL didWakeFromSleep;
 
 @property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
@@ -94,7 +96,7 @@
 // with the given identifier (uuid).
 - (CallController *)callControllerByIdentifier:(NSString *)identifier;
 
-- (void)startUserAgentTick:(NSTimer *)theTimer;
+- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
 
 - (IBAction)openFAQURL:(id)sender;
 
