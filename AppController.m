@@ -838,6 +838,14 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return nil;
 }
 
+- (void)startUserAgentTick:(NSTimer *)theTimer
+{
+  if (![[self telephone] userAgentStarted]) {
+    [self setShouldRegisterAllAccounts:YES];
+    [[self telephone] startUserAgent];
+  }
+}
+
 - (IBAction)openFAQURL:(id)sender
 {
   if ([[[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0]
@@ -1663,12 +1671,11 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 - (void)workspaceDidWake:(NSNotification *)notification
 {
-  sleep(3);
-  
-  if (![[self telephone] userAgentStarted]) {
-    [self setShouldRegisterAllAccounts:YES];
-    [[self telephone] startUserAgent];
-  }
+  [NSTimer scheduledTimerWithTimeInterval:3.0
+                                   target:self
+                                 selector:@selector(startUserAgentTick:)
+                                 userInfo:nil
+                                  repeats:NO];
 }
 
 // Unregister all accounts when a user session is switched out.
