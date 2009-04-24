@@ -162,7 +162,7 @@
 		AA3A15480F30A4C700C45739 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
 		AA4BD4C60E07C28E005A71B2 /* AKTelephone.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKTelephone.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA4BD4C70E07C28E005A71B2 /* AKTelephone.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKTelephone.m; sourceTree = "<group>"; tabWidth = 2; };
-		AA4BD4D60E07C305005A71B2 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		AA4BD4D60E07C305005A71B2 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA4BD4D70E07C305005A71B2 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; tabWidth = 2; };
 		AA4BD4DC0E07C51E005A71B2 /* AKTelephoneAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKTelephoneAccount.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA4BD4DD0E07C51E005A71B2 /* AKTelephoneAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneAccount.m; sourceTree = "<group>"; tabWidth = 2; };
