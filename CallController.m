@@ -78,13 +78,11 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 @synthesize endedCallStatusField = endedCallStatusField_;
 @synthesize callProgressIndicator = callProgressIndicator_;
 
-- (AKTelephoneCall *)call
-{
+- (AKTelephoneCall *)call {
   return [[call_ retain] autorelease];
 }
 
-- (void)setCall:(AKTelephoneCall *)aCall
-{
+- (void)setCall:(AKTelephoneCall *)aCall {
   if (call_ != aCall) {
     if ([[call_ delegate] isEqual:self])
       [call_ setDelegate:nil];
@@ -96,13 +94,11 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   }
 }
 
-- (AccountController *)accountController
-{
+- (AccountController *)accountController {
   return accountController_;
 }
 
-- (void)setAccountController:(AccountController *)anAccountController
-{
+- (void)setAccountController:(AccountController *)anAccountController {
   if (accountController_ == anAccountController)
     return;
   
@@ -122,8 +118,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   accountController_ = anAccountController;
 }
 
-- (id)initWithAccountController:(AccountController *)anAccountController
-{
+- (id)initWithAccountController:(AccountController *)anAccountController {
   self = [super initWithWindowNibName:@"Call"];
   if (self == nil)
     return nil;
@@ -137,13 +132,11 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   return self;
 }
 
-- (id)init
-{
+- (id)init {
   return [self initWithAccountController:nil];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [identifier_ release];
   
   [self setCall:nil];
@@ -172,13 +165,11 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   [super dealloc];
 }
 
-- (NSString *)description
-{
+- (NSString *)description {
   return [[self call] description];
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   // Set raised background style for display name and status.
   
   [[[self incomingCallDisplayedNameField] cell]
@@ -200,16 +191,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
    setBackgroundStyle:NSBackgroundStyleRaised];
 }
 
-- (IBAction)acceptCall:(id)sender
-{
+- (IBAction)acceptCall:(id)sender {
   if ([[self call] isIncoming])
     [[NSApp delegate] stopRingtoneTimer];
   
   [[self call] answer];
 }
 
-- (IBAction)hangUpCall:(id)sender
-{
+- (IBAction)hangUpCall:(id)sender {
   [self setCallActive:NO];
   [self stopCallTimer];
   
@@ -235,13 +224,11 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   [[NSApp delegate] resumeITunesIfNeeded];
 }
 
-- (IBAction)toggleCallHold:(id)sender
-{
+- (IBAction)toggleCallHold:(id)sender {
   [[self call] toggleHold];
 }
 
-- (IBAction)toggleMicrophoneMute:(id)sender
-{
+- (IBAction)toggleMicrophoneMute:(id)sender {
   [[self call] toggleMicrophoneMute];
   
   if ([[self call] isMicrophoneMuted]) {
@@ -253,8 +240,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   }
 }
 
-- (void)startCallTimer
-{
+- (void)startCallTimer {
   if ([self callTimer] != nil && [[self callTimer] isValid])
     return;
   
@@ -266,16 +252,14 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
                                    repeats:YES]];
 }
 
-- (void)stopCallTimer
-{
+- (void)stopCallTimer {
   if ([self callTimer] != nil) {
     [[self callTimer] invalidate];
     [self setCallTimer:nil];
   }
 }
 
-- (void)callTimerTick:(NSTimer *)theTimer
-{
+- (void)callTimerTick:(NSTimer *)theTimer {
   NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
   NSInteger seconds = (NSInteger)(now - [self callStartTime]);
   
@@ -290,8 +274,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
                      seconds % 60]];
 }
 
-- (void)setIntermediateStatus:(NSString *)newIntermediateStatus
-{
+- (void)setIntermediateStatus:(NSString *)newIntermediateStatus {
   if ([self intermediateStatusTimer] != nil)
     [[self intermediateStatusTimer] invalidate];
   
@@ -305,8 +288,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
                                    repeats:NO]];
 }
 
-- (void)intermediateStatusTimerTick:(NSTimer *)theTimer
-{
+- (void)intermediateStatusTimerTick:(NSTimer *)theTimer {
   if ([[self call] isOnLocalHold]) {
     [self setStatus:
      NSLocalizedString(@"on hold", @"Call on local hold status text.")];
@@ -325,8 +307,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 #pragma mark NSWindow delegate methods
 
 // If call window is to be closed, hang up the call and send notification
-- (void)windowWillClose:(NSNotification *)notification
-{
+- (void)windowWillClose:(NSNotification *)notification {
   if ([self callActive]) {
     [self setCallActive:NO];
     [self stopCallTimer];
@@ -351,8 +332,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 #pragma mark -
 #pragma mark AKTelephoneCall notifications
 
-- (void)telephoneCallCalling:(NSNotification *)notification
-{
+- (void)telephoneCallCalling:(NSNotification *)notification {
   if ([[self phoneLabelFromAddressBook] length] > 0) {
     [self setStatus:
      [NSString stringWithFormat:
@@ -368,8 +348,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
-- (void)telephoneCallEarly:(NSNotification *)notification
-{
+- (void)telephoneCallEarly:(NSNotification *)notification {
   [[NSApp delegate] pauseITunes];
   
   NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
@@ -384,8 +363,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   }
 }
 
-- (void)telephoneCallDidConfirm:(NSNotification *)notification
-{
+- (void)telephoneCallDidConfirm:(NSNotification *)notification {
   [self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
   [[NSApp delegate] pauseITunes];
   
@@ -402,8 +380,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
     [[self window] makeFirstResponder:[self activeCallView]];
 }
 
-- (void)telephoneCallDidDisconnect:(NSNotification *)notification
-{
+- (void)telephoneCallDidDisconnect:(NSNotification *)notification {
   [self setCallActive:NO];
   [self stopCallTimer];
   
@@ -502,24 +479,21 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
                                clickContext:[self identifier]];
 }
 
-- (void)telephoneCallMediaDidBecomeActive:(NSNotification *)notification
-{
+- (void)telephoneCallMediaDidBecomeActive:(NSNotification *)notification {
   if ([self callOnHold]) {
     [self startCallTimer];
     [self setCallOnHold:NO];
   }
 }
 
-- (void)telephoneCallDidLocalHold:(NSNotification *)notification
-{
+- (void)telephoneCallDidLocalHold:(NSNotification *)notification {
   [self setCallOnHold:YES];
   [self stopCallTimer];
   [self setStatus:NSLocalizedString(@"on hold",
                                     @"Call on local hold status text.")];
 }
 
-- (void)telephoneCallDidRemoteHold:(NSNotification *)notification
-{
+- (void)telephoneCallDidRemoteHold:(NSNotification *)notification {
   [self setCallOnHold:YES];
   [self stopCallTimer];
   [self setStatus:NSLocalizedString(@"on remote hold",
@@ -530,8 +504,8 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 #pragma mark -
 #pragma mark AKActiveCallViewDelegate protocol
 
-- (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString
-{
+- (void)activeCallView:(AKActiveCallView *)sender
+        didReceiveText:(NSString *)aString {
   NSCharacterSet *commandsCharacterSet
     = [NSCharacterSet characterSetWithCharactersInString:@"mMhH"];
   NSCharacterSet *microphoneMuteCharacterSet
@@ -588,8 +562,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
 #pragma mark -
 #pragma mark NSMenuValidation protocol
 
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
-{
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
   if ([menuItem action] == @selector(toggleMicrophoneMute:)) {
     if ([[self call] isMicrophoneMuted])
       [menuItem setTitle:NSLocalizedString(@"Unmute",

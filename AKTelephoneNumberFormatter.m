@@ -33,8 +33,7 @@
 
 @synthesize splitsLastFourDigits = splitsLastFourDigits_;
 
-- (NSString *)stringForObjectValue:(id)anObject
-{
+- (NSString *)stringForObjectValue:(id)anObject {
   if (![anObject isKindOfClass:[NSString class]])
     return nil;
   
@@ -217,8 +216,8 @@
 
 - (BOOL)getObjectValue:(id *)anObject
              forString:(NSString *)string
-      errorDescription:(NSString **)error
-{
+      errorDescription:(NSString **)error {
+  
   BOOL returnValue = NO;
   
   NSMutableCharacterSet *phoneNumberCharacterSet
@@ -259,8 +258,7 @@
   return returnValue;
 }
 
-- (NSString *)telephoneNumberFromString:(NSString *)string
-{
+- (NSString *)telephoneNumberFromString:(NSString *)string {
   NSString *telephoneNumber, *error;
   BOOL converted = [self getObjectValue:&telephoneNumber
                               forString:string

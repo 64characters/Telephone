@@ -49,36 +49,34 @@
 @synthesize looseRoutingParameter = looseRoutingParameter_;
 @synthesize maddrParameter = maddrParameter_;
 
-- (NSString *)SIPAddress
-{
+- (NSString *)SIPAddress {
   if ([[self user] length] > 0)
     return [NSString stringWithFormat:@"%@@%@", [self user], [self host]];
   else
     return [self host];
 }
 
+
 #pragma mark -
 
 + (id)SIPURIWithUser:(NSString *)aUser
                 host:(NSString *)aHost
-         displayName:(NSString *)aDisplayName
-{
+         displayName:(NSString *)aDisplayName {
+  
   return [[[self alloc] initWithUser:aUser
                                 host:aHost
                          displayName:aDisplayName]
           autorelease];
 }
 
-+ (id)SIPURIWithString:(NSString *)SIPURIString
-{
++ (id)SIPURIWithString:(NSString *)SIPURIString {
   return [[[self alloc] initWithString:SIPURIString] autorelease];
 }
 
 // Designated initializer.
 - (id)initWithUser:(NSString *)aUser
               host:(NSString *)aHost
-       displayName:(NSString *)aDisplayName
-{
+       displayName:(NSString *)aDisplayName {
   self = [super init];
   if (self == nil)
     return nil;
@@ -90,13 +88,11 @@
   return self;
 }
 
-- (id)init
-{
+- (id)init {
   return [self initWithUser:nil host:nil displayName:nil];
 }
 
-- (id)initWithString:(NSString *)SIPURIString
-{
+- (id)initWithString:(NSString *)SIPURIString {
   [self init];
   if (self == nil)
     return nil;
@@ -176,8 +172,7 @@
   return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [displayName_ release];
   [user_ release];
   [password_ release];
@@ -190,8 +185,7 @@
   [super dealloc];
 }
 
-- (NSString *)description
-{
+- (NSString *)description {
   if ([[self displayName] length] > 0)
     return [NSString stringWithFormat:@"\"%@\" <sip:%@>",
             [self displayName], [self SIPAddress]];
@@ -203,8 +197,7 @@
 #pragma mark -
 #pragma mark NSCopying protocol
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone *)zone {
   AKSIPURI *newURI
     = [[AKSIPURI allocWithZone:zone] initWithUser:[self user]
                                              host:[self host]

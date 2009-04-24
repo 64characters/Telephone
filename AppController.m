@@ -86,19 +86,16 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 @synthesize preferencesMenuItem = preferencesMenuItem_;
 
-- (NSArray *)enabledAccountControllers
-{
+- (NSArray *)enabledAccountControllers {
   return [[self accountControllers] filteredArrayUsingPredicate:
           [NSPredicate predicateWithFormat:@"enabled == YES"]];
 }
 
-- (NSSound *)ringtone
-{
+- (NSSound *)ringtone {
   return [[ringtone_ retain] autorelease];
 }
 
-- (void)setRingtone:(NSSound *)aRingtone
-{
+- (void)setRingtone:(NSSound *)aRingtone {
   if (ringtone_ != aRingtone) {
     [ringtone_ release];
     ringtone_ = [aRingtone retain];
@@ -115,8 +112,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (BOOL)hasIncomingCallControllers
-{
+- (BOOL)hasIncomingCallControllers {
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers]) {
       if ([[aCallController call] identifier] != kAKTelephoneInvalidIdentifier &&
@@ -131,8 +127,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return NO;
 }
 
-- (BOOL)hasActiveCallControllers
-{
+- (BOOL)hasActiveCallControllers {
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers]) {
       if ([aCallController callActive])
@@ -143,8 +138,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return NO;
 }
 
-- (NSArray *)currentNameservers
-{
+- (NSArray *)currentNameservers {
   NSBundle *mainBundle = [NSBundle mainBundle];
   NSString *bundleName
     = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
@@ -168,8 +162,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return [nameservers autorelease];
 }
 
-+ (void)initialize
-{
++ (void)initialize {
   // Register defaults
   static BOOL initialized = NO;
   
@@ -224,8 +217,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (id)init
-{
+- (id)init {
   self = [super init];
   if (self == nil)
     return nil;
@@ -300,8 +292,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [telephone_ dealloc];
   [accountControllers_ release];
   
@@ -322,8 +313,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 }
 
 // Application control starts here
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSBundle *mainBundle = [NSBundle mainBundle];
   NSString *bundleName
@@ -482,9 +472,9 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
       continue;
     }
     
-    if (i == 0)
+    if (i == 0) {
       [[anAccountController window] makeKeyAndOrderFront:self];
-    else {
+    } else {
       NSWindow *previousAccountWindow
         = [[[self accountControllers] objectAtIndex:(i - 1)] window];
       [[anAccountController window] orderWindow:NSWindowBelow
@@ -501,8 +491,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (void)stopTelephone
-{
+- (void)stopTelephone {
   // Force ended state for all calls and remove accounts from Telephone.
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers])
@@ -514,8 +503,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [[self telephone] stopUserAgent];
 }
 
-- (void)updateAudioDevices
-{
+- (void)updateAudioDevices {
   OSStatus err = noErr;
   UInt32 size = 0;
   NSUInteger i = 0;
@@ -635,8 +623,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 // Select appropriate sound IO from the list of available audio devices.
 // Lookup in the defaults database for devices selected earlier. If not found,
 // use first matched. Select sound IO at Telephone if there are active calls.
-- (void)selectSoundIO
-{
+- (void)selectSoundIO {
   NSArray *devices = [self audioDevices];
   NSInteger newSoundInput, newSoundOutput, newRingtoneOutput;
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -729,14 +716,12 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
    [[devices objectAtIndex:newRingtoneOutput] objectForKey:kAudioDeviceUID]];
 }
 
-- (void)setSelectedSoundIOToTelephone
-{
+- (void)setSelectedSoundIOToTelephone {
   [[self telephone] setSoundInputDevice:[self soundInputDeviceIndex]
                       soundOutputDevice:[self soundOutputDeviceIndex]];
 }
 
-- (IBAction)showPreferencePanel:(id)sender
-{
+- (IBAction)showPreferencePanel:(id)sender {
   if (preferenceController_ == nil) {
     preferenceController_ = [[PreferenceController alloc] init];
     [[self preferenceController] setDelegate:self];
@@ -748,8 +733,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [[self preferenceController] showWindow:nil];
 }
 
-- (IBAction)addAccountOnFirstLaunch:(id)sender
-{
+- (IBAction)addAccountOnFirstLaunch:(id)sender {
   [[self preferenceController] addAccount:sender];
   
   // Re-enable Preferences.
@@ -766,8 +750,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
    setAction:@selector(closeSheet:)];
 }
 
-- (void)startRingtoneTimer
-{
+- (void)startRingtoneTimer {
   if ([self ringtoneTimer] != nil)
     [[self ringtoneTimer] invalidate];
   
@@ -779,8 +762,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
                                    repeats:YES]];
 }
 
-- (void)stopRingtoneTimer
-{
+- (void)stopRingtoneTimer {
   if (![self hasIncomingCallControllers] && [self ringtoneTimer] != nil) {
     [[self ringtone] stop];
     [[self ringtoneTimer] invalidate];
@@ -788,13 +770,11 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (void)ringtoneTimerTick:(NSTimer *)theTimer
-{
+- (void)ringtoneTimerTick:(NSTimer *)theTimer {
   [[self ringtone] play];
 }
 
-- (void)pauseITunes
-{
+- (void)pauseITunes {
   if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes])
     return;
   
@@ -810,8 +790,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (void)resumeITunesIfNeeded
-{
+- (void)resumeITunesIfNeeded {
   if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes])
     return;
   
@@ -829,8 +808,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (CallController *)callControllerByIdentifier:(NSString *)identifier
-{
+- (CallController *)callControllerByIdentifier:(NSString *)identifier {
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers])
       if ([[aCallController identifier] isEqualToString:identifier])
@@ -840,8 +818,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return nil;
 }
 
-- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer
-{
+- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer {
   if (![[self telephone] userAgentStarted]) {
     // Set |didWakeFromSleep| here because the user can manually initiate user
     // agent start-up by setting an account's status to Online. And that can
@@ -853,8 +830,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (IBAction)openFAQURL:(id)sender
-{
+- (IBAction)openFAQURL:(id)sender {
   if ([[[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0]
        isEqualToString:@"Russian"]) {
     [[NSWorkspace sharedWorkspace] openURL:
@@ -865,8 +841,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error
-{
+- (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
   NSBundle *mainBundle = [NSBundle mainBundle];
   NSString *plugInsPath = [mainBundle builtInPlugInsPath];
   
@@ -988,8 +963,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return YES;
 }
 
-- (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode
-{
+- (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode {
   NSString *localizedString = nil;
   
   switch (responseCode) {
@@ -1293,8 +1267,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark PreferenceController delegate
 
-- (void)preferenceControllerDidAddAccount:(NSNotification *)notification
-{
+- (void)preferenceControllerDidAddAccount:(NSNotification *)notification {
   NSDictionary *accountDict = [notification userInfo];
   AccountController *theAccountController
     = [[[AccountController alloc]
@@ -1315,8 +1288,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [theAccountController setAccountRegistered:YES];
 }
 
-- (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification
-{
+- (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification {
   NSInteger index
     = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
   AccountController *anAccountController
@@ -1328,8 +1300,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [[self accountControllers] removeObjectAtIndex:index];
 }
 
-- (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification
-{
+- (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification {
   NSUInteger index
     = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
   
@@ -1393,8 +1364,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (void)preferenceControllerDidSwapAccounts:(NSNotification *)notification
-{
+- (void)preferenceControllerDidSwapAccounts:(NSNotification *)notification {
   NSDictionary *userInfo = [notification userInfo];
   NSInteger sourceIndex = [[userInfo objectForKey:kSourceIndex] integerValue];
   NSInteger destinationIndex = [[userInfo objectForKey:kDestinationIndex]
@@ -1412,8 +1382,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [[self accountControllers] removeObjectAtIndex:(sourceIndex + 1)];
 }
 
-- (void)preferenceControllerDidChangeNetworkSettings:(NSNotification *)notification
-{
+- (void)preferenceControllerDidChangeNetworkSettings:(NSNotification *)notification {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   [[self telephone] setTransportPort:
@@ -1440,8 +1409,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 // This method decides whether Telephone should add an account.
 // Telephone is started in this method if needed.
-- (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount
-{
+- (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount {
   if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
     [[self telephone] startUserAgent];
     
@@ -1462,8 +1430,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark AKTelephone notifications
 
-- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification
-{
+- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification {
   if ([[self telephone] userAgentStarted]) {
     if ([self shouldRegisterAllAccounts])
       for (AccountController *anAccountController in [self enabledAccountControllers])
@@ -1494,8 +1461,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (void)telephoneUserAgentDidFinishStopping:(NSNotification *)notification
-{
+- (void)telephoneUserAgentDidFinishStopping:(NSNotification *)notification {
   if ([self isTerminating]) {
     [NSApp replyToApplicationShouldTerminate:YES];
   
@@ -1507,8 +1473,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   }
 }
 
-- (void)telephoneDidDetectNAT:(NSNotification *)notification
-{
+- (void)telephoneDidDetectNAT:(NSNotification *)notification {
   NSAlert *alert = [[[NSAlert alloc] init] autorelease];
   [alert addButtonWithTitle:@"OK"];
   
@@ -1551,8 +1516,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark NSWindow notifications
 
-- (void)windowWillClose:(NSNotification *)notification
-{
+- (void)windowWillClose:(NSNotification *)notification {
   // User closed addAccountWindow. Terminate application.
   if ([[notification object] isEqual:[[self preferenceController] addAccountWindow]]) {
     [[NSNotificationCenter defaultCenter]
@@ -1570,8 +1534,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 // Reopen all account windows when the user clicks the dock icon.
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication
-                    hasVisibleWindows:(BOOL)flag
-{
+                    hasVisibleWindows:(BOOL)flag {
   // Show incoming call window, if any.
   if ([self hasIncomingCallControllers]) {
     for (AccountController *anAccountController in [self enabledAccountControllers]) {
@@ -1598,8 +1561,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return YES;
 }
 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
-{
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
   if ([self hasActiveCallControllers]) {
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
@@ -1631,8 +1593,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return NSTerminateNow;
 }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification
-{
+- (void)applicationWillTerminate:(NSNotification *)aNotification {
   // TODO(eofster): we should save preferences on quit.
 }
 
@@ -1640,14 +1601,12 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark AKTelephoneCall notifications
 
-- (void)telephoneCallCalling:(NSNotification *)notification
-{
+- (void)telephoneCallCalling:(NSNotification *)notification {
   if ([[self telephone] activeCallsCount] > 0 && [[self telephone] soundStopped])
     [self setSelectedSoundIOToTelephone];
 }
 
-- (void)telephoneCallIncoming:(NSNotification *)notification
-{
+- (void)telephoneCallIncoming:(NSNotification *)notification {
   if ([[self telephone] activeCallsCount] > 0 && [[self telephone] soundStopped])
     [self setSelectedSoundIOToTelephone];
 }
@@ -1656,8 +1615,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 #pragma mark -
 #pragma mark GrowlApplicationBridgeDelegate protocol
 
-- (void)growlNotificationWasClicked:(id)clickContext
-{
+- (void)growlNotificationWasClicked:(id)clickContext {
   NSString *identifier = (NSString *)clickContext;
   CallController *aCallController = [self callControllerByIdentifier:identifier];
   
@@ -1675,14 +1633,12 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 // End all calls, remove all accounts from Telephone and destroy SIP user agent
 // before computer goes to sleep.
-- (void)workspaceWillSleep:(NSNotification *)notification
-{
+- (void)workspaceWillSleep:(NSNotification *)notification {
   if ([[self telephone] userAgentStarted])
     [self stopTelephone];
 }
 
-- (void)workspaceDidWake:(NSNotification *)notification
-{
+- (void)workspaceDidWake:(NSNotification *)notification {
   [NSTimer scheduledTimerWithTimeInterval:3.0
                                    target:self
                                  selector:@selector(startUserAgentAfterDidWakeTick:)
@@ -1691,15 +1647,13 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 }
 
 // Unregister all accounts when a user session is switched out.
-- (void)workspaceSessionDidResignActive:(NSNotification *)notification
-{
+- (void)workspaceSessionDidResignActive:(NSNotification *)notification {
   for (AccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController setAccountRegistered:NO];
 }
 
 // Re-register all accounts when a user session in switched in.
-- (void)workspaceSessionDidBecomeActive:(NSNotification *)notification
-{
+- (void)workspaceSessionDidBecomeActive:(NSNotification *)notification {
   for (AccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController setAccountRegistered:YES];
 }
@@ -1716,8 +1670,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 // get another destinations here (no new AB search).
 // If we change it to work with identifiers, we'll probably want to somehow
 // change AccountController's tokenField:representedObjectForEditingString:.
-- (void)addressBookDidDialCallDestination:(NSNotification *)notification
-{
+- (void)addressBookDidDialCallDestination:(NSNotification *)notification {
   // Do nothing if there is a modal window.
   if ([NSApp modalWindow] != nil)
     return;
@@ -1765,8 +1718,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 #pragma mark Apple event handler for URLs support
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event
-           withReplyEvent:(NSAppleEventDescriptor *)replyEvent
-{
+           withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
   AccountController *firstAccountController
     = [[self accountControllers] objectAtIndex:0];
   
@@ -1793,8 +1745,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 // Send updateAudioDevices to AppController.
 static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
-                                      void *clientData)
-{
+                                      void *clientData) {
   AppController *appController = (AppController *)clientData;
   
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -1814,8 +1765,7 @@ static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
   return noErr;
 }
 
-static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount)
-{
+static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount) {
   OSStatus err = noErr;
   UInt32 size;
   Boolean isWritable;

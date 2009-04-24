@@ -31,8 +31,8 @@
 
 @implementation NSWindow (AKWindowResizingAdditions)
 
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation
-{
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView
+                              animate:(BOOL)performAnimation {
   // Compute view size delta.
   NSSize currentSize = [[self contentView] frame].size;
   NSSize newSize = [aView frame].size;
@@ -57,8 +57,7 @@
   [self setContentView:aView];
 }
 
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView
-{
+- (void)ak_resizeAndSwapToContentView:(NSView *)aView {
   [self ak_resizeAndSwapToContentView:aView animate:NO];
 }
 

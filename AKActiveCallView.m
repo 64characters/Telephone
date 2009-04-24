@@ -33,21 +33,18 @@
 
 @synthesize delegate = delegate_;
 
-- (BOOL)acceptsFirstResponder
-{
+- (BOOL)acceptsFirstResponder {
   return YES;
 }
 
-- (void)keyDown:(NSEvent *)theEvent
-{
+- (void)keyDown:(NSEvent *)theEvent {
   if ([theEvent isARepeat])
     return;
   
   [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
 }
 
-- (void)insertText:(id)aString
-{
+- (void)insertText:(id)aString {
   if ([[self delegate] respondsToSelector:@selector(activeCallView:didReceiveText:)]) {
     [[self delegate] activeCallView:self didReceiveText:aString];
   }

@@ -115,13 +115,11 @@ NSString * const kEmailSIPLabel = @"sip";
 @synthesize mustSaveCheckBox = mustSaveCheckBox_;
 @synthesize authenticationFailureCancelButton = authenticationFailureCancelButton_;
 
-- (BOOL)isAccountRegistered
-{
+- (BOOL)isAccountRegistered {
   return [[self account] isRegistered];
 }
 
-- (void)setAccountRegistered:(BOOL)flag
-{
+- (void)setAccountRegistered:(BOOL)flag {
   // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
@@ -183,8 +181,7 @@ NSString * const kEmailSIPLabel = @"sip";
   }
 }
 
-- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
-{
+- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount {
   self = [super initWithWindowNibName:@"Account"];
   if (self == nil)
     return nil;
@@ -214,8 +211,7 @@ NSString * const kEmailSIPLabel = @"sip";
             SIPAddress:(NSString *)aSIPAddress
              registrar:(NSString *)aRegistrar
                  realm:(NSString *)aRealm
-              username:(NSString *)aUsername
-{
+              username:(NSString *)aUsername {
   AKTelephoneAccount *anAccount
     = [AKTelephoneAccount telephoneAccountWithFullName:aFullName
                                             SIPAddress:aSIPAddress
@@ -226,8 +222,7 @@ NSString * const kEmailSIPLabel = @"sip";
   return [self initWithTelephoneAccount:anAccount];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   // Close all call controllers.
   for (CallController *aCallController in [self callControllers])
     [aCallController close];
@@ -259,13 +254,11 @@ NSString * const kEmailSIPLabel = @"sip";
   [super dealloc];
 }
 
-- (NSString *)description
-{
+- (NSString *)description {
   return [NSString stringWithFormat:@"%@ controller", [self account]];
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   [self setShouldCascadeWindows:NO];
   [[self window] setFrameAutosaveName:[[self account] SIPAddress]];
   
@@ -276,8 +269,7 @@ NSString * const kEmailSIPLabel = @"sip";
   [[self callDestinationField] setCompletionDelay:0.4];
 }
 
-- (void)removeAccountFromTelephone
-{
+- (void)removeAccountFromTelephone {
   NSAssert([self isEnabled],
            @"Account conroller must be enabled to remove account from Telephone.");
   
@@ -294,8 +286,7 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 // Ask model to make call, create call controller, attach the call to the call contoller
-- (IBAction)makeCall:(id)sender
-{
+- (IBAction)makeCall:(id)sender {
   if ([[[self callDestinationField] objectValue] count] == 0)
     return;
   
@@ -418,8 +409,7 @@ NSString * const kEmailSIPLabel = @"sip";
   }
 }
 
-- (IBAction)changeAccountRegistration:(id)sender
-{
+- (IBAction)changeAccountRegistration:(id)sender {
   // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
@@ -449,8 +439,7 @@ NSString * const kEmailSIPLabel = @"sip";
 
 // Remove old account from Telephone, change username for the account, add
 // to Telephone with new password and update Keychain.
-- (IBAction)changeUsernameAndPassword:(id)sender
-{
+- (IBAction)changeUsernameAndPassword:(id)sender {
   [self closeSheet:sender];
   
   if (![[[self newUsernameField] stringValue] isEqualToString:@""]) {
@@ -505,19 +494,16 @@ NSString * const kEmailSIPLabel = @"sip";
   [[self newPasswordField] setStringValue:@""];
 }
 
-- (IBAction)closeSheet:(id)sender
-{
+- (IBAction)closeSheet:(id)sender {
   [NSApp endSheet:[sender window]];
   [[sender window] orderOut:self];
 }
 
-- (IBAction)changeCallDestinationURIIndex:(id)sender
-{
+- (IBAction)changeCallDestinationURIIndex:(id)sender {
   [self setCallDestinationURIIndex:[sender tag]];
 }
 
-- (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error
-{
+- (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error {
   NSAlert *alert = [[[NSAlert alloc] init] autorelease];
   [alert addButtonWithTitle:@"OK"];
   [alert setMessageText:[NSString stringWithFormat:
@@ -542,8 +528,7 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 
-- (void)showRegisteredMode
-{
+- (void)showRegisteredMode {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
   
   NSString *preferredLocalization
@@ -571,8 +556,7 @@ NSString * const kEmailSIPLabel = @"sip";
     [[self window] makeFirstResponder:[self callDestinationField]];
 }
 
-- (void)showUnregisteredMode
-{
+- (void)showUnregisteredMode {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
   
   NSString *preferredLocalization
@@ -600,8 +584,7 @@ NSString * const kEmailSIPLabel = @"sip";
     [[self window] makeFirstResponder:[self callDestinationField]];
 }
 
-- (void)showOfflineMode
-{
+- (void)showOfflineMode {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
   
   NSString *preferredLocalization
@@ -626,8 +609,7 @@ NSString * const kEmailSIPLabel = @"sip";
   [[self window] setContentView:[self offlineAccountView]];
 }
 
-- (void)showConnectingMode
-{
+- (void)showConnectingMode {
   NSSize buttonSize = [[self accountRegistrationPopUp] frame].size;
   
   NSString *preferredLocalization
@@ -646,13 +628,11 @@ NSString * const kEmailSIPLabel = @"sip";
                      @"Account registration Connecting... menu item.")];
 }
 
-- (void)reRegistrationTimerTick:(NSTimer *)theTimer
-{
+- (void)reRegistrationTimerTick:(NSTimer *)theTimer {
   [[self account] setRegistered:YES];
 }
 
-- (void)handleCatchedURL
-{
+- (void)handleCatchedURL {
   AKSIPURI *uri = [AKSIPURI SIPURIWithString:[self catchedURLString]];
   
   // Clear |catchedURLString|.
@@ -677,13 +657,11 @@ NSString * const kEmailSIPLabel = @"sip";
 #pragma mark -
 #pragma mark NSWindow delegate methods
 
-- (void)windowDidLoad
-{
+- (void)windowDidLoad {
   [self showOfflineMode];
 }
 
-- (BOOL)windowShouldClose:(id)sender
-{
+- (BOOL)windowShouldClose:(id)sender {
   BOOL result = YES;
   
   if (sender == [self window]) {
@@ -701,8 +679,7 @@ NSString * const kEmailSIPLabel = @"sip";
 // When account registration changes, make appropriate modifications to the UI.
 // A call can also be made from here if the user called from the Address Book
 // or from the application URL handler.
-- (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification
-{
+- (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification {
   // Account identifier can be AKTelephoneInvalidIdentifier if notification
   // on the main thread was delivered after Telephone had removed the account.
   // Don't bother in that case.
@@ -844,8 +821,7 @@ NSString * const kEmailSIPLabel = @"sip";
   [self setAttemptingToUnregisterAccount:NO];
 }
 
-- (void)telephoneAccountWillRemove:(NSNotification *)notification
-{
+- (void)telephoneAccountWillRemove:(NSNotification *)notification {
   // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
@@ -858,8 +834,7 @@ NSString * const kEmailSIPLabel = @"sip";
 #pragma mark CallController notifications
 
 // Remove call controller from array of controllers before the window is closed
-- (void)telephoneCallWindowWillClose:(NSNotification *)notification
-{
+- (void)telephoneCallWindowWillClose:(NSNotification *)notification {
   CallController *aCallController = [notification object];
   [[self callControllers] removeObject:aCallController];
 }
@@ -869,8 +844,7 @@ NSString * const kEmailSIPLabel = @"sip";
 #pragma mark AKTelephoneAccountDelegate protocol
 
 // When the call is received, create call controller, add to array, show call window
-- (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall
-{
+- (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall {
   [[NSApp delegate] pauseITunes];
   
   CallController *aCallController
@@ -1124,8 +1098,7 @@ NSString * const kEmailSIPLabel = @"sip";
 #pragma mark -
 #pragma mark AKTelephone notifications
 
-- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification
-{
+- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification {
   if (![[notification object] userAgentStarted]) {
     [self showOfflineMode];
     
@@ -1152,8 +1125,8 @@ NSString * const kEmailSIPLabel = @"sip";
 - (NSArray *)tokenField:(NSTokenField *)tokenField
 completionsForSubstring:(NSString *)substring
            indexOfToken:(NSInteger)tokenIndex
-    indexOfSelectedItem:(NSInteger *)selectedIndex
-{
+    indexOfSelectedItem:(NSInteger *)selectedIndex {
+  
   ABAddressBook *AB = [ABAddressBook sharedAddressBook];
   NSMutableArray *searchElements = [NSMutableArray array];
   NSArray *substringComponents = [substring componentsSeparatedByString:@" "];
@@ -1539,8 +1512,8 @@ completionsForSubstring:(NSString *)substring
 // If there is no @ sign, the input is treated as a user part of the URI
 // and host part will be nil.
 - (id)tokenField:(NSTokenField *)tokenField
-representedObjectForEditingString:(NSString *)editingString
-{
+representedObjectForEditingString:(NSString *)editingString {
+  
   AKSIPURIFormatter *SIPURIFormatter
     = [[[AKSIPURIFormatter alloc] init] autorelease];
   AKSIPURI *theURI = [SIPURIFormatter SIPURIFromString:editingString];
@@ -1829,8 +1802,8 @@ representedObjectForEditingString:(NSString *)editingString
 }
 
 - (NSString *)tokenField:(NSTokenField *)tokenField
-displayStringForRepresentedObject:(id)representedObject
-{
+displayStringForRepresentedObject:(id)representedObject {
+  
   if (![representedObject isKindOfClass:[NSArray class]])
     return nil;
   
@@ -1870,8 +1843,8 @@ displayStringForRepresentedObject:(id)representedObject
 }
 
 - (NSString *)tokenField:(NSTokenField *)tokenField
-editingStringForRepresentedObject:(id)representedObject
-{
+editingStringForRepresentedObject:(id)representedObject {
+  
   if (![representedObject isKindOfClass:[NSArray class]])
     return nil;
   
@@ -1903,8 +1876,8 @@ editingStringForRepresentedObject:(id)representedObject
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField
-hasMenuForRepresentedObject:(id)representedObject
-{
+hasMenuForRepresentedObject:(id)representedObject {
+  
   AKSIPURI *uri
     = [[representedObject objectAtIndex:[self callDestinationURIIndex]]
        objectForKey:kURI];
@@ -1917,8 +1890,8 @@ hasMenuForRepresentedObject:(id)representedObject
 }
 
 - (NSMenu *)tokenField:(NSTokenField *)tokenField
-menuForRepresentedObject:(id)representedObject
-{
+menuForRepresentedObject:(id)representedObject {
+  
   NSMenu *tokenMenu = [[[NSMenu alloc] init] autorelease];
   
   for (NSUInteger i = 0; i < [representedObject count]; ++i) {
@@ -1961,8 +1934,7 @@ menuForRepresentedObject:(id)representedObject
 
 - (NSArray *)tokenField:(NSTokenField *)tokenField
        shouldAddObjects:(NSArray *)tokens
-                atIndex:(NSUInteger)index
-{
+                atIndex:(NSUInteger)index {
   if (index > 0)
     return nil;
   else

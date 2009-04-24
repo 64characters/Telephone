@@ -29,8 +29,7 @@
 
 @implementation NSString (AKStringCreatingAdditions)
 
-+ (NSString *)ak_uuidString
-{
++ (NSString *)ak_uuidString {
   CFUUIDRef theUUID = CFUUIDCreate(NULL);
   CFStringRef string = CFUUIDCreateString(NULL, theUUID);
   CFRelease(theUUID);

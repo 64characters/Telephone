@@ -37,8 +37,7 @@
 @synthesize lastFullName = lastFullName_;
 @synthesize shouldDial = shouldDial_;
 
-- (id)init
-{
+- (id)init {
   self = [super init];
   if (self == nil)
     return nil;
@@ -56,8 +55,7 @@
   return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [lastSIPAddress_ release];
   [lastFullName_ release];
   
@@ -65,14 +63,12 @@
 }
 
 // This plug-in handles emails.
-- (NSString *)actionProperty
-{
+- (NSString *)actionProperty {
   return kABEmailProperty;
 }
 
 - (NSString *)titleForPerson:(ABPerson *)person
-                  identifier:(NSString *)identifier
-{
+                  identifier:(NSString *)identifier {
   NSBundle *bundle
   = [NSBundle bundleWithIdentifier:@"com.tlphn.TelephoneAddressBookSIPAddressPlugIn"];
   
@@ -82,8 +78,7 @@
 }
 
 - (void)performActionForPerson:(ABPerson *)person
-                    identifier:(NSString *)identifier
-{
+                    identifier:(NSString *)identifier {
   NSArray *applications = [[NSWorkspace sharedWorkspace] launchedApplications];
   BOOL isTelephoneLaunched = NO;
   for (NSDictionary *anApplication in applications) {
@@ -120,8 +115,7 @@
 }
 
 - (BOOL)shouldEnableActionForPerson:(ABPerson *)person
-                         identifier:(NSString *)identifier
-{
+                         identifier:(NSString *)identifier {
   ABMultiValue *emails = [person valueForProperty:[self actionProperty]];
   NSString *label = [emails labelForIdentifier:identifier];
   
@@ -132,8 +126,7 @@
     return NO;
 }
 
-- (void)workspaceDidLaunchApplication:(NSNotification *)notification
-{
+- (void)workspaceDidLaunchApplication:(NSNotification *)notification {
   NSString *bundleIdentifier
     = [[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"];
   

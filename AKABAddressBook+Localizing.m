@@ -33,8 +33,7 @@
 
 @implementation ABAddressBook (AKAddressBookLocalizingAdditions)
 
-- (NSString *)ak_localizedLabel:(NSString *)label
-{
+- (NSString *)ak_localizedLabel:(NSString *)label {
   NSString *theString;
   
   if ([label isEqualToString:kABPhoneWorkLabel]) {

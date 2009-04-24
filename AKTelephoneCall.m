@@ -73,13 +73,11 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 @dynamic onRemoteHold;
 @synthesize account = account_;
 
-- (id)delegate
-{
+- (id)delegate {
   return delegate_;
 }
 
-- (void)setDelegate:(id)aDelegate
-{
+- (void)setDelegate:(id)aDelegate {
   if (delegate_ == aDelegate)
     return;
   
@@ -148,24 +146,21 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   delegate_ = aDelegate;
 }
 
-- (BOOL)isActive
-{
+- (BOOL)isActive {
   if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   return (pjsua_call_is_active([self identifier])) ? YES : NO;
 }
 
-- (BOOL)hasMedia
-{
+- (BOOL)hasMedia {
   if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
   return (pjsua_call_has_media([self identifier])) ? YES : NO;
 }
 
-- (BOOL)hasActiveMedia
-{
+- (BOOL)hasActiveMedia {
   if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
@@ -175,8 +170,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   return (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) ? YES : NO;
 }
 
-- (BOOL)isOnLocalHold
-{
+- (BOOL)isOnLocalHold {
   if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
@@ -186,8 +180,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   return (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) ? YES : NO;
 }
 
-- (BOOL)isOnRemoteHold
-{
+- (BOOL)isOnRemoteHold {
   if ([self identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
   
@@ -201,8 +194,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 #pragma mark -
 
 - (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
-                    identifier:(NSInteger)anIdentifier
-{
+                    identifier:(NSInteger)anIdentifier {
   self = [super init];
   if (self == nil)
     return nil;
@@ -224,14 +216,12 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   return self;
 }
 
-- (id)init
-{
+- (id)init {
   return [self initWithTelephoneAccount:nil
                              identifier:kAKTelephoneInvalidIdentifier];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   if ([[AKTelephone sharedTelephone] userAgentStarted])
     [self hangUp];
   
@@ -245,22 +235,19 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   [super dealloc];
 }
 
-- (NSString *)description
-{
+- (NSString *)description {
   return [NSString stringWithFormat:@"%@ <=> %@", [self localURI],
           [self remoteURI]];
 }
 
-- (void)answer
-{
+- (void)answer {
   pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_OK,
                                          NULL, NULL);
   if (status != PJ_SUCCESS)
     NSLog(@"Error answering call %@", self);
 }
 
-- (void)hangUp
-{
+- (void)hangUp {
   if (([self identifier] == kAKTelephoneInvalidIdentifier) ||
       ([self state] == kAKTelephoneCallDisconnectedState))
     return;
@@ -270,16 +257,14 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
     NSLog(@"Error hanging up call %@", self);
 }
 
-- (void)sendRingingNotification
-{
+- (void)sendRingingNotification {
   pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_RINGING,
                                          NULL, NULL);
   if (status != PJ_SUCCESS)
     NSLog(@"Error sending ringing notification in call %@", self);
 }
 
-- (void)ringbackStart
-{
+- (void)ringbackStart {
   AKTelephone *telephone = [AKTelephone sharedTelephone];
   
   // Use dot syntax for properties to prevent square bracket clutter.
@@ -294,8 +279,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
     pjsua_conf_connect([telephone ringbackSlot], 0);
 }
 
-- (void)ringbackStop
-{
+- (void)ringbackStop {
   AKTelephone *telephone = [AKTelephone sharedTelephone];
   
   // Use dot syntax for properties to prevent square bracket clutter.
@@ -313,8 +297,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   }
 }
 
-- (void)sendDTMFDigits:(NSString *)digits
-{
+- (void)sendDTMFDigits:(NSString *)digits {
   pj_status_t status;
   pj_str_t pjDigits = [digits pjString];
   
@@ -341,8 +324,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   }
 }
 
-- (void)muteMicrophone
-{
+- (void)muteMicrophone {
   if ([self isMicrophoneMuted])
     return;
   
@@ -356,8 +338,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
     NSLog(@"Error muting microphone in call %@", self);
 }
 
-- (void)unmuteMicrophone
-{
+- (void)unmuteMicrophone {
   if (![self isMicrophoneMuted])
     return;
   
@@ -371,27 +352,23 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
     NSLog(@"Error unmuting microphone in call %@", self);
 }
 
-- (void)toggleMicrophoneMute
-{
+- (void)toggleMicrophoneMute {
   if ([self isMicrophoneMuted])
     [self unmuteMicrophone];
   else
     [self muteMicrophone];
 }
 
-- (void)hold
-{
+- (void)hold {
   if (![self isOnRemoteHold])
     pjsua_call_set_hold([self identifier], NULL);
 }
 
-- (void)unhold
-{
+- (void)unhold {
   pjsua_call_reinvite([self identifier], PJ_TRUE, NULL);
 }
 
-- (void)toggleHold
-{
+- (void)toggleHold {
   if ([self isOnLocalHold])
     [self unhold];
   else
@@ -408,8 +385,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 // attach to the account, add to the array, send notification
 void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
                             pjsua_call_id callIdentifier,
-                            pjsip_rx_data *messageData)
-{
+                            pjsip_rx_data *messageData) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   pjsua_call_info callInfo;
@@ -455,8 +431,7 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
 }
 
 // Track changes in calls state. Send notifications
-void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
-{
+void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -571,8 +546,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent)
 }
 
 // Track and log media changes
-void AKCallMediaStateChanged(pjsua_call_id callIdentifier)
-{
+void AKCallMediaStateChanged(pjsua_call_id callIdentifier) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   pjsua_call_info callInfo;

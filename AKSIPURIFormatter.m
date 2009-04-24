@@ -36,8 +36,7 @@
 
 @implementation AKSIPURIFormatter
 
-- (NSString *)stringForObjectValue:(id)anObject
-{
+- (NSString *)stringForObjectValue:(id)anObject {
   if (![anObject isKindOfClass:[AKSIPURI class]])
     return nil;
   
@@ -73,8 +72,8 @@
 
 - (BOOL)getObjectValue:(id *)anObject
              forString:(NSString *)string
-      errorDescription:(NSString **)error
-{
+      errorDescription:(NSString **)error {
+  
   BOOL returnValue = NO;
   AKSIPURI *theURI;
   NSString *name, *destination, *user, *host;
@@ -163,8 +162,7 @@
   return returnValue;
 }
 
-- (AKSIPURI *)SIPURIFromString:(NSString *)SIPURIString
-{
+- (AKSIPURI *)SIPURIFromString:(NSString *)SIPURIString {
   AKSIPURI *uri;
   NSString *error;
   

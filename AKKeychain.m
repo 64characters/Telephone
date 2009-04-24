@@ -32,8 +32,7 @@
 @implementation AKKeychain
 
 + (NSString *)passwordForServiceName:(NSString *)serviceName
-                         accountName:(NSString *)accountName
-{
+                         accountName:(NSString *)accountName {
   void *passwordData = nil;
   UInt32 passwordLength;
   OSStatus findStatus;
@@ -61,8 +60,7 @@
 // If there is a duplicate, update its password with new one
 + (BOOL)addItemWithServiceName:(NSString *)serviceName
                    accountName:(NSString *)accountName
-                      password:(NSString *)password
-{
+                      password:(NSString *)password {
   SecKeychainItemRef keychainItemRef = nil;
   OSStatus addStatus, findStatus, modifyStatus;
   BOOL success = NO;

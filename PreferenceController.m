@@ -149,13 +149,11 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 @synthesize addAccountWindowDefaultButton = addAccountWindowDefaultButton_;
 @synthesize addAccountWindowOtherButton = addAccountWindowOtherButton_;
 
-- (id)delegate
-{
+- (id)delegate {
   return delegate_;
 }
 
-- (void)setDelegate:(id)aDelegate
-{
+- (void)setDelegate:(id)aDelegate {
   if (delegate_ == aDelegate)
     return;
   
@@ -199,8 +197,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   delegate_ = aDelegate;
 }
 
-- (id)init
-{
+- (id)init {
   self = [super initWithWindowNibName:@"Preferences"];
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -220,8 +217,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [self setDelegate:nil];
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -275,15 +271,13 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [super dealloc];
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   // Register a pasteboard type to rearrange accounts with drag and drop.
   [[self accountsTable] registerForDraggedTypes:
    [NSArray arrayWithObject:kAKTelephoneAccountPboardType]];
 }
 
-- (void)windowDidLoad
-{
+- (void)windowDidLoad {
   [self updateAvailableSounds];
   
   [[self toolbar] setSelectedItemIdentifier:[[self generalToolbarItem]
@@ -332,8 +326,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     [self populateFieldsForAccountAtIndex:row];
 }
 
-- (IBAction)changeView:(id)sender
-{
+- (IBAction)changeView:(id)sender {
   // If the user switches from Network to some other view, check for network
   // settings changes.
   if ([[[self window] contentView] isEqual:[self networkView]] &&
@@ -384,8 +377,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     [[self window] makeFirstResponder:firstResponderView];
 }
 
-- (IBAction)showAddAccountSheet:(id)sender
-{
+- (IBAction)showAddAccountSheet:(id)sender {
   if ([self addAccountWindow] == nil)
     [NSBundle loadNibNamed:@"AddAccount" owner:self];
   
@@ -403,19 +395,17 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
         contextInfo:NULL];
 }
 
-- (IBAction)closeSheet:(id)sender
-{
+- (IBAction)closeSheet:(id)sender {
   [NSApp endSheet:[sender window]];
   [[sender window] orderOut:sender];
 }
 
-- (IBAction)addAccount:(id)sender
-{
+- (IBAction)addAccount:(id)sender {
   if ([[[self setupFullNameField] stringValue] isEqual:@""] ||
       [[[self setupSIPAddressField] stringValue] isEqual:@""] ||
       [[[self setupRegistrarField] stringValue] isEqual:@""] ||
-      [[[self setupUsernameField] stringValue] isEqual:@""])
-  {
+      [[[self setupUsernameField] stringValue] isEqual:@""]) {
+    
     return;
   }
   
@@ -467,8 +457,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   }
 }
 
-- (IBAction)showRemoveAccountSheet:(id)sender
-{
+- (IBAction)showRemoveAccountSheet:(id)sender {
   NSInteger index = [[self accountsTable] selectedRow];
   if (index == -1) {
     NSBeep();
@@ -503,14 +492,12 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 
 - (void)removeAccountAlertDidEnd:(NSAlert *)alert
                       returnCode:(int)returnCode
-                     contextInfo:(void *)contextInfo
-{
+                     contextInfo:(void *)contextInfo {
   if (returnCode == NSAlertFirstButtonReturn)
     [self removeAccountAtIndex:[[self accountsTable] selectedRow]];
 }
 
-- (void)removeAccountAtIndex:(NSInteger)index
-{
+- (void)removeAccountAtIndex:(NSInteger)index {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSMutableArray *savedAccounts
     = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
@@ -545,8 +532,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   }
 }
 
-- (void)populateFieldsForAccountAtIndex:(NSInteger)index
-{
+- (void)populateFieldsForAccountAtIndex:(NSInteger)index {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
   
@@ -671,8 +657,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   }
 }
 
-- (IBAction)changeAccountEnabled:(id)sender
-{
+- (IBAction)changeAccountEnabled:(id)sender {
   NSInteger index = [[self accountsTable] selectedRow];
   if (index == -1)
     return;
@@ -804,21 +789,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
                userInfo:userInfo];
 }
 
-- (IBAction)changeSubstitutePlusCharacter:(id)sender
-{
+- (IBAction)changeSubstitutePlusCharacter:(id)sender {
   [[self plusCharacterSubstitutionField] setEnabled:
    ([[self substitutePlusCharacterCheckBox] state] == NSOnState)];
 }
 
-- (IBAction)changeUseProxy:(id)sender
-{
+- (IBAction)changeUseProxy:(id)sender {
   BOOL isChecked = ([[self useProxyCheckBox] state] == NSOnState) ? YES : NO;
   [[self proxyHostField] setEnabled:isChecked];
   [[self proxyPortField] setEnabled:isChecked];
 }
 
-- (IBAction)changeSoundIO:(id)sender
-{
+- (IBAction)changeSoundIO:(id)sender {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults setObject:[[self soundInputPopUp] titleOfSelectedItem]
                forKey:kSoundInput];
@@ -830,8 +812,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [[NSApp delegate] selectSoundIO];
 }
 
-- (void)updateAudioDevices
-{
+- (void)updateAudioDevices {
   // Populate sound IO pop-up buttons
   NSArray *audioDevices = [[NSApp delegate] audioDevices];
   NSMenu *soundInputMenu = [[NSMenu alloc] init];
@@ -886,8 +867,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   }
 }
 
-- (void)updateAvailableSounds
-{
+- (void)updateAvailableSounds {
   NSMenu *soundsMenu = [[NSMenu alloc] init];
   NSFileManager *fileManager = [NSFileManager defaultManager];
   NSSet *allowedSoundFileExtensions
@@ -996,8 +976,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [soundsMenu release];
 }
 
-- (IBAction)changeRingtone:(id)sender
-{
+- (IBAction)changeRingtone:(id)sender {
   // Stop currently playing ringtone.
   [[[NSApp delegate] ringtone] stop];
   
@@ -1012,8 +991,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 
 // Check if network settings were changed, show an alert sheet to save, cancel or don't save.
 // Returns YES if changes were made to the network settings; returns NO otherwise.
-- (BOOL)checkForNetworkSettingsChanges:(id)sender
-{
+- (BOOL)checkForNetworkSettingsChanges:(id)sender {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   NSNumber *newTransportPort
@@ -1068,8 +1046,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 
 - (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert
                               returnCode:(int)returnCode
-                             contextInfo:(void *)contextInfo
-{
+                             contextInfo:(void *)contextInfo {
   // Close the sheet.
   [[alert window] orderOut:nil];
   
@@ -1151,8 +1128,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 #pragma mark -
 #pragma mark NSTableView data source
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
-{
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   return [[defaults arrayForKey:kAccounts] count];
@@ -1160,8 +1136,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 
 - (id)tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)aTableColumn
-            row:(NSInteger)rowIndex
-{
+            row:(NSInteger)rowIndex {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   NSDictionary *accountDict
@@ -1172,8 +1147,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (BOOL)tableView:(NSTableView *)aTableView
 writeRowsWithIndexes:(NSIndexSet *)rowIndexes
-     toPasteboard:(NSPasteboard *)pboard
-{
+     toPasteboard:(NSPasteboard *)pboard {
   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
   
   [pboard declareTypes:[NSArray arrayWithObject:kAKTelephoneAccountPboardType]
@@ -1187,8 +1161,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 - (NSDragOperation)tableView:(NSTableView *)aTableView
                 validateDrop:(id <NSDraggingInfo>)info
                  proposedRow:(NSInteger)row
-       proposedDropOperation:(NSTableViewDropOperation)operation
-{
+       proposedDropOperation:(NSTableViewDropOperation)operation {
   NSData *data
     = [[info draggingPasteboard] dataForType:kAKTelephoneAccountPboardType];
   NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -1205,8 +1178,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 - (BOOL)tableView:(NSTableView *)aTableView
        acceptDrop:(id <NSDraggingInfo>)info
               row:(NSInteger)row
-    dropOperation:(NSTableViewDropOperation)operation
-{
+    dropOperation:(NSTableViewDropOperation)operation {
   NSData *data
     = [[info draggingPasteboard] dataForType:kAKTelephoneAccountPboardType];
   NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -1250,8 +1222,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 #pragma mark -
 #pragma mark NSTableView delegate
 
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
-{
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
   NSInteger row = [[self accountsTable] selectedRow];
   
   [self populateFieldsForAccountAtIndex:row];
@@ -1262,8 +1233,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 #pragma mark NSToolbar delegate
 
 // Supply selectable toolbar items
-- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar
-{
+- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar {
   return [NSArray arrayWithObjects:
           [[self generalToolbarItem] itemIdentifier],
           [[self accountsToolbarItem] itemIdentifier],
@@ -1276,8 +1246,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 #pragma mark -
 #pragma mark NSWindow delegate
 
-- (BOOL)windowShouldClose:(id)window
-{
+- (BOOL)windowShouldClose:(id)window {
   BOOL networkSettingsChanged = [self checkForNetworkSettingsChanges:window];
   if (networkSettingsChanged)
     return NO;
@@ -1285,8 +1254,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
   return YES;
 }
 
-- (void)windowWillClose:(NSNotification *)notification
-{
+- (void)windowWillClose:(NSNotification *)notification {
   // Stop currently playing ringtone that might be selected in Preferences.
   [[[NSApp delegate] ringtone] stop];
 }
@@ -1295,8 +1263,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 #pragma mark -
 #pragma mark NSPopUpButton notification
 
-- (void)popUpButtonWillPopUp:(NSNotification *)notification
-{
+- (void)popUpButtonWillPopUp:(NSNotification *)notification {
   [self updateAvailableSounds];
 }
 
@@ -1304,8 +1271,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 #pragma mark -
 #pragma mark AKTelephone notifications
 
-- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification
-{
+- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification {
   if (![[[NSApp delegate] telephone] userAgentStarted])
     return;
   

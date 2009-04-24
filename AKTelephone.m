@@ -118,13 +118,11 @@ enum {
 @synthesize usesICE = usesICE_;
 @dynamic transportPort;
 
-- (id <AKTelephoneDelegate>)delegate
-{
+- (id <AKTelephoneDelegate>)delegate {
   return delegate_;
 }
 
-- (void)setDelegate:(id <AKTelephoneDelegate>)aDelegate
-{
+- (void)setDelegate:(id <AKTelephoneDelegate>)aDelegate {
   if (delegate_ == aDelegate)
     return;
   
@@ -156,28 +154,23 @@ enum {
   delegate_ = aDelegate;
 }
 
-- (BOOL)userAgentStarted
-{
+- (BOOL)userAgentStarted {
   return ([self userAgentState] == kAKTelephoneUserAgentStarted) ? YES : NO;
 }
 
-- (NSUInteger)activeCallsCount
-{
+- (NSUInteger)activeCallsCount {
   return pjsua_call_get_count();
 }
 
-- (AKTelephoneCallData *)callData
-{
+- (AKTelephoneCallData *)callData {
   return callData_;
 }
 
-- (NSArray *)nameservers
-{
+- (NSArray *)nameservers {
   return [[nameservers_ copy] autorelease];
 }
 
-- (void)setNameservers:(NSArray *)newNameservers
-{
+- (void)setNameservers:(NSArray *)newNameservers {
   if (nameservers_ != newNameservers) {
     [nameservers_ release];
     
@@ -190,39 +183,33 @@ enum {
   }
 }
 
-- (NSUInteger)outboundProxyPort
-{
+- (NSUInteger)outboundProxyPort {
   return outboundProxyPort_;
 }
 
-- (void)setOutboundProxyPort:(NSUInteger)port
-{
+- (void)setOutboundProxyPort:(NSUInteger)port {
   if (port > 0 && port < 65535)
     outboundProxyPort_ = port;
   else
     outboundProxyPort_ = kAKTelephoneDefaultOutboundProxyPort;
 }
 
-- (NSUInteger)STUNServerPort
-{
+- (NSUInteger)STUNServerPort {
   return STUNServerPort_;
 }
 
-- (void)setSTUNServerPort:(NSUInteger)port
-{
+- (void)setSTUNServerPort:(NSUInteger)port {
   if (port > 0 && port < 65535)
     STUNServerPort_ = port;
   else
     STUNServerPort_ = kAKTelephoneDefaultSTUNServerPort;
 }
 
-- (NSString *)logFileName
-{
+- (NSString *)logFileName {
   return [[logFileName_ copy] autorelease];
 }
 
-- (void)setLogFileName:(NSString *)pathToFile
-{
+- (void)setLogFileName:(NSString *)pathToFile {
   if (logFileName_ != pathToFile) {
     if ([pathToFile length] > 0) {
       [logFileName_ release];
@@ -231,17 +218,14 @@ enum {
       [logFileName_ release];
       logFileName_ = kAKTelephoneDefaultLogFileName;
     }
-    
   }
 }
 
-- (NSUInteger)transportPort
-{
+- (NSUInteger)transportPort {
   return transportPort_;
 }
 
-- (void)setTransportPort:(NSUInteger)port
-{
+- (void)setTransportPort:(NSUInteger)port {
   if (port > 0 && port < 65535)
     transportPort_ = port;
   else
@@ -251,8 +235,7 @@ enum {
 
 #pragma mark Telephone singleton instance
 
-+ (AKTelephone *)sharedTelephone
-{
++ (AKTelephone *)sharedTelephone {
   @synchronized(self) {
     if (sharedTelephone == nil)
       [[self alloc] init];  // Assignment not done here.
@@ -261,8 +244,7 @@ enum {
   return sharedTelephone;
 }
 
-+ (id)allocWithZone:(NSZone *)zone
-{
++ (id)allocWithZone:(NSZone *)zone {
   @synchronized(self) {
     if (sharedTelephone == nil) {
       sharedTelephone = [super allocWithZone:zone];
@@ -273,37 +255,30 @@ enum {
   return nil;  // On subsequent allocation attempts return nil.
 }
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone *)zone {
   return self;
 }
 
-- (id)retain
-{
+- (id)retain {
   return self;
 }
 
-- (NSUInteger)retainCount
-{
+- (NSUInteger)retainCount {
   return UINT_MAX;  // Denotes an object that cannot be released.
 }
 
-- (void)release
-{
+- (void)release {
   // Do nothing.
 }
 
-- (id)autorelease
-{
+- (id)autorelease {
   return self;
 }
 
 
 #pragma mark -
 
-
-- (id)initWithDelegate:(id)aDelegate
-{
+- (id)initWithDelegate:(id)aDelegate {
   self = [super init];
   if (self == nil)
     return nil;
@@ -330,13 +305,11 @@ enum {
   return self;
 }
 
-- (id)init
-{
+- (id)init {
   return [self initWithDelegate:nil];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [accounts_ release];
   [pjsuaLock_ release];
   [nameservers_ release];
@@ -351,8 +324,7 @@ enum {
 
 #pragma mark -
 
-- (void)startUserAgent
-{
+- (void)startUserAgent {
   // Do nothing if it's already started or being started.
   if ([self userAgentState] > kAKTelephoneUserAgentStopped)
     return;
@@ -378,8 +350,7 @@ enum {
 }
 
 // This method is supposed to run in the secondary thread.
-- (void)ak_startUserAgent
-{
+- (void)ak_startUserAgent {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   [[self pjsuaLock] lock];
@@ -571,8 +542,7 @@ enum {
   [pool release];
 }
 
-- (void)stopUserAgent
-{
+- (void)stopUserAgent {
   // If there was an error while starting, post a notification from here.
   if ([self userAgentState] == kAKTelephoneUserAgentStarting) {
     NSNotification *notification
@@ -589,8 +559,7 @@ enum {
                          withObject:nil];
 }
 
-- (void)ak_stopUserAgent
-{
+- (void)ak_stopUserAgent {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   pj_status_t status;
@@ -647,8 +616,8 @@ enum {
 }
 
 - (BOOL)addAccount:(AKTelephoneAccount *)anAccount
-      withPassword:(NSString *)aPassword
-{
+      withPassword:(NSString *)aPassword {
+  
   if ([[self delegate] respondsToSelector:@selector(telephoneShouldAddAccount:)])
     if (![[self delegate] telephoneShouldAddAccount:anAccount])
       return NO;
@@ -707,8 +676,7 @@ enum {
   return YES;
 }
 
-- (BOOL)removeAccount:(AKTelephoneAccount *)anAccount
-{
+- (BOOL)removeAccount:(AKTelephoneAccount *)anAccount {
   if (![self userAgentStarted] ||
       [anAccount identifier] == kAKTelephoneInvalidIdentifier)
     return NO;
@@ -730,8 +698,7 @@ enum {
   return YES;
 }
 
-- (AKTelephoneAccount *)accountByIdentifier:(NSInteger)anIdentifier
-{
+- (AKTelephoneAccount *)accountByIdentifier:(NSInteger)anIdentifier {
   for (AKTelephoneAccount *anAccount in [[[self accounts] copy] autorelease])
     if ([anAccount identifier] == anIdentifier)
       return [[anAccount retain] autorelease];
@@ -739,8 +706,7 @@ enum {
   return nil;
 }
 
-- (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier
-{
+- (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier {
   for (AKTelephoneAccount *anAccount in [[[self accounts] copy] autorelease])
     for (AKTelephoneCall *aCall in [[[anAccount calls] copy] autorelease])
       if ([aCall identifier] == anIdentifier)
@@ -749,13 +715,12 @@ enum {
   return nil;
 }
 
-- (void)hangUpAllCalls
-{
+- (void)hangUpAllCalls {
   pjsua_call_hangup_all();
 }
 
-- (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output
-{
+- (BOOL)setSoundInputDevice:(NSInteger)input
+          soundOutputDevice:(NSInteger)output {
   if (![self userAgentStarted])
     return NO;
   
@@ -766,8 +731,7 @@ enum {
   return (status == PJ_SUCCESS) ? YES : NO;
 }
 
-- (BOOL)stopSound
-{
+- (BOOL)stopSound {
   if (![self userAgentStarted])
     return NO;
   
@@ -783,8 +747,7 @@ enum {
 // this method to set sound IO.
 // Usually application controller is responsible of sending
 // setSoundInputDevice:soundOutputDevice: to set sound IO after this method is called.
-- (void)updateAudioDevices
-{
+- (void)updateAudioDevices {
   if (![self userAgentStarted])
     return;
   
@@ -796,8 +759,7 @@ enum {
   pjmedia_snd_init(pjsua_get_pool_factory());
 }
 
-- (NSString *)stringForSIPResponseCode:(NSInteger)responseCode
-{
+- (NSString *)stringForSIPResponseCode:(NSInteger)responseCode {
   NSString *theString = nil;
   
   switch (responseCode) {
@@ -989,8 +951,7 @@ enum {
 @end
 
 
-void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result)
-{
+void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   if (result->status != PJ_SUCCESS) {

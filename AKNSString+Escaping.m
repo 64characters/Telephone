@@ -29,8 +29,7 @@
 
 @implementation NSString (AKStringEscapingAdditions)
 
-- (NSString *)ak_escapeFirstCharacterFromString:(NSString *)string
-{
+- (NSString *)ak_escapeFirstCharacterFromString:(NSString *)string {
   NSMutableString *newString = [NSMutableString stringWithString:self];
   NSString *escapeCharacterString = [string substringWithRange:NSMakeRange(0, 1)];
   NSRange escapeCharacterRange = [newString rangeOfString:escapeCharacterString];
@@ -47,13 +46,11 @@
   return [[newString copy] autorelease];
 }
 
-- (NSString *)ak_escapeQuotes
-{
+- (NSString *)ak_escapeQuotes {
   return [self ak_escapeFirstCharacterFromString:@"\""];
 }
 
-- (NSString *)ak_escapeParentheses
-{
+- (NSString *)ak_escapeParentheses {
   NSString *returnString = [self ak_escapeFirstCharacterFromString:@")"];
   
   return [returnString ak_escapeFirstCharacterFromString:@"("];

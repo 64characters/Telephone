@@ -34,8 +34,7 @@
 @dynamic ak_isTelephoneNumber;
 @dynamic ak_hasLetters;
 
-- (BOOL)ak_isTelephoneNumber
-{
+- (BOOL)ak_isTelephoneNumber {
   NSPredicate *telephoneNumberPredicate
     = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
   if ([telephoneNumberPredicate evaluateWithObject:self])
@@ -44,8 +43,7 @@
   return NO;
 }
 
-- (BOOL)ak_hasLetters
-{
+- (BOOL)ak_hasLetters {
   NSPredicate *containsLettersPredicate
     = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
   
