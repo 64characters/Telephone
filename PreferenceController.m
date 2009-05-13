@@ -815,9 +815,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 - (void)updateAudioDevices {
   // Populate sound IO pop-up buttons
   NSArray *audioDevices = [[NSApp delegate] audioDevices];
-  NSMenu *soundInputMenu = [[NSMenu alloc] init];
-  NSMenu *soundOutputMenu = [[NSMenu alloc] init];
-  NSMenu *ringtoneOutputMenu = [[NSMenu alloc] init];
+  NSMenu *soundInputMenu = [[[NSMenu alloc] init] autorelease];
+  NSMenu *soundOutputMenu = [[[NSMenu alloc] init] autorelease];
+  NSMenu *ringtoneOutputMenu = [[[NSMenu alloc] init] autorelease];
   
   for (NSUInteger i = 0; i < [audioDevices count]; ++i) {
     NSDictionary *deviceDict = [audioDevices objectAtIndex:i];
@@ -840,10 +840,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [[self soundInputPopUp] setMenu:soundInputMenu];
   [[self soundOutputPopUp] setMenu:soundOutputMenu];
   [[self ringtoneOutputPopUp] setMenu:ringtoneOutputMenu];
-  
-  [soundInputMenu release];
-  [soundOutputMenu release];
-  [ringtoneOutputMenu release];
   
   // Select saved sound devices
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -868,103 +864,46 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 }
 
 - (void)updateAvailableSounds {
-  NSMenu *soundsMenu = [[NSMenu alloc] init];
+  NSArray *libraryPaths
+    = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                          NSAllDomainsMask,
+                                          YES);
+  if ([libraryPaths count] <= 0)
+    return;
+  
+  NSMenu *soundsMenu = [[[NSMenu alloc] init] autorelease];
   NSFileManager *fileManager = [NSFileManager defaultManager];
   NSSet *allowedSoundFileExtensions
     = [NSSet setWithObjects:@"aiff", @"aif", @"aifc",
        @"mp3", @"wav", @"sd2", @"au", @"snd", @"m4a", @"m4p", nil];
   
-  // TODO(eofster): hard-coded paths must be replaced with function calls.
-  // Get sounds from ~/Library/Sounds.
-  NSArray *userSoundFiles
-    = [fileManager contentsOfDirectoryAtPath:[@"~/Library/Sounds"
-                                              stringByExpandingTildeInPath]
-                                       error:NULL];
-  
-  for (NSString *aFile in userSoundFiles) {
-    if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
-      continue;
+  for (NSUInteger i = 0; i < [libraryPaths count]; ++i) {
+    NSString *aPath = [libraryPaths objectAtIndex:i];
+    NSString *soundPath = [aPath stringByAppendingPathComponent:@"Sounds"];
+    NSArray *soundFiles = [fileManager contentsOfDirectoryAtPath:soundPath
+                                                           error:NULL];
     
-    NSString *aSound = [aFile stringByDeletingPathExtension];
-    if ([soundsMenu itemWithTitle:aSound] == nil) {
-      NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-      [aMenuItem setTitle:aSound];
-      [soundsMenu addItem:aMenuItem];
-      [aMenuItem release];
-    }
-  }
-  
-  BOOL isFirstItemInSection;
-  
-  // Get sounds from /Library/Sounds.
-  NSArray *sharedLocalSoundFiles
-    = [fileManager contentsOfDirectoryAtPath:@"/Library/Sounds" error:NULL];
-  
-  isFirstItemInSection = YES;
-  for (NSString *aFile in sharedLocalSoundFiles) {
-    if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
-      continue;
+    BOOL shouldAddSeparator = ([soundsMenu numberOfItems] > 0) ? YES : NO;
     
-    NSString *aSound = [aFile stringByDeletingPathExtension];
-    if ([soundsMenu itemWithTitle:aSound] == nil) {
-      if (isFirstItemInSection && [soundsMenu numberOfItems] > 0) {
-        [soundsMenu addItem:[NSMenuItem separatorItem]];
-        isFirstItemInSection = NO;
-      }
+    for (NSUInteger j = 0; j < [soundFiles count]; ++j) {
+      NSString *aFile = [soundFiles objectAtIndex:j];
+      if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
+        continue;
       
-      NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-      [aMenuItem setTitle:aSound];
-      [soundsMenu addItem:aMenuItem];
-      [aMenuItem release];
-    }
-  }
-  
-  // Get sounds from /Network/Library/Sounds.
-  NSArray *networkSoundFiles
-    = [fileManager contentsOfDirectoryAtPath:@"/Network/Library/Sounds"
-                                       error:NULL];
-  isFirstItemInSection = YES;
-  for (NSString *aFile in networkSoundFiles) {
-    if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
-      continue;
-    
-    NSString *aSound = [aFile stringByDeletingPathExtension];
-    if ([soundsMenu itemWithTitle:aSound] == nil) {
-      if (isFirstItemInSection && [soundsMenu numberOfItems] > 0) {
-        [soundsMenu addItem:[NSMenuItem separatorItem]];
-        isFirstItemInSection = NO;
+      NSString *aSound = [aFile stringByDeletingPathExtension];
+      if ([soundsMenu itemWithTitle:aSound] == nil) {
+        if (shouldAddSeparator) {
+          [soundsMenu addItem:[NSMenuItem separatorItem]];
+          shouldAddSeparator = NO;
+        }
+        
+        NSMenuItem *aMenuItem = [[[NSMenuItem alloc] init] autorelease];
+        [aMenuItem setTitle:aSound];
+        [soundsMenu addItem:aMenuItem];
       }
-      
-      NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-      [aMenuItem setTitle:aSound];
-      [soundsMenu addItem:aMenuItem];
-      [aMenuItem release];
     }
   }
-  
-  // Get sounds from /System/Library/Sounds.
-  NSArray *systemSoundFiles
-    = [fileManager contentsOfDirectoryAtPath:@"/System/Library/Sounds"
-                                       error:NULL];
-  isFirstItemInSection = YES;
-  for (NSString *aFile in systemSoundFiles) {
-    if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
-      continue;
     
-    NSString *aSound = [aFile stringByDeletingPathExtension];
-    if ([soundsMenu itemWithTitle:aSound] == nil) {
-      if (isFirstItemInSection && [soundsMenu numberOfItems] > 0) {
-        [soundsMenu addItem:[NSMenuItem separatorItem]];
-        isFirstItemInSection = NO;
-      }
-      
-      NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-      [aMenuItem setTitle:aSound];
-      [soundsMenu addItem:aMenuItem];
-      [aMenuItem release];
-    }
-  }
-  
   [[self ringtonePopUp] setMenu:soundsMenu];
   
   NSString *savedSound
@@ -972,8 +911,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   if ([soundsMenu itemWithTitle:savedSound] != nil)
     [[self ringtonePopUp] selectItemWithTitle:savedSound];
-  
-  [soundsMenu release];
 }
 
 - (IBAction)changeRingtone:(id)sender {
