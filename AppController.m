@@ -1722,6 +1722,10 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   if ([NSApp modalWindow] != nil)
     return;
   
+  // Do nothing is there are no accounts in use.
+  if ([[self enabledAccountControllers] count] == 0)
+    return;
+  
   NSDictionary *userInfo = [notification userInfo];
   
   NSString *callDestination;
@@ -1732,31 +1736,33 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
   NSString *fullName = [userInfo objectForKey:@"AKFullName"];
   
-  AccountController *firstAccountController
-    = [[self accountControllers] objectAtIndex:0];
+  AccountController *firstEnabledAccountController
+    = [[self enabledAccountControllers] objectAtIndex:0];
   
-  if (![firstAccountController isEnabled])
-    return;
-  
-  [[firstAccountController callDestinationField] setTokenStyle:NSRoundedTokenStyle];
+  [[firstEnabledAccountController callDestinationField]
+   setTokenStyle:NSRoundedTokenStyle];
   
   [NSApp activateIgnoringOtherApps:YES];
   
   NSString *theString;
-  if ([fullName length] > 0)
-    theString = [NSString stringWithFormat:@"%@ <%@>", fullName, callDestination];
-  else
+  if ([fullName length] > 0) {
+    theString = [NSString stringWithFormat:@"%@ <%@>",
+                 fullName, callDestination];
+  } else {
     theString = callDestination;
+  }
 
-  [[firstAccountController callDestinationField] setStringValue:theString];
+  [[firstEnabledAccountController callDestinationField]
+   setStringValue:theString];
   
-  if ([[firstAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
+  if ([[firstEnabledAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
-    [firstAccountController setShouldMakeCall:YES];
-    [firstAccountController setAccountRegistered:YES];
+    [firstEnabledAccountController setShouldMakeCall:YES];
+    [firstEnabledAccountController setAccountRegistered:YES];
     
   } else {
-    [firstAccountController makeCall:[firstAccountController callDestinationField]];
+    [firstEnabledAccountController makeCall:
+     [firstEnabledAccountController callDestinationField]];
   }
 }
 
@@ -1766,22 +1772,23 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event
            withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-  AccountController *firstAccountController
-    = [[self accountControllers] objectAtIndex:0];
-  
-  if (![firstAccountController isEnabled])
+  // Do nithing if there are no accounts in use.
+  if ([[self enabledAccountControllers] count] == 0)
     return;
+  
+  AccountController *firstEnabledAccountController
+    = [[self enabledAccountControllers] objectAtIndex:0];
   
   NSString *URLString = [[event paramDescriptorForKeyword:keyDirectObject]
                          stringValue];
   
-  [firstAccountController setCatchedURLString:URLString];
+  [firstEnabledAccountController setCatchedURLString:URLString];
   
-  if ([[firstAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
+  if ([[firstEnabledAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
-    [firstAccountController setAccountRegistered:YES];
+    [firstEnabledAccountController setAccountRegistered:YES];
   } else {
-    [firstAccountController handleCatchedURL];
+    [firstEnabledAccountController handleCatchedURL];
   }
 }
 
