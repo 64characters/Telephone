@@ -665,6 +665,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [self setDidWakeFromSleep:YES];
     
     [self setShouldRegisterAllAccounts:YES];
+    [self setShouldSetTelephoneSoundIO:YES];
     [[self telephone] startUserAgent];
   }
 }
@@ -1238,6 +1239,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   
   if ([[self telephone] userAgentStarted]) {
     [self setShouldRegisterAllAccounts:YES];
+    [self setShouldSetTelephoneSoundIO:YES];
     [self stopTelephone];
   }
 }
