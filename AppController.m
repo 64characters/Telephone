@@ -182,9 +182,20 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [defaultsDict setObject:[NSNumber numberWithBool:YES]
                      forKey:kVoiceActivityDetection];
     [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kUseICE];
-    // TODO(eofster): hard-coded path must be replaced with a function call.
-    [defaultsDict setObject:@"~/Library/Logs/Telephone.log"
-                     forKey:kLogFileName];
+    
+    NSArray *libraryPaths
+      = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                            NSUserDomainMask,
+                                            NO);
+    if ([libraryPaths count] > 0) {
+      NSString *logPath
+        = [[libraryPaths objectAtIndex:0]
+           stringByAppendingPathComponent:@"Logs/Telephone.log"];
+      
+      [defaultsDict setObject:logPath
+                       forKey:kLogFileName];
+    }
+    
     [defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:kLogLevel];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
                      forKey:kConsoleLogLevel];
