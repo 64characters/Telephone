@@ -316,185 +316,6 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   [super dealloc];
 }
 
-// Application control starts here
-- (void)awakeFromNib {
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSBundle *mainBundle = [NSBundle mainBundle];
-  NSString *bundleName
-    = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
-  NSString *bundleShortVersion
-    = [[mainBundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-  
-  if ([defaults boolForKey:kUseDNSSRV]) {
-    [[self telephone] setNameservers:[self currentNameservers]];
-  }
-  
-  [[self telephone] setOutboundProxyHost:[defaults stringForKey:kOutboundProxyHost]];
-  [[self telephone] setOutboundProxyPort:[[defaults objectForKey:kOutboundProxyPort]
-                                          integerValue]];
-  [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
-  [[self telephone] setSTUNServerPort:[[defaults objectForKey:kSTUNServerPort]
-                                       integerValue]];
-  [[self telephone] setUserAgentString:[NSString stringWithFormat:@"%@ %@",
-                                        bundleName, bundleShortVersion]];
-  [[self telephone] setLogFileName:[defaults stringForKey:kLogFileName]];
-  [[self telephone] setLogLevel:[[defaults objectForKey:kLogLevel] integerValue]];
-  [[self telephone] setConsoleLogLevel:[[defaults objectForKey:kConsoleLogLevel]
-                                        integerValue]];
-  [[self telephone] setDetectsVoiceActivity:[[defaults objectForKey:kVoiceActivityDetection]
-                                             boolValue]];
-  [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
-  [[self telephone] setTransportPort:[[defaults objectForKey:kTransportPort]
-                                      integerValue]];
-  
-  [self setRingtone:[NSSound soundNamed:[defaults stringForKey:kRingingSound]]];
-  
-  // Install audio devices changes callback
-  AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
-                                   AKAudioDevicesChanged, self);
-  
-  // Get available audio devices, select devices for sound input and output.
-  [self updateAudioDevices];
-  
-  // Install Address Book plug-ins.
-  NSError *error = nil;
-  BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
-  if (!installed && error != nil) {
-    NSLog(@"%@", error);
-    
-    NSString *libraryPath
-      = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
-                                             NSUserDomainMask,
-                                             NO)
-         objectAtIndex:0];
-    
-    if ([libraryPath length] > 0) {
-      NSString *addressBookPlugInsInstallPath
-        = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
-      
-      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-      [alert addButtonWithTitle:@"OK"];
-      [alert setMessageText:
-       NSLocalizedString(@"Could not install Address Book plug-ins.",
-                         @"Address Book plug-ins install error, alert message text.")];
-      [alert setInformativeText:
-       [NSString stringWithFormat:
-        NSLocalizedString(@"Make sure you have write permission to \\U201C%@\\U201D.",
-                          @"Address Book plug-ins install error, alert informative text."),
-        addressBookPlugInsInstallPath]];
-      
-      [alert runModal];
-    }
-  }
-  
-  // Load Growl.
-  NSString *growlPath = [[mainBundle privateFrameworksPath]
-                         stringByAppendingPathComponent:@"Growl.framework"];
-  NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
-  if (growlBundle != nil && [growlBundle load])
-    [GrowlApplicationBridge setGrowlDelegate:self];
-  else
-    NSLog(@"Could not load Growl.framework");
-  
-  // Read accounts from defaults
-  NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
-  
-  // Setup an account on first launch.
-  if ([savedAccounts count] == 0) {
-    // There are no saved accounts, prompt user to add one.
-    
-    // Disable Preferences during the first account prompt.
-    [[self preferencesMenuItem] setAction:NULL];
-    
-    preferenceController_ = [[PreferenceController alloc] init];
-    [[self preferenceController] setDelegate:self];
-    [NSBundle loadNibNamed:@"AddAccount" owner:[self preferenceController]];
-    
-    // Subscribe to addAccountWindow close to terminate application.
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-        selector:@selector(windowWillClose:)
-            name:NSWindowWillCloseNotification
-          object:[[self preferenceController] addAccountWindow]];
-    
-    // Set different targets and actions of addAccountWindow buttons to add the first account.
-    [[[self preferenceController] addAccountWindowDefaultButton] setTarget:self];
-    [[[self preferenceController] addAccountWindowDefaultButton]
-     setAction:@selector(addAccountOnFirstLaunch:)];
-    [[[self preferenceController] addAccountWindowOtherButton]
-     setTarget:[[self preferenceController] addAccountWindow]];
-    [[[self preferenceController] addAccountWindowOtherButton]
-     setAction:@selector(performClose:)];
-    
-    [[[self preferenceController] addAccountWindow] center];
-    [[[self preferenceController] addAccountWindow] makeKeyAndOrderFront:self];
-    
-    return;
-  }
-  
-  // There are saved accounts, open account windows.
-  for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
-    NSDictionary *accountDict = [savedAccounts objectAtIndex:i];
-    
-    NSString *fullName = [accountDict objectForKey:kFullName];
-    NSString *SIPAddress = [accountDict objectForKey:kSIPAddress];
-    NSString *registrar = [accountDict objectForKey:kRegistrar];
-    NSString *realm = [accountDict objectForKey:kRealm];
-    NSString *username = [accountDict objectForKey:kUsername];
-    
-    AccountController *anAccountController
-      = [[[AccountController alloc] initWithFullName:fullName
-                                          SIPAddress:SIPAddress
-                                           registrar:registrar
-                                               realm:realm
-                                            username:username]
-         autorelease];
-    
-    [[anAccountController account] setReregistrationTime:
-     [[accountDict objectForKey:kReregistrationTime] integerValue]];
-    
-    if ([[accountDict objectForKey:kUseProxy] boolValue]) {
-      [[anAccountController account] setProxyHost:
-       [accountDict objectForKey:kProxyHost]];
-      [[anAccountController account] setProxyPort:
-       [[accountDict objectForKey:kProxyPort] integerValue]];
-    }
-    
-    [anAccountController setEnabled:
-     [[accountDict objectForKey:kAccountEnabled] boolValue]];
-    [anAccountController setSubstitutesPlusCharacter:
-     [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
-    [anAccountController setPlusCharacterSubstitution:
-     [accountDict objectForKey:kPlusCharacterSubstitutionString]];
-    
-    [[self accountControllers] addObject:anAccountController];
-    
-    if (![anAccountController isEnabled]) {
-      // Prevent conflict with setFrameAutosaveName: when enabling the account.
-      [anAccountController setWindow:nil];
-      
-      continue;
-    }
-    
-    if (i == 0) {
-      [[anAccountController window] makeKeyAndOrderFront:self];
-    } else {
-      NSWindow *previousAccountWindow
-        = [[[self accountControllers] objectAtIndex:(i - 1)] window];
-      [[anAccountController window] orderWindow:NSWindowBelow
-                                     relativeTo:[previousAccountWindow windowNumber]];
-    }
-  }
-  
-  if ([[self enabledAccountControllers] count] > 0) {
-    // Register all acounts from the callback.
-    [self setShouldRegisterAllAccounts:YES];
-    
-    // Start user agent.
-    [[self telephone] startUserAgent];
-  }
-}
-
 - (void)stopTelephone {
   // Force ended state for all calls and remove accounts from Telephone.
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
@@ -1538,6 +1359,203 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 #pragma mark -
 #pragma mark NSApplication delegate methods
+
+// Application control starts here
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSString *bundleName
+      = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *bundleShortVersion
+      = [[mainBundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    if ([defaults boolForKey:kUseDNSSRV]) {
+        [[self telephone] setNameservers:[self currentNameservers]];
+    }
+    
+    [[self telephone] setOutboundProxyHost:
+     [defaults stringForKey:kOutboundProxyHost]];
+    
+    [[self telephone] setOutboundProxyPort:
+     [[defaults objectForKey:kOutboundProxyPort] integerValue]];
+    
+    [[self telephone] setSTUNServerHost:
+     [defaults stringForKey:kSTUNServerHost]];
+    
+    [[self telephone] setSTUNServerPort:[[defaults objectForKey:kSTUNServerPort]
+                                         integerValue]];
+    
+    [[self telephone] setUserAgentString:[NSString stringWithFormat:@"%@ %@",
+                                          bundleName, bundleShortVersion]];
+    
+    [[self telephone] setLogFileName:[defaults stringForKey:kLogFileName]];
+    
+    [[self telephone] setLogLevel:[[defaults objectForKey:kLogLevel]
+                                   integerValue]];
+    
+    [[self telephone] setConsoleLogLevel:
+     [[defaults objectForKey:kConsoleLogLevel] integerValue]];
+    
+    [[self telephone] setDetectsVoiceActivity:
+     [[defaults objectForKey:kVoiceActivityDetection] boolValue]];
+    
+    [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
+    
+    [[self telephone] setTransportPort:[[defaults objectForKey:kTransportPort]
+                                        integerValue]];
+    
+    [self setRingtone:[NSSound soundNamed:
+                       [defaults stringForKey:kRingingSound]]];
+    
+    // Install audio devices changes callback
+    AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
+                                     AKAudioDevicesChanged, self);
+    
+    // Get available audio devices, select devices for sound input and output.
+    [self updateAudioDevices];
+    
+    // Install Address Book plug-ins.
+    NSError *error = nil;
+    BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
+    if (!installed && error != nil) {
+        NSLog(@"%@", error);
+        
+        NSString *libraryPath
+          = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                                 NSUserDomainMask,
+                                                 NO)
+             objectAtIndex:0];
+        
+        if ([libraryPath length] > 0) {
+            NSString *addressBookPlugInsInstallPath
+              = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
+            
+            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:
+             NSLocalizedString(@"Could not install Address Book plug-ins.",
+                               @"Address Book plug-ins install error, alert message text.")];
+            [alert setInformativeText:
+             [NSString stringWithFormat:
+              NSLocalizedString(@"Make sure you have write permission to \\U201C%@\\U201D.",
+                                @"Address Book plug-ins install error, alert informative text."),
+              addressBookPlugInsInstallPath]];
+            
+            [alert runModal];
+        }
+    }
+    
+    // Load Growl.
+    NSString *growlPath = [[mainBundle privateFrameworksPath]
+                           stringByAppendingPathComponent:@"Growl.framework"];
+    NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+    if (growlBundle != nil && [growlBundle load])
+        [GrowlApplicationBridge setGrowlDelegate:self];
+    else
+        NSLog(@"Could not load Growl.framework");
+    
+    // Read accounts from defaults
+    NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
+    
+    // Setup an account on first launch.
+    if ([savedAccounts count] == 0) {
+        // There are no saved accounts, prompt user to add one.
+        
+        // Disable Preferences during the first account prompt.
+        [[self preferencesMenuItem] setAction:NULL];
+        
+        preferenceController_ = [[PreferenceController alloc] init];
+        [[self preferenceController] setDelegate:self];
+        [NSBundle loadNibNamed:@"AddAccount" owner:[self preferenceController]];
+        
+        // Subscribe to addAccountWindow close to terminate application.
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+            selector:@selector(windowWillClose:)
+                name:NSWindowWillCloseNotification
+              object:[[self preferenceController] addAccountWindow]];
+        
+        // Set different targets and actions of addAccountWindow buttons
+        // to add the first account.
+        [[[self preferenceController] addAccountWindowDefaultButton]
+         setTarget:self];
+        [[[self preferenceController] addAccountWindowDefaultButton]
+         setAction:@selector(addAccountOnFirstLaunch:)];
+        [[[self preferenceController] addAccountWindowOtherButton]
+         setTarget:[[self preferenceController] addAccountWindow]];
+        [[[self preferenceController] addAccountWindowOtherButton]
+         setAction:@selector(performClose:)];
+        
+        [[[self preferenceController] addAccountWindow] center];
+        [[[self preferenceController] addAccountWindow]
+         makeKeyAndOrderFront:self];
+        
+        return;
+    }
+    
+    // There are saved accounts, open account windows.
+    for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
+        NSDictionary *accountDict = [savedAccounts objectAtIndex:i];
+        
+        NSString *fullName = [accountDict objectForKey:kFullName];
+        NSString *SIPAddress = [accountDict objectForKey:kSIPAddress];
+        NSString *registrar = [accountDict objectForKey:kRegistrar];
+        NSString *realm = [accountDict objectForKey:kRealm];
+        NSString *username = [accountDict objectForKey:kUsername];
+        
+        AccountController *anAccountController
+          = [[[AccountController alloc] initWithFullName:fullName
+                                              SIPAddress:SIPAddress
+                                               registrar:registrar
+                                                   realm:realm
+                                                username:username]
+             autorelease];
+        
+        [[anAccountController account] setReregistrationTime:
+         [[accountDict objectForKey:kReregistrationTime] integerValue]];
+        
+        if ([[accountDict objectForKey:kUseProxy] boolValue]) {
+            [[anAccountController account] setProxyHost:
+             [accountDict objectForKey:kProxyHost]];
+            [[anAccountController account] setProxyPort:
+             [[accountDict objectForKey:kProxyPort] integerValue]];
+        }
+        
+        [anAccountController setEnabled:
+         [[accountDict objectForKey:kAccountEnabled] boolValue]];
+        [anAccountController setSubstitutesPlusCharacter:
+         [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
+        [anAccountController setPlusCharacterSubstitution:
+         [accountDict objectForKey:kPlusCharacterSubstitutionString]];
+        
+        [[self accountControllers] addObject:anAccountController];
+        
+        if (![anAccountController isEnabled]) {
+            // Prevent conflict with |setFrameAutosaveName:| when enabling
+            // the account.
+            [anAccountController setWindow:nil];
+            
+            continue;
+        }
+        
+        if (i == 0) {
+            [[anAccountController window] makeKeyAndOrderFront:self];
+        } else {
+            NSWindow *previousAccountWindow
+              = [[[self accountControllers] objectAtIndex:(i - 1)] window];
+            [[anAccountController window] orderWindow:NSWindowBelow
+                                           relativeTo:[previousAccountWindow windowNumber]];
+        }
+    }
+    
+    if ([[self enabledAccountControllers] count] > 0) {
+        // Register all acounts from the callback.
+        [self setShouldRegisterAllAccounts:YES];
+        
+        // Start user agent.
+        [[self telephone] startUserAgent];
+    }
+}
 
 // Reopen all account windows when the user clicks the dock icon.
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication
