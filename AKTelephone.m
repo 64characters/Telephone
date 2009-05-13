@@ -52,7 +52,7 @@ NSString * const kAKTelephoneDefaultOutboundProxyHost = @"";
 const NSInteger kAKTelephoneDefaultOutboundProxyPort = 5060;
 NSString * const kAKTelephoneDefaultSTUNServerHost = @"";
 const NSInteger kAKTelephoneDefaultSTUNServerPort = 3478;
-NSString * const kAKTelephoneDefaultLogFileName = @"~/Library/Logs/Telephone.log";
+NSString * const kAKTelephoneDefaultLogFileName = nil;
 const NSInteger kAKTelephoneDefaultLogLevel = 3;
 const NSInteger kAKTelephoneDefaultConsoleLogLevel = 0;
 const BOOL kAKTelephoneDefaultDetectsVoiceActivity = YES;
@@ -404,13 +404,20 @@ enum {
   }
   
   
-  if ([[self STUNServerHost] length] > 0)
+  if ([[self STUNServerHost] length] > 0) {
     userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%u",
                                   [self STUNServerHost], [self STUNServerPort]]
                                  pjString];
+  }
+  
   userAgentConfig.user_agent = [[self userAgentString] pjString];
-  loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath]
-                                pjString];
+  
+  if ([[self logFileName] length] > 0) {
+    loggingConfig.log_filename
+      = [[[self logFileName] stringByExpandingTildeInPath]
+         pjString];
+  }
+  
   loggingConfig.level = [self logLevel];
   loggingConfig.console_level = [self consoleLogLevel];
   mediaConfig.no_vad = ![self detectsVoiceActivity];
