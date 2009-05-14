@@ -336,7 +336,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 
 // If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification {
-  if ([self callActive]) {
+  if ([self isCallActive]) {
     [self setCallActive:NO];
     [self setCallMissed:NO];
     [self stopCallTimer];
@@ -630,7 +630,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     return NO;
     
   } else if ([menuItem action] == @selector(hangUpCall:)) {
-    if ([self callActive])
+    if ([self isCallActive])
       return YES;
     
     return NO;
