@@ -69,6 +69,7 @@ NSString * const kUseICE = @"UseICE";
 NSString * const kUseDNSSRV = @"UseDNSSRV";
 NSString * const kSignificantPhoneNumberLength = @"SignificantPhoneNumberLength";
 NSString * const kPauseITunes = @"PauseITunes";
+NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
 
 NSString * const kFullName = @"FullName";
 NSString * const kSIPAddress = @"SIPAddress";

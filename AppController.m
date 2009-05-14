@@ -205,6 +205,8 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [defaultsDict setObject:[NSNumber numberWithInteger:10]
                      forKey:kSignificantPhoneNumberLength];
     [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kPauseITunes];
+    [defaultsDict setObject:[NSNumber numberWithBool:NO]
+                     forKey:kAutoCloseCallWindow];
     
     NSString *preferredLocalization
       = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];

@@ -47,6 +47,14 @@
 NSString * const AKTelephoneCallWindowWillCloseNotification
   = @"AKTelephoneCallWindowWillClose";
 
+const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
+
+@interface CallController ()
+
+- (void)closeCallWindowTick:(NSTimer *)theTimer;
+
+@end
+
 @implementation CallController
 
 @synthesize identifier = identifier_;
@@ -222,6 +230,15 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   [[self declineCallButton] setEnabled:NO];
   
   [[NSApp delegate] resumeITunesIfNeeded];
+  
+  // Optionally close call window.
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow]) {
+    [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
+                                     target:self
+                                   selector:@selector(closeCallWindowTick:)
+                                   userInfo:nil
+                                    repeats:NO];
+  }
 }
 
 - (IBAction)toggleCallHold:(id)sender {
@@ -300,6 +317,11 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   }
   
   [self setIntermediateStatusTimer:nil];
+}
+
+- (void)closeCallWindowTick:(NSTimer *)theTimer {
+  if ([[self window] isVisible])
+    [[self window] performClose:self];
 }
 
 
@@ -469,7 +491,7 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
       = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
   }
   
-  if (![NSApp isActive])
+  if (![NSApp isActive]) {
     [GrowlApplicationBridge notifyWithTitle:notificationTitle
                                 description:[self status]
                            notificationName:kGrowlNotificationCallEnded
@@ -477,6 +499,16 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
                                    priority:0
                                    isSticky:NO
                                clickContext:[self identifier]];
+  }
+  
+  // Optionally close disconnected call window.
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow]) {
+    [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
+                                     target:self
+                                   selector:@selector(closeCallWindowTick:)
+                                   userInfo:nil
+                                    repeats:NO];
+  }
 }
 
 - (void)telephoneCallMediaDidBecomeActive:(NSNotification *)notification {

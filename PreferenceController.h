@@ -52,6 +52,7 @@ extern NSString * const kUseICE;
 extern NSString * const kUseDNSSRV;
 extern NSString * const kSignificantPhoneNumberLength;
 extern NSString * const kPauseITunes;
+extern NSString * const kAutoCloseCallWindow;
 
 // Account keys
 extern NSString * const kFullName;
