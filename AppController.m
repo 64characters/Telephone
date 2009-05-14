@@ -120,7 +120,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     for (CallController *aCallController in [anAccountController callControllers]) {
       if ([[aCallController call] identifier] != kAKTelephoneInvalidIdentifier &&
           [[aCallController call] isIncoming] &&
-          [aCallController callActive] &&
+          [aCallController isCallActive] &&
           ([[aCallController call] state] == kAKTelephoneCallIncomingState ||
            [[aCallController call] state] == kAKTelephoneCallEarlyState))
         return YES;
@@ -133,7 +133,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 - (BOOL)hasActiveCallControllers {
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers]) {
-      if ([aCallController callActive])
+      if ([aCallController isCallActive])
         return YES;
     }
   }

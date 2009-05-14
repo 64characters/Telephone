@@ -49,6 +49,7 @@
   BOOL callOnHold_;
   NSMutableString *enteredDTMF_;
   BOOL callActive_;
+  BOOL callMissed_;
   
   NSView *incomingCallView_;
   NSView *activeCallView_;
@@ -76,9 +77,10 @@
 @property(nonatomic, retain) NSTimer *intermediateStatusTimer;
 @property(nonatomic, assign) NSTimeInterval callStartTime;
 @property(nonatomic, retain) NSTimer *callTimer;
-@property(nonatomic, assign) BOOL callOnHold;
+@property(nonatomic, assign, getter=isCallOnHold) BOOL callOnHold;
 @property(nonatomic, retain) NSMutableString *enteredDTMF;
-@property(nonatomic, assign) BOOL callActive;
+@property(nonatomic, assign, getter=isCallActive) BOOL callActive;
+@property(nonatomic, assign, getter=isCallMissed) BOOL callMissed;
 
 @property(nonatomic, retain) IBOutlet NSView *incomingCallView;
 @property(nonatomic, retain) IBOutlet NSView *activeCallView;

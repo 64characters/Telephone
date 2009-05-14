@@ -71,6 +71,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 @synthesize callOnHold = callOnHold_;
 @synthesize enteredDTMF = enteredDTMF_;
 @synthesize callActive = callActive_;
+@synthesize callMissed = callMissed_;
 
 @synthesize incomingCallView = incomingCallView_;
 @synthesize activeCallView = activeCallView_;
@@ -136,6 +137,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [self setCallOnHold:NO];
   enteredDTMF_ = [[NSMutableString alloc] init];
   [self setCallActive:NO];
+  [self setCallMissed:NO];
   
   return self;
 }
@@ -203,11 +205,14 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   if ([[self call] isIncoming])
     [[NSApp delegate] stopRingtoneTimer];
   
+  [self setCallMissed:NO];
+  
   [[self call] answer];
 }
 
 - (IBAction)hangUpCall:(id)sender {
   [self setCallActive:NO];
+  [self setCallMissed:NO];
   [self stopCallTimer];
   
   if ([[self call] isIncoming])
@@ -232,7 +237,8 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [[NSApp delegate] resumeITunesIfNeeded];
   
   // Optionally close call window.
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow]) {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
+      ![self isCallMissed]) {
     [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
                                      target:self
                                    selector:@selector(closeCallWindowTick:)
@@ -332,6 +338,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 - (void)windowWillClose:(NSNotification *)notification {
   if ([self callActive]) {
     [self setCallActive:NO];
+    [self setCallMissed:NO];
     [self stopCallTimer];
     
     if ([[self call] isIncoming])
@@ -502,7 +509,8 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   }
   
   // Optionally close disconnected call window.
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow]) {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
+      ![self isCallMissed]) {
     [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
                                      target:self
                                    selector:@selector(closeCallWindowTick:)
@@ -512,7 +520,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 }
 
 - (void)telephoneCallMediaDidBecomeActive:(NSNotification *)notification {
-  if ([self callOnHold]) {
+  if ([self isCallOnHold]) {
     [self startCallTimer];
     [self setCallOnHold:NO];
   }
