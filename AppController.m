@@ -646,7 +646,6 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 
 - (void)stopUserAttentionTimer {
   if (![self hasIncomingCallControllers] && [self userAttentionTimer] != nil) {
-    NSLog(@"Invalidating timer");
     [[self userAttentionTimer] invalidate];
     [self setUserAttentionTimer:nil];
   }
