@@ -851,7 +851,7 @@ NSString * const kEmailSIPLabel = @"sip";
     = [[[CallController alloc] initWithAccountController:self] autorelease];
   [aCallController setCall:aCall];
   [aCallController setCallActive:YES];
-  [aCallController setCallMissed:YES];
+  [aCallController setCallUnhandled:YES];
   [[self callControllers] addObject:aCallController];
   
   AKSIPURIFormatter *SIPURIFormatter
@@ -1091,7 +1091,12 @@ NSString * const kEmailSIPLabel = @"sip";
   
   [[[NSApp delegate] ringtone] play];
   [[NSApp delegate] startRingtoneTimer];
-  [NSApp requestUserAttention:NSCriticalRequest];
+  
+  if (![NSApp isActive]) {
+    [NSApp requestUserAttention:NSInformationalRequest];
+    [[NSApp delegate] startUserAttentionTimer];
+  }
+  
   [aCall sendRingingNotification];
 }
 

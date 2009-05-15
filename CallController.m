@@ -71,7 +71,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 @synthesize callOnHold = callOnHold_;
 @synthesize enteredDTMF = enteredDTMF_;
 @synthesize callActive = callActive_;
-@synthesize callMissed = callMissed_;
+@synthesize callUnhandled = callUnhandled_;
 
 @synthesize incomingCallView = incomingCallView_;
 @synthesize activeCallView = activeCallView_;
@@ -137,7 +137,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [self setCallOnHold:NO];
   enteredDTMF_ = [[NSMutableString alloc] init];
   [self setCallActive:NO];
-  [self setCallMissed:NO];
+  [self setCallUnhandled:NO];
   
   return self;
 }
@@ -205,14 +205,15 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   if ([[self call] isIncoming])
     [[NSApp delegate] stopRingtoneTimer];
   
-  [self setCallMissed:NO];
+  [self setCallUnhandled:NO];
+  [[NSApp delegate] updateDockTileBadgeLabel];
   
   [[self call] answer];
 }
 
 - (IBAction)hangUpCall:(id)sender {
   [self setCallActive:NO];
-  [self setCallMissed:NO];
+  [self setCallUnhandled:NO];
   [self stopCallTimer];
   
   if ([[self call] isIncoming])
@@ -235,10 +236,11 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [[self declineCallButton] setEnabled:NO];
   
   [[NSApp delegate] resumeITunesIfNeeded];
+  [[NSApp delegate] updateDockTileBadgeLabel];
   
   // Optionally close call window.
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
-      ![self isCallMissed]) {
+      ![self isCallUnhandled]) {
     [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
                                      target:self
                                    selector:@selector(closeCallWindowTick:)
@@ -338,7 +340,6 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 - (void)windowWillClose:(NSNotification *)notification {
   if ([self isCallActive]) {
     [self setCallActive:NO];
-    [self setCallMissed:NO];
     [self stopCallTimer];
     
     if ([[self call] isIncoming])
@@ -351,6 +352,9 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     
     [[NSApp delegate] resumeITunesIfNeeded];
   }
+  
+  [self setCallUnhandled:NO];
+  [[NSApp delegate] updateDockTileBadgeLabel];
   
   [[NSNotificationCenter defaultCenter]
    postNotificationName:AKTelephoneCallWindowWillCloseNotification
@@ -416,6 +420,9 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   if ([[notification object] isIncoming]) {
     // Stop ringing sound.
     [[NSApp delegate] stopRingtoneTimer];
+    
+    // Stop bouncing icon in the Dock.
+    [[NSApp delegate] stopUserAttentionTimer];
   }
   
   NSString *preferredLocalization
@@ -510,7 +517,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   
   // Optionally close disconnected call window.
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
-      ![self isCallMissed]) {
+      ![self isCallUnhandled]) {
     [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
                                      target:self
                                    selector:@selector(closeCallWindowTick:)

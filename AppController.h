@@ -50,6 +50,7 @@
   BOOL terminating_;
   BOOL didPauseITunes_;
   BOOL didWakeFromSleep_;
+  NSTimer *userAttentionTimer_;
   
   NSMenuItem *preferencesMenuItem_;
 }
@@ -72,6 +73,8 @@
 @property(nonatomic, readonly, retain) NSArray *currentNameservers;
 @property(nonatomic, assign) BOOL didPauseITunes;
 @property(nonatomic, assign) BOOL didWakeFromSleep;
+@property(nonatomic, readonly, assign) NSUInteger unhandledIncomingCallsCount;
+@property(nonatomic, retain) NSTimer *userAttentionTimer;
 
 @property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
@@ -91,12 +94,18 @@
 - (void)stopRingtoneTimer;
 - (void)ringtoneTimerTick:(NSTimer *)theTimer;
 
+- (void)startUserAttentionTimer;
+- (void)stopUserAttentionTimer;
+- (void)requestUserAttentionTick:(NSTimer *)theTimer;
+
 - (void)pauseITunes;
 - (void)resumeITunesIfNeeded;
 
 // Search all account controllers for the call controller
 // with the given identifier (uuid).
 - (CallController *)callControllerByIdentifier:(NSString *)identifier;
+
+- (void)updateDockTileBadgeLabel;
 
 - (IBAction)openFAQURL:(id)sender;
 

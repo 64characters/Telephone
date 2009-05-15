@@ -58,6 +58,9 @@ NSString * const kAudioDeviceName = @"AudioDeviceName";
 NSString * const kAudioDeviceInputsCount = @"AudioDeviceInputsCount";
 NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
+static const NSTimeInterval kRingtoneInterval = 4.0;
+static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
+
 @interface AppController()
 
 - (void)setSelectedSoundIOToTelephone;
@@ -86,6 +89,8 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 @dynamic currentNameservers;
 @synthesize didPauseITunes = didPauseITunes_;
 @synthesize didWakeFromSleep = didWakeFromSleep_;
+@dynamic unhandledIncomingCallsCount;
+@synthesize userAttentionTimer = userAttentionTimer_;
 
 @synthesize preferencesMenuItem = preferencesMenuItem_;
 
@@ -163,6 +168,18 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   CFRelease(dynamicStore);
   
   return [nameservers autorelease];
+}
+
+- (NSUInteger)unhandledIncomingCallsCount {
+  NSUInteger count = 0;
+  for (AccountController *anAccountController in [self enabledAccountControllers]) {
+    for (CallController *aCallController in [anAccountController callControllers]) {
+      if ([[aCallController call] isIncoming] && [aCallController isCallUnhandled])
+        ++count;
+    }
+  }
+  
+  return count;
 }
 
 + (void)initialize {
@@ -596,7 +613,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [[self ringtoneTimer] invalidate];
   
   [self setRingtoneTimer:
-   [NSTimer scheduledTimerWithTimeInterval:4
+   [NSTimer scheduledTimerWithTimeInterval:kRingtoneInterval
                                     target:self
                                   selector:@selector(ringtoneTimerTick:)
                                   userInfo:nil
@@ -614,6 +631,31 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 - (void)ringtoneTimerTick:(NSTimer *)theTimer {
   [[self ringtone] play];
 }
+
+- (void)startUserAttentionTimer {
+  if ([self userAttentionTimer] != nil)
+    [[self userAttentionTimer] invalidate];
+  
+  [self setUserAttentionTimer:
+   [NSTimer scheduledTimerWithTimeInterval:kUserAttentionRequestInterval
+                                    target:self
+                                  selector:@selector(requestUserAttentionTick:)
+                                  userInfo:nil
+                                   repeats:YES]];
+}
+
+- (void)stopUserAttentionTimer {
+  if (![self hasIncomingCallControllers] && [self userAttentionTimer] != nil) {
+    NSLog(@"Invalidating timer");
+    [[self userAttentionTimer] invalidate];
+    [self setUserAttentionTimer:nil];
+  }
+}
+
+- (void)requestUserAttentionTick:(NSTimer *)theTimer {
+  [NSApp requestUserAttention:NSInformationalRequest];
+}
+
 
 - (void)pauseITunes {
   if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes])
@@ -670,6 +712,17 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [self setShouldSetTelephoneSoundIO:YES];
     [[self telephone] startUserAgent];
   }
+}
+
+- (void)updateDockTileBadgeLabel {
+  NSString *badgeString;
+  NSUInteger badgeNumber = [self unhandledIncomingCallsCount];
+  if (badgeNumber == 0)
+    badgeString = @"";
+  else
+    badgeString = [NSString stringWithFormat:@"%d", badgeNumber];
+  
+  [[NSApp dockTile] setBadgeLabel:badgeString];
 }
 
 - (IBAction)openFAQURL:(id)sender {
@@ -1604,6 +1657,14 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
   return YES;
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)aNotification {
+  // Invalidate application's Dock icon bouncing timer.
+  if ([self userAttentionTimer] != nil) {
+    [[self userAttentionTimer] invalidate];
+    [self setUserAttentionTimer:nil];
+  }
+}
+
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
   if ([self hasActiveCallControllers]) {
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -1658,6 +1719,8 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
     [self setSelectedSoundIOToTelephone];
     [self setShouldSetTelephoneSoundIO:NO];
   }
+  
+  [self updateDockTileBadgeLabel];
 }
 
 
