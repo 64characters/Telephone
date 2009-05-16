@@ -620,7 +620,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
                                    repeats:YES]];
 }
 
-- (void)stopRingtoneTimer {
+- (void)stopRingtoneTimerIfNeeded {
   if (![self hasIncomingCallControllers] && [self ringtoneTimer] != nil) {
     [[self ringtone] stop];
     [[self ringtoneTimer] invalidate];
@@ -644,7 +644,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
                                    repeats:YES]];
 }
 
-- (void)stopUserAttentionTimer {
+- (void)stopUserAttentionTimerIfNeeded {
   if (![self hasIncomingCallControllers] && [self userAttentionTimer] != nil) {
     [[self userAttentionTimer] invalidate];
     [self setUserAttentionTimer:nil];

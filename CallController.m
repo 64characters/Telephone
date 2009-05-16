@@ -47,7 +47,7 @@
 NSString * const AKTelephoneCallWindowWillCloseNotification
   = @"AKTelephoneCallWindowWillClose";
 
-const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
+static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 
 @interface CallController ()
 
@@ -203,7 +203,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 
 - (IBAction)acceptCall:(id)sender {
   if ([[self call] isIncoming])
-    [[NSApp delegate] stopRingtoneTimer];
+    [[NSApp delegate] stopRingtoneTimerIfNeeded];
   
   [self setCallUnhandled:NO];
   [[NSApp delegate] updateDockTileBadgeLabel];
@@ -217,7 +217,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [self stopCallTimer];
   
   if ([[self call] isIncoming])
-    [[NSApp delegate] stopRingtoneTimer];
+    [[NSApp delegate] stopRingtoneTimerIfNeeded];
   
   // If remote party hasn't sent back any replies, call hang-up will not happen
   // immediately. Unsubscribe from any notifications about the call state and
@@ -343,7 +343,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     [self stopCallTimer];
     
     if ([[self call] isIncoming])
-      [[NSApp delegate] stopRingtoneTimer];
+      [[NSApp delegate] stopRingtoneTimerIfNeeded];
     
     if ([[[self call] delegate] isEqual:self])
       [[self call] setDelegate:nil];
@@ -401,7 +401,7 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [[NSApp delegate] pauseITunes];
   
   if ([[notification object] isIncoming])
-    [[NSApp delegate] stopRingtoneTimer];
+    [[NSApp delegate] stopRingtoneTimerIfNeeded];
   
   [[self callProgressIndicator] stopAnimation:self];
   [self setStatus:@"00:00"];
@@ -419,10 +419,10 @@ const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   
   if ([[notification object] isIncoming]) {
     // Stop ringing sound.
-    [[NSApp delegate] stopRingtoneTimer];
+    [[NSApp delegate] stopRingtoneTimerIfNeeded];
     
     // Stop bouncing icon in the Dock.
-    [[NSApp delegate] stopUserAttentionTimer];
+    [[NSApp delegate] stopUserAttentionTimerIfNeeded];
   }
   
   NSString *preferredLocalization

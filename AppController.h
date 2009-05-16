@@ -91,11 +91,11 @@
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
 
 - (void)startRingtoneTimer;
-- (void)stopRingtoneTimer;
+- (void)stopRingtoneTimerIfNeeded;
 - (void)ringtoneTimerTick:(NSTimer *)theTimer;
 
 - (void)startUserAttentionTimer;
-- (void)stopUserAttentionTimer;
+- (void)stopUserAttentionTimerIfNeeded;
 - (void)requestUserAttentionTick:(NSTimer *)theTimer;
 
 - (void)pauseITunes;
