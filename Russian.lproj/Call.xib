@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">9G55</string>
+		<string key="IBDocument.SystemVersion">9J61</string>
 		<string key="IBDocument.InterfaceBuilderVersion">677</string>
-		<string key="IBDocument.AppKitVersion">949.43</string>
+		<string key="IBDocument.AppKitVersion">949.46</string>
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -60,7 +60,7 @@
 					<object class="NSButton" id="297718295">
 						<reference key="NSNextResponder" ref="114774165"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{111, 19}, {83, 25}}</string>
+						<string key="NSFrame">{{106, 19}, {83, 25}}</string>
 						<reference key="NSSuperview" ref="114774165"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="808364161">
@@ -84,7 +84,7 @@
 					<object class="NSButton" id="186778191">
 						<reference key="NSNextResponder" ref="114774165"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{202, 19}, {78, 25}}</string>
+						<string key="NSFrame">{{197, 19}, {83, 25}}</string>
 						<reference key="NSSuperview" ref="114774165"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="493751171">
@@ -256,9 +256,6 @@
 				</object>
 				<string key="NSFrameSize">{300, 91}</string>
 				<string key="NSClassName">NSView</string>
-			</object>
-			<object class="NSCustomObject" id="1044513530">
-				<string key="NSClassName">AKSIPURIFormatter</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -683,12 +680,6 @@
 						<reference key="parent" ref="517167432"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">102</int>
-						<reference key="object" ref="1044513530"/>
-						<reference key="parent" ref="1002"/>
-						<string key="objectName">URI Formatter</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">113</int>
 						<reference key="object" ref="530249698"/>
 						<object class="NSMutableArray" key="children">
@@ -721,7 +712,6 @@
 					<string>1.windowTemplate.hasMinSize</string>
 					<string>1.windowTemplate.maxSize</string>
 					<string>1.windowTemplate.minSize</string>
-					<string>102.IBPluginDependency</string>
 					<string>113.IBPluginDependency</string>
 					<string>114.IBPluginDependency</string>
 					<string>19.IBEditorWindowLastContentRect</string>
@@ -765,7 +755,6 @@
 					<reference ref="8"/>
 					<string>{2560, 104}</string>
 					<string>{325, 80}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{324, 674}, {300, 106}}</string>
@@ -844,14 +833,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">AKSIPURIFormatter</string>
-					<string key="superclassName">NSFormatter</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AKSIPURIFormatter.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">CallController</string>
 					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
@@ -907,6 +888,14 @@
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">CallController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">CallController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
 					</object>
@@ -915,7 +904,7 @@
 					<string key="className">NSWindow</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">NSWindowAdditions.h</string>
+						<string key="minorKey">AKNSWindow+Resizing.h</string>
 					</object>
 				</object>
 			</object>
