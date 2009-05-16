@@ -323,14 +323,13 @@ NSString * const kEmailSIPLabel = @"sip";
   [telephoneNumberFormatter setSplitsLastFourDigits:
    [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
   
-  // Get the clean string of contiguous digits if the user part
-  // does not contain letters.
+  // Get the clean string of contiguous digits if the user part doesn't contain
+  // letters.
   if (![[uri user] ak_hasLetters])
     [uri setUser:[telephoneNumberFormatter telephoneNumberFromString:[uri user]]];
   
-  // Actually, the call will be made to the copy of the URI without
-  // display-name part to prevent another call party to see local
-  // Address Book record.
+  // Actually, the call will be made to the copy of the URI without display-name
+  // part to prevent another call party from seeing local Address Book records.
   AKSIPURI *cleanURI = [[uri copy] autorelease];
   [cleanURI setDisplayName:nil];
   
