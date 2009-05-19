@@ -32,7 +32,7 @@
 
 extern const NSInteger kAKTelephoneCallsMax;
 
-typedef enum _AKTelephoneCallState {
+enum {
   // Before INVITE is sent or received.
   kAKTelephoneCallNullState =         PJSIP_INV_STATE_NULL,
   
@@ -53,7 +53,8 @@ typedef enum _AKTelephoneCallState {
   
   // Session is terminated.
   kAKTelephoneCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
-} AKTelephoneCallState;
+};
+typedef NSUInteger AKTelephoneCallState;
 
 @class AKTelephoneAccount, AKSIPURI;
 

@@ -51,7 +51,7 @@ typedef struct _AKTelephoneCallData {
   pj_bool_t ringbackOff;
 } AKTelephoneCallData;
 
-typedef enum _AKNATType {
+enum {
   kAKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
   kAKNATTypeErrorUnknown   = PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
   kAKNATTypeOpen           = PJ_STUN_NAT_TYPE_OPEN,
@@ -61,13 +61,15 @@ typedef enum _AKNATType {
   kAKNATTypeSymmetric      = PJ_STUN_NAT_TYPE_SYMMETRIC,
   kAKNATTypeRestricted     = PJ_STUN_NAT_TYPE_RESTRICTED,
   kAKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
-} AKNATType;
+};
+typedef NSUInteger AKNATType;
 
-typedef enum _AKTelephoneUserAgentState {
+enum {
   kAKTelephoneUserAgentStopped,
   kAKTelephoneUserAgentStarting,
   kAKTelephoneUserAgentStarted
-} AKTelephoneUserAgentState;
+};
+typedef NSUInteger AKTelephoneUserAgentState;
 
 @class AKTelephoneAccount, AKTelephoneCall;
 @protocol AKTelephoneDelegate;
