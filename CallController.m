@@ -72,6 +72,7 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 @synthesize enteredDTMF = enteredDTMF_;
 @synthesize callActive = callActive_;
 @synthesize callUnhandled = callUnhandled_;
+@synthesize callProgressIndicatorTrackingArea = callProgressIndicatorTrackingArea_;
 
 @synthesize incomingCallView = incomingCallView_;
 @synthesize activeCallView = activeCallView_;
@@ -157,6 +158,7 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [phoneLabelFromAddressBook_ release];
   [enteredCallDestination_ release];
   [enteredDTMF_ release];
+  [callProgressIndicatorTrackingArea_ release];
   
   [incomingCallView_ release];
   [activeCallView_ release];
@@ -199,6 +201,33 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   
   [[[self endedCallStatusField] cell]
    setBackgroundStyle:NSBackgroundStyleRaised];
+  
+  // Set hang-up button origin manually.
+  NSRect hangUpButtonFrame = [[self hangUpButton] frame];
+  NSRect progressIndicatorFrame = [[self callProgressIndicator] frame];
+  hangUpButtonFrame.origin.x = progressIndicatorFrame.origin.x + 1;
+  hangUpButtonFrame.origin.y = progressIndicatorFrame.origin.y + 1;
+  [[self hangUpButton] setFrame:hangUpButtonFrame];
+  
+  [[self hangUpButton] setToolTip:
+   NSLocalizedString(@"End Call", @"Hang-up button tooltip.")];
+  
+  // Add mouse tracking area to switch between call progress indicator and a
+  // hang-up button in the active call view.
+  NSRect trackingRect = [[self callProgressIndicator] frame];
+  
+  NSUInteger trackingOptions
+    = NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways;
+  
+  NSTrackingArea *trackingArea = [[[NSTrackingArea alloc]
+                                   initWithRect:trackingRect
+                                        options:trackingOptions
+                                          owner:self
+                                       userInfo:nil]
+                                  autorelease];
+  
+  [[self activeCallView] addTrackingArea:trackingArea];
+  [self setCallProgressIndicatorTrackingArea:trackingArea];
 }
 
 - (IBAction)acceptCall:(id)sender {
@@ -363,6 +392,22 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 
 
 #pragma mark -
+#pragma mark NSResponder overrides
+
+- (void)mouseEntered:(NSEvent *)theEvent {
+  // Replace progress indicator with hang-up button.
+  [[self activeCallView] replaceSubview:[self callProgressIndicator]
+                                   with:[self hangUpButton]];
+}
+
+- (void)mouseExited:(NSEvent *)theEvent {
+  // Replace hang-up button with progress indicator.
+  [[self activeCallView] replaceSubview:[self hangUpButton]
+                                   with:[self callProgressIndicator]];
+}
+
+
+#pragma mark -
 #pragma mark AKTelephoneCall notifications
 
 - (void)telephoneCallCalling:(NSNotification *)notification {
@@ -389,6 +434,10 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   if (![[self call] isIncoming]) {
     if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
       [[self callProgressIndicator] stopAnimation:self];
+      [[self activeCallView] removeTrackingArea:
+       [self callProgressIndicatorTrackingArea]];
+      [[self activeCallView] replaceSubview:[self callProgressIndicator]
+                                       with:[self hangUpButton]];
       [self setStatus:NSLocalizedString(@"ringing", @"Remote party ringing.")];
     }
     
@@ -404,6 +453,10 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     [[NSApp delegate] stopRingtoneTimerIfNeeded];
   
   [[self callProgressIndicator] stopAnimation:self];
+  [[self activeCallView] removeTrackingArea:
+   [self callProgressIndicatorTrackingArea]];
+  [[self activeCallView] replaceSubview:[self callProgressIndicator]
+                                   with:[self hangUpButton]];
   [self setStatus:@"00:00"];
   
   [self startCallTimer];

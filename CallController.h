@@ -50,6 +50,7 @@
   NSMutableString *enteredDTMF_;
   BOOL callActive_;
   BOOL callUnhandled_;
+  NSTrackingArea *callProgressIndicatorTrackingArea_;
   
   NSView *incomingCallView_;
   NSView *activeCallView_;
@@ -81,6 +82,7 @@
 @property(nonatomic, retain) NSMutableString *enteredDTMF;
 @property(nonatomic, assign, getter=isCallActive) BOOL callActive;
 @property(nonatomic, assign, getter=isCallUnhandled) BOOL callUnhandled;
+@property(nonatomic, retain) NSTrackingArea *callProgressIndicatorTrackingArea;
 
 @property(nonatomic, retain) IBOutlet NSView *incomingCallView;
 @property(nonatomic, retain) IBOutlet NSView *activeCallView;

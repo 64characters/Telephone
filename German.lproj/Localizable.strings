@@ -64,6 +64,9 @@
 /* Don't save button. */
 "Don't Save" = "Nicht Sichern";
 
+/* Hang-up button tooltip. */
+"End Call" = "Anruf beenden";
+
 /* Error #. */
 "Error %d" = "Fehler %d";
 
