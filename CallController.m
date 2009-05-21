@@ -295,6 +295,16 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     return;
   }
   
+  // Replace plus character if needed.
+  if ([[self accountController] substitutesPlusCharacter] &&
+      [[[self redialURI] user] hasPrefix:@"+"]) {
+    [[self redialURI] setUser:
+     [[[self redialURI] user]
+      stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+                              withString:[[self accountController]
+                                          plusCharacterSubstitution]]];
+  }
+  
   [[self activeCallView] replaceSubview:[self hangUpButton]
                                    with:[self callProgressIndicator]];
   
