@@ -31,7 +31,7 @@
 #import "AKActiveCallView.h"
 
 
-@class AccountController, AKTelephoneCall;
+@class AccountController, AKTelephoneCall, AKSIPURI;
 
 @interface CallController : NSWindowController <AKActiveCallViewDelegate> {
  @private
@@ -43,6 +43,7 @@
   NSString *nameFromAddressBook_;
   NSString *phoneLabelFromAddressBook_;
   NSString *enteredCallDestination_;
+  AKSIPURI *redialURI_;
   NSTimer *intermediateStatusTimer_;
   NSTimeInterval callStartTime_;
   NSTimer *callTimer_;
@@ -58,6 +59,7 @@
   NSButton *hangUpButton_;
   NSButton *acceptCallButton_;
   NSButton *declineCallButton_;
+  NSButton *redialButton_;
   NSTextField *incomingCallDisplayedNameField_;
   NSTextField *activeCallDisplayedNameField_;
   NSTextField *endedCallDisplayedNameField_;
@@ -75,6 +77,7 @@
 @property(nonatomic, copy) NSString *nameFromAddressBook;
 @property(nonatomic, copy) NSString *phoneLabelFromAddressBook;
 @property(nonatomic, copy) NSString *enteredCallDestination;
+@property(nonatomic, copy) AKSIPURI *redialURI;
 @property(nonatomic, retain) NSTimer *intermediateStatusTimer;
 @property(nonatomic, assign) NSTimeInterval callStartTime;
 @property(nonatomic, retain) NSTimer *callTimer;
@@ -90,6 +93,7 @@
 @property(nonatomic, retain) IBOutlet NSButton *hangUpButton;
 @property(nonatomic, retain) IBOutlet NSButton *acceptCallButton;
 @property(nonatomic, retain) IBOutlet NSButton *declineCallButton;
+@property(nonatomic, retain) IBOutlet NSButton *redialButton;
 @property(nonatomic, retain) IBOutlet NSTextField *incomingCallDisplayedNameField;
 @property(nonatomic, retain) IBOutlet NSTextField *activeCallDisplayedNameField;
 @property(nonatomic, retain) IBOutlet NSTextField *endedCallDisplayedNameField;
@@ -103,6 +107,7 @@
 
 - (IBAction)acceptCall:(id)sender;
 - (IBAction)hangUpCall:(id)sender;
+- (IBAction)redial:(id)sender;
 
 - (IBAction)toggleCallHold:(id)sender;
 - (IBAction)toggleMicrophoneMute:(id)sender;

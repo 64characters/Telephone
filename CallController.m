@@ -40,6 +40,7 @@
 #import "AKTelephoneCall.h"
 #import "AKTelephoneNumberFormatter.h"
 
+#import "AccountController.h"
 #import "AppController.h"
 #import "PreferenceController.h"
 
@@ -65,6 +66,7 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 @synthesize nameFromAddressBook = nameFromAddressBook_;
 @synthesize phoneLabelFromAddressBook = phoneLabelFromAddressBook_;
 @synthesize enteredCallDestination = enteredCallDestination_;
+@synthesize redialURI = redialURI_;
 @synthesize intermediateStatusTimer = intermediateStatusTimer_;
 @synthesize callStartTime = callStartTime_;
 @synthesize callTimer = callTimer_;
@@ -80,6 +82,7 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 @synthesize hangUpButton = hangUpButton_;
 @synthesize acceptCallButton = acceptCallButton_;
 @synthesize declineCallButton = declineCallButton_;
+@synthesize redialButton = redialButton_;
 @synthesize incomingCallDisplayedNameField = incomingCallDisplayedNameField_;
 @synthesize activeCallDisplayedNameField = activeCallDisplayedNameField_;
 @synthesize endedCallDisplayedNameField = endedCallDisplayedNameField_;
@@ -157,6 +160,7 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [nameFromAddressBook_ release];
   [phoneLabelFromAddressBook_ release];
   [enteredCallDestination_ release];
+  [redialURI_ release];
   [enteredDTMF_ release];
   [callProgressIndicatorTrackingArea_ release];
   
@@ -166,6 +170,7 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [hangUpButton_ release];
   [acceptCallButton_ release];
   [declineCallButton_ release];
+  [redialButton_ release];
   [incomingCallDisplayedNameField_ release];
   [activeCallDisplayedNameField_ release];
   [endedCallDisplayedNameField_ release];
@@ -211,6 +216,9 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   
   [[self hangUpButton] setToolTip:
    NSLocalizedString(@"End Call", @"Hang-up button tooltip.")];
+  
+  [[self redialButton] setToolTip:
+   NSLocalizedString(@"Call Back", @"Redial button tooltip.")];
   
   // Add mouse tracking area to switch between call progress indicator and a
   // hang-up button in the active call view.
@@ -275,6 +283,55 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
                                    selector:@selector(closeCallWindowTick:)
                                    userInfo:nil
                                     repeats:NO];
+  }
+}
+
+- (IBAction)redial:(id)sender {
+  if (![[[NSApp delegate] telephone] userAgentStarted] ||
+      ![[self accountController] isEnabled] ||
+      [[[[self accountController] window] contentView] isEqual:
+       [[self accountController] offlineAccountView]] ||
+      [self redialURI] == nil) {
+    return;
+  }
+  
+  [[self activeCallView] replaceSubview:[self hangUpButton]
+                                   with:[self callProgressIndicator]];
+  
+  [[self activeCallView] addTrackingArea:
+   [self callProgressIndicatorTrackingArea]];
+  
+  [[self callProgressIndicator] startAnimation:self];
+  [[self hangUpButton] setEnabled:YES];
+  [[self window] setContentView:[self activeCallView]];
+  
+  if ([[self phoneLabelFromAddressBook] length] > 0) {
+    [self setStatus:
+     [NSString stringWithFormat:
+      NSLocalizedString(@"calling %@...",
+                        @"Outgoing call in progress. Calling specific phone "
+                        "type (mobile, home, etc)."),
+      [self phoneLabelFromAddressBook]]];
+    
+  } else {
+    [self setStatus:NSLocalizedString(@"calling...",
+                                      @"Outgoing call in progress.")];
+  }
+  
+  // Make actual call.
+  AKTelephoneCall *aCall
+    = [[[self accountController] account] makeCallTo:[self redialURI]];
+  if (aCall != nil) {
+    [self setCall:aCall];
+    [self setCallActive:YES];
+  } else {
+    [[self window] setContentView:[self endedCallView]];
+    [self setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
+  }
+  
+  if ([self isCallUnhandled]) {
+    [self setCallUnhandled:NO];
+    [[NSApp delegate] updateDockTileBadgeLabel];
   }
 }
 

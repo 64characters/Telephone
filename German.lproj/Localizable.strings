@@ -18,6 +18,9 @@
 /* Busy. */
 "busy" = "Besetzt";
 
+/* Redial button tooltip. */
+"Call Back" = "Rückruf";
+
 /* Call declined. */
 "call declined" = "Anruf abgelehnt";
 

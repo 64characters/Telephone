@@ -380,6 +380,9 @@ NSString * const kEmailSIPLabel = @"sip";
     [aCallController setDisplayedName:[firstURI displayName]];
   }
   
+  // Set URI for redial.
+  [aCallController setRedialURI:cleanURI];
+  
   [[aCallController window] setContentView:[aCallController activeCallView]];
   
   if ([phoneLabel length] > 0) {
@@ -865,6 +868,7 @@ NSString * const kEmailSIPLabel = @"sip";
                         @"John Smith calling. Somebody is calling us right now. "
                         "Call status string. Deliberately in lower case, "
                         "translators should do the same, if possible.");
+  AKSIPURI *finalRedialURI = [aCall remoteURI];
   
   // Search Address Book for caller's name.
   
@@ -889,6 +893,8 @@ NSString * const kEmailSIPLabel = @"sip";
     NSString *localizedLabel = [AB ak_localizedLabel:kEmailSIPLabel];
     finalStatus = localizedLabel;
     [aCallController setPhoneLabelFromAddressBook:localizedLabel];
+    
+    finalRedialURI = [aCall remoteURI];
     
   } else if ([[[aCall remoteURI] displayName] ak_isTelephoneNumber] ||
              ([[[aCall remoteURI] displayName] length] == 0 &&
@@ -917,7 +923,7 @@ NSString * const kEmailSIPLabel = @"sip";
       finalDisplayedName = [theRecord ak_fullName];
       [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
       
-      // Find the phone label.
+      // Find the exact phone number match.
       ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
       for (NSUInteger i = 0; i < [phones count]; ++i)
         if ([[phones valueAtIndex:i] isEqualToString:phoneNumberToSearch]) {
@@ -925,6 +931,11 @@ NSString * const kEmailSIPLabel = @"sip";
             = [AB ak_localizedLabel:[phones labelAtIndex:i]];
           finalStatus = localizedLabel;
           [aCallController setPhoneLabelFromAddressBook:localizedLabel];
+          
+          finalRedialURI
+            = [AKSIPURI SIPURIWithUser:[phones valueAtIndex:i]
+                                  host:[[[self account] registrationURI] host]
+                           displayName:nil];
           break;
         }
     }
@@ -958,7 +969,7 @@ NSString * const kEmailSIPLabel = @"sip";
           finalDisplayedName = [theRecord ak_fullName];
           [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
           
-          // Find the phone label.
+          // Find the exact phone number match.
           ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
           for (NSUInteger i = 0; i < [phones count]; ++i)
             if ([[phones valueAtIndex:i] hasSuffix:significantPhoneSuffix]) {
@@ -966,6 +977,11 @@ NSString * const kEmailSIPLabel = @"sip";
                 = [AB ak_localizedLabel:[phones labelAtIndex:i]];
               finalStatus = localizedLabel;
               [aCallController setPhoneLabelFromAddressBook:localizedLabel];
+              
+              finalRedialURI
+              = [AKSIPURI SIPURIWithUser:[phones valueAtIndex:i]
+                                    host:[[[self account] registrationURI] host]
+                             displayName:nil];
               break;
             }
         }
@@ -1009,6 +1025,11 @@ NSString * const kEmailSIPLabel = @"sip";
               = [AB ak_localizedLabel:[phones labelAtIndex:i]];
             finalStatus = localizedLabel;
             [aCallController setPhoneLabelFromAddressBook:localizedLabel];
+            
+            finalRedialURI
+              = [AKSIPURI SIPURIWithUser:scannedPhoneNumber
+                                    host:[[[self account] registrationURI] host]
+                             displayName:nil];
             break;
           }
         }
@@ -1027,6 +1048,7 @@ NSString * const kEmailSIPLabel = @"sip";
   [[aCallController window] setTitle:finalTitle];
   [aCallController setDisplayedName:finalDisplayedName];
   [aCallController setStatus:finalStatus];
+  [aCallController setRedialURI:finalRedialURI];
   [[aCallController window] ak_resizeAndSwapToContentView:
    [aCallController incomingCallView]];
   

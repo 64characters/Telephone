@@ -16,6 +16,9 @@
 /* Busy. */
 "busy" = "занято";
 
+/* Redial button tooltip. */
+"Call Back" = "Перезвонить";
+
 /* Call declined. */
 "call declined" = "звонок отклонен";
 
