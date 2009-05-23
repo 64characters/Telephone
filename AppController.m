@@ -1213,6 +1213,8 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
                  username:[accountDict objectForKey:kUsername]]
          autorelease];
     
+    [theAccountController setAccountUnavailable:NO];
+    
     [[theAccountController account] setReregistrationTime:
      [[accountDict objectForKey:kReregistrationTime] integerValue]];
     

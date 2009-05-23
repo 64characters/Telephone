@@ -100,6 +100,7 @@ typedef NSUInteger AKTelephoneCallState;
 - (void)answer;
 - (void)hangUp;
 - (void)sendRingingNotification;
+- (void)replyWithTemporarilyUnavailable;
 - (void)ringbackStart;
 - (void)ringbackStop;
 - (void)sendDTMFDigits:(NSString *)digits;

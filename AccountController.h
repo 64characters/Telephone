@@ -47,6 +47,7 @@ enum {
   NSMutableArray *callControllers_;
   BOOL attemptingToRegisterAccount_;
   BOOL attemptingToUnregisterAccount_;
+  BOOL accountUnavailable_;
   NSTimer *reRegistrationTimer_;
   BOOL shouldMakeCall_;
   NSString *catchedURLString_;
@@ -75,6 +76,7 @@ enum {
 @property(nonatomic, retain) NSMutableArray *callControllers;
 @property(nonatomic, assign) BOOL attemptingToRegisterAccount;
 @property(nonatomic, assign) BOOL attemptingToUnregisterAccount;
+@property(nonatomic, assign, getter=isAccountUnavailable) BOOL accountUnavailable;
 @property(nonatomic, assign) BOOL shouldMakeCall;
 @property(nonatomic, copy) NSString *catchedURLString;
 @property(nonatomic, assign) BOOL substitutesPlusCharacter;

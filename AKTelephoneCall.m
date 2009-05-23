@@ -264,6 +264,14 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
     NSLog(@"Error sending ringing notification in call %@", self);
 }
 
+- (void)replyWithTemporarilyUnavailable {
+  pj_status_t status = pjsua_call_answer([self identifier],
+                                         PJSIP_SC_TEMPORARILY_UNAVAILABLE,
+                                         NULL, NULL);
+  if (status != PJ_SUCCESS)
+    NSLog(@"Error replying with 480 Temporarily Unavailable");
+}
+
 - (void)ringbackStart {
   AKTelephone *telephone = [AKTelephone sharedTelephone];
   

@@ -95,6 +95,7 @@ NSString * const kEmailSIPLabel = @"sip";
 @synthesize callControllers = callControllers_;
 @synthesize attemptingToRegisterAccount = attemptingToRegisterAccount_;
 @synthesize attemptingToUnregisterAccount = attemptingToUnregisterAccount_;
+@synthesize accountUnavailable = accountUnavailable_;
 @synthesize reRegistrationTimer = reRegistrationTimer_;
 @synthesize shouldMakeCall = shouldMakeCall_;
 @synthesize catchedURLString = catchedURLString_;
@@ -192,6 +193,7 @@ NSString * const kEmailSIPLabel = @"sip";
   
   [self setAttemptingToRegisterAccount:NO];
   [self setAttemptingToUnregisterAccount:NO];
+  [self setAccountUnavailable:NO];
   [self setShouldMakeCall:NO];
   
   [[self account] setDelegate:self];
@@ -421,6 +423,7 @@ NSString * const kEmailSIPLabel = @"sip";
   NSInteger selectedItemTag = [[sender selectedItem] tag];
   
   if (selectedItemTag == kTelephoneAccountOfflineTag) {
+    [self setAccountUnavailable:NO];
     [self showOfflineMode];
     // Remove account from Telephone.
     [self removeAccountFromTelephone];
@@ -429,11 +432,13 @@ NSString * const kEmailSIPLabel = @"sip";
     // Unregister account only if it is registered or it wasn't added to Telephone.
     if ([self isAccountRegistered] ||
         [[self account] identifier] == kAKTelephoneInvalidIdentifier) {
+      [self setAccountUnavailable:YES];
       [self setAttemptingToUnregisterAccount:YES];
       [self setAccountRegistered:NO];
     }
     
   } else if (selectedItemTag == kTelephoneAccountRegisterTag) {
+    [self setAccountUnavailable:NO];
     [self setAttemptingToRegisterAccount:YES];
     [self setAccountRegistered:YES];
   }
@@ -703,6 +708,7 @@ NSString * const kEmailSIPLabel = @"sip";
       [self setAccountRegistered:NO];
       
     } else {
+      [self setAccountUnavailable:NO];
       [self showRegisteredMode];
       
       // The user could initiate a call from the Address Book plug-in.
@@ -847,6 +853,13 @@ NSString * const kEmailSIPLabel = @"sip";
 
 // When the call is received, create call controller, add to array, show call window
 - (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall {
+  // Just reply with 480 Temporarily Unavailable if the user selected
+  // Unavailable account state.
+  if ([self isAccountUnavailable]) {
+    [aCall replyWithTemporarilyUnavailable];
+    return;
+  }
+  
   [[NSApp delegate] pauseITunes];
   
   CallController *aCallController
