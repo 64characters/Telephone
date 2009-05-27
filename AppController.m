@@ -1503,53 +1503,6 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   [self setRingtone:[NSSound soundNamed:
                      [defaults stringForKey:kRingingSound]]];
   
-  // Install audio devices changes callback
-  AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
-                                   AKAudioDevicesChanged, self);
-  
-  // Get available audio devices, select devices for sound input and output.
-  [self updateAudioDevices];
-  
-  // Install Address Book plug-ins.
-  NSError *error = nil;
-  BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
-  if (!installed && error != nil) {
-    NSLog(@"%@", error);
-    
-    NSString *libraryPath
-      = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
-                                             NSUserDomainMask,
-                                             NO)
-       objectAtIndex:0];
-    
-    if ([libraryPath length] > 0) {
-      NSString *addressBookPlugInsInstallPath
-        = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
-      
-      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-      [alert addButtonWithTitle:@"OK"];
-      [alert setMessageText:
-       NSLocalizedString(@"Could not install Address Book plug-ins.",
-                         @"Address Book plug-ins install error, alert message text.")];
-      [alert setInformativeText:
-       [NSString stringWithFormat:
-        NSLocalizedString(@"Make sure you have write permission to \\U201C%@\\U201D.",
-                          @"Address Book plug-ins install error, alert informative text."),
-        addressBookPlugInsInstallPath]];
-      
-      [alert runModal];
-    }
-  }
-  
-  // Load Growl.
-  NSString *growlPath = [[mainBundle privateFrameworksPath]
-                         stringByAppendingPathComponent:@"Growl.framework"];
-  NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
-  if (growlBundle != nil && [growlBundle load])
-    [GrowlApplicationBridge setGrowlDelegate:self];
-  else
-    NSLog(@"Could not load Growl.framework");
-  
   // Read accounts from defaults
   NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
   
@@ -1647,11 +1600,58 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
     }
   }
   
+  // Install audio devices changes callback
+  AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
+                                   AKAudioDevicesChanged, self);
+  
+  // Get available audio devices, select devices for sound input and output.
+  [self updateAudioDevices];
+  
+  // Install Address Book plug-ins.
+  NSError *error = nil;
+  BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
+  if (!installed && error != nil) {
+    NSLog(@"%@", error);
+    
+    NSString *libraryPath
+      = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                             NSUserDomainMask,
+                                             NO)
+       objectAtIndex:0];
+    
+    if ([libraryPath length] > 0) {
+      NSString *addressBookPlugInsInstallPath
+        = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
+      
+      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+      [alert addButtonWithTitle:@"OK"];
+      [alert setMessageText:
+       NSLocalizedString(@"Could not install Address Book plug-ins.",
+                         @"Address Book plug-ins install error, alert message text.")];
+      [alert setInformativeText:
+       [NSString stringWithFormat:
+        NSLocalizedString(@"Make sure you have write permission to \\U201C%@\\U201D.",
+                          @"Address Book plug-ins install error, alert informative text."),
+        addressBookPlugInsInstallPath]];
+      
+      [alert runModal];
+    }
+  }
+  
+  // Load Growl.
+  NSString *growlPath = [[mainBundle privateFrameworksPath]
+                         stringByAppendingPathComponent:@"Growl.framework"];
+  NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+  if (growlBundle != nil && [growlBundle load])
+    [GrowlApplicationBridge setGrowlDelegate:self];
+  else
+    NSLog(@"Could not load Growl.framework");
+  
+  
+  // Register all accounts from the callback and start SIP user agent.
   if ([[self enabledAccountControllers] count] > 0) {
-    // Register all acounts from the callback.
     [self setShouldRegisterAllAccounts:YES];
     
-    // Start user agent.
     [[self telephone] startUserAgent];
   }
 }
