@@ -50,6 +50,8 @@
   BOOL terminating_;
   BOOL didPauseITunes_;
   BOOL didWakeFromSleep_;
+  NSUInteger afterSleepReconnectionAttemptIndex_;
+  NSArray *afterSleepReconnectionTimeIntervals_;
   NSTimer *userAttentionTimer_;
   
   NSMenuItem *preferencesMenuItem_;

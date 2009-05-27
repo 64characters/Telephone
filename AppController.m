@@ -63,6 +63,9 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 
 @interface AppController()
 
+@property(nonatomic, assign) NSUInteger afterSleepReconnectionAttemptIndex;
+@property(nonatomic, retain) NSArray *afterSleepReconnectionTimeIntervals;
+
 - (void)setSelectedSoundIOToTelephone;
 
 - (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
@@ -89,6 +92,8 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 @dynamic currentNameservers;
 @synthesize didPauseITunes = didPauseITunes_;
 @synthesize didWakeFromSleep = didWakeFromSleep_;
+@synthesize afterSleepReconnectionAttemptIndex = afterSleepReconnectionAttemptIndex_;
+@synthesize afterSleepReconnectionTimeIntervals = afterSleepReconnectionTimeIntervals_;
 @dynamic unhandledIncomingCallsCount;
 @synthesize userAttentionTimer = userAttentionTimer_;
 
@@ -266,6 +271,15 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   [self setDidPauseITunes:NO];
   [self setDidWakeFromSleep:NO];
   
+  [self setAfterSleepReconnectionTimeIntervals:
+   [[NSArray alloc] initWithObjects:
+    [NSNumber numberWithDouble:3.0],
+    [NSNumber numberWithDouble:7.0],
+    [NSNumber numberWithDouble:10.0],
+    [NSNumber numberWithDouble:20.0],
+    [NSNumber numberWithDouble:40.0],
+    nil]];
+  
   // Subscribe to Early and Confirmed call states to set sound IO to Telephone.
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   [notificationCenter addObserver:self
@@ -337,6 +351,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   [audioDevices_ release];
   [ringtone_ release];
   
+  [afterSleepReconnectionTimeIntervals_ release];
   [preferencesMenuItem_ release];
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -701,15 +716,28 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 }
 
 - (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer {
-  if (![[self telephone] userAgentStarted]) {
-    // Set |didWakeFromSleep| here because the user can manually initiate user
-    // agent start-up by setting an account's status to Online. And that can
-    // happen before we get here.
-    [self setDidWakeFromSleep:YES];
+  if (![self didWakeFromSleep])
+    return;
     
+  if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
     [self setShouldRegisterAllAccounts:YES];
     [self setShouldSetTelephoneSoundIO:YES];
     [[self telephone] startUserAgent];
+  }
+  
+  NSUInteger attemptIndex = [self afterSleepReconnectionAttemptIndex];
+  if (attemptIndex < [[self afterSleepReconnectionTimeIntervals] count]) {
+    NSTimeInterval timeInterval
+      = [[[self afterSleepReconnectionTimeIntervals] objectAtIndex:attemptIndex]
+         doubleValue];
+    
+    [NSTimer scheduledTimerWithTimeInterval:timeInterval
+                                     target:self
+                                   selector:@selector(startUserAgentAfterDidWakeTick:)
+                                   userInfo:nil
+                                    repeats:NO];
+    
+    [self setAfterSleepReconnectionAttemptIndex:++attemptIndex];
   }
 }
 
@@ -1335,6 +1363,8 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
     
     [self setShouldRegisterAllAccounts:NO];
     
+    [self setDidWakeFromSleep:NO];
+    
   } else {
     NSLog(@"Could not start SIP user agent. "
           "Please check your network connection and STUN server settings.");
@@ -1350,10 +1380,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
       [alert setInformativeText:
        NSLocalizedString(@"Please check your network connection and STUN server settings.",
                          @"SIP user agent start error informative text.")];
-      [alert runModal];
-      
-    } else {
-      [self setDidWakeFromSleep:NO];
+      [alert runModal]; 
     }
   }
 }
@@ -1752,11 +1779,20 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 }
 
 - (void)workspaceDidWake:(NSNotification *)notification {
-  [NSTimer scheduledTimerWithTimeInterval:3.0
+  [self setDidWakeFromSleep:YES];
+  [self setAfterSleepReconnectionAttemptIndex:0];
+  
+  NSTimeInterval timeInterval
+    = [[[self afterSleepReconnectionTimeIntervals] objectAtIndex:0]
+       doubleValue];
+  
+  [NSTimer scheduledTimerWithTimeInterval:timeInterval
                                    target:self
                                  selector:@selector(startUserAgentAfterDidWakeTick:)
                                  userInfo:nil
                                   repeats:NO];
+  
+  [self setAfterSleepReconnectionAttemptIndex:1];
 }
 
 // Unregister all accounts when a user session is switched out.

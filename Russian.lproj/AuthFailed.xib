@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">9G55</string>
+		<string key="IBDocument.SystemVersion">9J61</string>
 		<string key="IBDocument.InterfaceBuilderVersion">677</string>
-		<string key="IBDocument.AppKitVersion">949.43</string>
+		<string key="IBDocument.AppKitVersion">949.46</string>
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -623,7 +623,7 @@ jNGB0Y8g0L3QsCDRgdC10YDQstC10YDQtSBleGFtcGxlLmNvbS4g0J/RgNC+0LLQtdGA0YzRgtC1INC4
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>changeAccountRegistration:</string>
+							<string>changeAccountState:</string>
 							<string>changeCallDestinationURIIndex:</string>
 							<string>changeUsernameAndPassword:</string>
 							<string>closeSheet:</string>
@@ -642,7 +642,7 @@ jNGB0Y8g0L3QsCDRgdC10YDQstC10YDQtSBleGFtcGxlLmNvbS4g0J/RgNC+0LLQtdGA0YzRgtC1INC4
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>accountRegistrationPopUp</string>
+							<string>accountStatePopUp</string>
 							<string>activeAccountView</string>
 							<string>authenticationFailureCancelButton</string>
 							<string>authenticationFailureSheet</string>

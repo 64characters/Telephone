@@ -31,13 +31,6 @@
 #import "AKTelephoneAccount.h"
 
 
-// Account registration pull-down list tags
-enum {
-  kTelephoneAccountOfflineTag    = 1,
-  kTelephoneAccountUnregisterTag = 2,
-  kTelephoneAccountRegisterTag   = 3
-};
-
 @class AKTelephoneAccount;
 
 @interface AccountController : NSWindowController <AKTelephoneAccountDelegate> {
@@ -57,7 +50,7 @@ enum {
   
   NSView *activeAccountView_;
   NSView *offlineAccountView_;
-  NSPopUpButton *accountRegistrationPopUp_;
+  NSPopUpButton *accountStatePopUp_;
   NSTokenField *callDestinationField_;
   NSUInteger callDestinationURIIndex_;
   
@@ -84,7 +77,7 @@ enum {
 
 @property(nonatomic, retain) IBOutlet NSView *activeAccountView;
 @property(nonatomic, retain) IBOutlet NSView *offlineAccountView;
-@property(nonatomic, retain) IBOutlet NSPopUpButton *accountRegistrationPopUp;
+@property(nonatomic, retain) IBOutlet NSPopUpButton *accountStatePopUp;
 @property(nonatomic, retain) IBOutlet NSTokenField *callDestinationField;
 
 @property(nonatomic, retain) IBOutlet NSWindow *authenticationFailureSheet;
@@ -108,7 +101,7 @@ enum {
 
 - (IBAction)makeCall:(id)sender;
 
-- (IBAction)changeAccountRegistration:(id)sender;
+- (IBAction)changeAccountState:(id)sender;
 
 // When authentication fails, the sheet is being raised.
 // This action method applies new username and password entered
@@ -123,18 +116,25 @@ enum {
 // Show alert saying that connection to the registrar failed.
 - (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error;
 
-// Set accountRegistrationPopUp button title, change account window content view,
-// set accountRegistrationPopUp menu items states.
-- (void)showRegisteredMode;
-- (void)showUnregisteredMode;
-- (void)showOfflineMode;
-- (void)showConnectingMode;
+// Set accountStatePopUp button title, change account window content view,
+// set accountStatePopUp menu items states.
+- (void)showAvailableState;
+- (void)showUnavailableState;
+- (void)showOfflineState;
+- (void)showConnectingState;
 
 // Handle |catchedURLString| populated by application URL handler.
 - (void)handleCatchedURL;
 
 @end
 
+
+// Account states.
+enum {
+  kTelephoneAccountOffline     = 1,
+  kTelephoneAccountUnavailable = 2,
+  kTelephoneAccountAvailable   = 3
+};
 
 // Address Book label for SIP address in the email field.
 extern NSString * const kEmailSIPLabel;
