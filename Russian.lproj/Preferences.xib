@@ -1185,7 +1185,6 @@ vtC90LrQsA</string>
 							<int key="NSCellFlags2">272630784</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="698646905"/>
-							<string key="NSPlaceholderString">stun.example.com</string>
 							<reference key="NSControlView" ref="166487519"/>
 							<bool key="NSDrawsBackground">YES</bool>
 							<reference key="NSBackgroundColor" ref="593763470"/>
@@ -3143,7 +3142,7 @@ v9C+0YDRgtCwINC+0YHRgtCw0LLRjNGC0LUg0L/QvtC70LUg0L/Rg9GB0YLRi9C8Lg</string>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{256, 679}, {539, 264}}</string>
+					<string>{{256, 592}, {539, 264}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
