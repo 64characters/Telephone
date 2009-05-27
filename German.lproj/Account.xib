@@ -58,8 +58,8 @@
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">EEE95733-19E9-4027-A49A-9490D862E695</characters>
 							</object>
-							<string key="NSToolbarItemLabel">Registration Menu</string>
-							<string key="NSToolbarItemPaletteLabel">Registration Menu</string>
+							<string key="NSToolbarItemLabel">Account State</string>
+							<string key="NSToolbarItemPaletteLabel">Account State</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSPopUpButton" key="NSToolbarItemView" id="1059843186">
 								<nil key="NSNextResponder"/>
@@ -635,6 +635,14 @@
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">AccountController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">AccountController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
 					</object>
@@ -643,7 +651,7 @@
 					<string key="className">NSWindow</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">NSWindowAdditions.h</string>
+						<string key="minorKey">AKNSWindow+Resizing.h</string>
 					</object>
 				</object>
 			</object>
