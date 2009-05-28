@@ -55,9 +55,11 @@ extern NSString * const kPauseITunes;
 extern NSString * const kAutoCloseCallWindow;
 
 // Account keys
+extern NSString * const kDescription;
 extern NSString * const kFullName;
 extern NSString * const kSIPAddress;
 extern NSString * const kRegistrar;
+extern NSString * const kDomain;
 extern NSString * const kRealm;
 extern NSString * const kUsername;
 extern NSString * const kAccountIndex;
@@ -104,9 +106,9 @@ extern NSString * const kDestinationIndex;
   // Account.
   NSTableView *accountsTable_;
   NSButton *accountEnabledCheckBox_;
+  NSTextField *accountDescriptionField_;
   NSTextField *fullNameField_;
-  NSTextField *SIPAddressField_;
-  NSTextField *registrarField_;
+  NSTextField *domainField_;
   NSTextField *usernameField_;
   NSTextField *passwordField_;
   NSTextField *reregistrationTimeField_;
@@ -115,14 +117,19 @@ extern NSString * const kDestinationIndex;
   NSButton *useProxyCheckBox_;
   NSTextField *proxyHostField_;
   NSTextField *proxyPortField_;
+  NSTextField *SIPAddressField_;
+  NSTextField *registrarField_;
   
   // Account Setup.
   NSWindow *addAccountWindow_;
   NSTextField *setupFullNameField_;
-  NSTextField *setupSIPAddressField_;
-  NSTextField *setupRegistrarField_;
+  NSTextField *setupDomainField_;
   NSTextField *setupUsernameField_;
   NSTextField *setupPasswordField_;
+  NSImageView *setupFullNameInvalidDataView_;
+  NSImageView *setupDomainInvalidDataView_;
+  NSImageView *setupUsernameInvalidDataView_;
+  NSImageView *setupPasswordInvalidDataView_;
   NSButton *addAccountWindowDefaultButton_;
   NSButton *addAccountWindowOtherButton_;
 }
@@ -154,9 +161,9 @@ extern NSString * const kDestinationIndex;
 
 @property(nonatomic, retain) IBOutlet NSTableView *accountsTable;
 @property(nonatomic, retain) IBOutlet NSButton *accountEnabledCheckBox;
+@property(nonatomic, retain) IBOutlet NSTextField *accountDescriptionField;
 @property(nonatomic, retain) IBOutlet NSTextField *fullNameField;
-@property(nonatomic, retain) IBOutlet NSTextField *SIPAddressField;
-@property(nonatomic, retain) IBOutlet NSTextField *registrarField;
+@property(nonatomic, retain) IBOutlet NSTextField *domainField;
 @property(nonatomic, retain) IBOutlet NSTextField *usernameField;
 @property(nonatomic, retain) IBOutlet NSTextField *passwordField;
 @property(nonatomic, retain) IBOutlet NSTextField *reregistrationTimeField;
@@ -165,13 +172,18 @@ extern NSString * const kDestinationIndex;
 @property(nonatomic, retain) IBOutlet NSButton *useProxyCheckBox;
 @property(nonatomic, retain) IBOutlet NSTextField *proxyHostField;
 @property(nonatomic, retain) IBOutlet NSTextField *proxyPortField;
+@property(nonatomic, retain) IBOutlet NSTextField *SIPAddressField;
+@property(nonatomic, retain) IBOutlet NSTextField *registrarField;
 
 @property(nonatomic, retain) IBOutlet NSWindow *addAccountWindow;
 @property(nonatomic, retain) IBOutlet NSTextField *setupFullNameField;
-@property(nonatomic, retain) IBOutlet NSTextField *setupSIPAddressField;
-@property(nonatomic, retain) IBOutlet NSTextField *setupRegistrarField;
+@property(nonatomic, retain) IBOutlet NSTextField *setupDomainField;
 @property(nonatomic, retain) IBOutlet NSTextField *setupUsernameField;
 @property(nonatomic, retain) IBOutlet NSTextField *setupPasswordField;
+@property(nonatomic, retain) IBOutlet NSImageView *setupFullNameInvalidDataView;
+@property(nonatomic, retain) IBOutlet NSImageView *setupDomainInvalidDataView;
+@property(nonatomic, retain) IBOutlet NSImageView *setupUsernameInvalidDataView;
+@property(nonatomic, retain) IBOutlet NSImageView *setupPasswordInvalidDataView;
 @property(nonatomic, retain) IBOutlet NSButton *addAccountWindowDefaultButton;
 @property(nonatomic, retain) IBOutlet NSButton *addAccountWindowOtherButton;
 

@@ -71,9 +71,11 @@ NSString * const kSignificantPhoneNumberLength = @"SignificantPhoneNumberLength"
 NSString * const kPauseITunes = @"PauseITunes";
 NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
 
+NSString * const kDescription = @"Description";
 NSString * const kFullName = @"FullName";
 NSString * const kSIPAddress = @"SIPAddress";
 NSString * const kRegistrar = @"Registrar";
+NSString * const kDomain = @"Domain";
 NSString * const kRealm = @"Realm";
 NSString * const kUsername = @"Username";
 NSString * const kAccountIndex = @"AccountIndex";
@@ -129,9 +131,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 
 @synthesize accountsTable = accountsTable_;
 @synthesize accountEnabledCheckBox = accountEnabledCheckBox_;
+@synthesize accountDescriptionField = accountDescriptionField_;
 @synthesize fullNameField = fullNameField_;
-@synthesize SIPAddressField = SIPAddressField_;
-@synthesize registrarField = registrarField_;
+@synthesize domainField = domainField_;
 @synthesize usernameField = usernameField_;
 @synthesize passwordField = passwordField_;
 @synthesize reregistrationTimeField = reregistrationTimeField_;
@@ -140,13 +142,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 @synthesize useProxyCheckBox = useProxyCheckBox_;
 @synthesize proxyHostField = proxyHostField_;
 @synthesize proxyPortField = proxyPortField_;
+@synthesize SIPAddressField = SIPAddressField_;
+@synthesize registrarField = registrarField_;
 
 @synthesize addAccountWindow = addAccountWindow_;
 @synthesize setupFullNameField = setupFullNameField_;
-@synthesize setupSIPAddressField = setupSIPAddressField_;
-@synthesize setupRegistrarField = setupRegistrarField_;
+@synthesize setupDomainField = setupDomainField_;
 @synthesize setupUsernameField = setupUsernameField_;
 @synthesize setupPasswordField = setupPasswordField_;
+@synthesize setupFullNameInvalidDataView = setupFullNameInvalidDataView_;
+@synthesize setupDomainInvalidDataView = setupDomainInvalidDataView_;
+@synthesize setupUsernameInvalidDataView = setupUsernameInvalidDataView_;
+@synthesize setupPasswordInvalidDataView = setupPasswordInvalidDataView_;
 @synthesize addAccountWindowDefaultButton = addAccountWindowDefaultButton_;
 @synthesize addAccountWindowOtherButton = addAccountWindowOtherButton_;
 
@@ -248,9 +255,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   [accountsTable_ release];
   [accountEnabledCheckBox_ release];
+  [accountDescriptionField_ release];
   [fullNameField_ release];
-  [SIPAddressField_ release];
-  [registrarField_ release];
+  [domainField_ release];
   [usernameField_ release];
   [passwordField_ release];
   [reregistrationTimeField_ release];
@@ -259,13 +266,18 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [useProxyCheckBox_ release];
   [proxyHostField_ release];
   [proxyPortField_ release];
+  [SIPAddressField_ release];
+  [registrarField_ release];
   
   [addAccountWindow_ release];
   [setupFullNameField_ release];
-  [setupSIPAddressField_ release];
-  [setupRegistrarField_ release];
+  [setupDomainField_ release];
   [setupUsernameField_ release];
   [setupPasswordField_ release];
+  [setupFullNameInvalidDataView_ release];
+  [setupDomainInvalidDataView_ release];
+  [setupUsernameInvalidDataView_ release];
+  [setupPasswordInvalidDataView_ release];
   [addAccountWindowDefaultButton_ release];
   [addAccountWindowOtherButton_ release];
   
@@ -383,10 +395,15 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     [NSBundle loadNibNamed:@"AddAccount" owner:self];
   
   [[self setupFullNameField] setStringValue:@""];
-  [[self setupSIPAddressField] setStringValue:@""];
-  [[self setupRegistrarField] setStringValue:@""];
+  [[self setupDomainField] setStringValue:@""];
   [[self setupUsernameField] setStringValue:@""];
   [[self setupPasswordField] setStringValue:@""];
+  
+  [[self setupFullNameInvalidDataView] setHidden:YES];
+  [[self setupDomainInvalidDataView] setHidden:YES];
+  [[self setupUsernameInvalidDataView] setHidden:YES];
+  [[self setupPasswordInvalidDataView] setHidden:YES];
+  
   [[self addAccountWindow] makeFirstResponder:[self setupFullNameField]];
   
   [NSApp beginSheet:[self addAccountWindow]
@@ -402,19 +419,41 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 }
 
 - (IBAction)addAccount:(id)sender {
-  if ([[[self setupFullNameField] stringValue] isEqual:@""] ||
-      [[[self setupSIPAddressField] stringValue] isEqual:@""] ||
-      [[[self setupRegistrarField] stringValue] isEqual:@""] ||
-      [[[self setupUsernameField] stringValue] isEqual:@""]) {
-    
-    return;
+  // Reset hidden states of the invalid data indicators.
+  [[self setupFullNameInvalidDataView] setHidden:YES];
+  [[self setupDomainInvalidDataView] setHidden:YES];
+  [[self setupUsernameInvalidDataView] setHidden:YES];
+  [[self setupPasswordInvalidDataView] setHidden:YES];
+  
+  BOOL invalidFormData = NO;
+  
+  if ([[[self setupFullNameField] stringValue] length] == 0) {
+    [[self setupFullNameInvalidDataView] setHidden:NO];
+    invalidFormData = YES;
   }
+  
+  if ([[[self setupDomainField] stringValue] length] == 0) {
+    [[self setupDomainInvalidDataView] setHidden:NO];
+    invalidFormData = YES;
+  }
+  
+  if ([[[self setupUsernameField] stringValue] length] == 0) {
+    [[self setupUsernameInvalidDataView] setHidden:NO];
+    invalidFormData = YES;
+  }
+  
+  if ([[[self setupPasswordField] stringValue] length] == 0) {
+    [[self setupPasswordInvalidDataView] setHidden:NO];
+    invalidFormData = YES;
+  }
+  
+  if (invalidFormData)
+    return;
   
   NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
   [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kAccountEnabled];
   [accountDict setObject:[[self setupFullNameField] stringValue] forKey:kFullName];
-  [accountDict setObject:[[self setupSIPAddressField] stringValue] forKey:kSIPAddress];
-  [accountDict setObject:[[self setupRegistrarField] stringValue] forKey:kRegistrar];
+  [accountDict setObject:[[self setupDomainField] stringValue] forKey:kDomain];
   [accountDict setObject:@"*" forKey:kRealm];
   [accountDict setObject:[[self setupUsernameField] stringValue] forKey:kUsername];
   [accountDict setObject:[NSNumber numberWithInteger:0] forKey:kReregistrationTime];
@@ -436,7 +475,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   BOOL success
     = [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                          [[self setupRegistrarField] stringValue]]
+                                          [[self setupDomainField] stringValue]]
                              accountName:[[self setupUsernameField] stringValue]
                                 password:[[self setupPasswordField] stringValue]];
   
@@ -545,9 +584,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     // Conditionally enable fields and set checkboxes state.
     if ([[accountDict objectForKey:kAccountEnabled] boolValue]) {
       [[self accountEnabledCheckBox] setState:NSOnState];
+      [[self accountDescriptionField] setEnabled:NO];
       [[self fullNameField] setEnabled:NO];
-      [[self SIPAddressField] setEnabled:NO];
-      [[self registrarField] setEnabled:NO];
+      [[self domainField] setEnabled:NO];
       [[self usernameField] setEnabled:NO];
       [[self passwordField] setEnabled:NO];
       [[self reregistrationTimeField] setEnabled:NO];
@@ -560,12 +599,14 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
       [[self useProxyCheckBox] setEnabled:NO];
       [[self proxyHostField] setEnabled:NO];
       [[self proxyPortField] setEnabled:NO];
+      [[self SIPAddressField] setEnabled:NO];
+      [[self registrarField] setEnabled:NO];
       
     } else {
       [[self accountEnabledCheckBox] setState:NSOffState];
+      [[self accountDescriptionField] setEnabled:YES];
       [[self fullNameField] setEnabled:YES];
-      [[self SIPAddressField] setEnabled:YES];
-      [[self registrarField] setEnabled:YES];
+      [[self domainField] setEnabled:YES];
       [[self usernameField] setEnabled:YES];
       [[self passwordField] setEnabled:YES];
       
@@ -588,19 +629,60 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
         [[self proxyHostField] setEnabled:NO];
         [[self proxyPortField] setEnabled:NO];
       }
+      
+      [[self SIPAddressField] setEnabled:YES];
+      [[self registrarField] setEnabled:YES];
     }
     
     // Populate fields.
+    
+    // Description.
+    if ([[accountDict objectForKey:kDescription] length] > 0) {
+      [[self accountDescriptionField] setStringValue:
+       [accountDict objectForKey:kDescription]];
+    } else {
+      [[self accountDescriptionField] setStringValue:@""];
+    }
+    
+    // Description's placeholder string.
+    if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
+      [[[self accountDescriptionField] cell] setPlaceholderString:
+       [accountDict objectForKey:kSIPAddress]];
+    } else {
+      [[[self accountDescriptionField] cell] setPlaceholderString:
+       [NSString stringWithFormat:@"%@@%@",
+        [accountDict objectForKey:kUsername],
+        [accountDict objectForKey:kDomain]]];
+    }
+    
+    // Full Name.
     [[self fullNameField] setStringValue:[accountDict objectForKey:kFullName]];
-    [[self SIPAddressField] setStringValue:[accountDict objectForKey:kSIPAddress]];
-    [[self registrarField] setStringValue:[accountDict objectForKey:kRegistrar]];
+    
+    // Domain.
+    if ([[accountDict objectForKey:kDomain] length] > 0) {
+      [[self domainField] setStringValue:[accountDict objectForKey:kDomain]];
+    } else {
+      [[self domainField] setStringValue:@""];
+    }
+    
+    // User Name.
     [[self usernameField] setStringValue:[accountDict objectForKey:kUsername]];
     
+    NSString *keychainServiceName;
+    if ([[accountDict objectForKey:kRegistrar] length] > 0) {
+      keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
+                             [accountDict objectForKey:kRegistrar]];
+    } else {
+      keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
+                             [accountDict objectForKey:kDomain]];
+    }
+    
+    // Password.
     [[self passwordField] setStringValue:
-     [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                         [accountDict objectForKey:kRegistrar]]
+     [AKKeychain passwordForServiceName:keychainServiceName
                             accountName:[accountDict objectForKey:kUsername]]];
     
+    // Reregister every...
     if ([[accountDict objectForKey:kReregistrationTime] integerValue] > 0) {
       [[self reregistrationTimeField] setIntegerValue:
        [[accountDict objectForKey:kReregistrationTime] integerValue]];
@@ -608,20 +690,23 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
       [[self reregistrationTimeField] setStringValue:@""];
     }
     
-    if ([accountDict objectForKey:kPlusCharacterSubstitutionString] != nil) {
+    // Substitute ... for "+".
+    if ([[accountDict objectForKey:kPlusCharacterSubstitutionString] length] > 0) {
       [[self plusCharacterSubstitutionField] setStringValue:
        [accountDict objectForKey:kPlusCharacterSubstitutionString]];
     } else {
       [[self plusCharacterSubstitutionField] setStringValue:@"00"];
     }
     
-    if ([accountDict objectForKey:kProxyHost] != nil) {
+    // Proxy Server.
+    if ([[accountDict objectForKey:kProxyHost] length] > 0) {
       [[self proxyHostField] setStringValue:
        [accountDict objectForKey:kProxyHost]];
     } else {
       [[self proxyHostField] setStringValue:@""];
     }
     
+    // Proxy Port.
     if ([[accountDict objectForKey:kProxyPort] integerValue] > 0) {
       [[self proxyPortField] setIntegerValue:
        [[accountDict objectForKey:kProxyPort] integerValue]];
@@ -629,11 +714,43 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
       [[self proxyPortField] setStringValue:@""];
     }
     
+    // SIP Address.
+    if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
+      [[self SIPAddressField] setStringValue:
+       [accountDict objectForKey:kSIPAddress]];
+    } else {
+      [[self SIPAddressField] setStringValue:@""];
+    }
+    
+    // Registry Server.
+    if ([[accountDict objectForKey:kRegistrar] length] > 0) {
+      [[self registrarField] setStringValue:
+       [accountDict objectForKey:kRegistrar]];
+    } else {
+      [[self registrarField] setStringValue:@""];
+    }
+    
+    // SIP Address and Registry Server placeholder strings.
+    if ([[accountDict objectForKey:kDomain] length] > 0) {
+      [[[self SIPAddressField] cell] setPlaceholderString:
+       [NSString stringWithFormat:@"%@@%@",
+        [accountDict objectForKey:kUsername],
+        [accountDict objectForKey:kDomain]]];
+      
+      [[[self registrarField] cell] setPlaceholderString:
+       [accountDict objectForKey:kDomain]];
+      
+    } else {
+      [[[self SIPAddressField] cell] setPlaceholderString:nil];
+      [[[self registrarField] cell] setPlaceholderString:nil];
+    }
+    
   } else {
     [[self accountEnabledCheckBox] setState:NSOffState];
+    [[self accountDescriptionField] setStringValue:@""];
+    [[[self accountDescriptionField] cell] setPlaceholderString:nil];
     [[self fullNameField] setStringValue:@""];
-    [[self SIPAddressField] setStringValue:@""];
-    [[self registrarField] setStringValue:@""];
+    [[self domainField] setStringValue:@""];
     [[self usernameField] setStringValue:@""];
     [[self passwordField] setStringValue:@""];
     [[self reregistrationTimeField] setStringValue:@""];
@@ -642,11 +759,13 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     [[self useProxyCheckBox] setState:NSOffState];
     [[self proxyHostField] setStringValue:@""];
     [[self proxyPortField] setStringValue:@""];
+    [[self SIPAddressField] setStringValue:@""];
+    [[self registrarField] setStringValue:@""];
     
     [[self accountEnabledCheckBox] setEnabled:NO];
+    [[self accountDescriptionField] setEnabled:NO];
     [[self fullNameField] setEnabled:NO];
-    [[self SIPAddressField] setEnabled:NO];
-    [[self registrarField] setEnabled:NO];
+    [[self domainField] setEnabled:NO];
     [[self usernameField] setEnabled:NO];
     [[self passwordField] setEnabled:NO];
     [[self reregistrationTimeField] setEnabled:NO];
@@ -655,6 +774,10 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     [[self useProxyCheckBox] setEnabled:NO];
     [[self proxyHostField] setEnabled:NO];
     [[self proxyPortField] setEnabled:NO];
+    [[self SIPAddressField] setEnabled:NO];
+    [[[self SIPAddressField] cell] setPlaceholderString:nil];
+    [[self registrarField] setEnabled:NO];
+    [[[self registrarField] cell] setPlaceholderString:nil];
   }
 }
 
@@ -683,17 +806,23 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   if (isChecked) {
     // User enabled the account.
     // Account fields could be edited, save them.
+    [accountDict setObject:[[self accountDescriptionField] stringValue]
+                    forKey:kDescription];
     [accountDict setObject:[[self fullNameField] stringValue]
                     forKey:kFullName];
-    [accountDict setObject:[[self SIPAddressField] stringValue]
-                    forKey:kSIPAddress];
-    [accountDict setObject:[[self registrarField] stringValue]
-                    forKey:kRegistrar];
+    [accountDict setObject:[[self domainField] stringValue]
+                    forKey:kDomain];
     [accountDict setObject:[[self usernameField] stringValue]
                     forKey:kUsername];
     
-    NSString *keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
-                                     [[self registrarField] stringValue]];
+    NSString *keychainServiceName;
+    if ([[[self registrarField] stringValue] length] > 0) {
+      keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
+                             [[self registrarField] stringValue]];
+    } else {
+      keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
+                             [[self domainField] stringValue]];
+    }
     
     NSString *keychainAccountName = [[self usernameField] stringValue];
     
@@ -737,10 +866,41 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
                                                         integerValue]]
                     forKey:kProxyPort];
     
+    [accountDict setObject:[[self SIPAddressField] stringValue]
+                    forKey:kSIPAddress];
+    [accountDict setObject:[[self registrarField] stringValue]
+                    forKey:kRegistrar];
+    
+    // Set placeholders.
+    
+    if ([[[self SIPAddressField] stringValue] length] > 0) {
+      [[[self accountDescriptionField] cell] setPlaceholderString:
+       [[self SIPAddressField] stringValue]];
+    } else {
+      [[[self accountDescriptionField] cell] setPlaceholderString:
+       [NSString stringWithFormat:@"%@@%@",
+        [[self usernameField] stringValue],
+        [[self domainField] stringValue]]];
+    }
+    
+    if ([[[self domainField] stringValue] length] > 0) {
+      [[[self SIPAddressField] cell] setPlaceholderString:
+       [NSString stringWithFormat:@"%@@%@",
+        [[self usernameField] stringValue],
+        [[self domainField] stringValue]]];
+      
+      [[[self registrarField] cell] setPlaceholderString:
+       [[self domainField] stringValue]];
+      
+    } else {
+      [[[self SIPAddressField] cell] setPlaceholderString:nil];
+      [[[self registrarField] cell] setPlaceholderString:nil];
+    }
+    
     // Disable account fields.
+    [[self accountDescriptionField] setEnabled:NO];
     [[self fullNameField] setEnabled:NO];
-    [[self SIPAddressField] setEnabled:NO];
-    [[self registrarField] setEnabled:NO];
+    [[self domainField] setEnabled:NO];
     [[self usernameField] setEnabled:NO];
     [[self passwordField] setEnabled:NO];
     
@@ -750,15 +910,17 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     [[self useProxyCheckBox] setEnabled:NO];
     [[self proxyHostField] setEnabled:NO];
     [[self proxyPortField] setEnabled:NO];
+    [[self SIPAddressField] setEnabled:NO];
+    [[self registrarField] setEnabled:NO];
     
     // Mark accounts table as needing redisplay.
     [[self accountsTable] reloadData];
     
   } else {
     // User disabled the account - enable account fields, set checkboxes state.
+    [[self accountDescriptionField] setEnabled:YES];
     [[self fullNameField] setEnabled:YES];
-    [[self SIPAddressField] setEnabled:YES];
-    [[self registrarField] setEnabled:YES];
+    [[self domainField] setEnabled:YES];
     [[self usernameField] setEnabled:YES];
     [[self passwordField] setEnabled:YES];
     
@@ -776,6 +938,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
       [[self proxyHostField] setEnabled:YES];
       [[self proxyPortField] setEnabled:YES];
     }
+    
+    [[self SIPAddressField] setEnabled:YES];
+    [[self registrarField] setEnabled:YES];
   }
   
   [savedAccounts replaceObjectAtIndex:index withObject:accountDict];
@@ -1080,7 +1245,25 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
   NSDictionary *accountDict
     = [[defaults arrayForKey:kAccounts] objectAtIndex:rowIndex];
   
-  return [accountDict objectForKey:[aTableColumn identifier]];
+  NSString *returnValue;
+  NSString *accountDescription = [accountDict objectForKey:kDescription];
+  if ([accountDescription length] > 0) {
+    returnValue = accountDescription;
+    
+  } else {
+    NSString *SIPAddress;
+    if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
+      SIPAddress = [accountDict objectForKey:kSIPAddress];
+    } else {
+      SIPAddress = [NSString stringWithFormat:@"%@@%@",
+                    [accountDict objectForKey:kUsername],
+                    [accountDict objectForKey:kDomain]];
+    }
+    
+    returnValue = SIPAddress;
+  }
+  
+  return returnValue;
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView

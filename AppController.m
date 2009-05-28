@@ -1191,11 +1191,16 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 
 - (void)preferenceControllerDidAddAccount:(NSNotification *)notification {
   NSDictionary *accountDict = [notification userInfo];
+  
+  NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@",
+                          [accountDict objectForKey:kUsername],
+                          [accountDict objectForKey:kDomain]];
+  
   AccountController *theAccountController
     = [[[AccountController alloc]
         initWithFullName:[accountDict objectForKey:kFullName]
-              SIPAddress:[accountDict objectForKey:kSIPAddress]
-               registrar:[accountDict objectForKey:kRegistrar]
+              SIPAddress:SIPAddress
+               registrar:[accountDict objectForKey:kDomain]
                    realm:[accountDict objectForKey:kRealm]
                 username:[accountDict objectForKey:kUsername]]
        autorelease];
@@ -1232,14 +1237,33 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   
   BOOL isEnabled = [[accountDict objectForKey:kAccountEnabled] boolValue];
   if (isEnabled) {
+    NSString *SIPAddress;
+    if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
+      SIPAddress = [accountDict objectForKey:kSIPAddress];
+    } else {
+      SIPAddress = [NSString stringWithFormat:@"%@@%@",
+                    [accountDict objectForKey:kUsername],
+                    [accountDict objectForKey:kDomain]];
+    }
+    
+    NSString *registrar;
+    if ([[accountDict objectForKey:kRegistrar] length] > 0)
+      registrar = [accountDict objectForKey:kRegistrar];
+    else
+      registrar = [accountDict objectForKey:kDomain];
+    
     AccountController *theAccountController
       = [[[AccountController alloc]
          initWithFullName:[accountDict objectForKey:kFullName]
-               SIPAddress:[accountDict objectForKey:kSIPAddress]
-                registrar:[accountDict objectForKey:kRegistrar]
+               SIPAddress:SIPAddress
+                registrar:registrar
                     realm:[accountDict objectForKey:kRealm]
                  username:[accountDict objectForKey:kUsername]]
          autorelease];
+    
+    NSString *description = [accountDict objectForKey:kDescription];
+    if ([description length] > 0)
+      [[theAccountController window] setTitle:description];
     
     [theAccountController setAccountUnavailable:NO];
     
@@ -1547,8 +1571,22 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
     NSDictionary *accountDict = [savedAccounts objectAtIndex:i];
     
     NSString *fullName = [accountDict objectForKey:kFullName];
-    NSString *SIPAddress = [accountDict objectForKey:kSIPAddress];
-    NSString *registrar = [accountDict objectForKey:kRegistrar];
+    
+    NSString *SIPAddress;
+    if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
+      SIPAddress = [accountDict objectForKey:kSIPAddress];
+    } else {
+      SIPAddress = [NSString stringWithFormat:@"%@@%@",
+                    [accountDict objectForKey:kUsername],
+                    [accountDict objectForKey:kDomain]];
+    }
+    
+    NSString *registrar;
+    if ([[accountDict objectForKey:kRegistrar] length] > 0)
+      registrar = [accountDict objectForKey:kRegistrar];
+    else
+      registrar = [accountDict objectForKey:kDomain];
+    
     NSString *realm = [accountDict objectForKey:kRealm];
     NSString *username = [accountDict objectForKey:kUsername];
     
@@ -1559,6 +1597,10 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
                                                realm:realm
                                             username:username]
        autorelease];
+    
+    NSString *description = [accountDict objectForKey:kDescription];
+    if ([description length] > 0)
+      [[anAccountController window] setTitle:description];
     
     [[anAccountController account] setReregistrationTime:
      [[accountDict objectForKey:kReregistrationTime] integerValue]];
