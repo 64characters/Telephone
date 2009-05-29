@@ -78,9 +78,9 @@
 @property(nonatomic, copy) NSString *phoneLabelFromAddressBook;
 @property(nonatomic, copy) NSString *enteredCallDestination;
 @property(nonatomic, copy) AKSIPURI *redialURI;
-@property(nonatomic, retain) NSTimer *intermediateStatusTimer;
+@property(nonatomic, assign) NSTimer *intermediateStatusTimer;
 @property(nonatomic, assign) NSTimeInterval callStartTime;
-@property(nonatomic, retain) NSTimer *callTimer;
+@property(nonatomic, assign) NSTimer *callTimer;
 @property(nonatomic, assign, getter=isCallOnHold) BOOL callOnHold;
 @property(nonatomic, retain) NSMutableString *enteredDTMF;
 @property(nonatomic, assign, getter=isCallActive) BOOL callActive;

@@ -67,7 +67,7 @@
 @property(nonatomic, assign) NSInteger ringtoneOutputDeviceIndex;
 @property(nonatomic, assign) BOOL shouldSetTelephoneSoundIO;
 @property(nonatomic, retain) NSSound *ringtone;
-@property(nonatomic, retain) NSTimer *ringtoneTimer;
+@property(nonatomic, assign) NSTimer *ringtoneTimer;
 @property(nonatomic, assign) BOOL shouldRegisterAllAccounts;
 @property(nonatomic, assign, getter=isTerminating) BOOL terminating;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
@@ -76,7 +76,7 @@
 @property(nonatomic, assign) BOOL didPauseITunes;
 @property(nonatomic, assign) BOOL didWakeFromSleep;
 @property(nonatomic, readonly, assign) NSUInteger unhandledIncomingCallsCount;
-@property(nonatomic, retain) NSTimer *userAttentionTimer;
+@property(nonatomic, assign) NSTimer *userAttentionTimer;
 
 @property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
