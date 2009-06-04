@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">9G55</string>
+		<string key="IBDocument.SystemVersion">9J61</string>
 		<string key="IBDocument.InterfaceBuilderVersion">677</string>
-		<string key="IBDocument.AppKitVersion">949.43</string>
+		<string key="IBDocument.AppKitVersion">949.46</string>
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -381,6 +381,15 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="138709367">
+									<reference key="NSMenu" ref="13312721"/>
+									<string type="base64-UTF8" key="NSTitle">0J/QtdGA0LXQt9Cy0L7QvdC40YLRjA</string>
+									<string key="NSKeyEquiv">r</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="331626441">
 									<reference key="NSMenu" ref="13312721"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -705,6 +714,14 @@
 						<reference key="destination" ref="156774359"/>
 					</object>
 					<int key="connectionID">506</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">redial:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="138709367"/>
+					</object>
+					<int key="connectionID">508</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1076,6 +1093,7 @@
 							<reference ref="429049841"/>
 							<reference ref="331626441"/>
 							<reference ref="156774359"/>
+							<reference ref="138709367"/>
 						</object>
 						<reference key="parent" ref="475835430"/>
 					</object>
@@ -1102,6 +1120,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">505</int>
 						<reference key="object" ref="156774359"/>
+						<reference key="parent" ref="13312721"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">507</int>
+						<reference key="object" ref="138709367"/>
 						<reference key="parent" ref="13312721"/>
 					</object>
 				</object>
@@ -1207,6 +1230,7 @@
 					<string>502.IBPluginDependency</string>
 					<string>504.IBPluginDependency</string>
 					<string>505.IBPluginDependency</string>
+					<string>507.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -1316,12 +1340,13 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{446, 763}, {248, 73}}</string>
+					<string>{{446, 743}, {248, 93}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1365,7 +1390,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">506</int>
+			<int key="maxID">508</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1406,11 +1431,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>acceptCall:</string>
 							<string>hangUpCall:</string>
+							<string>redial:</string>
 							<string>toggleCallHold:</string>
 							<string>toggleMicrophoneMute:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1434,6 +1461,7 @@
 							<string>incomingCallDisplayedNameField</string>
 							<string>incomingCallStatusField</string>
 							<string>incomingCallView</string>
+							<string>redialButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1450,6 +1478,7 @@
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSView</string>
+							<string>NSButton</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

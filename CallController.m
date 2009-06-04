@@ -756,6 +756,12 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     
     return NO;
     
+  } else if ([menuItem action] == @selector(redial:)) {
+    if ([[[self window] contentView] isEqual:[self endedCallView]])
+      return YES;
+    
+    return NO;
+    
   } else if ([menuItem action] == @selector(hangUpCall:)) {
     if ([self isCallActive])
       return YES;
