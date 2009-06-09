@@ -529,7 +529,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   newSoundInput = newSoundOutput = newRingtoneOutput = NSNotFound;
   
-  NSString *lastSoundInputString = [defaults objectForKey:kSoundInput];
+  NSString *lastSoundInputString = [defaults stringForKey:kSoundInput];
   if (lastSoundInputString != nil) {
     for (i = 0; i < [devices count]; ++i) {
       deviceDict = [devices objectAtIndex:i];
@@ -542,7 +542,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     }
   }
   
-  NSString *lastSoundOutputString = [defaults objectForKey:kSoundOutput];
+  NSString *lastSoundOutputString = [defaults stringForKey:kSoundOutput];
   if (lastSoundOutputString != nil) {
     for (i = 0; i < [devices count]; ++i) {
       deviceDict = [devices objectAtIndex:i];
@@ -555,7 +555,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     }
   }
   
-  NSString *lastRingtoneOutputString = [defaults objectForKey:kRingtoneOutput];
+  NSString *lastRingtoneOutputString = [defaults stringForKey:kRingtoneOutput];
   if (lastRingtoneOutputString != nil) {
     for (i = 0; i < [devices count]; ++i) {
       deviceDict = [devices objectAtIndex:i];
@@ -1358,18 +1358,16 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 - (void)preferenceControllerDidChangeNetworkSettings:(NSNotification *)notification {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
-  [[self telephone] setTransportPort:
-   [[defaults objectForKey:kTransportPort] integerValue]];
+  [[self telephone] setTransportPort:[defaults integerForKey:kTransportPort]];
   [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
-  [[self telephone] setSTUNServerPort:
-   [[defaults objectForKey:kSTUNServerPort] integerValue]];
-  [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
+  [[self telephone] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
+  [[self telephone] setUsesICE:[defaults boolForKey:kUseICE]];
   [[self telephone] setOutboundProxyHost:
    [defaults stringForKey:kOutboundProxyHost]];
   [[self telephone] setOutboundProxyPort:
-   [[defaults objectForKey:kOutboundProxyPort] integerValue]];
+   [defaults integerForKey:kOutboundProxyPort]];
   
-  if ([[defaults objectForKey:kUseDNSSRV] boolValue])
+  if ([defaults boolForKey:kUseDNSSRV])
     [[self telephone] setNameservers:[self currentNameservers]];
   else
     [[self telephone] setNameservers:nil];
@@ -1525,32 +1523,29 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
    [defaults stringForKey:kOutboundProxyHost]];
   
   [[self telephone] setOutboundProxyPort:
-   [[defaults objectForKey:kOutboundProxyPort] integerValue]];
+   [defaults integerForKey:kOutboundProxyPort]];
   
   [[self telephone] setSTUNServerHost:
    [defaults stringForKey:kSTUNServerHost]];
   
-  [[self telephone] setSTUNServerPort:[[defaults objectForKey:kSTUNServerPort]
-                                       integerValue]];
+  [[self telephone] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
   
   [[self telephone] setUserAgentString:[NSString stringWithFormat:@"%@ %@",
                                         bundleName, bundleShortVersion]];
   
   [[self telephone] setLogFileName:[defaults stringForKey:kLogFileName]];
   
-  [[self telephone] setLogLevel:[[defaults objectForKey:kLogLevel]
-                                 integerValue]];
+  [[self telephone] setLogLevel:[defaults integerForKey:kLogLevel]];
   
   [[self telephone] setConsoleLogLevel:
-   [[defaults objectForKey:kConsoleLogLevel] integerValue]];
+   [defaults integerForKey:kConsoleLogLevel]];
   
   [[self telephone] setDetectsVoiceActivity:
-   [[defaults objectForKey:kVoiceActivityDetection] boolValue]];
+   [defaults boolForKey:kVoiceActivityDetection]];
   
-  [[self telephone] setUsesICE:[[defaults objectForKey:kUseICE] boolValue]];
+  [[self telephone] setUsesICE:[defaults boolForKey:kUseICE]];
   
-  [[self telephone] setTransportPort:[[defaults objectForKey:kTransportPort]
-                                      integerValue]];
+  [[self telephone] setTransportPort:[defaults integerForKey:kTransportPort]];
   
   [self setRingtone:[NSSound soundNamed:
                      [defaults stringForKey:kRingingSound]]];
