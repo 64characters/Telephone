@@ -47,6 +47,7 @@
   NSSound *ringtone_;
   NSTimer *ringtoneTimer_;
   BOOL shouldRegisterAllAccounts_;
+  BOOL shouldRestartTelephoneASAP_;
   BOOL terminating_;
   BOOL didPauseITunes_;
   BOOL didWakeFromSleep_;
@@ -69,6 +70,7 @@
 @property(nonatomic, retain) NSSound *ringtone;
 @property(nonatomic, assign) NSTimer *ringtoneTimer;
 @property(nonatomic, assign) BOOL shouldRegisterAllAccounts;
+@property(nonatomic, assign) BOOL shouldRestartTelephoneASAP;
 @property(nonatomic, assign, getter=isTerminating) BOOL terminating;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 @property(nonatomic, readonly, assign) BOOL hasActiveCallControllers;
@@ -82,6 +84,9 @@
 
 // Hang up all calls, disconnect all accounts, destroy SIP user agent.
 - (void)stopTelephone;
+
+// Set appropriate flags to start Telephone, then call |stopTelephone|.
+- (void)restartTelephone;
 
 // Update list of available audio devices.
 - (void)updateAudioDevices;

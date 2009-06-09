@@ -126,6 +126,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 @synthesize STUNServerHostField = STUNServerHostField_;
 @synthesize STUNServerPortField = STUNServerPortField_;
 @synthesize useICECheckBox = useICECheckBox_;
+@synthesize useDNSSRVCheckBox = useDNSSRVCheckBox_;
 @synthesize outboundProxyHostField = outboundProxyHostField_;
 @synthesize outboundProxyPortField = outboundProxyPortField_;
 
@@ -250,6 +251,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [STUNServerHostField_ release];
   [STUNServerPortField_ release];
   [useICECheckBox_ release];
+  [useDNSSRVCheckBox_ release];
   [outboundProxyHostField_ release];
   [outboundProxyPortField_ release];
   
@@ -325,6 +327,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   [[self useICECheckBox] setState:
    [[defaults objectForKey:kUseICE] integerValue]];
+  
+  [[self useDNSSRVCheckBox] setState:
+   [[defaults objectForKey:kUseDNSSRV] integerValue]];
   
   [[self outboundProxyHostField] setStringValue:
    [defaults stringForKey:kOutboundProxyHost]];
@@ -1106,6 +1111,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     = [NSNumber numberWithInteger:[[self STUNServerPortField] integerValue]];
   
   BOOL newUseICE = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
+  BOOL newUseDNSSRV = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
   
   NSString *newOutboundProxyHost = [[self outboundProxyHostField] stringValue];
   
@@ -1117,7 +1123,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
       ![[defaults objectForKey:kSTUNServerPort] isEqualToNumber:newSTUNServerPort] ||
       [defaults boolForKey:kUseICE] != newUseICE ||
       ![[defaults objectForKey:kOutboundProxyHost] isEqualToString:newOutboundProxyHost] ||
-      ![[defaults objectForKey:kOutboundProxyPort] isEqualToNumber:newOutboundProxyPort])
+      ![[defaults objectForKey:kOutboundProxyPort] isEqualToNumber:newOutboundProxyPort] ||
+      [defaults boolForKey:kUseDNSSRV] != newUseDNSSRV)
   {
     // Explicitly select Network toolbar item.
     [[self toolbar] setSelectedItemIdentifier:[[self networkToolbarItem]
@@ -1177,6 +1184,10 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     BOOL useICEFlag = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
     [defaults setBool:useICEFlag forKey:kUseICE];
     
+    BOOL newUseDNSSRVFlag
+      = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
+    [defaults setBool:newUseDNSSRVFlag forKey:kUseDNSSRV];
+    
     [defaults setObject:[[self outboundProxyHostField] stringValue]
                  forKey:kOutboundProxyHost];
     
@@ -1208,6 +1219,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     
     [[self useICECheckBox] setState:[[defaults objectForKey:kUseICE]
                                      integerValue]];
+    
+    [[self useDNSSRVCheckBox] setState:[[defaults objectForKey:kUseDNSSRV]
+                                        integerValue]];
     
     [[self outboundProxyHostField] setStringValue:
      [defaults objectForKey:kOutboundProxyHost]];

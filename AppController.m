@@ -51,6 +51,11 @@ static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
 // Get audio devices data.
 static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 
+// Dynamic store callback for DNS changes.
+static void NameserversChanged(SCDynamicStoreRef store,
+                               CFArrayRef changedKeys,
+                               void *info);
+
 // Audio device dictionary keys.
 NSString * const kAudioDeviceIdentifier = @"AudioDeviceIdentifier";
 NSString * const kAudioDeviceUID = @"AudioDeviceUID";
@@ -60,6 +65,10 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
 static const NSTimeInterval kRingtoneInterval = 4.0;
 static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
+
+static const NSTimeInterval kTelephoneRestartDelayAfterDNSChange = 3.0;
+
+static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 @interface AppController()
 
@@ -86,6 +95,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 @dynamic ringtone;
 @synthesize ringtoneTimer = ringtoneTimer_;
 @synthesize shouldRegisterAllAccounts = shouldRegisterAllAccounts_;
+@synthesize shouldRestartTelephoneASAP = shouldRestartTelephoneASAP_;
 @synthesize terminating = terminating_;
 @dynamic hasIncomingCallControllers;
 @dynamic hasActiveCallControllers;
@@ -160,7 +170,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
     = SCDynamicStoreCreate(NULL, (CFStringRef)bundleName, NULL, NULL);
   
   CFPropertyListRef DNSSettings
-    = SCDynamicStoreCopyValue(dynamicStore, CFSTR("State:/Network/Global/DNS"));
+  = SCDynamicStoreCopyValue(dynamicStore, (CFStringRef)kDynamicStoreDNSSettings);
   
   NSArray *nameservers = nil;
   if (DNSSettings != NULL) {
@@ -194,7 +204,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   if (!initialized) {
     NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
     
-    [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseDNSSRV];
+    [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kUseDNSSRV];
     [defaultsDict setObject:@"" forKey:kOutboundProxyHost];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
                      forKey:kOutboundProxyPort];
@@ -267,6 +277,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   [self setSoundOutputDeviceIndex:kAKTelephoneInvalidIdentifier];
   [self setShouldSetTelephoneSoundIO:NO];
   [self setShouldRegisterAllAccounts:NO];
+  [self setShouldRestartTelephoneASAP:NO];
   [self setTerminating:NO];
   [self setDidPauseITunes:NO];
   [self setDidWakeFromSleep:NO];
@@ -289,6 +300,12 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   [notificationCenter addObserver:self
                          selector:@selector(telephoneCallIncoming:)
                              name:AKTelephoneCallIncomingNotification
+                           object:nil];
+  
+  // Subscribe to call disconnects.
+  [notificationCenter addObserver:self
+                         selector:@selector(telephoneCallDidDisconnect:)
+                             name:AKTelephoneCallDidDisconnectNotification
                            object:nil];
   
   // Subscribe to NSWorkspace notifications about going computer to sleep,
@@ -371,6 +388,14 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   }
   
   [[self telephone] stopUserAgent];
+}
+
+- (void)restartTelephone {
+  if ([[self telephone] userAgentState] > kAKTelephoneUserAgentStopped) {
+    [self setShouldRegisterAllAccounts:YES];
+    [self setShouldSetTelephoneSoundIO:YES];
+    [self stopTelephone];
+  }
 }
 
 - (void)updateAudioDevices {
@@ -1343,13 +1368,15 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
    [defaults stringForKey:kOutboundProxyHost]];
   [[self telephone] setOutboundProxyPort:
    [[defaults objectForKey:kOutboundProxyPort] integerValue]];
+  
+  if ([[defaults objectForKey:kUseDNSSRV] boolValue])
+    [[self telephone] setNameservers:[self currentNameservers]];
+  else
+    [[self telephone] setNameservers:nil];
     
   
-  if ([[self telephone] userAgentStarted]) {
-    [self setShouldRegisterAllAccounts:YES];
-    [self setShouldSetTelephoneSoundIO:YES];
-    [self stopTelephone];
-  }
+  if ([[self telephone] userAgentStarted])
+    [self restartTelephone];
 }
 
 
@@ -1388,6 +1415,7 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
     [self setShouldRegisterAllAccounts:NO];
     
     [self setDidWakeFromSleep:NO];
+    [self setShouldRestartTelephoneASAP:NO];
     
   } else {
     NSLog(@"Could not start SIP user agent. "
@@ -1689,6 +1717,22 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   else
     NSLog(@"Could not load Growl.framework");
   
+  // Install DNS changes callback.
+  SCDynamicStoreRef dynamicStore
+    = SCDynamicStoreCreate(kCFAllocatorDefault,
+                           (CFStringRef)bundleName,
+                           &NameserversChanged,
+                           NULL);
+  
+  NSArray *keys = [NSArray arrayWithObject:kDynamicStoreDNSSettings];
+  SCDynamicStoreSetNotificationKeys(dynamicStore, (CFArrayRef)keys, NULL);
+  
+  CFRunLoopSourceRef runLoopSource
+    = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynamicStore, 0);
+  
+  CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, kCFRunLoopDefaultMode);
+  CFRelease(runLoopSource);
+  CFRelease(dynamicStore);
   
   // Register all accounts from the callback and start SIP user agent.
   if ([[self enabledAccountControllers] count] > 0) {
@@ -1791,6 +1835,16 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
   }
   
   [self updateDockTileBadgeLabel];
+}
+
+- (void)telephoneCallDidDisconnect:(NSNotification *)notification {
+  if ([self shouldRestartTelephoneASAP] && ![self hasActiveCallControllers]) {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                             selector:@selector(restartTelephone)
+                                               object:nil];
+    [self setShouldRestartTelephoneASAP:NO];
+    [self restartTelephone];
+  }
 }
 
 
@@ -1989,6 +2043,34 @@ static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount) {
     return err;
   
   return err;
+}
+
+static void NameserversChanged(SCDynamicStoreRef store,
+                               CFArrayRef changedKeys,
+                               void *info) {
+  id appDelegate = [NSApp delegate];
+  NSArray *nameservers = [appDelegate currentNameservers];
+  
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+  if ([defaults boolForKey:kUseDNSSRV]) {
+    if ([nameservers count] > 0)
+      [[appDelegate telephone] setNameservers:nameservers];
+    
+    if (![appDelegate hasActiveCallControllers]) {
+      [NSObject cancelPreviousPerformRequestsWithTarget:appDelegate
+                                               selector:@selector(restartTelephone)
+                                                 object:nil];
+      
+      // Schedule Telephone restart in serveral seconds to coalesce several
+      // nameserver changes during a short time period.
+      [appDelegate performSelector:@selector(restartTelephone)
+                        withObject:nil
+                        afterDelay:kTelephoneRestartDelayAfterDNSChange];
+    } else {
+      [appDelegate setShouldRestartTelephoneASAP:YES];
+    }
+  }
 }
 
 

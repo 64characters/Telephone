@@ -100,6 +100,7 @@ extern NSString * const kDestinationIndex;
   NSTextField *STUNServerHostField_;
   NSTextField *STUNServerPortField_;
   NSButton *useICECheckBox_;
+  NSButton *useDNSSRVCheckBox_;
   NSTextField *outboundProxyHostField_;
   NSTextField *outboundProxyPortField_;
   
@@ -156,6 +157,7 @@ extern NSString * const kDestinationIndex;
 @property(nonatomic, retain) IBOutlet NSTextField *STUNServerHostField;
 @property(nonatomic, retain) IBOutlet NSTextField *STUNServerPortField;
 @property(nonatomic, retain) IBOutlet NSButton *useICECheckBox;
+@property(nonatomic, retain) IBOutlet NSButton *useDNSSRVCheckBox;
 @property(nonatomic, retain) IBOutlet NSTextField *outboundProxyHostField;
 @property(nonatomic, retain) IBOutlet NSTextField *outboundProxyPortField;
 
