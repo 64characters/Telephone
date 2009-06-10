@@ -46,10 +46,10 @@
 
 
 // AudioHardware callback to track adding/removing audio devices
-static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
-                                      void *clientData);
+static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
+                                    void *clientData);
 // Get audio devices data.
-static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount);
+static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 
 // Dynamic store callback for DNS changes.
 static void NameserversChanged(SCDynamicStoreRef store,
@@ -409,7 +409,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   // Fetch a pointer to the list of available devices.
   AudioDeviceID *devices = NULL;
   UInt16 devicesCount = 0;
-  err = AKGetAudioDevices((Ptr *)&devices, &devicesCount);
+  err = GetAudioDevices((Ptr *)&devices, &devicesCount);
   if (err != noErr)
     return;
   
@@ -1667,7 +1667,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   // Install audio devices changes callback
   AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
-                                   AKAudioDevicesChanged, self);
+                                   &AudioDevicesChanged, self);
   
   // Get available audio devices, select devices for sound input and output.
   [self updateAudioDevices];
@@ -1991,8 +1991,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 #pragma mark -
 
 // Send updateAudioDevices to AppController.
-static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
-                                      void *clientData) {
+static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
+                                    void *clientData) {
   AppController *appController = (AppController *)clientData;
   
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -2012,7 +2012,7 @@ static OSStatus AKAudioDevicesChanged(AudioHardwarePropertyID propertyID,
   return noErr;
 }
 
-static OSStatus AKGetAudioDevices(Ptr *devices, UInt16 *devicesCount) {
+static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount) {
   OSStatus err = noErr;
   UInt32 size;
   Boolean isWritable;
