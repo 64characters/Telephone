@@ -103,6 +103,9 @@
 /* Network settings change confirmation informative text. */
 "New network settings will be applied immediately, all accounts will be reconnected." = "Die neuen Netzwerkeinstellungen werden sofort aktiv, alle Accounts werden neu verbunden.";
 
+/* Call has been taken off hold status text. */
+"off hold" = "Anruf wiederaufgenommen";
+
 /* Account registration Offline menu item. */
 "Offline" = "Offline";
 

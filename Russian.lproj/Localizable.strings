@@ -101,6 +101,9 @@
 /* Network settings change confirmation informative text. */
 "New network settings will be applied immediately, all accounts will be reconnected." = "Настройки вступят в силу сразу, все аккаунты будут переподсоединены.";
 
+/* Call has been taken off hold status text. */
+"off hold" = "продолжается";
+
 /* Account registration Offline menu item. */
 "Offline" = "Офлайн";
 

@@ -353,8 +353,14 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   [[self call] toggleMicrophoneMute];
   
   if ([[self call] isMicrophoneMuted]) {
-    [self setIntermediateStatus:
-     NSLocalizedString(@"mic muted", @"Microphone muted status text.")];
+    if (![self isCallOnHold]) {
+      [self stopCallTimer];
+      [self setStatus:
+       NSLocalizedString(@"mic muted", @"Microphone muted status text.")];
+    } else {
+      [self setIntermediateStatus:
+       NSLocalizedString(@"mic muted", @"Microphone muted status text.")];
+    }
   } else {
     [self setIntermediateStatus:
      NSLocalizedString(@"mic unmuted", @"Microphone unmuted status text.")];
@@ -416,6 +422,9 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   } else if ([[self call] isOnRemoteHold]) {
     [self setStatus:
      NSLocalizedString(@"on remote hold", @"Call on remote hold status text.")];
+  } else if ([[self call] isMicrophoneMuted]) {
+    [self setStatus:
+     NSLocalizedString(@"mic muted", @"Microphone muted status text.")];
   } else if ([[self call] isActive]) {
     [self startCallTimer];
   }
@@ -647,9 +656,12 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 }
 
 - (void)telephoneCallMediaDidBecomeActive:(NSNotification *)notification {
-  if ([self isCallOnHold]) {
-    [self startCallTimer];
+  if ([self isCallOnHold]) {  // Call is being taken off hold.
     [self setCallOnHold:NO];
+    
+    [self setIntermediateStatus:
+     NSLocalizedString(@"off hold",
+                       @"Call has been taken off hold status text.")];
   }
 }
 
