@@ -29,6 +29,8 @@
 #import "AKActiveCallView.h"
 
 
+static NSString * const kAKCallControlCharacters = @"mMhH0123456789*#";
+
 @implementation AKActiveCallView
 
 @synthesize delegate = delegate_;
@@ -41,7 +43,15 @@
   if ([theEvent isARepeat])
     return;
   
-  [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
+  NSCharacterSet *permittedCharacterSet
+  = [NSCharacterSet characterSetWithCharactersInString:kAKCallControlCharacters];
+  unichar firstCharacter = [[theEvent characters] characterAtIndex:0];
+  if ([permittedCharacterSet characterIsMember:firstCharacter]) {
+    [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
+  } else {
+    NSBeep();
+    [super mouseDown:theEvent];
+  }
 }
 
 - (void)insertText:(id)aString {
