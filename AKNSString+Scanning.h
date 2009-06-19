@@ -38,4 +38,7 @@
 // Returns YES if the receiver contains a-z or A-Z.
 @property(nonatomic, readonly, assign) BOOL ak_hasLetters;
 
+// Returns YES if the receiver is an IP address.
+@property(nonatomic, readonly, assign) BOOL ak_isIPAddress;
+
 @end

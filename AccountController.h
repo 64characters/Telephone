@@ -31,7 +31,7 @@
 #import "AKTelephoneAccount.h"
 
 
-@class AKTelephoneAccount;
+@class AKTelephoneAccount, AKNetworkReachability;
 
 @interface AccountController : NSWindowController <AKTelephoneAccountDelegate> {
  @private
@@ -44,6 +44,7 @@
   NSTimer *reRegistrationTimer_;
   BOOL shouldMakeCall_;
   NSString *catchedURLString_;
+  AKNetworkReachability *registrarReachability_;
   
   BOOL substitutesPlusCharacter_;
   NSString *plusCharacterSubstitution_;
@@ -72,6 +73,7 @@
 @property(nonatomic, assign, getter=isAccountUnavailable) BOOL accountUnavailable;
 @property(nonatomic, assign) BOOL shouldMakeCall;
 @property(nonatomic, copy) NSString *catchedURLString;
+@property(nonatomic, retain) AKNetworkReachability *registrarReachability;
 @property(nonatomic, assign) BOOL substitutesPlusCharacter;
 @property(nonatomic, copy) NSString *plusCharacterSubstitution;
 

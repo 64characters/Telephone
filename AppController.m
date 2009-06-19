@@ -34,6 +34,7 @@
 
 #import "AKAddressBookPhonePlugIn.h"
 #import "AKAddressBookSIPAddressPlugIn.h"
+#import "AKNetworkReachability.h"
 #import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
@@ -101,11 +102,12 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 @dynamic hasActiveCallControllers;
 @dynamic currentNameservers;
 @synthesize didPauseITunes = didPauseITunes_;
-@synthesize didWakeFromSleep = didWakeFromSleep_;
+@synthesize shouldPresentSIPUserAgentLaunchError = shouldPresentSIPUserAgentLaunchError_;
 @synthesize afterSleepReconnectionAttemptIndex = afterSleepReconnectionAttemptIndex_;
 @synthesize afterSleepReconnectionTimeIntervals = afterSleepReconnectionTimeIntervals_;
 @dynamic unhandledIncomingCallsCount;
 @synthesize userAttentionTimer = userAttentionTimer_;
+@synthesize STUNServerReachability = STUNServerReachability_;
 
 @synthesize preferencesMenuItem = preferencesMenuItem_;
 
@@ -197,6 +199,30 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   return count;
 }
 
+- (void)setSTUNServerReachability:(AKNetworkReachability *)reachability {
+  if (reachability == STUNServerReachability_)
+    return;
+  
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
+  
+  if (STUNServerReachability_ != nil) {
+    [notificationCenter removeObserver:self
+                                  name:AKNetworkReachabilityDidBecomeReachableNotification
+                                object:STUNServerReachability_];
+  }
+  
+  if (reachability != nil) {
+    [notificationCenter addObserver:self
+                           selector:@selector(networkReachabilityDidBecomeReachable:)
+                               name:AKNetworkReachabilityDidBecomeReachableNotification
+                             object:reachability];
+  }
+  
+  [STUNServerReachability_ release];
+  STUNServerReachability_ = [reachability retain];
+}
+
 + (void)initialize {
   // Register defaults
   static BOOL initialized = NO;
@@ -280,7 +306,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [self setShouldRestartTelephoneASAP:NO];
   [self setTerminating:NO];
   [self setDidPauseITunes:NO];
-  [self setDidWakeFromSleep:NO];
+  [self setShouldPresentSIPUserAgentLaunchError:NO];
   
   [self setAfterSleepReconnectionTimeIntervals:
    [[NSArray alloc] initWithObjects:
@@ -367,6 +393,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   [audioDevices_ release];
   [ringtone_ release];
+  [STUNServerReachability_ release];
   
   [afterSleepReconnectionTimeIntervals_ release];
   [preferencesMenuItem_ release];
@@ -741,9 +768,9 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 }
 
 - (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer {
-  if (![self didWakeFromSleep])
+  if ([[self telephone] userAgentStarted])
     return;
-    
+  
   if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
     [self setShouldRegisterAllAccounts:YES];
     [self setShouldSetTelephoneSoundIO:YES];
@@ -1237,7 +1264,22 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [[theAccountController window] orderFront:self];
   
   // Register account.
+  [theAccountController setAttemptingToRegisterAccount:YES];
   [theAccountController setAccountRegistered:YES];
+  
+  // Install registrar reachability.
+  NSString *registrar = [[theAccountController account] registrar];
+  AKNetworkReachability *registrarReachability
+    = [AKNetworkReachability networkReachabilityWithHost:registrar];
+  [theAccountController setRegistrarReachability:registrarReachability];
+  
+  if (registrarReachability != nil) {
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+        selector:@selector(networkReachabilityDidBecomeReachable:)
+            name:AKNetworkReachabilityDidBecomeReachableNotification
+          object:registrarReachability];
+  }
 }
 
 - (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification {
@@ -1246,8 +1288,23 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   AccountController *anAccountController
     = [[self accountControllers] objectAtIndex:index];
   
-  if ([anAccountController isEnabled])
+  if ([anAccountController isEnabled]) {
+    // Remove registrar reachability.
+    AKNetworkReachability *registrarReachability
+      = [anAccountController registrarReachability];
+    
+    if (registrarReachability != nil) {
+      [[NSNotificationCenter defaultCenter]
+       removeObserver:self
+                 name:AKNetworkReachabilityDidBecomeReachableNotification
+               object:registrarReachability];
+    }
+    
+    [anAccountController setRegistrarReachability:nil];
+    
+    // Remove account.
     [anAccountController removeAccountFromTelephone];
+  }
   
   [[self accountControllers] removeObjectAtIndex:index];
 }
@@ -1317,9 +1374,35 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [theAccountController setAttemptingToRegisterAccount:YES];
     [theAccountController setAccountRegistered:YES];
     
+    // Install registrar reachability.
+    AKNetworkReachability *registrarReachability
+      = [AKNetworkReachability networkReachabilityWithHost:registrar];
+    [theAccountController setRegistrarReachability:registrarReachability];
+    
+    if (registrarReachability != nil) {
+      [[NSNotificationCenter defaultCenter]
+       addObserver:self
+          selector:@selector(networkReachabilityDidBecomeReachable:)
+              name:AKNetworkReachabilityDidBecomeReachableNotification
+            object:registrarReachability];
+    }
+    
   } else {
     AccountController *theAccountController
       = [[self accountControllers] objectAtIndex:index];
+    
+    // Remove registrar reachability.
+    AKNetworkReachability *registrarReachability
+      = [theAccountController registrarReachability];
+    
+    if (registrarReachability != nil) {
+      [[NSNotificationCenter defaultCenter]
+       removeObserver:self
+                 name:AKNetworkReachabilityDidBecomeReachableNotification
+               object:registrarReachability];
+    }
+    
+    [theAccountController setRegistrarReachability:nil];
     
     // Close all call windows hanging up all calls.
     [[theAccountController callControllers]
@@ -1372,9 +1455,18 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   else
     [[self telephone] setNameservers:nil];
     
-  
+  // Restart SIP user agent.
   if ([[self telephone] userAgentStarted])
     [self restartTelephone];
+  
+  // Install new STUN server reachability.
+  NSString *STUNServerHost = [defaults stringForKey:kSTUNServerHost];
+  if ([STUNServerHost length] > 0) {
+    [self setSTUNServerReachability:
+     [AKNetworkReachability networkReachabilityWithHost:STUNServerHost]];
+  } else {
+    [self setSTUNServerReachability:nil];
+  }
 }
 
 
@@ -1411,8 +1503,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
         [anAccountController setAccountRegistered:YES];
     
     [self setShouldRegisterAllAccounts:NO];
-    
-    [self setDidWakeFromSleep:NO];
     [self setShouldRestartTelephoneASAP:NO];
     
   } else {
@@ -1421,7 +1511,23 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     
     [self setShouldRegisterAllAccounts:NO];
     
-    if (![self didWakeFromSleep]) {
+    // Set |shouldPresentSIPUserAgentLaunchError| if needed and if it wasn't set
+    // somewhere else.
+    if (![self shouldPresentSIPUserAgentLaunchError]) {
+      // Check whether any AccountController is trying to register or unregister
+      // an acount. If so, we should present SIP user agent launch error.
+      for (AccountController *accountController in [self enabledAccountControllers]) {
+        if ([accountController attemptingToRegisterAccount] ||
+            [accountController attemptingToUnregisterAccount]) {
+          [self setShouldPresentSIPUserAgentLaunchError:YES];
+          [accountController setAttemptingToRegisterAccount:NO];
+          [accountController setAttemptingToUnregisterAccount:NO];
+        }
+      }
+    }
+    
+    if ([self shouldPresentSIPUserAgentLaunchError] &&
+        [NSApp modalWindow] == nil) {
       // Display application modal alert.
       NSAlert *alert = [[[NSAlert alloc] init] autorelease];
       [alert addButtonWithTitle:@"OK"];
@@ -1433,6 +1539,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
       [alert runModal]; 
     }
   }
+  
+  [self setShouldPresentSIPUserAgentLaunchError:NO];
 }
 
 - (void)telephoneUserAgentDidFinishStopping:(NSNotification *)notification {
@@ -1729,11 +1837,51 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   CFRelease(runLoopSource);
   CFRelease(dynamicStore);
   
-  // Register all accounts from the callback and start SIP user agent.
-  if ([[self enabledAccountControllers] count] > 0) {
-    [self setShouldRegisterAllAccounts:YES];
+  // Install network reachabilities.
+  NSString *STUNServerHost = [defaults stringForKey:kSTUNServerHost];
+  if ([STUNServerHost length] > 0) {
+    [self setSTUNServerReachability:
+     [AKNetworkReachability networkReachabilityWithHost:STUNServerHost]];
+  }
+  
+  for (AccountController *accountController in [self enabledAccountControllers]) {
+    NSString *registrar = [[accountController account] registrar];
+    AKNetworkReachability *registrarReachability
+      = [AKNetworkReachability networkReachabilityWithHost:registrar];
+    [accountController setRegistrarReachability:registrarReachability];
     
-    [[self telephone] startUserAgent];
+    if (registrarReachability != nil) {
+      [[NSNotificationCenter defaultCenter]
+       addObserver:self
+          selector:@selector(networkReachabilityDidBecomeReachable:)
+              name:AKNetworkReachabilityDidBecomeReachableNotification
+            object:registrarReachability];
+    }
+  }
+  
+  
+  // Check if STUN server or any of the registrars is reachable. If any of them
+  // is, start SIP user agent.
+  if ([[self enabledAccountControllers] count] > 0) {
+    BOOL isAnythingReachable = NO;
+    if ([self STUNServerReachability] != nil) {
+      isAnythingReachable = [[self STUNServerReachability] isReachable];
+    } else {
+      for (AccountController *accountController in [self enabledAccountControllers]) {
+        if ([[accountController registrarReachability] isReachable]) {
+          isAnythingReachable = YES;
+          break;
+        }
+      }
+    }
+    
+    if (isAnythingReachable) {
+      // Show error if SIP user agent launch fails.
+      [self setShouldPresentSIPUserAgentLaunchError:YES];
+      
+      [self setShouldRegisterAllAccounts:YES];
+      [[self telephone] startUserAgent];
+    }
   }
 }
 
@@ -1812,6 +1960,25 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 
 #pragma mark -
+#pragma mark AKNetworkReachability notifications
+
+- (void)networkReachabilityDidBecomeReachable:(NSNotification *)notification {
+  if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
+    if ([[self enabledAccountControllers] count] > 0) {
+      [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                               selector:@selector(restartTelephone)
+                                                 object:nil];
+      
+      // Set a flag to register all accounts after SIP user agent is started
+      // and start the user agent.
+      [self setShouldRegisterAllAccounts:YES];
+      [[self telephone] startUserAgent];
+    }
+  }
+}
+
+
+#pragma mark -
 #pragma mark AKTelephoneCall notifications
 
 - (void)telephoneCallCalling:(NSNotification *)notification {
@@ -1870,7 +2037,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 }
 
 - (void)workspaceDidWake:(NSNotification *)notification {
-  [self setDidWakeFromSleep:YES];
   [self setAfterSleepReconnectionAttemptIndex:0];
   
   NSTimeInterval timeInterval
@@ -2045,19 +2211,19 @@ static void NameserversChanged(SCDynamicStoreRef store,
                                void *info) {
   id appDelegate = [NSApp delegate];
   NSArray *nameservers = [appDelegate currentNameservers];
-  
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-  if ([defaults boolForKey:kUseDNSSRV]) {
-    if ([nameservers count] > 0)
-      [[appDelegate telephone] setNameservers:nameservers];
+  if ([defaults boolForKey:kUseDNSSRV] &&
+      [nameservers count] > 0 &&
+      ![[[appDelegate telephone] nameservers] isEqualToArray:nameservers]) {
+    [[appDelegate telephone] setNameservers:nameservers];
     
     if (![appDelegate hasActiveCallControllers]) {
       [NSObject cancelPreviousPerformRequestsWithTarget:appDelegate
                                                selector:@selector(restartTelephone)
                                                  object:nil];
       
-      // Schedule Telephone restart in serveral seconds to coalesce several
+      // Schedule Telephone restart in several seconds to coalesce several
       // nameserver changes during a short time period.
       [appDelegate performSelector:@selector(restartTelephone)
                         withObject:nil

@@ -99,6 +99,7 @@ NSString * const kEmailSIPLabel = @"sip";
 @synthesize reRegistrationTimer = reRegistrationTimer_;
 @synthesize shouldMakeCall = shouldMakeCall_;
 @synthesize catchedURLString = catchedURLString_;
+@synthesize registrarReachability = registrarReachability_;
 
 @synthesize substitutesPlusCharacter = substitutesPlusCharacter_;
 @synthesize plusCharacterSubstitution = plusCharacterSubstitution_;
@@ -142,7 +143,7 @@ NSString * const kEmailSIPLabel = @"sip";
     
     // Add account to Telephone
     BOOL accountAdded = [[[NSApp delegate] telephone] addAccount:[self account]
-                                             withPassword:password];
+                                                    withPassword:password];
     
     // Error connecting to registrar.
     if (accountAdded &&
@@ -152,21 +153,21 @@ NSString * const kEmailSIPLabel = @"sip";
       
       [self showUnavailableState];
       
-      if ([[NSApp delegate] didWakeFromSleep]) {
-        // Schedule account automatic re-registration timer.
-        if ([self reRegistrationTimer] == nil) {
-          NSTimeInterval reregistrationTimeInterval
-            = (NSTimeInterval)[[self account] reregistrationTime];
-          
-          [self setReRegistrationTimer:
-           [NSTimer scheduledTimerWithTimeInterval:reregistrationTimeInterval
-                                            target:self
-                                          selector:@selector(reRegistrationTimerTick:)
-                                          userInfo:nil
-                                           repeats:YES]];
-        }
-      } else {
-        // Show an error sheet if we're not waking from sleep.
+      // Schedule account automatic re-registration timer.
+      if ([self reRegistrationTimer] == nil) {
+        NSTimeInterval reregistrationTimeInterval
+          = (NSTimeInterval)[[self account] reregistrationTime];
+        
+        [self setReRegistrationTimer:
+         [NSTimer scheduledTimerWithTimeInterval:reregistrationTimeInterval
+                                          target:self
+                                        selector:@selector(reRegistrationTimerTick:)
+                                        userInfo:nil
+                                         repeats:YES]];
+      }
+        
+        if ([self attemptingToRegisterAccount] &&
+            [self attemptingToUnregisterAccount]) {
         NSString *statusText;
         NSString *preferredLocalization
           = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
@@ -254,6 +255,7 @@ NSString * const kEmailSIPLabel = @"sip";
   [account_ release];
   [callControllers_ release];
   [catchedURLString_ release];
+  [registrarReachability_ release];
   [plusCharacterSubstitution_ release];
   
   [activeAccountView_ release];
@@ -454,8 +456,6 @@ NSString * const kEmailSIPLabel = @"sip";
     [self setAttemptingToRegisterAccount:YES];
     [self setAccountRegistered:YES];
   }
-  
-  [[NSApp delegate] setDidWakeFromSleep:NO];
 }
 
 // Remove old account from Telephone, change username for the account, add
@@ -793,7 +793,7 @@ NSString * const kEmailSIPLabel = @"sip";
       // last registration status != 2xx AND expiration interval < 0.
       
       if ([[[NSApp delegate] telephone] userAgentStarted]) {
-        // Show a sheet if setAccountRegistered: was called.
+        // Show a sheet if the user is attempting to change account state.
         if ([self attemptingToRegisterAccount] ||
             [self attemptingToUnregisterAccount]) {
           NSString *statusText;

@@ -1,5 +1,5 @@
 //
-//  AKNSString+Scanning.m
+//  AKNetworkReachability.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -26,38 +26,37 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKNSString+Scanning.h"
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 
-@implementation NSString (AKStringScanningAdditions)
-
-@dynamic ak_isTelephoneNumber;
-@dynamic ak_hasLetters;
-@dynamic ak_isIPAddress;
-
-- (BOOL)ak_isTelephoneNumber {
-  NSPredicate *telephoneNumberPredicate
-    = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
-  
-  return ([telephoneNumberPredicate evaluateWithObject:self]) ? YES : NO;
+// Wrapper for SCNetworkReachability.
+@interface AKNetworkReachability : NSObject {
+ @private
+  SCNetworkReachabilityRef reachability_;  // Strong.
+  SCNetworkReachabilityContext context_;
+  NSString *host_;
 }
 
-- (BOOL)ak_hasLetters {
-  NSPredicate *containsLettersPredicate
-    = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
-  
-  return ([containsLettersPredicate evaluateWithObject:self]) ? YES : NO;
-}
+// Host name or address of the target host.
+@property(nonatomic, readonly, copy) NSString *host;
 
-- (BOOL)ak_isIPAddress {
-  NSPredicate *IPAddressPredicate
-    = [NSPredicate predicateWithFormat:@"SELF MATCHES "
-       "'\\\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-       "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-       "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-       "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\b'"];
-  
-  return ([IPAddressPredicate evaluateWithObject:self]) ? YES : NO;
-}
+// A Boolean value indicating whether the target host is reachable.
+@property(nonatomic, readonly, assign, getter=isReachable) BOOL reachable;
+
+// Returns a new instance of the network reachability for the given host.
+// Returns nil when |nameOrAddress| is nil or @"".
++ (AKNetworkReachability *)networkReachabilityWithHost:(NSString *)nameOrAddress;
+
+// Designated initializer.
+// Returns nil when |nameOrAddress| is nil or @"".
+- (id)initWithHost:(NSString *)nameOrAddress;
 
 @end
+
+
+// Sent when target host becomes reachable.
+extern NSString * const AKNetworkReachabilityDidBecomeReachableNotification;
+
+// Sent when target host becomes unreachable.
+extern NSString * const AKNetworkReachabilityDidBecomeUnreachableNotification;
