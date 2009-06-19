@@ -333,7 +333,8 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (void)muteMicrophone {
-  if ([self isMicrophoneMuted])
+  if ([self isMicrophoneMuted] ||
+      [self state] != kAKTelephoneCallConfirmedState)
     return;
   
   pjsua_call_info callInfo;
@@ -347,7 +348,8 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (void)unmuteMicrophone {
-  if (![self isMicrophoneMuted])
+  if (![self isMicrophoneMuted] ||
+      [self state] != kAKTelephoneCallConfirmedState)
     return;
   
   pjsua_call_info callInfo;
@@ -368,12 +370,13 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (void)hold {
-  if (![self isOnRemoteHold])
+  if ([self state] == kAKTelephoneCallConfirmedState && ![self isOnRemoteHold])
     pjsua_call_set_hold([self identifier], NULL);
 }
 
 - (void)unhold {
-  pjsua_call_reinvite([self identifier], PJ_TRUE, NULL);
+  if ([self state] == kAKTelephoneCallConfirmedState)
+    pjsua_call_reinvite([self identifier], PJ_TRUE, NULL);
 }
 
 - (void)toggleHold {

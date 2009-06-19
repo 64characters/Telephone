@@ -346,10 +346,15 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 }
 
 - (IBAction)toggleCallHold:(id)sender {
+  if ([[self call] state] == kAKTelephoneCallConfirmedState &&
+      ![[self call] isOnRemoteHold])
   [[self call] toggleHold];
 }
 
 - (IBAction)toggleMicrophoneMute:(id)sender {
+  if ([[self call] state] != kAKTelephoneCallConfirmedState)
+    return;
+  
   [[self call] toggleMicrophoneMute];
   
   if ([[self call] isMicrophoneMuted]) {
