@@ -67,6 +67,7 @@
 		AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF51C480EF6CF100098A372 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF51C470EF6CF100098A372 /* Sparkle.framework */; };
 		AAF51C4C0EF6CF290098A372 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF51C470EF6CF100098A372 /* Sparkle.framework */; };
+		AAF639F60FEFF13A0089DA3A /* AKResponsiveProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF639F50FEFF13A0089DA3A /* AKResponsiveProgressIndicator.m */; };
 		AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */; };
 		AAFA9B980EE2BFC4009A45CB /* Sound.tiff in Resources */ = {isa = PBXBuildFile; fileRef = AAFA9B970EE2BFC4009A45CB /* Sound.tiff */; };
 		AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */; };
@@ -214,6 +215,8 @@
 		AAF29A460F575A00007B5036 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = PlugIns/AddressBook/Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AAF29A470F575A0D007B5036 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = PlugIns/AddressBook/German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AAF51C470EF6CF100098A372 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		AAF639F40FEFF13A0089DA3A /* AKResponsiveProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKResponsiveProgressIndicator.h; sourceTree = "<group>"; tabWidth = 2; };
+		AAF639F50FEFF13A0089DA3A /* AKResponsiveProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKResponsiveProgressIndicator.m; sourceTree = "<group>"; tabWidth = 2; };
 		AAFA9B1B0EE1D8FC009A45CB /* AKSIPURIFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKSIPURIFormatter.h; sourceTree = "<group>"; tabWidth = 2; };
 		AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKSIPURIFormatter.m; sourceTree = "<group>"; tabWidth = 2; };
 		AAFA9B970EE2BFC4009A45CB /* Sound.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Sound.tiff; sourceTree = "<group>"; };
@@ -370,6 +373,8 @@
 			children = (
 				AACD92CE0ED434DD00AF8D17 /* AKActiveCallView.h */,
 				AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */,
+				AAF639F40FEFF13A0089DA3A /* AKResponsiveProgressIndicator.h */,
+				AAF639F50FEFF13A0089DA3A /* AKResponsiveProgressIndicator.m */,
 				AAFA9B1B0EE1D8FC009A45CB /* AKSIPURIFormatter.h */,
 				AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */,
 				AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */,
@@ -601,6 +606,7 @@
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
 				AABA3A740F8A2B93009E1005 /* AKTelephoneAccount.m in Sources */,
 				AAAC618C0FE6A42900FBE053 /* AKNetworkReachability.m in Sources */,
+				AAF639F60FEFF13A0089DA3A /* AKResponsiveProgressIndicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

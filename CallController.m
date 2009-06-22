@@ -31,6 +31,7 @@
 #import <Growl/Growl.h>
 
 #import "AKActiveCallView.h"
+#import "AKResponsiveProgressIndicator.h"
 #import "AKNSString+Creating.h"
 #import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
@@ -236,6 +237,10 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
   
   [[self activeCallView] addTrackingArea:trackingArea];
   [self setCallProgressIndicatorTrackingArea:trackingArea];
+  
+  // Add support for clicking call progress indicator to hang-up.
+  [[self callProgressIndicator] setTarget:self];
+  [[self callProgressIndicator] setAction:@selector(hangUpCall:)];
 }
 
 - (IBAction)acceptCall:(id)sender {

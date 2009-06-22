@@ -31,7 +31,7 @@
 #import "AKActiveCallView.h"
 
 
-@class AccountController, AKTelephoneCall, AKSIPURI;
+@class AccountController, AKTelephoneCall, AKResponsiveProgressIndicator, AKSIPURI;
 
 @interface CallController : NSWindowController <AKActiveCallViewDelegate> {
  @private
@@ -66,7 +66,7 @@
   NSTextField *incomingCallStatusField_;
   NSTextField *activeCallStatusField_;
   NSTextField *endedCallStatusField_;
-  NSProgressIndicator *callProgressIndicator_;
+  AKResponsiveProgressIndicator *callProgressIndicator_;
 }
 
 @property(nonatomic, copy) NSString *identifier;
@@ -100,7 +100,7 @@
 @property(nonatomic, retain) IBOutlet NSTextField *incomingCallStatusField;
 @property(nonatomic, retain) IBOutlet NSTextField *activeCallStatusField;
 @property(nonatomic, retain) IBOutlet NSTextField *endedCallStatusField;
-@property(nonatomic, retain) IBOutlet NSProgressIndicator *callProgressIndicator;
+@property(nonatomic, retain) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;
 
 // Designated initializer
 - (id)initWithAccountController:(AccountController *)anAccountController;
