@@ -49,11 +49,11 @@
 /* Account registration Connecting... menu item. */
 "Connecting..." = "Verbinden ...";
 
-/* Registrar connection error. */
-"Could not connect to server %@." = "Konnte nicht mit Server %@ verbinden.";
-
 /* Address Book plug-ins install error, alert message text. */
 "Could not install Address Book plug-ins." = "Die Adressbuch-Plugins konnten nicht installiert werden.";
+
+/* Registrar connection error. */
+"Could not register with %@." = "Konnte nicht bei %@ registrieren.";
 
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Konnte SIP user agent nicht starten.";

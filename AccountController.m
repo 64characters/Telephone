@@ -528,7 +528,7 @@ NSString * const kEmailSIPLabel = @"sip";
   NSAlert *alert = [[[NSAlert alloc] init] autorelease];
   [alert addButtonWithTitle:@"OK"];
   [alert setMessageText:[NSString stringWithFormat:
-                         NSLocalizedString(@"Could not connect to server %@.",
+                         NSLocalizedString(@"Could not register with %@.",
                                            @"Registrar connection error."),
                          [[self account] registrar]]];
   

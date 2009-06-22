@@ -47,11 +47,11 @@
 /* Account registration Connecting... menu item. */
 "Connecting..." = "Соединение...";
 
-/* Registrar connection error. */
-"Could not connect to server %@." = "Не удалось соединиться с сервером %@.";
-
 /* Address Book plug-ins install error, alert message text. */
 "Could not install Address Book plug-ins." = "Не удалось установить плагины к «Адресной книге».";
+
+/* Registrar connection error. */
+"Could not register with %@." = "Не удалось зарегистрироваться на %@.";
 
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Не удалось запустить SIP-подсистему.";
