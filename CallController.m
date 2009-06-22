@@ -690,55 +690,38 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 
 - (void)activeCallView:(AKActiveCallView *)sender
         didReceiveText:(NSString *)aString {
-  NSCharacterSet *commandsCharacterSet
-    = [NSCharacterSet characterSetWithCharactersInString:@"mMhH"];
-  NSCharacterSet *microphoneMuteCharacterSet
-    = [NSCharacterSet characterSetWithCharactersInString:@"mM"];
-  NSCharacterSet *holdCharacterSet
-    = [NSCharacterSet characterSetWithCharactersInString:@"hH"];
   NSCharacterSet *DTMFCharacterSet
     = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#"];
   
-  unichar firstCharacter = [aString characterAtIndex:0];
-  if ([commandsCharacterSet characterIsMember:firstCharacter]) {
-    if ([microphoneMuteCharacterSet characterIsMember:firstCharacter]) {
-      [self toggleMicrophoneMute:nil];
-    } else if ([holdCharacterSet characterIsMember:firstCharacter]) {
-      [self toggleCallHold:nil];
+  BOOL isDTMFValid = YES;
+  for (NSUInteger i = 0; i < [aString length]; ++i) {
+    unichar digit = [aString characterAtIndex:i];
+    if (![DTMFCharacterSet characterIsMember:digit]) {
+      isDTMFValid = NO;
+      break;
     }
-    
-  } else {
-    BOOL isDTMFValid = YES;
-    
-    for (NSUInteger i = 0; i < [aString length]; ++i) {
-      unichar digit = [aString characterAtIndex:i];
-      if (![DTMFCharacterSet characterIsMember:digit]) {
-        isDTMFValid = NO;
-        break;
-      }
-    }
-    
-    if (isDTMFValid) {
-      if ([[self enteredDTMF] length] == 0) {
-        [[self enteredDTMF] appendString:aString];
-        [[self window] setTitle:[self displayedName]];
-        
-        if ([[[self activeCallDisplayedNameField] cell] lineBreakMode]
-            != NSLineBreakByTruncatingHead) {
-          [[[self activeCallDisplayedNameField] cell]
-           setLineBreakMode:NSLineBreakByTruncatingHead];
-          [[self endedCallDisplayedNameField] setSelectable:YES];
-        }
-        
-        [self setDisplayedName:aString];
-        
-      } else {
-        [[self enteredDTMF] appendString:aString];
-        [self setDisplayedName:[self enteredDTMF]];
+  }
+  
+  if (isDTMFValid) {
+    if ([[self enteredDTMF] length] == 0) {
+      [[self enteredDTMF] appendString:aString];
+      [[self window] setTitle:[self displayedName]];
+      
+      if ([[[self activeCallDisplayedNameField] cell] lineBreakMode]
+          != NSLineBreakByTruncatingHead) {
+        [[[self activeCallDisplayedNameField] cell]
+         setLineBreakMode:NSLineBreakByTruncatingHead];
+        [[self endedCallDisplayedNameField] setSelectable:YES];
       }
       
-      [[self call] sendDTMFDigits:aString];
+      [self setDisplayedName:aString];
+      
+    } else {
+      [[self enteredDTMF] appendString:aString];
+      [self setDisplayedName:[self enteredDTMF]];
     }
+    
+    [[self call] sendDTMFDigits:aString];
   }
 }
 
