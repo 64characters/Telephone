@@ -64,8 +64,8 @@ static const CGFloat kAccountStatePopUpConnectingRussianWidth = 96.0;
 
 // German.
 static const CGFloat kAccountStatePopUpOfflineGermanWidth = 58.0;
-static const CGFloat kAccountStatePopUpAvailableGermanWidth = 84.0;
-static const CGFloat kAccountStatePopUpUnavailableGermanWidth = 111.0;
+static const CGFloat kAccountStatePopUpAvailableGermanWidth = 74.0;
+static const CGFloat kAccountStatePopUpUnavailableGermanWidth = 101.0;
 static const CGFloat kAccountStatePopUpConnectingGermanWidth = 88.0;
 
 

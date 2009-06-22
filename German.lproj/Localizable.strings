@@ -13,7 +13,7 @@
 "Are you sure you want to quit Telephone?" = "Wollen Sie Telephone wirklich beenden?";
 
 /* Account registration Available menu item. */
-"Available" = "Angemeldet";
+"Available" = "Verfügbar";
 
 /* Busy. */
 "busy" = "Besetzt";
@@ -164,7 +164,7 @@
 "UDP packets are probably blocked. It is impossible to make or receive calls without that. Make sure that your local firewall and the firewall at your router allow UDP protocol." = "UDP-Pakete werden anscheinend blockiert. Sie können weder Anrufe tätigen noch empfangen. Stellen Sie sicher, daß Ihre lokale Firewall und die Firewall Ihres Routers das UDP-Protokoll erlaubt.";
 
 /* Account registration Unavailable menu item. */
-"Unavailable" = "Nicht аngemeldet";
+"Unavailable" = "Nicht verfügbar";
 
 /* Unmute. Call menu item. */
 "Unmute" = "Mikrofon an";

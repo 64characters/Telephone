@@ -107,7 +107,7 @@
 											<reference ref="511206515"/>
 											<object class="NSMenuItem" id="476894059">
 												<reference key="NSMenu" ref="196998535"/>
-												<string key="NSTitle">Angemeldet</string>
+												<string type="base64-UTF8" key="NSTitle">VmVyZsO8Z2Jhcg</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="199954190"/>
@@ -118,7 +118,7 @@
 											</object>
 											<object class="NSMenuItem" id="632415489">
 												<reference key="NSMenu" ref="196998535"/>
-												<string type="base64-UTF8" key="NSTitle">TmljaHQg0LBuZ2VtZWxkZXQ</string>
+												<string type="base64-UTF8" key="NSTitle">TmljaHQgdmVyZsO8Z2Jhcg</string>
 												<string key="NSKeyEquiv"/>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="199954190"/>
