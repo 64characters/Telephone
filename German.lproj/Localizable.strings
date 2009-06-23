@@ -10,7 +10,7 @@
 "All active calls will be disconnected." = "Alle aktiven Gespräche werden beendet.";
 
 /* Telephone quit confirmation. */
-"Are you sure you want to quit Telephone?" = "Wollen Sie Telephone wirklich beenden?";
+"Are you sure you want to quit Telephone?" = "Wollen Sie Telefon wirklich beenden?";
 
 /* Account registration Available menu item. */
 "Available" = "Verfügbar";
@@ -149,10 +149,10 @@
 "Symmetric NAT detected." = "Symmetrisches NAT festgestellt.";
 
 /* Preferences default window title. */
-"Telephone Preferences" = "Telephone Einstellungen";
+"Telephone Preferences" = "Telefon Einstellungen";
 
 /* Registrar authentication failed. */
-"Telephone was unable to login to %@. Change user name or password and try again." = "Telephone konnte sich nicht in %@ anmelden. Ändern Sie Benutzername oder Passwort und versuchen Sie es erneut.";
+"Telephone was unable to login to %@. Change user name or password and try again." = "Telefon konnte sich nicht in %@ anmelden. Ändern Sie Benutzername oder Passwort und versuchen Sie es erneut.";
 
 /* Error description. */
 "The error was: \\U201C%d %@\\U201D." = "Fehlerbeschreibung: „%1$d %2$@“.";

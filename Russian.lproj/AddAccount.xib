@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -45,7 +44,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="515214309">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -262,7 +261,7 @@
 										</object>
 										<object class="NSImageView" id="925193320">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -294,7 +293,7 @@
 										</object>
 										<object class="NSImageView" id="43308686">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -323,7 +322,7 @@
 										</object>
 										<object class="NSImageView" id="276223491">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -352,7 +351,7 @@
 										</object>
 										<object class="NSImageView" id="568928336">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -484,7 +483,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{603, 463}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -1119,6 +1117,7 @@
 							<string>toolbar</string>
 							<string>transportPortCell</string>
 							<string>transportPortField</string>
+							<string>useDNSSRVCheckBox</string>
 							<string>useICECheckBox</string>
 							<string>useProxyCheckBox</string>
 							<string>usernameField</string>
@@ -1169,6 +1168,7 @@
 							<string>NSToolbar</string>
 							<string>NSTextFieldCell</string>
 							<string>NSTextField</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
