@@ -71,16 +71,20 @@ static const NSTimeInterval kTelephoneRestartDelayAfterDNSChange = 3.0;
 
 static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
+
 @interface AppController()
 
 @property(nonatomic, assign) NSUInteger afterSleepReconnectionAttemptIndex;
 @property(nonatomic, retain) NSArray *afterSleepReconnectionTimeIntervals;
 
 - (void)setSelectedSoundIOToTelephone;
-
 - (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
+- (void)installAddressBookPlugIns;
+- (void)setupGrowl;
+- (void)installDNSChangesCallback;
 
 @end
+
 
 @implementation AppController
 
@@ -662,18 +666,34 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 - (IBAction)addAccountOnFirstLaunch:(id)sender {
   [[self preferenceController] addAccount:sender];
   
-  // Re-enable Preferences.
-  [[self preferencesMenuItem] setAction:@selector(showPreferencePanel:)];
-  
-  // Change back targets and actions of addAccountWindow buttons.
-  [[[self preferenceController] addAccountWindowDefaultButton]
-   setTarget:[self preferenceController]];
-  [[[self preferenceController] addAccountWindowDefaultButton]
-   setAction:@selector(addAccount:)];
-  [[[self preferenceController] addAccountWindowOtherButton]
-   setTarget:[self preferenceController]];
-  [[[self preferenceController] addAccountWindowOtherButton]
-   setAction:@selector(closeSheet:)];
+  if ([[[[self preferenceController] setupFullNameField] stringValue] length] > 0 &&
+      [[[[self preferenceController] setupDomainField] stringValue] length] > 0 &&
+      [[[[self preferenceController] setupUsernameField] stringValue] length] > 0 &&
+      [[[[self preferenceController] setupPasswordField] stringValue] length] > 0) {
+    // Re-enable Preferences.
+    [[self preferencesMenuItem] setAction:@selector(showPreferencePanel:)];
+    
+    // Change back targets and actions of addAccountWindow buttons.
+    [[[self preferenceController] addAccountWindowDefaultButton]
+     setTarget:[self preferenceController]];
+    [[[self preferenceController] addAccountWindowDefaultButton]
+     setAction:@selector(addAccount:)];
+    [[[self preferenceController] addAccountWindowOtherButton]
+     setTarget:[self preferenceController]];
+    [[[self preferenceController] addAccountWindowOtherButton]
+     setAction:@selector(closeSheet:)];
+    
+    // Install audio devices changes callback.
+    AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
+                                     &AudioDevicesChanged, self);
+    
+    // Get available audio devices, select devices for sound input and output.
+    [self updateAudioDevices];
+    
+    [self installAddressBookPlugIns];
+    [self setupGrowl];
+    [self installDNSChangesCallback];
+  }
 }
 
 - (void)startRingtoneTimer {
@@ -814,6 +834,69 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [[NSWorkspace sharedWorkspace] openURL:
      [NSURL URLWithString:@"http://code.google.com/p/telephone/wiki/FAQ"]];
   }
+}
+
+- (void)installAddressBookPlugIns {
+  // Install Address Book plug-ins.
+  NSError *error = nil;
+  BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
+  if (!installed && error != nil) {
+    NSLog(@"%@", error);
+    
+    NSString *libraryPath
+      = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                             NSUserDomainMask,
+                                             NO)
+         objectAtIndex:0];
+    
+    if ([libraryPath length] > 0) {
+      NSString *addressBookPlugInsInstallPath
+        = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
+      
+      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+      [alert addButtonWithTitle:@"OK"];
+      [alert setMessageText:
+       NSLocalizedString(@"Could not install Address Book plug-ins.",
+                         @"Address Book plug-ins install error, alert message text.")];
+      [alert setInformativeText:
+       [NSString stringWithFormat:
+        NSLocalizedString(@"Make sure you have write permission to \\U201C%@\\U201D.",
+                          @"Address Book plug-ins install error, alert informative text."),
+        addressBookPlugInsInstallPath]];
+      
+      [alert runModal];
+    }
+  }
+}
+
+- (void)setupGrowl {
+  NSString *growlPath = [[[NSBundle mainBundle] privateFrameworksPath]
+                         stringByAppendingPathComponent:@"Growl.framework"];
+  NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+  if (growlBundle != nil && [growlBundle load])
+    [GrowlApplicationBridge setGrowlDelegate:self];
+  else
+    NSLog(@"Could not load Growl.framework");
+}
+
+- (void)installDNSChangesCallback {
+  NSString *bundleName
+    = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+  SCDynamicStoreRef dynamicStore
+    = SCDynamicStoreCreate(kCFAllocatorDefault,
+                           (CFStringRef)bundleName,
+                           &NameserversChanged,
+                           NULL);
+  
+  NSArray *keys = [NSArray arrayWithObject:kDynamicStoreDNSSettings];
+  SCDynamicStoreSetNotificationKeys(dynamicStore, (CFArrayRef)keys, NULL);
+  
+  CFRunLoopSourceRef runLoopSource
+    = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynamicStore, 0);
+  
+  CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, kCFRunLoopDefaultMode);
+  CFRelease(runLoopSource);
+  CFRelease(dynamicStore);
 }
 
 - (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
@@ -1784,62 +1867,9 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   // Get available audio devices, select devices for sound input and output.
   [self updateAudioDevices];
   
-  // Install Address Book plug-ins.
-  NSError *error = nil;
-  BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
-  if (!installed && error != nil) {
-    NSLog(@"%@", error);
-    
-    NSString *libraryPath
-      = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
-                                             NSUserDomainMask,
-                                             NO)
-       objectAtIndex:0];
-    
-    if ([libraryPath length] > 0) {
-      NSString *addressBookPlugInsInstallPath
-        = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
-      
-      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-      [alert addButtonWithTitle:@"OK"];
-      [alert setMessageText:
-       NSLocalizedString(@"Could not install Address Book plug-ins.",
-                         @"Address Book plug-ins install error, alert message text.")];
-      [alert setInformativeText:
-       [NSString stringWithFormat:
-        NSLocalizedString(@"Make sure you have write permission to \\U201C%@\\U201D.",
-                          @"Address Book plug-ins install error, alert informative text."),
-        addressBookPlugInsInstallPath]];
-      
-      [alert runModal];
-    }
-  }
-  
-  // Load Growl.
-  NSString *growlPath = [[mainBundle privateFrameworksPath]
-                         stringByAppendingPathComponent:@"Growl.framework"];
-  NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
-  if (growlBundle != nil && [growlBundle load])
-    [GrowlApplicationBridge setGrowlDelegate:self];
-  else
-    NSLog(@"Could not load Growl.framework");
-  
-  // Install DNS changes callback.
-  SCDynamicStoreRef dynamicStore
-    = SCDynamicStoreCreate(kCFAllocatorDefault,
-                           (CFStringRef)bundleName,
-                           &NameserversChanged,
-                           NULL);
-  
-  NSArray *keys = [NSArray arrayWithObject:kDynamicStoreDNSSettings];
-  SCDynamicStoreSetNotificationKeys(dynamicStore, (CFArrayRef)keys, NULL);
-  
-  CFRunLoopSourceRef runLoopSource
-    = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynamicStore, 0);
-  
-  CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, kCFRunLoopDefaultMode);
-  CFRelease(runLoopSource);
-  CFRelease(dynamicStore);
+  [self installAddressBookPlugIns];
+  [self setupGrowl];
+  [self installDNSChangesCallback];
   
   // Install network reachabilities.
   NSString *STUNServerHost = [defaults stringForKey:kSTUNServerHost];

@@ -257,7 +257,7 @@
 										</object>
 										<object class="NSImageView" id="14275836">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -289,7 +289,7 @@
 										</object>
 										<object class="NSImageView" id="299312276">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -318,7 +318,7 @@
 										</object>
 										<object class="NSImageView" id="146719011">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -347,7 +347,7 @@
 										</object>
 										<object class="NSImageView" id="161298542">
 											<reference key="NSNextResponder" ref="791951035"/>
-											<int key="NSvFlags">256</int>
+											<int key="NSvFlags">-2147483392</int>
 											<object class="NSMutableSet" key="NSDragTypes">
 												<bool key="EncodedWithXMLCoder">YES</bool>
 												<object class="NSMutableArray" key="set.sortedObjects">
@@ -1113,6 +1113,7 @@
 							<string>toolbar</string>
 							<string>transportPortCell</string>
 							<string>transportPortField</string>
+							<string>useDNSSRVCheckBox</string>
 							<string>useICECheckBox</string>
 							<string>useProxyCheckBox</string>
 							<string>usernameField</string>
@@ -1163,6 +1164,7 @@
 							<string>NSToolbar</string>
 							<string>NSTextFieldCell</string>
 							<string>NSTextField</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
