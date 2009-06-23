@@ -243,7 +243,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
                      forKey:kSTUNServerPort];
     [defaultsDict setObject:[NSNumber numberWithBool:YES]
                      forKey:kVoiceActivityDetection];
-    [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kUseICE];
+    [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseICE];
     
     NSArray *libraryPaths
       = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
