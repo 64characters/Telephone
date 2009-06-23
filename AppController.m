@@ -2041,6 +2041,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 }
 
 - (void)workspaceDidWake:(NSNotification *)notification {
+  [self setShouldSetTelephoneSoundIO:YES];
+  
   [self setAfterSleepReconnectionAttemptIndex:0];
   
   NSTimeInterval timeInterval
