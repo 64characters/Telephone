@@ -259,6 +259,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
                      forKey:kConsoleLogLevel];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
                      forKey:kTransportPort];
+    [defaultsDict setObject:@"" forKey:kTransportPublicHost];
     [defaultsDict setObject:@"Purr" forKey:kRingingSound];
     [defaultsDict setObject:[NSNumber numberWithInteger:10]
                      forKey:kSignificantPhoneNumberLength];
@@ -1654,6 +1655,9 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [[self telephone] setUsesICE:[defaults boolForKey:kUseICE]];
   
   [[self telephone] setTransportPort:[defaults integerForKey:kTransportPort]];
+  
+  [[self telephone] setTransportPublicHost:
+   [defaults stringForKey:kTransportPublicHost]];
   
   [self setRingtone:[NSSound soundNamed:
                      [defaults stringForKey:kRingingSound]]];

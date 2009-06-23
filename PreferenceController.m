@@ -56,6 +56,7 @@ NSString * const kLogLevel = @"LogLevel";
 NSString * const kConsoleLogLevel = @"ConsoleLogLevel";
 NSString * const kVoiceActivityDetection = @"VoiceActivityDetection";
 NSString * const kTransportPort = @"TransportPort";
+NSString * const kTransportPublicHost = @"TransportPublicHost";
 NSString * const kSoundInput = @"SoundInput";
 NSString * const kSoundOutput = @"SoundOutput";
 NSString * const kRingtoneOutput = @"RingtoneOutput";

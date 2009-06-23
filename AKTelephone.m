@@ -58,6 +58,7 @@ const NSInteger kAKTelephoneDefaultConsoleLogLevel = 0;
 const BOOL kAKTelephoneDefaultDetectsVoiceActivity = YES;
 const BOOL kAKTelephoneDefaultUsesICE = NO;
 const NSInteger kAKTelephoneDefaultTransportPort = 0;  // 0 for any available port.
+NSString * const kAKTelephoneDefaultTransportPublicHost = nil;
 
 static AKTelephone *sharedTelephone = nil;
 
@@ -115,6 +116,7 @@ enum {
 @synthesize detectsVoiceActivity = detectsVoiceActivity_;
 @synthesize usesICE = usesICE_;
 @dynamic transportPort;
+@synthesize transportPublicHost = transportPublicHost_;
 
 - (id <AKTelephoneDelegate>)delegate {
   return delegate_;
@@ -296,6 +298,7 @@ enum {
   [self setDetectsVoiceActivity:kAKTelephoneDefaultDetectsVoiceActivity];
   [self setUsesICE:kAKTelephoneDefaultUsesICE];
   [self setTransportPort:kAKTelephoneDefaultTransportPort];
+  [self setTransportPublicHost:kAKTelephoneDefaultTransportPublicHost];
   
   [self setRingbackSlot:kAKTelephoneInvalidIdentifier];
   
@@ -314,6 +317,7 @@ enum {
   [STUNServerHost_ release];
   [userAgentString_ release];
   [logFileName_ release];
+  [transportPublicHost_ release];
   
   [super dealloc];
 }
@@ -424,6 +428,9 @@ enum {
   mediaConfig.enable_ice = [self usesICE];
   mediaConfig.snd_auto_close_time = 1;
   transportConfig.port = [self transportPort];
+  
+  if ([[self transportPublicHost] length] > 0)
+    transportConfig.public_addr = [[self transportPublicHost] pjString];
   
   userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;
   userAgentConfig.cb.on_call_media_state = AKCallMediaStateChanged;

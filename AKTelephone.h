@@ -44,6 +44,7 @@ extern const NSInteger kAKTelephoneDefaultConsoleLogLevel;
 extern const BOOL kAKTelephoneDefaultDetectsVoiceActivity;
 extern const BOOL kAKTelephoneDefaultUsesICE;
 extern const NSInteger kAKTelephoneDefaultTransportPort;
+extern NSString * const kAKTelephoneDefaultTransportPublicHost;
 
 typedef struct _AKTelephoneCallData {
   pj_timer_entry timer;
@@ -95,6 +96,7 @@ typedef NSUInteger AKTelephoneUserAgentState;
   BOOL detectsVoiceActivity_;
   BOOL usesICE_;
   NSUInteger transportPort_;
+  NSString *transportPublicHost_;
   
   // PJSUA config
   AKTelephoneCallData callData_[PJSUA_MAX_CALLS];
@@ -123,12 +125,13 @@ typedef NSUInteger AKTelephoneUserAgentState;
 @property(nonatomic, copy) NSString *STUNServerHost;     // Default: @"".
 @property(nonatomic, assign) NSUInteger STUNServerPort;  // Default: 3478.
 @property(nonatomic, copy) NSString *userAgentString;    // Default: @"".
-@property(nonatomic, copy) NSString *logFileName;        // Default: @"~/Library/Logs/Telephone.log".
+@property(nonatomic, copy) NSString *logFileName;        // Default: nil.
 @property(nonatomic, assign) NSUInteger logLevel;        // Default: 3.
 @property(nonatomic, assign) NSUInteger consoleLogLevel; // Default: 0.
 @property(nonatomic, assign) BOOL detectsVoiceActivity;  // Default: YES.
 @property(nonatomic, assign) BOOL usesICE;               // Default: NO.
 @property(nonatomic, assign) NSUInteger transportPort;   // Default: 0 for any available port.
+@property(nonatomic, copy) NSString *transportPublicHost;  // Default: nil.
 
 + (AKTelephone *)sharedTelephone;
 
