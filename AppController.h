@@ -32,7 +32,7 @@
 #import "AKTelephone.h"
 
 
-@class AKTelephone, AKNetworkReachability, PreferenceController, CallController;
+@class AKTelephone, PreferenceController, CallController;
 
 @interface AppController : NSObject <AKTelephoneDelegate, GrowlApplicationBridgeDelegate> {
  @private
@@ -54,7 +54,6 @@
   NSUInteger afterSleepReconnectionAttemptIndex_;
   NSArray *afterSleepReconnectionTimeIntervals_;
   NSTimer *userAttentionTimer_;
-  AKNetworkReachability *STUNServerReachability_;
   
   NSMenuItem *preferencesMenuItem_;
 }
@@ -80,7 +79,6 @@
 @property(nonatomic, assign) BOOL shouldPresentSIPUserAgentLaunchError;
 @property(nonatomic, readonly, assign) NSUInteger unhandledIncomingCallsCount;
 @property(nonatomic, assign) NSTimer *userAttentionTimer;
-@property(nonatomic, retain) AKNetworkReachability *STUNServerReachability;
 
 @property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
