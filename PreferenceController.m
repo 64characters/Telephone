@@ -695,7 +695,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     }
     
     // Substitute ... for "+".
-    if ([[accountDict objectForKey:kPlusCharacterSubstitutionString] length] > 0) {
+    if ([accountDict objectForKey:kPlusCharacterSubstitutionString] != nil) {
       [[self plusCharacterSubstitutionField] setStringValue:
        [accountDict objectForKey:kPlusCharacterSubstitutionString]];
     } else {
