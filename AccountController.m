@@ -34,6 +34,7 @@
 #import "AKABAddressBook+Localizing.h"
 #import "AKABRecord+Querying.h"
 #import "AKKeychain.h"
+#import "AKNetworkReachability.h"
 #import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPURI.h"
@@ -95,6 +96,7 @@ NSString * const kEmailSIPLabel = @"sip";
 @synthesize callControllers = callControllers_;
 @synthesize attemptingToRegisterAccount = attemptingToRegisterAccount_;
 @synthesize attemptingToUnregisterAccount = attemptingToUnregisterAccount_;
+@synthesize shouldPresentRegistrationError = shouldPresentRegistrationError_;
 @synthesize accountUnavailable = accountUnavailable_;
 @synthesize reRegistrationTimer = reRegistrationTimer_;
 @synthesize shouldMakeCall = shouldMakeCall_;
@@ -116,6 +118,37 @@ NSString * const kEmailSIPLabel = @"sip";
 @synthesize newPasswordField = newPasswordField_;
 @synthesize mustSaveCheckBox = mustSaveCheckBox_;
 @synthesize authenticationFailureCancelButton = authenticationFailureCancelButton_;
+
+- (void)setEnabled:(BOOL)flag {
+  enabled_ = flag;
+  
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
+  
+  if (flag) {
+    AKNetworkReachability *reachability
+      = [AKNetworkReachability networkReachabilityWithHost:
+         [[self account] registrar]];
+    [self setRegistrarReachability:reachability];
+    
+    if (reachability != nil) {
+      [notificationCenter
+       addObserver:self
+          selector:@selector(networkReachabilityDidBecomeReachable:)
+              name:AKNetworkReachabilityDidBecomeReachableNotification
+            object:reachability];
+    }
+  } else {
+    if ([self registrarReachability] != nil) {
+      [notificationCenter
+       removeObserver:self
+                 name:AKNetworkReachabilityDidBecomeReachableNotification
+               object:[self registrarReachability]];
+      
+      [self setRegistrarReachability:nil];
+    }
+  }
+}
 
 - (BOOL)isAccountRegistered {
   return [[self account] isRegistered];
@@ -166,8 +199,7 @@ NSString * const kEmailSIPLabel = @"sip";
                                          repeats:YES]];
       }
         
-        if ([self attemptingToRegisterAccount] &&
-            [self attemptingToUnregisterAccount]) {
+        if ([self shouldPresentRegistrationError]) {
         NSString *statusText;
         NSString *preferredLocalization
           = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
@@ -193,6 +225,8 @@ NSString * const kEmailSIPLabel = @"sip";
         // Show a sheet.
         [self showRegistrarConnectionErrorSheetWithError:error];
       }
+    
+      [self setShouldPresentRegistrationError:NO];
     }
   }
 }
@@ -208,6 +242,7 @@ NSString * const kEmailSIPLabel = @"sip";
   
   [self setAttemptingToRegisterAccount:NO];
   [self setAttemptingToUnregisterAccount:NO];
+  [self setShouldPresentRegistrationError:NO];
   [self setAccountUnavailable:NO];
   [self setShouldMakeCall:NO];
   
@@ -448,12 +483,14 @@ NSString * const kEmailSIPLabel = @"sip";
         [[self account] identifier] == kAKTelephoneInvalidIdentifier) {
       [self setAccountUnavailable:YES];
       [self setAttemptingToUnregisterAccount:YES];
+      [self setShouldPresentRegistrationError:YES];
       [self setAccountRegistered:NO];
     }
     
   } else if (selectedItemTag == kTelephoneAccountAvailable) {
     [self setAccountUnavailable:NO];
     [self setAttemptingToRegisterAccount:YES];
+    [self setShouldPresentRegistrationError:YES];
     [self setAccountRegistered:YES];
   }
 }
@@ -793,9 +830,7 @@ NSString * const kEmailSIPLabel = @"sip";
       // last registration status != 2xx AND expiration interval < 0.
       
       if ([[[NSApp delegate] telephone] userAgentStarted]) {
-        // Show a sheet if the user is attempting to change account state.
-        if ([self attemptingToRegisterAccount] ||
-            [self attemptingToUnregisterAccount]) {
+        if ([self shouldPresentRegistrationError]) {
           NSString *statusText;
           NSString *preferredLocalization
             = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
@@ -841,6 +876,7 @@ NSString * const kEmailSIPLabel = @"sip";
   
   [self setAttemptingToRegisterAccount:NO];
   [self setAttemptingToUnregisterAccount:NO];
+  [self setShouldPresentRegistrationError:NO];
 }
 
 - (void)telephoneAccountWillRemove:(NSNotification *)notification {
@@ -1164,6 +1200,18 @@ NSString * const kEmailSIPLabel = @"sip";
   
   else if ([self attemptingToUnregisterAccount])
     [self setAccountRegistered:NO];
+}
+
+
+#pragma mark -
+#pragma mark AKNetworkReachability notifications
+
+// This is the moment when the application starts doing its main job.
+- (void)networkReachabilityDidBecomeReachable:(NSNotification *)notification {
+  if (![self isAccountUnavailable] && ![self isAccountRegistered]) {
+    [self setAttemptingToRegisterAccount:YES];
+    [self setAccountRegistered:YES];
+  }
 }
 
 

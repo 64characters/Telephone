@@ -40,6 +40,7 @@
   NSMutableArray *callControllers_;
   BOOL attemptingToRegisterAccount_;
   BOOL attemptingToUnregisterAccount_;
+  BOOL shouldPresentRegistrationError_;
   BOOL accountUnavailable_;
   NSTimer *reRegistrationTimer_;
   BOOL shouldMakeCall_;
@@ -70,6 +71,7 @@
 @property(nonatomic, retain) NSMutableArray *callControllers;
 @property(nonatomic, assign) BOOL attemptingToRegisterAccount;
 @property(nonatomic, assign) BOOL attemptingToUnregisterAccount;
+@property(nonatomic, assign) BOOL shouldPresentRegistrationError;
 @property(nonatomic, assign, getter=isAccountUnavailable) BOOL accountUnavailable;
 @property(nonatomic, assign) BOOL shouldMakeCall;
 @property(nonatomic, copy) NSString *catchedURLString;

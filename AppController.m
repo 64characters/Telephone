@@ -36,6 +36,7 @@
 #import "AKAddressBookSIPAddressPlugIn.h"
 #import "AKKeychain.h"
 #import "AKNetworkReachability.h"
+#import "AKNSString+Scanning.h"
 #import "AKSIPURI.h"
 #import "AKTelephone.h"
 #import "AKTelephoneAccount.h"
@@ -119,7 +120,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 @synthesize afterSleepReconnectionTimeIntervals = afterSleepReconnectionTimeIntervals_;
 @dynamic unhandledIncomingCallsCount;
 @synthesize userAttentionTimer = userAttentionTimer_;
-@synthesize STUNServerReachability = STUNServerReachability_;
 
 @synthesize preferencesMenuItem = preferencesMenuItem_;
 
@@ -209,30 +209,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   }
   
   return count;
-}
-
-- (void)setSTUNServerReachability:(AKNetworkReachability *)reachability {
-  if (reachability == STUNServerReachability_)
-    return;
-  
-  NSNotificationCenter *notificationCenter
-    = [NSNotificationCenter defaultCenter];
-  
-  if (STUNServerReachability_ != nil) {
-    [notificationCenter removeObserver:self
-                                  name:AKNetworkReachabilityDidBecomeReachableNotification
-                                object:STUNServerReachability_];
-  }
-  
-  if (reachability != nil) {
-    [notificationCenter addObserver:self
-                           selector:@selector(networkReachabilityDidBecomeReachable:)
-                               name:AKNetworkReachabilityDidBecomeReachableNotification
-                             object:reachability];
-  }
-  
-  [STUNServerReachability_ release];
-  STUNServerReachability_ = [reachability retain];
 }
 
 + (void)initialize {
@@ -406,7 +382,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   [audioDevices_ release];
   [ringtone_ release];
-  [STUNServerReachability_ release];
   
   [afterSleepReconnectionTimeIntervals_ release];
   [preferencesMenuItem_ release];
@@ -1472,22 +1447,11 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   [[theAccountController window] orderFront:self];
   
-  // Register account.
-  [theAccountController setAttemptingToRegisterAccount:YES];
-  [theAccountController setAccountRegistered:YES];
-  
-  // Install registrar reachability.
-  NSString *registrar = [[theAccountController account] registrar];
-  AKNetworkReachability *registrarReachability
-    = [AKNetworkReachability networkReachabilityWithHost:registrar];
-  [theAccountController setRegistrarReachability:registrarReachability];
-  
-  if (registrarReachability != nil) {
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-        selector:@selector(networkReachabilityDidBecomeReachable:)
-            name:AKNetworkReachabilityDidBecomeReachableNotification
-          object:registrarReachability];
+  // We need to register accounts with IP address as registrar manually.
+  if ([[[theAccountController account] registrar] ak_isIPAddress] &&
+      [[theAccountController registrarReachability] isReachable]) {
+    [theAccountController setAttemptingToRegisterAccount:YES];
+    [theAccountController setAccountRegistered:YES];
   }
 }
 
@@ -1497,23 +1461,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   AccountController *anAccountController
     = [[self accountControllers] objectAtIndex:index];
   
-  if ([anAccountController isEnabled]) {
-    // Remove registrar reachability.
-    AKNetworkReachability *registrarReachability
-      = [anAccountController registrarReachability];
-    
-    if (registrarReachability != nil) {
-      [[NSNotificationCenter defaultCenter]
-       removeObserver:self
-                 name:AKNetworkReachabilityDidBecomeReachableNotification
-               object:registrarReachability];
-    }
-    
-    [anAccountController setRegistrarReachability:nil];
-    
-    // Remove account.
+  if ([anAccountController isEnabled])
     [anAccountController removeAccountFromTelephone];
-  }
   
   [[self accountControllers] removeObjectAtIndex:index];
 }
@@ -1579,39 +1528,16 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     
     [[theAccountController window] orderFront:nil];
     
-    // Register account (as a result, it will be added to Telephone).
-    [theAccountController setAttemptingToRegisterAccount:YES];
-    [theAccountController setAccountRegistered:YES];
-    
-    // Install registrar reachability.
-    AKNetworkReachability *registrarReachability
-      = [AKNetworkReachability networkReachabilityWithHost:registrar];
-    [theAccountController setRegistrarReachability:registrarReachability];
-    
-    if (registrarReachability != nil) {
-      [[NSNotificationCenter defaultCenter]
-       addObserver:self
-          selector:@selector(networkReachabilityDidBecomeReachable:)
-              name:AKNetworkReachabilityDidBecomeReachableNotification
-            object:registrarReachability];
+    // We need to register accounts with IP address as registrar manually.
+    if ([[[theAccountController account] registrar] ak_isIPAddress] &&
+        [[theAccountController registrarReachability] isReachable]) {
+      [theAccountController setAttemptingToRegisterAccount:YES];
+      [theAccountController setAccountRegistered:YES];
     }
     
   } else {
     AccountController *theAccountController
       = [[self accountControllers] objectAtIndex:index];
-    
-    // Remove registrar reachability.
-    AKNetworkReachability *registrarReachability
-      = [theAccountController registrarReachability];
-    
-    if (registrarReachability != nil) {
-      [[NSNotificationCenter defaultCenter]
-       removeObserver:self
-                 name:AKNetworkReachabilityDidBecomeReachableNotification
-               object:registrarReachability];
-    }
-    
-    [theAccountController setRegistrarReachability:nil];
     
     // Close all call windows hanging up all calls.
     [[theAccountController callControllers]
@@ -1622,6 +1548,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [theAccountController setEnabled:NO];
     [theAccountController setAttemptingToRegisterAccount:NO];
     [theAccountController setAttemptingToUnregisterAccount:NO];
+    [theAccountController setShouldPresentRegistrationError:NO];
     [[theAccountController window] orderOut:nil];
     
     // Prevent conflict with setFrameAutosaveName: when re-enabling the account.
@@ -1665,16 +1592,9 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [[self telephone] setNameservers:nil];
     
   // Restart SIP user agent.
-  if ([[self telephone] userAgentStarted])
+  if ([[self telephone] userAgentStarted]) {
+    [self setShouldPresentSIPUserAgentLaunchError:YES];
     [self restartTelephone];
-  
-  // Install new STUN server reachability.
-  NSString *STUNServerHost = [defaults stringForKey:kSTUNServerHost];
-  if ([STUNServerHost length] > 0) {
-    [self setSTUNServerReachability:
-     [AKNetworkReachability networkReachabilityWithHost:STUNServerHost]];
-  } else {
-    [self setSTUNServerReachability:nil];
   }
 }
 
@@ -1726,11 +1646,11 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
       // Check whether any AccountController is trying to register or unregister
       // an acount. If so, we should present SIP user agent launch error.
       for (AccountController *accountController in [self enabledAccountControllers]) {
-        if ([accountController attemptingToRegisterAccount] ||
-            [accountController attemptingToUnregisterAccount]) {
+        if ([accountController shouldPresentRegistrationError]) {
           [self setShouldPresentSIPUserAgentLaunchError:YES];
           [accountController setAttemptingToRegisterAccount:NO];
           [accountController setAttemptingToUnregisterAccount:NO];
+          [accountController setShouldPresentRegistrationError:NO];
         }
       }
     }
@@ -2016,50 +1936,16 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [self setupGrowl];
   [self installDNSChangesCallback];
   
-  // Install network reachabilities.
-  NSString *STUNServerHost = [defaults stringForKey:kSTUNServerHost];
-  if ([STUNServerHost length] > 0) {
-    [self setSTUNServerReachability:
-     [AKNetworkReachability networkReachabilityWithHost:STUNServerHost]];
-  }
+  [self setShouldPresentSIPUserAgentLaunchError:YES];
   
+  // Accounts with host name as the registrar will be registered with the
+  // reachability callbacks. But if registrar is IP address, there won't be such
+  // callbacks. Register such accounts here.
   for (AccountController *accountController in [self enabledAccountControllers]) {
-    NSString *registrar = [[accountController account] registrar];
-    AKNetworkReachability *registrarReachability
-      = [AKNetworkReachability networkReachabilityWithHost:registrar];
-    [accountController setRegistrarReachability:registrarReachability];
-    
-    if (registrarReachability != nil) {
-      [[NSNotificationCenter defaultCenter]
-       addObserver:self
-          selector:@selector(networkReachabilityDidBecomeReachable:)
-              name:AKNetworkReachabilityDidBecomeReachableNotification
-            object:registrarReachability];
-    }
-  }
-  
-  
-  // Check if STUN server or any of the registrars is reachable. If any of them
-  // is, start SIP user agent.
-  if ([[self enabledAccountControllers] count] > 0) {
-    BOOL isAnythingReachable = NO;
-    if ([self STUNServerReachability] != nil) {
-      isAnythingReachable = [[self STUNServerReachability] isReachable];
-    } else {
-      for (AccountController *accountController in [self enabledAccountControllers]) {
-        if ([[accountController registrarReachability] isReachable]) {
-          isAnythingReachable = YES;
-          break;
-        }
-      }
-    }
-    
-    if (isAnythingReachable) {
-      // Show error if SIP user agent launch fails.
-      [self setShouldPresentSIPUserAgentLaunchError:YES];
-      
-      [self setShouldRegisterAllAccounts:YES];
-      [[self telephone] startUserAgent];
+    if ([[[accountController account] registrar] ak_isIPAddress] &&
+        [[accountController registrarReachability] isReachable]) {
+      [accountController setAttemptingToRegisterAccount:YES];
+      [accountController setAccountRegistered:YES];
     }
   }
 }
@@ -2135,25 +2021,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
   // TODO(eofster): we should save preferences on quit.
-}
-
-
-#pragma mark -
-#pragma mark AKNetworkReachability notifications
-
-- (void)networkReachabilityDidBecomeReachable:(NSNotification *)notification {
-  if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
-    if ([[self enabledAccountControllers] count] > 0) {
-      [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                               selector:@selector(restartTelephone)
-                                                 object:nil];
-      
-      // Set a flag to register all accounts after SIP user agent is started
-      // and start the user agent.
-      [self setShouldRegisterAllAccounts:YES];
-      [[self telephone] startUserAgent];
-    }
-  }
 }
 
 
