@@ -1208,7 +1208,7 @@ NSString * const kEmailSIPLabel = @"sip";
 
 // This is the moment when the application starts doing its main job.
 - (void)networkReachabilityDidBecomeReachable:(NSNotification *)notification {
-  if (![self isAccountUnavailable]) {
+  if (![self isAccountUnavailable] && ![self isAccountRegistered]) {
     [self setAttemptingToRegisterAccount:YES];
     [self setAccountRegistered:YES];
   }

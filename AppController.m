@@ -1442,7 +1442,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
        autorelease];
   
   [theAccountController setEnabled:YES];
-  [theAccountController setShouldPresentRegistrationError:YES];
   
   [[self accountControllers] addObject:theAccountController];
   
@@ -1523,8 +1522,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
      [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
     [theAccountController setPlusCharacterSubstitution:
      [accountDict objectForKey:kPlusCharacterSubstitutionString]];
-    
-    [theAccountController setShouldPresentRegistrationError:YES];
     
     [[self accountControllers] replaceObjectAtIndex:index
                                          withObject:theAccountController];
@@ -1905,8 +1902,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [anAccountController setPlusCharacterSubstitution:
      [accountDict objectForKey:kPlusCharacterSubstitutionString]];
     
-    [anAccountController setShouldPresentRegistrationError:YES];
-    
     [[self accountControllers] addObject:anAccountController];
     
     if (![anAccountController isEnabled]) {
@@ -1940,6 +1935,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [self installAddressBookPlugIns];
   [self setupGrowl];
   [self installDNSChangesCallback];
+  
+  [self setShouldPresentSIPUserAgentLaunchError:YES];
   
   // Accounts with host name as the registrar will be registered with the
   // reachability callbacks. But if registrar is IP address, there won't be such
