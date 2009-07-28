@@ -218,7 +218,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   if (!initialized) {
     NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
     
-    [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kUseDNSSRV];
+    [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseDNSSRV];
     [defaultsDict setObject:@"" forKey:kOutboundProxyHost];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
                      forKey:kOutboundProxyPort];
