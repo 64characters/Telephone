@@ -81,6 +81,11 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 NSString * const kEmailSIPLabel = @"sip";
 
 
+// Notifications.
+NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
+  = @"AKAccountControllerDidChangeUsernameAndPassword";
+
+
 @interface AccountController ()
 
 @property(nonatomic, assign) NSTimer *reRegistrationTimer;
@@ -544,11 +549,16 @@ NSString * const kEmailSIPLabel = @"sip";
       [self showRegistrarConnectionErrorSheetWithError:error];
     }
     
-    if ([[self mustSaveCheckBox] state] == NSOnState)
+    if ([[self mustSaveCheckBox] state] == NSOnState) {
       [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
                                           [[self account] registrar]]
                              accountName:[[self newUsernameField] stringValue]
                                 password:[[self newPasswordField] stringValue]];
+    }
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:AKAccountControllerDidChangeUsernameAndPasswordNotification
+                   object:self];
   }
   
   [[self newPasswordField] setStringValue:@""];
@@ -796,8 +806,14 @@ NSString * const kEmailSIPLabel = @"sip";
                           "Change user name or password and try again.",
                           @"Registrar authentication failed."),
         [[self account] registrar]]];
+      
+      NSString *password
+      = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
+                                            [[self account] registrar]]
+                               accountName:[[self account] username]];
+      
       [[self newUsernameField] setStringValue:[[self account] username]];
-      [[self newPasswordField] setStringValue:@""];
+      [[self newPasswordField] setStringValue:password];
       
       [NSApp beginSheet:[self authenticationFailureSheet]
          modalForWindow:[self window]

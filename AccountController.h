@@ -144,3 +144,12 @@ enum {
 
 // Address Book label for SIP address in the email field.
 extern NSString * const kEmailSIPLabel;
+
+
+// Notifications.
+
+// Posted whenever an AccountController object changes account's username and
+// password.
+// The notification object is the AccountController object that changed
+// username and password.
+extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification;

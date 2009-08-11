@@ -325,6 +325,13 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
                              name:AKTelephoneCallDidDisconnectNotification
                            object:nil];
   
+  // Subscribe to username and password changes by the account controllers. For
+  // example, when authentication fails and user enters new credentials.
+  [notificationCenter addObserver:self
+                         selector:@selector(accountControllerDidChangeUsernameAndPassword:)
+                             name:AKAccountControllerDidChangeUsernameAndPasswordNotification
+                           object:nil];
+  
   // Subscribe to NSWorkspace notifications about going computer to sleep,
   // waking up from sleep, switching user sesstion in and out.
   notificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
@@ -2054,6 +2061,37 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
                                                object:nil];
     [self setShouldRestartTelephoneASAP:NO];
     [self restartTelephone];
+  }
+}
+
+
+#pragma mark -
+#pragma mark AccountController notifications
+
+- (void)accountControllerDidChangeUsernameAndPassword:(NSNotification *)notification {
+  AccountController *accountController = [notification object];
+  NSUInteger index
+    = [[self accountControllers] indexOfObject:accountController];
+  
+  if (index != NSNotFound) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray *accounts
+      = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
+    
+    NSMutableDictionary *accountDict
+      = [NSMutableDictionary dictionaryWithDictionary:
+         [accounts objectAtIndex:index]];
+    
+    [accountDict setObject:[[accountController account] username]
+                    forKey:kUsername];
+    
+    [accounts replaceObjectAtIndex:index withObject:accountDict];
+    [defaults setObject:accounts forKey:kAccounts];
+    [defaults synchronize];
+    
+    if ([[[self preferenceController] accountsTable] selectedRow] == index)
+      [[self preferenceController] populateFieldsForAccountAtIndex:index];
   }
 }
 
