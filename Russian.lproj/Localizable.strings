@@ -119,9 +119,6 @@
 /* SIP user agent start error informative text. */
 "Please check your network connection and STUN server settings." = "Пожалуйста, проверьте настройки сети и STUN-сервера.";
 
-/* SIP address does not match the user name informative text. */
-"Please check your SIP Address." = "Пожалуйста, проверьте SIP-адрес.";
-
 /* Quit button. */
 "Quit" = "Выйти";
 
@@ -136,9 +133,6 @@
 
 /* Network settings change confirmation. */
 "Save changes to the network settings?" = "Сохранить сетевые настройки?";
-
-/* SIP address does not match the user name. */
-"SIP address \\U201C%@\\U201D does not match the user name \\U201C%@\\U201D." = "SIP-адрес «%1$@» не соответствует имени пользователя «%2$@».";
 
 /* Sound preferences window title. */
 "Sound" = "Звук";

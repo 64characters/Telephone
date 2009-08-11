@@ -821,25 +821,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
          didEndSelector:NULL
             contextInfo:NULL];
       
-    } else if ([[self account] registrationStatus] == PJSIP_SC_NOT_FOUND ||
-               [[self account] registrationStatus] == PJSIP_SC_FORBIDDEN ||
-               [[self account] registrationStatus] == PJSIP_EAUTHNOCHAL) {
-      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-      [alert addButtonWithTitle:@"OK"];
-      [alert setMessageText:
-       [NSString stringWithFormat:
-        NSLocalizedString(@"SIP address \\U201C%@\\U201D does not match "
-                          "the user name \\U201C%@\\U201D.",
-                          @"SIP address does not match the user name."),
-        [[self account] SIPAddress], [[self account] username]]];
-      [alert setInformativeText:
-       NSLocalizedString(@"Please check your SIP Address.",
-                         @"SIP address does not match the user name informative text.")];
-      [alert beginSheetModalForWindow:[self window]
-                        modalDelegate:nil
-                       didEndSelector:NULL
-                          contextInfo:NULL];
-      
     } else if (([[self account] registrationStatus] / 100 != 2) &&
                ([[self account] registrationExpireTime] < 0)) {
       // Raise a sheet if connection to the registrar failed.
