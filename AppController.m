@@ -227,7 +227,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [defaultsDict setObject:@"" forKey:kSTUNServerHost];
     [defaultsDict setObject:[NSNumber numberWithInteger:0]
                      forKey:kSTUNServerPort];
-    [defaultsDict setObject:[NSNumber numberWithBool:YES]
+    [defaultsDict setObject:[NSNumber numberWithBool:NO]
                      forKey:kVoiceActivityDetection];
     [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseICE];
     
