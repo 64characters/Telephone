@@ -11,19 +11,21 @@
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
 //     and/or other materials provided with the distribution.
-//  3. The name of the author may not be used to endorse or promote products
-//     derived from this software without specific prior written permission.
+//  3. Neither the name of the copyright holder nor the names of contributors
+//     may be used to endorse or promote products derived from this software
+//     without specific prior written permission.
 //
-//  THIS SOFTWARE IS PROVIDED BY ALEXEI KUZNETSOV "AS IS" AND ANY EXPRESS
-//  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-//  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-//  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-//  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+//  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//  PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE THE COPYRIGHT HOLDER
+//  OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+//  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 //  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 //  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 //  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
 #import "AccountController.h"
@@ -77,6 +79,11 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 
 // Address Book label for SIP address in the email field.
 NSString * const kEmailSIPLabel = @"sip";
+
+
+// Notifications.
+NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
+  = @"AKAccountControllerDidChangeUsernameAndPassword";
 
 
 @interface AccountController ()
@@ -542,11 +549,16 @@ NSString * const kEmailSIPLabel = @"sip";
       [self showRegistrarConnectionErrorSheetWithError:error];
     }
     
-    if ([[self mustSaveCheckBox] state] == NSOnState)
+    if ([[self mustSaveCheckBox] state] == NSOnState) {
       [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
                                           [[self account] registrar]]
                              accountName:[[self newUsernameField] stringValue]
                                 password:[[self newPasswordField] stringValue]];
+    }
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:AKAccountControllerDidChangeUsernameAndPasswordNotification
+                   object:self];
   }
   
   [[self newPasswordField] setStringValue:@""];
@@ -794,33 +806,20 @@ NSString * const kEmailSIPLabel = @"sip";
                           "Change user name or password and try again.",
                           @"Registrar authentication failed."),
         [[self account] registrar]]];
+      
+      NSString *password
+      = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
+                                            [[self account] registrar]]
+                               accountName:[[self account] username]];
+      
       [[self newUsernameField] setStringValue:[[self account] username]];
-      [[self newPasswordField] setStringValue:@""];
+      [[self newPasswordField] setStringValue:password];
       
       [NSApp beginSheet:[self authenticationFailureSheet]
          modalForWindow:[self window]
           modalDelegate:nil
          didEndSelector:NULL
             contextInfo:NULL];
-      
-    } else if ([[self account] registrationStatus] == PJSIP_SC_NOT_FOUND ||
-               [[self account] registrationStatus] == PJSIP_SC_FORBIDDEN ||
-               [[self account] registrationStatus] == PJSIP_EAUTHNOCHAL) {
-      NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-      [alert addButtonWithTitle:@"OK"];
-      [alert setMessageText:
-       [NSString stringWithFormat:
-        NSLocalizedString(@"SIP address \\U201C%@\\U201D does not match "
-                          "the user name \\U201C%@\\U201D.",
-                          @"SIP address does not match the user name."),
-        [[self account] SIPAddress], [[self account] username]]];
-      [alert setInformativeText:
-       NSLocalizedString(@"Please check your SIP Address.",
-                         @"SIP address does not match the user name informative text.")];
-      [alert beginSheetModalForWindow:[self window]
-                        modalDelegate:nil
-                       didEndSelector:NULL
-                          contextInfo:NULL];
       
     } else if (([[self account] registrationStatus] / 100 != 2) &&
                ([[self account] registrationExpireTime] < 0)) {

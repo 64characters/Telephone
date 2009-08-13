@@ -121,9 +121,6 @@
 /* SIP user agent start error informative text. */
 "Please check your network connection and STUN server settings." = "Bitte überprüfen Sie Ihre Netzwerkverbindung und die STUN-Server-Einstellungen.";
 
-/* SIP address does not match the user name informative text. */
-"Please check your SIP Address." = "Bitte überprüfen Sie Ihre SIP-Adresse.";
-
 /* Quit button. */
 "Quit" = "Beenden";
 
@@ -138,9 +135,6 @@
 
 /* Network settings change confirmation. */
 "Save changes to the network settings?" = "Änderungen an den Netzwerkeinstellungen sichern?";
-
-/* SIP address does not match the user name. */
-"SIP address \\U201C%@\\U201D does not match the user name \\U201C%@\\U201D." = "Die SIP-Adresse „%1$@“ passt nicht zum Benutzernamen „%2$@“.";
 
 /* Sound preferences window title. */
 "Sound" = "Ton";

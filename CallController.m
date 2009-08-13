@@ -11,19 +11,21 @@
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
 //     and/or other materials provided with the distribution.
-//  3. The name of the author may not be used to endorse or promote products
-//     derived from this software without specific prior written permission.
+//  3. Neither the name of the copyright holder nor the names of contributors
+//     may be used to endorse or promote products derived from this software
+//     without specific prior written permission.
 //
-//  THIS SOFTWARE IS PROVIDED BY ALEXEI KUZNETSOV "AS IS" AND ANY EXPRESS
-//  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-//  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-//  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-//  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+//  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//  PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE THE COPYRIGHT HOLDER
+//  OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+//  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 //  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 //  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 //  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
 #import "CallController.h"
@@ -50,10 +52,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   = @"AKTelephoneCallWindowWillClose";
 
 static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
+static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @interface CallController ()
 
 - (void)closeCallWindowTick:(NSTimer *)theTimer;
+- (void)enableRedialButtonTick:(NSTimer *)theTimer;
 
 @end
 
@@ -447,6 +451,10 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     [[self window] performClose:self];
 }
 
+- (void)enableRedialButtonTick:(NSTimer *)theTimer {
+  [[self redialButton] setEnabled:YES];
+}
+
 
 #pragma mark -
 #pragma mark NSWindow delegate methods
@@ -609,12 +617,23 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
         break;
   }
   
+  // Disable the redial button to re-enable it after some delay to prevent
+  // accidental clicking on in instead of clicking on the hang-up button.
+  // Don't forget to re-enable it below!
+  [[self redialButton] setEnabled:NO];
+  
   [[self window] ak_resizeAndSwapToContentView:[self endedCallView] animate:YES];
   
   [[self callProgressIndicator] stopAnimation:self];
   [[self hangUpButton] setEnabled:NO];
   [[self acceptCallButton] setEnabled:NO];
   [[self declineCallButton] setEnabled:NO];
+  
+  [NSTimer scheduledTimerWithTimeInterval:kRedialButtonReenableTime
+                                   target:self
+                                 selector:@selector(enableRedialButtonTick:)
+                                 userInfo:nil
+                                  repeats:NO];
   
   [[NSApp delegate] resumeITunesIfNeeded];
   

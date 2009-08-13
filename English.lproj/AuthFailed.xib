@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">9J61</string>
+		<string key="IBDocument.SystemVersion">9L30</string>
 		<string key="IBDocument.InterfaceBuilderVersion">677</string>
-		<string key="IBDocument.AppKitVersion">949.46</string>
+		<string key="IBDocument.AppKitVersion">949.54</string>
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -141,13 +141,13 @@
 						<object class="NSTextField" id="568511117">
 							<reference key="NSNextResponder" ref="997324232"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{67, 116}, {37, 17}}</string>
+							<string key="NSFrame">{{27, 116}, {77, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="222958690">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">User:</string>
+								<string key="NSContents">User Name:</string>
 								<reference key="NSSupport" ref="510173553"/>
 								<reference key="NSControlView" ref="568511117"/>
 								<reference key="NSBackgroundColor" ref="18470986"/>
@@ -666,6 +666,14 @@
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">AccountController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">AccountController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
 					</object>
@@ -674,7 +682,7 @@
 					<string key="className">NSWindow</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">NSWindowAdditions.h</string>
+						<string key="minorKey">AKNSWindow+Resizing.h</string>
 					</object>
 				</object>
 			</object>
