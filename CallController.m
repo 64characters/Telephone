@@ -52,10 +52,12 @@ NSString * const AKTelephoneCallWindowWillCloseNotification
   = @"AKTelephoneCallWindowWillClose";
 
 static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
+static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @interface CallController ()
 
 - (void)closeCallWindowTick:(NSTimer *)theTimer;
+- (void)enableRedialButtonTick:(NSTimer *)theTimer;
 
 @end
 
@@ -449,6 +451,10 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
     [[self window] performClose:self];
 }
 
+- (void)enableRedialButtonTick:(NSTimer *)theTimer {
+  [[self redialButton] setEnabled:YES];
+}
+
 
 #pragma mark -
 #pragma mark NSWindow delegate methods
@@ -611,12 +617,23 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
         break;
   }
   
+  // Disable the redial button to re-enable it after some delay to prevent
+  // accidental clicking on in instead of clicking on the hang-up button.
+  // Don't forget to re-enable it below!
+  [[self redialButton] setEnabled:NO];
+  
   [[self window] ak_resizeAndSwapToContentView:[self endedCallView] animate:YES];
   
   [[self callProgressIndicator] stopAnimation:self];
   [[self hangUpButton] setEnabled:NO];
   [[self acceptCallButton] setEnabled:NO];
   [[self declineCallButton] setEnabled:NO];
+  
+  [NSTimer scheduledTimerWithTimeInterval:kRedialButtonReenableTime
+                                   target:self
+                                 selector:@selector(enableRedialButtonTick:)
+                                 userInfo:nil
+                                  repeats:NO];
   
   [[NSApp delegate] resumeITunesIfNeeded];
   
