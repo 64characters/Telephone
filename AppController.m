@@ -818,14 +818,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 }
 
 - (IBAction)openFAQURL:(id)sender {
-  if ([[[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0]
-       isEqualToString:@"Russian"]) {
-    [[NSWorkspace sharedWorkspace] openURL:
-     [NSURL URLWithString:@"http://code.google.com/p/telephone/wiki/RussianFAQ"]];
-  } else {
-    [[NSWorkspace sharedWorkspace] openURL:
-     [NSURL URLWithString:@"http://code.google.com/p/telephone/wiki/FAQ"]];
-  }
+  [[NSWorkspace sharedWorkspace] openURL:
+   [NSURL URLWithString:@"http://code.google.com/p/telephone/wiki/FAQ"]];
 }
 
 - (void)installAddressBookPlugIns {
