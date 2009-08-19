@@ -1,5 +1,5 @@
 //
-//  AKTelephoneAccount.m
+//  AKSIPAccount.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -28,24 +28,24 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKTelephoneAccount.h"
+#import "AKSIPAccount.h"
 
 #import "AKNSString+PJSUA.h"
 #import "AKSIPURI.h"
-#import "AKTelephone.h"
-#import "AKTelephoneCall.h"
+#import "AKSIPUserAgent.h"
+#import "AKSIPCall.h"
 
 
-NSString * const AKTelephoneAccountRegistrationDidChangeNotification
-  = @"AKTelephoneAccountRegistrationDidChange";
-NSString * const AKTelephoneAccountWillRemoveNotification
-  = @"AKTelephoneAccountWillRemove";
+NSString * const AKSIPAccountRegistrationDidChangeNotification
+  = @"AKSIPAccountRegistrationDidChange";
+NSString * const AKSIPAccountWillRemoveNotification
+  = @"AKSIPAccountWillRemove";
 
-NSString * const kAKDefaultSIPProxyHost = @"";
-const NSInteger kAKDefaultSIPProxyPort = 5060;
-const NSInteger kAKDefaultAccountReregistrationTime = 300;
+NSString * const kAKSIPAccountDefaultSIPProxyHost = @"";
+const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
+const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
-@implementation AKTelephoneAccount
+@implementation AKSIPAccount
 
 @dynamic delegate;
 @synthesize registrationURI = registrationURI_;
@@ -66,11 +66,11 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 @dynamic onlineStatusText;
 @synthesize calls = calls_;
 
-- (NSObject <AKTelephoneAccountDelegate> *)delegate {
+- (NSObject <AKSIPAccountDelegate> *)delegate {
   return delegate_;
 }
 
-- (void)setDelegate:(NSObject <AKTelephoneAccountDelegate> *)aDelegate {
+- (void)setDelegate:(NSObject <AKSIPAccountDelegate> *)aDelegate {
   if (delegate_ == aDelegate)
     return;
   
@@ -80,16 +80,16 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
     [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
-    if ([aDelegate respondsToSelector:@selector(telephoneAccountRegistrationDidChange:)])
+    if ([aDelegate respondsToSelector:@selector(SIPAccountRegistrationDidChange:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneAccountRegistrationDidChange:)
-                                 name:AKTelephoneAccountRegistrationDidChangeNotification
+                             selector:@selector(SIPAccountRegistrationDidChange:)
+                                 name:AKSIPAccountRegistrationDidChangeNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneAccountWillRemove:)])
+    if ([aDelegate respondsToSelector:@selector(SIPAccountWillRemove:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneAccountWillRemove:)
-                                 name:AKTelephoneAccountWillRemoveNotification
+                             selector:@selector(SIPAccountWillRemove:)
+                                 name:AKSIPAccountWillRemoveNotification
                                object:self];
   }
   
@@ -104,7 +104,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
   if (port > 0 && port < 65535)
     proxyPort_ = port;
   else
-    proxyPort_ = kAKDefaultSIPProxyPort;
+    proxyPort_ = kAKSIPAccountDefaultSIPProxyPort;
 }
 
 - (NSUInteger)reregistrationTime {
@@ -113,7 +113,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 
 - (void)setReregistrationTime:(NSUInteger)seconds {
   if (seconds == 0)
-    reregistrationTime_ = kAKDefaultAccountReregistrationTime;
+    reregistrationTime_ = kAKSIPAccountDefaultReregistrationTime;
   else if (seconds < 60)
     reregistrationTime_ = 60;
   else if (seconds > 3600)
@@ -128,7 +128,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 - (void)setRegistered:(BOOL)value {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return;
   
   if (value) {
@@ -141,7 +141,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 - (NSInteger)registrationStatus {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return 0;
   
   pjsua_acc_info accountInfo;
@@ -155,7 +155,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 - (NSString *)registrationStatusText {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return nil;
   
   pjsua_acc_info accountInfo;
@@ -169,7 +169,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 - (NSInteger)registrationExpireTime {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return -1;
   
   pjsua_acc_info accountInfo;
@@ -183,7 +183,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 - (BOOL)isOnline {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return NO;
   
   pjsua_acc_info accountInfo;
@@ -197,7 +197,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 - (void)setOnline:(BOOL)value {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return;
   
   if (value)
@@ -207,7 +207,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 - (NSString *)onlineStatusText {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return nil;
   
   pjsua_acc_info accountInfo;
@@ -220,16 +220,16 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
   return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
-+ (id)telephoneAccountWithFullName:(NSString *)aFullName
-                        SIPAddress:(NSString *)aSIPAddress
-                         registrar:(NSString *)aRegistrar
-                             realm:(NSString *)aRealm
-                          username:(NSString *)aUsername {
-  return [[[AKTelephoneAccount alloc] initWithFullName:aFullName
-                                            SIPAddress:aSIPAddress
-                                             registrar:aRegistrar
-                                                 realm:aRealm
-                                              username:aUsername]
++ (id)SIPAccountWithFullName:(NSString *)aFullName
+                  SIPAddress:(NSString *)aSIPAddress
+                   registrar:(NSString *)aRegistrar
+                       realm:(NSString *)aRealm
+                    username:(NSString *)aUsername {
+  return [[[AKSIPAccount alloc] initWithFullName:aFullName
+                                      SIPAddress:aSIPAddress
+                                       registrar:aRegistrar
+                                           realm:aRealm
+                                        username:aUsername]
           autorelease];
 }
 
@@ -251,10 +251,10 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
   [self setRegistrar:aRegistrar];
   [self setRealm:aRealm];
   [self setUsername:aUsername];
-  [self setProxyHost:kAKDefaultSIPProxyHost];
-  [self setProxyPort:kAKDefaultSIPProxyPort];
-  [self setReregistrationTime:kAKDefaultAccountReregistrationTime];
-  [self setIdentifier:kAKTelephoneInvalidIdentifier];
+  [self setProxyHost:kAKSIPAccountDefaultSIPProxyHost];
+  [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
+  [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
+  [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];
   
   calls_ = [[NSMutableArray alloc] init];
   
@@ -291,7 +291,7 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 }
 
 // Make outgoing call, create call object, set its info, add to the array
-- (AKTelephoneCall *)makeCallTo:(AKSIPURI *)destinationURI {
+- (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI {
   pjsua_call_id callIdentifier;
   pj_str_t uri = [[destinationURI description] pjString];
   
@@ -302,10 +302,9 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
     return nil;
   }
   
-  // AKTelephoneCall object is created here when the call is outgoing
-  AKTelephoneCall *theCall
-    = [[AKTelephoneCall alloc] initWithTelephoneAccount:self
-                                             identifier:callIdentifier];
+  // AKSIPCall object is created here when the call is outgoing
+  AKSIPCall *theCall
+    = [[AKSIPCall alloc] initWithSIPAccount:self identifier:callIdentifier];
   
   // Keep this call in the calls array for this account
   [[self calls] addObject:theCall];
@@ -319,15 +318,15 @@ const NSInteger kAKDefaultAccountReregistrationTime = 300;
 #pragma mark -
 #pragma mark Callbacks
 
-void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
+void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
-  AKTelephoneAccount *anAccount = [[AKTelephone sharedTelephone]
-                                   accountByIdentifier:accountIdentifier];
+  AKSIPAccount *anAccount = [[AKSIPUserAgent sharedUserAgent]
+                             accountByIdentifier:accountIdentifier];
   
   NSNotification *notification
     = [NSNotification
-       notificationWithName:AKTelephoneAccountRegistrationDidChangeNotification
+       notificationWithName:AKSIPAccountRegistrationDidChangeNotification
                      object:anAccount];
   
   [[NSNotificationCenter defaultCenter]

@@ -33,12 +33,12 @@
 #import "AKActiveCallView.h"
 
 
-@class AccountController, AKTelephoneCall, AKResponsiveProgressIndicator, AKSIPURI;
+@class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI;
 
 @interface CallController : NSWindowController <AKActiveCallViewDelegate> {
  @private
   NSString *identifier_;
-  AKTelephoneCall *call_;
+  AKSIPCall *call_;
   AccountController *accountController_;
   NSString *displayedName_;
   NSString *status_;
@@ -72,7 +72,7 @@
 }
 
 @property(nonatomic, copy) NSString *identifier;
-@property(nonatomic, retain) AKTelephoneCall *call;
+@property(nonatomic, retain) AKSIPCall *call;
 @property(nonatomic, assign) AccountController *accountController;
 @property(nonatomic, copy) NSString *displayedName;
 @property(nonatomic, copy) NSString *status;
@@ -127,4 +127,4 @@
 
 // Notifications.
 // accountController will be subscribed to this notification in its setter.
-extern NSString * const AKTelephoneCallWindowWillCloseNotification;
+extern NSString * const AKCallWindowWillCloseNotification;

@@ -1,5 +1,5 @@
 //
-//  AKTelephoneCall.h
+//  AKSIPCall.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -32,42 +32,42 @@
 #import <pjsua-lib/pjsua.h>
 
 
-extern const NSInteger kAKTelephoneCallsMax;
+extern const NSInteger kAKSIPCallsMax;
 
 enum {
   // Before INVITE is sent or received.
-  kAKTelephoneCallNullState =         PJSIP_INV_STATE_NULL,
+  kAKSIPCallNullState =         PJSIP_INV_STATE_NULL,
   
   // After INVITE is sent.
-  kAKTelephoneCallCallingState =      PJSIP_INV_STATE_CALLING,
+  kAKSIPCallCallingState =      PJSIP_INV_STATE_CALLING,
   
   // After INVITE is received.
-  kAKTelephoneCallIncomingState =     PJSIP_INV_STATE_INCOMING,
+  kAKSIPCallIncomingState =     PJSIP_INV_STATE_INCOMING,
   
   // After response with To tag.
-  kAKTelephoneCallEarlyState =        PJSIP_INV_STATE_EARLY,
+  kAKSIPCallEarlyState =        PJSIP_INV_STATE_EARLY,
   
   // After 2xx is sent/received.
-  kAKTelephoneCallConnectingState =   PJSIP_INV_STATE_CONNECTING,
+  kAKSIPCallConnectingState =   PJSIP_INV_STATE_CONNECTING,
   
   // After ACK is sent/received.
-  kAKTelephoneCallConfirmedState =    PJSIP_INV_STATE_CONFIRMED,
+  kAKSIPCallConfirmedState =    PJSIP_INV_STATE_CONFIRMED,
   
   // Session is terminated.
-  kAKTelephoneCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
+  kAKSIPCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
 };
-typedef NSUInteger AKTelephoneCallState;
+typedef NSUInteger AKSIPCallState;
 
-@class AKTelephoneAccount, AKSIPURI;
+@class AKSIPAccount, AKSIPURI;
 
-@interface AKTelephoneCall : NSObject {
+@interface AKSIPCall : NSObject {
  @private
   id delegate_;
   
   NSInteger identifier_;
   AKSIPURI *localURI_;
   AKSIPURI *remoteURI_;
-  AKTelephoneCallState state_;
+  AKSIPCallState state_;
   NSString *stateText_;
   NSInteger lastStatus_;
   NSString *lastStatusText_;
@@ -75,14 +75,14 @@ typedef NSUInteger AKTelephoneCallState;
   BOOL microphoneMuted_;
   
   // Account the call belongs to
-  AKTelephoneAccount *account_;
+  AKSIPAccount *account_;
 }
 
 @property(nonatomic, assign) id delegate;
 @property(nonatomic, assign) NSInteger identifier;
 @property(nonatomic, copy) AKSIPURI *localURI;
 @property(nonatomic, copy) AKSIPURI *remoteURI;
-@property(assign) AKTelephoneCallState state;
+@property(assign) AKSIPCallState state;
 @property(copy) NSString *stateText;
 @property(assign) NSInteger lastStatus;
 @property(copy) NSString *lastStatusText;
@@ -93,11 +93,11 @@ typedef NSUInteger AKTelephoneCallState;
 @property(nonatomic, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
 @property(nonatomic, readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
 @property(nonatomic, readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
-@property(nonatomic, assign) AKTelephoneAccount *account;
+@property(nonatomic, assign) AKSIPAccount *account;
 
 // Designated initializer
-- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
-                    identifier:(NSInteger)anIdentifier;
+- (id)initWithSIPAccount:(AKSIPAccount *)anAccount
+              identifier:(NSInteger)anIdentifier;
 
 - (void)answer;
 - (void)hangUp;
@@ -116,38 +116,38 @@ typedef NSUInteger AKTelephoneCallState;
 @end
 
 // Callbacks from PJSUA
-void AKIncomingCallReceived(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
-void AKCallStateChanged(pjsua_call_id, pjsip_event *);
-void AKCallMediaStateChanged(pjsua_call_id);
+void AKSIPCallIncomingReceived(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
+void AKSIPCallStateChanged(pjsua_call_id, pjsip_event *);
+void AKSIPCallMediaStateChanged(pjsua_call_id);
 
 
 // Notifications.
 
 // Calling. After INVITE is sent.
-extern NSString * const AKTelephoneCallCallingNotification;
+extern NSString * const AKSIPCallCallingNotification;
 
 // Incoming. After INVITE is received.
 // Delegate is not subscribed to this notification.
-extern NSString * const AKTelephoneCallIncomingNotification;
+extern NSString * const AKSIPCallIncomingNotification;
 
 // Early. After response with To tag.
 // Keys: // @"AKSIPEventCode", @"AKSIPEventReason".
-extern NSString * const AKTelephoneCallEarlyNotification;
+extern NSString * const AKSIPCallEarlyNotification;
 
 // Connecting. After 2xx is sent/received.
-extern NSString * const AKTelephoneCallConnectingNotification;
+extern NSString * const AKSIPCallConnectingNotification;
 
 // Confirmed. After ACK is sent/received.
-extern NSString * const AKTelephoneCallDidConfirmNotification;
+extern NSString * const AKSIPCallDidConfirmNotification;
 
 // Disconnected. Session is terminated.
-extern NSString * const AKTelephoneCallDidDisconnectNotification;
+extern NSString * const AKSIPCallDidDisconnectNotification;
 
 // Call media is active.
-extern NSString * const AKTelephoneCallMediaDidBecomeActiveNotification;
+extern NSString * const AKSIPCallMediaDidBecomeActiveNotification;
 
 // Call media is put on hold by local endpoint.
-extern NSString * const AKTelephoneCallDidLocalHoldNotification;
+extern NSString * const AKSIPCallDidLocalHoldNotification;
 
 // Call media is put on hold by remote endpoint.
-extern NSString * const AKTelephoneCallDidRemoteHoldNotification;
+extern NSString * const AKSIPCallDidRemoteHoldNotification;

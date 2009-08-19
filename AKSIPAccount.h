@@ -1,5 +1,5 @@
 //
-//  AKTelephoneAccount.h
+//  AKSIPAccount.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -32,16 +32,16 @@
 #import <pjsua-lib/pjsua.h>
 
 
-extern NSString * const kAKDefaultSIPProxyHost;
-extern const NSInteger kAKDefaultSIPProxyPort;
-extern const NSInteger kAKDefaultAccountReregistrationTime;
+extern NSString * const kAKSIPAccountDefaultSIPProxyHost;
+extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
+extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
-@class AKTelephoneCall, AKSIPURI;
-@protocol AKTelephoneAccountDelegate;
+@class AKSIPCall, AKSIPURI;
+@protocol AKSIPAccountDelegate;
 
-@interface AKTelephoneAccount : NSObject {
+@interface AKSIPAccount : NSObject {
  @private
-  NSObject <AKTelephoneAccountDelegate> *delegate_;
+  NSObject <AKSIPAccountDelegate> *delegate_;
   
   AKSIPURI *registrationURI_;
   
@@ -59,7 +59,7 @@ extern const NSInteger kAKDefaultAccountReregistrationTime;
   NSMutableArray *calls_;
 }
 
-@property(nonatomic, assign) NSObject <AKTelephoneAccountDelegate> *delegate;
+@property(nonatomic, assign) NSObject <AKSIPAccountDelegate> *delegate;
 @property(nonatomic, copy) AKSIPURI *registrationURI;
 @property(nonatomic, copy) NSString *fullName;
 @property(nonatomic, copy) NSString *SIPAddress;
@@ -78,11 +78,11 @@ extern const NSInteger kAKDefaultAccountReregistrationTime;
 @property(nonatomic, readonly, copy) NSString *onlineStatusText;
 @property(readonly, retain) NSMutableArray *calls;
 
-+ (id)telephoneAccountWithFullName:(NSString *)aFullName
-                        SIPAddress:(NSString *)aSIPAddress
-                         registrar:(NSString *)aRegistrar
-                             realm:(NSString *)aRealm
-                          username:(NSString *)aUsername;
++ (id)SIPAccountWithFullName:(NSString *)aFullName
+                  SIPAddress:(NSString *)aSIPAddress
+                   registrar:(NSString *)aRegistrar
+                       realm:(NSString *)aRealm
+                    username:(NSString *)aUsername;
 
 - (id)initWithFullName:(NSString *)aFullName
             SIPAddress:(NSString *)aSIPAddress
@@ -90,23 +90,23 @@ extern const NSInteger kAKDefaultAccountReregistrationTime;
                  realm:(NSString *)aRealm
               username:(NSString *)aUsername;
 
-- (AKTelephoneCall *)makeCallTo:(AKSIPURI *)destinationURI;
+- (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI;
 
 @end
 
 
 // Callback from PJSUA
-void AKTelephoneAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
+void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 
 
-@protocol AKTelephoneAccountDelegate
+@protocol AKSIPAccountDelegate
 
 @optional
-- (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall;
+- (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall;
 
 @end
 
 
 // Notifications.
-extern NSString * const AKTelephoneAccountRegistrationDidChangeNotification;
-extern NSString * const AKTelephoneAccountWillRemoveNotification;
+extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
+extern NSString * const AKSIPAccountWillRemoveNotification;

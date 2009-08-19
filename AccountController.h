@@ -30,15 +30,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "AKTelephoneAccount.h"
+#import "AKSIPAccount.h"
 
 
-@class AKTelephoneAccount, AKNetworkReachability;
+@class AKSIPAccount, AKNetworkReachability;
 
-@interface AccountController : NSWindowController <AKTelephoneAccountDelegate> {
+@interface AccountController : NSWindowController <AKSIPAccountDelegate> {
  @private
   BOOL enabled_;
-  AKTelephoneAccount *account_;
+  AKSIPAccount *account_;
   NSMutableArray *callControllers_;
   BOOL attemptingToRegisterAccount_;
   BOOL attemptingToUnregisterAccount_;
@@ -68,7 +68,7 @@
 }
 
 @property(nonatomic, assign, getter=isEnabled) BOOL enabled;
-@property(nonatomic, retain) AKTelephoneAccount *account;
+@property(nonatomic, retain) AKSIPAccount *account;
 @property(nonatomic, assign, getter=isAccountRegistered) BOOL accountRegistered;
 @property(nonatomic, retain) NSMutableArray *callControllers;
 @property(nonatomic, assign) BOOL attemptingToRegisterAccount;
@@ -94,7 +94,7 @@
 @property(nonatomic, retain) IBOutlet NSButton *authenticationFailureCancelButton;
 
 // Designated initializer
-- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount;
+- (id)initWithSIPAccount:(AKSIPAccount *)anAccount;
 
 - (id)initWithFullName:(NSString *)aFullName
             SIPAddress:(NSString *)aSIPAddress
@@ -102,8 +102,8 @@
                  realm:(NSString *)aRealm
               username:(NSString *)aUsername;
 
-// Remove account from Telehpone making appropriate changes in UI, timers, etc.
-- (void)removeAccountFromTelephone;
+// Remove account from user agent making appropriate changes in UI, timers, etc.
+- (void)removeAccountFromUserAgent;
 
 - (IBAction)makeCall:(id)sender;
 
@@ -137,9 +137,9 @@
 
 // Account states.
 enum {
-  kTelephoneAccountOffline     = 1,
-  kTelephoneAccountUnavailable = 2,
-  kTelephoneAccountAvailable   = 3
+  kSIPAccountOffline     = 1,
+  kSIPAccountUnavailable = 2,
+  kSIPAccountAvailable   = 3
 };
 
 // Address Book label for SIP address in the email field.

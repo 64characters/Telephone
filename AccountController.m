@@ -39,11 +39,11 @@
 #import "AKNetworkReachability.h"
 #import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
+#import "AKSIPAccount.h"
+#import "AKSIPCall.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
-#import "AKTelephone.h"
-#import "AKTelephoneAccount.h"
-#import "AKTelephoneCall.h"
+#import "AKSIPUserAgent.h"
 #import "AKTelephoneNumberFormatter.h"
 
 #import "AppController.h"
@@ -168,7 +168,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
     [self setReRegistrationTimer:nil];
   }
   
-  if ([[self account] identifier] != kAKTelephoneInvalidIdentifier) {  // Account has been added.
+  if ([[self account] identifier] != kAKSIPUserAgentInvalidIdentifier) {  // Account has been added.
     [self showConnectingState];
     
     [[self account] setRegistered:flag];
@@ -181,15 +181,15 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
     
     [self showConnectingState];
     
-    // Add account to Telephone
-    BOOL accountAdded = [[[NSApp delegate] telephone] addAccount:[self account]
+    // Add account to the the user agent.
+    BOOL accountAdded = [[[NSApp delegate] userAgent] addAccount:[self account]
                                                     withPassword:password];
     
     // Error connecting to registrar.
     if (accountAdded &&
         ![self isAccountRegistered] &&
         [[self account] registrationExpireTime] < 0 &&
-        [[[NSApp delegate] telephone] userAgentStarted]) {
+        [[[NSApp delegate] userAgent] isStarted]) {
       
       [self showUnavailableState];
       
@@ -238,7 +238,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   }
 }
 
-- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount {
+- (id)initWithSIPAccount:(AKSIPAccount *)anAccount {
   self = [super initWithWindowNibName:@"Account"];
   if (self == nil)
     return nil;
@@ -259,8 +259,8 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   
   [[NSNotificationCenter defaultCenter]
    addObserver:self
-      selector:@selector(telephoneUserAgentDidFinishStarting:)
-          name:AKTelephoneUserAgentDidFinishStartingNotification
+      selector:@selector(SIPUserAgentDidFinishStarting:)
+          name:AKSIPUserAgentDidFinishStartingNotification
         object:nil];
   
   return self;
@@ -271,14 +271,13 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
              registrar:(NSString *)aRegistrar
                  realm:(NSString *)aRealm
               username:(NSString *)aUsername {
-  AKTelephoneAccount *anAccount
-    = [AKTelephoneAccount telephoneAccountWithFullName:aFullName
-                                            SIPAddress:aSIPAddress
-                                             registrar:aRegistrar
-                                                 realm:aRealm
-                                              username:aUsername];
+  AKSIPAccount *anAccount = [AKSIPAccount SIPAccountWithFullName:aFullName
+                                                      SIPAddress:aSIPAddress
+                                                       registrar:aRegistrar
+                                                           realm:aRealm
+                                                        username:aUsername];
   
-  return [self initWithTelephoneAccount:anAccount];
+  return [self initWithSIPAccount:anAccount];
 }
 
 - (void)dealloc {
@@ -329,9 +328,9 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   [[self callDestinationField] setCompletionDelay:0.4];
 }
 
-- (void)removeAccountFromTelephone {
+- (void)removeAccountFromUserAgent {
   NSAssert([self isEnabled],
-           @"Account conroller must be enabled to remove account from Telephone.");
+           @"Account conroller must be enabled to remove account from the user agent.");
   
   // Invalidate account automatic re-registration timer if it's valid.
   if ([self reRegistrationTimer] != nil) {
@@ -341,8 +340,8 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   
   [self showOfflineState];
   
-  // Remove account from Telephone.
-  [[[NSApp delegate] telephone] removeAccount:[self account]];
+  // Remove account from the user agent.
+  [[[NSApp delegate] userAgent] removeAccount:[self account]];
 }
 
 // Ask model to make call, create call controller, attach the call to the call contoller
@@ -461,7 +460,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   [[aCallController callProgressIndicator] startAnimation:self];
   
   // Make actual call.
-  AKTelephoneCall *aCall = [[self account] makeCallTo:cleanURI];
+  AKSIPCall *aCall = [[self account] makeCallTo:cleanURI];
   if (aCall != nil) {
     [aCallController setCall:aCall];
     [aCallController setCallActive:YES];
@@ -480,21 +479,22 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   
   NSInteger selectedItemTag = [[sender selectedItem] tag];
   
-  if (selectedItemTag == kTelephoneAccountOffline) {
+  if (selectedItemTag == kSIPAccountOffline) {
     [self setAccountUnavailable:NO];
-    [self removeAccountFromTelephone];
+    [self removeAccountFromUserAgent];
     
-  } else if (selectedItemTag == kTelephoneAccountUnavailable) {
-    // Unregister account only if it is registered or it wasn't added to Telephone.
+  } else if (selectedItemTag == kSIPAccountUnavailable) {
+    // Unregister account only if it is registered or it wasn't added to the
+    // user agent.
     if ([self isAccountRegistered] ||
-        [[self account] identifier] == kAKTelephoneInvalidIdentifier) {
+        [[self account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
       [self setAccountUnavailable:YES];
       [self setAttemptingToUnregisterAccount:YES];
       [self setShouldPresentRegistrationError:YES];
       [self setAccountRegistered:NO];
     }
     
-  } else if (selectedItemTag == kTelephoneAccountAvailable) {
+  } else if (selectedItemTag == kSIPAccountAvailable) {
     [self setAccountUnavailable:NO];
     [self setAttemptingToRegisterAccount:YES];
     [self setShouldPresentRegistrationError:YES];
@@ -502,19 +502,19 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   }
 }
 
-// Remove old account from Telephone, change username for the account, add
-// to Telephone with new password and update Keychain.
+// Remove old account from the user agent, change username for the account, add
+// account to the user agent with the new password and update Keychain.
 - (IBAction)changeUsernameAndPassword:(id)sender {
   [self closeSheet:sender];
   
   if (![[[self newUsernameField] stringValue] isEqualToString:@""]) {
-    [self removeAccountFromTelephone];
+    [self removeAccountFromUserAgent];
     [[self account] setUsername:[[self newUsernameField] stringValue]];
     
     [self showConnectingState];
     
-    // Add account to Telephone.
-    [[[NSApp delegate] telephone] addAccount:[self account]
+    // Add account to the user agent.
+    [[[NSApp delegate] userAgent] addAccount:[self account]
                                 withPassword:[[self newPasswordField]
                                               stringValue]];
     
@@ -617,9 +617,9 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
                      @"Account registration Available menu item.")];
   
   [[[[self accountStatePopUp] menu]
-    itemWithTag:kTelephoneAccountAvailable] setState:NSOnState];
+    itemWithTag:kSIPAccountAvailable] setState:NSOnState];
   [[[[self accountStatePopUp] menu]
-    itemWithTag:kTelephoneAccountUnavailable] setState:NSOffState];
+    itemWithTag:kSIPAccountUnavailable] setState:NSOffState];
   [[self window] setContentView:[self activeAccountView]];
   
   if ([[self callDestinationField] acceptsFirstResponder])
@@ -645,9 +645,9 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
                      @"Account registration Unavailable menu item.")];
   
   [[[[self accountStatePopUp] menu]
-    itemWithTag:kTelephoneAccountAvailable] setState:NSOffState];
+    itemWithTag:kSIPAccountAvailable] setState:NSOffState];
   [[[[self accountStatePopUp] menu]
-    itemWithTag:kTelephoneAccountUnavailable] setState:NSOnState];
+    itemWithTag:kSIPAccountUnavailable] setState:NSOnState];
   [[self window] setContentView:[self activeAccountView]];
   
   if ([[self callDestinationField] acceptsFirstResponder])
@@ -673,9 +673,9 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
                      @"Account registration Offline menu item.")];
   
   [[[[self accountStatePopUp] menu]
-    itemWithTag:kTelephoneAccountAvailable] setState:NSOffState];
+    itemWithTag:kSIPAccountAvailable] setState:NSOffState];
   [[[[self accountStatePopUp] menu]
-    itemWithTag:kTelephoneAccountUnavailable] setState:NSOffState];
+    itemWithTag:kSIPAccountUnavailable] setState:NSOffState];
   [[self window] setContentView:[self offlineAccountView]];
 }
 
@@ -744,16 +744,16 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 
 
 #pragma mark -
-#pragma mark AKTelephoneAccount notifications
+#pragma mark AKSIPAccount notifications
 
 // When account registration changes, make appropriate modifications to the UI.
 // A call can also be made from here if the user called from the Address Book
 // or from the application URL handler.
-- (void)telephoneAccountRegistrationDidChange:(NSNotification *)notification {
-  // Account identifier can be AKTelephoneInvalidIdentifier if notification
-  // on the main thread was delivered after Telephone had removed the account.
+- (void)SIPAccountRegistrationDidChange:(NSNotification *)notification {
+  // Account identifier can be kAKSIPUserAgentInvalidIdentifier if notification
+  // on the main thread was delivered after user agent had removed the account.
   // Don't bother in that case.
-  if ([[self account] identifier] == kAKTelephoneInvalidIdentifier)
+  if ([[self account] identifier] == kAKSIPUserAgentInvalidIdentifier)
     return;
   
   if ([[self account] isRegistered]) {
@@ -764,9 +764,9 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
     }
     
     // If the account was offline and the user chose Unavailable state,
-    // setAccountRegistered:NO will add the account to Telephone. Telephone
-    // will register the account. Set the account to Unavailable (unregister
-    // it) here.
+    // setAccountRegistered:NO will add the account to the user agent. User
+    // agent will register the account. Set the account to Unavailable
+    // (unregister it) here.
     if ([self attemptingToUnregisterAccount]) {
       [self setAccountRegistered:NO];
       
@@ -828,7 +828,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
       // than zero, it is unregistration, not failure. Condition of failure is:
       // last registration status != 2xx AND expiration interval < 0.
       
-      if ([[[NSApp delegate] telephone] userAgentStarted]) {
+      if ([[[NSApp delegate] userAgent] isStarted]) {
         if ([self shouldPresentRegistrationError]) {
           NSString *statusText;
           NSString *preferredLocalization
@@ -878,7 +878,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   [self setShouldPresentRegistrationError:NO];
 }
 
-- (void)telephoneAccountWillRemove:(NSNotification *)notification {
+- (void)SIPAccountWillRemove:(NSNotification *)notification {
   // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
@@ -891,17 +891,17 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 #pragma mark CallController notifications
 
 // Remove call controller from array of controllers before the window is closed
-- (void)telephoneCallWindowWillClose:(NSNotification *)notification {
+- (void)callWindowWillClose:(NSNotification *)notification {
   CallController *aCallController = [notification object];
   [[self callControllers] removeObject:aCallController];
 }
 
 
 #pragma mark -
-#pragma mark AKTelephoneAccountDelegate protocol
+#pragma mark AKSIPAccountDelegate protocol
 
 // When the call is received, create call controller, add to array, show call window
-- (void)telephoneAccountDidReceiveCall:(AKTelephoneCall *)aCall {
+- (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall {
   // Just reply with 480 Temporarily Unavailable if the user selected
   // Unavailable account state.
   if ([self isAccountUnavailable]) {
@@ -1185,10 +1185,10 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 
 
 #pragma mark -
-#pragma mark AKTelephone notifications
+#pragma mark AKSIPUserAgent notifications
 
-- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification {
-  if (![[notification object] userAgentStarted]) {
+- (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
+  if (![[notification object] isStarted]) {
     [self showOfflineState];
     
     return;

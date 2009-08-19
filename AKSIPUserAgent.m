@@ -1,5 +1,5 @@
 //
-//  AKTelephone.m
+//  AKSIPUserAgent.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -28,41 +28,41 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKTelephone.h"
+#import "AKSIPUserAgent.h"
 
 #import <pjsua-lib/pjsua.h>
 
 #import "AKNSString+PJSUA.h"
-#import "AKTelephoneAccount.h"
-#import "AKTelephoneCall.h"
+#import "AKSIPAccount.h"
+#import "AKSIPCall.h"
 
-#define THIS_FILE "AKTelephone.m"
+#define THIS_FILE "AKSIPUserAgent.m"
 
 
-const NSInteger kAKTelephoneInvalidIdentifier = PJSUA_INVALID_ID;
-const NSInteger kAKTelephoneNameserversMax = 4;
+const NSInteger kAKSIPUserAgentInvalidIdentifier = PJSUA_INVALID_ID;
+const NSInteger kAKSIPUserAgentNameserversMax = 4;
 
-NSString * const AKTelephoneUserAgentDidFinishStartingNotification
-  = @"AKTelephoneUserAgentDidFinishStarting";
-NSString * const AKTelephoneUserAgentDidFinishStoppingNotification
-  = @"AKTelephoneUserAgentDidFinishStopping";
-NSString * const AKTelephoneDidDetectNATNotification
-  = @"AKTelephoneDidDetectNAT";
+NSString * const AKSIPUserAgentDidFinishStartingNotification
+  = @"AKSIPUserAgentDidFinishStarting";
+NSString * const AKSIPUserAgentDidFinishStoppingNotification
+  = @"AKSIPUserAgentDidFinishStopping";
+NSString * const AKSIPUserAgentDidDetectNATNotification
+  = @"AKSIPUserAgentDidDetectNAT";
 
 // Generic config defaults.
-NSString * const kAKTelephoneDefaultOutboundProxyHost = @"";
-const NSInteger kAKTelephoneDefaultOutboundProxyPort = 5060;
-NSString * const kAKTelephoneDefaultSTUNServerHost = @"";
-const NSInteger kAKTelephoneDefaultSTUNServerPort = 3478;
-NSString * const kAKTelephoneDefaultLogFileName = nil;
-const NSInteger kAKTelephoneDefaultLogLevel = 3;
-const NSInteger kAKTelephoneDefaultConsoleLogLevel = 0;
-const BOOL kAKTelephoneDefaultDetectsVoiceActivity = YES;
-const BOOL kAKTelephoneDefaultUsesICE = NO;
-const NSInteger kAKTelephoneDefaultTransportPort = 0;  // 0 for any available port.
-NSString * const kAKTelephoneDefaultTransportPublicHost = nil;
+NSString * const kAKSIPUserAgentDefaultOutboundProxyHost = @"";
+const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort = 5060;
+NSString * const kAKSIPUserAgentDefaultSTUNServerHost = @"";
+const NSInteger kAKSIPUserAgentDefaultSTUNServerPort = 3478;
+NSString * const kAKSIPUserAgentDefaultLogFileName = nil;
+const NSInteger kAKSIPUserAgentDefaultLogLevel = 3;
+const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel = 0;
+const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
+const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
+const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;  // 0 for any available port.
+NSString * const kAKSIPUserAgentDefaultTransportPublicHost = nil;
 
-static AKTelephone *sharedTelephone = nil;
+static AKSIPUserAgent *sharedUserAgent = nil;
 
 enum {
   kAKRingbackFrequency1  = 440,
@@ -74,29 +74,29 @@ enum {
 };
 
 
-@interface AKTelephone ()
+@interface AKSIPUserAgent ()
 
-@property(assign) AKTelephoneUserAgentState userAgentState;
+@property(assign) AKSIPUserAgentState state;
 
 @property(assign) pj_pool_t *pjPool;
 @property(assign) NSInteger ringbackSlot;
 @property(assign) pjmedia_port *ringbackPort;
 
 // Create and start SIP user agent. Supposed to be run on the secondary thread.
-- (void)ak_startUserAgent;
+- (void)ak_start;
 
 // Stop and destroy SIP user agent. Supposed to be run on the secondary thread.
-- (void)ak_stopUserAgent;
+- (void)ak_stop;
 
 @end
 
 
-@implementation AKTelephone
+@implementation AKSIPUserAgent
 
 @dynamic delegate;
 @synthesize accounts = accounts_;
-@dynamic userAgentStarted;
-@synthesize userAgentState = userAgentState_;
+@synthesize started;
+@synthesize state = state_;
 @synthesize detectedNATType = detectedNATType_;
 @synthesize pjsuaLock = pjsuaLock_;
 @dynamic activeCallsCount;
@@ -120,11 +120,11 @@ enum {
 @dynamic transportPort;
 @synthesize transportPublicHost = transportPublicHost_;
 
-- (id <AKTelephoneDelegate>)delegate {
+- (id <AKSIPUserAgentDelegate>)delegate {
   return delegate_;
 }
 
-- (void)setDelegate:(id <AKTelephoneDelegate>)aDelegate {
+- (void)setDelegate:(id <AKSIPUserAgentDelegate>)aDelegate {
   if (delegate_ == aDelegate)
     return;
   
@@ -134,37 +134,37 @@ enum {
     [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
-    if ([aDelegate respondsToSelector:@selector(telephoneUserAgentDidFinishStarting:)])
+    if ([aDelegate respondsToSelector:@selector(SIPUserAgentDidFinishStarting:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneUserAgentDidFinishStarting:)
-                                 name:AKTelephoneUserAgentDidFinishStartingNotification
+                             selector:@selector(SIPUserAgentDidFinishStarting:)
+                                 name:AKSIPUserAgentDidFinishStartingNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneUserAgentDidFinishStopping:)])
+    if ([aDelegate respondsToSelector:@selector(SIPUserAgentDidFinishStopping:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneUserAgentDidFinishStopping:)
-                                 name:AKTelephoneUserAgentDidFinishStoppingNotification
+                             selector:@selector(SIPUserAgentDidFinishStopping:)
+                                 name:AKSIPUserAgentDidFinishStoppingNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneDidDetectNAT:)])
+    if ([aDelegate respondsToSelector:@selector(SIPUserAgentDidDetectNAT:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneDidDetectNAT:)
-                                 name:AKTelephoneDidDetectNATNotification
+                             selector:@selector(SIPUserAgentDidDetectNAT:)
+                                 name:AKSIPUserAgentDidDetectNATNotification
                                object:self];
   }
   
   delegate_ = aDelegate;
 }
 
-- (BOOL)userAgentStarted {
-  return ([self userAgentState] == kAKTelephoneUserAgentStarted) ? YES : NO;
+- (BOOL)isStarted {
+  return ([self state] == kAKSIPUserAgentStarted) ? YES : NO;
 }
 
 - (NSUInteger)activeCallsCount {
   return pjsua_call_get_count();
 }
 
-- (AKTelephoneCallData *)callData {
+- (AKSIPUserAgentCallData *)callData {
   return callData_;
 }
 
@@ -176,9 +176,9 @@ enum {
   if (nameservers_ != newNameservers) {
     [nameservers_ release];
     
-    if ([newNameservers count] > kAKTelephoneNameserversMax) {
+    if ([newNameservers count] > kAKSIPUserAgentNameserversMax) {
       nameservers_ = [[newNameservers subarrayWithRange:
-                      NSMakeRange(0, kAKTelephoneNameserversMax)] retain];
+                      NSMakeRange(0, kAKSIPUserAgentNameserversMax)] retain];
     } else {
       nameservers_ = [newNameservers copy];
     }
@@ -193,7 +193,7 @@ enum {
   if (port > 0 && port < 65535)
     outboundProxyPort_ = port;
   else
-    outboundProxyPort_ = kAKTelephoneDefaultOutboundProxyPort;
+    outboundProxyPort_ = kAKSIPUserAgentDefaultOutboundProxyPort;
 }
 
 - (NSUInteger)STUNServerPort {
@@ -204,7 +204,7 @@ enum {
   if (port > 0 && port < 65535)
     STUNServerPort_ = port;
   else
-    STUNServerPort_ = kAKTelephoneDefaultSTUNServerPort;
+    STUNServerPort_ = kAKSIPUserAgentDefaultSTUNServerPort;
 }
 
 - (NSString *)logFileName {
@@ -218,7 +218,7 @@ enum {
       logFileName_ = [pathToFile copy];
     } else {
       [logFileName_ release];
-      logFileName_ = kAKTelephoneDefaultLogFileName;
+      logFileName_ = kAKSIPUserAgentDefaultLogFileName;
     }
   }
 }
@@ -231,26 +231,26 @@ enum {
   if (port > 0 && port < 65535)
     transportPort_ = port;
   else
-    transportPort_ = kAKTelephoneDefaultTransportPort;
+    transportPort_ = kAKSIPUserAgentDefaultTransportPort;
 }
 
 
-#pragma mark Telephone singleton instance
+#pragma mark AKSIPUserAgent singleton instance
 
-+ (AKTelephone *)sharedTelephone {
++ (AKSIPUserAgent *)sharedUserAgent {
   @synchronized(self) {
-    if (sharedTelephone == nil)
+    if (sharedUserAgent == nil)
       [[self alloc] init];  // Assignment not done here.
   }
   
-  return sharedTelephone;
+  return sharedUserAgent;
 }
 
 + (id)allocWithZone:(NSZone *)zone {
   @synchronized(self) {
-    if (sharedTelephone == nil) {
-      sharedTelephone = [super allocWithZone:zone];
-      return sharedTelephone;  // Assignment and return on first allocation.
+    if (sharedUserAgent == nil) {
+      sharedUserAgent = [super allocWithZone:zone];
+      return sharedUserAgent;  // Assignment and return on first allocation.
     }
   }
   
@@ -290,19 +290,19 @@ enum {
   [self setDetectedNATType:kAKNATTypeUnknown];
   pjsuaLock_ = [[NSLock alloc] init];
   
-  [self setOutboundProxyHost:kAKTelephoneDefaultOutboundProxyHost];
-  [self setOutboundProxyPort:kAKTelephoneDefaultOutboundProxyPort];
-  [self setSTUNServerHost:kAKTelephoneDefaultSTUNServerHost];
-  [self setSTUNServerPort:kAKTelephoneDefaultSTUNServerPort];
-  [self setLogFileName:kAKTelephoneDefaultLogFileName];
-  [self setLogLevel:kAKTelephoneDefaultLogLevel];
-  [self setConsoleLogLevel:kAKTelephoneDefaultConsoleLogLevel];
-  [self setDetectsVoiceActivity:kAKTelephoneDefaultDetectsVoiceActivity];
-  [self setUsesICE:kAKTelephoneDefaultUsesICE];
-  [self setTransportPort:kAKTelephoneDefaultTransportPort];
-  [self setTransportPublicHost:kAKTelephoneDefaultTransportPublicHost];
+  [self setOutboundProxyHost:kAKSIPUserAgentDefaultOutboundProxyHost];
+  [self setOutboundProxyPort:kAKSIPUserAgentDefaultOutboundProxyPort];
+  [self setSTUNServerHost:kAKSIPUserAgentDefaultSTUNServerHost];
+  [self setSTUNServerPort:kAKSIPUserAgentDefaultSTUNServerPort];
+  [self setLogFileName:kAKSIPUserAgentDefaultLogFileName];
+  [self setLogLevel:kAKSIPUserAgentDefaultLogLevel];
+  [self setConsoleLogLevel:kAKSIPUserAgentDefaultConsoleLogLevel];
+  [self setDetectsVoiceActivity:kAKSIPUserAgentDefaultDetectsVoiceActivity];
+  [self setUsesICE:kAKSIPUserAgentDefaultUsesICE];
+  [self setTransportPort:kAKSIPUserAgentDefaultTransportPort];
+  [self setTransportPublicHost:kAKSIPUserAgentDefaultTransportPublicHost];
   
-  [self setRingbackSlot:kAKTelephoneInvalidIdentifier];
+  [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
   
   return self;
 }
@@ -327,38 +327,38 @@ enum {
 
 #pragma mark -
 
-- (void)startUserAgent {
+- (void)start {
   // Do nothing if it's already started or being started.
-  if ([self userAgentState] > kAKTelephoneUserAgentStopped)
+  if ([self state] > kAKSIPUserAgentStopped)
     return;
   
   [[self pjsuaLock] lock];
   
-  [self setUserAgentState:kAKTelephoneUserAgentStarting];
+  [self setState:kAKSIPUserAgentStarting];
   
   // Create PJSUA on the main thread to make all subsequent calls from the main
   // thread.
   pj_status_t status = pjsua_create();
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating PJSUA");
-    [self setUserAgentState:kAKTelephoneUserAgentStopped];
+    [self setState:kAKSIPUserAgentStopped];
     [[self pjsuaLock] unlock];
     return;
   }
   
   [[self pjsuaLock] unlock];
   
-  [self performSelectorInBackground:@selector(ak_startUserAgent)
+  [self performSelectorInBackground:@selector(ak_start)
                          withObject:nil];
 }
 
 // This method is supposed to run in the secondary thread.
-- (void)ak_startUserAgent {
+- (void)ak_start {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   [[self pjsuaLock] lock];
   
-  [self setUserAgentState:kAKTelephoneUserAgentStarting];
+  [self setState:kAKSIPUserAgentStarting];
   
   pj_status_t status;
   
@@ -372,7 +372,7 @@ enum {
   
   // Create pool for PJSUA.
   pj_pool_t *aPJPool;
-  aPJPool = pjsua_pool_create("telephone-pjsua", 1000, 1000);
+  aPJPool = pjsua_pool_create("AKSIPUserAgent-pjsua", 1000, 1000);
   [self setPjPool:aPJPool];
   
   pjsua_config userAgentConfig;
@@ -385,7 +385,7 @@ enum {
   pjsua_media_config_default(&mediaConfig);
   pjsua_transport_config_default(&transportConfig);
   
-  userAgentConfig.max_calls = kAKTelephoneCallsMax;
+  userAgentConfig.max_calls = kAKSIPCallsMax;
   
   if ([[self nameservers] count] > 0) {
     userAgentConfig.nameserver_count = [[self nameservers] count];
@@ -397,7 +397,7 @@ enum {
   if ([[self outboundProxyHost] length] > 0) {
     userAgentConfig.outbound_proxy_cnt = 1;
     
-    if ([self outboundProxyPort] == kAKTelephoneDefaultOutboundProxyPort) {
+    if ([self outboundProxyPort] == kAKSIPUserAgentDefaultOutboundProxyPort) {
       userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@",
                                             [self outboundProxyHost]]
                                            pjString];
@@ -434,17 +434,17 @@ enum {
   if ([[self transportPublicHost] length] > 0)
     transportConfig.public_addr = [[self transportPublicHost] pjString];
   
-  userAgentConfig.cb.on_incoming_call = AKIncomingCallReceived;
-  userAgentConfig.cb.on_call_media_state = AKCallMediaStateChanged;
-  userAgentConfig.cb.on_call_state = AKCallStateChanged;
-  userAgentConfig.cb.on_reg_state = AKTelephoneAccountRegistrationStateChanged;
-  userAgentConfig.cb.on_nat_detect = AKTelephoneDetectedNAT;
+  userAgentConfig.cb.on_incoming_call = &AKSIPCallIncomingReceived;
+  userAgentConfig.cb.on_call_media_state = &AKSIPCallMediaStateChanged;
+  userAgentConfig.cb.on_call_state = &AKSIPCallStateChanged;
+  userAgentConfig.cb.on_reg_state = &AKSIPAccountRegistrationStateChanged;
+  userAgentConfig.cb.on_nat_detect = &AKSIPUserAgentDetectedNAT;
   
   // Initialize PJSUA.
   status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error initializing PJSUA");
-    [self stopUserAgent];
+    [self stop];
     [[self pjsuaLock] unlock];
     [pool release];
     return;
@@ -468,7 +468,7 @@ enum {
                                    &aRingbackPort);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating ringback tones");
-    [self stopUserAgent];
+    [self stop];
     [[self pjsuaLock] unlock];
     [pool release];
     return;
@@ -491,7 +491,7 @@ enum {
   status = pjsua_conf_add_port([self pjPool], [self ringbackPort], &aRingbackSlot);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error adding media port for ringback tones");
-    [self stopUserAgent];
+    [self stop];
     [[self pjsuaLock] unlock];
     [pool release];
     return;
@@ -505,7 +505,7 @@ enum {
                                   &transportIdentifier);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error creating transport");
-    [self stopUserAgent];
+    [self stop];
     [[self pjsuaLock] unlock];
     [pool release];
     return;
@@ -533,16 +533,16 @@ enum {
   status = pjsua_start();
   if (status != PJ_SUCCESS) {
     NSLog(@"Error starting PJSUA");
-    [self stopUserAgent];
+    [self stop];
     [[self pjsuaLock] unlock];
     [pool release];
     return;
   }
   
-  [self setUserAgentState:kAKTelephoneUserAgentStarted];
+  [self setState:kAKSIPUserAgentStarted];
   
   NSNotification *notification
-  = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStartingNotification
+  = [NSNotification notificationWithName:AKSIPUserAgentDidFinishStartingNotification
                                   object:self];
   
   [[NSNotificationCenter defaultCenter]
@@ -555,11 +555,11 @@ enum {
   [pool release];
 }
 
-- (void)stopUserAgent {
+- (void)stop {
   // If there was an error while starting, post a notification from here.
-  if ([self userAgentState] == kAKTelephoneUserAgentStarting) {
+  if ([self state] == kAKSIPUserAgentStarting) {
     NSNotification *notification
-    = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStartingNotification
+    = [NSNotification notificationWithName:AKSIPUserAgentDidFinishStartingNotification
                                     object:self];
     
     [[NSNotificationCenter defaultCenter]
@@ -568,11 +568,11 @@ enum {
                    waitUntilDone:NO];
   }
   
-  [self performSelectorInBackground:@selector(ak_stopUserAgent)
+  [self performSelectorInBackground:@selector(ak_stop)
                          withObject:nil];
 }
 
-- (void)ak_stopUserAgent {
+- (void)ak_stop {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   pj_status_t status;
@@ -588,17 +588,17 @@ enum {
   
   [[self pjsuaLock] lock];
   
-  [self setUserAgentState:kAKTelephoneUserAgentStopped];
+  [self setState:kAKSIPUserAgentStopped];
   
   // Explicitly remove all accounts.
   [[self accounts] removeAllObjects];
   
   // Close ringback port.
   if ([self ringbackPort] != NULL &&
-      [self ringbackSlot] != kAKTelephoneInvalidIdentifier)
+      [self ringbackSlot] != kAKSIPUserAgentInvalidIdentifier)
   {
     pjsua_conf_remove_port([self ringbackSlot]);
-    [self setRingbackSlot:kAKTelephoneInvalidIdentifier];
+    [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
     pjmedia_port_destroy([self ringbackPort]);
     [self setRingbackPort:NULL];
   }
@@ -615,7 +615,7 @@ enum {
     NSLog(@"Error stopping SIP user agent");
   
   NSNotification *notification
-  = [NSNotification notificationWithName:AKTelephoneUserAgentDidFinishStoppingNotification
+  = [NSNotification notificationWithName:AKSIPUserAgentDidFinishStoppingNotification
                                   object:self];
   
   [[NSNotificationCenter defaultCenter]
@@ -628,11 +628,11 @@ enum {
   [pool release];
 }
 
-- (BOOL)addAccount:(AKTelephoneAccount *)anAccount
+- (BOOL)addAccount:(AKSIPAccount *)anAccount
       withPassword:(NSString *)aPassword {
   
-  if ([[self delegate] respondsToSelector:@selector(telephoneShouldAddAccount:)])
-    if (![[self delegate] telephoneShouldAddAccount:anAccount])
+  if ([[self delegate] respondsToSelector:@selector(SIPUserAgentShouldAddAccount:)])
+    if (![[self delegate] SIPUserAgentShouldAddAccount:anAccount])
       return NO;
   
   pjsua_acc_config accountConfig;
@@ -656,7 +656,7 @@ enum {
   if ([[anAccount proxyHost] length] > 0) {
     accountConfig.proxy_cnt = 1;
     
-    if ([anAccount proxyPort] == kAKDefaultSIPProxyPort)
+    if ([anAccount proxyPort] == kAKSIPAccountDefaultSIPProxyPort)
       accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@",
                                  [anAccount proxyHost]] pjString];
     else
@@ -689,13 +689,13 @@ enum {
   return YES;
 }
 
-- (BOOL)removeAccount:(AKTelephoneAccount *)anAccount {
-  if (![self userAgentStarted] ||
-      [anAccount identifier] == kAKTelephoneInvalidIdentifier)
+- (BOOL)removeAccount:(AKSIPAccount *)anAccount {
+  if (![self isStarted] ||
+      [anAccount identifier] == kAKSIPUserAgentInvalidIdentifier)
     return NO;
   
   [[NSNotificationCenter defaultCenter]
-   postNotificationName:AKTelephoneAccountWillRemoveNotification
+   postNotificationName:AKSIPAccountWillRemoveNotification
                  object:anAccount];
   
   // Explicitly remove all calls.
@@ -706,22 +706,22 @@ enum {
     return NO;
   
   [[self accounts] removeObject:anAccount];
-  [anAccount setIdentifier:kAKTelephoneInvalidIdentifier];
+  [anAccount setIdentifier:kAKSIPUserAgentInvalidIdentifier];
   
   return YES;
 }
 
-- (AKTelephoneAccount *)accountByIdentifier:(NSInteger)anIdentifier {
-  for (AKTelephoneAccount *anAccount in [[[self accounts] copy] autorelease])
+- (AKSIPAccount *)accountByIdentifier:(NSInteger)anIdentifier {
+  for (AKSIPAccount *anAccount in [[[self accounts] copy] autorelease])
     if ([anAccount identifier] == anIdentifier)
       return [[anAccount retain] autorelease];
   
   return nil;
 }
 
-- (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier {
-  for (AKTelephoneAccount *anAccount in [[[self accounts] copy] autorelease])
-    for (AKTelephoneCall *aCall in [[[anAccount calls] copy] autorelease])
+- (AKSIPCall *)SIPCallByIdentifier:(NSInteger)anIdentifier {
+  for (AKSIPAccount *anAccount in [[[self accounts] copy] autorelease])
+    for (AKSIPCall *aCall in [[[anAccount calls] copy] autorelease])
       if ([aCall identifier] == anIdentifier)
         return [[aCall retain] autorelease];
   
@@ -734,7 +734,7 @@ enum {
 
 - (BOOL)setSoundInputDevice:(NSInteger)input
           soundOutputDevice:(NSInteger)output {
-  if (![self userAgentStarted])
+  if (![self isStarted])
     return NO;
   
   pj_status_t status = pjsua_set_snd_dev(input, output);
@@ -743,7 +743,7 @@ enum {
 }
 
 - (BOOL)stopSound {
-  if (![self userAgentStarted])
+  if (![self isStarted])
     return NO;
   
   pj_status_t status = pjsua_set_null_snd_dev();
@@ -757,7 +757,7 @@ enum {
 // Usually application controller is responsible of sending
 // setSoundInputDevice:soundOutputDevice: to set sound IO after this method is called.
 - (void)updateAudioDevices {
-  if (![self userAgentStarted])
+  if (![self isStarted])
     return;
   
   // Stop sound device and disconnect it from the conference.
@@ -960,7 +960,7 @@ enum {
 @end
 
 
-void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result) {
+void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   if (result->status != PJ_SUCCESS) {
@@ -969,11 +969,11 @@ void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result) {
   } else {
     PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
     
-    [[AKTelephone sharedTelephone] setDetectedNATType:result->nat_type];
+    [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:result->nat_type];
     
     NSNotification *notification
-      = [NSNotification notificationWithName:AKTelephoneDidDetectNATNotification
-                                      object:[AKTelephone sharedTelephone]];
+      = [NSNotification notificationWithName:AKSIPUserAgentDidDetectNATNotification
+                                      object:[AKSIPUserAgent sharedUserAgent]];
     
     [[NSNotificationCenter defaultCenter]
      performSelectorOnMainThread:@selector(postNotification:)

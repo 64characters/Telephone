@@ -31,28 +31,28 @@
 #import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
 
-#import "AKTelephone.h"
+#import "AKSIPUserAgent.h"
 
 
-@class AKTelephone, PreferenceController, CallController;
+@class AKSIPUserAgent, PreferenceController, CallController;
 
-@interface AppController : NSObject <AKTelephoneDelegate, GrowlApplicationBridgeDelegate> {
+@interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate> {
  @private
-  AKTelephone *telephone_;
+  AKSIPUserAgent *userAgent_;
   NSMutableArray *accountControllers_;
   PreferenceController *preferenceController_;
   NSArray *audioDevices_;
   NSInteger soundInputDeviceIndex_;
   NSInteger soundOutputDeviceIndex_;
   NSInteger ringtoneOutputDeviceIndex_;
-  BOOL shouldSetTelephoneSoundIO_;
+  BOOL shouldSetUserAgentSoundIO_;
   NSSound *ringtone_;
   NSTimer *ringtoneTimer_;
   BOOL shouldRegisterAllAccounts_;
-  BOOL shouldRestartTelephoneASAP_;
+  BOOL shouldRestartUserAgentASAP_;
   BOOL terminating_;
   BOOL didPauseITunes_;
-  BOOL shouldPresentSIPUserAgentLaunchError_;
+  BOOL shouldPresentUserAgentLaunchError_;
   NSUInteger afterSleepReconnectionAttemptIndex_;
   NSArray *afterSleepReconnectionTimeIntervals_;
   NSTimer *userAttentionTimer_;
@@ -60,7 +60,7 @@
   NSMenuItem *preferencesMenuItem_;
 }
 
-@property(nonatomic, readonly, retain) AKTelephone *telephone;
+@property(nonatomic, readonly, retain) AKSIPUserAgent *userAgent;
 @property(nonatomic, readonly, retain) NSMutableArray *accountControllers;
 @property(nonatomic, readonly, retain) NSArray *enabledAccountControllers;
 @property(nonatomic, retain) PreferenceController *preferenceController;
@@ -68,27 +68,27 @@
 @property(nonatomic, assign) NSInteger soundInputDeviceIndex;
 @property(nonatomic, assign) NSInteger soundOutputDeviceIndex;
 @property(nonatomic, assign) NSInteger ringtoneOutputDeviceIndex;
-@property(nonatomic, assign) BOOL shouldSetTelephoneSoundIO;
+@property(nonatomic, assign) BOOL shouldSetUserAgentSoundIO;
 @property(nonatomic, retain) NSSound *ringtone;
 @property(nonatomic, assign) NSTimer *ringtoneTimer;
 @property(nonatomic, assign) BOOL shouldRegisterAllAccounts;
-@property(nonatomic, assign) BOOL shouldRestartTelephoneASAP;
+@property(nonatomic, assign) BOOL shouldRestartUserAgentASAP;
 @property(nonatomic, assign, getter=isTerminating) BOOL terminating;
 @property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 @property(nonatomic, readonly, assign) BOOL hasActiveCallControllers;
 @property(nonatomic, readonly, retain) NSArray *currentNameservers;
 @property(nonatomic, assign) BOOL didPauseITunes;
-@property(nonatomic, assign) BOOL shouldPresentSIPUserAgentLaunchError;
+@property(nonatomic, assign) BOOL shouldPresentUserAgentLaunchError;
 @property(nonatomic, readonly, assign) NSUInteger unhandledIncomingCallsCount;
 @property(nonatomic, assign) NSTimer *userAttentionTimer;
 
 @property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
 // Hang up all calls, disconnect all accounts, destroy SIP user agent.
-- (void)stopTelephone;
+- (void)stopUserAgent;
 
-// Set appropriate flags to start Telephone, then call |stopTelephone|.
-- (void)restartTelephone;
+// Set appropriate flags to start user agent, then call |stopUserAgent|.
+- (void)restartUserAgent;
 
 // Update list of available audio devices.
 - (void)updateAudioDevices;

@@ -33,7 +33,7 @@
 #import <pjsua-lib/pjsua.h>
 
 #import "AKNSString+PJSUA.h"
-#import "AKTelephone.h"
+#import "AKSIPUserAgent.h"
 
 
 @implementation AKSIPURI
@@ -127,13 +127,13 @@
     return self;
   }
   
-  if (![[AKTelephone sharedTelephone] userAgentStarted]) {
+  if (![[AKSIPUserAgent sharedUserAgent] isStarted]) {
     [self release];
     return nil;
   }
   
   pjsip_name_addr *nameAddr;
-  nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKTelephone sharedTelephone] pjPool],
+  nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKSIPUserAgent sharedUserAgent] pjPool],
                                                 (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
                                                 [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
   if (nameAddr == NULL) {

@@ -37,10 +37,10 @@
 #import "AKNSString+Creating.h"
 #import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
+#import "AKSIPCall.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
-#import "AKTelephone.h"
-#import "AKTelephoneCall.h"
+#import "AKSIPUserAgent.h"
 #import "AKTelephoneNumberFormatter.h"
 
 #import "AccountController.h"
@@ -48,8 +48,7 @@
 #import "PreferenceController.h"
 
 
-NSString * const AKTelephoneCallWindowWillCloseNotification
-  = @"AKTelephoneCallWindowWillClose";
+NSString * const AKCallWindowWillCloseNotification = @"AKCallWindowWillClose";
 
 static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 static const NSTimeInterval kRedialButtonReenableTime = 1.0;
@@ -96,11 +95,11 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 @synthesize endedCallStatusField = endedCallStatusField_;
 @synthesize callProgressIndicator = callProgressIndicator_;
 
-- (AKTelephoneCall *)call {
+- (AKSIPCall *)call {
   return [[call_ retain] autorelease];
 }
 
-- (void)setCall:(AKTelephoneCall *)aCall {
+- (void)setCall:(AKSIPCall *)aCall {
   if (call_ != aCall) {
     if ([[call_ delegate] isEqual:self])
       [call_ setDelegate:nil];
@@ -126,10 +125,10 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [notificationCenter removeObserver:accountController_ name:nil object:self];
   
   if (anAccountController != nil) {
-    if ([anAccountController respondsToSelector:@selector(telephoneCallWindowWillClose:)])
+    if ([anAccountController respondsToSelector:@selector(callWindowWillClose:)])
       [notificationCenter addObserver:anAccountController
-                             selector:@selector(telephoneCallWindowWillClose:)
-                                 name:AKTelephoneCallWindowWillCloseNotification
+                             selector:@selector(callWindowWillClose:)
+                                 name:AKCallWindowWillCloseNotification
                                object:self];
   }
   
@@ -296,7 +295,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (IBAction)redial:(id)sender {
-  if (![[[NSApp delegate] telephone] userAgentStarted] ||
+  if (![[[NSApp delegate] userAgent] isStarted] ||
       ![[self accountController] isEnabled] ||
       [[[[self accountController] window] contentView] isEqual:
        [[self accountController] offlineAccountView]] ||
@@ -338,7 +337,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   }
   
   // Make actual call.
-  AKTelephoneCall *aCall
+  AKSIPCall *aCall
     = [[[self accountController] account] makeCallTo:[self redialURI]];
   if (aCall != nil) {
     [self setCall:aCall];
@@ -355,13 +354,13 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (IBAction)toggleCallHold:(id)sender {
-  if ([[self call] state] == kAKTelephoneCallConfirmedState &&
+  if ([[self call] state] == kAKSIPCallConfirmedState &&
       ![[self call] isOnRemoteHold])
   [[self call] toggleHold];
 }
 
 - (IBAction)toggleMicrophoneMute:(id)sender {
-  if ([[self call] state] != kAKTelephoneCallConfirmedState)
+  if ([[self call] state] != kAKSIPCallConfirmedState)
     return;
   
   [[self call] toggleMicrophoneMute];
@@ -480,7 +479,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [[NSApp delegate] updateDockTileBadgeLabel];
   
   [[NSNotificationCenter defaultCenter]
-   postNotificationName:AKTelephoneCallWindowWillCloseNotification
+   postNotificationName:AKCallWindowWillCloseNotification
                  object:self];
 }
 
@@ -502,9 +501,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 
 #pragma mark -
-#pragma mark AKTelephoneCall notifications
+#pragma mark AKSIPCall notifications
 
-- (void)telephoneCallCalling:(NSNotification *)notification {
+- (void)SIPCallCalling:(NSNotification *)notification {
   if ([[self phoneLabelFromAddressBook] length] > 0) {
     [self setStatus:
      [NSString stringWithFormat:
@@ -520,7 +519,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
 }
 
-- (void)telephoneCallEarly:(NSNotification *)notification {
+- (void)SIPCallEarly:(NSNotification *)notification {
   [[NSApp delegate] pauseITunes];
   
   NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
@@ -539,7 +538,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   }
 }
 
-- (void)telephoneCallDidConfirm:(NSNotification *)notification {
+- (void)SIPCallDidConfirm:(NSNotification *)notification {
   [self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
   [[NSApp delegate] pauseITunes];
   
@@ -560,7 +559,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[self window] makeFirstResponder:[self activeCallView]];
 }
 
-- (void)telephoneCallDidDisconnect:(NSNotification *)notification {
+- (void)SIPCallDidDisconnect:(NSNotification *)notification {
   [self setCallActive:NO];
   [self stopCallTimer];
   
@@ -684,7 +683,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   }
 }
 
-- (void)telephoneCallMediaDidBecomeActive:(NSNotification *)notification {
+- (void)SIPCallMediaDidBecomeActive:(NSNotification *)notification {
   if ([self isCallOnHold]) {  // Call is being taken off hold.
     [self setCallOnHold:NO];
     
@@ -694,14 +693,14 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   }
 }
 
-- (void)telephoneCallDidLocalHold:(NSNotification *)notification {
+- (void)SIPCallDidLocalHold:(NSNotification *)notification {
   [self setCallOnHold:YES];
   [self stopCallTimer];
   [self setStatus:NSLocalizedString(@"on hold",
                                     @"Call on local hold status text.")];
 }
 
-- (void)telephoneCallDidRemoteHold:(NSNotification *)notification {
+- (void)SIPCallDidRemoteHold:(NSNotification *)notification {
   [self setCallOnHold:YES];
   [self stopCallTimer];
   [self setStatus:NSLocalizedString(@"on remote hold",
@@ -761,20 +760,20 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     else
       [menuItem setTitle:NSLocalizedString(@"Mute", @"Mute. Call menu item.")];
     
-    if ([[self call] state] == kAKTelephoneCallConfirmedState)
+    if ([[self call] state] == kAKSIPCallConfirmedState)
       return YES;
     
     return NO;
     
   } else if ([menuItem action] == @selector(toggleCallHold:)) {
-    if ([[self call] state] == kAKTelephoneCallConfirmedState &&
+    if ([[self call] state] == kAKSIPCallConfirmedState &&
         [[self call] isOnLocalHold])
       [menuItem setTitle:NSLocalizedString(@"Resume",
                                            @"Resume. Call menu item.")];
     else
       [menuItem setTitle:NSLocalizedString(@"Hold", @"Hold. Call menu item.")];
     
-    if ([[self call] state] == kAKTelephoneCallConfirmedState &&
+    if ([[self call] state] == kAKSIPCallConfirmedState &&
         ![[self call] isOnRemoteHold])
       return YES;
     

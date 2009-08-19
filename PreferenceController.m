@@ -32,13 +32,13 @@
 
 #import "AKKeychain.h"
 #import "AKNSWindow+Resizing.h"
-#import "AKTelephone.h"
-#import "AKTelephoneAccount.h"
+#import "AKSIPAccount.h"
+#import "AKSIPUserAgent.h"
 
 #import "AppController.h"
 
 
-NSString * const kAKTelephoneAccountPboardType = @"AKTelephoneAccountPboardType";
+NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
 
 @interface PreferenceController ()
 
@@ -222,8 +222,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   // Subscribe to User Agent start events.
   [notificationCenter addObserver:self
-                         selector:@selector(telephoneUserAgentDidFinishStarting:)
-                             name:AKTelephoneUserAgentDidFinishStartingNotification
+                         selector:@selector(SIPUserAgentDidFinishStarting:)
+                             name:AKSIPUserAgentDidFinishStartingNotification
                            object:nil];
   
   return self;
@@ -292,7 +292,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 - (void)awakeFromNib {
   // Register a pasteboard type to rearrange accounts with drag and drop.
   [[self accountsTable] registerForDraggedTypes:
-   [NSArray arrayWithObject:kAKTelephoneAccountPboardType]];
+   [NSArray arrayWithObject:kAKSIPAccountPboardType]];
 }
 
 - (void)windowDidLoad {
@@ -307,10 +307,10 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [self updateAudioDevices];
   
   // Show transport port in the network preferences as a placeholder string.
-  if ([[[NSApp delegate] telephone] userAgentStarted]) {
+  if ([[[NSApp delegate] userAgent] isStarted]) {
     [[self transportPortCell] setPlaceholderString:
      [[NSNumber numberWithUnsignedInteger:
-       [[[NSApp delegate] telephone] transportPort]] stringValue]];
+       [[[NSApp delegate] userAgent] transportPort]] stringValue]];
   }
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -1272,10 +1272,10 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
      toPasteboard:(NSPasteboard *)pboard {
   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
   
-  [pboard declareTypes:[NSArray arrayWithObject:kAKTelephoneAccountPboardType]
+  [pboard declareTypes:[NSArray arrayWithObject:kAKSIPAccountPboardType]
                  owner:self];
   
-  [pboard setData:data forType:kAKTelephoneAccountPboardType];
+  [pboard setData:data forType:kAKSIPAccountPboardType];
   
   return YES;
 }
@@ -1285,7 +1285,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
                  proposedRow:(NSInteger)row
        proposedDropOperation:(NSTableViewDropOperation)operation {
   NSData *data
-    = [[info draggingPasteboard] dataForType:kAKTelephoneAccountPboardType];
+    = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
   NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
   NSInteger draggingRow = [indexes firstIndex];
   
@@ -1302,7 +1302,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
               row:(NSInteger)row
     dropOperation:(NSTableViewDropOperation)operation {
   NSData *data
-    = [[info draggingPasteboard] dataForType:kAKTelephoneAccountPboardType];
+    = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
   NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
   NSInteger draggingRow = [indexes firstIndex];
   
@@ -1391,16 +1391,16 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 
 
 #pragma mark -
-#pragma mark AKTelephone notifications
+#pragma mark AKSIPUserAgent notifications
 
-- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification {
-  if (![[[NSApp delegate] telephone] userAgentStarted])
+- (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
+  if (![[[NSApp delegate] userAgent] isStarted])
     return;
   
   // Show transport port in the network preferences as a placeholder string.
   [[self transportPortCell] setPlaceholderString:
    [[NSNumber numberWithUnsignedInteger:
-     [[[NSApp delegate] telephone] transportPort]] stringValue]];
+     [[[NSApp delegate] userAgent] transportPort]] stringValue]];
 }
 
 @end

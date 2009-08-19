@@ -39,10 +39,10 @@
 #import "AKKeychain.h"
 #import "AKNetworkReachability.h"
 #import "AKNSString+Scanning.h"
+#import "AKSIPAccount.h"
+#import "AKSIPCall.h"
 #import "AKSIPURI.h"
-#import "AKTelephone.h"
-#import "AKTelephoneAccount.h"
-#import "AKTelephoneCall.h"
+#import "AKSIPUserAgent.h"
 #import "iTunes.h"
 
 #import "AccountController.h"
@@ -71,7 +71,7 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 static const NSTimeInterval kRingtoneInterval = 4.0;
 static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 
-static const NSTimeInterval kTelephoneRestartDelayAfterDNSChange = 3.0;
+static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
 
 static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
@@ -81,7 +81,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 @property(nonatomic, assign) NSUInteger afterSleepReconnectionAttemptIndex;
 @property(nonatomic, retain) NSArray *afterSleepReconnectionTimeIntervals;
 
-- (void)setSelectedSoundIOToTelephone;
+- (void)setSelectedSoundIOToUserAgent;
 - (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
 - (void)installAddressBookPlugIns;
 - (void)setupGrowl;
@@ -99,7 +99,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 @implementation AppController
 
-@synthesize telephone = telephone_;
+@synthesize userAgent = userAgent_;
 @synthesize accountControllers = accountControllers_;
 @dynamic enabledAccountControllers;
 @synthesize preferenceController = preferenceController_;
@@ -107,17 +107,17 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 @synthesize soundInputDeviceIndex = soundInputDeviceIndex_;
 @synthesize soundOutputDeviceIndex = soundOutputDeviceIndex_;
 @synthesize ringtoneOutputDeviceIndex = ringtoneOutputDeviceIndex_;
-@synthesize shouldSetTelephoneSoundIO = shouldSetTelephoneSoundIO_;
+@synthesize shouldSetUserAgentSoundIO = shouldSetUserAgentSoundIO_;
 @dynamic ringtone;
 @synthesize ringtoneTimer = ringtoneTimer_;
 @synthesize shouldRegisterAllAccounts = shouldRegisterAllAccounts_;
-@synthesize shouldRestartTelephoneASAP = shouldRestartTelephoneASAP_;
+@synthesize shouldRestartUserAgentASAP = shouldRestartUserAgentASAP_;
 @synthesize terminating = terminating_;
 @dynamic hasIncomingCallControllers;
 @dynamic hasActiveCallControllers;
 @dynamic currentNameservers;
 @synthesize didPauseITunes = didPauseITunes_;
-@synthesize shouldPresentSIPUserAgentLaunchError = shouldPresentSIPUserAgentLaunchError_;
+@synthesize shouldPresentUserAgentLaunchError = shouldPresentUserAgentLaunchError_;
 @synthesize afterSleepReconnectionAttemptIndex = afterSleepReconnectionAttemptIndex_;
 @synthesize afterSleepReconnectionTimeIntervals = afterSleepReconnectionTimeIntervals_;
 @dynamic unhandledIncomingCallsCount;
@@ -154,11 +154,11 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 - (BOOL)hasIncomingCallControllers {
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers]) {
-      if ([[aCallController call] identifier] != kAKTelephoneInvalidIdentifier &&
+      if ([[aCallController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
           [[aCallController call] isIncoming] &&
           [aCallController isCallActive] &&
-          ([[aCallController call] state] == kAKTelephoneCallIncomingState ||
-           [[aCallController call] state] == kAKTelephoneCallEarlyState))
+          ([[aCallController call] state] == kAKSIPCallIncomingState ||
+           [[aCallController call] state] == kAKSIPCallEarlyState))
         return YES;
     }
   }
@@ -287,17 +287,17 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   if (self == nil)
     return nil;
   
-  telephone_ = [AKTelephone sharedTelephone];
-  [[self telephone] setDelegate:self];
+  userAgent_ = [AKSIPUserAgent sharedUserAgent];
+  [[self userAgent] setDelegate:self];
   accountControllers_ = [[NSMutableArray alloc] init];
-  [self setSoundInputDeviceIndex:kAKTelephoneInvalidIdentifier];
-  [self setSoundOutputDeviceIndex:kAKTelephoneInvalidIdentifier];
-  [self setShouldSetTelephoneSoundIO:NO];
+  [self setSoundInputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
+  [self setSoundOutputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
+  [self setShouldSetUserAgentSoundIO:NO];
   [self setShouldRegisterAllAccounts:NO];
-  [self setShouldRestartTelephoneASAP:NO];
+  [self setShouldRestartUserAgentASAP:NO];
   [self setTerminating:NO];
   [self setDidPauseITunes:NO];
-  [self setShouldPresentSIPUserAgentLaunchError:NO];
+  [self setShouldPresentUserAgentLaunchError:NO];
   
   [self setAfterSleepReconnectionTimeIntervals:
    [[NSArray alloc] initWithObjects:
@@ -308,21 +308,22 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [NSNumber numberWithDouble:40.0],
     nil]];
   
-  // Subscribe to Early and Confirmed call states to set sound IO to Telephone.
+  // Subscribe to Early and Confirmed call states to set sound IO to the user
+  // agent.
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   [notificationCenter addObserver:self
-                         selector:@selector(telephoneCallCalling:)
-                             name:AKTelephoneCallCallingNotification
+                         selector:@selector(SIPCallCalling:)
+                             name:AKSIPCallCallingNotification
                            object:nil];
   [notificationCenter addObserver:self
-                         selector:@selector(telephoneCallIncoming:)
-                             name:AKTelephoneCallIncomingNotification
+                         selector:@selector(SIPCallIncoming:)
+                             name:AKSIPCallIncomingNotification
                            object:nil];
   
   // Subscribe to call disconnects.
   [notificationCenter addObserver:self
-                         selector:@selector(telephoneCallDidDisconnect:)
-                             name:AKTelephoneCallDidDisconnectNotification
+                         selector:@selector(SIPCallDidDisconnect:)
+                             name:AKSIPCallDidDisconnectNotification
                            object:nil];
   
   // Subscribe to username and password changes by the account controllers. For
@@ -382,7 +383,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 }
 
 - (void)dealloc {
-  [telephone_ dealloc];
+  [userAgent_ dealloc];
   [accountControllers_ release];
   
   if ([[[self preferenceController] delegate] isEqual:self])
@@ -402,23 +403,23 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [super dealloc];
 }
 
-- (void)stopTelephone {
-  // Force ended state for all calls and remove accounts from Telephone.
+- (void)stopUserAgent {
+  // Force ended state for all calls and remove accounts from the user agent.
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers])
       [aCallController hangUpCall:nil];
     
-    [anAccountController removeAccountFromTelephone];
+    [anAccountController removeAccountFromUserAgent];
   }
   
-  [[self telephone] stopUserAgent];
+  [[self userAgent] stop];
 }
 
-- (void)restartTelephone {
-  if ([[self telephone] userAgentState] > kAKTelephoneUserAgentStopped) {
+- (void)restartUserAgent {
+  if ([[self userAgent] state] > kAKSIPUserAgentStopped) {
     [self setShouldRegisterAllAccounts:YES];
-    [self setShouldSetTelephoneSoundIO:YES];
-    [self stopTelephone];
+    [self setShouldSetUserAgentSoundIO:YES];
+    [self stopUserAgent];
   }
 }
 
@@ -521,13 +522,13 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   [self setAudioDevices:[[devicesArray copy] autorelease]];
   
-  // Update audio devices in Telephone.
-  [[self telephone] performSelectorOnMainThread:@selector(updateAudioDevices)
+  // Update audio devices in the user agent.
+  [[self userAgent] performSelectorOnMainThread:@selector(updateAudioDevices)
                                      withObject:nil
                                   waitUntilDone:YES];
   
   // Select sound IO from the updated audio devices list.
-  // This method will change sound IO in Telephone if there are active calls.
+  // This method will change sound IO in the user agent if there are active calls.
   [self performSelectorOnMainThread:@selector(selectSoundIO)
                          withObject:nil
                       waitUntilDone:YES];
@@ -541,7 +542,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 // Select appropriate sound IO from the list of available audio devices.
 // Lookup in the defaults database for devices selected earlier. If not found,
-// use first matched. Select sound IO at Telephone if there are active calls.
+// use first matched. Select sound IO in the user agent if there are active
+// calls.
 - (void)selectSoundIO {
   NSArray *devices = [self audioDevices];
   NSInteger newSoundInput, newSoundOutput, newRingtoneOutput;
@@ -625,12 +627,12 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [self setSoundOutputDeviceIndex:newSoundOutput];
   [self setRingtoneOutputDeviceIndex:newRingtoneOutput];
   
-  // Set selected sound IO to Telephone if there are active calls.
-  if ([[self telephone] activeCallsCount] > 0) {
-    [[self telephone] setSoundInputDevice:newSoundInput
+  // Set selected sound IO to the user agent if there are active calls.
+  if ([[self userAgent] activeCallsCount] > 0) {
+    [[self userAgent] setSoundInputDevice:newSoundInput
                         soundOutputDevice:newSoundOutput];
   } else {
-    [self setShouldSetTelephoneSoundIO:YES];
+    [self setShouldSetUserAgentSoundIO:YES];
   }
   
   // Set selected ringtone output.
@@ -638,8 +640,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
    [[devices objectAtIndex:newRingtoneOutput] objectForKey:kAudioDeviceUID]];
 }
 
-- (void)setSelectedSoundIOToTelephone {
-  [[self telephone] setSoundInputDevice:[self soundInputDeviceIndex]
+- (void)setSelectedSoundIOToUserAgent {
+  [[self userAgent] setSoundInputDevice:[self soundInputDeviceIndex]
                       soundOutputDevice:[self soundOutputDeviceIndex]];
 }
 
@@ -781,13 +783,13 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 }
 
 - (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer {
-  if ([[self telephone] userAgentStarted])
+  if ([[self userAgent] isStarted])
     return;
   
-  if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
+  if ([[self userAgent] state] < kAKSIPUserAgentStarting) {
     [self setShouldRegisterAllAccounts:YES];
-    [self setShouldSetTelephoneSoundIO:YES];
-    [[self telephone] startUserAgent];
+    [self setShouldSetUserAgentSoundIO:YES];
+    [[self userAgent] start];
   }
   
   NSUInteger attemptIndex = [self afterSleepReconnectionAttemptIndex];
@@ -1465,7 +1467,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     = [[self accountControllers] objectAtIndex:index];
   
   if ([anAccountController isEnabled])
-    [anAccountController removeAccountFromTelephone];
+    [anAccountController removeAccountFromUserAgent];
   
   [[self accountControllers] removeObjectAtIndex:index];
 }
@@ -1546,8 +1548,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     [[theAccountController callControllers]
      makeObjectsPerformSelector:@selector(close)];
     
-    // Remove account from Telephone.
-    [theAccountController removeAccountFromTelephone];
+    // Remove account from the user agent.
+    [theAccountController removeAccountFromUserAgent];
     [theAccountController setEnabled:NO];
     [theAccountController setAttemptingToRegisterAccount:NO];
     [theAccountController setAttemptingToUnregisterAccount:NO];
@@ -1580,42 +1582,42 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 - (void)preferenceControllerDidChangeNetworkSettings:(NSNotification *)notification {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
-  [[self telephone] setTransportPort:[defaults integerForKey:kTransportPort]];
-  [[self telephone] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
-  [[self telephone] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
-  [[self telephone] setUsesICE:[defaults boolForKey:kUseICE]];
-  [[self telephone] setOutboundProxyHost:
+  [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
+  [[self userAgent] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
+  [[self userAgent] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
+  [[self userAgent] setUsesICE:[defaults boolForKey:kUseICE]];
+  [[self userAgent] setOutboundProxyHost:
    [defaults stringForKey:kOutboundProxyHost]];
-  [[self telephone] setOutboundProxyPort:
+  [[self userAgent] setOutboundProxyPort:
    [defaults integerForKey:kOutboundProxyPort]];
   
   if ([defaults boolForKey:kUseDNSSRV])
-    [[self telephone] setNameservers:[self currentNameservers]];
+    [[self userAgent] setNameservers:[self currentNameservers]];
   else
-    [[self telephone] setNameservers:nil];
+    [[self userAgent] setNameservers:nil];
     
   // Restart SIP user agent.
-  if ([[self telephone] userAgentStarted]) {
-    [self setShouldPresentSIPUserAgentLaunchError:YES];
-    [self restartTelephone];
+  if ([[self userAgent] isStarted]) {
+    [self setShouldPresentUserAgentLaunchError:YES];
+    [self restartUserAgent];
   }
 }
 
 
 #pragma mark -
-#pragma mark AKTelephoneDelegate protocol
+#pragma mark AKSIPUserAgentDelegate protocol
 
-// This method decides whether Telephone should add an account.
-// Telephone is started in this method if needed.
-- (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount {
-  if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarting) {
-    [[self telephone] startUserAgent];
+// This method decides whether AKSIPUserAgent should add an account.
+// User agent is started in this method if needed.
+- (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount {
+  if ([[self userAgent] state] < kAKSIPUserAgentStarting) {
+    [[self userAgent] start];
     
     // Don't add the account right now, let user agent start first.
     // The account should be added later, from the callback.
     return NO;
     
-  } else if ([[self telephone] userAgentState] < kAKTelephoneUserAgentStarted) {
+  } else if ([[self userAgent] state] < kAKSIPUserAgentStarted) {
     // User agent is starting, don't add account right now.
     // The account should be added later, from the callback.
     return NO;
@@ -1626,16 +1628,16 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 
 #pragma mark -
-#pragma mark AKTelephone notifications
+#pragma mark AKSIPUserAgent notifications
 
-- (void)telephoneUserAgentDidFinishStarting:(NSNotification *)notification {
-  if ([[self telephone] userAgentStarted]) {
+- (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
+  if ([[self userAgent] isStarted]) {
     if ([self shouldRegisterAllAccounts])
       for (AccountController *anAccountController in [self enabledAccountControllers])
         [anAccountController setAccountRegistered:YES];
     
     [self setShouldRegisterAllAccounts:NO];
-    [self setShouldRestartTelephoneASAP:NO];
+    [self setShouldRestartUserAgentASAP:NO];
     
   } else {
     NSLog(@"Could not start SIP user agent. "
@@ -1643,14 +1645,14 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     
     [self setShouldRegisterAllAccounts:NO];
     
-    // Set |shouldPresentSIPUserAgentLaunchError| if needed and if it wasn't set
+    // Set |shouldPresentUserAgentLaunchError| if needed and if it wasn't set
     // somewhere else.
-    if (![self shouldPresentSIPUserAgentLaunchError]) {
+    if (![self shouldPresentUserAgentLaunchError]) {
       // Check whether any AccountController is trying to register or unregister
       // an acount. If so, we should present SIP user agent launch error.
       for (AccountController *accountController in [self enabledAccountControllers]) {
         if ([accountController shouldPresentRegistrationError]) {
-          [self setShouldPresentSIPUserAgentLaunchError:YES];
+          [self setShouldPresentUserAgentLaunchError:YES];
           [accountController setAttemptingToRegisterAccount:NO];
           [accountController setAttemptingToUnregisterAccount:NO];
           [accountController setShouldPresentRegistrationError:NO];
@@ -1658,7 +1660,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
       }
     }
     
-    if ([self shouldPresentSIPUserAgentLaunchError] &&
+    if ([self shouldPresentUserAgentLaunchError] &&
         [NSApp modalWindow] == nil) {
       // Display application modal alert.
       NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -1672,26 +1674,26 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     }
   }
   
-  [self setShouldPresentSIPUserAgentLaunchError:NO];
+  [self setShouldPresentUserAgentLaunchError:NO];
 }
 
-- (void)telephoneUserAgentDidFinishStopping:(NSNotification *)notification {
+- (void)SIPUserAgentDidFinishStopping:(NSNotification *)notification {
   if ([self isTerminating]) {
     [NSApp replyToApplicationShouldTerminate:YES];
   
   } else if ([self shouldRegisterAllAccounts]) {
     if ([[self enabledAccountControllers] count] > 0)
-      [[self telephone] startUserAgent];
+      [[self userAgent] start];
     else
       [self setShouldRegisterAllAccounts:NO];
   }
 }
 
-- (void)telephoneDidDetectNAT:(NSNotification *)notification {
+- (void)SIPUserAgentDidDetectNAT:(NSNotification *)notification {
   NSAlert *alert = [[[NSAlert alloc] init] autorelease];
   [alert addButtonWithTitle:@"OK"];
   
-  switch ([[self telephone] detectedNATType]) {
+  switch ([[self userAgent] detectedNATType]) {
       case kAKNATTypeBlocked:
         [alert setMessageText:
          NSLocalizedString(@"Failed to communicate with STUN server.",
@@ -1771,43 +1773,43 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   // Read main settings from defaults.
   if ([defaults boolForKey:kUseDNSSRV]) {
-    [[self telephone] setNameservers:[self currentNameservers]];
+    [[self userAgent] setNameservers:[self currentNameservers]];
   }
   
-  [[self telephone] setOutboundProxyHost:
+  [[self userAgent] setOutboundProxyHost:
    [defaults stringForKey:kOutboundProxyHost]];
   
-  [[self telephone] setOutboundProxyPort:
+  [[self userAgent] setOutboundProxyPort:
    [defaults integerForKey:kOutboundProxyPort]];
   
-  [[self telephone] setSTUNServerHost:
+  [[self userAgent] setSTUNServerHost:
    [defaults stringForKey:kSTUNServerHost]];
   
-  [[self telephone] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
+  [[self userAgent] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
   
   NSString *bundleName
     = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
   NSString *bundleShortVersion
     = [[mainBundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
   
-  [[self telephone] setUserAgentString:[NSString stringWithFormat:@"%@ %@",
+  [[self userAgent] setUserAgentString:[NSString stringWithFormat:@"%@ %@",
                                         bundleName, bundleShortVersion]];
   
-  [[self telephone] setLogFileName:[defaults stringForKey:kLogFileName]];
+  [[self userAgent] setLogFileName:[defaults stringForKey:kLogFileName]];
   
-  [[self telephone] setLogLevel:[defaults integerForKey:kLogLevel]];
+  [[self userAgent] setLogLevel:[defaults integerForKey:kLogLevel]];
   
-  [[self telephone] setConsoleLogLevel:
+  [[self userAgent] setConsoleLogLevel:
    [defaults integerForKey:kConsoleLogLevel]];
   
-  [[self telephone] setDetectsVoiceActivity:
+  [[self userAgent] setDetectsVoiceActivity:
    [defaults boolForKey:kVoiceActivityDetection]];
   
-  [[self telephone] setUsesICE:[defaults boolForKey:kUseICE]];
+  [[self userAgent] setUsesICE:[defaults boolForKey:kUseICE]];
   
-  [[self telephone] setTransportPort:[defaults integerForKey:kTransportPort]];
+  [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
   
-  [[self telephone] setTransportPublicHost:
+  [[self userAgent] setTransportPublicHost:
    [defaults stringForKey:kTransportPublicHost]];
   
   [self setRingtone:[NSSound soundNamed:
@@ -1939,7 +1941,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [self setupGrowl];
   [self installDNSChangesCallback];
   
-  [self setShouldPresentSIPUserAgentLaunchError:YES];
+  [self setShouldPresentUserAgentLaunchError:YES];
   
   // Accounts with host name as the registrar will be registered with the
   // reachability callbacks. But if registrar is IP address, there won't be such
@@ -1960,8 +1962,8 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   if ([self hasIncomingCallControllers]) {
     for (AccountController *anAccountController in [self enabledAccountControllers]) {
       for (CallController *aCallController in [anAccountController callControllers])
-        if ([[aCallController call] identifier] != kAKTelephoneInvalidIdentifier &&
-            [[aCallController call] state] == kAKTelephoneCallIncomingState)
+        if ([[aCallController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
+            [[aCallController call] state] == kAKSIPCallIncomingState)
         {
           [aCallController showWindow:nil];
           return YES;
@@ -2009,13 +2011,13 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
       return NSTerminateCancel;
   }
   
-  if ([[self telephone] userAgentStarted]) {
+  if ([[self userAgent] isStarted]) {
     [self setTerminating:YES];
-    [self stopTelephone];
+    [self stopUserAgent];
     
     // Terminate after SIP user agent is stopped in the secondary thread.
     // We should send replyToApplicationShouldTerminate: to NSApp from
-    // AKTelephoneUserAgentDidFinishStoppingNotification.
+    // AKSIPUserAgentDidFinishStoppingNotification.
     return NSTerminateLater;
   }
   
@@ -2028,33 +2030,33 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 
 #pragma mark -
-#pragma mark AKTelephoneCall notifications
+#pragma mark AKSIPCall notifications
 
-- (void)telephoneCallCalling:(NSNotification *)notification {
-  if ([self shouldSetTelephoneSoundIO] &&
-      [[self telephone] activeCallsCount] > 0) {
-    [self setSelectedSoundIOToTelephone];
-    [self setShouldSetTelephoneSoundIO:NO];
+- (void)SIPCallCalling:(NSNotification *)notification {
+  if ([self shouldSetUserAgentSoundIO] &&
+      [[self userAgent] activeCallsCount] > 0) {
+    [self setSelectedSoundIOToUserAgent];
+    [self setShouldSetUserAgentSoundIO:NO];
   }
 }
 
-- (void)telephoneCallIncoming:(NSNotification *)notification {
-  if ([self shouldSetTelephoneSoundIO] &&
-      [[self telephone] activeCallsCount] > 0) {
-    [self setSelectedSoundIOToTelephone];
-    [self setShouldSetTelephoneSoundIO:NO];
+- (void)SIPCallIncoming:(NSNotification *)notification {
+  if ([self shouldSetUserAgentSoundIO] &&
+      [[self userAgent] activeCallsCount] > 0) {
+    [self setSelectedSoundIOToUserAgent];
+    [self setShouldSetUserAgentSoundIO:NO];
   }
   
   [self updateDockTileBadgeLabel];
 }
 
-- (void)telephoneCallDidDisconnect:(NSNotification *)notification {
-  if ([self shouldRestartTelephoneASAP] && ![self hasActiveCallControllers]) {
+- (void)SIPCallDidDisconnect:(NSNotification *)notification {
+  if ([self shouldRestartUserAgentASAP] && ![self hasActiveCallControllers]) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                             selector:@selector(restartTelephone)
+                                             selector:@selector(restartUserAgent)
                                                object:nil];
-    [self setShouldRestartTelephoneASAP:NO];
-    [self restartTelephone];
+    [self setShouldRestartUserAgentASAP:NO];
+    [self restartUserAgent];
   }
 }
 
@@ -2109,15 +2111,15 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 #pragma mark -
 #pragma mark NSWorkspace notifications
 
-// End all calls, remove all accounts from Telephone and destroy SIP user agent
-// before computer goes to sleep.
+// End all calls, remove all accounts from the user agent and destroy it before
+// computer goes to sleep.
 - (void)workspaceWillSleep:(NSNotification *)notification {
-  if ([[self telephone] userAgentStarted])
-    [self stopTelephone];
+  if ([[self userAgent] isStarted])
+    [self stopUserAgent];
 }
 
 - (void)workspaceDidWake:(NSNotification *)notification {
-  [self setShouldSetTelephoneSoundIO:YES];
+  [self setShouldSetUserAgentSoundIO:YES];
   
   [self setAfterSleepReconnectionAttemptIndex:0];
   
@@ -2196,7 +2198,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   [[firstEnabledAccountController callDestinationField]
    setStringValue:theString];
   
-  if ([[firstEnabledAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
+  if ([[firstEnabledAccountController account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
     [firstEnabledAccountController setShouldMakeCall:YES];
     [firstEnabledAccountController setAccountRegistered:YES];
@@ -2225,7 +2227,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
   
   [firstEnabledAccountController setCatchedURLString:URLString];
   
-  if ([[firstEnabledAccountController account] identifier] == kAKTelephoneInvalidIdentifier) {
+  if ([[firstEnabledAccountController account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
     [firstEnabledAccountController setAccountRegistered:YES];
   } else {
@@ -2297,21 +2299,21 @@ static void NameserversChanged(SCDynamicStoreRef store,
     
   if ([defaults boolForKey:kUseDNSSRV] &&
       [nameservers count] > 0 &&
-      ![[[appDelegate telephone] nameservers] isEqualToArray:nameservers]) {
-    [[appDelegate telephone] setNameservers:nameservers];
+      ![[[appDelegate userAgent] nameservers] isEqualToArray:nameservers]) {
+    [[appDelegate userAgent] setNameservers:nameservers];
     
     if (![appDelegate hasActiveCallControllers]) {
       [NSObject cancelPreviousPerformRequestsWithTarget:appDelegate
-                                               selector:@selector(restartTelephone)
+                                               selector:@selector(restartUserAgent)
                                                  object:nil];
       
-      // Schedule Telephone restart in several seconds to coalesce several
+      // Schedule user agent restart in several seconds to coalesce several
       // nameserver changes during a short time period.
-      [appDelegate performSelector:@selector(restartTelephone)
+      [appDelegate performSelector:@selector(restartUserAgent)
                         withObject:nil
-                        afterDelay:kTelephoneRestartDelayAfterDNSChange];
+                        afterDelay:kUserAgentRestartDelayAfterDNSChange];
     } else {
-      [appDelegate setShouldRestartTelephoneASAP:YES];
+      [appDelegate setShouldRestartUserAgentASAP:YES];
     }
   }
 }

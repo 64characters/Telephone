@@ -1,5 +1,5 @@
 //
-//  AKTelephone.h
+//  AKSIPUserAgent.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -32,27 +32,27 @@
 #import <pjsua-lib/pjsua.h>
 
 
-extern const NSInteger kAKTelephoneInvalidIdentifier;
-extern const NSInteger kAKTelephoneNameserversMax;
+extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
+extern const NSInteger kAKSIPUserAgentNameserversMax;
 
 // Generic config defaults.
-extern NSString * const kAKTelephoneDefaultOutboundProxyHost;
-extern const NSInteger kAKTelephoneDefaultOutboundProxyPort;
-extern NSString * const kAKTelephoneDefaultSTUNServerHost;
-extern const NSInteger kAKTelephoneDefaultSTUNServerPort;
-extern NSString * const kAKTelephoneDefaultLogFileName;
-extern const NSInteger kAKTelephoneDefaultLogLevel;
-extern const NSInteger kAKTelephoneDefaultConsoleLogLevel;
-extern const BOOL kAKTelephoneDefaultDetectsVoiceActivity;
-extern const BOOL kAKTelephoneDefaultUsesICE;
-extern const NSInteger kAKTelephoneDefaultTransportPort;
-extern NSString * const kAKTelephoneDefaultTransportPublicHost;
+extern NSString * const kAKSIPUserAgentDefaultOutboundProxyHost;
+extern const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort;
+extern NSString * const kAKSIPUserAgentDefaultSTUNServerHost;
+extern const NSInteger kAKSIPUserAgentDefaultSTUNServerPort;
+extern NSString * const kAKSIPUserAgentDefaultLogFileName;
+extern const NSInteger kAKSIPUserAgentDefaultLogLevel;
+extern const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel;
+extern const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity;
+extern const BOOL kAKSIPUserAgentDefaultUsesICE;
+extern const NSInteger kAKSIPUserAgentDefaultTransportPort;
+extern NSString * const kAKSIPUserAgentDefaultTransportPublicHost;
 
-typedef struct _AKTelephoneCallData {
+typedef struct _AKSIPUserAgentCallData {
   pj_timer_entry timer;
   pj_bool_t ringbackOn;
   pj_bool_t ringbackOff;
-} AKTelephoneCallData;
+} AKSIPUserAgentCallData;
 
 enum {
   kAKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
@@ -68,21 +68,21 @@ enum {
 typedef NSUInteger AKNATType;
 
 enum {
-  kAKTelephoneUserAgentStopped,
-  kAKTelephoneUserAgentStarting,
-  kAKTelephoneUserAgentStarted
+  kAKSIPUserAgentStopped,
+  kAKSIPUserAgentStarting,
+  kAKSIPUserAgentStarted
 };
-typedef NSUInteger AKTelephoneUserAgentState;
+typedef NSUInteger AKSIPUserAgentState;
 
-@class AKTelephoneAccount, AKTelephoneCall;
-@protocol AKTelephoneDelegate;
+@class AKSIPAccount, AKSIPCall;
+@protocol AKSIPUserAgentDelegate;
 
-@interface AKTelephone : NSObject {
+@interface AKSIPUserAgent : NSObject {
  @private
-  id <AKTelephoneDelegate> delegate_;
+  id <AKSIPUserAgentDelegate> delegate_;
   
   NSMutableArray *accounts_;
-  AKTelephoneUserAgentState userAgentState_;
+  AKSIPUserAgentState state_;
   AKNATType detectedNATType_;
   NSLock *pjsuaLock_;
   
@@ -101,27 +101,27 @@ typedef NSUInteger AKTelephoneUserAgentState;
   NSString *transportPublicHost_;
   
   // PJSUA config
-  AKTelephoneCallData callData_[PJSUA_MAX_CALLS];
+  AKSIPUserAgentCallData callData_[PJSUA_MAX_CALLS];
   pj_pool_t *pjPool_;
   NSInteger ringbackSlot_;
   NSInteger ringbackCount_;
   pjmedia_port *ringbackPort_;
 }
 
-@property(nonatomic, assign) id <AKTelephoneDelegate> delegate;
+@property(nonatomic, assign) id <AKSIPUserAgentDelegate> delegate;
 @property(readonly, retain) NSMutableArray *accounts;
-@property(nonatomic, readonly, assign) BOOL userAgentStarted;
-@property(readonly, assign) AKTelephoneUserAgentState userAgentState;
+@property(nonatomic, readonly, assign, getter=isStarted) BOOL started;
+@property(readonly, assign) AKSIPUserAgentState state;
 @property(assign) AKNATType detectedNATType;
 @property(retain) NSLock *pjsuaLock;
 @property(nonatomic, readonly, assign) NSUInteger activeCallsCount;
-@property(nonatomic, readonly, assign) AKTelephoneCallData *callData;
+@property(nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;
 @property(readonly, assign) pj_pool_t *pjPool;
 @property(readonly, assign) NSInteger ringbackSlot;
 @property(nonatomic, assign) NSInteger ringbackCount;
 @property(readonly, assign) pjmedia_port *ringbackPort;
 
-@property(nonatomic, copy) NSArray *nameservers;         // Default: nil. If set, DNS SRV will be enabled. Only first AKTelephoneNameserversMax are used.
+@property(nonatomic, copy) NSArray *nameservers;         // Default: nil. If set, DNS SRV will be enabled. Only first kAKSIPUserAgentNameserversMax are used.
 @property(nonatomic, copy) NSString *outboundProxyHost;  // Default: @"".
 @property(nonatomic, assign) NSUInteger outboundProxyPort;  // Default: 5060.
 @property(nonatomic, copy) NSString *STUNServerHost;     // Default: @"".
@@ -135,24 +135,24 @@ typedef NSUInteger AKTelephoneUserAgentState;
 @property(nonatomic, assign) NSUInteger transportPort;   // Default: 0 for any available port.
 @property(nonatomic, copy) NSString *transportPublicHost;  // Default: nil.
 
-+ (AKTelephone *)sharedTelephone;
++ (AKSIPUserAgent *)sharedUserAgent;
 
 // Designated initializer
 - (id)initWithDelegate:(id)aDelegate;
 
 // Start SIP user agent.
-- (void)startUserAgent;
+- (void)start;
 
 // Stop SIP user agent.
-- (void)stopUserAgent;
+- (void)stop;
 
 // Dealing with accounts
-- (BOOL)addAccount:(AKTelephoneAccount *)anAccount withPassword:(NSString *)aPassword;
-- (BOOL)removeAccount:(AKTelephoneAccount *)account;
-- (AKTelephoneAccount *)accountByIdentifier:(NSInteger)anIdentifier;
+- (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword;
+- (BOOL)removeAccount:(AKSIPAccount *)account;
+- (AKSIPAccount *)accountByIdentifier:(NSInteger)anIdentifier;
 
 // Dealing with calls
-- (AKTelephoneCall *)telephoneCallByIdentifier:(NSInteger)anIdentifier;
+- (AKSIPCall *)SIPCallByIdentifier:(NSInteger)anIdentifier;
 - (void)hangUpAllCalls;
 
 // Set new sound IO.
@@ -170,18 +170,18 @@ typedef NSUInteger AKTelephoneUserAgentState;
 
 
 // Callback from PJSUA
-void AKTelephoneDetectedNAT(const pj_stun_nat_detect_result *result);
+void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 
 
-@protocol AKTelephoneDelegate <NSObject>
+@protocol AKSIPUserAgentDelegate <NSObject>
 
 @optional
-- (BOOL)telephoneShouldAddAccount:(AKTelephoneAccount *)anAccount;
+- (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount;
 
 @end
 
 
 // Notifications.
-extern NSString * const AKTelephoneUserAgentDidFinishStartingNotification;
-extern NSString * const AKTelephoneUserAgentDidFinishStoppingNotification;
-extern NSString * const AKTelephoneDidDetectNATNotification;
+extern NSString * const AKSIPUserAgentDidFinishStartingNotification;
+extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
+extern NSString * const AKSIPUserAgentDidDetectNATNotification;

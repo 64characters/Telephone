@@ -1,5 +1,5 @@
 //
-//  AKTelephoneCall.m
+//  AKSIPCall.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -28,35 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKTelephoneCall.h"
+#import "AKSIPCall.h"
 
 #import "AKNSString+PJSUA.h"
+#import "AKSIPAccount.h"
 #import "AKSIPURI.h"
-#import "AKTelephone.h"
-#import "AKTelephoneAccount.h"
+#import "AKSIPUserAgent.h"
 
-#define THIS_FILE "AKTelephoneCall.m"
+#define THIS_FILE "AKSIPCall.m"
 
 
-const NSInteger kAKTelephoneCallsMax = 8;
+const NSInteger kAKSIPCallsMax = 8;
 
-NSString * const AKTelephoneCallCallingNotification = @"AKTelephoneCallCalling";
-NSString * const AKTelephoneCallIncomingNotification = @"AKTelephoneCallIncoming";
-NSString * const AKTelephoneCallEarlyNotification = @"AKTelephoneCallEarly";
-NSString * const AKTelephoneCallConnectingNotification
-  = @"AKTelephoneCallConnecting";
-NSString * const AKTelephoneCallDidConfirmNotification
-  = @"AKTelephoneCallDidConfirm";
-NSString * const AKTelephoneCallDidDisconnectNotification
-  = @"AKTelephoneCallDidDisconnect";
-NSString * const AKTelephoneCallMediaDidBecomeActiveNotification
-  = @"AKTelephoneCallMediaDidBecomeActive";
-NSString * const AKTelephoneCallDidLocalHoldNotification
-  = @"AKTelephoneCallDidLocalHold";
-NSString * const AKTelephoneCallDidRemoteHoldNotification
-  = @"AKTelephoneCallDidRemoteHold";
+NSString * const AKSIPCallCallingNotification = @"AKSIPCallCalling";
+NSString * const AKSIPCallIncomingNotification = @"AKSIPCallIncoming";
+NSString * const AKSIPCallEarlyNotification = @"AKSIPCallEarly";
+NSString * const AKSIPCallConnectingNotification = @"AKSIPCallConnecting";
+NSString * const AKSIPCallDidConfirmNotification = @"AKSIPCallDidConfirm";
+NSString * const AKSIPCallDidDisconnectNotification = @"AKSIPCallDidDisconnect";
+NSString * const AKSIPCallMediaDidBecomeActiveNotification
+  = @"AKSIPCallMediaDidBecomeActive";
+NSString * const AKSIPCallDidLocalHoldNotification = @"AKSIPCallDidLocalHold";
+NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
 
-@implementation AKTelephoneCall
+@implementation AKSIPCall
 
 @dynamic delegate;
 @synthesize identifier = identifier_;
@@ -90,58 +85,58 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   
   if (aDelegate != nil) {
     // Subscribe to notifications
-    if ([aDelegate respondsToSelector:@selector(telephoneCallCalling:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallCalling:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallCalling:)
-                                 name:AKTelephoneCallCallingNotification
+                             selector:@selector(SIPCallCalling:)
+                                 name:AKSIPCallCallingNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallIncoming:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallIncoming:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallIncoming:)
-                                 name:AKTelephoneCallIncomingNotification
+                             selector:@selector(SIPCallIncoming:)
+                                 name:AKSIPCallIncomingNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallEarly:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallEarly:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallEarly:)
-                                 name:AKTelephoneCallEarlyNotification
+                             selector:@selector(SIPCallEarly:)
+                                 name:AKSIPCallEarlyNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallConnecting:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallConnecting:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallConnecting:)
-                                 name:AKTelephoneCallConnectingNotification
+                             selector:@selector(SIPCallConnecting:)
+                                 name:AKSIPCallConnectingNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallDidConfirm:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidConfirm:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallDidConfirm:)
-                                 name:AKTelephoneCallDidConfirmNotification
+                             selector:@selector(SIPCallDidConfirm:)
+                                 name:AKSIPCallDidConfirmNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallDidDisconnect:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidDisconnect:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallDidDisconnect:)
-                                 name:AKTelephoneCallDidDisconnectNotification
+                             selector:@selector(SIPCallDidDisconnect:)
+                                 name:AKSIPCallDidDisconnectNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallMediaDidBecomeActive:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallMediaDidBecomeActive:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallMediaDidBecomeActive:)
-                                 name:AKTelephoneCallMediaDidBecomeActiveNotification
+                             selector:@selector(SIPCallMediaDidBecomeActive:)
+                                 name:AKSIPCallMediaDidBecomeActiveNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallDidLocalHold:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidLocalHold:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallDidLocalHold:)
-                                 name:AKTelephoneCallDidLocalHoldNotification
+                             selector:@selector(SIPCallDidLocalHold:)
+                                 name:AKSIPCallDidLocalHoldNotification
                                object:self];
     
-    if ([aDelegate respondsToSelector:@selector(telephoneCallDidRemoteHold:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidRemoteHold:)])
       [notificationCenter addObserver:aDelegate
-                             selector:@selector(telephoneCallDidRemoteHold:)
-                                 name:AKTelephoneCallDidRemoteHoldNotification
+                             selector:@selector(SIPCallDidRemoteHold:)
+                                 name:AKSIPCallDidRemoteHoldNotification
                                object:self];
   }
   
@@ -149,21 +144,21 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (BOOL)isActive {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return NO;
   
   return (pjsua_call_is_active([self identifier])) ? YES : NO;
 }
 
 - (BOOL)hasMedia {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return NO;
   
   return (pjsua_call_has_media([self identifier])) ? YES : NO;
 }
 
 - (BOOL)hasActiveMedia {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return NO;
   
   pjsua_call_info callInfo;
@@ -173,7 +168,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (BOOL)isOnLocalHold {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return NO;
   
   pjsua_call_info callInfo;
@@ -183,7 +178,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (BOOL)isOnRemoteHold {
-  if ([self identifier] == kAKTelephoneInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
     return NO;
   
   pjsua_call_info callInfo;
@@ -195,8 +190,8 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 #pragma mark -
 
-- (id)initWithTelephoneAccount:(AKTelephoneAccount *)anAccount
-                    identifier:(NSInteger)anIdentifier {
+- (id)initWithSIPAccount:(AKSIPAccount *)anAccount
+              identifier:(NSInteger)anIdentifier {
   self = [super init];
   if (self == nil)
     return nil;
@@ -211,7 +206,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
   [self setLocalURI:[AKSIPURI SIPURIWithString:
                      [NSString stringWithPJString:callInfo.local_info]]];
   
-  [self setState:kAKTelephoneCallNullState];
+  [self setState:kAKSIPCallNullState];
   
   [self setIncoming:NO];
   
@@ -219,12 +214,12 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (id)init {
-  return [self initWithTelephoneAccount:nil
-                             identifier:kAKTelephoneInvalidIdentifier];
+  return [self initWithSIPAccount:nil
+                       identifier:kAKSIPUserAgentInvalidIdentifier];
 }
 
 - (void)dealloc {
-  if ([[AKTelephone sharedTelephone] userAgentStarted])
+  if ([[AKSIPUserAgent sharedUserAgent] isStarted])
     [self hangUp];
   
   [self setDelegate:nil];
@@ -250,8 +245,8 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (void)hangUp {
-  if (([self identifier] == kAKTelephoneInvalidIdentifier) ||
-      ([self state] == kAKTelephoneCallDisconnectedState))
+  if (([self identifier] == kAKSIPUserAgentInvalidIdentifier) ||
+      ([self state] == kAKSIPCallDisconnectedState))
     return;
   
   pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
@@ -275,34 +270,34 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (void)ringbackStart {
-  AKTelephone *telephone = [AKTelephone sharedTelephone];
+  AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
   
   // Use dot syntax for properties to prevent square bracket clutter.
-  if (telephone.callData[self.identifier].ringbackOn)
+  if (userAgent.callData[self.identifier].ringbackOn)
     return;
   
-  telephone.callData[self.identifier].ringbackOn = PJ_TRUE;
+  userAgent.callData[self.identifier].ringbackOn = PJ_TRUE;
   
-  [telephone setRingbackCount:[telephone ringbackCount] + 1];
-  if ([telephone ringbackCount] == 1 &&
-      [telephone ringbackSlot] != kAKTelephoneInvalidIdentifier)
-    pjsua_conf_connect([telephone ringbackSlot], 0);
+  [userAgent setRingbackCount:[userAgent ringbackCount] + 1];
+  if ([userAgent ringbackCount] == 1 &&
+      [userAgent ringbackSlot] != kAKSIPUserAgentInvalidIdentifier)
+    pjsua_conf_connect([userAgent ringbackSlot], 0);
 }
 
 - (void)ringbackStop {
-  AKTelephone *telephone = [AKTelephone sharedTelephone];
+  AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
   
   // Use dot syntax for properties to prevent square bracket clutter.
-  if (telephone.callData[self.identifier].ringbackOn) {
-    telephone.callData[self.identifier].ringbackOn = PJ_FALSE;
+  if (userAgent.callData[self.identifier].ringbackOn) {
+    userAgent.callData[self.identifier].ringbackOn = PJ_FALSE;
     
-    pj_assert([telephone ringbackCount] > 0);
+    pj_assert([userAgent ringbackCount] > 0);
     
-    [telephone setRingbackCount:[telephone ringbackCount] - 1];
-    if ([telephone ringbackCount] == 0 &&
-        [telephone ringbackSlot] != kAKTelephoneInvalidIdentifier) {
-      pjsua_conf_disconnect([telephone ringbackSlot], 0);
-      pjmedia_tonegen_rewind([telephone ringbackPort]);
+    [userAgent setRingbackCount:[userAgent ringbackCount] - 1];
+    if ([userAgent ringbackCount] == 0 &&
+        [userAgent ringbackSlot] != kAKSIPUserAgentInvalidIdentifier) {
+      pjsua_conf_disconnect([userAgent ringbackSlot], 0);
+      pjmedia_tonegen_rewind([userAgent ringbackPort]);
     }
   }
 }
@@ -336,7 +331,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (void)muteMicrophone {
   if ([self isMicrophoneMuted] ||
-      [self state] != kAKTelephoneCallConfirmedState)
+      [self state] != kAKSIPCallConfirmedState)
     return;
   
   pjsua_call_info callInfo;
@@ -351,7 +346,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 - (void)unmuteMicrophone {
   if (![self isMicrophoneMuted] ||
-      [self state] != kAKTelephoneCallConfirmedState)
+      [self state] != kAKSIPCallConfirmedState)
     return;
   
   pjsua_call_info callInfo;
@@ -372,12 +367,12 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 }
 
 - (void)hold {
-  if ([self state] == kAKTelephoneCallConfirmedState && ![self isOnRemoteHold])
+  if ([self state] == kAKSIPCallConfirmedState && ![self isOnRemoteHold])
     pjsua_call_set_hold([self identifier], NULL);
 }
 
 - (void)unhold {
-  if ([self state] == kAKTelephoneCallConfirmedState)
+  if ([self state] == kAKSIPCallConfirmedState)
     pjsua_call_reinvite([self identifier], PJ_TRUE, NULL);
 }
 
@@ -396,7 +391,7 @@ NSString * const AKTelephoneCallDidRemoteHoldNotification
 
 // When incoming call is received, create call object, set its info,
 // attach to the account, add to the array, send notification
-void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
+void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
                             pjsua_call_id callIdentifier,
                             pjsip_rx_data *messageData) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -406,13 +401,13 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
   
   PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
   
-  AKTelephoneAccount *theAccount = [[AKTelephone sharedTelephone]
-                                    accountByIdentifier:accountIdentifier];
+  AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent]
+                              accountByIdentifier:accountIdentifier];
   
-  // AKTelephoneCall object is created here when the call is incoming
-  AKTelephoneCall *theCall
-    = [[[AKTelephoneCall alloc] initWithTelephoneAccount:theAccount
-                                             identifier:callIdentifier]
+  // AKSIPCall object is created here when the call is incoming.
+  AKSIPCall *theCall
+    = [[[AKSIPCall alloc] initWithSIPAccount:theAccount
+                                  identifier:callIdentifier]
        autorelease];
   
   [theCall setState:callInfo.state];
@@ -424,15 +419,15 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
   // Keep the new call in the account's calls array
   [[theAccount calls] addObject:theCall];
   
-  if ([[theAccount delegate] respondsToSelector:@selector(telephoneAccountDidReceiveCall:)]) {
+  if ([[theAccount delegate] respondsToSelector:@selector(SIPAccountDidReceiveCall:)]) {
     [[theAccount delegate]
-     performSelectorOnMainThread:@selector(telephoneAccountDidReceiveCall:)
+     performSelectorOnMainThread:@selector(SIPAccountDidReceiveCall:)
                       withObject:theCall
                    waitUntilDone:NO];
   }
   
   NSNotification *notification
-    = [NSNotification notificationWithName:AKTelephoneCallIncomingNotification
+    = [NSNotification notificationWithName:AKSIPCallIncomingNotification
                                     object:theCall];
   
   [[NSNotificationCenter defaultCenter]
@@ -444,7 +439,7 @@ void AKIncomingCallReceived(pjsua_acc_id accountIdentifier,
 }
 
 // Track changes in calls state. Send notifications
-void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
+void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -453,8 +448,8 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
   pjsua_call_info callInfo;
   pjsua_call_get_info(callIdentifier, &callInfo);
   
-  AKTelephoneCall *theCall = [[AKTelephone sharedTelephone]
-                              telephoneCallByIdentifier:callIdentifier];
+  AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent]
+                        SIPCallByIdentifier:callIdentifier];
   
   [theCall setState:callInfo.state];
   [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
@@ -474,7 +469,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
                callInfo.last_status_text.ptr));
     
     notification
-      = [NSNotification notificationWithName:AKTelephoneCallDidDisconnectNotification
+      = [NSNotification notificationWithName:AKSIPCallDidDisconnectNotification
                                       object:theCall];
     
     [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
@@ -517,7 +512,7 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
            nil];
       
       notification
-        = [NSNotification notificationWithName:AKTelephoneCallEarlyNotification
+        = [NSNotification notificationWithName:AKSIPCallEarlyNotification
                                         object:theCall
                                       userInfo:userInfo];
       
@@ -533,13 +528,13 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
       NSString *notificationName = nil;
       switch (callInfo.state) {
           case PJSIP_INV_STATE_CALLING:
-            notificationName = AKTelephoneCallCallingNotification;
+            notificationName = AKSIPCallCallingNotification;
             break;
           case PJSIP_INV_STATE_CONNECTING:
-            notificationName = AKTelephoneCallConnectingNotification;
+            notificationName = AKSIPCallConnectingNotification;
             break;
           case PJSIP_INV_STATE_CONFIRMED:
-            notificationName = AKTelephoneCallDidConfirmNotification;
+            notificationName = AKSIPCallDidConfirmNotification;
             break;
           default:
             break;
@@ -559,14 +554,14 @@ void AKCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
 }
 
 // Track and log media changes
-void AKCallMediaStateChanged(pjsua_call_id callIdentifier) {
+void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   pjsua_call_info callInfo;
   pjsua_call_get_info(callIdentifier, &callInfo);
   
-  AKTelephoneCall *theCall = [[AKTelephone sharedTelephone]
-                              telephoneCallByIdentifier:callIdentifier];
+  AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent]
+                        SIPCallByIdentifier:callIdentifier];
   [theCall ringbackStop];
   
   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -580,7 +575,7 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier) {
     PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
     
     notification
-      = [NSNotification notificationWithName:AKTelephoneCallMediaDidBecomeActiveNotification
+      = [NSNotification notificationWithName:AKSIPCallMediaDidBecomeActiveNotification
                                       object:theCall];
     
     [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
@@ -591,7 +586,7 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier) {
     PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local",
                callIdentifier));
     notification
-      = [NSNotification notificationWithName:AKTelephoneCallDidLocalHoldNotification
+      = [NSNotification notificationWithName:AKSIPCallDidLocalHoldNotification
                                       object:theCall];
     
     [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
@@ -602,7 +597,7 @@ void AKCallMediaStateChanged(pjsua_call_id callIdentifier) {
     PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote",
                callIdentifier));
     notification
-      = [NSNotification notificationWithName:AKTelephoneCallDidRemoteHoldNotification
+      = [NSNotification notificationWithName:AKSIPCallDidRemoteHoldNotification
                                       object:theCall];
     
     [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
