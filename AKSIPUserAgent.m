@@ -93,36 +93,32 @@ enum {
 
 @implementation AKSIPUserAgent
 
-@dynamic delegate;
+@synthesize delegate = delegate_;
 @synthesize accounts = accounts_;
 @synthesize started;
 @synthesize state = state_;
 @synthesize detectedNATType = detectedNATType_;
 @synthesize pjsuaLock = pjsuaLock_;
-@dynamic activeCallsCount;
-@dynamic callData;
+@synthesize activeCallsCount;
+@synthesize callData;
 @synthesize pjPool = pjPool_;
 @synthesize ringbackSlot = ringbackSlot_;
 @synthesize ringbackCount = ringbackCount_;
 @synthesize ringbackPort = ringbackPort_;
 
-@dynamic nameservers;
+@synthesize nameservers = nameservers_;
 @synthesize outboundProxyHost = outboundProxyHost_;
-@dynamic outboundProxyPort;
+@synthesize outboundProxyPort = outboundProxyPort_;
 @synthesize STUNServerHost = STUNServerHost_;
-@dynamic STUNServerPort;
+@synthesize STUNServerPort = STUNServerPort_;
 @synthesize userAgentString = userAgentString_;
-@dynamic logFileName;
+@synthesize logFileName = logFileName_;
 @synthesize logLevel = logLevel_;
 @synthesize consoleLogLevel = consoleLogLevel_;
 @synthesize detectsVoiceActivity = detectsVoiceActivity_;
 @synthesize usesICE = usesICE_;
-@dynamic transportPort;
+@synthesize transportPort = transportPort_;
 @synthesize transportPublicHost = transportPublicHost_;
-
-- (id <AKSIPUserAgentDelegate>)delegate {
-  return delegate_;
-}
 
 - (void)setDelegate:(id <AKSIPUserAgentDelegate>)aDelegate {
   if (delegate_ == aDelegate)
@@ -168,10 +164,6 @@ enum {
   return callData_;
 }
 
-- (NSArray *)nameservers {
-  return [[nameservers_ copy] autorelease];
-}
-
 - (void)setNameservers:(NSArray *)newNameservers {
   if (nameservers_ != newNameservers) {
     [nameservers_ release];
@@ -185,10 +177,6 @@ enum {
   }
 }
 
-- (NSUInteger)outboundProxyPort {
-  return outboundProxyPort_;
-}
-
 - (void)setOutboundProxyPort:(NSUInteger)port {
   if (port > 0 && port < 65535)
     outboundProxyPort_ = port;
@@ -196,19 +184,11 @@ enum {
     outboundProxyPort_ = kAKSIPUserAgentDefaultOutboundProxyPort;
 }
 
-- (NSUInteger)STUNServerPort {
-  return STUNServerPort_;
-}
-
 - (void)setSTUNServerPort:(NSUInteger)port {
   if (port > 0 && port < 65535)
     STUNServerPort_ = port;
   else
     STUNServerPort_ = kAKSIPUserAgentDefaultSTUNServerPort;
-}
-
-- (NSString *)logFileName {
-  return [[logFileName_ copy] autorelease];
 }
 
 - (void)setLogFileName:(NSString *)pathToFile {
@@ -221,10 +201,6 @@ enum {
       logFileName_ = kAKSIPUserAgentDefaultLogFileName;
     }
   }
-}
-
-- (NSUInteger)transportPort {
-  return transportPort_;
 }
 
 - (void)setTransportPort:(NSUInteger)port {

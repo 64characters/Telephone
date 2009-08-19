@@ -47,7 +47,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 @implementation AKSIPAccount
 
-@dynamic delegate;
+@synthesize delegate = delegate_;
 @synthesize registrationURI = registrationURI_;
 @synthesize fullName = fullName_;
 @synthesize SIPAddress = SIPAddress_;
@@ -55,8 +55,8 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 @synthesize realm = realm_;
 @synthesize username = username_;
 @synthesize proxyHost = proxyHost_;
-@dynamic proxyPort;
-@dynamic reregistrationTime;
+@synthesize proxyPort = proxyPort_;
+@synthesize reregistrationTime = reregistrationTime_;
 @synthesize identifier = identifier_;
 @dynamic registered;
 @dynamic registrationStatus;
@@ -65,10 +65,6 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 @dynamic online;
 @dynamic onlineStatusText;
 @synthesize calls = calls_;
-
-- (NSObject <AKSIPAccountDelegate> *)delegate {
-  return delegate_;
-}
 
 - (void)setDelegate:(NSObject <AKSIPAccountDelegate> *)aDelegate {
   if (delegate_ == aDelegate)
@@ -96,19 +92,11 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
   delegate_ = aDelegate;
 }
 
-- (NSUInteger)proxyPort {
-  return proxyPort_;
-}
-
 - (void)setProxyPort:(NSUInteger)port {
   if (port > 0 && port < 65535)
     proxyPort_ = port;
   else
     proxyPort_ = kAKSIPAccountDefaultSIPProxyPort;
-}
-
-- (NSUInteger)reregistrationTime {
-  return reregistrationTime_;
 }
 
 - (void)setReregistrationTime:(NSUInteger)seconds {

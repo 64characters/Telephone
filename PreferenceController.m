@@ -107,7 +107,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 
 @implementation PreferenceController
 
-@dynamic delegate;
+@synthesize delegate = delegate_;
 
 @synthesize toolbar = toolbar_;
 @synthesize generalToolbarItem = generalToolbarItem_;
@@ -160,10 +160,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 @synthesize setupPasswordInvalidDataView = setupPasswordInvalidDataView_;
 @synthesize addAccountWindowDefaultButton = addAccountWindowDefaultButton_;
 @synthesize addAccountWindowOtherButton = addAccountWindowOtherButton_;
-
-- (id)delegate {
-  return delegate_;
-}
 
 - (void)setDelegate:(id)aDelegate {
   if (delegate_ == aDelegate)

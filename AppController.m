@@ -108,7 +108,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 @synthesize soundOutputDeviceIndex = soundOutputDeviceIndex_;
 @synthesize ringtoneOutputDeviceIndex = ringtoneOutputDeviceIndex_;
 @synthesize shouldSetUserAgentSoundIO = shouldSetUserAgentSoundIO_;
-@dynamic ringtone;
+@synthesize ringtone = ringtone_;
 @synthesize ringtoneTimer = ringtoneTimer_;
 @synthesize shouldRegisterAllAccounts = shouldRegisterAllAccounts_;
 @synthesize shouldRestartUserAgentASAP = shouldRestartUserAgentASAP_;
@@ -128,10 +128,6 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 - (NSArray *)enabledAccountControllers {
   return [[self accountControllers] filteredArrayUsingPredicate:
           [NSPredicate predicateWithFormat:@"enabled == YES"]];
-}
-
-- (NSSound *)ringtone {
-  return [[ringtone_ retain] autorelease];
 }
 
 - (void)setRingtone:(NSSound *)aRingtone {

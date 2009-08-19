@@ -63,8 +63,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 @implementation CallController
 
 @synthesize identifier = identifier_;
-@dynamic call;
-@dynamic accountController;
+@synthesize call = call_;
+@synthesize accountController = accountController_;
 @synthesize displayedName = displayedName_;
 @synthesize status = status_;
 @synthesize nameFromAddressBook = nameFromAddressBook_;
@@ -95,10 +95,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 @synthesize endedCallStatusField = endedCallStatusField_;
 @synthesize callProgressIndicator = callProgressIndicator_;
 
-- (AKSIPCall *)call {
-  return [[call_ retain] autorelease];
-}
-
 - (void)setCall:(AKSIPCall *)aCall {
   if (call_ != aCall) {
     if ([[call_ delegate] isEqual:self])
@@ -109,10 +105,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     
     [call_ setDelegate:self];
   }
-}
-
-- (AccountController *)accountController {
-  return accountController_;
 }
 
 - (void)setAccountController:(AccountController *)anAccountController {

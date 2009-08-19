@@ -53,7 +53,7 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
 
 @implementation AKSIPCall
 
-@dynamic delegate;
+@synthesize delegate = delegate_;
 @synthesize identifier = identifier_;
 @synthesize localURI = localURI_;
 @synthesize remoteURI = remoteURI_;
@@ -69,10 +69,6 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
 @dynamic onLocalHold;
 @dynamic onRemoteHold;
 @synthesize account = account_;
-
-- (id)delegate {
-  return delegate_;
-}
 
 - (void)setDelegate:(id)aDelegate {
   if (delegate_ == aDelegate)
