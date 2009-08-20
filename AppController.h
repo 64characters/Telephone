@@ -34,6 +34,17 @@
 #import "AKSIPUserAgent.h"
 
 
+// Audio device dictionary keys.
+extern NSString * const kAudioDeviceIdentifier;
+extern NSString * const kAudioDeviceUID;
+extern NSString * const kAudioDeviceName;
+extern NSString * const kAudioDeviceInputsCount;
+extern NSString * const kAudioDeviceOutputsCount;
+
+// Growl notification names.
+extern NSString * const kGrowlNotificationIncomingCall;
+extern NSString * const kGrowlNotificationCallEnded;
+
 @class AKSIPUserAgent, PreferenceController, CallController;
 
 @interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate> {
@@ -126,15 +137,3 @@
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode;
 
 @end
-
-
-// Audio device dictionary keys.
-extern NSString * const kAudioDeviceIdentifier;
-extern NSString * const kAudioDeviceUID;
-extern NSString * const kAudioDeviceName;
-extern NSString * const kAudioDeviceInputsCount;
-extern NSString * const kAudioDeviceOutputsCount;
-
-// Growl notification names.
-extern NSString * const kGrowlNotificationIncomingCall;
-extern NSString * const kGrowlNotificationCallEnded;

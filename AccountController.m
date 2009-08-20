@@ -71,17 +71,12 @@ static const CGFloat kAccountStatePopUpAvailableGermanWidth = 74.0;
 static const CGFloat kAccountStatePopUpUnavailableGermanWidth = 101.0;
 static const CGFloat kAccountStatePopUpConnectingGermanWidth = 88.0;
 
-
 // Call destination keys.
-NSString * const kURI = @"URI";
-NSString * const kPhoneLabel = @"PhoneLabel";
+static NSString * const kURI = @"URI";
+static NSString * const kPhoneLabel = @"PhoneLabel";
 
-
-// Address Book label for SIP address in the email field.
 NSString * const kEmailSIPLabel = @"sip";
 
-
-// Notifications.
 NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   = @"AKAccountControllerDidChangeUsernameAndPassword";
 

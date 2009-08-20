@@ -31,6 +31,10 @@
 #import <AddressBook/AddressBook.h>
 
 
+// Object: @"AddressBook".
+// Keys: @"AKSIPAddress", @"AKFullName".
+extern NSString * const AKAddressBookDidDialSIPAddressNotification;
+
 @interface AKAddressBookSIPAddressPlugIn : NSObject {
   NSString *lastSIPAddress_;
   NSString *lastFullName_;
@@ -53,7 +57,3 @@
                          identifier:(NSString *)identifier;
 
 @end
-
-// Object: @"AddressBook".
-// Keys: @"AKSIPAddress", @"AKFullName".
-extern NSString * const AKAddressBookDidDialSIPAddressNotification;

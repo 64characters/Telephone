@@ -50,17 +50,6 @@
 #import "PreferenceController.h"
 
 
-// AudioHardware callback to track adding/removing audio devices
-static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
-                                    void *clientData);
-// Get audio devices data.
-static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
-
-// Dynamic store callback for DNS changes.
-static void NameserversChanged(SCDynamicStoreRef store,
-                               CFArrayRef changedKeys,
-                               void *info);
-
 // Audio device dictionary keys.
 NSString * const kAudioDeviceIdentifier = @"AudioDeviceIdentifier";
 NSString * const kAudioDeviceUID = @"AudioDeviceUID";
@@ -75,6 +64,16 @@ static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
 
 static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
+// AudioHardware callback to track adding/removing audio devices
+static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
+                                    void *clientData);
+// Get audio devices data.
+static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
+
+// Dynamic store callback for DNS changes.
+static void NameserversChanged(SCDynamicStoreRef store,
+                               CFArrayRef changedKeys,
+                               void *info);
 
 @interface AppController()
 

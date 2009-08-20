@@ -36,8 +36,21 @@ extern NSString * const kAKSIPAccountDefaultSIPProxyHost;
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
-@class AKSIPCall, AKSIPURI;
-@protocol AKSIPAccountDelegate;
+// Notifications.
+extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
+extern NSString * const AKSIPAccountWillRemoveNotification;
+
+// Callback from PJSUA
+void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
+
+@class AKSIPCall;
+
+@protocol AKSIPAccountDelegate
+@optional
+- (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall;
+@end
+
+@class AKSIPURI;
 
 @interface AKSIPAccount : NSObject {
  @private
@@ -93,20 +106,3 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 - (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI;
 
 @end
-
-
-// Callback from PJSUA
-void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
-
-
-@protocol AKSIPAccountDelegate
-
-@optional
-- (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall;
-
-@end
-
-
-// Notifications.
-extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
-extern NSString * const AKSIPAccountWillRemoveNotification;

@@ -58,6 +58,42 @@ enum {
 };
 typedef NSUInteger AKSIPCallState;
 
+// Notifications.
+
+// Calling. After INVITE is sent.
+extern NSString * const AKSIPCallCallingNotification;
+
+// Incoming. After INVITE is received.
+// Delegate is not subscribed to this notification.
+extern NSString * const AKSIPCallIncomingNotification;
+
+// Early. After response with To tag.
+// Keys: // @"AKSIPEventCode", @"AKSIPEventReason".
+extern NSString * const AKSIPCallEarlyNotification;
+
+// Connecting. After 2xx is sent/received.
+extern NSString * const AKSIPCallConnectingNotification;
+
+// Confirmed. After ACK is sent/received.
+extern NSString * const AKSIPCallDidConfirmNotification;
+
+// Disconnected. Session is terminated.
+extern NSString * const AKSIPCallDidDisconnectNotification;
+
+// Call media is active.
+extern NSString * const AKSIPCallMediaDidBecomeActiveNotification;
+
+// Call media is put on hold by local endpoint.
+extern NSString * const AKSIPCallDidLocalHoldNotification;
+
+// Call media is put on hold by remote endpoint.
+extern NSString * const AKSIPCallDidRemoteHoldNotification;
+
+// Callbacks from PJSUA.
+void AKSIPCallIncomingReceived(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
+void AKSIPCallStateChanged(pjsua_call_id, pjsip_event *);
+void AKSIPCallMediaStateChanged(pjsua_call_id);
+
 @class AKSIPAccount, AKSIPURI;
 
 @interface AKSIPCall : NSObject {
@@ -114,40 +150,3 @@ typedef NSUInteger AKSIPCallState;
 - (void)toggleHold;
 
 @end
-
-// Callbacks from PJSUA
-void AKSIPCallIncomingReceived(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
-void AKSIPCallStateChanged(pjsua_call_id, pjsip_event *);
-void AKSIPCallMediaStateChanged(pjsua_call_id);
-
-
-// Notifications.
-
-// Calling. After INVITE is sent.
-extern NSString * const AKSIPCallCallingNotification;
-
-// Incoming. After INVITE is received.
-// Delegate is not subscribed to this notification.
-extern NSString * const AKSIPCallIncomingNotification;
-
-// Early. After response with To tag.
-// Keys: // @"AKSIPEventCode", @"AKSIPEventReason".
-extern NSString * const AKSIPCallEarlyNotification;
-
-// Connecting. After 2xx is sent/received.
-extern NSString * const AKSIPCallConnectingNotification;
-
-// Confirmed. After ACK is sent/received.
-extern NSString * const AKSIPCallDidConfirmNotification;
-
-// Disconnected. Session is terminated.
-extern NSString * const AKSIPCallDidDisconnectNotification;
-
-// Call media is active.
-extern NSString * const AKSIPCallMediaDidBecomeActiveNotification;
-
-// Call media is put on hold by local endpoint.
-extern NSString * const AKSIPCallDidLocalHoldNotification;
-
-// Call media is put on hold by remote endpoint.
-extern NSString * const AKSIPCallDidRemoteHoldNotification;

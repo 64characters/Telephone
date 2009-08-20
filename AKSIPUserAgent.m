@@ -39,17 +39,18 @@
 #define THIS_FILE "AKSIPUserAgent.m"
 
 
+enum {
+  kAKRingbackFrequency1  = 440,
+  kAKRingbackFrequency2  = 480,
+  kAKRingbackOnDuration  = 2000,
+  kAKRingbackOffDuration = 4000,
+  kAKRingbackCount       = 1,
+  kAKRingbackInterval    = 4000
+};
+
 const NSInteger kAKSIPUserAgentInvalidIdentifier = PJSUA_INVALID_ID;
 const NSInteger kAKSIPUserAgentNameserversMax = 4;
 
-NSString * const AKSIPUserAgentDidFinishStartingNotification
-  = @"AKSIPUserAgentDidFinishStarting";
-NSString * const AKSIPUserAgentDidFinishStoppingNotification
-  = @"AKSIPUserAgentDidFinishStopping";
-NSString * const AKSIPUserAgentDidDetectNATNotification
-  = @"AKSIPUserAgentDidDetectNAT";
-
-// Generic config defaults.
 NSString * const kAKSIPUserAgentDefaultOutboundProxyHost = @"";
 const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort = 5060;
 NSString * const kAKSIPUserAgentDefaultSTUNServerHost = @"";
@@ -62,16 +63,14 @@ const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
 const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;  // 0 for any available port.
 NSString * const kAKSIPUserAgentDefaultTransportPublicHost = nil;
 
-static AKSIPUserAgent *sharedUserAgent = nil;
+NSString * const AKSIPUserAgentDidFinishStartingNotification
+  = @"AKSIPUserAgentDidFinishStarting";
+NSString * const AKSIPUserAgentDidFinishStoppingNotification
+  = @"AKSIPUserAgentDidFinishStopping";
+NSString * const AKSIPUserAgentDidDetectNATNotification
+  = @"AKSIPUserAgentDidDetectNAT";
 
-enum {
-  kAKRingbackFrequency1  = 440,
-  kAKRingbackFrequency2  = 480,
-  kAKRingbackOnDuration  = 2000,
-  kAKRingbackOffDuration = 4000,
-  kAKRingbackCount       = 1,
-  kAKRingbackInterval    = 4000
-};
+static AKSIPUserAgent *sharedUserAgent = nil;
 
 
 @interface AKSIPUserAgent ()

@@ -33,6 +33,10 @@
 #import "AKActiveCallView.h"
 
 
+// Notifications.
+// accountController will be subscribed to this notification in its setter.
+extern NSString * const AKCallWindowWillCloseNotification;
+
 @class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI;
 
 @interface CallController : NSWindowController <AKActiveCallViewDelegate> {
@@ -123,8 +127,3 @@
 - (void)intermediateStatusTimerTick:(NSTimer *)theTimer;
 
 @end
-
-
-// Notifications.
-// accountController will be subscribed to this notification in its setter.
-extern NSString * const AKCallWindowWillCloseNotification;

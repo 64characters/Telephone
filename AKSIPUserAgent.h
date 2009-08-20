@@ -32,27 +32,12 @@
 #import <pjsua-lib/pjsua.h>
 
 
-extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
-extern const NSInteger kAKSIPUserAgentNameserversMax;
-
-// Generic config defaults.
-extern NSString * const kAKSIPUserAgentDefaultOutboundProxyHost;
-extern const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort;
-extern NSString * const kAKSIPUserAgentDefaultSTUNServerHost;
-extern const NSInteger kAKSIPUserAgentDefaultSTUNServerPort;
-extern NSString * const kAKSIPUserAgentDefaultLogFileName;
-extern const NSInteger kAKSIPUserAgentDefaultLogLevel;
-extern const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel;
-extern const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity;
-extern const BOOL kAKSIPUserAgentDefaultUsesICE;
-extern const NSInteger kAKSIPUserAgentDefaultTransportPort;
-extern NSString * const kAKSIPUserAgentDefaultTransportPublicHost;
-
-typedef struct _AKSIPUserAgentCallData {
-  pj_timer_entry timer;
-  pj_bool_t ringbackOn;
-  pj_bool_t ringbackOff;
-} AKSIPUserAgentCallData;
+enum {
+  kAKSIPUserAgentStopped,
+  kAKSIPUserAgentStarting,
+  kAKSIPUserAgentStarted
+};
+typedef NSUInteger AKSIPUserAgentState;
 
 enum {
   kAKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
@@ -67,15 +52,44 @@ enum {
 };
 typedef NSUInteger AKNATType;
 
-enum {
-  kAKSIPUserAgentStopped,
-  kAKSIPUserAgentStarting,
-  kAKSIPUserAgentStarted
-};
-typedef NSUInteger AKSIPUserAgentState;
+typedef struct _AKSIPUserAgentCallData {
+  pj_timer_entry timer;
+  pj_bool_t ringbackOn;
+  pj_bool_t ringbackOff;
+} AKSIPUserAgentCallData;
 
-@class AKSIPAccount, AKSIPCall;
-@protocol AKSIPUserAgentDelegate;
+extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
+extern const NSInteger kAKSIPUserAgentNameserversMax;
+
+// User agent defaults.
+extern NSString * const kAKSIPUserAgentDefaultOutboundProxyHost;
+extern const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort;
+extern NSString * const kAKSIPUserAgentDefaultSTUNServerHost;
+extern const NSInteger kAKSIPUserAgentDefaultSTUNServerPort;
+extern NSString * const kAKSIPUserAgentDefaultLogFileName;
+extern const NSInteger kAKSIPUserAgentDefaultLogLevel;
+extern const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel;
+extern const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity;
+extern const BOOL kAKSIPUserAgentDefaultUsesICE;
+extern const NSInteger kAKSIPUserAgentDefaultTransportPort;
+extern NSString * const kAKSIPUserAgentDefaultTransportPublicHost;
+
+// Notifications.
+extern NSString * const AKSIPUserAgentDidFinishStartingNotification;
+extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
+extern NSString * const AKSIPUserAgentDidDetectNATNotification;
+
+// Callback from PJSUA.
+void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
+
+@class AKSIPAccount;
+
+@protocol AKSIPUserAgentDelegate <NSObject>
+@optional
+- (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount;
+@end
+
+@class AKSIPCall;
 
 @interface AKSIPUserAgent : NSObject {
  @private
@@ -167,21 +181,3 @@ typedef NSUInteger AKSIPUserAgentState;
 - (NSString *)stringForSIPResponseCode:(NSInteger)responseCode;
 
 @end
-
-
-// Callback from PJSUA
-void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
-
-
-@protocol AKSIPUserAgentDelegate <NSObject>
-
-@optional
-- (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount;
-
-@end
-
-
-// Notifications.
-extern NSString * const AKSIPUserAgentDidFinishStartingNotification;
-extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
-extern NSString * const AKSIPUserAgentDidDetectNATNotification;

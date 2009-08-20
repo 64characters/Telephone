@@ -36,15 +36,15 @@
 #import "AKNSString+Scanning.h"
 
 
-// SCNetworkReachability callback.
-static void AKReachabilityChanged(SCNetworkReachabilityRef target,
-                                  SCNetworkConnectionFlags flags,
-                                  void *info);
-
 NSString * const AKNetworkReachabilityDidBecomeReachableNotification
  = @"AKNetworkReachabilityDidBecomeReachable";
 NSString * const AKNetworkReachabilityDidBecomeUnreachableNotification
  = @"AKNetworkReachabilityDidBecomeUnreachable";
+
+// SCNetworkReachability callback.
+static void AKReachabilityChanged(SCNetworkReachabilityRef target,
+                                  SCNetworkConnectionFlags flags,
+                                  void *info);
 
 
 @interface AKNetworkReachability ()

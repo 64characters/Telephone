@@ -38,7 +38,7 @@
 #import "AppController.h"
 
 
-NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
+static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
 
 @interface PreferenceController ()
 

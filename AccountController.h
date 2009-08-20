@@ -33,6 +33,22 @@
 #import "AKSIPAccount.h"
 
 
+// Account states.
+enum {
+  kSIPAccountOffline     = 1,
+  kSIPAccountUnavailable = 2,
+  kSIPAccountAvailable   = 3
+};
+
+// Address Book label for SIP address in the email field.
+extern NSString * const kEmailSIPLabel;
+
+// Posted whenever an AccountController object changes account's username and
+// password.
+// The notification object is the AccountController object that changed
+// username and password.
+extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification;
+
 @class AKSIPAccount, AKNetworkReachability;
 
 @interface AccountController : NSWindowController <AKSIPAccountDelegate> {
@@ -133,23 +149,3 @@
 - (void)handleCatchedURL;
 
 @end
-
-
-// Account states.
-enum {
-  kSIPAccountOffline     = 1,
-  kSIPAccountUnavailable = 2,
-  kSIPAccountAvailable   = 3
-};
-
-// Address Book label for SIP address in the email field.
-extern NSString * const kEmailSIPLabel;
-
-
-// Notifications.
-
-// Posted whenever an AccountController object changes account's username and
-// password.
-// The notification object is the AccountController object that changed
-// username and password.
-extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification;

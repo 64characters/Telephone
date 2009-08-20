@@ -44,10 +44,7 @@
 
 
 @protocol AKActiveCallViewDelegate <NSObject>
-
 @optional
-
 - (void)activeCallView:(AKActiveCallView *)sender
         didReceiveText:(NSString *)aString;
-
 @end

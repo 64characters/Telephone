@@ -36,14 +36,14 @@
 #import "AKSIPCall.h"
 
 
+NSString * const kAKSIPAccountDefaultSIPProxyHost = @"";
+const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
+const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
+
 NSString * const AKSIPAccountRegistrationDidChangeNotification
   = @"AKSIPAccountRegistrationDidChange";
 NSString * const AKSIPAccountWillRemoveNotification
   = @"AKSIPAccountWillRemove";
-
-NSString * const kAKSIPAccountDefaultSIPProxyHost = @"";
-const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
-const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 @implementation AKSIPAccount
 

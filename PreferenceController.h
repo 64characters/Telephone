@@ -31,6 +31,14 @@
 #import <Cocoa/Cocoa.h>
 
 
+// Preferences window toolbar items tags.
+enum {
+  kGeneralPreferencesTag  = 0,
+  kAccountsPreferencesTag = 1,
+  kSoundPreferencesTag    = 2,
+  kNetworkPreferencesTag  = 3
+};
+
 // Keys for defaults
 
 extern NSString * const kAccounts;
@@ -76,6 +84,21 @@ extern NSString * const kProxyPort;
 
 extern NSString * const kSourceIndex;
 extern NSString * const kDestinationIndex;
+
+// Notifications.
+
+extern NSString * const AKPreferenceControllerDidAddAccountNotification;
+
+// Key: AKAccountIndex.
+extern NSString * const AKPreferenceControllerDidRemoveAccountNotification;
+
+// Key: AKAccountIndex.
+extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification;
+
+// Keys: AKSourceIndex, AKDestinationIndex.
+extern NSString * const AKPreferenceControllerDidSwapAccountsNotification;
+
+extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification;
 
 @interface PreferenceController : NSWindowController {
  @private
@@ -225,28 +248,3 @@ extern NSString * const kDestinationIndex;
 - (IBAction)changeRingtone:(id)sender;
 
 @end
-
-
-// Preferences window toolbar items tags.
-enum {
-  kGeneralPreferencesTag  = 0,
-  kAccountsPreferencesTag = 1,
-  kSoundPreferencesTag    = 2,
-  kNetworkPreferencesTag  = 3
-};
-
-
-// Notifications.
-
-extern NSString * const AKPreferenceControllerDidAddAccountNotification;
-
-// Key: AKAccountIndex.
-extern NSString * const AKPreferenceControllerDidRemoveAccountNotification;
-
-// Key: AKAccountIndex.
-extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification;
-
-// Keys: AKSourceIndex, AKDestinationIndex.
-extern NSString * const AKPreferenceControllerDidSwapAccountsNotification;
-
-extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification;

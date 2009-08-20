@@ -31,6 +31,10 @@
 #import <AddressBook/AddressBook.h>
 
 
+// Object: @"AddressBook".
+// Keys: @"AKPhoneNumber", @"AKFullName".
+extern NSString * const AKAddressBookDidDialPhoneNumberNotification;
+
 @interface AKAddressBookPhonePlugIn : NSObject {
   NSString *lastPhoneNumber_;
   NSString *lastFullName_;
@@ -53,7 +57,3 @@
                          identifier:(NSString *)identifier;
 
 @end
-
-// Object: @"AddressBook".
-// Keys: @"AKPhoneNumber", @"AKFullName".
-extern NSString * const AKAddressBookDidDialPhoneNumberNotification;
