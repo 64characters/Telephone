@@ -38,17 +38,6 @@
 #import "AppController.h"
 
 
-static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
-
-@interface PreferenceController ()
-
-- (BOOL)checkForNetworkSettingsChanges:(id)sender;
-- (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert
-                              returnCode:(int)returnCode
-                             contextInfo:(void *)contextInfo;
-
-@end
-
 NSString * const kAccounts = @"Accounts";
 NSString * const kSTUNServerHost = @"STUNServerHost";
 NSString * const kSTUNServerPort = @"STUNServerPort";
@@ -104,6 +93,21 @@ NSString * const AKPreferenceControllerDidSwapAccountsNotification
   = @"AKPreferenceControllerDidSwapAccounts";
 NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   = @"AKPreferenceControllerDidChangeNetworkSettings";
+
+// Pasteboard type.
+static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
+
+@interface PreferenceController ()
+
+// Returns YES if network settings have been changed.
+- (BOOL)checkForNetworkSettingsChanges:(id)sender;
+
+// Method to be called when an alert about network changes is dismissed.
+- (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert
+                              returnCode:(int)returnCode
+                             contextInfo:(void *)contextInfo;
+
+@end
 
 @implementation PreferenceController
 
@@ -346,8 +350,9 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   // settings changes.
   if ([[[self window] contentView] isEqual:[self networkView]] &&
       [sender tag] != kNetworkPreferencesTag) {
-    if ([self checkForNetworkSettingsChanges:sender])
+    if ([self checkForNetworkSettingsChanges:sender]) {
       return;
+    }
   }
   
   NSView *view;
@@ -472,7 +477,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [defaults setObject:savedAccounts forKey:kAccounts];
   [defaults synchronize];
   
-  // Inform accounts table about update
   [[self accountsTable] reloadData];
   
   BOOL success
@@ -484,7 +488,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [self closeSheet:sender];
   
   if (success) {
-    // Post notification with account just added
     [[NSNotificationCenter defaultCenter]
      postNotificationName:AKPreferenceControllerDidAddAccountNotification
                    object:self
@@ -801,7 +804,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     = [NSMutableDictionary dictionaryWithDictionary:
        [savedAccounts objectAtIndex:index]];
   
-  BOOL isChecked = ([[self accountEnabledCheckBox] state] == NSOnState) ? YES : NO;
+  BOOL isChecked
+    = ([[self accountEnabledCheckBox] state] == NSOnState) ? YES : NO;
   [accountDict setObject:[NSNumber numberWithBool:isChecked]
                   forKey:kAccountEnabled];
   
@@ -947,7 +951,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   
   [savedAccounts replaceObjectAtIndex:index withObject:accountDict];
   
-  // Save to defaults
   [defaults setObject:savedAccounts forKey:kAccounts];
   [defaults synchronize];
   
@@ -981,7 +984,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 }
 
 - (void)updateAudioDevices {
-  // Populate sound IO pop-up buttons
+  // Populate sound IO pop-up buttons.
   NSArray *audioDevices = [[NSApp delegate] audioDevices];
   NSMenu *soundInputMenu = [[[NSMenu alloc] init] autorelease];
   NSMenu *soundOutputMenu = [[[NSMenu alloc] init] autorelease];
@@ -1009,7 +1012,8 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [[self soundOutputPopUp] setMenu:soundOutputMenu];
   [[self ringtoneOutputPopUp] setMenu:ringtoneOutputMenu];
   
-  // Select saved sound devices
+  // Select saved sound devices.
+  
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   NSString *lastSoundInput = [defaults stringForKey:kSoundInput];
@@ -1082,7 +1086,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 }
 
 - (IBAction)changeRingtone:(id)sender {
-  // Stop currently playing ringtone.
   [[[NSApp delegate] ringtone] stop];
   
   NSString *soundName = [sender title];
@@ -1094,8 +1097,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
   [[[NSApp delegate] ringtone] play];
 }
 
-// Check if network settings were changed, show an alert sheet to save, cancel or don't save.
-// Returns YES if changes were made to the network settings; returns NO otherwise.
 - (BOOL)checkForNetworkSettingsChanges:(id)sender {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
@@ -1117,7 +1118,7 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
     // Explicitly select Network toolbar item.
     [[self toolbar] setSelectedItemIdentifier:[[self networkToolbarItem]
                                                itemIdentifier]];
-    // Show alert to the user.
+    
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert addButtonWithTitle:NSLocalizedString(@"Save", @"Save button.")];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
@@ -1145,7 +1146,6 @@ NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification
 - (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert
                               returnCode:(int)returnCode
                              contextInfo:(void *)contextInfo {
-  // Close the sheet.
   [[alert window] orderOut:nil];
   
   if (returnCode == NSAlertSecondButtonReturn)
@@ -1350,7 +1350,6 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
 #pragma mark -
 #pragma mark NSToolbar delegate
 
-// Supply selectable toolbar items
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar {
   return [NSArray arrayWithObjects:
           [[self generalToolbarItem] itemIdentifier],

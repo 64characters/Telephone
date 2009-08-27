@@ -66,7 +66,8 @@
     theString = NSLocalizedStringFromTable(@"sip", @"AddressBookLabels",
                                            @"SIP address.");
   } else {
-    CFStringRef localizedLabel = ABCopyLocalizedPropertyOrLabel((CFStringRef)label);
+    CFStringRef localizedLabel
+      = ABCopyLocalizedPropertyOrLabel((CFStringRef)label);
     theString = [(NSString *)localizedLabel autorelease];
   }
   

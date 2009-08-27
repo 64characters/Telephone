@@ -247,12 +247,14 @@
   
   if ([telephoneNumber length] > 0) {
     returnValue = YES;
-    if (anObject != NULL)
+    if (anObject != NULL) {
       *anObject = [[telephoneNumber copy] autorelease];
-  } else if (error != NULL)
+    }
+  } else if (error != NULL) {
     *error = [NSString stringWithFormat:
               @"Couldn't convert \"%@\" to telephone number",
               string];
+  }
   
   [telephoneNumber release];
   [phoneNumberCharacterSet release];
@@ -265,9 +267,9 @@
   BOOL converted = [self getObjectValue:&telephoneNumber
                               forString:string
                        errorDescription:&error];
-  if (converted)
+  if (converted) {
     return telephoneNumber;
-  else {
+  } else {
     NSLog(@"%@", error);
     return nil;
   }

@@ -50,12 +50,18 @@
 
 NSString * const AKCallWindowWillCloseNotification = @"AKCallWindowWillClose";
 
+// Window auto-close delay.
 static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
+
+// Redial button re-enable delay.
 static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @interface CallController ()
 
+// Method to be called when |close call window| timer fires.
 - (void)closeCallWindowTick:(NSTimer *)theTimer;
+
+// Method to be called when |enable redial button| timer fires.
 - (void)enableRedialButtonTick:(NSTimer *)theTimer;
 
 @end
@@ -450,7 +456,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 #pragma mark -
 #pragma mark NSWindow delegate methods
 
-// If call window is to be closed, hang up the call and send notification
 - (void)windowWillClose:(NSNotification *)notification {
   if ([self isCallActive]) {
     [self setCallActive:NO];
@@ -480,13 +485,11 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 #pragma mark NSResponder overrides
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-  // Replace progress indicator with hang-up button.
   [[self activeCallView] replaceSubview:[self callProgressIndicator]
                                    with:[self hangUpButton]];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-  // Replace hang-up button with progress indicator.
   [[self activeCallView] replaceSubview:[self hangUpButton]
                                    with:[self callProgressIndicator]];
 }
@@ -508,13 +511,15 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                       @"Outgoing call in progress.")];
   }
   
-  [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:[self activeCallView]
+                                       animate:YES];
 }
 
 - (void)SIPCallEarly:(NSNotification *)notification {
   [[NSApp delegate] pauseITunes];
   
-  NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
+  NSNumber *sipEventCode
+    = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
   
   if (![[self call] isIncoming]) {
     if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
@@ -526,7 +531,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
       [self setStatus:NSLocalizedString(@"ringing", @"Remote party ringing.")];
     }
     
-    [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
+    [[self window] ak_resizeAndSwapToContentView:[self activeCallView]
+                                         animate:YES];
   }
 }
 
@@ -546,7 +552,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   
   [self startCallTimer];
   
-  [[self window] ak_resizeAndSwapToContentView:[self activeCallView] animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:[self activeCallView]
+                                       animate:YES];
   if ([[self activeCallView] acceptsFirstResponder])
     [[self window] makeFirstResponder:[self activeCallView]];
 }
@@ -556,10 +563,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [self stopCallTimer];
   
   if ([[notification object] isIncoming]) {
-    // Stop ringing sound.
     [[NSApp delegate] stopRingtoneTimerIfNeeded];
-    
-    // Stop bouncing icon in the Dock.
     [[NSApp delegate] stopUserAttentionTimerIfNeeded];
   }
   
@@ -613,7 +617,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   // Don't forget to re-enable it below!
   [[self redialButton] setEnabled:NO];
   
-  [[self window] ak_resizeAndSwapToContentView:[self endedCallView] animate:YES];
+  [[self window] ak_resizeAndSwapToContentView:[self endedCallView]
+                                       animate:YES];
   
   [[self callProgressIndicator] stopAnimation:self];
   [[self hangUpButton] setEnabled:NO];
@@ -746,11 +751,12 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
   if ([menuItem action] == @selector(toggleMicrophoneMute:)) {
-    if ([[self call] isMicrophoneMuted])
+    if ([[self call] isMicrophoneMuted]) {
       [menuItem setTitle:NSLocalizedString(@"Unmute",
                                            @"Unmute. Call menu item.")];
-    else
+    } else {
       [menuItem setTitle:NSLocalizedString(@"Mute", @"Mute. Call menu item.")];
+    }
     
     if ([[self call] state] == kAKSIPCallConfirmedState)
       return YES;
@@ -759,15 +765,17 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     
   } else if ([menuItem action] == @selector(toggleCallHold:)) {
     if ([[self call] state] == kAKSIPCallConfirmedState &&
-        [[self call] isOnLocalHold])
+        [[self call] isOnLocalHold]) {
       [menuItem setTitle:NSLocalizedString(@"Resume",
                                            @"Resume. Call menu item.")];
-    else
+    } else {
       [menuItem setTitle:NSLocalizedString(@"Hold", @"Hold. Call menu item.")];
+    }
     
     if ([[self call] state] == kAKSIPCallConfirmedState &&
-        ![[self call] isOnRemoteHold])
+        ![[self call] isOnRemoteHold]) {
       return YES;
+    }
     
     return NO;
     

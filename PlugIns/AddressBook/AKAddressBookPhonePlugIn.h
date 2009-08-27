@@ -35,14 +35,23 @@
 // Keys: @"AKPhoneNumber", @"AKFullName".
 extern NSString * const AKAddressBookDidDialPhoneNumberNotification;
 
+// An Address Book plug-in to dial phone numbers with Telephone.
 @interface AKAddressBookPhonePlugIn : NSObject {
   NSString *lastPhoneNumber_;
   NSString *lastFullName_;
   BOOL shouldDial_;
 }
 
+// Phone number that has been dialed last. While Telephone is being launched,
+// several phone numbers can be dialed. We handle only the last one.
 @property(nonatomic, copy) NSString *lastPhoneNumber;
+
+// Full name of the contact that has been dialed last. While Telephone is being
+// launched, several phone numbers can be dialed. We handle only the last one.
 @property(nonatomic, copy) NSString *lastFullName;
+
+// A Boolean value that determines whether a call should be made after Telephone
+// starts up.
 @property(nonatomic, assign) BOOL shouldDial;
 
 - (NSString *)actionProperty;

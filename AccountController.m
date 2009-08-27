@@ -52,19 +52,19 @@
 
 
 // Account state pop-up button widths.
-
+//
 // English.
 static const CGFloat kAccountStatePopUpOfflineEnglishWidth = 58.0;
 static const CGFloat kAccountStatePopUpAvailableEnglishWidth = 69.0;
 static const CGFloat kAccountStatePopUpUnavailableEnglishWidth = 81.0;
 static const CGFloat kAccountStatePopUpConnectingEnglishWidth = 90.0;
-
+//
 // Russian.
 static const CGFloat kAccountStatePopUpOfflineRussianWidth = 65.0;
 static const CGFloat kAccountStatePopUpAvailableRussianWidth = 73.0;
 static const CGFloat kAccountStatePopUpUnavailableRussianWidth = 85.0;
 static const CGFloat kAccountStatePopUpConnectingRussianWidth = 96.0;
-
+//
 // German.
 static const CGFloat kAccountStatePopUpOfflineGermanWidth = 58.0;
 static const CGFloat kAccountStatePopUpAvailableGermanWidth = 74.0;
@@ -83,9 +83,13 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 
 @interface AccountController ()
 
+// Timer for account re-registration in case of registration error.
 @property(nonatomic, assign) NSTimer *reRegistrationTimer;
+
+// Index of a URI in a call destination token.
 @property(nonatomic, assign) NSUInteger callDestinationURIIndex;
 
+// Method to be called when account re-registration timer fires.
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer;
 
 @end
@@ -157,7 +161,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 }
 
 - (void)setAccountRegistered:(BOOL)flag {
-  // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
     [self setReRegistrationTimer:nil];
@@ -176,7 +179,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
     
     [self showConnectingState];
     
-    // Add account to the the user agent.
     BOOL accountAdded = [[[NSApp delegate] userAgent] addAccount:[self account]
                                                     withPassword:password];
     
@@ -201,15 +203,16 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
                                          repeats:YES]];
       }
         
-        if ([self shouldPresentRegistrationError]) {
+      if ([self shouldPresentRegistrationError]) {
         NSString *statusText;
         NSString *preferredLocalization
           = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
-        if ([preferredLocalization isEqualToString:@"Russian"])
+        if ([preferredLocalization isEqualToString:@"Russian"]) {
           statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
                         [[self account] registrationStatus]];
-        else
+        } else {
           statusText = [[self account] registrationStatusText];
+        }
         
         NSString *error;
         if (statusText == nil) {
@@ -224,7 +227,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
                    [[self account] registrationStatus], statusText];
         }
         
-        // Show a sheet.
         [self showRegistrarConnectionErrorSheetWithError:error];
       }
     
@@ -276,7 +278,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 }
 
 - (void)dealloc {
-  // Close all call controllers.
   for (CallController *aCallController in [self callControllers])
     [aCallController close];
   
@@ -327,19 +328,15 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   NSAssert([self isEnabled],
            @"Account conroller must be enabled to remove account from the user agent.");
   
-  // Invalidate account automatic re-registration timer if it's valid.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
     [self setReRegistrationTimer:nil];
   }
   
   [self showOfflineState];
-  
-  // Remove account from the user agent.
   [[[NSApp delegate] userAgent] removeAccount:[self account]];
 }
 
-// Ask model to make call, create call controller, attach the call to the call contoller
 - (IBAction)makeCall:(id)sender {
   if ([[[self callDestinationField] objectValue] count] == 0)
     return;
@@ -454,19 +451,19 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   [aCallController showWindow:nil];
   [[aCallController callProgressIndicator] startAnimation:self];
   
-  // Make actual call.
+  // Finally, make a call.
   AKSIPCall *aCall = [[self account] makeCallTo:cleanURI];
   if (aCall != nil) {
     [aCallController setCall:aCall];
     [aCallController setCallActive:YES];
   } else {
     [[aCallController window] setContentView:[aCallController endedCallView]];
-    [aCallController setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
+    [aCallController setStatus:NSLocalizedString(@"Call Failed",
+                                                 @"Call failed.")];
   }
 }
 
 - (IBAction)changeAccountState:(id)sender {
-  // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
     [self setReRegistrationTimer:nil];
@@ -497,8 +494,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   }
 }
 
-// Remove old account from the user agent, change username for the account, add
-// account to the user agent with the new password and update Keychain.
 - (IBAction)changeUsernameAndPassword:(id)sender {
   [self closeSheet:sender];
   
@@ -700,7 +695,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 - (void)handleCatchedURL {
   AKSIPURI *uri = [AKSIPURI SIPURIWithString:[self catchedURLString]];
   
-  // Clear |catchedURLString|.
   [self setCatchedURLString:nil];
   
   if ([[uri user] length] == 0)
@@ -752,7 +746,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
     return;
   
   if ([[self account] isRegistered]) {
-    // Invalidate account automatic re-registration timer.
     if ([self reRegistrationTimer] != nil) {
       [[self reRegistrationTimer] invalidate];
       [self setReRegistrationTimer:nil];
@@ -874,7 +867,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 }
 
 - (void)SIPAccountWillRemove:(NSNotification *)notification {
-  // Invalidate account automatic re-registration timer.
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
     [self setReRegistrationTimer:nil];
@@ -885,7 +877,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 #pragma mark -
 #pragma mark CallController notifications
 
-// Remove call controller from array of controllers before the window is closed
 - (void)callWindowWillClose:(NSNotification *)notification {
   CallController *aCallController = [notification object];
   [[self callControllers] removeObject:aCallController];
@@ -895,7 +886,6 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 #pragma mark -
 #pragma mark AKSIPAccountDelegate protocol
 
-// When the call is received, create call controller, add to array, show call window
 - (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall {
   // Just reply with 480 Temporarily Unavailable if the user selected
   // Unavailable account state.
@@ -916,7 +906,8 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   AKSIPURIFormatter *SIPURIFormatter
     = [[[AKSIPURIFormatter alloc] init] autorelease];
   
-  // These variables will be changed during the Address Book search if the record is found.
+  // These variables will be changed during the Address Book search if the
+  // record is found.
   NSString *finalTitle = [[aCall remoteURI] SIPAddress];
   NSString *finalDisplayedName
     = [SIPURIFormatter stringForObjectValue:[aCall remoteURI]];
@@ -1212,7 +1203,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 #pragma mark -
 #pragma mark NSTokenField delegate
 
-// Return completions based on the Address Book search.
+// Returns completions based on the Address Book search.
 // A completion string can be in one of two formats: Display Name <1234567> for 
 // person or company name searches, 1234567 (Display Name) for the phone number
 // searches.
@@ -1602,11 +1593,10 @@ completionsForSubstring:(NSString *)substring
   return [[completions copy] autorelease];
 }
 
-// Convert input text to the array of dictionaries containing AKSIPURIs
-// and phone labels (mobile, home, etc).
-// Dictionary keys are AKURI and AKPhoneLabel.
-// If there is no @ sign, the input is treated as a user part of the URI
-// and host part will be nil.
+// Converts input text to the array of dictionaries containing AKSIPURIs and
+// phone labels (mobile, home, etc). Dictionary keys are AKURI and AKPhoneLabel.
+// If there is no @ sign, the input is treated as a user part of the URI and
+// host part will be nil.
 - (id)tokenField:(NSTokenField *)tokenField
 representedObjectForEditingString:(NSString *)editingString {
   

@@ -81,10 +81,12 @@ static AKSIPUserAgent *sharedUserAgent = nil;
 @property(assign) NSInteger ringbackSlot;
 @property(assign) pjmedia_port *ringbackPort;
 
-// Create and start SIP user agent. Supposed to be run on the secondary thread.
+// Creates and starts SIP user agent. Supposed to be run on the secondary
+// thread.
 - (void)ak_start;
 
-// Stop and destroy SIP user agent. Supposed to be run on the secondary thread.
+// Stops and destroys SIP user agent. Supposed to be run on the secondary
+// thread.
 - (void)ak_stop;
 
 @end
@@ -298,9 +300,6 @@ static AKSIPUserAgent *sharedUserAgent = nil;
   
   [super dealloc];
 }
-
-
-#pragma mark -
 
 - (void)start {
   // Do nothing if it's already started or being started.
@@ -673,7 +672,6 @@ static AKSIPUserAgent *sharedUserAgent = nil;
    postNotificationName:AKSIPAccountWillRemoveNotification
                  object:anAccount];
   
-  // Explicitly remove all calls.
   [[anAccount calls] removeAllObjects];
   
   pj_status_t status = pjsua_acc_del([anAccount identifier]);
@@ -727,10 +725,10 @@ static AKSIPUserAgent *sharedUserAgent = nil;
 }
 
 // This method will leave application silent.
-// setSoundInputDevice:soundOutputDevice: must be called explicitly after calling
-// this method to set sound IO.
-// Usually application controller is responsible of sending
-// setSoundInputDevice:soundOutputDevice: to set sound IO after this method is called.
+// |setSoundInputDevice:soundOutputDevice:| must be called after calling this
+// method to set sound IO. Usually application controller is responsible of
+// sending |setSoundInputDevice:soundOutputDevice:| to set sound IO after this
+// method is called.
 - (void)updateAudioDevices {
   if (![self isStarted])
     return;

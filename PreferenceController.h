@@ -40,7 +40,7 @@ enum {
 };
 
 // Keys for defaults
-
+//
 extern NSString * const kAccounts;
 extern NSString * const kSTUNServerHost;
 extern NSString * const kSTUNServerPort;
@@ -64,7 +64,7 @@ extern NSString * const kUseDNSSRV;
 extern NSString * const kSignificantPhoneNumberLength;
 extern NSString * const kPauseITunes;
 extern NSString * const kAutoCloseCallWindow;
-
+//
 // Account keys
 extern NSString * const kDescription;
 extern NSString * const kFullName;
@@ -86,20 +86,26 @@ extern NSString * const kSourceIndex;
 extern NSString * const kDestinationIndex;
 
 // Notifications.
-
+//
+// Sent when preference controller adds an account.
 extern NSString * const AKPreferenceControllerDidAddAccountNotification;
-
+//
+// Sent when preference controller removes an accont.
 // Key: AKAccountIndex.
 extern NSString * const AKPreferenceControllerDidRemoveAccountNotification;
-
+//
+// Sent when preference controller enables or disables an account.
 // Key: AKAccountIndex.
 extern NSString * const AKPreferenceControllerDidChangeAccountEnabledNotification;
-
+//
+// Sent when preference controller changes account order.
 // Keys: AKSourceIndex, AKDestinationIndex.
 extern NSString * const AKPreferenceControllerDidSwapAccountsNotification;
-
+//
+// Sent when preference controller changes network settings.
 extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotification;
 
+// A preference controler.
 @interface PreferenceController : NSWindowController {
  @private
   id delegate_;
@@ -161,7 +167,10 @@ extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotificati
   NSButton *addAccountWindowOtherButton_;
 }
 
+// The receiver's delegate.
 @property(nonatomic, assign) id delegate;
+
+// Outlets.
 
 @property(nonatomic, retain) IBOutlet NSToolbar *toolbar;
 @property(nonatomic, retain) IBOutlet NSToolbarItem *generalToolbarItem;
@@ -215,36 +224,52 @@ extern NSString * const AKPreferenceControllerDidChangeNetworkSettingsNotificati
 @property(nonatomic, retain) IBOutlet NSButton *addAccountWindowDefaultButton;
 @property(nonatomic, retain) IBOutlet NSButton *addAccountWindowOtherButton;
 
-// Change view in Preferences window
+// Changes window's content view.
 - (IBAction)changeView:(id)sender;
 
-// Raise a sheet which adds an account
+// Raises |Add Account| sheet.
 - (IBAction)showAddAccountSheet:(id)sender;
 
-// Close a sheet
+// Closes a sheet.
 - (IBAction)closeSheet:(id)sender;
 
-// Add new account, save to defaults, send a notification
+// Adds new account.
 - (IBAction)addAccount:(id)sender;
 
+// Raises |Remove Account| sheet.
 - (IBAction)showRemoveAccountSheet:(id)sender;
 
-// Remove account, save notification
+// Removes account with specified index.
 - (void)removeAccountAtIndex:(NSInteger)index;
 
+// Populates fields and checkboxes for the account with a specified index.
 - (void)populateFieldsForAccountAtIndex:(NSInteger)index;
 
+// Enables or disables an account.
 - (IBAction)changeAccountEnabled:(id)sender;
+
+// Enables or disables plus character replacement for an account.
 - (IBAction)changeSubstitutePlusCharacter:(id)sender;
+
+// Enables or disables proxy usage for an account.
 - (IBAction)changeUseProxy:(id)sender;
 
-// Change sound input and output devices
+// Changes sound input and output devices.
 - (IBAction)changeSoundIO:(id)sender;
 
-// Refresh list of available audio devices.
+// Refreshes list of available audio devices.
 - (void)updateAudioDevices;
 
+// Updates the list of available sounds for a ringtone. Sounds are being
+// searched in the following locations.
+//
+// ~/Library/Sounds
+// /Library/Sounds
+// /Network/Library/Sounds
+// /System/Library/Sounds
 - (void)updateAvailableSounds;
+
+// Changes a ringtone sound.
 - (IBAction)changeRingtone:(id)sender;
 
 @end

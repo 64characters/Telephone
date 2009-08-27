@@ -34,11 +34,14 @@
 
 
 // Notifications.
-// accountController will be subscribed to this notification in its setter.
+//
+// Sent when call window is about to be closed.
+// |accountController| will be subscribed to this notification in its setter.
 extern NSString * const AKCallWindowWillCloseNotification;
 
 @class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI;
 
+// A call controller.
 @interface CallController : NSWindowController <AKActiveCallViewDelegate> {
  @private
   NSString *identifier_;
@@ -75,55 +78,136 @@ extern NSString * const AKCallWindowWillCloseNotification;
   AKResponsiveProgressIndicator *callProgressIndicator_;
 }
 
+// The receiver's identifier.
 @property(nonatomic, copy) NSString *identifier;
+
+// Call controlled by the receiver.
 @property(nonatomic, retain) AKSIPCall *call;
+
+// Account controller the receiver belongs to.
 @property(nonatomic, assign) AccountController *accountController;
+
+// Remote party dislpay name.
 @property(nonatomic, copy) NSString *displayedName;
+
+// Call status.
 @property(nonatomic, copy) NSString *status;
+
+// Remote party name from the Address Book.
 @property(nonatomic, copy) NSString *nameFromAddressBook;
+
+// Remote party label from the Address Book.
 @property(nonatomic, copy) NSString *phoneLabelFromAddressBook;
+
+// Call destination entered by a user.
 @property(nonatomic, copy) NSString *enteredCallDestination;
+
+// SIP URI for the redial.
 @property(nonatomic, copy) AKSIPURI *redialURI;
+
+// Timer to display intermediate call status. This status appears for the short
+// period of time and then is being replaced with the current call status.
 @property(nonatomic, assign) NSTimer *intermediateStatusTimer;
+
+// Call start time.
 @property(nonatomic, assign) NSTimeInterval callStartTime;
+
+// Timer to present a call duration time.
 @property(nonatomic, assign) NSTimer *callTimer;
+
+// A Boolean value indicating whether the receiver's call is on hold.
 @property(nonatomic, assign, getter=isCallOnHold) BOOL callOnHold;
+
+// DTMF digits entered by a user so far.
 @property(nonatomic, retain) NSMutableString *enteredDTMF;
+
+// A Boolean value indicating whether the receiver's call is active.
 @property(nonatomic, assign, getter=isCallActive) BOOL callActive;
+
+// A Boolean value indicating whether the receiver's call is unhandled.
 @property(nonatomic, assign, getter=isCallUnhandled) BOOL callUnhandled;
+
+// Tracking area to monitor a mouse hovering call progress indicator. When mouse
+// enters that area, progress indicator is being replaced with hang-up button.
 @property(nonatomic, retain) NSTrackingArea *callProgressIndicatorTrackingArea;
 
+// Outlets.
+
+// Incoming call view outlet.
 @property(nonatomic, retain) IBOutlet NSView *incomingCallView;
+
+// Active call view outlet.
 @property(nonatomic, retain) IBOutlet NSView *activeCallView;
+
+// Ended call view outlet.
 @property(nonatomic, retain) IBOutlet NSView *endedCallView;
+
+// Hang-up button outlet.
 @property(nonatomic, retain) IBOutlet NSButton *hangUpButton;
+
+// Accept Call button outlet.
 @property(nonatomic, retain) IBOutlet NSButton *acceptCallButton;
+
+// Decline Call button outlet.
 @property(nonatomic, retain) IBOutlet NSButton *declineCallButton;
+
+// Redial button outlet.
 @property(nonatomic, retain) IBOutlet NSButton *redialButton;
+
+// Display Name field outlet of the incoming call view.
 @property(nonatomic, retain) IBOutlet NSTextField *incomingCallDisplayedNameField;
+
+// Display Name field outlet of the active call view.
 @property(nonatomic, retain) IBOutlet NSTextField *activeCallDisplayedNameField;
+
+// Display Name field outlet of the ended call view.
 @property(nonatomic, retain) IBOutlet NSTextField *endedCallDisplayedNameField;
+
+// Status field outlet of the incoming call view.
 @property(nonatomic, retain) IBOutlet NSTextField *incomingCallStatusField;
+
+// Status field outlet of the active call view.
 @property(nonatomic, retain) IBOutlet NSTextField *activeCallStatusField;
+
+// Status field outlet of the ended call view.
 @property(nonatomic, retain) IBOutlet NSTextField *endedCallStatusField;
+
+// Call progress indicator outlet.
 @property(nonatomic, retain) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;
 
-// Designated initializer
+// Designated initializer.
+// Initializes a CallController object with a given account controller.
 - (id)initWithAccountController:(AccountController *)anAccountController;
 
+// Accepts an incoming call.
 - (IBAction)acceptCall:(id)sender;
+
+// Hangs up a call.
 - (IBAction)hangUpCall:(id)sender;
+
+// Redials a call.
 - (IBAction)redial:(id)sender;
 
+// Toggles call hold.
 - (IBAction)toggleCallHold:(id)sender;
+
+// Toggles microphone mute.
 - (IBAction)toggleMicrophoneMute:(id)sender;
 
-// Dealing with the timer of active call.
+// Starts a call timer.
 - (void)startCallTimer;
+
+// Stops a call timer.
 - (void)stopCallTimer;
+
+// Method to be called when call timer fires.
 - (void)callTimerTick:(NSTimer *)theTimer;
 
+// Sets intermediate call status. This status appears for the short period of
+// time and then is being replaced with the current call status.
 - (void)setIntermediateStatus:(NSString *)newIntermediateStatus;
+
+// Method to be called when intermediate call status timer fires.
 - (void)intermediateStatusTimerTick:(NSTimer *)theTimer;
 
 @end

@@ -32,6 +32,7 @@
 #import <Foundation/Foundation.h>
 
 
+// A category for querying Address Book record.
 @interface ABRecord (AKRecordQueryingAdditions)
 
 // Addressbook record's full name in the proper order or company name.

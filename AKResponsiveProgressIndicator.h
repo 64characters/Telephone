@@ -39,7 +39,10 @@
   SEL action_;
 }
 
+// The receiver's target.
 @property(nonatomic, assign) id target;
+
+// The receiver's action-message selector.
 @property(nonatomic, assign) SEL action;
 
 @end

@@ -33,8 +33,10 @@
 
 - (NSString *)ak_escapeFirstCharacterFromString:(NSString *)string {
   NSMutableString *newString = [NSMutableString stringWithString:self];
-  NSString *escapeCharacterString = [string substringWithRange:NSMakeRange(0, 1)];
-  NSRange escapeCharacterRange = [newString rangeOfString:escapeCharacterString];
+  NSString *escapeCharacterString
+    = [string substringWithRange:NSMakeRange(0, 1)];
+  NSRange escapeCharacterRange
+    = [newString rangeOfString:escapeCharacterString];
   while (escapeCharacterRange.location != NSNotFound) {
     [newString insertString:@"\\" atIndex:escapeCharacterRange.location];
     NSRange searchRange;

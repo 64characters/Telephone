@@ -31,16 +31,17 @@
 #import <Foundation/Foundation.h>
 
 
+// A category for scanning strings.
 @interface NSString (AKStringScanningAdditions)
 
-// Returns YES if the receiver is a string of contiguous digits with possible
-// plus character in the beginning.
+// A Boolean value indicating whether the receiver is a telephone number, e.g.
+// it consists of contiguous digits with an optional leading plus character.
 @property(nonatomic, readonly, assign) BOOL ak_isTelephoneNumber;
 
-// Returns YES if the receiver contains a-z or A-Z.
+// A Boolean value indicating whether the receiver consists only of a-z or A-Z.
 @property(nonatomic, readonly, assign) BOOL ak_hasLetters;
 
-// Returns YES if the receiver is an IP address.
+// A Boolean value indicating whether the receiver is an IP address.
 @property(nonatomic, readonly, assign) BOOL ak_isIPAddress;
 
 @end

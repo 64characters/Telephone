@@ -35,14 +35,24 @@
 // Keys: @"AKSIPAddress", @"AKFullName".
 extern NSString * const AKAddressBookDidDialSIPAddressNotification;
 
+// An address book plug-in to dial SIP addresses with Telephone. SIP addresses
+// are emails with a custom label |sip|.
 @interface AKAddressBookSIPAddressPlugIn : NSObject {
   NSString *lastSIPAddress_;
   NSString *lastFullName_;
   BOOL shouldDial_;
 }
 
+// SIP address that has been dialed last. While Telephone is being launched,
+// several phone numbers can be dialed. We handle only the last one.
 @property(nonatomic, copy) NSString *lastSIPAddress;
+
+// Full name of the contact that has been dialed last. While Telephone is being
+// launched, several phone numbers can be dialed. We handle only the last one.
 @property(nonatomic, copy) NSString *lastFullName;
+
+// A Boolean value that determines whether a call should be made after Telephone
+// starts up.
 @property(nonatomic, assign) BOOL shouldDial;
 
 - (NSString *)actionProperty;

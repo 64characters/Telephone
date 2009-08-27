@@ -386,7 +386,7 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
 #pragma mark Callbacks
 
 // When incoming call is received, create call object, set its info,
-// attach to the account, add to the array, send notification
+// attach to the account, add to the array, and send a notification.
 void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
                             pjsua_call_id callIdentifier,
                             pjsip_rx_data *messageData) {
@@ -412,7 +412,6 @@ void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
   [theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
   [theCall setIncoming:YES];
   
-  // Keep the new call in the account's calls array
   [[theAccount calls] addObject:theCall];
   
   if ([[theAccount delegate] respondsToSelector:@selector(SIPAccountDidReceiveCall:)]) {
@@ -434,7 +433,7 @@ void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
   [pool release];
 }
 
-// Track changes in calls state. Send notifications
+// Update call state. Send notifications.
 void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
@@ -456,7 +455,6 @@ void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) 
   if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
     [theCall ringbackStop];
     
-    // Remove the call from its account's calls list.
     [[[theCall account] calls] removeObject:theCall];
     
     PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
@@ -474,12 +472,12 @@ void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) 
     
   } else {
     if (callInfo.state == PJSIP_INV_STATE_EARLY) {
-      // pj_str_t is a struct with NOT null-terminated string
+      // pj_str_t is a struct with NOT null-terminated string.
       pj_str_t reason;
       pjsip_msg *msg;
       int code;
       
-      // This can only occur because of TX or RX message
+      // This can only occur because of TX or RX message.
       pj_assert(sipEvent->type == PJSIP_EVENT_TSX_STATE);
       
       if (sipEvent->body.tsx_state.type == PJSIP_EVENT_RX_MSG)
@@ -490,7 +488,7 @@ void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) 
       code = msg->line.status.code;
       reason = msg->line.status.reason;
       
-      // Start ringback for 180 for UAC unless there's SDP in 180
+      // Start ringback for 180 for UAC unless there's SDP in 180.
       if (callInfo.role == PJSIP_ROLE_UAC && code == 180 &&
           msg->body == NULL && callInfo.media_status == PJSUA_CALL_MEDIA_NONE)
       {
@@ -520,7 +518,8 @@ void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) 
                  callIdentifier,
                  callInfo.state_text.ptr));
       
-      // Incoming call notification is posted in another funcion: AKIncomingCallReceived()
+      // Incoming call notification is posted from another funcion:
+      // AKIncomingCallReceived().
       NSString *notificationName = nil;
       switch (callInfo.state) {
           case PJSIP_INV_STATE_CALLING:
@@ -549,7 +548,7 @@ void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) 
   [pool release];
 }
 
-// Track and log media changes
+// Track media changes.
 void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
@@ -564,7 +563,7 @@ void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
   NSNotification *notification = nil;
   
   if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
-    // When media is active, connect call to sound device
+    // When media is active, connect call to sound device.
     pjsua_conf_connect(callInfo.conf_slot, 0);
     pjsua_conf_connect(0, callInfo.conf_slot);
     

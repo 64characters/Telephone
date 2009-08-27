@@ -50,24 +50,31 @@
 #import "PreferenceController.h"
 
 
-// Audio device dictionary keys.
 NSString * const kAudioDeviceIdentifier = @"AudioDeviceIdentifier";
 NSString * const kAudioDeviceUID = @"AudioDeviceUID";
 NSString * const kAudioDeviceName = @"AudioDeviceName";
 NSString * const kAudioDeviceInputsCount = @"AudioDeviceInputsCount";
 NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 
+NSString * const kGrowlNotificationIncomingCall = @"Incoming Call";
+NSString * const kGrowlNotificationCallEnded = @"Call Ended";
+
+// Ringtone time interval.
 static const NSTimeInterval kRingtoneInterval = 4.0;
+
+// Bouncing icon in the Dock time interval.
 static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 
+// Delay for restarting user agent when DNS servers change.
 static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
 
+// Dynamic store key to the global DNS settings.
 static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
-// AudioHardware callback to track adding/removing audio devices
+// AudioHardware callback to track adding/removing audio devices.
 static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
                                     void *clientData);
-// Get audio devices data.
+// Gets audio devices data.
 static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 
 // Dynamic store callback for DNS changes.
@@ -77,13 +84,25 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 @interface AppController()
 
+// Index of a reconnection attempt after wake-up.
 @property(nonatomic, assign) NSUInteger afterSleepReconnectionAttemptIndex;
+
+// An array of time intervals for reconnection attemps after wake-up.
 @property(nonatomic, retain) NSArray *afterSleepReconnectionTimeIntervals;
 
+// Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
+
+// Method to be called when after-sleep reconnection attempt timer fires.
 - (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
+
+// Installs Address Book plug-ins.
 - (void)installAddressBookPlugIns;
+
+// Sets up Growl support.
 - (void)setupGrowl;
+
+// Installs a callback to monitor system DNS servers changes.
 - (void)installDNSChangesCallback;
 
 // Sets up defaults database with the preconfigured settings from a file
@@ -209,7 +228,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
 }
 
 + (void)initialize {
-  // Register defaults
+  // Register defaults.
   static BOOL initialized = NO;
   
   if (!initialized) {
@@ -535,9 +554,9 @@ static void NameserversChanged(SCDynamicStoreRef store,
                  waitUntilDone:NO];
 }
 
-// Select appropriate sound IO from the list of available audio devices.
-// Lookup in the defaults database for devices selected earlier. If not found,
-// use first matched. Select sound IO in the user agent if there are active
+// Selects appropriate sound IO from the list of available audio devices.
+// Searches the defaults database for devices selected earlier. If not found,
+// uses first matched. Selects sound IO in the user agent if there are active
 // calls.
 - (void)selectSoundIO {
   NSArray *devices = [self audioDevices];
@@ -820,7 +839,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
 }
 
 - (void)installAddressBookPlugIns {
-  // Install Address Book plug-ins.
   NSError *error = nil;
   BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
   if (!installed && error != nil) {
@@ -1602,8 +1620,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
 #pragma mark -
 #pragma mark AKSIPUserAgentDelegate protocol
 
-// This method decides whether AKSIPUserAgent should add an account.
-// User agent is started in this method if needed.
+// Decides whether AKSIPUserAgent should add an account. User agent is started
+// in this method if needed.
 - (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount {
   if ([[self userAgent] state] < kAKSIPUserAgentStarting) {
     [[self userAgent] start];
@@ -1743,7 +1761,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
 #pragma mark -
 #pragma mark NSApplication delegate methods
 
-// Application control starts here
+// Application control starts here.
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   NSBundle *mainBundle = [NSBundle mainBundle];
   
@@ -1925,7 +1943,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
     }
   }
   
-  // Install audio devices changes callback
+  // Install audio devices changes callback.
   AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
                                    &AudioDevicesChanged, self);
   
@@ -2092,13 +2110,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 - (void)growlNotificationWasClicked:(id)clickContext {
   NSString *identifier = (NSString *)clickContext;
-  CallController *aCallController = [self callControllerByIdentifier:identifier];
-  
-  // Make application active.
-  if (![NSApp isActive])
+  CallController *aCallController
+    = [self callControllerByIdentifier:identifier];
+  if (![NSApp isActive]) {
     [NSApp activateIgnoringOtherApps:YES];
-  
-  // Make corresponding call window key.
+  }
   [aCallController showWindow:nil];
 }
 
@@ -2106,8 +2122,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
 #pragma mark -
 #pragma mark NSWorkspace notifications
 
-// End all calls, remove all accounts from the user agent and destroy it before
-// computer goes to sleep.
+// Disconnects all calls, removes all accounts from the user agent and destroys
+// it before computer goes to sleep.
 - (void)workspaceWillSleep:(NSNotification *)notification {
   if ([[self userAgent] isStarted])
     [self stopUserAgent];
@@ -2131,13 +2147,13 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [self setAfterSleepReconnectionAttemptIndex:1];
 }
 
-// Unregister all accounts when a user session is switched out.
+// Unregisters all accounts when a user session is switched out.
 - (void)workspaceSessionDidResignActive:(NSNotification *)notification {
   for (AccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController setAccountRegistered:NO];
 }
 
-// Re-register all accounts when a user session in switched in.
+// Re-registers all accounts when a user session in switched in.
 - (void)workspaceSessionDidBecomeActive:(NSNotification *)notification {
   for (AccountController *anAccountController in [self enabledAccountControllers])
     [anAccountController setAccountRegistered:YES];
@@ -2235,7 +2251,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 #pragma mark -
 
-// Send updateAudioDevices to AppController.
+// Sends updateAudioDevices to AppController.
 static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
                                     void *clientData) {
   AppController *appController = (AppController *)clientData;
@@ -2312,8 +2328,3 @@ static void NameserversChanged(SCDynamicStoreRef store,
     }
   }
 }
-
-
-// Growl notification names.
-NSString * const kGrowlNotificationIncomingCall = @"Incoming Call";
-NSString * const kGrowlNotificationCallEnded = @"Call Ended";

@@ -153,12 +153,14 @@
   
   if (theURI != nil) {
     returnValue = YES;
-    if (anObject != NULL)
+    if (anObject != NULL) {
       *anObject = theURI;
+    }
   } else {
-    if (error != NULL)
+    if (error != NULL) {
       *error = [NSString stringWithFormat:@"Couldn't convert \"%@\" to SIP URI",
                 string];
+    }
   }
   
   return returnValue;
@@ -171,9 +173,9 @@
   BOOL converted
     = [self getObjectValue:&uri forString:SIPURIString errorDescription:&error];
   
-  if (converted)
+  if (converted) {
     return uri;
-  else {
+  } else {
     NSLog(@"%@", error);
     return nil;
   }

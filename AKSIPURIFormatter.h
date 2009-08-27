@@ -32,10 +32,14 @@
 
 @class AKSIPURI;
 
+// Instances of AKSIPURIFormatter create string representations of AKSIPURI, and
+// convert textual representations of SIP URIs into AKSIPURI objects.
 @interface AKSIPURIFormatter : NSFormatter {
 
 }
 
+// Wrapper for |getObjectValue:forString:errorDescription:|. Returns AKSIPURI
+// object converted from a given string.
 - (AKSIPURI *)SIPURIFromString:(NSString *)SIPURIString;
 
 @end

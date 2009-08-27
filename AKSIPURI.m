@@ -105,24 +105,28 @@
     NSRange delimiterRange = [SIPURIString rangeOfString:@" <"];
     
     NSMutableCharacterSet *trimmingCharacterSet
-      = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
+      = [[[NSCharacterSet whitespaceCharacterSet] mutableCopy] autorelease];
     [trimmingCharacterSet addCharactersInString:@"\""];
-    [self setDisplayName:[[SIPURIString substringToIndex:delimiterRange.location]
-                          stringByTrimmingCharactersInSet:trimmingCharacterSet]];
-    [trimmingCharacterSet release];
+    [self setDisplayName:
+     [[SIPURIString substringToIndex:delimiterRange.location]
+      stringByTrimmingCharactersInSet:trimmingCharacterSet]];
     
-    NSRange userAndHostRange = [SIPURIString rangeOfString:@"<sip:"
-                                                   options:NSCaseInsensitiveSearch];
+    NSRange userAndHostRange
+      = [SIPURIString rangeOfString:@"<sip:" options:NSCaseInsensitiveSearch];
     userAndHostRange.location += 5;
-    userAndHostRange.length = [SIPURIString length] - userAndHostRange.location - 1;
+    userAndHostRange.length
+      = [SIPURIString length] - userAndHostRange.location - 1;
     NSString *userAndHost = [SIPURIString substringWithRange:userAndHostRange];
     
-    NSRange atSignRange = [userAndHost rangeOfString:@"@" options:NSBackwardsSearch];
+    NSRange atSignRange = [userAndHost rangeOfString:@"@"
+                                             options:NSBackwardsSearch];
     if (atSignRange.location != NSNotFound) {
       [self setUser:[userAndHost substringToIndex:atSignRange.location]];
-      [self setHost:[userAndHost substringFromIndex:(atSignRange.location + 1)]];
-    } else
+      [self setHost:[userAndHost substringFromIndex:
+                     (atSignRange.location + 1)]];
+    } else {
       [self setHost:userAndHost];
+    }
     
     return self;
   }
@@ -133,9 +137,10 @@
   }
   
   pjsip_name_addr *nameAddr;
-  nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKSIPUserAgent sharedUserAgent] pjPool],
-                                                (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
-                                                [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
+  nameAddr = (pjsip_name_addr *)pjsip_parse_uri(
+              [[AKSIPUserAgent sharedUserAgent] pjPool],
+              (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
+              [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
   if (nameAddr == NULL) {
     [self release];
     return nil;
@@ -155,7 +160,8 @@
     [self setPort:uri->port];
     [self setUserParameter:[NSString stringWithPJString:uri->user_param]];
     [self setMethodParameter:[NSString stringWithPJString:uri->method_param]];
-    [self setTransportParameter:[NSString stringWithPJString:uri->transport_param]];
+    [self setTransportParameter:
+     [NSString stringWithPJString:uri->transport_param]];
     [self setTTLParameter:uri->ttl_param];
     [self setLooseRoutingParameter:uri->lr_param];
     [self setMaddrParameter:[NSString stringWithPJString:uri->maddr_param]];
@@ -188,11 +194,12 @@
 }
 
 - (NSString *)description {
-  if ([[self displayName] length] > 0)
+  if ([[self displayName] length] > 0) {
     return [NSString stringWithFormat:@"\"%@\" <sip:%@>",
             [self displayName], [self SIPAddress]];
-  else
+  } else {
     return [NSString stringWithFormat:@"<sip:%@>", [self SIPAddress]];
+  }
 }
 
 

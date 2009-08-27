@@ -278,7 +278,6 @@ NSString * const AKSIPAccountWillRemoveNotification
   return [self SIPAddress];
 }
 
-// Make outgoing call, create call object, set its info, add to the array
 - (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI {
   pjsua_call_id callIdentifier;
   pj_str_t uri = [[destinationURI description] pjString];
@@ -290,11 +289,9 @@ NSString * const AKSIPAccountWillRemoveNotification
     return nil;
   }
   
-  // AKSIPCall object is created here when the call is outgoing
   AKSIPCall *theCall
     = [[AKSIPCall alloc] initWithSIPAccount:self identifier:callIdentifier];
   
-  // Keep this call in the calls array for this account
   [[self calls] addObject:theCall];
   
   return [theCall autorelease];
