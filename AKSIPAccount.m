@@ -42,8 +42,6 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 NSString * const AKSIPAccountRegistrationDidChangeNotification
   = @"AKSIPAccountRegistrationDidChange";
-NSString * const AKSIPAccountWillRemoveNotification
-  = @"AKSIPAccountWillRemove";
 
 @implementation AKSIPAccount
 
@@ -80,12 +78,6 @@ NSString * const AKSIPAccountWillRemoveNotification
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPAccountRegistrationDidChange:)
                                  name:AKSIPAccountRegistrationDidChangeNotification
-                               object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPAccountWillRemove:)])
-      [notificationCenter addObserver:aDelegate
-                             selector:@selector(SIPAccountWillRemove:)
-                                 name:AKSIPAccountWillRemoveNotification
                                object:self];
   }
   

@@ -41,10 +41,6 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 //
 // Posted when account registration changes.
 extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
-//
-// Posted when the user agent is about to remove the account.
-// TODO(eofster): this notification is not implemented and must be removed.
-extern NSString * const AKSIPAccountWillRemoveNotification;
 
 @class AKSIPCall;
 

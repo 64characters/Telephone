@@ -56,6 +56,8 @@ NSString * const AKSIPUserAgentDidFinishStoppingNotification
   = @"AKSIPUserAgentDidFinishStopping";
 NSString * const AKSIPUserAgentDidDetectNATNotification
   = @"AKSIPUserAgentDidDetectNAT";
+NSString * const AKSIPUserAgentWillRemoveAccountNotification
+  = @"AKSIPUserAgentWillRemoveAccount";
 
 // Maximum number of nameservers to take into account.
 static const NSInteger kAKSIPUserAgentNameserversMax = 4;
@@ -167,6 +169,12 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPUserAgentDidDetectNAT:)
                                  name:AKSIPUserAgentDidDetectNATNotification
+                               object:self];
+    
+    if ([aDelegate respondsToSelector:@selector(SIPUserAgentWillRemoveAccount:)])
+      [notificationCenter addObserver:aDelegate
+                             selector:@selector(SIPUserAgentWillRemoveAccount:)
+                                 name:AKSIPUserAgentWillRemoveAccountNotification
                                object:self];
   }
   
@@ -689,7 +697,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     return NO;
   
   [[NSNotificationCenter defaultCenter]
-   postNotificationName:AKSIPAccountWillRemoveNotification
+   postNotificationName:AKSIPUserAgentWillRemoveAccountNotification
                  object:anAccount];
   
   [[anAccount calls] removeAllObjects];

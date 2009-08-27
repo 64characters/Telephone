@@ -78,6 +78,9 @@ extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
 // Posted when the user agent detects NAT type, which can be accessed via
 // the |detectedNATType| property.
 extern NSString * const AKSIPUserAgentDidDetectNATNotification;
+//
+// Posted when the user agent is about to remove an account.
+extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 
 @class AKSIPAccount;
 
