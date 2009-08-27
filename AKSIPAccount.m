@@ -298,25 +298,3 @@ NSString * const AKSIPAccountWillRemoveNotification
 }
 
 @end
-
-
-#pragma mark -
-#pragma mark Callbacks
-
-void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  
-  AKSIPAccount *anAccount = [[AKSIPUserAgent sharedUserAgent]
-                             accountByIdentifier:accountIdentifier];
-  
-  NSNotification *notification
-    = [NSNotification
-       notificationWithName:AKSIPAccountRegistrationDidChangeNotification
-                     object:anAccount];
-  
-  [[NSNotificationCenter defaultCenter]
-   performSelectorOnMainThread:@selector(postNotification:)
-                    withObject:notification
-                 waitUntilDone:NO];
-  [pool release];
-}

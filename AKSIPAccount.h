@@ -46,9 +46,6 @@ extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
 // TODO(eofster): this notification is not implemented and must be removed.
 extern NSString * const AKSIPAccountWillRemoveNotification;
 
-// Callback from PJSUA.
-void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
-
 @class AKSIPCall;
 
 // Declares interface that AKSIPAccount delegate must implement.

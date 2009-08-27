@@ -89,11 +89,6 @@ extern NSString * const AKSIPCallDidLocalHoldNotification;
 // Call media is put on hold by remote endpoint.
 extern NSString * const AKSIPCallDidRemoteHoldNotification;
 
-// Callbacks from PJSUA.
-void AKSIPCallIncomingReceived(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
-void AKSIPCallStateChanged(pjsua_call_id, pjsip_event *);
-void AKSIPCallMediaStateChanged(pjsua_call_id);
-
 @class AKSIPAccount, AKSIPURI;
 
 // A class representing a SIP call.

@@ -75,6 +75,24 @@ static NSString * const kAKSIPUserAgentDefaultTransportPublicHost = nil;
 
 static AKSIPUserAgent *sharedUserAgent = nil;
 
+// Callbacks from PJSUA.
+//
+// Sent when incoming call is received.
+static void AKSIPCallIncomingReceived(pjsua_acc_id, pjsua_call_id,
+                                      pjsip_rx_data *);
+//
+// Sent when call state changes.
+static void AKSIPCallStateChanged(pjsua_call_id, pjsip_event *);
+//
+// Sent when media state of the call changes.
+static void AKSIPCallMediaStateChanged(pjsua_call_id);
+//
+// Sent when account registration state changes.
+static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
+//
+// Sent when NAT type is detected.
+static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
+
 @interface AKSIPUserAgent ()
 
 @property(assign) AKSIPUserAgentState state;
@@ -935,7 +953,258 @@ static AKSIPUserAgent *sharedUserAgent = nil;
 @end
 
 
-void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
+#pragma mark -
+#pragma mark PJSUA callbacks
+
+static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
+                                      pjsua_call_id callIdentifier,
+                                      pjsip_rx_data *messageData) {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  pjsua_call_info callInfo;
+  pjsua_call_get_info(callIdentifier, &callInfo);
+  
+  PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
+  
+  AKSIPAccount *theAccount
+    = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
+  
+  // AKSIPCall object is created here when the call is incoming.
+  AKSIPCall *theCall = [[[AKSIPCall alloc] initWithSIPAccount:theAccount
+                                                   identifier:callIdentifier]
+                        autorelease];
+  
+  [theCall setState:callInfo.state];
+  [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
+  [theCall setLastStatus:callInfo.last_status];
+  [theCall setLastStatusText:
+   [NSString stringWithPJString:callInfo.last_status_text]];
+  [theCall setIncoming:YES];
+  
+  [[theAccount calls] addObject:theCall];
+  
+  if ([[theAccount delegate] respondsToSelector:
+       @selector(SIPAccountDidReceiveCall:)]) {
+    [[theAccount delegate]
+     performSelectorOnMainThread:@selector(SIPAccountDidReceiveCall:)
+                      withObject:theCall
+                   waitUntilDone:NO];
+  }
+  
+  NSNotification *notification
+    = [NSNotification notificationWithName:AKSIPCallIncomingNotification
+                                    object:theCall];
+  
+  [[NSNotificationCenter defaultCenter]
+   performSelectorOnMainThread:@selector(postNotification:)
+                    withObject:notification
+                 waitUntilDone:NO];
+  
+  [pool release];
+}
+
+static void AKSIPCallStateChanged(pjsua_call_id callIdentifier,
+                                  pjsip_event *sipEvent) {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
+  NSNotification *notification = nil;
+  
+  pjsua_call_info callInfo;
+  pjsua_call_get_info(callIdentifier, &callInfo);
+  
+  AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent]
+                        SIPCallByIdentifier:callIdentifier];
+  
+  [theCall setState:callInfo.state];
+  [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
+  [theCall setLastStatus:callInfo.last_status];
+  [theCall setLastStatusText:
+   [NSString stringWithPJString:callInfo.last_status_text]];
+  
+  if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
+    [theCall ringbackStop];
+    
+    [[[theCall account] calls] removeObject:theCall];
+    
+    PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
+               callIdentifier,
+               callInfo.last_status,
+               callInfo.last_status_text.ptr));
+    
+    notification
+      = [NSNotification notificationWithName:AKSIPCallDidDisconnectNotification
+                                      object:theCall];
+    
+    [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                         withObject:notification
+                                      waitUntilDone:NO];
+    
+  } else {
+    if (callInfo.state == PJSIP_INV_STATE_EARLY) {
+      // pj_str_t is a struct with NOT null-terminated string.
+      pj_str_t reason;
+      pjsip_msg *msg;
+      int code;
+      
+      // This can only occur because of TX or RX message.
+      pj_assert(sipEvent->type == PJSIP_EVENT_TSX_STATE);
+      
+      if (sipEvent->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
+        msg = sipEvent->body.tsx_state.src.rdata->msg_info.msg;
+      } else {
+        msg = sipEvent->body.tsx_state.src.tdata->msg;
+      }
+      
+      code = msg->line.status.code;
+      reason = msg->line.status.reason;
+      
+      // Start ringback for 180 for UAC unless there's SDP in 180.
+      if (callInfo.role == PJSIP_ROLE_UAC &&
+          code == 180 &&
+          msg->body == NULL &&
+          callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
+        [theCall ringbackStart];
+      }
+      
+      PJ_LOG(3,(THIS_FILE, "Call %d state changed to %s (%d %.*s)",
+                callIdentifier, callInfo.state_text.ptr,
+                code, (int)reason.slen, reason.ptr));
+      
+      NSDictionary *userInfo
+        = [NSDictionary dictionaryWithObjectsAndKeys:
+           [NSNumber numberWithInt:code], @"AKSIPEventCode",
+           [NSString stringWithPJString:reason], @"AKSIPEventReason",
+           nil];
+      
+      notification
+        = [NSNotification notificationWithName:AKSIPCallEarlyNotification
+                                        object:theCall
+                                      userInfo:userInfo];
+      
+      [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                           withObject:notification
+                                        waitUntilDone:NO];
+    } else {
+      PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s",
+                 callIdentifier,
+                 callInfo.state_text.ptr));
+      
+      // Incoming call notification is posted from another funcion:
+      // AKIncomingCallReceived().
+      NSString *notificationName = nil;
+      switch (callInfo.state) {
+        case PJSIP_INV_STATE_CALLING:
+          notificationName = AKSIPCallCallingNotification;
+          break;
+        case PJSIP_INV_STATE_CONNECTING:
+          notificationName = AKSIPCallConnectingNotification;
+          break;
+        case PJSIP_INV_STATE_CONFIRMED:
+          notificationName = AKSIPCallDidConfirmNotification;
+          break;
+        default:
+          break;
+      }
+      
+      if (notificationName != nil) {
+        notification = [NSNotification notificationWithName:notificationName
+                                                     object:theCall];
+        [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                             withObject:notification
+                                          waitUntilDone:NO];
+      }
+    }
+  }
+  
+  [pool release];
+}
+
+static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  pjsua_call_info callInfo;
+  pjsua_call_get_info(callIdentifier, &callInfo);
+  
+  AKSIPCall *theCall
+    = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+  [theCall ringbackStop];
+  
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
+  NSNotification *notification = nil;
+  
+  if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
+    // When media is active, connect call to sound device.
+    pjsua_conf_connect(callInfo.conf_slot, 0);
+    pjsua_conf_connect(0, callInfo.conf_slot);
+    
+    PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
+    
+    notification
+    = [NSNotification notificationWithName:AKSIPCallMediaDidBecomeActiveNotification
+                                    object:theCall];
+    
+    [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                         withObject:notification
+                                      waitUntilDone:NO];
+    
+  } else if (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
+    PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local",
+               callIdentifier));
+    notification
+      = [NSNotification notificationWithName:AKSIPCallDidLocalHoldNotification
+                                      object:theCall];
+    
+    [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                         withObject:notification
+                                      waitUntilDone:NO];
+    
+  } else if (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+    PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote",
+               callIdentifier));
+    notification
+      = [NSNotification notificationWithName:AKSIPCallDidRemoteHoldNotification
+                                      object:theCall];
+    
+    [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                         withObject:notification
+                                      waitUntilDone:NO];
+    
+  } else if (callInfo.media_status == PJSUA_CALL_MEDIA_ERROR) {
+    pj_str_t reason = pj_str("ICE negotiation failed");
+    PJ_LOG(1, (THIS_FILE, "Media has reported error, disconnecting call"));
+    
+    pjsua_call_hangup(callIdentifier, 500, &reason, NULL);
+    
+  } else {
+    PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
+  }
+  
+  [pool release];
+}
+
+static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  AKSIPAccount *anAccount = [[AKSIPUserAgent sharedUserAgent]
+                             accountByIdentifier:accountIdentifier];
+  
+  NSNotification *notification
+    = [NSNotification
+       notificationWithName:AKSIPAccountRegistrationDidChangeNotification
+                     object:anAccount];
+  
+  [[NSNotificationCenter defaultCenter]
+   performSelectorOnMainThread:@selector(postNotification:)
+                    withObject:notification
+                 waitUntilDone:NO];
+  
+  [pool release];
+}
+
+static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   if (result->status != PJ_SUCCESS) {
@@ -947,8 +1216,8 @@ void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
     [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:result->nat_type];
     
     NSNotification *notification
-      = [NSNotification notificationWithName:AKSIPUserAgentDidDetectNATNotification
-                                      object:[AKSIPUserAgent sharedUserAgent]];
+    = [NSNotification notificationWithName:AKSIPUserAgentDidDetectNATNotification
+                                    object:[AKSIPUserAgent sharedUserAgent]];
     
     [[NSNotificationCenter defaultCenter]
      performSelectorOnMainThread:@selector(postNotification:)

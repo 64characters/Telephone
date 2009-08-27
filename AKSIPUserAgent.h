@@ -79,9 +79,6 @@ extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
 // the |detectedNATType| property.
 extern NSString * const AKSIPUserAgentDidDetectNATNotification;
 
-// Callback from PJSUA.
-void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
-
 @class AKSIPAccount;
 
 // Declares the interface that AKSIPUserAgent delegates must implement.
