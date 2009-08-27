@@ -49,19 +49,6 @@ enum {
 };
 
 const NSInteger kAKSIPUserAgentInvalidIdentifier = PJSUA_INVALID_ID;
-const NSInteger kAKSIPUserAgentNameserversMax = 4;
-
-NSString * const kAKSIPUserAgentDefaultOutboundProxyHost = @"";
-const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort = 5060;
-NSString * const kAKSIPUserAgentDefaultSTUNServerHost = @"";
-const NSInteger kAKSIPUserAgentDefaultSTUNServerPort = 3478;
-NSString * const kAKSIPUserAgentDefaultLogFileName = nil;
-const NSInteger kAKSIPUserAgentDefaultLogLevel = 3;
-const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel = 0;
-const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
-const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
-const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;  // 0 for any available port.
-NSString * const kAKSIPUserAgentDefaultTransportPublicHost = nil;
 
 NSString * const AKSIPUserAgentDidFinishStartingNotification
   = @"AKSIPUserAgentDidFinishStarting";
@@ -70,8 +57,23 @@ NSString * const AKSIPUserAgentDidFinishStoppingNotification
 NSString * const AKSIPUserAgentDidDetectNATNotification
   = @"AKSIPUserAgentDidDetectNAT";
 
-static AKSIPUserAgent *sharedUserAgent = nil;
+// Maximum number of nameservers to take into account.
+static const NSInteger kAKSIPUserAgentNameserversMax = 4;
 
+// User agent defaults.
+static NSString * const kAKSIPUserAgentDefaultOutboundProxyHost = @"";
+static const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort = 5060;
+static NSString * const kAKSIPUserAgentDefaultSTUNServerHost = @"";
+static const NSInteger kAKSIPUserAgentDefaultSTUNServerPort = 3478;
+static NSString * const kAKSIPUserAgentDefaultLogFileName = nil;
+static const NSInteger kAKSIPUserAgentDefaultLogLevel = 3;
+static const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel = 0;
+static const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
+static const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
+static const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;
+static NSString * const kAKSIPUserAgentDefaultTransportPublicHost = nil;
+
+static AKSIPUserAgent *sharedUserAgent = nil;
 
 @interface AKSIPUserAgent ()
 

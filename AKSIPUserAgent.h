@@ -63,23 +63,6 @@ typedef struct _AKSIPUserAgentCallData {
 // An invalid identifier for all sorts of identifiers.
 extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 
-// TODO(eofster): move this declaration to the implementation file.
-extern const NSInteger kAKSIPUserAgentNameserversMax;
-
-// User agent defaults.
-// TODO(eofster): move this declarations to the implementation file.
-extern NSString * const kAKSIPUserAgentDefaultOutboundProxyHost;
-extern const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort;
-extern NSString * const kAKSIPUserAgentDefaultSTUNServerHost;
-extern const NSInteger kAKSIPUserAgentDefaultSTUNServerPort;
-extern NSString * const kAKSIPUserAgentDefaultLogFileName;
-extern const NSInteger kAKSIPUserAgentDefaultLogLevel;
-extern const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel;
-extern const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity;
-extern const BOOL kAKSIPUserAgentDefaultUsesICE;
-extern const NSInteger kAKSIPUserAgentDefaultTransportPort;
-extern NSString * const kAKSIPUserAgentDefaultTransportPublicHost;
-
 // Notifications.
 // All AKSIPUserAgent notifications are posted by the user agent instance
 // returned by |sharedUserAgent|.
