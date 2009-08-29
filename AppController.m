@@ -763,8 +763,9 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
     return;
   
   if ([self didPauseITunes] && ![self hasActiveCallControllers]) {
-    if ([iTunes playerState] == iTunesEPlSPaused)
-      [iTunes playOnce:NO];
+    if ([iTunes playerState] == iTunesEPlSPaused) {
+      [iTunes playpause];
+    }
     
     [self setDidPauseITunes:NO];
   }
