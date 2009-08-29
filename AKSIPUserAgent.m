@@ -118,12 +118,12 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 
 @synthesize delegate = delegate_;
 @synthesize accounts = accounts_;
-@synthesize started;
+@dynamic started;
 @synthesize state = state_;
 @synthesize detectedNATType = detectedNATType_;
 @synthesize pjsuaLock = pjsuaLock_;
-@synthesize activeCallsCount;
-@synthesize callData;
+@dynamic activeCallsCount;
+@dynamic callData;
 @synthesize pjPool = pjPool_;
 @synthesize ringbackSlot = ringbackSlot_;
 @synthesize ringbackCount = ringbackCount_;
