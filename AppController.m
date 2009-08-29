@@ -779,8 +779,9 @@ static void NameserversChanged(SCDynamicStoreRef store,
     return;
   
   if ([self didPauseITunes] && ![self hasActiveCallControllers]) {
-    if ([iTunes playerState] == iTunesEPlSPaused)
-      [iTunes playOnce:NO];
+    if ([iTunes playerState] == iTunesEPlSPaused) {
+      [iTunes playpause];
+    }
     
     [self setDidPauseITunes:NO];
   }
