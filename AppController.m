@@ -2183,11 +2183,14 @@ static void NameserversChanged(SCDynamicStoreRef store,
   
   NSDictionary *userInfo = [notification userInfo];
   
-  NSString *callDestination;
-  if ([[notification name] isEqualToString:AKAddressBookDidDialPhoneNumberNotification])
+  NSString *callDestination = nil;
+  if ([[notification name] isEqualToString:
+       AKAddressBookDidDialPhoneNumberNotification]) {
     callDestination = [userInfo objectForKey:@"AKPhoneNumber"];
-  else if ([[notification name] isEqualToString:AKAddressBookDidDialSIPAddressNotification])
+  } else if ([[notification name] isEqualToString:
+              AKAddressBookDidDialSIPAddressNotification]) {
     callDestination = [userInfo objectForKey:@"AKSIPAddress"];
+  }
 
   NSString *fullName = [userInfo objectForKey:@"AKFullName"];
   
@@ -2210,7 +2213,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [[firstEnabledAccountController callDestinationField]
    setStringValue:theString];
   
-  if ([[firstEnabledAccountController account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
+  if ([[firstEnabledAccountController account] identifier] ==
+      kAKSIPUserAgentInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
     [firstEnabledAccountController setShouldMakeCall:YES];
     [firstEnabledAccountController setAccountRegistered:YES];
