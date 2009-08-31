@@ -92,10 +92,8 @@ extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
 // Registrar.
 @property(nonatomic, copy) NSString *registrar;
 
-// Realm. Use @"*" to make a credential that can be used to authenticate against
+// Realm. Pass nil to make a credential that can be used to authenticate against
 // any challenges.
-// TODO(eofster): @"*" should be changed to something more in Cocoa-style,
-// e.g. to the nil.
 @property(nonatomic, copy) NSString *realm;
 
 // Authentication user name.

@@ -641,7 +641,11 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
   accountConfig.reg_uri = [registerURI pjString];
   
   accountConfig.cred_count = 1;
-  accountConfig.cred_info[0].realm = pj_str("*");
+  if ([[anAccount realm] length] > 0) {
+    accountConfig.cred_info[0].realm = [[anAccount realm] pjString];
+  } else {
+    accountConfig.cred_info[0].realm = pj_str("*");
+  }
   accountConfig.cred_info[0].scheme = pj_str("digest");
   accountConfig.cred_info[0].username = [[anAccount username] pjString];
   accountConfig.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
