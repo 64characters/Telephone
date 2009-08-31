@@ -119,9 +119,9 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 @synthesize callDestinationURIIndex = callDestinationURIIndex_;
 
 @synthesize authenticationFailureSheet = authenticationFailureSheet_;
-@synthesize updateCredentialsInformativeText = updateCredentialsInformativeText_;
-@synthesize newUsernameField = newUsernameField_;
-@synthesize newPasswordField = newPasswordField_;
+@synthesize authenticationFailureInformativeText = authenticationFailureInformativeText_;
+@synthesize updatedUsernameField = updatedUsernameField_;
+@synthesize updatedPasswordField = updatedPasswordField_;
 @synthesize mustSaveCheckBox = mustSaveCheckBox_;
 @synthesize authenticationFailureCancelButton = authenticationFailureCancelButton_;
 
@@ -300,9 +300,9 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
   [accountStatePopUp_ release];
   [callDestinationField_ release];
   [authenticationFailureSheet_ release];
-  [updateCredentialsInformativeText_ release];
-  [newUsernameField_ release];
-  [newPasswordField_ release];
+  [authenticationFailureInformativeText_ release];
+  [updatedUsernameField_ release];
+  [updatedPasswordField_ release];
   [mustSaveCheckBox_ release];
   [authenticationFailureCancelButton_ release];
   
@@ -497,15 +497,15 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
 - (IBAction)changeUsernameAndPassword:(id)sender {
   [self closeSheet:sender];
   
-  if (![[[self newUsernameField] stringValue] isEqualToString:@""]) {
+  if ([[[self updatedUsernameField] stringValue] length] > 0) {
     [self removeAccountFromUserAgent];
-    [[self account] setUsername:[[self newUsernameField] stringValue]];
+    [[self account] setUsername:[[self updatedUsernameField] stringValue]];
     
     [self showConnectingState];
     
     // Add account to the user agent.
     [[[NSApp delegate] userAgent] addAccount:[self account]
-                                withPassword:[[self newPasswordField]
+                                withPassword:[[self updatedPasswordField]
                                               stringValue]];
     
     // Error connecting to registrar.
@@ -540,10 +540,11 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
     }
     
     if ([[self mustSaveCheckBox] state] == NSOnState) {
-      [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                          [[self account] registrar]]
-                             accountName:[[self newUsernameField] stringValue]
-                                password:[[self newPasswordField] stringValue]];
+      [AKKeychain
+       addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
+                               [[self account] registrar]]
+                  accountName:[[self updatedUsernameField] stringValue]
+                     password:[[self updatedPasswordField] stringValue]];
     }
     
     [[NSNotificationCenter defaultCenter]
@@ -551,7 +552,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
                    object:self];
   }
   
-  [[self newPasswordField] setStringValue:@""];
+  [[self updatedPasswordField] setStringValue:@""];
 }
 
 - (IBAction)closeSheet:(id)sender {
@@ -788,7 +789,7 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
       if ([self authenticationFailureSheet] == nil)
         [NSBundle loadNibNamed:@"AuthFailed" owner:self];
       
-      [[self updateCredentialsInformativeText] setStringValue:
+      [[self authenticationFailureInformativeText] setStringValue:
        [NSString stringWithFormat:
         NSLocalizedString(@"Telephone was unable to login to %@. "
                           "Change user name or password and try again.",
@@ -800,8 +801,8 @@ NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification
                                             [[self account] registrar]]
                                accountName:[[self account] username]];
       
-      [[self newUsernameField] setStringValue:[[self account] username]];
-      [[self newPasswordField] setStringValue:password];
+      [[self updatedUsernameField] setStringValue:[[self account] username]];
+      [[self updatedPasswordField] setStringValue:password];
       
       [NSApp beginSheet:[self authenticationFailureSheet]
          modalForWindow:[self window]

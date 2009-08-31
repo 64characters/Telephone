@@ -77,9 +77,9 @@ extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotificat
   
   // Authentication failure sheet elements.
   NSWindow *authenticationFailureSheet_;
-  NSTextField *updateCredentialsInformativeText_;
-  NSTextField *newUsernameField_;
-  NSTextField *newPasswordField_;
+  NSTextField *authenticationFailureInformativeText_;
+  NSTextField *updatedUsernameField_;
+  NSTextField *updatedPasswordField_;
   NSButton *mustSaveCheckBox_;
   NSButton *authenticationFailureCancelButton_;
 }
@@ -148,14 +148,14 @@ extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotificat
 // Authentication failure sheet outlet.
 @property(nonatomic, retain) IBOutlet NSWindow *authenticationFailureSheet;
 
-// Update credentials informative text outlet.
-@property(nonatomic, retain) IBOutlet NSTextField *updateCredentialsInformativeText;
+// Informative text outlet of the authentication failure sheet.
+@property(nonatomic, retain) IBOutlet NSTextField *authenticationFailureInformativeText;
 
 // |User Name| field outlet of the authentication failure sheet.
-@property(nonatomic, retain) IBOutlet NSTextField *newUsernameField;
+@property(nonatomic, retain) IBOutlet NSTextField *updatedUsernameField;
 
 // |Password| field outlet of the authentication failure sheet.
-@property(nonatomic, retain) IBOutlet NSTextField *newPasswordField;
+@property(nonatomic, retain) IBOutlet NSTextField *updatedPasswordField;
 
 // |Save in the Keychain| checkbox outlet.
 @property(nonatomic, retain) IBOutlet NSButton *mustSaveCheckBox;

@@ -47,7 +47,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="997324232">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,7 +56,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{135, 195}, {202, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="360792746">
 								<int key="NSCellFlags">70385217</int>
@@ -93,7 +92,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{135, 145}, {317, 42}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="141756788">
 								<int key="NSCellFlags">69336577</int>
@@ -114,7 +112,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{138, 114}, {295, 22}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="801708064">
 								<int key="NSCellFlags">-1804468671</int>
@@ -149,7 +146,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{37, 116}, {96, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="222958690">
 								<int key="NSCellFlags">68288064</int>
@@ -166,7 +162,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{77, 84}, {56, 17}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="45790673">
 								<int key="NSCellFlags">68288064</int>
@@ -183,7 +178,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{136, 58}, {141, 18}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="409363457">
 								<int key="NSCellFlags">-2080244224</int>
@@ -211,7 +205,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{360, 12}, {108, 32}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="628245886">
 								<int key="NSCellFlags">-2080244224</int>
@@ -232,7 +225,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{264, 12}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="377522656">
 								<int key="NSCellFlags">67239424</int>
@@ -253,7 +245,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{138, 82}, {295, 22}}</string>
 							<reference key="NSSuperview" ref="997324232"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSecureTextFieldCell" key="NSCell" id="464481493">
 								<int key="NSCellFlags">343014976</int>
@@ -272,8 +263,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{482, 226}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -308,14 +297,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">updateCredentialsInformativeText</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="409430353"/>
-					</object>
-					<int key="connectionID">33</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">authenticationFailureSheet</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="510659113"/>
@@ -332,27 +313,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">newUsernameField</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="911413864"/>
-					</object>
-					<int key="connectionID">37</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">newPasswordField</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="756083729"/>
-					</object>
-					<int key="connectionID">38</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">mustSaveCheckBox</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="712841233"/>
 					</object>
 					<int key="connectionID">39</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">updatedUsernameField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="911413864"/>
+					</object>
+					<int key="connectionID">45</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">updatedPasswordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="756083729"/>
+					</object>
+					<int key="connectionID">46</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">authenticationFailureInformativeText</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="409430353"/>
+					</object>
+					<int key="connectionID">47</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -613,7 +602,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">39</int>
+			<int key="maxID">47</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -647,25 +636,25 @@
 							<string>accountStatePopUp</string>
 							<string>activeAccountView</string>
 							<string>authenticationFailureCancelButton</string>
+							<string>authenticationFailureInformativeText</string>
 							<string>authenticationFailureSheet</string>
 							<string>callDestinationField</string>
 							<string>mustSaveCheckBox</string>
-							<string>newPasswordField</string>
-							<string>newUsernameField</string>
 							<string>offlineAccountView</string>
-							<string>updateCredentialsInformativeText</string>
+							<string>updatedPasswordField</string>
+							<string>updatedUsernameField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSPopUpButton</string>
 							<string>NSView</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSWindow</string>
 							<string>NSTokenField</string>
 							<string>NSButton</string>
-							<string>NSTextField</string>
-							<string>NSTextField</string>
 							<string>NSView</string>
+							<string>NSTextField</string>
 							<string>NSTextField</string>
 						</object>
 					</object>
