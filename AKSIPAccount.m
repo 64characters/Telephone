@@ -36,7 +36,6 @@
 #import "AKSIPCall.h"
 
 
-NSString * const kAKSIPAccountDefaultSIPProxyHost = @"";
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
@@ -92,12 +91,14 @@ NSString * const AKSIPAccountRegistrationDidChangeNotification
 }
 
 - (void)setReregistrationTime:(NSUInteger)seconds {
+  const NSInteger reregistrationTimeMin = 60;
+  const NSInteger reregistrationTimeMax = 3600;
   if (seconds == 0)
     reregistrationTime_ = kAKSIPAccountDefaultReregistrationTime;
-  else if (seconds < 60)
-    reregistrationTime_ = 60;
-  else if (seconds > 3600)
-    reregistrationTime_ = 3600;
+  else if (seconds < reregistrationTimeMin)
+    reregistrationTime_ = reregistrationTimeMin;
+  else if (seconds > reregistrationTimeMax)
+    reregistrationTime_ = reregistrationTimeMax;
   else
     reregistrationTime_ = seconds;
 }
@@ -231,7 +232,6 @@ NSString * const AKSIPAccountRegistrationDidChangeNotification
   [self setRegistrar:aRegistrar];
   [self setRealm:aRealm];
   [self setUsername:aUsername];
-  [self setProxyHost:kAKSIPAccountDefaultSIPProxyHost];
   [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
   [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
   [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];

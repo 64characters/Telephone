@@ -63,17 +63,13 @@ NSString * const AKSIPUserAgentWillRemoveAccountNotification
 static const NSInteger kAKSIPUserAgentNameserversMax = 4;
 
 // User agent defaults.
-static NSString * const kAKSIPUserAgentDefaultOutboundProxyHost = @"";
 static const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort = 5060;
-static NSString * const kAKSIPUserAgentDefaultSTUNServerHost = @"";
 static const NSInteger kAKSIPUserAgentDefaultSTUNServerPort = 3478;
-static NSString * const kAKSIPUserAgentDefaultLogFileName = nil;
 static const NSInteger kAKSIPUserAgentDefaultLogLevel = 3;
 static const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel = 0;
 static const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
 static const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
 static const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;
-static NSString * const kAKSIPUserAgentDefaultTransportPublicHost = nil;
 
 static AKSIPUserAgent *sharedUserAgent = nil;
 
@@ -227,7 +223,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
       logFileName_ = [pathToFile copy];
     } else {
       [logFileName_ release];
-      logFileName_ = kAKSIPUserAgentDefaultLogFileName;
+      logFileName_ = nil;
     }
   }
 }
@@ -295,17 +291,13 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
   [self setDetectedNATType:kAKNATTypeUnknown];
   pjsuaLock_ = [[NSLock alloc] init];
   
-  [self setOutboundProxyHost:kAKSIPUserAgentDefaultOutboundProxyHost];
   [self setOutboundProxyPort:kAKSIPUserAgentDefaultOutboundProxyPort];
-  [self setSTUNServerHost:kAKSIPUserAgentDefaultSTUNServerHost];
   [self setSTUNServerPort:kAKSIPUserAgentDefaultSTUNServerPort];
-  [self setLogFileName:kAKSIPUserAgentDefaultLogFileName];
   [self setLogLevel:kAKSIPUserAgentDefaultLogLevel];
   [self setConsoleLogLevel:kAKSIPUserAgentDefaultConsoleLogLevel];
   [self setDetectsVoiceActivity:kAKSIPUserAgentDefaultDetectsVoiceActivity];
   [self setUsesICE:kAKSIPUserAgentDefaultUsesICE];
   [self setTransportPort:kAKSIPUserAgentDefaultTransportPort];
-  [self setTransportPublicHost:kAKSIPUserAgentDefaultTransportPublicHost];
   
   [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
   
@@ -658,13 +650,14 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
   if ([[anAccount proxyHost] length] > 0) {
     accountConfig.proxy_cnt = 1;
     
-    if ([anAccount proxyPort] == kAKSIPAccountDefaultSIPProxyPort)
+    if ([anAccount proxyPort] == kAKSIPAccountDefaultSIPProxyPort) {
       accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@",
                                  [anAccount proxyHost]] pjString];
-    else
+    } else {
       accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@:%u",
                                  [anAccount proxyHost], [anAccount proxyPort]]
                                 pjString];
+    }
   }
   
   accountConfig.reg_timeout = [anAccount reregistrationTime];

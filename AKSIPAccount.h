@@ -33,7 +33,6 @@
 
 
 // SIP account defaults.
-extern NSString * const kAKSIPAccountDefaultSIPProxyHost;
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
@@ -103,7 +102,6 @@ extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
 @property(nonatomic, copy) NSString *username;
 
 // SIP proxy host.
-// Default: @"".
 @property(nonatomic, copy) NSString *proxyHost;
 
 // Network port to use with the SIP proxy.

@@ -161,13 +161,11 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 
 // An array of DNS servers to use by the receiver. If set, DNS SRV will be
 // enabled. Only first kAKSIPUserAgentNameserversMax are used.
-// Default: nil.
 @property(nonatomic, copy) NSArray *nameservers;
 
 // SIP proxy host to visit for all outgoing requests. Will be used for all
 // accounts. The final route set for outgoing requests consists of the this
 // proxy and proxy configured for the account.
-// Default: @"".
 @property(nonatomic, copy) NSString *outboundProxyHost;
 
 // Network port to use with the outbound proxy.
@@ -175,7 +173,6 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 @property(nonatomic, assign) NSUInteger outboundProxyPort;
 
 // STUN server host.
-// Default: @"".
 @property(nonatomic, copy) NSString *STUNServerHost;
 
 // Network port to use with the STUN server.
@@ -183,11 +180,9 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 @property(nonatomic, assign) NSUInteger STUNServerPort;
 
 // User agent string.
-// Default: @"".
 @property(nonatomic, copy) NSString *userAgentString;
 
 // Path to the log file.
-// Default: nil.
 @property(nonatomic, copy) NSString *logFileName;
 
 // Verbosity level.
@@ -212,7 +207,6 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 @property(nonatomic, assign) NSUInteger transportPort;
 
 // Host name or IP address to advertise as the address of SIP transport.
-// Default: nil.
 @property(nonatomic, copy) NSString *transportPublicHost;
 
 
