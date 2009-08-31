@@ -1303,18 +1303,20 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
   NSInteger draggingRow = [indexes firstIndex];
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSMutableArray *accounts = [[defaults arrayForKey:kAccounts] mutableCopy];
+  NSMutableArray *accounts
+    = [[[defaults arrayForKey:kAccounts] mutableCopy] autorelease];
   id selectedAccount
     = [accounts objectAtIndex:[[self accountsTable] selectedRow]];
   
   // Swap accounts.
   [accounts insertObject:[accounts objectAtIndex:draggingRow] atIndex:row];
-  if (draggingRow < row)
+  if (draggingRow < row) {
     [accounts removeObjectAtIndex:draggingRow];
-  else if (draggingRow > row)
+  } else if (draggingRow > row) {
     [accounts removeObjectAtIndex:(draggingRow + 1)];
-  else  // This should never happen because we don't validate such drop.
+  } else {  // This should never happen because we don't validate such drop.
     return NO;
+  }
   
   [defaults setObject:accounts forKey:kAccounts];
   [defaults synchronize];
