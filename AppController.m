@@ -467,8 +467,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
     err = AudioDeviceGetProperty(devices[loopCount], 0, 0,
                                  kAudioDevicePropertyDeviceUID,
                                  &size, &UIDStringRef);
-    [deviceDict setObject:(NSString *)UIDStringRef forKey:kAudioDeviceUID];
-    CFRelease(UIDStringRef);
+    if ((err == noErr) && (UIDStringRef != NULL)) {
+      [deviceDict setObject:(NSString *)UIDStringRef forKey:kAudioDeviceUID];
+      CFRelease(UIDStringRef);
+    }
     
     // Get device name.
     CFStringRef nameStringRef = NULL;
@@ -476,8 +478,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
     err = AudioDeviceGetProperty(devices[loopCount], 0, 0,
                                  kAudioDevicePropertyDeviceNameCFString,
                                  &size, &nameStringRef);
-    [deviceDict setObject:(NSString *)nameStringRef forKey:kAudioDeviceName];
-    CFRelease(nameStringRef);
+    if ((err == noErr) && (nameStringRef != NULL)) {
+      [deviceDict setObject:(NSString *)nameStringRef forKey:kAudioDeviceName];
+      CFRelease(nameStringRef);
+    }
     
     // Get number of input channels.
     size = 0;
