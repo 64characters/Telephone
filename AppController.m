@@ -314,7 +314,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [self setShouldPresentUserAgentLaunchError:NO];
   
   [self setAfterSleepReconnectionTimeIntervals:
-   [[NSArray alloc] initWithObjects:
+   [NSArray arrayWithObjects:
     [NSNumber numberWithDouble:3.0],
     [NSNumber numberWithDouble:7.0],
     [NSNumber numberWithDouble:10.0],
