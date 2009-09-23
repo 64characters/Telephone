@@ -276,17 +276,19 @@ NSString * const AKSIPAccountRegistrationDidChangeNotification
   
   pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL,
                                             NULL, &callIdentifier);
-  if (status != PJ_SUCCESS) {
+  AKSIPCall *theCall = nil;
+  if (status == PJ_SUCCESS) {
+    for (AKSIPCall *aCall in [[[self calls] copy] autorelease]) {
+      if ([aCall identifier] == callIdentifier) {
+        theCall = [[aCall retain] autorelease];
+        break;
+      }
+    }
+  } else {
     NSLog(@"Error making call to %@ via account %@", destinationURI, self);
-    return nil;
   }
   
-  AKSIPCall *theCall
-    = [[AKSIPCall alloc] initWithSIPAccount:self identifier:callIdentifier];
-  
-  [[self calls] addObject:theCall];
-  
-  return [theCall autorelease];
+  return theCall;
 }
 
 @end

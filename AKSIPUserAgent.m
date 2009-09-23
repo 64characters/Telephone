@@ -966,9 +966,6 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
                                       pjsip_rx_data *messageData) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
-  pjsua_call_info callInfo;
-  pjsua_call_get_info(callIdentifier, &callInfo);
-  
   PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
   
   AKSIPAccount *theAccount
@@ -978,13 +975,6 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
   AKSIPCall *theCall = [[[AKSIPCall alloc] initWithSIPAccount:theAccount
                                                    identifier:callIdentifier]
                         autorelease];
-  
-  [theCall setState:callInfo.state];
-  [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
-  [theCall setLastStatus:callInfo.last_status];
-  [theCall setLastStatusText:
-   [NSString stringWithPJString:callInfo.last_status_text]];
-  [theCall setIncoming:YES];
   
   [[theAccount calls] addObject:theCall];
   
@@ -1022,11 +1012,21 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier,
   AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent]
                         SIPCallByIdentifier:callIdentifier];
   
-  [theCall setState:callInfo.state];
-  [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
-  [theCall setLastStatus:callInfo.last_status];
-  [theCall setLastStatusText:
-   [NSString stringWithPJString:callInfo.last_status_text]];
+  if (theCall == nil && callInfo.state == PJSIP_INV_STATE_CALLING) {
+    // AKSIPCall object is created here when the call is outgoing.
+    AKSIPAccount *theAccount
+      = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:callInfo.acc_id];
+    theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount
+                                         identifier:callIdentifier];
+    [[theAccount calls] addObject:theCall];
+    
+  } else {
+    [theCall setState:callInfo.state];
+    [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
+    [theCall setLastStatus:callInfo.last_status];
+    [theCall setLastStatusText:
+     [NSString stringWithPJString:callInfo.last_status_text]];
+  }
   
   if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
     [theCall ringbackStop];

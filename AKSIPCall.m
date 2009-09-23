@@ -196,15 +196,27 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
   [self setAccount:anAccount];
   
   pjsua_call_info callInfo;
-  pjsua_call_get_info(anIdentifier, &callInfo);
-  [self setRemoteURI:[AKSIPURI SIPURIWithString:
-                      [NSString stringWithPJString:callInfo.remote_info]]];
-  [self setLocalURI:[AKSIPURI SIPURIWithString:
-                     [NSString stringWithPJString:callInfo.local_info]]];
-  
-  [self setState:kAKSIPCallNullState];
-  
-  [self setIncoming:NO];
+  pj_status_t status = pjsua_call_get_info(anIdentifier, &callInfo);
+  if (status == PJ_SUCCESS) {
+    [self setState:callInfo.state];
+    [self setStateText:[NSString stringWithPJString:callInfo.state_text]];
+    [self setLastStatus:callInfo.last_status];
+    [self setLastStatusText:
+     [NSString stringWithPJString:callInfo.last_status_text]];
+    [self setRemoteURI:[AKSIPURI SIPURIWithString:
+                        [NSString stringWithPJString:callInfo.remote_info]]];
+    [self setLocalURI:[AKSIPURI SIPURIWithString:
+                       [NSString stringWithPJString:callInfo.local_info]]];
+    
+    if (callInfo.state = kAKSIPCallIncomingState)
+      [self setIncoming:YES];
+    else
+      [self setIncoming:NO];
+    
+  } else {
+    [self setState:kAKSIPCallNullState];
+    [self setIncoming:NO];
+  }
   
   return self;
 }
