@@ -1016,8 +1016,10 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier,
     // AKSIPCall object is created here when the call is outgoing.
     AKSIPAccount *theAccount
       = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:callInfo.acc_id];
-    theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount
-                                         identifier:callIdentifier];
+    theCall = [[[AKSIPCall alloc] initWithSIPAccount:theAccount
+                                          identifier:callIdentifier]
+               autorelease];
+    
     [[theAccount calls] addObject:theCall];
     
   } else {

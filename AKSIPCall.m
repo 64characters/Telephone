@@ -208,7 +208,7 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
     [self setLocalURI:[AKSIPURI SIPURIWithString:
                        [NSString stringWithPJString:callInfo.local_info]]];
     
-    if (callInfo.state = kAKSIPCallIncomingState)
+    if (callInfo.state == kAKSIPCallIncomingState)
       [self setIncoming:YES];
     else
       [self setIncoming:NO];
