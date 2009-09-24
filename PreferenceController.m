@@ -1324,8 +1324,10 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
   [[self accountsTable] reloadData];
   
   // Preserve account selection.
-  [[self accountsTable] selectRow:[accounts indexOfObject:selectedAccount]
-             byExtendingSelection:NO];
+  NSUInteger selectedAccountIndex = [accounts indexOfObject:selectedAccount];
+  [[self accountsTable]
+   selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedAccountIndex]
+   byExtendingSelection:NO];
   
   [[NSNotificationCenter defaultCenter]
    postNotificationName:AKPreferenceControllerDidSwapAccountsNotification
