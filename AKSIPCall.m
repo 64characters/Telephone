@@ -262,6 +262,16 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
     NSLog(@"Error hanging up call %@", self);
 }
 
+- (void)attendedTransferToCall:(AKSIPCall *)destinationCall {
+  pj_status_t status
+    = pjsua_call_xfer_replaces([self identifier],
+                               [destinationCall identifier],
+                               PJSUA_XFER_NO_REQUIRE_REPLACES,
+                               NULL);
+  if (status != PJ_SUCCESS)
+    NSLog(@"Error transfering call %@", self);
+}
+
 - (void)sendRingingNotification {
   pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_RINGING,
                                          NULL, NULL);

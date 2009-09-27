@@ -170,6 +170,12 @@ extern NSString * const AKSIPCallDidRemoteHoldNotification;
 // Hangs-up the call.
 - (void)hangUp;
 
+// Attended call transfer. Sends REFER request to the receiver's remote party
+// to initiate new INVITE session to the URL of |destinationCall|. The party
+// at |destinationCall| then should replace the call with us with the new call
+// from the REFER recipient.
+- (void)attendedTransferToCall:(AKSIPCall *)destinationCall;
+
 // Sends ringing notification to another party.
 - (void)sendRingingNotification;
 
