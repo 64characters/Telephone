@@ -2235,19 +2235,19 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event
            withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-  // Do nithing if there are no accounts in use.
   if ([[self enabledAccountControllers] count] == 0)
     return;
   
   AccountController *firstEnabledAccountController
     = [[self enabledAccountControllers] objectAtIndex:0];
   
-  NSString *URLString = [[event paramDescriptorForKeyword:keyDirectObject]
-                         stringValue];
+  NSString *URLString
+    = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
   
   [firstEnabledAccountController setCatchedURLString:URLString];
   
-  if ([[firstEnabledAccountController account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
+  if ([[firstEnabledAccountController account] identifier] ==
+      kAKSIPUserAgentInvalidIdentifier) {
     // Go Available if it's Offline. Make call from the callback.
     [firstEnabledAccountController setAccountRegistered:YES];
   } else {
