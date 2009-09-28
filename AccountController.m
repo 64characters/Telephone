@@ -2022,7 +2022,7 @@ menuForRepresentedObject:(id)representedObject {
 - (NSArray *)tokenField:(NSTokenField *)tokenField
        shouldAddObjects:(NSArray *)tokens
                 atIndex:(NSUInteger)index {
-  if (index > 0 && [tokenField tokenStyle] == NSRoundedTokenStyle)
+  if (index > 0)
     return nil;
   else
     return tokens;
