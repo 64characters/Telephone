@@ -46,8 +46,12 @@
 #import "iTunes.h"
 
 #import "AccountController.h"
+#import "AccountPreferencesViewController.h"
+#import "AccountSetupController.h"
+#import "ActiveAccountViewController.h"
+#import "AuthenticationFailureController.h"
 #import "CallController.h"
-#import "PreferenceController.h"
+#import "PreferencesController.h"
 
 
 NSString * const kAudioDeviceIdentifier = @"AudioDeviceIdentifier";
@@ -120,7 +124,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
 @synthesize userAgent = userAgent_;
 @synthesize accountControllers = accountControllers_;
 @dynamic enabledAccountControllers;
-@synthesize preferenceController = preferenceController_;
+@dynamic preferencesController;
+@dynamic accountSetupController;
 @synthesize audioDevices = audioDevices_;
 @synthesize soundInputDeviceIndex = soundInputDeviceIndex_;
 @synthesize soundOutputDeviceIndex = soundOutputDeviceIndex_;
@@ -146,6 +151,21 @@ static void NameserversChanged(SCDynamicStoreRef store,
 - (NSArray *)enabledAccountControllers {
   return [[self accountControllers] filteredArrayUsingPredicate:
           [NSPredicate predicateWithFormat:@"enabled == YES"]];
+}
+
+- (PreferencesController *)preferencesController {
+  if (preferencesController_ == nil) {
+    preferencesController_ = [[PreferencesController alloc] init];
+    [preferencesController_ setDelegate:self];
+  }
+  return preferencesController_;
+}
+
+- (AccountSetupController *)accountSetupController {
+  if (accountSetupController_ == nil) {
+    accountSetupController_ = [[AccountSetupController alloc] init];
+  }
+  return accountSetupController_;
 }
 
 - (void)setRingtone:(NSSound *)aRingtone {
@@ -322,9 +342,17 @@ static void NameserversChanged(SCDynamicStoreRef store,
     [NSNumber numberWithDouble:40.0],
     nil]];
   
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
+  
+  // Subscribe to the account setup notifications.
+  [notificationCenter addObserver:self
+                         selector:@selector(accountSetupControllerDidAddAccount:)
+                             name:AKAccountSetupControllerDidAddAccountNotification
+                           object:nil];
+  
   // Subscribe to Early and Confirmed call states to set sound IO to the user
   // agent.
-  NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
   [notificationCenter addObserver:self
                          selector:@selector(SIPCallCalling:)
                              name:AKSIPCallCallingNotification
@@ -340,11 +368,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
                              name:AKSIPCallDidDisconnectNotification
                            object:nil];
   
-  // Subscribe to username and password changes by the account controllers. For
-  // example, when authentication fails and user enters new credentials.
+  // Subscribe to username and password changes by the authentication failure
+  // controllers.
   [notificationCenter addObserver:self
-                         selector:@selector(accountControllerDidChangeUsernameAndPassword:)
-                             name:AKAccountControllerDidChangeUsernameAndPasswordNotification
+                         selector:@selector(authenticationFailureControllerDidChangeUsernameAndPassword:)
+                             name:AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNotification
                            object:nil];
   
   // Subscribe to NSWorkspace notifications about going computer to sleep,
@@ -400,9 +428,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [userAgent_ dealloc];
   [accountControllers_ release];
   
-  if ([[[self preferenceController] delegate] isEqual:self])
-    [[self preferenceController] setDelegate:nil];
-  [preferenceController_ release];
+  if ([[preferencesController_ delegate] isEqual:self]) {
+    [preferencesController_ setDelegate:nil];
+  }
+  [preferencesController_ release];
   
   [audioDevices_ release];
   [ringtone_ release];
@@ -421,7 +450,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
   // Force ended state for all calls and remove accounts from the user agent.
   for (AccountController *anAccountController in [self enabledAccountControllers]) {
     for (CallController *aCallController in [anAccountController callControllers])
-      [aCallController hangUpCall:nil];
+      [aCallController hangUpCall];
     
     [anAccountController removeAccountFromUserAgent];
   }
@@ -552,7 +581,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
                       waitUntilDone:YES];
   
   // Update audio devices in preferences.
-  [[self preferenceController]
+  [[[self preferencesController] soundPreferencesViewController]
    performSelectorOnMainThread:@selector(updateAudioDevices)
                     withObject:nil
                  waitUntilDone:NO];
@@ -664,35 +693,30 @@ static void NameserversChanged(SCDynamicStoreRef store,
 }
 
 - (IBAction)showPreferencePanel:(id)sender {
-  if (preferenceController_ == nil) {
-    preferenceController_ = [[PreferenceController alloc] init];
-    [[self preferenceController] setDelegate:self];
-  }
+  if (![[[self preferencesController] window] isVisible])
+    [[[self preferencesController] window] center];
   
-  if (![[[self preferenceController] window] isVisible])
-    [[[self preferenceController] window] center];
-  
-  [[self preferenceController] showWindow:nil];
+  [[self preferencesController] showWindow:nil];
 }
 
 - (IBAction)addAccountOnFirstLaunch:(id)sender {
-  [[self preferenceController] addAccount:sender];
+  [[self accountSetupController] addAccount:sender];
   
-  if ([[[[self preferenceController] setupFullNameField] stringValue] length] > 0 &&
-      [[[[self preferenceController] setupDomainField] stringValue] length] > 0 &&
-      [[[[self preferenceController] setupUsernameField] stringValue] length] > 0 &&
-      [[[[self preferenceController] setupPasswordField] stringValue] length] > 0) {
+  if ([[[[self accountSetupController] fullNameField] stringValue] length] > 0 &&
+      [[[[self accountSetupController] domainField] stringValue] length] > 0 &&
+      [[[[self accountSetupController] usernameField] stringValue] length] > 0 &&
+      [[[[self accountSetupController] passwordField] stringValue] length] > 0) {
     // Re-enable Preferences.
     [[self preferencesMenuItem] setAction:@selector(showPreferencePanel:)];
     
     // Change back targets and actions of addAccountWindow buttons.
-    [[[self preferenceController] addAccountWindowDefaultButton]
-     setTarget:[self preferenceController]];
-    [[[self preferenceController] addAccountWindowDefaultButton]
+    [[[self accountSetupController] defaultButton]
+     setTarget:[self accountSetupController]];
+    [[[self accountSetupController] defaultButton]
      setAction:@selector(addAccount:)];
-    [[[self preferenceController] addAccountWindowOtherButton]
-     setTarget:[self preferenceController]];
-    [[[self preferenceController] addAccountWindowOtherButton]
+    [[[self accountSetupController] otherButton]
+     setTarget:[self accountSetupController]];
+    [[[self accountSetupController] otherButton]
      setAction:@selector(closeSheet:)];
     
     // Install audio devices changes callback.
@@ -1446,9 +1470,9 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 
 #pragma mark -
-#pragma mark PreferenceController delegate
+#pragma mark AccountSetupController delegate
 
-- (void)preferenceControllerDidAddAccount:(NSNotification *)notification {
+- (void)accountSetupControllerDidAddAccount:(NSNotification *)notification {
   NSDictionary *accountDict = [notification userInfo];
   
   NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@",
@@ -1478,7 +1502,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
   }
 }
 
-- (void)preferenceControllerDidRemoveAccount:(NSNotification *)notification {
+
+#pragma mark -
+#pragma mark PreferencesController delegate
+
+- (void)preferencesControllerDidRemoveAccount:(NSNotification *)notification {
   NSInteger index
     = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
   AccountController *anAccountController
@@ -1490,7 +1518,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [[self accountControllers] removeObjectAtIndex:index];
 }
 
-- (void)preferenceControllerDidChangeAccountEnabled:(NSNotification *)notification {
+- (void)preferencesControllerDidChangeAccountEnabled:(NSNotification *)notification {
   NSUInteger index
     = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
   
@@ -1579,7 +1607,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
   }
 }
 
-- (void)preferenceControllerDidSwapAccounts:(NSNotification *)notification {
+- (void)preferencesControllerDidSwapAccounts:(NSNotification *)notification {
   NSDictionary *userInfo = [notification userInfo];
   NSInteger sourceIndex = [[userInfo objectForKey:kSourceIndex] integerValue];
   NSInteger destinationIndex = [[userInfo objectForKey:kDestinationIndex]
@@ -1597,7 +1625,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
     [[self accountControllers] removeObjectAtIndex:(sourceIndex + 1)];
 }
 
-- (void)preferenceControllerDidChangeNetworkSettings:(NSNotification *)notification {
+- (void)preferencesControllerDidChangeNetworkSettings:(NSNotification *)notification {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
@@ -1751,12 +1779,12 @@ static void NameserversChanged(SCDynamicStoreRef store,
 #pragma mark NSWindow notifications
 
 - (void)windowWillClose:(NSNotification *)notification {
-  // User closed addAccountWindow. Terminate application.
-  if ([[notification object] isEqual:[[self preferenceController] addAccountWindow]]) {
+  // User closed Account Setup window. Terminate application.
+  if ([[notification object] isEqual:[[self accountSetupController] window]]) {
     [[NSNotificationCenter defaultCenter]
      removeObserver:self
                name:NSWindowWillCloseNotification
-             object:[[self preferenceController] addAccountWindow]];
+             object:[[self accountSetupController] window]];
     
     [NSApp terminate:self];
   }
@@ -1843,31 +1871,25 @@ static void NameserversChanged(SCDynamicStoreRef store,
     // Disable Preferences during the first account prompt.
     [[self preferencesMenuItem] setAction:NULL];
     
-    preferenceController_ = [[PreferenceController alloc] init];
-    [[self preferenceController] setDelegate:self];
-    [NSBundle loadNibNamed:@"AddAccount" owner:[self preferenceController]];
-    
     // Subscribe to addAccountWindow close to terminate application.
     [[NSNotificationCenter defaultCenter]
      addObserver:self
         selector:@selector(windowWillClose:)
             name:NSWindowWillCloseNotification
-          object:[[self preferenceController] addAccountWindow]];
+          object:[[self accountSetupController] window]];
     
     // Set different targets and actions of addAccountWindow buttons
     // to add the first account.
-    [[[self preferenceController] addAccountWindowDefaultButton]
-     setTarget:self];
-    [[[self preferenceController] addAccountWindowDefaultButton]
+    [[[self accountSetupController] defaultButton] setTarget:self];
+    [[[self accountSetupController] defaultButton]
      setAction:@selector(addAccountOnFirstLaunch:)];
-    [[[self preferenceController] addAccountWindowOtherButton]
-     setTarget:[[self preferenceController] addAccountWindow]];
-    [[[self preferenceController] addAccountWindowOtherButton]
+    [[[self accountSetupController] otherButton]
+     setTarget:[[self accountSetupController] window]];
+    [[[self accountSetupController] otherButton]
      setAction:@selector(performClose:)];
     
-    [[[self preferenceController] addAccountWindow] center];
-    [[[self preferenceController] addAccountWindow]
-     makeKeyAndOrderFront:self];
+    [[[self accountSetupController] window] center];
+    [[[self accountSetupController] window] makeKeyAndOrderFront:self];
     
     return;
   }
@@ -2080,10 +2102,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 
 #pragma mark -
-#pragma mark AccountController notifications
+#pragma mark AuthenticationFailureController notifications
 
-- (void)accountControllerDidChangeUsernameAndPassword:(NSNotification *)notification {
-  AccountController *accountController = [notification object];
+- (void)authenticationFailureControllerDidChangeUsernameAndPassword:(NSNotification *)notification {
+  AccountController *accountController
+    = [[notification object] accountController];
   NSUInteger index
     = [[self accountControllers] indexOfObject:accountController];
   
@@ -2104,8 +2127,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
     [defaults setObject:accounts forKey:kAccounts];
     [defaults synchronize];
     
-    if ([[[self preferenceController] accountsTable] selectedRow] == index)
-      [[self preferenceController] populateFieldsForAccountAtIndex:index];
+    AccountPreferencesViewController *accountPreferencesViewController
+      = [[self preferencesController] accountPreferencesViewController];
+    if ([[accountPreferencesViewController accountsTable] selectedRow] == index) {
+      [accountPreferencesViewController populateFieldsForAccountAtIndex:index];
+    }
   }
 }
 
@@ -2169,19 +2195,18 @@ static void NameserversChanged(SCDynamicStoreRef store,
 #pragma mark Address Book plug-in notifications
 
 // TODO(eofster): Here we receive contact's name and call destination (phone or
-// SIP address). Then we set text field string value as when the user types in
-// the name directly and Telephone autocomplets input. The result is that
-// Address Book is being searched to find the person record. As an alternative
-// we could send person and selected call destination identifiers and only
-// get another destinations here (no new AB search).
+// SIP address). Then we set text field string value as when the user typed in
+// the name directly and Telephone autocompleted the input. The result is that
+// Address Book is searched for the person record. As an alternative we could
+// send person and selected call destination identifiers and get another
+// destinations here (no new AB search).
 // If we change it to work with identifiers, we'll probably want to somehow
-// change AccountController's tokenField:representedObjectForEditingString:.
+// change ActiveAccountViewController's
+// tokenField:representedObjectForEditingString:.
 - (void)addressBookDidDialCallDestination:(NSNotification *)notification {
-  // Do nothing if there is a modal window.
   if ([NSApp modalWindow] != nil)
     return;
   
-  // Do nothing is there are no accounts in use.
   if ([[self enabledAccountControllers] count] == 0)
     return;
   
@@ -2201,8 +2226,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
   AccountController *firstEnabledAccountController
     = [[self enabledAccountControllers] objectAtIndex:0];
   
-  [[firstEnabledAccountController callDestinationField]
-   setTokenStyle:NSRoundedTokenStyle];
+  [[[firstEnabledAccountController activeAccountViewController]
+    callDestinationField] setTokenStyle:NSRoundedTokenStyle];
   
   [NSApp activateIgnoringOtherApps:YES];
   
@@ -2214,8 +2239,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
     theString = callDestination;
   }
 
-  [[firstEnabledAccountController callDestinationField]
-   setStringValue:theString];
+  [[[firstEnabledAccountController activeAccountViewController]
+    callDestinationField] setStringValue:theString];
   
   if ([[firstEnabledAccountController account] identifier] ==
       kAKSIPUserAgentInvalidIdentifier) {
@@ -2224,8 +2249,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
     [firstEnabledAccountController setAccountRegistered:YES];
     
   } else {
-    [firstEnabledAccountController makeCall:
-     [firstEnabledAccountController callDestinationField]];
+    [[firstEnabledAccountController activeAccountViewController] makeCall:nil];
   }
 }
 

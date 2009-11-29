@@ -152,7 +152,7 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 // Receiver's call data.
 @property(nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;
 
-// A pool used by the underlying PJSUA libraty of the receiver.
+// A pool used by the underlying PJSUA library of the receiver.
 @property(readonly, assign) pj_pool_t *pjPool;
 
 @property(readonly, assign) NSInteger ringbackSlot;
@@ -164,8 +164,8 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 @property(nonatomic, copy) NSArray *nameservers;
 
 // SIP proxy host to visit for all outgoing requests. Will be used for all
-// accounts. The final route set for outgoing requests consists of the this
-// proxy and proxy configured for the account.
+// accounts. The final route set for outgoing requests consists of this proxy
+// and proxy configured for the account.
 @property(nonatomic, copy) NSString *outboundProxyHost;
 
 // Network port to use with the outbound proxy.

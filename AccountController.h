@@ -31,6 +31,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "AKSIPAccount.h"
+#import "XSWindowController.h"
 
 
 // Account states.
@@ -43,16 +44,11 @@ enum {
 // Address Book label for SIP address in the email field.
 extern NSString * const kEmailSIPLabel;
 
-// Posted whenever an AccountController object changes account's username and
-// password.
-// The notification object is the AccountController object that changed
-// username and password.
-extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotification;
-
-@class AKSIPAccount, AKNetworkReachability;
+@class AKSIPURI, AKNetworkReachability;
+@class ActiveAccountViewController, AuthenticationFailureController;
 
 // A SIP account controller.
-@interface AccountController : NSWindowController <AKSIPAccountDelegate> {
+@interface AccountController : XSWindowController <AKSIPAccountDelegate> {
  @private
   BOOL enabled_;
   AKSIPAccount *account_;
@@ -69,19 +65,10 @@ extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotificat
   BOOL substitutesPlusCharacter_;
   NSString *plusCharacterSubstitution_;
   
-  NSView *activeAccountView_;
-  NSView *offlineAccountView_;
-  NSPopUpButton *accountStatePopUp_;
-  NSTokenField *callDestinationField_;
-  NSUInteger callDestinationURIIndex_;
+  ActiveAccountViewController *activeAccountViewController_;
+  AuthenticationFailureController *authenticationFailureController_;
   
-  // Authentication failure sheet elements.
-  NSWindow *authenticationFailureSheet_;
-  NSTextField *authenticationFailureInformativeText_;
-  NSTextField *updatedUsernameField_;
-  NSTextField *updatedPasswordField_;
-  NSButton *mustSaveCheckBox_;
-  NSButton *authenticationFailureCancelButton_;
+  NSPopUpButton *accountStatePopUp_;
 }
 
 // A Boolean value indicating whether receiver is enabled.
@@ -131,37 +118,15 @@ extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotificat
 // A replacement for the plus character in the phone number.
 @property(nonatomic, copy) NSString *plusCharacterSubstitution;
 
-// Outlets.
+// An active account view controller.
+@property(nonatomic, readonly) ActiveAccountViewController *activeAccountViewController;
 
-// Active account view outlet.
-@property(nonatomic, retain) IBOutlet NSView *activeAccountView;
-
-// Offline account view outlet.
-@property(nonatomic, retain) IBOutlet NSView *offlineAccountView;
+// An authentication failure controller.
+@property(nonatomic, readonly) AuthenticationFailureController *authenticationFailureController;
 
 // Account state pop-up button outlet.
 @property(nonatomic, retain) IBOutlet NSPopUpButton *accountStatePopUp;
 
-// Call destination token field outlet.
-@property(nonatomic, retain) IBOutlet NSTokenField *callDestinationField;
-
-// Authentication failure sheet outlet.
-@property(nonatomic, retain) IBOutlet NSWindow *authenticationFailureSheet;
-
-// Informative text outlet of the authentication failure sheet.
-@property(nonatomic, retain) IBOutlet NSTextField *authenticationFailureInformativeText;
-
-// |User Name| field outlet of the authentication failure sheet.
-@property(nonatomic, retain) IBOutlet NSTextField *updatedUsernameField;
-
-// |Password| field outlet of the authentication failure sheet.
-@property(nonatomic, retain) IBOutlet NSTextField *updatedPasswordField;
-
-// |Save in the Keychain| checkbox outlet.
-@property(nonatomic, retain) IBOutlet NSButton *mustSaveCheckBox;
-
-// Cancel button outlet of the authentication failure sheet.
-@property(nonatomic, retain) IBOutlet NSButton *authenticationFailureCancelButton;
 
 // Designated initializer.
 // Initializes an AccountController object with a given account.
@@ -178,20 +143,14 @@ extern NSString * const AKAccountControllerDidChangeUsernameAndPasswordNotificat
 // Removes account from the user agent.
 - (void)removeAccountFromUserAgent;
 
-// Makes a call.
-- (IBAction)makeCall:(id)sender;
+// Makes a call to a given destination URI with a given phone label.
+// Host part of the |destinationURI| can be empty, in which case host part from
+// the account's |registrationURI| will be taken.
+- (void)makeCallToURI:(AKSIPURI *)destinationURI
+           phoneLabel:(NSString *)phoneLabel;
 
 // Changes account state.
 - (IBAction)changeAccountState:(id)sender;
-
-// Sets new user name and password when authentication fails.
-- (IBAction)changeUsernameAndPassword:(id)sender;
-
-// Closes a sheet.
-- (IBAction)closeSheet:(id)sender;
-
-// Changes the active SIP URI index in the call destination token.
-- (IBAction)changeCallDestinationURIIndex:(id)sender;
 
 // Shows alert saying that connection to the registrar failed.
 - (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error;

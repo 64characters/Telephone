@@ -31,7 +31,7 @@
 #import "AKSIPURIFormatter.h"
 
 #import "AKNSString+Scanning.h"
-#import "PreferenceController.h"
+#import "PreferencesController.h"
 #import "AKSIPURI.h"
 #import "AKTelephoneNumberFormatter.h"
 

@@ -18,9 +18,6 @@
 /* Busy. */
 "busy" = "Besetzt";
 
-/* Redial button tooltip. */
-"Call Back" = "Rückruf";
-
 /* Call declined. */
 "call declined" = "Anruf abgelehnt";
 
@@ -66,9 +63,6 @@
 
 /* Don't save button. */
 "Don't Save" = "Nicht Sichern";
-
-/* Hang-up button tooltip. */
-"End Call" = "Anruf beenden";
 
 /* Error #. */
 "Error %d" = "Fehler %d";
