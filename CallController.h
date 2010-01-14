@@ -41,7 +41,7 @@ extern NSString * const AKCallWindowWillCloseNotification;
 
 @class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI;
 @class IncomingCallViewController, ActiveCallViewController;
-@class EndedCallViewController;
+@class EndedCallViewController, CallTransferController;
 
 // A call controller.
 @interface CallController : XSWindowController {
@@ -49,6 +49,7 @@ extern NSString * const AKCallWindowWillCloseNotification;
   NSString *identifier_;
   AKSIPCall *call_;
   AccountController *accountController_;
+  CallTransferController *callTransferController_;
   
   IncomingCallViewController *incomingCallViewController_;
   ActiveCallViewController *activeCallViewController_;
@@ -75,6 +76,9 @@ extern NSString * const AKCallWindowWillCloseNotification;
 
 // Account controller the receiver belongs to.
 @property(nonatomic, assign) AccountController *accountController;
+
+// Call transfer controller.
+@property(nonatomic, readonly) CallTransferController *callTransferController;
 
 
 // Incoming call view controller.
