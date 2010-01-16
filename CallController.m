@@ -480,7 +480,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   
   [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];
   
-  [[[self activeCallViewController] view] removeTrackingArea:[[self activeCallViewController] callProgressIndicatorTrackingArea]];
+  [[[self activeCallViewController] view] removeTrackingArea:
+   [[self activeCallViewController] callProgressIndicatorTrackingArea]];
    
   [[[self activeCallViewController] view]
    replaceSubview:[[self activeCallViewController] callProgressIndicator]
