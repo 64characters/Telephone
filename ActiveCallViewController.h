@@ -89,6 +89,9 @@
 // Toggles microphone mute.
 - (IBAction)toggleMicrophoneMute:(id)sender;
 
+// Shows call transfer sheet.
+- (IBAction)showCallTransferSheet:(id)sender;
+
 // Starts call timer.
 - (void)startCallTimer;
 

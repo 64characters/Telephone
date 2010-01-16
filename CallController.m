@@ -46,6 +46,7 @@
 #import "AccountController.h"
 #import "ActiveCallViewController.h"
 #import "AppController.h"
+#import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
 #import "PreferencesController.h"
@@ -71,6 +72,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 @synthesize identifier = identifier_;
 @synthesize call = call_;
 @synthesize accountController = accountController_;
+@synthesize callTransferController = callTransferController_;
 @synthesize displayedName = displayedName_;
 @synthesize status = status_;
 @synthesize nameFromAddressBook = nameFromAddressBook_;
@@ -117,6 +119,14 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   }
   
   accountController_ = anAccountController;
+}
+
+- (CallTransferController *)callTransferController {
+  if (callTransferController_ == nil) {
+    callTransferController_
+      = [[CallTransferController alloc] initWithSourceCallController:self];
+  }
+  return callTransferController_;
 }
 
 - (IncomingCallViewController *)incomingCallViewController {
@@ -169,6 +179,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   
   [self setCall:nil];
   [self setAccountController:nil];
+  [callTransferController_ release];
   [incomingCallViewController_ release];
   [activeCallViewController_ release];
   [endedCallViewController_ release];

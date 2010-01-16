@@ -133,6 +133,16 @@
   [[self callController] toggleMicrophoneMute];
 }
 
+- (IBAction)showCallTransferSheet:(id)sender {
+  CallTransferController *callTransferController
+    = [[self callController] callTransferController];
+  [NSApp beginSheet:[callTransferController window]
+     modalForWindow:[[self callController] window]
+      modalDelegate:nil
+     didEndSelector:NULL
+        contextInfo:NULL];
+}
+
 - (void)startCallTimer {
   if ([self callTimer] != nil && [[self callTimer] isValid])
     return;
