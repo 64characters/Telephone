@@ -52,9 +52,11 @@ extern NSString * const AKCallWindowWillCloseNotification;
   CallTransferController *callTransferController_;
   
   IncomingCallViewController *incomingCallViewController_;
+ @protected
   ActiveCallViewController *activeCallViewController_;
   EndedCallViewController *endedCallViewController_;
-  
+ 
+ @private
   NSString *displayedName_;
   NSString *status_;
   NSString *nameFromAddressBook_;

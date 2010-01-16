@@ -30,6 +30,9 @@
 
 #import "CallTransferController.h"
 
+#import "ActiveTransferCallViewController.h"
+#import "EndedTransferCallViewController.h"
+
 
 @implementation CallTransferController
 
@@ -37,7 +40,7 @@
 @synthesize activeAccountViewController = activeAccountViewController_;
 
 - (id)initWithSourceCallController:(CallController *)callController {
-  self = [super initWithWindowNibName:@"CallTransfer"];
+  self = [super initWithAccountController:[callController accountController]];
   if (self != nil) {
     [self setSourceCallController:callController];
     AccountController *accountController
@@ -57,6 +60,42 @@
 - (IBAction)closeSheet:(id)sender {
   [NSApp endSheet:[sender window]];
   [[sender window] orderOut:sender];
+}
+
+
+#pragma mark -
+#pragma mark CallController methods
+
+- (CallTransferController *)callTransferController {
+  return nil;
+}
+
+- (IncomingCallViewController *)incomingCallViewController {
+  return nil;
+}
+
+// Substitutes ActiveTransferCallViewController.
+- (ActiveCallViewController *)activeCallViewController {
+  if (activeCallViewController_ == nil) {
+    activeCallViewController_
+      = [[ActiveTransferCallViewController alloc] initWithCallController:self];
+    [activeCallViewController_ setRepresentedObject:[self call]];
+  }
+  return activeCallViewController_;
+}
+
+// Substitutes EndedTransferCallViewController.
+- (EndedCallViewController *)endedCallViewController {
+  if (endedCallViewController_ == nil) {
+    endedCallViewController_
+      = [[EndedTransferCallViewController alloc] initWithCallController:self];
+    [endedCallViewController_ setRepresentedObject:[self call]];
+  }
+  return endedCallViewController_;
+}
+
+- (void)acceptCall {
+  // Do nothing.
 }
 
 @end
