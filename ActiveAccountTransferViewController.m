@@ -1,8 +1,6 @@
 //
-//  ActiveAccountViewController.h
+//  ActiveAccountTransferViewController.m
 //  Telephone
-//
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -28,48 +26,44 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "ActiveAccountTransferViewController.h"
 
-#import "XSViewController.h"
+#import "AccountController.h"
 
 
-// Call destination keys.
-extern NSString * const kURI;
-extern NSString * const kPhoneLabel;
+@implementation ActiveAccountTransferViewController
 
-@class AccountController, AKSIPURI;
-
-// An active account view controller.
-@interface ActiveAccountViewController : XSViewController {
- @private
-  AccountController *accountController_;
-  NSTokenField *callDestinationField_;
-  NSUInteger callDestinationURIIndex_;
+- (id)initWithAccountController:(AccountController *)anAccountController
+               windowController:(XSWindowController *)windowController {
+  self = [super initWithNibName:@"ActiveAccountTransferView"
+                         bundle:nil
+               windowController:windowController];
+  if (self != nil) {
+    [self setAccountController:anAccountController];
+  }
+  return self;
 }
 
-// Account controller the receiver belongs to.
-@property(nonatomic, assign) AccountController *accountController;
+- (IBAction)makeCallToTransferDestination:(id)sender {
+  if ([[[self callDestinationField] objectValue] count] == 0)
+    return;
+  
+  NSDictionary *callDestinationDict
+    = [[[[self callDestinationField] objectValue] objectAtIndex:0]
+       objectAtIndex:[self callDestinationURIIndex]];
+  
+  NSString *phoneLabel = [callDestinationDict objectForKey:kPhoneLabel];
+  
+  AKSIPURI *uri = [self callDestinationURI];
+  if (uri != nil) {
+    [[self accountController] makeCallToURI:uri
+                                 phoneLabel:phoneLabel
+                     callTransferController:[[sender window] windowController]];
+  }
+}
 
-// Call destination token field outlet.
-@property(nonatomic, retain) IBOutlet NSTokenField *callDestinationField;
-
-// Index of a URI in a call destination token.
-@property(nonatomic, assign) NSUInteger callDestinationURIIndex;
-
-// Call destination URI.
-@property(nonatomic, readonly) AKSIPURI *callDestinationURI;
-
-
-// Designated initializer.
-// Initializes an ActiveAccountViewController object with a given account
-// controller and window controller.
-- (id)initWithAccountController:(AccountController *)anAccountController
-               windowController:(XSWindowController *)windowController;
-
-// Makes a call.
-- (IBAction)makeCall:(id)sender;
-
-// Changes the active SIP URI index in the call destination token.
-- (IBAction)changeCallDestinationURIIndex:(id)sender;
+- (IBAction)makeCall:(id)sender {
+  return;
+}
 
 @end

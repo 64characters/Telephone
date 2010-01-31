@@ -59,8 +59,10 @@
 
 
 // Designated initializer.
-// Initializes an EndedCallViewController object with a given call controller.
-- (id)initWithCallController:(CallController *)callController;
+// Initializes an EndedCallViewController object with a given nib file and call
+// controller.
+- (id)initWithNibName:(NSString *)nibName
+       callController:(CallController *)callController;
 
 // Redials a call.
 - (IBAction)redial:(id)sender;

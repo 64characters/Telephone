@@ -51,6 +51,7 @@
 #import "AppController.h"
 #import "AuthenticationFailureController.h"
 #import "CallController.h"
+#import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
 #import "PreferencesController.h"
@@ -225,7 +226,8 @@ NSString * const kEmailSIPLabel = @"sip";
 - (ActiveAccountViewController *)activeAccountViewController {
   if (activeAccountViewController_ == nil) {
     activeAccountViewController_
-      = [[ActiveAccountViewController alloc] initWithAccountController:self];
+      = [[ActiveAccountViewController alloc] initWithAccountController:self
+                                                      windowController:self];
   }
   
   return activeAccountViewController_;
@@ -330,7 +332,9 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (void)makeCallToURI:(AKSIPURI *)destinationURI
-           phoneLabel:(NSString *)phoneLabel {
+           phoneLabel:(NSString *)phoneLabel
+callTransferController:(CallTransferController *)callTransferController {
+  
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   AKTelephoneNumberFormatter *telephoneNumberFormatter
     = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
@@ -360,8 +364,16 @@ NSString * const kEmailSIPLabel = @"sip";
                                  withString:[self plusCharacterSubstitution]];
   }
   
-  CallController *aCallController
-    = [[[CallController alloc] initWithAccountController:self] autorelease];
+  // If it's a regular call, not a transfer, create the new CallController.
+  CallController *aCallController;
+  if (callTransferController == nil) {
+   aCallController = [[[CallController alloc] initWithWindowNibName:@"Call"
+                                                  accountController:self]
+                      autorelease];
+  } else {
+    aCallController = [[callTransferController retain] autorelease];
+  }
+
   [aCallController setNameFromAddressBook:[destinationURI displayName]];
   [aCallController setPhoneLabelFromAddressBook:phoneLabel];
   [aCallController setEnteredCallDestination:enteredCallDestinationString];
@@ -416,10 +428,14 @@ NSString * const kEmailSIPLabel = @"sip";
   // Set URI for redial.
   [aCallController setRedialURI:destinationURI];
   
+  if (callTransferController != nil) {
+    [callTransferController showInitialState:self];
+  } else {
   [aCallController addViewController:
    [aCallController activeCallViewController]];
   [[aCallController window] setContentView:
    [[aCallController activeCallViewController] view]];
+  }
   
   if ([phoneLabel length] > 0) {
     [aCallController setStatus:
@@ -433,7 +449,10 @@ NSString * const kEmailSIPLabel = @"sip";
                                                  @"Outgoing call in progress.")];
   }
   
-  [aCallController showWindow:nil];
+  if (callTransferController == nil) {
+    [aCallController showWindow:self];
+  }
+  
   [[[aCallController activeCallViewController] callProgressIndicator]
    startAnimation:self];
   
@@ -451,6 +470,14 @@ NSString * const kEmailSIPLabel = @"sip";
     [aCallController setStatus:NSLocalizedString(@"Call Failed",
                                                  @"Call failed.")];
   }
+}
+
+- (void)makeCallToURI:(AKSIPURI *)destinationURI
+           phoneLabel:(NSString *)phoneLabel {
+  
+  [self makeCallToURI:destinationURI
+           phoneLabel:phoneLabel
+callTransferController:nil];
 }
 
 - (IBAction)changeAccountState:(id)sender {
@@ -840,7 +867,10 @@ NSString * const kEmailSIPLabel = @"sip";
   [[NSApp delegate] pauseITunes];
   
   CallController *aCallController
-    = [[[CallController alloc] initWithAccountController:self] autorelease];
+    = [[[CallController alloc] initWithWindowNibName:@"Call"
+                                   accountController:self]
+       autorelease];
+  
   [aCallController setCall:aCall];
   [aCallController setCallActive:YES];
   [aCallController setCallUnhandled:YES];

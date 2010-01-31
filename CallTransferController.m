@@ -30,36 +30,69 @@
 
 #import "CallTransferController.h"
 
-#import "ActiveTransferCallViewController.h"
-#import "EndedTransferCallViewController.h"
+#import "AKNSWindow+Resizing.h"
+#import "AKSIPCall.h"
+
+#import "ActiveCallTransferViewController.h"
+#import "EndedCallTransferViewController.h"
 
 
 @implementation CallTransferController
 
 @synthesize sourceCallController = sourceCallController_;
-@synthesize activeAccountViewController = activeAccountViewController_;
+@synthesize activeAccountTransferViewController = activeAccountTransferViewController_;
 
 - (id)initWithSourceCallController:(CallController *)callController {
-  self = [super initWithAccountController:[callController accountController]];
+  self = [super initWithWindowNibName:@"CallTransfer"
+                    accountController:[callController accountController]];
   if (self != nil) {
     [self setSourceCallController:callController];
+    
     AccountController *accountController
       = [[self sourceCallController] accountController];
-    activeAccountViewController_
-      = [[ActiveAccountViewController alloc]
-         initWithAccountController:accountController];
+    
+    activeAccountTransferViewController_
+      = [[ActiveAccountTransferViewController alloc]
+         initWithAccountController:accountController
+                  windowController:self];
   }
   return self;
 }
 
 - (void)dealloc {
-  [activeAccountViewController_ release];
+  [activeAccountTransferViewController_ release];
   [super dealloc];
+}
+
+- (void)transferCall {
+  [[[self sourceCallController] call] attendedTransferToCall:[self call]];
 }
 
 - (IBAction)closeSheet:(id)sender {
   [NSApp endSheet:[sender window]];
   [[sender window] orderOut:sender];
+}
+
+- (IBAction)showInitialState:(id)sender {
+  if ([self isCallActive]) {
+    [self hangUpCall];
+  }
+  
+  if ([self countOfViewControllers] > 0) {
+    [[self viewControllers] removeAllObjects];
+    [self patchResponderChain];
+  }
+  [self addViewController:[self activeAccountTransferViewController]];
+  [[self window]
+   ak_resizeAndSwapToContentView:[[self activeAccountTransferViewController]
+                                  view]
+                         animate:YES];
+  
+  if ([[[self activeAccountTransferViewController] callDestinationField]
+       acceptsFirstResponder]) {
+    [[self window] makeFirstResponder:
+     [[self activeAccountTransferViewController] callDestinationField]];
+  }
 }
 
 
@@ -74,21 +107,23 @@
   return nil;
 }
 
-// Substitutes ActiveTransferCallViewController.
+// Substitutes ActiveCallTransferViewController.
 - (ActiveCallViewController *)activeCallViewController {
   if (activeCallViewController_ == nil) {
     activeCallViewController_
-      = [[ActiveTransferCallViewController alloc] initWithCallController:self];
+      = [[ActiveCallTransferViewController alloc]
+         initWithNibName:@"ActiveCallTransferView" callController:self];
     [activeCallViewController_ setRepresentedObject:[self call]];
   }
   return activeCallViewController_;
 }
 
-// Substitutes EndedTransferCallViewController.
+// Substitutes EndedCallTransferViewController.
 - (EndedCallViewController *)endedCallViewController {
   if (endedCallViewController_ == nil) {
     endedCallViewController_
-      = [[EndedTransferCallViewController alloc] initWithCallController:self];
+      = [[EndedCallTransferViewController alloc]
+         initWithNibName:@"EndedCallTransferView" callController:self];
     [endedCallViewController_ setRepresentedObject:[self call]];
   }
   return endedCallViewController_;

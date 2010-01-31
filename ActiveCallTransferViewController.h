@@ -1,5 +1,5 @@
 //
-//  ActiveAccountViewController.h
+//  ActiveCallTransferViewController.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -28,48 +28,22 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-#import "XSViewController.h"
+#import "ActiveCallViewController.h"
 
 
-// Call destination keys.
-extern NSString * const kURI;
-extern NSString * const kPhoneLabel;
-
-@class AccountController, AKSIPURI;
-
-// An active account view controller.
-@interface ActiveAccountViewController : XSViewController {
+// An active call controller of a call transfer.
+@interface ActiveCallTransferViewController : ActiveCallViewController {
  @private
-  AccountController *accountController_;
-  NSTokenField *callDestinationField_;
-  NSUInteger callDestinationURIIndex_;
+  NSButton *transferButton_;
 }
 
-// Account controller the receiver belongs to.
-@property(nonatomic, assign) AccountController *accountController;
-
-// Call destination token field outlet.
-@property(nonatomic, retain) IBOutlet NSTokenField *callDestinationField;
-
-// Index of a URI in a call destination token.
-@property(nonatomic, assign) NSUInteger callDestinationURIIndex;
-
-// Call destination URI.
-@property(nonatomic, readonly) AKSIPURI *callDestinationURI;
+// Call transfer button.
+@property(nonatomic, retain) IBOutlet NSButton *transferButton;
 
 
-// Designated initializer.
-// Initializes an ActiveAccountViewController object with a given account
-// controller and window controller.
-- (id)initWithAccountController:(AccountController *)anAccountController
-               windowController:(XSWindowController *)windowController;
-
-// Makes a call.
-- (IBAction)makeCall:(id)sender;
-
-// Changes the active SIP URI index in the call destination token.
-- (IBAction)changeCallDestinationURIIndex:(id)sender;
+// Transfers a call.
+- (IBAction)transferCall:(id)sender;
 
 @end

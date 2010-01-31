@@ -129,8 +129,10 @@ extern NSString * const AKCallWindowWillCloseNotification;
 
 
 // Designated initializer.
-// Initializes a CallController object with a given account controller.
-- (id)initWithAccountController:(AccountController *)anAccountController;
+// Initializes a CallController object with a given nib file and account
+// controller.
+- (id)initWithWindowNibName:(NSString *)windowNibName
+          accountController:(AccountController *)anAccountController;
 
 // Accepts an incoming call.
 - (void)acceptCall;

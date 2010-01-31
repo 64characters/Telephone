@@ -30,22 +30,34 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ActiveAccountViewController.h"
+#import "ActiveAccountTransferViewController.h"
 #import "CallController.h"
 
 
+// Call transfer controller.
 @interface CallTransferController : CallController {
  @private
   CallController *sourceCallController_;
-  ActiveAccountViewController *activeAccountViewController_;
+  ActiveAccountTransferViewController *activeAccountTransferViewController_;
 }
 
+// Source call controller.
 @property(nonatomic, assign) CallController *sourceCallController;
-@property(nonatomic, retain) ActiveAccountViewController *activeAccountViewController;
 
+// Active account transfer view controller.
+@property(nonatomic, retain) ActiveAccountTransferViewController *activeAccountTransferViewController;
+
+// Designated initializer.
+// Initializes a CallTransferController with a given call controller.
 - (id)initWithSourceCallController:(CallController *)callController;
+
+// Transfers source call controller's call to the receiver's call.
+- (void)transferCall;
 
 // Closes a sheet.
 - (IBAction)closeSheet:(id)sender;
+
+// Hangs up call and shows initial state.
+- (IBAction)showInitialState:(id)sender;
 
 @end

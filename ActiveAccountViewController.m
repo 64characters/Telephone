@@ -43,25 +43,43 @@
 #import "PreferencesController.h"
 
 
-// Call destination keys.
-static NSString * const kURI = @"URI";
-static NSString * const kPhoneLabel = @"PhoneLabel";
-
-@interface ActiveAccountViewController ()
-// Index of a URI in a call destination token.
-@property(nonatomic, assign) NSUInteger callDestinationURIIndex;
-@end
+NSString * const kURI = @"URI";
+NSString * const kPhoneLabel = @"PhoneLabel";
 
 @implementation ActiveAccountViewController
 
 @synthesize accountController = accountController_;
 @synthesize callDestinationField = callDestinationField_;
 @synthesize callDestinationURIIndex = callDestinationURIIndex_;
+@dynamic callDestinationURI;
 
-- (id)initWithAccountController:(AccountController *)anAccountController {
+- (AKSIPURI *)callDestinationURI {
+  NSDictionary *callDestinationDict
+    = [[[[self callDestinationField] objectValue] objectAtIndex:0]
+       objectAtIndex:[self callDestinationURIIndex]];
+  
+  AKSIPURI *uri
+    = [[[callDestinationDict objectForKey:kURI] copy] autorelease];
+  
+  // Displayed name is stored in the first URI only.
+  AKSIPURI *firstURI
+    = [[[[[self callDestinationField] objectValue] objectAtIndex:0]
+        objectAtIndex:0] objectForKey:kURI];
+  
+  [uri setDisplayName:[firstURI displayName]];
+  
+  if ([uri isKindOfClass:[AKSIPURI class]] && [[uri user] length] > 0) {
+    return uri;
+  } else {
+    return nil;
+  }
+}
+
+- (id)initWithAccountController:(AccountController *)anAccountController
+               windowController:(XSWindowController *)windowController {
   self = [super initWithNibName:@"ActiveAccountView"
                          bundle:nil
-               windowController:anAccountController];
+               windowController:windowController];
   if (self != nil) {
     [self setAccountController:anAccountController];
   }
@@ -96,18 +114,8 @@ static NSString * const kPhoneLabel = @"PhoneLabel";
   
   NSString *phoneLabel = [callDestinationDict objectForKey:kPhoneLabel];
   
-  AKSIPURI *uri
-    = [[[callDestinationDict objectForKey:kURI] copy] autorelease];
-  
-  // Displayed name is stored in the first URI only.
-  AKSIPURI *firstURI
-    = [[[[[self callDestinationField] objectValue] objectAtIndex:0]
-        objectAtIndex:0] objectForKey:kURI];
-  
-  [uri setDisplayName:[firstURI displayName]];
-  
-  if ([uri isKindOfClass:[AKSIPURI class]] &&
-      [[uri user] length] > 0) {
+  AKSIPURI *uri = [self callDestinationURI];
+  if (uri != nil) {
     [[self accountController] makeCallToURI:uri phoneLabel:phoneLabel];
   }
 }

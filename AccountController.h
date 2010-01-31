@@ -46,6 +46,7 @@ extern NSString * const kEmailSIPLabel;
 
 @class AKSIPURI, AKNetworkReachability;
 @class ActiveAccountViewController, AuthenticationFailureController;
+@class CallTransferController;
 
 // A SIP account controller.
 @interface AccountController : XSWindowController <AKSIPAccountDelegate> {
@@ -144,8 +145,16 @@ extern NSString * const kEmailSIPLabel;
 - (void)removeAccountFromUserAgent;
 
 // Makes a call to a given destination URI with a given phone label.
+// When |callTransferController| is not nil, no new window will be created,
+// existing |callTransferController| will be used instead.
 // Host part of the |destinationURI| can be empty, in which case host part from
 // the account's |registrationURI| will be taken.
+- (void)makeCallToURI:(AKSIPURI *)destinationURI
+           phoneLabel:(NSString *)phoneLabel
+callTransferController:(CallTransferController *)callTransferController;
+
+// Calls makeCallToURI:phoneLabel:callTransferController: with
+// |callTransferController| set to nil.
 - (void)makeCallToURI:(AKSIPURI *)destinationURI
            phoneLabel:(NSString *)phoneLabel;
 

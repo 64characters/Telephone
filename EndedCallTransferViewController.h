@@ -1,5 +1,5 @@
 //
-//  EndedTransferCallViewController.m
+//  EndedCallTransferViewController.h
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -28,9 +28,14 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "EndedTransferCallViewController.h"
+#import <Foundation/Foundation.h>
+
+#import "EndedCallViewController.h"
 
 
-@implementation EndedTransferCallViewController
+// An ended call controller of a call transfer.
+@interface EndedCallTransferViewController : EndedCallViewController {
+
+}
 
 @end

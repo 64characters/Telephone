@@ -1,5 +1,5 @@
 //
-//  ActiveTransferCallViewController.h
+//  ActiveCallTransferViewController.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -28,13 +28,52 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
+#import "ActiveCallTransferViewController.h"
 
-#import "ActiveCallViewController.h"
+#import "AKSIPCall.h"
+
+#import "CallTransferController.h"
 
 
-@interface ActiveTransferCallViewController : ActiveCallViewController {
+@implementation ActiveCallTransferViewController
 
+@synthesize transferButton = transferButton_;
+
+- (void)dealloc {
+  [transferButton_ release];
+  [super dealloc];
+}
+
+- (void)awakeFromNib {
+  [super awakeFromNib];
+  
+  [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+  [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+}
+
+- (IBAction)transferCall:(id)sender {
+  [(CallTransferController *)[self callController] transferCall];
+}
+
+- (IBAction)showCallTransferSheet:(id)sender {
+  // Do nothing.
+}
+
+
+#pragma mark -
+#pragma mark NSMenuValidation protocol
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+  if ([menuItem action] == @selector(showCallTransferSheet:)) {
+    if ([[[self callController] call] state] == kAKSIPCallConfirmedState &&
+        ![[[self callController] call] isOnRemoteHold]) {
+      return YES;
+    } else {
+      return NO;
+    }
+  }
+  
+  return [super validateMenuItem:menuItem];
 }
 
 @end

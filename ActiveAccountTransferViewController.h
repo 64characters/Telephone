@@ -1,8 +1,6 @@
 //
-//  EndedTransferCallViewController.h
+//  ActiveAccountTransferViewController.h
 //  Telephone
-//
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -28,13 +26,17 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-#import "EndedCallViewController.h"
+#import "ActiveAccountViewController.h"
 
 
-@interface EndedTransferCallViewController : EndedCallViewController {
+// A controller that acts as an account controller inside call transfer sheet.
+@interface ActiveAccountTransferViewController : ActiveAccountViewController {
 
 }
+
+// Initiates a call to the transfer destination.
+- (IBAction)makeCallToTransferDestination:(id)sender;
 
 @end

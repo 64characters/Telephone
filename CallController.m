@@ -141,7 +141,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (ActiveCallViewController *)activeCallViewController {
   if (activeCallViewController_ == nil) {
     activeCallViewController_
-      = [[ActiveCallViewController alloc] initWithCallController:self];
+      = [[ActiveCallViewController alloc]
+         initWithNibName:@"ActiveCallView" callController:self];
     [activeCallViewController_ setRepresentedObject:[self call]];
   }
   return activeCallViewController_;
@@ -150,14 +151,17 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (EndedCallViewController *)endedCallViewController {
   if (endedCallViewController_ == nil) {
     endedCallViewController_
-      = [[EndedCallViewController alloc] initWithCallController:self];
+      = [[EndedCallViewController alloc]
+         initWithNibName:@"EndedCallView" callController:self];
     [endedCallViewController_ setRepresentedObject:[self call]];
   }
   return endedCallViewController_;
 }
 
-- (id)initWithAccountController:(AccountController *)anAccountController {
-  self = [super initWithWindowNibName:@"Call"];
+- (id)initWithWindowNibName:(NSString *)windowNibName
+          accountController:(AccountController *)anAccountController {
+  
+  self = [super initWithWindowNibName:windowNibName];
   if (self == nil)
     return nil;
   
@@ -171,7 +175,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (id)init {
-  return [self initWithAccountController:nil];
+  return [self initWithWindowNibName:@"Call" accountController:nil];
 }
 
 - (void)dealloc {

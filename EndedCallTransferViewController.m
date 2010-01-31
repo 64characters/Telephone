@@ -1,5 +1,5 @@
 //
-//  ActiveTransferCallViewController.m
+//  EndedCallTransferViewController.m
 //  Telephone
 //
 //  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
@@ -28,9 +28,16 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "ActiveTransferCallViewController.h"
+#import "EndedCallTransferViewController.h"
 
 
-@implementation ActiveTransferCallViewController
+@implementation EndedCallTransferViewController
+
+- (void)awakeFromNib {
+  [super awakeFromNib];
+  
+  [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+  [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+}
 
 @end

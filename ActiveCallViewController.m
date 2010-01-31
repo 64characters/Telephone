@@ -30,10 +30,12 @@
 
 #import "ActiveCallViewController.h"
 
+#import "AKNSWindow+Resizing.h"
 #import "AKResponsiveProgressIndicator.h"
 #import "AKSIPCall.h"
 
 #import "CallController.h"
+#import "CallTransferController.h"
 #import "EndedCallViewController.h"
 
 
@@ -49,8 +51,10 @@
 @synthesize callProgressIndicator = callProgressIndicator_;
 @synthesize hangUpButton = hangUpButton_;
 
-- (id)initWithCallController:(CallController *)callController {
-  self = [super initWithNibName:@"ActiveCallView"
+- (id)initWithNibName:(NSString *)nibName
+       callController:(CallController *)callController {
+  
+  self = [super initWithNibName:nibName
                          bundle:nil
                windowController:callController];
   if (self != nil) {
@@ -136,11 +140,14 @@
 - (IBAction)showCallTransferSheet:(id)sender {
   CallTransferController *callTransferController
     = [[self callController] callTransferController];
+  
   [NSApp beginSheet:[callTransferController window]
      modalForWindow:[[self callController] window]
       modalDelegate:nil
      didEndSelector:NULL
         contextInfo:NULL];
+  
+  [callTransferController showInitialState:self];
 }
 
 - (void)startCallTimer {
