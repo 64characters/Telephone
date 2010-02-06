@@ -451,6 +451,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
      ak_resizeAndSwapToContentView:[[self activeCallViewController] view]
                            animate:YES];
   }
+  
+  [[[self activeCallViewController] hangUpButton] setEnabled:YES];
 }
 
 - (void)SIPCallEarly:(NSNotification *)notification {
@@ -485,6 +487,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                              animate:YES];
     }
   }
+  
+  [[[self activeCallViewController] hangUpButton] setEnabled:YES];
 }
 
 - (void)SIPCallDidConfirm:(NSNotification *)notification {
@@ -502,6 +506,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [[[self activeCallViewController] view]
    replaceSubview:[[self activeCallViewController] callProgressIndicator]
              with:[[self activeCallViewController] hangUpButton]];
+  
+  [[[self activeCallViewController] hangUpButton] setEnabled:YES];
    
   [self setStatus:@"00:00"];
   
