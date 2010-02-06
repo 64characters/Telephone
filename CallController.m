@@ -248,7 +248,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   
   // Optionally close call window.
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
-      ![self isCallUnhandled]) {
+      ![self isCallUnhandled] &&
+      ![self isKindOfClass:[CallTransferController class]]) {
     [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
                                      target:self
                                    selector:@selector(closeCallWindowTick:)
@@ -638,7 +639,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   
   // Optionally close disconnected call window.
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
-      ![self isCallUnhandled]) {
+      ![self isCallUnhandled] &&
+      ![self isKindOfClass:[CallTransferController class]]) {
     [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
                                      target:self
                                    selector:@selector(closeCallWindowTick:)
