@@ -69,6 +69,9 @@
 }
 
 - (IBAction)closeSheet:(id)sender {
+  if ([[self sourceCallController] isCallOnHold]) {
+    [[self sourceCallController] toggleCallHold];
+  }
   [NSApp endSheet:[sender window]];
   [[sender window] orderOut:sender];
 }

@@ -52,6 +52,9 @@
 }
 
 - (IBAction)transferCall:(id)sender {
+  if (![[self callController] isCallOnHold]) {
+    [[self callController] toggleCallHold];
+  }
   [(CallTransferController *)[self callController] transferCall];
 }
 

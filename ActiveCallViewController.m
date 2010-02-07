@@ -138,6 +138,10 @@
 }
 
 - (IBAction)showCallTransferSheet:(id)sender {
+  if (![[self callController] isCallOnHold]) {
+    [[self callController] toggleCallHold];
+  }
+  
   CallTransferController *callTransferController
     = [[self callController] callTransferController];
   
