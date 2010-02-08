@@ -34,6 +34,7 @@
 #import "AKSIPCall.h"
 
 #import "ActiveCallTransferViewController.h"
+#import "CallController+Protected.h"
 #import "EndedCallTransferViewController.h"
 
 
@@ -134,6 +135,45 @@
 
 - (void)acceptCall {
   // Do nothing.
+}
+
+
+#pragma mark -
+#pragma mark AKSIPCall notifications
+
+- (void)SIPCallCalling:(NSNotification *)notification {
+  [super SIPCallCalling:notification];
+  ActiveCallTransferViewController *activeCallTransferViewController
+    = (ActiveCallTransferViewController *)[self activeCallViewController];
+  [[activeCallTransferViewController transferButton] setEnabled:NO];
+}
+
+- (void)SIPCallEarly:(NSNotification *)notification {
+  [super SIPCallEarly:notification];
+  ActiveCallTransferViewController *activeCallTransferViewController
+    = (ActiveCallTransferViewController *)[self activeCallViewController];
+  [[activeCallTransferViewController transferButton] setEnabled:NO];
+}
+
+- (void)SIPCallDidConfirm:(NSNotification *)notification {
+  [super SIPCallDidConfirm:notification];
+  ActiveCallTransferViewController *activeCallTransferViewController
+    = (ActiveCallTransferViewController *)[self activeCallViewController];
+  [[activeCallTransferViewController transferButton] setEnabled:YES];
+}
+
+- (void)SIPCallMediaDidBecomeActive:(NSNotification *)notification {
+  [super SIPCallMediaDidBecomeActive:notification];
+  ActiveCallTransferViewController *activeCallTransferViewController
+    = (ActiveCallTransferViewController *)[self activeCallViewController];
+  [[activeCallTransferViewController transferButton] setEnabled:YES];
+}
+
+- (void)SIPCallDidRemoteHold:(NSNotification *)notification {
+  [super SIPCallDidRemoteHold:notification];
+  ActiveCallTransferViewController *activeCallTransferViewController
+    = (ActiveCallTransferViewController *)[self activeCallViewController];
+  [[activeCallTransferViewController transferButton] setEnabled:NO];
 }
 
 @end
