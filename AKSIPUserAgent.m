@@ -481,7 +481,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
   
   pjmedia_tonegen_play([self ringbackPort], kAKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
   
-  NSInteger aRingbackSlot;
+  pjsua_conf_port_id aRingbackSlot;
   status = pjsua_conf_add_port([self pjPool], [self ringbackPort], &aRingbackSlot);
   if (status != PJ_SUCCESS) {
     NSLog(@"Error adding media port for ringback tones");
@@ -491,7 +491,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     return;
   }
   
-  [self setRingbackSlot:aRingbackSlot];
+  [self setRingbackSlot:(NSInteger)aRingbackSlot];
   
   // Add UDP transport.
   pjsua_transport_id transportIdentifier;

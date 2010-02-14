@@ -1121,7 +1121,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1159,22 +1159,22 @@
 					"-lpthread",
 					"-lssl",
 					"-lcrypto",
-					"-lpjsua-i386-apple-darwin10.0.0",
-					"-lpjsip-ua-i386-apple-darwin10.0.0",
-					"-lpjsip-simple-i386-apple-darwin10.0.0",
-					"-lpjsip-i386-apple-darwin10.0.0",
-					"-lpjmedia-codec-i386-apple-darwin10.0.0",
-					"-lpjmedia-i386-apple-darwin10.0.0",
-					"-lpjnath-i386-apple-darwin10.0.0",
-					"-lpjlib-util-i386-apple-darwin10.0.0",
-					"-lresample-i386-apple-darwin10.0.0",
-					"-lmilenage-i386-apple-darwin10.0.0",
-					"-lsrtp-i386-apple-darwin10.0.0",
-					"-lgsmcodec-i386-apple-darwin10.0.0",
-					"-lspeex-i386-apple-darwin10.0.0",
-					"-lilbccodec-i386-apple-darwin10.0.0",
-					"-lportaudio-i386-apple-darwin10.0.0",
-					"-lpj-i386-apple-darwin10.0.0",
+					"-lpjsua-i386-apple-darwin10.2.0",
+					"-lpjsip-ua-i386-apple-darwin10.2.0",
+					"-lpjsip-simple-i386-apple-darwin10.2.0",
+					"-lpjsip-i386-apple-darwin10.2.0",
+					"-lpjmedia-codec-i386-apple-darwin10.2.0",
+					"-lpjmedia-i386-apple-darwin10.2.0",
+					"-lpjnath-i386-apple-darwin10.2.0",
+					"-lpjlib-util-i386-apple-darwin10.2.0",
+					"-lresample-i386-apple-darwin10.2.0",
+					"-lmilenage-i386-apple-darwin10.2.0",
+					"-lsrtp-i386-apple-darwin10.2.0",
+					"-lgsmcodec-i386-apple-darwin10.2.0",
+					"-lspeex-i386-apple-darwin10.2.0",
+					"-lilbccodec-i386-apple-darwin10.2.0",
+					"-lportaudio-i386-apple-darwin10.2.0",
+					"-lpj-i386-apple-darwin10.2.0",
 				);
 				PRODUCT_NAME = Telephone;
 			};
@@ -1184,7 +1184,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1212,7 +1212,7 @@
 					"\"$(SRCROOT)/../pjproject/pjsip/lib\"",
 					"\"$(SRCROOT)/../pjproject/third_party/lib\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DPJ_AUTOCONF=1",
 					"-DNDEBUG",
@@ -1222,22 +1222,22 @@
 					"-lpthread",
 					"-lssl",
 					"-lcrypto",
-					"-lpjsua-i386-apple-darwin10.0.0",
-					"-lpjsip-ua-i386-apple-darwin10.0.0",
-					"-lpjsip-simple-i386-apple-darwin10.0.0",
-					"-lpjsip-i386-apple-darwin10.0.0",
-					"-lpjmedia-codec-i386-apple-darwin10.0.0",
-					"-lpjmedia-i386-apple-darwin10.0.0",
-					"-lpjnath-i386-apple-darwin10.0.0",
-					"-lpjlib-util-i386-apple-darwin10.0.0",
-					"-lresample-i386-apple-darwin10.0.0",
-					"-lmilenage-i386-apple-darwin10.0.0",
-					"-lsrtp-i386-apple-darwin10.0.0",
-					"-lgsmcodec-i386-apple-darwin10.0.0",
-					"-lspeex-i386-apple-darwin10.0.0",
-					"-lilbccodec-i386-apple-darwin10.0.0",
-					"-lportaudio-i386-apple-darwin10.0.0",
-					"-lpj-i386-apple-darwin10.0.0",
+					"-lpjsua-i386-apple-darwin10.2.0",
+					"-lpjsip-ua-i386-apple-darwin10.2.0",
+					"-lpjsip-simple-i386-apple-darwin10.2.0",
+					"-lpjsip-i386-apple-darwin10.2.0",
+					"-lpjmedia-codec-i386-apple-darwin10.2.0",
+					"-lpjmedia-i386-apple-darwin10.2.0",
+					"-lpjnath-i386-apple-darwin10.2.0",
+					"-lpjlib-util-i386-apple-darwin10.2.0",
+					"-lresample-i386-apple-darwin10.2.0",
+					"-lmilenage-i386-apple-darwin10.2.0",
+					"-lsrtp-i386-apple-darwin10.2.0",
+					"-lgsmcodec-i386-apple-darwin10.2.0",
+					"-lspeex-i386-apple-darwin10.2.0",
+					"-lilbccodec-i386-apple-darwin10.2.0",
+					"-lportaudio-i386-apple-darwin10.2.0",
+					"-lpj-i386-apple-darwin10.2.0",
 				);
 				PRODUCT_NAME = Telephone;
 			};
