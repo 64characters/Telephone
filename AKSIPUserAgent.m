@@ -85,6 +85,13 @@ static void AKSIPCallStateChanged(pjsua_call_id, pjsip_event *);
 // Sent when media state of the call changes.
 static void AKSIPCallMediaStateChanged(pjsua_call_id);
 //
+// Sent when call transfer status changes.
+static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
+                                           int statusCode,
+                                           const pj_str_t *statusText,
+                                           pj_bool_t isFinal,
+                                           pj_bool_t *pCont);
+//
 // Sent when account registration state changes.
 static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 //
@@ -431,6 +438,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
   userAgentConfig.cb.on_incoming_call = &AKSIPCallIncomingReceived;
   userAgentConfig.cb.on_call_media_state = &AKSIPCallMediaStateChanged;
   userAgentConfig.cb.on_call_state = &AKSIPCallStateChanged;
+  userAgentConfig.cb.on_call_transfer_status = &AKSIPCallTransferStatusChanged;
   userAgentConfig.cb.on_reg_state = &AKSIPAccountRegistrationStateChanged;
   userAgentConfig.cb.on_nat_detect = &AKSIPUserAgentDetectedNAT;
   
@@ -1188,6 +1196,36 @@ static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
   } else {
     PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
   }
+  
+  [pool release];
+}
+
+static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
+                                           int statusCode,
+                                           const pj_str_t *statusText,
+                                           pj_bool_t isFinal,
+                                           pj_bool_t *pCont) {
+  
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent]
+                        SIPCallByIdentifier:callIdentifier];
+  
+  [theCall setTransferStatus:statusCode];
+  [theCall setTransferStatusText:[NSString stringWithPJString:*statusText]];
+  
+  NSDictionary *userInfo
+    = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:isFinal]
+                                  forKey:@"AKFinalTransferNotification"];
+  
+  NSNotification *notification
+  = [NSNotification notificationWithName:AKSIPCallTransferStatusDidChangeNotification
+                                  object:theCall
+                                userInfo:userInfo];
+  [[NSNotificationCenter defaultCenter]
+   performSelectorOnMainThread:@selector(postNotification:)
+                    withObject:notification
+                 waitUntilDone:NO];
   
   [pool release];
 }

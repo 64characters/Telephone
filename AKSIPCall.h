@@ -88,6 +88,10 @@ extern NSString * const AKSIPCallDidLocalHoldNotification;
 //
 // Call media is put on hold by remote endpoint.
 extern NSString * const AKSIPCallDidRemoteHoldNotification;
+//
+// Call transfer status changed.
+// Key: @"AKFinalTransferNotification".
+extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 
 @class AKSIPAccount, AKSIPURI;
 
@@ -103,6 +107,8 @@ extern NSString * const AKSIPCallDidRemoteHoldNotification;
   NSString *stateText_;
   NSInteger lastStatus_;
   NSString *lastStatusText_;
+  NSInteger transferStatus_;
+  NSString *transferStatusText_;
   BOOL incoming_;
   BOOL microphoneMuted_;
   
@@ -133,6 +139,12 @@ extern NSString * const AKSIPCallDidRemoteHoldNotification;
 
 // Call's last status text.
 @property(copy) NSString *lastStatusText;
+
+// Call transfer status code.
+@property(assign) NSInteger transferStatus;
+
+// Call transfer status text.
+@property(copy) NSString *transferStatusText;
 
 // A Boolean value indicating whether the call is active, i.e. it has active
 // INVITE session and the INVITE session has not been disconnected.

@@ -82,6 +82,10 @@
     [self hangUpCall];
   }
   
+  if (![[self sourceCallController] isCallActive]) {
+    [self closeSheet:self];
+  }
+  
   if ([self countOfViewControllers] > 0) {
     [[self viewControllers] removeAllObjects];
     [self patchResponderChain];

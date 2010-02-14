@@ -25,6 +25,9 @@
 /* Call failed. */
 "Call Failed" = "Не удалось дозвониться";
 
+/* Call transferred. */
+"call transferred" = "звонок переведен";
+
 /* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
 "calling" = "звонит";

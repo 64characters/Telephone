@@ -50,6 +50,8 @@ NSString * const AKSIPCallMediaDidBecomeActiveNotification
   = @"AKSIPCallMediaDidBecomeActive";
 NSString * const AKSIPCallDidLocalHoldNotification = @"AKSIPCallDidLocalHold";
 NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
+NSString * const AKSIPCallTransferStatusDidChangeNotification
+  = @"AKSIPCallTransferStatusDidChange";
 
 @implementation AKSIPCall
 
@@ -61,6 +63,8 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
 @synthesize stateText = stateText_;
 @synthesize lastStatus = lastStatus_;
 @synthesize lastStatusText = lastStatusText_;
+@synthesize transferStatus = transferStatus_;
+@synthesize transferStatusText = transferStatusText_;
 @dynamic active;
 @dynamic hasMedia;
 @dynamic hasActiveMedia;
@@ -74,7 +78,8 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
   if (delegate_ == aDelegate)
     return;
   
-  NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
   
   if (delegate_ != nil)
     [notificationCenter removeObserver:delegate_ name:nil object:self];
@@ -133,6 +138,12 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallDidRemoteHold:)
                                  name:AKSIPCallDidRemoteHoldNotification
+                               object:self];
+    
+    if ([aDelegate respondsToSelector:@selector(SIPCallTransferStatusDidChange:)])
+      [notificationCenter addObserver:aDelegate
+                             selector:@selector(SIPCallTransferStatusDidChange:)
+                                 name:AKSIPCallTransferStatusDidChangeNotification
                                object:self];
   }
   
@@ -236,6 +247,7 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
   [remoteURI_ release];
   [stateText_ release];
   [lastStatusText_ release];
+  [transferStatusText_ release];
   
   [super dealloc];
 }
@@ -263,6 +275,8 @@ NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
 }
 
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall {
+  [self setTransferStatus:kAKSIPUserAgentInvalidIdentifier];
+  [self setTransferStatusText:nil];
   pj_status_t status
     = pjsua_call_xfer_replaces([self identifier],
                                [destinationCall identifier],

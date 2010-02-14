@@ -679,4 +679,16 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                     @"Call on remote hold status text.")];
 }
 
+- (void)SIPCallTransferStatusDidChange:(NSNotification *)notification {
+  NSDictionary *userInfo = [notification userInfo];
+  BOOL isFinal
+    = [[userInfo objectForKey:@"AKFinalTransferNotification"] boolValue];
+  
+  if (isFinal && [[self call] transferStatus] == PJSIP_SC_OK) {
+    [self hangUpCall];
+    [self setStatus:
+     NSLocalizedString(@"call transferred", @"Call transferred.")];
+  }
+}
+
 @end

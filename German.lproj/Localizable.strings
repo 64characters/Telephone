@@ -27,6 +27,9 @@
 /* Call failed. */
 "Call Failed" = "Anruf fehlgeschlagen";
 
+/* Call transferred. */
+"call transferred" = "Anruf weitergeleitet";
+
 /* John Smith calling. Somebody is calling us right now. Growl notification description. Deliberately in lower case, translators should do the same, if possible.
    John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible. */
 "calling" = "ruft an";
