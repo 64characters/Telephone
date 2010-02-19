@@ -30,8 +30,6 @@
 
 #import "AKSIPUserAgent.h"
 
-#import <pjsua-lib/pjsua.h>
-
 #import "AKNSString+PJSUA.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
