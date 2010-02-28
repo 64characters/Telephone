@@ -150,8 +150,6 @@
       modalDelegate:nil
      didEndSelector:NULL
         contextInfo:NULL];
-  
-  [callTransferController showInitialState:self];
 }
 
 - (void)startCallTimer {

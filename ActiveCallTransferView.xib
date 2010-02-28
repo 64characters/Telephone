@@ -154,7 +154,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 98}</string>
+				<string key="NSFrameSize">{320, 115}</string>
 				<reference key="NSSuperview"/>
 				<string key="NSClassName">AKActiveCallView</string>
 			</object>
@@ -449,7 +449,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{340, 758}, {320, 98}}</string>
+					<string>{{340, 741}, {320, 115}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
