@@ -65,6 +65,10 @@
   [super dealloc];
 }
 
+- (void)windowDidLoad {
+  [self showInitialState:self];
+}
+
 - (void)transferCall {
   [[[self sourceCallController] call] attendedTransferToCall:[self call]];
 }
