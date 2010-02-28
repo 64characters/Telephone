@@ -278,6 +278,14 @@
     } else {
       return NO;
     }
+    
+  } else if ([menuItem action] == @selector(showCallTransferSheet:)) {
+    if ([[[self callController] call] state] == kAKSIPCallConfirmedState &&
+        ![[[self callController] call] isOnRemoteHold]) {
+      return YES;
+    } else {
+      return NO;
+    }
   }
   
   return YES;

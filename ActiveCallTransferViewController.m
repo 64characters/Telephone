@@ -68,12 +68,7 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
   if ([menuItem action] == @selector(showCallTransferSheet:)) {
-    if ([[[self callController] call] state] == kAKSIPCallConfirmedState &&
-        ![[[self callController] call] isOnRemoteHold]) {
-      return YES;
-    } else {
-      return NO;
-    }
+    return NO;
   }
   
   return [super validateMenuItem:menuItem];
