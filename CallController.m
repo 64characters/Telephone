@@ -284,7 +284,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [[[self activeCallViewController] view] addTrackingArea:
    [[self activeCallViewController] callProgressIndicatorTrackingArea]];
   
-  [[[self activeCallViewController] callProgressIndicator] startAnimation:self];
   [[[self activeCallViewController] hangUpButton] setEnabled:YES];
   [[self window] setContentView:[[self activeCallViewController] view]];
   
@@ -453,6 +452,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   }
   
   [[[self activeCallViewController] hangUpButton] setEnabled:YES];
+  [[[self activeCallViewController] callProgressIndicator] startAnimation:self];
 }
 
 - (void)SIPCallEarly:(NSNotification *)notification {

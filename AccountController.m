@@ -428,9 +428,7 @@ callTransferController:(CallTransferController *)callTransferController {
   // Set URI for redial.
   [aCallController setRedialURI:destinationURI];
   
-  if (callTransferController != nil) {
-    [callTransferController showInitialState:self];
-  } else {
+  if (callTransferController == nil) {
   [aCallController addViewController:
    [aCallController activeCallViewController]];
   [[aCallController window] setContentView:
@@ -452,9 +450,6 @@ callTransferController:(CallTransferController *)callTransferController {
   if (callTransferController == nil) {
     [aCallController showWindow:self];
   }
-  
-  [[[aCallController activeCallViewController] callProgressIndicator]
-   startAnimation:self];
   
   // Finally, make a call.
   AKSIPCall *aCall = [[self account] makeCallTo:destinationURI];
