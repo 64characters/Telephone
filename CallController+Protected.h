@@ -31,6 +31,7 @@
 #import <Cocoa/Cocoa.h>
 
 
+// Protected CallController interface.
 @interface CallController (CallControllerProtectedAdditions)
 
 // Implements AKSIPCallCallingNotification.
