@@ -13,8 +13,6 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0302F10EB9F347000738F7 /* AKSIPURI.m */; };
 		AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */; };
-		AA0693C511022E78007EF898 /* ActiveAccountTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0693C411022E78007EF898 /* ActiveAccountTransferView.xib */; };
-		AA06942011023628007EF898 /* CallTransfer.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA06941F11023628007EF898 /* CallTransfer.xib */; };
 		AA0910CC0EC21F44004912A5 /* COPYRIGHT in Resources */ = {isa = PBXBuildFile; fileRef = AA0910CB0EC21F44004912A5 /* COPYRIGHT */; };
 		AA0F7B720F38FCDF0071C3CA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
@@ -47,14 +45,16 @@
 		AA51FBDE0F1D576D003CE94C /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA51FAC80F1D5673003CE94C /* Growl.framework */; };
 		AA51FC6F0F1D6700003CE94C /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA51FC6E0F1D6700003CE94C /* Growl Registration Ticket.growlRegDict */; };
 		AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA584A680F06CFD2003C4992 /* Localizable.strings */; };
+		AA7CB51D11442241004D79DA /* CallTransfer.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB51C11442241004D79DA /* CallTransfer.xib */; };
+		AA7CB51F11442249004D79DA /* ActiveAccountTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB51E11442249004D79DA /* ActiveAccountTransferView.xib */; };
+		AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB527114423A4004D79DA /* ActiveCallTransferView.xib */; };
+		AA7CB5301144242F004D79DA /* EndedCallTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB52F1144242F004D79DA /* EndedCallTransferView.xib */; };
 		AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */; };
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
 		AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA110A56BD9000946F3 /* XSViewController.m */; };
 		AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA310A56BD9000946F3 /* XSWindowController.m */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
 		AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */; };
-		AAA628C6110C6281008466C3 /* ActiveCallTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA628C5110C6281008466C3 /* ActiveCallTransferView.xib */; };
-		AAA628EA110C76B3008466C3 /* EndedCallTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA628E9110C76B3008466C3 /* EndedCallTransferView.xib */; };
 		AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */; };
 		AAAC618C0FE6A42900FBE053 /* AKNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAC618B0FE6A42900FBE053 /* AKNetworkReachability.m */; };
 		AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
@@ -158,8 +158,8 @@
 		AA0302F10EB9F347000738F7 /* AKSIPURI.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKSIPURI.m; sourceTree = "<group>"; tabWidth = 2; };
 		AA0693AE110228E4007EF898 /* ActiveAccountTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = ActiveAccountTransferViewController.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = ActiveAccountTransferViewController.m; sourceTree = "<group>"; tabWidth = 2; };
-		AA0693C411022E78007EF898 /* ActiveAccountTransferView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActiveAccountTransferView.xib; sourceTree = "<group>"; };
-		AA06941F11023628007EF898 /* CallTransfer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CallTransfer.xib; sourceTree = "<group>"; };
+		AA0693C411022E78007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
+		AA06941F11023628007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CallTransfer.xib; sourceTree = "<group>"; };
 		AA0910CB0EC21F44004912A5 /* COPYRIGHT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYRIGHT; sourceTree = "<group>"; };
 		AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		AA167A1D0F07BF9E00AF8B71 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/SIPResponses.strings; sourceTree = "<group>"; };
@@ -231,6 +231,12 @@
 		AA584A6B0F06D007003C4992 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA69ADD90E89578900CF54B3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA7645E6112090BA00656244 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; tabWidth = 2; };
+		AA7CB52211442300004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
+		AA7CB52311442304004D79DA /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
+		AA7CB529114423AA004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
+		AA7CB52A114423AE004D79DA /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
+		AA7CB53111442434004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
+		AA7CB53211442437004D79DA /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
 		AA86C85F10FF928D00EF4E8A /* ActiveCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = ActiveCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = ActiveCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKKeychain.h; sourceTree = "<group>"; tabWidth = 2; };
@@ -242,8 +248,8 @@
 		AA97B47410D3A2CA00FC65DA /* CallTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = CallTransferController.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA97B47510D3A2CA00FC65DA /* CallTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = CallTransferController.m; sourceTree = "<group>"; tabWidth = 2; };
 		AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = telephone.icns; sourceTree = "<group>"; };
-		AAA628C5110C6281008466C3 /* ActiveCallTransferView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActiveCallTransferView.xib; sourceTree = "<group>"; };
-		AAA628E9110C76B3008466C3 /* EndedCallTransferView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndedCallTransferView.xib; sourceTree = "<group>"; };
+		AAA628C5110C6281008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
+		AAA628E9110C76B3008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
 		AAA810B21115D7F9008CA945 /* EndedCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = EndedCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 2; };
 		AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = EndedCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		AAAC618A0FE6A42900FBE053 /* AKNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKNetworkReachability.h; sourceTree = "<group>"; tabWidth = 2; };
@@ -441,10 +447,10 @@
 				AADAA2C2107E569200789F2D /* IncomingCallView.xib */,
 				AADAA2CC107E56FD00789F2D /* ActiveCallView.xib */,
 				AADAA2D0107E572300789F2D /* EndedCallView.xib */,
-				AA06941F11023628007EF898 /* CallTransfer.xib */,
-				AA0693C411022E78007EF898 /* ActiveAccountTransferView.xib */,
-				AAA628C5110C6281008466C3 /* ActiveCallTransferView.xib */,
-				AAA628E9110C76B3008466C3 /* EndedCallTransferView.xib */,
+				AA7CB51C11442241004D79DA /* CallTransfer.xib */,
+				AA7CB51E11442249004D79DA /* ActiveAccountTransferView.xib */,
+				AA7CB527114423A4004D79DA /* ActiveCallTransferView.xib */,
+				AA7CB52F1144242F004D79DA /* EndedCallTransferView.xib */,
 				AA2ED9A40F05B5C6004A13C6 /* Preferences.xib */,
 				AAFC002B1074D0B50018C7DA /* GeneralPreferencesView.xib */,
 				AAFC00271074D0B50018C7DA /* AccountPreferencesView.xib */,
@@ -724,10 +730,10 @@
 				AADAA2C3107E569200789F2D /* IncomingCallView.xib in Resources */,
 				AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */,
 				AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */,
-				AA0693C511022E78007EF898 /* ActiveAccountTransferView.xib in Resources */,
-				AA06942011023628007EF898 /* CallTransfer.xib in Resources */,
-				AAA628C6110C6281008466C3 /* ActiveCallTransferView.xib in Resources */,
-				AAA628EA110C76B3008466C3 /* EndedCallTransferView.xib in Resources */,
+				AA7CB51F11442249004D79DA /* ActiveAccountTransferView.xib in Resources */,
+				AA7CB51D11442241004D79DA /* CallTransfer.xib in Resources */,
+				AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */,
+				AA7CB5301144242F004D79DA /* EndedCallTransferView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -938,6 +944,44 @@
 				AA5100020F1FE32F003CE94C /* German */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		AA7CB51C11442241004D79DA /* CallTransfer.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA06941F11023628007EF898 /* English */,
+			);
+			name = CallTransfer.xib;
+			sourceTree = "<group>";
+		};
+		AA7CB51E11442249004D79DA /* ActiveAccountTransferView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA0693C411022E78007EF898 /* English */,
+				AA7CB52211442300004D79DA /* Russian */,
+				AA7CB52311442304004D79DA /* German */,
+			);
+			name = ActiveAccountTransferView.xib;
+			sourceTree = "<group>";
+		};
+		AA7CB527114423A4004D79DA /* ActiveCallTransferView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAA628C5110C6281008466C3 /* English */,
+				AA7CB529114423AA004D79DA /* Russian */,
+				AA7CB52A114423AE004D79DA /* German */,
+			);
+			name = ActiveCallTransferView.xib;
+			sourceTree = "<group>";
+		};
+		AA7CB52F1144242F004D79DA /* EndedCallTransferView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAA628E9110C76B3008466C3 /* English */,
+				AA7CB53111442434004D79DA /* Russian */,
+				AA7CB53211442437004D79DA /* German */,
+			);
+			name = EndedCallTransferView.xib;
 			sourceTree = "<group>";
 		};
 		AADAA2C2107E569200789F2D /* IncomingCallView.xib */ = {
