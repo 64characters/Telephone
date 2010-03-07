@@ -38,10 +38,50 @@
 #import "EndedCallTransferViewController.h"
 
 
+@interface CallTransferController ()
+
+// Source call controller.
+@property(nonatomic, assign) CallController *sourceCallController;
+
+// Active account transfer view controller.
+@property(nonatomic, retain) ActiveAccountTransferViewController *activeAccountTransferViewController;
+
+// A Boolean value indicating whether the source call has been transferred.
+@property(nonatomic, assign) BOOL sourceCallTransferred;
+
+@end
+
+
 @implementation CallTransferController
 
 @synthesize sourceCallController = sourceCallController_;
 @synthesize activeAccountTransferViewController = activeAccountTransferViewController_;
+@synthesize sourceCallTransferred = sourceCallTransferred_;
+
+- (void)setSourceCallController:(CallController *)callController {
+  if (sourceCallController_ == callController) {
+    return;
+  }
+  
+  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+  
+  if (sourceCallController_ != nil) {
+    [nc removeObserver:self
+                  name:AKSIPCallTransferStatusDidChangeNotification
+                object:[sourceCallController_ call]];
+  }
+  
+  if (callController != nil) {
+    [nc addObserver:self
+           selector:@selector(sourceCallControllerSIPCallTransferStatusDidChange:)
+               name:AKSIPCallTransferStatusDidChangeNotification
+             object:[callController call]];
+  }
+  
+  [self setSourceCallTransferred:NO];
+  
+  sourceCallController_ = callController;
+}
 
 - (id)initWithSourceCallController:(CallController *)callController {
   self = [super initWithWindowNibName:@"CallTransfer"
@@ -74,7 +114,8 @@
 }
 
 - (IBAction)closeSheet:(id)sender {
-  if ([[self sourceCallController] isCallOnHold]) {
+  if ([[self sourceCallController] isCallActive] &&
+      [[self sourceCallController] isCallOnHold]) {
     [[self sourceCallController] toggleCallHold];
   }
   [NSApp endSheet:[sender window]];
@@ -170,6 +211,13 @@
   [[activeCallTransferViewController transferButton] setEnabled:YES];
 }
 
+- (void)SIPCallDidDisconnect:(NSNotification *)notification {
+  [super SIPCallDidDisconnect:notification];
+  if ([self sourceCallTransferred]) {
+    [self closeSheet:self];
+  }
+}
+
 - (void)SIPCallMediaDidBecomeActive:(NSNotification *)notification {
   [super SIPCallMediaDidBecomeActive:notification];
   ActiveCallTransferViewController *activeCallTransferViewController
@@ -182,6 +230,24 @@
   ActiveCallTransferViewController *activeCallTransferViewController
     = (ActiveCallTransferViewController *)[self activeCallViewController];
   [[activeCallTransferViewController transferButton] setEnabled:NO];
+}
+
+
+#pragma mark -
+#pragma mark Source Call Controller's call notification
+
+- (void)sourceCallControllerSIPCallTransferStatusDidChange:(NSNotification *)notification {
+  AKSIPCall *sourceCall = [notification object];
+  NSDictionary *userInfo = [notification userInfo];
+  BOOL isFinal
+    = [[userInfo objectForKey:@"AKFinalTransferNotification"] boolValue];
+  
+  if (isFinal && [sourceCall transferStatus] == PJSIP_SC_OK) {
+    [self setSourceCallTransferred:YES];
+    if (![self isCallActive]) {
+      [self closeSheet:self];
+    }
+  }
 }
 
 @end

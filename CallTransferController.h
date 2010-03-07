@@ -39,13 +39,8 @@
  @private
   CallController *sourceCallController_;
   ActiveAccountTransferViewController *activeAccountTransferViewController_;
+  BOOL sourceCallTransferred_;
 }
-
-// Source call controller.
-@property(nonatomic, assign) CallController *sourceCallController;
-
-// Active account transfer view controller.
-@property(nonatomic, retain) ActiveAccountTransferViewController *activeAccountTransferViewController;
 
 // Designated initializer.
 // Initializes a CallTransferController with a given call controller.
