@@ -950,7 +950,7 @@ menuForRepresentedObject:(id)representedObject {
 - (NSArray *)tokenField:(NSTokenField *)tokenField
        shouldAddObjects:(NSArray *)tokens
                 atIndex:(NSUInteger)index {
-  if (index > 0)
+  if (index > 0 && [tokenField tokenStyle] == NSRoundedTokenStyle)
     return nil;
   else
     return tokens;
