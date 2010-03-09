@@ -31,31 +31,32 @@
 #import "AKSIPURIFormatter.h"
 
 #import "AKNSString+Scanning.h"
-#import "PreferencesController.h"
 #import "AKSIPURI.h"
 #import "AKTelephoneNumberFormatter.h"
 
 
 @implementation AKSIPURIFormatter
 
+@synthesize formatsTelephoneNumbers = formatsTelephoneNumbers_;
+@synthesize telephoneNumberFormatterSplitsLastFourDigits = telephoneNumberFormatterSplitsLastFourDigits_;
+
 - (NSString *)stringForObjectValue:(id)anObject {
   if (![anObject isKindOfClass:[AKSIPURI class]])
     return nil;
   
   NSString *returnValue = nil;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   if ([[anObject displayName] length] > 0) {
     returnValue = [anObject displayName];
     
   } else if ([[anObject user] length] > 0) {
     if ([[anObject user] ak_isTelephoneNumber]) {
-      if ([defaults boolForKey:kFormatTelephoneNumbers]) {
+      if ([self formatsTelephoneNumbers]) {
         AKTelephoneNumberFormatter *telephoneNumberFormatter
           = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
         
         [telephoneNumberFormatter setSplitsLastFourDigits:
-         [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+         [self telephoneNumberFormatterSplitsLastFourDigits]];
         
         returnValue = [telephoneNumberFormatter stringForObjectValue:
                        [anObject user]];

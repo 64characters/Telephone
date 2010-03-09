@@ -527,8 +527,15 @@ completionsForSubstring:(NSString *)substring
 - (id)tokenField:(NSTokenField *)tokenField
 representedObjectForEditingString:(NSString *)editingString {
   
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  
   AKSIPURIFormatter *SIPURIFormatter
     = [[[AKSIPURIFormatter alloc] init] autorelease];
+  [SIPURIFormatter setFormatsTelephoneNumbers:
+   [defaults boolForKey:kFormatTelephoneNumbers]];
+  [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
+   [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+  
   AKSIPURI *theURI = [SIPURIFormatter SIPURIFromString:editingString];
   if (theURI == nil)
     return nil;

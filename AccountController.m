@@ -873,6 +873,11 @@ callTransferController:nil];
   
   AKSIPURIFormatter *SIPURIFormatter
     = [[[AKSIPURIFormatter alloc] init] autorelease];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [SIPURIFormatter setFormatsTelephoneNumbers:
+   [defaults boolForKey:kFormatTelephoneNumbers]];
+  [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
+   [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
   
   // These variables will be changed during the Address Book search if the
   // record is found.
@@ -957,8 +962,7 @@ callTransferController:nil];
     }
     
     NSUInteger significantPhoneNumberLength
-      = [[NSUserDefaults standardUserDefaults]
-         integerForKey:kSignificantPhoneNumberLength];
+      = [defaults integerForKey:kSignificantPhoneNumberLength];
     
     // Get the significant phone suffix if the phone number length is greater
     // than we defined.
@@ -1075,7 +1079,6 @@ callTransferController:nil];
   
   // Show Growl notification.
   NSString *callSource;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   AKTelephoneNumberFormatter *telephoneNumberFormatter
     = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
   [telephoneNumberFormatter setSplitsLastFourDigits:

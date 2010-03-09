@@ -629,6 +629,11 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   } else {
     AKSIPURIFormatter *SIPURIFormatter
       = [[[AKSIPURIFormatter alloc] init] autorelease];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [SIPURIFormatter setFormatsTelephoneNumbers:
+     [defaults boolForKey:kFormatTelephoneNumbers]];
+    [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
+     [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
     notificationTitle
       = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
   }
