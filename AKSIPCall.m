@@ -350,7 +350,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
       messageData.content_type = pj_str("application/dtmf-relay");
       
       NSString *messageBody
-        = [NSString stringWithFormat:@"Signal=%C\r\nDuration=160",
+        = [NSString stringWithFormat:@"Signal=%C\r\nDuration=300",
            [digits characterAtIndex:i]];
       messageData.msg_body = [messageBody pjString];
       
