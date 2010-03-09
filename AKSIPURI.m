@@ -194,11 +194,17 @@
 }
 
 - (NSString *)description {
+  NSString *SIPAddressWithPort = [self SIPAddress];
+  if ([self port] > 0) {
+    SIPAddressWithPort = [SIPAddressWithPort stringByAppendingFormat:@":%d",
+                          [self port]];
+  }
+  
   if ([[self displayName] length] > 0) {
     return [NSString stringWithFormat:@"\"%@\" <sip:%@>",
-            [self displayName], [self SIPAddress]];
+            [self displayName], SIPAddressWithPort];
   } else {
-    return [NSString stringWithFormat:@"<sip:%@>", [self SIPAddress]];
+    return [NSString stringWithFormat:@"<sip:%@>", SIPAddressWithPort];
   }
 }
 
