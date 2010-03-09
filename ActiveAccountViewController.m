@@ -848,12 +848,13 @@ displayStringForRepresentedObject:(id)representedObject {
     NSAssert(([[uri user] length] > 0),
              @"User part of the URI must not have zero length in this context");
     
-    if ([[uri user] ak_isTelephoneNumber]) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[uri user] ak_isTelephoneNumber] &&
+        [defaults boolForKey:kFormatTelephoneNumbers]) {
       AKTelephoneNumberFormatter *formatter
         = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
       [formatter setSplitsLastFourDigits:
-       [[NSUserDefaults standardUserDefaults]
-        boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+       [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
       returnString = [formatter stringForObjectValue:[uri user]];
       
     } else {
