@@ -1983,6 +1983,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
   
   [self setShouldPresentUserAgentLaunchError:YES];
   
+  // Register as service provider to allow making calls from the Services
+  // menu and context menus.
+  [NSApp setServicesProvider:self];
+  
   // Accounts with host name as the registrar will be registered with the
   // reachability callbacks. But if registrar is IP address, there won't be such
   // callbacks. Register such accounts here.
@@ -2276,6 +2280,42 @@ static void NameserversChanged(SCDynamicStoreRef store,
     [firstEnabledAccountController setAccountRegistered:YES];
   } else {
     [firstEnabledAccountController handleCatchedURL];
+  }
+}
+
+
+#pragma mark -
+#pragma mark Service Provider
+
+- (void)makeCallFromTextService:(NSPasteboard *)pboard
+                       userData:(NSString *)userData
+                          error:(NSString **)error {
+  
+  NSArray *classes = [NSArray arrayWithObject:[NSString class]];
+  NSDictionary *options = [NSDictionary dictionary];
+  if ([NSPasteboard
+       instancesRespondToSelector:@selector(canReadObjectForClasses:options:)] &&
+      ![pboard canReadObjectForClasses:classes options:options]) {
+    NSLog(@"Could not make call, pboard couldn't give string.");
+  }
+  
+  NSString *pboardString = [pboard stringForType:NSPasteboardTypeString];
+  
+  AccountController *firstEnabledAccountController
+    = [[self accountControllers] objectAtIndex:0];
+  [[[firstEnabledAccountController activeAccountViewController]
+    callDestinationField] setTokenStyle:NSPlainTextTokenStyle];
+  [[[firstEnabledAccountController activeAccountViewController]
+    callDestinationField] setStringValue:pboardString];
+  
+  if ([[firstEnabledAccountController account] identifier] ==
+      kAKSIPUserAgentInvalidIdentifier) {
+    // Go Available if it's Offline. Make call from the callback.
+    [firstEnabledAccountController setShouldMakeCall:YES];
+    [firstEnabledAccountController setAccountRegistered:YES];
+    
+  } else {
+    [[firstEnabledAccountController activeAccountViewController] makeCall:nil];
   }
 }
 
