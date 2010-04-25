@@ -125,13 +125,16 @@
 
 - (BOOL)checkForNetworkSettingsChanges:(id)sender {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
   
   NSInteger newTransportPort = [[self transportPortField] integerValue];
-  NSString *newSTUNServerHost = [[self STUNServerHostField] stringValue];
+  NSString *newSTUNServerHost = [[[self STUNServerHostField] stringValue]
+                                 stringByTrimmingCharactersInSet:spacesSet];
   NSInteger newSTUNServerPort = [[self STUNServerPortField] integerValue];
   BOOL newUseICE = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
   BOOL newUseDNSSRV = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
-  NSString *newOutboundProxyHost = [[self outboundProxyHostField] stringValue];
+  NSString *newOutboundProxyHost = [[[self outboundProxyHostField] stringValue]
+                                    stringByTrimmingCharactersInSet:spacesSet];
   NSInteger newOutboundProxyPort = [[self outboundProxyPortField] integerValue];
   
   if ([defaults integerForKey:kTransportPort] != newTransportPort ||
@@ -178,6 +181,7 @@
     return;
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
   id sender = (id)contextInfo;
   
   if (returnCode == NSAlertFirstButtonReturn) {
@@ -187,8 +191,9 @@
     [defaults setInteger:[[self transportPortField] integerValue]
                   forKey:kTransportPort];
     
-    [defaults setObject:[[self STUNServerHostField] stringValue]
-                 forKey:kSTUNServerHost];
+    NSString *STUNServerHost = [[[self STUNServerHostField] stringValue]
+                               stringByTrimmingCharactersInSet:spacesSet];
+    [defaults setObject:STUNServerHost forKey:kSTUNServerHost];
     
     [defaults setInteger:[[self STUNServerPortField] integerValue]
                   forKey:kSTUNServerPort];
@@ -200,8 +205,9 @@
       = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
     [defaults setBool:newUseDNSSRVFlag forKey:kUseDNSSRV];
     
-    [defaults setObject:[[self outboundProxyHostField] stringValue]
-                 forKey:kOutboundProxyHost];
+    NSString *outboundProxyHost = [[[self outboundProxyHostField] stringValue]
+                                   stringByTrimmingCharactersInSet:spacesSet];
+    [defaults setObject:outboundProxyHost forKey:kOutboundProxyHost];
     
     [defaults setInteger:[[self outboundProxyPortField] integerValue]
                   forKey:kOutboundProxyPort];

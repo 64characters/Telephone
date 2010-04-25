@@ -99,10 +99,13 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
 - (IBAction)changeUsernameAndPassword:(id)sender {
   [self closeSheet:sender];
   
-  if ([[[self usernameField] stringValue] length] > 0) {
+  NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+  NSString *username = [[[self usernameField] stringValue]
+                              stringByTrimmingCharactersInSet:spacesSet];
+  
+  if ([username length] > 0) {
     [[self accountController] removeAccountFromUserAgent];
-    [[[self accountController] account] setUsername:
-     [[self usernameField] stringValue]];
+    [[[self accountController] account] setUsername:username];
     
     [[self accountController] showConnectingState];
     
@@ -149,7 +152,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
       [AKKeychain
        addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
                                [[[self accountController] account] registrar]]
-       accountName:[[self usernameField] stringValue]
+       accountName:username
        password:[[self passwordField] stringValue]];
     }
     

@@ -84,19 +84,27 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification
   [[self usernameInvalidDataView] setHidden:YES];
   [[self passwordInvalidDataView] setHidden:YES];
   
+  NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+  NSString *fullName = [[[self fullNameField] stringValue]
+                        stringByTrimmingCharactersInSet:spacesSet];
+  NSString *domain = [[[self domainField] stringValue]
+                      stringByTrimmingCharactersInSet:spacesSet];
+  NSString *username = [[[self usernameField] stringValue]
+                        stringByTrimmingCharactersInSet:spacesSet];
+  
   BOOL invalidFormData = NO;
   
-  if ([[[self fullNameField] stringValue] length] == 0) {
+  if ([fullName length] == 0) {
     [[self fullNameInvalidDataView] setHidden:NO];
     invalidFormData = YES;
   }
   
-  if ([[[self domainField] stringValue] length] == 0) {
+  if ([domain length] == 0) {
     [[self domainInvalidDataView] setHidden:NO];
     invalidFormData = YES;
   }
   
-  if ([[[self usernameField] stringValue] length] == 0) {
+  if ([username length] == 0) {
     [[self usernameInvalidDataView] setHidden:NO];
     invalidFormData = YES;
   }
@@ -111,10 +119,10 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification
   
   NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
   [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kAccountEnabled];
-  [accountDict setObject:[[self fullNameField] stringValue] forKey:kFullName];
-  [accountDict setObject:[[self domainField] stringValue] forKey:kDomain];
+  [accountDict setObject:fullName forKey:kFullName];
+  [accountDict setObject:domain forKey:kDomain];
   [accountDict setObject:@"*" forKey:kRealm];
-  [accountDict setObject:[[self usernameField] stringValue] forKey:kUsername];
+  [accountDict setObject:username forKey:kUsername];
   [accountDict setObject:[NSNumber numberWithInteger:0]
                   forKey:kReregistrationTime];
   [accountDict setObject:[NSNumber numberWithBool:NO]
@@ -132,8 +140,8 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification
   [defaults synchronize];
   
   [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                      [[self domainField] stringValue]]
-                         accountName:[[self usernameField] stringValue]
+                                      domain]
+                         accountName:username
                             password:[[self passwordField] stringValue]];
   
   [self closeSheet:sender];

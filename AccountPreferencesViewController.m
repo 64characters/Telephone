@@ -449,25 +449,33 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
   if (isChecked) {
     // User enabled the account.
     // Account fields could be edited, save them.
-    [accountDict setObject:[[self accountDescriptionField] stringValue]
-                    forKey:kDescription];
-    [accountDict setObject:[[self fullNameField] stringValue]
-                    forKey:kFullName];
-    [accountDict setObject:[[self domainField] stringValue]
-                    forKey:kDomain];
-    [accountDict setObject:[[self usernameField] stringValue]
-                    forKey:kUsername];
+    
+    NSCharacterSet *spacesSet
+      = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *accountDescription = [[[self accountDescriptionField] stringValue]
+                                    stringByTrimmingCharactersInSet:spacesSet];
+    NSString *fullName = [[[self fullNameField] stringValue]
+                          stringByTrimmingCharactersInSet:spacesSet];
+    NSString *domain = [[[self domainField] stringValue]
+                        stringByTrimmingCharactersInSet:spacesSet];
+    NSString *username = [[[self usernameField] stringValue]
+                          stringByTrimmingCharactersInSet:spacesSet];
+    NSString *registrar = [[[self registrarField] stringValue]
+                           stringByTrimmingCharactersInSet:spacesSet];
+    
+    [accountDict setObject:accountDescription forKey:kDescription];
+    [accountDict setObject:fullName forKey:kFullName];
+    [accountDict setObject:domain forKey:kDomain];
+    [accountDict setObject:username forKey:kUsername];
     
     NSString *keychainServiceName;
-    if ([[[self registrarField] stringValue] length] > 0) {
-      keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
-                             [[self registrarField] stringValue]];
+    if ([registrar length] > 0) {
+      keychainServiceName = [NSString stringWithFormat:@"SIP: %@", registrar];
     } else {
-      keychainServiceName = [NSString stringWithFormat:@"SIP: %@",
-                             [[self domainField] stringValue]];
+      keychainServiceName = [NSString stringWithFormat:@"SIP: %@", domain];
     }
     
-    NSString *keychainAccountName = [[self usernameField] stringValue];
+    NSString *keychainAccountName = username;
     
     NSString *keychainPassword
       = [AKKeychain passwordForServiceName:keychainServiceName
@@ -503,37 +511,33 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
       [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kUseProxy];
     }
     
-    [accountDict setObject:[[self proxyHostField] stringValue]
-                    forKey:kProxyHost];
+    NSString *proxyHost = [[[self proxyHostField] stringValue]
+                           stringByTrimmingCharactersInSet:spacesSet];
+    [accountDict setObject:proxyHost forKey:kProxyHost];
     [accountDict setObject:[NSNumber numberWithInteger:[[self proxyPortField]
                                                         integerValue]]
                     forKey:kProxyPort];
     
-    [accountDict setObject:[[self SIPAddressField] stringValue]
-                    forKey:kSIPAddress];
-    [accountDict setObject:[[self registrarField] stringValue]
-                    forKey:kRegistrar];
+    NSString *SIPAddress = [[[self SIPAddressField] stringValue]
+                            stringByTrimmingCharactersInSet:spacesSet];
+    [accountDict setObject:SIPAddress forKey:kSIPAddress];
+    
+    [accountDict setObject:registrar forKey:kRegistrar];
     
     // Set placeholders.
     
-    if ([[[self SIPAddressField] stringValue] length] > 0) {
-      [[[self accountDescriptionField] cell] setPlaceholderString:
-       [[self SIPAddressField] stringValue]];
+    if ([SIPAddress length] > 0) {
+      [[[self accountDescriptionField] cell] setPlaceholderString:SIPAddress];
     } else {
       [[[self accountDescriptionField] cell] setPlaceholderString:
-       [NSString stringWithFormat:@"%@@%@",
-        [[self usernameField] stringValue],
-        [[self domainField] stringValue]]];
+       [NSString stringWithFormat:@"%@@%@", username, domain]];
     }
     
-    if ([[[self domainField] stringValue] length] > 0) {
+    if ([domain length] > 0) {
       [[[self SIPAddressField] cell] setPlaceholderString:
-       [NSString stringWithFormat:@"%@@%@",
-        [[self usernameField] stringValue],
-        [[self domainField] stringValue]]];
+       [NSString stringWithFormat:@"%@@%@", username, domain]];
       
-      [[[self registrarField] cell] setPlaceholderString:
-       [[self domainField] stringValue]];
+      [[[self registrarField] cell] setPlaceholderString:domain];
       
     } else {
       [[[self SIPAddressField] cell] setPlaceholderString:nil];
