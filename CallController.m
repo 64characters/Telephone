@@ -62,8 +62,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @interface CallController ()
 
-// Method to be called when |close call window| timer fires.
-- (void)closeCallWindowTick:(NSTimer *)theTimer;
+// Closes call window.
+- (void)closeCallWindow;
 
 @end
 
@@ -250,11 +250,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
       ![self isCallUnhandled] &&
       ![self isKindOfClass:[CallTransferController class]]) {
-    [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
-                                     target:self
-                                   selector:@selector(closeCallWindowTick:)
-                                   userInfo:nil
-                                    repeats:NO];
+    [self performSelector:@selector(closeCallWindow)
+               withObject:nil
+               afterDelay:kCallWindowAutoCloseTime];
   }
 }
 
@@ -266,6 +264,11 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
       [self redialURI] == nil) {
     return;
   }
+  
+  // Cancel call window auto-close.
+  [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                           selector:@selector(closeCallWindow)
+                                             object:nil];
   
   // Replace plus character if needed.
   if ([[self accountController] substitutesPlusCharacter] &&
@@ -384,7 +387,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [self setIntermediateStatusTimer:nil];
 }
 
-- (void)closeCallWindowTick:(NSTimer *)theTimer {
+- (void)closeCallWindow {
   if ([[self window] isVisible])
     [[self window] performClose:self];
 }
@@ -652,11 +655,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
       ![self isCallUnhandled] &&
       ![self isKindOfClass:[CallTransferController class]]) {
-    [NSTimer scheduledTimerWithTimeInterval:kCallWindowAutoCloseTime
-                                     target:self
-                                   selector:@selector(closeCallWindowTick:)
-                                   userInfo:nil
-                                    repeats:NO];
+    [self performSelector:@selector(closeCallWindow)
+               withObject:nil
+               afterDelay:kCallWindowAutoCloseTime];
   }
 }
 
