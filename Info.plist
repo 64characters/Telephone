@@ -68,7 +68,7 @@
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>http://telephone.googlecode.com/svn/appcast/appcast.xml</string>
+	<string>http://appcast.telephone.googlecode.com/hg/appcast.xml</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>YES</string>
 	<key>SUShowReleaseNotes</key>
