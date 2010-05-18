@@ -54,6 +54,7 @@
   NSTextField *proxyPortField_;
   NSTextField *SIPAddressField_;
   NSTextField *registrarField_;
+  NSTextField *cantEditAccountLabel_;
 }
 
 // Preferences controller the receiver belongs to.
@@ -78,6 +79,7 @@
 @property(nonatomic, retain) IBOutlet NSTextField *proxyPortField;
 @property(nonatomic, retain) IBOutlet NSTextField *SIPAddressField;
 @property(nonatomic, retain) IBOutlet NSTextField *registrarField;
+@property(nonatomic, retain) IBOutlet NSTextField *cantEditAccountLabel;
 
 // Raises |Add Account| sheet.
 - (IBAction)showAddAccountSheet:(id)sender;

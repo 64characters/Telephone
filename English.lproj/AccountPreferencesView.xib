@@ -2,15 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10B504</string>
-		<string key="IBDocument.InterfaceBuilderVersion">732</string>
-		<string key="IBDocument.AppKitVersion">1038.2</string>
-		<string key="IBDocument.HIToolboxVersion">437.00</string>
+		<string key="IBDocument.SystemVersion">10D573</string>
+		<string key="IBDocument.InterfaceBuilderVersion">762</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.HIToolboxVersion">460.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">732</string>
+			<string key="NS.object.0">762</string>
 		</object>
-		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs"/>
+		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<integer value="148"/>
+		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</array>
@@ -26,9 +28,45 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="858212508">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="NSTextField" id="275636976">
+						<reference key="NSNextResponder" ref="858212508"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{171, 23}, {309, 14}}</string>
+						<reference key="NSSuperview" ref="858212508"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="780901807">
+							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags2">272761856</int>
+							<string key="NSContents">You can’t change account settins while account is in use.</string>
+							<object class="NSFont" key="NSSupport" id="26">
+								<string key="NSName">LucidaGrande</string>
+								<double key="NSSize">11</double>
+								<int key="NSfFlags">3100</int>
+							</object>
+							<reference key="NSControlView" ref="275636976"/>
+							<object class="NSColor" key="NSBackgroundColor" id="776546880">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">controlColor</string>
+								<object class="NSColor" key="NSColor" id="188292630">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+								</object>
+							</object>
+							<object class="NSColor" key="NSTextColor" id="948952049">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">controlTextColor</string>
+								<object class="NSColor" key="NSColor" id="331449532">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MAA</bytes>
+								</object>
+							</object>
+						</object>
+					</object>
 					<object class="NSScrollView" id="989266183">
 						<reference key="NSNextResponder" ref="858212508"/>
 						<int key="NSvFlags">268</int>
@@ -66,11 +104,7 @@
 													<int key="NSCellFlags">75628096</int>
 													<int key="NSCellFlags2">2048</int>
 													<string key="NSContents">Accounts</string>
-													<object class="NSFont" key="NSSupport" id="26">
-														<string key="NSName">LucidaGrande</string>
-														<double key="NSSize">11</double>
-														<int key="NSfFlags">3100</int>
-													</object>
+													<reference key="NSSupport" ref="26"/>
 													<object class="NSColor" key="NSBackgroundColor">
 														<int key="NSColorSpace">3</int>
 														<bytes key="NSWhite">MC4zMzMzMzI5OQA</bytes>
@@ -79,10 +113,7 @@
 														<int key="NSColorSpace">6</int>
 														<string key="NSCatalogName">System</string>
 														<string key="NSColorName">headerTextColor</string>
-														<object class="NSColor" key="NSColor" id="331449532">
-															<int key="NSColorSpace">3</int>
-															<bytes key="NSWhite">MAA</bytes>
-														</object>
+														<reference key="NSColor" ref="331449532"/>
 													</object>
 												</object>
 												<object class="NSTextFieldCell" key="NSDataCell" id="109315614">
@@ -99,17 +130,9 @@
 														<int key="NSColorSpace">6</int>
 														<string key="NSCatalogName">System</string>
 														<string key="NSColorName">controlBackgroundColor</string>
-														<object class="NSColor" key="NSColor" id="188292630">
-															<int key="NSColorSpace">3</int>
-															<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
-														</object>
+														<reference key="NSColor" ref="188292630"/>
 													</object>
-													<object class="NSColor" key="NSTextColor" id="948952049">
-														<int key="NSColorSpace">6</int>
-														<string key="NSCatalogName">System</string>
-														<string key="NSColorName">controlTextColor</string>
-														<reference key="NSColor" ref="331449532"/>
-													</object>
+													<reference key="NSTextColor" ref="948952049"/>
 												</object>
 												<int key="NSResizingMask">1</int>
 												<bool key="NSIsResizeable">YES</bool>
@@ -347,12 +370,7 @@
 												<string key="NSContents">Full Name:</string>
 												<reference key="NSSupport" ref="843119090"/>
 												<reference key="NSControlView" ref="259918359"/>
-												<object class="NSColor" key="NSBackgroundColor" id="776546880">
-													<int key="NSColorSpace">6</int>
-													<string key="NSCatalogName">System</string>
-													<string key="NSColorName">controlColor</string>
-													<reference key="NSColor" ref="188292630"/>
-												</object>
+												<reference key="NSBackgroundColor" ref="776546880"/>
 												<reference key="NSTextColor" ref="948952049"/>
 											</object>
 										</object>
@@ -769,6 +787,7 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{508, 327}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 		</array>
@@ -1054,6 +1073,14 @@
 					</object>
 					<int key="connectionID">547</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">cantEditAccountLabel</string>
+						<reference key="source" ref="502969037"/>
+						<reference key="destination" ref="275636976"/>
+					</object>
+					<int key="connectionID">550</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1083,6 +1110,7 @@
 							<reference ref="414082300"/>
 							<reference ref="788273620"/>
 							<reference ref="989266183"/>
+							<reference ref="275636976"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Accounts</string>
@@ -1555,6 +1583,19 @@
 						<reference key="object" ref="1065943287"/>
 						<reference key="parent" ref="752785718"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">548</int>
+						<reference key="object" ref="275636976"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="780901807"/>
+						</array>
+						<reference key="parent" ref="858212508"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">549</int>
+						<reference key="object" ref="780901807"/>
+						<reference key="parent" ref="275636976"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1578,7 +1619,7 @@
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="120.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="121.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="148.IBEditorWindowLastContentRect">{{226, 449}, {508, 327}}</string>
+				<string key="148.IBEditorWindowLastContentRect">{{460, 506}, {508, 327}}</string>
 				<string key="148.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSMutableDictionary" key="409.IBAttributePlaceholdersKey">
 					<string key="NS.key.0">InitialTabViewItem</string>
@@ -1622,6 +1663,8 @@
 				<string key="535.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="536.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="537.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="548.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="79.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="80.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1641,7 +1684,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">547</int>
+			<int key="maxID">550</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1660,6 +1703,7 @@
 						<string key="accountDescriptionField">NSTextField</string>
 						<string key="accountEnabledCheckBox">NSButton</string>
 						<string key="accountsTable">NSTableView</string>
+						<string key="cantEditAccountLabel">NSTextField</string>
 						<string key="domainField">NSTextField</string>
 						<string key="fullNameField">NSTextField</string>
 						<string key="passwordField">NSTextField</string>
@@ -2188,6 +2232,7 @@
 			</array>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
+		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<integer value="1060" key="NS.object.0"/>
@@ -2195,5 +2240,10 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../Telephone.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NSAddTemplate">{8, 8}</string>
+			<string key="NSRemoveTemplate">{8, 8}</string>
+			<string key="NSSwitch">{15, 15}</string>
+		</dictionary>
 	</data>
 </archive>

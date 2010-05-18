@@ -59,6 +59,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
 @synthesize proxyPortField = proxyPortField_;
 @synthesize SIPAddressField = SIPAddressField_;
 @synthesize registrarField = registrarField_;
+@synthesize cantEditAccountLabel = cantEditAccountLabel_;
 
 - (AccountSetupController *)accountSetupController {
   if (accountSetupController_ == nil) {
@@ -111,6 +112,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
   [proxyPortField_ release];
   [SIPAddressField_ release];
   [registrarField_ release];
+  [cantEditAccountLabel_ release];
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   
@@ -243,6 +245,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
       [[self proxyPortField] setEnabled:NO];
       [[self SIPAddressField] setEnabled:NO];
       [[self registrarField] setEnabled:NO];
+      [[self cantEditAccountLabel] setHidden:NO];
       
     } else {
       [[self accountEnabledCheckBox] setState:NSOffState];
@@ -274,6 +277,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
       
       [[self SIPAddressField] setEnabled:YES];
       [[self registrarField] setEnabled:YES];
+      [[self cantEditAccountLabel] setHidden:YES];
     }
     
     // Populate fields.
@@ -420,6 +424,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
     [[[self SIPAddressField] cell] setPlaceholderString:nil];
     [[self registrarField] setEnabled:NO];
     [[[self registrarField] cell] setPlaceholderString:nil];
+    [[self cantEditAccountLabel] setHidden:YES];
   }
 }
 
@@ -559,6 +564,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
     [[self proxyPortField] setEnabled:NO];
     [[self SIPAddressField] setEnabled:NO];
     [[self registrarField] setEnabled:NO];
+    [[self cantEditAccountLabel] setHidden:NO];
     
     // Mark accounts table as needing redisplay.
     [[self accountsTable] reloadData];
@@ -588,6 +594,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
     
     [[self SIPAddressField] setEnabled:YES];
     [[self registrarField] setEnabled:YES];
+    [[self cantEditAccountLabel] setHidden:YES];
   }
   
   [savedAccounts replaceObjectAtIndex:index withObject:accountDict];
