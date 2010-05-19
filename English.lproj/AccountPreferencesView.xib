@@ -40,7 +40,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="780901807">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272761856</int>
-							<string key="NSContents">You can’t change account settins while account is in use.</string>
+							<string key="NSContents">You can’t change account settins when account is in use.</string>
 							<object class="NSFont" key="NSSupport" id="26">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">11</double>
