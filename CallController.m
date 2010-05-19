@@ -248,7 +248,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   
   // Optionally close call window.
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
-      ![self isCallUnhandled] &&
       ![self isKindOfClass:[CallTransferController class]]) {
     [self performSelector:@selector(closeCallWindow)
                withObject:nil
@@ -652,12 +651,19 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   }
   
   // Optionally close disconnected call window.
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
-      ![self isCallUnhandled] &&
-      ![self isKindOfClass:[CallTransferController class]]) {
-    [self performSelector:@selector(closeCallWindow)
-               withObject:nil
-               afterDelay:kCallWindowAutoCloseTime];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  BOOL shouldCloseWindow = [defaults boolForKey:kAutoCloseCallWindow];
+  BOOL shouldCloseMissedWindow
+    = [defaults boolForKey:kAutoCloseMissedCallWindow];
+  BOOL missed = [self isCallUnhandled];
+  
+  if (![self isKindOfClass:[CallTransferController class]]) {
+    if ((!missed && shouldCloseWindow) ||
+        (missed && shouldCloseWindow && shouldCloseMissedWindow)) {
+      [self performSelector:@selector(closeCallWindow)
+                 withObject:nil
+                 afterDelay:kCallWindowAutoCloseTime];
+    }
   }
 }
 
