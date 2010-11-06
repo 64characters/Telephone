@@ -67,8 +67,6 @@ extern NSString * const kGrowlNotificationCallEnded;
   BOOL terminating_;
   BOOL didPauseITunes_;
   BOOL shouldPresentUserAgentLaunchError_;
-  NSUInteger afterSleepReconnectionAttemptIndex_;
-  NSArray *afterSleepReconnectionTimeIntervals_;
   NSTimer *userAttentionTimer_;
   
   NSMenuItem *preferencesMenuItem_;

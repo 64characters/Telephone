@@ -88,17 +88,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 @interface AppController()
 
-// Index of a reconnection attempt after wake-up.
-@property(nonatomic, assign) NSUInteger afterSleepReconnectionAttemptIndex;
-
-// An array of time intervals for reconnection attemps after wake-up.
-@property(nonatomic, retain) NSArray *afterSleepReconnectionTimeIntervals;
-
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
-
-// Method to be called when after-sleep reconnection attempt timer fires.
-- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer;
 
 // Installs Address Book plug-ins.
 - (void)installAddressBookPlugIns;
@@ -141,8 +132,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
 @dynamic currentNameservers;
 @synthesize didPauseITunes = didPauseITunes_;
 @synthesize shouldPresentUserAgentLaunchError = shouldPresentUserAgentLaunchError_;
-@synthesize afterSleepReconnectionAttemptIndex = afterSleepReconnectionAttemptIndex_;
-@synthesize afterSleepReconnectionTimeIntervals = afterSleepReconnectionTimeIntervals_;
 @dynamic unhandledIncomingCallsCount;
 @synthesize userAttentionTimer = userAttentionTimer_;
 
@@ -335,15 +324,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [self setDidPauseITunes:NO];
   [self setShouldPresentUserAgentLaunchError:NO];
   
-  [self setAfterSleepReconnectionTimeIntervals:
-   [NSArray arrayWithObjects:
-    [NSNumber numberWithDouble:3.0],
-    [NSNumber numberWithDouble:7.0],
-    [NSNumber numberWithDouble:10.0],
-    [NSNumber numberWithDouble:20.0],
-    [NSNumber numberWithDouble:40.0],
-    nil]];
-  
   NSNotificationCenter *notificationCenter
     = [NSNotificationCenter defaultCenter];
   
@@ -438,7 +418,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [audioDevices_ release];
   [ringtone_ release];
   
-  [afterSleepReconnectionTimeIntervals_ release];
   [preferencesMenuItem_ release];
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -825,32 +804,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
   }
   
   return nil;
-}
-
-- (void)startUserAgentAfterDidWakeTick:(NSTimer *)theTimer {
-  if ([[self userAgent] isStarted])
-    return;
-  
-  if ([[self userAgent] state] < kAKSIPUserAgentStarting) {
-    [self setShouldRegisterAllAccounts:YES];
-    [self setShouldSetUserAgentSoundIO:YES];
-    [[self userAgent] start];
-  }
-  
-  NSUInteger attemptIndex = [self afterSleepReconnectionAttemptIndex];
-  if (attemptIndex < [[self afterSleepReconnectionTimeIntervals] count]) {
-    NSTimeInterval timeInterval
-      = [[[self afterSleepReconnectionTimeIntervals] objectAtIndex:attemptIndex]
-         doubleValue];
-    
-    [NSTimer scheduledTimerWithTimeInterval:timeInterval
-                                     target:self
-                                   selector:@selector(startUserAgentAfterDidWakeTick:)
-                                   userInfo:nil
-                                    repeats:NO];
-    
-    [self setAfterSleepReconnectionAttemptIndex:++attemptIndex];
-  }
 }
 
 - (void)updateDockTileBadgeLabel {
@@ -2168,20 +2121,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 - (void)workspaceDidWake:(NSNotification *)notification {
   [self setShouldSetUserAgentSoundIO:YES];
-  
-  [self setAfterSleepReconnectionAttemptIndex:0];
-  
-  NSTimeInterval timeInterval
-    = [[[self afterSleepReconnectionTimeIntervals] objectAtIndex:0]
-       doubleValue];
-  
-  [NSTimer scheduledTimerWithTimeInterval:timeInterval
-                                   target:self
-                                 selector:@selector(startUserAgentAfterDidWakeTick:)
-                                 userInfo:nil
-                                  repeats:NO];
-  
-  [self setAfterSleepReconnectionAttemptIndex:1];
 }
 
 // Unregisters all accounts when a user session is switched out.
