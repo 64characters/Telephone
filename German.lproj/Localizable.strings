@@ -58,6 +58,9 @@
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Konnte SIP user agent nicht starten.";
 
+/* Decline. Call menu item. */
+"Decline" = "Ablehnen";
+
 /* Delete button. */
 "Delete" = "Löschen";
 
@@ -66,6 +69,9 @@
 
 /* Don't save button. */
 "Don't Save" = "Nicht Sichern";
+
+/* End Call. Call menu item. */
+"End Call" = "Anruf beenden";
 
 /* Error #. */
 "Error %d" = "Fehler %d";

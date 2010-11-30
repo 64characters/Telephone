@@ -286,6 +286,10 @@
     } else {
       return NO;
     }
+    
+  } else if ([menuItem action] == @selector(hangUpCall:)) {
+    [menuItem setTitle:NSLocalizedString(@"End Call",
+                                         @"End Call. Call menu item.")];
   }
   
   return YES;

@@ -56,6 +56,9 @@
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Не удалось запустить SIP-подсистему.";
 
+/* Decline. Call menu item. */
+"Decline" = "Отклонить";
+
 /* Delete button. */
 "Delete" = "Удалить";
 
@@ -64,6 +67,9 @@
 
 /* Don't save button. */
 "Don't Save" = "Не сохранять";
+
+/* End Call. Call menu item. */
+"End Call" = "Завершить звонок";
 
 /* Error #. */
 "Error %d" = "Ошибка %d";

@@ -91,4 +91,17 @@
   [[self callController] hangUpCall];
 }
 
+
+#pragma mark -
+#pragma mark NSMenuValidation protocol
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+  if ([menuItem action] == @selector(hangUpCall:)) {
+    [menuItem setTitle:NSLocalizedString(@"Decline",
+                                         @"Decline. Call menu item.")];
+  }
+  
+  return YES;
+}
+
 @end
