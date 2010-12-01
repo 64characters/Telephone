@@ -84,7 +84,7 @@
 "Hold" = "Поставить на ожидание";
 
 /* Detected Symmetric NAT informative text. */
-"It very unlikely that two-way conversations will be possible with the symmetric NAT. Contact you SIP provider to find out other NAT traversal options. If you are connected to the internet through the personal router, try to replace it with the one that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or \\U201Cport restricted cone\\U201D NAT types." = "Достичь двусторонней слышимости скорее всего не удастся. Попробуйте узнать у своего SIP-провайдера другие способы преодоления NAT. Если у вас свой маршрутизатор для выхода в интернет, попробуйте заменить его на другой, поддерживающий «full cone», «restricted cone» или «port restricted cone» NAT.";
+"It is very unlikely that two-way conversations will be possible with symmetric NAT. Please contact your SIP provider to find out other NAT traversal options. If you are connected to the internet via personal router, try to replace it with the one that supports \\U201Cfull cone\\U201D, \\U201Crestricted cone\\U201D or \\U201Cport restricted cone\\U201D NAT types." = "Достичь двусторонней слышимости скорее всего не удастся. Попробуйте узнать у своего SIP-провайдера другие способы преодоления NAT. Если у вас свой маршрутизатор для выхода в интернет, попробуйте заменить его на другой, поддерживающий «full cone», «restricted cone» или «port restricted cone» NAT.";
 
 /* Address Book plug-ins install error, alert informative text. */
 "Make sure you have write permission to \\U201C%@\\U201D." = "Проверьте права на запись в «%@».";

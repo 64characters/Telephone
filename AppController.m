@@ -1712,10 +1712,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
         [alert setMessageText:
          NSLocalizedString(@"Symmetric NAT detected.", @"Detected Symmetric NAT.")];
         [alert setInformativeText:
-         NSLocalizedString(@"It very unlikely that two-way conversations will "
-                           "be possible with the symmetric NAT. Contact you "
+         NSLocalizedString(@"It is very unlikely that two-way conversations will "
+                           "be possible with symmetric NAT. Please contact your "
                            "SIP provider to find out other NAT traversal options. "
-                           "If you are connected to the internet through the "
+                           "If you are connected to the internet via "
                            "personal router, try to replace it with the one "
                            "that supports \\U201Cfull cone\\U201D, "
                            "\\U201Crestricted cone\\U201D or "
