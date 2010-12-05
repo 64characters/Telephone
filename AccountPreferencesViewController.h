@@ -40,6 +40,7 @@
   AccountSetupController *accountSetupController_;
   
   NSTableView *accountsTable_;
+  NSButton *addAccountButton_;
   NSButton *accountEnabledCheckBox_;
   NSTextField *accountDescriptionField_;
   NSTextField *fullNameField_;
@@ -65,6 +66,7 @@
 
 // Outlets.
 @property(nonatomic, retain) IBOutlet NSTableView *accountsTable;
+@property(nonatomic, retain) IBOutlet NSButton *addAccountButton;
 @property(nonatomic, retain) IBOutlet NSButton *accountEnabledCheckBox;
 @property(nonatomic, retain) IBOutlet NSTextField *accountDescriptionField;
 @property(nonatomic, retain) IBOutlet NSTextField *fullNameField;

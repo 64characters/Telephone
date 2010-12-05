@@ -39,12 +39,16 @@
 // Pasteboard type.
 static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
 
+// Maximum number of accounts.
+static const NSUInteger kAccountsMax = 32;
+
 @implementation AccountPreferencesViewController
 
 @synthesize preferencesController = preferencesController_;
 @dynamic accountSetupController;
 
 @synthesize accountsTable = accountsTable_;
+@synthesize addAccountButton = addAccountButton_;
 @synthesize accountEnabledCheckBox = accountEnabledCheckBox_;
 @synthesize accountDescriptionField = accountDescriptionField_;
 @synthesize fullNameField = fullNameField_;
@@ -88,6 +92,12 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
     [self populateFieldsForAccountAtIndex:row];
   }
   
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSUInteger accountsCount = [[defaults arrayForKey:kAccounts] count];
+  if (accountsCount >= kAccountsMax) {
+    [[self addAccountButton] setEnabled:NO];
+  }
+  
   // Subscribe to the account setup notifications.
   NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self
@@ -98,6 +108,7 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
 
 - (void)dealloc {
   [accountsTable_ release];
+  [addAccountButton_ release];
   [accountEnabledCheckBox_ release];
   [accountDescriptionField_ release];
   [fullNameField_ release];
@@ -188,6 +199,10 @@ static NSString * const kAKSIPAccountPboardType = @"AKSIPAccountPboardType";
   [savedAccounts removeObjectAtIndex:index];
   [defaults setObject:savedAccounts forKey:kAccounts];
   [defaults synchronize];
+  
+  if ([savedAccounts count] < kAccountsMax) {
+    [[self addAccountButton] setEnabled:YES];
+  }
   
   [[NSNotificationCenter defaultCenter]
    postNotificationName:AKPreferencesControllerDidRemoveAccountNotification
@@ -752,10 +767,15 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
   
   // Select the newly added account.
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSUInteger index = [[defaults arrayForKey:kAccounts] count] - 1;
+  NSUInteger accountsCount = [[defaults arrayForKey:kAccounts] count];
+  NSUInteger index = accountsCount - 1;
   if (index != 0) {
     [[self accountsTable] selectRowIndexes:[NSIndexSet indexSetWithIndex:index]
                       byExtendingSelection:NO];
+  }
+  
+  if (accountsCount >= kAccountsMax) {
+    [[self addAccountButton] setEnabled:NO];
   }
 }
 

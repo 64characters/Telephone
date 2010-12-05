@@ -1081,6 +1081,14 @@
 					</object>
 					<int key="connectionID">550</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">addAccountButton</string>
+						<reference key="source" ref="502969037"/>
+						<reference key="destination" ref="414082300"/>
+					</object>
+					<int key="connectionID">551</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1619,7 +1627,7 @@
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="120.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="121.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="148.IBEditorWindowLastContentRect">{{460, 506}, {508, 327}}</string>
+				<string key="148.IBEditorWindowLastContentRect">{{285, 506}, {508, 327}}</string>
 				<string key="148.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSMutableDictionary" key="409.IBAttributePlaceholdersKey">
 					<string key="NS.key.0">InitialTabViewItem</string>
@@ -1684,7 +1692,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">550</int>
+			<int key="maxID">551</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1725,6 +1733,7 @@
 						<string key="accountDescriptionField">NSTextField</string>
 						<string key="accountEnabledCheckBox">NSButton</string>
 						<string key="accountsTable">NSTableView</string>
+						<string key="addAccountButton">NSButton</string>
 						<string key="cantEditAccountLabel">NSTextField</string>
 						<string key="domainField">NSTextField</string>
 						<string key="fullNameField">NSTextField</string>
@@ -1754,6 +1763,10 @@
 						<object class="IBToOneOutletInfo" key="accountsTable">
 							<string key="name">accountsTable</string>
 							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="addAccountButton">
+							<string key="name">addAccountButton</string>
+							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="cantEditAccountLabel">
 							<string key="name">cantEditAccountLabel</string>
