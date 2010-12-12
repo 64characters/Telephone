@@ -95,6 +95,7 @@
 - (void)awakeFromNib {
   [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
   [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
+  [[self callProgressIndicator] startAnimation:self];
   
   // Set hang-up button origin manually.
   NSRect hangUpButtonFrame = [[self hangUpButton] frame];

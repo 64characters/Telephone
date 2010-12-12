@@ -279,6 +279,15 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                           plusCharacterSubstitution]]];
   }
   
+  if (![[self objectInViewControllersAtIndex:0] isEqual:
+        [self activeCallViewController]]) {
+    [self removeObjectFromViewControllersAtIndex:0];
+    [self addViewController:[self activeCallViewController]];
+    [[self window]
+     ak_resizeAndSwapToContentView:[[self activeCallViewController] view]
+                           animate:YES];
+  }
+  
   [[[self activeCallViewController] view]
    replaceSubview:[[self activeCallViewController] hangUpButton]
              with:[[self activeCallViewController] callProgressIndicator]];
@@ -287,7 +296,12 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
    [[self activeCallViewController] callProgressIndicatorTrackingArea]];
   
   [[[self activeCallViewController] hangUpButton] setEnabled:YES];
-  [[self window] setContentView:[[self activeCallViewController] view]];
+  
+  // Calling -display is bad style, but we have to run -makeCallTo: below
+  // synchronously. And without calling -display: spinner and redial button are
+  // visible at the same time.
+  [[self window] display];
+  [[[self activeCallViewController] callProgressIndicator] startAnimation:self];
   
   if ([[self phoneLabelFromAddressBook] length] > 0) {
     [self setStatus:
@@ -318,7 +332,14 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
       [endedCallViewController_ setRepresentedObject:nil];
     }
   } else {
-    [[self window] setContentView:[[self endedCallViewController] view]];
+    if (![[self objectInViewControllersAtIndex:0] isEqual:
+          [self endedCallViewController]]) {
+      [self removeObjectFromViewControllersAtIndex:0];
+      [self addViewController:[self endedCallViewController]];
+      [[self window]
+       ak_resizeAndSwapToContentView:[[self endedCallViewController] view]
+                             animate:YES];
+    }
     [self setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
   }
   
