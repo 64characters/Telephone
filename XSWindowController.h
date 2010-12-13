@@ -36,7 +36,7 @@
 @interface XSWindowController : NSWindowController {
 	NSMutableArray *_viewControllers;
 } 
-@property(copy,readonly)  NSMutableArray *viewControllers;
+@property(nonatomic,copy,readonly)  NSMutableArray *viewControllers;
 
 - (NSUInteger)countOfViewControllers;
 - (XSViewController *)objectInViewControllersAtIndex:(NSUInteger)index;

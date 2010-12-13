@@ -34,7 +34,7 @@
 #import "XSViewController.h"
 
 @interface XSWindowController () // class continuation allows us to redeclare the property as readwrite to we can privately use the setter
-@property(copy,readwrite) NSMutableArray *viewControllers;
+@property(nonatomic,copy) NSMutableArray *viewControllers;
 @end
 
 @implementation XSWindowController
