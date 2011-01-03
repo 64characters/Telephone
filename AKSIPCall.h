@@ -194,6 +194,9 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 // Replies with 480 Temporarily Unavailable.
 - (void)replyWithTemporarilyUnavailable;
 
+// Replies with 486 Busy Here.
+- (void)replyWithBusyHere;
+
 // Starts local ringback sound.
 - (void)ringbackStart;
 

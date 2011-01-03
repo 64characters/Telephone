@@ -64,6 +64,7 @@ NSString * const kSignificantPhoneNumberLength = @"SignificantPhoneNumberLength"
 NSString * const kPauseITunes = @"PauseITunes";
 NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
 NSString * const kAutoCloseMissedCallWindow = @"AutoCloseMissedCallWindow";
+NSString * const kCallWaiting = @"CallWaiting";
 
 NSString * const kDescription = @"Description";
 NSString * const kFullName = @"FullName";

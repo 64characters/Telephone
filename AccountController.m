@@ -852,11 +852,22 @@ callTransferController:nil];
 #pragma mark AKSIPAccountDelegate protocol
 
 - (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall {
-  // Just reply with 480 Temporarily Unavailable if the user selected
-  // Unavailable account state.
   if ([self isAccountUnavailable]) {
+    // Reply with 480 Temporarily Unavailable if the user selected Unavailable
+    // account state.
     [aCall replyWithTemporarilyUnavailable];
+    
     return;
+    
+  } else if (![[NSUserDefaults standardUserDefaults] boolForKey:kCallWaiting]) {
+    // Reply with 486 Busy Here if needed.
+    for (CallController *callController in [self callControllers]) {
+      if ([callController isCallActive]) {
+        [aCall replyWithBusyHere];
+        
+        return;
+      }
+    }
   }
   
   [[NSApp delegate] pauseITunes];

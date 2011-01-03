@@ -301,6 +301,14 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
     NSLog(@"Error replying with 480 Temporarily Unavailable");
 }
 
+- (void)replyWithBusyHere {
+  pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_BUSY_HERE,
+                                         NULL, NULL);
+  if (status != PJ_SUCCESS) {
+    NSLog(@"Error replying with 486 Busy Here");
+  }
+}
+
 - (void)ringbackStart {
   AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
   
