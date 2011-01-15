@@ -45,6 +45,8 @@
 		AA51FC6F0F1D6700003CE94C /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA51FC6E0F1D6700003CE94C /* Growl Registration Ticket.growlRegDict */; };
 		AA53434712ADBAD200B47767 /* Sound.tiff in Resources */ = {isa = PBXBuildFile; fileRef = AA53434612ADBAD200B47767 /* Sound.tiff */; };
 		AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA584A680F06CFD2003C4992 /* Localizable.strings */; };
+		AA6089D312E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
+		AA6089D412E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
 		AA7CB51D11442241004D79DA /* CallTransfer.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB51C11442241004D79DA /* CallTransfer.xib */; };
 		AA7CB51F11442249004D79DA /* ActiveAccountTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB51E11442249004D79DA /* ActiveAccountTransferView.xib */; };
 		AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB527114423A4004D79DA /* ActiveCallTransferView.xib */; };
@@ -83,8 +85,6 @@
 		AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
 		AAF299CB0F575741007B5036 /* TelephoneAddressBookPhonePlugIn.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */; };
 		AAF299CC0F575754007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */; };
-		AAF29A450F5759F7007B5036 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAF29A420F5759F7007B5036 /* Localizable.strings */; };
-		AAF29A480F575A18007B5036 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAF29A420F5759F7007B5036 /* Localizable.strings */; };
 		AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF633691056FEA600CF6C3B /* ActiveAccountViewController.m */; };
@@ -225,6 +225,8 @@
 		AA53434612ADBAD200B47767 /* Sound.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Sound.tiff; sourceTree = "<group>"; };
 		AA584A690F06CFD2003C4992 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA584A6B0F06D007003C4992 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA6089D512E25DDD00DC44DC /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA6089D612E25DE200DC44DC /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA69ADD90E89578900CF54B3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA7645E6112090BA00656244 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; tabWidth = 2; };
 		AA7CB52211442300004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
@@ -281,17 +283,15 @@
 		AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Scanning.m"; sourceTree = "<group>"; tabWidth = 2; };
 		AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = "AKNSWindow+Resizing.h"; sourceTree = "<group>"; tabWidth = 2; };
 		AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = "AKNSWindow+Resizing.m"; sourceTree = "<group>"; tabWidth = 2; };
-		AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = AKAddressBookPhonePlugIn.h; path = PlugIns/AddressBook/AKAddressBookPhonePlugIn.h; sourceTree = "<group>"; tabWidth = 2; };
-		AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; name = AKAddressBookPhonePlugIn.m; path = PlugIns/AddressBook/AKAddressBookPhonePlugIn.m; sourceTree = "<group>"; tabWidth = 2; };
+		AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKAddressBookPhonePlugIn.h; sourceTree = "<group>"; tabWidth = 2; };
+		AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKAddressBookPhonePlugIn.m; sourceTree = "<group>"; tabWidth = 2; };
 		AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneAddressBookPhonePlugIn.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelephoneAddressBookPhonePlugIn-Info.plist"; sourceTree = "<group>"; };
-		AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; name = AKAddressBookSIPAddressPlugIn.m; path = PlugIns/AddressBook/AKAddressBookSIPAddressPlugIn.m; sourceTree = "<group>"; tabWidth = 2; };
-		AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = AKAddressBookSIPAddressPlugIn.h; path = PlugIns/AddressBook/AKAddressBookSIPAddressPlugIn.h; sourceTree = "<group>"; tabWidth = 2; };
+		AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKAddressBookSIPAddressPlugIn.m; sourceTree = "<group>"; tabWidth = 2; };
+		AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKAddressBookSIPAddressPlugIn.h; sourceTree = "<group>"; tabWidth = 2; };
 		AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneAddressBookSIPAddressPlugIn.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelephoneAddressBookSIPAddressPlugIn-Info.plist"; sourceTree = "<group>"; };
-		AAF29A430F5759F7007B5036 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = PlugIns/AddressBook/English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AAF29A460F575A00007B5036 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = PlugIns/AddressBook/Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AAF29A470F575A0D007B5036 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = PlugIns/AddressBook/German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AAF29A430F5759F7007B5036 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AAF633591056FD3000CF6C3B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveAccountView.xib; sourceTree = "<group>"; };
 		AAF633681056FEA600CF6C3B /* ActiveAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = ActiveAccountViewController.h; sourceTree = "<group>"; tabWidth = 2; };
 		AAF633691056FEA600CF6C3B /* ActiveAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = ActiveAccountViewController.m; sourceTree = "<group>"; tabWidth = 2; };
@@ -358,9 +358,8 @@
 				AAF9CBC60E685A2D005DD9C6 /* Model */,
 				AACD92CA0ED4318F00AF8D17 /* View and Controller */,
 				AAECDE8C0E70700B00CEAE7B /* Categories */,
-				AAF298D70F57477C007B5036 /* PlugIns */,
 			);
-			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -404,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
+				AAF298D70F57477C007B5036 /* PlugIns */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -463,6 +463,20 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA6089C012E25C7700DC44DC /* AddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */,
+				AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */,
+				AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */,
+				AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */,
+				AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */,
+				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
+				AA6089D212E25DD200DC44DC /* Localizable.strings */,
+			);
+			path = AddressBook;
 			sourceTree = "<group>";
 		};
 		AA86C8B6110339E200EF4E8A /* Call Transfer */ = {
@@ -577,15 +591,9 @@
 		AAF298D70F57477C007B5036 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
-				AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */,
-				AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */,
-				AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */,
-				AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */,
-				AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */,
-				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
-				AAF29A420F5759F7007B5036 /* Localizable.strings */,
+				AA6089C012E25C7700DC44DC /* AddressBook */,
 			);
-			name = PlugIns;
+			path = PlugIns;
 			sourceTree = "<group>";
 		};
 		AAF9CBC60E685A2D005DD9C6 /* Model */ = {
@@ -732,7 +740,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAF29A450F5759F7007B5036 /* Localizable.strings in Resources */,
+				AA6089D312E25DD200DC44DC /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,7 +748,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAF29A480F575A18007B5036 /* Localizable.strings in Resources */,
+				AA6089D412E25DD200DC44DC /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,6 +945,16 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		AA6089D212E25DD200DC44DC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAF29A430F5759F7007B5036 /* English */,
+				AA6089D512E25DDD00DC44DC /* Russian */,
+				AA6089D612E25DE200DC44DC /* German */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		AA7CB51C11442241004D79DA /* CallTransfer.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1005,16 +1023,6 @@
 			name = EndedCallView.xib;
 			sourceTree = "<group>";
 		};
-		AAF29A420F5759F7007B5036 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AAF29A430F5759F7007B5036 /* English */,
-				AAF29A460F575A00007B5036 /* Russian */,
-				AAF29A470F575A0D007B5036 /* German */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
 		AAFC00251074D0B50018C7DA /* NetworkPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1069,7 +1077,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "TelephoneAddressBookPhonePlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
@@ -1088,7 +1096,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "TelephoneAddressBookPhonePlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
@@ -1109,7 +1117,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "TelephoneAddressBookSIPAddressPlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1133,7 +1141,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "TelephoneAddressBookSIPAddressPlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
