@@ -96,6 +96,7 @@ NSString * const kEmailSIPLabel = @"sip";
 @synthesize account = account_;
 @dynamic accountRegistered;
 @synthesize callControllers = callControllers_;
+@synthesize accountDescription = accountDescription_;
 @synthesize attemptingToRegisterAccount = attemptingToRegisterAccount_;
 @synthesize attemptingToUnregisterAccount = attemptingToUnregisterAccount_;
 @synthesize shouldPresentRegistrationError = shouldPresentRegistrationError_;
@@ -298,6 +299,7 @@ NSString * const kEmailSIPLabel = @"sip";
   
   [account_ release];
   [callControllers_ release];
+  [accountDescription_ release];
   [catchedURLString_ release];
   [registrarReachability_ release];
   [plusCharacterSubstitution_ release];

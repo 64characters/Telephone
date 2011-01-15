@@ -128,6 +128,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
 @dynamic unhandledIncomingCallsCount;
 @synthesize userAttentionTimer = userAttentionTimer_;
 
+@synthesize accountsMenuItems = accountsMenuItems_;
+@synthesize windowMenu = windowMenu_;
 @synthesize preferencesMenuItem = preferencesMenuItem_;
 
 - (NSArray *)enabledAccountControllers {
@@ -412,6 +414,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [audioDevices_ release];
   [ringtone_ release];
   
+  [accountsMenuItems_ release];
+  [windowMenu_ release];
   [preferencesMenuItem_ release];
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -798,6 +802,56 @@ static void NameserversChanged(SCDynamicStoreRef store,
   }
   
   return nil;
+}
+
+- (void)updateAccountsMenuItems {
+  // Remove old menu items.
+  for (NSMenuItem *menuItem in [self accountsMenuItems]) {
+    [[self windowMenu] removeItem:menuItem];
+  }
+  
+  // Create new menu items.
+  NSArray *enabledControllers = [self enabledAccountControllers];
+  NSMutableArray *itemsArray
+    = [NSMutableArray arrayWithCapacity:[enabledControllers count]];
+  NSUInteger accountNumber = 1;
+  for (AccountController *accountController in enabledControllers) {
+    NSMenuItem *menuItem = [[[NSMenuItem alloc] init] autorelease];
+    [menuItem setRepresentedObject:accountController];
+    [menuItem setAction:@selector(toggleAccountWindow:)];
+    if ([[accountController accountDescription] length] > 0) {
+      [menuItem setTitle:[accountController accountDescription]];
+    } else {
+      [menuItem setTitle:[[accountController account] SIPAddress]];
+    }
+    if (accountNumber < 10) {
+      // Only add key equivalents for Command-[1..9].
+      [menuItem setKeyEquivalent:
+       [NSString stringWithFormat:@"%lu", (long)accountNumber]];
+    }
+    [itemsArray addObject:menuItem];
+    accountNumber++;
+  }
+  if ([itemsArray count] > 0) {
+    [itemsArray insertObject:[NSMenuItem separatorItem] atIndex:0];
+    [self setAccountsMenuItems:itemsArray];
+  }
+  
+  // Add menu items to the Window menu.
+  NSUInteger itemTag = 4;
+  for (NSMenuItem *menuItem in itemsArray) {
+    [[self windowMenu] insertItem:menuItem atIndex:itemTag];
+    itemTag++;
+  }
+}
+
+- (IBAction)toggleAccountWindow:(id)sender {
+  AccountController *accountController = [sender representedObject];
+  if ([[accountController window] isKeyWindow]) {
+    [[accountController window] performClose:self];
+  } else {
+    [[accountController window] makeKeyAndOrderFront:self];
+  }
 }
 
 - (void)updateDockTileBadgeLabel {
@@ -1315,9 +1369,12 @@ static void NameserversChanged(SCDynamicStoreRef store,
                 username:[accountDict objectForKey:kUsername]]
        autorelease];
   
+  [[theAccountController window] setExcludedFromWindowsMenu:YES];
+  
   [theAccountController setEnabled:YES];
   
   [[self accountControllers] addObject:theAccountController];
+  [self updateAccountsMenuItems];
   
   [[theAccountController window] orderFront:self];
   
@@ -1343,6 +1400,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
     [anAccountController removeAccountFromUserAgent];
   
   [[self accountControllers] removeObjectAtIndex:index];
+  [self updateAccountsMenuItems];
 }
 
 - (void)preferencesControllerDidChangeAccountEnabled:(NSNotification *)notification {
@@ -1379,7 +1437,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
                  username:[accountDict objectForKey:kUsername]]
          autorelease];
     
+    [[theAccountController window] setExcludedFromWindowsMenu:YES];
+    
     NSString *description = [accountDict objectForKey:kDescription];
+    [theAccountController setAccountDescription:description];
     if ([description length] > 0)
       [[theAccountController window] setTitle:description];
     
@@ -1432,6 +1493,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
     // Prevent conflict with setFrameAutosaveName: when re-enabling the account.
     [theAccountController setWindow:nil];
   }
+  
+  [self updateAccountsMenuItems];
 }
 
 - (void)preferencesControllerDidSwapAccounts:(NSNotification *)notification {
@@ -1450,6 +1513,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
     [[self accountControllers] removeObjectAtIndex:sourceIndex];
   else if (sourceIndex > destinationIndex)
     [[self accountControllers] removeObjectAtIndex:(sourceIndex + 1)];
+  
+  [self updateAccountsMenuItems];
 }
 
 - (void)preferencesControllerDidChangeNetworkSettings:(NSNotification *)notification {
@@ -1735,7 +1800,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
                                             username:username]
        autorelease];
     
+    [[anAccountController window] setExcludedFromWindowsMenu:YES];
+    
     NSString *description = [accountDict objectForKey:kDescription];
+    [anAccountController setAccountDescription:description];
     if ([description length] > 0)
       [[anAccountController window] setTitle:description];
     
@@ -1779,6 +1847,9 @@ static void NameserversChanged(SCDynamicStoreRef store,
     }
   }
   
+  // Update account menu items.
+  [self updateAccountsMenuItems];
+  
   // Install audio devices changes callback.
   AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices,
                                    &AudioDevicesChanged, self);
@@ -1811,28 +1882,25 @@ static void NameserversChanged(SCDynamicStoreRef store,
 // Reopen all account windows when the user clicks the dock icon.
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication
                     hasVisibleWindows:(BOOL)flag {
+  
   // Show incoming call window, if any.
   if ([self hasIncomingCallControllers]) {
     for (AccountController *anAccountController in [self enabledAccountControllers]) {
-      for (CallController *aCallController in [anAccountController callControllers])
+      for (CallController *aCallController in [anAccountController callControllers]) {
         if ([[aCallController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
-            [[aCallController call] state] == kAKSIPCallIncomingState)
-        {
+            [[aCallController call] state] == kAKSIPCallIncomingState) {
           [aCallController showWindow:nil];
+          // Return early, beause we can't break from two for loops.
           return YES;
         }
+      }
+    }
+  } else {
+    // Show window of first enalbed account.
+    if ([NSApp keyWindow] == nil && [[self enabledAccountControllers] count] > 0) {
+      [[[self enabledAccountControllers] objectAtIndex:0] showWindow:self];
     }
   }
-  
-  // No incoming calls, show window of the enabled accounts.
-  for (AccountController *anAccountController in [self enabledAccountControllers]) {
-    if (![[anAccountController window] isVisible])
-      [[anAccountController window] orderFront:nil];
-  }
-  
-  // Make first enabled account window key if there are no other key windows.
-  if ([NSApp keyWindow] == nil && [[self enabledAccountControllers] count] > 0)
-    [[[[self enabledAccountControllers] objectAtIndex:0] window] makeKeyWindow];
   
   return YES;
 }

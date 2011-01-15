@@ -54,6 +54,7 @@ extern NSString * const kEmailSIPLabel;
   BOOL enabled_;
   AKSIPAccount *account_;
   NSMutableArray *callControllers_;
+  NSString *accountDescription_;
   BOOL attemptingToRegisterAccount_;
   BOOL attemptingToUnregisterAccount_;
   BOOL shouldPresentRegistrationError_;
@@ -83,6 +84,9 @@ extern NSString * const kEmailSIPLabel;
 
 // An array of call controllers managed by the receiver.
 @property(nonatomic, retain) NSMutableArray *callControllers;
+
+// Account description.
+@property(nonatomic, copy) NSString *accountDescription;
 
 // A Boolean value indicating whether a user is attempting to register
 // an account.

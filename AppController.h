@@ -69,6 +69,8 @@ extern NSString * const kGrowlNotificationCallEnded;
   BOOL shouldPresentUserAgentLaunchError_;
   NSTimer *userAttentionTimer_;
   
+  NSArray *accountsMenuItems_;
+  NSMenu *windowMenu_;
   NSMenuItem *preferencesMenuItem_;
 }
 
@@ -144,6 +146,12 @@ extern NSString * const kGrowlNotificationCallEnded;
 // Timer for bouncing icon in the Dock.
 @property(nonatomic, assign) NSTimer *userAttentionTimer;
 
+// Accounts menu items to show in windows menu.
+@property(nonatomic, retain) NSArray *accountsMenuItems;
+
+// Application Window menu.
+@property(nonatomic, retain) IBOutlet NSMenu *windowMenu;
+
 // Preferences menu item outlet.
 @property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
@@ -196,6 +204,12 @@ extern NSString * const kGrowlNotificationCallEnded;
 
 // Updates Dock tile badge label.
 - (void)updateDockTileBadgeLabel;
+
+// Updates accounts menu items.
+- (void)updateAccountsMenuItems;
+
+// Makes account winfow key or hides it.
+- (IBAction)toggleAccountWindow:(id)sender;
 
 // Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|. Updates
 // plug-ins if the installed versions are outdated. Does not guaranteed to
