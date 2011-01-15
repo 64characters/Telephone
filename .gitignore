@@ -1,5 +1,3 @@
-syntax: glob
-
 .DS_Store
 Telephone.xcodeproj/*.mode?v?
 Telephone.xcodeproj/*.pbxuser
