@@ -100,13 +100,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
 // Installs a callback to monitor system DNS servers changes.
 - (void)installDNSChangesCallback;
 
-// Sets up defaults database with the preconfigured settings from a file
-// specified by a given path. The file identified by |path| must contain a
-// string representation of a property list whose root object is a dictionary.
-//
-// Accounts from a given file will be added to the existing accounts.
-- (void)setupDefaultsWithContentsOfFile:(NSString *)path;
-
 @end
 
 
@@ -818,11 +811,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [[NSApp dockTile] setBadgeLabel:badgeString];
 }
 
-- (IBAction)openFAQURL:(id)sender {
-  [[NSWorkspace sharedWorkspace] openURL:
-   [NSURL URLWithString:@"http://code.google.com/p/telephone/wiki/FAQ"]];
-}
-
 - (void)installAddressBookPlugIns {
   NSError *error = nil;
   BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
@@ -1005,123 +993,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
   }
   
   return YES;
-}
-
-- (void)setupDefaultsWithContentsOfFile:(NSString *)path; {
-  NSDictionary *settingsDict
-    = [NSDictionary dictionaryWithContentsOfFile:path];
-  
-  if (settingsDict == nil)
-    return;
-  
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  
-  NSNumber *useDNSSRV = [settingsDict objectForKey:kUseDNSSRV];
-  if (useDNSSRV != nil) {
-    [defaults setBool:[useDNSSRV boolValue] forKey:kUseDNSSRV];
-  }
-  
-  NSString *outboundProxyHost = [settingsDict objectForKey:kOutboundProxyHost];
-  if (outboundProxyHost != nil) {
-    [defaults setObject:outboundProxyHost forKey:kOutboundProxyHost];
-  }
-  
-  NSNumber *outboundProxyPort = [settingsDict objectForKey:kOutboundProxyPort];
-  if (outboundProxyPort != nil) {
-    [defaults setInteger:[outboundProxyPort integerValue]
-                  forKey:kOutboundProxyPort];
-  }
-  
-  NSString *STUNServerHost = [settingsDict objectForKey:kSTUNServerHost];
-  if (STUNServerHost != nil) {
-    [defaults setObject:STUNServerHost forKey:kSTUNServerHost];
-  }
-  
-  NSNumber *STUNServerPort = [settingsDict objectForKey:kSTUNServerPort];
-  if (STUNServerPort != nil) {
-    [defaults setInteger:[STUNServerPort integerValue]
-                  forKey:kSTUNServerPort];
-  }
-  
-  NSString *logFileName = [settingsDict objectForKey:kLogFileName];
-  if (logFileName != nil) {
-    [defaults setObject:logFileName forKey:kLogFileName];
-  }
-  
-  NSNumber *logLevel = [settingsDict objectForKey:kLogLevel];
-  if (logLevel != nil) {
-    [defaults setInteger:[logLevel integerValue] forKey:kLogLevel];
-  }
-  
-  NSNumber *consoleLogLevel = [settingsDict objectForKey:kConsoleLogLevel];
-  if (consoleLogLevel != nil) {
-    [defaults setInteger:[consoleLogLevel integerValue]
-                  forKey:kConsoleLogLevel];
-  }
-  
-  NSNumber *voiceActivityDetection
-    = [settingsDict objectForKey:kVoiceActivityDetection];
-  if (voiceActivityDetection != nil) {
-    [defaults setBool:[voiceActivityDetection boolValue]
-               forKey:kVoiceActivityDetection];
-  }
-  
-  NSNumber *useICE = [settingsDict objectForKey:kUseICE];
-  if (useICE != nil) {
-    [defaults setBool:[useICE boolValue] forKey:kUseICE];
-  }
-  
-  NSNumber *transportPort = [settingsDict objectForKey:kTransportPort];
-  if (transportPort != nil) {
-    [defaults setInteger:[transportPort integerValue] forKey:kTransportPort];
-  }
-  
-  NSArray *accounts = [settingsDict objectForKey:kAccounts];
-  NSMutableArray *validAccounts
-    = [NSMutableArray arrayWithCapacity:[accounts count]];
-  if (accounts != nil) {
-    BOOL accountValid = NO;
-    for(NSDictionary *anAccount in accounts) {
-      if ([anAccount objectForKey:kAccountEnabled] != nil &&
-          [[anAccount objectForKey:kFullName] length] > 0 &&
-          [[anAccount objectForKey:kDomain] length] > 0 &&
-          [[anAccount objectForKey:kRealm] length] > 0 &&
-          [[anAccount objectForKey:kUsername] length] > 0 &&
-          [anAccount objectForKey:@"Password"] != nil) {
-        accountValid = YES;
-      }
-      
-      if (accountValid) {
-        NSMutableDictionary *aValidAccount
-          = [NSMutableDictionary dictionaryWithDictionary:anAccount];
-        
-        // Store password in keychain and remove it from the account
-        // dictionary for security reasons.
-        NSString *server;
-        if ([[anAccount objectForKey:kRegistrar] length] > 0)
-          server = [anAccount objectForKey:kRegistrar];
-        else
-          server = [anAccount objectForKey:kDomain];
-          
-        [AKKeychain addItemWithServiceName:[NSString stringWithFormat:
-                                            @"SIP: %@", server]
-                               accountName:[anAccount objectForKey:kUsername]
-                                  password:[anAccount objectForKey:@"Password"]];
-        
-        [aValidAccount removeObjectForKey:@"Password"];
-        [validAccounts addObject:aValidAccount];
-      }
-    }
-    
-    // Add valid accounts to the existings accounts.
-    NSArray *currentAccounts = [defaults arrayForKey:kAccounts];
-    NSMutableArray *newAccounts
-      = [NSMutableArray arrayWithArray:currentAccounts];
-    [newAccounts addObjectsFromArray:validAccounts];
-    [defaults setObject:newAccounts forKey:kAccounts];
-  }
-  
-  [defaults synchronize];
 }
 
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode {
@@ -1753,24 +1624,6 @@ static void NameserversChanged(SCDynamicStoreRef store,
 // Application control starts here.
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   NSBundle *mainBundle = [NSBundle mainBundle];
-  
-  // Service provider can preconfigure application with Settings.plist. Import
-  // those settings and delete the plist afterwards.
-  NSString *settingsPath
-    = [mainBundle pathForResource:@"Settings" ofType:@"plist"];
-  if (settingsPath != nil) {
-    [self setupDefaultsWithContentsOfFile:settingsPath];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error = nil;
-    BOOL removed = [fileManager removeItemAtPath:settingsPath error:&error];
-    if (!removed) {
-      NSLog(@"Could not remove %@", settingsPath);
-    }
-    if (error != nil) {
-      NSLog(@"Error removing %@: %@", settingsPath, error);
-    }
-  }
-  
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   // Read main settings from defaults.

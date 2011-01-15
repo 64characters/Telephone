@@ -197,9 +197,6 @@ extern NSString * const kGrowlNotificationCallEnded;
 // Updates Dock tile badge label.
 - (void)updateDockTileBadgeLabel;
 
-// Opens URL with the FAQ.
-- (IBAction)openFAQURL:(id)sender;
-
 // Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|. Updates
 // plug-ins if the installed versions are outdated. Does not guaranteed to
 // return a valid |error| if the method returns NO.

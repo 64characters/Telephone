@@ -7,9 +7,9 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>telephone</string>
+	<string>telephone.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.tlphn.${PRODUCT_NAME:identifier}</string>
+	<string>com.tlphn.Telephone</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -19,9 +19,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>30</string>
+	<string>100</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.16</string>
+	<string>1.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -64,16 +64,10 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2008 Alexei Kuznetsov</string>
+	<string>© 2008-2010 Alexei Kuznetsov</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
-	<key>SUFeedURL</key>
-	<string>http://appcast.telephone.googlecode.com/hg/appcast.xml</string>
-	<key>SUEnableAutomaticChecks</key>
-	<string>YES</string>
-	<key>SUShowReleaseNotes</key>
-	<string>NO</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
 </dict>
 </plist>
