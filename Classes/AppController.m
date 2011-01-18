@@ -329,6 +329,12 @@ static void NameserversChanged(SCDynamicStoreRef store,
                              name:AKAccountSetupControllerDidAddAccountNotification
                            object:nil];
   
+  // Subscribe to account notifications.
+  [notificationCenter addObserver:self
+                         selector:@selector(SIPAccountWillMakeCall:)
+                             name:AKSIPAccountWillMakeCallNotification
+                           object:nil];
+  
   // Subscribe to Early and Confirmed call states to set sound IO to the user
   // agent.
   [notificationCenter addObserver:self
@@ -1947,6 +1953,17 @@ static void NameserversChanged(SCDynamicStoreRef store,
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
   // TODO(eofster): we should save preferences on quit.
+}
+
+
+#pragma mark -
+#pragma mark AKSIPAccount notifications
+
+- (void)SIPAccountWillMakeCall:(NSNotification *)notification {
+  if ([self shouldSetUserAgentSoundIO]) {
+    [self setSelectedSoundIOToUserAgent];
+    [self setShouldSetUserAgentSoundIO:NO];
+  }
 }
 
 

@@ -41,6 +41,8 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 NSString * const AKSIPAccountRegistrationDidChangeNotification
   = @"AKSIPAccountRegistrationDidChange";
+NSString * const AKSIPAccountWillMakeCallNotification
+  = @"AKSIPAccountWillMakeCall";
 
 @implementation AKSIPAccount
 
@@ -271,6 +273,10 @@ NSString * const AKSIPAccountRegistrationDidChangeNotification
 }
 
 - (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI {
+  [[NSNotificationCenter defaultCenter]
+   postNotificationName:AKSIPAccountWillMakeCallNotification
+                 object:self];
+  
   pjsua_call_id callIdentifier;
   pj_str_t uri = [[destinationURI description] pjString];
   

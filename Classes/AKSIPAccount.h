@@ -40,6 +40,9 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 //
 // Posted when account registration changes.
 extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
+//
+// Posted when account is about to make call.
+extern NSString * const AKSIPAccountWillMakeCallNotification;
 
 @class AKSIPCall;
 
