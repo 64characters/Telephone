@@ -1,4 +1,6 @@
 .DS_Store
-Telephone.xcodeproj/*.mode?v?
-Telephone.xcodeproj/*.pbxuser
-build
+*.xcodeproj/*.mode?v?
+*.xcodeproj/*.pbxuser
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+build/
