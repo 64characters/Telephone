@@ -8,8 +8,8 @@ Building
 --------
 
 Telephone's SIP user agent is based on [pjsip][]. You need to build it
-before building Telephone. Place it to the directory named _pjproject_
-in the same directory as you placed Telephone.
+before building Telephone. Name the directory _pjproject_ and place it
+near Telephone, in the same parent directory.
 
   [pjsip]: http://www.pjsip.org/
 
