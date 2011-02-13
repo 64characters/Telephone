@@ -21,6 +21,8 @@ contents.
 
     #define PJSIP_DONT_SWITCH_TO_TCP 1
     #define PJSUA_MAX_ACC 32
+    #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS 101
+    #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR "101"
 
 Configure and build Telephone    
 
