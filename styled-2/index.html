@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="RapidWeaver" />
+		
+		<title>Telephone FAQ</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/simple/styles.css"  />
+		<link rel="stylesheet" type="text/css" media="print" href="../rw_common/themes/simple/print.css"  />
+		<link rel="stylesheet" type="text/css" media="handheld" href="../rw_common/themes/simple/handheld.css"  />
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/simple/css/styles/blue.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/simple/css/width/width_default.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/simple/css/sidebar/sidebar_right.css" />
+		
+		
+		
+		
+		<script type="text/javascript" src="../rw_common/themes/simple/javascript.js"></script>
+		
+		
+		
+	</head>
+<body>
+<div id="container"><!-- Start container -->
+	
+	<div id="pageHeader"><!-- Start page header -->
+		
+		<h1>Telephone</h1>
+		<h2>Call regular phones with your Mac</h2>
+	</div><!-- End page header -->
+	
+	<div id="sidebarContainer"><!-- Start Sidebar wrapper -->
+		<div id="navcontainer"><!-- Start Navigation -->
+			<ul><li><a href="../" rel="self">Home</a></li><li><a href="../styled/" rel="self">SIP Providers</a></li><li><a href="./" rel="self" id="current">FAQ</a></li></ul>
+		</div><!-- End navigation --> 
+		<div id="sidebar"><!-- Start sidebar content -->
+			<h1 class="sideHeader"></h1><!-- Sidebar header -->
+			<!-- sidebar content you enter in the page inspector -->
+			 <!-- sidebar content such as the blog archive links -->
+		</div><!-- End sidebar content -->
+	</div><!-- End sidebar wrapper -->
+	
+	<div id="contentContainer"><!-- Start main content wrapper -->
+		<div id="content"><!-- Start content -->
+			If your question is not listed here, feel free to ask in our <a href="http://groups.google.com/group/telephone-app/" rel="self" title="Telephone Discussions">mailing list</a>.<br /><br /><br /><strong>How to enable debug information<br /></strong><br />Quit Telephone, open Terminal and run:<br /><br /><code>$ defaults write com.tlphn.Telephone LogLevel -integer 4</code><br /><br />Launch Telephone, reproduce the problem, quit Telephone, and examine the log file <em>~/Library/Logs/Telephone.log</em>.<br /><br />To set the default log level:<br /><br /><code>$ defaults delete com.tlphn.Telephone LogLevel</code><br /><br /><br /><strong>Where is the log file?</strong><br /><br /><em>~/Library/Logs/Telephone.log.</em> It can be easily reached via the Console app. The log file is being overwritten every time Telephone starts.<br /><br /><br /><strong>Another party hears echo</strong><br /><br />The most common reason is that another person&rsquo;s voice from your headphones reaches your microphone. The worst case scenario here is to use internal speakers with the internal microphone. If you don&rsquo;t have a headset, try to use any headphones with the internal mic. Closed headphones would be even better. But you can help Telephone significantly increase the sound quality using a decent headset. I suggest a USB headset.<br /><br /><br /><strong>How to send tone signals<br /></strong><br />Just press digits on the keyboard when the call window is active. Asterisk (*) and number sign (#) are also allowed.<br /><br /><br /><strong>Why sending tone signals isn&rsquo;t working?<br /></strong><br />When calling regular phones, sending tone singnals must be supported by the VoIP gateway. If the gateway does not support well-known standards (RFC 2833 or SIP INFO DTMF), the signals will not be sent.<br /><br /><br /><strong>How to place a call on hold<br /></strong><br />Press H in the active call window.<br /><br /><br /><strong>How to mute the microphone during a call<br /></strong><br />Press M in the active call window.<br /><br /><br /><strong>How to close missed call windows automatically<br /></strong><br /><code>$ defaults write com.tlphn.Telephone AutoCloseMissedCallWindow -bool YES</code><br /><br /><br /><strong>Where can I store SIP addresses?<br /></strong><br />You can save SIP addresses (user@example.com) in Address Book as an email with the custom label &ldquo;sip&rdquo;. Telephone autocompletes such addresses and Address Book plug-in shows &ldquo;Dial with Telephone&rdquo; for them.<br /><br /><img class="imageStyle" alt="address-book-card" width="380" height="370" src="files/page2-address-book-card.png" /><br /><br /><br /><br /><strong>What codecs are supported?</strong><br /><ul class="disc"><li>G.711 family codec (PCMA, PCMU);</li><li>Speex/8000 (narrowband), Speex/16000 (wideband), and Speex/32000 (ultra-wideband);</li><li>iLBC;</li><li>GSM;</li><li>L16 family of codecs.</li></ul><br /><strong>How to enable voice activity detection<br /></strong><br /><code>$ defaults write com.tlphn.Telephone VoiceActivityDetection -bool YES</code><br /><br /><br /><strong>Timeout connecting to Asterisk behind VPN<br /></strong><br />Try setting &ldquo;nat = yes&rdquo; in Asterisk to reply to the actual IP address the request came from. (With &ldquo;nat = no&rdquo; Asterisk sends the reply to the address from the Contact field.)<br /><br />Another approach is to set your public address for SIP manually:<br /><br /><code>$ defaults write com.tlphn.Telephone TransportPublicHost <IP address or host name></code><br /><br />But if your VPN server doesn&rsquo;t assign you the same IP address every time you get connected, this could be inconvenient.<br /><br /><br /><strong>I&rsquo;m getting &lsquo;423 Interval Too Brief&rsquo;<br /></strong><br />You should increase the re-registration time interval in the advanced account settings according to your registry server configuration. If you&rsquo;re not sure what the proper value is, try 600, 1200, or 1800.<br /><br />
+		</div><!-- End content -->
+	</div><!-- End main content wrapper -->
+	
+	<div class="clearer"></div>
+	
+	<div id="footer"><!-- Start Footer -->
+		<div id="breadcrumbcontainer"><!-- Start the breadcrumb wrapper -->
+			
+		</div><!-- End breadcrumb -->
+		<p>&copy; 2011 Alexei Kuznetsov <a href="#" id="rw_email_contact">Contact Me</a><script type="text/javascript">var _rwObsfuscatedHref0 = "mai";var _rwObsfuscatedHref1 = "lto";var _rwObsfuscatedHref2 = ":eo";var _rwObsfuscatedHref3 = "fst";var _rwObsfuscatedHref4 = "er@";var _rwObsfuscatedHref5 = "gma";var _rwObsfuscatedHref6 = "il.";var _rwObsfuscatedHref7 = "com";var _rwObsfuscatedHref = _rwObsfuscatedHref0+_rwObsfuscatedHref1+_rwObsfuscatedHref2+_rwObsfuscatedHref3+_rwObsfuscatedHref4+_rwObsfuscatedHref5+_rwObsfuscatedHref6+_rwObsfuscatedHref7; document.getElementById('rw_email_contact').href = _rwObsfuscatedHref;</script></p>
+	</div><!-- End Footer -->
+
+</div><!-- End container -->
+<!-- Start Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-5864270-3']);
+  _gaq.push(['_setDomainName', '.tlphn.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script><!-- End Google Analytics -->
+</body>
+</html>

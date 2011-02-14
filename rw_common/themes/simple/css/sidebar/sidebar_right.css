@@ -1,0 +1,9 @@
+/* default float side for sidebar */
+#sidebarContainer {
+	float: right;
+}
+
+#contentContainer {
+	margin-right: 230px;
+	margin-left: 0px;
+}

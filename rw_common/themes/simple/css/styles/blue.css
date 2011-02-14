@@ -1,0 +1,20 @@
+.blog-entry-title a:hover, a:link, a:visited {
+	text-decoration: underline;
+	color: #3f89d4;
+}
+
+a:hover, a:active {
+	text-decoration: none;
+}
+
+#navcontainer #current {
+	color: #3f89d4;
+}
+
+#navcontainer ul ul a {
+	color: #3f89d4;
+}
+
+#navcontainer ul ul ul a{
+	color: #a9c5d4;
+}
