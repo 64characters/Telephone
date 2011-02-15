@@ -28,3 +28,10 @@ Configure and build Telephone
 
     $ ./configure --disable-ssl
     $ make
+
+Coding Style
+------------
+
+Telephone source code follows [Google Objective-C Style Guide][coding_style].
+
+  [coding_style]: http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml
