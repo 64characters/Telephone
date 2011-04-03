@@ -57,6 +57,7 @@
   self = [super initWithNibName:nibName
                          bundle:nil
                windowController:callController];
+  
   if (self != nil) {
     enteredDTMF_ = [[NSMutableString alloc] init];
     [self setCallController:callController];
@@ -154,8 +155,9 @@
 }
 
 - (void)startCallTimer {
-  if ([self callTimer] != nil && [[self callTimer] isValid])
+  if ([self callTimer] != nil && [[self callTimer] isValid]) {
     return;
+  }
   
   [self setCallTimer:
    [NSTimer scheduledTimerWithTimeInterval:0.2
@@ -209,6 +211,7 @@
 
 - (void)activeCallView:(AKActiveCallView *)sender
         didReceiveText:(NSString *)aString {
+  
   NSCharacterSet *DTMFCharacterSet
     = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#"];
   

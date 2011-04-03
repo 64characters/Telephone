@@ -40,7 +40,7 @@
 }
 
 // Call transfer button.
-@property(nonatomic, retain) IBOutlet NSButton *transferButton;
+@property (nonatomic, retain) IBOutlet NSButton *transferButton;
 
 
 // Transfers a call.

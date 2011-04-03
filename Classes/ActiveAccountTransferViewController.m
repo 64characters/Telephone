@@ -35,9 +35,11 @@
 
 - (id)initWithAccountController:(AccountController *)anAccountController
                windowController:(XSWindowController *)windowController {
+  
   self = [super initWithNibName:@"ActiveAccountTransferView"
                          bundle:nil
                windowController:windowController];
+  
   if (self != nil) {
     [self setAccountController:anAccountController];
   }
@@ -45,8 +47,9 @@
 }
 
 - (IBAction)makeCallToTransferDestination:(id)sender {
-  if ([[[self callDestinationField] objectValue] count] == 0)
+  if ([[[self callDestinationField] objectValue] count] == 0) {
     return;
+  }
   
   NSDictionary *callDestinationDict
     = [[[[self callDestinationField] objectValue] objectAtIndex:0]

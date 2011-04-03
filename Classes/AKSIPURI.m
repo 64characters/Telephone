@@ -52,10 +52,11 @@
 @synthesize maddrParameter = maddrParameter_;
 
 - (NSString *)SIPAddress {
-  if ([[self user] length] > 0)
+  if ([[self user] length] > 0) {
     return [NSString stringWithFormat:@"%@@%@", [self user], [self host]];
-  else
+  } else {
     return [self host];
+  }
 }
 
 
@@ -79,9 +80,11 @@
 - (id)initWithUser:(NSString *)aUser
               host:(NSString *)aHost
        displayName:(NSString *)aDisplayName {
+  
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setDisplayName:aDisplayName];
   [self setUser:aUser];
@@ -95,9 +98,10 @@
 }
 
 - (id)initWithString:(NSString *)SIPURIString {
-  [self init];
-  if (self == nil)
+  self = [super init];
+  if (self == nil) {
     return nil;
+  }
   
   NSPredicate *predicate
     = [NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s<sip:(.+@)?.+>'"];

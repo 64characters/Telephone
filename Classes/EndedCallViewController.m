@@ -47,6 +47,7 @@
   self = [super initWithNibName:nibName
                          bundle:nil
                windowController:callController];
+  
   if (self != nil) {
     [self setCallController:callController];
   }

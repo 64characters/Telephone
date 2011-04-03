@@ -77,9 +77,11 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 
 - (id)initWithAccountController:(AccountController *)anAccountController
                windowController:(XSWindowController *)windowController {
+  
   self = [super initWithNibName:@"ActiveAccountView"
                          bundle:nil
                windowController:windowController];
+  
   if (self != nil) {
     [self setAccountController:anAccountController];
   }
@@ -105,8 +107,9 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 }
 
 - (IBAction)makeCall:(id)sender {
-  if ([[[self callDestinationField] objectValue] count] == 0)
+  if ([[[self callDestinationField] objectValue] count] == 0) {
     return;
+  }
   
   NSDictionary *callDestinationDict
     = [[[[self callDestinationField] objectValue] objectAtIndex:0]
@@ -135,8 +138,8 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 // Sets tokenField sytle to NSRoundedTokenStyle if the substring is found in
 // the Address Book; otherwise, sets tokenField sytle to NSPlainTextTokenStyle.
 - (NSArray *)tokenField:(NSTokenField *)tokenField
-completionsForSubstring:(NSString *)substring
-           indexOfToken:(NSInteger)tokenIndex
+    completionsForSubstring:(NSString *)substring
+    indexOfToken:(NSInteger)tokenIndex
     indexOfSelectedItem:(NSInteger *)selectedIndex {
   
   ABAddressBook *AB = [ABAddressBook sharedAddressBook];
@@ -194,17 +197,19 @@ completionsForSubstring:(NSString *)substring
     NSUInteger j;
     
     for (j = 0; j <= i; ++j) {
-      if ([firstPart length] > 0)
+      if ([firstPart length] > 0) {
         [firstPart appendFormat:@" %@", [substringComponents objectAtIndex:j]];
-      else
+      } else {
         [firstPart appendString:[substringComponents objectAtIndex:j]];
+      }
     }
     
     for (j = i + 1; j < [substringComponents count]; ++j) {
-      if ([secondPart length] > 0)
+      if ([secondPart length] > 0) {
         [secondPart appendFormat:@" %@", [substringComponents objectAtIndex:j]];
-      else
+      } else {
         [secondPart appendString:[substringComponents objectAtIndex:j]];
+      }
     }
     
     ABSearchElement *firstNameMatch
@@ -342,8 +347,9 @@ completionsForSubstring:(NSString *)substring
     = [NSMutableArray arrayWithCapacity:[recordsFound count]];
   
   for (id theRecord in recordsFound) {
-    if (![theRecord isKindOfClass:[ABPerson class]])
+    if (![theRecord isKindOfClass:[ABPerson class]]) {
       continue;
+    }
     
     NSString *firstName = [theRecord valueForProperty:kABFirstNameProperty];
     NSString *lastName = [theRecord valueForProperty:kABLastNameProperty];
@@ -371,8 +377,9 @@ completionsForSubstring:(NSString *)substring
           completionString = phoneNumber;
         }
         
-        if (completionString != nil)
+        if (completionString != nil) {
           [completions addObject:completionString];
+        }
       }
     }
     
@@ -380,8 +387,9 @@ completionsForSubstring:(NSString *)substring
     // Display completion as email_address (Display Name).
     for (i = 0; i < [emails count]; ++i) {
       if ([[emails labelAtIndex:i] caseInsensitiveCompare:kEmailSIPLabel]
-          != NSOrderedSame)
+          != NSOrderedSame) {
         continue;
+      }
       
       NSString *anEmail = [emails valueAtIndex:i];
       
@@ -390,14 +398,16 @@ completionsForSubstring:(NSString *)substring
       if (range.location == 0) {
         NSString *completionString = nil;
         
-        if ([[theRecord ak_fullName] length] > 0)
+        if ([[theRecord ak_fullName] length] > 0) {
           completionString = [NSString stringWithFormat:@"%@ (%@)",
                               anEmail, [theRecord ak_fullName]];
-        else
+        } else {
           completionString = anEmail;
+        }
         
-        if (completionString != nil)
+        if (completionString != nil) {
           [completions addObject:completionString];
+        }
       }
     }
     
@@ -426,15 +436,20 @@ completionsForSubstring:(NSString *)substring
       
       // Continue if the substing does not match person name prefix.
       if (firstNameRange.location != 0 && lastNameRange.location != 0 &&
-          firstNameFirstRange.location != 0 && lastNameFirstRange.location != 0)
+          firstNameFirstRange.location != 0 &&
+          lastNameFirstRange.location != 0) {
         continue;
+      }
       
       if ([firstName length] > 0 && [lastName length] > 0) {
-        // Determine the order of names in the full name the user is looking for.
+        // Determine the order of names in the full name the user is looking
+        // for.
         if (firstNameFirstRange.location == 0) {
-          contactName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+          contactName = [NSString stringWithFormat:@"%@ %@",
+                         firstName, lastName];
         } else {
-          contactName = [NSString stringWithFormat:@"%@ %@", lastName, firstName];
+          contactName = [NSString stringWithFormat:@"%@ %@",
+                         lastName, firstName];
         }
         
       } else if ([firstName length] > 0) {
@@ -447,15 +462,18 @@ completionsForSubstring:(NSString *)substring
       // Continue if the substring does not match company name prefix.
       NSRange companyNamePrefixRange
         = [company rangeOfString:substring options:NSCaseInsensitiveSearch];
-      if (companyNamePrefixRange.location != 0)
+      if (companyNamePrefixRange.location != 0) {
         continue;
+      }
       
-      if ([company length] > 0)
+      if ([company length] > 0) {
         contactName = company;
+      }
     }
     
-    if (contactName == nil)
+    if (contactName == nil) {
       continue;
+    }
     
     // Add phone numbers. Display completion as Display Name <1234567>.
     for (i = 0; i < [phones count]; ++i) {
@@ -469,16 +487,18 @@ completionsForSubstring:(NSString *)substring
         completionString = phoneNumber;
       }
       
-      if (completionString != nil)
+      if (completionString != nil) {
         [completions addObject:completionString];
+      }
     }
     
     // Add SIP address from the email fields labelled as kEmailSIPLabel.
     // Display completion as Display Name <email_address>
     for (i = 0; i < [emails count]; ++i) {
       if ([[emails labelAtIndex:i] caseInsensitiveCompare:kEmailSIPLabel]
-          != NSOrderedSame)
+          != NSOrderedSame) {
         continue;
+      }
       
       NSString *anEmail = [emails valueAtIndex:i];
       NSString *completionString = nil;
@@ -490,8 +510,9 @@ completionsForSubstring:(NSString *)substring
         completionString = anEmail;
       }
       
-      if (completionString != nil)
+      if (completionString != nil) {
         [completions addObject:completionString];
+      }
     }
   }
   
@@ -512,10 +533,11 @@ completionsForSubstring:(NSString *)substring
   }
   
   // Set appropriate token style depending on the search success.
-  if ([completions count] > 0)
+  if ([completions count] > 0) {
     [tokenField setTokenStyle:NSRoundedTokenStyle];
-  else
+  } else {
     [tokenField setTokenStyle:NSPlainTextTokenStyle];
+  }
   
   return [[completions copy] autorelease];
 }
@@ -525,7 +547,7 @@ completionsForSubstring:(NSString *)substring
 // If there is no @ sign, the input is treated as a user part of the URI and
 // host part will be nil.
 - (id)tokenField:(NSTokenField *)tokenField
-representedObjectForEditingString:(NSString *)editingString {
+    representedObjectForEditingString:(NSString *)editingString {
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
@@ -537,8 +559,9 @@ representedObjectForEditingString:(NSString *)editingString {
    [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
   
   AKSIPURI *theURI = [SIPURIFormatter SIPURIFromString:editingString];
-  if (theURI == nil)
+  if (theURI == nil) {
     return nil;
+  }
   
   ABAddressBook *AB = [ABAddressBook sharedAddressBook];
   NSArray *recordsFound;
@@ -562,7 +585,8 @@ representedObjectForEditingString:(NSString *)editingString {
   
   NSString *displayedName = [theURI displayName];
   if ([displayedName length] > 0) {
-    NSMutableArray *searchElements = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *searchElements
+      = [[[NSMutableArray alloc] init] autorelease];
     
     // displayedName matches the first name.
     ABSearchElement *firstNameMatch
@@ -622,23 +646,26 @@ representedObjectForEditingString:(NSString *)editingString {
       = [displayedName componentsSeparatedByString:@" "];
     for (NSUInteger i = 0; i < [displayedNameComponents count] - 1; ++i) {
       NSMutableString *firstPart = [[[NSMutableString alloc] init] autorelease];
-      NSMutableString *secondPart = [[[NSMutableString alloc] init] autorelease];
+      NSMutableString *secondPart
+        = [[[NSMutableString alloc] init] autorelease];
       NSUInteger j;
       
       for (j = 0; j <= i; ++j) {
-        if ([firstPart length] > 0)
+        if ([firstPart length] > 0) {
           [firstPart appendFormat:@" %@",
            [displayedNameComponents objectAtIndex:j]];
-        else
+        } else {
           [firstPart appendString:[displayedNameComponents objectAtIndex:j]];
+        }
       }
       
       for (j = i + 1; j < [displayedNameComponents count]; ++j) {
-        if ([secondPart length] > 0)
+        if ([secondPart length] > 0) {
           [secondPart appendFormat:@" %@",
            [displayedNameComponents objectAtIndex:j]];
-        else
+        } else {
           [secondPart appendString:[displayedNameComponents objectAtIndex:j]];
+        }
       }
       
       firstNameMatch
@@ -752,8 +779,9 @@ representedObjectForEditingString:(NSString *)editingString {
   if ([recordsFound count] > 0) {
     ABRecord *theRecord = [recordsFound objectAtIndex:0];
     
-    if ([[theRecord ak_fullName] length] > 0)
+    if ([[theRecord ak_fullName] length] > 0) {
       [theURI setDisplayName:[theRecord ak_fullName]];
+    }
     
     // Get phones.
     AKTelephoneNumberFormatter *telephoneNumberFormatter
@@ -777,8 +805,7 @@ representedObjectForEditingString:(NSString *)editingString {
         // No @ sign, treat as telephone number.
         if ([[telephoneNumberFormatter telephoneNumberFromString:phoneNumber]
              isEqualToString:
-             [telephoneNumberFormatter telephoneNumberFromString:[theURI user]]])
-        {
+             [telephoneNumberFormatter telephoneNumberFromString:[theURI user]]]) {
           destinationIndex = [callDestinations count] - 1;
         }
       } else {
@@ -792,8 +819,9 @@ representedObjectForEditingString:(NSString *)editingString {
     ABMultiValue *emails = [theRecord valueForProperty:kABEmailProperty];
     for (NSUInteger i = 0; i < [emails count]; ++i) {
       if ([[emails labelAtIndex:i] caseInsensitiveCompare:kEmailSIPLabel]
-          != NSOrderedSame)
+          != NSOrderedSame) {
         continue;
+      }
       
       NSString *anEmail = [emails valueAtIndex:i];
       NSString *localizedPhoneLabel = [AB ak_localizedLabel:kEmailSIPLabel];
@@ -806,7 +834,8 @@ representedObjectForEditingString:(NSString *)editingString {
                                    nil]];
       
       // If we've met entered URI, store its index.
-      if ([anEmail caseInsensitiveCompare:[theURI SIPAddress]] == NSOrderedSame) {
+      if ([anEmail caseInsensitiveCompare:[theURI SIPAddress]] ==
+          NSOrderedSame) {
         destinationIndex = [callDestinations count] - 1;
       }
     }
@@ -814,7 +843,8 @@ representedObjectForEditingString:(NSString *)editingString {
   } else {
     [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  theURI, kURI,
-                                 @"", kPhoneLabel, nil]];
+                                 @"", kPhoneLabel,
+                                 nil]];
   }
   
   // First URI in the array is the default call destination.
@@ -824,10 +854,11 @@ representedObjectForEditingString:(NSString *)editingString {
 }
 
 - (NSString *)tokenField:(NSTokenField *)tokenField
-displayStringForRepresentedObject:(id)representedObject {
+    displayStringForRepresentedObject:(id)representedObject {
   
-  if (![representedObject isKindOfClass:[NSArray class]])
+  if (![representedObject isKindOfClass:[NSArray class]]) {
     return nil;
+  }
   
   AKSIPURI *uri
     = [[representedObject objectAtIndex:[self callDestinationURIIndex]]
@@ -866,10 +897,11 @@ displayStringForRepresentedObject:(id)representedObject {
 }
 
 - (NSString *)tokenField:(NSTokenField *)tokenField
-editingStringForRepresentedObject:(id)representedObject {
+    editingStringForRepresentedObject:(id)representedObject {
   
-  if (![representedObject isKindOfClass:[NSArray class]])
+  if (![representedObject isKindOfClass:[NSArray class]]) {
     return nil;
+  }
   
   AKSIPURI *uri
     = [[representedObject objectAtIndex:[self callDestinationURIIndex]]
@@ -899,21 +931,22 @@ editingStringForRepresentedObject:(id)representedObject {
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField
-hasMenuForRepresentedObject:(id)representedObject {
+    hasMenuForRepresentedObject:(id)representedObject {
   
   AKSIPURI *uri
     = [[representedObject objectAtIndex:[self callDestinationURIIndex]]
        objectForKey:kURI];
   
   if ([representedObject isKindOfClass:[NSArray class]] &&
-      [[uri displayName] length] > 0)
+      [[uri displayName] length] > 0) {
     return YES;
-  else
+  } else {
     return NO;
+  }
 }
 
 - (NSMenu *)tokenField:(NSTokenField *)tokenField
-menuForRepresentedObject:(id)representedObject {
+    menuForRepresentedObject:(id)representedObject {
   
   NSMenu *tokenMenu = [[[NSMenu alloc] init] autorelease];
   

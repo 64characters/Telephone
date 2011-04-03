@@ -114,8 +114,9 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification
     invalidFormData = YES;
   }
   
-  if (invalidFormData)
+  if (invalidFormData) {
     return;
+  }
   
   NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
   [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kAccountEnabled];

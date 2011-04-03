@@ -44,8 +44,9 @@ NSString * const AKAddressBookDidDialPhoneNumberNotification
 
 - (id)init {
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setShouldDial:NO];
   
@@ -84,6 +85,7 @@ NSString * const AKAddressBookDidDialPhoneNumberNotification
 
 - (void)performActionForPerson:(ABPerson *)person
                     identifier:(NSString *)identifier {
+  
   NSArray *applications = [[NSWorkspace sharedWorkspace] launchedApplications];
   BOOL isTelephoneLaunched = NO;
   for (NSDictionary *anApplication in applications) {

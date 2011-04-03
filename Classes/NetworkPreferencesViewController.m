@@ -160,11 +160,14 @@
     [alert setInformativeText:
      NSLocalizedString(@"New network settings will be applied immediately, all "
                        "accounts will be reconnected.",
-                       @"Network settings change confirmation informative text.")];
+                       @"Network settings change confirmation informative "
+                       "text.")];
     
+    SEL didEndSelector
+      = @selector(networkSettingsChangeAlertDidEnd:returnCode:contextInfo:);
     [alert beginSheetModalForWindow:[[self preferencesController] window]
                       modalDelegate:self
-                     didEndSelector:@selector(networkSettingsChangeAlertDidEnd:returnCode:contextInfo:)
+                     didEndSelector:didEndSelector
                         contextInfo:sender];
     return YES;
   }
@@ -175,10 +178,12 @@
 - (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert
                               returnCode:(int)returnCode
                              contextInfo:(void *)contextInfo {
+  
   [[alert window] orderOut:nil];
   
-  if (returnCode == NSAlertSecondButtonReturn)
+  if (returnCode == NSAlertSecondButtonReturn) {
     return;
+  }
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
@@ -262,8 +267,9 @@
 #pragma mark AKSIPUserAgent notifications
 
 - (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
-  if (![[[NSApp delegate] userAgent] isStarted])
+  if (![[[NSApp delegate] userAgent] isStarted]) {
     return;
+  }
   
   // Show transport port in the network preferences as a placeholder string.
   [[[self transportPortField] cell] setPlaceholderString:

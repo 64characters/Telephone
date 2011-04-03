@@ -42,7 +42,7 @@
 }
 
 // The receiver's delegate.
-@property(nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;
+@property (nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;
 @end
 
 // Declares the interface that AKActiveCallView delegates must implement.

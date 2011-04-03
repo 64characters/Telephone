@@ -129,85 +129,85 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 }
 
 // The receiver's delegate.
-@property(nonatomic, assign) id <AKSIPUserAgentDelegate> delegate;
+@property (nonatomic, assign) id <AKSIPUserAgentDelegate> delegate;
 
 // Accounts added to the receiver.
-@property(readonly, retain) NSMutableArray *accounts;
+@property (readonly, retain) NSMutableArray *accounts;
 
 // A Boolean value indicating whether the receiver has been started.
-@property(nonatomic, readonly, assign, getter=isStarted) BOOL started;
+@property (nonatomic, readonly, assign, getter=isStarted) BOOL started;
 
 // Receiver's state.
-@property(readonly, assign) AKSIPUserAgentState state;
+@property (readonly, assign) AKSIPUserAgentState state;
 
 // NAT type that has been detected by the receiver.
-@property(assign) AKNATType detectedNATType;
+@property (assign) AKNATType detectedNATType;
 
 // A lock that is used to start and stop the receiver.
-@property(retain) NSLock *pjsuaLock;
+@property (retain) NSLock *pjsuaLock;
 
 // The number of acitve calls controlled by the receiver.
-@property(nonatomic, readonly, assign) NSUInteger activeCallsCount;
+@property (nonatomic, readonly, assign) NSUInteger activeCallsCount;
 
 // Receiver's call data.
-@property(nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;
+@property (nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;
 
 // A pool used by the underlying PJSUA library of the receiver.
-@property(readonly, assign) pj_pool_t *pjPool;
+@property (readonly, assign) pj_pool_t *pjPool;
 
-@property(readonly, assign) NSInteger ringbackSlot;
-@property(nonatomic, assign) NSInteger ringbackCount;
-@property(readonly, assign) pjmedia_port *ringbackPort;
+@property (readonly, assign) NSInteger ringbackSlot;
+@property (nonatomic, assign) NSInteger ringbackCount;
+@property (readonly, assign) pjmedia_port *ringbackPort;
 
 // An array of DNS servers to use by the receiver. If set, DNS SRV will be
 // enabled. Only first kAKSIPUserAgentNameserversMax are used.
-@property(nonatomic, copy) NSArray *nameservers;
+@property (nonatomic, copy) NSArray *nameservers;
 
 // SIP proxy host to visit for all outgoing requests. Will be used for all
 // accounts. The final route set for outgoing requests consists of this proxy
 // and proxy configured for the account.
-@property(nonatomic, copy) NSString *outboundProxyHost;
+@property (nonatomic, copy) NSString *outboundProxyHost;
 
 // Network port to use with the outbound proxy.
 // Default: 5060.
-@property(nonatomic, assign) NSUInteger outboundProxyPort;
+@property (nonatomic, assign) NSUInteger outboundProxyPort;
 
 // STUN server host.
-@property(nonatomic, copy) NSString *STUNServerHost;
+@property (nonatomic, copy) NSString *STUNServerHost;
 
 // Network port to use with the STUN server.
 // Default: 3478.
-@property(nonatomic, assign) NSUInteger STUNServerPort;
+@property (nonatomic, assign) NSUInteger STUNServerPort;
 
 // User agent string.
-@property(nonatomic, copy) NSString *userAgentString;
+@property (nonatomic, copy) NSString *userAgentString;
 
 // Path to the log file.
-@property(nonatomic, copy) NSString *logFileName;
+@property (nonatomic, copy) NSString *logFileName;
 
 // Verbosity level.
 // Default: 3.
-@property(nonatomic, assign) NSUInteger logLevel;
+@property (nonatomic, assign) NSUInteger logLevel;
 
 // Verbosity leverl for console.
 // Default: 0.
-@property(nonatomic, assign) NSUInteger consoleLogLevel;
+@property (nonatomic, assign) NSUInteger consoleLogLevel;
 
 // A Boolean value indicating whether Voice Activity Detection is used.
 // Default: YES.
-@property(nonatomic, assign) BOOL detectsVoiceActivity;
+@property (nonatomic, assign) BOOL detectsVoiceActivity;
 
 // A Boolean value indicating whether Interactive Connectivity Establishment
 // is used.
 // Default: NO.
-@property(nonatomic, assign) BOOL usesICE;
+@property (nonatomic, assign) BOOL usesICE;
 
 // Network port to use for SIP transport. Set 0 for any available port.
 // Default: 0.
-@property(nonatomic, assign) NSUInteger transportPort;
+@property (nonatomic, assign) NSUInteger transportPort;
 
 // Host name or IP address to advertise as the address of SIP transport.
-@property(nonatomic, copy) NSString *transportPublicHost;
+@property (nonatomic, copy) NSString *transportPublicHost;
 
 
 // Returns the shared SIP user agent object.

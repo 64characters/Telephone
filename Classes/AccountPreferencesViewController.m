@@ -175,21 +175,26 @@ static const NSUInteger kAccountsMax = 32;
                          selectedAccount]];
   [alert setInformativeText:
    [NSString stringWithFormat:
-    NSLocalizedString(@"This will delete your currently set up account \\U201C%@\\U201D.",
+    NSLocalizedString(@"This will delete your currently set up account "
+                      "\\U201C%@\\U201D.",
                       @"Account removal confirmation informative text."),
     selectedAccount]];
   [alert setAlertStyle:NSWarningAlertStyle];
+  SEL didEndSelector
+    = @selector(removeAccountAlertDidEnd:returnCode:contextInfo:);
   [alert beginSheetModalForWindow:[[self accountsTable] window]
                     modalDelegate:self
-                   didEndSelector:@selector(removeAccountAlertDidEnd:returnCode:contextInfo:)
+                   didEndSelector:didEndSelector
                       contextInfo:NULL];
 }
 
 - (void)removeAccountAlertDidEnd:(NSAlert *)alert
                       returnCode:(int)returnCode
                      contextInfo:(void *)contextInfo {
-  if (returnCode == NSAlertFirstButtonReturn)
+  
+  if (returnCode == NSAlertFirstButtonReturn) {
     [self removeAccountAtIndex:[[self accountsTable] selectedRow]];
+  }
 }
 
 - (void)removeAccountAtIndex:(NSInteger)index {
@@ -445,8 +450,9 @@ static const NSUInteger kAccountsMax = 32;
 
 - (IBAction)changeAccountEnabled:(id)sender {
   NSInteger index = [[self accountsTable] selectedRow];
-  if (index == -1)
+  if (index == -1) {
     return;
+  }
   
   NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
   
@@ -596,8 +602,9 @@ static const NSUInteger kAccountsMax = 32;
     [[self substitutePlusCharacterCheckBox] setEnabled:YES];
     [[self substitutePlusCharacterCheckBox] setState:
      [[accountDict objectForKey:kSubstitutePlusCharacter] integerValue]];
-    if ([[self substitutePlusCharacterCheckBox] state] == NSOnState)
+    if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
       [[self plusCharacterSubstitutionField] setEnabled:YES];
+    }
     
     [[self useProxyCheckBox] setEnabled:YES];
     [[self useProxyCheckBox] setState:[[accountDict objectForKey:kUseProxy]
@@ -644,8 +651,9 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (id)tableView:(NSTableView *)aTableView
-objectValueForTableColumn:(NSTableColumn *)aTableColumn
-            row:(NSInteger)rowIndex {
+    objectValueForTableColumn:(NSTableColumn *)aTableColumn
+    row:(NSInteger)rowIndex {
+  
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   
   NSDictionary *accountDict
@@ -673,8 +681,9 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView
-writeRowsWithIndexes:(NSIndexSet *)rowIndexes
-     toPasteboard:(NSPasteboard *)pboard {
+    writeRowsWithIndexes:(NSIndexSet *)rowIndexes
+    toPasteboard:(NSPasteboard *)pboard {
+  
   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
   
   [pboard declareTypes:[NSArray arrayWithObject:kAKSIPAccountPboardType]
@@ -689,13 +698,15 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
                 validateDrop:(id <NSDraggingInfo>)info
                  proposedRow:(NSInteger)row
        proposedDropOperation:(NSTableViewDropOperation)operation {
+  
   NSData *data
     = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
   NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
   NSInteger draggingRow = [indexes firstIndex];
   
-  if (row == draggingRow || row == draggingRow + 1)
+  if (row == draggingRow || row == draggingRow + 1) {
     return NSDragOperationNone;
+  }
   
   [[self accountsTable] setDropRow:row dropOperation:NSTableViewDropAbove];
   
@@ -706,6 +717,7 @@ writeRowsWithIndexes:(NSIndexSet *)rowIndexes
        acceptDrop:(id <NSDraggingInfo>)info
               row:(NSInteger)row
     dropOperation:(NSTableViewDropOperation)operation {
+  
   NSData *data
     = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
   NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];

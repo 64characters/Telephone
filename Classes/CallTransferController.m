@@ -41,13 +41,13 @@
 @interface CallTransferController ()
 
 // Source call controller.
-@property(nonatomic, assign) CallController *sourceCallController;
+@property (nonatomic, assign) CallController *sourceCallController;
 
 // Active account transfer view controller.
-@property(nonatomic, retain) ActiveAccountTransferViewController *activeAccountTransferViewController;
+@property (nonatomic, retain) ActiveAccountTransferViewController *activeAccountTransferViewController;
 
 // A Boolean value indicating whether the source call has been transferred.
-@property(nonatomic, assign) BOOL sourceCallTransferred;
+@property (nonatomic, assign) BOOL sourceCallTransferred;
 
 @end
 

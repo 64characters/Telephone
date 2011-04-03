@@ -35,6 +35,7 @@
 
 + (NSString *)passwordForServiceName:(NSString *)serviceName
                          accountName:(NSString *)accountName {
+  
   void *passwordData = nil;
   UInt32 passwordLength;
   OSStatus findStatus;
@@ -65,6 +66,7 @@
 + (BOOL)addItemWithServiceName:(NSString *)serviceName
                    accountName:(NSString *)accountName
                       password:(NSString *)password {
+  
   SecKeychainItemRef keychainItemRef = nil;
   OSStatus addStatus, findStatus, modifyStatus;
   BOOL success = NO;
@@ -108,8 +110,9 @@
     }
   }
   
-  if (keychainItemRef != nil)
+  if (keychainItemRef != nil) {
     CFRelease(keychainItemRef);
+  }
   
   return success;
 }

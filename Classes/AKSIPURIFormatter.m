@@ -41,8 +41,9 @@
 @synthesize telephoneNumberFormatterSplitsLastFourDigits = telephoneNumberFormatterSplitsLastFourDigits_;
 
 - (NSString *)stringForObjectValue:(id)anObject {
-  if (![anObject isKindOfClass:[AKSIPURI class]])
+  if (![anObject isKindOfClass:[AKSIPURI class]]) {
     return nil;
+  }
   
   NSString *returnValue = nil;
   

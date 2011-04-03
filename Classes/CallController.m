@@ -91,8 +91,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (void)setCall:(AKSIPCall *)aCall {
   if (call_ != aCall) {
-    if ([[call_ delegate] isEqual:self])
+    if ([[call_ delegate] isEqual:self]) {
       [call_ setDelegate:nil];
+    }
     
     [call_ release];
     call_ = [aCall retain];
@@ -102,20 +103,25 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)setAccountController:(AccountController *)anAccountController {
-  if (accountController_ == anAccountController)
+  if (accountController_ == anAccountController) {
     return;
+  }
   
-  NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
   
-  if (accountController_ != nil)
+  if (accountController_ != nil) {
     [notificationCenter removeObserver:accountController_ name:nil object:self];
+  }
   
   if (anAccountController != nil) {
-    if ([anAccountController respondsToSelector:@selector(callWindowWillClose:)])
+    if ([anAccountController respondsToSelector:
+         @selector(callWindowWillClose:)]) {
       [notificationCenter addObserver:anAccountController
                              selector:@selector(callWindowWillClose:)
                                  name:AKCallWindowWillCloseNotification
                                object:self];
+    }
   }
   
   accountController_ = anAccountController;
@@ -162,8 +168,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
           accountController:(AccountController *)anAccountController {
   
   self = [super initWithWindowNibName:windowNibName];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setIdentifier:[NSString ak_uuidString]];
   [self setAccountController:anAccountController];
@@ -202,8 +209,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)acceptCall {
-  if ([[self call] isIncoming])
+  if ([[self call] isIncoming]) {
     [[NSApp delegate] stopRingtoneTimerIfNeeded];
+  }
   
   [self setCallUnhandled:NO];
   [[NSApp delegate] updateDockTileBadgeLabel];
@@ -215,18 +223,21 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [self setCallActive:NO];
   [self setCallUnhandled:NO];
   
-  if (activeCallViewController_ != nil)
+  if (activeCallViewController_ != nil) {
     [[self activeCallViewController] stopCallTimer];
+  }
   
-  if ([[self call] isIncoming])
+  if ([[self call] isIncoming]) {
     [[NSApp delegate] stopRingtoneTimerIfNeeded];
+  }
   
   // If remote party hasn't sent back any replies, call hang-up will not happen
   // immediately. Unsubscribe from any notifications about the call state and
   // set disconnected look to the call window.
   
-  if ([[[self call] delegate] isEqual:self])
+  if ([[[self call] delegate] isEqual:self]) {
     [[self call] setDelegate:nil];
+  }
   
   [[self call] hangUp];
   
@@ -351,13 +362,15 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (void)toggleCallHold {
   if ([[self call] state] == kAKSIPCallConfirmedState &&
-      ![[self call] isOnRemoteHold])
-  [[self call] toggleHold];
+      ![[self call] isOnRemoteHold]) {
+    [[self call] toggleHold];
+  }
 }
 
 - (void)toggleMicrophoneMute {
-  if ([[self call] state] != kAKSIPCallConfirmedState)
+  if ([[self call] state] != kAKSIPCallConfirmedState) {
     return;
+  }
   
   [[self call] toggleMicrophoneMute];
   
@@ -377,17 +390,19 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)setIntermediateStatus:(NSString *)newIntermediateStatus {
-  if ([self intermediateStatusTimer] != nil)
+  if ([self intermediateStatusTimer] != nil) {
     [[self intermediateStatusTimer] invalidate];
+  }
   
   [[self activeCallViewController] stopCallTimer];
   [self setStatus:newIntermediateStatus];
   [self setIntermediateStatusTimer:
-   [NSTimer scheduledTimerWithTimeInterval:3.0
-                                    target:self
-                                  selector:@selector(intermediateStatusTimerTick:)
-                                  userInfo:nil
-                                   repeats:NO]];
+   [NSTimer
+    scheduledTimerWithTimeInterval:3.0
+                            target:self
+                          selector:@selector(intermediateStatusTimerTick:)
+                          userInfo:nil
+                           repeats:NO]];
 }
 
 - (void)intermediateStatusTimerTick:(NSTimer *)theTimer {
@@ -408,8 +423,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)closeCallWindow {
-  if ([[self window] isVisible])
+  if ([[self window] isVisible]) {
     [[self window] performClose:self];
+  }
 }
 
 
@@ -417,7 +433,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 #pragma mark NSWindow delegate methods
 
 - (void)windowWillClose:(NSNotification *)notification {
-  if ([XSWindowController instancesRespondToSelector:@selector(windowWillClose:)]) {
+  if ([XSWindowController instancesRespondToSelector:
+       @selector(windowWillClose:)]) {
     // We have to call super's implementation of |windowWillClose:| via the
     // function pointer because using [super windowWillClose:notification] will
     // issue compiler warning.
@@ -429,11 +446,13 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [self setCallActive:NO];
     [[self activeCallViewController] stopCallTimer];
     
-    if ([[self call] isIncoming])
+    if ([[self call] isIncoming]) {
       [[NSApp delegate] stopRingtoneTimerIfNeeded];
+    }
     
-    if ([[[self call] delegate] isEqual:self])
+    if ([[[self call] delegate] isEqual:self]) {
       [[self call] setDelegate:nil];
+    }
     
     [[self call] hangUp];
     
@@ -518,8 +537,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
   [self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
   [[NSApp delegate] pauseITunes];
   
-  if ([[notification object] isIncoming])
+  if ([[notification object] isIncoming]) {
     [[NSApp delegate] stopRingtoneTimerIfNeeded];
+  }
   
   [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];
   
@@ -545,8 +565,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                            animate:YES];
   }
   
-  if ([[[self activeCallViewController] view] acceptsFirstResponder])
+  if ([[[self activeCallViewController] view] acceptsFirstResponder]) {
     [[self window] makeFirstResponder:[[self activeCallViewController] view]];
+  }
 }
 
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {

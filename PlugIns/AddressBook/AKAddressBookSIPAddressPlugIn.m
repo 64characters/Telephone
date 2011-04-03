@@ -44,8 +44,9 @@ NSString * const AKAddressBookDidDialSIPAddressNotification
 
 - (id)init {
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setShouldDial:NO];
   
@@ -74,21 +75,24 @@ NSString * const AKAddressBookDidDialSIPAddressNotification
 
 - (NSString *)titleForPerson:(ABPerson *)person
                   identifier:(NSString *)identifier {
-  NSBundle *bundle
-  = [NSBundle bundleWithIdentifier:@"com.tlphn.TelephoneAddressBookSIPAddressPlugIn"];
+  
+  NSBundle *bundle = [NSBundle bundleWithIdentifier:
+                      @"com.tlphn.TelephoneAddressBookSIPAddressPlugIn"];
   
   return NSLocalizedStringFromTableInBundle(@"Dial with Telephone",
-                                            nil, bundle,
+                                            nil,
+                                            bundle,
                                             @"Action title.");
 }
 
 - (void)performActionForPerson:(ABPerson *)person
                     identifier:(NSString *)identifier {
+  
   NSArray *applications = [[NSWorkspace sharedWorkspace] launchedApplications];
   BOOL isTelephoneLaunched = NO;
   for (NSDictionary *anApplication in applications) {
     NSString *bundleIdentifier
-    = [anApplication objectForKey:@"NSApplicationBundleIdentifier"];
+      = [anApplication objectForKey:@"NSApplicationBundleIdentifier"];
     
     if ([bundleIdentifier isEqualToString:@"com.tlphn.Telephone"]) {
       isTelephoneLaunched = YES;
@@ -121,14 +125,16 @@ NSString * const AKAddressBookDidDialSIPAddressNotification
 
 - (BOOL)shouldEnableActionForPerson:(ABPerson *)person
                          identifier:(NSString *)identifier {
+  
   ABMultiValue *emails = [person valueForProperty:[self actionProperty]];
   NSString *label = [emails labelForIdentifier:identifier];
   
   // Enable the action only if label is |sip|.
-  if ([label caseInsensitiveCompare:@"sip"] == NSOrderedSame)
+  if ([label caseInsensitiveCompare:@"sip"] == NSOrderedSame) {
     return YES;
-  else
+  } else {
     return NO;
+  }
 }
 
 - (void)workspaceDidLaunchApplication:(NSNotification *)notification {

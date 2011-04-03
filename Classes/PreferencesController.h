@@ -124,27 +124,27 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 }
 
 // The receiver's delegate.
-@property(nonatomic, assign) id delegate;
+@property (nonatomic, assign) id delegate;
 
 // General preferences view controller.
-@property(nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
+@property (nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
 
 // Account preferences view controller.
-@property(nonatomic, readonly) AccountPreferencesViewController *accountPreferencesViewController;
+@property (nonatomic, readonly) AccountPreferencesViewController *accountPreferencesViewController;
 
 // Sound preferences view controller.
-@property(nonatomic, readonly) SoundPreferencesViewController *soundPreferencesViewController;
+@property (nonatomic, readonly) SoundPreferencesViewController *soundPreferencesViewController;
 
 // Network preferences view controller.
-@property(nonatomic, readonly) NetworkPreferencesViewController *networkPreferencesViewController;
+@property (nonatomic, readonly) NetworkPreferencesViewController *networkPreferencesViewController;
 
 // Outlets.
 //
-@property(nonatomic, retain) IBOutlet NSToolbar *toolbar;
-@property(nonatomic, retain) IBOutlet NSToolbarItem *generalToolbarItem;
-@property(nonatomic, retain) IBOutlet NSToolbarItem *accountsToolbarItem;
-@property(nonatomic, retain) IBOutlet NSToolbarItem *soundToolbarItem;
-@property(nonatomic, retain) IBOutlet NSToolbarItem *networkToolbarItem;
+@property (nonatomic, retain) IBOutlet NSToolbar *toolbar;
+@property (nonatomic, retain) IBOutlet NSToolbarItem *generalToolbarItem;
+@property (nonatomic, retain) IBOutlet NSToolbarItem *accountsToolbarItem;
+@property (nonatomic, retain) IBOutlet NSToolbarItem *soundToolbarItem;
+@property (nonatomic, retain) IBOutlet NSToolbarItem *networkToolbarItem;
 
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;

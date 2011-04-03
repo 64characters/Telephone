@@ -59,8 +59,9 @@
     }
     
   } else if (isCompany) {
-    if ([company length] > 0)
+    if ([company length] > 0) {
       theString = company;
+    }
   }
   
   return theString;

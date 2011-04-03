@@ -48,40 +48,40 @@
 }
 
 // SIP address in the form |user@host| or |host|.
-@property(nonatomic, readonly, copy) NSString *SIPAddress;
+@property (nonatomic, readonly, copy) NSString *SIPAddress;
 
 // The receiver's display-name part.
-@property(nonatomic, copy) NSString *displayName;
+@property (nonatomic, copy) NSString *displayName;
 
 // The receiver's user part.
-@property(nonatomic, copy) NSString *user;
+@property (nonatomic, copy) NSString *user;
 
 // The receiver's password part.
-@property(nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSString *password;
 
 // The receiver's host part. Must not be nil.
-@property(nonatomic, copy) NSString *host;
+@property (nonatomic, copy) NSString *host;
 
 // The receiver's port part.
-@property(nonatomic, assign) NSInteger port;
+@property (nonatomic, assign) NSInteger port;
 
 // The receiver's user parameter.
-@property(nonatomic, copy) NSString *userParameter;
+@property (nonatomic, copy) NSString *userParameter;
 
 // The receiver's method parameter.
-@property(nonatomic, copy) NSString *methodParameter;
+@property (nonatomic, copy) NSString *methodParameter;
 
 // The receiver's transport parameter.
-@property(nonatomic, copy) NSString *transportParameter;
+@property (nonatomic, copy) NSString *transportParameter;
 
 // The receiver's TTL parameter.
-@property(nonatomic, assign) NSInteger TTLParameter;
+@property (nonatomic, assign) NSInteger TTLParameter;
 
 // The receiver's loose routing parameter.
-@property(nonatomic, assign) NSInteger looseRoutingParameter;
+@property (nonatomic, assign) NSInteger looseRoutingParameter;
 
 // The receiver's maddr parameter.
-@property(nonatomic, copy) NSString *maddrParameter;
+@property (nonatomic, copy) NSString *maddrParameter;
 
 // Creates and returns AKSIPURI object initialized with a specified user, host,
 // and display name.

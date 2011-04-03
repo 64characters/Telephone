@@ -36,8 +36,9 @@
 @synthesize splitsLastFourDigits = splitsLastFourDigits_;
 
 - (NSString *)stringForObjectValue:(id)anObject {
-  if (![anObject isKindOfClass:[NSString class]])
+  if (![anObject isKindOfClass:[NSString class]]) {
     return nil;
+  }
   
   NSString *theString;
   NSUInteger length = [anObject length];
@@ -45,170 +46,181 @@
   if ([[NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\d{6,15}'"]
                      evaluateWithObject:anObject]) {
     switch (length) {
-        case 6:
-          if ([self splitsLastFourDigits])  // ##-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 2)],
-                         [anObject substringWithRange:NSMakeRange(2, 2)],
-                         [anObject substringWithRange:NSMakeRange(4, 2)]];
-          else                              // ###-###
-            theString = [NSString stringWithFormat:@"%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 3)],
-                         [anObject substringWithRange:NSMakeRange(3, 3)]];
-          break;
-          
-        case 7:
-          if ([self splitsLastFourDigits])  // ###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 3)],
-                         [anObject substringWithRange:NSMakeRange(3, 2)],
-                         [anObject substringWithRange:NSMakeRange(5, 2)]];
-          else                              // ###-####
-            theString = [NSString stringWithFormat:@"%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 3)],
-                         [anObject substringWithRange:NSMakeRange(3, 4)]];
-          break;
-          
-        case 8:
-          if ([self splitsLastFourDigits])  // #-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 1)],
-                         [anObject substringWithRange:NSMakeRange(1, 3)],
-                         [anObject substringWithRange:NSMakeRange(4, 2)],
-                         [anObject substringWithRange:NSMakeRange(6, 2)]];
-          else                              // #-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 1)],
-                         [anObject substringWithRange:NSMakeRange(1, 3)],
-                         [anObject substringWithRange:NSMakeRange(4, 4)]];
-          break;
-          
-        case 9:
-          if ([self splitsLastFourDigits])  // ##-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 2)],
-                         [anObject substringWithRange:NSMakeRange(2, 3)],
-                         [anObject substringWithRange:NSMakeRange(5, 2)],
-                         [anObject substringWithRange:NSMakeRange(7, 2)]];
-          else                              // ##-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 2)],
-                         [anObject substringWithRange:NSMakeRange(2, 3)],
-                         [anObject substringWithRange:NSMakeRange(5, 4)]];
-          break;
-          
-        case 10:
-          if ([self splitsLastFourDigits])  // ###-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 3)],
-                         [anObject substringWithRange:NSMakeRange(3, 3)],
-                         [anObject substringWithRange:NSMakeRange(6, 2)],
-                         [anObject substringWithRange:NSMakeRange(8, 2)]];
-          else                              // ###-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 3)],
-                         [anObject substringWithRange:NSMakeRange(3, 3)],
-                         [anObject substringWithRange:NSMakeRange(6, 4)]];
-          break;
-          
-        case 11:
-          if ([self splitsLastFourDigits])  // #-###-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 1)],
-                         [anObject substringWithRange:NSMakeRange(1, 3)],
-                         [anObject substringWithRange:NSMakeRange(4, 3)],
-                         [anObject substringWithRange:NSMakeRange(7, 2)],
-                         [anObject substringWithRange:NSMakeRange(9, 2)]];
-          else                              // #-###-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 1)],
-                         [anObject substringWithRange:NSMakeRange(1, 3)],
-                         [anObject substringWithRange:NSMakeRange(4, 3)],
-                         [anObject substringWithRange:NSMakeRange(7, 4)]];
-          break;
-          
-        case 12:
-          if ([self splitsLastFourDigits])  // ##-###-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 2)],
-                         [anObject substringWithRange:NSMakeRange(2, 3)],
-                         [anObject substringWithRange:NSMakeRange(5, 3)],
-                         [anObject substringWithRange:NSMakeRange(8, 2)],
-                         [anObject substringWithRange:NSMakeRange(10, 2)]];
-          else                              // ##-###-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 2)],
-                         [anObject substringWithRange:NSMakeRange(2, 3)],
-                         [anObject substringWithRange:NSMakeRange(5, 3)],
-                         [anObject substringWithRange:NSMakeRange(8, 4)]];
-          break;
-          
-        case 13:
-          if ([self splitsLastFourDigits])  // ###-###-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 3)],
-                         [anObject substringWithRange:NSMakeRange(3, 3)],
-                         [anObject substringWithRange:NSMakeRange(6, 3)],
-                         [anObject substringWithRange:NSMakeRange(9, 2)],
-                         [anObject substringWithRange:NSMakeRange(11, 2)]];
-          else                              // ###-###-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 3)],
-                         [anObject substringWithRange:NSMakeRange(3, 3)],
-                         [anObject substringWithRange:NSMakeRange(6, 3)],
-                         [anObject substringWithRange:NSMakeRange(9, 4)]];
-          break;
-          
-        case 14:
-          if ([self splitsLastFourDigits])  // ####-###-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 4)],
-                         [anObject substringWithRange:NSMakeRange(4, 3)],
-                         [anObject substringWithRange:NSMakeRange(7, 3)],
-                         [anObject substringWithRange:NSMakeRange(10, 2)],
-                         [anObject substringWithRange:NSMakeRange(12, 2)]];
-          else                              // ####-###-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 4)],
-                         [anObject substringWithRange:NSMakeRange(4, 3)],
-                         [anObject substringWithRange:NSMakeRange(7, 3)],
-                         [anObject substringWithRange:NSMakeRange(10, 4)]];
-          break;
-          
-        case 15:
-          if ([self splitsLastFourDigits])  // #####-###-###-##-##
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 5)],
-                         [anObject substringWithRange:NSMakeRange(5, 3)],
-                         [anObject substringWithRange:NSMakeRange(8, 3)],
-                         [anObject substringWithRange:NSMakeRange(11, 2)],
-                         [anObject substringWithRange:NSMakeRange(13, 2)]];
-          else                              // #####-###-###-####
-            theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
-                         [anObject substringWithRange:NSMakeRange(0, 5)],
-                         [anObject substringWithRange:NSMakeRange(5, 3)],
-                         [anObject substringWithRange:NSMakeRange(8, 3)],
-                         [anObject substringWithRange:NSMakeRange(11, 4)]];
-          break;
-        default:
-          theString = anObject;
-          break;
+      case 6:
+        if ([self splitsLastFourDigits]) {  // ##-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 2)],
+                       [anObject substringWithRange:NSMakeRange(2, 2)],
+                       [anObject substringWithRange:NSMakeRange(4, 2)]];
+        } else {                             // ###-###
+          theString = [NSString stringWithFormat:@"%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 3)],
+                       [anObject substringWithRange:NSMakeRange(3, 3)]];
+        }
+        break;
+        
+      case 7:
+        if ([self splitsLastFourDigits]) {  // ###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 3)],
+                       [anObject substringWithRange:NSMakeRange(3, 2)],
+                       [anObject substringWithRange:NSMakeRange(5, 2)]];
+        } else {                            // ###-####
+          theString = [NSString stringWithFormat:@"%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 3)],
+                       [anObject substringWithRange:NSMakeRange(3, 4)]];
+        }
+        break;
+        
+      case 8:
+        if ([self splitsLastFourDigits]) {  // #-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 1)],
+                       [anObject substringWithRange:NSMakeRange(1, 3)],
+                       [anObject substringWithRange:NSMakeRange(4, 2)],
+                       [anObject substringWithRange:NSMakeRange(6, 2)]];
+        } else {                            // #-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 1)],
+                       [anObject substringWithRange:NSMakeRange(1, 3)],
+                       [anObject substringWithRange:NSMakeRange(4, 4)]];
+        }
+        break;
+        
+      case 9:
+        if ([self splitsLastFourDigits]) {  // ##-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 2)],
+                       [anObject substringWithRange:NSMakeRange(2, 3)],
+                       [anObject substringWithRange:NSMakeRange(5, 2)],
+                       [anObject substringWithRange:NSMakeRange(7, 2)]];
+        } else {                            // ##-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 2)],
+                       [anObject substringWithRange:NSMakeRange(2, 3)],
+                       [anObject substringWithRange:NSMakeRange(5, 4)]];
+        }
+        break;
+        
+      case 10:
+        if ([self splitsLastFourDigits]) {  // ###-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 3)],
+                       [anObject substringWithRange:NSMakeRange(3, 3)],
+                       [anObject substringWithRange:NSMakeRange(6, 2)],
+                       [anObject substringWithRange:NSMakeRange(8, 2)]];
+        } else {                            // ###-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 3)],
+                       [anObject substringWithRange:NSMakeRange(3, 3)],
+                       [anObject substringWithRange:NSMakeRange(6, 4)]];
+        }
+        break;
+        
+      case 11:
+        if ([self splitsLastFourDigits]) {  // #-###-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 1)],
+                       [anObject substringWithRange:NSMakeRange(1, 3)],
+                       [anObject substringWithRange:NSMakeRange(4, 3)],
+                       [anObject substringWithRange:NSMakeRange(7, 2)],
+                       [anObject substringWithRange:NSMakeRange(9, 2)]];
+        } else {                            // #-###-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 1)],
+                       [anObject substringWithRange:NSMakeRange(1, 3)],
+                       [anObject substringWithRange:NSMakeRange(4, 3)],
+                       [anObject substringWithRange:NSMakeRange(7, 4)]];
+        }
+        break;
+        
+      case 12:
+        if ([self splitsLastFourDigits]) {  // ##-###-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 2)],
+                       [anObject substringWithRange:NSMakeRange(2, 3)],
+                       [anObject substringWithRange:NSMakeRange(5, 3)],
+                       [anObject substringWithRange:NSMakeRange(8, 2)],
+                       [anObject substringWithRange:NSMakeRange(10, 2)]];
+        } else {                            // ##-###-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 2)],
+                       [anObject substringWithRange:NSMakeRange(2, 3)],
+                       [anObject substringWithRange:NSMakeRange(5, 3)],
+                       [anObject substringWithRange:NSMakeRange(8, 4)]];
+        }
+        break;
+        
+      case 13:
+        if ([self splitsLastFourDigits]) {  // ###-###-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 3)],
+                       [anObject substringWithRange:NSMakeRange(3, 3)],
+                       [anObject substringWithRange:NSMakeRange(6, 3)],
+                       [anObject substringWithRange:NSMakeRange(9, 2)],
+                       [anObject substringWithRange:NSMakeRange(11, 2)]];
+        } else {                            // ###-###-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 3)],
+                       [anObject substringWithRange:NSMakeRange(3, 3)],
+                       [anObject substringWithRange:NSMakeRange(6, 3)],
+                       [anObject substringWithRange:NSMakeRange(9, 4)]];
+        }
+        break;
+        
+      case 14:
+        if ([self splitsLastFourDigits]) {  // ####-###-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 4)],
+                       [anObject substringWithRange:NSMakeRange(4, 3)],
+                       [anObject substringWithRange:NSMakeRange(7, 3)],
+                       [anObject substringWithRange:NSMakeRange(10, 2)],
+                       [anObject substringWithRange:NSMakeRange(12, 2)]];
+        } else {                            // ####-###-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 4)],
+                       [anObject substringWithRange:NSMakeRange(4, 3)],
+                       [anObject substringWithRange:NSMakeRange(7, 3)],
+                       [anObject substringWithRange:NSMakeRange(10, 4)]];
+        }
+        break;
+        
+      case 15:
+        if ([self splitsLastFourDigits]) {  // #####-###-###-##-##
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 5)],
+                       [anObject substringWithRange:NSMakeRange(5, 3)],
+                       [anObject substringWithRange:NSMakeRange(8, 3)],
+                       [anObject substringWithRange:NSMakeRange(11, 2)],
+                       [anObject substringWithRange:NSMakeRange(13, 2)]];
+        } else {                            // #####-###-###-####
+          theString = [NSString stringWithFormat:@"%@-%@-%@-%@",
+                       [anObject substringWithRange:NSMakeRange(0, 5)],
+                       [anObject substringWithRange:NSMakeRange(5, 3)],
+                       [anObject substringWithRange:NSMakeRange(8, 3)],
+                       [anObject substringWithRange:NSMakeRange(11, 4)]];
+        }
+        break;
+      default:
+        theString = anObject;
+        break;
     }
   } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+(1|7)\\\\d{10}'"]
                             evaluateWithObject:anObject]) {
-    if ([self splitsLastFourDigits])        // +# (###) ###-##-##
+    if ([self splitsLastFourDigits]) {        // +# (###) ###-##-##
       theString = [NSString stringWithFormat:@"%@ (%@) %@-%@-%@",
                    [anObject substringWithRange:NSMakeRange(0, 2)],
                    [anObject substringWithRange:NSMakeRange(2, 3)],
                    [anObject substringWithRange:NSMakeRange(5, 3)],
                    [anObject substringWithRange:NSMakeRange(8, 2)],
                    [anObject substringWithRange:NSMakeRange(10, 2)]];
-    else                                    // +# (###) ###-####
+    } else {                                  // +# (###) ###-####
       theString = [NSString stringWithFormat:@"%@ (%@) %@-%@",
                    [anObject substringWithRange:NSMakeRange(0, 2)],
                    [anObject substringWithRange:NSMakeRange(2, 3)],
                    [anObject substringWithRange:NSMakeRange(5, 3)],
                    [anObject substringWithRange:NSMakeRange(8, 4)]];
+    }
   } else {
     theString = anObject;
   }
@@ -241,8 +253,9 @@
     [scanner scanUpToCharactersFromSet:phoneNumberCharacterSet intoString:NULL];
     BOOL scanned = [scanner scanCharactersFromSet:phoneNumberCharacterSet
                                        intoString:&aString];
-    if (scanned)
+    if (scanned) {
       [telephoneNumber appendString:aString];
+    }
   }
   
   if ([telephoneNumber length] > 0) {

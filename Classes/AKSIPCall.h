@@ -117,59 +117,59 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 }
 
 // The receiver's delegate.
-@property(nonatomic, assign) id delegate;
+@property (nonatomic, assign) id delegate;
 
 // The receiver's identifier.
-@property(nonatomic, assign) NSInteger identifier;
+@property (nonatomic, assign) NSInteger identifier;
 
 // SIP URI of the local Contact header.
-@property(nonatomic, copy) AKSIPURI *localURI;
+@property (nonatomic, copy) AKSIPURI *localURI;
 
 // SIP URI of the remote Contact header.
-@property(nonatomic, copy) AKSIPURI *remoteURI;
+@property (nonatomic, copy) AKSIPURI *remoteURI;
 
 // Call state.
-@property(assign) AKSIPCallState state;
+@property (assign) AKSIPCallState state;
 
 // Call state text.
-@property(copy) NSString *stateText;
+@property (copy) NSString *stateText;
 
 // Call's last status code.
-@property(assign) NSInteger lastStatus;
+@property (assign) NSInteger lastStatus;
 
 // Call's last status text.
-@property(copy) NSString *lastStatusText;
+@property (copy) NSString *lastStatusText;
 
 // Call transfer status code.
-@property(assign) NSInteger transferStatus;
+@property (assign) NSInteger transferStatus;
 
 // Call transfer status text.
-@property(copy) NSString *transferStatusText;
+@property (copy) NSString *transferStatusText;
 
 // A Boolean value indicating whether the call is active, i.e. it has active
 // INVITE session and the INVITE session has not been disconnected.
-@property(nonatomic, readonly, assign, getter=isActive) BOOL active;
+@property (nonatomic, readonly, assign, getter=isActive) BOOL active;
 
 // A Boolean value indicating whether the call has a media session.
-@property(nonatomic, readonly, assign) BOOL hasMedia;
+@property (nonatomic, readonly, assign) BOOL hasMedia;
 
 // A Boolean value indicating whether the call's media is active.
-@property(nonatomic, readonly, assign) BOOL hasActiveMedia;
+@property (nonatomic, readonly, assign) BOOL hasActiveMedia;
 
 // A Boolean value indicating whether the call is incoming.
-@property(assign, getter=isIncoming) BOOL incoming;
+@property (assign, getter=isIncoming) BOOL incoming;
 
 // A Boolean value indicating whether microphone is muted.
-@property(nonatomic, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
+@property (nonatomic, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
 
 // A Boolean value indicating whether the call is on local hold.
-@property(nonatomic, readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
+@property (nonatomic, readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
 
 // A Boolean value indicating whether the call is on remote hold.
-@property(nonatomic, readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
+@property (nonatomic, readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
 
 // The account the call belongs to.
-@property(nonatomic, assign) AKSIPAccount *account;
+@property (nonatomic, assign) AKSIPAccount *account;
 
 // Designated initializer.
 // Initializes a AKSIPCall object with a given SIP account and identifier.

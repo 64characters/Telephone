@@ -110,8 +110,9 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 @synthesize networkToolbarItem = networkToolbarItem_;
 
 - (void)setDelegate:(id)aDelegate {
-  if (delegate_ == aDelegate)
+  if (delegate_ == aDelegate) {
     return;
+  }
   
   NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
   
@@ -119,28 +120,32 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
     [nc removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
-    if ([aDelegate respondsToSelector:@selector(preferencesControllerDidRemoveAccount:)]) {
+    if ([aDelegate respondsToSelector:
+         @selector(preferencesControllerDidRemoveAccount:)]) {
       [nc addObserver:aDelegate
              selector:@selector(preferencesControllerDidRemoveAccount:)
                  name:AKPreferencesControllerDidRemoveAccountNotification
                object:self];
     }
     
-    if ([aDelegate respondsToSelector:@selector(preferencesControllerDidChangeAccountEnabled:)]) {
+    if ([aDelegate respondsToSelector:
+         @selector(preferencesControllerDidChangeAccountEnabled:)]) {
       [nc addObserver:aDelegate
              selector:@selector(preferencesControllerDidChangeAccountEnabled:)
                  name:AKPreferencesControllerDidChangeAccountEnabledNotification
                object:self];
     }
     
-    if ([aDelegate respondsToSelector:@selector(preferencesControllerDidSwapAccounts:)]) {
+    if ([aDelegate respondsToSelector:
+         @selector(preferencesControllerDidSwapAccounts:)]) {
       [nc addObserver:aDelegate
              selector:@selector(preferencesControllerDidSwapAccounts:)
                  name:AKPreferencesControllerDidSwapAccountsNotification
                object:self];
     }
     
-    if ([aDelegate respondsToSelector:@selector(preferencesControllerDidChangeNetworkSettings:)]) {
+    if ([aDelegate respondsToSelector:
+         @selector(preferencesControllerDidChangeNetworkSettings:)]) {
       [nc addObserver:aDelegate
              selector:@selector(preferencesControllerDidChangeNetworkSettings:)
                  name:AKPreferencesControllerDidChangeNetworkSettingsNotification
@@ -294,8 +299,9 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
   if (networkPreferencesViewController_ != nil) {
     BOOL networkSettingsChanged = [[self networkPreferencesViewController]
                                    checkForNetworkSettingsChanges:window];
-    if (networkSettingsChanged)
+    if (networkSettingsChanged) {
       return NO;
+    }
   }
   
   return YES;
