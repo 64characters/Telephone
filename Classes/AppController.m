@@ -892,6 +892,8 @@ static void NameserversChanged(SCDynamicStoreRef store,
   if ([itemsArray count] > 0) {
     [itemsArray insertObject:[NSMenuItem separatorItem] atIndex:0];
     [self setAccountsMenuItems:itemsArray];
+  } else {
+    [self setAccountsMenuItems:nil];
   }
   
   // Add menu items to the Window menu.
