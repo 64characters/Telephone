@@ -1104,6 +1104,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
 			};
@@ -1155,6 +1156,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
 			};
