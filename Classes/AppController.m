@@ -750,7 +750,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
     // Get available audio devices, select devices for sound input and output.
     [self updateAudioDevices];
     
-    [self installAddressBookPlugIns];
+    // If we want to be in Mac App Store, we can't write to
+    // |~/Library/ Address Book Plug-Ins| any more.
+    //
+    // [self installAddressBookPlugIns];
+    
     [self setupGrowl];
     [self installDNSChangesCallback];
   }
@@ -1940,7 +1944,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
   // Get available audio devices, select devices for sound input and output.
   [self updateAudioDevices];
   
-  [self installAddressBookPlugIns];
+  // If we want to be in Mac App Store, we can't write to
+  // |~/Library/ Address Book Plug-Ins| any more.
+  //
+  // [self installAddressBookPlugIns];
+  
   [self setupGrowl];
   [self installDNSChangesCallback];
   
