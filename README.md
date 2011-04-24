@@ -23,6 +23,7 @@ contents.
     #define PJSUA_MAX_ACC 32
     #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS 101
     #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR "101"
+    #define PJ_DNS_MAX_IP_IN_A_REC 64
 
 Configure and build Telephone    
 
