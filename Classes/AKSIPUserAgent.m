@@ -289,7 +289,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
   return UINT_MAX;  // Denotes an object that cannot be released.
 }
 
-- (void)release {
+- (oneway void)release {
   // Do nothing.
 }
 
