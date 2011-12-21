@@ -33,7 +33,8 @@
 
 // Object: @"AddressBook".
 // Keys: @"AKPhoneNumber", @"AKFullName".
-extern NSString * const AKAddressBookDidDialPhoneNumberNotification;
+NSString * const AKAddressBookDidDialPhoneNumberNotification
+  = @"AKAddressBookDidDialPhoneNumber";
 
 // An Address Book plug-in to dial phone numbers with Telephone.
 @interface AKAddressBookPhonePlugIn : NSObject {

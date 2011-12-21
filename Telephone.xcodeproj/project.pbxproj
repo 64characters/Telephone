@@ -78,13 +78,9 @@
 		AAF299320F575101007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AAF299330F57510B007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
-		AAF2997A0F575408007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
-		AAF2998E0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
 		AAF2999D0F575678007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AAF2999E0F575678007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
-		AAF299CB0F575741007B5036 /* TelephoneAddressBookPhonePlugIn.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */; };
-		AAF299CC0F575754007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */; };
 		AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF633691056FEA600CF6C3B /* ActiveAccountViewController.m */; };
@@ -98,35 +94,7 @@
 		AAFCFFBD1074BFCA0018C7DA /* AccountSetupController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		AAF29A0A0F57583B007B5036 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AAF2990F0F575044007B5036;
-			remoteInfo = TelephoneAddressBookPhonePlugIn;
-		};
-		AAF29A0C0F57583B007B5036 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AAF299960F57566B007B5036;
-			remoteInfo = TelephoneAddressBookSIPAddressPlugIn;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		AAF299FE0F575793007B5036 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				AAF299CB0F575741007B5036 /* TelephoneAddressBookPhonePlugIn.bundle in CopyFiles */,
-				AAF299CC0F575754007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AAF51C4D0EF6CF480098A372 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -628,13 +596,10 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				AAF51C4D0EF6CF480098A372 /* CopyFiles */,
-				AAF299FE0F575793007B5036 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AAF29A0B0F57583B007B5036 /* PBXTargetDependency */,
-				AAF29A0D0F57583B007B5036 /* PBXTargetDependency */,
 			);
 			name = Telephone;
 			productInstallPath = "$(HOME)/Applications";
@@ -780,8 +745,6 @@
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
-				AAF2997A0F575408007B5036 /* AKAddressBookPhonePlugIn.m in Sources */,
-				AAF2998E0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */,
 				AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */,
 				AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
@@ -826,19 +789,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		AAF29A0B0F57583B007B5036 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */;
-			targetProxy = AAF29A0A0F57583B007B5036 /* PBXContainerItemProxy */;
-		};
-		AAF29A0D0F57583B007B5036 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */;
-			targetProxy = AAF29A0C0F57583B007B5036 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {

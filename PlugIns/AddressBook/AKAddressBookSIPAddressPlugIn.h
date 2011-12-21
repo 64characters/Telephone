@@ -33,7 +33,8 @@
 
 // Object: @"AddressBook".
 // Keys: @"AKSIPAddress", @"AKFullName".
-extern NSString * const AKAddressBookDidDialSIPAddressNotification;
+NSString * const AKAddressBookDidDialSIPAddressNotification
+  = @"AKAddressBookDidDialSIPAddress";
 
 // An address book plug-in to dial SIP addresses with Telephone. SIP addresses
 // are emails with a custom label |sip|.

@@ -33,9 +33,6 @@
 #import "AKABRecord+Querying.h"
 
 
-NSString * const AKAddressBookDidDialSIPAddressNotification
-  = @"AKAddressBookDidDialSIPAddress";
-
 @implementation AKAddressBookSIPAddressPlugIn
 
 @synthesize lastSIPAddress = lastSIPAddress_;

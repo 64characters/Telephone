@@ -33,9 +33,6 @@
 #import "AKABRecord+Querying.h"
 
 
-NSString * const AKAddressBookDidDialPhoneNumberNotification
-  = @"AKAddressBookDidDialPhoneNumber";
-
 @implementation AKAddressBookPhonePlugIn
 
 @synthesize lastPhoneNumber = lastPhoneNumber_;
