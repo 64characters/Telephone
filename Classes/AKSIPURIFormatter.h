@@ -2,7 +2,7 @@
 //  AKSIPURIFormatter.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -41,11 +41,11 @@
 }
 
 // A Boolean value indicating whether the receiver formats telephone numbers.
-@property(nonatomic, assign) BOOL formatsTelephoneNumbers;
+@property (nonatomic, assign) BOOL formatsTelephoneNumbers;
 
 // A Boolean value indicating whether the receiver's telephone number formatter
 // splits last four digits.
-@property(nonatomic, assign) BOOL telephoneNumberFormatterSplitsLastFourDigits;
+@property (nonatomic, assign) BOOL telephoneNumberFormatterSplitsLastFourDigits;
 
 // Wrapper for |getObjectValue:forString:errorDescription:|. Returns AKSIPURI
 // object converted from a given string.

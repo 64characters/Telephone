@@ -2,7 +2,7 @@
 //  AppController.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -49,7 +49,8 @@ extern NSString * const kGrowlNotificationCallEnded;
 @class AccountSetupController;
 
 // Application controller and NSApplication delegate.
-@interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate> {
+@interface AppController : NSObject <AKSIPUserAgentDelegate,
+GrowlApplicationBridgeDelegate> {
  @private
   AKSIPUserAgent *userAgent_;
   NSMutableArray *accountControllers_;
@@ -75,85 +76,85 @@ extern NSString * const kGrowlNotificationCallEnded;
 }
 
 // SIP user agent.
-@property(nonatomic, readonly, retain) AKSIPUserAgent *userAgent;
+@property (nonatomic, readonly, retain) AKSIPUserAgent *userAgent;
 
 // An array of account controllers.
-@property(nonatomic, readonly, retain) NSMutableArray *accountControllers;
+@property (nonatomic, readonly, retain) NSMutableArray *accountControllers;
 
 // An array of account controllers which are currently enabled.
-@property(nonatomic, readonly, retain) NSArray *enabledAccountControllers;
+@property (nonatomic, readonly, retain) NSArray *enabledAccountControllers;
 
 // Preferences controller.
-@property(nonatomic, readonly) PreferencesController *preferencesController;
+@property (nonatomic, readonly) PreferencesController *preferencesController;
 
 // Account setup controller.
-@property(nonatomic, readonly) AccountSetupController *accountSetupController;
+@property (nonatomic, readonly) AccountSetupController *accountSetupController;
 
 // An array of audio devices available in the system.
-@property(retain) NSArray *audioDevices;
+@property (retain) NSArray *audioDevices;
 
 // Index of an audio device for sound input.
-@property(nonatomic, assign) NSInteger soundInputDeviceIndex;
+@property (nonatomic, assign) NSInteger soundInputDeviceIndex;
 
 // Index of an audio device for sound output.
-@property(nonatomic, assign) NSInteger soundOutputDeviceIndex;
+@property (nonatomic, assign) NSInteger soundOutputDeviceIndex;
 
 // Index of an audio device for a ringtone.
-@property(nonatomic, assign) NSInteger ringtoneOutputDeviceIndex;
+@property (nonatomic, assign) NSInteger ringtoneOutputDeviceIndex;
 
 // A Boolean value indicating whether user agent sound IO should be set as soon
 // as needed, e.g. on the next call.
-@property(nonatomic, assign) BOOL shouldSetUserAgentSoundIO;
+@property (nonatomic, assign) BOOL shouldSetUserAgentSoundIO;
 
 // Incoming call ringtone.
-@property(nonatomic, retain) NSSound *ringtone;
+@property (nonatomic, retain) NSSound *ringtone;
 
 // Ringtone timer.
-@property(nonatomic, assign) NSTimer *ringtoneTimer;
+@property (nonatomic, assign) NSTimer *ringtoneTimer;
 
 // A Boolean value indicating whether accounts should be registered ASAP,
 // e.g. when the user agent finishes starting.
-@property(nonatomic, assign) BOOL shouldRegisterAllAccounts;
+@property (nonatomic, assign) BOOL shouldRegisterAllAccounts;
 
 // A Boolean value indicating whether user agent should be restarted ASAP.
-@property(nonatomic, assign) BOOL shouldRestartUserAgentASAP;
+@property (nonatomic, assign) BOOL shouldRestartUserAgentASAP;
 
 // A Boolean value indicating whether application is terminating.
 // We need to destroy the user agent gracefully on quit.
-@property(nonatomic, assign, getter=isTerminating) BOOL terminating;
+@property (nonatomic, assign, getter=isTerminating) BOOL terminating;
 
 // A Boolean value indicating whether there are any call controllers with
 // the incoming calls.
-@property(nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
+@property (nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 
 // A Boolean value indicating whether there are any call controllers with
 // the active calls.
-@property(nonatomic, readonly, assign) BOOL hasActiveCallControllers;
+@property (nonatomic, readonly, assign) BOOL hasActiveCallControllers;
 
 // An array of nameservers currently in use in the OS.
-@property(nonatomic, readonly, retain) NSArray *currentNameservers;
+@property (nonatomic, readonly, retain) NSArray *currentNameservers;
 
 // A Boolean value indicating whether the receiver has paused iTunes.
-@property(nonatomic, assign) BOOL didPauseITunes;
+@property (nonatomic, assign) BOOL didPauseITunes;
 
 // A Boolean value indicating whether user agent launch error should be
 // presented to the user.
-@property(nonatomic, assign) BOOL shouldPresentUserAgentLaunchError;
+@property (nonatomic, assign) BOOL shouldPresentUserAgentLaunchError;
 
 // Unhandled incoming calls count.
-@property(nonatomic, readonly, assign) NSUInteger unhandledIncomingCallsCount;
+@property (nonatomic, readonly, assign) NSUInteger unhandledIncomingCallsCount;
 
 // Timer for bouncing icon in the Dock.
-@property(nonatomic, assign) NSTimer *userAttentionTimer;
+@property (nonatomic, assign) NSTimer *userAttentionTimer;
 
 // Accounts menu items to show in windows menu.
-@property(nonatomic, retain) NSArray *accountsMenuItems;
+@property (nonatomic, retain) NSArray *accountsMenuItems;
 
 // Application Window menu.
-@property(nonatomic, retain) IBOutlet NSMenu *windowMenu;
+@property (nonatomic, retain) IBOutlet NSMenu *windowMenu;
 
 // Preferences menu item outlet.
-@property(nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
+@property (nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
 // Stops and destroys SIP user agent hanging up all calls and unregistering all
 // accounts.

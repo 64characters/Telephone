@@ -2,7 +2,7 @@
 //  AKAddressBookPhonePlugIn.m
 //  AKAddressBookPhonePlugIn
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -33,9 +33,6 @@
 #import "AKABRecord+Querying.h"
 
 
-NSString * const AKAddressBookDidDialPhoneNumberNotification
-  = @"AKAddressBookDidDialPhoneNumber";
-
 @implementation AKAddressBookPhonePlugIn
 
 @synthesize lastPhoneNumber = lastPhoneNumber_;
@@ -44,8 +41,9 @@ NSString * const AKAddressBookDidDialPhoneNumberNotification
 
 - (id)init {
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setShouldDial:NO];
   
@@ -84,17 +82,12 @@ NSString * const AKAddressBookDidDialPhoneNumberNotification
 
 - (void)performActionForPerson:(ABPerson *)person
                     identifier:(NSString *)identifier {
-  NSArray *applications = [[NSWorkspace sharedWorkspace] launchedApplications];
-  BOOL isTelephoneLaunched = NO;
-  for (NSDictionary *anApplication in applications) {
-    NSString *bundleIdentifier
-      = [anApplication objectForKey:@"NSApplicationBundleIdentifier"];
-    
-    if ([bundleIdentifier isEqualToString:@"com.tlphn.Telephone"]) {
-      isTelephoneLaunched = YES;
-      break;
-    }
-  }
+  
+  NSArray *applications = [[NSWorkspace sharedWorkspace] runningApplications];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                            @"bundleIdentifier == 'com.tlphn.Telephone'"];
+  applications = [applications filteredArrayUsingPredicate:predicate];
+  BOOL isTelephoneLaunched = [applications count] > 0;
   
   ABMultiValue *phones = [person valueForProperty:[self actionProperty]];
   NSString *phoneNumber = [phones valueForIdentifier:identifier];
@@ -125,8 +118,9 @@ NSString * const AKAddressBookDidDialPhoneNumberNotification
 }
 
 - (void)workspaceDidLaunchApplication:(NSNotification *)notification {
-  NSString *bundleIdentifier
-    = [[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"];
+  NSRunningApplication *application
+    = [[notification userInfo] objectForKey:NSWorkspaceApplicationKey];
+  NSString *bundleIdentifier = [application bundleIdentifier];
   
   if ([bundleIdentifier isEqualToString:@"com.tlphn.Telephone"] &&
       [self shouldDial]) {

@@ -2,7 +2,7 @@
 //  NetworkPreferencesViewController.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -48,16 +48,16 @@
 }
 
 // Preferences controller the receiver belongs to.
-@property(nonatomic, assign) PreferencesController *preferencesController;
+@property (nonatomic, assign) PreferencesController *preferencesController;
 
 // Outlets.
-@property(nonatomic, retain) IBOutlet NSTextField *transportPortField;
-@property(nonatomic, retain) IBOutlet NSTextField *STUNServerHostField;
-@property(nonatomic, retain) IBOutlet NSTextField *STUNServerPortField;
-@property(nonatomic, retain) IBOutlet NSButton *useICECheckBox;
-@property(nonatomic, retain) IBOutlet NSButton *useDNSSRVCheckBox;
-@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyHostField;
-@property(nonatomic, retain) IBOutlet NSTextField *outboundProxyPortField;
+@property (nonatomic, retain) IBOutlet NSTextField *transportPortField;
+@property (nonatomic, retain) IBOutlet NSTextField *STUNServerHostField;
+@property (nonatomic, retain) IBOutlet NSTextField *STUNServerPortField;
+@property (nonatomic, retain) IBOutlet NSButton *useICECheckBox;
+@property (nonatomic, retain) IBOutlet NSButton *useDNSSRVCheckBox;
+@property (nonatomic, retain) IBOutlet NSTextField *outboundProxyHostField;
+@property (nonatomic, retain) IBOutlet NSTextField *outboundProxyPortField;
 
 // Returns YES if network settings have been changed.
 - (BOOL)checkForNetworkSettingsChanges:(id)sender;

@@ -2,7 +2,7 @@
 //  AKAddressBookPhonePlugIn.h
 //  AKAddressBookPhonePlugIn
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,8 @@
 
 // Object: @"AddressBook".
 // Keys: @"AKPhoneNumber", @"AKFullName".
-extern NSString * const AKAddressBookDidDialPhoneNumberNotification;
+NSString * const AKAddressBookDidDialPhoneNumberNotification
+  = @"AKAddressBookDidDialPhoneNumber";
 
 // An Address Book plug-in to dial phone numbers with Telephone.
 @interface AKAddressBookPhonePlugIn : NSObject {
@@ -44,15 +45,15 @@ extern NSString * const AKAddressBookDidDialPhoneNumberNotification;
 
 // Phone number that has been dialed last. While Telephone is being launched,
 // several phone numbers can be dialed. We handle only the last one.
-@property(nonatomic, copy) NSString *lastPhoneNumber;
+@property (nonatomic, copy) NSString *lastPhoneNumber;
 
 // Full name of the contact that has been dialed last. While Telephone is being
 // launched, several phone numbers can be dialed. We handle only the last one.
-@property(nonatomic, copy) NSString *lastFullName;
+@property (nonatomic, copy) NSString *lastFullName;
 
 // A Boolean value that determines whether a call should be made after Telephone
 // starts up.
-@property(nonatomic, assign) BOOL shouldDial;
+@property (nonatomic, assign) BOOL shouldDial;
 
 - (NSString *)actionProperty;
 

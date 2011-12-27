@@ -2,7 +2,7 @@
 //  AKAddressBookSIPAddressPlugIn.m
 //  AKAddressBookSIPAddressPlugIn
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -33,9 +33,6 @@
 #import "AKABRecord+Querying.h"
 
 
-NSString * const AKAddressBookDidDialSIPAddressNotification
-  = @"AKAddressBookDidDialSIPAddress";
-
 @implementation AKAddressBookSIPAddressPlugIn
 
 @synthesize lastSIPAddress = lastSIPAddress_;
@@ -44,8 +41,9 @@ NSString * const AKAddressBookDidDialSIPAddressNotification
 
 - (id)init {
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setShouldDial:NO];
   
@@ -74,27 +72,24 @@ NSString * const AKAddressBookDidDialSIPAddressNotification
 
 - (NSString *)titleForPerson:(ABPerson *)person
                   identifier:(NSString *)identifier {
-  NSBundle *bundle
-  = [NSBundle bundleWithIdentifier:@"com.tlphn.TelephoneAddressBookSIPAddressPlugIn"];
+  
+  NSBundle *bundle = [NSBundle bundleWithIdentifier:
+                      @"com.tlphn.TelephoneAddressBookSIPAddressPlugIn"];
   
   return NSLocalizedStringFromTableInBundle(@"Dial with Telephone",
-                                            nil, bundle,
+                                            nil,
+                                            bundle,
                                             @"Action title.");
 }
 
 - (void)performActionForPerson:(ABPerson *)person
                     identifier:(NSString *)identifier {
-  NSArray *applications = [[NSWorkspace sharedWorkspace] launchedApplications];
-  BOOL isTelephoneLaunched = NO;
-  for (NSDictionary *anApplication in applications) {
-    NSString *bundleIdentifier
-    = [anApplication objectForKey:@"NSApplicationBundleIdentifier"];
-    
-    if ([bundleIdentifier isEqualToString:@"com.tlphn.Telephone"]) {
-      isTelephoneLaunched = YES;
-      break;
-    }
-  }
+  
+  NSArray *applications = [[NSWorkspace sharedWorkspace] runningApplications];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                            @"bundleIdentifier == 'com.tlphn.Telephone'"];
+  applications = [applications filteredArrayUsingPredicate:predicate];
+  BOOL isTelephoneLaunched = [applications count] > 0;
   
   ABMultiValue *emails = [person valueForProperty:[self actionProperty]];
   NSString *anEmail = [emails valueForIdentifier:identifier];
@@ -121,19 +116,22 @@ NSString * const AKAddressBookDidDialSIPAddressNotification
 
 - (BOOL)shouldEnableActionForPerson:(ABPerson *)person
                          identifier:(NSString *)identifier {
+  
   ABMultiValue *emails = [person valueForProperty:[self actionProperty]];
   NSString *label = [emails labelForIdentifier:identifier];
   
   // Enable the action only if label is |sip|.
-  if ([label caseInsensitiveCompare:@"sip"] == NSOrderedSame)
+  if ([label caseInsensitiveCompare:@"sip"] == NSOrderedSame) {
     return YES;
-  else
+  } else {
     return NO;
+  }
 }
 
 - (void)workspaceDidLaunchApplication:(NSNotification *)notification {
-  NSString *bundleIdentifier
-    = [[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"];
+  NSRunningApplication *application
+    = [[notification userInfo] objectForKey:NSWorkspaceApplicationKey];
+  NSString *bundleIdentifier = [application bundleIdentifier];
   
   if ([bundleIdentifier isEqualToString:@"com.tlphn.Telephone"] &&
       [self shouldDial]) {

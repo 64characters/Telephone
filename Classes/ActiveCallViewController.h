@@ -2,7 +2,7 @@
 //  ActiveCallViewController.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -50,30 +50,30 @@
 }
 
 // Call controller the receiver belongs to.
-@property(nonatomic, assign) CallController *callController;
+@property (nonatomic, assign) CallController *callController;
 
 // Timer to present call duration time.
-@property(nonatomic, assign) NSTimer *callTimer;
+@property (nonatomic, assign) NSTimer *callTimer;
 
 // DTMF digits entered by a user.
-@property(nonatomic, retain) NSMutableString *enteredDTMF;
+@property (nonatomic, retain) NSMutableString *enteredDTMF;
 
 // Tracking area to monitor a mouse hovering call progress indicator. When mouse
 // enters that area, progress indicator is being replaced with hang-up button.
-@property(nonatomic, retain) NSTrackingArea *callProgressIndicatorTrackingArea;
+@property (nonatomic, retain) NSTrackingArea *callProgressIndicatorTrackingArea;
 
 
 // Display Name field outlet.
-@property(nonatomic, retain) IBOutlet NSTextField *displayedNameField;
+@property (nonatomic, retain) IBOutlet NSTextField *displayedNameField;
 
 // Status field outlet.
-@property(nonatomic, retain) IBOutlet NSTextField *statusField;
+@property (nonatomic, retain) IBOutlet NSTextField *statusField;
 
 // Call progress indicator outlet.
-@property(nonatomic, retain) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;
+@property (nonatomic, retain) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;
 
 // Hang-up button outlet.
-@property(nonatomic, retain) IBOutlet NSButton *hangUpButton;
+@property (nonatomic, retain) IBOutlet NSButton *hangUpButton;
 
 
 // Designated initializer.

@@ -4,3 +4,4 @@
 *.xcodeproj/project.xcworkspace/
 *.xcodeproj/xcuserdata/
 build/
+.idea/

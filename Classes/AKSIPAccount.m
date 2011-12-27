@@ -2,7 +2,7 @@
 //  AKSIPAccount.m
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -69,40 +69,46 @@ NSString * const AKSIPAccountWillMakeCallNotification
   if (delegate_ == aDelegate)
     return;
   
-  NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+  NSNotificationCenter *notificationCenter
+    = [NSNotificationCenter defaultCenter];
   
   if (delegate_ != nil)
     [notificationCenter removeObserver:delegate_ name:nil object:self];
   
   if (aDelegate != nil) {
-    if ([aDelegate respondsToSelector:@selector(SIPAccountRegistrationDidChange:)])
-      [notificationCenter addObserver:aDelegate
-                             selector:@selector(SIPAccountRegistrationDidChange:)
-                                 name:AKSIPAccountRegistrationDidChangeNotification
-                               object:self];
+    if ([aDelegate respondsToSelector:
+         @selector(SIPAccountRegistrationDidChange:)]) {
+      [notificationCenter
+       addObserver:aDelegate
+          selector:@selector(SIPAccountRegistrationDidChange:)
+              name:AKSIPAccountRegistrationDidChangeNotification
+            object:self];
+    }
   }
   
   delegate_ = aDelegate;
 }
 
 - (void)setProxyPort:(NSUInteger)port {
-  if (port > 0 && port < 65535)
+  if (port > 0 && port < 65535) {
     proxyPort_ = port;
-  else
+  } else {
     proxyPort_ = kAKSIPAccountDefaultSIPProxyPort;
+  }
 }
 
 - (void)setReregistrationTime:(NSUInteger)seconds {
   const NSInteger reregistrationTimeMin = 60;
   const NSInteger reregistrationTimeMax = 3600;
-  if (seconds == 0)
+  if (seconds == 0) {
     reregistrationTime_ = kAKSIPAccountDefaultReregistrationTime;
-  else if (seconds < reregistrationTimeMin)
+  } else if (seconds < reregistrationTimeMin) {
     reregistrationTime_ = reregistrationTimeMin;
-  else if (seconds > reregistrationTimeMax)
+  } else if (seconds > reregistrationTimeMax) {
     reregistrationTime_ = reregistrationTimeMax;
-  else
+  } else {
     reregistrationTime_ = seconds;
+  }
 }
 
 - (BOOL)isRegistered {
@@ -111,8 +117,9 @@ NSString * const AKSIPAccountWillMakeCallNotification
 }
 
 - (void)setRegistered:(BOOL)value {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return;
+  }
   
   if (value) {
     pjsua_acc_set_registration([self identifier], PJ_TRUE);
@@ -124,81 +131,93 @@ NSString * const AKSIPAccountWillMakeCallNotification
 }
 
 - (NSInteger)registrationStatus {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return 0;
+  }
   
   pjsua_acc_info accountInfo;
   pj_status_t status;
   
   status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     return 0;
+  }
   
   return accountInfo.status;
 }
 
 - (NSString *)registrationStatusText {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return nil;
+  }
   
   pjsua_acc_info accountInfo;
   pj_status_t status;
   
   status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     return nil;
+  }
   
   return [NSString stringWithPJString:accountInfo.status_text];
 }
 
 - (NSInteger)registrationExpireTime {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return -1;
+  }
   
   pjsua_acc_info accountInfo;
   pj_status_t status;
   
   status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     return -1;
+  }
   
   return accountInfo.expires;
 }
 
 - (BOOL)isOnline {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return NO;
+  }
   
   pjsua_acc_info accountInfo;
   pj_status_t status;
   
   status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     return NO;
+  }
   
   return (accountInfo.online_status == PJ_TRUE) ? YES : NO;
 }
 
 - (void)setOnline:(BOOL)value {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return;
+  }
   
-  if (value)
+  if (value) {
     pjsua_acc_set_online_status([self identifier], PJ_TRUE);
-  else
+  } else {
     pjsua_acc_set_online_status([self identifier], PJ_FALSE);
+  }
 }
 
 - (NSString *)onlineStatusText {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return nil;
+  }
   
   pjsua_acc_info accountInfo;
   pj_status_t status;
   
   status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     return nil;
+  }
   
   return [NSString stringWithPJString:accountInfo.online_status_text];
 }
@@ -208,6 +227,7 @@ NSString * const AKSIPAccountWillMakeCallNotification
                    registrar:(NSString *)aRegistrar
                        realm:(NSString *)aRealm
                     username:(NSString *)aUsername {
+  
   return [[[AKSIPAccount alloc] initWithFullName:aFullName
                                       SIPAddress:aSIPAddress
                                        registrar:aRegistrar
@@ -221,9 +241,11 @@ NSString * const AKSIPAccountWillMakeCallNotification
              registrar:(NSString *)aRegistrar
                  realm:(NSString *)aRealm
               username:(NSString *)aUsername {
+  
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setRegistrationURI:[AKSIPURI SIPURIWithString:
                             [NSString stringWithFormat:@"\"%@\" <sip:%@>",
@@ -280,8 +302,12 @@ NSString * const AKSIPAccountWillMakeCallNotification
   pjsua_call_id callIdentifier;
   pj_str_t uri = [[destinationURI description] pjString];
   
-  pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL,
-                                            NULL, &callIdentifier);
+  pj_status_t status = pjsua_call_make_call([self identifier],
+                                            &uri,
+                                            0,
+                                            NULL,
+                                            NULL,
+                                            &callIdentifier);
   AKSIPCall *theCall = nil;
   if (status == PJ_SUCCESS) {
     for (AKSIPCall *aCall in [[[self calls] copy] autorelease]) {

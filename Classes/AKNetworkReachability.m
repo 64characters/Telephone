@@ -2,7 +2,7 @@
 //  AKNetworkReachability.m
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -49,7 +49,7 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target,
 
 @interface AKNetworkReachability ()
 
-@property(nonatomic, copy) NSString *host;
+@property (nonatomic, copy) NSString *host;
 
 @end
 
@@ -72,8 +72,9 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target,
 
 - (id)initWithHost:(NSString *)nameOrAddress {
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   if ([nameOrAddress length] == 0) {
     [self release];
@@ -122,8 +123,9 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target,
   SCNetworkReachabilityUnscheduleFromRunLoop(reachability_,
                                              CFRunLoopGetMain(),
                                              kCFRunLoopDefaultMode);
-  if (reachability_ != NULL)
+  if (reachability_ != NULL) {
     CFRelease(reachability_);
+  }
   
   [host_ release];
   
@@ -140,6 +142,7 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target,
 static void AKReachabilityChanged(SCNetworkReachabilityRef target,
                                   SCNetworkConnectionFlags flags,
                                   void *info) {
+  
   AKNetworkReachability *networkReachability = (AKNetworkReachability *)info;
   
   if (flags & kSCNetworkFlagsReachable) {

@@ -2,7 +2,7 @@
 //  CallController.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -71,61 +71,61 @@ extern NSString * const AKCallWindowWillCloseNotification;
 }
 
 // The receiver's identifier.
-@property(nonatomic, copy) NSString *identifier;
+@property (nonatomic, copy) NSString *identifier;
 
 // Call controlled by the receiver.
-@property(nonatomic, retain) AKSIPCall *call;
+@property (nonatomic, retain) AKSIPCall *call;
 
 // Account controller the receiver belongs to.
-@property(nonatomic, assign) AccountController *accountController;
+@property (nonatomic, assign) AccountController *accountController;
 
 // Call transfer controller.
-@property(nonatomic, readonly) CallTransferController *callTransferController;
+@property (nonatomic, readonly) CallTransferController *callTransferController;
 
 
 // Incoming call view controller.
-@property(nonatomic, readonly) IncomingCallViewController *incomingCallViewController;
+@property (nonatomic, readonly) IncomingCallViewController *incomingCallViewController;
 
 // Active call view controller.
-@property(nonatomic, readonly) ActiveCallViewController *activeCallViewController;
+@property (nonatomic, readonly) ActiveCallViewController *activeCallViewController;
 
 // Ended call view controller.
-@property(nonatomic, readonly) EndedCallViewController *endedCallViewController;
+@property (nonatomic, readonly) EndedCallViewController *endedCallViewController;
 
 
 // Remote party dislpay name.
-@property(nonatomic, copy) NSString *displayedName;
+@property (nonatomic, copy) NSString *displayedName;
 
 // Call status.
-@property(nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *status;
 
 // Remote party name from the Address Book.
-@property(nonatomic, copy) NSString *nameFromAddressBook;
+@property (nonatomic, copy) NSString *nameFromAddressBook;
 
 // Remote party label from the Address Book.
-@property(nonatomic, copy) NSString *phoneLabelFromAddressBook;
+@property (nonatomic, copy) NSString *phoneLabelFromAddressBook;
 
 // Call destination entered by a user.
-@property(nonatomic, copy) NSString *enteredCallDestination;
+@property (nonatomic, copy) NSString *enteredCallDestination;
 
 // SIP URI for the redial.
-@property(nonatomic, copy) AKSIPURI *redialURI;
+@property (nonatomic, copy) AKSIPURI *redialURI;
 
 // Timer to display intermediate call status. This status appears for the short
 // period of time and then is being replaced with the current call status.
-@property(nonatomic, assign) NSTimer *intermediateStatusTimer;
+@property (nonatomic, assign) NSTimer *intermediateStatusTimer;
 
 // Call start time.
-@property(nonatomic, assign) NSTimeInterval callStartTime;
+@property (nonatomic, assign) NSTimeInterval callStartTime;
 
 // A Boolean value indicating whether the receiver's call is on hold.
-@property(nonatomic, assign, getter=isCallOnHold) BOOL callOnHold;
+@property (nonatomic, assign, getter=isCallOnHold) BOOL callOnHold;
 
 // A Boolean value indicating whether the receiver's call is active.
-@property(nonatomic, assign, getter=isCallActive) BOOL callActive;
+@property (nonatomic, assign, getter=isCallActive) BOOL callActive;
 
 // A Boolean value indicating whether the receiver's call is unhandled.
-@property(nonatomic, assign, getter=isCallUnhandled) BOOL callUnhandled;
+@property (nonatomic, assign, getter=isCallUnhandled) BOOL callUnhandled;
 
 
 // Designated initializer.

@@ -2,7 +2,7 @@
 //  AccountController.m
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -83,7 +83,7 @@ NSString * const kEmailSIPLabel = @"sip";
 @interface AccountController ()
 
 // Timer for account re-registration in case of registration error.
-@property(nonatomic, assign) NSTimer *reRegistrationTimer;
+@property (nonatomic, assign) NSTimer *reRegistrationTimer;
 
 // Method to be called when account re-registration timer fires.
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer;
@@ -155,15 +155,17 @@ NSString * const kEmailSIPLabel = @"sip";
     [self setReRegistrationTimer:nil];
   }
   
-  if ([[self account] identifier] != kAKSIPUserAgentInvalidIdentifier) {  // Account has been added.
+  if ([[self account] identifier] != kAKSIPUserAgentInvalidIdentifier) {
+    // Account has been added.
     [self showConnectingState];
     
     [[self account] setRegistered:flag];
     
   } else {
+    NSString *serviceName = [NSString stringWithFormat:@"SIP: %@",
+                             [[self account] registrar]];
     NSString *password
-      = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                            [[self account] registrar]]
+      = [AKKeychain passwordForServiceName:serviceName
                                accountName:[[self account] username]];
     
     [self showConnectingState];
@@ -185,11 +187,12 @@ NSString * const kEmailSIPLabel = @"sip";
           = (NSTimeInterval)[[self account] reregistrationTime];
         
         [self setReRegistrationTimer:
-         [NSTimer scheduledTimerWithTimeInterval:reregistrationTimeInterval
-                                          target:self
-                                        selector:@selector(reRegistrationTimerTick:)
-                                        userInfo:nil
-                                         repeats:YES]];
+         [NSTimer
+          scheduledTimerWithTimeInterval:reregistrationTimeInterval
+                                  target:self
+                                selector:@selector(reRegistrationTimerTick:)
+                                userInfo:nil
+                                 repeats:YES]];
       }
         
       if ([self shouldPresentRegistrationError]) {
@@ -245,8 +248,9 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (id)initWithSIPAccount:(AKSIPAccount *)anAccount {
   self = [super initWithWindowNibName:@"Account"];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setAccount:anAccount];
   callControllers_ = [[NSMutableArray alloc] init];
@@ -276,6 +280,7 @@ NSString * const kEmailSIPLabel = @"sip";
              registrar:(NSString *)aRegistrar
                  realm:(NSString *)aRealm
               username:(NSString *)aUsername {
+  
   AKSIPAccount *anAccount = [AKSIPAccount SIPAccountWithFullName:aFullName
                                                       SIPAddress:aSIPAddress
                                                        registrar:aRegistrar
@@ -286,11 +291,13 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (void)dealloc {
-  for (CallController *aCallController in [self callControllers])
+  for (CallController *aCallController in [self callControllers]) {
     [aCallController close];
+  }
   
-  if ([[[self account] delegate] isEqual:self])
+  if ([[[self account] delegate] isEqual:self]) {
     [[self account] setDelegate:nil];
+  }
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   
@@ -322,7 +329,8 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (void)removeAccountFromUserAgent {
   NSAssert([self isEnabled],
-           @"Account conroller must be enabled to remove account from the user agent.");
+           @"Account conroller must be enabled to remove account "
+           "from the user agent.");
   
   if ([self reRegistrationTimer] != nil) {
     [[self reRegistrationTimer] invalidate];
@@ -334,8 +342,8 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (void)makeCallToURI:(AKSIPURI *)destinationURI
-           phoneLabel:(NSString *)phoneLabel
-callTransferController:(CallTransferController *)callTransferController {
+    phoneLabel:(NSString *)phoneLabel
+    callTransferController:(CallTransferController *)callTransferController {
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   AKTelephoneNumberFormatter *telephoneNumberFormatter
@@ -424,8 +432,9 @@ callTransferController:(CallTransferController *)callTransferController {
   // party from seeing local Address Book records.
   [destinationURI setDisplayName:nil];
   
-  if ([[destinationURI host] length] == 0)
+  if ([[destinationURI host] length] == 0) {
     [destinationURI setHost:[[[self account] registrationURI] host]];
+  }
   
   // Set URI for redial.
   [aCallController setRedialURI:destinationURI];
@@ -442,11 +451,11 @@ callTransferController:(CallTransferController *)callTransferController {
      [NSString stringWithFormat:
       NSLocalizedString(@"calling %@...",
                         @"Outgoing call in progress. Calling specific phone "
-                        "type (mobile, home, etc)."),
-      phoneLabel]];
+                        "type (mobile, home, etc)."), phoneLabel]];
   } else {
-    [aCallController setStatus:NSLocalizedString(@"calling...",
-                                                 @"Outgoing call in progress.")];
+    [aCallController setStatus:
+     NSLocalizedString(@"calling...",
+                       @"Outgoing call in progress.")];
   }
   
   if (callTransferController == nil) {
@@ -473,8 +482,8 @@ callTransferController:(CallTransferController *)callTransferController {
            phoneLabel:(NSString *)phoneLabel {
   
   [self makeCallToURI:destinationURI
-           phoneLabel:phoneLabel
-callTransferController:nil];
+            phoneLabel:phoneLabel
+            callTransferController:nil];
 }
 
 - (IBAction)changeAccountState:(id)sender {
@@ -519,7 +528,8 @@ callTransferController:nil];
   if (error == nil) {
     [alert setInformativeText:
      [NSString stringWithFormat:
-      NSLocalizedString(@"Please check network connection and Registry Server settings.",
+      NSLocalizedString(@"Please check network connection and Registry Server "
+                        "settings.",
                         @"Registrar connection error informative text."),
       [[self account] registrar]]];
   } else {
@@ -539,12 +549,13 @@ callTransferController:nil];
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
   
-  if ([preferredLocalization isEqualToString:@"English"])
+  if ([preferredLocalization isEqualToString:@"English"]) {
     buttonSize.width = kAccountStatePopUpAvailableEnglishWidth;
-  else if ([preferredLocalization isEqualToString:@"Russian"])
+  } else if ([preferredLocalization isEqualToString:@"Russian"]) {
     buttonSize.width = kAccountStatePopUpAvailableRussianWidth;
-  else if ([preferredLocalization isEqualToString:@"German"])
+  } else if ([preferredLocalization isEqualToString:@"German"]) {
     buttonSize.width = kAccountStatePopUpAvailableGermanWidth;
+  }
   
   [[self accountStatePopUp] setFrameSize:buttonSize];
   [[self accountStatePopUp] setTitle:
@@ -574,12 +585,13 @@ callTransferController:nil];
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
   
-  if ([preferredLocalization isEqualToString:@"English"])
+  if ([preferredLocalization isEqualToString:@"English"]) {
     buttonSize.width = kAccountStatePopUpUnavailableEnglishWidth;
-  else if ([preferredLocalization isEqualToString:@"Russian"])
+  } else if ([preferredLocalization isEqualToString:@"Russian"]) {
     buttonSize.width = kAccountStatePopUpUnavailableRussianWidth;
-  else if ([preferredLocalization isEqualToString:@"German"])
+  } else if ([preferredLocalization isEqualToString:@"German"]) {
     buttonSize.width = kAccountStatePopUpUnavailableGermanWidth;
+  }
   
   [[self accountStatePopUp] setFrameSize:buttonSize];
   [[self accountStatePopUp] setTitle:
@@ -609,12 +621,13 @@ callTransferController:nil];
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
   
-  if ([preferredLocalization isEqualToString:@"English"])
+  if ([preferredLocalization isEqualToString:@"English"]) {
     buttonSize.width = kAccountStatePopUpOfflineEnglishWidth;
-  else if ([preferredLocalization isEqualToString:@"Russian"])
+  } else if ([preferredLocalization isEqualToString:@"Russian"]) {
     buttonSize.width = kAccountStatePopUpOfflineRussianWidth;
-  else if ([preferredLocalization isEqualToString:@"German"])
+  } else if ([preferredLocalization isEqualToString:@"German"]) {
     buttonSize.width = kAccountStatePopUpOfflineGermanWidth;
+  }
   
   [[self accountStatePopUp] setFrameSize:buttonSize];
   [[self accountStatePopUp] setTitle:
@@ -640,12 +653,13 @@ callTransferController:nil];
   NSString *preferredLocalization
     = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
   
-  if ([preferredLocalization isEqualToString:@"English"])
+  if ([preferredLocalization isEqualToString:@"English"]) {
     buttonSize.width = kAccountStatePopUpConnectingEnglishWidth;
-  else if ([preferredLocalization isEqualToString:@"Russian"])
+  } else if ([preferredLocalization isEqualToString:@"Russian"]) {
     buttonSize.width = kAccountStatePopUpConnectingRussianWidth;
-  else if ([preferredLocalization isEqualToString:@"German"])
+  } else if ([preferredLocalization isEqualToString:@"German"]) {
     buttonSize.width = kAccountStatePopUpConnectingGermanWidth;
+  }
   
   [[self accountStatePopUp] setFrameSize:buttonSize];
   [[self accountStatePopUp] setTitle:
@@ -662,17 +676,19 @@ callTransferController:nil];
   
   [self setCatchedURLString:nil];
   
-  if ([[uri user] length] == 0)
+  if ([[uri user] length] == 0) {
     return;
+  }
   
   [[[self activeAccountViewController] callDestinationField]
    setTokenStyle:NSPlainTextTokenStyle];
   
   NSString *theString;
-  if ([[uri host] length] > 0)
+  if ([[uri host] length] > 0) {
     theString = [uri SIPAddress];
-  else
+  } else {
     theString = [uri user];
+  }
   
   [[[self activeAccountViewController] callDestinationField]
    setStringValue:theString];
@@ -710,8 +726,9 @@ callTransferController:nil];
   // Account identifier can be kAKSIPUserAgentInvalidIdentifier if notification
   // on the main thread was delivered after user agent had removed the account.
   // Don't bother in that case.
-  if ([[self account] identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([[self account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return;
+  }
   
   if ([[self account] isRegistered]) {
     if ([self reRegistrationTimer] != nil) {
@@ -760,10 +777,11 @@ callTransferController:nil];
                           @"Registrar authentication failed."),
         [[self account] registrar]]];
       
+      NSString *serviceName = [NSString stringWithFormat:@"SIP: %@",
+                               [[self account] registrar]];
       NSString *password
-      = [AKKeychain passwordForServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                            [[self account] registrar]]
-                               accountName:[[self account] username]];
+        = [AKKeychain passwordForServiceName:serviceName
+                                 accountName:[[self account] username]];
       
       [[[self authenticationFailureController] usernameField]
        setStringValue:[[self account] username]];
@@ -817,11 +835,12 @@ callTransferController:nil];
               = (NSTimeInterval)[[self account] reregistrationTime];
             
             [self setReRegistrationTimer:
-             [NSTimer scheduledTimerWithTimeInterval:reregistrationTimeInterval
-                                              target:self
-                                            selector:@selector(reRegistrationTimerTick:)
-                                            userInfo:nil
-                                             repeats:YES]];
+             [NSTimer
+              scheduledTimerWithTimeInterval:reregistrationTimeInterval
+                                      target:self
+                                    selector:@selector(reRegistrationTimerTick:)
+                                    userInfo:nil
+                                     repeats:YES]];
           }
         }
       }
@@ -899,8 +918,8 @@ callTransferController:nil];
     = [SIPURIFormatter stringForObjectValue:[aCall remoteURI]];
   NSString *finalStatus
     = NSLocalizedString(@"calling",
-                        @"John Smith calling. Somebody is calling us right now. "
-                        "Call status string. Deliberately in lower case, "
+                        @"John Smith calling. Somebody is calling us right "
+                        "now. Call status string. Deliberately in lower case, "
                         "translators should do the same, if possible.");
   AKSIPURI *finalRedialURI = [aCall remoteURI];
   
@@ -910,11 +929,11 @@ callTransferController:nil];
   NSArray *records = nil;
   
   ABSearchElement *SIPAddressMatch
-  = [ABPerson searchElementForProperty:kABEmailProperty
-                                 label:nil
-                                   key:nil
-                                 value:[[aCall  remoteURI] SIPAddress]
-                            comparison:kABEqualCaseInsensitive];
+    = [ABPerson searchElementForProperty:kABEmailProperty
+                                   label:nil
+                                     key:nil
+                                   value:[[aCall  remoteURI] SIPAddress]
+                              comparison:kABEqualCaseInsensitive];
   
   records = [AB recordsMatchingSearchElement:SIPAddressMatch];
   
@@ -935,10 +954,11 @@ callTransferController:nil];
               [[[aCall remoteURI] user] ak_isTelephoneNumber]))
   {  // No SIP Address found, search for the phone number.
     NSString *phoneNumberToSearch;
-    if ([[[aCall remoteURI] displayName] length] > 0)
+    if ([[[aCall remoteURI] displayName] length] > 0) {
       phoneNumberToSearch = [[aCall remoteURI] displayName];
-    else 
+    } else {
       phoneNumberToSearch = [[aCall remoteURI] user];
+    }
     
     BOOL recordFound = NO;
     
@@ -959,7 +979,7 @@ callTransferController:nil];
       
       // Find the exact phone number match.
       ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
-      for (NSUInteger i = 0; i < [phones count]; ++i)
+      for (NSUInteger i = 0; i < [phones count]; ++i) {
         if ([[phones valueAtIndex:i] isEqualToString:phoneNumberToSearch]) {
           NSString *localizedLabel
             = [AB ak_localizedLabel:[phones labelAtIndex:i]];
@@ -972,6 +992,7 @@ callTransferController:nil];
                            displayName:nil];
           break;
         }
+      }
     }
     
     NSUInteger significantPhoneNumberLength
@@ -1004,7 +1025,7 @@ callTransferController:nil];
           
           // Find the exact phone number match.
           ABMultiValue *phones = [theRecord valueForProperty:kABPhoneProperty];
-          for (NSUInteger i = 0; i < [phones count]; ++i)
+          for (NSUInteger i = 0; i < [phones count]; ++i) {
             if ([[phones valueAtIndex:i] hasSuffix:significantPhoneSuffix]) {
               NSString *localizedLabel
                 = [AB ak_localizedLabel:[phones labelAtIndex:i]];
@@ -1017,6 +1038,7 @@ callTransferController:nil];
                              displayName:nil];
               break;
             }
+          }
         }
       }
     }
@@ -1035,12 +1057,14 @@ callTransferController:nil];
           
           // Don't bother if the phone number contains only contiguous
           // digits, we should have covered such numbers in previous search.
-          if ([phoneNumber ak_isTelephoneNumber])
+          if ([phoneNumber ak_isTelephoneNumber]) {
             continue;
+          }
           
           // Don't bother if the phone number has letters.
-          if ([phoneNumber ak_hasLetters])
+          if ([phoneNumber ak_hasLetters]) {
             continue;
+          }
           
           // Here phone number probably includes spaces or other dividers.
           // Scan valid phone characters to compare with a given string.
@@ -1169,11 +1193,11 @@ callTransferController:nil];
     return;
   }
   
-  if ([self attemptingToRegisterAccount])
-    [self setAccountRegistered:YES];
-  
-  else if ([self attemptingToUnregisterAccount])
+  if ([self attemptingToRegisterAccount]) {
+    [self setAccountRegistered:YES]; 
+  } else if ([self attemptingToUnregisterAccount]) {
     [self setAccountRegistered:NO];
+  }
 }
 
 

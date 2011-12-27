@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AAF99B2D14A2577D00D087DC /* Build configuration list for PBXAggregateTarget "Address Book Plug-Ins" */;
+			buildPhases = (
+			);
+			dependencies = (
+				AAF99B3114A257A800D087DC /* PBXTargetDependency */,
+				AAF99B3314A257A800D087DC /* PBXTargetDependency */,
+			);
+			name = "Address Book Plug-Ins";
+			productName = "Address Book Plug-Ins";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -78,13 +93,9 @@
 		AAF299320F575101007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AAF299330F57510B007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
-		AAF2997A0F575408007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
-		AAF2998E0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
 		AAF2999D0F575678007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AAF2999E0F575678007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
-		AAF299CB0F575741007B5036 /* TelephoneAddressBookPhonePlugIn.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */; };
-		AAF299CC0F575754007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */; };
 		AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF633691056FEA600CF6C3B /* ActiveAccountViewController.m */; };
@@ -99,14 +110,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AAF29A0A0F57583B007B5036 /* PBXContainerItemProxy */ = {
+		AAF99B3014A257A800D087DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AAF2990F0F575044007B5036;
 			remoteInfo = TelephoneAddressBookPhonePlugIn;
 		};
-		AAF29A0C0F57583B007B5036 /* PBXContainerItemProxy */ = {
+		AAF99B3214A257A800D087DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -116,17 +127,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		AAF299FE0F575793007B5036 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				AAF299CB0F575741007B5036 /* TelephoneAddressBookPhonePlugIn.bundle in CopyFiles */,
-				AAF299CC0F575754007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AAF51C4D0EF6CF480098A372 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -178,7 +178,7 @@
 		AA2ED9A60F05B5CE004A13C6 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/Preferences.xib; sourceTree = "<group>"; };
 		AA2ED9AD0F05BA16004A13C6 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA2ED9B30F05BB64004A13C6 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
-		AA2ED9DF0F05C1E3004A13C6 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AA2ED9DF0F05C1E3004A13C6 /* Russian */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA34AF281073B70900FA38F7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		AA34AF361073B75600FA38F7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AccountPreferencesView.xib; sourceTree = "<group>"; };
 		AA34AF381073B76A00FA38F7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SoundPreferencesView.xib; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 		AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKSIPAccount.h; sourceTree = "<group>"; tabWidth = 2; };
 		AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AKSIPAccount.m; sourceTree = "<group>"; tabWidth = 2; };
 		AA4FD3A10E1E895D00D4E6A6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
-		AA5100010F1FE302003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AA5100010F1FE302003CE94C /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA5100020F1FE32F003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA51002A0F1FF943003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		AA51002C0F1FF956003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/Account.xib; sourceTree = "<group>"; };
@@ -225,8 +225,8 @@
 		AA53434612ADBAD200B47767 /* Sound.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Sound.tiff; sourceTree = "<group>"; };
 		AA584A690F06CFD2003C4992 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA584A6B0F06D007003C4992 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA6089D512E25DDD00DC44DC /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA6089D612E25DE200DC44DC /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA6089D512E25DDD00DC44DC /* Russian */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA6089D612E25DE200DC44DC /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA69ADD90E89578900CF54B3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA7645E6112090BA00656244 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; tabWidth = 2; };
 		AA7CB52211442300004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
@@ -248,6 +248,7 @@
 		AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = telephone.icns; sourceTree = "<group>"; };
 		AAA628C5110C6281008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
 		AAA628E9110C76B3008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
+		AAA780A6130867590030EBF4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		AAA810B21115D7F9008CA945 /* EndedCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = EndedCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 2; };
 		AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = EndedCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		AAAC618A0FE6A42900FBE053 /* AKNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = AKNetworkReachability.h; sourceTree = "<group>"; tabWidth = 2; };
@@ -441,6 +442,7 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				AA19171B0F8EA627002BA093 /* iTunes.h */,
 				AA0910CB0EC21F44004912A5 /* COPYRIGHT */,
+				AAA780A6130867590030EBF4 /* README.md */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -648,13 +650,10 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				AAF51C4D0EF6CF480098A372 /* CopyFiles */,
-				AAF299FE0F575793007B5036 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AAF29A0B0F57583B007B5036 /* PBXTargetDependency */,
-				AAF29A0D0F57583B007B5036 /* PBXTargetDependency */,
 			);
 			name = Telephone;
 			productInstallPath = "$(HOME)/Applications";
@@ -701,6 +700,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -718,6 +720,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Telephone */,
+				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
 				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
 				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
 			);
@@ -797,8 +800,6 @@
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
-				AAF2997A0F575408007B5036 /* AKAddressBookPhonePlugIn.m in Sources */,
-				AAF2998E0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */,
 				AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */,
 				AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
@@ -845,15 +846,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AAF29A0B0F57583B007B5036 /* PBXTargetDependency */ = {
+		AAF99B3114A257A800D087DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */;
-			targetProxy = AAF29A0A0F57583B007B5036 /* PBXContainerItemProxy */;
+			targetProxy = AAF99B3014A257A800D087DC /* PBXContainerItemProxy */;
 		};
-		AAF29A0D0F57583B007B5036 /* PBXTargetDependency */ = {
+		AAF99B3314A257A800D087DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */;
-			targetProxy = AAF29A0C0F57583B007B5036 /* PBXContainerItemProxy */;
+			targetProxy = AAF99B3214A257A800D087DC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1116,7 +1117,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1124,7 +1124,6 @@
 				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1134,17 +1133,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
 			};
@@ -1156,7 +1155,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1169,7 +1167,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1179,9 +1176,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
@@ -1193,10 +1190,24 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		AAF99B2E14A2577D00D087DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AAF99B2F14A2577D00D087DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1210,7 +1221,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1237,23 +1247,23 @@
 					"-DNDEBUG",
 				);
 				OTHER_LDFLAGS = (
-					"-lpjsua-i386-apple-darwin10.6.0",
-					"-lpjsip-ua-i386-apple-darwin10.6.0",
-					"-lpjsip-simple-i386-apple-darwin10.6.0",
-					"-lpjsip-i386-apple-darwin10.6.0",
-					"-lpjmedia-codec-i386-apple-darwin10.6.0",
-					"-lpjmedia-i386-apple-darwin10.6.0",
-					"-lpjmedia-audiodev-i386-apple-darwin10.6.0",
-					"-lpjnath-i386-apple-darwin10.6.0",
-					"-lpjlib-util-i386-apple-darwin10.6.0",
-					"-lresample-i386-apple-darwin10.6.0",
-					"-lmilenage-i386-apple-darwin10.6.0",
-					"-lsrtp-i386-apple-darwin10.6.0",
-					"-lgsmcodec-i386-apple-darwin10.6.0",
-					"-lspeex-i386-apple-darwin10.6.0",
-					"-lilbccodec-i386-apple-darwin10.6.0",
-					"-lportaudio-i386-apple-darwin10.6.0",
-					"-lpj-i386-apple-darwin10.6.0",
+					"-lpjsua-i386-apple-darwin11.2.0",
+					"-lpjsip-ua-i386-apple-darwin11.2.0",
+					"-lpjsip-simple-i386-apple-darwin11.2.0",
+					"-lpjsip-i386-apple-darwin11.2.0",
+					"-lpjmedia-codec-i386-apple-darwin11.2.0",
+					"-lpjmedia-i386-apple-darwin11.2.0",
+					"-lpjmedia-audiodev-i386-apple-darwin11.2.0",
+					"-lpjnath-i386-apple-darwin11.2.0",
+					"-lpjlib-util-i386-apple-darwin11.2.0",
+					"-lresample-i386-apple-darwin11.2.0",
+					"-lmilenage-i386-apple-darwin11.2.0",
+					"-lsrtp-i386-apple-darwin11.2.0",
+					"-lgsmcodec-i386-apple-darwin11.2.0",
+					"-lspeex-i386-apple-darwin11.2.0",
+					"-lilbccodec-i386-apple-darwin11.2.0",
+					"-lportaudio-i386-apple-darwin11.2.0",
+					"-lpj-i386-apple-darwin11.2.0",
 				);
 				PRODUCT_NAME = Telephone;
 			};
@@ -1293,23 +1303,23 @@
 					"-DNDEBUG",
 				);
 				OTHER_LDFLAGS = (
-					"-lpjsua-i386-apple-darwin10.6.0",
-					"-lpjsip-ua-i386-apple-darwin10.6.0",
-					"-lpjsip-simple-i386-apple-darwin10.6.0",
-					"-lpjsip-i386-apple-darwin10.6.0",
-					"-lpjmedia-codec-i386-apple-darwin10.6.0",
-					"-lpjmedia-i386-apple-darwin10.6.0",
-					"-lpjmedia-audiodev-i386-apple-darwin10.6.0",
-					"-lpjnath-i386-apple-darwin10.6.0",
-					"-lpjlib-util-i386-apple-darwin10.6.0",
-					"-lresample-i386-apple-darwin10.6.0",
-					"-lmilenage-i386-apple-darwin10.6.0",
-					"-lsrtp-i386-apple-darwin10.6.0",
-					"-lgsmcodec-i386-apple-darwin10.6.0",
-					"-lspeex-i386-apple-darwin10.6.0",
-					"-lilbccodec-i386-apple-darwin10.6.0",
-					"-lportaudio-i386-apple-darwin10.6.0",
-					"-lpj-i386-apple-darwin10.6.0",
+					"-lpjsua-i386-apple-darwin11.2.0",
+					"-lpjsip-ua-i386-apple-darwin11.2.0",
+					"-lpjsip-simple-i386-apple-darwin11.2.0",
+					"-lpjsip-i386-apple-darwin11.2.0",
+					"-lpjmedia-codec-i386-apple-darwin11.2.0",
+					"-lpjmedia-i386-apple-darwin11.2.0",
+					"-lpjmedia-audiodev-i386-apple-darwin11.2.0",
+					"-lpjnath-i386-apple-darwin11.2.0",
+					"-lpjlib-util-i386-apple-darwin11.2.0",
+					"-lresample-i386-apple-darwin11.2.0",
+					"-lmilenage-i386-apple-darwin11.2.0",
+					"-lsrtp-i386-apple-darwin11.2.0",
+					"-lgsmcodec-i386-apple-darwin11.2.0",
+					"-lspeex-i386-apple-darwin11.2.0",
+					"-lilbccodec-i386-apple-darwin11.2.0",
+					"-lportaudio-i386-apple-darwin11.2.0",
+					"-lpj-i386-apple-darwin11.2.0",
 				);
 				PRODUCT_NAME = Telephone;
 			};
@@ -1318,35 +1328,27 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Alexei Kuznetsov";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1370,6 +1372,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		AAF99B2D14A2577D00D087DC /* Build configuration list for PBXAggregateTarget "Address Book Plug-Ins" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAF99B2E14A2577D00D087DC /* Debug */,
+				AAF99B2F14A2577D00D087DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Telephone" */ = {
 			isa = XCConfigurationList;

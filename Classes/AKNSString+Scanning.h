@@ -2,7 +2,7 @@
 //  AKNSString+Scanning.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -36,12 +36,12 @@
 
 // A Boolean value indicating whether the receiver is a telephone number, e.g.
 // it consists of contiguous digits with an optional leading plus character.
-@property(nonatomic, readonly, assign) BOOL ak_isTelephoneNumber;
+@property (nonatomic, readonly, assign) BOOL ak_isTelephoneNumber;
 
 // A Boolean value indicating whether the receiver consists only of a-z or A-Z.
-@property(nonatomic, readonly, assign) BOOL ak_hasLetters;
+@property (nonatomic, readonly, assign) BOOL ak_hasLetters;
 
 // A Boolean value indicating whether the receiver is an IP address.
-@property(nonatomic, readonly, assign) BOOL ak_isIPAddress;
+@property (nonatomic, readonly, assign) BOOL ak_isIPAddress;
 
 @end

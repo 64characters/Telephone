@@ -2,7 +2,7 @@
 //  IncomingCallViewController.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -46,19 +46,19 @@
 }
 
 // Call controller the receiver belongs to.
-@property(nonatomic, assign) CallController *callController;
+@property (nonatomic, assign) CallController *callController;
 
 // Display Name field outlet.
-@property(nonatomic, retain) IBOutlet NSTextField *displayedNameField;
+@property (nonatomic, retain) IBOutlet NSTextField *displayedNameField;
 
 // Status field outlet.
-@property(nonatomic, retain) IBOutlet NSTextField *statusField;
+@property (nonatomic, retain) IBOutlet NSTextField *statusField;
 
 // Accept Call button outlet.
-@property(nonatomic, retain) IBOutlet NSButton *acceptCallButton;
+@property (nonatomic, retain) IBOutlet NSButton *acceptCallButton;
 
 // Decline Call button outlet.
-@property(nonatomic, retain) IBOutlet NSButton *declineCallButton;
+@property (nonatomic, retain) IBOutlet NSButton *declineCallButton;
 
 // Designated initializer.
 // Initializes an IncomingCallViewController object with a given call

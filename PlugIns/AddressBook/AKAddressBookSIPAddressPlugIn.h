@@ -2,7 +2,7 @@
 //  AKAddressBookSIPAddressPlugIn.h
 //  AKAddressBookSIPAddressPlugIn
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,8 @@
 
 // Object: @"AddressBook".
 // Keys: @"AKSIPAddress", @"AKFullName".
-extern NSString * const AKAddressBookDidDialSIPAddressNotification;
+NSString * const AKAddressBookDidDialSIPAddressNotification
+  = @"AKAddressBookDidDialSIPAddress";
 
 // An address book plug-in to dial SIP addresses with Telephone. SIP addresses
 // are emails with a custom label |sip|.
@@ -45,15 +46,15 @@ extern NSString * const AKAddressBookDidDialSIPAddressNotification;
 
 // SIP address that has been dialed last. While Telephone is being launched,
 // several phone numbers can be dialed. We handle only the last one.
-@property(nonatomic, copy) NSString *lastSIPAddress;
+@property (nonatomic, copy) NSString *lastSIPAddress;
 
 // Full name of the contact that has been dialed last. While Telephone is being
 // launched, several phone numbers can be dialed. We handle only the last one.
-@property(nonatomic, copy) NSString *lastFullName;
+@property (nonatomic, copy) NSString *lastFullName;
 
 // A Boolean value that determines whether a call should be made after Telephone
 // starts up.
-@property(nonatomic, assign) BOOL shouldDial;
+@property (nonatomic, assign) BOOL shouldDial;
 
 - (NSString *)actionProperty;
 

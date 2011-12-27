@@ -2,7 +2,7 @@
 //  SoundPreferencesViewController.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -41,10 +41,10 @@
 }
 
 // Outlets.
-@property(nonatomic, retain) IBOutlet NSPopUpButton *soundInputPopUp;
-@property(nonatomic, retain) IBOutlet NSPopUpButton *soundOutputPopUp;
-@property(nonatomic, retain) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
-@property(nonatomic, retain) IBOutlet NSPopUpButton *ringtonePopUp;
+@property (nonatomic, retain) IBOutlet NSPopUpButton *soundInputPopUp;
+@property (nonatomic, retain) IBOutlet NSPopUpButton *soundOutputPopUp;
+@property (nonatomic, retain) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
+@property (nonatomic, retain) IBOutlet NSPopUpButton *ringtonePopUp;
 
 // Changes sound input and output devices.
 - (IBAction)changeSoundIO:(id)sender;

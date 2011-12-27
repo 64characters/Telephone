@@ -2,7 +2,7 @@
 //  AKSIPCall.m
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -75,98 +75,107 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
 @synthesize account = account_;
 
 - (void)setDelegate:(id)aDelegate {
-  if (delegate_ == aDelegate)
+  if (delegate_ == aDelegate) {
     return;
+  }
   
   NSNotificationCenter *notificationCenter
     = [NSNotificationCenter defaultCenter];
   
-  if (delegate_ != nil)
+  if (delegate_ != nil) {
     [notificationCenter removeObserver:delegate_ name:nil object:self];
+  }
   
   if (aDelegate != nil) {
     // Subscribe to notifications
-    if ([aDelegate respondsToSelector:@selector(SIPCallCalling:)])
+    if ([aDelegate respondsToSelector:@selector(SIPCallCalling:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallCalling:)
                                  name:AKSIPCallCallingNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallIncoming:)])
+    }
+    if ([aDelegate respondsToSelector:@selector(SIPCallIncoming:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallIncoming:)
                                  name:AKSIPCallIncomingNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallEarly:)])
+    }
+    if ([aDelegate respondsToSelector:@selector(SIPCallEarly:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallEarly:)
                                  name:AKSIPCallEarlyNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallConnecting:)])
+    }
+    if ([aDelegate respondsToSelector:@selector(SIPCallConnecting:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallConnecting:)
                                  name:AKSIPCallConnectingNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallDidConfirm:)])
+    }
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidConfirm:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallDidConfirm:)
                                  name:AKSIPCallDidConfirmNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallDidDisconnect:)])
+    }
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidDisconnect:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallDidDisconnect:)
                                  name:AKSIPCallDidDisconnectNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallMediaDidBecomeActive:)])
+    }
+    if ([aDelegate respondsToSelector:
+         @selector(SIPCallMediaDidBecomeActive:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallMediaDidBecomeActive:)
                                  name:AKSIPCallMediaDidBecomeActiveNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallDidLocalHold:)])
+    }
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidLocalHold:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallDidLocalHold:)
                                  name:AKSIPCallDidLocalHoldNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallDidRemoteHold:)])
+    }
+    if ([aDelegate respondsToSelector:@selector(SIPCallDidRemoteHold:)]) {
       [notificationCenter addObserver:aDelegate
                              selector:@selector(SIPCallDidRemoteHold:)
                                  name:AKSIPCallDidRemoteHoldNotification
                                object:self];
-    
-    if ([aDelegate respondsToSelector:@selector(SIPCallTransferStatusDidChange:)])
-      [notificationCenter addObserver:aDelegate
-                             selector:@selector(SIPCallTransferStatusDidChange:)
-                                 name:AKSIPCallTransferStatusDidChangeNotification
-                               object:self];
+    }
+    if ([aDelegate respondsToSelector:
+         @selector(SIPCallTransferStatusDidChange:)]) {
+      [notificationCenter
+       addObserver:aDelegate
+          selector:@selector(SIPCallTransferStatusDidChange:)
+              name:AKSIPCallTransferStatusDidChangeNotification
+            object:self];
+    }
   }
   
   delegate_ = aDelegate;
 }
 
 - (BOOL)isActive {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return NO;
+  }
   
   return (pjsua_call_is_active([self identifier])) ? YES : NO;
 }
 
 - (BOOL)hasMedia {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return NO;
+  }
   
   return (pjsua_call_has_media([self identifier])) ? YES : NO;
 }
 
 - (BOOL)hasActiveMedia {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return NO;
+  }
   
   pjsua_call_info callInfo;
   pjsua_call_get_info([self identifier], &callInfo);
@@ -175,8 +184,9 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
 }
 
 - (BOOL)isOnLocalHold {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return NO;
+  }
   
   pjsua_call_info callInfo;
   pjsua_call_get_info([self identifier], &callInfo);
@@ -185,8 +195,9 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
 }
 
 - (BOOL)isOnRemoteHold {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier)
+  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
     return NO;
+  }
   
   pjsua_call_info callInfo;
   pjsua_call_get_info([self identifier], &callInfo);
@@ -199,9 +210,11 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
 
 - (id)initWithSIPAccount:(AKSIPAccount *)anAccount
               identifier:(NSInteger)anIdentifier {
+  
   self = [super init];
-  if (self == nil)
+  if (self == nil) {
     return nil;
+  }
   
   [self setIdentifier:anIdentifier];
   [self setAccount:anAccount];
@@ -219,10 +232,11 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
     [self setLocalURI:[AKSIPURI SIPURIWithString:
                        [NSString stringWithPJString:callInfo.local_info]]];
     
-    if (callInfo.state == kAKSIPCallIncomingState)
+    if (callInfo.state == kAKSIPCallIncomingState) {
       [self setIncoming:YES];
-    else
+    } else {
       [self setIncoming:NO];
+    }
     
   } else {
     [self setState:kAKSIPCallNullState];
@@ -238,8 +252,9 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
 }
 
 - (void)dealloc {
-  if ([[AKSIPUserAgent sharedUserAgent] isStarted])
+  if ([[AKSIPUserAgent sharedUserAgent] isStarted]) {
     [self hangUp];
+  }
   
   [self setDelegate:nil];
   
@@ -260,18 +275,21 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
 - (void)answer {
   pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_OK,
                                          NULL, NULL);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     NSLog(@"Error answering call %@", self);
+  }
 }
 
 - (void)hangUp {
   if (([self identifier] == kAKSIPUserAgentInvalidIdentifier) ||
-      ([self state] == kAKSIPCallDisconnectedState))
+      ([self state] == kAKSIPCallDisconnectedState)) {
     return;
+  }
   
   pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     NSLog(@"Error hanging up call %@", self);
+  }
 }
 
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall {
@@ -282,23 +300,26 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
                                [destinationCall identifier],
                                PJSUA_XFER_NO_REQUIRE_REPLACES,
                                NULL);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     NSLog(@"Error transfering call %@", self);
+  }
 }
 
 - (void)sendRingingNotification {
   pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_RINGING,
                                          NULL, NULL);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     NSLog(@"Error sending ringing notification in call %@", self);
+  }
 }
 
 - (void)replyWithTemporarilyUnavailable {
   pj_status_t status = pjsua_call_answer([self identifier],
                                          PJSIP_SC_TEMPORARILY_UNAVAILABLE,
                                          NULL, NULL);
-  if (status != PJ_SUCCESS)
+  if (status != PJ_SUCCESS) {
     NSLog(@"Error replying with 480 Temporarily Unavailable");
+  }
 }
 
 - (void)replyWithBusyHere {
@@ -313,15 +334,17 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
   AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
   
   // Use dot syntax for properties to prevent square bracket clutter.
-  if (userAgent.callData[self.identifier].ringbackOn)
+  if (userAgent.callData[self.identifier].ringbackOn) {
     return;
+  }
   
   userAgent.callData[self.identifier].ringbackOn = PJ_TRUE;
   
   [userAgent setRingbackCount:[userAgent ringbackCount] + 1];
   if ([userAgent ringbackCount] == 1 &&
-      [userAgent ringbackSlot] != kAKSIPUserAgentInvalidIdentifier)
+      [userAgent ringbackSlot] != kAKSIPUserAgentInvalidIdentifier) {
     pjsua_conf_connect([userAgent ringbackSlot], 0);
+  }
 }
 
 - (void)ringbackStop {
@@ -362,65 +385,76 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
            [digits characterAtIndex:i]];
       messageData.msg_body = [messageBody pjString];
       
-      status = pjsua_call_send_request([self identifier], &kSIPINFO, &messageData);
-      if (status != PJ_SUCCESS)
+      status = pjsua_call_send_request([self identifier],
+                                       &kSIPINFO,
+                                       &messageData);
+      if (status != PJ_SUCCESS) {
         NSLog(@"Error sending DTMF");
+      }
     }
   }
 }
 
 - (void)muteMicrophone {
   if ([self isMicrophoneMuted] ||
-      [self state] != kAKSIPCallConfirmedState)
+      [self state] != kAKSIPCallConfirmedState) {
     return;
+  }
   
   pjsua_call_info callInfo;
   pjsua_call_get_info([self identifier], &callInfo);
   
   pj_status_t status = pjsua_conf_disconnect(0, callInfo.conf_slot);
-  if (status == PJ_SUCCESS)
+  if (status == PJ_SUCCESS) {
     [self setMicrophoneMuted:YES];
-  else
+  } else {
     NSLog(@"Error muting microphone in call %@", self);
+  }
 }
 
 - (void)unmuteMicrophone {
   if (![self isMicrophoneMuted] ||
-      [self state] != kAKSIPCallConfirmedState)
+      [self state] != kAKSIPCallConfirmedState) {
     return;
+  }
   
   pjsua_call_info callInfo;
   pjsua_call_get_info([self identifier], &callInfo);
   
   pj_status_t status = pjsua_conf_connect(0, callInfo.conf_slot);
-  if (status == PJ_SUCCESS)
+  if (status == PJ_SUCCESS) {
     [self setMicrophoneMuted:NO];
-  else
+  } else {
     NSLog(@"Error unmuting microphone in call %@", self);
+  }
 }
 
 - (void)toggleMicrophoneMute {
-  if ([self isMicrophoneMuted])
+  if ([self isMicrophoneMuted]) {
     [self unmuteMicrophone];
-  else
+  } else {
     [self muteMicrophone];
+  }
 }
 
 - (void)hold {
-  if ([self state] == kAKSIPCallConfirmedState && ![self isOnRemoteHold])
+  if ([self state] == kAKSIPCallConfirmedState && ![self isOnRemoteHold]) {
     pjsua_call_set_hold([self identifier], NULL);
+  }
 }
 
 - (void)unhold {
-  if ([self state] == kAKSIPCallConfirmedState)
+  if ([self state] == kAKSIPCallConfirmedState) {
     pjsua_call_reinvite([self identifier], PJ_TRUE, NULL);
+  }
 }
 
 - (void)toggleHold {
-  if ([self isOnLocalHold])
+  if ([self isOnLocalHold]) {
     [self unhold];
-  else
+  } else {
     [self hold];
+  }
 }
 
 @end

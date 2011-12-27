@@ -2,7 +2,7 @@
 //  AKNetworkReachability.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -49,10 +49,10 @@ extern NSString * const AKNetworkReachabilityDidBecomeUnreachableNotification;
 }
 
 // Host name or address of the target host.
-@property(nonatomic, readonly, copy) NSString *host;
+@property (nonatomic, readonly, copy) NSString *host;
 
 // A Boolean value indicating whether the target host is reachable.
-@property(nonatomic, readonly, assign, getter=isReachable) BOOL reachable;
+@property (nonatomic, readonly, assign, getter=isReachable) BOOL reachable;
 
 // Returns a new instance of the network reachability for the given host.
 // Returns nil when |nameOrAddress| is nil or @"".

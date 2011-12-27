@@ -2,7 +2,7 @@
 //  SoundPreferencesViewController.m
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -102,8 +102,9 @@
     [aMenuItem setTitle:[deviceDict objectForKey:kAudioDeviceName]];
     [aMenuItem setTag:i];
     
-    if ([[deviceDict objectForKey:kAudioDeviceInputsCount] integerValue] > 0)
+    if ([[deviceDict objectForKey:kAudioDeviceInputsCount] integerValue] > 0) {
       [soundInputMenu addItem:[[aMenuItem copy] autorelease]];
+    }
     
     if ([[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
       [soundOutputMenu addItem:[[aMenuItem copy] autorelease]];
@@ -145,8 +146,9 @@
     = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
                                           NSAllDomainsMask,
                                           YES);
-  if ([libraryPaths count] <= 0)
+  if ([libraryPaths count] <= 0) {
     return;
+  }
   
   NSMenu *soundsMenu = [[[NSMenu alloc] init] autorelease];
   NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -164,8 +166,9 @@
     
     for (NSUInteger j = 0; j < [soundFiles count]; ++j) {
       NSString *aFile = [soundFiles objectAtIndex:j];
-      if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]])
+      if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]]) {
         continue;
+      }
       
       NSString *aSound = [aFile stringByDeletingPathExtension];
       if ([soundsMenu itemWithTitle:aSound] == nil) {
@@ -186,8 +189,9 @@
   NSString *savedSound
     = [[NSUserDefaults standardUserDefaults] stringForKey:kRingingSound];
   
-  if ([soundsMenu itemWithTitle:savedSound] != nil)
+  if ([soundsMenu itemWithTitle:savedSound] != nil) {
     [[self ringtonePopUp] selectItemWithTitle:savedSound];
+  }
 }
 
 - (IBAction)changeRingtone:(id)sender {

@@ -2,7 +2,7 @@
 //  AccountSetupController.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -52,16 +52,16 @@ extern NSString * const AKAccountSetupControllerDidAddAccountNotification;
 }
 
 // Outlets.
-@property(nonatomic, retain) IBOutlet NSTextField *fullNameField;
-@property(nonatomic, retain) IBOutlet NSTextField *domainField;
-@property(nonatomic, retain) IBOutlet NSTextField *usernameField;
-@property(nonatomic, retain) IBOutlet NSTextField *passwordField;
-@property(nonatomic, retain) IBOutlet NSImageView *fullNameInvalidDataView;
-@property(nonatomic, retain) IBOutlet NSImageView *domainInvalidDataView;
-@property(nonatomic, retain) IBOutlet NSImageView *usernameInvalidDataView;
-@property(nonatomic, retain) IBOutlet NSImageView *passwordInvalidDataView;
-@property(nonatomic, retain) IBOutlet NSButton *defaultButton;
-@property(nonatomic, retain) IBOutlet NSButton *otherButton;
+@property (nonatomic, retain) IBOutlet NSTextField *fullNameField;
+@property (nonatomic, retain) IBOutlet NSTextField *domainField;
+@property (nonatomic, retain) IBOutlet NSTextField *usernameField;
+@property (nonatomic, retain) IBOutlet NSTextField *passwordField;
+@property (nonatomic, retain) IBOutlet NSImageView *fullNameInvalidDataView;
+@property (nonatomic, retain) IBOutlet NSImageView *domainInvalidDataView;
+@property (nonatomic, retain) IBOutlet NSImageView *usernameInvalidDataView;
+@property (nonatomic, retain) IBOutlet NSImageView *passwordInvalidDataView;
+@property (nonatomic, retain) IBOutlet NSButton *defaultButton;
+@property (nonatomic, retain) IBOutlet NSButton *otherButton;
 
 // Closes a sheet.
 - (IBAction)closeSheet:(id)sender;

@@ -2,7 +2,7 @@
 //  AKABRecord+Querying.h
 //  Telephone
 //
-//  Copyright (c) 2008-2009 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2011 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -36,6 +36,6 @@
 @interface ABRecord (AKRecordQueryingAdditions)
 
 // Addressbook record's full name in the proper order or company name.
-@property(nonatomic, readonly, copy) NSString *ak_fullName;
+@property (nonatomic, readonly, copy) NSString *ak_fullName;
 
 @end
