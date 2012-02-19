@@ -1203,23 +1203,23 @@
 					"-DNDEBUG",
 				);
 				OTHER_LDFLAGS = (
-					"-lpjsua-i386-apple-darwin11.2.0",
-					"-lpjsip-ua-i386-apple-darwin11.2.0",
-					"-lpjsip-simple-i386-apple-darwin11.2.0",
-					"-lpjsip-i386-apple-darwin11.2.0",
-					"-lpjmedia-codec-i386-apple-darwin11.2.0",
-					"-lpjmedia-i386-apple-darwin11.2.0",
-					"-lpjmedia-audiodev-i386-apple-darwin11.2.0",
-					"-lpjnath-i386-apple-darwin11.2.0",
-					"-lpjlib-util-i386-apple-darwin11.2.0",
-					"-lresample-i386-apple-darwin11.2.0",
-					"-lmilenage-i386-apple-darwin11.2.0",
-					"-lsrtp-i386-apple-darwin11.2.0",
-					"-lgsmcodec-i386-apple-darwin11.2.0",
-					"-lspeex-i386-apple-darwin11.2.0",
-					"-lilbccodec-i386-apple-darwin11.2.0",
-					"-lportaudio-i386-apple-darwin11.2.0",
-					"-lpj-i386-apple-darwin11.2.0",
+					"-lpjsua-i386-apple-darwin11.3.0",
+					"-lpjsip-ua-i386-apple-darwin11.3.0",
+					"-lpjsip-simple-i386-apple-darwin11.3.0",
+					"-lpjsip-i386-apple-darwin11.3.0",
+					"-lpjmedia-codec-i386-apple-darwin11.3.0",
+					"-lpjmedia-i386-apple-darwin11.3.0",
+					"-lpjmedia-audiodev-i386-apple-darwin11.3.0",
+					"-lpjnath-i386-apple-darwin11.3.0",
+					"-lpjlib-util-i386-apple-darwin11.3.0",
+					"-lresample-i386-apple-darwin11.3.0",
+					"-lmilenage-i386-apple-darwin11.3.0",
+					"-lsrtp-i386-apple-darwin11.3.0",
+					"-lgsmcodec-i386-apple-darwin11.3.0",
+					"-lspeex-i386-apple-darwin11.3.0",
+					"-lilbccodec-i386-apple-darwin11.3.0",
+					"-lportaudio-i386-apple-darwin11.3.0",
+					"-lpj-i386-apple-darwin11.3.0",
 				);
 				PRODUCT_NAME = Telephone;
 			};
@@ -1259,23 +1259,23 @@
 					"-DNDEBUG",
 				);
 				OTHER_LDFLAGS = (
-					"-lpjsua-i386-apple-darwin11.2.0",
-					"-lpjsip-ua-i386-apple-darwin11.2.0",
-					"-lpjsip-simple-i386-apple-darwin11.2.0",
-					"-lpjsip-i386-apple-darwin11.2.0",
-					"-lpjmedia-codec-i386-apple-darwin11.2.0",
-					"-lpjmedia-i386-apple-darwin11.2.0",
-					"-lpjmedia-audiodev-i386-apple-darwin11.2.0",
-					"-lpjnath-i386-apple-darwin11.2.0",
-					"-lpjlib-util-i386-apple-darwin11.2.0",
-					"-lresample-i386-apple-darwin11.2.0",
-					"-lmilenage-i386-apple-darwin11.2.0",
-					"-lsrtp-i386-apple-darwin11.2.0",
-					"-lgsmcodec-i386-apple-darwin11.2.0",
-					"-lspeex-i386-apple-darwin11.2.0",
-					"-lilbccodec-i386-apple-darwin11.2.0",
-					"-lportaudio-i386-apple-darwin11.2.0",
-					"-lpj-i386-apple-darwin11.2.0",
+					"-lpjsua-i386-apple-darwin11.3.0",
+					"-lpjsip-ua-i386-apple-darwin11.3.0",
+					"-lpjsip-simple-i386-apple-darwin11.3.0",
+					"-lpjsip-i386-apple-darwin11.3.0",
+					"-lpjmedia-codec-i386-apple-darwin11.3.0",
+					"-lpjmedia-i386-apple-darwin11.3.0",
+					"-lpjmedia-audiodev-i386-apple-darwin11.3.0",
+					"-lpjnath-i386-apple-darwin11.3.0",
+					"-lpjlib-util-i386-apple-darwin11.3.0",
+					"-lresample-i386-apple-darwin11.3.0",
+					"-lmilenage-i386-apple-darwin11.3.0",
+					"-lsrtp-i386-apple-darwin11.3.0",
+					"-lgsmcodec-i386-apple-darwin11.3.0",
+					"-lspeex-i386-apple-darwin11.3.0",
+					"-lilbccodec-i386-apple-darwin11.3.0",
+					"-lportaudio-i386-apple-darwin11.3.0",
+					"-lpj-i386-apple-darwin11.3.0",
 				);
 				PRODUCT_NAME = Telephone;
 			};
@@ -1336,6 +1336,7 @@
 				AAF99B2F14A2577D00D087DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Telephone" */ = {
 			isa = XCConfigurationList;
