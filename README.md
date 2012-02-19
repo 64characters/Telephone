@@ -13,7 +13,7 @@ near Telephone, in the same parent directory.
 
   [pjsip]: http://www.pjsip.org/
 
-    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/1.8.10 pjproject
+    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/1.12 pjproject
     $ cd pjproject
 
 Create the file `pjlib/include/pj/config_site.h` with the following
@@ -29,7 +29,7 @@ contents.
 
 Configure and build Telephone    
 
-    $ ./configure --disable-ssl
+    $ CFLAGS="-O2 -arch i386 -arch x86_64" ./configure --disable-ssl
     $ make
 
 Coding Style
