@@ -100,6 +100,10 @@ static void NameserversChanged(SCDynamicStoreRef store,
 // Installs a callback to monitor system DNS servers changes.
 - (void)installDNSChangesCallback;
 
+// Creates directory for file at the specified path.  Also creates intermediate
+// directories.
+- (void)createDirectoryForFileAtPath:(NSString *)path;
+
 @end
 
 
@@ -254,16 +258,19 @@ static void NameserversChanged(SCDynamicStoreRef store,
                      forKey:kVoiceActivityDetection];
     [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseICE];
     
-    NSArray *libraryPaths
-      = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
-                                            NSUserDomainMask,
-                                            NO);
-    if ([libraryPaths count] > 0) {
-      NSString *logPath
-        = [[libraryPaths objectAtIndex:0]
-           stringByAppendingPathComponent:@"Logs/Telephone.log"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *applicationSupportURLs
+      = [fileManager URLsForDirectory:NSApplicationSupportDirectory
+                            inDomains:NSUserDomainMask];
+    
+    if ([applicationSupportURLs count] > 0) {
+      NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+      NSURL *applicationSupportURL = [applicationSupportURLs objectAtIndex:0];
+      NSURL *logURL
+        = [applicationSupportURL URLByAppendingPathComponent:bundleIdentifier];
+      logURL = [logURL URLByAppendingPathComponent:@"Telephone.log"];
       
-      [defaultsDict setObject:logPath
+      [defaultsDict setObject:[logURL path]
                        forKey:kLogFileName];
     }
     
@@ -989,6 +996,24 @@ static void NameserversChanged(SCDynamicStoreRef store,
   CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, kCFRunLoopDefaultMode);
   CFRelease(runLoopSource);
   CFRelease(dynamicStore);
+}
+
+- (void)createDirectoryForFileAtPath:(NSString *)path {
+  NSString *directoryPath = [path stringByDeletingLastPathComponent];
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  BOOL exists = [fileManager fileExistsAtPath:directoryPath
+                                  isDirectory:NULL];
+  if (!exists) {
+    NSError *error = nil;
+    BOOL created = [fileManager createDirectoryAtPath:directoryPath
+                          withIntermediateDirectories:YES
+                                           attributes:nil
+                                                error:&error];
+    if (!created) {
+      NSLog(@"Error creating directory %@. %@",
+            directoryPath, [error localizedDescription]);
+    }
+  }
 }
 
 - (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
@@ -1801,7 +1826,11 @@ static void NameserversChanged(SCDynamicStoreRef store,
   [[self userAgent] setUserAgentString:[NSString stringWithFormat:@"%@ %@",
                                         bundleName, bundleShortVersion]];
   
-  [[self userAgent] setLogFileName:[defaults stringForKey:kLogFileName]];
+  NSString *logFileName = [defaults stringForKey:kLogFileName];
+  if ([logFileName length] > 0) {
+    [self createDirectoryForFileAtPath:logFileName];
+    [[self userAgent] setLogFileName:logFileName];
+  }
   
   [[self userAgent] setLogLevel:[defaults integerForKey:kLogLevel]];
   
