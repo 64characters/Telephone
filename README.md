@@ -27,7 +27,7 @@ contents.
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
 
-Configure and build Telephone    
+Configure and build pjsip    
 
     $ CFLAGS="-O2 -arch i386 -arch x86_64" ./configure --disable-ssl
     $ make
