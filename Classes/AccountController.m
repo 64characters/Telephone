@@ -891,6 +891,16 @@ NSString * const kEmailSIPLabel = @"sip";
     }
   }
   
+  NSLog(@"user = %@, username = %@", [[aCall localURI] user], [[aCall account] username]);
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kBlockPhishingAttempts]) {
+    NSLog(@"checking username...");
+    // Check if "To: " sip field equals username on the account, dump call if no
+    if (![[[aCall localURI] user] isEqualToString:[[aCall account] username]]) {
+      NSLog(@"blocked!");
+      return;
+    }
+  }
+  
   [[NSApp delegate] pauseITunes];
   
   CallController *aCallController
