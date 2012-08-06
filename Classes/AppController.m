@@ -44,6 +44,7 @@
 #import "AKSIPURI.h"
 #import "AKSIPUserAgent.h"
 #import "iTunes.h"
+#import "Rdio.h"
 
 #import "AccountController.h"
 #import "AccountPreferencesViewController.h"
@@ -128,6 +129,7 @@ static void NameserversChanged(SCDynamicStoreRef store,
 @dynamic hasActiveCallControllers;
 @dynamic currentNameservers;
 @synthesize didPauseITunes = didPauseITunes_;
+@synthesize didPauseRdio = didPauseRdio_;
 @synthesize shouldPresentUserAgentLaunchError = shouldPresentUserAgentLaunchError_;
 @dynamic unhandledIncomingCallsCount;
 @synthesize userAttentionTimer = userAttentionTimer_;
@@ -821,6 +823,12 @@ static void NameserversChanged(SCDynamicStoreRef store,
   if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes]) {
     return;
   }
+      
+  RdioApplication *rdio = [SBApplication applicationWithBundleIdentifier:@"com.rdio.desktop"];
+  if ([rdio isRunning] && rdio.playerState == RdioEPSSPlaying) {
+    [rdio playpause];
+    self.didPauseRdio = YES;
+  }
   
   iTunesApplication *iTunes
     = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
@@ -838,6 +846,14 @@ static void NameserversChanged(SCDynamicStoreRef store,
 - (void)resumeITunesIfNeeded {
   if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes]) {
     return;
+  }
+  
+  RdioApplication *rdio = [SBApplication applicationWithBundleIdentifier:@"com.rdio.desktop"];
+  if ([rdio isRunning] && self.didPauseRdio && ![self hasActiveCallControllers]) {
+    if (rdio.playerState == RdioEPSSPaused) {
+      [rdio playpause];
+    }
+    self.didPauseRdio = NO;
   }
   
   iTunesApplication *iTunes

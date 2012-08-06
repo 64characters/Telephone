@@ -67,6 +67,7 @@ GrowlApplicationBridgeDelegate> {
   BOOL shouldRestartUserAgentASAP_;
   BOOL terminating_;
   BOOL didPauseITunes_;
+  BOOL didPauseRdio_;
   BOOL shouldPresentUserAgentLaunchError_;
   NSTimer *userAttentionTimer_;
   
@@ -136,6 +137,7 @@ GrowlApplicationBridgeDelegate> {
 
 // A Boolean value indicating whether the receiver has paused iTunes.
 @property (nonatomic, assign) BOOL didPauseITunes;
+@property (nonatomic, assign) BOOL didPauseRdio;
 
 // A Boolean value indicating whether user agent launch error should be
 // presented to the user.
