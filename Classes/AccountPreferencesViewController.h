@@ -53,6 +53,7 @@
   NSButton *useProxyCheckBox_;
   NSTextField *proxyHostField_;
   NSTextField *proxyPortField_;
+  NSButton *inbandDTMFField_;
   NSTextField *SIPAddressField_;
   NSTextField *registrarField_;
   NSTextField *cantEditAccountLabel_;
