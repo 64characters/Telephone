@@ -426,7 +426,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
       for (NSUInteger i = 0; i < count; i++) {
          // should be safe to cast unichar to char here, since dtmf is only digits, *, #, a-d
         tone.digit = (char)[digits characterAtIndex:i];
-        status = pjmedia_tonegen_play_digits(tonegen_, count, &tone, 0);
+        status = pjmedia_tonegen_play_digits(tonegen_, 1, &tone, 0);
         if (status != PJ_SUCCESS) break;
       }
       if (status == PJ_SUCCESS) return;
