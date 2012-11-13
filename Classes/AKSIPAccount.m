@@ -55,6 +55,7 @@ NSString * const AKSIPAccountWillMakeCallNotification
 @synthesize username = username_;
 @synthesize proxyHost = proxyHost_;
 @synthesize proxyPort = proxyPort_;
+@synthesize inbandDTMF = inbandDTMF_;
 @synthesize reregistrationTime = reregistrationTime_;
 @synthesize identifier = identifier_;
 @dynamic registered;

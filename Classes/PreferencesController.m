@@ -82,6 +82,7 @@ NSString * const kPlusCharacterSubstitutionString
 NSString * const kUseProxy = @"UseProxy";
 NSString * const kProxyHost = @"ProxyHost";
 NSString * const kProxyPort = @"ProxyPort";
+NSString * const kInbandDTMF = @"InbandDTMF";
 
 NSString * const kSourceIndex = @"SourceIndex";
 NSString * const kDestinationIndex = @"DestinationIndex";

@@ -114,6 +114,10 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
   
   // Account the call belongs to.
   AKSIPAccount *account_;
+  
+  pj_pool_t *pool_;
+  pjmedia_port *tonegen_;
+  pjsua_conf_port_id toneslot_;
 }
 
 // The receiver's delegate.

@@ -61,6 +61,7 @@ static const NSUInteger kAccountsMax = 32;
 @synthesize useProxyCheckBox = useProxyCheckBox_;
 @synthesize proxyHostField = proxyHostField_;
 @synthesize proxyPortField = proxyPortField_;
+@synthesize inbandDTMFField = inbandDTMFField_;
 @synthesize SIPAddressField = SIPAddressField_;
 @synthesize registrarField = registrarField_;
 @synthesize cantEditAccountLabel = cantEditAccountLabel_;
@@ -121,6 +122,7 @@ static const NSUInteger kAccountsMax = 32;
   [useProxyCheckBox_ release];
   [proxyHostField_ release];
   [proxyPortField_ release];
+  [inbandDTMFField_ release];
   [SIPAddressField_ release];
   [registrarField_ release];
   [cantEditAccountLabel_ release];
@@ -263,6 +265,7 @@ static const NSUInteger kAccountsMax = 32;
       [[self useProxyCheckBox] setEnabled:NO];
       [[self proxyHostField] setEnabled:NO];
       [[self proxyPortField] setEnabled:NO];
+      [[self inbandDTMFField] setEnabled:NO];
       [[self SIPAddressField] setEnabled:NO];
       [[self registrarField] setEnabled:NO];
       [[self cantEditAccountLabel] setHidden:NO];
@@ -294,6 +297,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self proxyHostField] setEnabled:NO];
         [[self proxyPortField] setEnabled:NO];
       }
+      
+      [[self inbandDTMFField] setEnabled:YES];
       
       [[self SIPAddressField] setEnabled:YES];
       [[self registrarField] setEnabled:YES];
@@ -380,6 +385,13 @@ static const NSUInteger kAccountsMax = 32;
       [[self proxyPortField] setStringValue:@""];
     }
     
+    if ([accountDict objectForKey:kInbandDTMF] != nil
+        && [[accountDict objectForKey:kInbandDTMF] boolValue]) {
+      [[self inbandDTMFField] setState:NSOnState];
+    } else {
+      [[self inbandDTMFField] setState:NSOffState];
+    }
+    
     // SIP Address.
     if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
       [[self SIPAddressField] setStringValue:
@@ -425,6 +437,7 @@ static const NSUInteger kAccountsMax = 32;
     [[self useProxyCheckBox] setState:NSOffState];
     [[self proxyHostField] setStringValue:@""];
     [[self proxyPortField] setStringValue:@""];
+    [[self inbandDTMFField] setState:NSOffState];
     [[self SIPAddressField] setStringValue:@""];
     [[self registrarField] setStringValue:@""];
     
@@ -440,6 +453,7 @@ static const NSUInteger kAccountsMax = 32;
     [[self useProxyCheckBox] setEnabled:NO];
     [[self proxyHostField] setEnabled:NO];
     [[self proxyPortField] setEnabled:NO];
+    [[self inbandDTMFField] setEnabled:NO];
     [[self SIPAddressField] setEnabled:NO];
     [[[self SIPAddressField] cell] setPlaceholderString:nil];
     [[self registrarField] setEnabled:NO];
@@ -544,6 +558,12 @@ static const NSUInteger kAccountsMax = 32;
                                                         integerValue]]
                     forKey:kProxyPort];
     
+    if ([[self inbandDTMFField] state] == NSOnState) {
+      [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kInbandDTMF];
+    } else {
+      [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kInbandDTMF];
+    }
+    
     NSString *SIPAddress = [[[self SIPAddressField] stringValue]
                             stringByTrimmingCharactersInSet:spacesSet];
     [accountDict setObject:SIPAddress forKey:kSIPAddress];
@@ -583,6 +603,7 @@ static const NSUInteger kAccountsMax = 32;
     [[self useProxyCheckBox] setEnabled:NO];
     [[self proxyHostField] setEnabled:NO];
     [[self proxyPortField] setEnabled:NO];
+    [[self inbandDTMFField] setEnabled:NO];
     [[self SIPAddressField] setEnabled:NO];
     [[self registrarField] setEnabled:NO];
     [[self cantEditAccountLabel] setHidden:NO];
@@ -613,6 +634,8 @@ static const NSUInteger kAccountsMax = 32;
       [[self proxyHostField] setEnabled:YES];
       [[self proxyPortField] setEnabled:YES];
     }
+    
+    [[self inbandDTMFField] setEnabled:YES];
     
     [[self SIPAddressField] setEnabled:YES];
     [[self registrarField] setEnabled:YES];

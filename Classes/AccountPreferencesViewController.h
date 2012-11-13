@@ -53,6 +53,7 @@
   NSButton *useProxyCheckBox_;
   NSTextField *proxyHostField_;
   NSTextField *proxyPortField_;
+  NSButton *inbandDTMFField_;
   NSTextField *SIPAddressField_;
   NSTextField *registrarField_;
   NSTextField *cantEditAccountLabel_;
@@ -79,6 +80,7 @@
 @property (nonatomic, retain) IBOutlet NSButton *useProxyCheckBox;
 @property (nonatomic, retain) IBOutlet NSTextField *proxyHostField;
 @property (nonatomic, retain) IBOutlet NSTextField *proxyPortField;
+@property (nonatomic, retain) IBOutlet NSButton *inbandDTMFField;
 @property (nonatomic, retain) IBOutlet NSTextField *SIPAddressField;
 @property (nonatomic, retain) IBOutlet NSTextField *registrarField;
 @property (nonatomic, retain) IBOutlet NSTextField *cantEditAccountLabel;
