@@ -243,6 +243,12 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
     [self setIncoming:NO];
   }
   
+  // will be lazy created when/if needed
+  pool_ = NULL;
+  
+  // will be lazy created when/if needed
+  tonegen_ = NULL;
+  
   return self;
 }
 
@@ -254,6 +260,17 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
 - (void)dealloc {
   if ([[AKSIPUserAgent sharedUserAgent] isStarted]) {
     [self hangUp];
+  }
+
+  // was used, so clean up
+  if (tonegen_) {
+    pjsua_conf_remove_port(toneslot_);
+    pjmedia_port_destroy(tonegen_);
+  }
+  
+  // was used, so clean up
+  if (pool_) {
+    pj_pool_release(pool_);
   }
   
   [self setDelegate:nil];
@@ -365,8 +382,57 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification
   }
 }
 
+- (pj_status_t)initTonegen
+{
+  // lazy create a mem pool
+  if (pool_ == NULL) {
+    pool_ = pjsua_pool_create("Call", 512, 512);
+    if (pool_ == NULL) return -1;
+  }
+  // lazy create/connect tonegen
+  if (tonegen_ == NULL) {
+    pjsua_call_info ci;
+    pj_status_t status = pjsua_call_get_info([self identifier], &ci);
+    if (status != PJ_SUCCESS) return status;
+    status = pjmedia_tonegen_create(pool_, 8000, 1, 160, 16, 0, &tonegen_);
+    if (status != PJ_SUCCESS) return status;
+    status = pjsua_conf_add_port(pool_, tonegen_, &toneslot_);
+    if (status != PJ_SUCCESS) return status;
+    status = pjsua_conf_connect(toneslot_, ci.conf_slot);
+    return status;
+  }
+  return PJ_SUCCESS;
+}
+
 - (void)sendDTMFDigits:(NSString *)digits {
   pj_status_t status;
+  
+  // Try to send DTMF inband if account is configured so
+  if ([account_ inbandDTMF]) {
+    status = PJ_SUCCESS;
+    // lazy init the tonegen
+    if (tonegen_ == NULL) {
+      status = [self initTonegen];
+    }
+    if (status == PJ_SUCCESS) {
+      // it may probably be more efficient to use an array of pjmedia_tone_digit
+      // and not call pjmedia_tonegen_play_digits in a loop
+      pjmedia_tone_digit tone;
+      tone.on_msec = 100;
+      tone.off_msec = 200;
+      // 0 is the default, PJMEDIA_TONEGEN_VOLUME will be used
+      tone.volume = 0;
+      NSUInteger count = [digits length];
+      for (NSUInteger i = 0; i < count; i++) {
+         // should be safe to cast unichar to char here, since dtmf is only digits, *, #, a-d
+        tone.digit = (char)[digits characterAtIndex:i];
+        status = pjmedia_tonegen_play_digits(tonegen_, count, &tone, 0);
+        if (status != PJ_SUCCESS) break;
+      }
+      if (status == PJ_SUCCESS) return;
+    }
+  }
+  
   pj_str_t pjDigits = [digits pjString];
   
   // Try to send RFC2833 DTMF first.

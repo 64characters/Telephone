@@ -70,6 +70,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
   NSString *username_;
   NSString *proxyHost_;
   NSUInteger proxyPort_;
+  BOOL inbandDTMF_;
   NSUInteger reregistrationTime_;
   
   NSInteger identifier_;
@@ -108,6 +109,10 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 // Network port to use with the SIP proxy.
 // Default: 5060.
 @property (nonatomic, assign) NSUInteger proxyPort;
+
+// If YES: Send DTMF inband. If NO: send RFC2833 DTMF, and fallback INFO DTMF
+// Default: NO
+@property (nonatomic, assign) BOOL inbandDTMF;
 
 // SIP re-registration time.
 // Default: 300 (sec).
