@@ -34,42 +34,41 @@
 
 // User agent states.
 enum {
-  kAKSIPUserAgentStopped,
-  kAKSIPUserAgentStarting,
-  kAKSIPUserAgentStarted
+    kAKSIPUserAgentStopped,
+    kAKSIPUserAgentStarting,
+    kAKSIPUserAgentStarted
 };
 typedef NSUInteger AKSIPUserAgentState;
 
 // NAT types, as specified by RFC 3489.
 enum {
-  kAKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
-  kAKNATTypeErrorUnknown   = PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
-  kAKNATTypeOpen           = PJ_STUN_NAT_TYPE_OPEN,
-  kAKNATTypeBlocked        = PJ_STUN_NAT_TYPE_BLOCKED,
-  kAKNATTypeSymmetricUDP   = PJ_STUN_NAT_TYPE_SYMMETRIC_UDP,
-  kAKNATTypeFullCone       = PJ_STUN_NAT_TYPE_FULL_CONE,
-  kAKNATTypeSymmetric      = PJ_STUN_NAT_TYPE_SYMMETRIC,
-  kAKNATTypeRestricted     = PJ_STUN_NAT_TYPE_RESTRICTED,
-  kAKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
+    kAKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
+    kAKNATTypeErrorUnknown   = PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
+    kAKNATTypeOpen           = PJ_STUN_NAT_TYPE_OPEN,
+    kAKNATTypeBlocked        = PJ_STUN_NAT_TYPE_BLOCKED,
+    kAKNATTypeSymmetricUDP   = PJ_STUN_NAT_TYPE_SYMMETRIC_UDP,
+    kAKNATTypeFullCone       = PJ_STUN_NAT_TYPE_FULL_CONE,
+    kAKNATTypeSymmetric      = PJ_STUN_NAT_TYPE_SYMMETRIC,
+    kAKNATTypeRestricted     = PJ_STUN_NAT_TYPE_RESTRICTED,
+    kAKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
 };
 typedef NSUInteger AKNATType;
 
 typedef struct _AKSIPUserAgentCallData {
-  pj_timer_entry timer;
-  pj_bool_t ringbackOn;
-  pj_bool_t ringbackOff;
+    pj_timer_entry timer;
+    pj_bool_t ringbackOn;
+    pj_bool_t ringbackOff;
 } AKSIPUserAgentCallData;
 
 // An invalid identifier for all sorts of identifiers.
 extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 
 // Notifications.
-// All AKSIPUserAgent notifications are posted by the user agent instance
-// returned by |sharedUserAgent|.
 //
-// Posted when the user agent finishes starting. However, it may not be started
-// if an error occurred during user agent start-up. You can check user agent
-// state via the |state| property.
+// All AKSIPUserAgent notifications are posted by the user agent instance returned by |sharedUserAgent|.
+//
+// Posted when the user agent finishes starting. However, it may not be started if an error occurred during user agent
+// start-up. You can check user agent state via the |state| property.
 extern NSString * const AKSIPUserAgentDidFinishStartingNotification;
 //
 // Posted when the user agent finishes stopping.
@@ -94,38 +93,37 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 
 @class AKSIPCall;
 
-// The AKSIPUserAgent class implements SIP User Agent functionality. You can use
-// it to create, configure, and start user agent, add and remove accounts, and
-// set sound devices for input and output. You need to restart the user agent
-// after you change its properties when it is already running.
+// The AKSIPUserAgent class implements SIP User Agent functionality. You can use it to create, configure, and start user
+// agent, add and remove accounts, and set sound devices for input and output. You need to restart the user agent after
+// you change its properties when it is already running.
 @interface AKSIPUserAgent : NSObject {
- @private
-  id <AKSIPUserAgentDelegate> delegate_;
-  
-  NSMutableArray *accounts_;
-  AKSIPUserAgentState state_;
-  AKNATType detectedNATType_;
-  NSLock *pjsuaLock_;
-  
-  NSArray *nameservers_;
-  NSString *outboundProxyHost_;
-  NSUInteger outboundProxyPort_;
-  NSString *STUNServerHost_;
-  NSUInteger STUNServerPort_;
-  NSString *userAgentString_;
-  NSString *logFileName_;
-  NSUInteger logLevel_;
-  NSUInteger consoleLogLevel_;
-  BOOL detectsVoiceActivity_;
-  BOOL usesICE_;
-  NSUInteger transportPort_;
-  NSString *transportPublicHost_;
-  
-  AKSIPUserAgentCallData callData_[PJSUA_MAX_CALLS];
-  pj_pool_t *pjPool_;
-  NSInteger ringbackSlot_;
-  NSInteger ringbackCount_;
-  pjmedia_port *ringbackPort_;
+  @private
+    id <AKSIPUserAgentDelegate> delegate_;
+    
+    NSMutableArray *accounts_;
+    AKSIPUserAgentState state_;
+    AKNATType detectedNATType_;
+    NSLock *pjsuaLock_;
+    
+    NSArray *nameservers_;
+    NSString *outboundProxyHost_;
+    NSUInteger outboundProxyPort_;
+    NSString *STUNServerHost_;
+    NSUInteger STUNServerPort_;
+    NSString *userAgentString_;
+    NSString *logFileName_;
+    NSUInteger logLevel_;
+    NSUInteger consoleLogLevel_;
+    BOOL detectsVoiceActivity_;
+    BOOL usesICE_;
+    NSUInteger transportPort_;
+    NSString *transportPublicHost_;
+    
+    AKSIPUserAgentCallData callData_[PJSUA_MAX_CALLS];
+    pj_pool_t *pjPool_;
+    NSInteger ringbackSlot_;
+    NSInteger ringbackCount_;
+    pjmedia_port *ringbackPort_;
 }
 
 // The receiver's delegate.
@@ -245,9 +243,8 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 - (BOOL)stopSound;
 
 // Updates list of audio devices.
-// You might want to call this method when system audio devices are changed.
-// After calling this method, |setSoundInputDevice:soundOutputDevice:| must be
-// called to set appropriate sound IO.
+// You might want to call this method when system audio devices are changed. After calling this method,
+// |setSoundInputDevice:soundOutputDevice:| must be called to set appropriate sound IO.
 - (void)updateAudioDevices;
 
 // Returns a string that describes given SIP response code from RFC 3261.

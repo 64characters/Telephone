@@ -35,26 +35,26 @@
 extern const NSInteger kAKSIPCallsMax;
 
 enum {
-  // Before INVITE is sent or received.
-  kAKSIPCallNullState =         PJSIP_INV_STATE_NULL,
-  
-  // After INVITE is sent.
-  kAKSIPCallCallingState =      PJSIP_INV_STATE_CALLING,
-  
-  // After INVITE is received.
-  kAKSIPCallIncomingState =     PJSIP_INV_STATE_INCOMING,
-  
-  // After response with To tag.
-  kAKSIPCallEarlyState =        PJSIP_INV_STATE_EARLY,
-  
-  // After 2xx is sent/received.
-  kAKSIPCallConnectingState =   PJSIP_INV_STATE_CONNECTING,
-  
-  // After ACK is sent/received.
-  kAKSIPCallConfirmedState =    PJSIP_INV_STATE_CONFIRMED,
-  
-  // Session is terminated.
-  kAKSIPCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
+    // Before INVITE is sent or received.
+    kAKSIPCallNullState =         PJSIP_INV_STATE_NULL,
+    
+    // After INVITE is sent.
+    kAKSIPCallCallingState =      PJSIP_INV_STATE_CALLING,
+    
+    // After INVITE is received.
+    kAKSIPCallIncomingState =     PJSIP_INV_STATE_INCOMING,
+    
+    // After response with To tag.
+    kAKSIPCallEarlyState =        PJSIP_INV_STATE_EARLY,
+    
+    // After 2xx is sent/received.
+    kAKSIPCallConnectingState =   PJSIP_INV_STATE_CONNECTING,
+    
+    // After ACK is sent/received.
+    kAKSIPCallConfirmedState =    PJSIP_INV_STATE_CONFIRMED,
+    
+    // Session is terminated.
+    kAKSIPCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
 };
 typedef NSUInteger AKSIPCallState;
 
@@ -68,7 +68,7 @@ extern NSString * const AKSIPCallCallingNotification;
 extern NSString * const AKSIPCallIncomingNotification;
 //
 // Early. After response with To tag.
-// Keys: // @"AKSIPEventCode", @"AKSIPEventReason".
+// Keys: @"AKSIPEventCode", @"AKSIPEventReason".
 extern NSString * const AKSIPCallEarlyNotification;
 //
 // Connecting. After 2xx is sent/received.
@@ -97,23 +97,23 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 
 // A class representing a SIP call.
 @interface AKSIPCall : NSObject {
- @private
-  id delegate_;
-  
-  NSInteger identifier_;
-  AKSIPURI *localURI_;
-  AKSIPURI *remoteURI_;
-  AKSIPCallState state_;
-  NSString *stateText_;
-  NSInteger lastStatus_;
-  NSString *lastStatusText_;
-  NSInteger transferStatus_;
-  NSString *transferStatusText_;
-  BOOL incoming_;
-  BOOL microphoneMuted_;
-  
-  // Account the call belongs to.
-  AKSIPAccount *account_;
+  @private
+    id delegate_;
+    
+    NSInteger identifier_;
+    AKSIPURI *localURI_;
+    AKSIPURI *remoteURI_;
+    AKSIPCallState state_;
+    NSString *stateText_;
+    NSInteger lastStatus_;
+    NSString *lastStatusText_;
+    NSInteger transferStatus_;
+    NSString *transferStatusText_;
+    BOOL incoming_;
+    BOOL microphoneMuted_;
+    
+    // Account the call belongs to.
+    AKSIPAccount *account_;
 }
 
 // The receiver's delegate.
@@ -182,10 +182,9 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 // Hangs-up the call.
 - (void)hangUp;
 
-// Attended call transfer. Sends REFER request to the receiver's remote party
-// to initiate new INVITE session to the URL of |destinationCall|. The party
-// at |destinationCall| then should replace the call with us with the new call
-// from the REFER recipient.
+// Attended call transfer. Sends REFER request to the receiver's remote party to initiate new INVITE session to the URL
+// of |destinationCall|. The party at |destinationCall| then should replace the call with us with the new call from the
+// REFER recipient.
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall;
 
 // Sends ringing notification to another party.

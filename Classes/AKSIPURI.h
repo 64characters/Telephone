@@ -33,18 +33,18 @@
 
 // A class representing SIP URI.
 @interface AKSIPURI : NSObject <NSCopying> {
- @private
-  NSString *displayName_;
-  NSString *user_;
-  NSString *password_;
-  NSString *host_;
-  NSInteger port_;
-  NSString *userParameter_;
-  NSString *methodParameter_;
-  NSString *transportParameter_;
-  NSInteger TTLParameter_;
-  NSInteger looseRoutingParameter_;
-  NSString *maddrParameter_;
+  @private
+    NSString *displayName_;
+    NSString *user_;
+    NSString *password_;
+    NSString *host_;
+    NSInteger port_;
+    NSString *userParameter_;
+    NSString *methodParameter_;
+    NSString *transportParameter_;
+    NSInteger TTLParameter_;
+    NSInteger looseRoutingParameter_;
+    NSString *maddrParameter_;
 }
 
 // SIP address in the form |user@host| or |host|.
@@ -83,20 +83,15 @@
 // The receiver's maddr parameter.
 @property (nonatomic, copy) NSString *maddrParameter;
 
-// Creates and returns AKSIPURI object initialized with a specified user, host,
-// and display name.
-+ (id)SIPURIWithUser:(NSString *)aUser
-                host:(NSString *)aHost
-         displayName:(NSString *)aDisplayName;
+// Creates and returns AKSIPURI object initialized with a specified user, host, and display name.
++ (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
 
 // Creates and returns AKSIPURI object initialized with a provided string.
 + (id)SIPURIWithString:(NSString *)SIPURIString;
 
 // Designated initializer.
 // Initializes a AKSIPURI object with a specified user, host, and display name.
-- (id)initWithUser:(NSString *)aUser
-              host:(NSString *)aHost
-       displayName:(NSString *)aDisplayName;
+- (id)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
 
 // Initializes a AKSIPURI object with a provided string.
 - (id)initWithString:(NSString *)SIPURIString;
