@@ -49,30 +49,29 @@ extern NSString * const kGrowlNotificationCallEnded;
 @class AccountSetupController;
 
 // Application controller and NSApplication delegate.
-@interface AppController : NSObject <AKSIPUserAgentDelegate,
-GrowlApplicationBridgeDelegate> {
- @private
-  AKSIPUserAgent *userAgent_;
-  NSMutableArray *accountControllers_;
-  PreferencesController *preferencesController_;
-  AccountSetupController *accountSetupController_;
-  NSArray *audioDevices_;
-  NSInteger soundInputDeviceIndex_;
-  NSInteger soundOutputDeviceIndex_;
-  NSInteger ringtoneOutputDeviceIndex_;
-  BOOL shouldSetUserAgentSoundIO_;
-  NSSound *ringtone_;
-  NSTimer *ringtoneTimer_;
-  BOOL shouldRegisterAllAccounts_;
-  BOOL shouldRestartUserAgentASAP_;
-  BOOL terminating_;
-  BOOL didPauseITunes_;
-  BOOL shouldPresentUserAgentLaunchError_;
-  NSTimer *userAttentionTimer_;
-  
-  NSArray *accountsMenuItems_;
-  NSMenu *windowMenu_;
-  NSMenuItem *preferencesMenuItem_;
+@interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate> {
+  @private
+    AKSIPUserAgent *userAgent_;
+    NSMutableArray *accountControllers_;
+    PreferencesController *preferencesController_;
+    AccountSetupController *accountSetupController_;
+    NSArray *audioDevices_;
+    NSInteger soundInputDeviceIndex_;
+    NSInteger soundOutputDeviceIndex_;
+    NSInteger ringtoneOutputDeviceIndex_;
+    BOOL shouldSetUserAgentSoundIO_;
+    NSSound *ringtone_;
+    NSTimer *ringtoneTimer_;
+    BOOL shouldRegisterAllAccounts_;
+    BOOL shouldRestartUserAgentASAP_;
+    BOOL terminating_;
+    BOOL didPauseITunes_;
+    BOOL shouldPresentUserAgentLaunchError_;
+    NSTimer *userAttentionTimer_;
+    
+    NSArray *accountsMenuItems_;
+    NSMenu *windowMenu_;
+    NSMenuItem *preferencesMenuItem_;
 }
 
 // SIP user agent.
@@ -112,8 +111,7 @@ GrowlApplicationBridgeDelegate> {
 // Ringtone timer.
 @property (nonatomic, assign) NSTimer *ringtoneTimer;
 
-// A Boolean value indicating whether accounts should be registered ASAP,
-// e.g. when the user agent finishes starting.
+// A Boolean value indicating whether accounts should be registered ASAP, e.g. when the user agent finishes starting.
 @property (nonatomic, assign) BOOL shouldRegisterAllAccounts;
 
 // A Boolean value indicating whether user agent should be restarted ASAP.
@@ -123,12 +121,10 @@ GrowlApplicationBridgeDelegate> {
 // We need to destroy the user agent gracefully on quit.
 @property (nonatomic, assign, getter=isTerminating) BOOL terminating;
 
-// A Boolean value indicating whether there are any call controllers with
-// the incoming calls.
+// A Boolean value indicating whether there are any call controllers with the incoming calls.
 @property (nonatomic, readonly, assign) BOOL hasIncomingCallControllers;
 
-// A Boolean value indicating whether there are any call controllers with
-// the active calls.
+// A Boolean value indicating whether there are any call controllers with the active calls.
 @property (nonatomic, readonly, assign) BOOL hasActiveCallControllers;
 
 // An array of nameservers currently in use in the OS.
@@ -137,8 +133,7 @@ GrowlApplicationBridgeDelegate> {
 // A Boolean value indicating whether the receiver has paused iTunes.
 @property (nonatomic, assign) BOOL didPauseITunes;
 
-// A Boolean value indicating whether user agent launch error should be
-// presented to the user.
+// A Boolean value indicating whether user agent launch error should be presented to the user.
 @property (nonatomic, assign) BOOL shouldPresentUserAgentLaunchError;
 
 // Unhandled incoming calls count.
@@ -156,12 +151,10 @@ GrowlApplicationBridgeDelegate> {
 // Preferences menu item outlet.
 @property (nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
 
-// Stops and destroys SIP user agent hanging up all calls and unregistering all
-// accounts.
+// Stops and destroys SIP user agent hanging up all calls and unregistering all accounts.
 - (void)stopUserAgent;
 
-// A shortcut to restart user agent. Sets appropriate flags to start user agent,
-// and then calls |stopUserAgent|.
+// A shortcut to restart user agent. Sets appropriate flags to start user agent, and then calls |stopUserAgent|.
 - (void)restartUserAgent;
 
 // Updates list of available audio devices.
@@ -212,9 +205,8 @@ GrowlApplicationBridgeDelegate> {
 // Makes account winfow key or hides it.
 - (IBAction)toggleAccountWindow:(id)sender;
 
-// Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|. Updates
-// plug-ins if the installed versions are outdated. Does not guaranteed to
-// return a valid |error| if the method returns NO.
+// Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|. Updates plug-ins if the installed versions are
+// outdated. Does not guaranteed to return a valid |error| if the method returns NO.
 - (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error;
 
 // Returns a localized string describing a given SIP response code.
