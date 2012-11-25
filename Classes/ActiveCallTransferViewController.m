@@ -40,26 +40,26 @@
 @synthesize transferButton = transferButton_;
 
 - (void)dealloc {
-  [transferButton_ release];
-  [super dealloc];
+    [transferButton_ release];
+    [super dealloc];
 }
 
 - (void)awakeFromNib {
-  [super awakeFromNib];
-  
-  [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleLight];
-  [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+    [super awakeFromNib];
+    
+    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleLight];
 }
 
 - (IBAction)transferCall:(id)sender {
-  if (![[self callController] isCallOnHold]) {
-    [[self callController] toggleCallHold];
-  }
-  [(CallTransferController *)[self callController] transferCall];
+    if (![[self callController] isCallOnHold]) {
+        [[self callController] toggleCallHold];
+    }
+    [(CallTransferController *)[self callController] transferCall];
 }
 
 - (IBAction)showCallTransferSheet:(id)sender {
-  // Do nothing.
+    // Do nothing.
 }
 
 
@@ -67,11 +67,11 @@
 #pragma mark NSMenuValidation protocol
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-  if ([menuItem action] == @selector(showCallTransferSheet:)) {
-    return NO;
-  }
-  
-  return [super validateMenuItem:menuItem];
+    if ([menuItem action] == @selector(showCallTransferSheet:)) {
+        return NO;
+    }
+    
+    return [super validateMenuItem:menuItem];
 }
 
 @end

@@ -31,12 +31,11 @@
 #import <Cocoa/Cocoa.h>
 
 
-// Allows progress indicator to send an action message to a target on mouse-up
-// events.
+// Allows progress indicator to send an action message to a target on mouse-up events.
 @interface AKResponsiveProgressIndicator : NSProgressIndicator {
- @private
-  id target_;
-  SEL action_;
+  @private
+    id target_;
+    SEL action_;
 }
 
 // The receiver's target.

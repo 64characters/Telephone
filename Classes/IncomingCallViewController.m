@@ -44,52 +44,47 @@
 @synthesize declineCallButton = declineCallButton_;
 
 - (id)initWithCallController:(CallController *)callController {
-  self = [super initWithNibName:@"IncomingCallView"
-                         bundle:nil
-               windowController:callController];
-  
-  if (self != nil) {
-    [self setCallController:callController];
-  }
-  return self;
+    self = [super initWithNibName:@"IncomingCallView" bundle:nil windowController:callController];
+    
+    if (self != nil) {
+        [self setCallController:callController];
+    }
+    return self;
 }
 
 - (id)init {
-  [self dealloc];
-  NSString *reason
-    = @"Initialize IncomingCallViewController with initWithCallController:";
-  @throw [NSException exceptionWithName:@"AKBadInitCall"
-                                 reason:reason
-                               userInfo:nil];
-  return nil;
+    [self dealloc];
+    NSString *reason = @"Initialize IncomingCallViewController with initWithCallController:";
+    @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
+    return nil;
 }
 
 - (void)dealloc {
-  [displayedNameField_ release];
-  [statusField_ release];
-  [acceptCallButton_ release];
-  [declineCallButton_ release];
-  
-  [super dealloc];
+    [displayedNameField_ release];
+    [statusField_ release];
+    [acceptCallButton_ release];
+    [declineCallButton_ release];
+    
+    [super dealloc];
 }
 
 - (void)removeObservations {
-  [[self displayedNameField] unbind:NSValueBinding];
-  [[self statusField] unbind:NSValueBinding];
-  [super removeObservations];
+    [[self displayedNameField] unbind:NSValueBinding];
+    [[self statusField] unbind:NSValueBinding];
+    [super removeObservations];
 }
 
 - (void)awakeFromNib {
-  [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-  [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
+    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
+    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
 }
 
 - (IBAction)acceptCall:(id)sender {
-  [[self callController] acceptCall];
+    [[self callController] acceptCall];
 }
 
 - (IBAction)hangUpCall:(id)sender {
-  [[self callController] hangUpCall];
+    [[self callController] hangUpCall];
 }
 
 
@@ -97,12 +92,11 @@
 #pragma mark NSMenuValidation protocol
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-  if ([menuItem action] == @selector(hangUpCall:)) {
-    [menuItem setTitle:NSLocalizedString(@"Decline",
-                                         @"Decline. Call menu item.")];
-  }
-  
-  return YES;
+    if ([menuItem action] == @selector(hangUpCall:)) {
+        [menuItem setTitle:NSLocalizedString(@"Decline", @"Decline. Call menu item.")];
+    }
+    
+    return YES;
 }
 
 @end

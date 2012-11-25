@@ -36,13 +36,13 @@
 @class CallController;
 
 @interface IncomingCallViewController : XSViewController {
- @private
-  CallController *callController_;
-  
-  NSTextField *displayedNameField_;
-  NSTextField *statusField_;
-  NSButton *acceptCallButton_;
-  NSButton *declineCallButton_;
+  @private
+    CallController *callController_;
+    
+    NSTextField *displayedNameField_;
+    NSTextField *statusField_;
+    NSButton *acceptCallButton_;
+    NSButton *declineCallButton_;
 }
 
 // Call controller the receiver belongs to.
@@ -61,8 +61,7 @@
 @property (nonatomic, retain) IBOutlet NSButton *declineCallButton;
 
 // Designated initializer.
-// Initializes an IncomingCallViewController object with a given call
-// controller.
+// Initializes an IncomingCallViewController object with a given call controller.
 - (id)initWithCallController:(CallController *)callController;
 
 // Accepts an incoming call.

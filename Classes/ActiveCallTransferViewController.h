@@ -35,8 +35,8 @@
 
 // An active call controller of a call transfer.
 @interface ActiveCallTransferViewController : ActiveCallViewController {
- @private
-  NSButton *transferButton_;
+  @private
+    NSButton *transferButton_;
 }
 
 // Call transfer button.

@@ -45,29 +45,29 @@ extern NSString * const AKCallWindowWillCloseNotification;
 
 // A call controller.
 @interface CallController : XSWindowController {
- @private
-  NSString *identifier_;
-  AKSIPCall *call_;
-  AccountController *accountController_;
-  CallTransferController *callTransferController_;
-  
-  IncomingCallViewController *incomingCallViewController_;
- @protected
-  ActiveCallViewController *activeCallViewController_;
-  EndedCallViewController *endedCallViewController_;
- 
- @private
-  NSString *displayedName_;
-  NSString *status_;
-  NSString *nameFromAddressBook_;
-  NSString *phoneLabelFromAddressBook_;
-  NSString *enteredCallDestination_;
-  AKSIPURI *redialURI_;
-  NSTimer *intermediateStatusTimer_;
-  NSTimeInterval callStartTime_;
-  BOOL callOnHold_;
-  BOOL callActive_;
-  BOOL callUnhandled_;
+  @private
+    NSString *identifier_;
+    AKSIPCall *call_;
+    AccountController *accountController_;
+    CallTransferController *callTransferController_;
+    
+    IncomingCallViewController *incomingCallViewController_;
+  @protected
+    ActiveCallViewController *activeCallViewController_;
+    EndedCallViewController *endedCallViewController_;
+    
+  @private
+    NSString *displayedName_;
+    NSString *status_;
+    NSString *nameFromAddressBook_;
+    NSString *phoneLabelFromAddressBook_;
+    NSString *enteredCallDestination_;
+    AKSIPURI *redialURI_;
+    NSTimer *intermediateStatusTimer_;
+    NSTimeInterval callStartTime_;
+    BOOL callOnHold_;
+    BOOL callActive_;
+    BOOL callUnhandled_;
 }
 
 // The receiver's identifier.
@@ -111,8 +111,8 @@ extern NSString * const AKCallWindowWillCloseNotification;
 // SIP URI for the redial.
 @property (nonatomic, copy) AKSIPURI *redialURI;
 
-// Timer to display intermediate call status. This status appears for the short
-// period of time and then is being replaced with the current call status.
+// Timer to display intermediate call status. This status appears for the short period of time and then is being
+// replaced with the current call status.
 @property (nonatomic, assign) NSTimer *intermediateStatusTimer;
 
 // Call start time.
@@ -129,10 +129,8 @@ extern NSString * const AKCallWindowWillCloseNotification;
 
 
 // Designated initializer.
-// Initializes a CallController object with a given nib file and account
-// controller.
-- (id)initWithWindowNibName:(NSString *)windowNibName
-          accountController:(AccountController *)anAccountController;
+// Initializes a CallController object with a given nib file and account controller.
+- (id)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)anAccountController;
 
 // Accepts an incoming call.
 - (void)acceptCall;
@@ -149,8 +147,8 @@ extern NSString * const AKCallWindowWillCloseNotification;
 // Toggles microphone mute.
 - (void)toggleMicrophoneMute;
 
-// Sets intermediate call status. This status appears for the short period of
-// time and then is being replaced with the current call status.
+// Sets intermediate call status. This status appears for the short period of time and then is being replaced with the
+// current call status.
 - (void)setIntermediateStatus:(NSString *)newIntermediateStatus;
 
 // Method to be called when intermediate call status timer fires.

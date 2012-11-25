@@ -37,16 +37,16 @@
 @class AKResponsiveProgressIndicator, CallController;
 
 @interface ActiveCallViewController : XSViewController <AKActiveCallViewDelegate> {
- @private
-  CallController *callController_;
-  NSTimer *callTimer_;
-  NSMutableString *enteredDTMF_;
-  NSTrackingArea *callProgressIndicatorTrackingArea_;
-  
-  NSTextField *displayedNameField_;
-  NSTextField *statusField_;
-  AKResponsiveProgressIndicator *callProgressIndicator_;
-  NSButton *hangUpButton_;
+  @private
+    CallController *callController_;
+    NSTimer *callTimer_;
+    NSMutableString *enteredDTMF_;
+    NSTrackingArea *callProgressIndicatorTrackingArea_;
+    
+    NSTextField *displayedNameField_;
+    NSTextField *statusField_;
+    AKResponsiveProgressIndicator *callProgressIndicator_;
+    NSButton *hangUpButton_;
 }
 
 // Call controller the receiver belongs to.
@@ -58,8 +58,8 @@
 // DTMF digits entered by a user.
 @property (nonatomic, retain) NSMutableString *enteredDTMF;
 
-// Tracking area to monitor a mouse hovering call progress indicator. When mouse
-// enters that area, progress indicator is being replaced with hang-up button.
+// Tracking area to monitor a mouse hovering call progress indicator. When mouse enters that area, progress indicator
+// is being replaced with hang-up button.
 @property (nonatomic, retain) NSTrackingArea *callProgressIndicatorTrackingArea;
 
 
@@ -77,10 +77,8 @@
 
 
 // Designated initializer.
-// Initializes an ActiveCallViewController object with a given nib file and call
-// controller.
-- (id)initWithNibName:(NSString *)nibName
-       callController:(CallController *)callController;
+// Initializes an ActiveCallViewController object with a given nib file and call controller.
+- (id)initWithNibName:(NSString *)nibName callController:(CallController *)callController;
 
 // Hangs up call.
 - (IBAction)hangUpCall:(id)sender;

@@ -59,93 +59,84 @@
 @synthesize sourceCallTransferred = sourceCallTransferred_;
 
 - (void)setSourceCallController:(CallController *)callController {
-  if (sourceCallController_ == callController) {
-    return;
-  }
-  
-  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-  
-  if (sourceCallController_ != nil) {
-    [nc removeObserver:self
-                  name:AKSIPCallTransferStatusDidChangeNotification
-                object:[sourceCallController_ call]];
-  }
-  
-  if (callController != nil) {
-    [nc addObserver:self
-           selector:@selector(sourceCallControllerSIPCallTransferStatusDidChange:)
-               name:AKSIPCallTransferStatusDidChangeNotification
-             object:[callController call]];
-  }
-  
-  [self setSourceCallTransferred:NO];
-  
-  sourceCallController_ = callController;
+    if (sourceCallController_ == callController) {
+        return;
+    }
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    if (sourceCallController_ != nil) {
+        [nc removeObserver:self
+                      name:AKSIPCallTransferStatusDidChangeNotification
+                    object:[sourceCallController_ call]];
+    }
+    
+    if (callController != nil) {
+        [nc addObserver:self
+               selector:@selector(sourceCallControllerSIPCallTransferStatusDidChange:)
+                   name:AKSIPCallTransferStatusDidChangeNotification
+                 object:[callController call]];
+    }
+    
+    [self setSourceCallTransferred:NO];
+    
+    sourceCallController_ = callController;
 }
 
 - (id)initWithSourceCallController:(CallController *)callController {
-  self = [super initWithWindowNibName:@"CallTransfer"
-                    accountController:[callController accountController]];
-  if (self != nil) {
-    [self setSourceCallController:callController];
-    
-    AccountController *accountController
-      = [[self sourceCallController] accountController];
-    
-    activeAccountTransferViewController_
-      = [[ActiveAccountTransferViewController alloc]
-         initWithAccountController:accountController
-                  windowController:self];
-  }
-  return self;
+    self = [super initWithWindowNibName:@"CallTransfer" accountController:[callController accountController]];
+    if (self != nil) {
+        [self setSourceCallController:callController];
+        
+        AccountController *accountController = [[self sourceCallController] accountController];
+        
+        activeAccountTransferViewController_
+            = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController
+                                                                    windowController:self];
+    }
+    return self;
 }
 
 - (void)dealloc {
-  [activeAccountTransferViewController_ release];
-  [super dealloc];
+    [activeAccountTransferViewController_ release];
+    [super dealloc];
 }
 
 - (void)windowDidLoad {
-  [self showInitialState:self];
+    [self showInitialState:self];
 }
 
 - (void)transferCall {
-  [[[self sourceCallController] call] attendedTransferToCall:[self call]];
+    [[[self sourceCallController] call] attendedTransferToCall:[self call]];
 }
 
 - (IBAction)closeSheet:(id)sender {
-  if ([[self sourceCallController] isCallActive] &&
-      [[self sourceCallController] isCallOnHold]) {
-    [[self sourceCallController] toggleCallHold];
-  }
-  [NSApp endSheet:[sender window]];
-  [[sender window] orderOut:sender];
+    if ([[self sourceCallController] isCallActive] && [[self sourceCallController] isCallOnHold]) {
+        [[self sourceCallController] toggleCallHold];
+    }
+    [NSApp endSheet:[sender window]];
+    [[sender window] orderOut:sender];
 }
 
 - (IBAction)showInitialState:(id)sender {
-  if ([self isCallActive]) {
-    [self hangUpCall];
-  }
-  
-  if (![[self sourceCallController] isCallActive]) {
-    [self closeSheet:self];
-  }
-  
-  if ([self countOfViewControllers] > 0) {
-    [[self viewControllers] removeAllObjects];
-    [self patchResponderChain];
-  }
-  [self addViewController:[self activeAccountTransferViewController]];
-  [[self window]
-   ak_resizeAndSwapToContentView:[[self activeAccountTransferViewController]
-                                  view]
-                         animate:YES];
-  
-  if ([[[self activeAccountTransferViewController] callDestinationField]
-       acceptsFirstResponder]) {
-    [[self window] makeFirstResponder:
-     [[self activeAccountTransferViewController] callDestinationField]];
-  }
+    if ([self isCallActive]) {
+        [self hangUpCall];
+    }
+    
+    if (![[self sourceCallController] isCallActive]) {
+        [self closeSheet:self];
+    }
+    
+    if ([self countOfViewControllers] > 0) {
+        [[self viewControllers] removeAllObjects];
+        [self patchResponderChain];
+    }
+    [self addViewController:[self activeAccountTransferViewController]];
+    [[self window] ak_resizeAndSwapToContentView:[[self activeAccountTransferViewController] view] animate:YES];
+    
+    if ([[[self activeAccountTransferViewController] callDestinationField] acceptsFirstResponder]) {
+        [[self window] makeFirstResponder:[[self activeAccountTransferViewController] callDestinationField]];
+    }
 }
 
 
@@ -153,37 +144,35 @@
 #pragma mark CallController methods
 
 - (CallTransferController *)callTransferController {
-  return nil;
+    return nil;
 }
 
 - (IncomingCallViewController *)incomingCallViewController {
-  return nil;
+    return nil;
 }
 
 // Substitutes ActiveCallTransferViewController.
 - (ActiveCallViewController *)activeCallViewController {
-  if (activeCallViewController_ == nil) {
-    activeCallViewController_
-      = [[ActiveCallTransferViewController alloc]
-         initWithNibName:@"ActiveCallTransferView" callController:self];
-    [activeCallViewController_ setRepresentedObject:[self call]];
-  }
-  return activeCallViewController_;
+    if (activeCallViewController_ == nil) {
+        activeCallViewController_
+            = [[ActiveCallTransferViewController alloc] initWithNibName:@"ActiveCallTransferView" callController:self];
+        [activeCallViewController_ setRepresentedObject:[self call]];
+    }
+    return activeCallViewController_;
 }
 
 // Substitutes EndedCallTransferViewController.
 - (EndedCallViewController *)endedCallViewController {
-  if (endedCallViewController_ == nil) {
-    endedCallViewController_
-      = [[EndedCallTransferViewController alloc]
-         initWithNibName:@"EndedCallTransferView" callController:self];
-    [endedCallViewController_ setRepresentedObject:[self call]];
-  }
-  return endedCallViewController_;
+    if (endedCallViewController_ == nil) {
+        endedCallViewController_
+            = [[EndedCallTransferViewController alloc] initWithNibName:@"EndedCallTransferView" callController:self];
+        [endedCallViewController_ setRepresentedObject:[self call]];
+    }
+    return endedCallViewController_;
 }
 
 - (void)acceptCall {
-  // Do nothing.
+    // Do nothing.
 }
 
 
@@ -191,45 +180,45 @@
 #pragma mark AKSIPCall notifications
 
 - (void)SIPCallCalling:(NSNotification *)notification {
-  [super SIPCallCalling:notification];
-  ActiveCallTransferViewController *activeCallTransferViewController
-    = (ActiveCallTransferViewController *)[self activeCallViewController];
-  [[activeCallTransferViewController transferButton] setEnabled:NO];
+    [super SIPCallCalling:notification];
+    ActiveCallTransferViewController *activeCallTransferViewController
+        = (ActiveCallTransferViewController *)[self activeCallViewController];
+    [[activeCallTransferViewController transferButton] setEnabled:NO];
 }
 
 - (void)SIPCallEarly:(NSNotification *)notification {
-  [super SIPCallEarly:notification];
-  ActiveCallTransferViewController *activeCallTransferViewController
-    = (ActiveCallTransferViewController *)[self activeCallViewController];
-  [[activeCallTransferViewController transferButton] setEnabled:NO];
+    [super SIPCallEarly:notification];
+    ActiveCallTransferViewController *activeCallTransferViewController
+        = (ActiveCallTransferViewController *)[self activeCallViewController];
+    [[activeCallTransferViewController transferButton] setEnabled:NO];
 }
 
 - (void)SIPCallDidConfirm:(NSNotification *)notification {
-  [super SIPCallDidConfirm:notification];
-  ActiveCallTransferViewController *activeCallTransferViewController
-    = (ActiveCallTransferViewController *)[self activeCallViewController];
-  [[activeCallTransferViewController transferButton] setEnabled:YES];
+    [super SIPCallDidConfirm:notification];
+    ActiveCallTransferViewController *activeCallTransferViewController
+        = (ActiveCallTransferViewController *)[self activeCallViewController];
+    [[activeCallTransferViewController transferButton] setEnabled:YES];
 }
 
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
-  [super SIPCallDidDisconnect:notification];
-  if ([self sourceCallTransferred]) {
-    [self closeSheet:self];
-  }
+    [super SIPCallDidDisconnect:notification];
+    if ([self sourceCallTransferred]) {
+        [self closeSheet:self];
+    }
 }
 
 - (void)SIPCallMediaDidBecomeActive:(NSNotification *)notification {
-  [super SIPCallMediaDidBecomeActive:notification];
-  ActiveCallTransferViewController *activeCallTransferViewController
-    = (ActiveCallTransferViewController *)[self activeCallViewController];
-  [[activeCallTransferViewController transferButton] setEnabled:YES];
+    [super SIPCallMediaDidBecomeActive:notification];
+    ActiveCallTransferViewController *activeCallTransferViewController
+        = (ActiveCallTransferViewController *)[self activeCallViewController];
+    [[activeCallTransferViewController transferButton] setEnabled:YES];
 }
 
 - (void)SIPCallDidRemoteHold:(NSNotification *)notification {
-  [super SIPCallDidRemoteHold:notification];
-  ActiveCallTransferViewController *activeCallTransferViewController
-    = (ActiveCallTransferViewController *)[self activeCallViewController];
-  [[activeCallTransferViewController transferButton] setEnabled:NO];
+    [super SIPCallDidRemoteHold:notification];
+    ActiveCallTransferViewController *activeCallTransferViewController
+        = (ActiveCallTransferViewController *)[self activeCallViewController];
+    [[activeCallTransferViewController transferButton] setEnabled:NO];
 }
 
 
@@ -237,17 +226,16 @@
 #pragma mark Source Call Controller's call notification
 
 - (void)sourceCallControllerSIPCallTransferStatusDidChange:(NSNotification *)notification {
-  AKSIPCall *sourceCall = [notification object];
-  NSDictionary *userInfo = [notification userInfo];
-  BOOL isFinal
-    = [[userInfo objectForKey:@"AKFinalTransferNotification"] boolValue];
-  
-  if (isFinal && [sourceCall transferStatus] == PJSIP_SC_OK) {
-    [self setSourceCallTransferred:YES];
-    if (![self isCallActive]) {
-      [self closeSheet:self];
+    AKSIPCall *sourceCall = [notification object];
+    NSDictionary *userInfo = [notification userInfo];
+    BOOL isFinal = [[userInfo objectForKey:@"AKFinalTransferNotification"] boolValue];
+    
+    if (isFinal && [sourceCall transferStatus] == PJSIP_SC_OK) {
+        [self setSourceCallTransferred:YES];
+        if (![self isCallActive]) {
+            [self closeSheet:self];
+        }
     }
-  }
 }
 
 @end

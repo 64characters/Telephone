@@ -36,10 +36,10 @@
 
 // Call transfer controller.
 @interface CallTransferController : CallController {
- @private
-  CallController *sourceCallController_;
-  ActiveAccountTransferViewController *activeAccountTransferViewController_;
-  BOOL sourceCallTransferred_;
+  @private
+    CallController *sourceCallController_;
+    ActiveAccountTransferViewController *activeAccountTransferViewController_;
+    BOOL sourceCallTransferred_;
 }
 
 // Designated initializer.

@@ -36,12 +36,12 @@
 @class CallController;
 
 @interface EndedCallViewController : XSViewController {
- @private
-  CallController *callController_;
-  
-  NSTextField *displayedNameField_;
-  NSTextField *statusField_;
-  NSButton *redialButton_;
+  @private
+    CallController *callController_;
+    
+    NSTextField *displayedNameField_;
+    NSTextField *statusField_;
+    NSButton *redialButton_;
 }
 
 // Call controller the receiver belongs to.
@@ -59,8 +59,7 @@
 
 
 // Designated initializer.
-// Initializes an EndedCallViewController object with a given nib file and call
-// controller.
+// Initializes an EndedCallViewController object with a given nib file and call controller.
 - (id)initWithNibName:(NSString *)nibName
        callController:(CallController *)callController;
 

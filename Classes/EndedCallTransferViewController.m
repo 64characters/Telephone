@@ -34,10 +34,10 @@
 @implementation EndedCallTransferViewController
 
 - (void)awakeFromNib {
-  [super awakeFromNib];
-  
-  [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleLight];
-  [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+    [super awakeFromNib];
+    
+    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleLight];
+    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleLight];
 }
 
 @end

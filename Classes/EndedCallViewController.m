@@ -41,54 +41,47 @@
 @synthesize statusField = statusField_;
 @synthesize redialButton = redialButton_;
 
-- (id)initWithNibName:(NSString *)nibName
-       callController:(CallController *)callController {
-  
-  self = [super initWithNibName:nibName
-                         bundle:nil
-               windowController:callController];
-  
-  if (self != nil) {
-    [self setCallController:callController];
-  }
-  return self;
+- (id)initWithNibName:(NSString *)nibName callController:(CallController *)callController {
+    self = [super initWithNibName:nibName bundle:nil windowController:callController];
+    
+    if (self != nil) {
+        [self setCallController:callController];
+    }
+    return self;
 }
 
 - (id)init {
-  [self dealloc];
-  NSString *reason
-    = @"Initialize EndedCallViewController with initWithCallController:";
-  @throw [NSException exceptionWithName:@"AKBadInitCall"
-                                 reason:reason
-                               userInfo:nil];
-  return nil;
+    [self dealloc];
+    NSString *reason = @"Initialize EndedCallViewController with initWithCallController:";
+    @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
+    return nil;
 }
 
 - (void)dealloc {
-  [displayedNameField_ release];
-  [statusField_ release];
-  [redialButton_ release];
-  
-  [super dealloc];
+    [displayedNameField_ release];
+    [statusField_ release];
+    [redialButton_ release];
+    
+    [super dealloc];
 }
 
 - (void)removeObservations {
-  [[self displayedNameField] unbind:NSValueBinding];
-  [[self statusField] unbind:NSValueBinding];
-  [super removeObservations];
+    [[self displayedNameField] unbind:NSValueBinding];
+    [[self statusField] unbind:NSValueBinding];
+    [super removeObservations];
 }
 
 - (void)awakeFromNib {
-  [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-  [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
+    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
+    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
 }
 
 - (IBAction)redial:(id)sender {
-  [[self callController] redial];
+    [[self callController] redial];
 }
 
 - (void)enableRedialButtonTick:(NSTimer *)theTimer {
-  [[self redialButton] setEnabled:YES];
+    [[self redialButton] setEnabled:YES];
 }
 
 @end
