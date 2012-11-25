@@ -35,27 +35,27 @@
 
 // A view controller to manage account preferences.
 @interface AccountPreferencesViewController : NSViewController {
- @private
-  PreferencesController *preferencesController_;
-  AccountSetupController *accountSetupController_;
-  
-  NSTableView *accountsTable_;
-  NSButton *addAccountButton_;
-  NSButton *accountEnabledCheckBox_;
-  NSTextField *accountDescriptionField_;
-  NSTextField *fullNameField_;
-  NSTextField *domainField_;
-  NSTextField *usernameField_;
-  NSTextField *passwordField_;
-  NSTextField *reregistrationTimeField_;
-  NSButton *substitutePlusCharacterCheckBox_;
-  NSTextField *plusCharacterSubstitutionField_;
-  NSButton *useProxyCheckBox_;
-  NSTextField *proxyHostField_;
-  NSTextField *proxyPortField_;
-  NSTextField *SIPAddressField_;
-  NSTextField *registrarField_;
-  NSTextField *cantEditAccountLabel_;
+  @private
+    PreferencesController *preferencesController_;
+    AccountSetupController *accountSetupController_;
+    
+    NSTableView *accountsTable_;
+    NSButton *addAccountButton_;
+    NSButton *accountEnabledCheckBox_;
+    NSTextField *accountDescriptionField_;
+    NSTextField *fullNameField_;
+    NSTextField *domainField_;
+    NSTextField *usernameField_;
+    NSTextField *passwordField_;
+    NSTextField *reregistrationTimeField_;
+    NSButton *substitutePlusCharacterCheckBox_;
+    NSTextField *plusCharacterSubstitutionField_;
+    NSButton *useProxyCheckBox_;
+    NSTextField *proxyHostField_;
+    NSTextField *proxyPortField_;
+    NSTextField *SIPAddressField_;
+    NSTextField *registrarField_;
+    NSTextField *cantEditAccountLabel_;
 }
 
 // Preferences controller the receiver belongs to.

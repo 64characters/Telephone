@@ -33,11 +33,11 @@
 
 // A view controller to manage sound preferences.
 @interface SoundPreferencesViewController : NSViewController {
- @private
-  NSPopUpButton *soundInputPopUp_;
-  NSPopUpButton *soundOutputPopUp_;
-  NSPopUpButton *ringtoneOutputPopUp_;
-  NSPopUpButton *ringtonePopUp_;
+  @private
+    NSPopUpButton *soundInputPopUp_;
+    NSPopUpButton *soundOutputPopUp_;
+    NSPopUpButton *ringtoneOutputPopUp_;
+    NSPopUpButton *ringtonePopUp_;
 }
 
 // Outlets.
@@ -52,8 +52,7 @@
 // Refreshes list of available audio devices.
 - (void)updateAudioDevices;
 
-// Updates the list of available sounds for a ringtone. Sounds are being
-// searched in the following locations.
+// Updates the list of available sounds for a ringtone. Sounds are being searched in the following locations.
 //
 // ~/Library/Sounds
 // /Library/Sounds

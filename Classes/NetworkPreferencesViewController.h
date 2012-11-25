@@ -35,16 +35,16 @@
 
 // A view controller to manage network preferences.
 @interface NetworkPreferencesViewController : NSViewController {
- @private
-  PreferencesController *preferencesController_;
-  
-  NSTextField *transportPortField_;
-  NSTextField *STUNServerHostField_;
-  NSTextField *STUNServerPortField_;
-  NSButton *useICECheckBox_;
-  NSButton *useDNSSRVCheckBox_;
-  NSTextField *outboundProxyHostField_;
-  NSTextField *outboundProxyPortField_;
+  @private
+    PreferencesController *preferencesController_;
+    
+    NSTextField *transportPortField_;
+    NSTextField *STUNServerHostField_;
+    NSTextField *STUNServerPortField_;
+    NSButton *useICECheckBox_;
+    NSButton *useDNSSRVCheckBox_;
+    NSTextField *outboundProxyHostField_;
+    NSTextField *outboundProxyPortField_;
 }
 
 // Preferences controller the receiver belongs to.

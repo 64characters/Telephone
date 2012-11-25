@@ -33,10 +33,10 @@
 
 // Preferences window toolbar items tags.
 enum {
-  kGeneralPreferencesTag  = 0,
-  kAccountsPreferencesTag = 1,
-  kSoundPreferencesTag    = 2,
-  kNetworkPreferencesTag  = 3
+    kGeneralPreferencesTag  = 0,
+    kAccountsPreferencesTag = 1,
+    kSoundPreferencesTag    = 2,
+    kNetworkPreferencesTag  = 3
 };
 
 // Keys for defaults
@@ -109,18 +109,18 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 
 // A preferences controller.
 @interface PreferencesController : NSWindowController {
- @private
-  id delegate_;
-  GeneralPreferencesViewController *generalPreferencesViewController_;
-  AccountPreferencesViewController *accountPreferencesViewController_;
-  SoundPreferencesViewController *soundPreferencesViewController_;
-  NetworkPreferencesViewController *networkPreferencesViewController_;
-  
-  NSToolbar *toolbar_;
-  NSToolbarItem *generalToolbarItem_;
-  NSToolbarItem *accountsToolbarItem_;
-  NSToolbarItem *soundToolbarItem_;
-  NSToolbarItem *networkToolbarItem_;
+  @private
+    id delegate_;
+    GeneralPreferencesViewController *generalPreferencesViewController_;
+    AccountPreferencesViewController *accountPreferencesViewController_;
+    SoundPreferencesViewController *soundPreferencesViewController_;
+    NetworkPreferencesViewController *networkPreferencesViewController_;
+    
+    NSToolbar *toolbar_;
+    NSToolbarItem *generalToolbarItem_;
+    NSToolbarItem *accountsToolbarItem_;
+    NSToolbarItem *soundToolbarItem_;
+    NSToolbarItem *networkToolbarItem_;
 }
 
 // The receiver's delegate.
