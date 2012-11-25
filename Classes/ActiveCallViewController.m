@@ -168,15 +168,15 @@
     NSInteger seconds = (NSInteger)(now - ([[self callController] callStartTime]));
     
     if (seconds < 3600) {
-        [[self callController] setStatus:[NSString stringWithFormat:@"%02d:%02d",
-                                          (seconds / 60) % 60,
-                                          seconds % 60]];
+        [[self callController] setStatus:[NSString stringWithFormat:@"%02ld:%02ld",
+                                          (unsigned long)((seconds / 60) % 60),
+                                          (unsigned long)(seconds % 60)]];
     } else {
         [[self callController]
-         setStatus:[NSString stringWithFormat:@"%02d:%02d:%02d",
-                    (seconds / 3600) % 24,
-                    (seconds / 60) % 60,
-                    seconds % 60]];
+         setStatus:[NSString stringWithFormat:@"%02ld:%02ld:%02ld",
+                    (unsigned long)((seconds / 3600) % 24),
+                    (unsigned long)((seconds / 60) % 60),
+                    (unsigned long)(seconds % 60)]];
     }
 }
 

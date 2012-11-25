@@ -405,15 +405,16 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
             userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@",
                                                   [self outboundProxyHost]] pjString];
         } else {
-            userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@:%u",
-                                                  [self outboundProxyHost], [self outboundProxyPort]] pjString];
+            userAgentConfig.outbound_proxy[0]
+                = [[NSString stringWithFormat:@"sip:%@:%lu",
+                    [self outboundProxyHost], (unsigned long)[self outboundProxyPort]] pjString];
         }
     }
     
     
     if ([[self STUNServerHost] length] > 0) {
-        userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%u",
-                                      [self STUNServerHost], [self STUNServerPort]] pjString];
+        userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%lu",
+                                      [self STUNServerHost], (unsigned long)[self STUNServerPort]] pjString];
     }
     
     userAgentConfig.user_agent = [[self userAgentString] pjString];
@@ -657,8 +658,8 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
         if ([anAccount proxyPort] == kAKSIPAccountDefaultSIPProxyPort) {
             accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@", [anAccount proxyHost]] pjString];
         } else {
-            accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@:%u",
-                                       [anAccount proxyHost], [anAccount proxyPort]] pjString];
+            accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@:%lu",
+                                       [anAccount proxyHost], (unsigned long)[anAccount proxyPort]] pjString];
         }
     }
     
@@ -952,7 +953,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
             theString = @"Not Acceptable";
             break;
         default:
-            theString = [NSString stringWithFormat:@"Response code: %d", responseCode];
+            theString = [NSString stringWithFormat:@"Response code: %ld", (long)responseCode];
             break;
     }
     

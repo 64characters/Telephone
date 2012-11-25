@@ -183,7 +183,7 @@
 - (NSString *)description {
     NSString *SIPAddressWithPort = [self SIPAddress];
     if ([self port] > 0) {
-        SIPAddressWithPort = [SIPAddressWithPort stringByAppendingFormat:@":%d", [self port]];
+        SIPAddressWithPort = [SIPAddressWithPort stringByAppendingFormat:@":%ld", (long)[self port]];
     }
     
     if ([[self displayName] length] > 0) {
