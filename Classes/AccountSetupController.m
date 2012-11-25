@@ -35,8 +35,7 @@
 #import "PreferencesController.h"
 
 
-NSString * const AKAccountSetupControllerDidAddAccountNotification
-  = @"AKAccountSetupControllerDidAddAccount";
+NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccountSetupControllerDidAddAccount";
 
 @implementation AccountSetupController
 
@@ -52,105 +51,97 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification
 @synthesize otherButton = otherButton_;
 
 - (id)init {
-  self = [super initWithWindowNibName:@"AccountSetup"];
-  
-  return self;
+    self = [super initWithWindowNibName:@"AccountSetup"];
+    
+    return self;
 }
 
 - (void)dealloc {
-  [fullNameField_ release];
-  [domainField_ release];
-  [usernameField_ release];
-  [passwordField_ release];
-  [fullNameInvalidDataView_ release];
-  [domainInvalidDataView_ release];
-  [usernameInvalidDataView_ release];
-  [passwordInvalidDataView_ release];
-  [defaultButton_ release];
-  [otherButton_ release];
-  
-  [super dealloc];
+    [fullNameField_ release];
+    [domainField_ release];
+    [usernameField_ release];
+    [passwordField_ release];
+    [fullNameInvalidDataView_ release];
+    [domainInvalidDataView_ release];
+    [usernameInvalidDataView_ release];
+    [passwordInvalidDataView_ release];
+    [defaultButton_ release];
+    [otherButton_ release];
+    
+    [super dealloc];
 }
 
 - (IBAction)closeSheet:(id)sender {
-  [NSApp endSheet:[sender window]];
-  [[sender window] orderOut:sender];
+    [NSApp endSheet:[sender window]];
+    [[sender window] orderOut:sender];
 }
 
 - (IBAction)addAccount:(id)sender {
-  // Reset hidden states of the invalid data indicators.
-  [[self fullNameInvalidDataView] setHidden:YES];
-  [[self domainInvalidDataView] setHidden:YES];
-  [[self usernameInvalidDataView] setHidden:YES];
-  [[self passwordInvalidDataView] setHidden:YES];
-  
-  NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-  NSString *fullName = [[[self fullNameField] stringValue]
-                        stringByTrimmingCharactersInSet:spacesSet];
-  NSString *domain = [[[self domainField] stringValue]
-                      stringByTrimmingCharactersInSet:spacesSet];
-  NSString *username = [[[self usernameField] stringValue]
-                        stringByTrimmingCharactersInSet:spacesSet];
-  
-  BOOL invalidFormData = NO;
-  
-  if ([fullName length] == 0) {
-    [[self fullNameInvalidDataView] setHidden:NO];
-    invalidFormData = YES;
-  }
-  
-  if ([domain length] == 0) {
-    [[self domainInvalidDataView] setHidden:NO];
-    invalidFormData = YES;
-  }
-  
-  if ([username length] == 0) {
-    [[self usernameInvalidDataView] setHidden:NO];
-    invalidFormData = YES;
-  }
-  
-  if ([[[self passwordField] stringValue] length] == 0) {
-    [[self passwordInvalidDataView] setHidden:NO];
-    invalidFormData = YES;
-  }
-  
-  if (invalidFormData) {
-    return;
-  }
-  
-  NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
-  [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kAccountEnabled];
-  [accountDict setObject:fullName forKey:kFullName];
-  [accountDict setObject:domain forKey:kDomain];
-  [accountDict setObject:@"*" forKey:kRealm];
-  [accountDict setObject:username forKey:kUsername];
-  [accountDict setObject:[NSNumber numberWithInteger:0]
-                  forKey:kReregistrationTime];
-  [accountDict setObject:[NSNumber numberWithBool:NO]
-                  forKey:kSubstitutePlusCharacter];
-  [accountDict setObject:@"00" forKey:kPlusCharacterSubstitutionString];
-  [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kUseProxy];
-  [accountDict setObject:@"" forKey:kProxyHost];
-  [accountDict setObject:[NSNumber numberWithInteger:0] forKey:kProxyPort];
-  
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSMutableArray *savedAccounts
-    = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
-  [savedAccounts addObject:accountDict];
-  [defaults setObject:savedAccounts forKey:kAccounts];
-  [defaults synchronize];
-  
-  [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@",
-                                      domain]
-                         accountName:username
-                            password:[[self passwordField] stringValue]];
-  
-  [self closeSheet:sender];
-  
-  [[NSNotificationCenter defaultCenter]
-   postNotificationName:AKAccountSetupControllerDidAddAccountNotification
-                 object:self
-               userInfo:accountDict];
+    // Reset hidden states of the invalid data indicators.
+    [[self fullNameInvalidDataView] setHidden:YES];
+    [[self domainInvalidDataView] setHidden:YES];
+    [[self usernameInvalidDataView] setHidden:YES];
+    [[self passwordInvalidDataView] setHidden:YES];
+    
+    NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *fullName = [[[self fullNameField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
+    NSString *domain = [[[self domainField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
+    NSString *username = [[[self usernameField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
+    
+    BOOL invalidFormData = NO;
+    
+    if ([fullName length] == 0) {
+        [[self fullNameInvalidDataView] setHidden:NO];
+        invalidFormData = YES;
+    }
+    
+    if ([domain length] == 0) {
+        [[self domainInvalidDataView] setHidden:NO];
+        invalidFormData = YES;
+    }
+    
+    if ([username length] == 0) {
+        [[self usernameInvalidDataView] setHidden:NO];
+        invalidFormData = YES;
+    }
+    
+    if ([[[self passwordField] stringValue] length] == 0) {
+        [[self passwordInvalidDataView] setHidden:NO];
+        invalidFormData = YES;
+    }
+    
+    if (invalidFormData) {
+        return;
+    }
+    
+    NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
+    [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kAccountEnabled];
+    [accountDict setObject:fullName forKey:kFullName];
+    [accountDict setObject:domain forKey:kDomain];
+    [accountDict setObject:@"*" forKey:kRealm];
+    [accountDict setObject:username forKey:kUsername];
+    [accountDict setObject:[NSNumber numberWithInteger:0] forKey:kReregistrationTime];
+    [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kSubstitutePlusCharacter];
+    [accountDict setObject:@"00" forKey:kPlusCharacterSubstitutionString];
+    [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kUseProxy];
+    [accountDict setObject:@"" forKey:kProxyHost];
+    [accountDict setObject:[NSNumber numberWithInteger:0] forKey:kProxyPort];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
+    [savedAccounts addObject:accountDict];
+    [defaults setObject:savedAccounts forKey:kAccounts];
+    [defaults synchronize];
+    
+    [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", domain]
+                           accountName:username
+                              password:[[self passwordField] stringValue]];
+    
+    [self closeSheet:sender];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AKAccountSetupControllerDidAddAccountNotification
+                                                        object:self
+                                                      userInfo:accountDict];
 }
 
 @end
