@@ -41,10 +41,10 @@ extern NSString * const kPhoneLabel;
 
 // An active account view controller.
 @interface ActiveAccountViewController : XSViewController {
- @private
-  AccountController *accountController_;
-  NSTokenField *callDestinationField_;
-  NSUInteger callDestinationURIIndex_;
+  @private
+    AccountController *accountController_;
+    NSTokenField *callDestinationField_;
+    NSUInteger callDestinationURIIndex_;
 }
 
 // Account controller the receiver belongs to.
@@ -61,8 +61,7 @@ extern NSString * const kPhoneLabel;
 
 
 // Designated initializer.
-// Initializes an ActiveAccountViewController object with a given account
-// controller and window controller.
+// Initializes an ActiveAccountViewController object with a given account controller and window controller.
 - (id)initWithAccountController:(AccountController *)anAccountController
                windowController:(XSWindowController *)windowController;
 
