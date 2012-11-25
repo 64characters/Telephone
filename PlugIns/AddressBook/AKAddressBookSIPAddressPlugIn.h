@@ -33,38 +33,32 @@
 
 // Object: @"AddressBook".
 // Keys: @"AKSIPAddress", @"AKFullName".
-NSString * const AKAddressBookDidDialSIPAddressNotification
-  = @"AKAddressBookDidDialSIPAddress";
+NSString * const AKAddressBookDidDialSIPAddressNotification = @"AKAddressBookDidDialSIPAddress";
 
-// An address book plug-in to dial SIP addresses with Telephone. SIP addresses
-// are emails with a custom label |sip|.
+// An address book plug-in to dial SIP addresses with Telephone. SIP addresses are emails with a custom label |sip|.
 @interface AKAddressBookSIPAddressPlugIn : NSObject {
-  NSString *lastSIPAddress_;
-  NSString *lastFullName_;
-  BOOL shouldDial_;
+    NSString *lastSIPAddress_;
+    NSString *lastFullName_;
+    BOOL shouldDial_;
 }
 
-// SIP address that has been dialed last. While Telephone is being launched,
-// several phone numbers can be dialed. We handle only the last one.
+// SIP address that has been dialed last. While Telephone is being launched, several phone numbers can be dialed. We
+// handle only the last one.
 @property (nonatomic, copy) NSString *lastSIPAddress;
 
-// Full name of the contact that has been dialed last. While Telephone is being
-// launched, several phone numbers can be dialed. We handle only the last one.
+// Full name of the contact that has been dialed last. While Telephone is being launched, several phone numbers can be
+// dialed. We handle only the last one.
 @property (nonatomic, copy) NSString *lastFullName;
 
-// A Boolean value that determines whether a call should be made after Telephone
-// starts up.
+// A Boolean value that determines whether a call should be made after Telephone starts up.
 @property (nonatomic, assign) BOOL shouldDial;
 
 - (NSString *)actionProperty;
 
-- (NSString *)titleForPerson:(ABPerson *)person
-                  identifier:(NSString *)identifier;
+- (NSString *)titleForPerson:(ABPerson *)person identifier:(NSString *)identifier;
 
-- (void)performActionForPerson:(ABPerson *)person
-                    identifier:(NSString *)identifier;
+- (void)performActionForPerson:(ABPerson *)person identifier:(NSString *)identifier;
 
-- (BOOL)shouldEnableActionForPerson:(ABPerson *)person
-                         identifier:(NSString *)identifier;
+- (BOOL)shouldEnableActionForPerson:(ABPerson *)person identifier:(NSString *)identifier;
 
 @end
