@@ -866,7 +866,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     if (badgeNumber == 0) {
         badgeString = @"";
     } else {
-        badgeString = [NSString stringWithFormat:@"%d", badgeNumber];
+        badgeString = [NSString stringWithFormat:@"%lu", badgeNumber];
     }
     
     [[NSApp dockTile] setBadgeLabel:badgeString];
