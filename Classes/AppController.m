@@ -831,7 +831,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         }
         if (accountNumber < 10) {
             // Only add key equivalents for Command-[1..9].
-            [menuItem setKeyEquivalent:[NSString stringWithFormat:@"%lu", (long)accountNumber]];
+            [menuItem setKeyEquivalent:[NSString stringWithFormat:@"%lu", accountNumber]];
         }
         [itemsArray addObject:menuItem];
         accountNumber++;
