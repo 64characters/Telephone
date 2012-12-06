@@ -96,25 +96,7 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 @class AKSIPAccount, AKSIPURI;
 
 // A class representing a SIP call.
-@interface AKSIPCall : NSObject {
-  @private
-    id delegate_;
-    
-    NSInteger identifier_;
-    AKSIPURI *localURI_;
-    AKSIPURI *remoteURI_;
-    AKSIPCallState state_;
-    NSString *stateText_;
-    NSInteger lastStatus_;
-    NSString *lastStatusText_;
-    NSInteger transferStatus_;
-    NSString *transferStatusText_;
-    BOOL incoming_;
-    BOOL microphoneMuted_;
-    
-    // Account the call belongs to.
-    AKSIPAccount *account_;
-}
+@interface AKSIPCall : NSObject
 
 // The receiver's delegate.
 @property (nonatomic, assign) id delegate;

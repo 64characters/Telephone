@@ -35,10 +35,6 @@
 
 @implementation AKAddressBookSIPAddressPlugIn
 
-@synthesize lastSIPAddress = lastSIPAddress_;
-@synthesize lastFullName = lastFullName_;
-@synthesize shouldDial = shouldDial_;
-
 - (id)init {
     self = [super init];
     if (self == nil) {
@@ -58,8 +54,8 @@
 }
 
 - (void)dealloc {
-    [lastSIPAddress_ release];
-    [lastFullName_ release];
+    [_lastSIPAddress release];
+    [_lastFullName release];
     
     [super dealloc];
 }

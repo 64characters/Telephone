@@ -40,12 +40,7 @@ extern NSString * const kPhoneLabel;
 @class AccountController, AKSIPURI;
 
 // An active account view controller.
-@interface ActiveAccountViewController : XSViewController {
-  @private
-    AccountController *accountController_;
-    NSTokenField *callDestinationField_;
-    NSUInteger callDestinationURIIndex_;
-}
+@interface ActiveAccountViewController : XSViewController
 
 // Account controller the receiver belongs to.
 @property (nonatomic, assign) AccountController *accountController;

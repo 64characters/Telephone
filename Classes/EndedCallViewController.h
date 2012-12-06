@@ -35,14 +35,7 @@
 
 @class CallController;
 
-@interface EndedCallViewController : XSViewController {
-  @private
-    CallController *callController_;
-    
-    NSTextField *displayedNameField_;
-    NSTextField *statusField_;
-    NSButton *redialButton_;
-}
+@interface EndedCallViewController : XSViewController
 
 // Call controller the receiver belongs to.
 @property (nonatomic, assign) CallController *callController;

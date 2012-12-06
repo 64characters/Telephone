@@ -45,29 +45,9 @@ extern NSString * const AKCallWindowWillCloseNotification;
 
 // A call controller.
 @interface CallController : XSWindowController {
-  @private
-    NSString *identifier_;
-    AKSIPCall *call_;
-    AccountController *accountController_;
-    CallTransferController *callTransferController_;
-    
-    IncomingCallViewController *incomingCallViewController_;
   @protected
-    ActiveCallViewController *activeCallViewController_;
-    EndedCallViewController *endedCallViewController_;
-    
-  @private
-    NSString *displayedName_;
-    NSString *status_;
-    NSString *nameFromAddressBook_;
-    NSString *phoneLabelFromAddressBook_;
-    NSString *enteredCallDestination_;
-    AKSIPURI *redialURI_;
-    NSTimer *intermediateStatusTimer_;
-    NSTimeInterval callStartTime_;
-    BOOL callOnHold_;
-    BOOL callActive_;
-    BOOL callUnhandled_;
+    ActiveCallViewController *_activeCallViewController;
+    EndedCallViewController *_endedCallViewController;
 }
 
 // The receiver's identifier.

@@ -108,20 +108,21 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @class SoundPreferencesViewController, NetworkPreferencesViewController;
 
 // A preferences controller.
-@interface PreferencesController : NSWindowController {
-  @private
-    id delegate_;
-    GeneralPreferencesViewController *generalPreferencesViewController_;
-    AccountPreferencesViewController *accountPreferencesViewController_;
-    SoundPreferencesViewController *soundPreferencesViewController_;
-    NetworkPreferencesViewController *networkPreferencesViewController_;
-    
-    NSToolbar *toolbar_;
-    NSToolbarItem *generalToolbarItem_;
-    NSToolbarItem *accountsToolbarItem_;
-    NSToolbarItem *soundToolbarItem_;
-    NSToolbarItem *networkToolbarItem_;
-}
+@interface PreferencesController : NSWindowController
+//{
+//  @private
+//    id delegate_;
+//    GeneralPreferencesViewController *generalPreferencesViewController_;
+//    AccountPreferencesViewController *accountPreferencesViewController_;
+//    SoundPreferencesViewController *soundPreferencesViewController_;
+//    NetworkPreferencesViewController *networkPreferencesViewController_;
+//    
+//    NSToolbar *toolbar_;
+//    NSToolbarItem *generalToolbarItem_;
+//    NSToolbarItem *accountsToolbarItem_;
+//    NSToolbarItem *soundToolbarItem_;
+//    NSToolbarItem *networkToolbarItem_;
+//}
 
 // The receiver's delegate.
 @property (nonatomic, assign) id delegate;

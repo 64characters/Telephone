@@ -37,10 +37,8 @@
 
 @implementation ActiveCallTransferViewController
 
-@synthesize transferButton = transferButton_;
-
 - (void)dealloc {
-    [transferButton_ release];
+    [_transferButton release];
     [super dealloc];
 }
 

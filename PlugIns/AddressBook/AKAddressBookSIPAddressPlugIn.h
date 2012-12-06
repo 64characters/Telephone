@@ -36,11 +36,7 @@
 NSString * const AKAddressBookDidDialSIPAddressNotification = @"AKAddressBookDidDialSIPAddress";
 
 // An address book plug-in to dial SIP addresses with Telephone. SIP addresses are emails with a custom label |sip|.
-@interface AKAddressBookSIPAddressPlugIn : NSObject {
-    NSString *lastSIPAddress_;
-    NSString *lastFullName_;
-    BOOL shouldDial_;
-}
+@interface AKAddressBookSIPAddressPlugIn : NSObject
 
 // SIP address that has been dialed last. While Telephone is being launched, several phone numbers can be dialed. We
 // handle only the last one.

@@ -36,11 +36,6 @@
 
 @implementation SoundPreferencesViewController
 
-@synthesize soundInputPopUp = soundInputPopUp_;
-@synthesize soundOutputPopUp = soundOutputPopUp_;
-@synthesize ringtoneOutputPopUp = ringtoneOutputPopUp_;
-@synthesize ringtonePopUp = ringtonePopUp_;
-
 - (id)init {
     self = [super initWithNibName:@"SoundPreferencesView" bundle:nil];
     if (self != nil) {
@@ -64,10 +59,10 @@
 }
 
 - (void)dealloc {
-    [soundInputPopUp_ release];
-    [soundOutputPopUp_ release];
-    [ringtoneOutputPopUp_ release];
-    [ringtonePopUp_ release];
+    [_soundInputPopUp release];
+    [_soundOutputPopUp release];
+    [_ringtoneOutputPopUp release];
+    [_ringtonePopUp release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

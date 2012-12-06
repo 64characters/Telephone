@@ -32,8 +32,6 @@
 
 
 // A view controller to manage general preferences.
-@interface GeneralPreferencesViewController : NSViewController {
-
-}
+@interface GeneralPreferencesViewController : NSViewController
 
 @end

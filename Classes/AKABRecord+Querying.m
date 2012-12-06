@@ -33,8 +33,6 @@
 
 @implementation ABRecord (AKRecordQueryingAdditions)
 
-@dynamic ak_fullName;
-
 - (NSString *)ak_fullName {
     NSString *firstName = [self valueForProperty:kABFirstNameProperty];
     NSString *lastName = [self valueForProperty:kABLastNameProperty];

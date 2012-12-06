@@ -34,11 +34,7 @@
 
 // Instances of AKSIPURIFormatter create string representations of AKSIPURI, and convert textual representations of SIP
 // URIs into AKSIPURI objects.
-@interface AKSIPURIFormatter : NSFormatter {
-  @private
-    BOOL formatsTelephoneNumbers_;
-    BOOL telephoneNumberFormatterSplitsLastFourDigits_;
-}
+@interface AKSIPURIFormatter : NSFormatter
 
 // A Boolean value indicating whether the receiver formats telephone numbers.
 @property (nonatomic, assign) BOOL formatsTelephoneNumbers;

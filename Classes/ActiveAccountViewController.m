@@ -48,11 +48,6 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 
 @implementation ActiveAccountViewController
 
-@synthesize accountController = accountController_;
-@synthesize callDestinationField = callDestinationField_;
-@synthesize callDestinationURIIndex = callDestinationURIIndex_;
-@dynamic callDestinationURI;
-
 - (AKSIPURI *)callDestinationURI {
     NSDictionary *callDestinationDict = [[[[self callDestinationField] objectValue] objectAtIndex:0]
                                          objectAtIndex:[self callDestinationURIIndex]];

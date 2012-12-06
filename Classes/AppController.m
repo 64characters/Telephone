@@ -107,64 +107,40 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 @implementation AppController
 
-@synthesize userAgent = userAgent_;
-@synthesize accountControllers = accountControllers_;
-@dynamic enabledAccountControllers;
-@dynamic preferencesController;
-@dynamic accountSetupController;
-@synthesize audioDevices = audioDevices_;
-@synthesize soundInputDeviceIndex = soundInputDeviceIndex_;
-@synthesize soundOutputDeviceIndex = soundOutputDeviceIndex_;
-@synthesize ringtoneOutputDeviceIndex = ringtoneOutputDeviceIndex_;
-@synthesize shouldSetUserAgentSoundIO = shouldSetUserAgentSoundIO_;
-@synthesize ringtone = ringtone_;
-@synthesize ringtoneTimer = ringtoneTimer_;
-@synthesize shouldRegisterAllAccounts = shouldRegisterAllAccounts_;
-@synthesize shouldRestartUserAgentASAP = shouldRestartUserAgentASAP_;
-@synthesize terminating = terminating_;
-@dynamic hasIncomingCallControllers;
-@dynamic hasActiveCallControllers;
-@dynamic currentNameservers;
-@synthesize didPauseITunes = didPauseITunes_;
-@synthesize shouldPresentUserAgentLaunchError = shouldPresentUserAgentLaunchError_;
-@dynamic unhandledIncomingCallsCount;
-@synthesize userAttentionTimer = userAttentionTimer_;
-
-@synthesize accountsMenuItems = accountsMenuItems_;
-@synthesize windowMenu = windowMenu_;
-@synthesize preferencesMenuItem = preferencesMenuItem_;
+@synthesize preferencesController = _preferencesController;
+@synthesize accountSetupController = _accountSetupController;
 
 - (NSArray *)enabledAccountControllers {
     return [[self accountControllers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"enabled == YES"]];
 }
 
 - (PreferencesController *)preferencesController {
-    if (preferencesController_ == nil) {
-        preferencesController_ = [[PreferencesController alloc] init];
-        [preferencesController_ setDelegate:self];
+    if (_preferencesController == nil) {
+        _preferencesController = [[PreferencesController alloc] init];
+        [_preferencesController setDelegate:self];
     }
-    return preferencesController_;
+    return _preferencesController;
 }
 
 - (AccountSetupController *)accountSetupController {
-    if (accountSetupController_ == nil) {
-        accountSetupController_ = [[AccountSetupController alloc] init];
+    if (_accountSetupController == nil) {
+        _accountSetupController = [[AccountSetupController alloc] init];
     }
-    return accountSetupController_;
+    return _accountSetupController;
 }
 
 - (void)setRingtone:(NSSound *)aRingtone {
-    if (ringtone_ != aRingtone) {
-        [ringtone_ release];
-        ringtone_ = [aRingtone retain];
+    if (_ringtone != aRingtone) {
+        [_ringtone release];
+        _ringtone = [aRingtone retain];
         
         if ([[self audioDevices] count] > [self ringtoneOutputDeviceIndex]) {
             NSDictionary *ringtoneOutputDeviceDict
               = [[self audioDevices] objectAtIndex:[self ringtoneOutputDeviceIndex]];
-            [ringtone_ setPlaybackDeviceIdentifier:[ringtoneOutputDeviceDict objectForKey:kAudioDeviceUID]];
+            [_ringtone setPlaybackDeviceIdentifier:[ringtoneOutputDeviceDict objectForKey:kAudioDeviceUID]];
             
         } else {
-            [ringtone_ setPlaybackDeviceIdentifier:nil];
+            [_ringtone setPlaybackDeviceIdentifier:nil];
         }
     }
 }
@@ -297,9 +273,9 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         return nil;
     }
     
-    userAgent_ = [AKSIPUserAgent sharedUserAgent];
+    _userAgent = [AKSIPUserAgent sharedUserAgent];
     [[self userAgent] setDelegate:self];
-    accountControllers_ = [[NSMutableArray alloc] init];
+    _accountControllers = [[NSMutableArray alloc] init];
     [self setSoundInputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
     [self setSoundOutputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
     [self setShouldSetUserAgentSoundIO:NO];
@@ -392,20 +368,20 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 }
 
 - (void)dealloc {
-    [userAgent_ dealloc];
-    [accountControllers_ release];
+    [_userAgent dealloc];
+    [_accountControllers release];
     
-    if ([[preferencesController_ delegate] isEqual:self]) {
-        [preferencesController_ setDelegate:nil];
+    if ([[_preferencesController delegate] isEqual:self]) {
+        [_preferencesController setDelegate:nil];
     }
-    [preferencesController_ release];
+    [_preferencesController release];
     
-    [audioDevices_ release];
-    [ringtone_ release];
+    [_audioDevices release];
+    [_ringtone release];
     
-    [accountsMenuItems_ release];
-    [windowMenu_ release];
-    [preferencesMenuItem_ release];
+    [_accountsMenuItems release];
+    [_windowMenu release];
+    [_preferencesMenuItem release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];

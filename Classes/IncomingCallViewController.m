@@ -38,11 +38,6 @@
 
 @synthesize callController = callController_;
 
-@synthesize displayedNameField = displayedNameField_;
-@synthesize statusField = statusField_;
-@synthesize acceptCallButton = acceptCallButton_;
-@synthesize declineCallButton = declineCallButton_;
-
 - (id)initWithCallController:(CallController *)callController {
     self = [super initWithNibName:@"IncomingCallView" bundle:nil windowController:callController];
     
@@ -60,10 +55,10 @@
 }
 
 - (void)dealloc {
-    [displayedNameField_ release];
-    [statusField_ release];
-    [acceptCallButton_ release];
-    [declineCallButton_ release];
+    [_displayedNameField release];
+    [_statusField release];
+    [_acceptCallButton release];
+    [_declineCallButton release];
     
     [super dealloc];
 }

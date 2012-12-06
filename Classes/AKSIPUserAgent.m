@@ -113,42 +113,15 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 
 @implementation AKSIPUserAgent
 
-@synthesize delegate = delegate_;
-@synthesize accounts = accounts_;
-@dynamic started;
-@synthesize state = state_;
-@synthesize detectedNATType = detectedNATType_;
-@synthesize pjsuaLock = pjsuaLock_;
-@dynamic activeCallsCount;
-@dynamic callData;
-@synthesize pjPool = pjPool_;
-@synthesize ringbackSlot = ringbackSlot_;
-@synthesize ringbackCount = ringbackCount_;
-@synthesize ringbackPort = ringbackPort_;
-
-@synthesize nameservers = nameservers_;
-@synthesize outboundProxyHost = outboundProxyHost_;
-@synthesize outboundProxyPort = outboundProxyPort_;
-@synthesize STUNServerHost = STUNServerHost_;
-@synthesize STUNServerPort = STUNServerPort_;
-@synthesize userAgentString = userAgentString_;
-@synthesize logFileName = logFileName_;
-@synthesize logLevel = logLevel_;
-@synthesize consoleLogLevel = consoleLogLevel_;
-@synthesize detectsVoiceActivity = detectsVoiceActivity_;
-@synthesize usesICE = usesICE_;
-@synthesize transportPort = transportPort_;
-@synthesize transportPublicHost = transportPublicHost_;
-
 - (void)setDelegate:(id <AKSIPUserAgentDelegate>)aDelegate {
-    if (delegate_ == aDelegate) {
+    if (_delegate == aDelegate) {
         return;
     }
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
-    if (delegate_ != nil) {
-        [notificationCenter removeObserver:delegate_ name:nil object:self];
+    if (_delegate != nil) {
+        [notificationCenter removeObserver:_delegate name:nil object:self];
     }
     
     if (aDelegate != nil) {
@@ -178,7 +151,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
         }
     }
     
-    delegate_ = aDelegate;
+    _delegate = aDelegate;
 }
 
 - (BOOL)isStarted {
@@ -190,54 +163,54 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 }
 
 - (AKSIPUserAgentCallData *)callData {
-    return callData_;
+    return _callData;
 }
 
 - (void)setNameservers:(NSArray *)newNameservers {
-    if (nameservers_ != newNameservers) {
-        [nameservers_ release];
+    if (_nameservers != newNameservers) {
+        [_nameservers release];
         
         if ([newNameservers count] > kAKSIPUserAgentNameserversMax) {
-            nameservers_ = [[newNameservers subarrayWithRange:NSMakeRange(0, kAKSIPUserAgentNameserversMax)] retain];
+            _nameservers = [[newNameservers subarrayWithRange:NSMakeRange(0, kAKSIPUserAgentNameserversMax)] retain];
         } else {
-            nameservers_ = [newNameservers copy];
+            _nameservers = [newNameservers copy];
         }
     }
 }
 
 - (void)setOutboundProxyPort:(NSUInteger)port {
     if (port > 0 && port < 65535) {
-        outboundProxyPort_ = port;
+        _outboundProxyPort = port;
     } else {
-        outboundProxyPort_ = kAKSIPUserAgentDefaultOutboundProxyPort;
+        _outboundProxyPort = kAKSIPUserAgentDefaultOutboundProxyPort;
     }
 }
 
 - (void)setSTUNServerPort:(NSUInteger)port {
     if (port > 0 && port < 65535) {
-        STUNServerPort_ = port;
+        _STUNServerPort = port;
     } else {
-        STUNServerPort_ = kAKSIPUserAgentDefaultSTUNServerPort;
+        _STUNServerPort = kAKSIPUserAgentDefaultSTUNServerPort;
     }
 }
 
 - (void)setLogFileName:(NSString *)pathToFile {
-    if (logFileName_ != pathToFile) {
+    if (_logFileName != pathToFile) {
         if ([pathToFile length] > 0) {
-            [logFileName_ release];
-            logFileName_ = [pathToFile copy];
+            [_logFileName release];
+            _logFileName = [pathToFile copy];
         } else {
-            [logFileName_ release];
-            logFileName_ = nil;
+            [_logFileName release];
+            _logFileName = nil;
         }
     }
 }
 
 - (void)setTransportPort:(NSUInteger)port {
     if (port > 0 && port < 65535) {
-        transportPort_ = port;
+        _transportPort = port;
     } else {
-        transportPort_ = kAKSIPUserAgentDefaultTransportPort;
+        _transportPort = kAKSIPUserAgentDefaultTransportPort;
     }
 }
 
@@ -295,9 +268,9 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     }
     
     [self setDelegate:aDelegate];
-    accounts_ = [[NSMutableArray alloc] init];
+    _accounts = [[NSMutableArray alloc] init];
     [self setDetectedNATType:kAKNATTypeUnknown];
-    pjsuaLock_ = [[NSLock alloc] init];
+    _pjsuaLock = [[NSLock alloc] init];
     
     [self setOutboundProxyPort:kAKSIPUserAgentDefaultOutboundProxyPort];
     [self setSTUNServerPort:kAKSIPUserAgentDefaultSTUNServerPort];
@@ -317,14 +290,14 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 }
 
 - (void)dealloc {
-    [accounts_ release];
-    [pjsuaLock_ release];
-    [nameservers_ release];
-    [outboundProxyHost_ release];
-    [STUNServerHost_ release];
-    [userAgentString_ release];
-    [logFileName_ release];
-    [transportPublicHost_ release];
+    [_accounts release];
+    [_pjsuaLock release];
+    [_nameservers release];
+    [_outboundProxyHost release];
+    [_STUNServerHost release];
+    [_userAgentString release];
+    [_logFileName release];
+    [_transportPublicHost release];
     
     [super dealloc];
 }

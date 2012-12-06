@@ -92,30 +92,11 @@ NSString * const kEmailSIPLabel = @"sip";
 
 @implementation AccountController
 
-@synthesize enabled = enabled_;
-@synthesize account = account_;
-@dynamic accountRegistered;
-@synthesize callControllers = callControllers_;
-@synthesize accountDescription = accountDescription_;
-@synthesize attemptingToRegisterAccount = attemptingToRegisterAccount_;
-@synthesize attemptingToUnregisterAccount = attemptingToUnregisterAccount_;
-@synthesize shouldPresentRegistrationError = shouldPresentRegistrationError_;
-@synthesize accountUnavailable = accountUnavailable_;
-@synthesize reRegistrationTimer = reRegistrationTimer_;
-@synthesize shouldMakeCall = shouldMakeCall_;
-@synthesize catchedURLString = catchedURLString_;
-@synthesize registrarReachability = registrarReachability_;
-
-@synthesize substitutesPlusCharacter = substitutesPlusCharacter_;
-@synthesize plusCharacterSubstitution = plusCharacterSubstitution_;
-
-@dynamic activeAccountViewController;
-@dynamic authenticationFailureController;
-
-@synthesize accountStatePopUp = accountStatePopUp_;
+@synthesize activeAccountViewController = _activeAccountViewController;
+@synthesize authenticationFailureController = _authenticationFailureController;
 
 - (void)setEnabled:(BOOL)flag {
-    enabled_ = flag;
+    _enabled = flag;
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
@@ -217,20 +198,20 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (ActiveAccountViewController *)activeAccountViewController {
-    if (activeAccountViewController_ == nil) {
-        activeAccountViewController_ = [[ActiveAccountViewController alloc] initWithAccountController:self
+    if (_activeAccountViewController == nil) {
+        _activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self
                                                                                      windowController:self];
     }
     
-    return activeAccountViewController_;
+    return _activeAccountViewController;
 }
 
 - (AuthenticationFailureController *)authenticationFailureController {
-    if (authenticationFailureController_ == nil) {
-        authenticationFailureController_ = [[AuthenticationFailureController alloc] initWithAccountController:self];
+    if (_authenticationFailureController == nil) {
+        _authenticationFailureController = [[AuthenticationFailureController alloc] initWithAccountController:self];
     }
     
-    return authenticationFailureController_;
+    return _authenticationFailureController;
 }
 
 - (id)initWithSIPAccount:(AKSIPAccount *)anAccount {
@@ -240,7 +221,7 @@ NSString * const kEmailSIPLabel = @"sip";
     }
     
     [self setAccount:anAccount];
-    callControllers_ = [[NSMutableArray alloc] init];
+    _callControllers = [[NSMutableArray alloc] init];
     [self setSubstitutesPlusCharacter:NO];
     
     [self setAttemptingToRegisterAccount:NO];
@@ -288,18 +269,18 @@ NSString * const kEmailSIPLabel = @"sip";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     // Close authentication failure sheet if it's raised.
-    [[authenticationFailureController_ cancelButton] performClick:nil];
+    [[_authenticationFailureController cancelButton] performClick:nil];
     
-    [account_ release];
-    [callControllers_ release];
-    [accountDescription_ release];
-    [catchedURLString_ release];
-    [registrarReachability_ release];
-    [plusCharacterSubstitution_ release];
+    [_account release];
+    [_callControllers release];
+    [_accountDescription release];
+    [_catchedURLString release];
+    [_registrarReachability release];
+    [_plusCharacterSubstitution release];
     
-    [activeAccountViewController_ release];
+    [_activeAccountViewController release];
     
-    [accountStatePopUp_ release];
+    [_accountStatePopUp release];
     
     [super dealloc];
 }

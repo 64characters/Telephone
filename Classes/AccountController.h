@@ -49,29 +49,7 @@ extern NSString * const kEmailSIPLabel;
 @class CallTransferController;
 
 // A SIP account controller.
-@interface AccountController : XSWindowController <AKSIPAccountDelegate> {
-  @private
-    BOOL enabled_;
-    AKSIPAccount *account_;
-    NSMutableArray *callControllers_;
-    NSString *accountDescription_;
-    BOOL attemptingToRegisterAccount_;
-    BOOL attemptingToUnregisterAccount_;
-    BOOL shouldPresentRegistrationError_;
-    BOOL accountUnavailable_;
-    NSTimer *reRegistrationTimer_;
-    BOOL shouldMakeCall_;
-    NSString *catchedURLString_;
-    AKNetworkReachability *registrarReachability_;
-    
-    BOOL substitutesPlusCharacter_;
-    NSString *plusCharacterSubstitution_;
-    
-    ActiveAccountViewController *activeAccountViewController_;
-    AuthenticationFailureController *authenticationFailureController_;
-    
-    NSPopUpButton *accountStatePopUp_;
-}
+@interface AccountController : XSWindowController <AKSIPAccountDelegate>
 
 // A Boolean value indicating whether receiver is enabled.
 @property (nonatomic, assign, getter=isEnabled) BOOL enabled;

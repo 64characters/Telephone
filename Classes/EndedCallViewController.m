@@ -35,12 +35,6 @@
 
 @implementation EndedCallViewController
 
-@synthesize callController = callController_;
-
-@synthesize displayedNameField = displayedNameField_;
-@synthesize statusField = statusField_;
-@synthesize redialButton = redialButton_;
-
 - (id)initWithNibName:(NSString *)nibName callController:(CallController *)callController {
     self = [super initWithNibName:nibName bundle:nil windowController:callController];
     
@@ -58,9 +52,9 @@
 }
 
 - (void)dealloc {
-    [displayedNameField_ release];
-    [statusField_ release];
-    [redialButton_ release];
+    [_displayedNameField release];
+    [_statusField release];
+    [_redialButton release];
     
     [super dealloc];
 }

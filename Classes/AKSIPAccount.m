@@ -44,34 +44,15 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
 
 @implementation AKSIPAccount
 
-@synthesize delegate = delegate_;
-@synthesize registrationURI = registrationURI_;
-@synthesize fullName = fullName_;
-@synthesize SIPAddress = SIPAddress_;
-@synthesize registrar = registrar_;
-@synthesize realm = realm_;
-@synthesize username = username_;
-@synthesize proxyHost = proxyHost_;
-@synthesize proxyPort = proxyPort_;
-@synthesize reregistrationTime = reregistrationTime_;
-@synthesize identifier = identifier_;
-@dynamic registered;
-@dynamic registrationStatus;
-@dynamic registrationStatusText;
-@dynamic registrationExpireTime;
-@dynamic online;
-@dynamic onlineStatusText;
-@synthesize calls = calls_;
-
 - (void)setDelegate:(NSObject <AKSIPAccountDelegate> *)aDelegate {
-    if (delegate_ == aDelegate) {
+    if (_delegate == aDelegate) {
         return;
     }
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
-    if (delegate_ != nil) {
-        [notificationCenter removeObserver:delegate_ name:nil object:self];
+    if (_delegate != nil) {
+        [notificationCenter removeObserver:_delegate name:nil object:self];
     }
     
     if (aDelegate != nil) {
@@ -83,14 +64,14 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
         }
     }
     
-    delegate_ = aDelegate;
+    _delegate = aDelegate;
 }
 
 - (void)setProxyPort:(NSUInteger)port {
     if (port > 0 && port < 65535) {
-        proxyPort_ = port;
+        _proxyPort = port;
     } else {
-        proxyPort_ = kAKSIPAccountDefaultSIPProxyPort;
+        _proxyPort = kAKSIPAccountDefaultSIPProxyPort;
     }
 }
 
@@ -98,13 +79,13 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     const NSInteger reregistrationTimeMin = 60;
     const NSInteger reregistrationTimeMax = 3600;
     if (seconds == 0) {
-        reregistrationTime_ = kAKSIPAccountDefaultReregistrationTime;
+        _reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
     } else if (seconds < reregistrationTimeMin) {
-        reregistrationTime_ = reregistrationTimeMin;
+        _reregistrationTime = reregistrationTimeMin;
     } else if (seconds > reregistrationTimeMax) {
-        reregistrationTime_ = reregistrationTimeMax;
+        _reregistrationTime = reregistrationTimeMax;
     } else {
-        reregistrationTime_ = seconds;
+        _reregistrationTime = seconds;
     }
 }
 
@@ -255,7 +236,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
     [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];
     
-    calls_ = [[NSMutableArray alloc] init];
+    _calls = [[NSMutableArray alloc] init];
     
     return self;
 }
@@ -267,16 +248,16 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
 - (void)dealloc {
     [self setDelegate:nil];
     
-    [registrationURI_ release];
+    [_registrationURI release];
     
-    [fullName_ release];
-    [SIPAddress_ release];
-    [registrar_ release];
-    [realm_ release];
-    [username_ release];
-    [proxyHost_ release];
+    [_fullName release];
+    [_SIPAddress release];
+    [_registrar release];
+    [_realm release];
+    [_username release];
+    [_proxyHost release];
     
-    [calls_ release];
+    [_calls release];
     
     [super dealloc];
 }

@@ -33,8 +33,6 @@
 
 @implementation AKTelephoneNumberFormatter
 
-@synthesize splitsLastFourDigits = splitsLastFourDigits_;
-
 - (NSString *)stringForObjectValue:(id)anObject {
     if (![anObject isKindOfClass:[NSString class]]) {
         return nil;

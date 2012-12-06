@@ -33,10 +33,6 @@
 
 @implementation NSString (AKStringScanningAdditions)
 
-@dynamic ak_isTelephoneNumber;
-@dynamic ak_hasLetters;
-@dynamic ak_isIPAddress;
-
 - (BOOL)ak_isTelephoneNumber {
     NSPredicate *telephoneNumberPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
     

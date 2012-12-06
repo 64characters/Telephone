@@ -93,27 +93,27 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 @implementation PreferencesController
 
-@synthesize delegate = delegate_;
-@dynamic generalPreferencesViewController;
-@dynamic accountPreferencesViewController;
-@dynamic soundPreferencesViewController;
-@dynamic networkPreferencesViewController;
-
-@synthesize toolbar = toolbar_;
-@synthesize generalToolbarItem = generalToolbarItem_;
-@synthesize accountsToolbarItem = accountsToolbarItem_;
-@synthesize soundToolbarItem = soundToolbarItem_;
-@synthesize networkToolbarItem = networkToolbarItem_;
+//@synthesize delegate = delegate_;
+@synthesize generalPreferencesViewController = _generalPreferencesViewController;
+@synthesize accountPreferencesViewController = _accountPreferencesViewController;
+@synthesize soundPreferencesViewController = _soundPreferencesViewController;
+@synthesize networkPreferencesViewController = _networkPreferencesViewController;
+//
+//@synthesize toolbar = toolbar_;
+//@synthesize generalToolbarItem = generalToolbarItem_;
+//@synthesize accountsToolbarItem = accountsToolbarItem_;
+//@synthesize soundToolbarItem = soundToolbarItem_;
+//@synthesize networkToolbarItem = networkToolbarItem_;
 
 - (void)setDelegate:(id)aDelegate {
-    if (delegate_ == aDelegate) {
+    if (_delegate == aDelegate) {
         return;
     }
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     
-    if (delegate_ != nil)
-        [nc removeObserver:delegate_ name:nil object:self];
+    if (_delegate != nil)
+        [nc removeObserver:_delegate name:nil object:self];
     
     if (aDelegate != nil) {
         if ([aDelegate respondsToSelector:@selector(preferencesControllerDidRemoveAccount:)]) {
@@ -145,37 +145,37 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
         }
     }
     
-    delegate_ = aDelegate;
+    _delegate = aDelegate;
 }
 
 - (GeneralPreferencesViewController *)generalPreferencesViewController {
-    if (generalPreferencesViewController_ == nil) {
-        generalPreferencesViewController_ = [[GeneralPreferencesViewController alloc] init];
+    if (_generalPreferencesViewController == nil) {
+        _generalPreferencesViewController = [[GeneralPreferencesViewController alloc] init];
     }
-    return generalPreferencesViewController_;
+    return _generalPreferencesViewController;
 }
 
 - (AccountPreferencesViewController *)accountPreferencesViewController {
-    if (accountPreferencesViewController_ == nil) {
-        accountPreferencesViewController_ = [[AccountPreferencesViewController alloc] init];
-        [accountPreferencesViewController_ setPreferencesController:self];
+    if (_accountPreferencesViewController == nil) {
+        _accountPreferencesViewController = [[AccountPreferencesViewController alloc] init];
+        [_accountPreferencesViewController setPreferencesController:self];
     }
-    return accountPreferencesViewController_;
+    return _accountPreferencesViewController;
 }
 
 - (SoundPreferencesViewController *)soundPreferencesViewController {
-    if (soundPreferencesViewController_ == nil) {
-        soundPreferencesViewController_ = [[SoundPreferencesViewController alloc] init];
+    if (_soundPreferencesViewController == nil) {
+        _soundPreferencesViewController = [[SoundPreferencesViewController alloc] init];
     }
-    return soundPreferencesViewController_;
+    return _soundPreferencesViewController;
 }
 
 - (NetworkPreferencesViewController *)networkPreferencesViewController {
-    if (networkPreferencesViewController_ == nil) {
-        networkPreferencesViewController_ = [[NetworkPreferencesViewController alloc] init];
-        [networkPreferencesViewController_ setPreferencesController:self];
+    if (_networkPreferencesViewController == nil) {
+        _networkPreferencesViewController = [[NetworkPreferencesViewController alloc] init];
+        [_networkPreferencesViewController setPreferencesController:self];
     }
-    return networkPreferencesViewController_;
+    return _networkPreferencesViewController;
 }
 
 - (id)init {
@@ -186,16 +186,16 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 - (void)dealloc {
     [self setDelegate:nil];
-    [generalPreferencesViewController_ release];
-    [accountPreferencesViewController_ release];
-    [soundPreferencesViewController_ release];
-    [networkPreferencesViewController_ release];
+    [_generalPreferencesViewController release];
+    [_accountPreferencesViewController release];
+    [_soundPreferencesViewController release];
+    [_networkPreferencesViewController release];
     
-    [toolbar_ release];
-    [generalToolbarItem_ release];
-    [accountsToolbarItem_ release];
-    [soundToolbarItem_ release];
-    [networkToolbarItem_ release];
+    [_toolbar release];
+    [_generalToolbarItem release];
+    [_accountsToolbarItem release];
+    [_soundToolbarItem release];
+    [_networkToolbarItem release];
     
     [super dealloc];
 }
@@ -278,7 +278,7 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 #pragma mark NSWindow delegate
 
 - (BOOL)windowShouldClose:(id)window {
-    if (networkPreferencesViewController_ != nil) {
+    if (_networkPreferencesViewController != nil) {
         BOOL networkSettingsChanged = [[self networkPreferencesViewController] checkForNetworkSettingsChanges:window];
         if (networkSettingsChanged) {
             return NO;

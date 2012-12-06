@@ -32,20 +32,7 @@
 
 
 // A class representing SIP URI.
-@interface AKSIPURI : NSObject <NSCopying> {
-  @private
-    NSString *displayName_;
-    NSString *user_;
-    NSString *password_;
-    NSString *host_;
-    NSInteger port_;
-    NSString *userParameter_;
-    NSString *methodParameter_;
-    NSString *transportParameter_;
-    NSInteger TTLParameter_;
-    NSInteger looseRoutingParameter_;
-    NSString *maddrParameter_;
-}
+@interface AKSIPURI : NSObject <NSCopying>
 
 // SIP address in the form |user@host| or |host|.
 @property (nonatomic, readonly, copy) NSString *SIPAddress;

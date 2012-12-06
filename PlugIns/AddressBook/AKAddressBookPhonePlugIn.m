@@ -35,10 +35,6 @@
 
 @implementation AKAddressBookPhonePlugIn
 
-@synthesize lastPhoneNumber = lastPhoneNumber_;
-@synthesize lastFullName = lastFullName_;
-@synthesize shouldDial = shouldDial_;
-
 - (id)init {
     self = [super init];
     if (self == nil) {
@@ -58,8 +54,8 @@
 }
 
 - (void)dealloc {
-    [lastPhoneNumber_ release];
-    [lastFullName_ release];
+    [_lastPhoneNumber release];
+    [_lastFullName release];
     
     [super dealloc];
 }

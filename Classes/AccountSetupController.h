@@ -37,19 +37,7 @@
 extern NSString * const AKAccountSetupControllerDidAddAccountNotification;
 
 // A class to manage account setup.
-@interface AccountSetupController : NSWindowController {
-  @private
-    NSTextField *fullNameField_;
-    NSTextField *domainField_;
-    NSTextField *usernameField_;
-    NSTextField *passwordField_;
-    NSImageView *fullNameInvalidDataView_;
-    NSImageView *domainInvalidDataView_;
-    NSImageView *usernameInvalidDataView_;
-    NSImageView *passwordInvalidDataView_;
-    NSButton *defaultButton_;
-    NSButton *otherButton_;
-}
+@interface AccountSetupController : NSWindowController
 
 // Outlets.
 @property (nonatomic, retain) IBOutlet NSTextField *fullNameField;

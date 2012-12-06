@@ -42,14 +42,6 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
 
 @implementation AuthenticationFailureController
 
-@synthesize accountController = accountController_;
-
-@synthesize informativeText = informativeText_;
-@synthesize usernameField = usernameField_;
-@synthesize passwordField = passwordField_;
-@synthesize mustSaveCheckBox = mustSaveCheckBox_;
-@synthesize cancelButton = cancelButton_;
-
 - (id)initWithAccountController:(AccountController *)anAccountController {
     self = [super initWithWindowNibName:@"AuthenticationFailure"];
     if (self != nil) {
@@ -64,11 +56,11 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
 }
 
 - (void)dealloc {
-    [informativeText_ release];
-    [usernameField_ release];
-    [passwordField_ release];
-    [mustSaveCheckBox_ release];
-    [cancelButton_ release];
+    [_informativeText release];
+    [_usernameField release];
+    [_passwordField release];
+    [_mustSaveCheckBox release];
+    [_cancelButton release];
     
     [super dealloc];
 }

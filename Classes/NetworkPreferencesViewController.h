@@ -34,18 +34,7 @@
 @class PreferencesController;
 
 // A view controller to manage network preferences.
-@interface NetworkPreferencesViewController : NSViewController {
-  @private
-    PreferencesController *preferencesController_;
-    
-    NSTextField *transportPortField_;
-    NSTextField *STUNServerHostField_;
-    NSTextField *STUNServerPortField_;
-    NSButton *useICECheckBox_;
-    NSButton *useDNSSRVCheckBox_;
-    NSTextField *outboundProxyHostField_;
-    NSTextField *outboundProxyPortField_;
-}
+@interface NetworkPreferencesViewController : NSViewController
 
 // Preferences controller the receiver belongs to.
 @property (nonatomic, assign) PreferencesController *preferencesController;

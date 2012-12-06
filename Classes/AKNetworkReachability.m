@@ -52,12 +52,9 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
 
 @implementation AKNetworkReachability
 
-@synthesize host = host_;
-@dynamic reachable;
-
 - (BOOL)isReachable {
     SCNetworkConnectionFlags flags;
-    Boolean flagsValid = SCNetworkReachabilityGetFlags(reachability_, &flags);
+    Boolean flagsValid = SCNetworkReachabilityGetFlags(_reachability, &flags);
     
     return (flagsValid && (flags & kSCNetworkFlagsReachable)) ? YES : NO;
 }
@@ -83,19 +80,19 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
         sin.sin_len = sizeof(sin);
         sin.sin_family = AF_INET;
         inet_aton([nameOrAddress UTF8String], &sin.sin_addr);
-        reachability_ = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (struct sockaddr *)&sin);
+        _reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (struct sockaddr *)&sin);
     } else {
-        reachability_ = SCNetworkReachabilityCreateWithName(kCFAllocatorDefault, [nameOrAddress UTF8String]);
+        _reachability = SCNetworkReachabilityCreateWithName(kCFAllocatorDefault, [nameOrAddress UTF8String]);
     }
     
-    context_.info = self;
-    Boolean callbackSet = SCNetworkReachabilitySetCallback(reachability_, &AKReachabilityChanged, &context_);
+    _context.info = self;
+    Boolean callbackSet = SCNetworkReachabilitySetCallback(_reachability, &AKReachabilityChanged, &_context);
     if (!callbackSet) {
         [self release];
         return nil;
     }
     
-    Boolean scheduled = SCNetworkReachabilityScheduleWithRunLoop(reachability_,
+    Boolean scheduled = SCNetworkReachabilityScheduleWithRunLoop(_reachability,
                                                                  CFRunLoopGetMain(),
                                                                  kCFRunLoopDefaultMode);
     if (!scheduled) {
@@ -109,12 +106,12 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
 }
 
 - (void)dealloc {
-    SCNetworkReachabilityUnscheduleFromRunLoop(reachability_, CFRunLoopGetMain(), kCFRunLoopDefaultMode);
-    if (reachability_ != NULL) {
-        CFRelease(reachability_);
+    SCNetworkReachabilityUnscheduleFromRunLoop(_reachability, CFRunLoopGetMain(), kCFRunLoopDefaultMode);
+    if (_reachability != NULL) {
+        CFRelease(_reachability);
     }
     
-    [host_ release];
+    [_host release];
     
     [super dealloc];
 }

@@ -53,34 +53,15 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
 
 @implementation AKSIPCall
 
-@synthesize delegate = delegate_;
-@synthesize identifier = identifier_;
-@synthesize localURI = localURI_;
-@synthesize remoteURI = remoteURI_;
-@synthesize state = state_;
-@synthesize stateText = stateText_;
-@synthesize lastStatus = lastStatus_;
-@synthesize lastStatusText = lastStatusText_;
-@synthesize transferStatus = transferStatus_;
-@synthesize transferStatusText = transferStatusText_;
-@dynamic active;
-@dynamic hasMedia;
-@dynamic hasActiveMedia;
-@synthesize incoming = incoming_;
-@synthesize microphoneMuted = microphoneMuted_;
-@dynamic onLocalHold;
-@dynamic onRemoteHold;
-@synthesize account = account_;
-
 - (void)setDelegate:(id)aDelegate {
-    if (delegate_ == aDelegate) {
+    if (_delegate == aDelegate) {
         return;
     }
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
-    if (delegate_ != nil) {
-        [notificationCenter removeObserver:delegate_ name:nil object:self];
+    if (_delegate != nil) {
+        [notificationCenter removeObserver:_delegate name:nil object:self];
     }
     
     if (aDelegate != nil) {
@@ -147,7 +128,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
         }
     }
     
-    delegate_ = aDelegate;
+    _delegate = aDelegate;
 }
 
 - (BOOL)isActive {
@@ -246,11 +227,11 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     
     [self setDelegate:nil];
     
-    [localURI_ release];
-    [remoteURI_ release];
-    [stateText_ release];
-    [lastStatusText_ release];
-    [transferStatusText_ release];
+    [_localURI release];
+    [_remoteURI release];
+    [_stateText release];
+    [_lastStatusText release];
+    [_transferStatusText release];
     
     [super dealloc];
 }

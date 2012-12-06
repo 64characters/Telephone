@@ -41,21 +41,11 @@
 
 @implementation ActiveCallViewController
 
-@synthesize callController = callController_;
-@synthesize callTimer = callTimer_;
-@synthesize enteredDTMF = enteredDTMF_;
-@synthesize callProgressIndicatorTrackingArea = callProgressIndicatorTrackingArea_;
-
-@synthesize displayedNameField = displayedNameField_;
-@synthesize statusField = statusField_;
-@synthesize callProgressIndicator = callProgressIndicator_;
-@synthesize hangUpButton = hangUpButton_;
-
 - (id)initWithNibName:(NSString *)nibName callController:(CallController *)callController {
     self = [super initWithNibName:nibName bundle:nil windowController:callController];
     
     if (self != nil) {
-        enteredDTMF_ = [[NSMutableString alloc] init];
+        _enteredDTMF = [[NSMutableString alloc] init];
         [self setCallController:callController];
     }
     return self;
@@ -69,13 +59,13 @@
 }
 
 - (void)dealloc {
-    [enteredDTMF_ release];
-    [callProgressIndicatorTrackingArea_ release];
+    [_enteredDTMF release];
+    [_callProgressIndicatorTrackingArea release];
     
-    [displayedNameField_ release];
-    [statusField_ release];
-    [callProgressIndicator_ release];
-    [hangUpButton_ release];
+    [_displayedNameField release];
+    [_statusField release];
+    [_callProgressIndicator release];
+    [_hangUpButton release];
     
     [super dealloc];
 }

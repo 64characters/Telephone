@@ -37,9 +37,6 @@
 
 @implementation AKSIPURIFormatter
 
-@synthesize formatsTelephoneNumbers = formatsTelephoneNumbers_;
-@synthesize telephoneNumberFormatterSplitsLastFourDigits = telephoneNumberFormatterSplitsLastFourDigits_;
-
 - (NSString *)stringForObjectValue:(id)anObject {
     if (![anObject isKindOfClass:[AKSIPURI class]]) {
         return nil;

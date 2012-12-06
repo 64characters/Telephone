@@ -33,8 +33,6 @@
 
 @implementation AKActiveCallView
 
-@synthesize delegate = delegate_;
-
 - (BOOL)acceptsFirstResponder {
     return YES;
 }

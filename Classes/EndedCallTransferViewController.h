@@ -34,8 +34,6 @@
 
 
 // An ended call controller of a call transfer.
-@interface EndedCallTransferViewController : EndedCallViewController {
-
-}
+@interface EndedCallTransferViewController : EndedCallViewController
 
 @end

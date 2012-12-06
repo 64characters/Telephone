@@ -39,16 +39,7 @@ extern NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPas
 
 // Instances of AuthenticationFailureController class allow user to update
 // account credentials when authentication fails.
-@interface AuthenticationFailureController : NSWindowController {
-  @private
-    AccountController *accountController_;
-    
-    NSTextField *informativeText_;
-    NSTextField *usernameField_;
-    NSTextField *passwordField_;
-    NSButton *mustSaveCheckBox_;
-    NSButton *cancelButton_;
-}
+@interface AuthenticationFailureController : NSWindowController
 
 // The receiver's account controller.
 @property (nonatomic, assign) AccountController *accountController;

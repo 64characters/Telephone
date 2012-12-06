@@ -57,25 +57,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 
 // A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
 // class to make and receive calls.
-@interface AKSIPAccount : NSObject {
-  @private
-    NSObject <AKSIPAccountDelegate> *delegate_;
-    
-    AKSIPURI *registrationURI_;
-    
-    NSString *fullName_;
-    NSString *SIPAddress_;
-    NSString *registrar_;
-    NSString *realm_;
-    NSString *username_;
-    NSString *proxyHost_;
-    NSUInteger proxyPort_;
-    NSUInteger reregistrationTime_;
-    
-    NSInteger identifier_;
-    
-    NSMutableArray *calls_;
-}
+@interface AKSIPAccount : NSObject
 
 // The receiver's delegate.
 @property (nonatomic, assign) NSObject <AKSIPAccountDelegate> *delegate;

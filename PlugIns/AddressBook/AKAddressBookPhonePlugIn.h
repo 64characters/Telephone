@@ -36,11 +36,7 @@
 NSString * const AKAddressBookDidDialPhoneNumberNotification = @"AKAddressBookDidDialPhoneNumber";
 
 // An Address Book plug-in to dial phone numbers with Telephone.
-@interface AKAddressBookPhonePlugIn : NSObject {
-    NSString *lastPhoneNumber_;
-    NSString *lastFullName_;
-    BOOL shouldDial_;
-}
+@interface AKAddressBookPhonePlugIn : NSObject
 
 // Phone number that has been dialed last. While Telephone is being launched, several phone numbers can be dialed. We
 // handle only the last one.

@@ -35,10 +35,7 @@
 
 // The AKActiveCallView class receives DTMF digits |0123456789*#| and control characters |mh| from the keyboard. It
 // gives its delegate a chance to get those DTMF digits and it sends control characters further.
-@interface AKActiveCallView : NSView {
-  @private
-    id <AKActiveCallViewDelegate> delegate_;
-}
+@interface AKActiveCallView : NSView
 
 // The receiver's delegate.
 @property (nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;

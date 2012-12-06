@@ -32,9 +32,7 @@
 
 
 // A Keychain Services wrapper.
-@interface AKKeychain : NSObject {
-  
-}
+@interface AKKeychain : NSObject
 
 // Returns password for the first Keychain item with a specified service name and account name.
 + (NSString *)passwordForServiceName:(NSString *)serviceName accountName:(NSString *)accountName;

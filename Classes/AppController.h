@@ -49,30 +49,7 @@ extern NSString * const kGrowlNotificationCallEnded;
 @class AccountSetupController;
 
 // Application controller and NSApplication delegate.
-@interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate> {
-  @private
-    AKSIPUserAgent *userAgent_;
-    NSMutableArray *accountControllers_;
-    PreferencesController *preferencesController_;
-    AccountSetupController *accountSetupController_;
-    NSArray *audioDevices_;
-    NSInteger soundInputDeviceIndex_;
-    NSInteger soundOutputDeviceIndex_;
-    NSInteger ringtoneOutputDeviceIndex_;
-    BOOL shouldSetUserAgentSoundIO_;
-    NSSound *ringtone_;
-    NSTimer *ringtoneTimer_;
-    BOOL shouldRegisterAllAccounts_;
-    BOOL shouldRestartUserAgentASAP_;
-    BOOL terminating_;
-    BOOL didPauseITunes_;
-    BOOL shouldPresentUserAgentLaunchError_;
-    NSTimer *userAttentionTimer_;
-    
-    NSArray *accountsMenuItems_;
-    NSMenu *windowMenu_;
-    NSMenuItem *preferencesMenuItem_;
-}
+@interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate>
 
 // SIP user agent.
 @property (nonatomic, readonly, retain) AKSIPUserAgent *userAgent;

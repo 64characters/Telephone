@@ -44,32 +44,13 @@ static const NSUInteger kAccountsMax = 32;
 
 @implementation AccountPreferencesViewController
 
-@synthesize preferencesController = preferencesController_;
-@dynamic accountSetupController;
-
-@synthesize accountsTable = accountsTable_;
-@synthesize addAccountButton = addAccountButton_;
-@synthesize accountEnabledCheckBox = accountEnabledCheckBox_;
-@synthesize accountDescriptionField = accountDescriptionField_;
-@synthesize fullNameField = fullNameField_;
-@synthesize domainField = domainField_;
-@synthesize usernameField = usernameField_;
-@synthesize passwordField = passwordField_;
-@synthesize reregistrationTimeField = reregistrationTimeField_;
-@synthesize substitutePlusCharacterCheckBox = substitutePlusCharacterCheckBox_;
-@synthesize plusCharacterSubstitutionField = plusCharacterSubstitutionField_;
-@synthesize useProxyCheckBox = useProxyCheckBox_;
-@synthesize proxyHostField = proxyHostField_;
-@synthesize proxyPortField = proxyPortField_;
-@synthesize SIPAddressField = SIPAddressField_;
-@synthesize registrarField = registrarField_;
-@synthesize cantEditAccountLabel = cantEditAccountLabel_;
+@synthesize accountSetupController = _accountSetupController;
 
 - (AccountSetupController *)accountSetupController {
-    if (accountSetupController_ == nil) {
-        accountSetupController_ = [[AccountSetupController alloc] init];
+    if (_accountSetupController == nil) {
+        _accountSetupController = [[AccountSetupController alloc] init];
     }
-    return accountSetupController_;
+    return _accountSetupController;
 }
 
 - (id)init {
@@ -105,23 +86,23 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (void)dealloc {
-    [accountsTable_ release];
-    [addAccountButton_ release];
-    [accountEnabledCheckBox_ release];
-    [accountDescriptionField_ release];
-    [fullNameField_ release];
-    [domainField_ release];
-    [usernameField_ release];
-    [passwordField_ release];
-    [reregistrationTimeField_ release];
-    [substitutePlusCharacterCheckBox_ release];
-    [plusCharacterSubstitutionField_ release];
-    [useProxyCheckBox_ release];
-    [proxyHostField_ release];
-    [proxyPortField_ release];
-    [SIPAddressField_ release];
-    [registrarField_ release];
-    [cantEditAccountLabel_ release];
+    [_accountsTable release];
+    [_addAccountButton release];
+    [_accountEnabledCheckBox release];
+    [_accountDescriptionField release];
+    [_fullNameField release];
+    [_domainField release];
+    [_usernameField release];
+    [_passwordField release];
+    [_reregistrationTimeField release];
+    [_substitutePlusCharacterCheckBox release];
+    [_plusCharacterSubstitutionField release];
+    [_useProxyCheckBox release];
+    [_proxyHostField release];
+    [_proxyPortField release];
+    [_SIPAddressField release];
+    [_registrarField release];
+    [_cantEditAccountLabel release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

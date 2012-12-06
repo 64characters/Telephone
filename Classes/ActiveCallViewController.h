@@ -36,18 +36,7 @@
 
 @class AKResponsiveProgressIndicator, CallController;
 
-@interface ActiveCallViewController : XSViewController <AKActiveCallViewDelegate> {
-  @private
-    CallController *callController_;
-    NSTimer *callTimer_;
-    NSMutableString *enteredDTMF_;
-    NSTrackingArea *callProgressIndicatorTrackingArea_;
-    
-    NSTextField *displayedNameField_;
-    NSTextField *statusField_;
-    AKResponsiveProgressIndicator *callProgressIndicator_;
-    NSButton *hangUpButton_;
-}
+@interface ActiveCallViewController : XSViewController <AKActiveCallViewDelegate>
 
 // Call controller the receiver belongs to.
 @property (nonatomic, assign) CallController *callController;
