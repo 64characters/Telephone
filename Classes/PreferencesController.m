@@ -93,17 +93,10 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 @implementation PreferencesController
 
-//@synthesize delegate = delegate_;
 @synthesize generalPreferencesViewController = _generalPreferencesViewController;
 @synthesize accountPreferencesViewController = _accountPreferencesViewController;
 @synthesize soundPreferencesViewController = _soundPreferencesViewController;
 @synthesize networkPreferencesViewController = _networkPreferencesViewController;
-//
-//@synthesize toolbar = toolbar_;
-//@synthesize generalToolbarItem = generalToolbarItem_;
-//@synthesize accountsToolbarItem = accountsToolbarItem_;
-//@synthesize soundToolbarItem = soundToolbarItem_;
-//@synthesize networkToolbarItem = networkToolbarItem_;
 
 - (void)setDelegate:(id)aDelegate {
     if (_delegate == aDelegate) {
