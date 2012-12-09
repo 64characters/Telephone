@@ -52,6 +52,7 @@
 #import "AuthenticationFailureController.h"
 #import "CallController.h"
 #import "PreferencesController.h"
+#import "SoundPreferencesViewController.h"
 
 
 NSString * const kAudioDeviceIdentifier = @"AudioDeviceIdentifier";
