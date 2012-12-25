@@ -254,14 +254,11 @@
     if ([telephoneNumber length] > 0) {
         returnValue = YES;
         if (anObject != NULL) {
-            *anObject = [[telephoneNumber copy] autorelease];
+            *anObject = [telephoneNumber copy];
         }
     } else if (error != NULL) {
         *error = [NSString stringWithFormat:@"Couldn't convert \"%@\" to telephone number", string];
     }
-    
-    [telephoneNumber release];
-    [phoneNumberCharacterSet release];
     
     return returnValue;
 }

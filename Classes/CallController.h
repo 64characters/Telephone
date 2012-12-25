@@ -54,10 +54,10 @@ extern NSString * const AKCallWindowWillCloseNotification;
 @property (nonatomic, copy) NSString *identifier;
 
 // Call controlled by the receiver.
-@property (nonatomic, retain) AKSIPCall *call;
+@property (nonatomic, strong) AKSIPCall *call;
 
 // Account controller the receiver belongs to.
-@property (nonatomic, assign) AccountController *accountController;
+@property (nonatomic, weak) AccountController *accountController;
 
 // Call transfer controller.
 @property (nonatomic, readonly) CallTransferController *callTransferController;
@@ -67,10 +67,10 @@ extern NSString * const AKCallWindowWillCloseNotification;
 @property (nonatomic, readonly) IncomingCallViewController *incomingCallViewController;
 
 // Active call view controller.
-@property (nonatomic, readonly) ActiveCallViewController *activeCallViewController;
+@property (nonatomic, readonly, strong) ActiveCallViewController *activeCallViewController;
 
 // Ended call view controller.
-@property (nonatomic, readonly) EndedCallViewController *endedCallViewController;
+@property (nonatomic, readonly, strong) EndedCallViewController *endedCallViewController;
 
 
 // Remote party dislpay name.
@@ -93,7 +93,7 @@ extern NSString * const AKCallWindowWillCloseNotification;
 
 // Timer to display intermediate call status. This status appears for the short period of time and then is being
 // replaced with the current call status.
-@property (nonatomic, assign) NSTimer *intermediateStatusTimer;
+@property (nonatomic, strong) NSTimer *intermediateStatusTimer;
 
 // Call start time.
 @property (nonatomic, assign) NSTimeInterval callStartTime;

@@ -59,14 +59,7 @@
 }
 
 - (void)dealloc {
-    [_soundInputPopUp release];
-    [_soundOutputPopUp release];
-    [_ringtoneOutputPopUp release];
-    [_ringtonePopUp release];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [super dealloc];
 }
 
 - (IBAction)changeSoundIO:(id)sender {
@@ -81,9 +74,9 @@
 - (void)updateAudioDevices {
     // Populate sound IO pop-up buttons.
     NSArray *audioDevices = [[NSApp delegate] audioDevices];
-    NSMenu *soundInputMenu = [[[NSMenu alloc] init] autorelease];
-    NSMenu *soundOutputMenu = [[[NSMenu alloc] init] autorelease];
-    NSMenu *ringtoneOutputMenu = [[[NSMenu alloc] init] autorelease];
+    NSMenu *soundInputMenu = [[NSMenu alloc] init];
+    NSMenu *soundOutputMenu = [[NSMenu alloc] init];
+    NSMenu *ringtoneOutputMenu = [[NSMenu alloc] init];
     
     for (NSUInteger i = 0; i < [audioDevices count]; ++i) {
         NSDictionary *deviceDict = [audioDevices objectAtIndex:i];
@@ -93,15 +86,14 @@
         [aMenuItem setTag:i];
         
         if ([[deviceDict objectForKey:kAudioDeviceInputsCount] integerValue] > 0) {
-            [soundInputMenu addItem:[[aMenuItem copy] autorelease]];
+            [soundInputMenu addItem:[aMenuItem copy]];
         }
         
         if ([[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
-            [soundOutputMenu addItem:[[aMenuItem copy] autorelease]];
-            [ringtoneOutputMenu addItem:[[aMenuItem copy] autorelease]];
+            [soundOutputMenu addItem:[aMenuItem copy]];
+            [ringtoneOutputMenu addItem:[aMenuItem copy]];
         }
         
-        [aMenuItem release];
     }
     
     [[self soundInputPopUp] setMenu:soundInputMenu];
@@ -134,7 +126,7 @@
         return;
     }
     
-    NSMenu *soundsMenu = [[[NSMenu alloc] init] autorelease];
+    NSMenu *soundsMenu = [[NSMenu alloc] init];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSSet *allowedSoundFileExtensions = [NSSet setWithObjects:@"aiff", @"aif", @"aifc",
                                          @"mp3", @"wav", @"sd2", @"au", @"snd", @"m4a", @"m4p", nil];
@@ -159,7 +151,7 @@
                     shouldAddSeparator = NO;
                 }
                 
-                NSMenuItem *aMenuItem = [[[NSMenuItem alloc] init] autorelease];
+                NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
                 [aMenuItem setTitle:aSound];
                 [soundsMenu addItem:aMenuItem];
             }

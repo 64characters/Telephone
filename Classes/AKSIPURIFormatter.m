@@ -51,7 +51,7 @@
         if ([[anObject user] ak_isTelephoneNumber]) {
             if ([self formatsTelephoneNumbers]) {
                 AKTelephoneNumberFormatter *telephoneNumberFormatter
-                    = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+                    = [[AKTelephoneNumberFormatter alloc] init];
                 
                 [telephoneNumberFormatter setSplitsLastFourDigits:[self telephoneNumberFormatterSplitsLastFourDigits]];
                 
@@ -108,7 +108,6 @@
             [trimmingCharacterSet addCharactersInString:@"\""];
             name = [[string substringToIndex:delimiterRange.location]
                     stringByTrimmingCharactersInSet:trimmingCharacterSet];
-            [trimmingCharacterSet release];
             
             NSRange destinationRange = NSMakeRange(delimiterRange.location + 2,
                                                    [string length] - (delimiterRange.location + 2) - 1);

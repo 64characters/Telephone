@@ -55,16 +55,6 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
     return [self initWithAccountController:nil];
 }
 
-- (void)dealloc {
-    [_informativeText release];
-    [_usernameField release];
-    [_passwordField release];
-    [_mustSaveCheckBox release];
-    [_cancelButton release];
-    
-    [super dealloc];
-}
-
 - (void)awakeFromNib {
     NSString *registrar = [[[self accountController] account] registrar];
     [[self  informativeText] setStringValue:

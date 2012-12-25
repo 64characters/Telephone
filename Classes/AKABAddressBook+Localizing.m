@@ -57,8 +57,8 @@
     } else if ([label isEqualToString:@"sip"]) {
         theString = NSLocalizedStringFromTable(@"sip", @"AddressBookLabels", @"SIP address.");
     } else {
-        CFStringRef localizedLabel = ABCopyLocalizedPropertyOrLabel((CFStringRef)label);
-        theString = [(NSString *)localizedLabel autorelease];
+        CFStringRef localizedLabel = ABCopyLocalizedPropertyOrLabel((__bridge CFStringRef)label);
+        theString = (__bridge_transfer NSString *)localizedLabel;
     }
     
     return theString;

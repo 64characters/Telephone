@@ -49,7 +49,6 @@
     // Show temp view while changing views.
     NSView *tempView = [[NSView alloc] initWithFrame:[[self contentView] frame]];
     [self setContentView:tempView];
-    [tempView release];
     
     // Set new window frame.
     [self setFrame:windowFrame display:YES animate:performAnimation];

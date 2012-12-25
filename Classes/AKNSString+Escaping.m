@@ -43,7 +43,7 @@
         escapeCharacterRange = [newString rangeOfString:escapeCharacterString options:0 range:searchRange];
     }
     
-    return [[newString copy] autorelease];
+    return [newString copy];
 }
 
 - (NSString *)ak_escapeQuotes {

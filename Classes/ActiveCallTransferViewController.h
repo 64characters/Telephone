@@ -37,7 +37,7 @@
 @interface ActiveCallTransferViewController : ActiveCallViewController
 
 // Call transfer button.
-@property (nonatomic, retain) IBOutlet NSButton *transferButton;
+@property (nonatomic, strong) IBOutlet NSButton *transferButton;
 
 
 // Transfers a call.

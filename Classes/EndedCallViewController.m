@@ -45,18 +45,9 @@
 }
 
 - (id)init {
-    [self dealloc];
     NSString *reason = @"Initialize EndedCallViewController with initWithCallController:";
     @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
     return nil;
-}
-
-- (void)dealloc {
-    [_displayedNameField release];
-    [_statusField release];
-    [_redialButton release];
-    
-    [super dealloc];
 }
 
 - (void)removeObservations {

@@ -42,22 +42,22 @@ extern NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPas
 @interface AuthenticationFailureController : NSWindowController
 
 // The receiver's account controller.
-@property (nonatomic, assign) AccountController *accountController;
+@property (nonatomic, weak) AccountController *accountController;
 
 // Informative text outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *informativeText;
+@property (nonatomic, strong) IBOutlet NSTextField *informativeText;
 
 // |User Name| field outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *usernameField;
+@property (nonatomic, strong) IBOutlet NSTextField *usernameField;
 
 // |Password| field outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *passwordField;
+@property (nonatomic, strong) IBOutlet NSTextField *passwordField;
 
 // |Save in the Keychain| checkbox outlet.
-@property (nonatomic, retain) IBOutlet NSButton *mustSaveCheckBox;
+@property (nonatomic, strong) IBOutlet NSButton *mustSaveCheckBox;
 
 // Cancel button outlet.
-@property (nonatomic, retain) IBOutlet NSButton *cancelButton;
+@property (nonatomic, strong) IBOutlet NSButton *cancelButton;
 
 
 // Initializes an AuthenticationFailureController object with a given account controller.

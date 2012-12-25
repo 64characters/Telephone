@@ -205,12 +205,11 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
                        realm:(NSString *)aRealm
                     username:(NSString *)aUsername {
     
-    return [[[AKSIPAccount alloc] initWithFullName:aFullName
+    return [[AKSIPAccount alloc] initWithFullName:aFullName
                                         SIPAddress:aSIPAddress
                                          registrar:aRegistrar
                                              realm:aRealm
-                                          username:aUsername]
-            autorelease];
+                                          username:aUsername];
 }
 
 - (id)initWithFullName:(NSString *)aFullName
@@ -247,19 +246,6 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
 
 - (void)dealloc {
     [self setDelegate:nil];
-    
-    [_registrationURI release];
-    
-    [_fullName release];
-    [_SIPAddress release];
-    [_registrar release];
-    [_realm release];
-    [_username release];
-    [_proxyHost release];
-    
-    [_calls release];
-    
-    [super dealloc];
 }
 
 - (NSString *)description {
@@ -276,9 +262,9 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
     AKSIPCall *theCall = nil;
     if (status == PJ_SUCCESS) {
-        for (AKSIPCall *aCall in [[[self calls] copy] autorelease]) {
+        for (AKSIPCall *aCall in [[self calls] copy]) {
             if ([aCall identifier] == callIdentifier) {
-                theCall = [[aCall retain] autorelease];
+                theCall = aCall;
                 break;
             }
         }

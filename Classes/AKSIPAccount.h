@@ -60,7 +60,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 @interface AKSIPAccount : NSObject
 
 // The receiver's delegate.
-@property (nonatomic, assign) NSObject <AKSIPAccountDelegate> *delegate;
+@property (nonatomic, weak) NSObject <AKSIPAccountDelegate> *delegate;
 
 // The URI for SIP registration.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>
@@ -116,7 +116,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 @property (nonatomic, readonly, copy) NSString *onlineStatusText;
 
 // Calls that belong to the receiver.
-@property (readonly, retain) NSMutableArray *calls;
+@property (readonly, strong) NSMutableArray *calls;
 
 // Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
 // user name.

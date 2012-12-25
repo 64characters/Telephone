@@ -168,10 +168,9 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 
 - (void)setNameservers:(NSArray *)newNameservers {
     if (_nameservers != newNameservers) {
-        [_nameservers release];
         
         if ([newNameservers count] > kAKSIPUserAgentNameserversMax) {
-            _nameservers = [[newNameservers subarrayWithRange:NSMakeRange(0, kAKSIPUserAgentNameserversMax)] retain];
+            _nameservers = [newNameservers subarrayWithRange:NSMakeRange(0, kAKSIPUserAgentNameserversMax)];
         } else {
             _nameservers = [newNameservers copy];
         }
@@ -197,10 +196,8 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 - (void)setLogFileName:(NSString *)pathToFile {
     if (_logFileName != pathToFile) {
         if ([pathToFile length] > 0) {
-            [_logFileName release];
             _logFileName = [pathToFile copy];
         } else {
-            [_logFileName release];
             _logFileName = nil;
         }
     }
@@ -242,22 +239,6 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     return self;
 }
 
-- (id)retain {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return UINT_MAX;  // Denotes an object that cannot be released.
-}
-
-- (oneway void)release {
-    // Do nothing.
-}
-
-- (id)autorelease {
-    return self;
-}
-
 
 #pragma mark -
 
@@ -289,19 +270,6 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     return [self initWithDelegate:nil];
 }
 
-- (void)dealloc {
-    [_accounts release];
-    [_pjsuaLock release];
-    [_nameservers release];
-    [_outboundProxyHost release];
-    [_STUNServerHost release];
-    [_userAgentString release];
-    [_logFileName release];
-    [_transportPublicHost release];
-    
-    [super dealloc];
-}
-
 - (void)start {
     // Do nothing if it's already started or being started.
     if ([self state] > kAKSIPUserAgentStopped) {
@@ -330,203 +298,196 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 
 // This method is supposed to run in the secondary thread.
 - (void)ak_start {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    [[self pjsuaLock] lock];
-    
-    [self setState:kAKSIPUserAgentStarting];
-    
-    pj_status_t status;
-    
-    pj_thread_desc aPJThreadDesc;
-    if (!pj_thread_is_registered()) {
-        pj_thread_t *pjThread;
-        status = pj_thread_register(NULL, aPJThreadDesc, &pjThread);
-        if (status != PJ_SUCCESS) {
-            NSLog(@"Error registering thread at PJSUA");
-        }
-    }
-    
-    // Create pool for PJSUA.
-    pj_pool_t *aPJPool;
-    aPJPool = pjsua_pool_create("AKSIPUserAgent-pjsua", 1000, 1000);
-    [self setPjPool:aPJPool];
-    
-    pjsua_config userAgentConfig;
-    pjsua_logging_config loggingConfig;
-    pjsua_media_config mediaConfig;
-    pjsua_transport_config transportConfig;
-    
-    pjsua_config_default(&userAgentConfig);
-    pjsua_logging_config_default(&loggingConfig);
-    pjsua_media_config_default(&mediaConfig);
-    pjsua_transport_config_default(&transportConfig);
-    
-    userAgentConfig.max_calls = kAKSIPCallsMax;
-    
-    if ([[self nameservers] count] > 0) {
-        userAgentConfig.nameserver_count = [[self nameservers] count];
-        for (NSUInteger i = 0; i < [[self nameservers] count]; ++i) {
-            userAgentConfig.nameserver[i] = [[[self nameservers] objectAtIndex:i] pjString];
-        }
-    }
-    
-    if ([[self outboundProxyHost] length] > 0) {
-        userAgentConfig.outbound_proxy_cnt = 1;
+    @autoreleasepool {
+        [[self pjsuaLock] lock];
         
-        if ([self outboundProxyPort] == kAKSIPUserAgentDefaultOutboundProxyPort) {
-            userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@",
-                                                  [self outboundProxyHost]] pjString];
-        } else {
-            userAgentConfig.outbound_proxy[0]
-                = [[NSString stringWithFormat:@"sip:%@:%lu",
-                    [self outboundProxyHost], [self outboundProxyPort]] pjString];
-        }
-    }
-    
-    
-    if ([[self STUNServerHost] length] > 0) {
-        userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%lu",
-                                      [self STUNServerHost], [self STUNServerPort]] pjString];
-    }
-    
-    userAgentConfig.user_agent = [[self userAgentString] pjString];
-    
-    if ([[self logFileName] length] > 0) {
-        loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
-    }
-    
-    loggingConfig.level = [self logLevel];
-    loggingConfig.console_level = [self consoleLogLevel];
-    mediaConfig.no_vad = ![self detectsVoiceActivity];
-    mediaConfig.enable_ice = [self usesICE];
-    mediaConfig.snd_auto_close_time = 1;
-    transportConfig.port = [self transportPort];
-    
-    if ([[self transportPublicHost] length] > 0) {
-        transportConfig.public_addr = [[self transportPublicHost] pjString];
-    }
-    
-    userAgentConfig.cb.on_incoming_call = &AKSIPCallIncomingReceived;
-    userAgentConfig.cb.on_call_media_state = &AKSIPCallMediaStateChanged;
-    userAgentConfig.cb.on_call_state = &AKSIPCallStateChanged;
-    userAgentConfig.cb.on_call_transfer_status = &AKSIPCallTransferStatusChanged;
-    userAgentConfig.cb.on_reg_state = &AKSIPAccountRegistrationStateChanged;
-    userAgentConfig.cb.on_nat_detect = &AKSIPUserAgentDetectedNAT;
-    
-    // Initialize PJSUA.
-    status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
-    if (status != PJ_SUCCESS) {
-        NSLog(@"Error initializing PJSUA");
-        [self stop];
-        [[self pjsuaLock] unlock];
-        [pool release];
-        return;
-    }
-    
-    // Create ringback tones.
-    unsigned i, samplesPerFrame;
-    pjmedia_tone_desc tone[kAKRingbackCount];
-    pj_str_t name;
-    
-    samplesPerFrame = mediaConfig.audio_frame_ptime * mediaConfig.clock_rate * mediaConfig.channel_count / 1000;
-    
-    name = pj_str("ringback");
-    pjmedia_port *aRingbackPort;
-    status = pjmedia_tonegen_create2([self pjPool],
-                                     &name,
-                                     mediaConfig.clock_rate,
-                                     mediaConfig.channel_count,
-                                     samplesPerFrame,
-                                     16,
-                                     PJMEDIA_TONEGEN_LOOP,
-                                     &aRingbackPort);
-    if (status != PJ_SUCCESS) {
-        NSLog(@"Error creating ringback tones");
-        [self stop];
-        [[self pjsuaLock] unlock];
-        [pool release];
-        return;
-    }
-    
-    [self setRingbackPort:aRingbackPort];
-    
-    pj_bzero(&tone, sizeof(tone));
-    for (i = 0; i < kAKRingbackCount; ++i) {
-        tone[i].freq1 = kAKRingbackFrequency1;
-        tone[i].freq2 = kAKRingbackFrequency2;
-        tone[i].on_msec = kAKRingbackOnDuration;
-        tone[i].off_msec = kAKRingbackOffDuration;
-    }
-    tone[kAKRingbackCount - 1].off_msec = kAKRingbackInterval;
-    
-    pjmedia_tonegen_play([self ringbackPort], kAKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
-    
-    pjsua_conf_port_id aRingbackSlot;
-    status = pjsua_conf_add_port([self pjPool], [self ringbackPort], &aRingbackSlot);
-    if (status != PJ_SUCCESS) {
-        NSLog(@"Error adding media port for ringback tones");
-        [self stop];
-        [[self pjsuaLock] unlock];
-        [pool release];
-        return;
-    }
-    
-    [self setRingbackSlot:(NSInteger)aRingbackSlot];
-    
-    // Add UDP transport.
-    pjsua_transport_id transportIdentifier;
-    status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, &transportIdentifier);
-    if (status != PJ_SUCCESS) {
-        NSLog(@"Error creating transport");
-        [self stop];
-        [[self pjsuaLock] unlock];
-        [pool release];
-        return;
-    }
-    
-    // Get transport port chosen by PJSUA.
-    if ([self transportPort] == 0) {
-        pjsua_transport_info transportInfo;
-        status = pjsua_transport_get_info(transportIdentifier, &transportInfo);
-        if (status != PJ_SUCCESS) {
-            NSLog(@"Error getting transport info");
+        [self setState:kAKSIPUserAgentStarting];
+        
+        pj_status_t status;
+        
+        pj_thread_desc aPJThreadDesc;
+        if (!pj_thread_is_registered()) {
+            pj_thread_t *pjThread;
+            status = pj_thread_register(NULL, aPJThreadDesc, &pjThread);
+            if (status != PJ_SUCCESS) {
+                NSLog(@"Error registering thread at PJSUA");
+            }
         }
         
-        [self setTransportPort:transportInfo.local_name.port];
+        // Create pool for PJSUA.
+        pj_pool_t *aPJPool;
+        aPJPool = pjsua_pool_create("AKSIPUserAgent-pjsua", 1000, 1000);
+        [self setPjPool:aPJPool];
         
-        // Set chosen port back to transportConfig to add TCP transport below.
+        pjsua_config userAgentConfig;
+        pjsua_logging_config loggingConfig;
+        pjsua_media_config mediaConfig;
+        pjsua_transport_config transportConfig;
+        
+        pjsua_config_default(&userAgentConfig);
+        pjsua_logging_config_default(&loggingConfig);
+        pjsua_media_config_default(&mediaConfig);
+        pjsua_transport_config_default(&transportConfig);
+        
+        userAgentConfig.max_calls = kAKSIPCallsMax;
+        
+        if ([[self nameservers] count] > 0) {
+            userAgentConfig.nameserver_count = [[self nameservers] count];
+            for (NSUInteger i = 0; i < [[self nameservers] count]; ++i) {
+                userAgentConfig.nameserver[i] = [[[self nameservers] objectAtIndex:i] pjString];
+            }
+        }
+        
+        if ([[self outboundProxyHost] length] > 0) {
+            userAgentConfig.outbound_proxy_cnt = 1;
+            
+            if ([self outboundProxyPort] == kAKSIPUserAgentDefaultOutboundProxyPort) {
+                userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@",
+                                                      [self outboundProxyHost]] pjString];
+            } else {
+                userAgentConfig.outbound_proxy[0]
+                    = [[NSString stringWithFormat:@"sip:%@:%lu",
+                        [self outboundProxyHost], [self outboundProxyPort]] pjString];
+            }
+        }
+        
+        
+        if ([[self STUNServerHost] length] > 0) {
+            userAgentConfig.stun_host = [[NSString stringWithFormat:@"%@:%lu",
+                                          [self STUNServerHost], [self STUNServerPort]] pjString];
+        }
+        
+        userAgentConfig.user_agent = [[self userAgentString] pjString];
+        
+        if ([[self logFileName] length] > 0) {
+            loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
+        }
+        
+        loggingConfig.level = [self logLevel];
+        loggingConfig.console_level = [self consoleLogLevel];
+        mediaConfig.no_vad = ![self detectsVoiceActivity];
+        mediaConfig.enable_ice = [self usesICE];
+        mediaConfig.snd_auto_close_time = 1;
         transportConfig.port = [self transportPort];
-    }
-    
-    // Add TCP transport. Don't return, just leave a log message on error.
-    status = pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
-    if (status != PJ_SUCCESS) {
-        NSLog(@"Error creating TCP transport");
-    }
-    
-    // Start PJSUA.
-    status = pjsua_start();
-    if (status != PJ_SUCCESS) {
-        NSLog(@"Error starting PJSUA");
-        [self stop];
+        
+        if ([[self transportPublicHost] length] > 0) {
+            transportConfig.public_addr = [[self transportPublicHost] pjString];
+        }
+        
+        userAgentConfig.cb.on_incoming_call = &AKSIPCallIncomingReceived;
+        userAgentConfig.cb.on_call_media_state = &AKSIPCallMediaStateChanged;
+        userAgentConfig.cb.on_call_state = &AKSIPCallStateChanged;
+        userAgentConfig.cb.on_call_transfer_status = &AKSIPCallTransferStatusChanged;
+        userAgentConfig.cb.on_reg_state = &AKSIPAccountRegistrationStateChanged;
+        userAgentConfig.cb.on_nat_detect = &AKSIPUserAgentDetectedNAT;
+        
+        // Initialize PJSUA.
+        status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
+        if (status != PJ_SUCCESS) {
+            NSLog(@"Error initializing PJSUA");
+            [self stop];
+            [[self pjsuaLock] unlock];
+            return;
+        }
+        
+        // Create ringback tones.
+        unsigned i, samplesPerFrame;
+        pjmedia_tone_desc tone[kAKRingbackCount];
+        pj_str_t name;
+        
+        samplesPerFrame = mediaConfig.audio_frame_ptime * mediaConfig.clock_rate * mediaConfig.channel_count / 1000;
+        
+        name = pj_str("ringback");
+        pjmedia_port *aRingbackPort;
+        status = pjmedia_tonegen_create2([self pjPool],
+                                         &name,
+                                         mediaConfig.clock_rate,
+                                         mediaConfig.channel_count,
+                                         samplesPerFrame,
+                                         16,
+                                         PJMEDIA_TONEGEN_LOOP,
+                                         &aRingbackPort);
+        if (status != PJ_SUCCESS) {
+            NSLog(@"Error creating ringback tones");
+            [self stop];
+            [[self pjsuaLock] unlock];
+            return;
+        }
+        
+        [self setRingbackPort:aRingbackPort];
+        
+        pj_bzero(&tone, sizeof(tone));
+        for (i = 0; i < kAKRingbackCount; ++i) {
+            tone[i].freq1 = kAKRingbackFrequency1;
+            tone[i].freq2 = kAKRingbackFrequency2;
+            tone[i].on_msec = kAKRingbackOnDuration;
+            tone[i].off_msec = kAKRingbackOffDuration;
+        }
+        tone[kAKRingbackCount - 1].off_msec = kAKRingbackInterval;
+        
+        pjmedia_tonegen_play([self ringbackPort], kAKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
+        
+        pjsua_conf_port_id aRingbackSlot;
+        status = pjsua_conf_add_port([self pjPool], [self ringbackPort], &aRingbackSlot);
+        if (status != PJ_SUCCESS) {
+            NSLog(@"Error adding media port for ringback tones");
+            [self stop];
+            [[self pjsuaLock] unlock];
+            return;
+        }
+        
+        [self setRingbackSlot:(NSInteger)aRingbackSlot];
+        
+        // Add UDP transport.
+        pjsua_transport_id transportIdentifier;
+        status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, &transportIdentifier);
+        if (status != PJ_SUCCESS) {
+            NSLog(@"Error creating transport");
+            [self stop];
+            [[self pjsuaLock] unlock];
+            return;
+        }
+        
+        // Get transport port chosen by PJSUA.
+        if ([self transportPort] == 0) {
+            pjsua_transport_info transportInfo;
+            status = pjsua_transport_get_info(transportIdentifier, &transportInfo);
+            if (status != PJ_SUCCESS) {
+                NSLog(@"Error getting transport info");
+            }
+            
+            [self setTransportPort:transportInfo.local_name.port];
+            
+            // Set chosen port back to transportConfig to add TCP transport below.
+            transportConfig.port = [self transportPort];
+        }
+        
+        // Add TCP transport. Don't return, just leave a log message on error.
+        status = pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
+        if (status != PJ_SUCCESS) {
+            NSLog(@"Error creating TCP transport");
+        }
+        
+        // Start PJSUA.
+        status = pjsua_start();
+        if (status != PJ_SUCCESS) {
+            NSLog(@"Error starting PJSUA");
+            [self stop];
+            [[self pjsuaLock] unlock];
+            return;
+        }
+        
+        [self setState:kAKSIPUserAgentStarted];
+        
+        NSNotification *notification = [NSNotification notificationWithName:AKSIPUserAgentDidFinishStartingNotification
+                                                                     object:self];
+        
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+                                                               withObject:notification
+                                                            waitUntilDone:NO];
+        
         [[self pjsuaLock] unlock];
-        [pool release];
-        return;
     }
-    
-    [self setState:kAKSIPUserAgentStarted];
-    
-    NSNotification *notification = [NSNotification notificationWithName:AKSIPUserAgentDidFinishStartingNotification
-                                                                 object:self];
-    
-    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                           withObject:notification
-                                                        waitUntilDone:NO];
-    
-    [[self pjsuaLock] unlock];
-    
-    [pool release];
 }
 
 - (void)stop {
@@ -544,58 +505,56 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 }
 
 - (void)ak_stop {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    pj_status_t status;
-    pj_thread_desc aPJThreadDesc;
-    
-    if (!pj_thread_is_registered()) {
-        pj_thread_t *pjThread;
-        pj_status_t status = pj_thread_register(NULL, aPJThreadDesc, &pjThread);
+    @autoreleasepool {
+        pj_status_t status;
+        pj_thread_desc aPJThreadDesc;
+        
+        if (!pj_thread_is_registered()) {
+            pj_thread_t *pjThread;
+            pj_status_t status = pj_thread_register(NULL, aPJThreadDesc, &pjThread);
+            
+            if (status != PJ_SUCCESS) {
+                NSLog(@"Error registering thread at PJSUA");
+            }
+        }
+        
+        [[self pjsuaLock] lock];
+        
+        [self setState:kAKSIPUserAgentStopped];
+        
+        // Explicitly remove all accounts.
+        [[self accounts] removeAllObjects];
+        
+        // Close ringback port.
+        if ([self ringbackPort] != NULL &&
+            [self ringbackSlot] != kAKSIPUserAgentInvalidIdentifier) {
+            pjsua_conf_remove_port([self ringbackSlot]);
+            [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
+            pjmedia_port_destroy([self ringbackPort]);
+            [self setRingbackPort:NULL];
+        }
+        
+        if ([self pjPool] != NULL) {
+            pj_pool_release([self pjPool]);
+            [self setPjPool:NULL];
+        }
+        
+        // Destroy PJSUA.
+        status = pjsua_destroy();
         
         if (status != PJ_SUCCESS) {
-            NSLog(@"Error registering thread at PJSUA");
+            NSLog(@"Error stopping SIP user agent");
         }
+        
+        NSNotification *notification = [NSNotification notificationWithName:AKSIPUserAgentDidFinishStoppingNotification
+                                                                     object:self];
+        
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+                                                               withObject:notification
+                                                            waitUntilDone:NO];
+        
+        [[self pjsuaLock] unlock];
     }
-    
-    [[self pjsuaLock] lock];
-    
-    [self setState:kAKSIPUserAgentStopped];
-    
-    // Explicitly remove all accounts.
-    [[self accounts] removeAllObjects];
-    
-    // Close ringback port.
-    if ([self ringbackPort] != NULL &&
-        [self ringbackSlot] != kAKSIPUserAgentInvalidIdentifier) {
-        pjsua_conf_remove_port([self ringbackSlot]);
-        [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
-        pjmedia_port_destroy([self ringbackPort]);
-        [self setRingbackPort:NULL];
-    }
-    
-    if ([self pjPool] != NULL) {
-        pj_pool_release([self pjPool]);
-        [self setPjPool:NULL];
-    }
-    
-    // Destroy PJSUA.
-    status = pjsua_destroy();
-    
-    if (status != PJ_SUCCESS) {
-        NSLog(@"Error stopping SIP user agent");
-    }
-    
-    NSNotification *notification = [NSNotification notificationWithName:AKSIPUserAgentDidFinishStoppingNotification
-                                                                 object:self];
-    
-    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                           withObject:notification
-                                                        waitUntilDone:NO];
-    
-    [[self pjsuaLock] unlock];
-    
-    [pool release];
 }
 
 - (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword {
@@ -684,9 +643,9 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 }
 
 - (AKSIPAccount *)accountByIdentifier:(NSInteger)anIdentifier {
-    for (AKSIPAccount *anAccount in [[[self accounts] copy] autorelease]) {
+    for (AKSIPAccount *anAccount in [[self accounts] copy]) {
         if ([anAccount identifier] == anIdentifier) {
-            return [[anAccount retain] autorelease];
+            return anAccount;
         }
     }
     
@@ -694,10 +653,10 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 }
 
 - (AKSIPCall *)SIPCallByIdentifier:(NSInteger)anIdentifier {
-    for (AKSIPAccount *anAccount in [[[self accounts] copy] autorelease]) {
-        for (AKSIPCall *aCall in [[[anAccount calls] copy] autorelease]) {
+    for (AKSIPAccount *anAccount in [[self accounts] copy]) {
+        for (AKSIPCall *aCall in [[anAccount calls] copy]) {
             if ([aCall identifier] == anIdentifier) {
-                return [[aCall retain] autorelease];
+                return aCall;
             }
         }
     }
@@ -943,208 +902,204 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
                                       pjsua_call_id callIdentifier,
                                       pjsip_rx_data *messageData) {
     
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
-    
-    AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
-    
-    // AKSIPCall object is created here when the call is incoming.
-    AKSIPCall *theCall = [[[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callIdentifier] autorelease];
-    
-    [[theAccount calls] addObject:theCall];
-    
-    if ([[theAccount delegate] respondsToSelector:@selector(SIPAccountDidReceiveCall:)]) {
-        [[theAccount delegate] performSelectorOnMainThread:@selector(SIPAccountDidReceiveCall:)
-                                                withObject:theCall
-                                             waitUntilDone:NO];
+    @autoreleasepool {
+        PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
+        
+        AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
+        
+        // AKSIPCall object is created here when the call is incoming.
+        AKSIPCall *theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callIdentifier];
+        
+        [[theAccount calls] addObject:theCall];
+        
+        if ([[theAccount delegate] respondsToSelector:@selector(SIPAccountDidReceiveCall:)]) {
+            [[theAccount delegate] performSelectorOnMainThread:@selector(SIPAccountDidReceiveCall:)
+                                                    withObject:theCall
+                                                 waitUntilDone:NO];
+        }
+        
+        NSNotification *notification = [NSNotification notificationWithName:AKSIPCallIncomingNotification
+                                                                     object:theCall];
+        
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+                                                               withObject:notification
+                                                            waitUntilDone:NO];
     }
-    
-    NSNotification *notification = [NSNotification notificationWithName:AKSIPCallIncomingNotification object:theCall];
-    
-    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                           withObject:notification
-                                                        waitUntilDone:NO];
-    
-    [pool release];
 }
 
 static void AKSIPCallStateChanged(pjsua_call_id callIdentifier,
                                   pjsip_event *sipEvent) {
     
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    NSNotification *notification = nil;
-    
-    pjsua_call_info callInfo;
-    pjsua_call_get_info(callIdentifier, &callInfo);
-    
-    AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-    
-    if (theCall == nil && callInfo.state == PJSIP_INV_STATE_CALLING) {
-        // AKSIPCall object is created here when the call is outgoing.
-        AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:callInfo.acc_id];
-        theCall = [[[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callIdentifier] autorelease];
+    @autoreleasepool {
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        NSNotification *notification = nil;
         
-        [[theAccount calls] addObject:theCall];
+        pjsua_call_info callInfo;
+        pjsua_call_get_info(callIdentifier, &callInfo);
         
-    } else {
-        [theCall setState:callInfo.state];
-        [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
-        [theCall setLastStatus:callInfo.last_status];
-        [theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
-    }
-    
-    if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
-        [theCall ringbackStop];
+        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
         
-        [[[theCall account] calls] removeObject:theCall];
+        if (theCall == nil && callInfo.state == PJSIP_INV_STATE_CALLING) {
+            // AKSIPCall object is created here when the call is outgoing.
+            AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:callInfo.acc_id];
+            theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callIdentifier];
+            
+            [[theAccount calls] addObject:theCall];
+            
+        } else {
+            [theCall setState:callInfo.state];
+            [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
+            [theCall setLastStatus:callInfo.last_status];
+            [theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
+        }
         
-        PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
-                   callIdentifier,
-                   callInfo.last_status,
-                   callInfo.last_status_text.ptr));
-        
-        notification = [NSNotification notificationWithName:AKSIPCallDidDisconnectNotification
-                                                     object:theCall];
-        
-        [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                             withObject:notification
-                                          waitUntilDone:NO];
-        
-    } else {
-        if (callInfo.state == PJSIP_INV_STATE_EARLY) {
-            // pj_str_t is a struct with NOT null-terminated string.
-            pj_str_t reason;
-            pjsip_msg *msg;
-            int code;
+        if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
+            [theCall ringbackStop];
             
-            // This can only occur because of TX or RX message.
-            pj_assert(sipEvent->type == PJSIP_EVENT_TSX_STATE);
+            [[[theCall account] calls] removeObject:theCall];
             
-            if (sipEvent->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
-                msg = sipEvent->body.tsx_state.src.rdata->msg_info.msg;
-            } else {
-                msg = sipEvent->body.tsx_state.src.tdata->msg;
-            }
+            PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
+                       callIdentifier,
+                       callInfo.last_status,
+                       callInfo.last_status_text.ptr));
             
-            code = msg->line.status.code;
-            reason = msg->line.status.reason;
-            
-            // Start ringback for 180 for UAC unless there's SDP in 180.
-            if (callInfo.role == PJSIP_ROLE_UAC &&
-                code == 180 &&
-                msg->body == NULL &&
-                callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
-                [theCall ringbackStart];
-            }
-            
-            PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s (%d %.*s)",
-                       callIdentifier, callInfo.state_text.ptr,
-                       code, (int)reason.slen, reason.ptr));
-            
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithInt:code], @"AKSIPEventCode",
-                                      [NSString stringWithPJString:reason], @"AKSIPEventReason",
-                                      nil];
-            
-            notification = [NSNotification notificationWithName:AKSIPCallEarlyNotification
-                                                         object:theCall
-                                                       userInfo:userInfo];
+            notification = [NSNotification notificationWithName:AKSIPCallDidDisconnectNotification
+                                                         object:theCall];
             
             [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
                                                  withObject:notification
                                               waitUntilDone:NO];
+            
         } else {
-            PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s",
-                       callIdentifier,
-                       callInfo.state_text.ptr));
-            
-            // Incoming call notification is posted from another funcion:
-            // AKIncomingCallReceived().
-            NSString *notificationName = nil;
-            switch (callInfo.state) {
-                case PJSIP_INV_STATE_CALLING:
-                    notificationName = AKSIPCallCallingNotification;
-                    break;
-                case PJSIP_INV_STATE_CONNECTING:
-                    notificationName = AKSIPCallConnectingNotification;
-                    break;
-                case PJSIP_INV_STATE_CONFIRMED:
-                    notificationName = AKSIPCallDidConfirmNotification;
-                    break;
-                default:
-                    break;
-            }
-            
-            if (notificationName != nil) {
-                notification = [NSNotification notificationWithName:notificationName
-                                                             object:theCall];
+            if (callInfo.state == PJSIP_INV_STATE_EARLY) {
+                // pj_str_t is a struct with NOT null-terminated string.
+                pj_str_t reason;
+                pjsip_msg *msg;
+                int code;
+                
+                // This can only occur because of TX or RX message.
+                pj_assert(sipEvent->type == PJSIP_EVENT_TSX_STATE);
+                
+                if (sipEvent->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
+                    msg = sipEvent->body.tsx_state.src.rdata->msg_info.msg;
+                } else {
+                    msg = sipEvent->body.tsx_state.src.tdata->msg;
+                }
+                
+                code = msg->line.status.code;
+                reason = msg->line.status.reason;
+                
+                // Start ringback for 180 for UAC unless there's SDP in 180.
+                if (callInfo.role == PJSIP_ROLE_UAC &&
+                    code == 180 &&
+                    msg->body == NULL &&
+                    callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
+                    [theCall ringbackStart];
+                }
+                
+                PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s (%d %.*s)",
+                           callIdentifier, callInfo.state_text.ptr,
+                           code, (int)reason.slen, reason.ptr));
+                
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [NSNumber numberWithInt:code], @"AKSIPEventCode",
+                                          [NSString stringWithPJString:reason], @"AKSIPEventReason",
+                                          nil];
+                
+                notification = [NSNotification notificationWithName:AKSIPCallEarlyNotification
+                                                             object:theCall
+                                                           userInfo:userInfo];
+                
                 [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
                                                      withObject:notification
                                                   waitUntilDone:NO];
+            } else {
+                PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s",
+                           callIdentifier,
+                           callInfo.state_text.ptr));
+                
+                // Incoming call notification is posted from another funcion:
+                // AKIncomingCallReceived().
+                NSString *notificationName = nil;
+                switch (callInfo.state) {
+                    case PJSIP_INV_STATE_CALLING:
+                        notificationName = AKSIPCallCallingNotification;
+                        break;
+                    case PJSIP_INV_STATE_CONNECTING:
+                        notificationName = AKSIPCallConnectingNotification;
+                        break;
+                    case PJSIP_INV_STATE_CONFIRMED:
+                        notificationName = AKSIPCallDidConfirmNotification;
+                        break;
+                    default:
+                        break;
+                }
+                
+                if (notificationName != nil) {
+                    notification = [NSNotification notificationWithName:notificationName
+                                                                 object:theCall];
+                    [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                                         withObject:notification
+                                                      waitUntilDone:NO];
+                }
             }
         }
     }
-    
-    [pool release];
 }
 
 static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    pjsua_call_info callInfo;
-    pjsua_call_get_info(callIdentifier, &callInfo);
-    
-    AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-    [theCall ringbackStop];
-    
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    NSNotification *notification = nil;
-    
-    if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
-        // When media is active, connect call to sound device.
-        pjsua_conf_connect(callInfo.conf_slot, 0);
-        pjsua_conf_connect(0, callInfo.conf_slot);
+    @autoreleasepool {
+        pjsua_call_info callInfo;
+        pjsua_call_get_info(callIdentifier, &callInfo);
         
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
+        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+        [theCall ringbackStop];
         
-        notification = [NSNotification notificationWithName:AKSIPCallMediaDidBecomeActiveNotification object:theCall];
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        NSNotification *notification = nil;
         
-        [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                             withObject:notification
-                                          waitUntilDone:NO];
-        
-    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local", callIdentifier));
-        notification = [NSNotification notificationWithName:AKSIPCallDidLocalHoldNotification
-                                                     object:theCall];
-        
-        [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                             withObject:notification
-                                          waitUntilDone:NO];
-        
-    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote", callIdentifier));
-        notification = [NSNotification notificationWithName:AKSIPCallDidRemoteHoldNotification
-                                        object:theCall];
-        
-        [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                             withObject:notification
-                                          waitUntilDone:NO];
-        
-    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_ERROR) {
-        pj_str_t reason = pj_str("ICE negotiation failed");
-        PJ_LOG(1, (THIS_FILE, "Media has reported error, disconnecting call"));
-        
-        pjsua_call_hangup(callIdentifier, 500, &reason, NULL);
-        
-    } else {
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
+        if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
+            // When media is active, connect call to sound device.
+            pjsua_conf_connect(callInfo.conf_slot, 0);
+            pjsua_conf_connect(0, callInfo.conf_slot);
+            
+            PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
+            
+            notification = [NSNotification notificationWithName:AKSIPCallMediaDidBecomeActiveNotification
+                                                         object:theCall];
+            
+            [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                                 withObject:notification
+                                              waitUntilDone:NO];
+            
+        } else if (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
+            PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local", callIdentifier));
+            notification = [NSNotification notificationWithName:AKSIPCallDidLocalHoldNotification
+                                                         object:theCall];
+            
+            [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                                 withObject:notification
+                                              waitUntilDone:NO];
+            
+        } else if (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+            PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote", callIdentifier));
+            notification = [NSNotification notificationWithName:AKSIPCallDidRemoteHoldNotification
+                                            object:theCall];
+            
+            [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
+                                                 withObject:notification
+                                              waitUntilDone:NO];
+            
+        } else if (callInfo.media_status == PJSUA_CALL_MEDIA_ERROR) {
+            pj_str_t reason = pj_str("ICE negotiation failed");
+            PJ_LOG(1, (THIS_FILE, "Media has reported error, disconnecting call"));
+            
+            pjsua_call_hangup(callIdentifier, 500, &reason, NULL);
+            
+        } else {
+            PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
+        }
     }
-    
-    [pool release];
 }
 
 static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
@@ -1153,62 +1108,57 @@ static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
                                            pj_bool_t isFinal,
                                            pj_bool_t *pCont) {
     
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-    
-    [theCall setTransferStatus:statusCode];
-    [theCall setTransferStatusText:[NSString stringWithPJString:*statusText]];
-    
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:isFinal]
-                                                         forKey:@"AKFinalTransferNotification"];
-    
-    NSNotification *notification = [NSNotification notificationWithName:AKSIPCallTransferStatusDidChangeNotification
-                                                                 object:theCall
-                                                               userInfo:userInfo];
-    
-    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                           withObject:notification
-                                                        waitUntilDone:NO];
-    
-    [pool release];
+    @autoreleasepool {
+        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+        
+        [theCall setTransferStatus:statusCode];
+        [theCall setTransferStatusText:[NSString stringWithPJString:*statusText]];
+        
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:isFinal]
+                                                             forKey:@"AKFinalTransferNotification"];
+        
+        NSNotification *notification = [NSNotification notificationWithName:AKSIPCallTransferStatusDidChangeNotification
+                                                                     object:theCall
+                                                                   userInfo:userInfo];
+        
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+                                                               withObject:notification
+                                                            waitUntilDone:NO];
+        
+    }
 }
 
 static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    AKSIPAccount *anAccount = [[AKSIPUserAgent sharedUserAgent]
-                               accountByIdentifier:accountIdentifier];
-    
-    NSNotification *notification = [NSNotification
-                                    notificationWithName:AKSIPAccountRegistrationDidChangeNotification
-                                    object:anAccount];
-    
-    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                           withObject:notification
-                                                        waitUntilDone:NO];
-    
-    [pool release];
-}
-
-static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    if (result->status != PJ_SUCCESS) {
-        pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
+    @autoreleasepool {
+        AKSIPAccount *anAccount = [[AKSIPUserAgent sharedUserAgent]
+                                   accountByIdentifier:accountIdentifier];
         
-    } else {
-        PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
-        
-        [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:result->nat_type];
-        
-        NSNotification *notification = [NSNotification notificationWithName:AKSIPUserAgentDidDetectNATNotification
-                                                                     object:[AKSIPUserAgent sharedUserAgent]];
+        NSNotification *notification = [NSNotification
+                                        notificationWithName:AKSIPAccountRegistrationDidChangeNotification
+                                                      object:anAccount];
         
         [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
                                                                withObject:notification
                                                             waitUntilDone:NO];
     }
-    
-    [pool release];
+}
+
+static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
+    @autoreleasepool {
+        if (result->status != PJ_SUCCESS) {
+            pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
+            
+        } else {
+            PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
+            
+            [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:result->nat_type];
+            
+            NSNotification *notification = [NSNotification notificationWithName:AKSIPUserAgentDidDetectNATNotification
+                                                                         object:[AKSIPUserAgent sharedUserAgent]];
+            
+            [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
+                                                                   withObject:notification
+                                                                waitUntilDone:NO];
+        }
+    }
 }

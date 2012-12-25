@@ -36,7 +36,7 @@
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
     
-    return [(NSString *)string autorelease];
+    return (__bridge_transfer NSString *)string;
 }
 
 @end

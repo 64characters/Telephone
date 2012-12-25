@@ -39,30 +39,30 @@
 @interface ActiveCallViewController : XSViewController <AKActiveCallViewDelegate>
 
 // Call controller the receiver belongs to.
-@property (nonatomic, assign) CallController *callController;
+@property (nonatomic, weak) CallController *callController;
 
 // Timer to present call duration time.
-@property (nonatomic, assign) NSTimer *callTimer;
+@property (nonatomic, strong) NSTimer *callTimer;
 
 // DTMF digits entered by a user.
-@property (nonatomic, retain) NSMutableString *enteredDTMF;
+@property (nonatomic, strong) NSMutableString *enteredDTMF;
 
 // Tracking area to monitor a mouse hovering call progress indicator. When mouse enters that area, progress indicator
 // is being replaced with hang-up button.
-@property (nonatomic, retain) NSTrackingArea *callProgressIndicatorTrackingArea;
+@property (nonatomic, strong) NSTrackingArea *callProgressIndicatorTrackingArea;
 
 
 // Display Name field outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *displayedNameField;
+@property (nonatomic, strong) IBOutlet NSTextField *displayedNameField;
 
 // Status field outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *statusField;
+@property (nonatomic, strong) IBOutlet NSTextField *statusField;
 
 // Call progress indicator outlet.
-@property (nonatomic, retain) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;
+@property (nonatomic, strong) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;
 
 // Hang-up button outlet.
-@property (nonatomic, retain) IBOutlet NSButton *hangUpButton;
+@property (nonatomic, strong) IBOutlet NSButton *hangUpButton;
 
 
 // Designated initializer.

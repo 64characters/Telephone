@@ -50,11 +50,11 @@
 #pragma mark -
 
 + (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName {
-    return [[[self alloc] initWithUser:aUser host:aHost displayName:aDisplayName] autorelease];
+    return [[self alloc] initWithUser:aUser host:aHost displayName:aDisplayName];
 }
 
 + (id)SIPURIWithString:(NSString *)SIPURIString {
-    return [[[self alloc] initWithString:SIPURIString] autorelease];
+    return [[self alloc] initWithString:SIPURIString];
 }
 
 // Designated initializer.
@@ -85,8 +85,7 @@
     if ([predicate evaluateWithObject:SIPURIString]) {
         NSRange delimiterRange = [SIPURIString rangeOfString:@" <"];
         
-        NSMutableCharacterSet *trimmingCharacterSet = [[[NSCharacterSet whitespaceCharacterSet] mutableCopy]
-                                                       autorelease];
+        NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
         [trimmingCharacterSet addCharactersInString:@"\""];
         [self setDisplayName:[[SIPURIString substringToIndex:delimiterRange.location]
                               stringByTrimmingCharactersInSet:trimmingCharacterSet]];
@@ -108,7 +107,6 @@
     }
     
     if (![[AKSIPUserAgent sharedUserAgent] isStarted]) {
-        [self release];
         return nil;
     }
     
@@ -117,7 +115,6 @@
                                                   (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
                                                   [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
     if (nameAddr == NULL) {
-        [self release];
         return nil;
     }
     
@@ -147,24 +144,10 @@
         [self setUser:[NSString stringWithPJString:uri->number]];
         
     } else {
-        [self release];
         return nil;
     }
     
     return self;
-}
-
-- (void)dealloc {
-    [_displayName release];
-    [_user release];
-    [_password release];
-    [_host release];
-    [_userParameter release];
-    [_methodParameter release];
-    [_transportParameter release];
-    [_maddrParameter release];
-    
-    [super dealloc];
 }
 
 - (NSString *)description {

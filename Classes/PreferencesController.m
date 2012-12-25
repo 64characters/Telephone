@@ -179,18 +179,6 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 - (void)dealloc {
     [self setDelegate:nil];
-    [_generalPreferencesViewController release];
-    [_accountPreferencesViewController release];
-    [_soundPreferencesViewController release];
-    [_networkPreferencesViewController release];
-    
-    [_toolbar release];
-    [_generalToolbarItem release];
-    [_accountsToolbarItem release];
-    [_soundToolbarItem release];
-    [_networkToolbarItem release];
-    
-    [super dealloc];
 }
 
 - (void)awakeFromNib {

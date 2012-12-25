@@ -111,7 +111,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @interface PreferencesController : NSWindowController
 
 // The receiver's delegate.
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, weak) id delegate;
 
 // General preferences view controller.
 @property (nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
@@ -127,11 +127,11 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 
 // Outlets.
 //
-@property (nonatomic, retain) IBOutlet NSToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *generalToolbarItem;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *accountsToolbarItem;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *soundToolbarItem;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *networkToolbarItem;
+@property (nonatomic, strong) IBOutlet NSToolbar *toolbar;
+@property (nonatomic, strong) IBOutlet NSToolbarItem *generalToolbarItem;
+@property (nonatomic, strong) IBOutlet NSToolbarItem *accountsToolbarItem;
+@property (nonatomic, strong) IBOutlet NSToolbarItem *soundToolbarItem;
+@property (nonatomic, strong) IBOutlet NSToolbarItem *networkToolbarItem;
 
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;

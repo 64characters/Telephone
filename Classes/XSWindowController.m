@@ -53,14 +53,7 @@
 	if (_viewControllers == newViewControllers)
 		return;
 	NSMutableArray *newViewControllersCopy = [newViewControllers mutableCopy];
-	[_viewControllers release];
 	_viewControllers = newViewControllersCopy;
-}
-
-- (void)dealloc;
-{
-	[self.viewControllers release];
-	[super dealloc];
 }
 
 - (void)windowWillClose:(NSNotification *)notification;

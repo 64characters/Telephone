@@ -40,16 +40,16 @@ extern NSString * const AKAccountSetupControllerDidAddAccountNotification;
 @interface AccountSetupController : NSWindowController
 
 // Outlets.
-@property (nonatomic, retain) IBOutlet NSTextField *fullNameField;
-@property (nonatomic, retain) IBOutlet NSTextField *domainField;
-@property (nonatomic, retain) IBOutlet NSTextField *usernameField;
-@property (nonatomic, retain) IBOutlet NSTextField *passwordField;
-@property (nonatomic, retain) IBOutlet NSImageView *fullNameInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSImageView *domainInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSImageView *usernameInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSImageView *passwordInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSButton *defaultButton;
-@property (nonatomic, retain) IBOutlet NSButton *otherButton;
+@property (nonatomic, strong) IBOutlet NSTextField *fullNameField;
+@property (nonatomic, strong) IBOutlet NSTextField *domainField;
+@property (nonatomic, strong) IBOutlet NSTextField *usernameField;
+@property (nonatomic, strong) IBOutlet NSTextField *passwordField;
+@property (nonatomic, strong) IBOutlet NSImageView *fullNameInvalidDataView;
+@property (nonatomic, strong) IBOutlet NSImageView *domainInvalidDataView;
+@property (nonatomic, strong) IBOutlet NSImageView *usernameInvalidDataView;
+@property (nonatomic, strong) IBOutlet NSImageView *passwordInvalidDataView;
+@property (nonatomic, strong) IBOutlet NSButton *defaultButton;
+@property (nonatomic, strong) IBOutlet NSButton *otherButton;
 
 // Closes a sheet.
 - (IBAction)closeSheet:(id)sender;

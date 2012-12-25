@@ -48,19 +48,9 @@
 }
 
 - (id)init {
-    [self dealloc];
     NSString *reason = @"Initialize IncomingCallViewController with initWithCallController:";
     @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
     return nil;
-}
-
-- (void)dealloc {
-    [_displayedNameField release];
-    [_statusField release];
-    [_acceptCallButton release];
-    [_declineCallButton release];
-    
-    [super dealloc];
 }
 
 - (void)removeObservations {

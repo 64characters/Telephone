@@ -102,10 +102,10 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 }
 
 // The receiver's delegate.
-@property (nonatomic, assign) id <AKSIPUserAgentDelegate> delegate;
+@property (nonatomic, weak) id <AKSIPUserAgentDelegate> delegate;
 
 // Accounts added to the receiver.
-@property (readonly, retain) NSMutableArray *accounts;
+@property (readonly, strong) NSMutableArray *accounts;
 
 // A Boolean value indicating whether the receiver has been started.
 @property (nonatomic, readonly, assign, getter=isStarted) BOOL started;
@@ -117,7 +117,7 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 @property (assign) AKNATType detectedNATType;
 
 // A lock that is used to start and stop the receiver.
-@property (retain) NSLock *pjsuaLock;
+@property (strong) NSLock *pjsuaLock;
 
 // The number of acitve calls controlled by the receiver.
 @property (nonatomic, readonly, assign) NSUInteger activeCallsCount;

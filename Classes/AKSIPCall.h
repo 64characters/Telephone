@@ -99,7 +99,7 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 @interface AKSIPCall : NSObject
 
 // The receiver's delegate.
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, weak) id delegate;
 
 // The receiver's identifier.
 @property (nonatomic, assign) NSInteger identifier;
@@ -151,7 +151,7 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 @property (nonatomic, readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
 
 // The account the call belongs to.
-@property (nonatomic, assign) AKSIPAccount *account;
+@property (nonatomic, weak) AKSIPAccount *account;
 
 // Designated initializer.
 // Initializes a AKSIPCall object with a given SIP account and identifier.

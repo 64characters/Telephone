@@ -45,21 +45,6 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
     return self;
 }
 
-- (void)dealloc {
-    [_fullNameField release];
-    [_domainField release];
-    [_usernameField release];
-    [_passwordField release];
-    [_fullNameInvalidDataView release];
-    [_domainInvalidDataView release];
-    [_usernameInvalidDataView release];
-    [_passwordInvalidDataView release];
-    [_defaultButton release];
-    [_otherButton release];
-    
-    [super dealloc];
-}
-
 - (IBAction)closeSheet:(id)sender {
     [NSApp endSheet:[sender window]];
     [[sender window] orderOut:sender];

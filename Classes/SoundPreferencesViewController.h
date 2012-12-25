@@ -35,10 +35,10 @@
 @interface SoundPreferencesViewController : NSViewController
 
 // Outlets.
-@property (nonatomic, retain) IBOutlet NSPopUpButton *soundInputPopUp;
-@property (nonatomic, retain) IBOutlet NSPopUpButton *soundOutputPopUp;
-@property (nonatomic, retain) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
-@property (nonatomic, retain) IBOutlet NSPopUpButton *ringtonePopUp;
+@property (nonatomic, strong) IBOutlet NSPopUpButton *soundInputPopUp;
+@property (nonatomic, strong) IBOutlet NSPopUpButton *soundOutputPopUp;
+@property (nonatomic, strong) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
+@property (nonatomic, strong) IBOutlet NSPopUpButton *ringtonePopUp;
 
 // Changes sound input and output devices.
 - (IBAction)changeSoundIO:(id)sender;

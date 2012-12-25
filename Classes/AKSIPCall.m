@@ -226,14 +226,6 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     }
     
     [self setDelegate:nil];
-    
-    [_localURI release];
-    [_remoteURI release];
-    [_stateText release];
-    [_lastStatusText release];
-    [_transferStatusText release];
-    
-    [super dealloc];
 }
 
 - (NSString *)description {

@@ -51,10 +51,9 @@
         return nil;
     }
     
-    NSString *password = [[[NSString alloc] initWithBytes:passwordData
+    NSString *password = [[NSString alloc] initWithBytes:passwordData
                                                    length:passwordLength
-                                                 encoding:NSUTF8StringEncoding]
-                          autorelease];
+                                                 encoding:NSUTF8StringEncoding];
     
     SecKeychainItemFreeContent(NULL, passwordData);
     

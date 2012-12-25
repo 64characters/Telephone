@@ -90,17 +90,7 @@
 }
 
 - (void)dealloc {
-    [_transportPortField release];
-    [_STUNServerHostField release];
-    [_STUNServerPortField release];
-    [_useICECheckBox release];
-    [_useDNSSRVCheckBox release];
-    [_outboundProxyHostField release];
-    [_outboundProxyPortField release];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [super dealloc];
 }
 
 - (BOOL)checkForNetworkSettingsChanges:(id)sender {
@@ -128,7 +118,7 @@
         [[[self preferencesController] toolbar] setSelectedItemIdentifier:
          [[[self preferencesController] networkToolbarItem] itemIdentifier]];
         
-        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:NSLocalizedString(@"Save", @"Save button.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't save button.")];
@@ -142,7 +132,7 @@
         [alert beginSheetModalForWindow:[[self preferencesController] window]
                           modalDelegate:self
                          didEndSelector:@selector(networkSettingsChangeAlertDidEnd:returnCode:contextInfo:)
-                            contextInfo:sender];
+                            contextInfo:(__bridge void *)(sender)];
         return YES;
     }
     
@@ -158,7 +148,7 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    id sender = (id)contextInfo;
+    id sender = (__bridge id)contextInfo;
     
     if (returnCode == NSAlertFirstButtonReturn) {
         [[[self transportPortField] cell] setPlaceholderString:[[self transportPortField] stringValue]];

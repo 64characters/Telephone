@@ -52,13 +52,13 @@ extern NSString * const kGrowlNotificationCallEnded;
 @interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate>
 
 // SIP user agent.
-@property (nonatomic, readonly, retain) AKSIPUserAgent *userAgent;
+@property (nonatomic, readonly, strong) AKSIPUserAgent *userAgent;
 
 // An array of account controllers.
-@property (nonatomic, readonly, retain) NSMutableArray *accountControllers;
+@property (nonatomic, readonly, strong) NSMutableArray *accountControllers;
 
 // An array of account controllers which are currently enabled.
-@property (nonatomic, readonly, retain) NSArray *enabledAccountControllers;
+@property (nonatomic, readonly, strong) NSArray *enabledAccountControllers;
 
 // Preferences controller.
 @property (nonatomic, readonly) PreferencesController *preferencesController;
@@ -67,7 +67,7 @@ extern NSString * const kGrowlNotificationCallEnded;
 @property (nonatomic, readonly) AccountSetupController *accountSetupController;
 
 // An array of audio devices available in the system.
-@property (retain) NSArray *audioDevices;
+@property (strong) NSArray *audioDevices;
 
 // Index of an audio device for sound input.
 @property (nonatomic, assign) NSInteger soundInputDeviceIndex;
@@ -83,10 +83,10 @@ extern NSString * const kGrowlNotificationCallEnded;
 @property (nonatomic, assign) BOOL shouldSetUserAgentSoundIO;
 
 // Incoming call ringtone.
-@property (nonatomic, retain) NSSound *ringtone;
+@property (nonatomic, strong) NSSound *ringtone;
 
 // Ringtone timer.
-@property (nonatomic, assign) NSTimer *ringtoneTimer;
+@property (nonatomic, strong) NSTimer *ringtoneTimer;
 
 // A Boolean value indicating whether accounts should be registered ASAP, e.g. when the user agent finishes starting.
 @property (nonatomic, assign) BOOL shouldRegisterAllAccounts;
@@ -105,7 +105,7 @@ extern NSString * const kGrowlNotificationCallEnded;
 @property (nonatomic, readonly, assign) BOOL hasActiveCallControllers;
 
 // An array of nameservers currently in use in the OS.
-@property (nonatomic, readonly, retain) NSArray *currentNameservers;
+@property (nonatomic, readonly, strong) NSArray *currentNameservers;
 
 // A Boolean value indicating whether the receiver has paused iTunes.
 @property (nonatomic, assign) BOOL didPauseITunes;
@@ -117,16 +117,16 @@ extern NSString * const kGrowlNotificationCallEnded;
 @property (nonatomic, readonly, assign) NSUInteger unhandledIncomingCallsCount;
 
 // Timer for bouncing icon in the Dock.
-@property (nonatomic, assign) NSTimer *userAttentionTimer;
+@property (nonatomic, strong) NSTimer *userAttentionTimer;
 
 // Accounts menu items to show in windows menu.
-@property (nonatomic, retain) NSArray *accountsMenuItems;
+@property (nonatomic, strong) NSArray *accountsMenuItems;
 
 // Application Window menu.
-@property (nonatomic, retain) IBOutlet NSMenu *windowMenu;
+@property (nonatomic, strong) IBOutlet NSMenu *windowMenu;
 
 // Preferences menu item outlet.
-@property (nonatomic, retain) IBOutlet NSMenuItem *preferencesMenuItem;
+@property (nonatomic, strong) IBOutlet NSMenuItem *preferencesMenuItem;
 
 // Stops and destroys SIP user agent hanging up all calls and unregistering all accounts.
 - (void)stopUserAgent;

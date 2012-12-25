@@ -38,7 +38,7 @@
 @interface AKActiveCallView : NSView
 
 // The receiver's delegate.
-@property (nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id <AKActiveCallViewDelegate> delegate;
 
 @end
 

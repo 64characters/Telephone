@@ -86,27 +86,7 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (void)dealloc {
-    [_accountsTable release];
-    [_addAccountButton release];
-    [_accountEnabledCheckBox release];
-    [_accountDescriptionField release];
-    [_fullNameField release];
-    [_domainField release];
-    [_usernameField release];
-    [_passwordField release];
-    [_reregistrationTimeField release];
-    [_substitutePlusCharacterCheckBox release];
-    [_plusCharacterSubstitutionField release];
-    [_useProxyCheckBox release];
-    [_proxyHostField release];
-    [_proxyPortField release];
-    [_SIPAddressField release];
-    [_registrarField release];
-    [_cantEditAccountLabel release];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [super dealloc];
 }
 
 - (IBAction)showAddAccountSheet:(id)sender {
@@ -137,12 +117,12 @@ static const NSUInteger kAccountsMax = 32;
         return;
     }
     
-    NSTableColumn *theColumn = [[[NSTableColumn alloc] initWithIdentifier:@"SIPAddress"] autorelease];
+    NSTableColumn *theColumn = [[NSTableColumn alloc] initWithIdentifier:@"SIPAddress"];
     NSString *selectedAccount = [[[self accountsTable] dataSource] tableView:[self accountsTable]
                                                    objectValueForTableColumn:theColumn
                                                                          row:index];
     
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
     [[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
@@ -657,7 +637,7 @@ static const NSUInteger kAccountsMax = 32;
     NSInteger draggingRow = [indexes firstIndex];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *accounts = [[[defaults arrayForKey:kAccounts] mutableCopy] autorelease];
+    NSMutableArray *accounts = [[defaults arrayForKey:kAccounts] mutableCopy];
     id selectedAccount = [accounts objectAtIndex:[[self accountsTable] selectedRow]];
     
     // Swap accounts.

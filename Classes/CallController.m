@@ -78,8 +78,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             [_call setDelegate:nil];
         }
         
-        [_call release];
-        _call = [aCall retain];
+        _call = aCall;
         
         [_call setDelegate:self];
     }
@@ -161,22 +160,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)dealloc {
-    [_identifier release];
-    
     [self setCall:nil];
     [self setAccountController:nil];
-    [_callTransferController release];
-    [_incomingCallViewController release];
-    [_activeCallViewController release];
-    [_endedCallViewController release];
-    [_displayedName release];
-    [_status release];
-    [_nameFromAddressBook release];
-    [_phoneLabelFromAddressBook release];
-    [_enteredCallDestination release];
-    [_redialURI release];
-    
-    [super dealloc];
 }
 
 - (NSString *)description {
@@ -586,7 +571,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         
     } else if ([[self enteredCallDestination] length] > 0) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        AKTelephoneNumberFormatter *telephoneNumberFormatter = [[[AKTelephoneNumberFormatter alloc] init] autorelease];
+        AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
         
         if ([[self enteredCallDestination] ak_isTelephoneNumber] && [defaults boolForKey:kFormatTelephoneNumbers]) {
             notificationTitle = [telephoneNumberFormatter stringForObjectValue:[self enteredCallDestination]];
@@ -594,7 +579,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             notificationTitle = [self enteredCallDestination];
         }
     } else {
-        AKSIPURIFormatter *SIPURIFormatter = [[[AKSIPURIFormatter alloc] init] autorelease];
+        AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
         [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
