@@ -41,16 +41,16 @@
 @property (nonatomic, weak) CallController *callController;
 
 // Display Name field outlet.
-@property (nonatomic, strong) IBOutlet NSTextField *displayedNameField;
+@property (nonatomic, weak) IBOutlet NSTextField *displayedNameField;
 
 // Status field outlet.
-@property (nonatomic, strong) IBOutlet NSTextField *statusField;
+@property (nonatomic, weak) IBOutlet NSTextField *statusField;
 
 // Accept Call button outlet.
-@property (nonatomic, strong) IBOutlet NSButton *acceptCallButton;
+@property (nonatomic, weak) IBOutlet NSButton *acceptCallButton;
 
 // Decline Call button outlet.
-@property (nonatomic, strong) IBOutlet NSButton *declineCallButton;
+@property (nonatomic, weak) IBOutlet NSButton *declineCallButton;
 
 // Designated initializer.
 // Initializes an IncomingCallViewController object with a given call controller.

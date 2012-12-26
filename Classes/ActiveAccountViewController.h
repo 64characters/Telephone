@@ -46,7 +46,7 @@ extern NSString * const kPhoneLabel;
 @property (nonatomic, weak) AccountController *accountController;
 
 // Call destination token field outlet.
-@property (nonatomic, strong) IBOutlet NSTokenField *callDestinationField;
+@property (nonatomic, weak) IBOutlet NSTokenField *callDestinationField;
 
 // Index of a URI in a call destination token.
 @property (nonatomic, assign) NSUInteger callDestinationURIIndex;

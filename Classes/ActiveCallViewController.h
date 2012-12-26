@@ -53,10 +53,10 @@
 
 
 // Display Name field outlet.
-@property (nonatomic, strong) IBOutlet NSTextField *displayedNameField;
+@property (nonatomic, weak) IBOutlet NSTextField *displayedNameField;
 
 // Status field outlet.
-@property (nonatomic, strong) IBOutlet NSTextField *statusField;
+@property (nonatomic, weak) IBOutlet NSTextField *statusField;
 
 // Call progress indicator outlet.
 @property (nonatomic, strong) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;

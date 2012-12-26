@@ -103,7 +103,7 @@ extern NSString * const kEmailSIPLabel;
 @property (nonatomic, readonly) AuthenticationFailureController *authenticationFailureController;
 
 // Account state pop-up button outlet.
-@property (nonatomic, strong) IBOutlet NSPopUpButton *accountStatePopUp;
+@property (nonatomic, weak) IBOutlet NSPopUpButton *accountStatePopUp;
 
 
 // Designated initializer.

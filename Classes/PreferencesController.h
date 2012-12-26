@@ -111,7 +111,9 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @interface PreferencesController : NSWindowController
 
 // The receiver's delegate.
-@property (nonatomic, weak) id delegate;
+// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
+// don't support weak references in 10.7.
+@property (nonatomic, assign) id delegate;
 
 // General preferences view controller.
 @property (nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
@@ -127,11 +129,11 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 
 // Outlets.
 //
-@property (nonatomic, strong) IBOutlet NSToolbar *toolbar;
-@property (nonatomic, strong) IBOutlet NSToolbarItem *generalToolbarItem;
-@property (nonatomic, strong) IBOutlet NSToolbarItem *accountsToolbarItem;
-@property (nonatomic, strong) IBOutlet NSToolbarItem *soundToolbarItem;
-@property (nonatomic, strong) IBOutlet NSToolbarItem *networkToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbar *toolbar;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *generalToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *accountsToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *soundToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *networkToolbarItem;
 
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;

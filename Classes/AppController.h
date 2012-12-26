@@ -123,10 +123,10 @@ extern NSString * const kGrowlNotificationCallEnded;
 @property (nonatomic, strong) NSArray *accountsMenuItems;
 
 // Application Window menu.
-@property (nonatomic, strong) IBOutlet NSMenu *windowMenu;
+@property (nonatomic, weak) IBOutlet NSMenu *windowMenu;
 
 // Preferences menu item outlet.
-@property (nonatomic, strong) IBOutlet NSMenuItem *preferencesMenuItem;
+@property (nonatomic, weak) IBOutlet NSMenuItem *preferencesMenuItem;
 
 // Stops and destroys SIP user agent hanging up all calls and unregistering all accounts.
 - (void)stopUserAgent;

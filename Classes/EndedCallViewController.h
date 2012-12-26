@@ -42,13 +42,13 @@
 
 
 // Display Name field outlet.
-@property (nonatomic, strong) IBOutlet NSTextField *displayedNameField;
+@property (nonatomic, weak) IBOutlet NSTextField *displayedNameField;
 
 // Status field outlet.
-@property (nonatomic, strong) IBOutlet NSTextField *statusField;
+@property (nonatomic, weak) IBOutlet NSTextField *statusField;
 
 // Redial button outlet.
-@property (nonatomic, strong) IBOutlet NSButton *redialButton;
+@property (nonatomic, weak) IBOutlet NSButton *redialButton;
 
 
 // Designated initializer.

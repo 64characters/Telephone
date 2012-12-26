@@ -40,13 +40,13 @@
 @property (nonatomic, weak) PreferencesController *preferencesController;
 
 // Outlets.
-@property (nonatomic, strong) IBOutlet NSTextField *transportPortField;
-@property (nonatomic, strong) IBOutlet NSTextField *STUNServerHostField;
-@property (nonatomic, strong) IBOutlet NSTextField *STUNServerPortField;
-@property (nonatomic, strong) IBOutlet NSButton *useICECheckBox;
-@property (nonatomic, strong) IBOutlet NSButton *useDNSSRVCheckBox;
-@property (nonatomic, strong) IBOutlet NSTextField *outboundProxyHostField;
-@property (nonatomic, strong) IBOutlet NSTextField *outboundProxyPortField;
+@property (nonatomic, weak) IBOutlet NSTextField *transportPortField;
+@property (nonatomic, weak) IBOutlet NSTextField *STUNServerHostField;
+@property (nonatomic, weak) IBOutlet NSTextField *STUNServerPortField;
+@property (nonatomic, weak) IBOutlet NSButton *useICECheckBox;
+@property (nonatomic, weak) IBOutlet NSButton *useDNSSRVCheckBox;
+@property (nonatomic, weak) IBOutlet NSTextField *outboundProxyHostField;
+@property (nonatomic, weak) IBOutlet NSTextField *outboundProxyPortField;
 
 // Returns YES if network settings have been changed.
 - (BOOL)checkForNetworkSettingsChanges:(id)sender;
