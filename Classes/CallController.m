@@ -402,6 +402,13 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[NSApp delegate] updateDockTileBadgeLabel];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:AKCallWindowWillCloseNotification object:self];
+    
+    // View controllers must be nullified because of bindings to callController's |displayedName| and |status|. When
+    // this is done in -dealloc this is already too late, and KVO error about releaseing an object that is still being
+    // observied is issued.
+    _incomingCallViewController = nil;
+    _activeCallViewController = nil;
+    _endedCallViewController = nil;
 }
 
 
