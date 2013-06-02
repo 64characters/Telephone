@@ -65,8 +65,6 @@ static const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
 static const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
 static const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;
 
-static AKSIPUserAgent *sharedUserAgent = nil;
-
 // Callbacks from PJSUA.
 //
 // Sent when incoming call is received.
@@ -215,28 +213,13 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 #pragma mark AKSIPUserAgent singleton instance
 
 + (AKSIPUserAgent *)sharedUserAgent {
-    @synchronized(self) {
-        if (sharedUserAgent == nil) {
-            [[self alloc] init];  // Assignment not done here.
-        }
-    }
+    static AKSIPUserAgent *__sharedUserAgent = nil;
+    static dispatch_once_t __onceToken;
+    dispatch_once(&__onceToken, ^{
+        __sharedUserAgent = [[AKSIPUserAgent alloc] init];
+    });
     
-    return sharedUserAgent;
-}
-
-+ (id)allocWithZone:(NSZone *)zone {
-    @synchronized(self) {
-        if (sharedUserAgent == nil) {
-            sharedUserAgent = [super allocWithZone:zone];
-            return sharedUserAgent;  // Assignment and return on first allocation.
-        }
-    }
-    
-    return nil;  // On subsequent allocation attempts return nil.
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return self;
+    return __sharedUserAgent;
 }
 
 
