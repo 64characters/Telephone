@@ -77,7 +77,9 @@ static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
 static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 
 // AudioHardware callback to track adding/removing audio devices.
-static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
+static OSStatus AudioDevicesChanged(AudioObjectID objectID,
+                                    UInt32 numberAddresses,
+                                    const AudioObjectPropertyAddress addresses[],
                                     void *clientData);
 // Gets audio devices data.
 static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
@@ -408,7 +410,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     NSMutableArray *devicesArray = [NSMutableArray array];
     
     // Fetch a pointer to the list of available devices.
-    AudioDeviceID *devices = NULL;
+    AudioObjectID *devices = NULL;
     UInt16 devicesCount = 0;
     err = GetAudioDevices((Ptr *)&devices, &devicesCount);
     if (err != noErr) {
@@ -421,55 +423,32 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         
         // Get device identifier.
         NSUInteger deviceIdentifier = devices[loopCount];
-        [deviceDict setObject:[NSNumber numberWithUnsignedInteger:deviceIdentifier] forKey:kAudioDeviceIdentifier];
+        deviceDict[kAudioDeviceIdentifier] = @(deviceIdentifier);
         
-        // Get device UID.
-        CFStringRef UIDStringRef = NULL;
-        size = sizeof(CFStringRef);
-        err = AudioDeviceGetProperty(devices[loopCount],
-                                     0,
-                                     0,
-                                     kAudioDevicePropertyDeviceUID,
-                                     &size,
-                                     &UIDStringRef);
-        if ((err == noErr) && (UIDStringRef != NULL)) {
-            [deviceDict setObject:(__bridge NSString *)UIDStringRef forKey:kAudioDeviceUID];
-            CFRelease(UIDStringRef);
-        }
-        
+        AudioObjectPropertyAddress address = { kAudioObjectPropertyName,
+                                               kAudioObjectPropertyScopeGlobal,
+                                               kAudioObjectPropertyElementMaster };
         // Get device name.
         CFStringRef nameStringRef = NULL;
         size = sizeof(CFStringRef);
-        err = AudioDeviceGetProperty(devices[loopCount],
-                                     0,
-                                     0,
-                                     kAudioDevicePropertyDeviceNameCFString,
-                                     &size,
-                                     &nameStringRef);
+        err = AudioObjectGetPropertyData(devices[loopCount], &address, 0, NULL, &size, &nameStringRef);
         if ((err == noErr) && (nameStringRef != NULL)) {
-            [deviceDict setObject:(__bridge NSString *)nameStringRef forKey:kAudioDeviceName];
+            deviceDict[kAudioDeviceName] = (__bridge  NSString *)nameStringRef;
             CFRelease(nameStringRef);
         }
         
         // Get number of input channels.
         size = 0;
         NSUInteger inputChannelsCount = 0;
-        err = AudioDeviceGetPropertyInfo(devices[loopCount],
-                                         0,
-                                         1,
-                                         kAudioDevicePropertyStreamConfiguration,
-                                         &size,
-                                         NULL);
+        address.mSelector = kAudioDevicePropertyStreamConfiguration;
+        address.mScope = kAudioObjectPropertyScopeInput;
+        address.mElement = 0;
+        err = AudioObjectGetPropertyDataSize(devices[loopCount], &address, 0, NULL, &size);
         if ((err == noErr) && (size != 0)) {
             theBufferList = (AudioBufferList *)malloc(size);
             if (theBufferList != NULL) {
                 // Get the input stream configuration.
-                err = AudioDeviceGetProperty(devices[loopCount],
-                                             0,
-                                             1,
-                                             kAudioDevicePropertyStreamConfiguration,
-                                             &size,
-                                             theBufferList);
+                err = AudioObjectGetPropertyData(devices[loopCount], &address, 0, NULL, &size, theBufferList);
                 if (err == noErr) {
                     // Count the total number of input channels in the stream.
                     for (i = 0; i < theBufferList->mNumberBuffers; ++i) {
@@ -478,32 +457,20 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
                 }
                 free(theBufferList);
                 
-                NSNumber *inputChannelsCountNumber
-                = [NSNumber numberWithUnsignedInteger:inputChannelsCount];
-                [deviceDict setObject:inputChannelsCountNumber
-                               forKey:kAudioDeviceInputsCount];
+                deviceDict[kAudioDeviceInputsCount] = @(inputChannelsCount);
             }
         }
         
         // Get number of output channels.
         size = 0;
         NSUInteger outputChannelsCount = 0;
-        err = AudioDeviceGetPropertyInfo(devices[loopCount],
-                                         0,
-                                         0,
-                                         kAudioDevicePropertyStreamConfiguration,
-                                         &size,
-                                         NULL);
+        address.mScope = kAudioObjectPropertyScopeOutput;
+        err = AudioObjectGetPropertyDataSize(devices[loopCount], &address, 0, NULL, &size);
         if((err == noErr) && (size != 0)) {
             theBufferList = (AudioBufferList *)malloc(size);
             if (theBufferList != NULL) {
                 // Get the input stream configuration.
-                err = AudioDeviceGetProperty(devices[loopCount],
-                                             0,
-                                             0,
-                                             kAudioDevicePropertyStreamConfiguration,
-                                             &size,
-                                             theBufferList);
+                err = AudioObjectGetPropertyData(devices[loopCount], &address, 0, NULL, &size, theBufferList);
                 if(err == noErr) {
                     // Count the total number of output channels in the stream.
                     for (i = 0; i < theBufferList->mNumberBuffers; ++i) {
@@ -512,8 +479,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
                 }
                 free(theBufferList);
                 
-                NSNumber *outputChannelsCountNumber = [NSNumber numberWithUnsignedInteger:outputChannelsCount];
-                [deviceDict setObject:outputChannelsCountNumber forKey:kAudioDeviceOutputsCount];
+                deviceDict[kAudioDeviceOutputsCount] = @(outputChannelsCount);
             }
         }
         
@@ -663,7 +629,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         [[[self accountSetupController] otherButton] setAction:@selector(closeSheet:)];
         
         // Install audio devices changes callback.
-        AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, &AudioDevicesChanged, (__bridge void *)(self));
+        [self subscribeToAudioDeviceChanges];
         
         // Get available audio devices, select devices for sound input and output.
         [self updateAudioDevices];
@@ -912,6 +878,14 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
                   directoryPath, [error localizedDescription]);
         }
     }
+}
+
+- (void)subscribeToAudioDeviceChanges {
+    AudioObjectPropertyAddress address = { kAudioHardwarePropertyDevices,
+                                           kAudioObjectPropertyScopeGlobal,
+                                           kAudioObjectPropertyElementMaster };
+    
+    AudioObjectAddPropertyListener(kAudioObjectSystemObject, &address, &AudioDevicesChanged, (__bridge void *)self);
 }
 
 - (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
@@ -1709,7 +1683,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [self updateAccountsMenuItems];
     
     // Install audio devices changes callback.
-    AudioHardwareAddPropertyListener(kAudioHardwarePropertyDevices, &AudioDevicesChanged, (__bridge void *)(self));
+    [self subscribeToAudioDeviceChanges];
     
     // Get available audio devices, select devices for sound input and output.
     [self updateAudioDevices];
@@ -2034,52 +2008,51 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 #pragma mark -
 
-// Sends updateAudioDevices to AppController.
-static OSStatus AudioDevicesChanged(AudioHardwarePropertyID propertyID,
+static OSStatus AudioDevicesChanged(AudioObjectID objectID,
+                                    UInt32 numberAddresses,
+                                    const AudioObjectPropertyAddress addresses[],
                                     void *clientData) {
     
     AppController *appController = (__bridge AppController *)clientData;
-    
-    @autoreleasepool {
-        if (propertyID == kAudioHardwarePropertyDevices) {
+    for (UInt32 i = 0; i < numberAddresses; i++) {
+        if (addresses[i].mSelector == kAudioHardwarePropertyDevices) {
             [NSObject cancelPreviousPerformRequestsWithTarget:appController
                                                      selector:@selector(updateAudioDevices)
                                                        object:nil];
             [appController performSelector:@selector(updateAudioDevices) withObject:nil afterDelay:0.2];
-        } else {
-            NSLog(@"Not handling this property id");
         }
-        return noErr;
     }
+    
+    return noErr;
 }
 
-static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount) {
-    OSStatus err = noErr;
-    UInt32 size;
-    Boolean isWritable;
+static OSStatus GetAudioDevices(Ptr *devices, UInt16 *deviceCount) {
+    OSStatus *error = noErr;
+    UInt32 dataSize;
     
-    // Get sound devices count.
-    err = AudioHardwareGetPropertyInfo(kAudioHardwarePropertyDevices, &size, &isWritable);
-    if (err != noErr) {
-        return err;
+    AudioObjectPropertyAddress address = { kAudioHardwarePropertyDevices,
+                                           kAudioObjectPropertyScopeGlobal,
+                                           kAudioObjectPropertyElementMaster };
+    error = AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, &address, 0, NULL, &dataSize);
+    if (error != noErr) {
+        return error;
     }
     
-    *devicesCount = size / sizeof(AudioDeviceID);
-    if (*devicesCount < 1) {
-        return err;
+    *deviceCount = dataSize / (UInt16)sizeof(AudioObjectID);
+    if (*deviceCount < 1) {
+        NSLog(@"No audio devices found");
+        return error;
     }
     
-    // Allocate space for devices.
-    *devices = (Ptr)malloc(size);
-    memset(*devices, 0, size);
-    
-    // Get the data.
-    err = AudioHardwareGetProperty(kAudioHardwarePropertyDevices, &size, (void *)*devices);
-    if (err != noErr) {
-        return err;
+    if (*devices != NULL) {
+        free(devices);
     }
+    *devices = (Ptr)malloc(dataSize);
+    memset(*devices, 0, dataSize);
     
-    return err;
+    error = AudioObjectGetPropertyData(kAudioObjectSystemObject, &address, 0, NULL, &dataSize, (void *)*devices);
+    
+    return error;
 }
 
 static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info) {
