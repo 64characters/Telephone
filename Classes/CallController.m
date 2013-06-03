@@ -375,12 +375,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 #pragma mark NSWindow delegate methods
 
 - (void)windowWillClose:(NSNotification *)notification {
-    if ([XSWindowController instancesRespondToSelector:@selector(windowWillClose:)]) {
-        // We have to call super's implementation of |windowWillClose:| via the function pointer because using
-        // [super windowWillClose:notification] will issue compiler warning.
-        id (*superWindowWillClose)(id, SEL, ...) = [XSWindowController instanceMethodForSelector:_cmd];
-        superWindowWillClose(self, _cmd);
-    }
+    [super windowWillClose:notification];
+    
     if ([self isCallActive]) {
         [self setCallActive:NO];
         [[self activeCallViewController] stopCallTimer];
