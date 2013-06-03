@@ -32,7 +32,7 @@ Configure and build pjsip:
     $ CFLAGS="-O2 -arch i386 -arch x86_64" ./configure --disable-ssl
     $ make
     
-Build Telephone
+Build Telephone.
 
 Coding Style
 ------------
