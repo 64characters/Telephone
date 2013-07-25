@@ -2044,9 +2044,6 @@ static OSStatus GetAudioDevices(Ptr *devices, UInt16 *deviceCount) {
         return error;
     }
     
-    if (*devices != NULL) {
-        free(devices);
-    }
     *devices = (Ptr)malloc(dataSize);
     memset(*devices, 0, dataSize);
     
