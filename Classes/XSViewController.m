@@ -65,7 +65,8 @@
 
 - (id)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle windowController:(XSWindowController *)windowController;
 {
-	if (![super initWithNibName:name bundle:bundle])
+	self = [super initWithNibName:name bundle:bundle];
+	if (!self)
 		return nil;
 	self.windowController = windowController; // non-retained to avoid retain cycles
 	self.children = [NSMutableArray array]; // set up a blank mutable array
