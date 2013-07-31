@@ -626,7 +626,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 }
 
 - (AKSIPAccount *)accountByIdentifier:(NSInteger)anIdentifier {
-    for (AKSIPAccount *anAccount in [[self accounts] copy]) {
+    for (AKSIPAccount *anAccount in [self accounts]) {
         if ([anAccount identifier] == anIdentifier) {
             return anAccount;
         }
@@ -636,8 +636,8 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 }
 
 - (AKSIPCall *)SIPCallByIdentifier:(NSInteger)anIdentifier {
-    for (AKSIPAccount *anAccount in [[self accounts] copy]) {
-        for (AKSIPCall *aCall in [[anAccount calls] copy]) {
+    for (AKSIPAccount *anAccount in [self accounts]) {
+        for (AKSIPCall *aCall in [anAccount calls]) {
             if ([aCall identifier] == anIdentifier) {
                 return aCall;
             }
@@ -885,7 +885,7 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
                                       pjsua_call_id callIdentifier,
                                       pjsip_rx_data *messageData) {
     
-    @autoreleasepool {
+    dispatch_async(dispatch_get_main_queue(), ^{
         PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
         
         AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
@@ -896,62 +896,70 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
         [[theAccount calls] addObject:theCall];
         
         if ([[theAccount delegate] respondsToSelector:@selector(SIPAccountDidReceiveCall:)]) {
-            [[theAccount delegate] performSelectorOnMainThread:@selector(SIPAccountDidReceiveCall:)
-                                                    withObject:theCall
-                                                 waitUntilDone:NO];
+            [[theAccount delegate] SIPAccountDidReceiveCall:theCall];
         }
         
-        NSNotification *notification = [NSNotification notificationWithName:AKSIPCallIncomingNotification
-                                                                     object:theCall];
-        
-        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                               withObject:notification
-                                                            waitUntilDone:NO];
-    }
+        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallIncomingNotification
+                                                            object:theCall];
+    });
 }
 
-static void AKSIPCallStateChanged(pjsua_call_id callIdentifier,
-                                  pjsip_event *sipEvent) {
-    
+static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
     @autoreleasepool {
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        NSNotification *notification = nil;
-        
         pjsua_call_info callInfo;
         pjsua_call_get_info(callIdentifier, &callInfo);
         
-        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+        __block AKSIPCall *call;
+        void (^findCallBlock)() = ^{
+            call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+        };
         
-        if (theCall == nil && callInfo.state == PJSIP_INV_STATE_CALLING) {
+        if ([NSThread isMainThread]) {
+            findCallBlock();
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), findCallBlock);
+        }
+        
+        if (call == nil && callInfo.state == PJSIP_INV_STATE_CALLING) {
             // AKSIPCall object is created here when the call is outgoing.
-            AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:callInfo.acc_id];
-            theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callIdentifier];
+            NSInteger accountIdentifier = callInfo.acc_id;
+            void (^addCallBlock)() = ^{
+                AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
+                call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callIdentifier];
+                [[account calls] addObject:call];
+            };
             
-            [[theAccount calls] addObject:theCall];
+            if ([NSThread isMainThread]) {
+                addCallBlock();
+            } else {
+                dispatch_async(dispatch_get_main_queue(), addCallBlock);
+            }
             
         } else {
-            [theCall setState:callInfo.state];
-            [theCall setStateText:[NSString stringWithPJString:callInfo.state_text]];
-            [theCall setLastStatus:callInfo.last_status];
-            [theCall setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
+            AKSIPCallState state = callInfo.state;
+            NSString *stateText = [NSString stringWithPJString:callInfo.state_text];
+            NSInteger lastStatus = callInfo.last_status;
+            NSString *lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [call setState:state];
+                [call setStateText:stateText];
+                [call setLastStatus:lastStatus];
+                [call setLastStatusText:lastStatusText];
+            });
         }
         
         if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
-            [theCall ringbackStop];
-            
-            [[[theCall account] calls] removeObject:theCall];
-            
             PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
                        callIdentifier,
                        callInfo.last_status,
                        callInfo.last_status_text.ptr));
             
-            notification = [NSNotification notificationWithName:AKSIPCallDidDisconnectNotification
-                                                         object:theCall];
-            
-            [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                                 withObject:notification
-                                              waitUntilDone:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [call ringbackStop];
+                [[[call account] calls] removeObject:call];
+                [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallDidDisconnectNotification
+                                                                    object:call];
+            });
             
         } else {
             if (callInfo.state == PJSIP_INV_STATE_EARLY) {
@@ -977,25 +985,24 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier,
                     code == 180 &&
                     msg->body == NULL &&
                     callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
-                    [theCall ringbackStart];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [call ringbackStart];
+                    });
                 }
                 
                 PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s (%d %.*s)",
                            callIdentifier, callInfo.state_text.ptr,
                            code, (int)reason.slen, reason.ptr));
                 
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [NSNumber numberWithInt:code], @"AKSIPEventCode",
-                                          [NSString stringWithPJString:reason], @"AKSIPEventReason",
-                                          nil];
+                NSString *reasonString = [NSString stringWithPJString:reason];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSDictionary *userInfo = @{@"AKSIPEventCode": [NSNumber numberWithInt:code],
+                                               @"AKSIPEventReason": reasonString};
+                    [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallEarlyNotification
+                                                                        object:call
+                                                                      userInfo:userInfo];
+                });
                 
-                notification = [NSNotification notificationWithName:AKSIPCallEarlyNotification
-                                                             object:theCall
-                                                           userInfo:userInfo];
-                
-                [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                                     withObject:notification
-                                                  waitUntilDone:NO];
             } else {
                 PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s",
                            callIdentifier,
@@ -1019,11 +1026,9 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier,
                 }
                 
                 if (notificationName != nil) {
-                    notification = [NSNotification notificationWithName:notificationName
-                                                                 object:theCall];
-                    [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                                         withObject:notification
-                                                      waitUntilDone:NO];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:call];
+                    });
                 }
             }
         }
@@ -1035,11 +1040,17 @@ static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
         pjsua_call_info callInfo;
         pjsua_call_get_info(callIdentifier, &callInfo);
         
-        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-        [theCall ringbackStop];
+        __block AKSIPCall *call;
+        void (^block)() = ^{
+            call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+            [call ringbackStop];
+        };
         
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        NSNotification *notification = nil;
+        if ([NSThread isMainThread]) {
+            block();
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), block);
+        }
         
         if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
             // When media is active, connect call to sound device.
@@ -1048,30 +1059,24 @@ static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
             
             PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
             
-            notification = [NSNotification notificationWithName:AKSIPCallMediaDidBecomeActiveNotification
-                                                         object:theCall];
-            
-            [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                                 withObject:notification
-                                              waitUntilDone:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallMediaDidBecomeActiveNotification
+                                                                    object:call];
+            });
             
         } else if (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
             PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local", callIdentifier));
-            notification = [NSNotification notificationWithName:AKSIPCallDidLocalHoldNotification
-                                                         object:theCall];
-            
-            [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                                 withObject:notification
-                                              waitUntilDone:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallDidLocalHoldNotification
+                                                                    object:call];
+            });
             
         } else if (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
             PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote", callIdentifier));
-            notification = [NSNotification notificationWithName:AKSIPCallDidRemoteHoldNotification
-                                            object:theCall];
-            
-            [notificationCenter performSelectorOnMainThread:@selector(postNotification:)
-                                                 withObject:notification
-                                              waitUntilDone:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallDidRemoteHoldNotification
+                                                                    object:call];
+            });
             
         } else if (callInfo.media_status == PJSUA_CALL_MEDIA_ERROR) {
             pj_str_t reason = pj_str("ICE negotiation failed");
@@ -1091,57 +1096,44 @@ static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
                                            pj_bool_t isFinal,
                                            pj_bool_t *pCont) {
     
-    @autoreleasepool {
+    NSString *statusTextString = [NSString stringWithPJString:*statusText];
+    dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
         
         [theCall setTransferStatus:statusCode];
-        [theCall setTransferStatusText:[NSString stringWithPJString:*statusText]];
+        [theCall setTransferStatusText:statusTextString];
         
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:isFinal]
                                                              forKey:@"AKFinalTransferNotification"];
         
-        NSNotification *notification = [NSNotification notificationWithName:AKSIPCallTransferStatusDidChangeNotification
-                                                                     object:theCall
-                                                                   userInfo:userInfo];
-        
-        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                               withObject:notification
-                                                            waitUntilDone:NO];
-        
-    }
+        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallTransferStatusDidChangeNotification
+                                                            object:theCall
+                                                          userInfo:userInfo];
+    });
 }
 
 static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
-    @autoreleasepool {
-        AKSIPAccount *anAccount = [[AKSIPUserAgent sharedUserAgent]
-                                   accountByIdentifier:accountIdentifier];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
         
-        NSNotification *notification = [NSNotification
-                                        notificationWithName:AKSIPAccountRegistrationDidChangeNotification
-                                                      object:anAccount];
-        
-        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                               withObject:notification
-                                                            waitUntilDone:NO];
-    }
+        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPAccountRegistrationDidChangeNotification
+                                                            object:account];
+    });
 }
 
 static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
-    @autoreleasepool {
-        if (result->status != PJ_SUCCESS) {
-            pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
+    if (result->status != PJ_SUCCESS) {
+        pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
+        
+    } else {
+        PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
+        
+        AKNATType NATType = result->nat_type;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:NATType];
             
-        } else {
-            PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
-            
-            [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:result->nat_type];
-            
-            NSNotification *notification = [NSNotification notificationWithName:AKSIPUserAgentDidDetectNATNotification
-                                                                         object:[AKSIPUserAgent sharedUserAgent]];
-            
-            [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:)
-                                                                   withObject:notification
-                                                                waitUntilDone:NO];
-        }
+            [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidDetectNATNotification
+                                                                object:[AKSIPUserAgent sharedUserAgent]];
+        });
     }
 }

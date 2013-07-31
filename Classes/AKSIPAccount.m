@@ -262,7 +262,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
     AKSIPCall *theCall = nil;
     if (status == PJ_SUCCESS) {
-        for (AKSIPCall *aCall in [[self calls] copy]) {
+        for (AKSIPCall *aCall in [self calls]) {
             if ([aCall identifier] == callIdentifier) {
                 theCall = aCall;
                 break;
