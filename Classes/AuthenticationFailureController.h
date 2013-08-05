@@ -39,38 +39,28 @@ extern NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPas
 
 // Instances of AuthenticationFailureController class allow user to update
 // account credentials when authentication fails.
-@interface AuthenticationFailureController : NSWindowController {
- @private
-  AccountController *accountController_;
-  
-  NSTextField *informativeText_;
-  NSTextField *usernameField_;
-  NSTextField *passwordField_;
-  NSButton *mustSaveCheckBox_;
-  NSButton *cancelButton_;
-}
+@interface AuthenticationFailureController : NSWindowController
 
 // The receiver's account controller.
-@property (nonatomic, assign) AccountController *accountController;
+@property (nonatomic, weak) AccountController *accountController;
 
 // Informative text outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *informativeText;
+@property (nonatomic, weak) IBOutlet NSTextField *informativeText;
 
 // |User Name| field outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *usernameField;
+@property (nonatomic, weak) IBOutlet NSTextField *usernameField;
 
 // |Password| field outlet.
-@property (nonatomic, retain) IBOutlet NSTextField *passwordField;
+@property (nonatomic, weak) IBOutlet NSTextField *passwordField;
 
 // |Save in the Keychain| checkbox outlet.
-@property (nonatomic, retain) IBOutlet NSButton *mustSaveCheckBox;
+@property (nonatomic, weak) IBOutlet NSButton *mustSaveCheckBox;
 
 // Cancel button outlet.
-@property (nonatomic, retain) IBOutlet NSButton *cancelButton;
+@property (nonatomic, weak) IBOutlet NSButton *cancelButton;
 
 
-// Initializes an AuthenticationFailureController object with a given account
-// controller.
+// Initializes an AuthenticationFailureController object with a given account controller.
 - (id)initWithAccountController:(AccountController *)anAccountController;
 
 // Closes a sheet.

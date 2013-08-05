@@ -50,4 +50,6 @@
 - (void)removeObjectFromViewControllersAtIndex:(NSUInteger)index;
 
 - (void)patchResponderChain;
+
+- (void)windowWillClose:(NSNotification *)notification;
 @end

@@ -39,187 +39,164 @@
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
-NSString * const AKSIPAccountRegistrationDidChangeNotification
-  = @"AKSIPAccountRegistrationDidChange";
-NSString * const AKSIPAccountWillMakeCallNotification
-  = @"AKSIPAccountWillMakeCall";
+NSString * const AKSIPAccountRegistrationDidChangeNotification = @"AKSIPAccountRegistrationDidChange";
+NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCall";
 
 @implementation AKSIPAccount
 
-@synthesize delegate = delegate_;
-@synthesize registrationURI = registrationURI_;
-@synthesize fullName = fullName_;
-@synthesize SIPAddress = SIPAddress_;
-@synthesize registrar = registrar_;
-@synthesize realm = realm_;
-@synthesize username = username_;
-@synthesize proxyHost = proxyHost_;
-@synthesize proxyPort = proxyPort_;
-@synthesize reregistrationTime = reregistrationTime_;
-@synthesize identifier = identifier_;
-@dynamic registered;
-@dynamic registrationStatus;
-@dynamic registrationStatusText;
-@dynamic registrationExpireTime;
-@dynamic online;
-@dynamic onlineStatusText;
-@synthesize calls = calls_;
-
 - (void)setDelegate:(NSObject <AKSIPAccountDelegate> *)aDelegate {
-  if (delegate_ == aDelegate)
-    return;
-  
-  NSNotificationCenter *notificationCenter
-    = [NSNotificationCenter defaultCenter];
-  
-  if (delegate_ != nil)
-    [notificationCenter removeObserver:delegate_ name:nil object:self];
-  
-  if (aDelegate != nil) {
-    if ([aDelegate respondsToSelector:
-         @selector(SIPAccountRegistrationDidChange:)]) {
-      [notificationCenter
-       addObserver:aDelegate
-          selector:@selector(SIPAccountRegistrationDidChange:)
-              name:AKSIPAccountRegistrationDidChangeNotification
-            object:self];
+    if (_delegate == aDelegate) {
+        return;
     }
-  }
-  
-  delegate_ = aDelegate;
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    if (_delegate != nil) {
+        [notificationCenter removeObserver:_delegate name:nil object:self];
+    }
+    
+    if (aDelegate != nil) {
+        if ([aDelegate respondsToSelector:@selector(SIPAccountRegistrationDidChange:)]) {
+            [notificationCenter addObserver:aDelegate
+                                   selector:@selector(SIPAccountRegistrationDidChange:)
+                                       name:AKSIPAccountRegistrationDidChangeNotification
+                                     object:self];
+        }
+    }
+    
+    _delegate = aDelegate;
 }
 
 - (void)setProxyPort:(NSUInteger)port {
-  if (port > 0 && port < 65535) {
-    proxyPort_ = port;
-  } else {
-    proxyPort_ = kAKSIPAccountDefaultSIPProxyPort;
-  }
+    if (port > 0 && port < 65535) {
+        _proxyPort = port;
+    } else {
+        _proxyPort = kAKSIPAccountDefaultSIPProxyPort;
+    }
 }
 
 - (void)setReregistrationTime:(NSUInteger)seconds {
-  const NSInteger reregistrationTimeMin = 60;
-  const NSInteger reregistrationTimeMax = 3600;
-  if (seconds == 0) {
-    reregistrationTime_ = kAKSIPAccountDefaultReregistrationTime;
-  } else if (seconds < reregistrationTimeMin) {
-    reregistrationTime_ = reregistrationTimeMin;
-  } else if (seconds > reregistrationTimeMax) {
-    reregistrationTime_ = reregistrationTimeMax;
-  } else {
-    reregistrationTime_ = seconds;
-  }
+    const NSInteger reregistrationTimeMin = 60;
+    const NSInteger reregistrationTimeMax = 3600;
+    if (seconds == 0) {
+        _reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
+    } else if (seconds < reregistrationTimeMin) {
+        _reregistrationTime = reregistrationTimeMin;
+    } else if (seconds > reregistrationTimeMax) {
+        _reregistrationTime = reregistrationTimeMax;
+    } else {
+        _reregistrationTime = seconds;
+    }
 }
 
 - (BOOL)isRegistered {
-  return ([self registrationStatus] / 100 == 2) &&
-         ([self registrationExpireTime] > 0);
+    return ([self registrationStatus] / 100 == 2) && ([self registrationExpireTime] > 0);
 }
 
 - (void)setRegistered:(BOOL)value {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-    return;
-  }
-  
-  if (value) {
-    pjsua_acc_set_registration([self identifier], PJ_TRUE);
-    [self setOnline:YES];
-  } else {
-    [self setOnline:NO];
-    pjsua_acc_set_registration([self identifier], PJ_FALSE);
-  }
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return;
+    }
+    
+    if (value) {
+        pjsua_acc_set_registration([self identifier], PJ_TRUE);
+        [self setOnline:YES];
+    } else {
+        [self setOnline:NO];
+        pjsua_acc_set_registration([self identifier], PJ_FALSE);
+    }
 }
 
 - (NSInteger)registrationStatus {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-    return 0;
-  }
-  
-  pjsua_acc_info accountInfo;
-  pj_status_t status;
-  
-  status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS) {
-    return 0;
-  }
-  
-  return accountInfo.status;
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return 0;
+    }
+    
+    pjsua_acc_info accountInfo;
+    pj_status_t status;
+    
+    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    if (status != PJ_SUCCESS) {
+        return 0;
+    }
+    
+    return accountInfo.status;
 }
 
 - (NSString *)registrationStatusText {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-    return nil;
-  }
-  
-  pjsua_acc_info accountInfo;
-  pj_status_t status;
-  
-  status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS) {
-    return nil;
-  }
-  
-  return [NSString stringWithPJString:accountInfo.status_text];
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return nil;
+    }
+    
+    pjsua_acc_info accountInfo;
+    pj_status_t status;
+    
+    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    if (status != PJ_SUCCESS) {
+        return nil;
+    }
+    
+    return [NSString stringWithPJString:accountInfo.status_text];
 }
 
 - (NSInteger)registrationExpireTime {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-    return -1;
-  }
-  
-  pjsua_acc_info accountInfo;
-  pj_status_t status;
-  
-  status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS) {
-    return -1;
-  }
-  
-  return accountInfo.expires;
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return -1;
+    }
+    
+    pjsua_acc_info accountInfo;
+    pj_status_t status;
+    
+    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    if (status != PJ_SUCCESS) {
+        return -1;
+    }
+    
+    return accountInfo.expires;
 }
 
 - (BOOL)isOnline {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-    return NO;
-  }
-  
-  pjsua_acc_info accountInfo;
-  pj_status_t status;
-  
-  status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS) {
-    return NO;
-  }
-  
-  return (accountInfo.online_status == PJ_TRUE) ? YES : NO;
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return NO;
+    }
+    
+    pjsua_acc_info accountInfo;
+    pj_status_t status;
+    
+    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    if (status != PJ_SUCCESS) {
+        return NO;
+    }
+    
+    return (accountInfo.online_status == PJ_TRUE) ? YES : NO;
 }
 
 - (void)setOnline:(BOOL)value {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-    return;
-  }
-  
-  if (value) {
-    pjsua_acc_set_online_status([self identifier], PJ_TRUE);
-  } else {
-    pjsua_acc_set_online_status([self identifier], PJ_FALSE);
-  }
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return;
+    }
+    
+    if (value) {
+        pjsua_acc_set_online_status([self identifier], PJ_TRUE);
+    } else {
+        pjsua_acc_set_online_status([self identifier], PJ_FALSE);
+    }
 }
 
 - (NSString *)onlineStatusText {
-  if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-    return nil;
-  }
-  
-  pjsua_acc_info accountInfo;
-  pj_status_t status;
-  
-  status = pjsua_acc_get_info([self identifier], &accountInfo);
-  if (status != PJ_SUCCESS) {
-    return nil;
-  }
-  
-  return [NSString stringWithPJString:accountInfo.online_status_text];
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return nil;
+    }
+    
+    pjsua_acc_info accountInfo;
+    pj_status_t status;
+    
+    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    if (status != PJ_SUCCESS) {
+        return nil;
+    }
+    
+    return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
 + (id)SIPAccountWithFullName:(NSString *)aFullName
@@ -227,13 +204,12 @@ NSString * const AKSIPAccountWillMakeCallNotification
                    registrar:(NSString *)aRegistrar
                        realm:(NSString *)aRealm
                     username:(NSString *)aUsername {
-  
-  return [[[AKSIPAccount alloc] initWithFullName:aFullName
-                                      SIPAddress:aSIPAddress
-                                       registrar:aRegistrar
-                                           realm:aRealm
-                                        username:aUsername]
-          autorelease];
+    
+    return [[AKSIPAccount alloc] initWithFullName:aFullName
+                                        SIPAddress:aSIPAddress
+                                         registrar:aRegistrar
+                                             realm:aRealm
+                                          username:aUsername];
 }
 
 - (id)initWithFullName:(NSString *)aFullName
@@ -241,86 +217,62 @@ NSString * const AKSIPAccountWillMakeCallNotification
              registrar:(NSString *)aRegistrar
                  realm:(NSString *)aRealm
               username:(NSString *)aUsername {
-  
-  self = [super init];
-  if (self == nil) {
-    return nil;
-  }
-  
-  [self setRegistrationURI:[AKSIPURI SIPURIWithString:
-                            [NSString stringWithFormat:@"\"%@\" <sip:%@>",
-                             aFullName, aSIPAddress]]];
-  
-  [self setFullName:aFullName];
-  [self setSIPAddress:aSIPAddress];
-  [self setRegistrar:aRegistrar];
-  [self setRealm:aRealm];
-  [self setUsername:aUsername];
-  [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
-  [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
-  [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];
-  
-  calls_ = [[NSMutableArray alloc] init];
-  
-  return self;
+    
+    self = [super init];
+    if (self == nil) {
+        return nil;
+    }
+    
+    [self setRegistrationURI:[AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>",
+                                                         aFullName, aSIPAddress]]];
+    
+    [self setFullName:aFullName];
+    [self setSIPAddress:aSIPAddress];
+    [self setRegistrar:aRegistrar];
+    [self setRealm:aRealm];
+    [self setUsername:aUsername];
+    [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
+    [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
+    [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];
+    
+    _calls = [[NSMutableArray alloc] init];
+    
+    return self;
 }
 
 - (id)init {
-  return [self initWithFullName:nil
-                     SIPAddress:nil
-                      registrar:nil
-                          realm:nil
-                       username:nil];
+    return [self initWithFullName:nil SIPAddress:nil registrar:nil realm:nil username:nil];
 }
 
 - (void)dealloc {
-  [self setDelegate:nil];
-  
-  [registrationURI_ release];
-  
-  [fullName_ release];
-  [SIPAddress_ release];
-  [registrar_ release];
-  [realm_ release];
-  [username_ release];
-  [proxyHost_ release];
-  
-  [calls_ release];
-  
-  [super dealloc];
+    [self setDelegate:nil];
 }
 
 - (NSString *)description {
-  return [self SIPAddress];
+    return [self SIPAddress];
 }
 
 - (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI {
-  [[NSNotificationCenter defaultCenter]
-   postNotificationName:AKSIPAccountWillMakeCallNotification
-                 object:self];
-  
-  pjsua_call_id callIdentifier;
-  pj_str_t uri = [[destinationURI description] pjString];
-  
-  pj_status_t status = pjsua_call_make_call([self identifier],
-                                            &uri,
-                                            0,
-                                            NULL,
-                                            NULL,
-                                            &callIdentifier);
-  AKSIPCall *theCall = nil;
-  if (status == PJ_SUCCESS) {
-    for (AKSIPCall *aCall in [[[self calls] copy] autorelease]) {
-      if ([aCall identifier] == callIdentifier) {
-        theCall = [[aCall retain] autorelease];
-        break;
-      }
+    [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPAccountWillMakeCallNotification
+                                                        object:self];
+    
+    pjsua_call_id callIdentifier;
+    pj_str_t uri = [[destinationURI description] pjString];
+    
+    pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
+    AKSIPCall *theCall = nil;
+    if (status == PJ_SUCCESS) {
+        for (AKSIPCall *aCall in [self calls]) {
+            if ([aCall identifier] == callIdentifier) {
+                theCall = aCall;
+                break;
+            }
+        }
+    } else {
+        NSLog(@"Error making call to %@ via account %@", destinationURI, self);
     }
-  } else {
-    NSLog(@"Error making call to %@ via account %@", destinationURI, self);
-  }
-  
-  return theCall;
+    
+    return theCall;
 }
 
 @end

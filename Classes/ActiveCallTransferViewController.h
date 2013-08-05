@@ -34,13 +34,10 @@
 
 
 // An active call controller of a call transfer.
-@interface ActiveCallTransferViewController : ActiveCallViewController {
- @private
-  NSButton *transferButton_;
-}
+@interface ActiveCallTransferViewController : ActiveCallViewController
 
 // Call transfer button.
-@property (nonatomic, retain) IBOutlet NSButton *transferButton;
+@property (nonatomic, weak) IBOutlet NSButton *transferButton;
 
 
 // Transfers a call.

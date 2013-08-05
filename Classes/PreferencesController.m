@@ -54,8 +54,7 @@ NSString * const kSoundOutput = @"SoundOutput";
 NSString * const kRingtoneOutput = @"RingtoneOutput";
 NSString * const kRingingSound = @"RingingSound";
 NSString * const kFormatTelephoneNumbers = @"FormatTelephoneNumbers";
-NSString * const kTelephoneNumberFormatterSplitsLastFourDigits
-  = @"TelephoneNumberFormatterSplitsLastFourDigits";
+NSString * const kTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";
 NSString * const kOutboundProxyHost = @"OutboundProxyHost";
 NSString * const kOutboundProxyPort = @"OutboundProxyPort";
 NSString * const kUseICE = @"UseICE";
@@ -77,8 +76,7 @@ NSString * const kAccountIndex = @"AccountIndex";
 NSString * const kAccountEnabled = @"AccountEnabled";
 NSString * const kReregistrationTime = @"ReregistrationTime";
 NSString * const kSubstitutePlusCharacter = @"SubstitutePlusCharacter";
-NSString * const kPlusCharacterSubstitutionString
-  = @"PlusCharacterSubstitutionString";
+NSString * const kPlusCharacterSubstitutionString = @"PlusCharacterSubstitutionString";
 NSString * const kUseProxy = @"UseProxy";
 NSString * const kProxyHost = @"ProxyHost";
 NSString * const kProxyPort = @"ProxyPort";
@@ -86,196 +84,161 @@ NSString * const kProxyPort = @"ProxyPort";
 NSString * const kSourceIndex = @"SourceIndex";
 NSString * const kDestinationIndex = @"DestinationIndex";
 
-NSString * const AKPreferencesControllerDidRemoveAccountNotification
-  = @"AKPreferencesControllerDidRemoveAccount";
+NSString * const AKPreferencesControllerDidRemoveAccountNotification = @"AKPreferencesControllerDidRemoveAccount";
 NSString * const AKPreferencesControllerDidChangeAccountEnabledNotification
-  = @"AKPreferencesControllerDidChangeAccountEnabled";
-NSString * const AKPreferencesControllerDidSwapAccountsNotification
-  = @"AKPreferencesControllerDidSwapAccounts";
+    = @"AKPreferencesControllerDidChangeAccountEnabled";
+NSString * const AKPreferencesControllerDidSwapAccountsNotification = @"AKPreferencesControllerDidSwapAccounts";
 NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
-  = @"AKPreferencesControllerDidChangeNetworkSettings";
+    = @"AKPreferencesControllerDidChangeNetworkSettings";
 
 @implementation PreferencesController
 
-@synthesize delegate = delegate_;
-@dynamic generalPreferencesViewController;
-@dynamic accountPreferencesViewController;
-@dynamic soundPreferencesViewController;
-@dynamic networkPreferencesViewController;
-
-@synthesize toolbar = toolbar_;
-@synthesize generalToolbarItem = generalToolbarItem_;
-@synthesize accountsToolbarItem = accountsToolbarItem_;
-@synthesize soundToolbarItem = soundToolbarItem_;
-@synthesize networkToolbarItem = networkToolbarItem_;
+@synthesize generalPreferencesViewController = _generalPreferencesViewController;
+@synthesize accountPreferencesViewController = _accountPreferencesViewController;
+@synthesize soundPreferencesViewController = _soundPreferencesViewController;
+@synthesize networkPreferencesViewController = _networkPreferencesViewController;
 
 - (void)setDelegate:(id)aDelegate {
-  if (delegate_ == aDelegate) {
-    return;
-  }
-  
-  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-  
-  if (delegate_ != nil)
-    [nc removeObserver:delegate_ name:nil object:self];
-  
-  if (aDelegate != nil) {
-    if ([aDelegate respondsToSelector:
-         @selector(preferencesControllerDidRemoveAccount:)]) {
-      [nc addObserver:aDelegate
-             selector:@selector(preferencesControllerDidRemoveAccount:)
-                 name:AKPreferencesControllerDidRemoveAccountNotification
-               object:self];
+    if (_delegate == aDelegate) {
+        return;
     }
     
-    if ([aDelegate respondsToSelector:
-         @selector(preferencesControllerDidChangeAccountEnabled:)]) {
-      [nc addObserver:aDelegate
-             selector:@selector(preferencesControllerDidChangeAccountEnabled:)
-                 name:AKPreferencesControllerDidChangeAccountEnabledNotification
-               object:self];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    if (_delegate != nil)
+        [nc removeObserver:_delegate name:nil object:self];
+    
+    if (aDelegate != nil) {
+        if ([aDelegate respondsToSelector:@selector(preferencesControllerDidRemoveAccount:)]) {
+            [nc addObserver:aDelegate
+                   selector:@selector(preferencesControllerDidRemoveAccount:)
+                       name:AKPreferencesControllerDidRemoveAccountNotification
+                     object:self];
+        }
+        
+        if ([aDelegate respondsToSelector:@selector(preferencesControllerDidChangeAccountEnabled:)]) {
+            [nc addObserver:aDelegate
+                   selector:@selector(preferencesControllerDidChangeAccountEnabled:)
+                       name:AKPreferencesControllerDidChangeAccountEnabledNotification
+                     object:self];
+        }
+        
+        if ([aDelegate respondsToSelector:@selector(preferencesControllerDidSwapAccounts:)]) {
+            [nc addObserver:aDelegate
+                   selector:@selector(preferencesControllerDidSwapAccounts:)
+                       name:AKPreferencesControllerDidSwapAccountsNotification
+                     object:self];
+        }
+        
+        if ([aDelegate respondsToSelector:@selector(preferencesControllerDidChangeNetworkSettings:)]) {
+            [nc addObserver:aDelegate
+                   selector:@selector(preferencesControllerDidChangeNetworkSettings:)
+                       name:AKPreferencesControllerDidChangeNetworkSettingsNotification
+                     object:self];
+        }
     }
     
-    if ([aDelegate respondsToSelector:
-         @selector(preferencesControllerDidSwapAccounts:)]) {
-      [nc addObserver:aDelegate
-             selector:@selector(preferencesControllerDidSwapAccounts:)
-                 name:AKPreferencesControllerDidSwapAccountsNotification
-               object:self];
-    }
-    
-    if ([aDelegate respondsToSelector:
-         @selector(preferencesControllerDidChangeNetworkSettings:)]) {
-      [nc addObserver:aDelegate
-             selector:@selector(preferencesControllerDidChangeNetworkSettings:)
-                 name:AKPreferencesControllerDidChangeNetworkSettingsNotification
-               object:self];
-    }
-  }
-  
-  delegate_ = aDelegate;
+    _delegate = aDelegate;
 }
 
 - (GeneralPreferencesViewController *)generalPreferencesViewController {
-  if (generalPreferencesViewController_ == nil) {
-    generalPreferencesViewController_
-      = [[GeneralPreferencesViewController alloc] init];
-  }
-  return generalPreferencesViewController_;
+    if (_generalPreferencesViewController == nil) {
+        _generalPreferencesViewController = [[GeneralPreferencesViewController alloc] init];
+    }
+    return _generalPreferencesViewController;
 }
 
 - (AccountPreferencesViewController *)accountPreferencesViewController {
-  if (accountPreferencesViewController_ == nil) {
-    accountPreferencesViewController_
-      = [[AccountPreferencesViewController alloc] init];
-    [accountPreferencesViewController_ setPreferencesController:self];
-  }
-  return accountPreferencesViewController_;
+    if (_accountPreferencesViewController == nil) {
+        _accountPreferencesViewController = [[AccountPreferencesViewController alloc] init];
+        [_accountPreferencesViewController setPreferencesController:self];
+    }
+    return _accountPreferencesViewController;
 }
 
 - (SoundPreferencesViewController *)soundPreferencesViewController {
-  if (soundPreferencesViewController_ == nil) {
-    soundPreferencesViewController_
-      = [[SoundPreferencesViewController alloc] init];
-  }
-  return soundPreferencesViewController_;
+    if (_soundPreferencesViewController == nil) {
+        _soundPreferencesViewController = [[SoundPreferencesViewController alloc] init];
+    }
+    return _soundPreferencesViewController;
 }
 
 - (NetworkPreferencesViewController *)networkPreferencesViewController {
-  if (networkPreferencesViewController_ == nil) {
-    networkPreferencesViewController_
-      = [[NetworkPreferencesViewController alloc] init];
-    [networkPreferencesViewController_ setPreferencesController:self];
-  }
-  return networkPreferencesViewController_;
+    if (_networkPreferencesViewController == nil) {
+        _networkPreferencesViewController = [[NetworkPreferencesViewController alloc] init];
+        [_networkPreferencesViewController setPreferencesController:self];
+    }
+    return _networkPreferencesViewController;
 }
 
 - (id)init {
-  self = [super initWithWindowNibName:@"Preferences"];
-  
-  return self;
+    self = [super initWithWindowNibName:@"Preferences"];
+    
+    return self;
 }
 
 - (void)dealloc {
-  [self setDelegate:nil];
-  [generalPreferencesViewController_ release];
-  [accountPreferencesViewController_ release];
-  [soundPreferencesViewController_ release];
-  [networkPreferencesViewController_ release];
-  
-  [toolbar_ release];
-  [generalToolbarItem_ release];
-  [accountsToolbarItem_ release];
-  [soundToolbarItem_ release];
-  [networkToolbarItem_ release];
-  
-  [super dealloc];
+    [self setDelegate:nil];
 }
 
 - (void)awakeFromNib {
+    
 }
 
 - (void)windowDidLoad {
-  [[self toolbar] setSelectedItemIdentifier:
-   [[self generalToolbarItem] itemIdentifier]];
-  [[self window] ak_resizeAndSwapToContentView:
-   [[self generalPreferencesViewController] view]];
-  [[self window] setTitle:[[self generalPreferencesViewController] title]];
+    [[self toolbar] setSelectedItemIdentifier:[[self generalToolbarItem] itemIdentifier]];
+    [[self window] ak_resizeAndSwapToContentView:[[self generalPreferencesViewController] view]];
+    [[self window] setTitle:[[self generalPreferencesViewController] title]];
 }
 
 - (IBAction)changeView:(id)sender {
-  // If the user switches from Network to some other view, check for network
-  // settings changes.
-  NSView *contentView = [[self window] contentView];
-  NSView *networkPreferencesView
-    = [[self networkPreferencesViewController] view];
-  
-  if ([contentView isEqual:networkPreferencesView] &&
-      [sender tag] != kNetworkPreferencesTag) {
-    if ([[self networkPreferencesViewController]
-         checkForNetworkSettingsChanges:sender]) {
-      return;
+    // If the user switches from Network to some other view, check for network settings changes.
+    NSView *contentView = [[self window] contentView];
+    NSView *networkPreferencesView = [[self networkPreferencesViewController] view];
+    
+    if ([contentView isEqual:networkPreferencesView] && [sender tag] != kNetworkPreferencesTag) {
+        if ([[self networkPreferencesViewController] checkForNetworkSettingsChanges:sender]) {
+            return;
+        }
     }
-  }
-  
-  NSView *view;
-  NSString *title;
-  NSView *firstResponderView;
-  
-  switch ([sender tag]) {
-    case kGeneralPreferencesTag:
-      view = [[self generalPreferencesViewController] view];
-      title = [[self generalPreferencesViewController] title];
-      firstResponderView = nil;
-      break;
-    case kAccountsPreferencesTag:
-      view = [[self accountPreferencesViewController] view];
-      title = [[self accountPreferencesViewController] title];
-      firstResponderView
-        = [[self accountPreferencesViewController] accountsTable];
-      break;
-    case kSoundPreferencesTag:
-      view = [[self soundPreferencesViewController] view];
-      title = [[self soundPreferencesViewController] title];
-      firstResponderView = nil;
-      break;
-    case kNetworkPreferencesTag:
-      view = [[self networkPreferencesViewController] view];
-      title = [[self networkPreferencesViewController] title];
-      firstResponderView = nil;
-      break;
-    default:
-      view = nil;
-      title = NSLocalizedString(@"Telephone Preferences",
-                                @"Preferences default window title.");
-      firstResponderView = nil;
-      break;
-  }
-  
-  [[self window] ak_resizeAndSwapToContentView:view animate:YES];
-  [[self window] setTitle:title];
-  if ([firstResponderView acceptsFirstResponder])
-    [[self window] makeFirstResponder:firstResponderView];
+    
+    NSView *view;
+    NSString *title;
+    NSView *firstResponderView;
+    
+    switch ([sender tag]) {
+        case kGeneralPreferencesTag:
+            view = [[self generalPreferencesViewController] view];
+            title = [[self generalPreferencesViewController] title];
+            firstResponderView = nil;
+            break;
+        case kAccountsPreferencesTag:
+            view = [[self accountPreferencesViewController] view];
+            title = [[self accountPreferencesViewController] title];
+            firstResponderView = [[self accountPreferencesViewController] accountsTable];
+            break;
+        case kSoundPreferencesTag:
+            view = [[self soundPreferencesViewController] view];
+            title = [[self soundPreferencesViewController] title];
+            firstResponderView = nil;
+            break;
+        case kNetworkPreferencesTag:
+            view = [[self networkPreferencesViewController] view];
+            title = [[self networkPreferencesViewController] title];
+            firstResponderView = nil;
+            break;
+        default:
+            view = nil;
+            title = NSLocalizedString(@"Telephone Preferences", @"Preferences default window title.");
+            firstResponderView = nil;
+            break;
+    }
+    
+    [[self window] ak_resizeAndSwapToContentView:view animate:YES];
+    [[self window] setTitle:title];
+    if ([firstResponderView acceptsFirstResponder]) {
+        [[self window] makeFirstResponder:firstResponderView];
+    }
 }
 
 
@@ -283,12 +246,12 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 #pragma mark NSToolbar delegate
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar {
-  return [NSArray arrayWithObjects:
-          [[self generalToolbarItem] itemIdentifier],
-          [[self accountsToolbarItem] itemIdentifier],
-          [[self soundToolbarItem] itemIdentifier],
-          [[self networkToolbarItem] itemIdentifier],
-          nil];
+    return [NSArray arrayWithObjects:
+            [[self generalToolbarItem] itemIdentifier],
+            [[self accountsToolbarItem] itemIdentifier],
+            [[self soundToolbarItem] itemIdentifier],
+            [[self networkToolbarItem] itemIdentifier],
+            nil];
 }
 
 
@@ -296,20 +259,19 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 #pragma mark NSWindow delegate
 
 - (BOOL)windowShouldClose:(id)window {
-  if (networkPreferencesViewController_ != nil) {
-    BOOL networkSettingsChanged = [[self networkPreferencesViewController]
-                                   checkForNetworkSettingsChanges:window];
-    if (networkSettingsChanged) {
-      return NO;
+    if (_networkPreferencesViewController != nil) {
+        BOOL networkSettingsChanged = [[self networkPreferencesViewController] checkForNetworkSettingsChanges:window];
+        if (networkSettingsChanged) {
+            return NO;
+        }
     }
-  }
-  
-  return YES;
+    
+    return YES;
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-  // Stop currently playing ringtone that might be selected in Preferences.
-  [[[NSApp delegate] ringtone] stop];
+    // Stop currently playing ringtone that might be selected in Preferences.
+    [[[NSApp delegate] ringtone] stop];
 }
 
 @end

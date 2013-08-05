@@ -17,7 +17,7 @@ near Telephone, in the same parent directory.
     $ cd pjproject
 
 Create the file `pjlib/include/pj/config_site.h` with the following
-contents.
+contents:
 
     #define PJSIP_DONT_SWITCH_TO_TCP 1
     #define PJSUA_MAX_ACC 32
@@ -27,14 +27,17 @@ contents.
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
 
-Configure and build Telephone    
+Configure and build pjsip:
 
     $ CFLAGS="-O2 -arch i386 -arch x86_64" ./configure --disable-ssl
     $ make
+    
+Build Telephone.
 
 Coding Style
 ------------
 
-Telephone source code follows [Google Objective-C Style Guide][coding_style].
+Telephone source code follows [Google Objective-C Style Guide][coding_style]
+with the exception of maximum 120-column width and 4 spaces for indentation.
 
   [coding_style]: http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml

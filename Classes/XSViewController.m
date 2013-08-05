@@ -46,7 +46,6 @@
 	if (_children == newChildren)
 		return;
 	NSMutableArray *newChildrenCopy = [newChildren mutableCopy];
-	[_children release];
 	_children = newChildrenCopy;
 }
 @end
@@ -66,7 +65,8 @@
 
 - (id)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle windowController:(XSWindowController *)windowController;
 {
-	if (![super initWithNibName:name bundle:bundle])
+	self = [super initWithNibName:name bundle:bundle];
+	if (!self)
 		return nil;
 	self.windowController = windowController; // non-retained to avoid retain cycles
 	self.children = [NSMutableArray array]; // set up a blank mutable array
@@ -85,12 +85,6 @@
 	return nil;
 }
 
-- (void)dealloc;
-{
-// removed the self.parent = nil and self.windowController = nil as this can mask bugs that may occurr if the user sends a message to either of those
-	[self.children release];
-	[super dealloc];
-}
 
 #pragma mark Indexed Accessors
 
@@ -168,7 +162,7 @@
 		if ([child countOfChildren] > 0)
 			[array addObjectsFromArray:[child descendants]];
 	}
-	return [[array copy] autorelease]; // return an immutable array
+	return [array copy]; // return an immutable array
 }
 
 // --------------------------------------

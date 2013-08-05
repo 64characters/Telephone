@@ -40,29 +40,23 @@ extern NSString * const kPhoneLabel;
 @class AccountController, AKSIPURI;
 
 // An active account view controller.
-@interface ActiveAccountViewController : XSViewController {
- @private
-  AccountController *accountController_;
-  NSTokenField *callDestinationField_;
-  NSUInteger callDestinationURIIndex_;
-}
+@interface ActiveAccountViewController : XSViewController
 
 // Account controller the receiver belongs to.
-@property (nonatomic, assign) AccountController *accountController;
+@property (nonatomic, weak) AccountController *accountController;
 
 // Call destination token field outlet.
-@property (nonatomic, retain) IBOutlet NSTokenField *callDestinationField;
+@property (nonatomic, weak) IBOutlet NSTokenField *callDestinationField;
 
 // Index of a URI in a call destination token.
 @property (nonatomic, assign) NSUInteger callDestinationURIIndex;
 
 // Call destination URI.
-@property (nonatomic, readonly) AKSIPURI *callDestinationURI;
+@property (nonatomic, readonly, copy) AKSIPURI *callDestinationURI;
 
 
 // Designated initializer.
-// Initializes an ActiveAccountViewController object with a given account
-// controller and window controller.
+// Initializes an ActiveAccountViewController object with a given account controller and window controller.
 - (id)initWithAccountController:(AccountController *)anAccountController
                windowController:(XSWindowController *)windowController;
 

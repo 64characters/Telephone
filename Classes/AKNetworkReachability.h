@@ -42,10 +42,9 @@ extern NSString * const AKNetworkReachabilityDidBecomeUnreachableNotification;
 
 // Wrapper for SCNetworkReachability.
 @interface AKNetworkReachability : NSObject {
- @private
-  SCNetworkReachabilityRef reachability_;  // Strong.
-  SCNetworkReachabilityContext context_;
-  NSString *host_;
+  @private
+    SCNetworkReachabilityRef _reachability;  // Strong.
+    SCNetworkReachabilityContext _context;
 }
 
 // Host name or address of the target host.

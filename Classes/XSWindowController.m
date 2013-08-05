@@ -42,7 +42,8 @@
 
 - (id)initWithWindowNibName:(NSString *)nibName;
 {
-	if (![super initWithWindowNibName:nibName])
+	self = [super initWithWindowNibName:nibName];
+	if (!self)
 		return nil;
 	self.viewControllers = [NSMutableArray array];
 	return self;
@@ -53,14 +54,7 @@
 	if (_viewControllers == newViewControllers)
 		return;
 	NSMutableArray *newViewControllersCopy = [newViewControllers mutableCopy];
-	[_viewControllers release];
 	_viewControllers = newViewControllersCopy;
-}
-
-- (void)dealloc;
-{
-	[self.viewControllers release];
-	[super dealloc];
 }
 
 - (void)windowWillClose:(NSNotification *)notification;

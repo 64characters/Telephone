@@ -32,9 +32,7 @@
 
 
 // A controller that acts as an account controller inside call transfer sheet.
-@interface ActiveAccountTransferViewController : ActiveAccountViewController {
-
-}
+@interface ActiveAccountTransferViewController : ActiveAccountViewController
 
 // Initiates a call to the transfer destination.
 - (IBAction)makeCallToTransferDestination:(id)sender;

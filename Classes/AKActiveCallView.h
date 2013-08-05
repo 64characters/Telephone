@@ -33,16 +33,15 @@
 
 @protocol AKActiveCallViewDelegate;
 
-// The AKActiveCallView class receives DTMF digits |0123456789*#| and control
-// characters |mh| from the keyboard. It gives its delegate a chance to get
-// those DTMF digits and it sends control characters further.
-@interface AKActiveCallView : NSView {
- @private
-  id <AKActiveCallViewDelegate> delegate_;
-}
+// The AKActiveCallView class receives DTMF digits |0123456789*#| and control characters |mh| from the keyboard. It
+// gives its delegate a chance to get those DTMF digits and it sends control characters further.
+@interface AKActiveCallView : NSView
 
 // The receiver's delegate.
+// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
+// don't support weak references in 10.7.
 @property (nonatomic, assign) IBOutlet id <AKActiveCallViewDelegate> delegate;
+
 @end
 
 // Declares the interface that AKActiveCallView delegates must implement.
@@ -50,6 +49,5 @@
 @optional
 // Sent when a view receives text input from the keyboard.
 // Now it handles only DTMF digits |0123456789*#|.
-- (void)activeCallView:(AKActiveCallView *)sender
-        didReceiveText:(NSString *)aString;
+- (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString;
 @end

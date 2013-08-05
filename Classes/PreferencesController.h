@@ -33,10 +33,10 @@
 
 // Preferences window toolbar items tags.
 enum {
-  kGeneralPreferencesTag  = 0,
-  kAccountsPreferencesTag = 1,
-  kSoundPreferencesTag    = 2,
-  kNetworkPreferencesTag  = 3
+    kGeneralPreferencesTag  = 0,
+    kAccountsPreferencesTag = 1,
+    kSoundPreferencesTag    = 2,
+    kNetworkPreferencesTag  = 3
 };
 
 // Keys for defaults
@@ -108,22 +108,11 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @class SoundPreferencesViewController, NetworkPreferencesViewController;
 
 // A preferences controller.
-@interface PreferencesController : NSWindowController {
- @private
-  id delegate_;
-  GeneralPreferencesViewController *generalPreferencesViewController_;
-  AccountPreferencesViewController *accountPreferencesViewController_;
-  SoundPreferencesViewController *soundPreferencesViewController_;
-  NetworkPreferencesViewController *networkPreferencesViewController_;
-  
-  NSToolbar *toolbar_;
-  NSToolbarItem *generalToolbarItem_;
-  NSToolbarItem *accountsToolbarItem_;
-  NSToolbarItem *soundToolbarItem_;
-  NSToolbarItem *networkToolbarItem_;
-}
+@interface PreferencesController : NSWindowController
 
 // The receiver's delegate.
+// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
+// don't support weak references in 10.7.
 @property (nonatomic, assign) id delegate;
 
 // General preferences view controller.
@@ -140,11 +129,11 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 
 // Outlets.
 //
-@property (nonatomic, retain) IBOutlet NSToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *generalToolbarItem;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *accountsToolbarItem;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *soundToolbarItem;
-@property (nonatomic, retain) IBOutlet NSToolbarItem *networkToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbar *toolbar;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *generalToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *accountsToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *soundToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbarItem *networkToolbarItem;
 
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;

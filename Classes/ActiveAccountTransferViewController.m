@@ -35,38 +35,35 @@
 
 - (id)initWithAccountController:(AccountController *)anAccountController
                windowController:(XSWindowController *)windowController {
-  
-  self = [super initWithNibName:@"ActiveAccountTransferView"
-                         bundle:nil
-               windowController:windowController];
-  
-  if (self != nil) {
-    [self setAccountController:anAccountController];
-  }
-  return self;
+    
+    self = [super initWithNibName:@"ActiveAccountTransferView" bundle:nil windowController:windowController];
+    
+    if (self != nil) {
+        [self setAccountController:anAccountController];
+    }
+    return self;
 }
 
 - (IBAction)makeCallToTransferDestination:(id)sender {
-  if ([[[self callDestinationField] objectValue] count] == 0) {
-    return;
-  }
-  
-  NSDictionary *callDestinationDict
-    = [[[[self callDestinationField] objectValue] objectAtIndex:0]
-       objectAtIndex:[self callDestinationURIIndex]];
-  
-  NSString *phoneLabel = [callDestinationDict objectForKey:kPhoneLabel];
-  
-  AKSIPURI *uri = [self callDestinationURI];
-  if (uri != nil) {
-    [[self accountController] makeCallToURI:uri
-                                 phoneLabel:phoneLabel
-                     callTransferController:[[sender window] windowController]];
-  }
+    if ([[[self callDestinationField] objectValue] count] == 0) {
+        return;
+    }
+    
+    NSDictionary *callDestinationDict = [[[[self callDestinationField] objectValue] objectAtIndex:0]
+                                         objectAtIndex:[self callDestinationURIIndex]];
+    
+    NSString *phoneLabel = [callDestinationDict objectForKey:kPhoneLabel];
+    
+    AKSIPURI *uri = [self callDestinationURI];
+    if (uri != nil) {
+        [[self accountController] makeCallToURI:uri
+                                     phoneLabel:phoneLabel
+                         callTransferController:[[sender window] windowController]];
+    }
 }
 
 - (IBAction)makeCall:(id)sender {
-  return;
+    return;
 }
 
 @end

@@ -55,34 +55,17 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 
 @class AKSIPURI;
 
-// A class representing a SIP account. It contains a list of calls and maintains
-// SIP registration. You can use this class to make and receive calls.
-@interface AKSIPAccount : NSObject {
- @private
-  NSObject <AKSIPAccountDelegate> *delegate_;
-  
-  AKSIPURI *registrationURI_;
-  
-  NSString *fullName_;
-  NSString *SIPAddress_;
-  NSString *registrar_;
-  NSString *realm_;
-  NSString *username_;
-  NSString *proxyHost_;
-  NSUInteger proxyPort_;
-  NSUInteger reregistrationTime_;
-  
-  NSInteger identifier_;
-  
-  NSMutableArray *calls_;
-}
+// A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
+// class to make and receive calls.
+@interface AKSIPAccount : NSObject
 
 // The receiver's delegate.
+// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
+// don't support weak references in 10.7.
 @property (nonatomic, assign) NSObject <AKSIPAccountDelegate> *delegate;
 
 // The URI for SIP registration.
-// It is composed of |fullName| and |SIPAddress|,
-// e.g. "John Smith" <john@company.com>
+// It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>
 // TODO(eofster): strange property. Do we need this?
 @property (nonatomic, copy) AKSIPURI *registrationURI;
 
@@ -95,8 +78,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 // Registrar.
 @property (nonatomic, copy) NSString *registrar;
 
-// Realm. Pass nil to make a credential that can be used to authenticate against
-// any challenges.
+// Realm. Pass nil to make a credential that can be used to authenticate against any challenges.
 @property (nonatomic, copy) NSString *realm;
 
 // Authentication user name.
@@ -136,10 +118,10 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 @property (nonatomic, readonly, copy) NSString *onlineStatusText;
 
 // Calls that belong to the receiver.
-@property (readonly, retain) NSMutableArray *calls;
+@property (readonly, strong) NSMutableArray *calls;
 
-// Creates and returns an AKSIPAccount object initialized with a given full
-// name, SIP address, registrar, realm, and user name.
+// Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
+// user name.
 + (id)SIPAccountWithFullName:(NSString *)aFullName
                   SIPAddress:(NSString *)aSIPAddress
                    registrar:(NSString *)aRegistrar
@@ -147,8 +129,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
                     username:(NSString *)aUsername;
 
 // Designated initializer.
-// Initializes an AKSIPAccount object with a given full name, SIP address,
-// registrar, realm, and user name.
+// Initializes an AKSIPAccount object with a given full name, SIP address, registrar, realm, and user name.
 - (id)initWithFullName:(NSString *)aFullName
             SIPAddress:(NSString *)aSIPAddress
              registrar:(NSString *)aRegistrar

@@ -32,36 +32,24 @@
 
 
 // Sent when account setup controller adds an account.
-// |userInfo| object contains dictionary with the account data (see the account
-// keys defined in PreferencesController.h).
+// |userInfo| object contains dictionary with the account data (see the account keys defined in
+// PreferencesController.h).
 extern NSString * const AKAccountSetupControllerDidAddAccountNotification;
 
 // A class to manage account setup.
-@interface AccountSetupController : NSWindowController {
- @private
-  NSTextField *fullNameField_;
-  NSTextField *domainField_;
-  NSTextField *usernameField_;
-  NSTextField *passwordField_;
-  NSImageView *fullNameInvalidDataView_;
-  NSImageView *domainInvalidDataView_;
-  NSImageView *usernameInvalidDataView_;
-  NSImageView *passwordInvalidDataView_;
-  NSButton *defaultButton_;
-  NSButton *otherButton_;
-}
+@interface AccountSetupController : NSWindowController
 
 // Outlets.
-@property (nonatomic, retain) IBOutlet NSTextField *fullNameField;
-@property (nonatomic, retain) IBOutlet NSTextField *domainField;
-@property (nonatomic, retain) IBOutlet NSTextField *usernameField;
-@property (nonatomic, retain) IBOutlet NSTextField *passwordField;
-@property (nonatomic, retain) IBOutlet NSImageView *fullNameInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSImageView *domainInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSImageView *usernameInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSImageView *passwordInvalidDataView;
-@property (nonatomic, retain) IBOutlet NSButton *defaultButton;
-@property (nonatomic, retain) IBOutlet NSButton *otherButton;
+@property (nonatomic, weak) IBOutlet NSTextField *fullNameField;
+@property (nonatomic, weak) IBOutlet NSTextField *domainField;
+@property (nonatomic, weak) IBOutlet NSTextField *usernameField;
+@property (nonatomic, weak) IBOutlet NSTextField *passwordField;
+@property (nonatomic, weak) IBOutlet NSImageView *fullNameInvalidDataView;
+@property (nonatomic, weak) IBOutlet NSImageView *domainInvalidDataView;
+@property (nonatomic, weak) IBOutlet NSImageView *usernameInvalidDataView;
+@property (nonatomic, weak) IBOutlet NSImageView *passwordInvalidDataView;
+@property (nonatomic, weak) IBOutlet NSButton *defaultButton;
+@property (nonatomic, weak) IBOutlet NSButton *otherButton;
 
 // Closes a sheet.
 - (IBAction)closeSheet:(id)sender;
