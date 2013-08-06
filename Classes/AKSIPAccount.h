@@ -118,7 +118,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 @property (nonatomic, readonly, copy) NSString *onlineStatusText;
 
 // Calls that belong to the receiver.
-@property (readonly, strong) NSMutableArray *calls;
+@property (nonatomic, readonly, strong) NSMutableArray *calls;
 
 // Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
 // user name.
