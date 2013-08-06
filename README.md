@@ -29,7 +29,7 @@ contents:
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
 
-Include CoreAudio at line 35 in `pjmedia/src/pjmedia-audiodev/coreaudio_dev.c`:
+Include CoreAudio at the line 35 in `pjmedia/src/pjmedia-audiodev/coreaudio_dev.c`:
 
     Index: pjmedia/src/pjmedia-audiodev/coreaudio_dev.c
     ===================================================================
