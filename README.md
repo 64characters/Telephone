@@ -13,12 +13,14 @@ near Telephone, in the same parent directory.
 
   [pjsip]: http://www.pjsip.org/
 
-    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/1.12 pjproject
+    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.1 pjproject
     $ cd pjproject
 
 Create the file `pjlib/include/pj/config_site.h` with the following
 contents:
 
+    #define PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO 0
+    #define PJMEDIA_AUDIO_DEV_HAS_COREAUDIO 1
     #define PJSIP_DONT_SWITCH_TO_TCP 1
     #define PJSUA_MAX_ACC 32
     #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS 101
@@ -27,9 +29,38 @@ contents:
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
 
+Include CoreAudio at line 35 in `pjmedia/src/pjmedia-audiodev/coreaudio_dev.c`:
+    Index: pjmedia/src/pjmedia-audiodev/coreaudio_dev.c
+    ===================================================================
+    --- pjmedia/src/pjmedia-audiodev/coreaudio_dev.c	(revision 4580)
+    +++ pjmedia/src/pjmedia-audiodev/coreaudio_dev.c	(working copy)
+    @@ -32,6 +32,7 @@
+
+     #include <AudioUnit/AudioUnit.h>
+     #include <AudioToolbox/AudioConverter.h>
+    +#include <CoreAudio/CoreAudio.h>
+     #if !COREAUDIO_MAC
+        #include <AudioToolbox/AudioServices.h>
+
+Add `static` at the line 286 in `third_party/srtp/crypto/cipher/aes_icm.c`:
+
+    Index: third_party/srtp/crypto/cipher/aes_icm.c
+    ===================================================================
+    --- third_party/srtp/crypto/cipher/aes_icm.c	(revision 4580)
+    +++ third_party/srtp/crypto/cipher/aes_icm.c	(working copy)
+    @@ -283,7 +283,7 @@
+      * this is an internal, hopefully inlined function
+      */
+
+    -inline void
+    +static inline void
+     aes_icm_advance_ismacryp(aes_icm_ctx_t *c, uint8_t forIsmacryp) {
+       /* fill buffer with new keystream */
+       v128_copy(&c->keystream_buffer, &c->counter);
+
 Configure and build pjsip:
 
-    $ CFLAGS="-O2 -arch i386 -arch x86_64" ./configure --disable-ssl
+    $ ./configure
     $ make
     
 Build Telephone.
