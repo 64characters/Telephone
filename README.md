@@ -30,6 +30,7 @@ contents:
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
 
 Include CoreAudio at line 35 in `pjmedia/src/pjmedia-audiodev/coreaudio_dev.c`:
+
     Index: pjmedia/src/pjmedia-audiodev/coreaudio_dev.c
     ===================================================================
     --- pjmedia/src/pjmedia-audiodev/coreaudio_dev.c	(revision 4580)
