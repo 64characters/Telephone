@@ -78,6 +78,8 @@
 		AABA3A740F8A2B93009E1005 /* AKSIPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */; };
 		AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAD7EC0E0C171A00CB5930 /* PreferencesController.m */; };
 		AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */; };
+		AAD46CC917B17E7D004FCB35 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD46CC817B17E7D004FCB35 /* libcrypto.dylib */; };
+		AAD46CCA17B17E8D004FCB35 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD46CC617B17D95004FCB35 /* libssl.dylib */; };
 		AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92131107A5E9F00F142A4 /* ActiveCallViewController.m */; };
 		AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92135107A607C00F142A4 /* IncomingCallViewController.m */; };
 		AAD92139107A608B00F142A4 /* EndedCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92138107A608B00F142A4 /* EndedCallViewController.m */; };
@@ -261,6 +263,8 @@
 		AABAD7EF0E0C184200CB5930 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		AACD92CE0ED434DD00AF8D17 /* AKActiveCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKActiveCallView.h; sourceTree = "<group>"; tabWidth = 4; };
 		AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKActiveCallView.m; sourceTree = "<group>"; tabWidth = 4; };
+		AAD46CC617B17D95004FCB35 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
+		AAD46CC817B17E7D004FCB35 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		AAD92130107A5E9F00F142A4 /* ActiveCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ActiveCallViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92131107A5E9F00F142A4 /* ActiveCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveCallViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92134107A607C00F142A4 /* IncomingCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallViewController.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -319,6 +323,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAD46CCA17B17E8D004FCB35 /* libssl.dylib in Frameworks */,
+				AAD46CC917B17E7D004FCB35 /* libcrypto.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */,
 				AAEA9A870E0819BB00E3AB2D /* AudioToolbox.framework in Frameworks */,
@@ -461,6 +467,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAD46CC817B17E7D004FCB35 /* libcrypto.dylib */,
+				AAD46CC617B17D95004FCB35 /* libssl.dylib */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
