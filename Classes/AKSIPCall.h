@@ -180,12 +180,6 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 // Replies with 486 Busy Here.
 - (void)replyWithBusyHere;
 
-// Starts local ringback sound.
-- (void)ringbackStart;
-
-// Stops local ringback sound.
-- (void)ringbackStop;
-
 // Sends DTMF.
 - (void)sendDTMFDigits:(NSString *)digits;
 

@@ -130,10 +130,6 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 // A pool used by the underlying PJSUA library of the receiver.
 @property (readonly, assign) pj_pool_t *pjPool;
 
-@property (readonly, assign) NSInteger ringbackSlot;
-@property (nonatomic, assign) NSInteger ringbackCount;
-@property (readonly, assign) pjmedia_port *ringbackPort;
-
 // An array of DNS servers to use by the receiver. If set, DNS SRV will be
 // enabled. Only first kAKSIPUserAgentNameserversMax are used.
 @property (nonatomic, copy) NSArray *nameservers;
@@ -211,6 +207,12 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 
 // Hangs up all calls controlled by the receiver.
 - (void)hangUpAllCalls;
+
+// Starts local ringback sound for the specified call.
+- (void)startRingbackForCall:(AKSIPCall *)call;
+
+// Stops local ringback sound for the specified call.
+- (void)stopRingbackForCall:(AKSIPCall *)call;
 
 // Sets sound input and output.
 - (BOOL)setSoundInputDevice:(NSInteger)input

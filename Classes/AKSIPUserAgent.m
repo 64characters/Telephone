@@ -92,11 +92,18 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 
 @interface AKSIPUserAgent ()
 
+// Read-write redeclarations.
 @property (assign) AKSIPUserAgentState state;
-
 @property (assign) pj_pool_t *pjPool;
-@property (assign) NSInteger ringbackSlot;
-@property (assign) pjmedia_port *ringbackPort;
+
+// Ringback slot.
+@property (nonatomic, assign) NSInteger ringbackSlot;
+
+// Ringback port.
+@property (nonatomic, assign) pjmedia_port *ringbackPort;
+
+// Ringback count.
+@property (nonatomic, assign) NSInteger ringbackCount;
 
 // Creates and starts SIP user agent. Supposed to be run on the secondary
 // thread.
@@ -651,6 +658,33 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     pjsua_call_hangup_all();
 }
 
+- (void)startRingbackForCall:(AKSIPCall *)call {
+    if (self.callData[call.identifier].ringbackOn) {
+        return;
+    }
+    
+    self.callData[call.identifier].ringbackOn = PJ_TRUE;
+    
+    self.ringbackCount = self.ringbackCount + 1;
+    if (self.ringbackCount == 1 && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
+        pjsua_conf_connect(self.ringbackSlot, 0);
+    }
+}
+
+- (void)stopRingbackForCall:(AKSIPCall *)call {
+    if (self.callData[call.identifier].ringbackOn) {
+        self.callData[call.identifier].ringbackOn = PJ_FALSE;
+        
+        pj_assert(self.ringbackCount > 0);
+        
+        self.ringbackCount = self.ringbackCount - 1;
+        if (self.ringbackCount == 0 && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
+            pjsua_conf_disconnect(self.ringbackSlot, 0);
+            pjmedia_tonegen_rewind(self.ringbackPort);
+        }
+    }
+}
+
 - (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output {
     if (![self isStarted]) {
         return NO;
@@ -955,7 +989,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                        callInfo.last_status_text.ptr));
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [call ringbackStop];
+                [[AKSIPUserAgent sharedUserAgent] stopRingbackForCall:call];
                 [[[call account] calls] removeObject:call];
                 [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallDidDisconnectNotification
                                                                     object:call];
@@ -986,7 +1020,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                     msg->body == NULL &&
                     callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [call ringbackStart];
+                        [[AKSIPUserAgent sharedUserAgent] startRingbackForCall:call];
                     });
                 }
                 
@@ -1042,8 +1076,9 @@ static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
         
         __block AKSIPCall *call;
         void (^block)() = ^{
-            call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-            [call ringbackStop];
+            AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
+            call = [userAgent SIPCallByIdentifier:callIdentifier];
+            [userAgent stopRingbackForCall:call];
         };
         
         if ([NSThread isMainThread]) {

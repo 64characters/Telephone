@@ -283,40 +283,6 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     }
 }
 
-- (void)ringbackStart {
-    AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-    
-    // Use dot syntax for properties to prevent square bracket clutter.
-    if (userAgent.callData[self.identifier].ringbackOn) {
-        return;
-    }
-    
-    userAgent.callData[self.identifier].ringbackOn = PJ_TRUE;
-    
-    [userAgent setRingbackCount:[userAgent ringbackCount] + 1];
-    if ([userAgent ringbackCount] == 1 && [userAgent ringbackSlot] != kAKSIPUserAgentInvalidIdentifier) {
-        pjsua_conf_connect([userAgent ringbackSlot], 0);
-    }
-}
-
-- (void)ringbackStop {
-    AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-    
-    // Use dot syntax for properties to prevent square bracket clutter.
-    if (userAgent.callData[self.identifier].ringbackOn) {
-        userAgent.callData[self.identifier].ringbackOn = PJ_FALSE;
-        
-        pj_assert([userAgent ringbackCount] > 0);
-        
-        [userAgent setRingbackCount:[userAgent ringbackCount] - 1];
-        if ([userAgent ringbackCount] == 0 &&
-            [userAgent ringbackSlot] != kAKSIPUserAgentInvalidIdentifier) {
-            pjsua_conf_disconnect([userAgent ringbackSlot], 0);
-            pjmedia_tonegen_rewind([userAgent ringbackPort]);
-        }
-    }
-}
-
 - (void)sendDTMFDigits:(NSString *)digits {
     pj_status_t status;
     pj_str_t pjDigits = [digits pjString];
