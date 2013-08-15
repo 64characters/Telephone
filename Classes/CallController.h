@@ -112,6 +112,9 @@ extern NSString * const AKCallWindowWillCloseNotification;
 // Initializes a CallController object with a given nib file and account controller.
 - (id)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)anAccountController;
 
+// Sets new call info view and resizes window if needed.
+- (void)setCallInfoViewResizingWindow:(NSView *)newView;
+
 // Accepts an incoming call.
 - (void)acceptCall;
 

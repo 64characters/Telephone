@@ -123,7 +123,7 @@
         [self patchResponderChain];
     }
     [self addViewController:[self activeAccountTransferViewController]];
-    [[self window] ak_resizeAndSwapToContentView:[[self activeAccountTransferViewController] view] animate:YES];
+    [self setCallInfoViewResizingWindow:[[self activeAccountTransferViewController] view]];
     
     if ([[[self activeAccountTransferViewController] callDestinationField] acceptsFirstResponder]) {
         [[self window] makeFirstResponder:[[self activeAccountTransferViewController] callDestinationField]];

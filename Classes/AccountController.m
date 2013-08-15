@@ -389,7 +389,7 @@ NSString * const kEmailSIPLabel = @"sip";
     
     if (callTransferController == nil) {
         [aCallController addViewController:[aCallController activeCallViewController]];
-        [[aCallController window] setContentView:[[aCallController activeCallViewController] view]];
+        [aCallController setCallInfoViewResizingWindow:[[aCallController activeCallViewController] view]];
     }
     
     if ([phoneLabel length] > 0) {
@@ -413,7 +413,7 @@ NSString * const kEmailSIPLabel = @"sip";
     } else {
         [aCallController removeObjectFromViewControllersAtIndex:0];
         [aCallController addViewController:[aCallController endedCallViewController]];
-        [[aCallController window] setContentView:[[aCallController endedCallViewController] view]];
+        [aCallController setCallInfoViewResizingWindow:[[aCallController endedCallViewController] view]];
         [aCallController setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
     }
 }
@@ -983,7 +983,7 @@ NSString * const kEmailSIPLabel = @"sip";
     [aCallController setRedialURI:finalRedialURI];
     
     [aCallController addViewController:[aCallController incomingCallViewController]];
-    [[aCallController window] ak_resizeAndSwapToContentView:[[aCallController incomingCallViewController] view]];
+    [aCallController setCallInfoViewResizingWindow:[[aCallController incomingCallViewController] view]];
     
     [aCallController showWindow:nil];
     

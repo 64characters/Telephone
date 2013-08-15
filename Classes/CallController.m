@@ -62,6 +62,12 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @interface CallController ()
 
+// Account description field.
+@property(nonatomic, weak) IBOutlet NSTextField *accountDescriptionField;
+
+// Call info view.
+@property(nonatomic, strong) NSView *callInfoView;
+
 // Closes call window.
 - (void)closeCallWindow;
 
@@ -168,6 +174,54 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return [[self call] description];
 }
 
+- (void)awakeFromNib {
+    [[[self accountDescriptionField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
+    
+    NSRect frame = [[[self window] contentView] frame];
+    frame.origin.x = 0.0;
+    CGFloat minYBorderThickness = [[self window] contentBorderThicknessForEdge:NSMinYEdge];
+    frame.origin.y = minYBorderThickness;
+    frame.size.height -= minYBorderThickness;
+    NSView *emptyCallInfoView = [[NSView alloc] initWithFrame:frame];
+    [self.window.contentView addSubview:emptyCallInfoView];
+    self.callInfoView = emptyCallInfoView;
+}
+
+- (void)setCallInfoViewResizingWindow:(NSView *)newView {
+    // Compute view size delta.
+    NSSize currentCallInfoViewSize = [[self callInfoView] frame].size;
+    NSSize newViewSize = [newView frame].size;
+    CGFloat deltaWidth = newViewSize.width - currentCallInfoViewSize.width;
+    CGFloat deltaHeight = newViewSize.height - currentCallInfoViewSize.height;
+    
+    if (currentCallInfoViewSize.width > 0.0 && currentCallInfoViewSize.height > 0.0 &&
+        (fabs(deltaWidth) > 0.1 || fabs(deltaHeight) > 0.1)) {
+        // Compute new window size.
+        NSRect windowFrame = [[self window] frame];
+        windowFrame.size.height += deltaHeight;
+        windowFrame.origin.y -= deltaHeight;
+        windowFrame.size.width += deltaWidth;
+        
+        // Set new window frame.
+        [[self window] setFrame:windowFrame display:YES animate:YES];
+    }
+    
+    CGFloat minYBorderThickness = [[self window] contentBorderThicknessForEdge:NSMinYEdge];
+    if (minYBorderThickness > 0.0) {
+        CGRect newViewFrame = [newView frame];
+        newViewFrame.origin.y = minYBorderThickness;
+        newView.frame = newViewFrame;
+    }
+    
+    // Swap to the new view.
+    if (self.callInfoView == nil) {
+        [self.window.contentView addSubview:newView];
+    } else {
+        [self.window.contentView replaceSubview:self.callInfoView with:newView];
+    }
+    self.callInfoView = newView;
+}
+
 - (void)acceptCall {
     if ([[self call] isIncoming]) {
         [[NSApp delegate] stopRingtoneTimerIfNeeded];
@@ -204,7 +258,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     
     [self removeObjectFromViewControllersAtIndex:0];
     [self addViewController:[self endedCallViewController]];
-    [[self window] ak_resizeAndSwapToContentView:[[self endedCallViewController] view] animate:YES];
+    [self setCallInfoViewResizingWindow:[[self endedCallViewController] view]];
     
     [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];
     [[[self activeCallViewController] hangUpButton] setEnabled:NO];
@@ -252,7 +306,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
         [self removeObjectFromViewControllersAtIndex:0];
         [self addViewController:[self activeCallViewController]];
-        [[self window] ak_resizeAndSwapToContentView:[[self activeCallViewController] view] animate:YES];
+        [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
     }
     
     [[[self activeCallViewController] view] replaceSubview:[[self activeCallViewController] hangUpButton]
@@ -297,7 +351,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         if (![[self objectInViewControllersAtIndex:0] isEqual:[self endedCallViewController]]) {
             [self removeObjectFromViewControllersAtIndex:0];
             [self addViewController:[self endedCallViewController]];
-            [[self window] ak_resizeAndSwapToContentView:[[self endedCallViewController] view] animate:YES];
+            [self setCallInfoViewResizingWindow:[[self endedCallViewController] view]];
         }
         [self setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
     }
@@ -425,7 +479,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
         [self removeObjectFromViewControllersAtIndex:0];
         [self addViewController:[self activeCallViewController]];
-        [[self window] ak_resizeAndSwapToContentView:[[self activeCallViewController] view] animate:YES];
+        [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
     }
     
     [[[self activeCallViewController] hangUpButton] setEnabled:YES];
@@ -454,7 +508,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
             [self removeObjectFromViewControllersAtIndex:0];
             [self addViewController:[self activeCallViewController]];
-            [[self window] ak_resizeAndSwapToContentView:[[self activeCallViewController] view] animate:YES];
+            [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
         }
     }
     
@@ -486,7 +540,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
         [self removeObjectFromViewControllersAtIndex:0];
         [self addViewController:[self activeCallViewController]];
-        [[self window] ak_resizeAndSwapToContentView:[[self activeCallViewController] view] animate:YES];
+        [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
     }
     
     if ([[[self activeCallViewController] view] acceptsFirstResponder]) {
@@ -549,7 +603,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if (![[self objectInViewControllersAtIndex:0] isEqual:[self endedCallViewController]]) {
         [self removeObjectFromViewControllersAtIndex:0];
         [self addViewController:[self endedCallViewController]];
-        [[self window] ak_resizeAndSwapToContentView:[[self endedCallViewController] view] animate:YES];
+        [self setCallInfoViewResizingWindow:[[self endedCallViewController] view]];
     }
     
     [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];

@@ -105,6 +105,9 @@ extern NSString * const kEmailSIPLabel;
 // Account state pop-up button outlet.
 @property (nonatomic, weak) IBOutlet NSPopUpButton *accountStatePopUp;
 
+// A Boolean value indicating if call windows should display account name.
+@property (nonatomic, assign) BOOL callsShouldDisplayAccountInfo;
+
 
 // Designated initializer.
 // Initializes an AccountController object with a given account.
