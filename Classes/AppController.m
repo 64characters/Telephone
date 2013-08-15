@@ -754,11 +754,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         NSMenuItem *menuItem = [[NSMenuItem alloc] init];
         [menuItem setRepresentedObject:accountController];
         [menuItem setAction:@selector(toggleAccountWindow:)];
-        if ([[accountController accountDescription] length] > 0) {
-            [menuItem setTitle:[accountController accountDescription]];
-        } else {
-            [menuItem setTitle:[[accountController account] SIPAddress]];
-        }
+        [menuItem setTitle:[accountController accountDescription]];
         if (accountNumber < 10) {
             // Only add key equivalents for Command-[1..9].
             [menuItem setKeyEquivalent:[NSString stringWithFormat:@"%lu", accountNumber]];
@@ -1298,10 +1294,10 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         [[theAccountController window] setExcludedFromWindowsMenu:YES];
         
         NSString *description = [accountDict objectForKey:kDescription];
-        [theAccountController setAccountDescription:description];
-        if ([description length] > 0) {
-            [[theAccountController window] setTitle:description];
+        if ([description length] == 0) {
+            description = SIPAddress;
         }
+        [theAccountController setAccountDescription:description];
         
         [theAccountController setAccountUnavailable:NO];
         
@@ -1642,10 +1638,10 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         [[anAccountController window] setExcludedFromWindowsMenu:YES];
         
         NSString *description = [accountDict objectForKey:kDescription];
-        [anAccountController setAccountDescription:description];
-        if ([description length] > 0) {
-            [[anAccountController window] setTitle:description];
+        if ([description length] == 0) {
+            description = SIPAddress;
         }
+        [anAccountController setAccountDescription:description];
         
         [[anAccountController account] setReregistrationTime:
          [[accountDict objectForKey:kReregistrationTime] integerValue]];

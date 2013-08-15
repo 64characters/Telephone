@@ -197,6 +197,13 @@ NSString * const kEmailSIPLabel = @"sip";
     }
 }
 
+- (void)setAccountDescription:(NSString *)accountDescription {
+    if (_accountDescription != accountDescription) {
+        [[self window] setTitle:accountDescription];
+        _accountDescription = accountDescription;
+    }
+}
+
 - (ActiveAccountViewController *)activeAccountViewController {
     if (_activeAccountViewController == nil) {
         _activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self
