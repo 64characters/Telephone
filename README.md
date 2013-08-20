@@ -7,6 +7,14 @@ internet connection.
 Building
 --------
 
+To quickly build pjsip so that you can then build Telephone run:
+
+```
+./build-pjsip.sh
+```
+
+This script does what is detailed here below.
+
 Telephone's SIP user agent is based on [pjsip][]. You need to build it
 before building Telephone. Name the directory _pjproject_ and place it
 near Telephone, in the same parent directory.
