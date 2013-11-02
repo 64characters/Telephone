@@ -510,7 +510,10 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
      [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
     
-    AKSIPURI *theURI = [SIPURIFormatter SIPURIFromString:editingString];
+    NSCharacterSet *whitespaceCharset = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedString = [editingString stringByTrimmingCharactersInSet:whitespaceCharset];
+    
+    AKSIPURI *theURI = [SIPURIFormatter SIPURIFromString:trimmedString];
     if (theURI == nil) {
         return nil;
     }
