@@ -105,6 +105,9 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 // directories.
 - (void)createDirectoryForFileAtPath:(NSString *)path;
 
+// Updates callsShouldDisplayAccountInfo on account controllers.
+- (void)updateCallsShouldDisplayAccountInfo;
+
 @end
 
 
@@ -876,6 +879,14 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
 }
 
+- (void)updateCallsShouldDisplayAccountInfo {
+    NSUInteger enabledCount = [self.enabledAccountControllers count];
+    BOOL shouldDisplay = enabledCount > 1;
+    for (AccountController *accountController in self.accountControllers) {
+        accountController.callsShouldDisplayAccountInfo = shouldDisplay;
+    }
+}
+
 - (void)subscribeToAudioDeviceChanges {
     AudioObjectPropertyAddress address = { kAudioHardwarePropertyDevices,
                                            kAudioObjectPropertyScopeGlobal,
@@ -1233,6 +1244,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [theAccountController setEnabled:YES];
     
     [[self accountControllers] addObject:theAccountController];
+    [self updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
     
     [[theAccountController window] orderFront:self];
@@ -1259,6 +1271,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
     
     [[self accountControllers] removeObjectAtIndex:index];
+    [self updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
 }
 
@@ -1346,6 +1359,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         [theAccountController setWindow:nil];
     }
     
+    [self updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
 }
 
@@ -1676,6 +1690,9 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             [[anAccountController window] orderWindow:NSWindowBelow relativeTo:[previousAccountWindow windowNumber]];
         }
     }
+    
+    // Update callsShouldDisplayAccountInfo on account controllers.
+    [self updateCallsShouldDisplayAccountInfo];
     
     // Update account menu items.
     [self updateAccountsMenuItems];
