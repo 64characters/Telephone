@@ -58,7 +58,7 @@ NSString * const AKCallWindowWillCloseNotification = @"AKCallWindowWillClose";
 static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 
 // Redial button re-enable delay.
-static const NSTimeInterval kRedialButtonReenableTime = 1.0;
+static const NSTimeInterval kRedialButtonReenableTime = 2.0;
 
 @interface CallController ()
 
