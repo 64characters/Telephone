@@ -1226,6 +1226,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
                                                  realm:[accountDict objectForKey:kRealm]
                                               username:[accountDict objectForKey:kUsername]];
     
+    [theAccountController setAccountDescription:[[theAccountController account] SIPAddress]];
+    
     [[theAccountController window] setExcludedFromWindowsMenu:YES];
     
     [theAccountController setEnabled:YES];
