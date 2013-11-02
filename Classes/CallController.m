@@ -596,15 +596,15 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             break;
     }
     
-    // Disable the redial button to re-enable it after some delay to prevent accidental clicking on in instead of
-    // clicking on the hang-up button. Don't forget to re-enable it below!
-    [[[self endedCallViewController] redialButton] setEnabled:NO];
-    
     if (![[self objectInViewControllersAtIndex:0] isEqual:[self endedCallViewController]]) {
         [self removeObjectFromViewControllersAtIndex:0];
         [self addViewController:[self endedCallViewController]];
         [self setCallInfoViewResizingWindow:[[self endedCallViewController] view]];
     }
+    
+    // Disable the redial button to re-enable it after some delay to prevent accidental clicking on in instead of
+    // clicking on the hang-up button. Don't forget to re-enable it below!
+    [[[self endedCallViewController] redialButton] setEnabled:NO];
     
     [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];
     [[[self activeCallViewController] hangUpButton] setEnabled:NO];
