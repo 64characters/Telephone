@@ -31,7 +31,6 @@
 #import "AccountController.h"
 
 #import <AddressBook/AddressBook.h>
-#import <Growl/Growl.h>
 
 #import "AKABAddressBook+Localizing.h"
 #import "AKABRecord+Querying.h"
@@ -987,7 +986,7 @@ NSString * const kEmailSIPLabel = @"sip";
     
     [aCallController showWindow:nil];
     
-    // Show Growl notification.
+    // Show user notification.
     NSString *callSource;
     AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
     [telephoneNumberFormatter setSplitsLastFourDigits:
@@ -1020,7 +1019,7 @@ NSString * const kEmailSIPLabel = @"sip";
                NSLocalizedString(@"calling from %@",
                                  @"John Smith calling from 1234567. "
                                   "Somebody is calling us right now from some source. "
-                                  "Growl notification description. Deliberately in "
+                                  "User notification description. Deliberately in "
                                   "lower case, translators should do the same, if "
                                   "possible."),
                callSource];
@@ -1029,18 +1028,16 @@ NSString * const kEmailSIPLabel = @"sip";
         notificationDescription
             = NSLocalizedString(@"calling",
                                 @"John Smith calling. Somebody is calling us right "
-                                 "now. Growl notification description. "
+                                 "now. User notification description. "
                                  "Deliberately in lower case, translators should do "
                                  "the same, if possible.");
     }
     
-    [GrowlApplicationBridge notifyWithTitle:notificationTitle
-                                description:notificationDescription
-                           notificationName:kGrowlNotificationIncomingCall
-                                   iconData:nil
-                                   priority:0
-                                   isSticky:NO
-                               clickContext:[aCallController identifier]];
+    NSUserNotification *userNotification = [[NSUserNotification alloc] init];
+    userNotification.title = notificationTitle;
+    userNotification.informativeText = notificationDescription;
+    userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: aCallController.identifier};
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
     
     [[[NSApp delegate] ringtone] play];
     [[NSApp delegate] startRingtoneTimer];

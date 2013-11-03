@@ -29,7 +29,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Growl/Growl.h>
 
 #import "AKSIPUserAgent.h"
 
@@ -42,15 +41,14 @@ extern NSString * const kAudioDeviceInputsCount;
 extern NSString * const kAudioDeviceOutputsCount;
 extern NSString * const kAudioDeviceBuiltIn;
 
-// Growl notification names.
-extern NSString * const kGrowlNotificationIncomingCall;
-extern NSString * const kGrowlNotificationCallEnded;
+/// NSUserNotification user info dictionary key containing call controller identifier.
+extern NSString * const kUserNotificationCallControllerIdentifierKey;
 
 @class AKSIPUserAgent, PreferencesController, CallController;
 @class AccountSetupController;
 
 // Application controller and NSApplication delegate.
-@interface AppController : NSObject <AKSIPUserAgentDelegate, GrowlApplicationBridgeDelegate>
+@interface AppController : NSObject <AKSIPUserAgentDelegate>
 
 // SIP user agent.
 @property (nonatomic, readonly, strong) AKSIPUserAgent *userAgent;

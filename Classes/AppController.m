@@ -32,7 +32,6 @@
 
 #import <CoreAudio/CoreAudio.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#import <Growl/Growl.h>
 
 #import "AKAddressBookPhonePlugIn.h"
 #import "AKAddressBookSIPAddressPlugIn.h"
@@ -62,8 +61,7 @@ NSString * const kAudioDeviceInputsCount = @"AudioDeviceInputsCount";
 NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 NSString * const kAudioDeviceBuiltIn = @"AudioDeviceBuiltIn";
 
-NSString * const kGrowlNotificationIncomingCall = @"Incoming Call";
-NSString * const kGrowlNotificationCallEnded = @"Call Ended";
+NSString * const kUserNotificationCallControllerIdentifierKey = @"UserNotificationCallControllerIdentifier";
 
 // Ringtone time interval.
 static const NSTimeInterval kRingtoneInterval = 4.0;
@@ -88,16 +86,13 @@ static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 // Dynamic store callback for DNS changes.
 static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
 
-@interface AppController()
+@interface AppController () <NSUserNotificationCenterDelegate>
 
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
 
 // Installs Address Book plug-ins.
 - (void)installAddressBookPlugIns;
-
-// Sets up Growl support.
-- (void)setupGrowl;
 
 // Installs a callback to monitor system DNS servers changes.
 - (void)installDNSChangesCallback;
@@ -631,7 +626,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         //
         // [self installAddressBookPlugIns];
         
-        [self setupGrowl];
+        [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
         [self installDNSChangesCallback];
     }
 }
@@ -820,17 +815,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             
             [alert runModal];
         }
-    }
-}
-
-- (void)setupGrowl {
-    NSString *growlPath = [[[NSBundle mainBundle] privateFrameworksPath]
-                           stringByAppendingPathComponent:@"Growl.framework"];
-    NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
-    if (growlBundle != nil && [growlBundle load]) {
-        [GrowlApplicationBridge setGrowlDelegate:self];
-    } else {
-        NSLog(@"Could not load Growl.framework");
     }
 }
 
@@ -1697,7 +1681,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     //
     // [self installAddressBookPlugIns];
     
-    [self setupGrowl];
+    [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
     [self installDNSChangesCallback];
     
     [self setShouldPresentUserAgentLaunchError:YES];
@@ -1856,16 +1840,17 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 }
 
 
-#pragma mark -
-#pragma mark GrowlApplicationBridgeDelegate protocol
+#pragma mark - NSUserNotificationCenterDelegate
 
-- (void)growlNotificationWasClicked:(id)clickContext {
-    NSString *identifier = (NSString *)clickContext;
-    CallController *aCallController = [self callControllerByIdentifier:identifier];
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center
+       didActivateNotification:(NSUserNotification *)notification {
+    
+    NSString *identifier = notification.userInfo[kUserNotificationCallControllerIdentifierKey];
+    CallController *callController = [self callControllerByIdentifier:identifier];
     if (![NSApp isActive]) {
         [NSApp activateIgnoringOtherApps:YES];
     }
-    [aCallController showWindow:nil];
+    [callController showWindow:nil];
 }
 
 
