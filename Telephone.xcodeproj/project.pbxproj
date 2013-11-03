@@ -251,6 +251,7 @@
 		AAA628C5110C6281008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
 		AAA628E9110C76B3008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
 		AAA780A6130867590030EBF4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		AAA7CFFC1825BE1900D53FB9 /* Telephone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Telephone.entitlements; sourceTree = "<group>"; };
 		AAA810B21115D7F9008CA945 /* EndedCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = EndedCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = EndedCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAAC618A0FE6A42900FBE053 /* AKNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKNetworkReachability.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -436,6 +437,7 @@
 			children = (
 				AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */,
 				8D1107310486CEB800E47090 /* Telephone-Info.plist */,
+				AAA7CFFC1825BE1900D53FB9 /* Telephone.entitlements */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				AA584A680F06CFD2003C4992 /* Localizable.strings */,
 				AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */,
@@ -688,6 +690,15 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1180,6 +1191,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Telephone.entitlements;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1239,6 +1251,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Telephone.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
