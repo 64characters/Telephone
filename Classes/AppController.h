@@ -40,6 +40,7 @@ extern NSString * const kAudioDeviceUID;
 extern NSString * const kAudioDeviceName;
 extern NSString * const kAudioDeviceInputsCount;
 extern NSString * const kAudioDeviceOutputsCount;
+extern NSString * const kAudioDeviceBuiltIn;
 
 // Growl notification names.
 extern NSString * const kGrowlNotificationIncomingCall;

@@ -60,6 +60,7 @@ NSString * const kAudioDeviceUID = @"AudioDeviceUID";
 NSString * const kAudioDeviceName = @"AudioDeviceName";
 NSString * const kAudioDeviceInputsCount = @"AudioDeviceInputsCount";
 NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
+NSString * const kAudioDeviceBuiltIn = @"AudioDeviceBuiltIn";
 
 NSString * const kGrowlNotificationIncomingCall = @"Incoming Call";
 NSString * const kGrowlNotificationCallEnded = @"Call Ended";
@@ -440,6 +441,17 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             CFRelease(nameStringRef);
         }
         
+        // Get transport type and set built-in flag.
+        UInt32 transportType = 0;
+        address.mSelector = kAudioDevicePropertyTransportType;
+        address.mScope = kAudioObjectPropertyScopeGlobal;
+        address.mScope = kAudioObjectPropertyElementMaster;
+        size = sizeof(UInt32);
+        err = AudioObjectGetPropertyData(devices[loopCount], &address, 0, NULL, &size, &transportType);
+        if (err == noErr) {
+            deviceDict[kAudioDeviceBuiltIn] = transportType == kAudioDeviceTransportTypeBuiltIn ? @YES : @NO;
+        }
+        
         // Get number of input channels.
         size = 0;
         NSUInteger inputChannelsCount = 0;
@@ -467,7 +479,9 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         // Get number of output channels.
         size = 0;
         NSUInteger outputChannelsCount = 0;
+        address.mSelector = kAudioDevicePropertyStreamConfiguration;
         address.mScope = kAudioObjectPropertyScopeOutput;
+        address.mElement = 0;
         err = AudioObjectGetPropertyDataSize(devices[loopCount], &address, 0, NULL, &size);
         if((err == noErr) && (size != 0)) {
             theBufferList = (AudioBufferList *)malloc(size);
@@ -509,82 +523,58 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 }
 
 // Selects appropriate sound IO from the list of available audio devices.
-// Searches the defaults database for devices selected earlier. If not found, uses first matched. Selects sound IO in
-// the user agent if there are active calls.
+//
+// Searches the defaults database for devices selected earlier. If not found, uses first built-in matched. If that is
+// not found, uses the first device.
+//
+// Selects sound IO in the user agent if there are active calls.
 - (void)selectSoundIO {
     NSArray *devices = [self audioDevices];
     NSInteger newSoundInput, newSoundOutput, newRingtoneOutput;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *deviceDict;
-    NSInteger i;
-    
-    // Lookup devices records in the defaults.
-    
     newSoundInput = newSoundOutput = newRingtoneOutput = NSNotFound;
-    
+    NSInteger firstBuiltInInput, firstBuiltInOutput;
+    firstBuiltInInput = firstBuiltInOutput = NSNotFound;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastSoundInputString = [defaults stringForKey:kSoundInput];
-    if (lastSoundInputString != nil) {
-        for (i = 0; i < [devices count]; ++i) {
-            deviceDict = [devices objectAtIndex:i];
-            if ([[deviceDict objectForKey:kAudioDeviceName] isEqual:lastSoundInputString] &&
-                [[deviceDict objectForKey:kAudioDeviceInputsCount] integerValue] > 0) {
-                newSoundInput = i;
-                break;
-            }
-        }
-    }
-    
     NSString *lastSoundOutputString = [defaults stringForKey:kSoundOutput];
-    if (lastSoundOutputString != nil) {
-        for (i = 0; i < [devices count]; ++i) {
-            deviceDict = [devices objectAtIndex:i];
-            if ([[deviceDict objectForKey:kAudioDeviceName] isEqual:lastSoundOutputString] &&
-                [[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
-                newSoundOutput = i;
-                break;
-            }
-        }
-    }
-    
     NSString *lastRingtoneOutputString = [defaults stringForKey:kRingtoneOutput];
-    if (lastRingtoneOutputString != nil) {
-        for (i = 0; i < [devices count]; ++i) {
-            deviceDict = [devices objectAtIndex:i];
-            if ([[deviceDict objectForKey:kAudioDeviceName] isEqual:lastRingtoneOutputString] &&
-                [[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
+    NSUInteger deviceCount = [devices count];
+    
+    for (NSUInteger i = 0; i < deviceCount; i++) {
+        if (newSoundInput != NSNotFound && newSoundOutput != NSNotFound && newRingtoneOutput != NSNotFound &&
+            firstBuiltInInput != NSNotFound && firstBuiltInOutput != NSNotFound) {
+            break;
+        }
+        NSDictionary *device = devices[i];
+        if ([device[kAudioDeviceInputsCount] unsignedIntegerValue] > 0) {
+            if (newSoundInput == NSNotFound && [device[kAudioDeviceName] isEqualToString:lastSoundInputString]) {
+                newSoundInput = i;
+            }
+            if (firstBuiltInInput == NSNotFound && [device[kAudioDeviceBuiltIn] boolValue]) {
+                firstBuiltInInput = i;
+            }
+        }
+        if ([device[kAudioDeviceOutputsCount] unsignedIntegerValue] > 0) {
+            if (newSoundOutput == NSNotFound && [device[kAudioDeviceName] isEqualToString:lastSoundOutputString]) {
+                newSoundOutput = i;
+            }
+            if (newRingtoneOutput == NSNotFound && [device[kAudioDeviceName] isEqualToString:lastRingtoneOutputString]) {
                 newRingtoneOutput = i;
-                break;
+            }
+            if (firstBuiltInOutput == NSNotFound && [device[kAudioDeviceBuiltIn] boolValue]) {
+                firstBuiltInOutput = i;
             }
         }
     }
-    
-    // If still not found, select first matched.
     
     if (newSoundInput == NSNotFound) {
-        for (i = 0; i < [devices count]; ++i) {
-            if ([[[devices objectAtIndex:i] objectForKey:kAudioDeviceInputsCount] integerValue] > 0) {
-                newSoundInput = i;
-                break;
-            }
-        }
+        newSoundInput = (firstBuiltInInput != NSNotFound) ? firstBuiltInInput : 0;
     }
-    
     if (newSoundOutput == NSNotFound) {
-        for (i = 0; i < [devices count]; ++i) {
-            if ([[[devices objectAtIndex:i] objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
-                newSoundOutput = i;
-                break;
-            }
-        }
+        newSoundOutput = (firstBuiltInOutput != NSNotFound) ? firstBuiltInOutput : 0;
     }
-    
     if (newRingtoneOutput == NSNotFound) {
-        for (i = 0; i < [devices count]; ++i) {
-            if ([[[devices objectAtIndex:i] objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
-                newRingtoneOutput = i;
-                break;
-            }
-        }
+        newRingtoneOutput = (firstBuiltInOutput != NSNotFound) ? firstBuiltInOutput : 0;
     }
     
     [self setSoundInputDeviceIndex:newSoundInput];

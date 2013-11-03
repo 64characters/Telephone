@@ -77,6 +77,8 @@
     NSMenu *soundInputMenu = [[NSMenu alloc] init];
     NSMenu *soundOutputMenu = [[NSMenu alloc] init];
     NSMenu *ringtoneOutputMenu = [[NSMenu alloc] init];
+    NSString *firstBuiltInInputName = nil;
+    NSString *firstBuiltInOutputName = nil;
     
     for (NSUInteger i = 0; i < [audioDevices count]; ++i) {
         NSDictionary *deviceDict = [audioDevices objectAtIndex:i];
@@ -87,11 +89,19 @@
         
         if ([[deviceDict objectForKey:kAudioDeviceInputsCount] integerValue] > 0) {
             [soundInputMenu addItem:[aMenuItem copy]];
+            
+            if ([deviceDict[kAudioDeviceBuiltIn] boolValue] && firstBuiltInInputName == nil) {
+                firstBuiltInInputName = [aMenuItem title];
+            }
         }
         
         if ([[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
             [soundOutputMenu addItem:[aMenuItem copy]];
             [ringtoneOutputMenu addItem:[aMenuItem copy]];
+            
+            if ([deviceDict[kAudioDeviceBuiltIn] boolValue] && firstBuiltInOutputName == nil) {
+                firstBuiltInOutputName = [aMenuItem title];
+            }
         }
         
     }
@@ -104,20 +114,32 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    NSString *soundInputItemTitle = nil;
     NSString *lastSoundInput = [defaults stringForKey:kSoundInput];
     if (lastSoundInput != nil && [[self soundInputPopUp] itemWithTitle:lastSoundInput] != nil) {
-        [[self soundInputPopUp] selectItemWithTitle:lastSoundInput];
+        soundInputItemTitle = lastSoundInput;
+    } else if (firstBuiltInInputName != nil) {
+        soundInputItemTitle = firstBuiltInInputName;
     }
+    [[self soundInputPopUp] selectItemWithTitle:soundInputItemTitle];
     
+    NSString *soundOutputItemTitle = nil;
     NSString *lastSoundOutput = [defaults stringForKey:kSoundOutput];
     if (lastSoundOutput != nil && [[self soundOutputPopUp] itemWithTitle:lastSoundOutput] != nil) {
-        [[self soundOutputPopUp] selectItemWithTitle:lastSoundOutput];
+        soundOutputItemTitle = lastSoundOutput;
+    } else if (firstBuiltInOutputName != nil) {
+        soundOutputItemTitle = firstBuiltInOutputName;
     }
+    [[self soundOutputPopUp] selectItemWithTitle:soundOutputItemTitle];
     
+    NSString *ringtoneOutputItemTitle = nil;
     NSString *lastRingtoneOutput = [defaults stringForKey:kRingtoneOutput];
     if (lastRingtoneOutput != nil && [[self ringtoneOutputPopUp] itemWithTitle:lastRingtoneOutput] != nil) {
-        [[self ringtoneOutputPopUp] selectItemWithTitle:lastRingtoneOutput];
+        ringtoneOutputItemTitle = lastRingtoneOutput;
+    } else if (firstBuiltInOutputName != nil) {
+        ringtoneOutputItemTitle = firstBuiltInOutputName;
     }
+    [[self ringtoneOutputPopUp] selectItemWithTitle:ringtoneOutputItemTitle];
 }
 
 - (void)updateAvailableSounds {
