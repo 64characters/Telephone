@@ -31,12 +31,12 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
+                            <binding destination="-2" name="value" keyPath="accountController.accountDescription" id="rvc-c6-m3d"/>
                             <binding destination="-2" name="hidden" keyPath="accountController.callsShouldDisplayAccountInfo" id="aQC-D6-oxn">
                                 <dictionary key="options">
                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                 </dictionary>
                             </binding>
-                            <binding destination="-2" name="value" keyPath="accountController.accountDescription" id="rvc-c6-m3d"/>
                         </connections>
                     </textField>
                 </subviews>

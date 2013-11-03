@@ -31,12 +31,12 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
+                            <binding destination="-2" name="value" keyPath="accountController.accountDescription" id="n5L-VT-Zfm"/>
                             <binding destination="-2" name="hidden" keyPath="accountController.callsShouldDisplayAccountInfo" id="EJU-2s-uAA">
                                 <dictionary key="options">
                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                 </dictionary>
                             </binding>
-                            <binding destination="-2" name="value" keyPath="accountController.accountDescription" id="n5L-VT-Zfm"/>
                         </connections>
                     </textField>
                 </subviews>
