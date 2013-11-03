@@ -2018,7 +2018,7 @@ static OSStatus AudioDevicesChanged(AudioObjectID objectID,
 }
 
 static OSStatus GetAudioDevices(Ptr *devices, UInt16 *deviceCount) {
-    OSStatus *error = noErr;
+    OSStatus error = noErr;
     UInt32 dataSize;
     
     AudioObjectPropertyAddress address = { kAudioHardwarePropertyDevices,
