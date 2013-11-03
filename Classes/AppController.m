@@ -1563,6 +1563,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [[self userAgent] setUsesICE:[defaults boolForKey:kUseICE]];
     [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
     [[self userAgent] setTransportPublicHost:[defaults stringForKey:kTransportPublicHost]];
+    [[self userAgent] setUsesG711Only:[defaults boolForKey:kUseG711Only]];
     [self setRingtone:[NSSound soundNamed:[defaults stringForKey:kRingingSound]]];
     
     

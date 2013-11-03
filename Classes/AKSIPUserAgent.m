@@ -64,6 +64,7 @@ static const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel = 0;
 static const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
 static const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
 static const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;
+static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 
 // Callbacks from PJSUA.
 //
@@ -112,6 +113,12 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 // Stops and destroys SIP user agent. Supposed to be run on the secondary
 // thread.
 - (void)ak_stop;
+
+/// Updates codecs according to usesG711Only property value.
+- (void)updateCodecs;
+
+/// Returns default priority for codec with specified identifier.
+- (NSUInteger)priorityForCodec:(NSString *)identifier;
 
 @end
 
@@ -216,6 +223,13 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     }
 }
 
+- (void)setUsesG711Only:(BOOL)usesG711Only {
+    if (_usesG711Only != usesG711Only) {
+        _usesG711Only = usesG711Only;
+        [self updateCodecs];
+    }
+}
+
 
 #pragma mark AKSIPUserAgent singleton instance
 
@@ -250,6 +264,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     [self setDetectsVoiceActivity:kAKSIPUserAgentDefaultDetectsVoiceActivity];
     [self setUsesICE:kAKSIPUserAgentDefaultUsesICE];
     [self setTransportPort:kAKSIPUserAgentDefaultTransportPort];
+    [self setUsesG711Only:kAKSIPUserAgentDefaultUsesG711Only];
     
     [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
     
@@ -457,6 +472,9 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
         if (status != PJ_SUCCESS) {
             NSLog(@"Error creating TCP transport");
         }
+        
+        // Update codecs.
+        [self updateCodecs];
         
         // Start PJSUA.
         status = pjsua_start();
@@ -719,6 +737,60 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
     // Reinit sound device.
     pjmedia_snd_deinit();
     pjmedia_snd_init(pjsua_get_pool_factory());
+}
+
+- (void)updateCodecs {
+    if (self.state < kAKSIPUserAgentStarting) {
+        return;
+    }
+    const unsigned kCodecInfoSize = 64;
+    pjsua_codec_info codecInfo[kCodecInfoSize];
+    unsigned codecCount = kCodecInfoSize;
+    pj_status_t status = pjsua_enum_codecs(codecInfo, &codecCount);
+    if (status != PJ_SUCCESS) {
+        NSLog(@"Error getting list of codecs");
+    } else {
+        static NSString * const kPCMU = @"PCMU/8000/1";
+        static NSString * const kPCMA = @"PCMA/8000/1";
+        for (NSUInteger i = 0; i < codecCount; i++) {
+            NSString *codecIdentifier = [NSString stringWithPJString:codecInfo[i].codec_id];
+            pj_uint8_t defaultPriority = (pj_uint8_t)[self priorityForCodec:codecIdentifier];
+            if (self.usesG711Only) {
+                pj_uint8_t priority = 0;
+                if ([codecIdentifier isEqualToString:kPCMU] || [codecIdentifier isEqualToString:kPCMA]) {
+                    priority = defaultPriority;
+                }
+                status = pjsua_codec_set_priority(&codecInfo[i].codec_id, priority);
+                if (status != PJ_SUCCESS) {
+                    NSLog(@"Error setting codec priority to zero");
+                }
+            } else {
+                status = pjsua_codec_set_priority(&codecInfo[i].codec_id, defaultPriority);
+                if (status != PJ_SUCCESS) {
+                    NSLog(@"Error setting codec priority to the default value");
+                }
+            }
+        }
+    }
+}
+
+- (NSUInteger)priorityForCodec:(NSString *)identifier {
+    static NSDictionary *priorities = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        priorities = @{
+                       @"speex/16000/1": @(130),
+                       @"speex/8000/1":  @(129),
+                       @"speex/32000/1": @(128),
+                       @"iLBC/8000/1":   @(127),
+                       @"GSM/8000/1":    @(126),
+                       @"PCMU/8000/1":   @(125),
+                       @"PCMA/8000/1":   @(124),
+                       @"G722/16000/1":  @(123)
+                       };
+    });
+    
+    return [priorities[identifier] unsignedIntegerValue];
 }
 
 - (NSString *)stringForSIPResponseCode:(NSInteger)responseCode {

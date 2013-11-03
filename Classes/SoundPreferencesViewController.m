@@ -71,6 +71,10 @@
     [[NSApp delegate] selectSoundIO];
 }
 
+- (IBAction)changeUseG711Only:(id)sender {
+    [AKSIPUserAgent sharedUserAgent].usesG711Only = (self.useG711OnlyCheckBox.state == NSOnState) ? YES : NO;
+}
+
 - (void)updateAudioDevices {
     // Populate sound IO pop-up buttons.
     NSArray *audioDevices = [[NSApp delegate] audioDevices];

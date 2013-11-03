@@ -39,9 +39,13 @@
 @property (nonatomic, weak) IBOutlet NSPopUpButton *soundOutputPopUp;
 @property (nonatomic, weak) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
 @property (nonatomic, weak) IBOutlet NSPopUpButton *ringtonePopUp;
+@property (nonatomic, weak) IBOutlet NSButton *useG711OnlyCheckBox;
 
 // Changes sound input and output devices.
 - (IBAction)changeSoundIO:(id)sender;
+
+/// Changes "Use only G.711".
+- (IBAction)changeUseG711Only:(id)sender;
 
 // Refreshes list of available audio devices.
 - (void)updateAudioDevices;

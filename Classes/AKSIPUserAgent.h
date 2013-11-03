@@ -180,6 +180,9 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 // Host name or IP address to advertise as the address of SIP transport.
 @property (nonatomic, copy) NSString *transportPublicHost;
 
+/// A Boolean value indicating if only G.711 codec is used.
+@property (nonatomic, assign) BOOL usesG711Only;
+
 
 // Returns the shared SIP user agent object.
 + (AKSIPUserAgent *)sharedUserAgent;
