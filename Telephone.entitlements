@@ -16,5 +16,12 @@
 	<true/>
 	<key>com.apple.security.personal-information.addressbook</key>
 	<true/>
+	<key>com.apple.security.scripting-targets</key>
+	<dict>
+		<key>com.apple.iTunes</key>
+		<array>
+			<string>com.apple.iTunes.playback</string>
+		</array>
+	</dict>
 </dict>
 </plist>
