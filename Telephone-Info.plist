@@ -46,7 +46,7 @@
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2008-2012 Alexei Kuznetsov</string>
+	<string>© 2008-2013 Alexei Kuznetsov</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
