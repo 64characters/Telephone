@@ -6,83 +6,103 @@
 #import <ScriptingBridge/ScriptingBridge.h>
 
 
-@class iTunesPrintSettings, iTunesApplication, iTunesItem, iTunesArtwork, iTunesEncoder, iTunesEQPreset, iTunesPlaylist, iTunesAudioCDPlaylist, iTunesDevicePlaylist, iTunesLibraryPlaylist, iTunesRadioTunerPlaylist, iTunesSource, iTunesTrack, iTunesAudioCDTrack, iTunesDeviceTrack, iTunesFileTrack, iTunesSharedTrack, iTunesURLTrack, iTunesUserPlaylist, iTunesFolderPlaylist, iTunesVisual, iTunesWindow, iTunesBrowserWindow, iTunesEQWindow, iTunesPlaylistWindow;
+@class iTunesPrintSettings, iTunesApplication, iTunesItem, iTunesAirPlayDevice, iTunesArtwork, iTunesEncoder, iTunesEQPreset, iTunesPlaylist, iTunesAudioCDPlaylist, iTunesLibraryPlaylist, iTunesRadioTunerPlaylist, iTunesSource, iTunesTrack, iTunesAudioCDTrack, iTunesFileTrack, iTunesSharedTrack, iTunesURLTrack, iTunesUserPlaylist, iTunesFolderPlaylist, iTunesVisual, iTunesWindow, iTunesBrowserWindow, iTunesEQWindow, iTunesPlaylistWindow;
 
-typedef enum {
+enum iTunesEKnd {
 	iTunesEKndTrackListing = 'kTrk' /* a basic listing of tracks within a playlist */,
 	iTunesEKndAlbumListing = 'kAlb' /* a listing of a playlist grouped by album */,
 	iTunesEKndCdInsert = 'kCDi' /* a printout of the playlist for jewel case inserts */
-} iTunesEKnd;
+};
+typedef enum iTunesEKnd iTunesEKnd;
 
-typedef enum {
+enum iTunesEnum {
 	iTunesEnumStandard = 'lwst' /* Standard PostScript error handling */,
 	iTunesEnumDetailed = 'lwdt' /* print a detailed report of PostScript errors */
-} iTunesEnum;
+};
+typedef enum iTunesEnum iTunesEnum;
 
-typedef enum {
+enum iTunesEPlS {
 	iTunesEPlSStopped = 'kPSS',
 	iTunesEPlSPlaying = 'kPSP',
 	iTunesEPlSPaused = 'kPSp',
 	iTunesEPlSFastForwarding = 'kPSF',
 	iTunesEPlSRewinding = 'kPSR'
-} iTunesEPlS;
+};
+typedef enum iTunesEPlS iTunesEPlS;
 
-typedef enum {
+enum iTunesERpt {
 	iTunesERptOff = 'kRpO',
 	iTunesERptOne = 'kRp1',
-	iTunesERptAll = 'kRpA'
-} iTunesERpt;
+	iTunesERptAll = 'kAll'
+};
+typedef enum iTunesERpt iTunesERpt;
 
-typedef enum {
+enum iTunesEVSz {
 	iTunesEVSzSmall = 'kVSS',
 	iTunesEVSzMedium = 'kVSM',
 	iTunesEVSzLarge = 'kVSL'
-} iTunesEVSz;
+};
+typedef enum iTunesEVSz iTunesEVSz;
 
-typedef enum {
+enum iTunesESrc {
 	iTunesESrcLibrary = 'kLib',
 	iTunesESrcIPod = 'kPod',
 	iTunesESrcAudioCD = 'kACD',
 	iTunesESrcMP3CD = 'kMCD',
-	iTunesESrcDevice = 'kDev',
 	iTunesESrcRadioTuner = 'kTun',
 	iTunesESrcSharedLibrary = 'kShd',
 	iTunesESrcUnknown = 'kUnk'
-} iTunesESrc;
+};
+typedef enum iTunesESrc iTunesESrc;
 
-typedef enum {
+enum iTunesESrA {
 	iTunesESrAAlbums = 'kSrL' /* albums only */,
-	iTunesESrAAll = 'kSrA' /* all text fields */,
+	iTunesESrAAll = 'kAll' /* all text fields */,
 	iTunesESrAArtists = 'kSrR' /* artists only */,
 	iTunesESrAComposers = 'kSrC' /* composers only */,
 	iTunesESrADisplayed = 'kSrV' /* visible text fields */,
 	iTunesESrASongs = 'kSrS' /* song names only */
-} iTunesESrA;
+};
+typedef enum iTunesESrA iTunesESrA;
 
-typedef enum {
-	iTunesESpKNone = 'kSpN',
-	iTunesESpKAudiobooks = 'kSpA',
+enum iTunesESpK {
+	iTunesESpKNone = 'kNon',
+	iTunesESpKBooks = 'kSpA',
 	iTunesESpKFolder = 'kSpF',
+	iTunesESpKGenius = 'kSpG',
+	iTunesESpKITunesU = 'kSpU',
+	iTunesESpKLibrary = 'kSpL',
 	iTunesESpKMovies = 'kSpI',
 	iTunesESpKMusic = 'kSpZ',
-	iTunesESpKPartyShuffle = 'kSpS',
 	iTunesESpKPodcasts = 'kSpP',
 	iTunesESpKPurchasedMusic = 'kSpM',
-	iTunesESpKTVShows = 'kSpT',
-	iTunesESpKVideos = 'kSpV'
-} iTunesESpK;
+	iTunesESpKTVShows = 'kSpT'
+};
+typedef enum iTunesESpK iTunesESpK;
 
-typedef enum {
-	iTunesEVdKNone = 'kVdN' /* not a video or unknown video kind */,
+enum iTunesEVdK {
+	iTunesEVdKNone = 'kNon' /* not a video or unknown video kind */,
+	iTunesEVdKHomeVideo = 'kVdH' /* home video track */,
 	iTunesEVdKMovie = 'kVdM' /* movie track */,
 	iTunesEVdKMusicVideo = 'kVdV' /* music video track */,
 	iTunesEVdKTVShow = 'kVdT' /* TV show track */
-} iTunesEVdK;
+};
+typedef enum iTunesEVdK iTunesEVdK;
 
-typedef enum {
+enum iTunesERtK {
 	iTunesERtKUser = 'kRtU' /* user-specified rating */,
 	iTunesERtKComputed = 'kRtC' /* iTunes-computed rating */
-} iTunesERtK;
+};
+typedef enum iTunesERtK iTunesERtK;
+
+enum iTunesEAPD {
+	iTunesEAPDComputer = 'kAPC',
+	iTunesEAPDAirPortExpress = 'kAPX',
+	iTunesEAPDAppleTV = 'kAPT',
+	iTunesEAPDAirPlayDevice = 'kAPO',
+	iTunesEAPDUnknown = 'kAPU'
+};
+typedef enum iTunesEAPD iTunesEAPD;
 
 
 
@@ -123,6 +143,7 @@ typedef enum {
 // The application program
 @interface iTunesApplication : SBApplication
 
+- (SBElementArray *) AirPlayDevices;
 - (SBElementArray *) browserWindows;
 - (SBElementArray *) encoders;
 - (SBElementArray *) EQPresets;
@@ -132,6 +153,9 @@ typedef enum {
 - (SBElementArray *) visuals;
 - (SBElementArray *) windows;
 
+@property (readonly) BOOL AirPlayEnabled;  // is AirPlay currently enabled?
+@property (readonly) BOOL converting;  // is a track currently being converted?
+@property (copy) NSArray *currentAirPlayDevices;  // the currently selected AirPlay device(s)
 @property (copy) iTunesEncoder *currentEncoder;  // the currently selected encoder (MP3, AIFF, WAV, etc.)
 @property (copy) iTunesEQPreset *currentEQPreset;  // the currently selected equalizer preset
 @property (copy, readonly) iTunesPlaylist *currentPlaylist;  // the playlist containing the currently targeted track
@@ -145,7 +169,7 @@ typedef enum {
 @property BOOL fullScreen;  // are visuals displayed using the entire screen?
 @property (copy, readonly) NSString *name;  // the name of the application
 @property BOOL mute;  // has the sound output been muted?
-@property NSInteger playerPosition;  // the player’s position within the currently playing track in seconds.
+@property double playerPosition;  // the player’s position within the currently playing track in seconds
 @property (readonly) iTunesEPlS playerState;  // is iTunes stopped, paused, or playing?
 @property (copy, readonly) SBObject *selection;  // the selection visible to the user
 @property NSInteger soundVolume;  // the sound output volume (0 = minimum, 100 = maximum)
@@ -184,7 +208,8 @@ typedef enum {
 - (NSInteger) id;  // the id of the item
 @property (readonly) NSInteger index;  // The index of the item in internal application order.
 @property (copy) NSString *name;  // the name of the item
-@property (copy, readonly) NSString *persistentID;  // the id of the item as a hexidecimal string. This id does not change over time.
+@property (copy, readonly) NSString *persistentID;  // the id of the item as a hexadecimal string. This id does not change over time.
+@property (copy) NSDictionary *properties;  // every property of the item
 
 - (void) printPrintDialog:(BOOL)printDialog withProperties:(iTunesPrintSettings *)withProperties kind:(iTunesEKnd)kind theme:(NSString *)theme;  // Print the specified object(s)
 - (void) close;  // Close an object
@@ -197,6 +222,22 @@ typedef enum {
 
 @end
 
+// an AirPlay device
+@interface iTunesAirPlayDevice : iTunesItem
+
+@property (readonly) BOOL active;  // is the device currently being played to?
+@property (readonly) BOOL available;  // is the device currently available?
+@property (readonly) iTunesEAPD kind;  // the kind of the device
+@property (copy, readonly) NSString *networkAddress;  // the network (MAC) address of the device
+- (BOOL) protected;  // is the device password- or passcode-protected?
+@property BOOL selected;  // is the device currently selected?
+@property (readonly) BOOL supportsAudio;  // does the device support audio playback?
+@property (readonly) BOOL supportsVideo;  // does the device support video playback?
+@property NSInteger soundVolume;  // the output volume for the device (0 = minimum, 100 = maximum)
+
+
+@end
+
 // a piece of art within a track
 @interface iTunesArtwork : iTunesItem
 
@@ -205,7 +246,7 @@ typedef enum {
 @property (readonly) BOOL downloaded;  // was this artwork downloaded by iTunes?
 @property (copy, readonly) NSNumber *format;  // the data format for this piece of artwork
 @property NSInteger kind;  // kind or purpose of this piece of artwork
-@property (copy) id rawData;  // data for this artwork, in original format
+@property (copy) NSData *rawData;  // data for this artwork, in original format
 
 
 @end
@@ -274,14 +315,6 @@ typedef enum {
 
 @end
 
-// a playlist representing the contents of a portable device
-@interface iTunesDevicePlaylist : iTunesPlaylist
-
-- (SBElementArray *) deviceTracks;
-
-
-@end
-
 // the master music library playlist
 @interface iTunesLibraryPlaylist : iTunesPlaylist
 
@@ -304,7 +337,6 @@ typedef enum {
 @interface iTunesSource : iTunesItem
 
 - (SBElementArray *) audioCDPlaylists;
-- (SBElementArray *) devicePlaylists;
 - (SBElementArray *) libraryPlaylists;
 - (SBElementArray *) playlists;
 - (SBElementArray *) radioTunerPlaylists;
@@ -351,6 +383,7 @@ typedef enum {
 @property BOOL gapless;  // is this track from a gapless album?
 @property (copy) NSString *genre;  // the music/audio genre (category) of the track
 @property (copy) NSString *grouping;  // the grouping (piece) of the track. Generally used to denote movements within a classical work.
+@property (readonly) BOOL iTunesU;  // is this track an iTunes U episode?
 @property (copy, readonly) NSString *kind;  // a text description of the track
 @property (copy) NSString *longDescription;
 @property (copy) NSString *lyrics;  // the lyrics of the track
@@ -373,7 +406,7 @@ typedef enum {
 @property (copy) NSString *sortName;  // override string to use for the track when sorting by name
 @property (copy) NSString *sortComposer;  // override string to use for the track when sorting by composer
 @property (copy) NSString *sortShow;  // override string to use for the track when sorting by show name
-@property (readonly) NSInteger size;  // the size of the track (in bytes)
+@property (readonly) long long size;  // the size of the track (in bytes)
 @property double start;  // the start time of the track in seconds
 @property (copy, readonly) NSString *time;  // the length of the track in MM:SS format
 @property NSInteger trackCount;  // the total number of tracks on the source album
@@ -390,12 +423,6 @@ typedef enum {
 @interface iTunesAudioCDTrack : iTunesTrack
 
 @property (copy, readonly) NSURL *location;  // the location of the file represented by this track
-
-
-@end
-
-// a track residing on a portable music player
-@interface iTunesDeviceTrack : iTunesTrack
 
 
 @end
