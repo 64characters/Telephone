@@ -68,7 +68,6 @@
 		AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA110A56BD9000946F3 /* XSViewController.m */; };
 		AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA310A56BD9000946F3 /* XSWindowController.m */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
-		AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */; };
 		AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */; };
 		AAAC618C0FE6A42900FBE053 /* AKNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAC618B0FE6A42900FBE053 /* AKNetworkReachability.m */; };
 		AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
@@ -241,7 +240,6 @@
 		AA8FBAA310A56BD9000946F3 /* XSWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSWindowController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		AA97B47410D3A2CA00FC65DA /* CallTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = CallTransferController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA97B47510D3A2CA00FC65DA /* CallTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = CallTransferController.m; sourceTree = "<group>"; tabWidth = 4; };
-		AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = telephone.icns; sourceTree = "<group>"; };
 		AAA628C5110C6281008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
 		AAA628E9110C76B3008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
 		AAA780A6130867590030EBF4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -427,7 +425,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AAA1AD510E8AF0AB00B0CE36 /* telephone.icns */,
 				8D1107310486CEB800E47090 /* Telephone-Info.plist */,
 				AAA7CFFC1825BE1900D53FB9 /* Telephone.entitlements */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -726,7 +723,6 @@
 				AA2ED99C0F05B362004A13C6 /* Account.xib in Resources */,
 				AA2ED9A00F05B3B5004A13C6 /* Call.xib in Resources */,
 				AA2ED9AC0F05BA11004A13C6 /* AccountSetup.xib in Resources */,
-				AAA1AD520E8AF0AB00B0CE36 /* telephone.icns in Resources */,
 				AA2ED9B20F05BB5D004A13C6 /* AuthenticationFailure.xib in Resources */,
 				AA0910CC0EC21F44004912A5 /* COPYRIGHT in Resources */,
 				AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */,
