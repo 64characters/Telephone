@@ -66,6 +66,7 @@ extern NSString * const kPauseITunes;
 extern NSString * const kAutoCloseCallWindow;
 extern NSString * const kAutoCloseMissedCallWindow;
 extern NSString * const kCallWaiting;
+extern NSString * const kShowGrowlNotifications;
 extern NSString * const kUseG711Only;
 //
 // Account keys

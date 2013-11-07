@@ -246,6 +246,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kAutoCloseCallWindow];
         [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kAutoCloseMissedCallWindow];
         [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kCallWaiting];
+        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kShowGrowlNotifications];
         
         NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
         

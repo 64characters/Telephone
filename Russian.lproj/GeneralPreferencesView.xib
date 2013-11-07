@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" promptedForUpgradeToXcode5="NO">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1060" identifier="macosx"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
@@ -14,11 +14,11 @@
         <customObject id="-3" userLabel="Application"/>
         <userDefaultsController representsSharedInstance="YES" id="201"/>
         <customView id="150" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="539" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="539" height="128"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button id="422">
-                    <rect key="frame" x="83" y="38" width="273" height="18"/>
+                    <rect key="frame" x="83" y="58" width="273" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Автоматически закрывать окно звонка" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="423">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -29,9 +29,9 @@
                     </connections>
                 </button>
                 <button id="418">
-                    <rect key="frame" x="83" y="58" width="296" height="18"/>
+                    <rect key="frame" x="83" y="78" width="303" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Останавливать iTunes на время разговора" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="419">
+                    <buttonCell key="cell" type="check" title="Останавливать Айтюнс на время разговора" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="419">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -40,7 +40,7 @@
                     </connections>
                 </button>
                 <button id="255">
-                    <rect key="frame" x="83" y="78" width="258" height="18"/>
+                    <rect key="frame" x="83" y="98" width="258" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Форматировать телефонные номера" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="256">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -51,7 +51,7 @@
                     </connections>
                 </button>
                 <button id="427">
-                    <rect key="frame" x="83" y="18" width="138" height="18"/>
+                    <rect key="frame" x="83" y="38" width="138" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Ожидание вызова" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="428">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -59,6 +59,17 @@
                     </buttonCell>
                     <connections>
                         <binding destination="201" name="value" keyPath="values.CallWaiting" id="430"/>
+                    </connections>
+                </button>
+                <button id="dPi-Ua-hdP">
+                    <rect key="frame" x="83" y="18" width="231" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Показывать Гроул-уведомления" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EAm-Ml-Pf4">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="201" name="value" keyPath="values.ShowGrowlNotifications" id="Kxi-tI-Ij8"/>
                     </connections>
                 </button>
             </subviews>

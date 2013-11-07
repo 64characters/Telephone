@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" promptedForUpgradeToXcode5="NO">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1060" identifier="macosx"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
@@ -14,11 +14,11 @@
         <customObject id="-3" userLabel="Application"/>
         <userDefaultsController representsSharedInstance="YES" id="201"/>
         <customView id="150" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="128"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button id="419">
-                    <rect key="frame" x="83" y="38" width="246" height="18"/>
+                    <rect key="frame" x="83" y="58" width="246" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Anruffenster automatisch schließen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="420">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -29,7 +29,7 @@
                     </connections>
                 </button>
                 <button id="415">
-                    <rect key="frame" x="83" y="58" width="192" height="18"/>
+                    <rect key="frame" x="83" y="78" width="192" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Bei Anruf iTunes pausieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="416">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -40,7 +40,7 @@
                     </connections>
                 </button>
                 <button id="255">
-                    <rect key="frame" x="83" y="78" width="290" height="18"/>
+                    <rect key="frame" x="83" y="98" width="290" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Telefonnummern automatisch formatieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="256">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -51,7 +51,7 @@
                     </connections>
                 </button>
                 <button id="424">
-                    <rect key="frame" x="83" y="18" width="87" height="18"/>
+                    <rect key="frame" x="83" y="38" width="87" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Anklopfen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="425">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -59,6 +59,17 @@
                     </buttonCell>
                     <connections>
                         <binding destination="201" name="value" keyPath="values.CallWaiting" id="427"/>
+                    </connections>
+                </button>
+                <button id="KPE-EC-yBR">
+                    <rect key="frame" x="83" y="18" width="252" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Growl-Benachrichtigungen anzeigen" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Xb6-mJ-xqz">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="201" name="value" keyPath="values.ShowGrowlNotifications" id="1Jo-7Z-CNW"/>
                     </connections>
                 </button>
             </subviews>

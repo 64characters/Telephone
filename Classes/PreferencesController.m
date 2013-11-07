@@ -64,6 +64,7 @@ NSString * const kPauseITunes = @"PauseITunes";
 NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
 NSString * const kAutoCloseMissedCallWindow = @"AutoCloseMissedCallWindow";
 NSString * const kCallWaiting = @"CallWaiting";
+NSString * const kShowGrowlNotifications = @"ShowGrowlNotifications";
 NSString * const kUseG711Only = @"UseG711Only";;
 
 NSString * const kDescription = @"Description";
