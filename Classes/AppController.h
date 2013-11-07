@@ -44,6 +44,10 @@ extern NSString * const kAudioDeviceBuiltIn;
 /// NSUserNotification user info dictionary key containing call controller identifier.
 extern NSString * const kUserNotificationCallControllerIdentifierKey;
 
+// Growl notification names.
+extern NSString * const kGrowlNotificationIncomingCall;
+extern NSString * const kGrowlNotificationCallEnded;
+
 @class AKSIPUserAgent, PreferencesController, CallController;
 @class AccountSetupController;
 

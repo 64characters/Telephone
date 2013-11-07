@@ -30,6 +30,8 @@
 
 #import "CallController.h"
 
+#import <Growl/Growl.h>
+
 #import "AKActiveCallView.h"
 #import "AKResponsiveProgressIndicator.h"
 #import "AKNSString+Creating.h"
@@ -648,6 +650,16 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         userNotification.informativeText = self.status;
         userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: self.identifier};
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
+        
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kShowGrowlNotifications]) {
+            [GrowlApplicationBridge notifyWithTitle:notificationTitle
+                                        description:[self status]
+                                   notificationName:kGrowlNotificationCallEnded
+                                           iconData:nil
+                                           priority:0
+                                           isSticky:NO
+                                       clickContext:[self identifier]];
+        }
     }
     
     // Optionally close disconnected call window.

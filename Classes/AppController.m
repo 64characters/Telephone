@@ -32,6 +32,7 @@
 
 #import <CoreAudio/CoreAudio.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <Growl/Growl.h>
 
 #import "AKAddressBookPhonePlugIn.h"
 #import "AKAddressBookSIPAddressPlugIn.h"
@@ -62,6 +63,8 @@ NSString * const kAudioDeviceOutputsCount = @"AudioDeviceOutputsCount";
 NSString * const kAudioDeviceBuiltIn = @"AudioDeviceBuiltIn";
 
 NSString * const kUserNotificationCallControllerIdentifierKey = @"UserNotificationCallControllerIdentifier";
+NSString * const kGrowlNotificationIncomingCall = @"Incoming Call";
+NSString * const kGrowlNotificationCallEnded = @"Call Ended";
 
 // Ringtone time interval.
 static const NSTimeInterval kRingtoneInterval = 4.0;
@@ -86,7 +89,7 @@ static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 // Dynamic store callback for DNS changes.
 static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
 
-@interface AppController () <NSUserNotificationCenterDelegate>
+@interface AppController () <NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate>
 
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
@@ -629,6 +632,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         // [self installAddressBookPlugIns];
         
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
+        [GrowlApplicationBridge setGrowlDelegate:self];
         [self installDNSChangesCallback];
     }
 }
@@ -1685,6 +1689,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     // [self installAddressBookPlugIns];
     
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
+    [GrowlApplicationBridge setGrowlDelegate:self];
     [self installDNSChangesCallback];
     
     [self setShouldPresentUserAgentLaunchError:YES];
@@ -1842,13 +1847,16 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
 }
 
-
 #pragma mark - NSUserNotificationCenterDelegate
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center
        didActivateNotification:(NSUserNotification *)notification {
     
     NSString *identifier = notification.userInfo[kUserNotificationCallControllerIdentifierKey];
+    [self showWindowOfCallControllerWithIdentifier:identifier];
+}
+
+- (void)showWindowOfCallControllerWithIdentifier:(NSString *)identifier {
     CallController *callController = [self callControllerByIdentifier:identifier];
     if (![NSApp isActive]) {
         [NSApp activateIgnoringOtherApps:YES];
@@ -1856,6 +1864,19 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [callController showWindow:nil];
 }
 
+
+
+#pragma mark -
+#pragma mark GrowlApplicationBridgeDelegate protocol
+
+- (void)growlNotificationWasClicked:(id)clickContext {
+    NSString *identifier = (NSString *)clickContext;
+    [self showWindowOfCallControllerWithIdentifier:identifier];
+}
+
+- (BOOL)hasNetworkClientEntitlement {
+    return YES;
+}
 
 #pragma mark -
 #pragma mark NSWorkspace notifications

@@ -31,6 +31,7 @@
 #import "AccountController.h"
 
 #import <AddressBook/AddressBook.h>
+#import <Growl/Growl.h>
 
 #import "AKABAddressBook+Localizing.h"
 #import "AKABRecord+Querying.h"
@@ -1038,6 +1039,16 @@ NSString * const kEmailSIPLabel = @"sip";
     userNotification.informativeText = notificationDescription;
     userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: aCallController.identifier};
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
+    
+    if ([defaults boolForKey:kShowGrowlNotifications]) {
+        [GrowlApplicationBridge notifyWithTitle:notificationTitle
+                                    description:notificationDescription
+                               notificationName:kGrowlNotificationIncomingCall
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:[aCallController identifier]];
+    }
     
     [[[NSApp delegate] ringtone] play];
     [[NSApp delegate] startRingtoneTimer];
