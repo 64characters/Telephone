@@ -1225,7 +1225,7 @@
 					"\"$(SRCROOT)/../pjproject/pjsip/lib\"",
 					"\"$(SRCROOT)/../pjproject/third_party/lib\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = (
 					"-DPJ_AUTOCONF=1",
 					"-DNDEBUG",
@@ -1286,7 +1286,7 @@
 					"\"$(SRCROOT)/../pjproject/pjsip/lib\"",
 					"\"$(SRCROOT)/../pjproject/third_party/lib\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = (
 					"-DPJ_AUTOCONF=1",
 					"-DNDEBUG",
