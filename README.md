@@ -61,7 +61,7 @@ Add `static` at the line 286 in `third_party/srtp/crypto/cipher/aes_icm.c`:
 
 Configure and build pjsip:
 
-    $ ./configure
+    $ CFLAGS="-mmacosx-version-min=10.8" ./configure
     $ make
     
 Build Telephone.
