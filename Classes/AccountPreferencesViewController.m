@@ -292,8 +292,8 @@ static const NSUInteger kAccountsMax = 32;
         
         // Reregister every...
         if ([[accountDict objectForKey:kReregistrationTime] integerValue] > 0) {
-            [[self reregistrationTimeField] setIntegerValue:
-             [[accountDict objectForKey:kReregistrationTime] integerValue]];
+            [[self reregistrationTimeField] setStringValue:
+             [[accountDict objectForKey:kReregistrationTime] stringValue]];
         } else {
             [[self reregistrationTimeField] setStringValue:@""];
         }
@@ -315,7 +315,7 @@ static const NSUInteger kAccountsMax = 32;
         
         // Proxy Port.
         if ([[accountDict objectForKey:kProxyPort] integerValue] > 0) {
-            [[self proxyPortField] setIntegerValue:[[accountDict objectForKey:kProxyPort] integerValue]];
+            [[self proxyPortField] setStringValue:[[accountDict objectForKey:kProxyPort] stringValue]];
         } else {
             [[self proxyPortField] setStringValue:@""];
         }
