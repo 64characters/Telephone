@@ -1015,44 +1015,17 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
         pjsua_call_info callInfo;
         pjsua_call_get_info(callIdentifier, &callInfo);
         
-        __block AKSIPCall *call;
-        void (^findCallBlock)() = ^{
-            call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-        };
-        
-        if ([NSThread isMainThread]) {
-            findCallBlock();
-        } else {
-            dispatch_sync(dispatch_get_main_queue(), findCallBlock);
-        }
-        
-        if (call == nil && callInfo.state == PJSIP_INV_STATE_CALLING) {
-            // AKSIPCall object is created here when the call is outgoing.
-            NSInteger accountIdentifier = callInfo.acc_id;
-            void (^addCallBlock)() = ^{
-                AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
-                call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callIdentifier];
-                [[account calls] addObject:call];
-            };
-            
-            if ([NSThread isMainThread]) {
-                addCallBlock();
-            } else {
-                dispatch_async(dispatch_get_main_queue(), addCallBlock);
-            }
-            
-        } else {
-            AKSIPCallState state = callInfo.state;
-            NSString *stateText = [NSString stringWithPJString:callInfo.state_text];
-            NSInteger lastStatus = callInfo.last_status;
-            NSString *lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [call setState:state];
-                [call setStateText:stateText];
-                [call setLastStatus:lastStatus];
-                [call setLastStatusText:lastStatusText];
-            });
-        }
+        AKSIPCallState state = callInfo.state;
+        NSString *stateText = [NSString stringWithPJString:callInfo.state_text];
+        NSInteger lastStatus = callInfo.last_status;
+        NSString *lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+            [call setState:state];
+            [call setStateText:stateText];
+            [call setLastStatus:lastStatus];
+            [call setLastStatusText:lastStatusText];
+        });
         
         if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
             PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
@@ -1061,6 +1034,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                        callInfo.last_status_text.ptr));
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
                 [[AKSIPUserAgent sharedUserAgent] stopRingbackForCall:call];
                 [[[call account] calls] removeObject:call];
                 [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallDidDisconnectNotification
@@ -1092,6 +1066,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                     msg->body == NULL &&
                     callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
                         [[AKSIPUserAgent sharedUserAgent] startRingbackForCall:call];
                     });
                 }
@@ -1102,6 +1077,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                 
                 NSString *reasonString = [NSString stringWithPJString:reason];
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
                     NSDictionary *userInfo = @{@"AKSIPEventCode": [NSNumber numberWithInt:code],
                                                @"AKSIPEventReason": reasonString};
                     [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallEarlyNotification
@@ -1133,6 +1109,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                 
                 if (notificationName != nil) {
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
                         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:call];
                     });
                 }

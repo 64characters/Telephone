@@ -260,19 +260,15 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pj_str_t uri = [[destinationURI description] pjString];
     
     pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
-    AKSIPCall *theCall = nil;
+    AKSIPCall *call = nil;
     if (status == PJ_SUCCESS) {
-        for (AKSIPCall *aCall in [self calls]) {
-            if ([aCall identifier] == callIdentifier) {
-                theCall = aCall;
-                break;
-            }
-        }
+        call = [[AKSIPCall alloc] initWithSIPAccount:self identifier:callIdentifier];
+        [self.calls addObject:call];
     } else {
         NSLog(@"Error making call to %@ via account %@", destinationURI, self);
     }
     
-    return theCall;
+    return call;
 }
 
 @end
