@@ -995,9 +995,8 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
                                       pjsua_call_id callIdentifier,
                                       pjsip_rx_data *messageData) {
     
+    PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountIdentifier));
     dispatch_async(dispatch_get_main_queue(), ^{
-        PJ_LOG(3, (THIS_FILE, "Incoming call for account %d!", accountIdentifier));
-        
         AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
         
         // AKSIPCall object is created here when the call is incoming.
