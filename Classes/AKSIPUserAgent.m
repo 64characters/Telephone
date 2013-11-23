@@ -1091,13 +1091,13 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                     [account.calls addObject:call];
                 } else {
                     PJ_LOG(3, (THIS_FILE,
-                               "Did not create AKSIPCall for call %d when handling calls sate. Could not find account",
+                               "Did not create AKSIPCall for call %d during call state change. Could not find account",
                                callIdentifier));
                     return;  // From block.
                 }
                 
             } else {
-                PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d when handling call state", callIdentifier));
+                PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during call state change", callIdentifier));
                 return;  // From block.
             }
         }
