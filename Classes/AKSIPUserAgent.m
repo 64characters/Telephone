@@ -85,6 +85,9 @@ static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
                                            pj_bool_t isFinal,
                                            pj_bool_t *pCont);
 //
+// Sent when existing call has been replaced with a new call.
+static void AKSIPCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier);
+//
 // Sent when account registration state changes.
 static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
 //
@@ -387,6 +390,7 @@ static void log_call_dump(int call_id);
         userAgentConfig.cb.on_call_media_state = &AKSIPCallMediaStateChanged;
         userAgentConfig.cb.on_call_state = &AKSIPCallStateChanged;
         userAgentConfig.cb.on_call_transfer_status = &AKSIPCallTransferStatusChanged;
+        userAgentConfig.cb.on_call_replaced = &AKSIPCallReplaced;
         userAgentConfig.cb.on_reg_state = &AKSIPAccountRegistrationStateChanged;
         userAgentConfig.cb.on_nat_detect = &AKSIPUserAgentDetectedNAT;
         
@@ -1217,6 +1221,27 @@ static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallTransferStatusDidChangeNotification
                                                             object:theCall
                                                           userInfo:userInfo];
+    });
+}
+
+static void AKSIPCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier) {
+    pjsua_call_info oldCallInfo, newCallInfo;
+    pjsua_call_get_info(oldCallIdentifier, &oldCallInfo);
+    pjsua_call_get_info(newCallIdentifier, &newCallInfo);
+    
+    PJ_LOG(3, (THIS_FILE, "Call %d with %.*s is being replaced by call %d with %.*s",
+              oldCallIdentifier,
+              (int)oldCallInfo.remote_info.slen, oldCallInfo.remote_info.ptr,
+              newCallIdentifier,
+              (int)newCallInfo.remote_info.slen, newCallInfo.remote_info.ptr));
+    
+    NSInteger accountIdentifier = newCallInfo.acc_id;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d from replaced callback", newCallIdentifier));
+        AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
+        AKSIPAccount *account = [userAgent accountByIdentifier:accountIdentifier];
+        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:newCallIdentifier];
+        [account.calls addObject:call];
     });
 }
 
