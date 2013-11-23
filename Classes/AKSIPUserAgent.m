@@ -1010,112 +1010,131 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
     });
 }
 
+// The thread on which this callback is called seem to be unpredictable. It is often the main thread, but not always.
 static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
-    @autoreleasepool {
-        pjsua_call_info callInfo;
-        pjsua_call_get_info(callIdentifier, &callInfo);
+    pjsua_call_info callInfo;
+    pjsua_call_get_info(callIdentifier, &callInfo);
+    
+    BOOL mustStartRingback = NO;
+    NSNumber *SIPEventCode = nil;
+    NSString *SIPEventReason = nil;
+    
+    if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
+        PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
+                   callIdentifier,
+                   callInfo.last_status,
+                   callInfo.last_status_text.ptr));
         
-        AKSIPCallState state = callInfo.state;
-        NSString *stateText = [NSString stringWithPJString:callInfo.state_text];
-        NSInteger lastStatus = callInfo.last_status;
-        NSString *lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-            [call setState:state];
-            [call setStateText:stateText];
-            [call setLastStatus:lastStatus];
-            [call setLastStatusText:lastStatusText];
-        });
+    } else if (callInfo.state == PJSIP_INV_STATE_EARLY) {
+        // pj_str_t is a struct with NOT null-terminated string.
+        pj_str_t reason;
+        pjsip_msg *msg;
+        int code;
         
-        if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
-            PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
-                       callIdentifier,
-                       callInfo.last_status,
-                       callInfo.last_status_text.ptr));
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-                [[AKSIPUserAgent sharedUserAgent] stopRingbackForCall:call];
-                [[[call account] calls] removeObject:call];
-                [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallDidDisconnectNotification
-                                                                    object:call];
-            });
-            
+        // This can only occur because of TX or RX message.
+        pj_assert(sipEvent->type == PJSIP_EVENT_TSX_STATE);
+        
+        if (sipEvent->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
+            msg = sipEvent->body.tsx_state.src.rdata->msg_info.msg;
         } else {
-            if (callInfo.state == PJSIP_INV_STATE_EARLY) {
-                // pj_str_t is a struct with NOT null-terminated string.
-                pj_str_t reason;
-                pjsip_msg *msg;
-                int code;
-                
-                // This can only occur because of TX or RX message.
-                pj_assert(sipEvent->type == PJSIP_EVENT_TSX_STATE);
-                
-                if (sipEvent->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
-                    msg = sipEvent->body.tsx_state.src.rdata->msg_info.msg;
+            msg = sipEvent->body.tsx_state.src.tdata->msg;
+        }
+        
+        code = msg->line.status.code;
+        reason = msg->line.status.reason;
+        
+        SIPEventCode = @(code);
+        SIPEventReason = [NSString stringWithPJString:reason];
+        
+        // Start ringback for 180 for UAC unless there's SDP in 180.
+        if (callInfo.role == PJSIP_ROLE_UAC &&
+            code == 180 &&
+            msg->body == NULL &&
+            callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
+            mustStartRingback = YES;
+        }
+        
+        PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s (%d %.*s)",
+                   callIdentifier, callInfo.state_text.ptr,
+                   code, (int)reason.slen, reason.ptr));
+    } else {
+        PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s", callIdentifier, callInfo.state_text.ptr));
+    }
+    
+    AKSIPCallState state = callInfo.state;
+    NSInteger accountIdentifier = callInfo.acc_id;
+    NSString *stateText = [NSString stringWithPJString:callInfo.state_text];
+    NSInteger lastStatus = callInfo.last_status;
+    NSString *lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
+        AKSIPCall *call = [userAgent SIPCallByIdentifier:callIdentifier];
+        if (call == nil) {
+            if (state == kAKSIPCallCallingState) {
+                // As a convenience, AKSIPCall objects for normal outgoing calls are created
+                // in -[AKSIPAccount makeCallTo:]. Outgoing calls for other situations like call transfer are first
+                // seen here, and created on the spot.
+                PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d when handling call state", callIdentifier));
+                AKSIPAccount *account = [userAgent accountByIdentifier:accountIdentifier];
+                if (account != nil) {
+                    call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callIdentifier];
+                    [account.calls addObject:call];
                 } else {
-                    msg = sipEvent->body.tsx_state.src.tdata->msg;
+                    PJ_LOG(3, (THIS_FILE,
+                               "Did not create AKSIPCall for call %d when handling calls sate. Could not find account",
+                               callIdentifier));
+                    return;  // From block.
                 }
-                
-                code = msg->line.status.code;
-                reason = msg->line.status.reason;
-                
-                // Start ringback for 180 for UAC unless there's SDP in 180.
-                if (callInfo.role == PJSIP_ROLE_UAC &&
-                    code == 180 &&
-                    msg->body == NULL &&
-                    callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-                        [[AKSIPUserAgent sharedUserAgent] startRingbackForCall:call];
-                    });
-                }
-                
-                PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s (%d %.*s)",
-                           callIdentifier, callInfo.state_text.ptr,
-                           code, (int)reason.slen, reason.ptr));
-                
-                NSString *reasonString = [NSString stringWithPJString:reason];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-                    NSDictionary *userInfo = @{@"AKSIPEventCode": [NSNumber numberWithInt:code],
-                                               @"AKSIPEventReason": reasonString};
-                    [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallEarlyNotification
-                                                                        object:call
-                                                                      userInfo:userInfo];
-                });
                 
             } else {
-                PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s",
-                           callIdentifier,
-                           callInfo.state_text.ptr));
-                
-                // Incoming call notification is posted from another funcion:
-                // AKIncomingCallReceived().
-                NSString *notificationName = nil;
-                switch (callInfo.state) {
-                    case PJSIP_INV_STATE_CALLING:
-                        notificationName = AKSIPCallCallingNotification;
-                        break;
-                    case PJSIP_INV_STATE_CONNECTING:
-                        notificationName = AKSIPCallConnectingNotification;
-                        break;
-                    case PJSIP_INV_STATE_CONFIRMED:
-                        notificationName = AKSIPCallDidConfirmNotification;
-                        break;
-                    default:
-                        break;
-                }
-                
-                if (notificationName != nil) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:call];
-                    });
-                }
+                PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d when handling call state", callIdentifier));
+                return;  // From block.
             }
         }
-    }
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        
+        call.state = state;
+        call.stateText = stateText;
+        call.lastStatus = lastStatus;
+        call.lastStatusText = lastStatusText;
+        
+        if (state == kAKSIPCallDisconnectedState) {
+            [userAgent stopRingbackForCall:call];
+            [call.account.calls removeObject:call];
+            [nc postNotificationName:AKSIPCallDidDisconnectNotification object:call];
+            
+        } else if (state == kAKSIPCallEarlyState) {
+            if (mustStartRingback) {
+                [userAgent startRingbackForCall:call];
+            }
+            NSDictionary *userInfo = nil;
+            if (SIPEventCode != nil && SIPEventReason != nil) {
+                userInfo = @{@"AKSIPEventCode": SIPEventCode, @"AKSIPEventReason": SIPEventReason};
+            }
+            [nc postNotificationName:AKSIPCallEarlyNotification object:call userInfo:userInfo];
+            
+        } else {
+            // Incoming call notification is posted from AKIncomingCallReceived().
+            NSString *notificationName = nil;
+            switch (state) {
+                case kAKSIPCallCallingState:
+                    notificationName = AKSIPCallCallingNotification;
+                    break;
+                case kAKSIPCallConnectingState:
+                    notificationName = AKSIPCallConnectingNotification;
+                    break;
+                case kAKSIPCallConfirmedState:
+                    notificationName = AKSIPCallDidConfirmNotification;
+                    break;
+            }
+            
+            if (notificationName != nil) {
+                [nc postNotificationName:notificationName object:call];
+            }
+        }
+    });
 }
 
 static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
