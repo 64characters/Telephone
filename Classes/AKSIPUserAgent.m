@@ -91,6 +91,10 @@ static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier)
 // Sent when NAT type is detected.
 static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
 
+// Prints log of call states
+static void log_call_dump(int call_id);
+
+
 @interface AKSIPUserAgent ()
 
 // Read-write redeclarations.
@@ -1024,6 +1028,8 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                    callIdentifier,
                    callInfo.last_status,
                    callInfo.last_status_text.ptr));
+        PJ_LOG(5, (THIS_FILE, "Dumping media stats for call %d", callIdentifier));
+        log_call_dump(callIdentifier);
         
     } else if (callInfo.state == PJSIP_INV_STATE_EARLY) {
         // pj_str_t is a struct with NOT null-terminated string.
@@ -1239,4 +1245,42 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
                                                                 object:[AKSIPUserAgent sharedUserAgent]];
         });
     }
+}
+
+/*
+ * Print log of call states. Since call states may be too long for logger,
+ * printing it is a bit tricky, it should be printed part by part as long
+ * as the logger can accept.
+ */
+static void log_call_dump(int call_id) {
+    unsigned call_dump_len;
+    unsigned part_len;
+    unsigned part_idx;
+    unsigned log_decor;
+    static char some_buf[1024 * 3];
+    
+    pjsua_call_dump(call_id, PJ_TRUE, some_buf,
+                    sizeof(some_buf), "  ");
+    call_dump_len = strlen(some_buf);
+    
+    log_decor = pj_log_get_decor();
+    pj_log_set_decor(log_decor & ~(PJ_LOG_HAS_NEWLINE | PJ_LOG_HAS_CR));
+    PJ_LOG(3,(THIS_FILE, "\n"));
+    pj_log_set_decor(0);
+    
+    part_idx = 0;
+    part_len = PJ_LOG_MAX_SIZE-80;
+    while (part_idx < call_dump_len) {
+        char p_orig, *p;
+        
+        p = &some_buf[part_idx];
+        if (part_idx + part_len > call_dump_len)
+            part_len = call_dump_len - part_idx;
+        p_orig = p[part_len];
+        p[part_len] = '\0';
+        PJ_LOG(3,(THIS_FILE, "%s", p));
+        p[part_len] = p_orig;
+        part_idx += part_len;
+    }
+    pj_log_set_decor(log_decor);
 }
