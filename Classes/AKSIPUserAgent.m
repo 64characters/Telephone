@@ -1264,7 +1264,7 @@ static void log_call_dump(int call_id) {
     
     log_decor = pj_log_get_decor();
     pj_log_set_decor(log_decor & ~(PJ_LOG_HAS_NEWLINE | PJ_LOG_HAS_CR));
-    PJ_LOG(3,(THIS_FILE, "\n"));
+    PJ_LOG(4,(THIS_FILE, "\n"));
     pj_log_set_decor(0);
     
     part_idx = 0;
@@ -1277,7 +1277,7 @@ static void log_call_dump(int call_id) {
             part_len = call_dump_len - part_idx;
         p_orig = p[part_len];
         p[part_len] = '\0';
-        PJ_LOG(3,(THIS_FILE, "%s", p));
+        PJ_LOG(4,(THIS_FILE, "%s", p));
         p[part_len] = p_orig;
         part_idx += part_len;
     }
