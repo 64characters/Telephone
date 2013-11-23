@@ -1208,6 +1208,17 @@ static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
                                            pj_bool_t isFinal,
                                            pj_bool_t *pCont) {
     
+    PJ_LOG(3, (THIS_FILE, "Call %d: transfer status=%d (%.*s) %s",
+               callIdentifier, statusCode,
+               (int)statusText->slen, statusText->ptr,
+               (isFinal ? "[final]" : "")));
+    
+    if (statusCode / 100 == 2) {
+        PJ_LOG(3, (THIS_FILE, "Call %d: call transfered successfully, disconnecting call", callIdentifier));
+        pjsua_call_hangup(callIdentifier, PJSIP_SC_GONE, NULL, NULL);
+        *pCont = PJ_FALSE;
+    }
+    
     NSString *statusTextString = [NSString stringWithPJString:*statusText];
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
