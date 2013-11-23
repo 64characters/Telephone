@@ -1147,62 +1147,59 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
 }
 
 static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
-    @autoreleasepool {
-        pjsua_call_info callInfo;
-        pjsua_call_get_info(callIdentifier, &callInfo);
+    pjsua_call_info callInfo;
+    pjsua_call_get_info(callIdentifier, &callInfo);
+    
+    if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
+        // When media is active, connect call to sound device.
+        pjsua_conf_connect(callInfo.conf_slot, 0);
+        pjsua_conf_connect(0, callInfo.conf_slot);
         
-        if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
-            // When media is active, connect call to sound device.
-            pjsua_conf_connect(callInfo.conf_slot, 0);
-            pjsua_conf_connect(0, callInfo.conf_slot);
-            
-            PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
-            
-        } else if (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
-            PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local", callIdentifier));
-            
-        } else if (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
-            PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote", callIdentifier));
-            
-        } else if (callInfo.media_status == PJSUA_CALL_MEDIA_ERROR) {
-            pj_str_t reason = pj_str("ICE negotiation failed");
-            PJ_LOG(1, (THIS_FILE, "Media has reported error, disconnecting call"));
-            pjsua_call_hangup(callIdentifier, 500, &reason, NULL);
-            
-        } else {
-            PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
-        }
+        PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
         
-        NSInteger mediaStatus = callInfo.media_status;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-            AKSIPCall *call = [userAgent SIPCallByIdentifier:callIdentifier];
-            if (call == nil) {
-                PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change",
-                           callIdentifier));
-                return;  // From block.
-            }
-            [userAgent stopRingbackForCall:call];
-            
-            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            NSString *notificationName = nil;
-            switch (mediaStatus) {
-                case PJSUA_CALL_MEDIA_ACTIVE:
-                    notificationName = AKSIPCallMediaDidBecomeActiveNotification;
-                    break;
-                case PJSUA_CALL_MEDIA_LOCAL_HOLD:
-                    notificationName = AKSIPCallDidLocalHoldNotification;
-                    break;
-                case PJSUA_CALL_MEDIA_REMOTE_HOLD:
-                    notificationName = AKSIPCallDidRemoteHoldNotification;
-                    break;
-                    
-            }
-            if (notificationName != nil) {
-                [nc postNotificationName:notificationName object:call];
-            }
-        });
+    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
+        PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local", callIdentifier));
+        
+    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+        PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote", callIdentifier));
+        
+    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_ERROR) {
+        pj_str_t reason = pj_str("ICE negotiation failed");
+        PJ_LOG(1, (THIS_FILE, "Media has reported error, disconnecting call"));
+        pjsua_call_hangup(callIdentifier, 500, &reason, NULL);
+        
+    } else {
+        PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
     }
+    
+    NSInteger mediaStatus = callInfo.media_status;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
+        AKSIPCall *call = [userAgent SIPCallByIdentifier:callIdentifier];
+        if (call == nil) {
+            PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callIdentifier));
+            return;  // From block.
+        }
+        [userAgent stopRingbackForCall:call];
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        NSString *notificationName = nil;
+        switch (mediaStatus) {
+            case PJSUA_CALL_MEDIA_ACTIVE:
+                notificationName = AKSIPCallMediaDidBecomeActiveNotification;
+                break;
+            case PJSUA_CALL_MEDIA_LOCAL_HOLD:
+                notificationName = AKSIPCallDidLocalHoldNotification;
+                break;
+            case PJSUA_CALL_MEDIA_REMOTE_HOLD:
+                notificationName = AKSIPCallDidRemoteHoldNotification;
+                break;
+                
+        }
+        if (notificationName != nil) {
+            [nc postNotificationName:notificationName object:call];
+        }
+    });
 }
 
 static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
