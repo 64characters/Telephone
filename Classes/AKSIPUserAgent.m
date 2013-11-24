@@ -1150,29 +1150,30 @@ static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
     pjsua_call_info callInfo;
     pjsua_call_get_info(callIdentifier, &callInfo);
     
-    if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) {
-        // When media is active, connect call to sound device.
-        pjsua_conf_connect(callInfo.conf_slot, 0);
-        pjsua_conf_connect(0, callInfo.conf_slot);
-        
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is active", callIdentifier));
-        
-    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) {
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by local", callIdentifier));
-        
-    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is suspended (hold) by remote", callIdentifier));
-        
-    } else if (callInfo.media_status == PJSUA_CALL_MEDIA_ERROR) {
-        pj_str_t reason = pj_str("ICE negotiation failed");
-        PJ_LOG(1, (THIS_FILE, "Media has reported error, disconnecting call"));
-        pjsua_call_hangup(callIdentifier, 500, &reason, NULL);
-        
-    } else {
-        PJ_LOG(3, (THIS_FILE, "Media for call %d is inactive", callIdentifier));
+    const char *statusName[] = {
+        "None",
+        "Active",
+        "Local hold",
+        "Remote hold",
+        "Error"
+    };
+    
+    for (NSUInteger i = 0; i < callInfo.media_cnt; i++) {
+        assert(callInfo.media[i].status <= PJ_ARRAY_SIZE(statusName));
+        assert(PJSUA_CALL_MEDIA_ERROR == 4);
+        PJ_LOG(4, (THIS_FILE, "Call %d media %d [type = %s], status is %s",
+               callInfo.id, i, pjmedia_type_name(callInfo.media[i].type), statusName[callInfo.media[i].status]));
     }
     
-    NSInteger mediaStatus = callInfo.media_status;
+    // Connect ports appropriately when media status is ACTIVE or REMOTE HOLD, otherwise we should not connect
+    // the ports.
+    if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE ||
+        callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+        pjsua_conf_connect(callInfo.conf_slot, 0);
+        pjsua_conf_connect(0, callInfo.conf_slot);
+    }
+    
+    pjsua_call_media_status mediaStatus = callInfo.media_status;
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
         AKSIPCall *call = [userAgent SIPCallByIdentifier:callIdentifier];
@@ -1193,6 +1194,8 @@ static void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
                 break;
             case PJSUA_CALL_MEDIA_REMOTE_HOLD:
                 notificationName = AKSIPCallDidRemoteHoldNotification;
+                break;
+            default:
                 break;
                 
         }
