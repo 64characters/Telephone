@@ -22,6 +22,7 @@
                 <outlet property="registrarField" destination="97" id="408"/>
                 <outlet property="reregistrationTimeField" destination="394" id="411"/>
                 <outlet property="substitutePlusCharacterCheckBox" destination="338" id="364"/>
+                <outlet property="updateHeadersCheckBox" destination="Hn9-I1-jbC" id="U9v-7J-ucO"/>
                 <outlet property="useProxyCheckBox" destination="341" id="365"/>
                 <outlet property="usernameField" destination="98" id="409"/>
                 <outlet property="view" destination="148" id="441"/>
@@ -176,7 +177,7 @@
                         <tabViewItem label="Erweitert" identifier="2" id="335">
                             <view key="view" id="336">
                                 <rect key="frame" x="10" y="25" width="350" height="239"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button id="338">
                                         <rect key="frame" x="24" y="206" width="160" height="18"/>
@@ -341,6 +342,14 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button id="Hn9-I1-jbC">
+                                        <rect key="frame" x="24" y="16" width="220" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Contact und Via Header aktualisieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Lmh-9J-VT4">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                        </buttonCell>
+                                    </button>
                                 </subviews>
                             </view>
                         </tabViewItem>
