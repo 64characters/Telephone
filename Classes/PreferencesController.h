@@ -85,6 +85,8 @@ extern NSString * const kPlusCharacterSubstitutionString;
 extern NSString * const kUseProxy;
 extern NSString * const kProxyHost;
 extern NSString * const kProxyPort;
+extern NSString * const kUpdateContactHeader;
+extern NSString * const kUpdateViaHeader;
 
 extern NSString * const kSourceIndex;
 extern NSString * const kDestinationIndex;

@@ -82,6 +82,8 @@ NSString * const kPlusCharacterSubstitutionString = @"PlusCharacterSubstitutionS
 NSString * const kUseProxy = @"UseProxy";
 NSString * const kProxyHost = @"ProxyHost";
 NSString * const kProxyPort = @"ProxyPort";
+NSString * const kUpdateContactHeader = @"UpdateContactHeader";
+NSString * const kUpdateViaHeader = @"UpdateViaHeader";
 
 NSString * const kSourceIndex = @"SourceIndex";
 NSString * const kDestinationIndex = @"DestinationIndex";

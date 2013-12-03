@@ -60,6 +60,7 @@
 @property (nonatomic, weak) IBOutlet NSTextField *SIPAddressField;
 @property (nonatomic, weak) IBOutlet NSTextField *registrarField;
 @property (nonatomic, weak) IBOutlet NSTextField *cantEditAccountLabel;
+@property (nonatomic, weak) IBOutlet NSButton *updateHeadersCheckBox;
 
 // Raises |Add Account| sheet.
 - (IBAction)showAddAccountSheet:(id)sender;
