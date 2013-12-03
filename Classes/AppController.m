@@ -1289,6 +1289,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             account.proxyHost = accountDict[kProxyHost];
             account.proxyPort = [accountDict[kProxyPort] integerValue];
         }
+        account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
+        account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
         AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account];
         
@@ -1633,6 +1635,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             account.proxyHost = accountDict[kProxyHost];
             account.proxyPort = [accountDict[kProxyPort] integerValue];
         }
+        account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
+        account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
         AccountController *anAccountController = [[AccountController alloc] initWithSIPAccount:account];
         
