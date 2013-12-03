@@ -1210,17 +1210,16 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
                             [accountDict objectForKey:kUsername],
                             [accountDict objectForKey:kDomain]];
     
-    AccountController *theAccountController
-        = [[AccountController alloc] initWithFullName:[accountDict objectForKey:kFullName]
-                                            SIPAddress:SIPAddress
-                                             registrar:[accountDict objectForKey:kDomain]
-                                                 realm:[accountDict objectForKey:kRealm]
-                                              username:[accountDict objectForKey:kUsername]];
+    AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:accountDict[kFullName]
+                                                      SIPAddress:SIPAddress
+                                                       registrar:accountDict[kDomain]
+                                                           realm:accountDict[kRealm]
+                                                        username:accountDict[kUsername]];
+    
+    AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account];
     
     [theAccountController setAccountDescription:[[theAccountController account] SIPAddress]];
-    
     [[theAccountController window] setExcludedFromWindowsMenu:YES];
-    
     [theAccountController setEnabled:YES];
     
     [[self accountControllers] addObject:theAccountController];
@@ -1279,12 +1278,19 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             registrar = [accountDict objectForKey:kDomain];
         }
         
-        AccountController *theAccountController
-            = [[AccountController alloc] initWithFullName:[accountDict objectForKey:kFullName]
-                                                SIPAddress:SIPAddress
-                                                 registrar:registrar
-                                                     realm:[accountDict objectForKey:kRealm]
-                                                  username:[accountDict objectForKey:kUsername]];
+        AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:accountDict[kFullName]
+                                                          SIPAddress:SIPAddress
+                                                           registrar:registrar
+                                                               realm:accountDict[kRealm]
+                                                            username:accountDict[kUsername]];
+        
+        account.reregistrationTime = [accountDict[kReregistrationTime] integerValue];
+        if ([accountDict[kUseProxy] boolValue]) {
+            account.proxyHost = accountDict[kProxyHost];
+            account.proxyPort = [accountDict[kProxyPort] integerValue];
+        }
+        
+        AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account];
         
         [[theAccountController window] setExcludedFromWindowsMenu:YES];
         
@@ -1295,15 +1301,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         [theAccountController setAccountDescription:description];
         
         [theAccountController setAccountUnavailable:NO];
-        
-        [[theAccountController account] setReregistrationTime:
-         [[accountDict objectForKey:kReregistrationTime] integerValue]];
-        
-        if ([[accountDict objectForKey:kUseProxy] boolValue]) {
-            [[theAccountController account] setProxyHost:[accountDict objectForKey:kProxyHost]];
-            [[theAccountController account] setProxyPort:[[accountDict objectForKey:kProxyPort] integerValue]];
-        }
-        
         [theAccountController setEnabled:YES];
         [theAccountController setSubstitutesPlusCharacter:
          [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
@@ -1625,12 +1622,19 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         NSString *realm = [accountDict objectForKey:kRealm];
         NSString *username = [accountDict objectForKey:kUsername];
         
-        AccountController *anAccountController
-            = [[AccountController alloc] initWithFullName:fullName
-                                                SIPAddress:SIPAddress
-                                                 registrar:registrar
-                                                     realm:realm
-                                                  username:username];
+        AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:fullName
+                                                          SIPAddress:SIPAddress
+                                                           registrar:registrar
+                                                               realm:realm
+                                                            username:username];
+        
+        account.reregistrationTime = [accountDict[kReregistrationTime] integerValue];
+        if ([accountDict[kUseProxy] boolValue]) {
+            account.proxyHost = accountDict[kProxyHost];
+            account.proxyPort = [accountDict[kProxyPort] integerValue];
+        }
+        
+        AccountController *anAccountController = [[AccountController alloc] initWithSIPAccount:account];
         
         [[anAccountController window] setExcludedFromWindowsMenu:YES];
         
@@ -1639,14 +1643,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             description = SIPAddress;
         }
         [anAccountController setAccountDescription:description];
-        
-        [[anAccountController account] setReregistrationTime:
-         [[accountDict objectForKey:kReregistrationTime] integerValue]];
-        
-        if ([[accountDict objectForKey:kUseProxy] boolValue]) {
-            [[anAccountController account] setProxyHost:[accountDict objectForKey:kProxyHost]];
-            [[anAccountController account] setProxyPort:[[accountDict objectForKey:kProxyPort] integerValue]];
-        }
         
         [anAccountController setEnabled:[[accountDict objectForKey:kAccountEnabled] boolValue]];
         [anAccountController setSubstitutesPlusCharacter:

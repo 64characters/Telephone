@@ -113,13 +113,6 @@ extern NSString * const kEmailSIPLabel;
 // Initializes an AccountController object with a given account.
 - (id)initWithSIPAccount:(AKSIPAccount *)anAccount;
 
-// Initializes an AccountController object with a given full name, SIP address, regisrar, realm, and user name.
-- (id)initWithFullName:(NSString *)aFullName
-            SIPAddress:(NSString *)aSIPAddress
-             registrar:(NSString *)aRegistrar
-                 realm:(NSString *)aRealm
-              username:(NSString *)aUsername;
-
 // Removes account from the user agent.
 - (void)removeAccountFromUserAgent;
 

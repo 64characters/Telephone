@@ -249,21 +249,6 @@ NSString * const kEmailSIPLabel = @"sip";
     return self;
 }
 
-- (id)initWithFullName:(NSString *)aFullName
-            SIPAddress:(NSString *)aSIPAddress
-             registrar:(NSString *)aRegistrar
-                 realm:(NSString *)aRealm
-              username:(NSString *)aUsername {
-    
-    AKSIPAccount *anAccount = [AKSIPAccount SIPAccountWithFullName:aFullName
-                                                        SIPAddress:aSIPAddress
-                                                         registrar:aRegistrar
-                                                             realm:aRealm
-                                                          username:aUsername];
-    
-    return [self initWithSIPAccount:anAccount];
-}
-
 - (void)dealloc {
     for (CallController *aCallController in [self callControllers]) {
         [aCallController close];
