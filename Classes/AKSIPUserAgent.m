@@ -613,11 +613,8 @@ static void log_call_dump(int call_id);
     
     accountConfig.reg_timeout = [anAccount reregistrationTime];
     
-    if ([self usesICE] && [[self STUNServerHost] length] > 0) {
-        accountConfig.allow_contact_rewrite = PJ_TRUE;
-    } else {
-        accountConfig.allow_contact_rewrite = PJ_FALSE;
-    }
+    accountConfig.allow_contact_rewrite = anAccount.updatesContactHeader ? PJ_TRUE : PJ_FALSE;
+    accountConfig.allow_via_rewrite = anAccount.updatesViaHeader ? PJ_TRUE : PJ_FALSE;
     
     pjsua_acc_id accountIdentifier;
     pj_status_t status = pjsua_acc_add(&accountConfig, PJ_FALSE,
