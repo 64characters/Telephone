@@ -95,6 +95,17 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 // Default: 300 (sec).
 @property (nonatomic, assign) NSUInteger reregistrationTime;
 
+/// A Boolean value indicating if Contact header should be automatically updated.
+///
+/// When YES, the library will keep track of the public IP address from the response of the REGISTER request.
+@property (nonatomic, assign) BOOL updatesContactHeader;
+
+/// A Boolean value indicating if Via header should be automatically updated.
+///
+/// When YES, the "sent-by" field of the Via header will be overwritten for outgoing messages with the same interface
+/// address as the one in the REGISTER request.
+@property (nonatomic, assign) BOOL updatesViaHeader;
+
 // The receiver's identifier at the user agent.
 @property (nonatomic, assign) NSInteger identifier;
 
