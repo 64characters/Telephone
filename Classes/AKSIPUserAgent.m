@@ -600,6 +600,8 @@ static void log_call_dump(int call_id);
     accountConfig.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
     accountConfig.cred_info[0].data = [aPassword pjString];
     
+    accountConfig.rtp_cfg.port = 4000;
+    
     if ([[anAccount proxyHost] length] > 0) {
         accountConfig.proxy_cnt = 1;
         
