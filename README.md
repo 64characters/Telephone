@@ -29,7 +29,7 @@ contents:
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
 
-Include CoreAudio at the line 35 in `pjmedia/src/pjmedia-audiodev/coreaudio_dev.c`:
+Include CoreAudio at the line 35 in `pjmedia/src/pjmedia-audiodev/coreaudio_dev.h`:
 
     Index: pjmedia/src/pjmedia-audiodev/coreaudio_dev.c
     ===================================================================
@@ -42,38 +42,6 @@ Include CoreAudio at the line 35 in `pjmedia/src/pjmedia-audiodev/coreaudio_dev.
     +#include <CoreAudio/CoreAudio.h>
      #if !COREAUDIO_MAC
         #include <AudioToolbox/AudioServices.h>
-
-Add `static` at the line 286 in `third_party/srtp/crypto/cipher/aes_icm.c`:
-
-    Index: third_party/srtp/crypto/cipher/aes_icm.c
-    ===================================================================
-    --- third_party/srtp/crypto/cipher/aes_icm.c	(revision 4580)
-    +++ third_party/srtp/crypto/cipher/aes_icm.c	(working copy)
-    @@ -283,7 +283,7 @@
-      * this is an internal, hopefully inlined function
-      */
-
-    -inline void
-    +static inline void
-     aes_icm_advance_ismacryp(aes_icm_ctx_t *c, uint8_t forIsmacryp) {
-       /* fill buffer with new keystream */
-       v128_copy(&c->keystream_buffer, &c->counter);
-
-Add `static` at the line 127 in `third_party/srtp/crypto/math/datatypes.c`:
-
-    Index: third_party/srtp/crypto/math/datatypes.c
-    ===================================================================
-    --- third_party/srtp/crypto/math/datatypes.c	(revision 4641)
-    +++ third_party/srtp/crypto/math/datatypes.c	(working copy)
-    @@ -124,7 +124,7 @@
-       return bit_string;
-     }
-
-    -inline int
-    +static inline int
-     hex_char_to_nibble(uint8_t c) {
-       switch(c) {
-       case ('0'): return 0x0;
 
 Configure and build pjsip:
 
