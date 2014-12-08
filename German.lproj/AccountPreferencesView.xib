@@ -40,11 +40,11 @@
                     <tabViewItems>
                         <tabViewItem label="Account-Informationen" identifier="1" id="334">
                             <view key="view" id="337">
-                                <rect key="frame" x="10" y="29" width="350" height="235"/>
+                                <rect key="frame" x="10" y="25" width="350" height="239"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button id="93">
-                                        <rect key="frame" x="14" y="201" width="166" height="18"/>
+                                        <rect key="frame" x="14" y="205" width="166" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Diesen Account verwenden" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" inset="2" id="94">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -55,7 +55,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" id="95">
-                                        <rect key="frame" x="145" y="119" width="185" height="19"/>
+                                        <rect key="frame" x="145" y="123" width="185" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="114">
                                             <font key="font" metaFont="smallSystem"/>
@@ -70,7 +70,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="98">
-                                        <rect key="frame" x="145" y="61" width="185" height="19"/>
+                                        <rect key="frame" x="145" y="65" width="185" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="111">
                                             <font key="font" metaFont="smallSystem"/>
@@ -85,7 +85,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="99">
-                                        <rect key="frame" x="27" y="121" width="113" height="14"/>
+                                        <rect key="frame" x="27" y="125" width="113" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Vollständiger Name:" id="110">
                                             <font key="font" metaFont="smallSystem"/>
@@ -94,7 +94,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="102">
-                                        <rect key="frame" x="56" y="63" width="84" height="14"/>
+                                        <rect key="frame" x="56" y="67" width="84" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Benutzername:" id="107">
                                             <font key="font" metaFont="smallSystem"/>
@@ -103,7 +103,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="103">
-                                        <rect key="frame" x="85" y="34" width="55" height="14"/>
+                                        <rect key="frame" x="85" y="38" width="55" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Passwort:" id="106">
                                             <font key="font" metaFont="smallSystem"/>
@@ -112,7 +112,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <secureTextField verticalHuggingPriority="750" id="104">
-                                        <rect key="frame" x="145" y="32" width="185" height="19"/>
+                                        <rect key="frame" x="145" y="36" width="185" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <secureTextFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="105">
                                             <font key="font" metaFont="smallSystem"/>
@@ -127,7 +127,7 @@
                                         </connections>
                                     </secureTextField>
                                     <textField verticalHuggingPriority="750" id="423">
-                                        <rect key="frame" x="145" y="90" width="185" height="19"/>
+                                        <rect key="frame" x="145" y="94" width="185" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="424">
                                             <font key="font" metaFont="smallSystem"/>
@@ -142,7 +142,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="425">
-                                        <rect key="frame" x="91" y="92" width="49" height="14"/>
+                                        <rect key="frame" x="91" y="96" width="49" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Domain:" id="426">
                                             <font key="font" metaFont="smallSystem"/>
@@ -151,7 +151,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="427">
-                                        <rect key="frame" x="145" y="158" width="185" height="19"/>
+                                        <rect key="frame" x="145" y="162" width="185" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="428">
                                             <font key="font" metaFont="smallSystem"/>
@@ -163,7 +163,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="429">
-                                        <rect key="frame" x="60" y="160" width="80" height="14"/>
+                                        <rect key="frame" x="60" y="164" width="80" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Beschreibung:" id="430">
                                             <font key="font" metaFont="smallSystem"/>
@@ -180,9 +180,9 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button id="338">
-                                        <rect key="frame" x="24" y="206" width="160" height="18"/>
+                                        <rect key="frame" x="24" y="206" width="171" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="„+“ durch „       “ ersetzen" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" inset="2" id="355">
+                                        <buttonCell key="cell" type="check" title="„+“ durch „          “ ersetzen" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" inset="2" id="355">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
@@ -191,7 +191,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" id="339">
-                                        <rect key="frame" x="105" y="206" width="22" height="19"/>
+                                        <rect key="frame" x="105" y="206" width="32" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="354">
                                             <font key="font" metaFont="smallSystem"/>
