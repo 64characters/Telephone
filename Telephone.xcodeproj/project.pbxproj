@@ -689,7 +689,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
 						SystemCapabilities = {
@@ -1100,6 +1100,7 @@
 				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1119,6 +1120,7 @@
 				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1145,6 +1147,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1169,6 +1172,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1248,6 +1252,7 @@
 					"-lportaudio-x86_64-apple-darwin13.3.0",
 					"-lpj-x86_64-apple-darwin13.3.0",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 			};
 			name = Debug;
@@ -1308,6 +1313,7 @@
 					"-lportaudio-x86_64-apple-darwin13.3.0",
 					"-lpj-x86_64-apple-darwin13.3.0",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 			};
 			name = Release;

@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Telephone</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.tlphn.Telephone</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
