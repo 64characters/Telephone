@@ -58,7 +58,7 @@
     if (uri != nil) {
         [[self accountController] makeCallToURI:uri
                                      phoneLabel:phoneLabel
-                         callTransferController:[[sender window] windowController]];
+                         callTransferController:(CallTransferController *)[[sender window] windowController]];
     }
 }
 
