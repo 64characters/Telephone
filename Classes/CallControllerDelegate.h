@@ -1,8 +1,8 @@
 //
-//  CallController+Protected.h
+//  CallControllerDelegate.h
 //  Telephone
 //
-//  Copyright (c) 2008-2012 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -28,31 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Foundation;
 
+@class CallController;
 
-// Protected CallController interface.
-@interface CallController (CallControllerProtectedAdditions)
+@protocol CallControllerDelegate <NSObject>
 
-// Implements AKSIPCallCallingNotification.
-- (void)SIPCallCalling:(NSNotification *)notification;
-
-// Implements AKSIPCallEarlyNotification.
-- (void)SIPCallEarly:(NSNotification *)notification;
-
-// Implements AKSIPCallDidConfirmNotification.
-- (void)SIPCallDidConfirm:(NSNotification *)notification;
-
-// Implements AKSIPCallDidDisconnectNotification.
-- (void)SIPCallDidDisconnect:(NSNotification *)notification;
-
-// Implements AKSIPCallMediaDidBecomeActiveNotification.
-- (void)SIPCallMediaDidBecomeActive:(NSNotification *)notification;
-
-// Implements AKSIPCallDidLocalHoldNotification.
-- (void)SIPCallDidLocalHold:(NSNotification *)notification;
-
-// Implements AKSIPCallDidRemoteHoldNotification.
-- (void)SIPCallDidRemoteHold:(NSNotification *)notification;
+- (void)callControllerWillClose:(CallController *)callController;
 
 @end

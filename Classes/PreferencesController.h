@@ -30,6 +30,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "PreferencesControllerDelegate.h"
+
 
 // Preferences window toolbar items tags.
 enum {
@@ -117,7 +119,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 // The receiver's delegate.
 // |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
 // don't support weak references in 10.7.
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) id<PreferencesControllerDelegate> delegate;
 
 // General preferences view controller.
 @property (nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;

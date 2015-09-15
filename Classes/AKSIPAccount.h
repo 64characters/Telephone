@@ -31,6 +31,8 @@
 #import <Foundation/Foundation.h>
 #import <pjsua-lib/pjsua.h>
 
+#import "AKSIPAccountDelegate.h"
+
 
 // SIP account defaults.
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
@@ -38,22 +40,10 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
 // Notifications.
 //
-// Posted when account registration changes.
-extern NSString * const AKSIPAccountRegistrationDidChangeNotification;
-//
 // Posted when account is about to make call.
 extern NSString * const AKSIPAccountWillMakeCallNotification;
 
-@class AKSIPCall;
-
-// Declares interface that AKSIPAccount delegate must implement.
-@protocol AKSIPAccountDelegate
-@optional
-// Sent when AKSIPAccount receives an incoming call.
-- (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall;
-@end
-
-@class AKSIPURI;
+@class AKSIPCall, AKSIPURI;
 
 // A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
 // class to make and receive calls.
@@ -62,7 +52,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 // The receiver's delegate.
 // |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
 // don't support weak references in 10.7.
-@property (nonatomic, assign) NSObject <AKSIPAccountDelegate> *delegate;
+@property (nonatomic, assign) id <AKSIPAccountDelegate> delegate;
 
 // The URI for SIP registration.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>

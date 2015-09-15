@@ -50,7 +50,6 @@
 #import "ActiveCallViewController.h"
 #import "AppController.h"
 #import "AuthenticationFailureController.h"
-#import "CallController.h"
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
@@ -315,7 +314,7 @@ NSString * const kEmailSIPLabel = @"sip";
     // If it's a regular call, not a transfer, create the new CallController.
     CallController *aCallController;
     if (callTransferController == nil) {
-        aCallController = [[CallController alloc] initWithWindowNibName:@"Call" accountController:self];
+        aCallController = [[CallController alloc] initWithWindowNibName:@"Call" accountController:self delegate:self];
     } else {
         aCallController = callTransferController;
     }
@@ -609,11 +608,11 @@ NSString * const kEmailSIPLabel = @"sip";
 
 
 #pragma mark -
-#pragma mark AKSIPAccount notifications
+#pragma mark AKSIPAccountDelegate
 
 // When account registration changes, make appropriate modifications to the UI. A call can also be made from here if
 // the user called from the Address Book or from the application URL handler.
-- (void)SIPAccountRegistrationDidChange:(NSNotification *)notification {
+- (void)SIPAccountRegistrationDidChange:(AKSIPAccount *)account {
     // Account identifier can be kAKSIPUserAgentInvalidIdentifier if notification on the main thread was delivered after
     // user agent had removed the account. Don't bother in that case.
     if ([[self account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
@@ -730,27 +729,14 @@ NSString * const kEmailSIPLabel = @"sip";
     [self setShouldPresentRegistrationError:NO];
 }
 
-- (void)SIPAccountWillRemove:(NSNotification *)notification {
+- (void)SIPAccountWillRemove:(AKSIPAccount *)account {
     if ([self reRegistrationTimer] != nil) {
         [[self reRegistrationTimer] invalidate];
         [self setReRegistrationTimer:nil];
     }
 }
 
-
-#pragma mark -
-#pragma mark CallController notifications
-
-- (void)callWindowWillClose:(NSNotification *)notification {
-    CallController *aCallController = [notification object];
-    [[self callControllers] removeObject:aCallController];
-}
-
-
-#pragma mark -
-#pragma mark AKSIPAccountDelegate protocol
-
-- (void)SIPAccountDidReceiveCall:(AKSIPCall *)aCall {
+- (void)SIPAccount:(AKSIPAccount *)account didReceiveCall:(AKSIPCall *)aCall {
     if ([self isAccountUnavailable]) {
         // Reply with 480 Temporarily Unavailable if the user selected Unavailable account state.
         [aCall replyWithTemporarilyUnavailable];
@@ -770,7 +756,7 @@ NSString * const kEmailSIPLabel = @"sip";
     
     [[NSApp delegate] pauseITunes];
     
-    CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call" accountController:self];
+    CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call" accountController:self delegate:self];
     
     [aCallController setCall:aCall];
     [aCallController setCallActive:YES];
@@ -1044,6 +1030,14 @@ NSString * const kEmailSIPLabel = @"sip";
     }
     
     [aCall sendRingingNotification];
+}
+
+
+#pragma mark -
+#pragma mark CallControllerDelegate
+
+- (void)callControllerWillClose:(CallController *)callController {
+    [self.callControllers removeObject:callController];
 }
 
 

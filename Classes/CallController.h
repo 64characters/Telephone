@@ -30,25 +30,24 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "AKSIPCall.h"
 #import "XSWindowController.h"
 
+#import "CallControllerDelegate.h"
 
-// Notifications.
-//
-// Sent when call window is about to be closed.
-// |accountController| will be subscribed to this notification in its setter.
-extern NSString * const AKCallWindowWillCloseNotification;
 
 @class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI;
 @class IncomingCallViewController, ActiveCallViewController;
 @class EndedCallViewController, CallTransferController;
 
 // A call controller.
-@interface CallController : XSWindowController {
+@interface CallController : XSWindowController <AKSIPCallDelegate> {
   @protected
     ActiveCallViewController *_activeCallViewController;
     EndedCallViewController *_endedCallViewController;
 }
+
+@property (nonatomic, readonly, weak) id<CallControllerDelegate> delegate;
 
 // The receiver's identifier.
 @property (nonatomic, copy) NSString *identifier;
@@ -108,9 +107,7 @@ extern NSString * const AKCallWindowWillCloseNotification;
 @property (nonatomic, assign, getter=isCallUnhandled) BOOL callUnhandled;
 
 
-// Designated initializer.
-// Initializes a CallController object with a given nib file and account controller.
-- (id)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)anAccountController;
+- (instancetype)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)accountController delegate:(id<CallControllerDelegate>)delegate;
 
 // Sets new call info view and resizes window if needed.
 - (void)setCallInfoViewResizingWindow:(NSView *)newView;

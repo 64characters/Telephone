@@ -51,7 +51,6 @@ const NSInteger kAKSIPUserAgentInvalidIdentifier = PJSUA_INVALID_ID;
 NSString * const AKSIPUserAgentDidFinishStartingNotification = @"AKSIPUserAgentDidFinishStarting";
 NSString * const AKSIPUserAgentDidFinishStoppingNotification = @"AKSIPUserAgentDidFinishStopping";
 NSString * const AKSIPUserAgentDidDetectNATNotification = @"AKSIPUserAgentDidDetectNAT";
-NSString * const AKSIPUserAgentWillRemoveAccountNotification = @"AKSIPUserAgentWillRemoveAccount";
 
 // Maximum number of nameservers to take into account.
 static const NSInteger kAKSIPUserAgentNameserversMax = 4;
@@ -162,12 +161,6 @@ static void log_call_dump(int call_id);
                                        name:AKSIPUserAgentDidDetectNATNotification
                                      object:self];
         }
-        if ([aDelegate respondsToSelector:@selector(SIPUserAgentWillRemoveAccount:)]) {
-            [notificationCenter addObserver:aDelegate
-                                   selector:@selector(SIPUserAgentWillRemoveAccount:)
-                                       name:AKSIPUserAgentWillRemoveAccountNotification
-                                     object:self];
-        }
     }
     
     _delegate = aDelegate;
@@ -253,7 +246,7 @@ static void log_call_dump(int call_id);
 
 #pragma mark -
 
-- (id)initWithDelegate:(id)aDelegate {
+- (instancetype)initWithDelegate:(id<AKSIPUserAgentDelegate>)aDelegate {
     self = [super init];
     if (self == nil) {
         return nil;
@@ -641,8 +634,7 @@ static void log_call_dump(int call_id);
         return NO;
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentWillRemoveAccountNotification
-                                                        object:anAccount];
+    [anAccount.delegate SIPAccountWillRemove:anAccount];
     
     [[anAccount calls] removeAllObjects];
     
@@ -1007,10 +999,8 @@ static void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
         
         [[theAccount calls] addObject:theCall];
         
-        if ([[theAccount delegate] respondsToSelector:@selector(SIPAccountDidReceiveCall:)]) {
-            [[theAccount delegate] SIPAccountDidReceiveCall:theCall];
-        }
-        
+        [theAccount.delegate SIPAccount:theAccount didReceiveCall:theCall];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallIncomingNotification
                                                             object:theCall];
     });
@@ -1261,9 +1251,7 @@ static void AKSIPCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id new
 static void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPAccountRegistrationDidChangeNotification
-                                                            object:account];
+        [account.delegate SIPAccountRegistrationDidChange:account];
     });
 }
 

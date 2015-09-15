@@ -31,6 +31,8 @@
 #import <Foundation/Foundation.h>
 #import <pjsua-lib/pjsua.h>
 
+#import "AKSIPUserAgentDelegate.h"
+
 
 // User agent states.
 enum {
@@ -77,21 +79,8 @@ extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
 // Posted when the user agent detects NAT type, which can be accessed via
 // the |detectedNATType| property.
 extern NSString * const AKSIPUserAgentDidDetectNATNotification;
-//
-// Posted when the user agent is about to remove an account.
-extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 
-@class AKSIPAccount;
-
-// Declares the interface that AKSIPUserAgent delegates must implement.
-@protocol AKSIPUserAgentDelegate <NSObject>
-@optional
-// Sent when AKSIPUserAgent is about to add an account. It is a good moment to
-// start user agent lazily, when the first account is added.
-- (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount;
-@end
-
-@class AKSIPCall;
+@class AKSIPAccount, AKSIPCall;
 
 // The AKSIPUserAgent class implements SIP User Agent functionality. You can use it to create, configure, and start user
 // agent, add and remove accounts, and set sound devices for input and output. You need to restart the user agent after
@@ -188,7 +177,7 @@ extern NSString * const AKSIPUserAgentWillRemoveAccountNotification;
 + (AKSIPUserAgent *)sharedUserAgent;
 
 // Designated initializer. Initializes a SIP user agent and sets its delegate.
-- (id)initWithDelegate:(id)aDelegate;
+- (instancetype)initWithDelegate:(id<AKSIPUserAgentDelegate>)aDelegate;
 
 // Starts user agent.
 - (void)start;

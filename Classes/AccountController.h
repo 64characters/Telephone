@@ -33,6 +33,8 @@
 #import "AKSIPAccount.h"
 #import "XSWindowController.h"
 
+#import "CallController.h"
+
 
 // Account states.
 enum {
@@ -49,7 +51,7 @@ extern NSString * const kEmailSIPLabel;
 @class CallTransferController;
 
 // A SIP account controller.
-@interface AccountController : XSWindowController <AKSIPAccountDelegate>
+@interface AccountController : XSWindowController <AKSIPAccountDelegate, CallControllerDelegate>
 
 // A Boolean value indicating whether receiver is enabled.
 @property (nonatomic, assign, getter=isEnabled) BOOL enabled;

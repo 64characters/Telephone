@@ -89,7 +89,7 @@ static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 // Dynamic store callback for DNS changes.
 static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
 
-@interface AppController () <NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate>
+@interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate, PreferencesControllerDelegate>
 
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
@@ -1388,7 +1388,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 
 #pragma mark -
-#pragma mark AKSIPUserAgentDelegate protocol
+#pragma mark AKSIPUserAgentDelegate
 
 // Decides whether AKSIPUserAgent should add an account. User agent is started in this method if needed.
 - (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount {
@@ -1407,10 +1407,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     return YES;
 }
-
-
-#pragma mark -
-#pragma mark AKSIPUserAgent notifications
 
 - (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
     if ([[self userAgent] isStarted]) {

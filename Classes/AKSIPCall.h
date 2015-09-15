@@ -31,6 +31,8 @@
 #import <Foundation/Foundation.h>
 #import <pjsua-lib/pjsua.h>
 
+#import "AKSIPCallDelegate.h"
+
 
 extern const NSInteger kAKSIPCallsMax;
 
@@ -64,7 +66,6 @@ typedef NSUInteger AKSIPCallState;
 extern NSString * const AKSIPCallCallingNotification;
 //
 // Incoming. After INVITE is received.
-// Delegate is not subscribed to this notification.
 extern NSString * const AKSIPCallIncomingNotification;
 //
 // Early. After response with To tag.
@@ -101,7 +102,7 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 // The receiver's delegate.
 // |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
 // don't support weak references in 10.7.
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) id<AKSIPCallDelegate> delegate;
 
 // The receiver's identifier.
 @property (nonatomic, assign) NSInteger identifier;

@@ -33,8 +33,8 @@
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPCall.h"
 
+#import "AccountController.h"
 #import "ActiveCallTransferViewController.h"
-#import "CallController+Protected.h"
 #import "EndedCallTransferViewController.h"
 
 
@@ -80,15 +80,10 @@
 }
 
 - (id)initWithSourceCallController:(CallController *)callController {
-    self = [super initWithWindowNibName:@"CallTransfer" accountController:[callController accountController]];
-    if (self != nil) {
+    AccountController *accountController = callController.accountController;
+    if ((self = [self initWithWindowNibName:@"CallTransfer" accountController:accountController delegate:accountController])) {
         [self setSourceCallController:callController];
-        
-        AccountController *accountController = [[self sourceCallController] accountController];
-        
-        _activeAccountTransferViewController
-            = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController
-                                                                    windowController:self];
+        _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController windowController:self];
     }
     return self;
 }

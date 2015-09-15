@@ -53,7 +53,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
 
 @implementation AKSIPCall
 
-- (void)setDelegate:(id)aDelegate {
+- (void)setDelegate:(id<AKSIPCallDelegate>)aDelegate {
     if (_delegate == aDelegate) {
         return;
     }

@@ -37,7 +37,6 @@
 #import "AKNSString+Creating.h"
 #import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
-#import "AKSIPCall.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
 #import "AKSIPUserAgent.h"
@@ -51,8 +50,6 @@
 #import "IncomingCallViewController.h"
 #import "PreferencesController.h"
 
-
-NSString * const AKCallWindowWillCloseNotification = @"AKCallWindowWillClose";
 
 // Window auto-close delay.
 static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
@@ -90,29 +87,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     }
 }
 
-- (void)setAccountController:(AccountController *)anAccountController {
-    if (_accountController == anAccountController) {
-        return;
-    }
-    
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
-    if (_accountController != nil) {
-        [notificationCenter removeObserver:_accountController name:nil object:self];
-    }
-    
-    if (anAccountController != nil) {
-        if ([anAccountController respondsToSelector:@selector(callWindowWillClose:)]) {
-            [notificationCenter addObserver:anAccountController
-                                   selector:@selector(callWindowWillClose:)
-                                       name:AKCallWindowWillCloseNotification
-                                     object:self];
-        }
-    }
-    
-    _accountController = anAccountController;
-}
-
 - (CallTransferController *)callTransferController {
     if (_callTransferController == nil) {
         _callTransferController = [[CallTransferController alloc] initWithSourceCallController:self];
@@ -146,28 +120,19 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return _endedCallViewController;
 }
 
-- (id)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)anAccountController {
-    self = [super initWithWindowNibName:windowNibName];
-    if (self == nil) {
-        return nil;
+- (instancetype)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)accountController delegate:(id<CallControllerDelegate>)delegate {
+    if ((self = [self initWithWindowNibName:windowNibName])) {
+        _identifier = [NSString ak_uuidString];
+        _accountController = accountController;
+        _callOnHold = NO;
+        _callActive = NO;
+        _callUnhandled = NO;
     }
-    
-    [self setIdentifier:[NSString ak_uuidString]];
-    [self setAccountController:anAccountController];
-    [self setCallOnHold:NO];
-    [self setCallActive:NO];
-    [self setCallUnhandled:NO];
-    
     return self;
-}
-
-- (id)init {
-    return [self initWithWindowNibName:@"Call" accountController:nil];
 }
 
 - (void)dealloc {
     [self setCall:nil];
-    [self setAccountController:nil];
 }
 
 - (NSString *)description {
@@ -451,7 +416,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [self setCallUnhandled:NO];
     [[NSApp delegate] updateDockTileBadgeLabel];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:AKCallWindowWillCloseNotification object:self];
+    [self.delegate callControllerWillClose:self];
     
     // View controllers must be nullified because of bindings to callController's |displayedName| and |status|. When
     // this is done in -dealloc this is already too late, and KVO error about releaseing an object that is still being
@@ -463,7 +428,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 
 #pragma mark -
-#pragma mark AKSIPCall notifications
+#pragma mark AKSIPCallDelegate
 
 - (void)SIPCallCalling:(NSNotification *)notification {
     if ([[self phoneLabelFromAddressBook] length] > 0) {

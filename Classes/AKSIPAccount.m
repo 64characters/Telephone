@@ -39,33 +39,9 @@
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
-NSString * const AKSIPAccountRegistrationDidChangeNotification = @"AKSIPAccountRegistrationDidChange";
 NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCall";
 
 @implementation AKSIPAccount
-
-- (void)setDelegate:(NSObject <AKSIPAccountDelegate> *)aDelegate {
-    if (_delegate == aDelegate) {
-        return;
-    }
-    
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
-    if (_delegate != nil) {
-        [notificationCenter removeObserver:_delegate name:nil object:self];
-    }
-    
-    if (aDelegate != nil) {
-        if ([aDelegate respondsToSelector:@selector(SIPAccountRegistrationDidChange:)]) {
-            [notificationCenter addObserver:aDelegate
-                                   selector:@selector(SIPAccountRegistrationDidChange:)
-                                       name:AKSIPAccountRegistrationDidChangeNotification
-                                     object:self];
-        }
-    }
-    
-    _delegate = aDelegate;
-}
 
 - (void)setProxyPort:(NSUInteger)port {
     if (port > 0 && port < 65535) {
@@ -242,10 +218,6 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
 
 - (id)init {
     return [self initWithFullName:nil SIPAddress:nil registrar:nil realm:nil username:nil];
-}
-
-- (void)dealloc {
-    [self setDelegate:nil];
 }
 
 - (NSString *)description {
