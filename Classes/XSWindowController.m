@@ -115,6 +115,8 @@
 // ---------------------------------------------------
 - (void)patchResponderChain;
 {
+    if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_10)
+        return;
 	if ([self.viewControllers count] == 0) // we're being called by view controllers at the beginning of creating the tree, most likely load time and the root of the tree hasn't been added to our list of controllers.
 		return;
 	NSMutableArray *flatViewControllers = [NSMutableArray array];
