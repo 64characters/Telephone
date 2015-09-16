@@ -185,6 +185,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         [self.window.contentView replaceSubview:self.callInfoView with:newView];
     }
     self.callInfoView = newView;
+
+    [[self window] makeFirstResponder:newView];
 }
 
 - (void)acceptCall {
@@ -506,10 +508,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         [self removeObjectFromViewControllersAtIndex:0];
         [self addViewController:[self activeCallViewController]];
         [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
-    }
-    
-    if ([[[self activeCallViewController] view] acceptsFirstResponder]) {
-        [[self window] makeFirstResponder:[[self activeCallViewController] view]];
     }
 }
 
