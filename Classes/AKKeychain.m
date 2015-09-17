@@ -67,6 +67,7 @@
     SecKeychainItemRef keychainItemRef = nil;
     OSStatus addStatus, findStatus, modifyStatus;
     BOOL success = NO;
+    NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
     
     // Add item to keychain.
     addStatus = SecKeychainAddGenericPassword(NULL,   // NULL for default keychain.
@@ -74,8 +75,8 @@
                                               [serviceName UTF8String],
                                               (UInt32)[accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                               [accountName UTF8String],
-                                              (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                              [password UTF8String],
+                                              (UInt32)passwordData.length,
+                                              passwordData.bytes,
                                               NULL);  // Don't need keychain item reference.
     
     if (addStatus == noErr) {
@@ -96,8 +97,8 @@
             // Modify password in the duplicate item.
             modifyStatus = SecKeychainItemModifyAttributesAndData(keychainItemRef,
                                                                   NULL,  // No changes in attributes.
-                                                                  (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                                                  [password UTF8String]);
+                                                                  (UInt32)passwordData.length,
+                                                                  passwordData.bytes);
             
             if (modifyStatus == noErr) {
                 success = YES;
