@@ -33,13 +33,9 @@
 
 @implementation ActiveAccountTransferViewController
 
-- (id)initWithAccountController:(AccountController *)anAccountController
-               windowController:(XSWindowController *)windowController {
-    
-    self = [super initWithNibName:@"ActiveAccountTransferView" bundle:nil windowController:windowController];
-    
-    if (self != nil) {
-        [self setAccountController:anAccountController];
+- (id)initWithAccountController:(AccountController *)accountController {
+    if ((self = [super initWithNibName:@"ActiveAccountTransferView" bundle:nil])) {
+        self.accountController = accountController;
     }
     return self;
 }

@@ -67,13 +67,9 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     }
 }
 
-- (id)initWithAccountController:(AccountController *)anAccountController
-               windowController:(XSWindowController *)windowController {
-    
-    self = [super initWithNibName:@"ActiveAccountView" bundle:nil windowController:windowController];
-    
-    if (self != nil) {
-        [self setAccountController:anAccountController];
+- (id)initWithAccountController:(AccountController *)accountController {
+    if ((self = [self initWithNibName:@"ActiveAccountView" bundle:nil])) {
+        _accountController = accountController;
     }
     return self;
 }

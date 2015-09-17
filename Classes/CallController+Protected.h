@@ -1,8 +1,8 @@
 //
-//  ActiveAccountViewController.h
+//  CallController+Protected.h
 //  Telephone
 //
-//  Copyright (c) 2008-2012 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -28,38 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "CallController.h"
 
+@class XSViewController;
 
-// Call destination keys.
-extern NSString * const kURI;
-extern NSString * const kPhoneLabel;
+@interface CallController (Protected)
 
-@class AccountController, AKSIPURI;
-
-// An active account view controller.
-@interface ActiveAccountViewController : NSViewController
-
-// Account controller the receiver belongs to.
-@property (nonatomic, weak) AccountController *accountController;
-
-// Call destination token field outlet.
-@property (nonatomic, weak) IBOutlet NSTokenField *callDestinationField;
-
-// Index of a URI in a call destination token.
-@property (nonatomic, assign) NSUInteger callDestinationURIIndex;
-
-// Call destination URI.
-@property (nonatomic, readonly, copy) AKSIPURI *callDestinationURI;
-
-
-// Initializes an ActiveAccountViewController object with a given account controller.
-- (id)initWithAccountController:(AccountController *)accountController;
-
-// Makes a call.
-- (IBAction)makeCall:(id)sender;
-
-// Changes the active SIP URI index in the call destination token.
-- (IBAction)changeCallDestinationURIIndex:(id)sender;
+- (void)setCallInfoViewResizingWindow:(NSView *)newView;
 
 @end

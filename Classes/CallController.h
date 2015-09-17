@@ -109,9 +109,6 @@
 
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)accountController delegate:(id<CallControllerDelegate>)delegate;
 
-// Sets new call info view and resizes window if needed.
-- (void)setCallInfoViewResizingWindow:(NSView *)newView;
-
 // Accepts an incoming call.
 - (void)acceptCall;
 
@@ -133,5 +130,9 @@
 
 // Method to be called when intermediate call status timer fires.
 - (void)intermediateStatusTimerTick:(NSTimer *)theTimer;
+
+- (void)showActiveCallView;
+- (void)showEndedCallView;
+- (void)showIncomingCallView;
 
 @end

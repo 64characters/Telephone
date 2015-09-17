@@ -205,8 +205,7 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (ActiveAccountViewController *)activeAccountViewController {
     if (_activeAccountViewController == nil) {
-        _activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self
-                                                                                     windowController:self];
+        _activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self];
     }
     
     return _activeAccountViewController;
@@ -372,8 +371,7 @@ NSString * const kEmailSIPLabel = @"sip";
     [aCallController setRedialURI:destinationURI];
     
     if (callTransferController == nil) {
-        [aCallController addViewController:[aCallController activeCallViewController]];
-        [aCallController setCallInfoViewResizingWindow:[[aCallController activeCallViewController] view]];
+        [aCallController showActiveCallView];
     }
     
     if ([phoneLabel length] > 0) {
@@ -395,9 +393,7 @@ NSString * const kEmailSIPLabel = @"sip";
         [aCallController setCall:aCall];
         [aCallController setCallActive:YES];
     } else {
-        [aCallController removeObjectFromViewControllersAtIndex:0];
-        [aCallController addViewController:[aCallController endedCallViewController]];
-        [aCallController setCallInfoViewResizingWindow:[[aCallController endedCallViewController] view]];
+        [aCallController showEndedCallView];
         [aCallController setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
     }
 }
@@ -475,8 +471,7 @@ NSString * const kEmailSIPLabel = @"sip";
     [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountAvailable] setState:NSOnState];
     [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountUnavailable] setState:NSOffState];
     
-    if ([self countOfViewControllers] == 0) {
-        [self addViewController:[self activeAccountViewController]];
+    if (![self isActiveViewDisplayed]) {
         [[self window] setContentView:[[self activeAccountViewController] view]];
         
         if ([[[self activeAccountViewController] callDestinationField] acceptsFirstResponder]) {
@@ -505,8 +500,7 @@ NSString * const kEmailSIPLabel = @"sip";
     [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountAvailable] setState:NSOffState];
     [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountUnavailable] setState:NSOnState];
     
-    if ([self countOfViewControllers] == 0) {
-        [self addViewController:[self activeAccountViewController]];
+    if (![self isActiveViewDisplayed]) {
         [[self window] setContentView:[[self activeAccountViewController] view]];
         
         if ([[[self activeAccountViewController] callDestinationField] acceptsFirstResponder]) {
@@ -534,7 +528,6 @@ NSString * const kEmailSIPLabel = @"sip";
     [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountAvailable] setState:NSOffState];
     [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountUnavailable] setState:NSOffState];
     
-    [self removeViewController:[self activeAccountViewController]];
     NSRect frame = [[[self window] contentView] frame];
     NSView *emptyView = [[NSView alloc] initWithFrame:frame];
     NSUInteger autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -585,6 +578,10 @@ NSString * const kEmailSIPLabel = @"sip";
     [[[self activeAccountViewController] callDestinationField] setStringValue:theString];
     
     [[self activeAccountViewController] makeCall:nil];
+}
+
+- (BOOL)isActiveViewDisplayed {
+    return [self.window.contentView isEqual:self.activeAccountViewController.view];
 }
 
 
@@ -953,8 +950,7 @@ NSString * const kEmailSIPLabel = @"sip";
     [aCallController setStatus:finalStatus];
     [aCallController setRedialURI:finalRedialURI];
     
-    [aCallController addViewController:[aCallController incomingCallViewController]];
-    [aCallController setCallInfoViewResizingWindow:[[aCallController incomingCallViewController] view]];
+    [aCallController showIncomingCallView];
     
     [aCallController showWindow:nil];
     

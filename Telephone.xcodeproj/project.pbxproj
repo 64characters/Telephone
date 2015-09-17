@@ -172,6 +172,7 @@
 		AA19171B0F8EA627002BA093 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		AA1917290F8EAF87002BA093 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		AA1A0A9F1828E38900278658 /* Telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Telephone.icns; sourceTree = "<group>"; };
+		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA222C40182C3B5B0096B024 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AA2404960EE7F77D00E66882 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
@@ -542,6 +543,7 @@
 			children = (
 				AA3578B40E4070AD00021989 /* CallController.h */,
 				AA3578B50E4070AD00021989 /* CallController.m */,
+				AA1D80121BA9A857004E0855 /* CallController+Protected.h */,
 				AAE33B111BA72A1800C6E48B /* CallControllerDelegate.h */,
 				AAD92134107A607C00F142A4 /* IncomingCallViewController.h */,
 				AAD92135107A607C00F142A4 /* IncomingCallViewController.m */,

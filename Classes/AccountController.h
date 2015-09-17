@@ -31,7 +31,6 @@
 #import <Cocoa/Cocoa.h>
 
 #import "AKSIPAccount.h"
-#import "XSWindowController.h"
 
 #import "CallController.h"
 
@@ -51,7 +50,7 @@ extern NSString * const kEmailSIPLabel;
 @class CallTransferController;
 
 // A SIP account controller.
-@interface AccountController : XSWindowController <AKSIPAccountDelegate, CallControllerDelegate>
+@interface AccountController : NSWindowController <AKSIPAccountDelegate, CallControllerDelegate>
 
 // A Boolean value indicating whether receiver is enabled.
 @property (nonatomic, assign, getter=isEnabled) BOOL enabled;

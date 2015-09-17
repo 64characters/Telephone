@@ -45,6 +45,7 @@
 #import "AccountController.h"
 #import "ActiveCallViewController.h"
 #import "AppController.h"
+#import "CallController+Protected.h"
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
@@ -222,10 +223,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[self call] hangUp];
     
     [self setStatus:NSLocalizedString(@"call ended", @"Call ended.")];
-    
-    [self removeObjectFromViewControllersAtIndex:0];
-    [self addViewController:[self endedCallViewController]];
-    [self setCallInfoViewResizingWindow:[[self endedCallViewController] view]];
+
+    [self showEndedCallView];
     
     [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];
     [[[self activeCallViewController] hangUpButton] setEnabled:NO];
@@ -269,12 +268,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                    withString:[[self accountController]
                                                plusCharacterSubstitution]]];
     }
-    
-    if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
-        [self removeObjectFromViewControllersAtIndex:0];
-        [self addViewController:[self activeCallViewController]];
-        [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
-    }
+
+    [self showActiveCallView];
     
     [[[self activeCallViewController] view] replaceSubview:[[self activeCallViewController] hangUpButton]
                                                       with:[[self activeCallViewController] callProgressIndicator]];
@@ -315,11 +310,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             [_endedCallViewController setRepresentedObject:nil];
         }
     } else {
-        if (![[self objectInViewControllersAtIndex:0] isEqual:[self endedCallViewController]]) {
-            [self removeObjectFromViewControllersAtIndex:0];
-            [self addViewController:[self endedCallViewController]];
-            [self setCallInfoViewResizingWindow:[[self endedCallViewController] view]];
-        }
+        [self showEndedCallView];
         [self setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
     }
     
@@ -391,6 +382,37 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     }
 }
 
+- (void)showActiveCallView {
+    [self showViewController:self.activeCallViewController];
+}
+
+- (void)showEndedCallView {
+    [self showViewController:self.endedCallViewController];
+}
+
+- (void)showIncomingCallView {
+    [self showViewController:self.incomingCallViewController];
+}
+
+- (void)showViewController:(XSViewController *)viewController {
+    if ([self shouldShowViewController:viewController]) {
+        [self removeCurrentViewControllerIfNeeded];
+        [self addViewController:viewController];
+        [self setCallInfoViewResizingWindow:viewController.view];
+    }
+}
+
+- (BOOL)shouldShowViewController:(XSViewController *)viewController {
+    return self.countOfViewControllers == 0 || ![[self objectInViewControllersAtIndex:0] isEqual:viewController];
+}
+
+- (void)removeCurrentViewControllerIfNeeded {
+    if (self.countOfViewControllers > 0) {
+        assert(self.countOfViewControllers == 1);
+        [self removeObjectFromViewControllersAtIndex:0];
+    }
+}
+
 
 #pragma mark -
 #pragma mark NSWindow delegate methods
@@ -442,12 +464,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     } else {
         [self setStatus:NSLocalizedString(@"calling...", @"Outgoing call in progress.")];
     }
-    
-    if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
-        [self removeObjectFromViewControllersAtIndex:0];
-        [self addViewController:[self activeCallViewController]];
-        [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
-    }
+
+    [self showActiveCallView];
     
     [[[self activeCallViewController] hangUpButton] setEnabled:YES];
     [[[self activeCallViewController] callProgressIndicator] startAnimation:self];
@@ -471,12 +489,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             
             [self setStatus:NSLocalizedString(@"ringing", @"Remote party ringing.")];
         }
-        
-        if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
-            [self removeObjectFromViewControllersAtIndex:0];
-            [self addViewController:[self activeCallViewController]];
-            [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
-        }
+
+        [self showActiveCallView];
     }
     
     [[[self activeCallViewController] hangUpButton] setEnabled:YES];
@@ -504,11 +518,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     
     [[self activeCallViewController] startCallTimer];
     
-    if (![[self objectInViewControllersAtIndex:0] isEqual:[self activeCallViewController]]) {
-        [self removeObjectFromViewControllersAtIndex:0];
-        [self addViewController:[self activeCallViewController]];
-        [self setCallInfoViewResizingWindow:[[self activeCallViewController] view]];
-    }
+    [self showActiveCallView];
 }
 
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
@@ -558,12 +568,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             }
             break;
     }
-    
-    if (![[self objectInViewControllersAtIndex:0] isEqual:[self endedCallViewController]]) {
-        [self removeObjectFromViewControllersAtIndex:0];
-        [self addViewController:[self endedCallViewController]];
-        [self setCallInfoViewResizingWindow:[[self endedCallViewController] view]];
-    }
+
+    [self showEndedCallView];
     
     // Disable the redial button to re-enable it after some delay to prevent accidental clicking on in instead of
     // clicking on the hang-up button. Don't forget to re-enable it below!

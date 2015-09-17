@@ -35,6 +35,7 @@
 
 #import "AccountController.h"
 #import "ActiveCallTransferViewController.h"
+#import "CallController+Protected.h"
 #import "EndedCallTransferViewController.h"
 
 
@@ -83,7 +84,7 @@
     AccountController *accountController = callController.accountController;
     if ((self = [self initWithWindowNibName:@"CallTransfer" accountController:accountController delegate:accountController])) {
         [self setSourceCallController:callController];
-        _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController windowController:self];
+        _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController];
     }
     return self;
 }
@@ -113,15 +114,25 @@
         [self closeSheet:self];
     }
     
+    [self removeViewControllersIfNeeded];
+    [self showActiveAccountTransferView];
+    [self makeCallDestinationFieldFirstResponder];
+}
+
+- (void)removeViewControllersIfNeeded {
     if ([self countOfViewControllers] > 0) {
         [[self viewControllers] removeAllObjects];
         [self patchResponderChain];
     }
-    [self addViewController:[self activeAccountTransferViewController]];
+}
+
+- (void)showActiveAccountTransferView {
     [self setCallInfoViewResizingWindow:[[self activeAccountTransferViewController] view]];
-    
-    if ([[[self activeAccountTransferViewController] callDestinationField] acceptsFirstResponder]) {
-        [[self window] makeFirstResponder:[[self activeAccountTransferViewController] callDestinationField]];
+}
+
+- (void)makeCallDestinationFieldFirstResponder {
+    if ([self.activeAccountTransferViewController.callDestinationField acceptsFirstResponder]) {
+        [self.window makeFirstResponder:self.activeAccountTransferViewController.callDestinationField];
     }
 }
 
