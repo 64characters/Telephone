@@ -104,7 +104,7 @@ static void log_call_dump(int call_id);
 @property (assign) pj_pool_t *pjPool;
 
 // Ringback slot.
-@property (nonatomic, assign) NSInteger ringbackSlot;
+@property (nonatomic, assign) pjsua_conf_port_id ringbackSlot;
 
 // Ringback port.
 @property (nonatomic, assign) pjmedia_port *ringbackPort;
@@ -334,10 +334,10 @@ static void log_call_dump(int call_id);
         pjsua_media_config_default(&mediaConfig);
         pjsua_transport_config_default(&transportConfig);
         
-        userAgentConfig.max_calls = kAKSIPCallsMax;
+        userAgentConfig.max_calls = (unsigned)kAKSIPCallsMax;
         
         if ([[self nameservers] count] > 0) {
-            userAgentConfig.nameserver_count = [[self nameservers] count];
+            userAgentConfig.nameserver_count = (unsigned)[[self nameservers] count];
             for (NSUInteger i = 0; i < [[self nameservers] count]; ++i) {
                 userAgentConfig.nameserver[i] = [[[self nameservers] objectAtIndex:i] pjString];
             }
@@ -368,12 +368,12 @@ static void log_call_dump(int call_id);
             loggingConfig.log_filename = [[[self logFileName] stringByExpandingTildeInPath] pjString];
         }
         
-        loggingConfig.level = [self logLevel];
-        loggingConfig.console_level = [self consoleLogLevel];
+        loggingConfig.level = (unsigned)[self logLevel];
+        loggingConfig.console_level = (unsigned)[self consoleLogLevel];
         mediaConfig.no_vad = ![self detectsVoiceActivity];
         mediaConfig.enable_ice = [self usesICE];
         mediaConfig.snd_auto_close_time = 1;
-        transportConfig.port = [self transportPort];
+        transportConfig.port = (unsigned)[self transportPort];
         
         if ([[self transportPublicHost] length] > 0) {
             transportConfig.public_addr = [[self transportPublicHost] pjString];
@@ -442,7 +442,7 @@ static void log_call_dump(int call_id);
             return;
         }
         
-        [self setRingbackSlot:(NSInteger)aRingbackSlot];
+        [self setRingbackSlot:aRingbackSlot];
         
         // Add UDP transport.
         pjsua_transport_id transportIdentifier;
@@ -465,7 +465,7 @@ static void log_call_dump(int call_id);
             [self setTransportPort:transportInfo.local_name.port];
             
             // Set chosen port back to transportConfig to add TCP transport below.
-            transportConfig.port = [self transportPort];
+            transportConfig.port = (unsigned)[self transportPort];
         }
         
         // Add TCP transport. Don't return, just leave a log message on error.
@@ -606,7 +606,7 @@ static void log_call_dump(int call_id);
         }
     }
     
-    accountConfig.reg_timeout = [anAccount reregistrationTime];
+    accountConfig.reg_timeout = (unsigned)[anAccount reregistrationTime];
     
     accountConfig.allow_contact_rewrite = anAccount.updatesContactHeader ? PJ_TRUE : PJ_FALSE;
     accountConfig.allow_via_rewrite = anAccount.updatesViaHeader ? PJ_TRUE : PJ_FALSE;
@@ -638,7 +638,7 @@ static void log_call_dump(int call_id);
     
     [[anAccount calls] removeAllObjects];
     
-    pj_status_t status = pjsua_acc_del([anAccount identifier]);
+    pj_status_t status = pjsua_acc_del((pjsua_acc_id)[anAccount identifier]);
     if (status != PJ_SUCCESS) {
         return NO;
     }
@@ -707,7 +707,7 @@ static void log_call_dump(int call_id);
         return NO;
     }
     
-    pj_status_t status = pjsua_set_snd_dev(input, output);
+    pj_status_t status = pjsua_set_snd_dev((int)input, (int)output);
     
     return (status == PJ_SUCCESS) ? YES : NO;
 }
@@ -1278,8 +1278,8 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
  * as the logger can accept.
  */
 static void log_call_dump(int call_id) {
-    unsigned call_dump_len;
-    unsigned part_len;
+    size_t call_dump_len;
+    size_t part_len;
     unsigned part_idx;
     unsigned log_decor;
     static char some_buf[1024 * 3];

@@ -136,7 +136,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
         return NO;
     }
     
-    return (pjsua_call_is_active([self identifier])) ? YES : NO;
+    return (pjsua_call_is_active((pjsua_call_id)[self identifier])) ? YES : NO;
 }
 
 - (BOOL)hasMedia {
@@ -144,7 +144,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
         return NO;
     }
     
-    return (pjsua_call_has_media([self identifier])) ? YES : NO;
+    return (pjsua_call_has_media((pjsua_call_id)[self identifier])) ? YES : NO;
 }
 
 - (BOOL)hasActiveMedia {
@@ -153,7 +153,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     }
     
     pjsua_call_info callInfo;
-    pjsua_call_get_info([self identifier], &callInfo);
+    pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
     return (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) ? YES : NO;
 }
@@ -164,7 +164,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     }
     
     pjsua_call_info callInfo;
-    pjsua_call_get_info([self identifier], &callInfo);
+    pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
     return (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) ? YES : NO;
 }
@@ -175,7 +175,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     }
     
     pjsua_call_info callInfo;
-    pjsua_call_get_info([self identifier], &callInfo);
+    pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
     return (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) ? YES : NO;
 }
@@ -193,7 +193,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     [self setAccount:anAccount];
     
     pjsua_call_info callInfo;
-    pj_status_t status = pjsua_call_get_info(anIdentifier, &callInfo);
+    pj_status_t status = pjsua_call_get_info((pjsua_call_id)anIdentifier, &callInfo);
     if (status == PJ_SUCCESS) {
         [self setState:callInfo.state];
         [self setStateText:[NSString stringWithPJString:callInfo.state_text]];
@@ -233,7 +233,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
 }
 
 - (void)answer {
-    pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_OK, NULL, NULL);
+    pj_status_t status = pjsua_call_answer((pjsua_call_id)[self identifier], PJSIP_SC_OK, NULL, NULL);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error answering call %@", self);
     }
@@ -244,7 +244,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
         return;
     }
     
-    pj_status_t status = pjsua_call_hangup([self identifier], 0, NULL, NULL);
+    pj_status_t status = pjsua_call_hangup((pjsua_call_id)[self identifier], 0, NULL, NULL);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error hanging up call %@", self);
     }
@@ -253,8 +253,8 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall {
     [self setTransferStatus:kAKSIPUserAgentInvalidIdentifier];
     [self setTransferStatusText:nil];
-    pj_status_t status = pjsua_call_xfer_replaces([self identifier],
-                                                  [destinationCall identifier],
+    pj_status_t status = pjsua_call_xfer_replaces((pjsua_call_id)[self identifier],
+                                                  (pjsua_call_id)[destinationCall identifier],
                                                   PJSUA_XFER_NO_REQUIRE_REPLACES,
                                                   NULL);
     if (status != PJ_SUCCESS) {
@@ -263,21 +263,21 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
 }
 
 - (void)sendRingingNotification {
-    pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_RINGING, NULL, NULL);
+    pj_status_t status = pjsua_call_answer((pjsua_call_id)[self identifier], PJSIP_SC_RINGING, NULL, NULL);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error sending ringing notification in call %@", self);
     }
 }
 
 - (void)replyWithTemporarilyUnavailable {
-    pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_TEMPORARILY_UNAVAILABLE, NULL, NULL);
+    pj_status_t status = pjsua_call_answer((pjsua_call_id)[self identifier], PJSIP_SC_TEMPORARILY_UNAVAILABLE, NULL, NULL);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error replying with 480 Temporarily Unavailable");
     }
 }
 
 - (void)replyWithBusyHere {
-    pj_status_t status = pjsua_call_answer([self identifier], PJSIP_SC_BUSY_HERE, NULL, NULL);
+    pj_status_t status = pjsua_call_answer((pjsua_call_id)[self identifier], PJSIP_SC_BUSY_HERE, NULL, NULL);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error replying with 486 Busy Here");
     }
@@ -288,7 +288,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     pj_str_t pjDigits = [digits pjString];
     
     // Try to send RFC2833 DTMF first.
-    status = pjsua_call_dial_dtmf([self identifier], &pjDigits);
+    status = pjsua_call_dial_dtmf((pjsua_call_id)[self identifier], &pjDigits);
     
     if (status != PJ_SUCCESS) {  // Okay, that didn't work. Send INFO DTMF.
         const pj_str_t kSIPINFO = pj_str("INFO");
@@ -302,7 +302,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
                                      [digits characterAtIndex:i]];
             messageData.msg_body = [messageBody pjString];
             
-            status = pjsua_call_send_request([self identifier], &kSIPINFO, &messageData);
+            status = pjsua_call_send_request((pjsua_call_id)[self identifier], &kSIPINFO, &messageData);
             if (status != PJ_SUCCESS) {
                 NSLog(@"Error sending DTMF");
             }
@@ -316,7 +316,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     }
     
     pjsua_call_info callInfo;
-    pjsua_call_get_info([self identifier], &callInfo);
+    pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
     pj_status_t status = pjsua_conf_disconnect(0, callInfo.conf_slot);
     if (status == PJ_SUCCESS) {
@@ -332,7 +332,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     }
     
     pjsua_call_info callInfo;
-    pjsua_call_get_info([self identifier], &callInfo);
+    pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
     pj_status_t status = pjsua_conf_connect(0, callInfo.conf_slot);
     if (status == PJ_SUCCESS) {
@@ -352,13 +352,13 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
 
 - (void)hold {
     if ([self state] == kAKSIPCallConfirmedState && ![self isOnRemoteHold]) {
-        pjsua_call_set_hold([self identifier], NULL);
+        pjsua_call_set_hold((pjsua_call_id)[self identifier], NULL);
     }
 }
 
 - (void)unhold {
     if ([self state] == kAKSIPCallConfirmedState) {
-        pjsua_call_reinvite([self identifier], PJ_TRUE, NULL);
+        pjsua_call_reinvite((pjsua_call_id)[self identifier], PJ_TRUE, NULL);
     }
 }
 

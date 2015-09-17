@@ -75,11 +75,11 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     }
     
     if (value) {
-        pjsua_acc_set_registration([self identifier], PJ_TRUE);
+        pjsua_acc_set_registration((pjsua_acc_id)[self identifier], PJ_TRUE);
         [self setOnline:YES];
     } else {
         [self setOnline:NO];
-        pjsua_acc_set_registration([self identifier], PJ_FALSE);
+        pjsua_acc_set_registration((pjsua_acc_id)[self identifier], PJ_FALSE);
     }
 }
 
@@ -91,7 +91,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pjsua_acc_info accountInfo;
     pj_status_t status;
     
-    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
         return 0;
     }
@@ -107,7 +107,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pjsua_acc_info accountInfo;
     pj_status_t status;
     
-    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
         return nil;
     }
@@ -123,7 +123,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pjsua_acc_info accountInfo;
     pj_status_t status;
     
-    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
         return -1;
     }
@@ -139,7 +139,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pjsua_acc_info accountInfo;
     pj_status_t status;
     
-    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
         return NO;
     }
@@ -153,9 +153,9 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     }
     
     if (value) {
-        pjsua_acc_set_online_status([self identifier], PJ_TRUE);
+        pjsua_acc_set_online_status((pjsua_acc_id)[self identifier], PJ_TRUE);
     } else {
-        pjsua_acc_set_online_status([self identifier], PJ_FALSE);
+        pjsua_acc_set_online_status((pjsua_acc_id)[self identifier], PJ_FALSE);
     }
 }
 
@@ -167,7 +167,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pjsua_acc_info accountInfo;
     pj_status_t status;
     
-    status = pjsua_acc_get_info([self identifier], &accountInfo);
+    status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
         return nil;
     }
@@ -231,7 +231,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     pjsua_call_id callIdentifier;
     pj_str_t uri = [[destinationURI description] pjString];
     
-    pj_status_t status = pjsua_call_make_call([self identifier], &uri, 0, NULL, NULL, &callIdentifier);
+    pj_status_t status = pjsua_call_make_call((pjsua_acc_id)[self identifier], &uri, 0, NULL, NULL, &callIdentifier);
     AKSIPCall *call = nil;
     if (status == PJ_SUCCESS) {
         call = [[AKSIPCall alloc] initWithSIPAccount:self identifier:callIdentifier];

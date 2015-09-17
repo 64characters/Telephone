@@ -39,9 +39,9 @@
     OSStatus findStatus;
     
     findStatus = SecKeychainFindGenericPassword(NULL,   // Default keychain.
-                                                [serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                (UInt32)[serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                                 [serviceName UTF8String],
-                                                [accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                (UInt32)[accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                                 [accountName UTF8String],
                                                 &passwordLength,
                                                 &passwordData,
@@ -70,11 +70,11 @@
     
     // Add item to keychain.
     addStatus = SecKeychainAddGenericPassword(NULL,   // NULL for default keychain.
-                                              [serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                              (UInt32)[serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                               [serviceName UTF8String],
-                                              [accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                              (UInt32)[accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                               [accountName UTF8String],
-                                              [password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                              (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                               [password UTF8String],
                                               NULL);  // Don't need keychain item reference.
     
@@ -84,9 +84,9 @@
     } else if (addStatus == errSecDuplicateItem) {
         // Get the pointer to the duplicate item.
         findStatus = SecKeychainFindGenericPassword(NULL,               // Default keychain.
-                                                    [serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                    (UInt32)[serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                                     [serviceName UTF8String],
-                                                    [accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                    (UInt32)[accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                                     [accountName UTF8String],
                                                     NULL,
                                                     NULL,
@@ -96,7 +96,7 @@
             // Modify password in the duplicate item.
             modifyStatus = SecKeychainItemModifyAttributesAndData(keychainItemRef,
                                                                   NULL,  // No changes in attributes.
-                                                                  [password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                                  (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                                                   [password UTF8String]);
             
             if (modifyStatus == noErr) {
