@@ -41,16 +41,16 @@ extern NSString * const kPhoneLabel;
 @interface ActiveAccountViewController : NSViewController
 
 // Account controller the receiver belongs to.
-@property (nonatomic, weak) AccountController *accountController;
+@property(nonatomic, weak) AccountController *accountController;
 
 // Call destination token field outlet.
-@property (nonatomic, weak) IBOutlet NSTokenField *callDestinationField;
+@property(nonatomic, weak) IBOutlet NSTokenField *callDestinationField;
 
 // Index of a URI in a call destination token.
-@property (nonatomic, assign) NSUInteger callDestinationURIIndex;
+@property(nonatomic, assign) NSUInteger callDestinationURIIndex;
 
 // Call destination URI.
-@property (nonatomic, readonly, copy) AKSIPURI *callDestinationURI;
+@property(nonatomic, readonly, copy) AKSIPURI *callDestinationURI;
 
 
 // Initializes an ActiveAccountViewController object with a given account controller.

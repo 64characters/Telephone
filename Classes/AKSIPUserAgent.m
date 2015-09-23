@@ -100,17 +100,17 @@ static void log_call_dump(int call_id);
 @interface AKSIPUserAgent ()
 
 // Read-write redeclarations.
-@property (assign) AKSIPUserAgentState state;
-@property (assign) pj_pool_t *pjPool;
+@property(assign) AKSIPUserAgentState state;
+@property(assign) pj_pool_t *pjPool;
 
 // Ringback slot.
-@property (nonatomic, assign) pjsua_conf_port_id ringbackSlot;
+@property(nonatomic, assign) pjsua_conf_port_id ringbackSlot;
 
 // Ringback port.
-@property (nonatomic, assign) pjmedia_port *ringbackPort;
+@property(nonatomic, assign) pjmedia_port *ringbackPort;
 
 // Ringback count.
-@property (nonatomic, assign) NSInteger ringbackCount;
+@property(nonatomic, assign) NSInteger ringbackCount;
 
 // Creates and starts SIP user agent. Supposed to be run on the secondary
 // thread.

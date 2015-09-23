@@ -35,9 +35,9 @@
 @interface AKResponsiveProgressIndicator : NSProgressIndicator
 
 // The receiver's target.
-@property (nonatomic, weak) id target;
+@property(nonatomic, weak) id target;
 
 // The receiver's action-message selector.
-@property (nonatomic, assign) SEL action;
+@property(nonatomic, assign) SEL action;
 
 @end

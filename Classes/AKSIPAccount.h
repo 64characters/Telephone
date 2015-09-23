@@ -50,74 +50,74 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 @interface AKSIPAccount : NSObject
 
 // The receiver's delegate.
-@property (nonatomic, weak) id <AKSIPAccountDelegate> delegate;
+@property(nonatomic, weak) id <AKSIPAccountDelegate> delegate;
 
 // The URI for SIP registration.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>
 // TODO(eofster): strange property. Do we need this?
-@property (nonatomic, copy) AKSIPURI *registrationURI;
+@property(nonatomic, copy) AKSIPURI *registrationURI;
 
 // Full name of the registration URI.
-@property (nonatomic, copy) NSString *fullName;
+@property(nonatomic, copy) NSString *fullName;
 
 // SIP address of the registration URI.
-@property (nonatomic, copy) NSString *SIPAddress;
+@property(nonatomic, copy) NSString *SIPAddress;
 
 // Registrar.
-@property (nonatomic, copy) NSString *registrar;
+@property(nonatomic, copy) NSString *registrar;
 
 // Realm. Pass nil to make a credential that can be used to authenticate against any challenges.
-@property (nonatomic, copy) NSString *realm;
+@property(nonatomic, copy) NSString *realm;
 
 // Authentication user name.
-@property (nonatomic, copy) NSString *username;
+@property(nonatomic, copy) NSString *username;
 
 // SIP proxy host.
-@property (nonatomic, copy) NSString *proxyHost;
+@property(nonatomic, copy) NSString *proxyHost;
 
 // Network port to use with the SIP proxy.
 // Default: 5060.
-@property (nonatomic, assign) NSUInteger proxyPort;
+@property(nonatomic, assign) NSUInteger proxyPort;
 
 // SIP re-registration time.
 // Default: 300 (sec).
-@property (nonatomic, assign) NSUInteger reregistrationTime;
+@property(nonatomic, assign) NSUInteger reregistrationTime;
 
 /// A Boolean value indicating if Contact header should be automatically updated.
 ///
 /// When YES, the library will keep track of the public IP address from the response of the REGISTER request.
-@property (nonatomic, assign) BOOL updatesContactHeader;
+@property(nonatomic, assign) BOOL updatesContactHeader;
 
 /// A Boolean value indicating if Via header should be automatically updated.
 ///
 /// When YES, the "sent-by" field of the Via header will be overwritten for outgoing messages with the same interface
 /// address as the one in the REGISTER request.
-@property (nonatomic, assign) BOOL updatesViaHeader;
+@property(nonatomic, assign) BOOL updatesViaHeader;
 
 // The receiver's identifier at the user agent.
-@property (nonatomic, assign) NSInteger identifier;
+@property(nonatomic, assign) NSInteger identifier;
 
 // A Boolean value indicating whether the receiver is registered.
-@property (nonatomic, assign, getter=isRegistered) BOOL registered;
+@property(nonatomic, assign, getter=isRegistered) BOOL registered;
 
 // The receiver's SIP registration status code.
-@property (nonatomic, readonly, assign) NSInteger registrationStatus;
+@property(nonatomic, readonly, assign) NSInteger registrationStatus;
 
 // The receiver's SIP registration status text.
-@property (nonatomic, readonly, copy) NSString *registrationStatusText;
+@property(nonatomic, readonly, copy) NSString *registrationStatusText;
 
 // An up to date expiration interval for the receiver's registration session.
-@property (nonatomic, readonly, assign) NSInteger registrationExpireTime;
+@property(nonatomic, readonly, assign) NSInteger registrationExpireTime;
 
 // A Boolean value indicating whether the receiver is online in terms of SIP
 // presence.
-@property (nonatomic, assign, getter=isOnline) BOOL online;
+@property(nonatomic, assign, getter=isOnline) BOOL online;
 
 // Presence online status text.
-@property (nonatomic, readonly, copy) NSString *onlineStatusText;
+@property(nonatomic, readonly, copy) NSString *onlineStatusText;
 
 // Calls that belong to the receiver.
-@property (nonatomic, readonly, strong) NSMutableArray *calls;
+@property(nonatomic, readonly, strong) NSMutableArray *calls;
 
 // Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
 // user name.

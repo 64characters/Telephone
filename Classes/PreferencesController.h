@@ -117,27 +117,27 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @interface PreferencesController : NSWindowController
 
 // The receiver's delegate.
-@property (nonatomic, weak) id<PreferencesControllerDelegate> delegate;
+@property(nonatomic, weak) id<PreferencesControllerDelegate> delegate;
 
 // General preferences view controller.
-@property (nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
+@property(nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
 
 // Account preferences view controller.
-@property (nonatomic, readonly) AccountPreferencesViewController *accountPreferencesViewController;
+@property(nonatomic, readonly) AccountPreferencesViewController *accountPreferencesViewController;
 
 // Sound preferences view controller.
-@property (nonatomic, readonly) SoundPreferencesViewController *soundPreferencesViewController;
+@property(nonatomic, readonly) SoundPreferencesViewController *soundPreferencesViewController;
 
 // Network preferences view controller.
-@property (nonatomic, readonly) NetworkPreferencesViewController *networkPreferencesViewController;
+@property(nonatomic, readonly) NetworkPreferencesViewController *networkPreferencesViewController;
 
 // Outlets.
 //
-@property (nonatomic, weak) IBOutlet NSToolbar *toolbar;
-@property (nonatomic, weak) IBOutlet NSToolbarItem *generalToolbarItem;
-@property (nonatomic, weak) IBOutlet NSToolbarItem *accountsToolbarItem;
-@property (nonatomic, weak) IBOutlet NSToolbarItem *soundToolbarItem;
-@property (nonatomic, weak) IBOutlet NSToolbarItem *networkToolbarItem;
+@property(nonatomic, weak) IBOutlet NSToolbar *toolbar;
+@property(nonatomic, weak) IBOutlet NSToolbarItem *generalToolbarItem;
+@property(nonatomic, weak) IBOutlet NSToolbarItem *accountsToolbarItem;
+@property(nonatomic, weak) IBOutlet NSToolbarItem *soundToolbarItem;
+@property(nonatomic, weak) IBOutlet NSToolbarItem *networkToolbarItem;
 
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;

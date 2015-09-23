@@ -82,7 +82,7 @@ NSString * const kEmailSIPLabel = @"sip";
 @interface AccountController ()
 
 // Timer for account re-registration in case of registration error.
-@property (nonatomic, strong) NSTimer *reRegistrationTimer;
+@property(nonatomic, strong) NSTimer *reRegistrationTimer;
 
 // Method to be called when account re-registration timer fires.
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer;

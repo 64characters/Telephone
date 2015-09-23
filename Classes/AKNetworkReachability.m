@@ -45,7 +45,7 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
 
 @interface AKNetworkReachability ()
 
-@property (nonatomic, copy) NSString *host;
+@property(nonatomic, copy) NSString *host;
 
 @end
 
