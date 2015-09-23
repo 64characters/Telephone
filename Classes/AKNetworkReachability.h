@@ -59,6 +59,6 @@ extern NSString * const AKNetworkReachabilityDidBecomeUnreachableNotification;
 
 // Designated initializer.
 // Returns nil when |nameOrAddress| is nil or @"".
-- (id)initWithHost:(NSString *)nameOrAddress;
+- (instancetype)initWithHost:(NSString *)nameOrAddress;
 
 @end

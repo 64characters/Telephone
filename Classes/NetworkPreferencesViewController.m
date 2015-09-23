@@ -42,7 +42,7 @@
 
 @implementation NetworkPreferencesViewController
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"NetworkPreferencesView" bundle:nil];
     if (self != nil) {
         [self setTitle:NSLocalizedString(@"Network", @"Network preferences window title.")];

@@ -175,7 +175,7 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
     return _networkPreferencesViewController;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithWindowNibName:@"Preferences"];
     
     return self;

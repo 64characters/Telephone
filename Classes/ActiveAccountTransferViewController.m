@@ -33,7 +33,7 @@
 
 @implementation ActiveAccountTransferViewController
 
-- (id)initWithAccountController:(AccountController *)accountController {
+- (instancetype)initWithAccountController:(AccountController *)accountController {
     if ((self = [super initWithNibName:@"ActiveAccountTransferView" bundle:nil])) {
         self.accountController = accountController;
     }

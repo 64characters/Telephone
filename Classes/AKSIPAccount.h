@@ -121,19 +121,19 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 
 // Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
 // user name.
-+ (id)SIPAccountWithFullName:(NSString *)aFullName
-                  SIPAddress:(NSString *)aSIPAddress
-                   registrar:(NSString *)aRegistrar
-                       realm:(NSString *)aRealm
-                    username:(NSString *)aUsername;
++ (instancetype)SIPAccountWithFullName:(NSString *)aFullName
+                            SIPAddress:(NSString *)aSIPAddress
+                             registrar:(NSString *)aRegistrar
+                                 realm:(NSString *)aRealm
+                              username:(NSString *)aUsername;
 
 // Designated initializer.
 // Initializes an AKSIPAccount object with a given full name, SIP address, registrar, realm, and user name.
-- (id)initWithFullName:(NSString *)aFullName
-            SIPAddress:(NSString *)aSIPAddress
-             registrar:(NSString *)aRegistrar
-                 realm:(NSString *)aRealm
-              username:(NSString *)aUsername;
+- (instancetype)initWithFullName:(NSString *)aFullName
+                      SIPAddress:(NSString *)aSIPAddress
+                       registrar:(NSString *)aRegistrar
+                           realm:(NSString *)aRealm
+                        username:(NSString *)aUsername;
 
 // Makes a call to a given destination URI.
 - (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI;

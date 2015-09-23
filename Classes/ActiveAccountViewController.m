@@ -67,14 +67,14 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     }
 }
 
-- (id)initWithAccountController:(AccountController *)accountController {
+- (instancetype)initWithAccountController:(AccountController *)accountController {
     if ((self = [self initWithNibName:@"ActiveAccountView" bundle:nil])) {
         _accountController = accountController;
     }
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     NSString *reason = @"Initialize ActiveAccountViewController with initWithAccountController:";
     @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
     return nil;

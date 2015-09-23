@@ -53,7 +53,7 @@ static const NSUInteger kAccountsMax = 32;
     return _accountSetupController;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"AccountPreferencesView" bundle:nil];
     if (self != nil) {
         [self setTitle:NSLocalizedString(@"Accounts", @"Accounts preferences window title.")];

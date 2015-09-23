@@ -42,7 +42,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
 
 @implementation AuthenticationFailureController
 
-- (id)initWithAccountController:(AccountController *)anAccountController {
+- (instancetype)initWithAccountController:(AccountController *)anAccountController {
     self = [super initWithWindowNibName:@"AuthenticationFailure"];
     if (self != nil) {
         [self setAccountController:anAccountController];
@@ -51,7 +51,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     return [self initWithAccountController:nil];
 }
 

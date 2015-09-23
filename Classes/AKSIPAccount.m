@@ -175,24 +175,24 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
-+ (id)SIPAccountWithFullName:(NSString *)aFullName
-                  SIPAddress:(NSString *)aSIPAddress
-                   registrar:(NSString *)aRegistrar
-                       realm:(NSString *)aRealm
-                    username:(NSString *)aUsername {
++ (instancetype)SIPAccountWithFullName:(NSString *)aFullName
+                            SIPAddress:(NSString *)aSIPAddress
+                             registrar:(NSString *)aRegistrar
+                                 realm:(NSString *)aRealm
+                              username:(NSString *)aUsername {
     
     return [[AKSIPAccount alloc] initWithFullName:aFullName
-                                        SIPAddress:aSIPAddress
-                                         registrar:aRegistrar
-                                             realm:aRealm
-                                          username:aUsername];
+                                       SIPAddress:aSIPAddress
+                                        registrar:aRegistrar
+                                            realm:aRealm
+                                         username:aUsername];
 }
 
-- (id)initWithFullName:(NSString *)aFullName
-            SIPAddress:(NSString *)aSIPAddress
-             registrar:(NSString *)aRegistrar
-                 realm:(NSString *)aRealm
-              username:(NSString *)aUsername {
+- (instancetype)initWithFullName:(NSString *)aFullName
+                      SIPAddress:(NSString *)aSIPAddress
+                       registrar:(NSString *)aRegistrar
+                           realm:(NSString *)aRealm
+                        username:(NSString *)aUsername {
     
     self = [super init];
     if (self == nil) {
@@ -216,7 +216,7 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     return [self initWithFullName:nil SIPAddress:nil registrar:nil realm:nil username:nil];
 }
 

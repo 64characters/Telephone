@@ -39,7 +39,7 @@
 
 // Designated initializer.
 // Initializes a CallTransferController with a given call controller.
-- (id)initWithSourceCallController:(CallController *)callController;
+- (instancetype)initWithSourceCallController:(CallController *)callController;
 
 // Transfers source call controller's call to the receiver's call.
 - (void)transferCall;

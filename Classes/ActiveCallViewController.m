@@ -41,7 +41,7 @@
 
 @implementation ActiveCallViewController
 
-- (id)initWithNibName:(NSString *)nibName callController:(CallController *)callController {
+- (instancetype)initWithNibName:(NSString *)nibName callController:(CallController *)callController {
     self = [super initWithNibName:nibName bundle:nil windowController:callController];
     
     if (self != nil) {
@@ -51,7 +51,7 @@
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     NSString *reason = @"Initialize ActiveCallViewController with initWithCallController:";
     @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
     return nil;

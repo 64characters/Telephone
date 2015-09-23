@@ -63,7 +63,7 @@
 
 #pragma mark Designated Initialiser
 
-- (id)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle windowController:(XSWindowController *)windowController;
+- (instancetype)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle windowController:(XSWindowController *)windowController;
 {
 	self = [super initWithNibName:name bundle:bundle];
 	if (!self)
@@ -76,7 +76,7 @@
 // ---------------------------------
 // This is the NSViewController's designated initialiser, which we override to call our own. Any subclasses that call this will then set up our intance variables properly.
 // ---------------------------------
-- (id)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle;
+- (instancetype)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle;
 {
 //	[NSException raise:@"XSViewControllerException" format:[NSString stringWithFormat:@"An instance of an XSViewController concrete subclass was initialized using the NSViewController method -initWithNibName:bundle: all view controllers in the enusing tree will have no reference to an XSWindowController object and cannot be automatically added to the responder chain"]];
     @throw [NSException exceptionWithName:@"XSViewControllerException"

@@ -71,16 +71,16 @@
 @property(nonatomic, copy) NSString *maddrParameter;
 
 // Creates and returns AKSIPURI object initialized with a specified user, host, and display name.
-+ (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
++ (instancetype)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
 
 // Creates and returns AKSIPURI object initialized with a provided string.
-+ (id)SIPURIWithString:(NSString *)SIPURIString;
++ (instancetype)SIPURIWithString:(NSString *)SIPURIString;
 
 // Designated initializer.
 // Initializes a AKSIPURI object with a specified user, host, and display name.
-- (id)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
+- (instancetype)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName;
 
 // Initializes a AKSIPURI object with a provided string.
-- (id)initWithString:(NSString *)SIPURIString;
+- (instancetype)initWithString:(NSString *)SIPURIString;
 
 @end

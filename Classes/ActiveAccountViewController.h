@@ -54,7 +54,7 @@ extern NSString * const kPhoneLabel;
 
 
 // Initializes an ActiveAccountViewController object with a given account controller.
-- (id)initWithAccountController:(AccountController *)accountController;
+- (instancetype)initWithAccountController:(AccountController *)accountController;
 
 // Makes a call.
 - (IBAction)makeCall:(id)sender;

@@ -54,7 +54,7 @@
 
 // Designated initializer.
 // Initializes an IncomingCallViewController object with a given call controller.
-- (id)initWithCallController:(CallController *)callController;
+- (instancetype)initWithCallController:(CallController *)callController;
 
 // Accepts an incoming call.
 - (IBAction)acceptCall:(id)sender;

@@ -80,7 +80,7 @@
     _sourceCallController = callController;
 }
 
-- (id)initWithSourceCallController:(CallController *)callController {
+- (instancetype)initWithSourceCallController:(CallController *)callController {
     AccountController *accountController = callController.accountController;
     if ((self = [self initWithWindowNibName:@"CallTransfer" accountController:accountController delegate:accountController])) {
         [self setSourceCallController:callController];

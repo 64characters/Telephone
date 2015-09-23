@@ -39,7 +39,7 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
 
 @implementation AccountSetupController
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithWindowNibName:@"AccountSetup"];
     
     return self;

@@ -271,7 +271,7 @@ static void log_call_dump(int call_id);
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     return [self initWithDelegate:nil];
 }
 

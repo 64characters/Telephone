@@ -183,7 +183,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
 
 #pragma mark -
 
-- (id)initWithSIPAccount:(AKSIPAccount *)anAccount identifier:(NSInteger)anIdentifier {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount identifier:(NSInteger)anIdentifier {
     self = [super init];
     if (self == nil) {
         return nil;
@@ -216,7 +216,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     return [self initWithSIPAccount:nil identifier:kAKSIPUserAgentInvalidIdentifier];
 }
 

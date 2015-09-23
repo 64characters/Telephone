@@ -40,7 +40,7 @@
 @implementation XSWindowController
 @synthesize viewControllers = _viewControllers; // using synthesize will make our getter, but we create our own setter to keep mutability of the array
 
-- (id)initWithWindowNibName:(NSString *)nibName;
+- (instancetype)initWithWindowNibName:(NSString *)nibName;
 {
 	self = [super initWithWindowNibName:nibName];
 	if (!self)

@@ -49,16 +49,16 @@
 
 #pragma mark -
 
-+ (id)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName {
++ (instancetype)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName {
     return [[self alloc] initWithUser:aUser host:aHost displayName:aDisplayName];
 }
 
-+ (id)SIPURIWithString:(NSString *)SIPURIString {
++ (instancetype)SIPURIWithString:(NSString *)SIPURIString {
     return [[self alloc] initWithString:SIPURIString];
 }
 
 // Designated initializer.
-- (id)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName {
+- (instancetype)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName {
     self = [super init];
     if (self == nil) {
         return nil;
@@ -71,11 +71,11 @@
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     return [self initWithUser:nil host:nil displayName:nil];
 }
 
-- (id)initWithString:(NSString *)SIPURIString {
+- (instancetype)initWithString:(NSString *)SIPURIString {
     self = [super init];
     if (self == nil) {
         return nil;

@@ -219,7 +219,7 @@ NSString * const kEmailSIPLabel = @"sip";
     return _authenticationFailureController;
 }
 
-- (id)initWithSIPAccount:(AKSIPAccount *)anAccount {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount {
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
         return nil;

@@ -61,7 +61,7 @@ extern NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPas
 
 
 // Initializes an AuthenticationFailureController object with a given account controller.
-- (id)initWithAccountController:(AccountController *)anAccountController;
+- (instancetype)initWithAccountController:(AccountController *)anAccountController;
 
 // Closes a sheet.
 - (IBAction)closeSheet:(id)sender;

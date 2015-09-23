@@ -38,7 +38,7 @@
 
 @synthesize callController = callController_;
 
-- (id)initWithCallController:(CallController *)callController {
+- (instancetype)initWithCallController:(CallController *)callController {
     self = [super initWithNibName:@"IncomingCallView" bundle:nil windowController:callController];
     
     if (self != nil) {
@@ -47,7 +47,7 @@
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     NSString *reason = @"Initialize IncomingCallViewController with initWithCallController:";
     @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
     return nil;

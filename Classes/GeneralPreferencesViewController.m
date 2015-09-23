@@ -33,7 +33,7 @@
 
 @implementation GeneralPreferencesViewController
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"GeneralPreferencesView" bundle:nil];
     if (self != nil) {
         [self setTitle:NSLocalizedString(@"General", @"General preferences window title.")];

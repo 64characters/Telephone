@@ -46,7 +46,7 @@
 @property(weak) XSWindowController *windowController;
 @property(readonly,copy) NSMutableArray *children; // there's no mutableCopy keyword so this will be @synthesized in the implementation to get the default getter, but we'll write our own setter, otherwise mutability is lost
 
-- (id)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle windowController:(XSWindowController *)windowController;
+- (instancetype)initWithNibName:(NSString *)name bundle:(NSBundle *)bundle windowController:(XSWindowController *)windowController;
 
 - (NSUInteger)countOfChildren;
 - (XSViewController *)objectInChildrenAtIndex:(NSUInteger)index;

@@ -274,7 +274,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self == nil) {
         return nil;

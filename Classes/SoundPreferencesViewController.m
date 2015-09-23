@@ -36,7 +36,7 @@
 
 @implementation SoundPreferencesViewController
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"SoundPreferencesView" bundle:nil];
     if (self != nil) {
         [self setTitle:NSLocalizedString(@"Sound", @"Sound preferences window title.")];

@@ -112,7 +112,7 @@ extern NSString * const kEmailSIPLabel;
 
 // Designated initializer.
 // Initializes an AccountController object with a given account.
-- (id)initWithSIPAccount:(AKSIPAccount *)anAccount;
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount;
 
 // Removes account from the user agent.
 - (void)removeAccountFromUserAgent;

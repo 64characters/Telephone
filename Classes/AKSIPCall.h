@@ -156,7 +156,7 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 
 // Designated initializer.
 // Initializes a AKSIPCall object with a given SIP account and identifier.
-- (id)initWithSIPAccount:(AKSIPAccount *)anAccount
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount
               identifier:(NSInteger)anIdentifier;
 
 // Answers the call.

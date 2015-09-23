@@ -63,7 +63,7 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
     return [[self alloc] initWithHost:nameOrAddress];
 }
 
-- (id)initWithHost:(NSString *)nameOrAddress {
+- (instancetype)initWithHost:(NSString *)nameOrAddress {
     self = [super init];
     if (self == nil) {
         return nil;

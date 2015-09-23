@@ -67,7 +67,7 @@
 
 // Designated initializer.
 // Initializes an ActiveCallViewController object with a given nib file and call controller.
-- (id)initWithNibName:(NSString *)nibName callController:(CallController *)callController;
+- (instancetype)initWithNibName:(NSString *)nibName callController:(CallController *)callController;
 
 // Hangs up call.
 - (IBAction)hangUpCall:(id)sender;
