@@ -2,7 +2,7 @@
 //  EndedCallTransferViewController.m
 //  Telephone
 //
-//  Copyright (c) 2008-2012 Alexei Kuznetsov. All rights reserved.
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
