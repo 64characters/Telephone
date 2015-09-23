@@ -129,7 +129,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         = [ABPerson searchElementForProperty:kABPersonFlags
                                        label:nil
                                          key:nil
-                                       value:[NSNumber numberWithInteger:kABShowAsPerson]
+                                       value:@kABShowAsPerson
                                   comparison:kABBitsInBitFieldMatch];
     
     // Entered substring matches the first name prefix.
@@ -142,10 +142,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     
     ABSearchElement *firstNamePrefixPersonMatch
         = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                              children:[NSArray arrayWithObjects:
-                                                        firstNamePrefixMatch,
-                                                        isPersonRecord,
-                                                        nil]];
+                                              children:@[firstNamePrefixMatch, isPersonRecord]];
     
     [searchElements addObject:firstNamePrefixPersonMatch];
     
@@ -159,10 +156,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     
     ABSearchElement *lastNamePrefixPersonMatch
         = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                              children:[NSArray arrayWithObjects:
-                                                        lastNamePrefixMatch,
-                                                        isPersonRecord,
-                                                        nil]];
+                                              children:@[lastNamePrefixMatch, isPersonRecord]];
     
     [searchElements addObject:lastNamePrefixPersonMatch];
     
@@ -217,11 +211,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         
         ABSearchElement *firstNameAndLastNamePrefixMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            firstNameMatch,
-                                                            lastNamePrefixMatch,
-                                                            isPersonRecord,
-                                                            nil]];
+                                                  children:@[firstNameMatch, lastNamePrefixMatch, isPersonRecord]];
         
         [searchElements addObject:firstNameAndLastNamePrefixMatch];
         
@@ -253,11 +243,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         
         ABSearchElement *lastNameAndFirstNamePrefixMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            lastNameMatch,
-                                                            firstNamePrefixMatch,
-                                                            isPersonRecord,
-                                                            nil]];
+                                                  children:@[lastNameMatch, firstNamePrefixMatch, isPersonRecord]];
         
         [searchElements addObject:lastNameAndFirstNamePrefixMatch];
     }
@@ -266,7 +252,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         = [ABPerson searchElementForProperty:kABPersonFlags
                                        label:nil
                                          key:nil
-                                       value:[NSNumber numberWithInteger:kABShowAsCompany]
+                                       value:@kABShowAsCompany
                                   comparison:kABBitsInBitFieldMatch];
     
     // Entered substring matches company name prefix.
@@ -280,10 +266,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     // Don't bother if the AB record is not a company record.
     ABSearchElement *companyPrefixAndIsCompanyRecord
         = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                              children:[NSArray arrayWithObjects:
-                                                        companyPrefixMatch,
-                                                        isCompanyRecord,
-                                                        nil]];
+                                              children:@[companyPrefixMatch, isCompanyRecord]];
     
     [searchElements addObject:companyPrefixAndIsCompanyRecord];
     
@@ -547,19 +530,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         
         ABSearchElement *firstNameAndPhoneNumberMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            firstNameMatch,
-                                                            phoneNumberMatch,
-                                                            nil]];
+                                                  children:@[firstNameMatch, phoneNumberMatch]];
         
         [searchElements addObject:firstNameAndPhoneNumberMatch];
         
         ABSearchElement *firstNameAndSIPAddressMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            firstNameMatch,
-                                                            SIPAddressMatch,
-                                                            nil]];
+                                                  children:@[firstNameMatch, SIPAddressMatch]];
         
         [searchElements addObject:firstNameAndSIPAddressMatch];
         
@@ -573,19 +550,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         
         ABSearchElement *lastNameAndPhoneNumberMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            lastNameMatch,
-                                                            phoneNumberMatch,
-                                                            nil]];
+                                                  children:@[lastNameMatch, phoneNumberMatch]];
         
         [searchElements addObject:lastNameAndPhoneNumberMatch];
         
         ABSearchElement *lastNameAndSIPAddressMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            lastNameMatch,
-                                                            SIPAddressMatch,
-                                                            nil]];
+                                                  children:@[lastNameMatch, SIPAddressMatch]];
         
         [searchElements addObject:lastNameAndSIPAddressMatch];
         
@@ -625,21 +596,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
             
             ABSearchElement *fullNameAndPhoneNumberMatch
                 = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                      children:[NSArray arrayWithObjects:
-                                                                firstNameMatch,
-                                                                lastNameMatch,
-                                                                phoneNumberMatch,
-                                                                nil]];
+                                                      children:@[firstNameMatch, lastNameMatch, phoneNumberMatch]];
             
             [searchElements addObject:fullNameAndPhoneNumberMatch];
             
             ABSearchElement *fullNameAndSIPAddressMatch
                 = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                      children:[NSArray arrayWithObjects:
-                                                                firstNameMatch,
-                                                                lastNameMatch,
-                                                                SIPAddressMatch,
-                                                                nil]];
+                                                      children:@[firstNameMatch, lastNameMatch, SIPAddressMatch]];
             
             [searchElements addObject:fullNameAndSIPAddressMatch];
             
@@ -656,21 +619,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
                                                     comparison:kABEqualCaseInsensitive];
             
             fullNameAndPhoneNumberMatch = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                                              children:[NSArray arrayWithObjects:
-                                                                                        firstNameMatch,
-                                                                                        lastNameMatch,
-                                                                                        phoneNumberMatch,
-                                                                                        nil]];
+                                                                              children:@[firstNameMatch, lastNameMatch, phoneNumberMatch]];
             
             [searchElements addObject:fullNameAndPhoneNumberMatch];
             
             fullNameAndSIPAddressMatch
                 = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                      children:[NSArray arrayWithObjects:
-                                                                firstNameMatch,
-                                                                lastNameMatch,
-                                                                SIPAddressMatch,
-                                                                nil]];
+                                                      children:@[firstNameMatch, lastNameMatch, SIPAddressMatch]];
             
             [searchElements addObject:fullNameAndSIPAddressMatch];
         }
@@ -685,19 +640,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         
         ABSearchElement *organizationAndPhoneNumberMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            organizationMatch,
-                                                            phoneNumberMatch,
-                                                            nil]];
+                                                  children:@[organizationMatch, phoneNumberMatch]];
         
         [searchElements addObject:organizationAndPhoneNumberMatch];
         
         ABSearchElement *organizationAndSIPAddressMatch
             = [ABSearchElement searchElementForConjunction:kABSearchAnd
-                                                  children:[NSArray arrayWithObjects:
-                                                            organizationMatch,
-                                                            SIPAddressMatch,
-                                                            nil]];
+                                                  children:@[organizationMatch, SIPAddressMatch]];
         
         [searchElements addObject:organizationAndSIPAddressMatch];
         
@@ -729,10 +678,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
             
             AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:phoneNumber];
             [uri setDisplayName:[theURI displayName]];
-            [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                         uri, kURI,
-                                         localizedPhoneLabel, kPhoneLabel,
-                                         nil]];
+            [callDestinations addObject:@{kURI: uri, kPhoneLabel: localizedPhoneLabel}];
             
             // If we've met entered URI, store its index.
             NSRange atSignRange = [phoneNumber rangeOfString:@"@"];
@@ -763,10 +709,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
             
             AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:anEmail];
             [uri setDisplayName:[theURI displayName]];
-            [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                         uri, kURI,
-                                         localizedPhoneLabel, kPhoneLabel,
-                                         nil]];
+            [callDestinations addObject:@{kURI: uri, kPhoneLabel: localizedPhoneLabel}];
             
             // If we've met entered URI, store its index.
             if ([anEmail caseInsensitiveCompare:[theURI SIPAddress]] == NSOrderedSame) {
@@ -775,10 +718,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         }
         
     } else {
-        [callDestinations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                     theURI, kURI,
-                                     @"", kPhoneLabel,
-                                     nil]];
+        [callDestinations addObject:@{kURI: theURI, kPhoneLabel: @""}];
     }
     
     // First URI in the array is the default call destination.

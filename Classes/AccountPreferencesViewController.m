@@ -64,7 +64,7 @@ static const NSUInteger kAccountsMax = 32;
 
 - (void)awakeFromNib {
     // Register a pasteboard type to rearrange accounts with drag and drop.
-    [[self accountsTable] registerForDraggedTypes:[NSArray arrayWithObject:kAKSIPAccountPboardType]];
+    [[self accountsTable] registerForDraggedTypes:@[kAKSIPAccountPboardType]];
     
     NSInteger row = [[self accountsTable] selectedRow];
     if (row != -1) {
@@ -161,9 +161,7 @@ static const NSUInteger kAccountsMax = 32;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:AKPreferencesControllerDidRemoveAccountNotification
                                                         object:[self preferencesController]
-                                                      userInfo:[NSDictionary
-                                                                dictionaryWithObject:[NSNumber numberWithInteger:index]
-                                                                forKey:kAccountIndex]];
+                                                      userInfo:@{kAccountIndex: @(index)}];
     [[self accountsTable] reloadData];
     
     // Select none, last or previous account.
@@ -403,7 +401,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     
-    [userInfo setObject:[NSNumber numberWithInteger:index] forKey:kAccountIndex];
+    [userInfo setObject:@(index) forKey:kAccountIndex];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -413,7 +411,7 @@ static const NSUInteger kAccountsMax = 32;
                                         [savedAccounts objectAtIndex:index]];
     
     BOOL isChecked = ([[self accountEnabledCheckBox] state] == NSOnState) ? YES : NO;
-    [accountDict setObject:[NSNumber numberWithBool:isChecked] forKey:kAccountEnabled];
+    [accountDict setObject:@(isChecked) forKey:kAccountEnabled];
     
     if (isChecked) {
         // User enabled the account.
@@ -453,28 +451,26 @@ static const NSUInteger kAccountsMax = 32;
                                       password:currentPassword];
         }
         
-        [accountDict setObject:[NSNumber numberWithInteger:[[self reregistrationTimeField] integerValue]]
-                        forKey:kReregistrationTime];
+        [accountDict setObject:@([[self reregistrationTimeField] integerValue]) forKey:kReregistrationTime];
         
         if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
-            [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kSubstitutePlusCharacter];
+            [accountDict setObject:@YES forKey:kSubstitutePlusCharacter];
         } else {
-            [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kSubstitutePlusCharacter];
+            [accountDict setObject:@NO forKey:kSubstitutePlusCharacter];
         }
         
         [accountDict setObject:[[self plusCharacterSubstitutionField] stringValue]
                         forKey:kPlusCharacterSubstitutionString];
         
         if ([[self useProxyCheckBox] state] == NSOnState) {
-            [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kUseProxy];
+            [accountDict setObject:@YES forKey:kUseProxy];
         } else {
-            [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kUseProxy];
+            [accountDict setObject:@NO forKey:kUseProxy];
         }
         
         NSString *proxyHost = [[[self proxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         [accountDict setObject:proxyHost forKey:kProxyHost];
-        [accountDict setObject:[NSNumber numberWithInteger:[[self proxyPortField] integerValue]]
-                        forKey:kProxyPort];
+        [accountDict setObject:@([[self proxyPortField] integerValue]) forKey:kProxyPort];
         
         NSString *SIPAddress = [[[self SIPAddressField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         [accountDict setObject:SIPAddress forKey:kSIPAddress];
@@ -623,7 +619,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
     
-    [pboard declareTypes:[NSArray arrayWithObject:kAKSIPAccountPboardType] owner:self];
+    [pboard declareTypes:@[kAKSIPAccountPboardType] owner:self];
     
     [pboard setData:data forType:kAKSIPAccountPboardType];
     
@@ -682,10 +678,7 @@ static const NSUInteger kAccountsMax = 32;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:AKPreferencesControllerDidSwapAccountsNotification
                                                         object:[self preferencesController]
-                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                [NSNumber numberWithInteger:draggingRow], kSourceIndex,
-                                                                [NSNumber numberWithInteger:row], kDestinationIndex,
-                                                                nil]];
+                                                      userInfo:@{kSourceIndex: @(draggingRow), kDestinationIndex: @(row)}];
     
     return YES;
 }

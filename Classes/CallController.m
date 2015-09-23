@@ -477,7 +477,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
     
     if (![[self call] isIncoming]) {
-        if ([sipEventCode isEqualToNumber:[NSNumber numberWithInt:PJSIP_SC_RINGING]]) {
+        if ([sipEventCode isEqualToNumber:@(PJSIP_SC_RINGING)]) {
             [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];
             
             [[[self activeCallViewController] view] removeTrackingArea:

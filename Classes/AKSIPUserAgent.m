@@ -1218,8 +1218,7 @@ static void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
         [theCall setTransferStatus:statusCode];
         [theCall setTransferStatusText:statusTextString];
         
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:isFinal]
-                                                             forKey:@"AKFinalTransferNotification"];
+        NSDictionary *userInfo = @{@"AKFinalTransferNotification": @((BOOL)isFinal)};
         
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallTransferStatusDidChangeNotification
                                                             object:theCall

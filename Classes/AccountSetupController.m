@@ -89,17 +89,17 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
     }
     
     NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
-    [accountDict setObject:[NSNumber numberWithBool:YES] forKey:kAccountEnabled];
+    [accountDict setObject:@YES forKey:kAccountEnabled];
     [accountDict setObject:fullName forKey:kFullName];
     [accountDict setObject:domain forKey:kDomain];
     [accountDict setObject:@"*" forKey:kRealm];
     [accountDict setObject:username forKey:kUsername];
-    [accountDict setObject:[NSNumber numberWithInteger:0] forKey:kReregistrationTime];
-    [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kSubstitutePlusCharacter];
+    [accountDict setObject:@0 forKey:kReregistrationTime];
+    [accountDict setObject:@NO forKey:kSubstitutePlusCharacter];
     [accountDict setObject:@"00" forKey:kPlusCharacterSubstitutionString];
-    [accountDict setObject:[NSNumber numberWithBool:NO] forKey:kUseProxy];
+    [accountDict setObject:@NO forKey:kUseProxy];
     [accountDict setObject:@"" forKey:kProxyHost];
-    [accountDict setObject:[NSNumber numberWithInteger:0] forKey:kProxyPort];
+    [accountDict setObject:@0 forKey:kProxyPort];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];

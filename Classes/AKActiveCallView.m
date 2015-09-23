@@ -45,7 +45,7 @@
     if ([DTMFCharacterSet characterIsMember:firstCharacter]) {
         if (![theEvent isARepeat]) {
             // We want to get DTMF string as text.
-            [self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
+            [self interpretKeyEvents:@[theEvent]];
         }
     } else if ([commandsCharacterSet characterIsMember:firstCharacter]) {
         if (![theEvent isARepeat]) {

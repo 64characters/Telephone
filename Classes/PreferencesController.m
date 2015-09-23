@@ -250,12 +250,10 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 #pragma mark NSToolbar delegate
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar {
-    return [NSArray arrayWithObjects:
-            [[self generalToolbarItem] itemIdentifier],
+    return @[[[self generalToolbarItem] itemIdentifier],
             [[self accountsToolbarItem] itemIdentifier],
             [[self soundToolbarItem] itemIdentifier],
-            [[self networkToolbarItem] itemIdentifier],
-            nil];
+            [[self networkToolbarItem] itemIdentifier]];
 }
 
 

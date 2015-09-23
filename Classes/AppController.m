@@ -218,13 +218,13 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     if (!initialized) {
         NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
         
-        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseDNSSRV];
+        [defaultsDict setObject:@NO forKey:kUseDNSSRV];
         [defaultsDict setObject:@"" forKey:kOutboundProxyHost];
-        [defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:kOutboundProxyPort];
+        [defaultsDict setObject:@0 forKey:kOutboundProxyPort];
         [defaultsDict setObject:@"" forKey:kSTUNServerHost];
-        [defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:kSTUNServerPort];
-        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kVoiceActivityDetection];
-        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseICE];
+        [defaultsDict setObject:@0 forKey:kSTUNServerPort];
+        [defaultsDict setObject:@NO forKey:kVoiceActivityDetection];
+        [defaultsDict setObject:@NO forKey:kUseICE];
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSArray *applicationSupportURLs = [fileManager URLsForDirectory:NSApplicationSupportDirectory
@@ -239,33 +239,33 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             [defaultsDict setObject:[logURL path] forKey:kLogFileName];
         }
         
-        [defaultsDict setObject:[NSNumber numberWithInteger:3] forKey:kLogLevel];
-        [defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:kConsoleLogLevel];
-        [defaultsDict setObject:[NSNumber numberWithInteger:0] forKey:kTransportPort];
+        [defaultsDict setObject:@3 forKey:kLogLevel];
+        [defaultsDict setObject:@0 forKey:kConsoleLogLevel];
+        [defaultsDict setObject:@0 forKey:kTransportPort];
         [defaultsDict setObject:@"" forKey:kTransportPublicHost];
         [defaultsDict setObject:@"Purr" forKey:kRingingSound];
-        [defaultsDict setObject:[NSNumber numberWithInteger:10] forKey:kSignificantPhoneNumberLength];
-        [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kPauseITunes];
-        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kAutoCloseCallWindow];
-        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kAutoCloseMissedCallWindow];
-        [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kCallWaiting];
-        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kShowGrowlNotifications];
-        [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kUseG711Only];
+        [defaultsDict setObject:@10 forKey:kSignificantPhoneNumberLength];
+        [defaultsDict setObject:@YES forKey:kPauseITunes];
+        [defaultsDict setObject:@NO forKey:kAutoCloseCallWindow];
+        [defaultsDict setObject:@NO forKey:kAutoCloseMissedCallWindow];
+        [defaultsDict setObject:@YES forKey:kCallWaiting];
+        [defaultsDict setObject:@NO forKey:kShowGrowlNotifications];
+        [defaultsDict setObject:@NO forKey:kUseG711Only];
         
         NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
         
         // Do not format phone numbers in German localization by default.
         if ([preferredLocalization isEqualToString:@"German"]) {
-            [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kFormatTelephoneNumbers];
+            [defaultsDict setObject:@NO forKey:kFormatTelephoneNumbers];
         } else {
-            [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kFormatTelephoneNumbers];
+            [defaultsDict setObject:@YES forKey:kFormatTelephoneNumbers];
         }
         
         // Split last four digits in Russian localization by default.
         if ([preferredLocalization isEqualToString:@"Russian"]) {
-            [defaultsDict setObject:[NSNumber numberWithBool:YES] forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
+            [defaultsDict setObject:@YES forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
         } else {
-            [defaultsDict setObject:[NSNumber numberWithBool:NO] forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
+            [defaultsDict setObject:@NO forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
         }
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
@@ -831,7 +831,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
                                                           &NameserversChanged,
                                                           NULL);
     
-    NSArray *keys = [NSArray arrayWithObject:kDynamicStoreDNSSettings];
+    NSArray *keys = @[kDynamicStoreDNSSettings];
     SCDynamicStoreSetNotificationKeys(dynamicStore, (__bridge CFArrayRef)keys, NULL);
     
     CFRunLoopSourceRef runLoopSource = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynamicStore, 0);
@@ -1988,8 +1988,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 - (void)makeCallFromTextService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
     
-    NSArray *classes = [NSArray arrayWithObject:[NSString class]];
-    NSDictionary *options = [NSDictionary dictionary];
+    NSArray *classes = @[[NSString class]];
+    NSDictionary *options = @{};
     if ([NSPasteboard instancesRespondToSelector:
          @selector(canReadObjectForClasses:options:)] &&
         ![pboard canReadObjectForClasses:classes options:options]) {
