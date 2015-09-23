@@ -31,7 +31,7 @@ contents:
 
 Configure and build pjsip:
 
-    $ CFLAGS="-mmacosx-version-min=10.8" ./configure
+    $ CFLAGS="-mmacosx-version-min=10.9" ./configure
     $ make lib
     
 Build Telephone.
