@@ -50,9 +50,7 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 @interface AKSIPAccount : NSObject
 
 // The receiver's delegate.
-// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
-// don't support weak references in 10.7.
-@property (nonatomic, assign) id <AKSIPAccountDelegate> delegate;
+@property (nonatomic, weak) id <AKSIPAccountDelegate> delegate;
 
 // The URI for SIP registration.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>

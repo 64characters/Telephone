@@ -91,9 +91,7 @@ extern NSString * const AKSIPUserAgentDidDetectNATNotification;
 }
 
 // The receiver's delegate.
-// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
-// don't support weak references in 10.7.
-@property (nonatomic, assign) id <AKSIPUserAgentDelegate> delegate;
+@property (nonatomic, weak) id <AKSIPUserAgentDelegate> delegate;
 
 // Accounts added to the receiver.
 @property (nonatomic, readonly, strong) NSMutableArray *accounts;

@@ -100,9 +100,7 @@ extern NSString * const AKSIPCallTransferStatusDidChangeNotification;
 @interface AKSIPCall : NSObject
 
 // The receiver's delegate.
-// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
-// don't support weak references in 10.7.
-@property (nonatomic, assign) id<AKSIPCallDelegate> delegate;
+@property (nonatomic, weak) id<AKSIPCallDelegate> delegate;
 
 // The receiver's identifier.
 @property (nonatomic, assign) NSInteger identifier;

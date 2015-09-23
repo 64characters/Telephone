@@ -117,9 +117,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @interface PreferencesController : NSWindowController
 
 // The receiver's delegate.
-// |assign| instead of |weak| because possible candidates for delegate, i.e. NSWindowController and NSViewController,
-// don't support weak references in 10.7.
-@property (nonatomic, assign) id<PreferencesControllerDelegate> delegate;
+@property (nonatomic, weak) id<PreferencesControllerDelegate> delegate;
 
 // General preferences view controller.
 @property (nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
