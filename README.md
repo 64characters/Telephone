@@ -13,7 +13,7 @@ near Telephone, in the same parent directory.
 
   [pjsip]: http://www.pjsip.org/
 
-    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.2.1 pjproject
+    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.4.5 pjproject
     $ cd pjproject
 
 Create the file `pjlib/include/pj/config_site.h` with the following
