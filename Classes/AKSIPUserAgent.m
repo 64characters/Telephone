@@ -339,7 +339,7 @@ static void log_call_dump(int call_id);
         if ([[self nameservers] count] > 0) {
             userAgentConfig.nameserver_count = (unsigned)[[self nameservers] count];
             for (NSUInteger i = 0; i < [[self nameservers] count]; ++i) {
-                userAgentConfig.nameserver[i] = [[[self nameservers] objectAtIndex:i] pjString];
+                userAgentConfig.nameserver[i] = [[self nameservers][i] pjString];
             }
         }
         

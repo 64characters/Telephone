@@ -126,7 +126,7 @@
         [alert addButtonWithTitle:NSLocalizedString(@"Save", @"Save button.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't save button.")];
-        [[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
+        [[alert buttons][1] setKeyEquivalent:@"\033"];
         [alert setMessageText:NSLocalizedString(@"Save changes to the network settings?",
                                                 @"Network settings change confirmation.")];
         [alert setInformativeText:NSLocalizedString(@"New network settings will be applied immediately, all "

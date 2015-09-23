@@ -45,10 +45,8 @@
         return;
     }
     
-    NSDictionary *callDestinationDict = [[[[self callDestinationField] objectValue] objectAtIndex:0]
-                                         objectAtIndex:[self callDestinationURIIndex]];
-    
-    NSString *phoneLabel = [callDestinationDict objectForKey:kPhoneLabel];
+    NSDictionary *callDestinationDict = [[self callDestinationField] objectValue][0][[self callDestinationURIIndex]];
+    NSString *phoneLabel = callDestinationDict[kPhoneLabel];
     
     AKSIPURI *uri = [self callDestinationURI];
     if (uri != nil) {

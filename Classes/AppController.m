@@ -139,9 +139,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         _ringtone = aRingtone;
         
         if ([[self audioDevices] count] > [self ringtoneOutputDeviceIndex]) {
-            NSDictionary *ringtoneOutputDeviceDict
-              = [[self audioDevices] objectAtIndex:[self ringtoneOutputDeviceIndex]];
-            [_ringtone setPlaybackDeviceIdentifier:[ringtoneOutputDeviceDict objectForKey:kAudioDeviceUID]];
+            NSDictionary *ringtoneOutputDeviceDict = [self audioDevices][[self ringtoneOutputDeviceIndex]];
+            [_ringtone setPlaybackDeviceIdentifier:ringtoneOutputDeviceDict[kAudioDeviceUID]];
             
         } else {
             [_ringtone setPlaybackDeviceIdentifier:nil];
@@ -179,7 +178,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 - (NSArray *)currentNameservers {
     NSBundle *mainBundle = [NSBundle mainBundle];
-    NSString *bundleName = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *bundleName = [mainBundle infoDictionary][@"CFBundleName"];
     
     SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(NULL, (__bridge CFStringRef)bundleName, NULL, NULL);
     
@@ -188,7 +187,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     NSArray *nameservers = nil;
     if (DNSSettings != NULL) {
-        nameservers = [(__bridge NSDictionary *)DNSSettings objectForKey:@"ServerAddresses"];
+        nameservers = ((__bridge NSDictionary *)DNSSettings)[@"ServerAddresses"];
         
         CFRelease(DNSSettings);
     }
@@ -218,13 +217,13 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     if (!initialized) {
         NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
         
-        [defaultsDict setObject:@NO forKey:kUseDNSSRV];
-        [defaultsDict setObject:@"" forKey:kOutboundProxyHost];
-        [defaultsDict setObject:@0 forKey:kOutboundProxyPort];
-        [defaultsDict setObject:@"" forKey:kSTUNServerHost];
-        [defaultsDict setObject:@0 forKey:kSTUNServerPort];
-        [defaultsDict setObject:@NO forKey:kVoiceActivityDetection];
-        [defaultsDict setObject:@NO forKey:kUseICE];
+        defaultsDict[kUseDNSSRV] = @NO;
+        defaultsDict[kOutboundProxyHost] = @"";
+        defaultsDict[kOutboundProxyPort] = @0;
+        defaultsDict[kSTUNServerHost] = @"";
+        defaultsDict[kSTUNServerPort] = @0;
+        defaultsDict[kVoiceActivityDetection] = @NO;
+        defaultsDict[kUseICE] = @NO;
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSArray *applicationSupportURLs = [fileManager URLsForDirectory:NSApplicationSupportDirectory
@@ -232,40 +231,40 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         
         if ([applicationSupportURLs count] > 0) {
             NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-            NSURL *applicationSupportURL = [applicationSupportURLs objectAtIndex:0];
+            NSURL *applicationSupportURL = applicationSupportURLs[0];
             NSURL *logURL = [applicationSupportURL URLByAppendingPathComponent:bundleIdentifier];
             logURL = [logURL URLByAppendingPathComponent:@"Telephone.log"];
             
-            [defaultsDict setObject:[logURL path] forKey:kLogFileName];
+            defaultsDict[kLogFileName] = [logURL path];
         }
         
-        [defaultsDict setObject:@3 forKey:kLogLevel];
-        [defaultsDict setObject:@0 forKey:kConsoleLogLevel];
-        [defaultsDict setObject:@0 forKey:kTransportPort];
-        [defaultsDict setObject:@"" forKey:kTransportPublicHost];
-        [defaultsDict setObject:@"Purr" forKey:kRingingSound];
-        [defaultsDict setObject:@10 forKey:kSignificantPhoneNumberLength];
-        [defaultsDict setObject:@YES forKey:kPauseITunes];
-        [defaultsDict setObject:@NO forKey:kAutoCloseCallWindow];
-        [defaultsDict setObject:@NO forKey:kAutoCloseMissedCallWindow];
-        [defaultsDict setObject:@YES forKey:kCallWaiting];
-        [defaultsDict setObject:@NO forKey:kShowGrowlNotifications];
-        [defaultsDict setObject:@NO forKey:kUseG711Only];
-        
-        NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+        defaultsDict[kLogLevel] = @3;
+        defaultsDict[kConsoleLogLevel] = @0;
+        defaultsDict[kTransportPort] = @0;
+        defaultsDict[kTransportPublicHost] = @"";
+        defaultsDict[kRingingSound] = @"Purr";
+        defaultsDict[kSignificantPhoneNumberLength] = @10;
+        defaultsDict[kPauseITunes] = @YES;
+        defaultsDict[kAutoCloseCallWindow] = @NO;
+        defaultsDict[kAutoCloseMissedCallWindow] = @NO;
+        defaultsDict[kCallWaiting] = @YES;
+        defaultsDict[kShowGrowlNotifications] = @NO;
+        defaultsDict[kUseG711Only] = @NO;
+
+        NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
         
         // Do not format phone numbers in German localization by default.
         if ([preferredLocalization isEqualToString:@"German"]) {
-            [defaultsDict setObject:@NO forKey:kFormatTelephoneNumbers];
+            defaultsDict[kFormatTelephoneNumbers] = @NO;
         } else {
-            [defaultsDict setObject:@YES forKey:kFormatTelephoneNumbers];
+            defaultsDict[kFormatTelephoneNumbers] = @YES;
         }
         
         // Split last four digits in Russian localization by default.
         if ([preferredLocalization isEqualToString:@"Russian"]) {
-            [defaultsDict setObject:@YES forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
+            defaultsDict[kTelephoneNumberFormatterSplitsLastFourDigits] = @YES;
         } else {
-            [defaultsDict setObject:@NO forKey:kTelephoneNumberFormatterSplitsLastFourDigits];
+            defaultsDict[kTelephoneNumberFormatterSplitsLastFourDigits] = @NO;
         }
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
@@ -589,8 +588,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
     
     // Set selected ringtone output.
-    [[self ringtone] setPlaybackDeviceIdentifier:
-     [[devices objectAtIndex:newRingtoneOutput] objectForKey:kAudioDeviceUID]];
+    [[self ringtone] setPlaybackDeviceIdentifier:devices[newRingtoneOutput][kAudioDeviceUID]];
 }
 
 - (void)setSelectedSoundIOToUserAgent {
@@ -798,10 +796,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     if (!installed && error != nil) {
         NSLog(@"%@", error);
         
-        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
-                                                                     NSUserDomainMask,
-                                                                     NO)
-                                 objectAtIndex:0];
+        NSString *libraryPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, NO)[0];
         
         if ([libraryPath length] > 0) {
             NSString *addressBookPlugInsInstallPath
@@ -825,7 +820,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 }
 
 - (void)installDNSChangesCallback {
-    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"];
     SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(kCFAllocatorDefault,
                                                           (__bridge CFStringRef)bundleName,
                                                           &NameserversChanged,
@@ -888,7 +883,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         return NO;
     }
     
-    NSString *installPath = [[libraryPaths objectAtIndex:0] stringByAppendingPathComponent:@"Address Book Plug-Ins"];
+    NSString *installPath = [libraryPaths[0] stringByAppendingPathComponent:@"Address Book Plug-Ins"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -911,14 +906,13 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     
     NSBundle *phonePlugInBundle = [NSBundle bundleWithPath:phonePlugInPath];
-    NSInteger phonePlugInVersion = [[[phonePlugInBundle infoDictionary] objectForKey:@"CFBundleVersion"] integerValue];
+    NSInteger phonePlugInVersion = [[phonePlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
     NSString *phonePlugInInstallPath = [installPath stringByAppendingPathComponent:[phonePlugInPath lastPathComponent]];
     NSBundle *installedPhonePlugInBundle = [NSBundle bundleWithPath:phonePlugInInstallPath];
     
     BOOL shouldInstallPhonePlugIn = YES;
     if (installedPhonePlugInBundle != nil) {
-        NSInteger installedPhonePlugInVersion = [[[installedPhonePlugInBundle infoDictionary]
-                                                  objectForKey:@"CFBundleVersion"] integerValue];
+        NSInteger installedPhonePlugInVersion = [[installedPhonePlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
         
         // Remove the old plug-in version if it needs updating.
         if (installedPhonePlugInVersion < phonePlugInVersion) {
@@ -933,16 +927,14 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
     
     NSBundle *SIPAddressPlugInBundle = [NSBundle bundleWithPath:SIPAddressPlugInPath];
-    NSInteger SIPAddressPlugInVersion = [[[SIPAddressPlugInBundle infoDictionary]
-                                          objectForKey:@"CFBundleVersion"] integerValue];
+    NSInteger SIPAddressPlugInVersion = [[SIPAddressPlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
     NSString *SIPAddressPlugInInstallPath = [installPath stringByAppendingPathComponent:
                                              [SIPAddressPlugInPath lastPathComponent]];
     NSBundle *installedSIPAddressPlugInBundle = [NSBundle bundleWithPath:SIPAddressPlugInInstallPath];
     
     BOOL shouldInstallSIPAddressPlugIn = YES;
     if (installedSIPAddressPlugInBundle != nil) {
-        NSInteger installedSIPAddressPlugInVersion = [[[installedSIPAddressPlugInBundle infoDictionary]
-                                                       objectForKey:@"CFBundleVersion"] integerValue];
+        NSInteger installedSIPAddressPlugInVersion = [[installedSIPAddressPlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
         
         // Remove the old plug-in version if it needs updating.
         if (installedSIPAddressPlugInVersion < SIPAddressPlugInVersion) {
@@ -1206,9 +1198,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 - (void)accountSetupControllerDidAddAccount:(NSNotification *)notification {
     NSDictionary *accountDict = [notification userInfo];
     
-    NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@",
-                            [accountDict objectForKey:kUsername],
-                            [accountDict objectForKey:kDomain]];
+    NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]];
     
     AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:accountDict[kFullName]
                                                       SIPAddress:SIPAddress
@@ -1242,8 +1232,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 #pragma mark PreferencesController delegate
 
 - (void)preferencesControllerDidRemoveAccount:(NSNotification *)notification {
-    NSInteger index = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
-    AccountController *anAccountController = [[self accountControllers] objectAtIndex:index];
+    NSInteger index = [[notification userInfo][kAccountIndex] integerValue];
+    AccountController *anAccountController = [self accountControllers][index];
     
     if ([anAccountController isEnabled]) {
         [anAccountController removeAccountFromUserAgent];
@@ -1255,27 +1245,26 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 }
 
 - (void)preferencesControllerDidChangeAccountEnabled:(NSNotification *)notification {
-    NSUInteger index = [[[notification userInfo] objectForKey:kAccountIndex] integerValue];
+    NSUInteger index = [[notification userInfo][kAccountIndex] integerValue];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
-    NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
+    NSDictionary *accountDict = savedAccounts[index];
     
-    BOOL isEnabled = [[accountDict objectForKey:kAccountEnabled] boolValue];
+    BOOL isEnabled = [accountDict[kAccountEnabled] boolValue];
     if (isEnabled) {
         NSString *SIPAddress;
-        if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
-            SIPAddress = [accountDict objectForKey:kSIPAddress];
+        if ([accountDict[kSIPAddress] length] > 0) {
+            SIPAddress = accountDict[kSIPAddress];
         } else {
-            SIPAddress = [NSString stringWithFormat:@"%@@%@",
-                          [accountDict objectForKey:kUsername], [accountDict objectForKey:kDomain]];
+            SIPAddress = [NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]];
         }
         
         NSString *registrar;
-        if ([[accountDict objectForKey:kRegistrar] length] > 0) {
-            registrar = [accountDict objectForKey:kRegistrar];
+        if ([accountDict[kRegistrar] length] > 0) {
+            registrar = accountDict[kRegistrar];
         } else {
-            registrar = [accountDict objectForKey:kDomain];
+            registrar = accountDict[kDomain];
         }
         
         AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:accountDict[kFullName]
@@ -1296,7 +1285,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         
         [[theAccountController window] setExcludedFromWindowsMenu:YES];
         
-        NSString *description = [accountDict objectForKey:kDescription];
+        NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
             description = SIPAddress;
         }
@@ -1304,11 +1293,10 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         
         [theAccountController setAccountUnavailable:NO];
         [theAccountController setEnabled:YES];
-        [theAccountController setSubstitutesPlusCharacter:
-         [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
-        [theAccountController setPlusCharacterSubstitution:[accountDict objectForKey:kPlusCharacterSubstitutionString]];
+        [theAccountController setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
+        [theAccountController setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
         
-        [[self accountControllers] replaceObjectAtIndex:index withObject:theAccountController];
+        [self accountControllers][index] = theAccountController;
         
         [[theAccountController window] orderFront:nil];
         
@@ -1321,7 +1309,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         }
         
     } else {
-        AccountController *theAccountController = [[self accountControllers] objectAtIndex:index];
+        AccountController *theAccountController = [self accountControllers][index];
         
         // Close all call windows hanging up all calls.
         [[theAccountController callControllers] makeObjectsPerformSelector:@selector(close)];
@@ -1344,16 +1332,14 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 - (void)preferencesControllerDidSwapAccounts:(NSNotification *)notification {
     NSDictionary *userInfo = [notification userInfo];
-    NSInteger sourceIndex = [[userInfo objectForKey:kSourceIndex] integerValue];
-    NSInteger destinationIndex = [[userInfo objectForKey:kDestinationIndex]
-                                  integerValue];
+    NSInteger sourceIndex = [userInfo[kSourceIndex] integerValue];
+    NSInteger destinationIndex = [userInfo[kDestinationIndex] integerValue];
     
     if (sourceIndex == destinationIndex) {
         return;
     }
     
-    [[self accountControllers] insertObject:[[self accountControllers] objectAtIndex:sourceIndex]
-                                    atIndex:destinationIndex];
+    [[self accountControllers] insertObject:[self accountControllers][sourceIndex] atIndex:destinationIndex];
     if (sourceIndex < destinationIndex) {
         [[self accountControllers] removeObjectAtIndex:sourceIndex];
     } else if (sourceIndex > destinationIndex) {
@@ -1547,8 +1533,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     [[self userAgent] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
     
-    NSString *bundleName = [[mainBundle infoDictionary] objectForKey:@"CFBundleName"];
-    NSString *bundleShortVersion = [[mainBundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *bundleName = [mainBundle infoDictionary][@"CFBundleName"];
+    NSString *bundleShortVersion = [mainBundle infoDictionary][@"CFBundleShortVersionString"];
     
     [[self userAgent] setUserAgentString:[NSString stringWithFormat:@"%@ %@", bundleName, bundleShortVersion]];
     
@@ -1598,27 +1584,27 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     // There are saved accounts, open account windows.
     for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
-        NSDictionary *accountDict = [savedAccounts objectAtIndex:i];
+        NSDictionary *accountDict = savedAccounts[i];
         
-        NSString *fullName = [accountDict objectForKey:kFullName];
+        NSString *fullName = accountDict[kFullName];
         
         NSString *SIPAddress;
-        if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
-            SIPAddress = [accountDict objectForKey:kSIPAddress];
+        if ([accountDict[kSIPAddress] length] > 0) {
+            SIPAddress = accountDict[kSIPAddress];
         } else {
             SIPAddress = [NSString stringWithFormat:@"%@@%@",
-                          [accountDict objectForKey:kUsername], [accountDict objectForKey:kDomain]];
+                          accountDict[kUsername], accountDict[kDomain]];
         }
         
         NSString *registrar;
-        if ([[accountDict objectForKey:kRegistrar] length] > 0) {
-            registrar = [accountDict objectForKey:kRegistrar];
+        if ([accountDict[kRegistrar] length] > 0) {
+            registrar = accountDict[kRegistrar];
         } else {
-            registrar = [accountDict objectForKey:kDomain];
+            registrar = accountDict[kDomain];
         }
         
-        NSString *realm = [accountDict objectForKey:kRealm];
-        NSString *username = [accountDict objectForKey:kUsername];
+        NSString *realm = accountDict[kRealm];
+        NSString *username = accountDict[kUsername];
         
         AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:fullName
                                                           SIPAddress:SIPAddress
@@ -1638,16 +1624,15 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         
         [[anAccountController window] setExcludedFromWindowsMenu:YES];
         
-        NSString *description = [accountDict objectForKey:kDescription];
+        NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
             description = SIPAddress;
         }
         [anAccountController setAccountDescription:description];
         
-        [anAccountController setEnabled:[[accountDict objectForKey:kAccountEnabled] boolValue]];
-        [anAccountController setSubstitutesPlusCharacter:
-         [[accountDict objectForKey:kSubstitutePlusCharacter] boolValue]];
-        [anAccountController setPlusCharacterSubstitution:[accountDict objectForKey:kPlusCharacterSubstitutionString]];
+        [anAccountController setEnabled:[accountDict[kAccountEnabled] boolValue]];
+        [anAccountController setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
+        [anAccountController setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
         
         [[self accountControllers] addObject:anAccountController];
         
@@ -1662,7 +1647,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             [[anAccountController window] makeKeyAndOrderFront:self];
             
         } else {
-            NSWindow *previousAccountWindow = [[[self accountControllers] objectAtIndex:(i - 1)] window];
+            NSWindow *previousAccountWindow = [[self accountControllers][(i - 1)] window];
             
             [[anAccountController window] orderWindow:NSWindowBelow relativeTo:[previousAccountWindow windowNumber]];
         }
@@ -1727,7 +1712,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     } else {
         // Show window of first enalbed account.
         if ([NSApp keyWindow] == nil && [[self enabledAccountControllers] count] > 0) {
-            [[[self enabledAccountControllers] objectAtIndex:0] showWindow:self];
+            [[self enabledAccountControllers][0] showWindow:self];
         }
     }
     
@@ -1747,7 +1732,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
-        [[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
+        [[alert buttons][1] setKeyEquivalent:@"\033"];
         [alert setMessageText:NSLocalizedString(@"Are you sure you want to quit Telephone?",
                                                 @"Telephone quit confirmation.")];
         [alert setInformativeText:NSLocalizedString(@"All active calls will be disconnected.",
@@ -1826,12 +1811,11 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         
         NSMutableArray *accounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
         
-        NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:
-                                            [accounts objectAtIndex:index]];
+        NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:accounts[index]];
         
-        [accountDict setObject:[[accountController account] username] forKey:kUsername];
+        accountDict[kUsername] = [[accountController account] username];
         
-        [accounts replaceObjectAtIndex:index withObject:accountDict];
+        accounts[index] = accountDict;
         [defaults setObject:accounts forKey:kAccounts];
         [defaults synchronize];
         
@@ -1928,14 +1912,14 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     NSString *callDestination = nil;
     if ([[notification name] isEqualToString:AKAddressBookDidDialPhoneNumberNotification]) {
-        callDestination = [userInfo objectForKey:@"AKPhoneNumber"];
+        callDestination = userInfo[@"AKPhoneNumber"];
     } else if ([[notification name] isEqualToString:AKAddressBookDidDialSIPAddressNotification]) {
-        callDestination = [userInfo objectForKey:@"AKSIPAddress"];
+        callDestination = userInfo[@"AKSIPAddress"];
     }
     
-    NSString *fullName = [userInfo objectForKey:@"AKFullName"];
+    NSString *fullName = userInfo[@"AKFullName"];
     
-    AccountController *firstEnabledAccountController = [[self enabledAccountControllers] objectAtIndex:0];
+    AccountController *firstEnabledAccountController = [self enabledAccountControllers][0];
     
     [[[firstEnabledAccountController activeAccountViewController] callDestinationField]
      setTokenStyle:NSRoundedTokenStyle];
@@ -1970,7 +1954,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         return;
     }
     
-    AccountController *firstEnabledAccountController = [[self enabledAccountControllers] objectAtIndex:0];
+    AccountController *firstEnabledAccountController = [self enabledAccountControllers][0];
     NSString *URLString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     [firstEnabledAccountController setCatchedURLString:URLString];
     
@@ -1998,7 +1982,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     NSString *pboardString = [pboard stringForType:NSPasteboardTypeString];
     
-    AccountController *firstEnabledAccountController = [[self accountControllers] objectAtIndex:0];
+    AccountController *firstEnabledAccountController = [self accountControllers][0];
     [[[firstEnabledAccountController activeAccountViewController]
       callDestinationField] setTokenStyle:NSPlainTextTokenStyle];
     [[[firstEnabledAccountController activeAccountViewController] callDestinationField] setStringValue:pboardString];

@@ -168,7 +168,7 @@ NSString * const kEmailSIPLabel = @"sip";
             
             if ([self shouldPresentRegistrationError]) {
                 NSString *statusText;
-                NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+                NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
                 if ([preferredLocalization isEqualToString:@"Russian"]) {
                     statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
                                   [[self account] registrationStatus]];
@@ -455,7 +455,7 @@ NSString * const kEmailSIPLabel = @"sip";
 - (void)showAvailableState {
     NSSize buttonSize = [[self accountStatePopUp] frame].size;
     
-    NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
     if ([preferredLocalization isEqualToString:@"English"]) {
         buttonSize.width = kAccountStatePopUpAvailableEnglishWidth;
@@ -483,7 +483,7 @@ NSString * const kEmailSIPLabel = @"sip";
 - (void)showUnavailableState {
     NSSize buttonSize = [[self accountStatePopUp] frame].size;
     
-    NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
     if ([preferredLocalization isEqualToString:@"English"]) {
         buttonSize.width = kAccountStatePopUpUnavailableEnglishWidth;
@@ -512,7 +512,7 @@ NSString * const kEmailSIPLabel = @"sip";
 - (void)showOfflineState {
     NSSize buttonSize = [[self accountStatePopUp] frame].size;
     
-    NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
     if ([preferredLocalization isEqualToString:@"English"]) {
         buttonSize.width = kAccountStatePopUpOfflineEnglishWidth;
@@ -538,7 +538,7 @@ NSString * const kEmailSIPLabel = @"sip";
 - (void)showConnectingState {
     NSSize buttonSize = [[self accountStatePopUp] frame].size;
     
-    NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
     if ([preferredLocalization isEqualToString:@"English"]) {
         buttonSize.width = kAccountStatePopUpConnectingEnglishWidth;
@@ -683,7 +683,7 @@ NSString * const kEmailSIPLabel = @"sip";
             if ([[[NSApp delegate] userAgent] isStarted]) {
                 if ([self shouldPresentRegistrationError]) {
                     NSString *statusText;
-                    NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+                    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
                     if ([preferredLocalization isEqualToString:@"Russian"]) {
                         statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
                                       [[self account] registrationStatus]];
@@ -790,7 +790,7 @@ NSString * const kEmailSIPLabel = @"sip";
     records = [AB recordsMatchingSearchElement:SIPAddressMatch];
     
     if ([records count] > 0) {
-        id theRecord = [records objectAtIndex:0];
+        id theRecord = records[0];
         
         finalDisplayedName = [theRecord ak_fullName];
         [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
@@ -825,7 +825,7 @@ NSString * const kEmailSIPLabel = @"sip";
         records = [AB recordsMatchingSearchElement:phoneNumberMatch];
         if ([records count] > 0) {
             recordFound = YES;
-            id theRecord = [records objectAtIndex:0];
+            id theRecord = records[0];
             finalDisplayedName = [theRecord ak_fullName];
             [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
             
@@ -867,7 +867,7 @@ NSString * const kEmailSIPLabel = @"sip";
                 records = [AB recordsMatchingSearchElement:phoneNumberSuffixMatch];
                 if ([records count] > 0) {
                     recordFound = YES;
-                    id theRecord = [records objectAtIndex:0];
+                    id theRecord = records[0];
                     finalDisplayedName = [theRecord ak_fullName];
                     [aCallController setNameFromAddressBook:[theRecord ak_fullName]];
                     

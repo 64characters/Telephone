@@ -85,13 +85,13 @@
     NSString *firstBuiltInOutputName = nil;
     
     for (NSUInteger i = 0; i < [audioDevices count]; ++i) {
-        NSDictionary *deviceDict = [audioDevices objectAtIndex:i];
+        NSDictionary *deviceDict = audioDevices[i];
         
         NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-        [aMenuItem setTitle:[deviceDict objectForKey:kAudioDeviceName]];
+        [aMenuItem setTitle:deviceDict[kAudioDeviceName]];
         [aMenuItem setTag:i];
         
-        if ([[deviceDict objectForKey:kAudioDeviceInputsCount] integerValue] > 0) {
+        if ([deviceDict[kAudioDeviceInputsCount] integerValue] > 0) {
             [soundInputMenu addItem:[aMenuItem copy]];
             
             if ([deviceDict[kAudioDeviceBuiltIn] boolValue] && firstBuiltInInputName == nil) {
@@ -99,7 +99,7 @@
             }
         }
         
-        if ([[deviceDict objectForKey:kAudioDeviceOutputsCount] integerValue] > 0) {
+        if ([deviceDict[kAudioDeviceOutputsCount] integerValue] > 0) {
             [soundOutputMenu addItem:[aMenuItem copy]];
             [ringtoneOutputMenu addItem:[aMenuItem copy]];
             
@@ -158,14 +158,14 @@
                                          @"mp3", @"wav", @"sd2", @"au", @"snd", @"m4a", @"m4p", nil];
     
     for (NSUInteger i = 0; i < [libraryPaths count]; ++i) {
-        NSString *aPath = [libraryPaths objectAtIndex:i];
+        NSString *aPath = libraryPaths[i];
         NSString *soundPath = [aPath stringByAppendingPathComponent:@"Sounds"];
         NSArray *soundFiles = [fileManager contentsOfDirectoryAtPath:soundPath error:NULL];
         
         BOOL shouldAddSeparator = ([soundsMenu numberOfItems] > 0) ? YES : NO;
         
         for (NSUInteger j = 0; j < [soundFiles count]; ++j) {
-            NSString *aFile = [soundFiles objectAtIndex:j];
+            NSString *aFile = soundFiles[j];
             if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]]) {
                 continue;
             }

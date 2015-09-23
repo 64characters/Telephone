@@ -49,14 +49,12 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 @implementation ActiveAccountViewController
 
 - (AKSIPURI *)callDestinationURI {
-    NSDictionary *callDestinationDict = [[[[self callDestinationField] objectValue] objectAtIndex:0]
-                                         objectAtIndex:[self callDestinationURIIndex]];
+    NSDictionary *callDestinationDict = [[self callDestinationField] objectValue][0][[self callDestinationURIIndex]];
     
-    AKSIPURI *uri = [[callDestinationDict objectForKey:kURI] copy];
+    AKSIPURI *uri = [callDestinationDict[kURI] copy];
     
     // Displayed name is stored in the first URI only.
-    AKSIPURI *firstURI = [[[[[self callDestinationField] objectValue] objectAtIndex:0] objectAtIndex:0]
-                          objectForKey:kURI];
+    AKSIPURI *firstURI = [[self callDestinationField] objectValue][0][0][kURI];
     
     [uri setDisplayName:[firstURI displayName]];
     
@@ -92,10 +90,8 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         return;
     }
     
-    NSDictionary *callDestinationDict = [[[[self callDestinationField] objectValue] objectAtIndex:0]
-                                         objectAtIndex:[self callDestinationURIIndex]];
-    
-    NSString *phoneLabel = [callDestinationDict objectForKey:kPhoneLabel];
+    NSDictionary *callDestinationDict = [[self callDestinationField] objectValue][0][[self callDestinationURIIndex]];
+    NSString *phoneLabel = callDestinationDict[kPhoneLabel];
     
     AKSIPURI *uri = [self callDestinationURI];
     if (uri != nil) {
@@ -170,17 +166,17 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         
         for (j = 0; j <= i; ++j) {
             if ([firstPart length] > 0) {
-                [firstPart appendFormat:@" %@", [substringComponents objectAtIndex:j]];
+                [firstPart appendFormat:@" %@", substringComponents[j]];
             } else {
-                [firstPart appendString:[substringComponents objectAtIndex:j]];
+                [firstPart appendString:substringComponents[j]];
             }
         }
         
         for (j = i + 1; j < [substringComponents count]; ++j) {
             if ([secondPart length] > 0) {
-                [secondPart appendFormat:@" %@", [substringComponents objectAtIndex:j]];
+                [secondPart appendFormat:@" %@", substringComponents[j]];
             } else {
-                [secondPart appendString:[substringComponents objectAtIndex:j]];
+                [secondPart appendString:substringComponents[j]];
             }
         }
         
@@ -458,13 +454,11 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     
     // Preserve string capitalization according to the user input.
     if ([completions count] > 0) {
-        NSRange searchedStringRange = [[completions objectAtIndex:0] rangeOfString:substring
-                                                                           options:NSCaseInsensitiveSearch];
+        NSRange searchedStringRange = [completions[0] rangeOfString:substring options:NSCaseInsensitiveSearch];
         if (searchedStringRange.location == 0) {
             NSRange replaceRange = NSMakeRange(0, [substring length]);
-            NSString *newFirstElement
-                = [[completions objectAtIndex:0] stringByReplacingCharactersInRange:replaceRange withString:substring];
-            [completions replaceObjectAtIndex:0 withObject:newFirstElement];
+            NSString *newFirstElement = [completions[0] stringByReplacingCharactersInRange:replaceRange withString:substring];
+            completions[0] = newFirstElement;
         }
     }
     
@@ -569,17 +563,17 @@ NSString * const kPhoneLabel = @"PhoneLabel";
             
             for (j = 0; j <= i; ++j) {
                 if ([firstPart length] > 0) {
-                    [firstPart appendFormat:@" %@", [displayedNameComponents objectAtIndex:j]];
+                    [firstPart appendFormat:@" %@", displayedNameComponents[j]];
                 } else {
-                    [firstPart appendString:[displayedNameComponents objectAtIndex:j]];
+                    [firstPart appendString:displayedNameComponents[j]];
                 }
             }
             
             for (j = i + 1; j < [displayedNameComponents count]; ++j) {
                 if ([secondPart length] > 0) {
-                    [secondPart appendFormat:@" %@", [displayedNameComponents objectAtIndex:j]];
+                    [secondPart appendFormat:@" %@", displayedNameComponents[j]];
                 } else {
-                    [secondPart appendString:[displayedNameComponents objectAtIndex:j]];
+                    [secondPart appendString:displayedNameComponents[j]];
                 }
             }
             
@@ -663,7 +657,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     NSUInteger destinationIndex = 0;
     
     if ([recordsFound count] > 0) {
-        ABRecord *theRecord = [recordsFound objectAtIndex:0];
+        ABRecord *theRecord = recordsFound[0];
         
         if ([[theRecord ak_fullName] length] > 0) {
             [theURI setDisplayName:[theRecord ak_fullName]];
@@ -732,7 +726,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         return nil;
     }
     
-    AKSIPURI *uri = [[representedObject objectAtIndex:[self callDestinationURIIndex]] objectForKey:kURI];
+    AKSIPURI *uri = representedObject[[self callDestinationURIIndex]][kURI];
     
     NSString *returnString = nil;
     
@@ -766,7 +760,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         return nil;
     }
     
-    AKSIPURI *uri = [[representedObject objectAtIndex:[self callDestinationURIIndex]] objectForKey:kURI];
+    AKSIPURI *uri = representedObject[[self callDestinationURIIndex]][kURI];
     
     NSAssert(([[uri user] length] > 0), @"User part of the URI must not have zero length in this context");
     
@@ -789,7 +783,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-    AKSIPURI *uri = [[representedObject objectAtIndex:[self callDestinationURIIndex]] objectForKey:kURI];
+    AKSIPURI *uri = representedObject[[self callDestinationURIIndex]][kURI];
     
     if ([representedObject isKindOfClass:[NSArray class]] && [[uri displayName] length] > 0) {
         return YES;
@@ -802,9 +796,9 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     NSMenu *tokenMenu = [[NSMenu alloc] init];
     
     for (NSUInteger i = 0; i < [representedObject count]; ++i) {
-        AKSIPURI *uri = [[representedObject objectAtIndex:i] objectForKey:kURI];
+        AKSIPURI *uri = representedObject[i][kURI];
         
-        NSString *phoneLabel = [[representedObject objectAtIndex:i] objectForKey:kPhoneLabel];
+        NSString *phoneLabel = representedObject[i][kPhoneLabel];
         
         NSMenuItem *menuItem = [[NSMenuItem alloc] init];
         

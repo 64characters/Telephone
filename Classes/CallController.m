@@ -474,7 +474,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (void)SIPCallEarly:(NSNotification *)notification {
     [[NSApp delegate] pauseITunes];
     
-    NSNumber *sipEventCode = [[notification userInfo] objectForKey:@"AKSIPEventCode"];
+    NSNumber *sipEventCode = [notification userInfo][@"AKSIPEventCode"];
     
     if (![[self call] isIncoming]) {
         if ([sipEventCode isEqualToNumber:@(PJSIP_SC_RINGING)]) {
@@ -530,7 +530,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         [[NSApp delegate] stopUserAttentionTimerIfNeeded];
     }
     
-    NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
     switch ([[self call] lastStatus]) {
         case PJSIP_SC_OK:
@@ -668,7 +668,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (void)SIPCallTransferStatusDidChange:(NSNotification *)notification {
     NSDictionary *userInfo = [notification userInfo];
-    BOOL isFinal = [[userInfo objectForKey:@"AKFinalTransferNotification"] boolValue];
+    BOOL isFinal = [userInfo[@"AKFinalTransferNotification"] boolValue];
     
     if (isFinal && [[self call] transferStatus] == PJSIP_SC_OK) {
         [self hangUpCall];

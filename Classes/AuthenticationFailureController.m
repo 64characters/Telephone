@@ -98,7 +98,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
             [[self accountController] showUnavailableState];
             
             NSString *statusText;
-            NSString *preferredLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+            NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
             if ([preferredLocalization isEqualToString:@"Russian"]) {
                 statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
                               [[[self accountController] account] registrationStatus]];

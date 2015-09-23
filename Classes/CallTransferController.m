@@ -225,7 +225,7 @@
 - (void)sourceCallControllerSIPCallTransferStatusDidChange:(NSNotification *)notification {
     AKSIPCall *sourceCall = [notification object];
     NSDictionary *userInfo = [notification userInfo];
-    BOOL isFinal = [[userInfo objectForKey:@"AKFinalTransferNotification"] boolValue];
+    BOOL isFinal = [userInfo[@"AKFinalTransferNotification"] boolValue];
     
     if (isFinal && [sourceCall transferStatus] == PJSIP_SC_OK) {
         [self setSourceCallTransferred:YES];

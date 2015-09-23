@@ -125,7 +125,7 @@ static const NSUInteger kAccountsMax = 32;
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
-    [[[alert buttons] objectAtIndex:1] setKeyEquivalent:@"\033"];
+    [[alert buttons][1] setKeyEquivalent:@"\033"];
     [alert setMessageText:[NSString stringWithFormat:
                            NSLocalizedString(@"Delete \\U201C%@\\U201D?", @"Account removal confirmation."),
                            selectedAccount]];
@@ -186,12 +186,12 @@ static const NSUInteger kAccountsMax = 32;
     NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
     
     if (index >= 0) {
-        NSDictionary *accountDict = [savedAccounts objectAtIndex:index];
+        NSDictionary *accountDict = savedAccounts[index];
         
         [[self accountEnabledCheckBox] setEnabled:YES];
         
         // Conditionally enable fields and set checkboxes state.
-        if ([[accountDict objectForKey:kAccountEnabled] boolValue]) {
+        if ([accountDict[kAccountEnabled] boolValue]) {
             [[self accountEnabledCheckBox] setState:NSOnState];
             [[self accountDescriptionField] setEnabled:NO];
             [[self fullNameField] setEnabled:NO];
@@ -200,10 +200,9 @@ static const NSUInteger kAccountsMax = 32;
             [[self passwordField] setEnabled:NO];
             [[self reregistrationTimeField] setEnabled:NO];
             [[self substitutePlusCharacterCheckBox] setEnabled:NO];
-            [[self substitutePlusCharacterCheckBox] setState:
-             [[accountDict objectForKey:kSubstitutePlusCharacter] integerValue]];
+            [[self substitutePlusCharacterCheckBox] setState:[accountDict[kSubstitutePlusCharacter] integerValue]];
             [[self plusCharacterSubstitutionField] setEnabled:NO];
-            [[self useProxyCheckBox] setState:[[accountDict objectForKey:kUseProxy] integerValue]];
+            [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
             [[self useProxyCheckBox] setEnabled:NO];
             [[self proxyHostField] setEnabled:NO];
             [[self proxyPortField] setEnabled:NO];
@@ -222,8 +221,7 @@ static const NSUInteger kAccountsMax = 32;
             
             [[self reregistrationTimeField] setEnabled:YES];
             [[self substitutePlusCharacterCheckBox] setEnabled:YES];
-            [[self substitutePlusCharacterCheckBox] setState:
-             [[accountDict objectForKey:kSubstitutePlusCharacter] integerValue]];
+            [[self substitutePlusCharacterCheckBox] setState:[accountDict[kSubstitutePlusCharacter] integerValue]];
             if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
                 [[self plusCharacterSubstitutionField] setEnabled:YES];
             } else {
@@ -231,8 +229,7 @@ static const NSUInteger kAccountsMax = 32;
             }
             
             [[self useProxyCheckBox] setEnabled:YES];
-            [[self useProxyCheckBox] setState:[[accountDict objectForKey:kUseProxy]
-                                               integerValue]];
+            [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
             if ([[self useProxyCheckBox] state] == NSOnState) {
                 [[self proxyHostField] setEnabled:YES];
                 [[self proxyPortField] setEnabled:YES];
@@ -250,98 +247,91 @@ static const NSUInteger kAccountsMax = 32;
         // Populate fields.
         
         // Description.
-        if ([[accountDict objectForKey:kDescription] length] > 0) {
-            [[self accountDescriptionField] setStringValue:[accountDict objectForKey:kDescription]];
+        if ([accountDict[kDescription] length] > 0) {
+            [[self accountDescriptionField] setStringValue:accountDict[kDescription]];
         } else {
             [[self accountDescriptionField] setStringValue:@""];
         }
         
         // Description's placeholder string.
-        if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
-            [[[self accountDescriptionField] cell] setPlaceholderString:[accountDict objectForKey:kSIPAddress]];
+        if ([accountDict[kSIPAddress] length] > 0) {
+            [[[self accountDescriptionField] cell] setPlaceholderString:accountDict[kSIPAddress]];
         } else {
             [[[self accountDescriptionField] cell] setPlaceholderString:
              [NSString stringWithFormat:@"%@@%@",
-              [accountDict objectForKey:kUsername], [accountDict objectForKey:kDomain]]];
+              accountDict[kUsername], accountDict[kDomain]]];
         }
         
         // Full Name.
-        [[self fullNameField] setStringValue:[accountDict objectForKey:kFullName]];
+        [[self fullNameField] setStringValue:accountDict[kFullName]];
         
         // Domain.
-        if ([[accountDict objectForKey:kDomain] length] > 0) {
-            [[self domainField] setStringValue:[accountDict objectForKey:kDomain]];
+        if ([accountDict[kDomain] length] > 0) {
+            [[self domainField] setStringValue:accountDict[kDomain]];
         } else {
             [[self domainField] setStringValue:@""];
         }
         
         // User Name.
-        [[self usernameField] setStringValue:[accountDict objectForKey:kUsername]];
+        [[self usernameField] setStringValue:accountDict[kUsername]];
         
         NSString *keychainServiceName;
-        if ([[accountDict objectForKey:kRegistrar] length] > 0) {
-            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", [accountDict objectForKey:kRegistrar]];
+        if ([accountDict[kRegistrar] length] > 0) {
+            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", accountDict[kRegistrar]];
         } else {
-            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", [accountDict objectForKey:kDomain]];
+            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", accountDict[kDomain]];
         }
         
         // Password.
-        [[self passwordField] setStringValue:
-         [AKKeychain passwordForServiceName:keychainServiceName
-                                accountName:[accountDict objectForKey:kUsername]]];
+        [[self passwordField] setStringValue:[AKKeychain passwordForServiceName:keychainServiceName accountName:accountDict[kUsername]]];
         
         // Reregister every...
-        if ([[accountDict objectForKey:kReregistrationTime] integerValue] > 0) {
-            [[self reregistrationTimeField] setStringValue:
-             [[accountDict objectForKey:kReregistrationTime] stringValue]];
+        if ([accountDict[kReregistrationTime] integerValue] > 0) {
+            [[self reregistrationTimeField] setStringValue:[accountDict[kReregistrationTime] stringValue]];
         } else {
             [[self reregistrationTimeField] setStringValue:@""];
         }
         
         // Substitute ... for "+".
-        if ([accountDict objectForKey:kPlusCharacterSubstitutionString] != nil) {
+        if (accountDict[kPlusCharacterSubstitutionString] != nil) {
             [[self plusCharacterSubstitutionField] setStringValue:
-             [accountDict objectForKey:kPlusCharacterSubstitutionString]];
+             accountDict[kPlusCharacterSubstitutionString]];
         } else {
             [[self plusCharacterSubstitutionField] setStringValue:@"00"];
         }
         
         // Proxy Server.
-        if ([[accountDict objectForKey:kProxyHost] length] > 0) {
-            [[self proxyHostField] setStringValue:[accountDict objectForKey:kProxyHost]];
+        if ([accountDict[kProxyHost] length] > 0) {
+            [[self proxyHostField] setStringValue:accountDict[kProxyHost]];
         } else {
             [[self proxyHostField] setStringValue:@""];
         }
         
         // Proxy Port.
-        if ([[accountDict objectForKey:kProxyPort] integerValue] > 0) {
-            [[self proxyPortField] setStringValue:[[accountDict objectForKey:kProxyPort] stringValue]];
+        if ([accountDict[kProxyPort] integerValue] > 0) {
+            [[self proxyPortField] setStringValue:[accountDict[kProxyPort] stringValue]];
         } else {
             [[self proxyPortField] setStringValue:@""];
         }
         
         // SIP Address.
-        if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
-            [[self SIPAddressField] setStringValue:[accountDict objectForKey:kSIPAddress]];
+        if ([accountDict[kSIPAddress] length] > 0) {
+            [[self SIPAddressField] setStringValue:accountDict[kSIPAddress]];
         } else {
             [[self SIPAddressField] setStringValue:@""];
         }
         
         // Registry Server.
-        if ([[accountDict objectForKey:kRegistrar] length] > 0) {
-            [[self registrarField] setStringValue:[accountDict objectForKey:kRegistrar]];
+        if ([accountDict[kRegistrar] length] > 0) {
+            [[self registrarField] setStringValue:accountDict[kRegistrar]];
         } else {
             [[self registrarField] setStringValue:@""];
         }
         
         // SIP Address and Registry Server placeholder strings.
-        if ([[accountDict objectForKey:kDomain] length] > 0) {
-            [[[self SIPAddressField] cell] setPlaceholderString:
-             [NSString stringWithFormat:@"%@@%@",
-              [accountDict objectForKey:kUsername], [accountDict objectForKey:kDomain]]];
-            
-            [[[self registrarField] cell] setPlaceholderString:[accountDict objectForKey:kDomain]];
-            
+        if ([accountDict[kDomain] length] > 0) {
+            [[[self SIPAddressField] cell] setPlaceholderString:[NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]]];
+            [[[self registrarField] cell] setPlaceholderString:accountDict[kDomain]];
         } else {
             [[[self SIPAddressField] cell] setPlaceholderString:nil];
             [[[self registrarField] cell] setPlaceholderString:nil];
@@ -401,17 +391,16 @@ static const NSUInteger kAccountsMax = 32;
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     
-    [userInfo setObject:@(index) forKey:kAccountIndex];
+    userInfo[kAccountIndex] = @(index);
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
     
-    NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:
-                                        [savedAccounts objectAtIndex:index]];
+    NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:savedAccounts[index]];
     
     BOOL isChecked = ([[self accountEnabledCheckBox] state] == NSOnState) ? YES : NO;
-    [accountDict setObject:@(isChecked) forKey:kAccountEnabled];
+    accountDict[kAccountEnabled] = @(isChecked);
     
     if (isChecked) {
         // User enabled the account.
@@ -425,10 +414,10 @@ static const NSUInteger kAccountsMax = 32;
         NSString *username = [[[self usernameField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         NSString *registrar = [[[self registrarField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         
-        [accountDict setObject:accountDescription forKey:kDescription];
-        [accountDict setObject:fullName forKey:kFullName];
-        [accountDict setObject:domain forKey:kDomain];
-        [accountDict setObject:username forKey:kUsername];
+        accountDict[kDescription] = accountDescription;
+        accountDict[kFullName] = fullName;
+        accountDict[kDomain] = domain;
+        accountDict[kUsername] = username;
         
         NSString *keychainServiceName;
         if ([registrar length] > 0) {
@@ -451,31 +440,30 @@ static const NSUInteger kAccountsMax = 32;
                                       password:currentPassword];
         }
         
-        [accountDict setObject:@([[self reregistrationTimeField] integerValue]) forKey:kReregistrationTime];
+        accountDict[kReregistrationTime] = @([[self reregistrationTimeField] integerValue]);
         
         if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
-            [accountDict setObject:@YES forKey:kSubstitutePlusCharacter];
+            accountDict[kSubstitutePlusCharacter] = @YES;
         } else {
-            [accountDict setObject:@NO forKey:kSubstitutePlusCharacter];
+            accountDict[kSubstitutePlusCharacter] = @NO;
         }
         
-        [accountDict setObject:[[self plusCharacterSubstitutionField] stringValue]
-                        forKey:kPlusCharacterSubstitutionString];
+        accountDict[kPlusCharacterSubstitutionString] = [[self plusCharacterSubstitutionField] stringValue];
         
         if ([[self useProxyCheckBox] state] == NSOnState) {
-            [accountDict setObject:@YES forKey:kUseProxy];
+            accountDict[kUseProxy] = @YES;
         } else {
-            [accountDict setObject:@NO forKey:kUseProxy];
+            accountDict[kUseProxy] = @NO;
         }
         
         NSString *proxyHost = [[[self proxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
-        [accountDict setObject:proxyHost forKey:kProxyHost];
-        [accountDict setObject:@([[self proxyPortField] integerValue]) forKey:kProxyPort];
+        accountDict[kProxyHost] = proxyHost;
+        accountDict[kProxyPort] = @([[self proxyPortField] integerValue]);
         
         NSString *SIPAddress = [[[self SIPAddressField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
-        [accountDict setObject:SIPAddress forKey:kSIPAddress];
+        accountDict[kSIPAddress] = SIPAddress;
         
-        [accountDict setObject:registrar forKey:kRegistrar];
+        accountDict[kRegistrar] = registrar;
         
         if (self.updateHeadersCheckBox.state == NSOnState) {
             accountDict[kUpdateContactHeader] = @YES;
@@ -536,14 +524,13 @@ static const NSUInteger kAccountsMax = 32;
         
         [[self reregistrationTimeField] setEnabled:YES];
         [[self substitutePlusCharacterCheckBox] setEnabled:YES];
-        [[self substitutePlusCharacterCheckBox] setState:
-         [[accountDict objectForKey:kSubstitutePlusCharacter] integerValue]];
+        [[self substitutePlusCharacterCheckBox] setState:[accountDict[kSubstitutePlusCharacter] integerValue]];
         if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
             [[self plusCharacterSubstitutionField] setEnabled:YES];
         }
         
         [[self useProxyCheckBox] setEnabled:YES];
-        [[self useProxyCheckBox] setState:[[accountDict objectForKey:kUseProxy] integerValue]];
+        [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
         if ([[self useProxyCheckBox] state] == NSOnState) {
             [[self proxyHostField] setEnabled:YES];
             [[self proxyPortField] setEnabled:YES];
@@ -555,7 +542,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self updateHeadersCheckBox] setEnabled:YES];
     }
     
-    [savedAccounts replaceObjectAtIndex:index withObject:accountDict];
+    savedAccounts[index] = accountDict;
     
     [defaults setObject:savedAccounts forKey:kAccounts];
     [defaults synchronize];
@@ -591,20 +578,19 @@ static const NSUInteger kAccountsMax = 32;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSDictionary *accountDict = [[defaults arrayForKey:kAccounts] objectAtIndex:rowIndex];
+    NSDictionary *accountDict = [defaults arrayForKey:kAccounts][rowIndex];
     
     NSString *returnValue;
-    NSString *accountDescription = [accountDict objectForKey:kDescription];
+    NSString *accountDescription = accountDict[kDescription];
     if ([accountDescription length] > 0) {
         returnValue = accountDescription;
         
     } else {
         NSString *SIPAddress;
-        if ([[accountDict objectForKey:kSIPAddress] length] > 0) {
-            SIPAddress = [accountDict objectForKey:kSIPAddress];
+        if ([accountDict[kSIPAddress] length] > 0) {
+            SIPAddress = accountDict[kSIPAddress];
         } else {
-            SIPAddress = [NSString stringWithFormat:@"%@@%@",
-                          [accountDict objectForKey:kUsername], [accountDict objectForKey:kDomain]];
+            SIPAddress = [NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]];
         }
         
         returnValue = SIPAddress;
@@ -655,10 +641,10 @@ static const NSUInteger kAccountsMax = 32;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *accounts = [[defaults arrayForKey:kAccounts] mutableCopy];
-    id selectedAccount = [accounts objectAtIndex:[[self accountsTable] selectedRow]];
+    id selectedAccount = accounts[[[self accountsTable] selectedRow]];
     
     // Swap accounts.
-    [accounts insertObject:[accounts objectAtIndex:draggingRow] atIndex:row];
+    [accounts insertObject:accounts[draggingRow] atIndex:row];
     if (draggingRow < row) {
         [accounts removeObjectAtIndex:draggingRow];
     } else if (draggingRow > row) {
