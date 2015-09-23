@@ -35,11 +35,3 @@ Configure and build pjsip:
     $ make lib
     
 Build Telephone.
-
-Coding Style
-------------
-
-Telephone source code follows [Google Objective-C Style Guide][coding_style]
-with the exception of maximum 120-column width and 4 spaces for indentation.
-
-  [coding_style]: http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml
