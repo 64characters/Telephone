@@ -558,7 +558,16 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (void)handleCatchedURL {
-    AKSIPURI *uri = [AKSIPURI SIPURIWithString:[self catchedURLString]];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
+    [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
+    [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
+     [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+    
+    NSString *catchedURLString = [[self catchedURLString] stringByReplacingOccurrencesOfString:@"sip://" withString:@""];
+    catchedURLString = [[self catchedURLString] stringByReplacingOccurrencesOfString:@"sip:" withString:@""];
+    AKSIPURI *uri = [SIPURIFormatter SIPURIFromString:catchedURLString];
     
     [self setCatchedURLString:nil];
     
