@@ -36,7 +36,7 @@
 
 extern const NSInteger kAKSIPCallsMax;
 
-enum {
+typedef NS_ENUM(NSUInteger, AKSIPCallState) {
     // Before INVITE is sent or received.
     kAKSIPCallNullState =         PJSIP_INV_STATE_NULL,
     
@@ -58,7 +58,6 @@ enum {
     // Session is terminated.
     kAKSIPCallDisconnectedState = PJSIP_INV_STATE_DISCONNECTED
 };
-typedef NSUInteger AKSIPCallState;
 
 // Notifications.
 //

@@ -1059,7 +1059,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
         PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s", callIdentifier, callInfo.state_text.ptr));
     }
     
-    AKSIPCallState state = callInfo.state;
+    AKSIPCallState state = (AKSIPCallState)callInfo.state;
     NSInteger accountIdentifier = callInfo.acc_id;
     NSString *stateText = [NSString stringWithPJString:callInfo.state_text];
     NSInteger lastStatus = callInfo.last_status;
@@ -1116,7 +1116,7 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
         } else {
             // Incoming call notification is posted from AKIncomingCallReceived().
             NSString *notificationName = nil;
-            switch (state) {
+            switch ((AKSIPCallState)state) {
                 case kAKSIPCallCallingState:
                     notificationName = AKSIPCallCallingNotification;
                     break;
@@ -1125,6 +1125,9 @@ static void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sip
                     break;
                 case kAKSIPCallConfirmedState:
                     notificationName = AKSIPCallDidConfirmNotification;
+                    break;
+                default:
+                    assert(NO);
                     break;
             }
             
@@ -1261,7 +1264,7 @@ static void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
     } else {
         PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
         
-        AKNATType NATType = result->nat_type;
+        AKNATType NATType = (AKNATType)result->nat_type;
         dispatch_async(dispatch_get_main_queue(), ^{
             [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:NATType];
             

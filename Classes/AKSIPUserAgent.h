@@ -35,15 +35,14 @@
 
 
 // User agent states.
-enum {
+typedef NS_ENUM(NSUInteger, AKSIPUserAgentState) {
     kAKSIPUserAgentStopped,
     kAKSIPUserAgentStarting,
     kAKSIPUserAgentStarted
 };
-typedef NSUInteger AKSIPUserAgentState;
 
 // NAT types, as specified by RFC 3489.
-enum {
+typedef NS_ENUM(NSUInteger, AKNATType) {
     kAKNATTypeUnknown        = PJ_STUN_NAT_TYPE_UNKNOWN,
     kAKNATTypeErrorUnknown   = PJ_STUN_NAT_TYPE_ERR_UNKNOWN,
     kAKNATTypeOpen           = PJ_STUN_NAT_TYPE_OPEN,
@@ -54,7 +53,6 @@ enum {
     kAKNATTypeRestricted     = PJ_STUN_NAT_TYPE_RESTRICTED,
     kAKNATTypePortRestricted = PJ_STUN_NAT_TYPE_PORT_RESTRICTED
 };
-typedef NSUInteger AKNATType;
 
 typedef struct _AKSIPUserAgentCallData {
     pj_timer_entry timer;

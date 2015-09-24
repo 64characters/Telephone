@@ -195,7 +195,7 @@ NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTrans
     pjsua_call_info callInfo;
     pj_status_t status = pjsua_call_get_info((pjsua_call_id)anIdentifier, &callInfo);
     if (status == PJ_SUCCESS) {
-        [self setState:callInfo.state];
+        [self setState:(AKSIPCallState)callInfo.state];
         [self setStateText:[NSString stringWithPJString:callInfo.state_text]];
         [self setLastStatus:callInfo.last_status];
         [self setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
