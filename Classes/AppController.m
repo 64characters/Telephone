@@ -83,6 +83,10 @@ static OSStatus AudioDevicesChanged(AudioObjectID objectID,
                                     UInt32 numberAddresses,
                                     const AudioObjectPropertyAddress addresses[],
                                     void *clientData);
+
+// Schedules -updateAudioDevices call on the app controller on the main queue.
+static void ScheduleAudioDevicesUpdate(AppController *appController);
+
 // Gets audio devices data.
 static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 
@@ -2008,16 +2012,24 @@ static OSStatus AudioDevicesChanged(AudioObjectID objectID,
                                     void *clientData) {
     
     AppController *appController = (__bridge AppController *)clientData;
+    BOOL shouldUpdateDevices = NO;
     for (UInt32 i = 0; i < numberAddresses; i++) {
         if (addresses[i].mSelector == kAudioHardwarePropertyDevices) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:appController
-                                                     selector:@selector(updateAudioDevices)
-                                                       object:nil];
-            [appController performSelector:@selector(updateAudioDevices) withObject:nil afterDelay:0.2];
+            shouldUpdateDevices = YES;
+            break;
         }
+    }
+    if (shouldUpdateDevices) {
+        ScheduleAudioDevicesUpdate(appController);
     }
     
     return noErr;
+}
+
+static void ScheduleAudioDevicesUpdate(AppController *appController) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [appController updateAudioDevices];
+    });
 }
 
 static OSStatus GetAudioDevices(Ptr *devices, UInt16 *deviceCount) {
