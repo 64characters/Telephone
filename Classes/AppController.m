@@ -432,11 +432,24 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         NSUInteger deviceIdentifier = devices[loopCount];
         deviceDict[kAudioDeviceIdentifier] = @(deviceIdentifier);
         
-        AudioObjectPropertyAddress address = { kAudioObjectPropertyName,
+        AudioObjectPropertyAddress address = { kAudioDevicePropertyDeviceUID,
                                                kAudioObjectPropertyScopeGlobal,
                                                kAudioObjectPropertyElementMaster };
+
+        // Get device UID.
+        CFStringRef UIDStringRef = NULL;
+        size = sizeof(UIDStringRef);
+        err = AudioObjectGetPropertyData(devices[loopCount], &address, 0, NULL, &size, &UIDStringRef);
+        if ((err == noErr) && (UIDStringRef != NULL)) {
+            deviceDict[kAudioDeviceUID] = (__bridge NSString *)UIDStringRef;
+            CFRelease(UIDStringRef);
+        }
+
         // Get device name.
         CFStringRef nameStringRef = NULL;
+        address.mSelector = kAudioObjectPropertyName;
+        address.mScope = kAudioObjectPropertyScopeGlobal;
+        address.mElement = kAudioObjectPropertyElementMaster;
         size = sizeof(CFStringRef);
         err = AudioObjectGetPropertyData(devices[loopCount], &address, 0, NULL, &size, &nameStringRef);
         if ((err == noErr) && (nameStringRef != NULL)) {
@@ -448,7 +461,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         UInt32 transportType = 0;
         address.mSelector = kAudioDevicePropertyTransportType;
         address.mScope = kAudioObjectPropertyScopeGlobal;
-        address.mScope = kAudioObjectPropertyElementMaster;
+        address.mElement = kAudioObjectPropertyElementMaster;
         size = sizeof(UInt32);
         err = AudioObjectGetPropertyData(devices[loopCount], &address, 0, NULL, &size, &transportType);
         if (err == noErr) {
