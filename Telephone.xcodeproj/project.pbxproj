@@ -328,11 +328,25 @@
 		080E96DDFE201D6D7F000001 /* Telephone */ = {
 			isa = PBXGroup;
 			children = (
-				AAF9CBC60E685A2D005DD9C6 /* Model */,
-				AACD92CA0ED4318F00AF8D17 /* View and Controller */,
+				AA4D49111BB9A0CF004D1D4B /* Account Setup */,
+				AADAA302107E5AA200789F2D /* Account */,
+				AADAA2FF107E59FC00789F2D /* Call */,
+				AA86C8B6110339E200EF4E8A /* Call Transfer */,
 				AAECDE8C0E70700B00CEAE7B /* Categories */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				AADAA303107E5AD400789F2D /* Preferences */,
+				AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */,
+				AA4BD4D60E07C305005A71B2 /* AppController.h */,
+				AA4BD4D70E07C305005A71B2 /* AppController.m */,
+				AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */,
+				AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */,
+				AAAC618A0FE6A42900FBE053 /* AKNetworkReachability.h */,
+				AAAC618B0FE6A42900FBE053 /* AKNetworkReachability.m */,
+				AAFA9B1B0EE1D8FC009A45CB /* AKSIPURIFormatter.h */,
+				AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */,
+				AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */,
+				AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
 				AA4D490A1BB99DD6004D1D4B /* Frameworks */,
 			);
 			path = Telephone;
@@ -441,6 +455,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AA4D49111BB9A0CF004D1D4B /* Account Setup */ = {
+			isa = PBXGroup;
+			children = (
+				AA3F65681072C926000511E8 /* AuthenticationFailureController.h */,
+				AA3F65691072C926000511E8 /* AuthenticationFailureController.m */,
+				AAFCFFBB1074BFCA0018C7DA /* AccountSetupController.h */,
+				AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */,
+			);
+			name = "Account Setup";
+			sourceTree = "<group>";
+		};
 		AA86C8B6110339E200EF4E8A /* Call Transfer */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,27 +479,6 @@
 				AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */,
 			);
 			name = "Call Transfer";
-			sourceTree = "<group>";
-		};
-		AACD92CA0ED4318F00AF8D17 /* View and Controller */ = {
-			isa = PBXGroup;
-			children = (
-				AA4BD4D60E07C305005A71B2 /* AppController.h */,
-				AA4BD4D70E07C305005A71B2 /* AppController.m */,
-				AADAA302107E5AA200789F2D /* Account */,
-				AADAA2FF107E59FC00789F2D /* Call */,
-				AA86C8B6110339E200EF4E8A /* Call Transfer */,
-				AADAA303107E5AD400789F2D /* Preferences */,
-				AAFA9B1B0EE1D8FC009A45CB /* AKSIPURIFormatter.h */,
-				AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */,
-				AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */,
-				AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */,
-				AA3F65681072C926000511E8 /* AuthenticationFailureController.h */,
-				AA3F65691072C926000511E8 /* AuthenticationFailureController.m */,
-				AAFCFFBB1074BFCA0018C7DA /* AccountSetupController.h */,
-				AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */,
-			);
-			name = "View and Controller";
 			sourceTree = "<group>";
 		};
 		AADAA2FF107E59FC00789F2D /* Call */ = {
@@ -562,7 +566,7 @@
 			path = PlugIns;
 			sourceTree = "<group>";
 		};
-		AAF9CBC60E685A2D005DD9C6 /* Model */ = {
+		AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */ = {
 			isa = PBXGroup;
 			children = (
 				AA4BD4C60E07C28E005A71B2 /* AKSIPUserAgent.h */,
@@ -576,12 +580,8 @@
 				AAE33B101BA7269600C6E48B /* AKSIPCallDelegate.h */,
 				AA0302F00EB9F347000738F7 /* AKSIPURI.h */,
 				AA0302F10EB9F347000738F7 /* AKSIPURI.m */,
-				AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */,
-				AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */,
-				AAAC618A0FE6A42900FBE053 /* AKNetworkReachability.h */,
-				AAAC618B0FE6A42900FBE053 /* AKNetworkReachability.m */,
 			);
-			name = Model;
+			name = "SIP User Agent";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
