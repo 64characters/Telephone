@@ -366,7 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Telephone */,
-				AAF298D70F57477C007B5036 /* PlugIns */,
+				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
 				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -552,7 +552,7 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		AAF298D70F57477C007B5036 /* PlugIns */ = {
+		AAF298D70F57477C007B5036 /* AddressBookPlugIns */ = {
 			isa = PBXGroup;
 			children = (
 				AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */,
@@ -563,7 +563,7 @@
 				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
 				AA6089D212E25DD200DC44DC /* Localizable.strings */,
 			);
-			path = PlugIns;
+			path = AddressBookPlugIns;
 			sourceTree = "<group>";
 		};
 		AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */ = {
@@ -1054,7 +1054,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
+				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
@@ -1073,7 +1073,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
+				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
@@ -1094,7 +1094,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
+				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
@@ -1113,7 +1113,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
+				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
