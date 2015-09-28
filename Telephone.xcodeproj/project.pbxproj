@@ -28,7 +28,6 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0302F10EB9F347000738F7 /* AKSIPURI.m */; };
 		AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */; };
-		AA0910CC0EC21F44004912A5 /* COPYRIGHT in Resources */ = {isa = PBXBuildFile; fileRef = AA0910CB0EC21F44004912A5 /* COPYRIGHT */; };
 		AA0F7B720F38FCDF0071C3CA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
@@ -158,7 +157,6 @@
 		AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveAccountTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA0693C411022E78007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
 		AA06941F11023628007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CallTransfer.xib; sourceTree = "<group>"; };
-		AA0910CB0EC21F44004912A5 /* COPYRIGHT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYRIGHT; sourceTree = "<group>"; };
 		AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		AA167A1D0F07BF9E00AF8B71 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/SIPResponses.strings; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 		AA97B47510D3A2CA00FC65DA /* CallTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = CallTransferController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAA628C5110C6281008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
 		AAA628E9110C76B3008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
-		AAA780A6130867590030EBF4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		AAA7CFFC1825BE1900D53FB9 /* Telephone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Telephone.entitlements; sourceTree = "<group>"; };
 		AAA810B21115D7F9008CA945 /* EndedCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = EndedCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = EndedCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
@@ -366,14 +363,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
+		080E96DDFE201D6D7F000001 /* Telephone */ = {
 			isa = PBXGroup;
 			children = (
 				AAF9CBC60E685A2D005DD9C6 /* Model */,
 				AACD92CA0ED4318F00AF8D17 /* View and Controller */,
 				AAECDE8C0E70700B00CEAE7B /* Categories */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
 			);
-			path = Classes;
+			path = Telephone;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -398,7 +397,6 @@
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-				AA222C40182C3B5B0096B024 /* Growl.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -416,10 +414,9 @@
 		29B97314FDCFA39411CA2CEA /* Telephone */ = {
 			isa = PBXGroup;
 			children = (
-				080E96DDFE201D6D7F000001 /* Classes */,
+				080E96DDFE201D6D7F000001 /* Telephone */,
 				AAF298D70F57477C007B5036 /* PlugIns */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -433,8 +430,6 @@
 				AAE33B0B1BA71E6900C6E48B /* Telephone-Bridging-Header.h */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				AA19171B0F8EA627002BA093 /* iTunes.h */,
-				AA0910CB0EC21F44004912A5 /* COPYRIGHT */,
-				AAA780A6130867590030EBF4 /* README.md */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -484,18 +479,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AA6089C012E25C7700DC44DC /* AddressBook */ = {
+		AA4D48FF1BB998EC004D1D4B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */,
-				AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */,
-				AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */,
-				AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */,
-				AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */,
-				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
-				AA6089D212E25DD200DC44DC /* Localizable.strings */,
+				AA4D49001BB99910004D1D4B /* Growl */,
+				AA4D49011BB999B9004D1D4B /* XSWindowController */,
 			);
-			path = AddressBook;
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		AA4D49001BB99910004D1D4B /* Growl */ = {
+			isa = PBXGroup;
+			children = (
+				AA222C40182C3B5B0096B024 /* Growl.framework */,
+			);
+			path = Growl;
+			sourceTree = "<group>";
+		};
+		AA4D49011BB999B9004D1D4B /* XSWindowController */ = {
+			isa = PBXGroup;
+			children = (
+				AA8FBAA010A56BD9000946F3 /* XSViewController.h */,
+				AA8FBAA110A56BD9000946F3 /* XSViewController.m */,
+				AA8FBAA210A56BD9000946F3 /* XSWindowController.h */,
+				AA8FBAA310A56BD9000946F3 /* XSWindowController.m */,
+			);
+			path = XSWindowController;
 			sourceTree = "<group>";
 		};
 		AA86C8B6110339E200EF4E8A /* Call Transfer */ = {
@@ -530,10 +539,6 @@
 				AA3F65691072C926000511E8 /* AuthenticationFailureController.m */,
 				AAFCFFBB1074BFCA0018C7DA /* AccountSetupController.h */,
 				AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */,
-				AA8FBAA010A56BD9000946F3 /* XSViewController.h */,
-				AA8FBAA110A56BD9000946F3 /* XSViewController.m */,
-				AA8FBAA210A56BD9000946F3 /* XSWindowController.h */,
-				AA8FBAA310A56BD9000946F3 /* XSWindowController.m */,
 			);
 			name = "View and Controller";
 			sourceTree = "<group>";
@@ -612,7 +617,13 @@
 		AAF298D70F57477C007B5036 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
-				AA6089C012E25C7700DC44DC /* AddressBook */,
+				AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */,
+				AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */,
+				AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */,
+				AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */,
+				AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */,
+				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
+				AA6089D212E25DD200DC44DC /* Localizable.strings */,
 			);
 			path = PlugIns;
 			sourceTree = "<group>";
@@ -749,7 +760,6 @@
 				AA2ED9A00F05B3B5004A13C6 /* Call.xib in Resources */,
 				AA2ED9AC0F05BA11004A13C6 /* AccountSetup.xib in Resources */,
 				AA2ED9B20F05BB5D004A13C6 /* AuthenticationFailure.xib in Resources */,
-				AA0910CC0EC21F44004912A5 /* COPYRIGHT in Resources */,
 				AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */,
 				AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */,
 				AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */,
@@ -1110,9 +1120,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
 				WRAPPER_EXTENSION = bundle;
@@ -1130,9 +1139,8 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookPhonePlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
 				SKIP_INSTALL = YES;
@@ -1152,7 +1160,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1177,7 +1185,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "PlugIns/AddressBook/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
+				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1213,19 +1221,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = Telephone.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					/Users/alexei/Development/Telephone,
-				);
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/Growl\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Telephone_Prefix.pch;
+				GCC_PREFIX_HEADER = Telephone/Telephone_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
 					"\"$(SRCROOT)/../pjproject/pjlib-util/include\"",
@@ -1233,7 +1237,7 @@
 					"\"$(SRCROOT)/../pjproject/pjnath/include\"",
 					"\"$(SRCROOT)/../pjproject/pjsip/include\"",
 				);
-				INFOPLIST_FILE = "Telephone-Info.plist";
+				INFOPLIST_FILE = "Telephone/Telephone-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1268,7 +1272,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
-				SWIFT_OBJC_BRIDGING_HEADER = "Telephone-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1279,17 +1283,13 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = Telephone.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					/Users/alexei/Development/Telephone,
-				);
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/Growl\"";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Telephone_Prefix.pch;
+				GCC_PREFIX_HEADER = Telephone/Telephone_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
 					"\"$(SRCROOT)/../pjproject/pjlib-util/include\"",
@@ -1297,7 +1297,7 @@
 					"\"$(SRCROOT)/../pjproject/pjnath/include\"",
 					"\"$(SRCROOT)/../pjproject/pjsip/include\"",
 				);
-				INFOPLIST_FILE = "Telephone-Info.plist";
+				INFOPLIST_FILE = "Telephone/Telephone-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1332,7 +1332,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
-				SWIFT_OBJC_BRIDGING_HEADER = "Telephone-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
 			};
 			name = Release;
 		};
