@@ -25,20 +25,16 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
-		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0302F10EB9F347000738F7 /* AKSIPURI.m */; };
 		AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */; };
-		AA0F7B720F38FCDF0071C3CA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
 		AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */; };
-		AA19172A0F8EAF87002BA093 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1917290F8EAF87002BA093 /* ScriptingBridge.framework */; };
 		AA1A0AA01828E38900278658 /* Telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA1A0A9F1828E38900278658 /* Telephone.icns */; };
 		AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; };
 		AA222C43182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */; };
 		AA222C44182C4A7E0096B024 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		AA2404970EE7F77D00E66882 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */; };
 		AA2ED99C0F05B362004A13C6 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2ED99B0F05B362004A13C6 /* Account.xib */; };
 		AA2ED9A00F05B3B5004A13C6 /* Call.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2ED99F0F05B3B5004A13C6 /* Call.xib */; };
@@ -57,7 +53,8 @@
 		AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F65691072C926000511E8 /* AuthenticationFailureController.m */; };
 		AA4BD4C80E07C28E005A71B2 /* AKSIPUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */; };
 		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
-		AA4FD3A20E1E895D00D4E6A6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4FD3A10E1E895D00D4E6A6 /* Security.framework */; };
+		AA4D49071BB99DBF004D1D4B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D49061BB99DBF004D1D4B /* AudioToolbox.framework */; };
+		AA4D49091BB99DCC004D1D4B /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */; };
 		AA53434712ADBAD200B47767 /* Sound.tiff in Resources */ = {isa = PBXBuildFile; fileRef = AA53434612ADBAD200B47767 /* Sound.tiff */; };
 		AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA584A680F06CFD2003C4992 /* Localizable.strings */; };
 		AA6089D312E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
@@ -77,25 +74,15 @@
 		AABA3A740F8A2B93009E1005 /* AKSIPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */; };
 		AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAD7EC0E0C171A00CB5930 /* PreferencesController.m */; };
 		AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */; };
-		AAD46CC917B17E7D004FCB35 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD46CC817B17E7D004FCB35 /* libcrypto.dylib */; };
-		AAD46CCA17B17E8D004FCB35 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD46CC617B17D95004FCB35 /* libssl.dylib */; };
 		AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92131107A5E9F00F142A4 /* ActiveCallViewController.m */; };
 		AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92135107A607C00F142A4 /* IncomingCallViewController.m */; };
 		AAD92139107A608B00F142A4 /* EndedCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92138107A608B00F142A4 /* EndedCallViewController.m */; };
 		AADAA2C3107E569200789F2D /* IncomingCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADAA2C2107E569200789F2D /* IncomingCallView.xib */; };
 		AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADAA2CC107E56FD00789F2D /* ActiveCallView.xib */; };
 		AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADAA2D0107E572300789F2D /* EndedCallView.xib */; };
-		AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A800E08198800E3AB2D /* CoreAudio.framework */; };
-		AAEA9A870E0819BB00E3AB2D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */; };
-		AAEA9A880E0819BB00E3AB2D /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */; };
-		AAEA9A890E0819BB00E3AB2D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */; };
 		AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */; };
 		AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */; };
-		AAF299320F575101007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		AAF299330F57510B007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
-		AAF2999D0F575678007B5036 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		AAF2999E0F575678007B5036 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2404960EE7F77D00E66882 /* AddressBook.framework */; };
 		AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
 		AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
@@ -142,12 +129,8 @@
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Telephone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Telephone_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Telephone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Telephone-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Telephone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telephone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,7 +140,6 @@
 		AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveAccountTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA0693C411022E78007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
 		AA06941F11023628007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CallTransfer.xib; sourceTree = "<group>"; };
-		AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		AA167A1D0F07BF9E00AF8B71 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Creating.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -168,12 +150,10 @@
 		AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Escaping.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AA1732170EAF8C14009023F2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		AA19171B0F8EA627002BA093 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
-		AA1917290F8EAF87002BA093 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		AA1A0A9F1828E38900278658 /* Telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Telephone.icns; sourceTree = "<group>"; };
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA222C40182C3B5B0096B024 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
-		AA2404960EE7F77D00E66882 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCall.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCall.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA2ED9930F05AD1E004A13C6 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -216,7 +196,8 @@
 		AA4BD4D70E07C305005A71B2 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPAccount.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPAccount.m; sourceTree = "<group>"; tabWidth = 4; };
-		AA4FD3A10E1E895D00D4E6A6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		AA4D49061BB99DBF004D1D4B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		AA5100010F1FE302003CE94C /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA5100020F1FE32F003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA51002A0F1FF943003CE94C /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -262,8 +243,6 @@
 		AABAD7EF0E0C184200CB5930 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		AACD92CE0ED434DD00AF8D17 /* AKActiveCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKActiveCallView.h; sourceTree = "<group>"; tabWidth = 4; };
 		AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKActiveCallView.m; sourceTree = "<group>"; tabWidth = 4; };
-		AAD46CC617B17D95004FCB35 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
-		AAD46CC817B17E7D004FCB35 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		AAD92130107A5E9F00F142A4 /* ActiveCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ActiveCallViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92131107A5E9F00F142A4 /* ActiveCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveCallViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92134107A607C00F142A4 /* IncomingCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallViewController.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -284,10 +263,6 @@
 		AAE33B0F1BA7217C00C6E48B /* AKSIPUserAgentDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgentDelegate.h; sourceTree = "<group>"; };
 		AAE33B101BA7269600C6E48B /* AKSIPCallDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCallDelegate.h; sourceTree = "<group>"; };
 		AAE33B111BA72A1800C6E48B /* CallControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallControllerDelegate.h; sourceTree = "<group>"; };
-		AAEA9A800E08198800E3AB2D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
-		AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
-		AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
-		AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		AAECDE8D0E70703100CEAE7B /* AKNSString+Scanning.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Scanning.h"; sourceTree = "<group>"; tabWidth = 4; };
 		AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Scanning.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSWindow+Resizing.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -327,17 +302,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAD46CCA17B17E8D004FCB35 /* libssl.dylib in Frameworks */,
-				AAD46CC917B17E7D004FCB35 /* libcrypto.dylib in Frameworks */,
-				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				AAEA9A810E08198800E3AB2D /* CoreAudio.framework in Frameworks */,
-				AAEA9A870E0819BB00E3AB2D /* AudioToolbox.framework in Frameworks */,
-				AAEA9A880E0819BB00E3AB2D /* AudioUnit.framework in Frameworks */,
-				AAEA9A890E0819BB00E3AB2D /* CoreServices.framework in Frameworks */,
-				AA4FD3A20E1E895D00D4E6A6 /* Security.framework in Frameworks */,
-				AA2404970EE7F77D00E66882 /* AddressBook.framework in Frameworks */,
-				AA0F7B720F38FCDF0071C3CA /* SystemConfiguration.framework in Frameworks */,
-				AA19172A0F8EAF87002BA093 /* ScriptingBridge.framework in Frameworks */,
+				AA4D49091BB99DCC004D1D4B /* AudioUnit.framework in Frameworks */,
+				AA4D49071BB99DBF004D1D4B /* AudioToolbox.framework in Frameworks */,
 				AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,8 +312,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAF299320F575101007B5036 /* Cocoa.framework in Frameworks */,
-				AAF299330F57510B007B5036 /* AddressBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,8 +319,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAF2999D0F575678007B5036 /* Cocoa.framework in Frameworks */,
-				AAF2999E0F575678007B5036 /* AddressBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,34 +333,9 @@
 				AAECDE8C0E70700B00CEAE7B /* Categories */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				AA4D490A1BB99DD6004D1D4B /* Frameworks */,
 			);
 			path = Telephone;
-			sourceTree = "<group>";
-		};
-		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-				AA0F7B710F38FCDF0071C3CA /* SystemConfiguration.framework */,
-				AA2404960EE7F77D00E66882 /* AddressBook.framework */,
-				AA1917290F8EAF87002BA093 /* ScriptingBridge.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AA4FD3A10E1E895D00D4E6A6 /* Security.framework */,
-				AAEA9A840E0819BB00E3AB2D /* AudioToolbox.framework */,
-				AAEA9A850E0819BB00E3AB2D /* AudioUnit.framework */,
-				AAEA9A860E0819BB00E3AB2D /* CoreServices.framework */,
-				AAEA9A800E08198800E3AB2D /* CoreAudio.framework */,
-				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
-				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
-				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -417,7 +354,6 @@
 				080E96DDFE201D6D7F000001 /* Telephone */,
 				AAF298D70F57477C007B5036 /* PlugIns */,
 				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -468,17 +404,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AAD46CC817B17E7D004FCB35 /* libcrypto.dylib */,
-				AAD46CC617B17D95004FCB35 /* libssl.dylib */,
-				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
-				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		AA4D48FF1BB998EC004D1D4B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +430,15 @@
 				AA8FBAA310A56BD9000946F3 /* XSWindowController.m */,
 			);
 			path = XSWindowController;
+			sourceTree = "<group>";
+		};
+		AA4D490A1BB99DD6004D1D4B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */,
+				AA4D49061BB99DBF004D1D4B /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		AA86C8B6110339E200EF4E8A /* Call Transfer */ = {
@@ -1162,12 +1096,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
 				WRAPPER_EXTENSION = bundle;
@@ -1187,12 +1115,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "PlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
 				SKIP_INSTALL = YES;
@@ -1219,7 +1141,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1281,7 +1202,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1339,6 +1259,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1370,6 +1291,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
