@@ -51,6 +51,13 @@
 		AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */; };
 		AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */; };
 		AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F65691072C926000511E8 /* AuthenticationFailureController.m */; };
+		AA3FAB951BBAB3990064B2C3 /* AudioDeviceMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB941BBAB3990064B2C3 /* AudioDeviceMapTests.swift */; settings = {ASSET_TAGS = (); }; };
+		AA3FAB971BBAB4480064B2C3 /* AudioDeviceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB961BBAB4480064B2C3 /* AudioDeviceMap.swift */; settings = {ASSET_TAGS = (); }; };
+		AA3FAB981BBAB4480064B2C3 /* AudioDeviceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB961BBAB4480064B2C3 /* AudioDeviceMap.swift */; settings = {ASSET_TAGS = (); }; };
+		AA3FAB9A1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */; settings = {ASSET_TAGS = (); }; };
+		AA3FAB9B1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */; settings = {ASSET_TAGS = (); }; };
+		AA3FAB9D1BBAB50B0064B2C3 /* SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */; settings = {ASSET_TAGS = (); }; };
+		AA3FAB9E1BBAB50B0064B2C3 /* SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */; settings = {ASSET_TAGS = (); }; };
 		AA4BD4C80E07C28E005A71B2 /* AKSIPUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */; };
 		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
 		AA4D49071BB99DBF004D1D4B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D49061BB99DBF004D1D4B /* AudioToolbox.framework */; };
@@ -197,6 +204,11 @@
 		AA3F65691072C926000511E8 /* AuthenticationFailureController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationFailureController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3FAB891BBAAE630064B2C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA3FAB911BBAB3570064B2C3 /* TelephoneTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TelephoneTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		AA3FAB941BBAB3990064B2C3 /* AudioDeviceMapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioDeviceMapTests.swift; path = TelephoneTests/AudioDeviceMapTests.swift; sourceTree = SOURCE_ROOT; };
+		AA3FAB961BBAB4480064B2C3 /* AudioDeviceMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDeviceMap.swift; sourceTree = "<group>"; };
+		AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDevice.swift; sourceTree = "<group>"; };
+		AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevice.swift; sourceTree = "<group>"; };
 		AA49F33B1BA7431500126A24 /* AKSIPAccountDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPAccountDelegate.h; sourceTree = "<group>"; };
 		AA4BD4C60E07C28E005A71B2 /* AKSIPUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgent.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPUserAgent.m; sourceTree = "<group>"; tabWidth = 4; };
@@ -345,6 +357,7 @@
 			children = (
 				AA4D49111BB9A0CF004D1D4B /* Account Setup */,
 				AADAA302107E5AA200789F2D /* Account */,
+				AA3FAB901BBAB31A0064B2C3 /* Audio Devices */,
 				AADAA2FF107E59FC00789F2D /* Call */,
 				AA86C8B6110339E200EF4E8A /* Call Transfer */,
 				AAECDE8C0E70700B00CEAE7B /* Categories */,
@@ -438,8 +451,20 @@
 			isa = PBXGroup;
 			children = (
 				AA3FAB891BBAAE630064B2C3 /* Info.plist */,
+				AA3FAB911BBAB3570064B2C3 /* TelephoneTests-Bridging-Header.h */,
 			);
 			path = TelephoneTests;
+			sourceTree = "<group>";
+		};
+		AA3FAB901BBAB31A0064B2C3 /* Audio Devices */ = {
+			isa = PBXGroup;
+			children = (
+				AA3FAB961BBAB4480064B2C3 /* AudioDeviceMap.swift */,
+				AA3FAB941BBAB3990064B2C3 /* AudioDeviceMapTests.swift */,
+				AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */,
+				AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */,
+			);
+			name = "Audio Devices";
 			sourceTree = "<group>";
 		};
 		AA4D48FF1BB998EC004D1D4B /* ThirdParty */ = {
@@ -794,6 +819,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				AA4BD4C80E07C28E005A71B2 /* AKSIPUserAgent.m in Sources */,
 				AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */,
+				AA3FAB9D1BBAB50B0064B2C3 /* SystemAudioDevice.swift in Sources */,
 				AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
@@ -804,6 +830,7 @@
 				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
+				AA3FAB9A1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
@@ -829,6 +856,7 @@
 				AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
+				AA3FAB971BBAB4480064B2C3 /* AudioDeviceMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +864,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA3FAB951BBAB3990064B2C3 /* AudioDeviceMapTests.swift in Sources */,
+				AA3FAB9E1BBAB50B0064B2C3 /* SystemAudioDevice.swift in Sources */,
+				AA3FAB981BBAB4480064B2C3 /* AudioDeviceMap.swift in Sources */,
+				AA3FAB9B1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,6 +1144,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -1126,6 +1159,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1134,6 +1168,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -1147,6 +1182,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1420,6 +1456,7 @@
 				AA3FAB8E1BBAAE630064B2C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AAF299150F575045007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookPhonePlugIn" */ = {
 			isa = XCConfigurationList;
