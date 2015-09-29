@@ -98,6 +98,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		AA3FAB8A1BBAAE630064B2C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
+			remoteInfo = Telephone;
+		};
 		AAF99B3014A257A800D087DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -188,6 +195,8 @@
 		AA3F655D1072C674000511E8 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/ActiveAccountView.xib; sourceTree = "<group>"; };
 		AA3F65681072C926000511E8 /* AuthenticationFailureController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationFailureController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA3F65691072C926000511E8 /* AuthenticationFailureController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationFailureController.m; sourceTree = "<group>"; tabWidth = 4; };
+		AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA3FAB891BBAAE630064B2C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA49F33B1BA7431500126A24 /* AKSIPAccountDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPAccountDelegate.h; sourceTree = "<group>"; };
 		AA4BD4C60E07C28E005A71B2 /* AKSIPUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgent.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPUserAgent.m; sourceTree = "<group>"; tabWidth = 4; };
@@ -307,6 +316,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA3FAB821BBAAE630064B2C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AAF2990E0F575044007B5036 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -357,6 +373,7 @@
 				8D1107320486CEB800E47090 /* Telephone.app */,
 				AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */,
 				AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */,
+				AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -367,6 +384,7 @@
 				080E96DDFE201D6D7F000001 /* Telephone */,
 				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
 				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
+				AA3FAB861BBAAE630064B2C3 /* TelephoneTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -414,6 +432,14 @@
 				AA53434612ADBAD200B47767 /* Sound.tiff */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		AA3FAB861BBAAE630064B2C3 /* TelephoneTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA3FAB891BBAAE630064B2C3 /* Info.plist */,
+			);
+			path = TelephoneTests;
 			sourceTree = "<group>";
 		};
 		AA4D48FF1BB998EC004D1D4B /* ThirdParty */ = {
@@ -604,6 +630,24 @@
 			productReference = 8D1107320486CEB800E47090 /* Telephone.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AA3FAB841BBAAE630064B2C3 /* TelephoneTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA3FAB8C1BBAAE630064B2C3 /* Build configuration list for PBXNativeTarget "TelephoneTests" */;
+			buildPhases = (
+				AA3FAB811BBAAE630064B2C3 /* Sources */,
+				AA3FAB821BBAAE630064B2C3 /* Frameworks */,
+				AA3FAB831BBAAE630064B2C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA3FAB8B1BBAAE630064B2C3 /* PBXTargetDependency */,
+			);
+			name = TelephoneTests;
+			productName = TelephoneTests;
+			productReference = AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AAF299150F575045007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookPhonePlugIn" */;
@@ -654,6 +698,9 @@
 							};
 						};
 					};
+					AA3FAB841BBAAE630064B2C3 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */;
@@ -673,6 +720,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Telephone */,
+				AA3FAB841BBAAE630064B2C3 /* TelephoneTests */,
 				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
 				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
 				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
@@ -710,6 +758,13 @@
 				AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */,
 				AA7CB5301144242F004D79DA /* EndedCallTransferView.xib in Resources */,
 				AA53434712ADBAD200B47767 /* Sound.tiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA3FAB831BBAAE630064B2C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -777,6 +832,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA3FAB811BBAAE630064B2C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AAF2990D0F575044007B5036 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -798,6 +860,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		AA3FAB8B1BBAAE630064B2C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D1107260486CEB800E47090 /* Telephone */;
+			targetProxy = AA3FAB8A1BBAAE630064B2C3 /* PBXContainerItemProxy */;
+		};
 		AAF99B3114A257A800D087DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */;
@@ -1041,6 +1108,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AA3FAB8D1BBAAE630064B2C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TelephoneTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA3FAB8E1BBAAE630064B2C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TelephoneTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		AAF299130F575045007B5036 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1304,6 +1413,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA3FAB8C1BBAAE630064B2C3 /* Build configuration list for PBXNativeTarget "TelephoneTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA3FAB8D1BBAAE630064B2C3 /* Debug */,
+				AA3FAB8E1BBAAE630064B2C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		AAF299150F575045007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookPhonePlugIn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
