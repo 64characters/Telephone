@@ -33,12 +33,16 @@ import CoreAudio
 class SystemAudioDeviceIDs {
 
     private var deviceIDs = [Int]()
+    private var audioObject: SystemAudioObject
 
-    private let objectID = AudioObjectID(kAudioObjectSystemObject)
-    private var objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
+    init() {
+        let objectID = AudioObjectID(kAudioObjectSystemObject)
+        let propertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
+        audioObject = SystemAudioObject(objectID: objectID, propertyAddress: propertyAddress)
+    }
 
     func update() throws {
-        let length = try deviceIDsLength()
+        let length = try audioObject.propertyDataLength()
         deviceIDs = try deviceIDsWithLength(length)
     }
 
@@ -51,12 +55,7 @@ class SystemAudioDeviceIDs {
     }
 
     private func deviceIDsLength() throws -> UInt32 {
-        var length: UInt32 = 0
-        let status = AudioObjectGetPropertyDataSize(objectID, &objectPropertyAddress, 0, nil, &length)
-        if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int(status))
-        }
-        return length
+        return try audioObject.propertyDataLength()
     }
 
     private func deviceIDsWithLength(length: UInt32) throws -> [Int] {
@@ -69,10 +68,7 @@ class SystemAudioDeviceIDs {
     }
 
     private func getDeviceIDsBytes(bytes: UnsafeMutablePointer<AudioObjectID>, inout length: UInt32) throws {
-        let status = AudioObjectGetPropertyData(objectID, &objectPropertyAddress, 0, nil, &length, bytes)
-        if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
-        }
+        return try audioObject.getPropertyValueBytes(bytes, length: &length)
     }
 
     private func deviceIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [Int] {

@@ -29,6 +29,7 @@
 //
 
 import CoreAudio
+import Foundation
 
 class SystemAudioDevices {
 
@@ -92,27 +93,21 @@ class SystemAudioDevices {
     }
 
     private func propertyValueForDeviceWithID<T>(deviceID: Int, selector: AudioObjectPropertySelector) throws -> T {
-        var address = propertyAddressWithSelector(selector)
-        var size = UInt32(strideof(T))
+        var length = UInt32(strideof(T))
         var result = UnsafeMutablePointer<T>.alloc(1)
         defer { result.dealloc(1) }
-        let status = AudioObjectGetPropertyData(AudioObjectID(deviceID), &address, 0, nil, &size, result)
-        if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
-        }
+        var audioObject = SystemAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddressWithSelector(selector))
+        try audioObject.getPropertyValueBytes(result, length: &length)
         return result.move()
     }
 
     private func channelCountWithObjectID(objectID: AudioObjectID, scope: AudioObjectPropertyScope) throws -> Int {
-        var address = audioBufferListAddressWithScope(scope)
-        var length = try propertyDataSizeWithObjectID(objectID, address: address)
+        var audioObject = SystemAudioObject(objectID: objectID, propertyAddress: audioBufferListAddressWithScope(scope))
+        var length = try audioObject.propertyDataLength()
         let count = audioBufferListCountWithLength(length)
         let bytes = UnsafeMutablePointer<AudioBufferList>.alloc(count)
         defer { bytes.dealloc(count) }
-        let status = AudioObjectGetPropertyData(objectID, &address, 0, nil, &length, bytes)
-        if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
-        }
+        try audioObject.getPropertyValueBytes(bytes, length: &length)
         return channelCountWithBufferListPointer(UnsafeMutableAudioBufferListPointer(bytes))
     }
 
@@ -122,15 +117,6 @@ class SystemAudioDevices {
 
     private func audioBufferListAddressWithScope(scope: AudioObjectPropertyScope) -> AudioObjectPropertyAddress {
         return AudioObjectPropertyAddress(mSelector: kAudioDevicePropertyStreamConfiguration, mScope: scope, mElement: 0)
-    }
-
-    private func propertyDataSizeWithObjectID(objectID: AudioObjectID, var address: AudioObjectPropertyAddress) throws -> UInt32 {
-        var size: UInt32 = 0
-        let status = AudioObjectGetPropertyDataSize(objectID, &address, 0, nil, &size)
-        if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int(status))
-        }
-        return size
     }
 
     private func audioBufferListCountWithLength(length: UInt32) -> Int {
