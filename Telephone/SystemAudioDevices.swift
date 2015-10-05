@@ -53,19 +53,96 @@ class SystemAudioDevices {
     }
 
     private func deviceWithID(deviceID: Int) throws -> SystemAudioDevice {
+        let uniqueIdentifier = try uniqueIdentifierForDeviceWithID(deviceID)
         let name = try nameForDeviceWithID(deviceID)
-        return SystemAudioDevice(identifier: deviceID, name: name)
+        let inputCount = try inputCountForDeviceWithID(deviceID)
+        let outputCount = try outputCountForDeviceWithID(deviceID)
+        let builtIn = try builtInForDeviceWithID(deviceID)
+        return SystemAudioDevice(identifier: deviceID, uniqueIdentifier: uniqueIdentifier, name: name, inputCount: inputCount, outputCount: outputCount, builtIn: builtIn)
+    }
+
+    private func uniqueIdentifierForDeviceWithID(deviceID: Int) throws -> String {
+        return try stringPropertyValueForDeviceWithID(deviceID, selector: kAudioDevicePropertyDeviceUID)
     }
 
     private func nameForDeviceWithID(deviceID: Int) throws -> String {
-        var address = AudioObjectPropertyAddress(mSelector: kAudioObjectPropertyName, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
-        var name: Unmanaged<CFStringRef>?
-        var size = UInt32(strideof(CFStringRef))
-        let status = AudioObjectGetPropertyData(AudioObjectID(deviceID), &address, 0, nil, &size, &name)
+        return try stringPropertyValueForDeviceWithID(deviceID, selector: kAudioObjectPropertyName)
+    }
+
+    private func inputCountForDeviceWithID(deviceID: Int) throws -> Int {
+        return try channelCountWithObjectID(AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeInput)
+    }
+
+    private func outputCountForDeviceWithID(deviceID: Int) throws -> Int {
+        return try channelCountWithObjectID(AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeOutput)
+    }
+
+    private func builtInForDeviceWithID(deviceID: Int) throws -> Bool {
+        let transportType: UInt32 = try propertyValueForDeviceWithID(deviceID, selector: kAudioDevicePropertyTransportType)
+        return transportType == kAudioDeviceTransportTypeBuiltIn
+    }
+
+    private func stringPropertyValueForDeviceWithID(deviceID: Int, selector: AudioObjectPropertySelector) throws -> String {
+        let stringRef: CFStringRef = try propertyValueForDeviceWithID(deviceID, selector: selector)
+        return stringRef as String
+    }
+
+    private func integerPropertyValueForDeviceWithID(deviceID: Int, selector: AudioObjectPropertySelector) throws -> UInt32 {
+        return try propertyValueForDeviceWithID(deviceID, selector: selector)
+    }
+
+    private func propertyValueForDeviceWithID<T>(deviceID: Int, selector: AudioObjectPropertySelector) throws -> T {
+        var address = propertyAddressWithSelector(selector)
+        var size = UInt32(strideof(T))
+        var result = UnsafeMutablePointer<T>.alloc(1)
+        defer { result.dealloc(1) }
+        let status = AudioObjectGetPropertyData(AudioObjectID(deviceID), &address, 0, nil, &size, result)
         if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyGetError(systemErrorCode: Int(status))
+            throw TelephoneError.SystemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
         }
-        return String(name!.takeRetainedValue())
+        return result.move()
+    }
+
+    private func channelCountWithObjectID(objectID: AudioObjectID, scope: AudioObjectPropertyScope) throws -> Int {
+        var address = audioBufferListAddressWithScope(scope)
+        var length = try propertyDataSizeWithObjectID(objectID, address: address)
+        let count = audioBufferListCountWithLength(length)
+        let bytes = UnsafeMutablePointer<AudioBufferList>.alloc(count)
+        defer { bytes.dealloc(count) }
+        let status = AudioObjectGetPropertyData(objectID, &address, 0, nil, &length, bytes)
+        if status != noErr {
+            throw TelephoneError.SystemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
+        }
+        return channelCountWithBufferListPointer(UnsafeMutableAudioBufferListPointer(bytes))
+    }
+
+    private func propertyAddressWithSelector(selector: AudioObjectPropertySelector) -> AudioObjectPropertyAddress {
+        return AudioObjectPropertyAddress(mSelector: selector, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
+    }
+
+    private func audioBufferListAddressWithScope(scope: AudioObjectPropertyScope) -> AudioObjectPropertyAddress {
+        return AudioObjectPropertyAddress(mSelector: kAudioDevicePropertyStreamConfiguration, mScope: scope, mElement: 0)
+    }
+
+    private func propertyDataSizeWithObjectID(objectID: AudioObjectID, var address: AudioObjectPropertyAddress) throws -> UInt32 {
+        var size: UInt32 = 0
+        let status = AudioObjectGetPropertyDataSize(objectID, &address, 0, nil, &size)
+        if status != noErr {
+            throw TelephoneError.SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int(status))
+        }
+        return size
+    }
+
+    private func audioBufferListCountWithLength(length: UInt32) -> Int {
+        return Int(length) / strideof(AudioBufferList)
+    }
+
+    private func channelCountWithBufferListPointer(bufferListPointer: UnsafeMutableAudioBufferListPointer) -> Int {
+        var channelCount: UInt32 = 0
+        for buffer in bufferListPointer {
+            channelCount += buffer.mNumberChannels
+        }
+        return Int(channelCount)
     }
 }
 

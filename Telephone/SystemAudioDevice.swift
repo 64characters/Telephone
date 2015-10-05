@@ -30,7 +30,11 @@
 
 struct SystemAudioDevice {
     let identifier: Int
+    let uniqueIdentifier: String
     let name: String
+    let inputCount: Int
+    let outputCount: Int
+    let builtIn: Bool
 }
 
 extension SystemAudioDevice: Hashable {
@@ -42,5 +46,10 @@ extension SystemAudioDevice: Hashable {
 extension SystemAudioDevice: Equatable {}
 
 func ==(lhs: SystemAudioDevice, rhs: SystemAudioDevice) -> Bool {
-    return lhs.identifier == rhs.identifier && lhs.name == rhs.name
+    return lhs.identifier == rhs.identifier &&
+        lhs.uniqueIdentifier == rhs.uniqueIdentifier &&
+        lhs.name == rhs.name &&
+        lhs.inputCount == rhs.inputCount &&
+        lhs.outputCount == rhs.outputCount &&
+        lhs.builtIn == rhs.builtIn
 }

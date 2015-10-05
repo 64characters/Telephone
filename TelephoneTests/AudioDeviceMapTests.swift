@@ -33,8 +33,8 @@ import XCTest
 class AudioDevicesMapTests: XCTestCase {
 
     func testMapsSystemToUserAgentDeviceByName() {
-        let systemDevice1 = SystemAudioDevice(identifier: 1, name: "Device1")
-        let systemDevice2 = SystemAudioDevice(identifier: 2, name: "Device2")
+        let systemDevice1 = SystemAudioDevice(identifier: 1, uniqueIdentifier: "", name: "Device1", inputCount: 0, outputCount: 0, builtIn: false)
+        let systemDevice2 = SystemAudioDevice(identifier: 2, uniqueIdentifier: "", name: "Device2", inputCount: 0, outputCount: 0, builtIn: false)
         let systemDevices = [systemDevice1, systemDevice2]
         let userAgentDevice1 = UserAgentAudioDevice(identifier: 1, name: "Device2")
         let userAgentDevice2 = UserAgentAudioDevice(identifier: 2, name: "Device1")

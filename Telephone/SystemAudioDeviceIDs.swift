@@ -54,35 +54,35 @@ class SystemAudioDeviceIDs {
         var length: UInt32 = 0
         let status = AudioObjectGetPropertyDataSize(objectID, &objectPropertyAddress, 0, nil, &length)
         if status != noErr {
-            throw TelephoneError.SystemAudioDeviceIDsSizeGetError(systemErrorCode: Int(status))
+            throw TelephoneError.SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int(status))
         }
         return length
     }
 
     private func deviceIDsWithLength(length: UInt32) throws -> [Int] {
-        let bytes = malloc(Int(length))
-        defer { free(bytes) }
+        let count = audioObjectIDCountWithLength(length)
+        let bytes = UnsafeMutablePointer<AudioObjectID>.alloc(count)
+        defer { bytes.dealloc(count) }
         var usedLength = length
         try getDeviceIDsBytes(bytes, length: &usedLength)
         return deviceIDsWithBytes(bytes, length: usedLength)
     }
 
-    private func getDeviceIDsBytes(bytes: UnsafeMutablePointer<Void>, inout length: UInt32) throws {
+    private func getDeviceIDsBytes(bytes: UnsafeMutablePointer<AudioObjectID>, inout length: UInt32) throws {
         let status = AudioObjectGetPropertyData(objectID, &objectPropertyAddress, 0, nil, &length, bytes)
         if status != noErr {
-            throw TelephoneError.SystemAudioDeviceIDsGetError(systemErrorCode: Int(status))
+            throw TelephoneError.SystemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
         }
     }
 
-    private func deviceIDsWithBytes(bytes: UnsafeMutablePointer<Void>, length: UInt32) -> [Int] {
+    private func deviceIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [Int] {
         let audioObjectIDs = audioObjectIDsWithBytes(bytes, length: length)
         return audioObjectIDs.map { Int($0) }
     }
 
-    private func audioObjectIDsWithBytes(bytes: UnsafeMutablePointer<Void>, length: UInt32) -> [AudioObjectID] {
-        let audioObjectIDBytes = UnsafeMutablePointer<AudioObjectID>(bytes)
-        let audioObjectIDBufferBytes = UnsafeMutableBufferPointer<AudioObjectID>(start: audioObjectIDBytes, count: audioObjectIDCountWithLength(length))
-        return [AudioObjectID](audioObjectIDBufferBytes)
+    private func audioObjectIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [AudioObjectID] {
+        let buffer = UnsafeMutableBufferPointer<AudioObjectID>(start: bytes, count: audioObjectIDCountWithLength(length))
+        return [AudioObjectID](buffer)
     }
 
     private func audioObjectIDCountWithLength(length: UInt32) -> Int {
