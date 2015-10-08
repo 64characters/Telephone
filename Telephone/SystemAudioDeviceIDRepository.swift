@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceIDs.swift
+//  SystemAudioDeviceIDRepository.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,9 +30,8 @@
 
 import CoreAudio
 
-class SystemAudioDeviceIDs {
+class SystemAudioDeviceIDRepository {
 
-    private var deviceIDs = [Int]()
     private var audioObject: SystemAudioObject
 
     init() {
@@ -41,17 +40,9 @@ class SystemAudioDeviceIDs {
         audioObject = SystemAudioObject(objectID: objectID, propertyAddress: propertyAddress)
     }
 
-    func update() throws {
+    func allDeviceIDs() throws -> [Int] {
         let length = try audioObject.propertyDataLength()
-        deviceIDs = try deviceIDsWithLength(length)
-    }
-
-    var allDeviceIDs: [Int] {
-        return deviceIDs
-    }
-
-    subscript(index: Int) -> Int {
-        return deviceIDs[index]
+        return try deviceIDsWithLength(length)
     }
 
     private func deviceIDsWithLength(length: UInt32) throws -> [Int] {

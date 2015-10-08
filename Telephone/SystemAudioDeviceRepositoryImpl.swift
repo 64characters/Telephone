@@ -34,9 +34,8 @@ import Foundation
 class SystemAudioDeviceRepositoryImpl: SystemAudioDeviceRepository {
 
     func allDevices() throws -> [SystemAudioDevice] {
-        let deviceIDs = SystemAudioDeviceIDs()
-        try deviceIDs.update()
-        return try deviceIDs.allDeviceIDs.map(deviceWithID)
+        let deviceIDRepository = SystemAudioDeviceIDRepository()
+        return try deviceIDRepository.allDeviceIDs().map(deviceWithID)
     }
 
     private func deviceWithID(deviceID: Int) throws -> SystemAudioDevice {
