@@ -1,5 +1,5 @@
 //
-//  BuiltInSystemAudioDevicesTests.swift
+//  SystemAudioDeviceRepository.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,33 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
-
-class BuiltInSystemAudioDevicesTests: XCTestCase {
-
-    private(set) var systemDevices: [SystemAudioDevice]!
-    private(set) var firstBuiltInInputDevice: SystemAudioDevice!
-    private(set) var firstBuiltInOutputDevice: SystemAudioDevice!
-    private(set) var builtInDevices: BuiltInSystemAudioDevices!
-
-    override func setUp() {
-        super.setUp()
-        updateSystemDevices()
-        builtInDevices = BuiltInSystemAudioDevices(devices: systemDevices)
-    }
-
-    func testInputDeviceIsTheFirstBuiltInDeviceWithInputChannels() {
-        XCTAssertEqual(builtInDevices.inputDevice, firstBuiltInInputDevice)
-    }
-
-    func testOutputDeviceIsTheFirstBuiltInDeviceWithOutputChannels() {
-        XCTAssertEqual(builtInDevices.outputDevice, firstBuiltInOutputDevice)
-    }
-
-    private func updateSystemDevices() {
-        let factory = SystemAudioDevicesTestFactory()
-        systemDevices = factory.allDevices
-        firstBuiltInInputDevice = factory.firstBuiltInInput
-        firstBuiltInOutputDevice = factory.firstBuiltInOutput
-    }
+protocol SystemAudioDeviceRepository {
+    func allDevices() throws -> [SystemAudioDevice]
 }

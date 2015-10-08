@@ -33,17 +33,16 @@ import XCTest
 class SelectedSystemAudioDevicesTests: XCTestCase {
 
     var deviceFactory: SystemAudioDevicesTestFactory!
-    var builtInDevices: BuiltInSystemAudioDevices!
+    var systemDevices: SystemAudioDevices!
     var userDefaultsStub: UserDefaultsStub!
     var selectedDevices: SelectedSystemAudioDevices!
 
     override func setUp() {
         super.setUp()
         deviceFactory = SystemAudioDevicesTestFactory()
-        let systemDevices = deviceFactory.allDevices
-        builtInDevices = BuiltInSystemAudioDevices(devices: systemDevices)
+        systemDevices = SystemAudioDevices(devices: deviceFactory.allDevices)
         userDefaultsStub = UserDefaultsStub()
-        selectedDevices = SelectedSystemAudioDevices(allDevices: systemDevices, builtInDevices: builtInDevices, userDefaults: userDefaultsStub)
+        selectedDevices = SelectedSystemAudioDevices(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
     }
 
     // MARK: - Sound input
@@ -56,19 +55,19 @@ class SelectedSystemAudioDevicesTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfThereIsNoSoundInputInUserDefaults() {
-        XCTAssertEqual(selectedDevices.soundInput, builtInDevices.inputDevice)
+        XCTAssertEqual(selectedDevices.soundInput, systemDevices.builtInInput)
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfSoundInputFromUserDefaultsCanNotBeFoundInSystemDevices() {
         userDefaultsStub[kSoundInput] = kNonexistentDeviceName
 
-        XCTAssertEqual(selectedDevices.soundInput, builtInDevices.inputDevice)
+        XCTAssertEqual(selectedDevices.soundInput, systemDevices.builtInInput)
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveInputChannels() {
         userDefaultsStub[kSoundInput] = deviceFactory.outputOnlyDevice.name
 
-        XCTAssertEqual(selectedDevices.soundInput, builtInDevices.inputDevice)
+        XCTAssertEqual(selectedDevices.soundInput, systemDevices.builtInInput)
     }
 
     // MARK: - Sound output
@@ -81,19 +80,19 @@ class SelectedSystemAudioDevicesTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfThereIsNoSoundOutputInUserDefaults() {
-        XCTAssertEqual(selectedDevices.soundOutput, builtInDevices.outputDevice)
+        XCTAssertEqual(selectedDevices.soundOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfSoundOutputFromUserDefaultsCanNotBeFoundInSystemDevices() {
         userDefaultsStub[kSoundOutput] = kNonexistentDeviceName
 
-        XCTAssertEqual(selectedDevices.soundOutput, builtInDevices.outputDevice)
+        XCTAssertEqual(selectedDevices.soundOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
         userDefaultsStub[kSoundOutput] = deviceFactory.inputOnlyDevice.name
 
-        XCTAssertEqual(selectedDevices.soundOutput, builtInDevices.outputDevice)
+        XCTAssertEqual(selectedDevices.soundOutput, systemDevices.builtInOutput)
     }
 
     // MARK: - Ringtone output
@@ -106,19 +105,19 @@ class SelectedSystemAudioDevicesTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfThereIsNoRingtoneOutputInUserDefaults() {
-        XCTAssertEqual(selectedDevices.ringtoneOutput, builtInDevices.outputDevice)
+        XCTAssertEqual(selectedDevices.ringtoneOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfRingtoneOutputFromUserDefaultsCanNotBeFoundInSystemDevices() {
         userDefaultsStub[kRingtoneOutput] = kNonexistentDeviceName
 
-        XCTAssertEqual(selectedDevices.ringtoneOutput, builtInDevices.outputDevice)
+        XCTAssertEqual(selectedDevices.ringtoneOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
         userDefaultsStub[kRingtoneOutput] = deviceFactory.inputOnlyDevice.name
 
-        XCTAssertEqual(selectedDevices.ringtoneOutput, builtInDevices.outputDevice)
+        XCTAssertEqual(selectedDevices.ringtoneOutput, systemDevices.builtInOutput)
     }
 }
 

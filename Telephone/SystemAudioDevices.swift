@@ -28,116 +28,47 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import CoreAudio
-import Foundation
+struct SystemAudioDevices {
 
-class SystemAudioDevices {
+    let allDevices: [SystemAudioDevice]
 
-    private var devices = [SystemAudioDevice]()
+    private(set) var builtInInput: SystemAudioDevice?
+    private(set) var builtInOutput: SystemAudioDevice?
 
-    func update() throws {
-        let deviceIDs = SystemAudioDeviceIDs()
-        try deviceIDs.update()
-        devices = try devicesWithIDs(deviceIDs.allDeviceIDs)
+    private let deviceNameToDevice: [String: SystemAudioDevice]
+
+    init(devices: [SystemAudioDevice]) {
+        self.allDevices = devices
+        builtInInput = firstBuiltInInputDeviceWithDevices(devices)
+        builtInOutput = firstBuiltInOutputDeviceWithDevices(devices)
+        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
     }
 
-    var allDevices: [SystemAudioDevice] {
-        return devices
-    }
-
-    subscript(index: Int) -> SystemAudioDevice {
-        return devices[index]
-    }
-
-    private func devicesWithIDs(deviceIDs: [Int]) throws -> [SystemAudioDevice] {
-        return try deviceIDs.map { try deviceWithID($0) }
-    }
-
-    private func deviceWithID(deviceID: Int) throws -> SystemAudioDevice {
-        let uniqueIdentifier = try uniqueIdentifierForDeviceWithID(deviceID)
-        let name = try nameForDeviceWithID(deviceID)
-        let inputCount = try inputCountForDeviceWithID(deviceID)
-        let outputCount = try outputCountForDeviceWithID(deviceID)
-        let builtIn = try builtInForDeviceWithID(deviceID)
-        return SystemAudioDevice(identifier: deviceID, uniqueIdentifier: uniqueIdentifier, name: name, inputCount: inputCount, outputCount: outputCount, builtIn: builtIn)
-    }
-
-    private func uniqueIdentifierForDeviceWithID(deviceID: Int) throws -> String {
-        return try stringPropertyValueForDeviceWithID(deviceID, selector: kAudioDevicePropertyDeviceUID)
-    }
-
-    private func nameForDeviceWithID(deviceID: Int) throws -> String {
-        return try stringPropertyValueForDeviceWithID(deviceID, selector: kAudioObjectPropertyName)
-    }
-
-    private func inputCountForDeviceWithID(deviceID: Int) throws -> Int {
-        return try channelCountWithObjectID(AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeInput)
-    }
-
-    private func outputCountForDeviceWithID(deviceID: Int) throws -> Int {
-        return try channelCountWithObjectID(AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeOutput)
-    }
-
-    private func builtInForDeviceWithID(deviceID: Int) throws -> Bool {
-        let transportType: UInt32 = try propertyValueForDeviceWithID(deviceID, selector: kAudioDevicePropertyTransportType)
-        return transportType == kAudioDeviceTransportTypeBuiltIn
-    }
-
-    private func stringPropertyValueForDeviceWithID(deviceID: Int, selector: AudioObjectPropertySelector) throws -> String {
-        let stringRef: CFStringRef = try propertyValueForDeviceWithID(deviceID, selector: selector)
-        return stringRef as String
-    }
-
-    private func integerPropertyValueForDeviceWithID(deviceID: Int, selector: AudioObjectPropertySelector) throws -> UInt32 {
-        return try propertyValueForDeviceWithID(deviceID, selector: selector)
-    }
-
-    private func propertyValueForDeviceWithID<T>(deviceID: Int, selector: AudioObjectPropertySelector) throws -> T {
-        var length = UInt32(strideof(T))
-        var result = UnsafeMutablePointer<T>.alloc(1)
-        defer { result.dealloc(1) }
-        var audioObject = SystemAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddressWithSelector(selector))
-        try audioObject.getPropertyValueBytes(result, length: &length)
-        return result.move()
-    }
-
-    private func channelCountWithObjectID(objectID: AudioObjectID, scope: AudioObjectPropertyScope) throws -> Int {
-        var audioObject = SystemAudioObject(objectID: objectID, propertyAddress: audioBufferListAddressWithScope(scope))
-        var length = try audioObject.propertyDataLength()
-        let count = audioBufferListCountWithLength(length)
-        let bytes = UnsafeMutablePointer<AudioBufferList>.alloc(count)
-        defer { bytes.dealloc(count) }
-        try audioObject.getPropertyValueBytes(bytes, length: &length)
-        return channelCountWithBufferListPointer(UnsafeMutableAudioBufferListPointer(bytes))
-    }
-
-    private func propertyAddressWithSelector(selector: AudioObjectPropertySelector) -> AudioObjectPropertyAddress {
-        return AudioObjectPropertyAddress(mSelector: selector, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
-    }
-
-    private func audioBufferListAddressWithScope(scope: AudioObjectPropertyScope) -> AudioObjectPropertyAddress {
-        return AudioObjectPropertyAddress(mSelector: kAudioDevicePropertyStreamConfiguration, mScope: scope, mElement: 0)
-    }
-
-    private func audioBufferListCountWithLength(length: UInt32) -> Int {
-        return Int(length) / strideof(AudioBufferList)
-    }
-
-    private func channelCountWithBufferListPointer(bufferListPointer: UnsafeMutableAudioBufferListPointer) -> Int {
-        var channelCount: UInt32 = 0
-        for buffer in bufferListPointer {
-            channelCount += buffer.mNumberChannels
-        }
-        return Int(channelCount)
+    subscript(name: String) -> SystemAudioDevice? {
+        return deviceNameToDevice[name]
     }
 }
 
-extension SystemAudioDevices: SystemAudioDeviceUpdateListenerOutput {
-    func systemAudioDeviceUpdateListenerDidUpdateDevices() {
-        do {
-            try update()
-        } catch {
-            print("Could not automatically update system audio devices: \(error)")
-        }
+private func firstBuiltInInputDeviceWithDevices(devices: [SystemAudioDevice]) -> SystemAudioDevice? {
+    return devices.filter(isBuiltInInputDevice).first
+}
+
+private func firstBuiltInOutputDeviceWithDevices(devices: [SystemAudioDevice]) -> SystemAudioDevice? {
+    return devices.filter(isBuiltInOutputDevice).first
+}
+
+private func deviceNameToDeviceMapWithDevices(devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
+    var result = [String: SystemAudioDevice]()
+    for device in devices {
+        result[device.name] = device
     }
+    return result
+}
+
+private func isBuiltInInputDevice(device: SystemAudioDevice) -> Bool {
+    return device.builtIn && device.inputCount > 0
+}
+
+private func isBuiltInOutputDevice(device: SystemAudioDevice) -> Bool {
+    return device.builtIn && device.outputCount > 0
 }

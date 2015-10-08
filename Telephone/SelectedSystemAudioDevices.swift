@@ -30,26 +30,24 @@
 
 struct SelectedSystemAudioDevices {
 
-    let allDevices: [SystemAudioDevice]
-    let builtInDevices: BuiltInSystemAudioDevices
+    let systemAudioDevices: SystemAudioDevices
     let userDefaults: UserDefaults
 
-    init(allDevices: [SystemAudioDevice], builtInDevices: BuiltInSystemAudioDevices, userDefaults: UserDefaults) {
-        self.allDevices = allDevices
-        self.builtInDevices = builtInDevices
+    init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) {
+        self.systemAudioDevices = systemAudioDevices
         self.userDefaults = userDefaults
     }
 
     var soundInput: SystemAudioDevice? {
-        return inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: builtInDevices.inputDevice)
+        return inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: systemAudioDevices.builtInInput)
     }
 
     var soundOutput: SystemAudioDevice? {
-        return outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: builtInDevices.outputDevice)
+        return outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: systemAudioDevices.builtInOutput)
     }
 
     var ringtoneOutput: SystemAudioDevice? {
-        return outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: builtInDevices.outputDevice)
+        return outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: systemAudioDevices.builtInOutput)
     }
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String, fallbackDevice: SystemAudioDevice?) -> SystemAudioDevice? {
@@ -76,7 +74,7 @@ struct SelectedSystemAudioDevices {
     }
 
     private func deviceWithName(name: String) -> SystemAudioDevice? {
-        return allDevices.filter({ $0.name == name }).first
+        return systemAudioDevices[name]
     }
 
     private func firstOrSecond<T>(first: T?, second: T?) -> T? {

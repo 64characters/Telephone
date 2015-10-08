@@ -1,5 +1,5 @@
 //
-//  BuiltInSystemAudioDevices.swift
+//  SystemAudioDevicesTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,30 +28,31 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct BuiltInSystemAudioDevices {
+import XCTest
 
-    let devices: [SystemAudioDevice]
+class SystemAudioDevicesTests: XCTestCase {
 
-    private(set) var inputDevice: SystemAudioDevice?
-    private(set) var outputDevice: SystemAudioDevice?
+    private var deviceFactory: SystemAudioDevicesTestFactory!
+    private var devices: SystemAudioDevices!
 
-    init(devices: [SystemAudioDevice]) {
-        self.devices = devices
-        for device in devices {
-            if (inputDevice == nil && isValidInputDevice(device)) {
-                inputDevice = device
-            }
-            if (outputDevice == nil && isValidOutputDevice(device)) {
-                outputDevice = device
-            }
-        }
+    override func setUp() {
+        super.setUp()
+        deviceFactory = SystemAudioDevicesTestFactory()
+        devices = SystemAudioDevices(devices: deviceFactory.allDevices)
     }
-}
 
-private func isValidInputDevice(device: SystemAudioDevice) -> Bool {
-    return device.builtIn && device.inputCount > 0
-}
+    func testBuiltInInputIsTheFirstBuiltInInputDevice() {
+        XCTAssertEqual(devices.builtInInput, deviceFactory.firstBuiltInInput)
+    }
 
-private func isValidOutputDevice(device: SystemAudioDevice) -> Bool {
-    return device.builtIn && device.outputCount > 0
+    func testBuiltInOutputIsTheFirstBuiltInOutputDevice() {
+        XCTAssertEqual(devices.builtInOutput, deviceFactory.firstBuiltInOutput)
+    }
+
+    func testCanGetDeviceByName() {
+        let someDevice = deviceFactory.someInputDevice
+        let deviceByName = devices[someDevice.name]
+
+        XCTAssertEqual(deviceByName, someDevice)
+    }
 }
