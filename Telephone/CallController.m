@@ -49,7 +49,7 @@
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
-#import "PreferencesController.h"
+#import "UserDefaultsKeys.h"
 
 
 // Window auto-close delay.

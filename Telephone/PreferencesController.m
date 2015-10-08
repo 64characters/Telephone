@@ -39,52 +39,6 @@
 #import "SoundPreferencesViewController.h"
 
 
-NSString * const kAccounts = @"Accounts";
-NSString * const kSTUNServerHost = @"STUNServerHost";
-NSString * const kSTUNServerPort = @"STUNServerPort";
-NSString * const kSTUNDomain = @"STUNDomain";
-NSString * const kLogFileName = @"LogFileName";
-NSString * const kLogLevel = @"LogLevel";
-NSString * const kConsoleLogLevel = @"ConsoleLogLevel";
-NSString * const kVoiceActivityDetection = @"VoiceActivityDetection";
-NSString * const kTransportPort = @"TransportPort";
-NSString * const kTransportPublicHost = @"TransportPublicHost";
-NSString * const kSoundInput = @"SoundInput";
-NSString * const kSoundOutput = @"SoundOutput";
-NSString * const kRingtoneOutput = @"RingtoneOutput";
-NSString * const kRingingSound = @"RingingSound";
-NSString * const kFormatTelephoneNumbers = @"FormatTelephoneNumbers";
-NSString * const kTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";
-NSString * const kOutboundProxyHost = @"OutboundProxyHost";
-NSString * const kOutboundProxyPort = @"OutboundProxyPort";
-NSString * const kUseICE = @"UseICE";
-NSString * const kUseDNSSRV = @"UseDNSSRV";
-NSString * const kSignificantPhoneNumberLength = @"SignificantPhoneNumberLength";
-NSString * const kPauseITunes = @"PauseITunes";
-NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
-NSString * const kAutoCloseMissedCallWindow = @"AutoCloseMissedCallWindow";
-NSString * const kCallWaiting = @"CallWaiting";
-NSString * const kShowGrowlNotifications = @"ShowGrowlNotifications";
-NSString * const kUseG711Only = @"UseG711Only";
-
-NSString * const kDescription = @"Description";
-NSString * const kFullName = @"FullName";
-NSString * const kSIPAddress = @"SIPAddress";
-NSString * const kRegistrar = @"Registrar";
-NSString * const kDomain = @"Domain";
-NSString * const kRealm = @"Realm";
-NSString * const kUsername = @"Username";
-NSString * const kAccountIndex = @"AccountIndex";
-NSString * const kAccountEnabled = @"AccountEnabled";
-NSString * const kReregistrationTime = @"ReregistrationTime";
-NSString * const kSubstitutePlusCharacter = @"SubstitutePlusCharacter";
-NSString * const kPlusCharacterSubstitutionString = @"PlusCharacterSubstitutionString";
-NSString * const kUseProxy = @"UseProxy";
-NSString * const kProxyHost = @"ProxyHost";
-NSString * const kProxyPort = @"ProxyPort";
-NSString * const kUpdateContactHeader = @"UpdateContactHeader";
-NSString * const kUpdateViaHeader = @"UpdateViaHeader";
-
 NSString * const kSourceIndex = @"SourceIndex";
 NSString * const kDestinationIndex = @"DestinationIndex";
 

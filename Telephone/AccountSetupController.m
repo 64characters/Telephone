@@ -32,7 +32,7 @@
 
 #import "AKKeychain.h"
 
-#import "PreferencesController.h"
+#import "UserDefaultsKeys.h"
 
 
 NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccountSetupControllerDidAddAccount";

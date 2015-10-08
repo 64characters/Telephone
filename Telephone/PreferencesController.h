@@ -41,55 +41,6 @@ enum {
     kNetworkPreferencesTag  = 3
 };
 
-// Keys for defaults
-//
-extern NSString * const kAccounts;
-extern NSString * const kSTUNServerHost;
-extern NSString * const kSTUNServerPort;
-extern NSString * const kSTUNDomain;
-extern NSString * const kLogFileName;
-extern NSString * const kLogLevel;
-extern NSString * const kConsoleLogLevel;
-extern NSString * const kVoiceActivityDetection;
-extern NSString * const kTransportPort;
-extern NSString * const kTransportPublicHost;
-extern NSString * const kSoundInput;
-extern NSString * const kSoundOutput;
-extern NSString * const kRingtoneOutput;
-extern NSString * const kRingingSound;
-extern NSString * const kFormatTelephoneNumbers;
-extern NSString * const kTelephoneNumberFormatterSplitsLastFourDigits;
-extern NSString * const kOutboundProxyHost;
-extern NSString * const kOutboundProxyPort;
-extern NSString * const kUseICE;
-extern NSString * const kUseDNSSRV;
-extern NSString * const kSignificantPhoneNumberLength;
-extern NSString * const kPauseITunes;
-extern NSString * const kAutoCloseCallWindow;
-extern NSString * const kAutoCloseMissedCallWindow;
-extern NSString * const kCallWaiting;
-extern NSString * const kShowGrowlNotifications;
-extern NSString * const kUseG711Only;
-//
-// Account keys
-extern NSString * const kDescription;
-extern NSString * const kFullName;
-extern NSString * const kSIPAddress;
-extern NSString * const kRegistrar;
-extern NSString * const kDomain;
-extern NSString * const kRealm;
-extern NSString * const kUsername;
-extern NSString * const kAccountIndex;
-extern NSString * const kAccountEnabled;
-extern NSString * const kReregistrationTime;
-extern NSString * const kSubstitutePlusCharacter;
-extern NSString * const kPlusCharacterSubstitutionString;
-extern NSString * const kUseProxy;
-extern NSString * const kProxyHost;
-extern NSString * const kProxyPort;
-extern NSString * const kUpdateContactHeader;
-extern NSString * const kUpdateViaHeader;
-
 extern NSString * const kSourceIndex;
 extern NSString * const kDestinationIndex;
 

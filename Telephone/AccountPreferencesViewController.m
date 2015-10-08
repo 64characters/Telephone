@@ -34,6 +34,7 @@
 
 #import "AccountSetupController.h"
 #import "PreferencesController.h"
+#import "UserDefaultsKeys.h"
 
 
 // Pasteboard type.

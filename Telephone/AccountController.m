@@ -53,7 +53,7 @@
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
-#import "PreferencesController.h"
+#import "UserDefaultsKeys.h"
 
 
 // Account state pop-up button widths.

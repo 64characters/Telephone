@@ -40,7 +40,7 @@
 #import "AKTelephoneNumberFormatter.h"
 
 #import "AccountController.h"
-#import "PreferencesController.h"
+#import "UserDefaultsKeys.h"
 
 
 NSString * const kURI = @"URI";
