@@ -54,10 +54,6 @@ class SystemAudioDeviceIDs {
         return deviceIDs[index]
     }
 
-    private func deviceIDsLength() throws -> UInt32 {
-        return try audioObject.propertyDataLength()
-    }
-
     private func deviceIDsWithLength(length: UInt32) throws -> [Int] {
         let count = audioObjectIDCountWithLength(length)
         let bytes = UnsafeMutablePointer<AudioObjectID>.alloc(count)
