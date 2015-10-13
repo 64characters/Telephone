@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceUpdateListener.swift
+//  SystemAudioDeviceRepositorySpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,42 +28,14 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import CoreAudio
-
-class SystemAudioDeviceUpdateListener {
-
-    let output: SystemAudioDeviceUpdateListenerOutput
-    let queue: dispatch_queue_t
-
-    private let objectID:AudioObjectID
-    private var objectPropertyAddress: AudioObjectPropertyAddress
-
-    init(output: SystemAudioDeviceUpdateListenerOutput, queue: dispatch_queue_t) {
-        self.output = output
-        self.queue = queue
-        objectID = AudioObjectID(kAudioObjectSystemObject)
-        objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
-    }
-
-    func startListening() {
-        let status = AudioObjectAddPropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not add audio device update listener: \(status)")
-        }
-    }
-
-    func stopListening() {
-        let status = AudioObjectRemovePropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not remove audio device update listener: \(status)")
-        }
-    }
-
-    private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
-        output.systemAudioDevicesDidUpdate()
-    }
+class SystemAudioDeviceRepositorySpy {
+    var didCallAllDevices = false
+    var allDevicesResult = [SystemAudioDevice]()
 }
 
-protocol SystemAudioDeviceUpdateListenerOutput {
-    func systemAudioDevicesDidUpdate()
+extension SystemAudioDeviceRepositorySpy: SystemAudioDeviceRepository {
+    func allDevices() throws -> [SystemAudioDevice] {
+        didCallAllDevices = true
+        return allDevicesResult
+    }
 }

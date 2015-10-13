@@ -28,56 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct SelectedSystemAudioDevices {
-
-    let systemAudioDevices: SystemAudioDevices
-    let userDefaults: UserDefaults
-
-    init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) {
-        self.systemAudioDevices = systemAudioDevices
-        self.userDefaults = userDefaults
-    }
-
-    var soundInput: SystemAudioDevice? {
-        return inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: systemAudioDevices.builtInInput)
-    }
-
-    var soundOutput: SystemAudioDevice? {
-        return outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: systemAudioDevices.builtInOutput)
-    }
-
-    var ringtoneOutput: SystemAudioDevice? {
-        return outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: systemAudioDevices.builtInOutput)
-    }
-
-    private func inputDeviceByNameWithUserDefaultsKey(key: String, fallbackDevice: SystemAudioDevice?) -> SystemAudioDevice? {
-        return firstOrSecond(inputDeviceByNameWithUserDefaultsKey(key), second: fallbackDevice)
-    }
-
-    private func outputDeviceByNameWithUserDefaultsKey(key: String, fallbackDevice: SystemAudioDevice?) -> SystemAudioDevice? {
-        return firstOrSecond(outputDeviceByNameWithUserDefaultsKey(key), second: fallbackDevice)
-    }
-
-    private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        let device = deviceByNameWithUserDefaultsKey(key)
-        return device?.inputCount > 0 ? device : nil
-    }
-
-    private func outputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        let device = deviceByNameWithUserDefaultsKey(key)
-        return device?.outputCount > 0 ? device : nil
-    }
-
-    private func deviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        let name = userDefaults[key] as? String
-        return name.flatMap(deviceWithName)
-    }
-
-    private func deviceWithName(name: String) -> SystemAudioDevice? {
-        return systemAudioDevices[name]
-    }
-
-    private func firstOrSecond<T>(first: T?, second: T?) -> T? {
-        return first != nil ? first : second
-    }
+protocol SelectedSystemAudioDevices: SystemAudioDevices {
+    var soundInput: SystemAudioDevice? { get }
+    var soundOutput: SystemAudioDevice? { get }
+    var ringtoneOutput: SystemAudioDevice? { get }
 }

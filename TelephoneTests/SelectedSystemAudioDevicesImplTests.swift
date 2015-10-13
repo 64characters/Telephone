@@ -1,5 +1,5 @@
 //
-//  SelectedSystemAudioDevicesTests.swift
+//  SelectedSystemAudioDevicesImplTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,19 +30,19 @@
 
 import XCTest
 
-class SelectedSystemAudioDevicesTests: XCTestCase {
+class SelectedSystemAudioDevicesImplTests: XCTestCase {
 
-    var deviceFactory: SystemAudioDevicesTestFactory!
+    var deviceFactory: SystemAudioDeviceTestFactory!
     var systemDevices: SystemAudioDevices!
     var userDefaultsStub: UserDefaultsStub!
-    var selectedDevices: SelectedSystemAudioDevices!
+    var selectedDevices: SelectedSystemAudioDevicesImpl!
 
     override func setUp() {
         super.setUp()
-        deviceFactory = SystemAudioDevicesTestFactory()
-        systemDevices = SystemAudioDevices(devices: deviceFactory.allDevices)
+        deviceFactory = SystemAudioDeviceTestFactory()
+        systemDevices = SystemAudioDevicesImpl(devices: deviceFactory.allDevices)
         userDefaultsStub = UserDefaultsStub()
-        selectedDevices = SelectedSystemAudioDevices(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
+        selectedDevices = SelectedSystemAudioDevicesImpl(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
     }
 
     // MARK: - Sound input

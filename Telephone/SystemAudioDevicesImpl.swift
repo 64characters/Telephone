@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceUpdateListener.swift
+//  SystemAudioDevicesImpl.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,42 +28,47 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import CoreAudio
+struct SystemAudioDevicesImpl: SystemAudioDevices {
 
-class SystemAudioDeviceUpdateListener {
+    let allDevices: [SystemAudioDevice]
 
-    let output: SystemAudioDeviceUpdateListenerOutput
-    let queue: dispatch_queue_t
+    private(set) var builtInInput: SystemAudioDevice?
+    private(set) var builtInOutput: SystemAudioDevice?
 
-    private let objectID:AudioObjectID
-    private var objectPropertyAddress: AudioObjectPropertyAddress
+    private let deviceNameToDevice: [String: SystemAudioDevice]
 
-    init(output: SystemAudioDeviceUpdateListenerOutput, queue: dispatch_queue_t) {
-        self.output = output
-        self.queue = queue
-        objectID = AudioObjectID(kAudioObjectSystemObject)
-        objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
+    init(devices: [SystemAudioDevice]) {
+        self.allDevices = devices
+        builtInInput = firstBuiltInInputDeviceWithDevices(devices)
+        builtInOutput = firstBuiltInOutputDeviceWithDevices(devices)
+        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
     }
 
-    func startListening() {
-        let status = AudioObjectAddPropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not add audio device update listener: \(status)")
-        }
-    }
-
-    func stopListening() {
-        let status = AudioObjectRemovePropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not remove audio device update listener: \(status)")
-        }
-    }
-
-    private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
-        output.systemAudioDevicesDidUpdate()
+    subscript(name: String) -> SystemAudioDevice? {
+        return deviceNameToDevice[name]
     }
 }
 
-protocol SystemAudioDeviceUpdateListenerOutput {
-    func systemAudioDevicesDidUpdate()
+private func firstBuiltInInputDeviceWithDevices(devices: [SystemAudioDevice]) -> SystemAudioDevice? {
+    return devices.filter(isBuiltInInputDevice).first
+}
+
+private func firstBuiltInOutputDeviceWithDevices(devices: [SystemAudioDevice]) -> SystemAudioDevice? {
+    return devices.filter(isBuiltInOutputDevice).first
+}
+
+private func deviceNameToDeviceMapWithDevices(devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
+    var result = [String: SystemAudioDevice]()
+    for device in devices {
+        result[device.name] = device
+    }
+    return result
+}
+
+private func isBuiltInInputDevice(device: SystemAudioDevice) -> Bool {
+    return device.builtIn && device.inputCount > 0
+}
+
+private func isBuiltInOutputDevice(device: SystemAudioDevice) -> Bool {
+    return device.builtIn && device.outputCount > 0
 }

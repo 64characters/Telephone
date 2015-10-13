@@ -28,47 +28,9 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct SystemAudioDevices {
-
-    let allDevices: [SystemAudioDevice]
-
-    private(set) var builtInInput: SystemAudioDevice?
-    private(set) var builtInOutput: SystemAudioDevice?
-
-    private let deviceNameToDevice: [String: SystemAudioDevice]
-
-    init(devices: [SystemAudioDevice]) {
-        self.allDevices = devices
-        builtInInput = firstBuiltInInputDeviceWithDevices(devices)
-        builtInOutput = firstBuiltInOutputDeviceWithDevices(devices)
-        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
-    }
-
-    subscript(name: String) -> SystemAudioDevice? {
-        return deviceNameToDevice[name]
-    }
-}
-
-private func firstBuiltInInputDeviceWithDevices(devices: [SystemAudioDevice]) -> SystemAudioDevice? {
-    return devices.filter(isBuiltInInputDevice).first
-}
-
-private func firstBuiltInOutputDeviceWithDevices(devices: [SystemAudioDevice]) -> SystemAudioDevice? {
-    return devices.filter(isBuiltInOutputDevice).first
-}
-
-private func deviceNameToDeviceMapWithDevices(devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
-    var result = [String: SystemAudioDevice]()
-    for device in devices {
-        result[device.name] = device
-    }
-    return result
-}
-
-private func isBuiltInInputDevice(device: SystemAudioDevice) -> Bool {
-    return device.builtIn && device.inputCount > 0
-}
-
-private func isBuiltInOutputDevice(device: SystemAudioDevice) -> Bool {
-    return device.builtIn && device.outputCount > 0
+protocol SystemAudioDevices {
+    var allDevices: [SystemAudioDevice] { get }
+    var builtInInput: SystemAudioDevice? { get }
+    var builtInOutput: SystemAudioDevice? { get }
+    subscript(name: String) -> SystemAudioDevice? { get }
 }

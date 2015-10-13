@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesTests.swift
+//  SystemAudioDeviceTestFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,31 +28,27 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
+class SystemAudioDeviceTestFactory {
 
-class SystemAudioDevicesTests: XCTestCase {
+    let allDevices: [SystemAudioDevice]
+    let firstBuiltInInput: SystemAudioDevice
+    let firstBuiltInOutput: SystemAudioDevice
+    let someInputDevice: SystemAudioDevice
+    let someOutputDevice: SystemAudioDevice
+    let inputOnlyDevice: SystemAudioDevice
+    let outputOnlyDevice: SystemAudioDevice
 
-    private var deviceFactory: SystemAudioDevicesTestFactory!
-    private var devices: SystemAudioDevices!
-
-    override func setUp() {
-        super.setUp()
-        deviceFactory = SystemAudioDevicesTestFactory()
-        devices = SystemAudioDevices(devices: deviceFactory.allDevices)
-    }
-
-    func testBuiltInInputIsTheFirstBuiltInInputDevice() {
-        XCTAssertEqual(devices.builtInInput, deviceFactory.firstBuiltInInput)
-    }
-
-    func testBuiltInOutputIsTheFirstBuiltInOutputDevice() {
-        XCTAssertEqual(devices.builtInOutput, deviceFactory.firstBuiltInOutput)
-    }
-
-    func testCanGetDeviceByName() {
-        let someDevice = deviceFactory.someInputDevice
-        let deviceByName = devices[someDevice.name]
-
-        XCTAssertEqual(deviceByName, someDevice)
+    init() {
+        let device1 = SystemAudioDevice(identifier: 1, uniqueIdentifier: "UID1", name: "Device1", inputCount: 1, outputCount: 0, builtIn: false)
+        let device2 = SystemAudioDevice(identifier: 2, uniqueIdentifier: "UID2", name: "Device2", inputCount: 0, outputCount: 1, builtIn: false)
+        let device3 = SystemAudioDevice(identifier: 3, uniqueIdentifier: "UID3", name: "Device3", inputCount: 1, outputCount: 0, builtIn: true)
+        let device4 = SystemAudioDevice(identifier: 4, uniqueIdentifier: "UID4", name: "Device4", inputCount: 0, outputCount: 1, builtIn: true)
+        allDevices = [device1, device2, device3, device4]
+        firstBuiltInInput = device3
+        firstBuiltInOutput = device4
+        someInputDevice = device1
+        someOutputDevice = device2
+        inputOnlyDevice = device1
+        outputOnlyDevice = device2
     }
 }

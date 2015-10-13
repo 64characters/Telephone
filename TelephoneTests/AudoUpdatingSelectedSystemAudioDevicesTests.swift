@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceUpdateListener.swift
+//  AudoUpdatingSelectedSystemAudioDevicesTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,42 +28,32 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import CoreAudio
+import XCTest
 
-class SystemAudioDeviceUpdateListener {
+class AudoUpdatingSelectedSystemAudioDevicesTests: XCTestCase {
 
-    let output: SystemAudioDeviceUpdateListenerOutput
-    let queue: dispatch_queue_t
+    var repositorySpy: SystemAudioDeviceRepositorySpy!
+    var devices: AudoUpdatingSelectedSystemAudioDevices!
 
-    private let objectID:AudioObjectID
-    private var objectPropertyAddress: AudioObjectPropertyAddress
-
-    init(output: SystemAudioDeviceUpdateListenerOutput, queue: dispatch_queue_t) {
-        self.output = output
-        self.queue = queue
-        objectID = AudioObjectID(kAudioObjectSystemObject)
-        objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
+    override func setUp() {
+        super.setUp()
+        repositorySpy = SystemAudioDeviceRepositorySpy()
+        let userDefaultsDummy = UserDefaultsStub()
+        devices = AudoUpdatingSelectedSystemAudioDevices(deviceRepository: repositorySpy, userDefaults: userDefaultsDummy)
     }
 
-    func startListening() {
-        let status = AudioObjectAddPropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not add audio device update listener: \(status)")
-        }
+    func testReturnsDevicesFromRepository() {
+        let factory = SystemAudioDeviceTestFactory()
+        repositorySpy.allDevicesResult = factory.allDevices
+
+        try! devices.update()
+
+        XCTAssertEqual(devices.allDevices, factory.allDevices)
     }
 
-    func stopListening() {
-        let status = AudioObjectRemovePropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not remove audio device update listener: \(status)")
-        }
-    }
+    func testGetsAllDevicesFromRepositoryOnSystemDeviceUpdateNotification() {
+        devices.systemAudioDevicesDidUpdate()
 
-    private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
-        output.systemAudioDevicesDidUpdate()
+        XCTAssertTrue(repositorySpy.didCallAllDevices)
     }
-}
-
-protocol SystemAudioDeviceUpdateListenerOutput {
-    func systemAudioDevicesDidUpdate()
 }
