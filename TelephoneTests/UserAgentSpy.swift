@@ -1,5 +1,5 @@
 //
-//  AudioDeviceMap.swift
+//  UserAgentSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,41 +28,22 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class AudioDeviceMap {
+class UserAgentSpy {
+    var didCallAudioDevices = false
+    var audioDevicesResult = [UserAgentAudioDevice]()
+    var selectedInputDeviceIndex: Int?
+    var selectedOutputDeviceIndex: Int?
+}
 
-    let systemDevices: [SystemAudioDevice]
-    let userAgentDevices: [UserAgentAudioDevice]
+extension UserAgentSpy: UserAgent {
 
-    private var map = [SystemAudioDevice: UserAgentAudioDevice]()
-    private var userAgentDeviceNameToDeviceMap = [String: UserAgentAudioDevice]()
-
-    init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
-        self.systemDevices = systemDevices
-        self.userAgentDevices = userAgentDevices
+    func audioDevices() throws -> [UserAgentAudioDevice] {
+        didCallAudioDevices = true
+        return audioDevicesResult
     }
 
-    subscript(systemDevice: SystemAudioDevice) -> UserAgentAudioDevice {
-        if map.isEmpty {
-            updateMap()
-        }
-        return map[systemDevice]!
-    }
-
-    private func updateMap() {
-        updateUserAgentDeviceNameToDeviceMap()
-        for device in systemDevices {
-            updateMapWithSystemDevice(device)
-        }
-    }
-
-    private func updateUserAgentDeviceNameToDeviceMap() {
-        for device in userAgentDevices {
-            userAgentDeviceNameToDeviceMap[device.name] = device
-        }
-    }
-
-    private func updateMapWithSystemDevice(device: SystemAudioDevice) {
-        let userAgentDevice = userAgentDeviceNameToDeviceMap[device.name]!
-        map[device] = userAgentDevice
+    func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws {
+        selectedInputDeviceIndex = inputDeviceIndex
+        selectedOutputDeviceIndex = outputDeviceIndex
     }
 }

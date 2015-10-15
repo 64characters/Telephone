@@ -1,5 +1,5 @@
 //
-//  TelephoneError.swift
+//  SystemToUserAgentAudioDeviceMap.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,9 +28,50 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-enum TelephoneError: ErrorType {
-    case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
-    case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
-    case SystemToUserAgentAudioDeviceMapError
-    case NoAvailableSoundIOError
+class SystemToUserAgentAudioDeviceMap {
+
+    let systemDevices: [SystemAudioDevice]
+    let userAgentDevices: [UserAgentAudioDevice]
+
+    private var map = [SystemAudioDevice: UserAgentAudioDevice]()
+    private var userAgentDeviceNameToDeviceMap = [String: UserAgentAudioDevice]()
+
+    init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
+        self.systemDevices = systemDevices
+        self.userAgentDevices = userAgentDevices
+    }
+
+    subscript(systemDevice: SystemAudioDevice) -> UserAgentAudioDevice? {
+        if map.isEmpty {
+            updateMap()
+        }
+        return map[systemDevice]
+    }
+
+    func userAgentDeviceForSystemDevice(systemDevice: SystemAudioDevice) throws -> UserAgentAudioDevice {
+        if let device = self[systemDevice] {
+            return device
+        } else {
+            throw TelephoneError.SystemToUserAgentAudioDeviceMapError
+        }
+    }
+
+    private func updateMap() {
+        updateUserAgentDeviceNameToDeviceMap()
+        for device in systemDevices {
+            updateMapWithSystemDevice(device)
+        }
+    }
+
+    private func updateUserAgentDeviceNameToDeviceMap() {
+        for device in userAgentDevices {
+            userAgentDeviceNameToDeviceMap[device.name] = device
+        }
+    }
+
+    private func updateMapWithSystemDevice(device: SystemAudioDevice) {
+        if let userAgentDevice = userAgentDeviceNameToDeviceMap[device.name] {
+            map[device] = userAgentDevice
+        }
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  TelephoneError.swift
+//  UserAgentAudioDeviceSelectorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,9 +28,43 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-enum TelephoneError: ErrorType {
-    case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
-    case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
-    case SystemToUserAgentAudioDeviceMapError
-    case NoAvailableSoundIOError
+import XCTest
+
+class UserAgentAudioDeviceSelectorTests: XCTestCase {
+
+    var systemDevices: SystemAudioDevices!
+    var userAgentSpy: UserAgentSpy!
+
+    override func setUp() {
+        super.setUp()
+        systemDevices = createSystemDevices()
+        userAgentSpy = UserAgentSpy()
+    }
+
+    func testSelectsMappedAudioDevices() {
+        let userAgentDevices = createUserAgentDevices()
+        userAgentSpy.audioDevicesResult = userAgentDevices
+        let selector = createSelector()
+
+        try! selector.selectDevices()
+
+        XCTAssertEqual(userAgentSpy.selectedInputDeviceIndex, userAgentDevices[1].identifier)
+        XCTAssertEqual(userAgentSpy.selectedOutputDeviceIndex, userAgentDevices[0].identifier)
+    }
+
+    private func createSystemDevices() -> SystemAudioDevices {
+        let factory = SystemAudioDeviceTestFactory()
+        return SystemAudioDevicesImpl(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
+    }
+
+    private func createUserAgentDevices() -> [UserAgentAudioDevice] {
+        let device1 = UserAgentAudioDevice(identifier: 1, name: systemDevices.allDevices[1].name)
+        let device2 = UserAgentAudioDevice(identifier: 2, name: systemDevices.allDevices[0].name)
+        return [device1, device2]
+    }
+
+    private func createSelector() -> UserAgentAudioDeviceSelector {
+        let devices = SelectedSystemAudioDevicesImpl(systemAudioDevices: systemDevices, userDefaults: UserDefaultsStub())
+        return UserAgentAudioDeviceSelector(selectedSystemDevices: devices, userAgent: userAgentSpy)
+    }
 }

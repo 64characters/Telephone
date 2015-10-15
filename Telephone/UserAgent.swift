@@ -1,5 +1,5 @@
 //
-//  AudioDevicesMapTests.swift
+//  UserAgent.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,21 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
-
-class AudioDevicesMapTests: XCTestCase {
-
-    func testMapsSystemToUserAgentDeviceByName() {
-        let systemDevice1 = SystemAudioDevice(identifier: 1, uniqueIdentifier: "", name: "Device1", inputCount: 0, outputCount: 0, builtIn: false)
-        let systemDevice2 = SystemAudioDevice(identifier: 2, uniqueIdentifier: "", name: "Device2", inputCount: 0, outputCount: 0, builtIn: false)
-        let systemDevices = [systemDevice1, systemDevice2]
-        let userAgentDevice1 = UserAgentAudioDevice(identifier: 1, name: "Device2")
-        let userAgentDevice2 = UserAgentAudioDevice(identifier: 2, name: "Device1")
-        let userAgentDecices = [userAgentDevice1, userAgentDevice2]
-
-        let map = AudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDecices)
-
-        XCTAssertEqual(map[systemDevice1], userAgentDevice2)
-        XCTAssertEqual(map[systemDevice2], userAgentDevice1)
-    }
+protocol UserAgent {
+    func audioDevices() throws -> [UserAgentAudioDevice]
+    func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws
 }
