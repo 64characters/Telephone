@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceUpdateListener.swift
+//  SystemAudioDeviceUpdateNotifier.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,15 +30,15 @@
 
 import CoreAudio
 
-class SystemAudioDeviceUpdateListener {
+class SystemAudioDeviceUpdateNotifier {
 
-    let output: SystemAudioDeviceUpdateListenerOutput
+    let output: SystemAudioDeviceUpdateNotifierOutput
     let queue: dispatch_queue_t
 
     private let objectID:AudioObjectID
     private var objectPropertyAddress: AudioObjectPropertyAddress
 
-    init(output: SystemAudioDeviceUpdateListenerOutput, queue: dispatch_queue_t) {
+    init(output: SystemAudioDeviceUpdateNotifierOutput, queue: dispatch_queue_t) {
         self.output = output
         self.queue = queue
         objectID = AudioObjectID(kAudioObjectSystemObject)
@@ -64,6 +64,6 @@ class SystemAudioDeviceUpdateListener {
     }
 }
 
-protocol SystemAudioDeviceUpdateListenerOutput {
+protocol SystemAudioDeviceUpdateNotifierOutput {
     func systemAudioDevicesDidUpdate()
 }
