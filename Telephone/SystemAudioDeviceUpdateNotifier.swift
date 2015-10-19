@@ -45,14 +45,14 @@ class SystemAudioDeviceUpdateNotifier {
         objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
     }
 
-    func startListening() {
+    func start() {
         let status = AudioObjectAddPropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
         if status != noErr {
             print("Could not add audio device update listener: \(status)")
         }
     }
 
-    func stopListening() {
+    func stop() {
         let status = AudioObjectRemovePropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
         if status != noErr {
             print("Could not remove audio device update listener: \(status)")
