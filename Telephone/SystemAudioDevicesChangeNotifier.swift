@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceUpdateNotifier.swift
+//  SystemAudioDevicesChangeNotifier.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,7 +30,7 @@
 
 import CoreAudio
 
-class SystemAudioDeviceUpdateNotifier {
+class SystemAudioDevicesChangeNotifier {
 
     let observers: [SystemAudioDevicesObserver]
     let queue: dispatch_queue_t
@@ -48,14 +48,14 @@ class SystemAudioDeviceUpdateNotifier {
     func start() {
         let status = AudioObjectAddPropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
         if status != noErr {
-            print("Could not add audio device update listener: \(status)")
+            print("Could not add audio devices change listener: \(status)")
         }
     }
 
     func stop() {
         let status = AudioObjectRemovePropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
         if status != noErr {
-            print("Could not remove audio device update listener: \(status)")
+            print("Could not remove audio devices change listener: \(status)")
         }
     }
 
