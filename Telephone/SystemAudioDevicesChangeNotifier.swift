@@ -60,6 +60,11 @@ class SystemAudioDevicesChangeNotifier {
     }
 
     private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
+        dispatch_async(dispatch_get_main_queue(), notifyObservers)
+    }
+
+    private func notifyObservers() {
+        assert(NSThread.isMainThread())
         for observer in observers {
             observer.systemAudioDevicesDidUpdate()
         }
