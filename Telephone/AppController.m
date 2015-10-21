@@ -600,11 +600,11 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     
     // Set selected sound IO to the user agent if there are active calls.
     if ([[self userAgent] activeCallsCount] > 0) {
-        [[self userAgent] setSoundInputDevice:newSoundInput soundOutputDevice:newSoundOutput];
+        [self setSelectedSoundIOToUserAgent];
     } else {
         [self setShouldSetUserAgentSoundIO:YES];
     }
-    
+
     // Set selected ringtone output.
     [[self ringtone] setPlaybackDeviceIdentifier:devices[newRingtoneOutput][kAudioDeviceUID]];
 }
