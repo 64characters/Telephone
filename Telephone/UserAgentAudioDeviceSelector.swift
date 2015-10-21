@@ -28,46 +28,35 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentAudioDeviceSelectorInput {
-    func selectDevices() throws
-}
-
 class UserAgentAudioDeviceSelector {
 
-    let selectedSystemDevices: SelectedSystemAudioDevices
-    let userAgent: UserAgent
+    let deviceInteractor: UserAgentAudioDeviceInteractorInput
 
-    private var deviceMap: SystemToUserAgentAudioDeviceMap!
+    init(deviceInteractor: UserAgentAudioDeviceInteractorInput) {
+        self.deviceInteractor = deviceInteractor
+    }
 
-    init(selectedSystemDevices: SelectedSystemAudioDevices, userAgent: UserAgent) {
-        self.selectedSystemDevices = selectedSystemDevices
-        self.userAgent = userAgent
+    func selectAudioDevices() throws {
+        try deviceInteractor.selectAudioDevices()
+    }
+
+    private func selectAudioDevicesOrLogError() {
+        do {
+            try selectAudioDevices()
+        } catch {
+            print("Could not automatically select user agent audio devices: \(error)")
+        }
     }
 }
 
-extension UserAgentAudioDeviceSelector: UserAgentAudioDeviceSelectorInput {
-
-    func selectDevices() throws {
-        try updateDeviceMap()
-        try selectUserAgentAudioDevices()
+extension UserAgentAudioDeviceSelector: SystemAudioDeviceUpdateListener {
+    func systemAudioDevicesDidUpdate() {
+        selectAudioDevicesOrLogError()
     }
+}
 
-    private func updateDeviceMap() throws {
-        let userAgentDevices = try userAgent.audioDevices()
-        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: selectedSystemDevices.allDevices, userAgentDevices: userAgentDevices)
-    }
-
-    private func selectUserAgentAudioDevices() throws {
-        if let systemInput = selectedSystemDevices.soundInput, let systemOutput = selectedSystemDevices.soundOutput {
-            try selectUserAgentDevicesWithSystemInput(systemInput, systemOutput: systemOutput)
-        } else {
-            throw TelephoneError.NoAvailableSoundIOError
-        }
-    }
-
-    private func selectUserAgentDevicesWithSystemInput(systemInput: SystemAudioDevice, systemOutput: SystemAudioDevice) throws {
-        let userAgentInput = try deviceMap.userAgentDeviceForSystemDevice(systemInput)
-        let userAgentOutput = try deviceMap.userAgentDeviceForSystemDevice(systemOutput)
-        try userAgent.selectAudioInputDeviceAtIndex(userAgentInput.identifier, audioOutputDeviceAtIndex: userAgentOutput.identifier)
+extension UserAgentAudioDeviceSelector: UserAgentObserver {
+    func userAgentDidFinishStarting() {
+        selectAudioDevicesOrLogError()
     }
 }

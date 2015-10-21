@@ -1,5 +1,5 @@
 //
-//  UserAgent.swift
+//  UserAgentAudioDeviceSelectorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,8 +28,28 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgent {
-    var started: Bool { get }
-    func audioDevices() throws -> [UserAgentAudioDevice]
-    func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws
+import XCTest
+
+class UserAgentAudioDeviceSelectorTests: XCTestCase {
+
+    private var interactorSpy: UserAgentAudioDeviceInteractorSpy!
+    private var selector: UserAgentAudioDeviceSelector!
+
+    override func setUp() {
+        super.setUp()
+        interactorSpy = UserAgentAudioDeviceInteractorSpy()
+        selector = UserAgentAudioDeviceSelector(deviceInteractor: interactorSpy)
+    }
+
+    func testSelectsDevicesWhenSystemDevicesAreUpdated() {
+        selector.systemAudioDevicesDidUpdate()
+
+        XCTAssertTrue(interactorSpy.didCallSelectAudioDevices)
+    }
+
+    func testSelectsDevicesWhenUserAgentFinishesStarting() {
+        selector.userAgentDidFinishStarting()
+
+        XCTAssertTrue(interactorSpy.didCallSelectAudioDevices)
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelectorTests.swift
+//  UserAgentAudioDeviceInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,26 +30,36 @@
 
 import XCTest
 
-class UserAgentAudioDeviceSelectorTests: XCTestCase {
+class UserAgentAudioDeviceInteractorTests: XCTestCase {
 
     var systemDevices: SystemAudioDevices!
     var userAgentSpy: UserAgentSpy!
+    var interactor: UserAgentAudioDeviceInteractor!
 
     override func setUp() {
         super.setUp()
         systemDevices = createSystemDevices()
         userAgentSpy = UserAgentSpy()
+        userAgentSpy.audioDevicesResult = createUserAgentDevices()
+        interactor = createInteractor()
     }
 
     func testSelectsMappedAudioDevices() {
-        let userAgentDevices = createUserAgentDevices()
-        userAgentSpy.audioDevicesResult = userAgentDevices
-        let selector = createSelector()
+        userAgentSpy.startedResult = true
 
-        try! selector.selectDevices()
+        try! interactor.selectAudioDevices()
 
+        let userAgentDevices: [UserAgentAudioDevice] = userAgentSpy.audioDevicesResult
         XCTAssertEqual(userAgentSpy.selectedInputDeviceIndex, userAgentDevices[1].identifier)
         XCTAssertEqual(userAgentSpy.selectedOutputDeviceIndex, userAgentDevices[0].identifier)
+    }
+
+    func testDoesNotSelectDevicesIfUserAgentIsNotStarted() {
+        userAgentSpy.startedResult = false
+
+        try! interactor.selectAudioDevices()
+
+        XCTAssertFalse(userAgentSpy.didCallSelectInputAndOutputDevices)
     }
 
     private func createSystemDevices() -> SystemAudioDevices {
@@ -63,8 +73,8 @@ class UserAgentAudioDeviceSelectorTests: XCTestCase {
         return [device1, device2]
     }
 
-    private func createSelector() -> UserAgentAudioDeviceSelector {
+    private func createInteractor() -> UserAgentAudioDeviceInteractor {
         let devices = SelectedSystemAudioDevicesImpl(systemAudioDevices: systemDevices, userDefaults: UserDefaultsStub())
-        return UserAgentAudioDeviceSelector(selectedSystemDevices: devices, userAgent: userAgentSpy)
+        return UserAgentAudioDeviceInteractor(selectedSystemDevices: devices, userAgent: userAgentSpy)
     }
 }

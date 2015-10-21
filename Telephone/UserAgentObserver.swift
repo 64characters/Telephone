@@ -1,5 +1,5 @@
 //
-//  UserAgent.swift
+//  UserAgentObserver.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,8 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgent {
-    var started: Bool { get }
-    func audioDevices() throws -> [UserAgentAudioDevice]
-    func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws
+protocol UserAgentObserver {
+    func userAgentDidFinishStarting()
 }

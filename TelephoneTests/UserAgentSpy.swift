@@ -29,13 +29,22 @@
 //
 
 class UserAgentSpy {
+
+    var startedResult = false
+
     var didCallAudioDevices = false
     var audioDevicesResult = [UserAgentAudioDevice]()
+
+    var didCallSelectInputAndOutputDevices = false
     var selectedInputDeviceIndex: Int?
     var selectedOutputDeviceIndex: Int?
 }
 
 extension UserAgentSpy: UserAgent {
+
+    var started: Bool {
+        return startedResult
+    }
 
     func audioDevices() throws -> [UserAgentAudioDevice] {
         didCallAudioDevices = true
@@ -43,6 +52,7 @@ extension UserAgentSpy: UserAgent {
     }
 
     func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws {
+        didCallSelectInputAndOutputDevices = true
         selectedInputDeviceIndex = inputDeviceIndex
         selectedOutputDeviceIndex = outputDeviceIndex
     }
