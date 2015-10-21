@@ -32,13 +32,13 @@ import CoreAudio
 
 class SystemAudioDeviceUpdateNotifier {
 
-    let observers: [SystemAudioDeviceUpdateListener]
+    let observers: [SystemAudioDevicesObserver]
     let queue: dispatch_queue_t
 
     private let objectID:AudioObjectID
     private var objectPropertyAddress: AudioObjectPropertyAddress
 
-    init(observers: [SystemAudioDeviceUpdateListener], queue: dispatch_queue_t) {
+    init(observers: [SystemAudioDevicesObserver], queue: dispatch_queue_t) {
         self.observers = observers
         self.queue = queue
         objectID = AudioObjectID(kAudioObjectSystemObject)

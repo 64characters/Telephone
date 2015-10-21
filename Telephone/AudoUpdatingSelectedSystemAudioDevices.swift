@@ -85,7 +85,7 @@ extension AudoUpdatingSelectedSystemAudioDevices: SystemAudioDevices {
     }
 }
 
-extension AudoUpdatingSelectedSystemAudioDevices: SystemAudioDeviceUpdateListener {
+extension AudoUpdatingSelectedSystemAudioDevices: SystemAudioDevicesObserver {
     func systemAudioDevicesDidUpdate() {
         do {
             try update()
