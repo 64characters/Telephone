@@ -1,5 +1,5 @@
 //
-//  TelephoneError.swift
+//  UserAgentExtension.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,10 +28,16 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-enum TelephoneError: ErrorType {
-    case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
-    case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
-    case SystemToUserAgentAudioDeviceMapError
-    case NoAvailableSoundIOError
-    case UserAgentAudioDeviceSelectionError
+extension AKSIPUserAgent: UserAgent {
+
+    func audioDevices() throws -> [UserAgentAudioDevice] {
+        return []
+    }
+
+    func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws {
+        let success = self.setSoundInputDevice(inputDeviceIndex, soundOutputDevice: outputDeviceIndex)
+        if !success {
+            throw TelephoneError.UserAgentAudioDeviceSelectionError
+        }
+    }
 }
