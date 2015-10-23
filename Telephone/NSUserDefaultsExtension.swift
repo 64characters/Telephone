@@ -1,5 +1,5 @@
 //
-//  UserDefaultsStub.swift
+//  NSUserDefaultsExtension.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,17 +28,13 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserDefaultsStub {
-    private var dictionary = [String: AnyObject]()
-}
-
-extension UserDefaultsStub: UserDefaults {
+extension NSUserDefaults: UserDefaults {
     subscript(key: String) -> AnyObject? {
         get {
-            return dictionary[key]
+            return objectForKey(key)
         }
         set {
-            dictionary[key] = newValue
+            setObject(newValue, forKey: key)
         }
     }
 }

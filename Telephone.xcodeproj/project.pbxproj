@@ -123,6 +123,7 @@
 		AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADAA2CC107E56FD00789F2D /* ActiveCallView.xib */; };
 		AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADAA2D0107E572300789F2D /* EndedCallView.xib */; };
 		AAE39A381BD92DF600EFB7BC /* String+Creating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE39A371BD92DF600EFB7BC /* String+Creating.swift */; };
+		AAE39A3B1BDA59F100EFB7BC /* NSUserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE39A3A1BDA59F100EFB7BC /* NSUserDefaultsExtension.swift */; };
 		AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */; };
 		AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */; };
 		AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
@@ -356,6 +357,7 @@
 		AAE33B101BA7269600C6E48B /* AKSIPCallDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCallDelegate.h; sourceTree = "<group>"; };
 		AAE33B111BA72A1800C6E48B /* CallControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallControllerDelegate.h; sourceTree = "<group>"; };
 		AAE39A371BD92DF600EFB7BC /* String+Creating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Creating.swift"; sourceTree = "<group>"; };
+		AAE39A3A1BDA59F100EFB7BC /* NSUserDefaultsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsExtension.swift; sourceTree = "<group>"; };
 		AAECDE8D0E70703100CEAE7B /* AKNSString+Scanning.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Scanning.h"; sourceTree = "<group>"; tabWidth = 4; };
 		AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Scanning.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSWindow+Resizing.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -456,6 +458,7 @@
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
+				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaultsExtension.swift */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				AA4D490A1BB99DD6004D1D4B /* Frameworks */,
@@ -973,6 +976,7 @@
 				AA277A641BD542C80030ECE4 /* UserAgentObserver.swift in Sources */,
 				AA4C2E791BBFEEAB00C3D096 /* SystemAudioObject.swift in Sources */,
 				AA34AF4B1073B84700FA38F7 /* NetworkPreferencesViewController.m in Sources */,
+				AAE39A3B1BDA59F100EFB7BC /* NSUserDefaultsExtension.swift in Sources */,
 				AA90D7561BC90F160059CC03 /* AudoUpdatingSelectedSystemAudioDevices.swift in Sources */,
 				AAFA2BAD1BCD812C00066CFC /* UserAgentAudioDeviceInteractor.swift in Sources */,
 				AA34AF831073BF5D00FA38F7 /* GeneralPreferencesViewController.m in Sources */,

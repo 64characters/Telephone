@@ -29,5 +29,5 @@
 //
 
 protocol UserDefaults {
-    subscript(key: String) -> Any? { get set }
+    subscript(key: String) -> AnyObject? { get set }
 }
