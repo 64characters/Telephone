@@ -31,7 +31,7 @@
 extension AKSIPUserAgent: UserAgent {
 
     func audioDevices() throws -> [UserAgentAudioDevice] {
-        return []
+        return try UserAgentAudioDevices().allDevices
     }
 
     func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws {

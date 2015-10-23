@@ -1,5 +1,5 @@
 //
-//  TelephoneError.swift
+//  UserAgentAudioDevices.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,11 +28,46 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-enum TelephoneError: ErrorType {
-    case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
-    case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
-    case SystemToUserAgentAudioDeviceMapError
-    case NoAvailableSoundIOError
-    case UserAgentAudioDeviceEnumerationError
-    case UserAgentAudioDeviceSelectionError
+struct UserAgentAudioDevices {
+
+    let allDevices: [UserAgentAudioDevice]
+
+    init() throws {
+        allDevices = try createDevices()
+    }
 }
+
+private func createDevices() throws -> [UserAgentAudioDevice] {
+    let bytes = UnsafeMutablePointer<pjmedia_aud_dev_info>.alloc(kBufferSize)
+    var count = UInt32(kBufferSize)
+    try getDevicesBytes(bytes, count: &count)
+    let result = devicesWithBytes(bytes, count: Int(count))
+    bytes.dealloc(kBufferSize)
+    return result
+}
+
+private func getDevicesBytes(bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, inout count: UInt32) throws {
+    let status = pjsua_enum_aud_devs(bytes, &count)
+    if status != 0 {
+        throw TelephoneError.UserAgentAudioDeviceEnumerationError
+    }
+}
+
+private func devicesWithBytes(bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: Int) -> [UserAgentAudioDevice] {
+    let buffer = UnsafeBufferPointer<pjmedia_aud_dev_info>(start: bytes, count: count)
+    return devicesWithBuffer(buffer)
+}
+
+private func devicesWithBuffer(pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
+    var index = 0
+    return pointer.map { deviceInfo -> UserAgentAudioDevice in
+        return UserAgentAudioDevice(identifier: index++, name: nameWithDeviceInfo(deviceInfo))
+    }
+}
+
+private func nameWithDeviceInfo(device: pjmedia_aud_dev_info) -> String {
+    let name = String.fromBytes(device.name)
+    return name == nil ? "Unknown Device Name" : name!
+}
+
+private let kBufferSize = 32

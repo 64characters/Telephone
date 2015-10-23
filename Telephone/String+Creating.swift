@@ -1,5 +1,5 @@
 //
-//  TelephoneError.swift
+//  String+Creating.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,11 +28,20 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-enum TelephoneError: ErrorType {
-    case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
-    case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
-    case SystemToUserAgentAudioDeviceMapError
-    case NoAvailableSoundIOError
-    case UserAgentAudioDeviceEnumerationError
-    case UserAgentAudioDeviceSelectionError
+extension String {
+    static func fromBytes<T>(buffer: T) -> String? {
+        return stringWitBytes(buffer)
+    }
+}
+
+private func stringWitBytes<T>(var bytes: T) -> String? {
+    return withUnsafePointer(&bytes, stringWithPointer)
+}
+
+private func stringWithPointer<T>(pointer: UnsafePointer<T>) -> String? {
+    return String(UTF8String: int8PointerWithPointer(pointer))
+}
+
+private func int8PointerWithPointer<T>(pointer: UnsafePointer<T>) -> UnsafePointer<Int8> {
+    return unsafeBitCast(pointer, UnsafePointer<Int8>.self)
 }
