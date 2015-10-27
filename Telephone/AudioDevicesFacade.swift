@@ -54,6 +54,7 @@ class AudioDevicesFacade: NSObject {
         let deviceObservers: [SystemAudioDevicesObserver] = [autoUpdatingDevices, userAgentDeviceSelector]
         devicesChangeNotifier = SystemAudioDevicesChangeNotifier(observers: deviceObservers, queue: queue)
         super.init()
+        try autoUpdatingDevices.update()
         try userAgentDeviceSelector.selectAudioDevices()
         devicesChangeNotifier.start()
     }
