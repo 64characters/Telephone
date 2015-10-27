@@ -33,7 +33,7 @@ class UserDefaultsStub {
 }
 
 extension UserDefaultsStub: UserDefaults {
-    subscript(key: String) -> AnyObject? {
+    @objc subscript(key: String) -> AnyObject? {
         get {
             return dictionary[key]
         }

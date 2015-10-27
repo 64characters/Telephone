@@ -28,18 +28,23 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct UserAgentAudioDevice {
+class UserAgentAudioDevice: NSObject {
     let identifier: Int
     let name: String
-}
 
-extension UserAgentAudioDevice: Hashable {
-    var hashValue: Int {
+    init(identifier: Int, name: String) {
+        self.identifier = identifier
+        self.name = name
+    }
+
+    override var hashValue: Int {
         return identifier
     }
-}
 
-extension UserAgentAudioDevice: Equatable {}
+    override var description: String {
+        return "\(self.dynamicType)(identifier: \(identifier), name: \"\(name)\")"
+    }
+}
 
 func ==(lhs: UserAgentAudioDevice, rhs: UserAgentAudioDevice) -> Bool {
     return lhs.identifier == rhs.identifier && lhs.name == rhs.name

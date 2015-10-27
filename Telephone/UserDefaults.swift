@@ -28,6 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserDefaults {
+@objc protocol UserDefaults {
     subscript(key: String) -> AnyObject? { get set }
 }
