@@ -55,6 +55,8 @@
 #import "SoundPreferencesViewController.h"
 #import "UserDefaultsKeys.h"
 
+#import "Telephone-Swift.h"
+
 
 NSString * const kAudioDeviceIdentifier = @"AudioDeviceIdentifier";
 NSString * const kAudioDeviceUID = @"AudioDeviceUID";
@@ -95,6 +97,9 @@ static OSStatus GetAudioDevices(Ptr *devices, UInt16 *devicesCount);
 static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
 
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate, PreferencesControllerDelegate>
+
+@property(nonatomic, readonly) dispatch_queue_t queue;
+@property(nonatomic, readonly) AudioDevicesFacade *audioDevicesFacade;
 
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
@@ -295,6 +300,15 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [self setTerminating:NO];
     [self setDidPauseITunes:NO];
     [self setShouldPresentUserAgentLaunchError:NO];
+
+    NSString *label = [[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@".background-queue"];
+    _queue = dispatch_queue_create(label.UTF8String, DISPATCH_QUEUE_SERIAL);
+
+    NSError *error;
+    _audioDevicesFacade = [[AudioDevicesFacade alloc] initWithUserAgent:_userAgent userDefaults:[NSUserDefaults standardUserDefaults] queue:_queue error:&error];
+    if (_audioDevicesFacade == nil) {
+        NSLog(@"Could not initialize audio devices: %@", error);
+    }
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
