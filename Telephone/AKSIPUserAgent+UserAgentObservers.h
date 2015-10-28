@@ -30,8 +30,14 @@
 
 #import "AKSIPUserAgent.h"
 
-#import "Telephone-Swift.h"
+@protocol UserAgentObserver;
 
-@interface AKSIPUserAgent (UserAgentObservers) <UserAgentObservers>
+@interface AKSIPUserAgent (UserAgentObservers)
+
+@property(nonatomic, readonly, nonnull) NSArray<id <UserAgentObserver>> *allObservers;
+
+- (void)addObserver:(id <UserAgentObserver> _Nonnull)observer;
+- (void)removeObserver:(id <UserAgentObserver> _Nonnull)observer;
+- (id <UserAgentObserver> _Nullable)objectAtIndexedSubscript:(NSInteger)index;
 
 @end

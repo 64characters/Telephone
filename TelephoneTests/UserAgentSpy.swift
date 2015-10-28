@@ -57,3 +57,21 @@ extension UserAgentSpy: UserAgent {
         selectedOutputDeviceIndex = outputDeviceIndex
     }
 }
+
+extension UserAgentSpy: UserAgentObservers {
+    var allObservers: [UserAgentObserver] {
+        return []
+    }
+
+    func addObserver(observer: UserAgentObserver) {
+
+    }
+
+    func removeObserver(observer: UserAgentObserver) {
+
+    }
+
+    subscript(index: Int) -> UserAgentObserver? {
+        return nil
+    }
+}

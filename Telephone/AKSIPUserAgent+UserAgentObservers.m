@@ -32,6 +32,8 @@
 
 #import "AKSIPUserAgent+Private.h"
 
+#import "Telephone-Swift.h"
+
 @implementation AKSIPUserAgent (UserAgentObservers)
 
 - (NSArray<id <UserAgentObserver>> * _Nonnull)allObservers {
