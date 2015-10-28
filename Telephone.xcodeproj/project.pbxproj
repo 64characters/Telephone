@@ -35,6 +35,12 @@
 		AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; };
 		AA222C43182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */; };
 		AA222C44182C4A7E0096B024 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		AA25AB4E1BE0F4A300E677A4 /* UserAgentObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4D1BE0F4A300E677A4 /* UserAgentObservers.swift */; };
+		AA25AB501BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */; };
+		AA25AB521BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */; };
+		AA25AB531BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */; };
+		AA25AB551BE0F86E00E677A4 /* UserAgentObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */; };
+		AA25AB561BE0F95C00E677A4 /* UserAgentObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4D1BE0F4A300E677A4 /* UserAgentObservers.swift */; };
 		AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */; };
 		AA277A4E1BD16C9E0030ECE4 /* SystemAudioDevicesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesObserver.swift */; };
 		AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesObserver.swift */; };
@@ -214,6 +220,10 @@
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA222C40182C3B5B0096B024 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
+		AA25AB4D1BE0F4A300E677A4 /* UserAgentObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObservers.swift; sourceTree = "<group>"; };
+		AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentObserverCompositeTests.swift; path = TelephoneTests/UserAgentObserverCompositeTests.swift; sourceTree = SOURCE_ROOT; };
+		AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObserverComposite.swift; sourceTree = "<group>"; };
+		AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObserverSpy.swift; sourceTree = "<group>"; };
 		AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesObserver.swift; sourceTree = "<group>"; };
 		AA277A521BD174D60030ECE4 /* UserAgentAudioDeviceSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceSelector.swift; sourceTree = "<group>"; };
 		AA277A541BD3F2A90030ECE4 /* UserAgentAudioDeviceSelectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentAudioDeviceSelectorTests.swift; path = TelephoneTests/UserAgentAudioDeviceSelectorTests.swift; sourceTree = SOURCE_ROOT; };
@@ -540,6 +550,7 @@
 				AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */,
 				AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */,
 				AA277A5C1BD3F63B0030ECE4 /* UserAgentAudioDeviceInteractorSpy.swift */,
+				AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */,
 				AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */,
 				AA3FAB891BBAAE630064B2C3 /* Info.plist */,
 				AA3FAB911BBAB3570064B2C3 /* TelephoneTests-Bridging-Header.h */,
@@ -744,6 +755,9 @@
 				AAFA2BB31BCD815100066CFC /* UserAgent.swift */,
 				AA2C03F41BD7D827001D25F9 /* UserAgentExtension.swift */,
 				AA277A631BD542C80030ECE4 /* UserAgentObserver.swift */,
+				AA25AB4D1BE0F4A300E677A4 /* UserAgentObservers.swift */,
+				AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */,
+				AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */,
 			);
 			name = "SIP User Agent";
 			sourceTree = "<group>";
@@ -952,10 +966,12 @@
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
 				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
+				AA25AB4E1BE0F4A300E677A4 /* UserAgentObservers.swift in Sources */,
 				AA2C03F51BD7D827001D25F9 /* UserAgentExtension.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
 				AA3FAB9A1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
+				AA25AB521BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
 				AA32F8061BC6968700FAC228 /* SystemAudioDevicesImpl.swift in Sources */,
@@ -1022,11 +1038,15 @@
 				AAFA2BAF1BCD813400066CFC /* UserAgentAudioDeviceInteractor.swift in Sources */,
 				AAFA2BA51BC91E0400066CFC /* SystemAudioDevices.swift in Sources */,
 				AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesObserver.swift in Sources */,
+				AA25AB531BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */,
 				AAFA2BB51BCD815100066CFC /* UserAgent.swift in Sources */,
+				AA25AB551BE0F86E00E677A4 /* UserAgentObserverSpy.swift in Sources */,
 				AA32F7FF1BC6908300FAC228 /* UserDefaults.swift in Sources */,
 				AA3FAB9B1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */,
+				AA25AB501BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift in Sources */,
 				AA32F7F31BC440DE00FAC228 /* UserDefaultsStub.swift in Sources */,
 				AA277A651BD542C80030ECE4 /* UserAgentObserver.swift in Sources */,
+				AA25AB561BE0F95C00E677A4 /* UserAgentObservers.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AAFA2BB21BCD814000066CFC /* UserAgentAudioDeviceInteractorTests.swift in Sources */,
 				AA32F7EE1BC43FB100FAC228 /* SelectedSystemAudioDevicesImplTests.swift in Sources */,

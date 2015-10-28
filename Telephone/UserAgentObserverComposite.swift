@@ -1,5 +1,5 @@
 //
-//  UserAgentObserver.swift
+//  UserAgentObserverComposite.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,6 +28,33 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentObserver: class {
-    func userAgentDidFinishStarting()
+class UserAgentObserverComposite {
+    private var observers = [UserAgentObserver]()
+}
+
+extension UserAgentObserverComposite: UserAgentObservers {
+
+    var allObservers: [UserAgentObserver] {
+        return observers
+    }
+
+    func addObserver(observer: UserAgentObserver) {
+        observers.append(observer)
+    }
+
+    func removeObserver(observer: UserAgentObserver) {
+        observers = observers.filter { $0 !== observer }
+    }
+
+    subscript(index: Int) -> UserAgentObserver? {
+        return observers[index]
+    }
+}
+
+extension UserAgentObserverComposite: UserAgentObserver {
+    func userAgentDidFinishStarting() {
+        for observer in observers {
+            observer.userAgentDidFinishStarting()
+        }
+    }
 }

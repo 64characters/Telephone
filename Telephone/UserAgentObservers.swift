@@ -1,5 +1,5 @@
 //
-//  UserAgentObserver.swift
+//  UserAgentObservers.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,6 +28,9 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentObserver: class {
-    func userAgentDidFinishStarting()
+protocol UserAgentObservers {
+    var allObservers: [UserAgentObserver] { get }
+    func addObserver(observer: UserAgentObserver)
+    func removeObserver(observer: UserAgentObserver)
+    subscript(index: Int) -> UserAgentObserver? { get }
 }

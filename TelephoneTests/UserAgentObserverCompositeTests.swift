@@ -1,5 +1,5 @@
 //
-//  UserAgentObserver.swift
+//  UserAgentObserverCompositeTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,6 +28,38 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentObserver: class {
-    func userAgentDidFinishStarting()
+import XCTest
+
+class UserAgentObserverCompositeTests: XCTestCase {
+
+    var composite: UserAgentObserverComposite!
+    var observer1: UserAgentObserverSpy!
+    var observer2: UserAgentObserverSpy!
+
+    override func setUp() {
+        super.setUp()
+        composite = UserAgentObserverComposite()
+        observer1 = UserAgentObserverSpy()
+        observer2 = UserAgentObserverSpy()
+        composite.addObserver(observer1)
+        composite.addObserver(observer2)
+    }
+
+    func testCanAddObservers() {
+        XCTAssertTrue(composite[0] === observer1)
+        XCTAssertTrue(composite[1] === observer2)
+    }
+
+    func testCanRemoveObservers() {
+        composite.removeObserver(observer1)
+
+        XCTAssertTrue(composite[0] === observer2)
+    }
+
+    func testCallsUserAgentDidFinishStartingOnAllChildren() {
+        composite.userAgentDidFinishStarting()
+
+        XCTAssertTrue(observer1.didCallUserAgentDidFinishStarting)
+        XCTAssertTrue(observer2.didCallUserAgentDidFinishStarting)
+    }
 }
