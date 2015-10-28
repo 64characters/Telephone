@@ -28,11 +28,13 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKSIPUserAgent.h"
+#import "AKSIPUserAgent+Private.h"
 
 #import "AKNSString+PJSUA.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
+
+#import "Telephone-Swift.h"
 
 #define THIS_FILE "AKSIPUserAgent.m"
 
@@ -267,6 +269,8 @@ static void log_call_dump(int call_id);
     [self setUsesG711Only:kAKSIPUserAgentDefaultUsesG711Only];
     
     [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
+
+    _observers = [[UserAgentObserverComposite alloc] init];
     
     return self;
 }

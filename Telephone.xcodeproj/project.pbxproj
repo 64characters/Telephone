@@ -41,6 +41,7 @@
 		AA25AB531BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */; };
 		AA25AB551BE0F86E00E677A4 /* UserAgentObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */; };
 		AA25AB561BE0F95C00E677A4 /* UserAgentObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4D1BE0F4A300E677A4 /* UserAgentObservers.swift */; };
+		AA25AB5F1BE144EF00E677A4 /* AKSIPUserAgent+UserAgentObservers.m in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB5E1BE144EF00E677A4 /* AKSIPUserAgent+UserAgentObservers.m */; };
 		AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */; };
 		AA277A4E1BD16C9E0030ECE4 /* SystemAudioDevicesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesObserver.swift */; };
 		AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesObserver.swift */; };
@@ -224,6 +225,9 @@
 		AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentObserverCompositeTests.swift; path = TelephoneTests/UserAgentObserverCompositeTests.swift; sourceTree = SOURCE_ROOT; };
 		AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObserverComposite.swift; sourceTree = "<group>"; };
 		AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObserverSpy.swift; sourceTree = "<group>"; };
+		AA25AB5A1BE142A300E677A4 /* AKSIPUserAgent+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKSIPUserAgent+Private.h"; sourceTree = "<group>"; };
+		AA25AB5D1BE144EF00E677A4 /* AKSIPUserAgent+UserAgentObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKSIPUserAgent+UserAgentObservers.h"; sourceTree = "<group>"; };
+		AA25AB5E1BE144EF00E677A4 /* AKSIPUserAgent+UserAgentObservers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKSIPUserAgent+UserAgentObservers.m"; sourceTree = "<group>"; };
 		AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesObserver.swift; sourceTree = "<group>"; };
 		AA277A521BD174D60030ECE4 /* UserAgentAudioDeviceSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceSelector.swift; sourceTree = "<group>"; };
 		AA277A541BD3F2A90030ECE4 /* UserAgentAudioDeviceSelectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentAudioDeviceSelectorTests.swift; path = TelephoneTests/UserAgentAudioDeviceSelectorTests.swift; sourceTree = SOURCE_ROOT; };
@@ -743,6 +747,9 @@
 			children = (
 				AA4BD4C60E07C28E005A71B2 /* AKSIPUserAgent.h */,
 				AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */,
+				AA25AB5A1BE142A300E677A4 /* AKSIPUserAgent+Private.h */,
+				AA25AB5D1BE144EF00E677A4 /* AKSIPUserAgent+UserAgentObservers.h */,
+				AA25AB5E1BE144EF00E677A4 /* AKSIPUserAgent+UserAgentObservers.m */,
 				AAE33B0F1BA7217C00C6E48B /* AKSIPUserAgentDelegate.h */,
 				AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */,
 				AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */,
@@ -972,6 +979,7 @@
 				AA3FAB9A1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AA25AB521BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */,
+				AA25AB5F1BE144EF00E677A4 /* AKSIPUserAgent+UserAgentObservers.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
 				AA32F8061BC6968700FAC228 /* SystemAudioDevicesImpl.swift in Sources */,
