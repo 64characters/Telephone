@@ -28,6 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentObserver: class {
+@objc protocol UserAgentObserver: class {
     func userAgentDidFinishStarting()
 }

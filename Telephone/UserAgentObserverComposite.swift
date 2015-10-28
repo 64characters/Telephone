@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentObserverComposite {
+class UserAgentObserverComposite: NSObject {
     private var observers = [UserAgentObserver]()
 }
 

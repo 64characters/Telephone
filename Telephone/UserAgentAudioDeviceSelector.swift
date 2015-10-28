@@ -56,7 +56,7 @@ extension UserAgentAudioDeviceSelector: SystemAudioDevicesObserver {
 }
 
 extension UserAgentAudioDeviceSelector: UserAgentObserver {
-    func userAgentDidFinishStarting() {
+    @objc func userAgentDidFinishStarting() {
         selectAudioDevicesOrLogError()
     }
 }

@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentObservers {
+@objc protocol UserAgentObservers {
     var allObservers: [UserAgentObserver] { get }
     func addObserver(observer: UserAgentObserver)
     func removeObserver(observer: UserAgentObserver)
