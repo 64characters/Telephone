@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentSpy {
+class UserAgentSpy: NSObject {
 
     var startedResult = false
 
@@ -42,7 +42,7 @@ class UserAgentSpy {
 
 extension UserAgentSpy: UserAgent {
 
-    var started: Bool {
+    @objc(isStarted) var started: Bool {
         return startedResult
     }
 
