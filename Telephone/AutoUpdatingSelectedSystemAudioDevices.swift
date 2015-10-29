@@ -90,7 +90,7 @@ extension AutoUpdatingSelectedSystemAudioDevices: SystemAudioDevicesObserver {
         do {
             try update()
         } catch {
-            print("Could not audomatically update system audio divices: \(error)")
+            print("Could not automatically update system audio divices: \(error)")
         }
     }
 }
