@@ -1,5 +1,5 @@
 //
-//  AudoUpdatingSelectedSystemAudioDevicesTests.swift
+//  AutoUpdatingSelectedSystemAudioDevicesTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,16 +30,16 @@
 
 import XCTest
 
-class AudoUpdatingSelectedSystemAudioDevicesTests: XCTestCase {
+class AutoUpdatingSelectedSystemAudioDevicesTests: XCTestCase {
 
     var repositorySpy: SystemAudioDeviceRepositorySpy!
-    var devices: AudoUpdatingSelectedSystemAudioDevices!
+    var devices: AutoUpdatingSelectedSystemAudioDevices!
 
     override func setUp() {
         super.setUp()
         repositorySpy = SystemAudioDeviceRepositorySpy()
         let userDefaultsDummy = UserDefaultsStub()
-        devices = AudoUpdatingSelectedSystemAudioDevices(deviceRepository: repositorySpy, userDefaults: userDefaultsDummy)
+        devices = AutoUpdatingSelectedSystemAudioDevices(deviceRepository: repositorySpy, userDefaults: userDefaultsDummy)
     }
 
     func testReturnsDevicesFromRepository() {

@@ -47,7 +47,7 @@ class AudioDevicesFacade: NSObject {
         self.queue = queue
         deviceRepository = SystemAudioDeviceRepositoryImpl()
 
-        let autoUpdatingDevices = AudoUpdatingSelectedSystemAudioDevices(deviceRepository: deviceRepository, userDefaults: userDefaults)
+        let autoUpdatingDevices = AutoUpdatingSelectedSystemAudioDevices(deviceRepository: deviceRepository, userDefaults: userDefaults)
         selectedSystemAudioDevices = autoUpdatingDevices
         let deviceInteractor = UserAgentAudioDeviceInteractor(selectedSystemDevices: autoUpdatingDevices, userAgent: userAgent)
         userAgentDeviceSelector = UserAgentAudioDeviceSelector(deviceInteractor: deviceInteractor)

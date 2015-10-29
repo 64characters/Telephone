@@ -1,5 +1,5 @@
 //
-//  AudoUpdatingSelectedSystemAudioDevices.swift
+//  AutoUpdatingSelectedSystemAudioDevices.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class AudoUpdatingSelectedSystemAudioDevices {
+class AutoUpdatingSelectedSystemAudioDevices {
 
     let deviceRepository: SystemAudioDeviceRepository
     let userDefaults: UserDefaults
@@ -47,7 +47,7 @@ class AudoUpdatingSelectedSystemAudioDevices {
     }
 }
 
-extension AudoUpdatingSelectedSystemAudioDevices: SelectedSystemAudioDevices {
+extension AutoUpdatingSelectedSystemAudioDevices: SelectedSystemAudioDevices {
 
     var soundInput: SystemAudioDevice? {
         return selectedDevices?.soundInput
@@ -62,7 +62,7 @@ extension AudoUpdatingSelectedSystemAudioDevices: SelectedSystemAudioDevices {
     }
 }
 
-extension AudoUpdatingSelectedSystemAudioDevices: SystemAudioDevices {
+extension AutoUpdatingSelectedSystemAudioDevices: SystemAudioDevices {
 
     var allDevices: [SystemAudioDevice] {
         if let selectedDevices = selectedDevices {
@@ -85,7 +85,7 @@ extension AudoUpdatingSelectedSystemAudioDevices: SystemAudioDevices {
     }
 }
 
-extension AudoUpdatingSelectedSystemAudioDevices: SystemAudioDevicesObserver {
+extension AutoUpdatingSelectedSystemAudioDevices: SystemAudioDevicesObserver {
     func systemAudioDevicesDidUpdate() {
         do {
             try update()
