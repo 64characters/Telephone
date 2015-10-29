@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct SelectedSystemAudioDevicesImpl {
+class SelectedSystemAudioDevicesImpl {
 
     let systemAudioDevices: SystemAudioDevices
     let userDefaults: UserDefaults

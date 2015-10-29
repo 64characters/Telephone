@@ -81,7 +81,7 @@ class SystemAudioDeviceRepositoryImpl: SystemAudioDeviceRepository {
         var length = UInt32(strideof(T))
         var result = UnsafeMutablePointer<T>.alloc(1)
         defer { result.dealloc(1) }
-        var audioObject = SystemAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddressWithSelector(selector))
+        let audioObject = SystemAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddressWithSelector(selector))
         try audioObject.getPropertyValueBytes(result, length: &length)
         return result.move()
     }
