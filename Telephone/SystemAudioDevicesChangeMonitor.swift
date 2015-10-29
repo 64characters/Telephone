@@ -32,14 +32,14 @@ import CoreAudio
 
 class SystemAudioDevicesChangeMonitor {
 
-    let observers: [SystemAudioDevicesObserver]
+    let observer: SystemAudioDevicesObserver
     let queue: dispatch_queue_t
 
     private let objectID:AudioObjectID
     private var objectPropertyAddress: AudioObjectPropertyAddress
 
-    init(observers: [SystemAudioDevicesObserver], queue: dispatch_queue_t) {
-        self.observers = observers
+    init(observer: SystemAudioDevicesObserver, queue: dispatch_queue_t) {
+        self.observer = observer
         self.queue = queue
         objectID = AudioObjectID(kAudioObjectSystemObject)
         objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
@@ -60,13 +60,11 @@ class SystemAudioDevicesChangeMonitor {
     }
 
     private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
-        dispatch_async(dispatch_get_main_queue(), notifyObservers)
+        dispatch_async(dispatch_get_main_queue(), notifyObserver)
     }
 
-    private func notifyObservers() {
+    private func notifyObserver() {
         assert(NSThread.isMainThread())
-        for observer in observers {
-            observer.systemAudioDevicesDidUpdate()
-        }
+        observer.systemAudioDevicesDidUpdate()
     }
 }
