@@ -32,13 +32,13 @@ import CoreAudio
 
 class SystemAudioDevicesChangeMonitor {
 
-    let observer: SystemAudioDevicesObserver
+    let observer: SystemAudioDevicesChangeObserver
     let queue: dispatch_queue_t
 
     private let objectID:AudioObjectID
     private var objectPropertyAddress: AudioObjectPropertyAddress
 
-    init(observer: SystemAudioDevicesObserver, queue: dispatch_queue_t) {
+    init(observer: SystemAudioDevicesChangeObserver, queue: dispatch_queue_t) {
         self.observer = observer
         self.queue = queue
         objectID = AudioObjectID(kAudioObjectSystemObject)

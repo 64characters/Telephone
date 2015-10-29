@@ -49,7 +49,7 @@ class UserAgentAudioDeviceSelector {
     }
 }
 
-extension UserAgentAudioDeviceSelector: SystemAudioDevicesObserver {
+extension UserAgentAudioDeviceSelector: SystemAudioDevicesChangeObserver {
     func systemAudioDevicesDidUpdate() {
         selectAudioDevicesOrLogError()
     }

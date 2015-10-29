@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesObserverCompositeTests.swift
+//  SystemAudioDevicesChangeObserver.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,17 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
-
-class SystemAudioDevicesObserverCompositeTests: XCTestCase {
-    func testCallsObservers() {
-        let observer1 = SystemAudioDevicesObserverSpy()
-        let observer2 = SystemAudioDevicesObserverSpy()
-        let composite = SystemAudioDevicesObserverComposite(observers: [observer1, observer2])
-
-        composite.systemAudioDevicesDidUpdate()
-
-        XCTAssertTrue(observer1.didCallSystemAudioDevicesDidUpdate)
-        XCTAssertTrue(observer2.didCallSystemAudioDevicesDidUpdate)
-    }
+protocol SystemAudioDevicesChangeObserver {
+    func systemAudioDevicesDidUpdate()
 }

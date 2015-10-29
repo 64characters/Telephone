@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesObserverSpy.swift
+//  SystemAudioDevicesChangeObserverComposite.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,19 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class SystemAudioDevicesObserverSpy {
-    var didCallSystemAudioDevicesDidUpdate = false
+class SystemAudioDevicesChangeObserverComposite {
+
+    let observers: [SystemAudioDevicesChangeObserver]
+
+    init(observers: [SystemAudioDevicesChangeObserver]) {
+        self.observers = observers
+    }
 }
 
-extension SystemAudioDevicesObserverSpy: SystemAudioDevicesObserver {
+extension SystemAudioDevicesChangeObserverComposite: SystemAudioDevicesChangeObserver {
     func systemAudioDevicesDidUpdate() {
-        didCallSystemAudioDevicesDidUpdate = true
+        for observer in observers {
+            observer.systemAudioDevicesDidUpdate()
+        }
     }
 }
