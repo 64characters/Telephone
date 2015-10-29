@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeNotifier.swift
+//  SystemAudioDevicesChangeMonitor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,7 +30,7 @@
 
 import CoreAudio
 
-class SystemAudioDevicesChangeNotifier {
+class SystemAudioDevicesChangeMonitor {
 
     let observers: [SystemAudioDevicesObserver]
     let queue: dispatch_queue_t
