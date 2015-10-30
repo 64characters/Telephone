@@ -30,10 +30,10 @@
 
 #import "AKSIPUserAgent.h"
 
-@protocol UserAgentObservers;
+@protocol UserAgentObserving;
 
 @interface AKSIPUserAgent ()
 
-@property(nonatomic, readonly) id<UserAgentObservers> observers;
+@property(nonatomic, readonly) id<UserAgentObserving> observers;
 
 @end

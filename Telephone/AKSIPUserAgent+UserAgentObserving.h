@@ -1,5 +1,5 @@
 //
-//  AKSIPUserAgent+UserAgentObservers.h
+//  AKSIPUserAgent+UserAgentObserving.h
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -32,7 +32,7 @@
 
 @protocol UserAgentObserver;
 
-@interface AKSIPUserAgent (UserAgentObservers)
+@interface AKSIPUserAgent (UserAgentObserving)
 
 @property(nonatomic, readonly, nonnull) NSArray<id <UserAgentObserver>> *allObservers;
 

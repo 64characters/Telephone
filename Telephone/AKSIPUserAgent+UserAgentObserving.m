@@ -1,5 +1,5 @@
 //
-//  UserAgentObservers.swift
+//  AKSIPUserAgent+UserAgentObserving.m
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,9 +28,28 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@objc protocol UserAgentObservers {
-    var allObservers: [UserAgentObserver] { get }
-    func addObserver(observer: UserAgentObserver)
-    func removeObserver(observer: UserAgentObserver)
-    subscript(index: Int) -> UserAgentObserver? { get }
+#import "AKSIPUserAgent+UserAgentObserving.h"
+
+#import "AKSIPUserAgent+Private.h"
+
+#import "Telephone-Swift.h"
+
+@implementation AKSIPUserAgent (UserAgentObserving)
+
+- (NSArray<id <UserAgentObserver>> * _Nonnull)allObservers {
+    return self.observers.allObservers;
 }
+
+- (void)addObserver:(id <UserAgentObserver> _Nonnull)observer {
+    [self.observers addObserver:observer];
+}
+
+- (void)removeObserver:(id <UserAgentObserver> _Nonnull)observer {
+    [self.observers removeObserver:observer];
+}
+
+- (id <UserAgentObserver> _Nullable)objectAtIndexedSubscript:(NSInteger)index {
+    return self.observers[index];
+}
+
+@end

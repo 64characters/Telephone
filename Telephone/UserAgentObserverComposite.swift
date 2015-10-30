@@ -32,7 +32,7 @@ class UserAgentObserverComposite: NSObject {
     private var observers = [UserAgentObserver]()
 }
 
-extension UserAgentObserverComposite: UserAgentObservers {
+extension UserAgentObserverComposite: UserAgentObserving {
 
     var allObservers: [UserAgentObserver] {
         return observers

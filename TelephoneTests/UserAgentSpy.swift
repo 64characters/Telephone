@@ -58,7 +58,7 @@ extension UserAgentSpy: UserAgent {
     }
 }
 
-extension UserAgentSpy: UserAgentObservers {
+extension UserAgentSpy: UserAgentObserving {
     var allObservers: [UserAgentObserver] {
         return []
     }
