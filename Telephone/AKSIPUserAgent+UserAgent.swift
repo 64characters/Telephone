@@ -1,5 +1,5 @@
 //
-//  UserAgentExtension.swift
+//  AKSIPUserAgent+UserAgent.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
