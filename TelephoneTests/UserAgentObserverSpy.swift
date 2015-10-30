@@ -33,7 +33,7 @@ class UserAgentObserverSpy {
 }
 
 extension UserAgentObserverSpy: UserAgentObserver {
-    @objc func userAgentDidFinishStarting() {
+    func userAgentDidFinishStarting() {
         didCallUserAgentDidFinishStarting = true
     }
 }

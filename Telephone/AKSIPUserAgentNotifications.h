@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelector.swift
+//  AKSIPUserAgentNotifications.h
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,35 +28,17 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceSelector {
+@import Foundation;
 
-    let deviceInteractor: UserAgentAudioDeviceInteractorInput
+// All AKSIPUserAgent notifications are posted by the user agent instance returned by |sharedUserAgent|.
 
-    init(deviceInteractor: UserAgentAudioDeviceInteractorInput) {
-        self.deviceInteractor = deviceInteractor
-    }
-
-    func selectAudioDevices() throws {
-        try deviceInteractor.selectAudioDevices()
-    }
-
-    private func selectAudioDevicesOrLogError() {
-        do {
-            try selectAudioDevices()
-        } catch {
-            print("Could not automatically select user agent audio devices: \(error)")
-        }
-    }
-}
-
-extension UserAgentAudioDeviceSelector: SystemAudioDevicesChangeObserver {
-    func systemAudioDevicesDidUpdate() {
-        selectAudioDevicesOrLogError()
-    }
-}
-
-extension UserAgentAudioDeviceSelector: UserAgentObserver {
-    func userAgentDidFinishStarting() {
-        selectAudioDevicesOrLogError()
-    }
-}
+// Posted when the user agent finishes starting. However, it may not be started if an error occurred during user agent
+// start-up. You can check user agent state via the |state| property.
+extern NSString * const AKSIPUserAgentDidFinishStartingNotification;
+//
+// Posted when the user agent finishes stopping.
+extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
+//
+// Posted when the user agent detects NAT type, which can be accessed via
+// the |detectedNATType| property.
+extern NSString * const AKSIPUserAgentDidDetectNATNotification;

@@ -1,5 +1,5 @@
 //
-//  AKSIPUserAgent+Private.h
+//  AKSIPUserAgentNotifications.m
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKSIPUserAgent.h"
+#import "AKSIPUserAgentNotifications.h"
 
-@protocol UserAgentObserving;
-
-@interface AKSIPUserAgent ()
-
-@property(nonatomic, readonly) id<UserAgentObserving> observers;
-
-@end
+NSString * const AKSIPUserAgentDidFinishStartingNotification = @"AKSIPUserAgentDidFinishStarting";
+NSString * const AKSIPUserAgentDidFinishStoppingNotification = @"AKSIPUserAgentDidFinishStopping";
+NSString * const AKSIPUserAgentDidDetectNATNotification = @"AKSIPUserAgentDidDetectNAT";

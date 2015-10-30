@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKSIPUserAgent+Private.h"
+#import "AKSIPUserAgent.h"
 
 #import "AKNSString+PJSUA.h"
 #import "AKSIPAccount.h"
@@ -49,10 +49,6 @@ enum {
 };
 
 const NSInteger kAKSIPUserAgentInvalidIdentifier = PJSUA_INVALID_ID;
-
-NSString * const AKSIPUserAgentDidFinishStartingNotification = @"AKSIPUserAgentDidFinishStarting";
-NSString * const AKSIPUserAgentDidFinishStoppingNotification = @"AKSIPUserAgentDidFinishStopping";
-NSString * const AKSIPUserAgentDidDetectNATNotification = @"AKSIPUserAgentDidDetectNAT";
 
 // Maximum number of nameservers to take into account.
 static const NSInteger kAKSIPUserAgentNameserversMax = 4;
@@ -270,8 +266,6 @@ static void log_call_dump(int call_id);
     
     [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
 
-    _observers = [[UserAgentObserverComposite alloc] init];
-    
     return self;
 }
 

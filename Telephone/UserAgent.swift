@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@objc protocol UserAgent: UserAgentObserving {
+@objc protocol UserAgent {
     var started: Bool { @objc(isStarted) get }
     func audioDevices() throws -> [UserAgentAudioDevice]
     func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws

@@ -5,5 +5,4 @@
 #import <pjsua-lib/pjsua.h>
 
 #import "AKSIPUserAgent.h"
-#import "AKSIPUserAgent+UserAgentObserving.h"
 #import "UserDefaultsKeys.h"

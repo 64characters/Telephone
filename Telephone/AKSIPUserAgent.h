@@ -32,6 +32,7 @@
 #import <pjsua-lib/pjsua.h>
 
 #import "AKSIPUserAgentDelegate.h"
+#import "AKSIPUserAgentNotifications.h"
 
 
 // User agent states.
@@ -62,21 +63,6 @@ typedef struct _AKSIPUserAgentCallData {
 
 // An invalid identifier for all sorts of identifiers.
 extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
-
-// Notifications.
-//
-// All AKSIPUserAgent notifications are posted by the user agent instance returned by |sharedUserAgent|.
-//
-// Posted when the user agent finishes starting. However, it may not be started if an error occurred during user agent
-// start-up. You can check user agent state via the |state| property.
-extern NSString * const AKSIPUserAgentDidFinishStartingNotification;
-//
-// Posted when the user agent finishes stopping.
-extern NSString * const AKSIPUserAgentDidFinishStoppingNotification;
-//
-// Posted when the user agent detects NAT type, which can be accessed via
-// the |detectedNATType| property.
-extern NSString * const AKSIPUserAgentDidDetectNATNotification;
 
 @class AKSIPAccount, AKSIPCall;
 

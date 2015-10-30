@@ -37,6 +37,9 @@ class AudioDevicesFacade: NSObject {
     let queue: dispatch_queue_t
 
     private let deviceRepository: SystemAudioDeviceRepository
+    private let userAgentObserverComposite: UserAgentObserverComposite
+    private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
+
     private let selectedSystemAudioDevices: SelectedSystemAudioDevices!
     private let userAgentDeviceSelector: UserAgentAudioDeviceSelector!
     private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
@@ -45,13 +48,16 @@ class AudioDevicesFacade: NSObject {
         self.userAgent = userAgent
         self.userDefaults = userDefaults
         self.queue = queue
+
         deviceRepository = SystemAudioDeviceRepositoryImpl()
+        userAgentObserverComposite = UserAgentObserverComposite()
+        userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(observer: userAgentObserverComposite)
 
         let autoUpdatingDevices = AutoUpdatingSelectedSystemAudioDevices(deviceRepository: deviceRepository, userDefaults: userDefaults)
         selectedSystemAudioDevices = autoUpdatingDevices
         let deviceInteractor = UserAgentAudioDeviceInteractor(selectedSystemDevices: autoUpdatingDevices, userAgent: userAgent)
         userAgentDeviceSelector = UserAgentAudioDeviceSelector(deviceInteractor: deviceInteractor)
-        userAgent.addObserver(userAgentDeviceSelector)
+        userAgentObserverComposite.addObserver(userAgentDeviceSelector)
         let deviceChangeObserver = SystemAudioDevicesChangeObserverComposite(observers: [autoUpdatingDevices, userAgentDeviceSelector])
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(observer: deviceChangeObserver, queue: queue)
         super.init()
@@ -61,7 +67,7 @@ class AudioDevicesFacade: NSObject {
     }
 
     deinit {
-        userAgent.removeObserver(userAgentDeviceSelector)
+        userAgentObserverComposite.removeObserver(userAgentDeviceSelector)
         devicesChangeMonitor.stop()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  AKSIPUserAgent+UserAgentObserving.h
+//  UserAgentNotificationsToObservingAdapterTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,16 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKSIPUserAgent.h"
+import XCTest
 
-@protocol UserAgentObserver;
+class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
 
-@interface AKSIPUserAgent (UserAgentObserving)
+    var observerSpy: UserAgentObserverSpy!
+    var adapter: UserAgentNotificationsToObserverAdapter!
+    var userAgentDummy: UserAgent!
+    var notificationCenter: NSNotificationCenter!
 
-@property(nonatomic, readonly, nonnull) NSArray<id <UserAgentObserver>> *allObservers;
+    override func setUp() {
+        super.setUp()
+        observerSpy = UserAgentObserverSpy()
+        adapter = UserAgentNotificationsToObserverAdapter(observer: observerSpy)
+        userAgentDummy = UserAgentSpy()
+        notificationCenter = NSNotificationCenter.defaultCenter()
+    }
 
-- (void)addObserver:(id <UserAgentObserver> _Nonnull)observer;
-- (void)removeObserver:(id <UserAgentObserver> _Nonnull)observer;
-- (id <UserAgentObserver> _Nullable)objectAtIndexedSubscript:(NSInteger)index;
+    func testCallsDidFinishStarting() {
+        notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidFinishStartingNotification))
 
-@end
+        XCTAssertTrue(observerSpy.didCallUserAgentDidFinishStarting)
+    }
+
+    private func notificationWithName(name: String) -> NSNotification {
+        return NSNotification(name: name, object: userAgentDummy)
+    }
+}

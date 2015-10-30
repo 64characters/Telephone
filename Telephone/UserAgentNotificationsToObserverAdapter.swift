@@ -1,5 +1,5 @@
 //
-//  AKSIPUserAgent+UserAgentObserving.m
+//  UserAgentNotificationsToObserverAdapter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,28 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "AKSIPUserAgent+UserAgentObserving.h"
+class UserAgentNotificationsToObserverAdapter {
 
-#import "AKSIPUserAgent+Private.h"
+    let observer: UserAgentObserver
 
-#import "Telephone-Swift.h"
+    init(observer: UserAgentObserver) {
+        self.observer = observer
+        subscribe()
+    }
 
-@implementation AKSIPUserAgent (UserAgentObserving)
+    deinit {
+        unsubscribe()
+    }
 
-- (NSArray<id <UserAgentObserver>> * _Nonnull)allObservers {
-    return self.observers.allObservers;
+    private func subscribe() {
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: "SIPUserAgentDidFinishStarting:", name: AKSIPUserAgentDidFinishStartingNotification, object: nil)
+    }
+
+    private func unsubscribe() {
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStartingNotification, object: nil)
+    }
+
+    dynamic private func SIPUserAgentDidFinishStarting(notification: NSNotification) {
+        observer.userAgentDidFinishStarting()
+    }
 }
-
-- (void)addObserver:(id <UserAgentObserver> _Nonnull)observer {
-    [self.observers addObserver:observer];
-}
-
-- (void)removeObserver:(id <UserAgentObserver> _Nonnull)observer {
-    [self.observers removeObserver:observer];
-}
-
-- (id <UserAgentObserver> _Nullable)objectAtIndexedSubscript:(NSInteger)index {
-    return self.observers[index];
-}
-
-@end
