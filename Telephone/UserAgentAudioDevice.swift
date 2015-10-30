@@ -37,15 +37,28 @@ class UserAgentAudioDevice: NSObject {
         self.name = name
     }
 
-    override var hashValue: Int {
-        return identifier
-    }
-
     override var description: String {
         return "\(self.dynamicType)(identifier: \(identifier), name: \"\(name)\")"
     }
 }
 
-func ==(lhs: UserAgentAudioDevice, rhs: UserAgentAudioDevice) -> Bool {
-    return lhs.identifier == rhs.identifier && lhs.name == rhs.name
+extension UserAgentAudioDevice {
+
+    override var hashValue: Int {
+        return identifier ^ name.hash
+    }
+
+    override func isEqual(object: AnyObject?) -> Bool {
+        if self === object {
+            return true
+        } else if let object = object as? UserAgentAudioDevice {
+            return isEqualToUserAgentAudioDevice(object)
+        } else {
+            return false
+        }
+    }
+
+    func isEqualToUserAgentAudioDevice(device: UserAgentAudioDevice) -> Bool {
+        return identifier == device.identifier && name == device.name
+    }
 }
