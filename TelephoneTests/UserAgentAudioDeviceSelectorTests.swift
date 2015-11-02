@@ -41,15 +41,16 @@ class UserAgentAudioDeviceSelectorTests: XCTestCase {
         selector = UserAgentAudioDeviceSelector(deviceInteractor: interactorSpy)
     }
 
-    func testSelectsDevicesWhenSystemDevicesAreUpdated() {
+    func testUpdatesAndSelectsDevicesWhenSystemDevicesAreUpdated() {
         selector.systemAudioDevicesDidUpdate()
 
-        XCTAssertTrue(interactorSpy.didCallSelectAudioDevices)
+        let sequence = UserAgentAudioDeviceInteractorSpy.didCallUpdateAudioDevices + UserAgentAudioDeviceInteractorSpy.didCallSelectAudioDevices
+        XCTAssertEqual(interactorSpy.callSequence, sequence)
     }
 
     func testSelectsDevicesWhenUserAgentFinishesStarting() {
         selector.userAgentDidFinishStarting()
 
-        XCTAssertTrue(interactorSpy.didCallSelectAudioDevices)
+        XCTAssertEqual(interactorSpy.callSequence, UserAgentAudioDeviceInteractorSpy.didCallSelectAudioDevices)
     }
 }

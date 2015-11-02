@@ -29,16 +29,20 @@
 //
 
 class UserAgentAudioDeviceInteractorSpy {
-    var didCallSelectAudioDevices = false
+
+    static let didCallUpdateAudioDevices = "u"
+    static let didCallSelectAudioDevices = "s"
+
+    var callSequence = ""
 }
 
 extension UserAgentAudioDeviceInteractorSpy: UserAgentAudioDeviceInteractorInput {
 
     func updateAudioDevices() {
-
+        callSequence += UserAgentAudioDeviceInteractorSpy.didCallUpdateAudioDevices
     }
 
     func selectAudioDevices() throws {
-        didCallSelectAudioDevices = true
+        callSequence += UserAgentAudioDeviceInteractorSpy.didCallSelectAudioDevices
     }
 }
