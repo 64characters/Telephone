@@ -56,7 +56,16 @@ extension UserAgentAudioDeviceSelector: SystemAudioDevicesChangeObserver {
 }
 
 extension UserAgentAudioDeviceSelector: UserAgentObserver {
+
     func userAgentDidFinishStarting() {
         selectAudioDevicesOrLogError()
+    }
+
+    func userAgentDidFinishStopping() {
+
+    }
+
+    func userAgentDidDetectNAT() {
+
     }
 }

@@ -44,14 +44,26 @@ class UserAgentNotificationsToObserverAdapter {
     private func subscribe() {
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: "SIPUserAgentDidFinishStarting:", name: AKSIPUserAgentDidFinishStartingNotification, object: nil)
+        nc.addObserver(self, selector: "SIPUserAgentDidFinishStopping:", name: AKSIPUserAgentDidFinishStoppingNotification, object: nil)
+        nc.addObserver(self, selector: "SIPUserAgentDidDetectNAT:", name: AKSIPUserAgentDidDetectNATNotification, object: nil)
     }
 
     private func unsubscribe() {
         let nc = NSNotificationCenter.defaultCenter()
         nc.removeObserver(self, name: AKSIPUserAgentDidFinishStartingNotification, object: nil)
+        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStoppingNotification, object: nil)
+        nc.removeObserver(self, name: AKSIPUserAgentDidDetectNATNotification, object: nil)
     }
 
     dynamic private func SIPUserAgentDidFinishStarting(notification: NSNotification) {
         observer.userAgentDidFinishStarting()
+    }
+
+    dynamic private func SIPUserAgentDidFinishStopping(notification: NSNotification) {
+        observer.userAgentDidFinishStopping()
+    }
+
+    dynamic private func SIPUserAgentDidDetectNAT(notification: NSNotification) {
+        observer.userAgentDidDetectNAT()
     }
 }

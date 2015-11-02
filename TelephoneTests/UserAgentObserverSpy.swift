@@ -30,10 +30,21 @@
 
 class UserAgentObserverSpy {
     var didCallUserAgentDidFinishStarting = false
+    var didCallUserAgentDidFinishStopping = false
+    var didCallUserAgentDidDetectNAT = false
 }
 
 extension UserAgentObserverSpy: UserAgentObserver {
+
     func userAgentDidFinishStarting() {
         didCallUserAgentDidFinishStarting = true
+    }
+
+    func userAgentDidFinishStopping() {
+        didCallUserAgentDidFinishStopping = true
+    }
+
+    func userAgentDidDetectNAT() {
+        didCallUserAgentDidDetectNAT = true
     }
 }

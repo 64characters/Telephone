@@ -56,10 +56,24 @@ class UserAgentObserverCompositeTests: XCTestCase {
         XCTAssertTrue(composite[0] === observer2)
     }
 
-    func testCallsUserAgentDidFinishStartingOnAllChildren() {
+    func testCallsDidFinishStartingOnAllChildren() {
         composite.userAgentDidFinishStarting()
 
         XCTAssertTrue(observer1.didCallUserAgentDidFinishStarting)
         XCTAssertTrue(observer2.didCallUserAgentDidFinishStarting)
+    }
+
+    func testCallsDidFinishStoppingOnAllChildren() {
+        composite.userAgentDidFinishStopping()
+
+        XCTAssertTrue(observer1.didCallUserAgentDidFinishStopping)
+        XCTAssertTrue(observer2.didCallUserAgentDidFinishStopping)
+    }
+
+    func testCallsDidDetectNATOnAllChildren() {
+        composite.userAgentDidDetectNAT()
+
+        XCTAssertTrue(observer1.didCallUserAgentDidDetectNAT)
+        XCTAssertTrue(observer2.didCallUserAgentDidDetectNAT)
     }
 }

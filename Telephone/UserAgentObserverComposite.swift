@@ -52,9 +52,22 @@ extension UserAgentObserverComposite: UserAgentObserving {
 }
 
 extension UserAgentObserverComposite: UserAgentObserver {
+
     func userAgentDidFinishStarting() {
         for observer in observers {
             observer.userAgentDidFinishStarting()
+        }
+    }
+
+    func userAgentDidFinishStopping() {
+        for observer in observers {
+            observer.userAgentDidFinishStopping()
+        }
+    }
+
+    func userAgentDidDetectNAT() {
+        for observer in observers {
+            observer.userAgentDidDetectNAT()
         }
     }
 }

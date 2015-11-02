@@ -30,4 +30,6 @@
 
 protocol UserAgentObserver: class {
     func userAgentDidFinishStarting()
+    func userAgentDidFinishStopping()
+    func userAgentDidDetectNAT()
 }

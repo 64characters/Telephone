@@ -51,6 +51,18 @@ class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
         XCTAssertTrue(observerSpy.didCallUserAgentDidFinishStarting)
     }
 
+    func testCallsDidFinishStopping() {
+        notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidFinishStoppingNotification))
+
+        XCTAssertTrue(observerSpy.didCallUserAgentDidFinishStopping)
+    }
+
+    func testCallsDidDetectNAT() {
+        notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidDetectNATNotification))
+
+        XCTAssertTrue(observerSpy.didCallUserAgentDidDetectNAT)
+    }
+
     private func notificationWithName(name: String) -> NSNotification {
         return NSNotification(name: name, object: userAgentDummy)
     }
