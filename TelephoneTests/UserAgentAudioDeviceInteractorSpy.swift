@@ -33,6 +33,11 @@ class UserAgentAudioDeviceInteractorSpy {
 }
 
 extension UserAgentAudioDeviceInteractorSpy: UserAgentAudioDeviceInteractorInput {
+
+    func updateAudioDevices() {
+
+    }
+
     func selectAudioDevices() throws {
         didCallSelectAudioDevices = true
     }

@@ -44,6 +44,22 @@ class UserAgentAudioDeviceInteractorTests: XCTestCase {
         interactor = createInteractor()
     }
 
+    func testUpdatesAudioDevicesIfUserAgentIsStarted() {
+        userAgentSpy.startedResult = true
+
+        interactor.updateAudioDevices()
+
+        XCTAssertTrue(userAgentSpy.didCallUpdateAudioDevices)
+    }
+
+    func testDoesNotUpdateAudioDevicesIfUserAgentIsNotStarted() {
+        userAgentSpy.startedResult = false
+
+        interactor.updateAudioDevices()
+
+        XCTAssertFalse(userAgentSpy.didCallUpdateAudioDevices)
+    }
+
     func testSelectsMappedAudioDevices() {
         userAgentSpy.startedResult = true
 

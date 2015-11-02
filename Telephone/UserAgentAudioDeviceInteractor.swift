@@ -29,6 +29,7 @@
 //
 
 protocol UserAgentAudioDeviceInteractorInput {
+    func updateAudioDevices()
     func selectAudioDevices() throws
 }
 
@@ -46,6 +47,12 @@ class UserAgentAudioDeviceInteractor {
 }
 
 extension UserAgentAudioDeviceInteractor: UserAgentAudioDeviceInteractorInput {
+
+    func updateAudioDevices() {
+        if userAgent.started {
+            userAgent.updateAudioDevices()
+        }
+    }
 
     func selectAudioDevices() throws {
         if userAgent.started {

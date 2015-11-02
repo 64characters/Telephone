@@ -35,6 +35,8 @@ class UserAgentSpy: NSObject {
     var didCallAudioDevices = false
     var audioDevicesResult = [UserAgentAudioDevice]()
 
+    var didCallUpdateAudioDevices = false
+
     var didCallSelectInputAndOutputDevices = false
     var selectedInputDeviceIndex: Int?
     var selectedOutputDeviceIndex: Int?
@@ -49,6 +51,10 @@ extension UserAgentSpy: UserAgent {
     func audioDevices() throws -> [UserAgentAudioDevice] {
         didCallAudioDevices = true
         return audioDevicesResult
+    }
+
+    func updateAudioDevices() {
+        didCallUpdateAudioDevices = true
     }
 
     func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws {
