@@ -40,8 +40,8 @@ class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         observerSpy = UserAgentObserverSpy()
-        adapter = UserAgentNotificationsToObserverAdapter(observer: observerSpy)
         userAgentDummy = UserAgentSpy()
+        adapter = UserAgentNotificationsToObserverAdapter(observer: observerSpy, userAgent: userAgentDummy)
         notificationCenter = NSNotificationCenter.defaultCenter()
     }
 

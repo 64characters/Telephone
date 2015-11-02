@@ -51,7 +51,7 @@ class AudioDevicesFacade: NSObject {
 
         deviceRepository = SystemAudioDeviceRepositoryImpl()
         userAgentObserverComposite = UserAgentObserverComposite()
-        userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(observer: userAgentObserverComposite)
+        userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(observer: userAgentObserverComposite, userAgent: userAgent)
 
         let autoUpdatingDevices = AutoUpdatingSelectedSystemAudioDevices(deviceRepository: deviceRepository, userDefaults: userDefaults)
         selectedSystemAudioDevices = autoUpdatingDevices

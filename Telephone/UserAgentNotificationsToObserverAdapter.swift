@@ -31,9 +31,11 @@
 class UserAgentNotificationsToObserverAdapter {
 
     let observer: UserAgentObserver
+    let userAgent: UserAgent
 
-    init(observer: UserAgentObserver) {
+    init(observer: UserAgentObserver, userAgent: UserAgent) {
         self.observer = observer
+        self.userAgent = userAgent
         subscribe()
     }
 
@@ -43,16 +45,16 @@ class UserAgentNotificationsToObserverAdapter {
 
     private func subscribe() {
         let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: "SIPUserAgentDidFinishStarting:", name: AKSIPUserAgentDidFinishStartingNotification, object: nil)
-        nc.addObserver(self, selector: "SIPUserAgentDidFinishStopping:", name: AKSIPUserAgentDidFinishStoppingNotification, object: nil)
-        nc.addObserver(self, selector: "SIPUserAgentDidDetectNAT:", name: AKSIPUserAgentDidDetectNATNotification, object: nil)
+        nc.addObserver(self, selector: "SIPUserAgentDidFinishStarting:", name: AKSIPUserAgentDidFinishStartingNotification, object: userAgent)
+        nc.addObserver(self, selector: "SIPUserAgentDidFinishStopping:", name: AKSIPUserAgentDidFinishStoppingNotification, object: userAgent)
+        nc.addObserver(self, selector: "SIPUserAgentDidDetectNAT:", name: AKSIPUserAgentDidDetectNATNotification, object: userAgent)
     }
 
     private func unsubscribe() {
         let nc = NSNotificationCenter.defaultCenter()
-        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStartingNotification, object: nil)
-        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStoppingNotification, object: nil)
-        nc.removeObserver(self, name: AKSIPUserAgentDidDetectNATNotification, object: nil)
+        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStartingNotification, object: userAgent)
+        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStoppingNotification, object: userAgent)
+        nc.removeObserver(self, name: AKSIPUserAgentDidDetectNATNotification, object: userAgent)
     }
 
     dynamic private func SIPUserAgentDidFinishStarting(notification: NSNotification) {
