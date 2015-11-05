@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceInteractorSpy.swift
+//  UserAgentAudioDeviceSelectionInteractorSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceInteractorSpy {
+class UserAgentAudioDeviceSelectionInteractorSpy {
 
     static let didCallUpdateAudioDevices = "u"
     static let didCallSelectAudioDevices = "s"
@@ -36,13 +36,13 @@ class UserAgentAudioDeviceInteractorSpy {
     var callSequence = ""
 }
 
-extension UserAgentAudioDeviceInteractorSpy: UserAgentAudioDeviceInteractorInput {
+extension UserAgentAudioDeviceSelectionInteractorSpy: UserAgentAudioDeviceSelectionInteractorInput {
 
     func updateAudioDevices() {
-        callSequence += UserAgentAudioDeviceInteractorSpy.didCallUpdateAudioDevices
+        callSequence += UserAgentAudioDeviceSelectionInteractorSpy.didCallUpdateAudioDevices
     }
 
     func selectAudioDevices() throws {
-        callSequence += UserAgentAudioDeviceInteractorSpy.didCallSelectAudioDevices
+        callSequence += UserAgentAudioDeviceSelectionInteractorSpy.didCallSelectAudioDevices
     }
 }

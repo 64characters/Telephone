@@ -55,8 +55,8 @@ class AudioDevicesFacade: NSObject {
 
         let autoUpdatingDevices = AutoUpdatingSelectedSystemAudioDevices(deviceRepository: deviceRepository, userDefaults: userDefaults)
         selectedSystemAudioDevices = autoUpdatingDevices
-        let deviceInteractor = UserAgentAudioDeviceInteractor(selectedSystemDevices: autoUpdatingDevices, userAgent: userAgent)
-        userAgentDeviceSelector = UserAgentAudioDeviceSelector(deviceInteractor: deviceInteractor)
+        let deviceSelectionInteractor = UserAgentAudioDeviceSelectionInteractor(selectedSystemDevices: autoUpdatingDevices, userAgent: userAgent)
+        userAgentDeviceSelector = UserAgentAudioDeviceSelector(interactor: deviceSelectionInteractor)
         userAgentObserverComposite.addObserver(userAgentDeviceSelector)
         let deviceChangeObserver = SystemAudioDevicesChangeObserverComposite(observers: [autoUpdatingDevices, userAgentDeviceSelector])
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(observer: deviceChangeObserver, queue: queue)

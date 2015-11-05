@@ -30,14 +30,14 @@
 
 class UserAgentAudioDeviceSelector {
 
-    let deviceInteractor: UserAgentAudioDeviceInteractorInput
+    let interactor: UserAgentAudioDeviceSelectionInteractorInput
 
-    init(deviceInteractor: UserAgentAudioDeviceInteractorInput) {
-        self.deviceInteractor = deviceInteractor
+    init(interactor: UserAgentAudioDeviceSelectionInteractorInput) {
+        self.interactor = interactor
     }
 
     func selectAudioDevices() throws {
-        try deviceInteractor.selectAudioDevices()
+        try interactor.selectAudioDevices()
     }
 
     private func selectAudioDevicesOrLogError() {
@@ -57,7 +57,7 @@ extension UserAgentAudioDeviceSelector: SystemAudioDevicesChangeObserver {
     }
 
     private func updateAudioDevices() {
-        deviceInteractor.updateAudioDevices()
+        interactor.updateAudioDevices()
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceInteractor.swift
+//  UserAgentAudioDeviceSelectionInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentAudioDeviceInteractorInput {
+protocol UserAgentAudioDeviceSelectionInteractorInput {
     func updateAudioDevices()
     func selectAudioDevices() throws
 }
 
-class UserAgentAudioDeviceInteractor {
+class UserAgentAudioDeviceSelectionInteractor {
 
     let selectedSystemDevices: SelectedSystemAudioDevices
     let userAgent: UserAgent
@@ -46,7 +46,7 @@ class UserAgentAudioDeviceInteractor {
     }
 }
 
-extension UserAgentAudioDeviceInteractor: UserAgentAudioDeviceInteractorInput {
+extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelectionInteractorInput {
 
     func updateAudioDevices() {
         if userAgent.started {

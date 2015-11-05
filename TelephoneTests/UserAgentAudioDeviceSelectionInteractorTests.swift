@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceInteractorTests.swift
+//  UserAgentAudioDeviceSelectionInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,11 +30,11 @@
 
 import XCTest
 
-class UserAgentAudioDeviceInteractorTests: XCTestCase {
+class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
 
     var systemDevices: SystemAudioDevices!
     var userAgentSpy: UserAgentSpy!
-    var interactor: UserAgentAudioDeviceInteractor!
+    var interactor: UserAgentAudioDeviceSelectionInteractor!
 
     override func setUp() {
         super.setUp()
@@ -89,8 +89,8 @@ class UserAgentAudioDeviceInteractorTests: XCTestCase {
         return [device1, device2]
     }
 
-    private func createInteractor() -> UserAgentAudioDeviceInteractor {
+    private func createInteractor() -> UserAgentAudioDeviceSelectionInteractor {
         let devices = SelectedSystemAudioDevicesImpl(systemAudioDevices: systemDevices, userDefaults: UserDefaultsStub())
-        return UserAgentAudioDeviceInteractor(selectedSystemDevices: devices, userAgent: userAgentSpy)
+        return UserAgentAudioDeviceSelectionInteractor(selectedSystemDevices: devices, userAgent: userAgentSpy)
     }
 }
