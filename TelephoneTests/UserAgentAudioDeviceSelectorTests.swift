@@ -32,25 +32,12 @@ import XCTest
 
 class UserAgentAudioDeviceSelectorTests: XCTestCase {
 
-    private var interactorSpy: UserAgentAudioDeviceSelectionInteractorSpy!
-    private var selector: UserAgentAudioDeviceSelector!
-
-    override func setUp() {
-        super.setUp()
-        interactorSpy = UserAgentAudioDeviceSelectionInteractorSpy()
-        selector = UserAgentAudioDeviceSelector(interactor: interactorSpy)
-    }
-
-    func testUpdatesAndSelectsDevicesWhenSystemDevicesAreUpdated() {
-        selector.systemAudioDevicesDidUpdate()
-
-        let sequence = UserAgentAudioDeviceSelectionInteractorSpy.didCallUpdateAudioDevices + UserAgentAudioDeviceSelectionInteractorSpy.didCallSelectAudioDevices
-        XCTAssertEqual(interactorSpy.callSequence, sequence)
-    }
-
     func testSelectsDevicesWhenUserAgentFinishesStarting() {
-        selector.userAgentDidFinishStarting()
+        let interactorSpy = UserAgentAudioDeviceSelectionInteractorSpy()
+        let deviceSelector = UserAgentAudioDeviceSelector(interactor: interactorSpy)
 
-        XCTAssertEqual(interactorSpy.callSequence, UserAgentAudioDeviceSelectionInteractorSpy.didCallSelectAudioDevices)
+        deviceSelector.userAgentDidFinishStarting()
+
+        XCTAssertTrue(interactorSpy.didCallSelectAudioDevices)
     }
 }

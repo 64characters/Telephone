@@ -44,38 +44,12 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
         interactor = createInteractor()
     }
 
-    func testUpdatesAudioDevicesIfUserAgentIsStarted() {
-        userAgentSpy.startedResult = true
-
-        interactor.updateAudioDevices()
-
-        XCTAssertTrue(userAgentSpy.didCallUpdateAudioDevices)
-    }
-
-    func testDoesNotUpdateAudioDevicesIfUserAgentIsNotStarted() {
-        userAgentSpy.startedResult = false
-
-        interactor.updateAudioDevices()
-
-        XCTAssertFalse(userAgentSpy.didCallUpdateAudioDevices)
-    }
-
     func testSelectsMappedAudioDevices() {
-        userAgentSpy.startedResult = true
-
         try! interactor.selectAudioDevices()
 
         let userAgentDevices: [UserAgentAudioDevice] = userAgentSpy.audioDevicesResult
         XCTAssertEqual(userAgentSpy.selectedInputDeviceIndex, userAgentDevices[1].identifier)
         XCTAssertEqual(userAgentSpy.selectedOutputDeviceIndex, userAgentDevices[0].identifier)
-    }
-
-    func testDoesNotSelectDevicesIfUserAgentIsNotStarted() {
-        userAgentSpy.startedResult = false
-
-        try! interactor.selectAudioDevices()
-
-        XCTAssertFalse(userAgentSpy.didCallSelectInputAndOutputDevices)
     }
 
     private func createSystemDevices() -> SystemAudioDevices {

@@ -49,18 +49,6 @@ class UserAgentAudioDeviceSelector {
     }
 }
 
-extension UserAgentAudioDeviceSelector: SystemAudioDevicesChangeObserver {
-
-    func systemAudioDevicesDidUpdate() {
-        updateAudioDevices()
-        selectAudioDevicesOrLogError()
-    }
-
-    private func updateAudioDevices() {
-        interactor.updateAudioDevices()
-    }
-}
-
 extension UserAgentAudioDeviceSelector: UserAgentObserver {
 
     func userAgentDidFinishStarting() {
