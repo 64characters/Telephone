@@ -1,8 +1,6 @@
 //
-//  UserAgentObserverComposite.swift
+//  UserAgentAudioDeviceSelectionInteractorFactory.swift
 //  Telephone
-//
-//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -28,46 +26,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentObserverComposite {
-    private var observers = [UserAgentObserver]()
-}
-
-extension UserAgentObserverComposite: UserAgentObserving {
-
-    var allObservers: [UserAgentObserver] {
-        return observers
-    }
-
-    func addObserver(observer: UserAgentObserver) {
-        observers.append(observer)
-    }
-
-    func removeObserver(observer: UserAgentObserver) {
-        observers = observers.filter { $0 !== observer }
-    }
-
-    subscript(index: Int) -> UserAgentObserver? {
-        return observers[index]
-    }
-}
-
-extension UserAgentObserverComposite: UserAgentObserver {
-
-    func userAgentDidFinishStarting(userAgent: UserAgent) {
-        for observer in observers {
-            observer.userAgentDidFinishStarting(userAgent)
-        }
-    }
-
-    func userAgentDidFinishStopping(userAgent: UserAgent) {
-        for observer in observers {
-            observer.userAgentDidFinishStopping(userAgent)
-        }
-    }
-
-    func userAgentDidDetectNAT(userAgent: UserAgent) {
-        for observer in observers {
-            observer.userAgentDidDetectNAT(userAgent)
-        }
-    }
+protocol UserAgentAudioDeviceSelectionInteractorFactory {
+    func createInteractorWithUserAgent(userAgent: UserAgent) -> UserAgentAudioDeviceSelectionInteractorInput
 }

@@ -35,6 +35,7 @@ class UserAgentObserverCompositeTests: XCTestCase {
     var composite: UserAgentObserverComposite!
     var observer1: UserAgentObserverSpy!
     var observer2: UserAgentObserverSpy!
+    var userAgentDummy: UserAgentSpy!
 
     override func setUp() {
         super.setUp()
@@ -43,6 +44,7 @@ class UserAgentObserverCompositeTests: XCTestCase {
         observer2 = UserAgentObserverSpy()
         composite.addObserver(observer1)
         composite.addObserver(observer2)
+        userAgentDummy = UserAgentSpy()
     }
 
     func testCanAddObservers() {
@@ -57,23 +59,31 @@ class UserAgentObserverCompositeTests: XCTestCase {
     }
 
     func testCallsDidFinishStartingOnAllChildren() {
-        composite.userAgentDidFinishStarting()
+        composite.userAgentDidFinishStarting(userAgentDummy)
 
         XCTAssertTrue(observer1.didCallUserAgentDidFinishStarting)
         XCTAssertTrue(observer2.didCallUserAgentDidFinishStarting)
+        assertUserAgent()
     }
 
     func testCallsDidFinishStoppingOnAllChildren() {
-        composite.userAgentDidFinishStopping()
+        composite.userAgentDidFinishStopping(userAgentDummy)
 
         XCTAssertTrue(observer1.didCallUserAgentDidFinishStopping)
         XCTAssertTrue(observer2.didCallUserAgentDidFinishStopping)
+        assertUserAgent()
     }
 
     func testCallsDidDetectNATOnAllChildren() {
-        composite.userAgentDidDetectNAT()
+        composite.userAgentDidDetectNAT(userAgentDummy)
 
         XCTAssertTrue(observer1.didCallUserAgentDidDetectNAT)
         XCTAssertTrue(observer2.didCallUserAgentDidDetectNAT)
+        assertUserAgent()
+    }
+
+    private func assertUserAgent() {
+        XCTAssertTrue(observer1.lastPassedUserAgent === userAgentDummy)
+        XCTAssertTrue(observer2.lastPassedUserAgent === userAgentDummy)
     }
 }

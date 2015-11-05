@@ -30,36 +30,28 @@
 
 class UserAgentAudioDeviceSelector {
 
-    let interactor: UserAgentAudioDeviceSelectionInteractorInput
+    let interactorFactory: UserAgentAudioDeviceSelectionInteractorFactory
 
-    init(interactor: UserAgentAudioDeviceSelectionInteractorInput) {
-        self.interactor = interactor
+    init(interactorFactory: UserAgentAudioDeviceSelectionInteractorFactory) {
+        self.interactorFactory = interactorFactory
     }
 
-    func selectAudioDevices() throws {
+    func selectAudioDevicesOnUserAgent(userAgent: UserAgent) throws {
+        let interactor = interactorFactory.createInteractorWithUserAgent(userAgent)
         try interactor.selectAudioDevices()
-    }
-
-    private func selectAudioDevicesOrLogError() {
-        do {
-            try selectAudioDevices()
-        } catch {
-            print("Could not automatically select user agent audio devices: \(error)")
-        }
     }
 }
 
 extension UserAgentAudioDeviceSelector: UserAgentObserver {
 
-    func userAgentDidFinishStarting() {
-        selectAudioDevicesOrLogError()
+    func userAgentDidFinishStarting(userAgent: UserAgent) {
+        do {
+            try selectAudioDevicesOnUserAgent(userAgent)
+        } catch {
+            print("Could not automatically select user agent audio devices: \(error)")
+        }
     }
 
-    func userAgentDidFinishStopping() {
-
-    }
-
-    func userAgentDidDetectNAT() {
-
-    }
+    func userAgentDidFinishStopping(userAgent: UserAgent) {}
+    func userAgentDidDetectNAT(userAgent: UserAgent) {}
 }

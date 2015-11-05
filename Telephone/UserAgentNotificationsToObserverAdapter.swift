@@ -58,14 +58,17 @@ class UserAgentNotificationsToObserverAdapter {
     }
 
     dynamic private func SIPUserAgentDidFinishStarting(notification: NSNotification) {
-        observer.userAgentDidFinishStarting()
+        assert(userAgent === notification.object)
+        observer.userAgentDidFinishStarting(userAgent)
     }
 
     dynamic private func SIPUserAgentDidFinishStopping(notification: NSNotification) {
-        observer.userAgentDidFinishStopping()
+        assert(userAgent === notification.object)
+        observer.userAgentDidFinishStopping(userAgent)
     }
 
     dynamic private func SIPUserAgentDidDetectNAT(notification: NSNotification) {
-        observer.userAgentDidDetectNAT()
+        assert(userAgent === notification.object)
+        observer.userAgentDidDetectNAT(userAgent)
     }
 }
