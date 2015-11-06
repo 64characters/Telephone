@@ -39,7 +39,7 @@ class SelectedSystemAudioIOTests: XCTestCase {
     override func setUp() {
         super.setUp()
         deviceFactory = SystemAudioDeviceTestFactory()
-        systemDevices = SystemAudioDevicesImpl(devices: deviceFactory.allDevices)
+        systemDevices = SystemAudioDevices(devices: deviceFactory.allDevices)
         userDefaultsStub = UserDefaultsStub()
     }
 

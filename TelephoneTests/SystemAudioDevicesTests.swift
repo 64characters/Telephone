@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesImplTests.swift
+//  SystemAudioDevicesTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,15 +30,15 @@
 
 import XCTest
 
-class SystemAudioDevicesImplTests: XCTestCase {
+class SystemAudioDevicesTests: XCTestCase {
 
     private var deviceFactory: SystemAudioDeviceTestFactory!
-    private var devices: SystemAudioDevicesImpl!
+    private var devices: SystemAudioDevices!
 
     override func setUp() {
         super.setUp()
         deviceFactory = SystemAudioDeviceTestFactory()
-        devices = SystemAudioDevicesImpl(devices: deviceFactory.allDevices)
+        devices = SystemAudioDevices(devices: deviceFactory.allDevices)
     }
 
     func testBuiltInInputIsTheFirstBuiltInInputDevice() {

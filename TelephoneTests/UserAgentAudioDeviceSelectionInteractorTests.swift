@@ -54,7 +54,7 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
 
     private func createSystemDevices() -> SystemAudioDevices {
         let factory = SystemAudioDeviceTestFactory()
-        return SystemAudioDevicesImpl(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
+        return SystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
     }
 
     private func createUserAgentDevices() -> [UserAgentAudioDevice] {
