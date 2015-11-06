@@ -1,8 +1,6 @@
 //
-//  UserAgentAudioDeviceSelector.swift
+//  UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift
 //  Telephone
-//
-//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -28,30 +26,17 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceSelector {
+import XCTest
 
-    let interactorFactory: UserAgentAudioDeviceSelectionInteractorFactory
+class UserAgentAudioDeviceSelectionInteractorFactoryImplTests: XCTestCase {
+    func testCanMakeInteractor() {
+        let repositoryDummy = SystemAudioDeviceRepositoryStub()
+        let userDefaultsDummy = UserDefaultsStub()
+        let factory = UserAgentAudioDeviceSelectionInteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
+        let userAgentDummy = UserAgentSpy()
 
-    init(interactorFactory: UserAgentAudioDeviceSelectionInteractorFactory) {
-        self.interactorFactory = interactorFactory
+        let interactor:UserAgentAudioDeviceSelectionInteractor = factory.makeWithUserAgent(userAgentDummy) as! UserAgentAudioDeviceSelectionInteractor
+
+        XCTAssertNotNil(interactor)
     }
-
-    func selectAudioDevicesOnUserAgent(userAgent: UserAgent) throws {
-        let interactor = interactorFactory.makeWithUserAgent(userAgent)
-        try interactor.selectAudioDevices()
-    }
-}
-
-extension UserAgentAudioDeviceSelector: UserAgentObserver {
-
-    func userAgentDidFinishStarting(userAgent: UserAgent) {
-        do {
-            try selectAudioDevicesOnUserAgent(userAgent)
-        } catch {
-            print("Could not automatically select user agent audio devices: \(error)")
-        }
-    }
-
-    func userAgentDidFinishStopping(userAgent: UserAgent) {}
-    func userAgentDidDetectNAT(userAgent: UserAgent) {}
 }

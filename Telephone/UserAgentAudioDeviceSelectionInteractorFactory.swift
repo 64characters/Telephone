@@ -27,5 +27,5 @@
 //
 
 protocol UserAgentAudioDeviceSelectionInteractorFactory {
-    func createInteractorWithUserAgent(userAgent: UserAgent) -> UserAgentAudioDeviceSelectionInteractorInput
+    func makeWithUserAgent(userAgent: UserAgent) -> UserAgentAudioDeviceSelectionInteractorInput
 }

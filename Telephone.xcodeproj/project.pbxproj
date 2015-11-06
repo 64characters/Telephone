@@ -31,6 +31,9 @@
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
 		AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */; };
+		AA19CFF51BED148A00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift */; };
+		AA19CFF81BED149900991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF61BED149500991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift */; };
+		AA19CFF91BED149C00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift */; };
 		AA1A0AA01828E38900278658 /* Telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA1A0A9F1828E38900278658 /* Telephone.icns */; };
 		AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; };
 		AA222C43182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */; };
@@ -224,6 +227,8 @@
 		AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Escaping.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AA1732170EAF8C14009023F2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		AA19171B0F8EA627002BA093 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
+		AA19CFF41BED148A00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift; sourceTree = "<group>"; };
+		AA19CFF61BED149500991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift; path = TelephoneTests/UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift; sourceTree = SOURCE_ROOT; };
 		AA1A0A9F1828E38900278658 /* Telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Telephone.icns; sourceTree = "<group>"; };
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA222C40182C3B5B0096B024 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
@@ -680,6 +685,8 @@
 				AA3FABAD1BBC19C10064B2C3 /* SystemAudioDeviceIDRepository.swift */,
 				AA4C2E781BBFEEAB00C3D096 /* SystemAudioObject.swift */,
 				AAB32A111BEBA4BA0016C8E6 /* UserAgentAudioDeviceSelectionInteractorFactory.swift */,
+				AA19CFF41BED148A00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift */,
+				AA19CFF61BED149500991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift */,
 				AA277A521BD174D60030ECE4 /* UserAgentAudioDeviceSelector.swift */,
 				AA277A541BD3F2A90030ECE4 /* UserAgentAudioDeviceSelectorTests.swift */,
 			);
@@ -1008,6 +1015,7 @@
 				AA25AB4E1BE0F4A300E677A4 /* UserAgentObserving.swift in Sources */,
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
+				AA19CFF51BED148A00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift in Sources */,
 				AA3FAB9A1BBAB5000064B2C3 /* UserAgentAudioDevice.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AA25AB521BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */,
@@ -1073,12 +1081,14 @@
 				AA32F7F11BC4400900FAC228 /* SelectedSystemAudioIO.swift in Sources */,
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA32F7F81BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift in Sources */,
+				AA19CFF81BED149900991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift in Sources */,
 				AA277A5D1BD3F63B0030ECE4 /* UserAgentAudioDeviceSelectionInteractorSpy.swift in Sources */,
 				AAB32A151BEBAD9C0016C8E6 /* UserAgentAudioDeviceSelectionInteractorFactoryStub.swift in Sources */,
 				AA3FAB981BBAB4480064B2C3 /* SystemToUserAgentAudioDeviceMap.swift in Sources */,
 				AA32F7FC1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA32F8041BC6963D00FAC228 /* SystemAudioDevicesTests.swift in Sources */,
 				AAFA2BAF1BCD813400066CFC /* UserAgentAudioDeviceSelectionInteractor.swift in Sources */,
+				AA19CFF91BED149C00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift in Sources */,
 				AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeObserver.swift in Sources */,
 				AA25AB531BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */,
 				AAFA2BB51BCD815100066CFC /* UserAgent.swift in Sources */,
