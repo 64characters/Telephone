@@ -656,15 +656,15 @@
 		AA922F141BECFD2100D55E3D /* App */ = {
 			isa = PBXGroup;
 			children = (
-				AA3FAB961BBAB4480064B2C3 /* SystemToUserAgentAudioDeviceMap.swift */,
-				AA3FAB941BBAB3990064B2C3 /* SystemToUserAgentAudioDeviceMapTests.swift */,
 				AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */,
 				AA32F8051BC6968700FAC228 /* SystemAudioDevices.swift */,
 				AA32F8031BC6963D00FAC228 /* SystemAudioDevicesTests.swift */,
-				AA32F8081BC69D8300FAC228 /* SystemAudioDeviceRepository.swift */,
-				AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */,
 				AA32F7EF1BC4400900FAC228 /* SelectedSystemAudioIO.swift */,
 				AA32F7ED1BC43FB100FAC228 /* SelectedSystemAudioIOTests.swift */,
+				AA32F8081BC69D8300FAC228 /* SystemAudioDeviceRepository.swift */,
+				AA3FAB961BBAB4480064B2C3 /* SystemToUserAgentAudioDeviceMap.swift */,
+				AA3FAB941BBAB3990064B2C3 /* SystemToUserAgentAudioDeviceMapTests.swift */,
+				AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */,
 				AAFA2BAC1BCD812C00066CFC /* UserAgentAudioDeviceSelectionInteractor.swift */,
 				AAFA2BB01BCD814000066CFC /* UserAgentAudioDeviceSelectionInteractorTests.swift */,
 				AAB32A0E1BEB8AC40016C8E6 /* UserAgentAudioDevicesUpdateInteractor.swift */,
@@ -676,7 +676,6 @@
 		AA922F151BECFD2400D55E3D /* Delivery */ = {
 			isa = PBXGroup;
 			children = (
-				AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */,
 				AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeObserver.swift */,
 				AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeObserverComposite.swift */,
 				AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeObserverCompositeTests.swift */,
@@ -684,6 +683,7 @@
 				AA3FABAA1BBC183B0064B2C3 /* SystemAudioDeviceRepositoryImpl.swift */,
 				AA3FABAD1BBC19C10064B2C3 /* SystemAudioDeviceIDRepository.swift */,
 				AA4C2E781BBFEEAB00C3D096 /* SystemAudioObject.swift */,
+				AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */,
 				AAB32A111BEBA4BA0016C8E6 /* UserAgentAudioDeviceSelectionInteractorFactory.swift */,
 				AA19CFF41BED148A00991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift */,
 				AA19CFF61BED149500991CAA /* UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift */,
