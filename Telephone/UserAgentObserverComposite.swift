@@ -54,20 +54,18 @@ extension UserAgentObserverComposite: UserAgentObserving {
 extension UserAgentObserverComposite: UserAgentObserver {
 
     func userAgentDidFinishStarting(userAgent: UserAgent) {
-        for observer in observers {
-            observer.userAgentDidFinishStarting(userAgent)
-        }
+        onEachObserver { $0.userAgentDidFinishStarting(userAgent) }
     }
 
     func userAgentDidFinishStopping(userAgent: UserAgent) {
-        for observer in observers {
-            observer.userAgentDidFinishStopping(userAgent)
-        }
+        onEachObserver { $0.userAgentDidFinishStopping(userAgent) }
     }
 
     func userAgentDidDetectNAT(userAgent: UserAgent) {
-        for observer in observers {
-            observer.userAgentDidDetectNAT(userAgent)
-        }
+        onEachObserver { $0.userAgentDidDetectNAT(userAgent) }
+    }
+
+    private func onEachObserver(function: UserAgentObserver -> Void) {
+        for observer in observers { function(observer) }
     }
 }
