@@ -34,8 +34,8 @@ extension AKSIPUserAgent: UserAgent {
         return try UserAgentAudioDevices().allDevices
     }
 
-    func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws {
-        let success = self.setSoundInputDevice(inputDeviceIndex, soundOutputDevice: outputDeviceIndex)
+    func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
+        let success = self.setSoundInputDevice(inputDeviceID, soundOutputDevice: outputDeviceID)
         if !success {
             throw TelephoneError.UserAgentAudioDeviceSelectionError
         }

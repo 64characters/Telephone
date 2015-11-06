@@ -81,6 +81,6 @@ extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelection
     private func selectUserAgentDevicesWithSystemInput(systemInput: SystemAudioDevice, systemOutput: SystemAudioDevice) throws {
         let userAgentInput = try deviceMap.userAgentDeviceForSystemDevice(systemInput)
         let userAgentOutput = try deviceMap.userAgentDeviceForSystemDevice(systemOutput)
-        try userAgent.selectAudioInputDeviceAtIndex(userAgentInput.identifier, audioOutputDeviceAtIndex: userAgentOutput.identifier)
+        try userAgent.selectAudioInputDevice(userAgentInput.identifier, outputDevice: userAgentOutput.identifier)
     }
 }

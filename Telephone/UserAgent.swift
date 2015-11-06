@@ -32,5 +32,5 @@
     var started: Bool { @objc(isStarted) get }
     func audioDevices() throws -> [UserAgentAudioDevice]
     func updateAudioDevices()
-    func selectAudioInputDeviceAtIndex(inputDeviceIndex: Int, audioOutputDeviceAtIndex outputDeviceIndex: Int) throws
+    func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws
 }
