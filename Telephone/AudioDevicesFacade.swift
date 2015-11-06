@@ -40,7 +40,6 @@ class AudioDevicesFacade: NSObject {
     private let userAgentObserverComposite: UserAgentObserverComposite
     private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
 
-    private let selectedSystemAudioDevices: SelectedSystemAudioDevices!
     private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
 
     init(userAgent: UserAgent, userDefaults: UserDefaults, queue: dispatch_queue_t) throws {
@@ -52,12 +51,9 @@ class AudioDevicesFacade: NSObject {
         userAgentObserverComposite = UserAgentObserverComposite()
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(observer: userAgentObserverComposite, userAgent: userAgent)
 
-        let autoUpdatingDevices = AutoUpdatingSelectedSystemAudioDevices(deviceRepository: deviceRepository, userDefaults: userDefaults)
-        selectedSystemAudioDevices = autoUpdatingDevices
-        let deviceChangeObserver = SystemAudioDevicesChangeObserverComposite(observers: [autoUpdatingDevices])
+        let deviceChangeObserver = SystemAudioDevicesChangeObserverComposite(observers: [])
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(observer: deviceChangeObserver, queue: queue)
         super.init()
-        try autoUpdatingDevices.update()
         devicesChangeMonitor.start()
     }
 

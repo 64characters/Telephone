@@ -34,13 +34,15 @@ protocol UserAgentAudioDeviceSelectionInteractorInput {
 
 class UserAgentAudioDeviceSelectionInteractor {
 
-    let selectedSystemDevices: SelectedSystemAudioDevices
+    let systemAudioDevices: SystemAudioDevices
+    let selectedSystemAudioIO: SelectedSystemAudioIO
     let userAgent: UserAgent
 
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
 
-    init(selectedSystemDevices: SelectedSystemAudioDevices, userAgent: UserAgent) {
-        self.selectedSystemDevices = selectedSystemDevices
+    init(systemAudioDevices: SystemAudioDevices, selectedSystemAudioIO: SelectedSystemAudioIO, userAgent: UserAgent) {
+        self.systemAudioDevices = systemAudioDevices
+        self.selectedSystemAudioIO = selectedSystemAudioIO
         self.userAgent = userAgent
     }
 }
@@ -54,11 +56,11 @@ extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelection
 
     private func updateDeviceMap() throws {
         let userAgentDevices = try userAgent.audioDevices()
-        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: selectedSystemDevices.allDevices, userAgentDevices: userAgentDevices)
+        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: userAgentDevices)
     }
 
     private func selectUserAgentAudioDevices() throws {
-        if let systemInput = selectedSystemDevices.soundInput, let systemOutput = selectedSystemDevices.soundOutput {
+        if let systemInput = selectedSystemAudioIO.soundInput, let systemOutput = selectedSystemAudioIO.soundOutput {
             try selectUserAgentDevicesWithSystemInput(systemInput, systemOutput: systemOutput)
         } else {
             throw TelephoneError.NoAvailableSoundIOError

@@ -1,5 +1,5 @@
 //
-//  SelectedSystemAudioDevicesImplTests.swift
+//  SelectedSystemAudioIOTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,19 +30,17 @@
 
 import XCTest
 
-class SelectedSystemAudioDevicesImplTests: XCTestCase {
+class SelectedSystemAudioIOTests: XCTestCase {
 
     var deviceFactory: SystemAudioDeviceTestFactory!
     var systemDevices: SystemAudioDevices!
     var userDefaultsStub: UserDefaultsStub!
-    var selectedDevices: SelectedSystemAudioDevicesImpl!
 
     override func setUp() {
         super.setUp()
         deviceFactory = SystemAudioDeviceTestFactory()
         systemDevices = SystemAudioDevicesImpl(devices: deviceFactory.allDevices)
         userDefaultsStub = UserDefaultsStub()
-        selectedDevices = SelectedSystemAudioDevicesImpl(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
     }
 
     // MARK: - Sound input
@@ -51,23 +49,31 @@ class SelectedSystemAudioDevicesImplTests: XCTestCase {
         let someDevice = deviceFactory.someInputDevice
         userDefaultsStub[kSoundInput] = someDevice.name
 
-        XCTAssertEqual(selectedDevices.soundInput, someDevice)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundInput, someDevice)
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfThereIsNoSoundInputInUserDefaults() {
-        XCTAssertEqual(selectedDevices.soundInput, systemDevices.builtInInput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundInput, systemDevices.builtInInput)
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfSoundInputFromUserDefaultsCanNotBeFoundInSystemDevices() {
         userDefaultsStub[kSoundInput] = kNonexistentDeviceName
 
-        XCTAssertEqual(selectedDevices.soundInput, systemDevices.builtInInput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundInput, systemDevices.builtInInput)
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveInputChannels() {
         userDefaultsStub[kSoundInput] = deviceFactory.outputOnlyDevice.name
 
-        XCTAssertEqual(selectedDevices.soundInput, systemDevices.builtInInput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundInput, systemDevices.builtInInput)
     }
 
     // MARK: - Sound output
@@ -76,23 +82,31 @@ class SelectedSystemAudioDevicesImplTests: XCTestCase {
         let someDevice = deviceFactory.someOutputDevice
         userDefaultsStub[kSoundOutput] = someDevice.name
 
-        XCTAssertEqual(selectedDevices.soundOutput, someDevice)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundOutput, someDevice)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfThereIsNoSoundOutputInUserDefaults() {
-        XCTAssertEqual(selectedDevices.soundOutput, systemDevices.builtInOutput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfSoundOutputFromUserDefaultsCanNotBeFoundInSystemDevices() {
         userDefaultsStub[kSoundOutput] = kNonexistentDeviceName
 
-        XCTAssertEqual(selectedDevices.soundOutput, systemDevices.builtInOutput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
         userDefaultsStub[kSoundOutput] = deviceFactory.inputOnlyDevice.name
 
-        XCTAssertEqual(selectedDevices.soundOutput, systemDevices.builtInOutput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.soundOutput, systemDevices.builtInOutput)
     }
 
     // MARK: - Ringtone output
@@ -101,23 +115,37 @@ class SelectedSystemAudioDevicesImplTests: XCTestCase {
         let someDevice = deviceFactory.someOutputDevice
         userDefaultsStub[kRingtoneOutput] = someDevice.name
 
-        XCTAssertEqual(selectedDevices.ringtoneOutput, someDevice)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.ringtoneOutput, someDevice)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfThereIsNoRingtoneOutputInUserDefaults() {
-        XCTAssertEqual(selectedDevices.ringtoneOutput, systemDevices.builtInOutput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.ringtoneOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfRingtoneOutputFromUserDefaultsCanNotBeFoundInSystemDevices() {
+        let selectedIO = createSelectedIO()
+
         userDefaultsStub[kRingtoneOutput] = kNonexistentDeviceName
 
-        XCTAssertEqual(selectedDevices.ringtoneOutput, systemDevices.builtInOutput)
+        XCTAssertEqual(selectedIO.ringtoneOutput, systemDevices.builtInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
         userDefaultsStub[kRingtoneOutput] = deviceFactory.inputOnlyDevice.name
 
-        XCTAssertEqual(selectedDevices.ringtoneOutput, systemDevices.builtInOutput)
+        let selectedIO = createSelectedIO()
+
+        XCTAssertEqual(selectedIO.ringtoneOutput, systemDevices.builtInOutput)
+    }
+
+    // MARK: - Helper
+
+    private func createSelectedIO() -> SelectedSystemAudioIO {
+        return SelectedSystemAudioIO(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
     }
 }
 

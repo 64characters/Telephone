@@ -64,7 +64,7 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
     }
 
     private func createInteractor() -> UserAgentAudioDeviceSelectionInteractor {
-        let devices = SelectedSystemAudioDevicesImpl(systemAudioDevices: systemDevices, userDefaults: UserDefaultsStub())
-        return UserAgentAudioDeviceSelectionInteractor(selectedSystemDevices: devices, userAgent: userAgentSpy)
+        let selectedIO = SelectedSystemAudioIO(systemAudioDevices: systemDevices, userDefaults: UserDefaultsStub())
+        return UserAgentAudioDeviceSelectionInteractor(systemAudioDevices: systemDevices, selectedSystemAudioIO: selectedIO, userAgent: userAgentSpy)
     }
 }

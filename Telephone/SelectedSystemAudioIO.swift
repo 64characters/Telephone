@@ -1,5 +1,5 @@
 //
-//  SelectedSystemAudioDevicesImpl.swift
+//  SelectedSystemAudioIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,32 +28,22 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class SelectedSystemAudioDevicesImpl {
+struct SelectedSystemAudioIO {
 
     let systemAudioDevices: SystemAudioDevices
     let userDefaults: UserDefaults
 
+    private(set) var soundInput: SystemAudioDevice?
+    private(set) var soundOutput: SystemAudioDevice?
+    private(set) var ringtoneOutput: SystemAudioDevice?
+
     init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.systemAudioDevices = systemAudioDevices
         self.userDefaults = userDefaults
+        soundInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: systemAudioDevices.builtInInput)
+        soundOutput = outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: systemAudioDevices.builtInOutput)
+        ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: systemAudioDevices.builtInOutput)
     }
-}
-
-extension SelectedSystemAudioDevicesImpl: SelectedSystemAudioDevices {
-
-    var soundInput: SystemAudioDevice? {
-        return inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: systemAudioDevices.builtInInput)
-    }
-
-    var soundOutput: SystemAudioDevice? {
-        return outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: systemAudioDevices.builtInOutput)
-    }
-
-    var ringtoneOutput: SystemAudioDevice? {
-        return outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: systemAudioDevices.builtInOutput)
-    }
-
-    // MARK: - Private
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String, fallbackDevice: SystemAudioDevice?) -> SystemAudioDevice? {
         return firstOrSecond(inputDeviceByNameWithUserDefaultsKey(key), second: fallbackDevice)
@@ -84,23 +74,5 @@ extension SelectedSystemAudioDevicesImpl: SelectedSystemAudioDevices {
 
     private func firstOrSecond<T>(first: T?, second: T?) -> T? {
         return first != nil ? first : second
-    }
-}
-
-extension SelectedSystemAudioDevicesImpl: SystemAudioDevices {
-    var allDevices: [SystemAudioDevice] {
-        return systemAudioDevices.allDevices
-    }
-
-    var builtInInput: SystemAudioDevice? {
-        return systemAudioDevices.builtInInput
-    }
-
-    var builtInOutput: SystemAudioDevice? {
-        return systemAudioDevices.builtInOutput
-    }
-
-    subscript(name: String) -> SystemAudioDevice? {
-        return systemAudioDevices[name]
     }
 }
