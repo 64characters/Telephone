@@ -111,7 +111,7 @@
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
 		AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA110A56BD9000946F3 /* XSViewController.m */; };
 		AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA310A56BD9000946F3 /* XSWindowController.m */; };
-		AA90D75A1BC90F9F0059CC03 /* SystemAudioDeviceRepositorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositorySpy.swift */; };
+		AA90D75A1BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
 		AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */; };
 		AAAC618C0FE6A42900FBE053 /* AKNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAC618B0FE6A42900FBE053 /* AKNetworkReachability.m */; };
@@ -334,7 +334,7 @@
 		AA8FBAA110A56BD9000946F3 /* XSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		AA8FBAA210A56BD9000946F3 /* XSWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSWindowController.h; sourceTree = "<group>"; };
 		AA8FBAA310A56BD9000946F3 /* XSWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSWindowController.m; sourceTree = "<group>"; wrapsLines = 1; };
-		AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceRepositorySpy.swift; sourceTree = "<group>"; };
+		AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceRepositoryStub.swift; sourceTree = "<group>"; };
 		AA97B47410D3A2CA00FC65DA /* CallTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = CallTransferController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA97B47510D3A2CA00FC65DA /* CallTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = CallTransferController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAA628C5110C6281008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
@@ -562,7 +562,7 @@
 			isa = PBXGroup;
 			children = (
 				AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeObserverSpy.swift */,
-				AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositorySpy.swift */,
+				AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */,
 				AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */,
 				AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */,
 				AAB32A141BEBAD9C0016C8E6 /* UserAgentAudioDeviceSelectionInteractorFactoryStub.swift */,
@@ -1062,7 +1062,7 @@
 				AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift in Sources */,
 				AA32F8071BC6968700FAC228 /* SystemAudioDevices.swift in Sources */,
 				AA277A551BD3F2A90030ECE4 /* UserAgentAudioDeviceSelectorTests.swift in Sources */,
-				AA90D75A1BC90F9F0059CC03 /* SystemAudioDeviceRepositorySpy.swift in Sources */,
+				AA90D75A1BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift in Sources */,
 				AAC0FFBA1BE28D2500A5C7E5 /* SystemAudioDevicesChangeObserverSpy.swift in Sources */,
 				AA3FAB951BBAB3990064B2C3 /* SystemToUserAgentAudioDeviceMapTests.swift in Sources */,
 				AAC0FFB81BE28CAD00A5C7E5 /* SystemAudioDevicesChangeObserverComposite.swift in Sources */,

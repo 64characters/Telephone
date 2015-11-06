@@ -33,14 +33,19 @@ import XCTest
 class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
 
     var systemDevices: SystemAudioDevices!
+    var repositoryStub: SystemAudioDeviceRepositoryStub!
     var userAgentSpy: UserAgentSpy!
+    var userDefaultsStub: UserDefaultsStub!
     var interactor: UserAgentAudioDeviceSelectionInteractor!
 
     override func setUp() {
         super.setUp()
         systemDevices = createSystemDevices()
+        repositoryStub = SystemAudioDeviceRepositoryStub()
+        repositoryStub.allDevicesResult = systemDevices.allDevices
         userAgentSpy = UserAgentSpy()
         userAgentSpy.audioDevicesResult = createUserAgentDevices()
+        userDefaultsStub = UserDefaultsStub()
         interactor = createInteractor()
     }
 
@@ -64,7 +69,6 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
     }
 
     private func createInteractor() -> UserAgentAudioDeviceSelectionInteractor {
-        let selectedIO = SelectedSystemAudioIO(systemAudioDevices: systemDevices, userDefaults: UserDefaultsStub())
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDevices: systemDevices, selectedSystemAudioIO: selectedIO, userAgent: userAgentSpy)
+        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: repositoryStub, userAgent: userAgentSpy, userDefaults: userDefaultsStub)
     }
 }

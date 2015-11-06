@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceRepositorySpy.swift
+//  SystemAudioDeviceRepositoryStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,14 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class SystemAudioDeviceRepositorySpy {
-    var didCallAllDevices = false
+class SystemAudioDeviceRepositoryStub {
     var allDevicesResult = [SystemAudioDevice]()
 }
 
-extension SystemAudioDeviceRepositorySpy: SystemAudioDeviceRepository {
+extension SystemAudioDeviceRepositoryStub: SystemAudioDeviceRepository {
     func allDevices() throws -> [SystemAudioDevice] {
-        didCallAllDevices = true
         return allDevicesResult
     }
 }

@@ -34,29 +34,40 @@ protocol UserAgentAudioDeviceSelectionInteractorInput {
 
 class UserAgentAudioDeviceSelectionInteractor {
 
-    let systemAudioDevices: SystemAudioDevices
-    let selectedSystemAudioIO: SelectedSystemAudioIO
+    let systemAudioDeviceRepository: SystemAudioDeviceRepository
     let userAgent: UserAgent
+    let userDefaults: UserDefaults
 
+    private var systemAudioDevices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
+    private var selectedSystemAudioIO: SelectedSystemAudioIO!
 
-    init(systemAudioDevices: SystemAudioDevices, selectedSystemAudioIO: SelectedSystemAudioIO, userAgent: UserAgent) {
-        self.systemAudioDevices = systemAudioDevices
-        self.selectedSystemAudioIO = selectedSystemAudioIO
+    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
+        self.systemAudioDeviceRepository = systemAudioDeviceRepository
         self.userAgent = userAgent
+        self.userDefaults = userDefaults
     }
 }
 
 extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelectionInteractorInput {
 
     func selectAudioDevices() throws {
+        try updateSystemAudioDevices()
         try updateDeviceMap()
+        updateSelectedSystemAudioIO()
         try selectUserAgentAudioDevices()
     }
 
+    private func updateSystemAudioDevices() throws {
+        systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
+    }
+
     private func updateDeviceMap() throws {
-        let userAgentDevices = try userAgent.audioDevices()
-        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: userAgentDevices)
+        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: try userAgent.audioDevices())
+    }
+
+    private func updateSelectedSystemAudioIO() {
+        selectedSystemAudioIO = SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
     }
 
     private func selectUserAgentAudioDevices() throws {
