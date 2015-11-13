@@ -1,5 +1,5 @@
 //
-//  FirstBuiltInSystemAudioDevicesTests.swift
+//  FirstBuiltInSystemAudioIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,48 +28,13 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
+struct FirstBuiltInSystemAudioIO {
 
-class FirstBuiltInSystemAudioDevicesTests: XCTestCase {
+    let input: SystemAudioDevice
+    let output: SystemAudioDevice
 
-    private var deviceFactory: SystemAudioDeviceTestFactory!
-
-    override func setUp() {
-        super.setUp()
-        deviceFactory = SystemAudioDeviceTestFactory()
-    }
-
-    func testInputIsTheFirstBuiltInInputDevice() {
-        let devices = try! FirstBuiltInSystemAudioDevices(devices: deviceFactory.allDevices)
-
-        XCTAssertEqual(devices.input, deviceFactory.firstBuiltInInput)
-    }
-
-    func testOutputIsTheFirstBuiltInOutputDevice() {
-        let devices = try! FirstBuiltInSystemAudioDevices(devices: deviceFactory.allDevices)
-
-        XCTAssertEqual(devices.output, deviceFactory.firstBuiltInOutput)
-    }
-
-    func testThrowsIfCanNotFindBuiltInInput() {
-        assertThrowsWhenCreatedWithDevices([deviceFactory.firstBuiltInOutput])
-    }
-
-    func testThrowsIfCanNotFindBuiltInOutput() {
-        assertThrowsWhenCreatedWithDevices([deviceFactory.firstBuiltInInput])
-    }
-
-    private func assertThrowsWhenCreatedWithDevices(devices: [SystemAudioDevice]) {
-        var didThrow = false
-
-        do {
-            _ = try FirstBuiltInSystemAudioDevices(devices: devices)
-        } catch TelephoneError.NoAvailableSystemAudioDeviceError {
-            didThrow = true
-        } catch {
-
-        }
-
-        XCTAssertTrue(didThrow)
+    init(devices: [SystemAudioDevice]) throws {
+        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInputDevice }).device
+        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutputDevice }).device
     }
 }
