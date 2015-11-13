@@ -57,13 +57,13 @@ class FirstSystemAudioDeviceTests: XCTestCase {
         XCTAssertEqual(device.device, firstBuiltInOutput)
     }
 
-    func testThrowsNoAvailableSoundIOErrorIfNotFound() {
+    func testThrowsNoAvailableSystemAudioDeviceErrorIfNotFound() {
         var didThrow = false
         let devices = [factory.someOutputDevice, factory.firstBuiltInOutput]
 
         do {
             _ = try FirstSystemAudioDevice(devices: devices, predicate: {$0.inputDevice })
-        } catch TelephoneError.NoAvailableSoundIOError {
+        } catch TelephoneError.NoAvailableSystemAudioDeviceError {
             didThrow = true
         } catch {}
 

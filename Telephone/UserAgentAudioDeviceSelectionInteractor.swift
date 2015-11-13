@@ -74,7 +74,7 @@ extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelection
         if let systemInput = selectedSystemAudioIO.soundInput, let systemOutput = selectedSystemAudioIO.soundOutput {
             try selectUserAgentDevicesWithSystemInput(systemInput, systemOutput: systemOutput)
         } else {
-            throw TelephoneError.NoAvailableSoundIOError
+            throw TelephoneError.NoAvailableSystemAudioDeviceError
         }
     }
 

@@ -32,7 +32,7 @@ enum TelephoneError: ErrorType {
     case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
     case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
     case SystemToUserAgentAudioDeviceMapError
-    case NoAvailableSoundIOError
+    case NoAvailableSystemAudioDeviceError
     case UserAgentAudioDeviceEnumerationError
     case UserAgentAudioDeviceSelectionError
 }

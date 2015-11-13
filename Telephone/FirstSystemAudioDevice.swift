@@ -41,6 +41,6 @@ private func firstOfDevices(devices: [SystemAudioDevice], predicate: (SystemAudi
     if let result =  devices.filter(predicate).first {
         return result
     } else {
-        throw TelephoneError.NoAvailableSoundIOError
+        throw TelephoneError.NoAvailableSystemAudioDeviceError
     }
 }

@@ -64,7 +64,7 @@ class FirstBuiltInSystemAudioDevicesTests: XCTestCase {
 
         do {
             _ = try FirstBuiltInSystemAudioDevices(devices: devices)
-        } catch TelephoneError.NoAvailableSoundIOError {
+        } catch TelephoneError.NoAvailableSystemAudioDeviceError {
             didThrow = true
         } catch {
 
