@@ -40,9 +40,10 @@ struct SelectedSystemAudioIO {
     init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.systemAudioDevices = systemAudioDevices
         self.userDefaults = userDefaults
-        soundInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: systemAudioDevices.builtInInput)
-        soundOutput = outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: systemAudioDevices.builtInOutput)
-        ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: systemAudioDevices.builtInOutput)
+        let builtInDevices = try! FirstBuiltInSystemAudioIO(devices: systemAudioDevices.allDevices)
+        soundInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: builtInDevices.input)
+        soundOutput = outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: builtInDevices.output)
+        ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: builtInDevices.output)
     }
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String, fallbackDevice: SystemAudioDevice?) -> SystemAudioDevice? {
