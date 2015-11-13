@@ -37,10 +37,10 @@ struct SelectedSystemAudioIO {
     private(set) var soundOutput: SystemAudioDevice!
     private(set) var ringtoneOutput: SystemAudioDevice!
 
-    init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) {
+    init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) throws {
         self.systemAudioDevices = systemAudioDevices
         self.userDefaults = userDefaults
-        let builtInDevices = try! FirstBuiltInSystemAudioIO(devices: systemAudioDevices.allDevices)
+        let builtInDevices = try FirstBuiltInSystemAudioIO(devices: systemAudioDevices.allDevices)
         soundInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput) ?? builtInDevices.input
         soundOutput = outputDeviceByNameWithUserDefaultsKey(kSoundOutput) ?? builtInDevices.output
         ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput) ?? builtInDevices.output

@@ -54,7 +54,7 @@ extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelection
     func selectAudioDevices() throws {
         try updateSystemAudioDevices()
         try updateDeviceMap()
-        updateSelectedSystemAudioIO()
+        try updateSelectedSystemAudioIO()
         try selectUserAgentAudioDevices()
     }
 
@@ -66,8 +66,8 @@ extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelection
         deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: try userAgent.audioDevices())
     }
 
-    private func updateSelectedSystemAudioIO() {
-        selectedSystemAudioIO = SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
+    private func updateSelectedSystemAudioIO() throws {
+        selectedSystemAudioIO = try SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
     }
 
     private func selectUserAgentAudioDevices() throws {
