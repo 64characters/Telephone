@@ -31,6 +31,8 @@
 class SystemAudioDeviceTestFactory {
 
     let allDevices: [SystemAudioDevice]
+    let firstInput: SystemAudioDevice
+    let firstOutput: SystemAudioDevice
     let firstBuiltInInput: SystemAudioDevice
     let firstBuiltInOutput: SystemAudioDevice
     let someInputDevice: SystemAudioDevice
@@ -44,6 +46,8 @@ class SystemAudioDeviceTestFactory {
         let device3 = SystemAudioDevice(identifier: 3, uniqueIdentifier: "UID3", name: "Device3", inputCount: 1, outputCount: 0, builtIn: true)
         let device4 = SystemAudioDevice(identifier: 4, uniqueIdentifier: "UID4", name: "Device4", inputCount: 0, outputCount: 1, builtIn: true)
         allDevices = [device1, device2, device3, device4]
+        firstInput = device1
+        firstOutput = device2
         firstBuiltInInput = device3
         firstBuiltInOutput = device4
         someInputDevice = device1
