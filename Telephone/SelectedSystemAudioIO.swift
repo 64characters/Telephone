@@ -33,25 +33,17 @@ struct SelectedSystemAudioIO {
     let systemAudioDevices: SystemAudioDevices
     let userDefaults: UserDefaults
 
-    private(set) var soundInput: SystemAudioDevice?
-    private(set) var soundOutput: SystemAudioDevice?
-    private(set) var ringtoneOutput: SystemAudioDevice?
+    private(set) var soundInput: SystemAudioDevice!
+    private(set) var soundOutput: SystemAudioDevice!
+    private(set) var ringtoneOutput: SystemAudioDevice!
 
     init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.systemAudioDevices = systemAudioDevices
         self.userDefaults = userDefaults
         let builtInDevices = try! FirstBuiltInSystemAudioIO(devices: systemAudioDevices.allDevices)
-        soundInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput, fallbackDevice: builtInDevices.input)
-        soundOutput = outputDeviceByNameWithUserDefaultsKey(kSoundOutput, fallbackDevice: builtInDevices.output)
-        ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput, fallbackDevice: builtInDevices.output)
-    }
-
-    private func inputDeviceByNameWithUserDefaultsKey(key: String, fallbackDevice: SystemAudioDevice?) -> SystemAudioDevice? {
-        return firstOrSecond(inputDeviceByNameWithUserDefaultsKey(key), second: fallbackDevice)
-    }
-
-    private func outputDeviceByNameWithUserDefaultsKey(key: String, fallbackDevice: SystemAudioDevice?) -> SystemAudioDevice? {
-        return firstOrSecond(outputDeviceByNameWithUserDefaultsKey(key), second: fallbackDevice)
+        soundInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput) ?? builtInDevices.input
+        soundOutput = outputDeviceByNameWithUserDefaultsKey(kSoundOutput) ?? builtInDevices.output
+        ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput) ?? builtInDevices.output
     }
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
@@ -71,9 +63,5 @@ struct SelectedSystemAudioIO {
 
     private func deviceWithName(name: String) -> SystemAudioDevice? {
         return systemAudioDevices[name]
-    }
-
-    private func firstOrSecond<T>(first: T?, second: T?) -> T? {
-        return first != nil ? first : second
     }
 }
