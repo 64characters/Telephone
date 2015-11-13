@@ -1,5 +1,5 @@
 //
-//  FirstBuiltInSystemAudioDevices.swift
+//  FirstSystemAudioIOTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,13 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct FirstBuiltInSystemAudioDevices {
+import XCTest
 
-    let input: SystemAudioDevice
-    let output: SystemAudioDevice
+class FirstSystemAudioIOTests: XCTestCase {
 
-    init(devices: [SystemAudioDevice]) throws {
-        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInputDevice }).device
-        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutputDevice }).device
+    private var deviceFactory: SystemAudioDeviceTestFactory!
+
+    override func setUp() {
+        super.setUp()
+        deviceFactory = SystemAudioDeviceTestFactory()
+    }
+
+    func testInputIsFirstInputDevice() {
+        let devices = [deviceFactory.someOutputDevice, deviceFactory.inputOnlyDevice, deviceFactory.firstBuiltInInput]
+
+        let audioIO = try! FirstSystemAudioIO(devices: devices)
+
+        XCTAssertEqual(audioIO.input, deviceFactory.inputOnlyDevice)
+    }
+
+    func testOutputIsFirstOutputDevice() {
+        let devices = [deviceFactory.someInputDevice, deviceFactory.outputOnlyDevice, deviceFactory.firstBuiltInOutput]
+
+        let audioIO = try! FirstSystemAudioIO(devices: devices)
+
+        XCTAssertEqual(audioIO.output, deviceFactory.outputOnlyDevice)
     }
 }

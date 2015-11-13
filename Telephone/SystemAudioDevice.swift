@@ -37,6 +37,25 @@ struct SystemAudioDevice {
     let builtIn: Bool
 }
 
+extension SystemAudioDevice {
+
+    var inputDevice: Bool {
+        return inputCount > 0
+    }
+
+    var outputDevice: Bool {
+        return outputCount > 0
+    }
+
+    var builtInInputDevice: Bool {
+        return builtIn && inputDevice
+    }
+
+    var builtInOutputDevice: Bool {
+        return builtIn && outputDevice
+    }
+}
+
 extension SystemAudioDevice: Hashable {
     var hashValue: Int {
         return identifier

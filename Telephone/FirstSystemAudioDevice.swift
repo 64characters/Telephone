@@ -1,5 +1,5 @@
 //
-//  FirstBuiltInSystemAudioDevices.swift
+//  FirstSystemAudioDevice.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,13 +28,19 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct FirstBuiltInSystemAudioDevices {
+struct FirstSystemAudioDevice {
 
-    let input: SystemAudioDevice
-    let output: SystemAudioDevice
+    let device: SystemAudioDevice
 
-    init(devices: [SystemAudioDevice]) throws {
-        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInputDevice }).device
-        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutputDevice }).device
+    init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) throws {
+        device = try firstOfDevices(devices, predicate: predicate)
+    }
+}
+
+private func firstOfDevices(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) throws -> SystemAudioDevice {
+    if let result =  devices.filter(predicate).first {
+        return result
+    } else {
+        throw TelephoneError.NoAvailableSoundIOError
     }
 }

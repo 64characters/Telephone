@@ -1,5 +1,5 @@
 //
-//  FirstBuiltInSystemAudioDevices.swift
+//  FirstSystemAudioIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,13 +28,13 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct FirstBuiltInSystemAudioDevices {
+struct FirstSystemAudioIO {
 
     let input: SystemAudioDevice
     let output: SystemAudioDevice
 
     init(devices: [SystemAudioDevice]) throws {
-        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInputDevice }).device
-        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutputDevice }).device
+        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.inputDevice }).device
+        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.outputDevice }).device
     }
 }

@@ -1,5 +1,5 @@
 //
-//  FirstBuiltInSystemAudioDevices.swift
+//  FirstSystemAudioDeviceTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,13 +28,45 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct FirstBuiltInSystemAudioDevices {
+import XCTest
 
-    let input: SystemAudioDevice
-    let output: SystemAudioDevice
+class FirstSystemAudioDeviceTests: XCTestCase {
 
-    init(devices: [SystemAudioDevice]) throws {
-        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInputDevice }).device
-        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutputDevice }).device
+    var factory: SystemAudioDeviceTestFactory!
+
+    override func setUp() {
+        super.setUp()
+        factory = SystemAudioDeviceTestFactory()
+    }
+
+    func testCreatedWithFirstInputDevice() {
+        let firstInputDevice = factory.firstBuiltInInput
+        let devices = [factory.someOutputDevice, firstInputDevice, factory.someInputDevice]
+
+        let device = try! FirstSystemAudioDevice(devices: devices, predicate: { $0.inputDevice })
+
+        XCTAssertEqual(device.device, firstInputDevice)
+    }
+
+    func testCreatedWithFirstBuiltInOutputDevice() {
+        let firstBuiltInOutput = factory.firstBuiltInOutput
+        let devices = [factory.someInputDevice, factory.firstBuiltInInput, factory.someOutputDevice, firstBuiltInOutput]
+
+        let device = try! FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutputDevice })
+
+        XCTAssertEqual(device.device, firstBuiltInOutput)
+    }
+
+    func testThrowsNoAvailableSoundIOErrorIfNotFound() {
+        var didThrow = false
+        let devices = [factory.someOutputDevice, factory.firstBuiltInOutput]
+
+        do {
+            _ = try FirstSystemAudioDevice(devices: devices, predicate: {$0.inputDevice })
+        } catch TelephoneError.NoAvailableSoundIOError {
+            didThrow = true
+        } catch {}
+
+        XCTAssertTrue(didThrow)
     }
 }
