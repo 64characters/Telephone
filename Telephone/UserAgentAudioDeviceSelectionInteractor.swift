@@ -71,16 +71,8 @@ extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelection
     }
 
     private func selectUserAgentAudioDevices() throws {
-        if let systemInput = selectedSystemAudioIO.soundInput, let systemOutput = selectedSystemAudioIO.soundOutput {
-            try selectUserAgentDevicesWithSystemInput(systemInput, systemOutput: systemOutput)
-        } else {
-            throw TelephoneError.NoAvailableSystemAudioDeviceError
-        }
-    }
-
-    private func selectUserAgentDevicesWithSystemInput(systemInput: SystemAudioDevice, systemOutput: SystemAudioDevice) throws {
-        let userAgentInput = try deviceMap.userAgentDeviceForSystemDevice(systemInput)
-        let userAgentOutput = try deviceMap.userAgentDeviceForSystemDevice(systemOutput)
-        try userAgent.selectAudioInputDevice(userAgentInput.identifier, outputDevice: userAgentOutput.identifier)
+        let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemAudioIO.soundInput)
+        let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemAudioIO.soundOutput)
+        try userAgent.selectAudioInputDevice(input.identifier, outputDevice: output.identifier)
     }
 }
