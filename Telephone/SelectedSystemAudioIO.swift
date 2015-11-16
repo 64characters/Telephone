@@ -47,21 +47,23 @@ struct SelectedSystemAudioIO {
     }
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        let device = deviceByNameWithUserDefaultsKey(key)
-        return device?.inputCount > 0 ? device : nil
+        return deviceByNameWithUserDefaultsKey(key).flatMap(inputDeviceOrNilWithDevice)
     }
 
     private func outputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        let device = deviceByNameWithUserDefaultsKey(key)
-        return device?.outputCount > 0 ? device : nil
+        return deviceByNameWithUserDefaultsKey(key).flatMap(outputDeviceOrNilWithDevice)
     }
 
     private func deviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
         let name = userDefaults[key] as? String
-        return name.flatMap(deviceWithName)
+        return name.flatMap(systemAudioDevices.deviceNamed)
     }
 
-    private func deviceWithName(name: String) -> SystemAudioDevice? {
-        return systemAudioDevices[name]
+    private func inputDeviceOrNilWithDevice(device: SystemAudioDevice) -> SystemAudioDevice? {
+        return device.inputDevice ? device : nil
+    }
+
+    private func outputDeviceOrNilWithDevice(device: SystemAudioDevice) -> SystemAudioDevice? {
+        return device.outputDevice ? device : nil
     }
 }

@@ -39,7 +39,7 @@ struct SystemAudioDevices {
         deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
     }
 
-    subscript(name: String) -> SystemAudioDevice? {
+    func deviceNamed(name: String) -> SystemAudioDevice? {
         return deviceNameToDevice[name]
     }
 }
