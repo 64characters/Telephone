@@ -39,17 +39,11 @@ class SystemToUserAgentAudioDeviceMap {
     init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
         self.systemDevices = systemDevices
         self.userAgentDevices = userAgentDevices
-    }
-
-    subscript(systemDevice: SystemAudioDevice) -> UserAgentAudioDevice? {
-        if map.isEmpty {
-            updateMap()
-        }
-        return map[systemDevice]
+        updateMap()
     }
 
     func userAgentDeviceForSystemDevice(systemDevice: SystemAudioDevice) throws -> UserAgentAudioDevice {
-        if let device = self[systemDevice] {
+        if let device = map[systemDevice] {
             return device
         } else {
             throw TelephoneError.SystemToUserAgentAudioDeviceMapError

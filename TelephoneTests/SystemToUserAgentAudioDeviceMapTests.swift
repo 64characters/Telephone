@@ -42,15 +42,8 @@ class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
     func testMapsSystemToUserAgentDeviceByName() {
         let map = createDeviceMap()
 
-        XCTAssertEqual(map[map.systemDevices[0]], map.userAgentDevices[1])
-        XCTAssertEqual(map[map.systemDevices[1]], map.userAgentDevices[0])
-    }
-
-    func testSubscriptAndThrowingMethodReturnSameResult() {
-        let map = createDeviceMap()
-
-        XCTAssertEqual(map[map.systemDevices[0]], try! map.userAgentDeviceForSystemDevice(map.systemDevices[0]))
-        XCTAssertEqual(map[map.systemDevices[1]], try! map.userAgentDeviceForSystemDevice(map.systemDevices[1]))
+        XCTAssertEqual(try! map.userAgentDeviceForSystemDevice(map.systemDevices[0]), map.userAgentDevices[1])
+        XCTAssertEqual(try! map.userAgentDeviceForSystemDevice(map.systemDevices[1]), map.userAgentDevices[0])
     }
 
     func testThrowsWhenNoMatchingUserAgentDeviceFound() {
