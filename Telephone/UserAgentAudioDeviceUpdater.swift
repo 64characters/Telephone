@@ -30,9 +30,9 @@
 
 class UserAgentAudioDeviceUpdater {
 
-    let interactor: UserAgentAudioDeviceUpdateAndSelectionInteractorInput
+    let interactor: ThrowingInteractor
 
-    init(interactor: UserAgentAudioDeviceUpdateAndSelectionInteractorInput) {
+    init(interactor: ThrowingInteractor) {
         self.interactor = interactor
     }
 

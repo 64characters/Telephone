@@ -28,10 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentAudioDeviceUpdateAndSelectionInteractorInput {
-    func execute() throws
-}
-
 class UserAgentAudioDeviceUpdateAndSelectionInteractor {
 
     let updateInteractor: Interactor
@@ -43,7 +39,7 @@ class UserAgentAudioDeviceUpdateAndSelectionInteractor {
     }
 }
 
-extension UserAgentAudioDeviceUpdateAndSelectionInteractor: UserAgentAudioDeviceUpdateAndSelectionInteractorInput {
+extension UserAgentAudioDeviceUpdateAndSelectionInteractor: ThrowingInteractor {
     func execute() throws {
         updateInteractor.execute()
         try selectionInteractor.execute()

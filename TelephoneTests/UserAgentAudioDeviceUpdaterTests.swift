@@ -32,12 +32,12 @@ import XCTest
 
 class UserAgentAudioDeviceUpdaterTests: XCTestCase {
 
-    var interactorSpy: UserAgentAudioDeviceUpdateAndSelectionInteractorSpy!
+    var interactorSpy: ThrowingInteractorSpy!
     var updater: UserAgentAudioDeviceUpdater!
 
     override func setUp() {
         super.setUp()
-        interactorSpy = UserAgentAudioDeviceUpdateAndSelectionInteractorSpy()
+        interactorSpy = ThrowingInteractorSpy()
         updater = UserAgentAudioDeviceUpdater(interactor: interactorSpy)
     }
 
