@@ -36,7 +36,7 @@ class UserAgentAudioDevicesUpdateInteractorTests: XCTestCase {
         let userAgentSpy = UserAgentSpy()
         let interactor = UserAgentAudioDevicesUpdateInteractor(userAgent: userAgentSpy)
 
-        interactor.updateAudioDevices()
+        interactor.execute()
 
         XCTAssertTrue(userAgentSpy.didCallUpdateAudioDevices)
     }

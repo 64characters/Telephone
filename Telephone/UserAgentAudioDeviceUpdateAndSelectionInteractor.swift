@@ -34,10 +34,10 @@ protocol UserAgentAudioDeviceUpdateAndSelectionInteractorInput {
 
 class UserAgentAudioDeviceUpdateAndSelectionInteractor {
 
-    let updateInteractor: UserAgentAudioDevicesUpdateInteractorInput
+    let updateInteractor: Interactor
     let selectionInteractor: ThrowingInteractor
 
-    init(updateInteractor: UserAgentAudioDevicesUpdateInteractorInput, selectionInteractor: ThrowingInteractor) {
+    init(updateInteractor: Interactor, selectionInteractor: ThrowingInteractor) {
         self.updateInteractor = updateInteractor
         self.selectionInteractor = selectionInteractor
     }
@@ -45,7 +45,7 @@ class UserAgentAudioDeviceUpdateAndSelectionInteractor {
 
 extension UserAgentAudioDeviceUpdateAndSelectionInteractor: UserAgentAudioDeviceUpdateAndSelectionInteractorInput {
     func execute() throws {
-        updateInteractor.updateAudioDevices()
+        updateInteractor.execute()
         try selectionInteractor.execute()
     }
 }

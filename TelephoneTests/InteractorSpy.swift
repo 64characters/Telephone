@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceUpdateInteractorSpy.swift
+//  InteractorSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceUpdateInteractorSpy {
-    var didCallUpdateAudioDevices = false
+class InteractorSpy {
+    var didCallExecute = false
 }
 
-extension UserAgentAudioDeviceUpdateInteractorSpy: UserAgentAudioDevicesUpdateInteractorInput {
-    func updateAudioDevices() {
-        didCallUpdateAudioDevices = true
+extension InteractorSpy: Interactor {
+    func execute() {
+        didCallExecute = true
     }
 }

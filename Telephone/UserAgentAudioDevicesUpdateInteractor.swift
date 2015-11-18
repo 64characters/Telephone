@@ -28,10 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentAudioDevicesUpdateInteractorInput {
-    func updateAudioDevices()
-}
-
 class UserAgentAudioDevicesUpdateInteractor {
 
     let userAgent: UserAgent
@@ -41,8 +37,8 @@ class UserAgentAudioDevicesUpdateInteractor {
     }
 }
 
-extension UserAgentAudioDevicesUpdateInteractor: UserAgentAudioDevicesUpdateInteractorInput {
-    func updateAudioDevices() {
+extension UserAgentAudioDevicesUpdateInteractor: Interactor {
+    func execute() {
         userAgent.updateAudioDevices()
     }
 }
