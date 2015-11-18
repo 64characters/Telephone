@@ -31,7 +31,6 @@
 import XCTest
 
 class UserAgentObserverCompositeTests: XCTestCase {
-
     var composite: UserAgentObserverComposite!
     var observer1: UserAgentObserverSpy!
     var observer2: UserAgentObserverSpy!

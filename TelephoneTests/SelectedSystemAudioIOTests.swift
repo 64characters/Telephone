@@ -31,7 +31,6 @@
 import XCTest
 
 class SelectedSystemAudioIOTests: XCTestCase {
-
     var deviceFactory: SystemAudioDeviceTestFactory!
     var systemDevices: SystemAudioDevices!
     var userDefaultsStub: UserDefaultsStub!

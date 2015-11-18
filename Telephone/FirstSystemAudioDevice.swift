@@ -29,7 +29,6 @@
 //
 
 struct FirstSystemAudioDevice {
-
     let device: SystemAudioDevice
 
     init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) throws {

@@ -31,7 +31,6 @@
 import CoreAudio
 
 class SystemAudioDeviceIDRepository {
-
     private var audioObject: SystemAudioObject
 
     init() {

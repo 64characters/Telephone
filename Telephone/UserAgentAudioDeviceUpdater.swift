@@ -29,7 +29,6 @@
 //
 
 class UserAgentAudioDeviceUpdater {
-
     let interactor: ThrowingInteractor
 
     init(interactor: ThrowingInteractor) {

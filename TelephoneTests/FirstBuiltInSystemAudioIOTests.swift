@@ -31,7 +31,6 @@
 import XCTest
 
 class FirstBuiltInSystemAudioIOTests: XCTestCase {
-
     private var deviceFactory: SystemAudioDeviceTestFactory!
 
     override func setUp() {

@@ -29,7 +29,6 @@
 //
 
 class UserAgentNotificationsToObserverAdapter {
-
     let observer: UserAgentObserver
     let userAgent: UserAgent
 

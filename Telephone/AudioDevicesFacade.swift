@@ -31,7 +31,6 @@
 import Foundation
 
 class AudioDevicesFacade: NSObject {
-
     let userAgent: UserAgent
     let userDefaults: UserDefaults
     let queue: dispatch_queue_t

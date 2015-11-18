@@ -29,7 +29,6 @@
 //
 
 class SystemAudioDevicesChangeObserverComposite {
-
     let observers: [SystemAudioDevicesChangeObserver]
 
     init(observers: [SystemAudioDevicesChangeObserver]) {

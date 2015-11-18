@@ -29,7 +29,6 @@
 //
 
 class InteractorFactoryStub {
-
     let interactor: ThrowingInteractor
 
     init(interactor: ThrowingInteractor) {

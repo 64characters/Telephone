@@ -27,7 +27,6 @@
 //
 
 class InteractorFactoryImpl {
-
     let systemAudioDeviceRepository: SystemAudioDeviceRepository
     let userDefaults: UserDefaults
 

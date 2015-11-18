@@ -29,7 +29,6 @@
 //
 
 class UserAgentAudioDeviceSelectionInteractor {
-
     let systemAudioDeviceRepository: SystemAudioDeviceRepository
     let userAgent: UserAgent
     let userDefaults: UserDefaults
@@ -46,7 +45,6 @@ class UserAgentAudioDeviceSelectionInteractor {
 }
 
 extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
-
     func execute() throws {
         try updateSystemAudioDevices()
         try updateDeviceMap()

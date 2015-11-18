@@ -31,7 +31,6 @@
 import XCTest
 
 class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
-
     var observerSpy: UserAgentObserverSpy!
     var adapter: UserAgentNotificationsToObserverAdapter!
     var userAgentDummy: UserAgent!

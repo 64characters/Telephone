@@ -29,7 +29,6 @@
 //
 
 class SystemAudioDeviceTestFactory {
-
     let allDevices: [SystemAudioDevice]
     let firstInput: SystemAudioDevice
     let firstOutput: SystemAudioDevice

@@ -31,7 +31,6 @@
 import XCTest
 
 class SystemAudioDevicesTests: XCTestCase {
-
     private var deviceFactory: SystemAudioDeviceTestFactory!
     private var devices: SystemAudioDevices!
 

@@ -36,7 +36,6 @@ class UserAgentObserverSpy {
 }
 
 extension UserAgentObserverSpy: UserAgentObserver {
-
     func userAgentDidFinishStarting(userAgent: UserAgent) {
         didCallUserAgentDidFinishStarting = true
         lastPassedUserAgent = userAgent

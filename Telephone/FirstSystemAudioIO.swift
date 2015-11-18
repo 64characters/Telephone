@@ -29,7 +29,6 @@
 //
 
 struct FirstSystemAudioIO {
-
     let input: SystemAudioDevice
     let output: SystemAudioDevice
 

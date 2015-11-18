@@ -29,7 +29,6 @@
 //
 
 struct SystemAudioDevices {
-
     let allDevices: [SystemAudioDevice]
 
     private let deviceNameToDevice: [String: SystemAudioDevice]

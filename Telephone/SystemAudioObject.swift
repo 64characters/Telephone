@@ -31,7 +31,6 @@
 import CoreAudio
 
 class SystemAudioObject {
-
     let objectID: AudioObjectID
     private(set) var propertyAddress: AudioObjectPropertyAddress
 

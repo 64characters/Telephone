@@ -29,7 +29,6 @@
 //
 
 class SystemToUserAgentAudioDeviceMap {
-
     let systemDevices: [SystemAudioDevice]
     let userAgentDevices: [UserAgentAudioDevice]
 

@@ -38,7 +38,6 @@ struct SystemAudioDevice {
 }
 
 extension SystemAudioDevice {
-
     var inputDevice: Bool {
         return inputCount > 0
     }

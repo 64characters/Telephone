@@ -31,7 +31,6 @@
 import XCTest
 
 class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
-
     var systemDevices: [SystemAudioDevice]!
 
     override func setUp() {

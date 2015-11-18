@@ -33,7 +33,6 @@ class UserAgentObserverComposite {
 }
 
 extension UserAgentObserverComposite: UserAgentObserving {
-
     var allObservers: [UserAgentObserver] {
         return observers
     }
@@ -52,7 +51,6 @@ extension UserAgentObserverComposite: UserAgentObserving {
 }
 
 extension UserAgentObserverComposite: UserAgentObserver {
-
     func userAgentDidFinishStarting(userAgent: UserAgent) {
         onEachObserver { $0.userAgentDidFinishStarting(userAgent) }
     }

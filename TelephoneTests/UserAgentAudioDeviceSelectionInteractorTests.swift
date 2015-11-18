@@ -31,7 +31,6 @@
 import XCTest
 
 class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
-
     var systemDevices: SystemAudioDevices!
     var repositoryStub: SystemAudioDeviceRepositoryStub!
     var userAgentSpy: UserAgentSpy!

@@ -29,7 +29,6 @@
 //
 
 struct SelectedSystemAudioIO {
-
     let systemAudioDevices: SystemAudioDevices
     let userDefaults: UserDefaults
 

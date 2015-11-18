@@ -29,7 +29,6 @@
 import XCTest
 
 class InteractorFactoryImplTests: XCTestCase {
-
     func testCanMakeUserAgentAudioDeviceSelectionInteractor() {
         let repositoryDummy = SystemAudioDeviceRepositoryStub()
         let userDefaultsDummy = UserDefaultsStub()

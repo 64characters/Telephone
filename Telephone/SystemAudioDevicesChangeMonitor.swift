@@ -31,7 +31,6 @@
 import CoreAudio
 
 class SystemAudioDevicesChangeMonitor {
-
     let observer: SystemAudioDevicesChangeObserver
     let queue: dispatch_queue_t
 

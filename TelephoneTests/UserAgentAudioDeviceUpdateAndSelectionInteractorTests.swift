@@ -31,7 +31,6 @@
 import XCTest
 
 class UserAgentAudioDeviceUpdateAndSelectionInteractorTests: XCTestCase {
-
     func testUpdatesAndSelects() {
         let updateInteractorSpy = InteractorSpy()
         let selectionInteractorSpy = ThrowingInteractorSpy()

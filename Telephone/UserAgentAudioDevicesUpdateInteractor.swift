@@ -29,7 +29,6 @@
 //
 
 class UserAgentAudioDevicesUpdateInteractor {
-
     let userAgent: UserAgent
 
     init(userAgent: UserAgent) {

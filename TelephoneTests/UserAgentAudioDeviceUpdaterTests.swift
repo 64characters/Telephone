@@ -31,7 +31,6 @@
 import XCTest
 
 class UserAgentAudioDeviceUpdaterTests: XCTestCase {
-
     var interactorSpy: ThrowingInteractorSpy!
     var updater: UserAgentAudioDeviceUpdater!
 

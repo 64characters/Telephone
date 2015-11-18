@@ -29,7 +29,6 @@
 //
 
 class UserAgentAudioDeviceSelector {
-
     let interactorFactory: InteractorFactory
 
     init(interactorFactory: InteractorFactory) {
@@ -43,7 +42,6 @@ class UserAgentAudioDeviceSelector {
 }
 
 extension UserAgentAudioDeviceSelector: UserAgentObserver {
-
     func userAgentDidFinishStarting(userAgent: UserAgent) {
         do {
             try selectAudioDevicesOnUserAgent(userAgent)

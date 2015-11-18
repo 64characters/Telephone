@@ -29,7 +29,6 @@
 //
 
 struct UserAgentAudioDevices {
-
     let allDevices: [UserAgentAudioDevice]
 
     init() throws {

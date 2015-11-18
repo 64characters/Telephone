@@ -43,7 +43,6 @@ class UserAgentAudioDevice: NSObject {
 }
 
 extension UserAgentAudioDevice {
-
     override var hashValue: Int {
         return identifier ^ name.hash
     }

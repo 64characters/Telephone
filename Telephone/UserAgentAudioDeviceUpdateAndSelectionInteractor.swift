@@ -29,7 +29,6 @@
 //
 
 class UserAgentAudioDeviceUpdateAndSelectionInteractor {
-
     let updateInteractor: Interactor
     let selectionInteractor: ThrowingInteractor
 

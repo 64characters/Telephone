@@ -29,7 +29,6 @@
 //
 
 class UserAgentSpy: NSObject {
-
     var didCallAudioDevices = false
     var audioDevicesResult = [UserAgentAudioDevice]()
 
@@ -41,7 +40,6 @@ class UserAgentSpy: NSObject {
 }
 
 extension UserAgentSpy: UserAgent {
-
     @objc(isStarted) var started: Bool {
         return false
     }

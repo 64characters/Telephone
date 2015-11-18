@@ -31,7 +31,6 @@
 import XCTest
 
 class UserAgentAudioDevicesUpdateInteractorTests: XCTestCase {
-
     func testCallsUpdateAudioDevices() {
         let userAgentSpy = UserAgentSpy()
         let interactor = UserAgentAudioDevicesUpdateInteractor(userAgent: userAgentSpy)
