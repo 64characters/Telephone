@@ -34,12 +34,12 @@ class UserAgentAudioDeviceUpdateAndSelectionInteractorTests: XCTestCase {
 
     func testUpdatesAndSelects() {
         let updateInteractorSpy = UserAgentAudioDeviceUpdateInteractorSpy()
-        let selectionInteractorSpy = UserAgentAudioDeviceSelectionInteractorSpy()
+        let selectionInteractorSpy = ThrowingInteractorSpy()
         let updateAndSelectionInteractor = UserAgentAudioDeviceUpdateAndSelectionInteractor(updateInteractor: updateInteractorSpy, selectionInteractor: selectionInteractorSpy)
 
         try! updateAndSelectionInteractor.execute()
 
         XCTAssertTrue(updateInteractorSpy.didCallUpdateAudioDevices)
-        XCTAssertTrue(selectionInteractorSpy.didCallSelectAudioDevices)
+        XCTAssertTrue(selectionInteractorSpy.didCallExecute)
     }
 }

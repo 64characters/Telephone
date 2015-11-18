@@ -28,6 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol SystemAudioDeviceRepository {
+protocol SystemAudioDeviceRepository: class {
     func allDevices() throws -> [SystemAudioDevice]
 }

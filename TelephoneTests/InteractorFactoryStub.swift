@@ -1,6 +1,8 @@
 //
-//  UserAgentAudioDeviceSelectionInteractorFactory.swift
+//  InteractorFactoryStub.swift
 //  Telephone
+//
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -26,6 +28,17 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentAudioDeviceSelectionInteractorFactory {
-    func makeWithUserAgent(userAgent: UserAgent) -> UserAgentAudioDeviceSelectionInteractorInput
+class InteractorFactoryStub {
+
+    let interactor: ThrowingInteractor
+
+    init(interactor: ThrowingInteractor) {
+        self.interactor = interactor
+    }
+}
+
+extension InteractorFactoryStub: InteractorFactory {
+    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
+        return interactor
+    }
 }

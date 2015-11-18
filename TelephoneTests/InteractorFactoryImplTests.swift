@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelectionInteractorFactoryImpl.swift
+//  InteractorFactoryImplTests.swift
 //  Telephone
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -26,19 +26,21 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceSelectionInteractorFactoryImpl {
+import XCTest
 
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
+class InteractorFactoryImplTests: XCTestCase {
 
-    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
-        self.userDefaults = userDefaults
-    }
-}
+    func testCanMakeUserAgentAudioDeviceSelectionInteractor() {
+        let repositoryDummy = SystemAudioDeviceRepositoryStub()
+        let userDefaultsDummy = UserDefaultsStub()
+        let factory = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
+        let userAgentDummy = UserAgentSpy()
 
-extension UserAgentAudioDeviceSelectionInteractorFactoryImpl: UserAgentAudioDeviceSelectionInteractorFactory {
-    func makeWithUserAgent(userAgent: UserAgent) -> UserAgentAudioDeviceSelectionInteractorInput {
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: systemAudioDeviceRepository, userAgent: userAgent, userDefaults: userDefaults)
+        let interactor = factory.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgentDummy) as! UserAgentAudioDeviceSelectionInteractor
+
+        XCTAssertNotNil(interactor)
+        XCTAssertTrue(interactor.systemAudioDeviceRepository === repositoryDummy)
+        XCTAssertTrue(interactor.userAgent === userAgentDummy)
+        XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
     }
 }

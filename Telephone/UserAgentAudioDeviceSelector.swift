@@ -30,15 +30,15 @@
 
 class UserAgentAudioDeviceSelector {
 
-    let interactorFactory: UserAgentAudioDeviceSelectionInteractorFactory
+    let interactorFactory: InteractorFactory
 
-    init(interactorFactory: UserAgentAudioDeviceSelectionInteractorFactory) {
+    init(interactorFactory: InteractorFactory) {
         self.interactorFactory = interactorFactory
     }
 
     func selectAudioDevicesOnUserAgent(userAgent: UserAgent) throws {
-        let interactor = interactorFactory.makeWithUserAgent(userAgent)
-        try interactor.selectAudioDevices()
+        let interactor = interactorFactory.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent)
+        try interactor.execute()
     }
 }
 

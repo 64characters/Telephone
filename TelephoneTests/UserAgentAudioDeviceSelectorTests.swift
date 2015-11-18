@@ -32,14 +32,14 @@ import XCTest
 
 class UserAgentAudioDeviceSelectorTests: XCTestCase {
 
-    func testSelectsDevicesWhenUserAgentFinishesStarting() {
-        let interactorSpy = UserAgentAudioDeviceSelectionInteractorSpy()
-        let factoryStub = UserAgentAudioDeviceSelectionInteractorFactoryStub(interactor: interactorSpy)
+    func testCallExecuteWhenUserAgentFinishesStarting() {
+        let interactorSpy = ThrowingInteractorSpy()
+        let factoryStub = InteractorFactoryStub(interactor: interactorSpy)
         let deviceSelector = UserAgentAudioDeviceSelector(interactorFactory: factoryStub)
         let userAgentDummy = UserAgentSpy()
 
         deviceSelector.userAgentDidFinishStarting(userAgentDummy)
 
-        XCTAssertTrue(interactorSpy.didCallSelectAudioDevices)
+        XCTAssertTrue(interactorSpy.didCallExecute)
     }
 }

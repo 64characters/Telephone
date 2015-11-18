@@ -28,10 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentAudioDeviceSelectionInteractorInput {
-    func selectAudioDevices() throws
-}
-
 class UserAgentAudioDeviceSelectionInteractor {
 
     let systemAudioDeviceRepository: SystemAudioDeviceRepository
@@ -49,9 +45,9 @@ class UserAgentAudioDeviceSelectionInteractor {
     }
 }
 
-extension UserAgentAudioDeviceSelectionInteractor: UserAgentAudioDeviceSelectionInteractorInput {
+extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
 
-    func selectAudioDevices() throws {
+    func execute() throws {
         try updateSystemAudioDevices()
         try updateDeviceMap()
         try updateSelectedSystemAudioIO()

@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelectionInteractorFactoryImplTests.swift
+//  InteractorFactory.swift
 //  Telephone
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -26,17 +26,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
-
-class UserAgentAudioDeviceSelectionInteractorFactoryImplTests: XCTestCase {
-    func testCanMakeInteractor() {
-        let repositoryDummy = SystemAudioDeviceRepositoryStub()
-        let userDefaultsDummy = UserDefaultsStub()
-        let factory = UserAgentAudioDeviceSelectionInteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
-        let userAgentDummy = UserAgentSpy()
-
-        let interactor:UserAgentAudioDeviceSelectionInteractor = factory.makeWithUserAgent(userAgentDummy) as! UserAgentAudioDeviceSelectionInteractor
-
-        XCTAssertNotNil(interactor)
-    }
+protocol InteractorFactory {
+    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor
 }

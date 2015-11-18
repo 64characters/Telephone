@@ -50,7 +50,7 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
     }
 
     func testSelectsMappedAudioDevices() {
-        try! interactor.selectAudioDevices()
+        try! interactor.execute()
 
         let userAgentDevices: [UserAgentAudioDevice] = userAgentSpy.audioDevicesResult
         XCTAssertEqual(userAgentSpy.selectedInputDeviceID, userAgentDevices[1].identifier)

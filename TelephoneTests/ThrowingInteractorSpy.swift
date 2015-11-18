@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelectionInteractorSpy.swift
+//  ThrowingInteractorSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceSelectionInteractorSpy {
-    var didCallSelectAudioDevices = false
+class ThrowingInteractorSpy {
+    var didCallExecute = false
 }
 
-extension UserAgentAudioDeviceSelectionInteractorSpy: UserAgentAudioDeviceSelectionInteractorInput {
-    func selectAudioDevices() throws {
-        didCallSelectAudioDevices = true
+extension ThrowingInteractorSpy: ThrowingInteractor {
+    func execute() throws {
+        didCallExecute = true
     }
 }
