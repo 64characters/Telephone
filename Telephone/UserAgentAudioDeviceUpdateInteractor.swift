@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevicesUpdateInteractorTests.swift
+//  UserAgentAudioDeviceUpdateInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,15 +28,16 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
+class UserAgentAudioDeviceUpdateInteractor {
+    let userAgent: UserAgent
 
-class UserAgentAudioDevicesUpdateInteractorTests: XCTestCase {
-    func testCallsUpdateAudioDevices() {
-        let userAgentSpy = UserAgentSpy()
-        let interactor = UserAgentAudioDevicesUpdateInteractor(userAgent: userAgentSpy)
+    init(userAgent: UserAgent) {
+        self.userAgent = userAgent
+    }
+}
 
-        interactor.execute()
-
-        XCTAssertTrue(userAgentSpy.didCallUpdateAudioDevices)
+extension UserAgentAudioDeviceUpdateInteractor: Interactor {
+    func execute() {
+        userAgent.updateAudioDevices()
     }
 }

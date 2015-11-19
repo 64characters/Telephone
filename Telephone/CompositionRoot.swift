@@ -56,7 +56,7 @@ class CompositionRoot: NSObject {
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(
             observer: UserAgentAudioDeviceUpdater(
                 interactor: UserAgentAudioDeviceUpdateAndSelectionInteractor(
-                    updateInteractor: UserAgentAudioDevicesUpdateInteractor(
+                    updateInteractor: UserAgentAudioDeviceUpdateInteractor(
                         userAgent: userAgent
                     ),
                     selectionInteractor: UserAgentAudioDeviceSelectionInteractor(
