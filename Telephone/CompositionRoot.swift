@@ -1,5 +1,5 @@
 //
-//  AudioDevicesFacade.swift
+//  CompositionRoot.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,7 +30,7 @@
 
 import Foundation
 
-class AudioDevicesFacade: NSObject {
+class CompositionRoot: NSObject {
     let userAgent: UserAgent
     let userDefaults: UserDefaults
     let queue: dispatch_queue_t

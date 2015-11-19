@@ -99,7 +99,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate, PreferencesControllerDelegate>
 
 @property(nonatomic, readonly) dispatch_queue_t queue;
-@property(nonatomic, readonly) AudioDevicesFacade *audioDevicesFacade;
+@property(nonatomic, readonly) CompositionRoot *compositionRoot;
 
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
@@ -305,8 +305,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     _queue = dispatch_queue_create(label.UTF8String, DISPATCH_QUEUE_SERIAL);
 
     NSError *error;
-    _audioDevicesFacade = [[AudioDevicesFacade alloc] initWithUserAgent:_userAgent userDefaults:[NSUserDefaults standardUserDefaults] queue:_queue error:&error];
-    if (_audioDevicesFacade == nil) {
+    _compositionRoot = [[CompositionRoot alloc] initWithUserAgent:_userAgent userDefaults:[NSUserDefaults standardUserDefaults] queue:_queue error:&error];
+    if (_compositionRoot == nil) {
         NSLog(@"Could not initialize audio devices: %@", error);
     }
     
