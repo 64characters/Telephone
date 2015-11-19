@@ -31,25 +31,21 @@
 import Foundation
 
 class CompositionRoot: NSObject {
-    let userAgent: UserAgent
-    let userDefaults: UserDefaults
-    let queue: dispatch_queue_t
-
+    let userAgent: AKSIPUserAgent
+    private let userDefaults: NSUserDefaults
+    private let queue: dispatch_queue_t
     private let deviceRepository: SystemAudioDeviceRepository
     private let userAgentObserverComposite: UserAgentObserverComposite
     private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
-
     private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
 
-    init(userAgent: UserAgent, userDefaults: UserDefaults, queue: dispatch_queue_t) throws {
-        self.userAgent = userAgent
-        self.userDefaults = userDefaults
-        self.queue = queue
-
+    override init() {
+        userAgent = AKSIPUserAgent.sharedUserAgent()
+        userDefaults = NSUserDefaults.standardUserDefaults()
+        queue = createQueue()
         deviceRepository = SystemAudioDeviceRepositoryImpl()
         userAgentObserverComposite = UserAgentObserverComposite()
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(observer: userAgentObserverComposite, userAgent: userAgent)
-
         let deviceChangeObserver = SystemAudioDevicesChangeObserverComposite(observers: [])
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(observer: deviceChangeObserver, queue: queue)
         super.init()
@@ -59,4 +55,9 @@ class CompositionRoot: NSObject {
     deinit {
         devicesChangeMonitor.stop()
     }
+}
+
+private func createQueue() -> dispatch_queue_t {
+    let label = NSBundle.mainBundle().bundleIdentifier! + ".background-queue"
+    return dispatch_queue_create(label, DISPATCH_QUEUE_SERIAL)
 }

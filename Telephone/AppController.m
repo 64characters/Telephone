@@ -98,7 +98,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate, PreferencesControllerDelegate>
 
-@property(nonatomic, readonly) dispatch_queue_t queue;
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 
 // Sets selected sound IO to the user agent.
@@ -288,8 +287,10 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     if (self == nil) {
         return nil;
     }
+
+    _compositionRoot = [[CompositionRoot alloc] init];
     
-    _userAgent = [AKSIPUserAgent sharedUserAgent];
+    _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];
     _accountControllers = [[NSMutableArray alloc] init];
     [self setSoundInputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
@@ -301,15 +302,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [self setDidPauseITunes:NO];
     [self setShouldPresentUserAgentLaunchError:NO];
 
-    NSString *label = [[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@".background-queue"];
-    _queue = dispatch_queue_create(label.UTF8String, DISPATCH_QUEUE_SERIAL);
-
-    NSError *error;
-    _compositionRoot = [[CompositionRoot alloc] initWithUserAgent:_userAgent userDefaults:[NSUserDefaults standardUserDefaults] queue:_queue error:&error];
-    if (_compositionRoot == nil) {
-        NSLog(@"Could not initialize audio devices: %@", error);
-    }
-    
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     // Subscribe to the account setup notifications.
