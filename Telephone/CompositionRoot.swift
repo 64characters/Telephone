@@ -34,8 +34,7 @@ class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
-    private let deviceRepository: SystemAudioDeviceRepository
-    private let userAgentObserverComposite: UserAgentObserverComposite
+
     private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
     private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
 
@@ -43,12 +42,35 @@ class CompositionRoot: NSObject {
         userAgent = AKSIPUserAgent.sharedUserAgent()
         userDefaults = NSUserDefaults.standardUserDefaults()
         queue = createQueue()
-        deviceRepository = SystemAudioDeviceRepositoryImpl()
-        userAgentObserverComposite = UserAgentObserverComposite(observers: [])
-        userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(observer: userAgentObserverComposite, userAgent: userAgent)
-        let deviceChangeObserver = SystemAudioDevicesChangeObserverComposite(observers: [])
-        devicesChangeMonitor = SystemAudioDevicesChangeMonitor(observer: deviceChangeObserver, queue: queue)
+
+        let audioDeviceRepository = SystemAudioDeviceRepositoryImpl()
+        userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(
+            observer: UserAgentAudioDeviceSelector(
+                interactorFactory: InteractorFactoryImpl(
+                    systemAudioDeviceRepository: audioDeviceRepository,
+                    userDefaults: userDefaults
+                )
+            ),
+            userAgent: userAgent
+        )
+        devicesChangeMonitor = SystemAudioDevicesChangeMonitor(
+            observer: UserAgentAudioDeviceUpdater(
+                interactor: UserAgentAudioDeviceUpdateAndSelectionInteractor(
+                    updateInteractor: UserAgentAudioDevicesUpdateInteractor(
+                        userAgent: userAgent
+                    ),
+                    selectionInteractor: UserAgentAudioDeviceSelectionInteractor(
+                        systemAudioDeviceRepository: audioDeviceRepository,
+                        userAgent: userAgent,
+                        userDefaults: userDefaults
+                    )
+                )
+            ),
+            queue: queue
+        )
+
         super.init()
+
         devicesChangeMonitor.start()
     }
 
