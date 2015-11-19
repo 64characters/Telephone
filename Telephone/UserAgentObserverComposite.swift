@@ -29,24 +29,10 @@
 //
 
 class UserAgentObserverComposite {
-    private var observers = [UserAgentObserver]()
-}
+    let observers: [UserAgentObserver]
 
-extension UserAgentObserverComposite: UserAgentObserving {
-    var allObservers: [UserAgentObserver] {
-        return observers
-    }
-
-    func addObserver(observer: UserAgentObserver) {
-        observers.append(observer)
-    }
-
-    func removeObserver(observer: UserAgentObserver) {
-        observers = observers.filter { $0 !== observer }
-    }
-
-    subscript(index: Int) -> UserAgentObserver? {
-        return observers[index]
+    init(observers: [UserAgentObserver]) {
+        self.observers = observers
     }
 }
 

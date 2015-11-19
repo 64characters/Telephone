@@ -59,21 +59,3 @@ extension UserAgentSpy: UserAgent {
         selectedOutputDeviceID = outputDeviceID
     }
 }
-
-extension UserAgentSpy: UserAgentObserving {
-    var allObservers: [UserAgentObserver] {
-        return []
-    }
-
-    func addObserver(observer: UserAgentObserver) {
-
-    }
-
-    func removeObserver(observer: UserAgentObserver) {
-
-    }
-
-    subscript(index: Int) -> UserAgentObserver? {
-        return nil
-    }
-}

@@ -38,23 +38,10 @@ class UserAgentObserverCompositeTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        composite = UserAgentObserverComposite()
         observer1 = UserAgentObserverSpy()
         observer2 = UserAgentObserverSpy()
-        composite.addObserver(observer1)
-        composite.addObserver(observer2)
+        composite = UserAgentObserverComposite(observers: [observer1, observer2])
         userAgentDummy = UserAgentSpy()
-    }
-
-    func testCanAddObservers() {
-        XCTAssertTrue(composite[0] === observer1)
-        XCTAssertTrue(composite[1] === observer2)
-    }
-
-    func testCanRemoveObservers() {
-        composite.removeObserver(observer1)
-
-        XCTAssertTrue(composite[0] === observer2)
     }
 
     func testCallsDidFinishStartingOnAllChildren() {

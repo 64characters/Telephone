@@ -38,12 +38,10 @@
 		AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; };
 		AA222C43182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */; };
 		AA222C44182C4A7E0096B024 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		AA25AB4E1BE0F4A300E677A4 /* UserAgentObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4D1BE0F4A300E677A4 /* UserAgentObserving.swift */; };
 		AA25AB501BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */; };
 		AA25AB521BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */; };
 		AA25AB531BE0F7FB00E677A4 /* UserAgentObserverComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */; };
 		AA25AB551BE0F86E00E677A4 /* UserAgentObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */; };
-		AA25AB561BE0F95C00E677A4 /* UserAgentObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4D1BE0F4A300E677A4 /* UserAgentObserving.swift */; };
 		AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */; };
 		AA277A4E1BD16C9E0030ECE4 /* SystemAudioDevicesChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeObserver.swift */; };
 		AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeObserver.swift */; };
@@ -253,7 +251,6 @@
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA222C40182C3B5B0096B024 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
-		AA25AB4D1BE0F4A300E677A4 /* UserAgentObserving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObserving.swift; sourceTree = "<group>"; };
 		AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentObserverCompositeTests.swift; path = TelephoneTests/UserAgentObserverCompositeTests.swift; sourceTree = SOURCE_ROOT; };
 		AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObserverComposite.swift; sourceTree = "<group>"; };
 		AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentObserverSpy.swift; sourceTree = "<group>"; };
@@ -844,7 +841,6 @@
 				AA0302F10EB9F347000738F7 /* AKSIPURI.m */,
 				AAFA2BB31BCD815100066CFC /* UserAgent.swift */,
 				AA277A631BD542C80030ECE4 /* UserAgentObserver.swift */,
-				AA25AB4D1BE0F4A300E677A4 /* UserAgentObserving.swift */,
 				AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */,
 				AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */,
 				AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift */,
@@ -1059,7 +1055,6 @@
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
 				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
-				AA25AB4E1BE0F4A300E677A4 /* UserAgentObserving.swift in Sources */,
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
 				AA19CFF51BED148A00991CAA /* InteractorFactoryImpl.swift in Sources */,
@@ -1163,7 +1158,6 @@
 				AA25AB501BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift in Sources */,
 				AA32F7F31BC440DE00FAC228 /* UserDefaultsStub.swift in Sources */,
 				AA277A651BD542C80030ECE4 /* UserAgentObserver.swift in Sources */,
-				AA25AB561BE0F95C00E677A4 /* UserAgentObserving.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AAC0FFB51BE28C7600A5C7E5 /* SystemAudioDevicesChangeObserverCompositeTests.swift in Sources */,
 				AA404AC81BFC8E5D00D00A3E /* Interactor.swift in Sources */,

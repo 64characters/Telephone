@@ -44,7 +44,7 @@ class CompositionRoot: NSObject {
         userDefaults = NSUserDefaults.standardUserDefaults()
         queue = createQueue()
         deviceRepository = SystemAudioDeviceRepositoryImpl()
-        userAgentObserverComposite = UserAgentObserverComposite()
+        userAgentObserverComposite = UserAgentObserverComposite(observers: [])
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(observer: userAgentObserverComposite, userAgent: userAgent)
         let deviceChangeObserver = SystemAudioDevicesChangeObserverComposite(observers: [])
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(observer: deviceChangeObserver, queue: queue)
