@@ -1,5 +1,5 @@
 //
-//  FirstSystemAudioDeviceTests.swift
+//  SystemToUserAgentAudioDeviceMap.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,50 +28,43 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import XCTest
+class SystemToUserAgentAudioDeviceMap {
+    let systemDevices: [SystemAudioDevice]
+    let userAgentDevices: [UserAgentAudioDevice]
 
-class FirstSystemAudioDeviceTests: XCTestCase {
-    var factory: SystemAudioDeviceTestFactory!
+    private var map = [SystemAudioDevice: UserAgentAudioDevice]()
+    private var userAgentDeviceNameToDeviceMap = [String: UserAgentAudioDevice]()
 
-    override func setUp() {
-        super.setUp()
-        factory = SystemAudioDeviceTestFactory()
+    init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
+        self.systemDevices = systemDevices
+        self.userAgentDevices = userAgentDevices
+        updateMap()
     }
 
-    func testCreatedWithFirstInputDevice() {
-        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.inputDevice })
-
-        XCTAssertEqual(device.device, factory.firstInput)
+    func userAgentDeviceForSystemDevice(systemDevice: SystemAudioDevice) throws -> UserAgentAudioDevice {
+        if let device = map[systemDevice] {
+            return device
+        } else {
+            throw Error.SystemToUserAgentAudioDeviceMapError
+        }
     }
 
-    func testCreatedWithFirstOutputDevice() {
-        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.outputDevice })
-
-        XCTAssertEqual(device.device, factory.firstOutput)
+    private func updateMap() {
+        updateUserAgentDeviceNameToDeviceMap()
+        for device in systemDevices {
+            updateMapWithSystemDevice(device)
+        }
     }
 
-    func testCreatedWithFirstBuiltInInputDevice() {
-        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.builtInInputDevice })
-
-        XCTAssertEqual(device.device, factory.firstBuiltInInput)
+    private func updateUserAgentDeviceNameToDeviceMap() {
+        for device in userAgentDevices {
+            userAgentDeviceNameToDeviceMap[device.name] = device
+        }
     }
 
-    func testCreatedWithFirstBuiltInOutputDevice() {
-        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.builtInOutputDevice })
-
-        XCTAssertEqual(device.device, factory.firstBuiltInOutput)
-    }
-
-    func testThrowsNoAvailableSystemAudioDeviceErrorIfNotFound() {
-        var didThrow = false
-        let devices = [factory.someOutputDevice, factory.firstBuiltInOutput]
-
-        do {
-            _ = try FirstSystemAudioDevice(devices: devices, predicate: {$0.inputDevice })
-        } catch TelephoneError.NoAvailableSystemAudioDeviceError {
-            didThrow = true
-        } catch {}
-
-        XCTAssertTrue(didThrow)
+    private func updateMapWithSystemDevice(device: SystemAudioDevice) {
+        if let userAgentDevice = userAgentDeviceNameToDeviceMap[device.name] {
+            map[device] = userAgentDevice
+        }
     }
 }

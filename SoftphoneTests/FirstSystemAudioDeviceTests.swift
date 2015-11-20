@@ -1,5 +1,5 @@
 //
-//  FirstSystemAudioDevice.swift
+//  FirstSystemAudioDeviceTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,18 +28,50 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct FirstSystemAudioDevice {
-    let device: SystemAudioDevice
+import XCTest
 
-    init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) throws {
-        device = try firstOfDevices(devices, predicate: predicate)
+class FirstSystemAudioDeviceTests: XCTestCase {
+    var factory: SystemAudioDeviceTestFactory!
+
+    override func setUp() {
+        super.setUp()
+        factory = SystemAudioDeviceTestFactory()
     }
-}
 
-private func firstOfDevices(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) throws -> SystemAudioDevice {
-    if let result =  devices.filter(predicate).first {
-        return result
-    } else {
-        throw TelephoneError.NoAvailableSystemAudioDeviceError
+    func testCreatedWithFirstInputDevice() {
+        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.inputDevice })
+
+        XCTAssertEqual(device.device, factory.firstInput)
+    }
+
+    func testCreatedWithFirstOutputDevice() {
+        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.outputDevice })
+
+        XCTAssertEqual(device.device, factory.firstOutput)
+    }
+
+    func testCreatedWithFirstBuiltInInputDevice() {
+        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.builtInInputDevice })
+
+        XCTAssertEqual(device.device, factory.firstBuiltInInput)
+    }
+
+    func testCreatedWithFirstBuiltInOutputDevice() {
+        let device = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.builtInOutputDevice })
+
+        XCTAssertEqual(device.device, factory.firstBuiltInOutput)
+    }
+
+    func testThrowsSystemAudioDeviceNotFoundErrorIfNotFound() {
+        var didThrow = false
+        let devices = [factory.someOutputDevice, factory.firstBuiltInOutput]
+
+        do {
+            _ = try FirstSystemAudioDevice(devices: devices, predicate: {$0.inputDevice })
+        } catch Error.SystemAudioDeviceNotFoundError {
+            didThrow = true
+        } catch {}
+
+        XCTAssertTrue(didThrow)
     }
 }

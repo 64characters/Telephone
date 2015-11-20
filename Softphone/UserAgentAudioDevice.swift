@@ -1,5 +1,5 @@
 //
-//  SystemToUserAgentAudioDeviceMap.swift
+//  UserAgentAudioDevice.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,43 +28,13 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class SystemToUserAgentAudioDeviceMap {
-    let systemDevices: [SystemAudioDevice]
-    let userAgentDevices: [UserAgentAudioDevice]
+struct UserAgentAudioDevice {
+    let identifier: Int
+    let name: String
+}
 
-    private var map = [SystemAudioDevice: UserAgentAudioDevice]()
-    private var userAgentDeviceNameToDeviceMap = [String: UserAgentAudioDevice]()
+extension UserAgentAudioDevice: Equatable {}
 
-    init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
-        self.systemDevices = systemDevices
-        self.userAgentDevices = userAgentDevices
-        updateMap()
-    }
-
-    func userAgentDeviceForSystemDevice(systemDevice: SystemAudioDevice) throws -> UserAgentAudioDevice {
-        if let device = map[systemDevice] {
-            return device
-        } else {
-            throw TelephoneError.SystemToUserAgentAudioDeviceMapError
-        }
-    }
-
-    private func updateMap() {
-        updateUserAgentDeviceNameToDeviceMap()
-        for device in systemDevices {
-            updateMapWithSystemDevice(device)
-        }
-    }
-
-    private func updateUserAgentDeviceNameToDeviceMap() {
-        for device in userAgentDevices {
-            userAgentDeviceNameToDeviceMap[device.name] = device
-        }
-    }
-
-    private func updateMapWithSystemDevice(device: SystemAudioDevice) {
-        if let userAgentDevice = userAgentDeviceNameToDeviceMap[device.name] {
-            map[device] = userAgentDevice
-        }
-    }
+func ==(lhs: UserAgentAudioDevice, rhs: UserAgentAudioDevice) -> Bool {
+    return lhs.identifier == rhs.identifier && lhs.name == rhs.name
 }
