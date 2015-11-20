@@ -205,6 +205,20 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Telephone;
 		};
+		AA76E0121BFF82E100CC5C07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA9D08021BFF7E6F0000F618;
+			remoteInfo = Softphone;
+		};
+		AA76E0141BFF82F500CC5C07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA078B281BFF80E20013FF8F;
+			remoteInfo = TelephoneUseCases;
+		};
 		AA9D080E1BFF7E6F0000F618 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -983,6 +997,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				AA76E0151BFF82F500CC5C07 /* PBXTargetDependency */,
 			);
 			name = Telephone;
 			productInstallPath = "$(HOME)/Applications";
@@ -1002,6 +1017,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				AA76E0131BFF82E100CC5C07 /* PBXTargetDependency */,
 			);
 			name = TelephoneUseCases;
 			productName = TelephoneUseCases;
@@ -1462,6 +1478,16 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Telephone */;
 			targetProxy = AA3FAB8A1BBAAE630064B2C3 /* PBXContainerItemProxy */;
+		};
+		AA76E0131BFF82E100CC5C07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA9D08021BFF7E6F0000F618 /* Softphone */;
+			targetProxy = AA76E0121BFF82E100CC5C07 /* PBXContainerItemProxy */;
+		};
+		AA76E0151BFF82F500CC5C07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA078B281BFF80E20013FF8F /* TelephoneUseCases */;
+			targetProxy = AA76E0141BFF82F500CC5C07 /* PBXContainerItemProxy */;
 		};
 		AA9D080F1BFF7E6F0000F618 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2253,6 +2279,7 @@
 				AA078B3B1BFF80E30013FF8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA078B3F1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "TelephoneUseCasesTests" */ = {
 			isa = XCConfigurationList;
@@ -2261,6 +2288,7 @@
 				AA078B3D1BFF80E30013FF8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA3FAB8C1BBAAE630064B2C3 /* Build configuration list for PBXNativeTarget "TelephoneTests" */ = {
 			isa = XCConfigurationList;
