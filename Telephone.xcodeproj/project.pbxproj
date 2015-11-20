@@ -27,6 +27,8 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0302F10EB9F347000738F7 /* AKSIPURI.m */; };
 		AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */; };
+		AA078B2C1BFF80E30013FF8F /* TelephoneUseCases.h in Headers */ = {isa = PBXBuildFile; fileRef = AA078B2B1BFF80E30013FF8F /* TelephoneUseCases.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA078B331BFF80E30013FF8F /* TelephoneUseCases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA078B291BFF80E20013FF8F /* TelephoneUseCases.framework */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
@@ -189,6 +191,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		AA078B341BFF80E30013FF8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA078B281BFF80E20013FF8F;
+			remoteInfo = TelephoneUseCases;
+		};
 		AA3FAB8A1BBAAE630064B2C3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -244,6 +253,11 @@
 		AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveAccountTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA0693C411022E78007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
 		AA06941F11023628007EF898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CallTransfer.xib; sourceTree = "<group>"; };
+		AA078B291BFF80E20013FF8F /* TelephoneUseCases.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TelephoneUseCases.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA078B2B1BFF80E30013FF8F /* TelephoneUseCases.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TelephoneUseCases.h; sourceTree = "<group>"; };
+		AA078B2D1BFF80E30013FF8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA078B321BFF80E30013FF8F /* TelephoneUseCasesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneUseCasesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA078B391BFF80E30013FF8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA167A1D0F07BF9E00AF8B71 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Creating.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -483,6 +497,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA078B251BFF80E20013FF8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA078B2F1BFF80E30013FF8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA078B331BFF80E30013FF8F /* TelephoneUseCases.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA3FAB821BBAAE630064B2C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -570,6 +599,8 @@
 				AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */,
 				AA9D08031BFF7E6F0000F618 /* Softphone.framework */,
 				AA9D080C1BFF7E6F0000F618 /* SoftphoneTests.xctest */,
+				AA078B291BFF80E20013FF8F /* TelephoneUseCases.framework */,
+				AA078B321BFF80E30013FF8F /* TelephoneUseCasesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -583,6 +614,8 @@
 				AA3FAB861BBAAE630064B2C3 /* TelephoneTests */,
 				AA9D08041BFF7E6F0000F618 /* Softphone */,
 				AA9D08101BFF7E6F0000F618 /* SoftphoneTests */,
+				AA078B2A1BFF80E30013FF8F /* TelephoneUseCases */,
+				AA078B361BFF80E30013FF8F /* TelephoneUseCasesTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -630,6 +663,23 @@
 				AA53434612ADBAD200B47767 /* Sound.tiff */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		AA078B2A1BFF80E30013FF8F /* TelephoneUseCases */ = {
+			isa = PBXGroup;
+			children = (
+				AA078B2B1BFF80E30013FF8F /* TelephoneUseCases.h */,
+				AA078B2D1BFF80E30013FF8F /* Info.plist */,
+			);
+			path = TelephoneUseCases;
+			sourceTree = "<group>";
+		};
+		AA078B361BFF80E30013FF8F /* TelephoneUseCasesTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA078B391BFF80E30013FF8F /* Info.plist */,
+			);
+			path = TelephoneUseCasesTests;
 			sourceTree = "<group>";
 		};
 		AA3FAB861BBAAE630064B2C3 /* TelephoneTests */ = {
@@ -902,6 +952,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		AA078B261BFF80E20013FF8F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA078B2C1BFF80E30013FF8F /* TelephoneUseCases.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA9D08001BFF7E6F0000F618 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -931,6 +989,42 @@
 			productName = Telephone;
 			productReference = 8D1107320486CEB800E47090 /* Telephone.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AA078B281BFF80E20013FF8F /* TelephoneUseCases */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA078B3E1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "TelephoneUseCases" */;
+			buildPhases = (
+				AA078B241BFF80E20013FF8F /* Sources */,
+				AA078B251BFF80E20013FF8F /* Frameworks */,
+				AA078B261BFF80E20013FF8F /* Headers */,
+				AA078B271BFF80E20013FF8F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TelephoneUseCases;
+			productName = TelephoneUseCases;
+			productReference = AA078B291BFF80E20013FF8F /* TelephoneUseCases.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AA078B311BFF80E30013FF8F /* TelephoneUseCasesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA078B3F1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "TelephoneUseCasesTests" */;
+			buildPhases = (
+				AA078B2E1BFF80E30013FF8F /* Sources */,
+				AA078B2F1BFF80E30013FF8F /* Frameworks */,
+				AA078B301BFF80E30013FF8F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA078B351BFF80E30013FF8F /* PBXTargetDependency */,
+			);
+			name = TelephoneUseCasesTests;
+			productName = TelephoneUseCasesTests;
+			productReference = AA078B321BFF80E30013FF8F /* TelephoneUseCasesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		AA3FAB841BBAAE630064B2C3 /* TelephoneTests */ = {
 			isa = PBXNativeTarget;
@@ -1036,6 +1130,12 @@
 							};
 						};
 					};
+					AA078B281BFF80E20013FF8F = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					AA078B311BFF80E30013FF8F = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
 					AA3FAB841BBAAE630064B2C3 = {
 						CreatedOnToolsVersion = 7.0.1;
 					};
@@ -1070,6 +1170,8 @@
 				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
 				AA9D08021BFF7E6F0000F618 /* Softphone */,
 				AA9D080B1BFF7E6F0000F618 /* SoftphoneTests */,
+				AA078B281BFF80E20013FF8F /* TelephoneUseCases */,
+				AA078B311BFF80E30013FF8F /* TelephoneUseCasesTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1104,6 +1206,20 @@
 				AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */,
 				AA7CB5301144242F004D79DA /* EndedCallTransferView.xib in Resources */,
 				AA53434712ADBAD200B47767 /* Sound.tiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA078B271BFF80E20013FF8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA078B301BFF80E30013FF8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1229,6 +1345,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA078B241BFF80E20013FF8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA078B2E1BFF80E30013FF8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA3FAB811BBAAE630064B2C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1323,6 +1453,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		AA078B351BFF80E30013FF8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA078B281BFF80E20013FF8F /* TelephoneUseCases */;
+			targetProxy = AA078B341BFF80E30013FF8F /* PBXContainerItemProxy */;
+		};
 		AA3FAB8B1BBAAE630064B2C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Telephone */;
@@ -1576,6 +1711,120 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AA078B3A1BFF80E30013FF8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TelephoneUseCases/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneUseCases;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AA078B3B1BFF80E30013FF8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TelephoneUseCases/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneUseCases;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AA078B3C1BFF80E30013FF8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TelephoneUseCasesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneUseCasesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA078B3D1BFF80E30013FF8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TelephoneUseCasesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneUseCasesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		AA3FAB8D1BBAAE630064B2C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1997,6 +2246,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA078B3E1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "TelephoneUseCases" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA078B3A1BFF80E30013FF8F /* Debug */,
+				AA078B3B1BFF80E30013FF8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AA078B3F1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "TelephoneUseCasesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA078B3C1BFF80E30013FF8F /* Debug */,
+				AA078B3D1BFF80E30013FF8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		AA3FAB8C1BBAAE630064B2C3 /* Build configuration list for PBXNativeTarget "TelephoneTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2013,6 +2278,7 @@
 				AA9D08151BFF7E6F0000F618 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA9D08191BFF7E6F0000F618 /* Build configuration list for PBXNativeTarget "SoftphoneTests" */ = {
 			isa = XCConfigurationList;
@@ -2021,6 +2287,7 @@
 				AA9D08171BFF7E6F0000F618 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AAF299150F575045007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookPhonePlugIn" */ = {
 			isa = XCConfigurationList;
