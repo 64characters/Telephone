@@ -127,6 +127,8 @@
 		AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA310A56BD9000946F3 /* XSWindowController.m */; };
 		AA90D75A1BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
+		AA9D080D1BFF7E6F0000F618 /* Softphone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9D08031BFF7E6F0000F618 /* Softphone.framework */; };
+		AA9D081A1BFF7F700000F618 /* Softphone.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9D08051BFF7E6F0000F618 /* Softphone.h */; };
 		AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */; };
 		AAAC618C0FE6A42900FBE053 /* AKNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAC618B0FE6A42900FBE053 /* AKNetworkReachability.m */; };
 		AAB32A0D1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0C1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateInteractorTests.swift */; };
@@ -193,6 +195,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Telephone;
+		};
+		AA9D080E1BFF7E6F0000F618 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA9D08021BFF7E6F0000F618;
+			remoteInfo = Softphone;
 		};
 		AAF99B3014A257A800D087DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -367,6 +376,11 @@
 		AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceRepositoryStub.swift; sourceTree = "<group>"; };
 		AA97B47410D3A2CA00FC65DA /* CallTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = CallTransferController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA97B47510D3A2CA00FC65DA /* CallTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = CallTransferController.m; sourceTree = "<group>"; tabWidth = 4; };
+		AA9D08031BFF7E6F0000F618 /* Softphone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Softphone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA9D08051BFF7E6F0000F618 /* Softphone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Softphone.h; sourceTree = "<group>"; };
+		AA9D08071BFF7E6F0000F618 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA9D080C1BFF7E6F0000F618 /* SoftphoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoftphoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA9D08131BFF7E6F0000F618 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAA628C5110C6281008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
 		AAA628E9110C76B3008466C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
 		AAA7CFFC1825BE1900D53FB9 /* Telephone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Telephone.entitlements; sourceTree = "<group>"; };
@@ -476,6 +490,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA9D07FF1BFF7E6F0000F618 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9D08091BFF7E6F0000F618 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA9D080D1BFF7E6F0000F618 /* Softphone.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AAF2990E0F575044007B5036 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -539,6 +568,8 @@
 				AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */,
 				AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */,
 				AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */,
+				AA9D08031BFF7E6F0000F618 /* Softphone.framework */,
+				AA9D080C1BFF7E6F0000F618 /* SoftphoneTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -550,6 +581,8 @@
 				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
 				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
 				AA3FAB861BBAAE630064B2C3 /* TelephoneTests */,
+				AA9D08041BFF7E6F0000F618 /* Softphone */,
+				AA9D08101BFF7E6F0000F618 /* SoftphoneTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -736,6 +769,23 @@
 			name = Delivery;
 			sourceTree = "<group>";
 		};
+		AA9D08041BFF7E6F0000F618 /* Softphone */ = {
+			isa = PBXGroup;
+			children = (
+				AA9D08051BFF7E6F0000F618 /* Softphone.h */,
+				AA9D08071BFF7E6F0000F618 /* Info.plist */,
+			);
+			path = Softphone;
+			sourceTree = "<group>";
+		};
+		AA9D08101BFF7E6F0000F618 /* SoftphoneTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA9D08131BFF7E6F0000F618 /* Info.plist */,
+			);
+			path = SoftphoneTests;
+			sourceTree = "<group>";
+		};
 		AADAA2FF107E59FC00789F2D /* Call */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,6 +901,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		AA9D08001BFF7E6F0000F618 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA9D081A1BFF7F700000F618 /* Softphone.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		8D1107260486CEB800E47090 /* Telephone */ = {
 			isa = PBXNativeTarget;
@@ -887,6 +948,42 @@
 			name = TelephoneTests;
 			productName = TelephoneTests;
 			productReference = AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AA9D08021BFF7E6F0000F618 /* Softphone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA9D08181BFF7E6F0000F618 /* Build configuration list for PBXNativeTarget "Softphone" */;
+			buildPhases = (
+				AA9D07FE1BFF7E6F0000F618 /* Sources */,
+				AA9D07FF1BFF7E6F0000F618 /* Frameworks */,
+				AA9D08001BFF7E6F0000F618 /* Headers */,
+				AA9D08011BFF7E6F0000F618 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Softphone;
+			productName = Softphone;
+			productReference = AA9D08031BFF7E6F0000F618 /* Softphone.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AA9D080B1BFF7E6F0000F618 /* SoftphoneTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA9D08191BFF7E6F0000F618 /* Build configuration list for PBXNativeTarget "SoftphoneTests" */;
+			buildPhases = (
+				AA9D08081BFF7E6F0000F618 /* Sources */,
+				AA9D08091BFF7E6F0000F618 /* Frameworks */,
+				AA9D080A1BFF7E6F0000F618 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA9D080F1BFF7E6F0000F618 /* PBXTargetDependency */,
+			);
+			name = SoftphoneTests;
+			productName = SoftphoneTests;
+			productReference = AA9D080C1BFF7E6F0000F618 /* SoftphoneTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */ = {
@@ -929,7 +1026,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
@@ -941,6 +1038,12 @@
 					};
 					AA3FAB841BBAAE630064B2C3 = {
 						CreatedOnToolsVersion = 7.0.1;
+					};
+					AA9D08021BFF7E6F0000F618 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					AA9D080B1BFF7E6F0000F618 = {
+						CreatedOnToolsVersion = 7.1.1;
 					};
 				};
 			};
@@ -965,6 +1068,8 @@
 				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
 				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
 				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
+				AA9D08021BFF7E6F0000F618 /* Softphone */,
+				AA9D080B1BFF7E6F0000F618 /* SoftphoneTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1003,6 +1108,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA3FAB831BBAAE630064B2C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9D08011BFF7E6F0000F618 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9D080A1BFF7E6F0000F618 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1169,6 +1288,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA9D07FE1BFF7E6F0000F618 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9D08081BFF7E6F0000F618 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AAF2990D0F575044007B5036 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1194,6 +1327,11 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Telephone */;
 			targetProxy = AA3FAB8A1BBAAE630064B2C3 /* PBXContainerItemProxy */;
+		};
+		AA9D080F1BFF7E6F0000F618 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA9D08021BFF7E6F0000F618 /* Softphone */;
+			targetProxy = AA9D080E1BFF7E6F0000F618 /* PBXContainerItemProxy */;
 		};
 		AAF99B3114A257A800D087DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1484,6 +1622,118 @@
 			};
 			name = Release;
 		};
+		AA9D08141BFF7E6F0000F618 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Softphone/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Softphone;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		AA9D08151BFF7E6F0000F618 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Softphone/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Softphone;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		AA9D08161BFF7E6F0000F618 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = SoftphoneTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.SoftphoneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA9D08171BFF7E6F0000F618 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = SoftphoneTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.SoftphoneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		AAF299130F575045007B5036 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1755,6 +2005,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		AA9D08181BFF7E6F0000F618 /* Build configuration list for PBXNativeTarget "Softphone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA9D08141BFF7E6F0000F618 /* Debug */,
+				AA9D08151BFF7E6F0000F618 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AA9D08191BFF7E6F0000F618 /* Build configuration list for PBXNativeTarget "SoftphoneTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA9D08161BFF7E6F0000F618 /* Debug */,
+				AA9D08171BFF7E6F0000F618 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		AAF299150F575045007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookPhonePlugIn" */ = {
 			isa = XCConfigurationList;
