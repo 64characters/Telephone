@@ -609,13 +609,13 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Telephone */,
-				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
-				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
 				AA3FAB861BBAAE630064B2C3 /* TelephoneTests */,
 				AA9D08041BFF7E6F0000F618 /* Softphone */,
 				AA9D08101BFF7E6F0000F618 /* SoftphoneTests */,
 				AA078B2A1BFF80E30013FF8F /* TelephoneUseCases */,
 				AA078B361BFF80E30013FF8F /* TelephoneUseCasesTests */,
+				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
+				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -1165,13 +1165,13 @@
 			targets = (
 				8D1107260486CEB800E47090 /* Telephone */,
 				AA3FAB841BBAAE630064B2C3 /* TelephoneTests */,
-				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
-				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
-				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
 				AA9D08021BFF7E6F0000F618 /* Softphone */,
 				AA9D080B1BFF7E6F0000F618 /* SoftphoneTests */,
 				AA078B281BFF80E20013FF8F /* TelephoneUseCases */,
 				AA078B311BFF80E30013FF8F /* TelephoneUseCasesTests */,
+				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
+				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
+				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
 			);
 		};
 /* End PBXProject section */
