@@ -1,4 +1,0 @@
-//
-//  Softphone.h
-//  Softphone
-//

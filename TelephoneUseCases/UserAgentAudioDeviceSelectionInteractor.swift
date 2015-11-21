@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Softphone
+import Domain
 
 class UserAgentAudioDeviceSelectionInteractor {
     let systemAudioDeviceRepository: SystemAudioDeviceRepository
@@ -59,7 +59,7 @@ extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
     }
 
     private func updateDeviceMap() throws {
-        let userAgentDevices = try userAgent.audioDevices().map(entityWithUseCaseUserAgentAudioDevice)
+        let userAgentDevices = try userAgent.audioDevices().map(domainWithUseCaseUserAgentAudioDevice)
         deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: userAgentDevices)
     }
 
@@ -73,7 +73,7 @@ extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
         try userAgent.selectAudioInputDevice(input.identifier, outputDevice: output.identifier)
     }
 
-    private func entityWithUseCaseUserAgentAudioDevice(device: UserAgentAudioDevice) -> Softphone.UserAgentAudioDevice {
-        return Softphone.UserAgentAudioDevice(device: device)
+    private func domainWithUseCaseUserAgentAudioDevice(device: UserAgentAudioDevice) -> Domain.UserAgentAudioDevice {
+        return Domain.UserAgentAudioDevice(device: device)
     }
 }

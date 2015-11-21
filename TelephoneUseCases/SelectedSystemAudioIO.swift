@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Softphone
+import Domain
 
 struct SelectedSystemAudioIO {
     let systemAudioDevices: SystemAudioDevices

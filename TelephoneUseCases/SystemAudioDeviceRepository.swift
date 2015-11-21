@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Softphone
+import Domain
 
 protocol SystemAudioDeviceRepository: class {
     func allDevices() throws -> [SystemAudioDevice]

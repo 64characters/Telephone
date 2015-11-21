@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Softphone
+import Domain
 import XCTest
 
 class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
