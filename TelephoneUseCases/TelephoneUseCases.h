@@ -1,4 +1,0 @@
-//
-//  TelephoneUseCases.h
-//  TelephoneUseCases
-//
