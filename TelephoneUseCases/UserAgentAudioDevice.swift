@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceRepositoryStub.swift
+//  UserAgentAudioDevice.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,14 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class SystemAudioDeviceRepositoryStub {
-    var allDevicesResult = [SystemAudioDevice]()
-}
+import Foundation
 
-extension SystemAudioDeviceRepositoryStub: SystemAudioDeviceRepository {
-    func allDevices() throws -> [SystemAudioDevice] {
-        return allDevicesResult
+class UserAgentAudioDevice: NSObject {
+    let identifier: Int
+    let name: String
+
+    init(identifier: Int, name: String) {
+        self.identifier = identifier
+        self.name = name
     }
 }

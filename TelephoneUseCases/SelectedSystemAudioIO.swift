@@ -28,6 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import Softphone
+
 struct SelectedSystemAudioIO {
     let systemAudioDevices: SystemAudioDevices
     let userDefaults: UserDefaults

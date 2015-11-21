@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceRepository.swift
+//  UserAgentSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,6 +28,36 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol SystemAudioDeviceRepository: class {
-    func allDevices() throws -> [SystemAudioDevice]
+import Foundation
+
+class UserAgentSpy: NSObject {
+    var didCallAudioDevices = false
+    var audioDevicesResult = [UserAgentAudioDevice]()
+
+    var didCallUpdateAudioDevices = false
+
+    var didCallSelectInputAndOutputDevices = false
+    var selectedInputDeviceID: Int?
+    var selectedOutputDeviceID: Int?
+}
+
+extension UserAgentSpy: UserAgent {
+    @objc(isStarted) var started: Bool {
+        return false
+    }
+
+    func audioDevices() throws -> [UserAgentAudioDevice] {
+        didCallAudioDevices = true
+        return audioDevicesResult
+    }
+
+    func updateAudioDevices() {
+        didCallUpdateAudioDevices = true
+    }
+
+    func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
+        didCallSelectInputAndOutputDevices = true
+        selectedInputDeviceID = inputDeviceID
+        selectedOutputDeviceID = outputDeviceID
+    }
 }

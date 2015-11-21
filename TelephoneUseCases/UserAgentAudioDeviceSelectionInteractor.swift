@@ -28,6 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import Softphone
+
 class UserAgentAudioDeviceSelectionInteractor {
     let systemAudioDeviceRepository: SystemAudioDeviceRepository
     let userAgent: UserAgent
@@ -57,7 +59,8 @@ extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
     }
 
     private func updateDeviceMap() throws {
-        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: try userAgent.audioDevices())
+        let userAgentDevices = try userAgent.audioDevices().map(entityWithUseCaseUserAgentAudioDevice)
+        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: userAgentDevices)
     }
 
     private func updateSelectedSystemAudioIO() throws {
@@ -68,5 +71,9 @@ extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
         let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemAudioIO.soundInput)
         let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemAudioIO.soundOutput)
         try userAgent.selectAudioInputDevice(input.identifier, outputDevice: output.identifier)
+    }
+
+    private func entityWithUseCaseUserAgentAudioDevice(device: UserAgentAudioDevice) -> Softphone.UserAgentAudioDevice {
+        return Softphone.UserAgentAudioDevice(device: device)
     }
 }

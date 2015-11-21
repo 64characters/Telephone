@@ -1,5 +1,5 @@
 //
-//  UserDefaultsStub.swift
+//  UserDefaultsKeys.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,17 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserDefaultsStub {
-    private var dictionary = [String: AnyObject]()
-}
-
-extension UserDefaultsStub: UserDefaults {
-    @objc subscript(key: String) -> AnyObject? {
-        get {
-            return dictionary[key]
-        }
-        set {
-            dictionary[key] = newValue
-        }
-    }
-}
+let kSoundInput = "SoundInput"
+let kSoundOutput = "SoundOutput"
+let kRingtoneOutput = "RingtoneOutput"

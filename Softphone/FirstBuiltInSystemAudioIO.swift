@@ -28,11 +28,11 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct FirstBuiltInSystemAudioIO {
-    let input: SystemAudioDevice
-    let output: SystemAudioDevice
+public struct FirstBuiltInSystemAudioIO {
+    public let input: SystemAudioDevice
+    public let output: SystemAudioDevice
 
-    init(devices: [SystemAudioDevice]) throws {
+    public init(devices: [SystemAudioDevice]) throws {
         input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInputDevice }).device
         output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutputDevice }).device
     }

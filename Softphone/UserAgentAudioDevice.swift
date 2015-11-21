@@ -28,13 +28,18 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct UserAgentAudioDevice {
-    let identifier: Int
-    let name: String
+public struct UserAgentAudioDevice {
+    public let identifier: Int
+    public let name: String
+
+    public init(let identifier: Int, let name: String) {
+        self.identifier = identifier
+        self.name = name
+    }
 }
 
 extension UserAgentAudioDevice: Equatable {}
 
-func ==(lhs: UserAgentAudioDevice, rhs: UserAgentAudioDevice) -> Bool {
+public func ==(lhs: UserAgentAudioDevice, rhs: UserAgentAudioDevice) -> Bool {
     return lhs.identifier == rhs.identifier && lhs.name == rhs.name
 }

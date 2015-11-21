@@ -28,20 +28,20 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class SystemToUserAgentAudioDeviceMap {
-    let systemDevices: [SystemAudioDevice]
-    let userAgentDevices: [UserAgentAudioDevice]
+public class SystemToUserAgentAudioDeviceMap {
+    public let systemDevices: [SystemAudioDevice]
+    public let userAgentDevices: [UserAgentAudioDevice]
 
     private var map = [SystemAudioDevice: UserAgentAudioDevice]()
     private var userAgentDeviceNameToDeviceMap = [String: UserAgentAudioDevice]()
 
-    init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
+    public init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
         self.systemDevices = systemDevices
         self.userAgentDevices = userAgentDevices
         updateMap()
     }
 
-    func userAgentDeviceForSystemDevice(systemDevice: SystemAudioDevice) throws -> UserAgentAudioDevice {
+    public func userAgentDeviceForSystemDevice(systemDevice: SystemAudioDevice) throws -> UserAgentAudioDevice {
         if let device = map[systemDevice] {
             return device
         } else {

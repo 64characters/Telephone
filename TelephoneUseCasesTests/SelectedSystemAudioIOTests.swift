@@ -28,6 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import Softphone
 import XCTest
 
 class SelectedSystemAudioIOTests: XCTestCase {

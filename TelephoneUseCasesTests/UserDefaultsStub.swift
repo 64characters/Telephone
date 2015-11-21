@@ -1,5 +1,5 @@
 //
-//  UserAgent.swift
+//  UserDefaultsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,9 +28,19 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@objc protocol UserAgent {
-    var started: Bool { @objc(isStarted) get }
-    func audioDevices() throws -> [UserAgentAudioDevice]
-    func updateAudioDevices()
-    func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws
+import Foundation
+
+class UserDefaultsStub {
+    private var dictionary = [String: AnyObject]()
+}
+
+extension UserDefaultsStub: UserDefaults {
+    @objc subscript(key: String) -> AnyObject? {
+        get {
+            return dictionary[key]
+        }
+        set {
+            dictionary[key] = newValue
+        }
+    }
 }

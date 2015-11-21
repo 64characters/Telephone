@@ -28,17 +28,17 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct SystemAudioDevices {
-    let allDevices: [SystemAudioDevice]
+public struct SystemAudioDevices {
+    public let allDevices: [SystemAudioDevice]
 
     private let deviceNameToDevice: [String: SystemAudioDevice]
 
-    init(devices: [SystemAudioDevice]) {
+    public init(devices: [SystemAudioDevice]) {
         self.allDevices = devices
         deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
     }
 
-    func deviceNamed(name: String) -> SystemAudioDevice? {
+    public func deviceNamed(name: String) -> SystemAudioDevice? {
         return deviceNameToDevice[name]
     }
 }

@@ -28,42 +28,42 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct SystemAudioDevice {
-    let identifier: Int
-    let uniqueIdentifier: String
-    let name: String
-    let inputCount: Int
-    let outputCount: Int
-    let builtIn: Bool
+public struct SystemAudioDevice {
+    public let identifier: Int
+    public let uniqueIdentifier: String
+    public let name: String
+    public let inputCount: Int
+    public let outputCount: Int
+    public let builtIn: Bool
 }
 
-extension SystemAudioDevice {
-    var inputDevice: Bool {
+public extension SystemAudioDevice {
+    public var inputDevice: Bool {
         return inputCount > 0
     }
 
-    var outputDevice: Bool {
+    public var outputDevice: Bool {
         return outputCount > 0
     }
 
-    var builtInInputDevice: Bool {
+    public var builtInInputDevice: Bool {
         return builtIn && inputDevice
     }
 
-    var builtInOutputDevice: Bool {
+    public var builtInOutputDevice: Bool {
         return builtIn && outputDevice
     }
 }
 
 extension SystemAudioDevice: Hashable {
-    var hashValue: Int {
+    public var hashValue: Int {
         return identifier
     }
 }
 
 extension SystemAudioDevice: Equatable {}
 
-func ==(lhs: SystemAudioDevice, rhs: SystemAudioDevice) -> Bool {
+public func ==(lhs: SystemAudioDevice, rhs: SystemAudioDevice) -> Bool {
     return lhs.identifier == rhs.identifier &&
         lhs.uniqueIdentifier == rhs.uniqueIdentifier &&
         lhs.name == rhs.name &&

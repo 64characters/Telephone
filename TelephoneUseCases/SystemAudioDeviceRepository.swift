@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevice.swift
+//  SystemAudioDeviceRepository.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDevice: NSObject {
-    let identifier: Int
-    let name: String
+import Softphone
 
-    init(identifier: Int, name: String) {
-        self.identifier = identifier
-        self.name = name
-    }
+protocol SystemAudioDeviceRepository: class {
+    func allDevices() throws -> [SystemAudioDevice]
 }
