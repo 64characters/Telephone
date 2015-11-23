@@ -28,13 +28,15 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+import UseCasesTestDoubles
 import XCTest
 
 class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
-    var observerSpy: UserAgentObserverSpy!
-    var adapter: UserAgentNotificationsToObserverAdapter!
-    var userAgentDummy: UserAgent!
-    var notificationCenter: NSNotificationCenter!
+    private var observerSpy: UserAgentObserverSpy!
+    private var adapter: UserAgentNotificationsToObserverAdapter!
+    private var userAgentDummy: UserAgent!
+    private var notificationCenter: NSNotificationCenter!
 
     override func setUp() {
         super.setUp()

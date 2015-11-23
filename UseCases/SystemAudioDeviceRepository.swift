@@ -30,6 +30,6 @@
 
 import Domain
 
-protocol SystemAudioDeviceRepository: class {
+public protocol SystemAudioDeviceRepository: class {
     func allDevices() throws -> [SystemAudioDevice]
 }

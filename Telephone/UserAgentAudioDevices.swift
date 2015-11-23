@@ -28,6 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+
 struct UserAgentAudioDevices {
     let allDevices: [UserAgentAudioDevice]
 

@@ -1,5 +1,5 @@
 //
-//  InteractorSpy.swift
+//  UserAgentObserverSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class InteractorSpy {
-    var didCallExecute = false
+import UseCases
+
+public class UserAgentObserverSpy {
+    public private(set) var didCallUserAgentDidFinishStarting = false
+    public private(set) var didCallUserAgentDidFinishStopping = false
+    public private(set) var didCallUserAgentDidDetectNAT = false
+    public private(set) var lastPassedUserAgent: UserAgent?
+
+    public init() {}
 }
 
-extension InteractorSpy: Interactor {
-    func execute() {
-        didCallExecute = true
+extension UserAgentObserverSpy: UserAgentObserver {
+    public func userAgentDidFinishStarting(userAgent: UserAgent) {
+        didCallUserAgentDidFinishStarting = true
+        lastPassedUserAgent = userAgent
+    }
+
+    public func userAgentDidFinishStopping(userAgent: UserAgent) {
+        didCallUserAgentDidFinishStopping = true
+        lastPassedUserAgent = userAgent
+    }
+
+    public func userAgentDidDetectNAT(userAgent: UserAgent) {
+        didCallUserAgentDidDetectNAT = true
+        lastPassedUserAgent = userAgent
     }
 }

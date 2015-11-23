@@ -1,5 +1,5 @@
 //
-//  ThrowingInteractorSpy.swift
+//  InteractorSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,12 +28,16 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class ThrowingInteractorSpy {
-    var didCallExecute = false
+import UseCases
+
+public class InteractorSpy {
+    public private(set) var didCallExecute = false
+
+    public init() {}
 }
 
-extension ThrowingInteractorSpy: ThrowingInteractor {
-    func execute() throws {
+extension InteractorSpy: Interactor {
+    public func execute() {
         didCallExecute = true
     }
 }

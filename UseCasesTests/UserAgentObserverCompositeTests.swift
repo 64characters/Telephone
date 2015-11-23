@@ -28,13 +28,15 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+import UseCasesTestDoubles
 import XCTest
 
 class UserAgentObserverCompositeTests: XCTestCase {
-    var composite: UserAgentObserverComposite!
-    var observer1: UserAgentObserverSpy!
-    var observer2: UserAgentObserverSpy!
-    var userAgentDummy: UserAgentSpy!
+    private var composite: UserAgentObserverComposite!
+    private var observer1: UserAgentObserverSpy!
+    private var observer2: UserAgentObserverSpy!
+    private var userAgentDummy: UserAgentSpy!
 
     override func setUp() {
         super.setUp()

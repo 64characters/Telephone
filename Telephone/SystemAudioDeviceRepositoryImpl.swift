@@ -28,8 +28,9 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import Domain
 import CoreAudio
-import Foundation
+import UseCases
 
 class SystemAudioDeviceRepositoryImpl: SystemAudioDeviceRepository {
     func allDevices() throws -> [SystemAudioDevice] {

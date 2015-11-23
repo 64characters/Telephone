@@ -28,6 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+@testable import Domain
+import DomainTestDoubles
 import XCTest
 
 class FirstSystemAudioIOTests: XCTestCase {

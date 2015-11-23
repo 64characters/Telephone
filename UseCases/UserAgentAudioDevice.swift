@@ -30,11 +30,11 @@
 
 import Foundation
 
-class UserAgentAudioDevice: NSObject {
-    let identifier: Int
-    let name: String
+public class UserAgentAudioDevice: NSObject {
+    public let identifier: Int
+    public let name: String
 
-    init(identifier: Int, name: String) {
+    public init(identifier: Int, name: String) {
         self.identifier = identifier
         self.name = name
     }

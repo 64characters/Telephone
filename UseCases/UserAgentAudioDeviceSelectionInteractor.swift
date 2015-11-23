@@ -30,16 +30,16 @@
 
 import Domain
 
-class UserAgentAudioDeviceSelectionInteractor {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userAgent: UserAgent
-    let userDefaults: UserDefaults
+public class UserAgentAudioDeviceSelectionInteractor {
+    public let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    public let userAgent: UserAgent
+    public let userDefaults: UserDefaults
 
     private var systemAudioDevices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
     private var selectedSystemAudioIO: SelectedSystemAudioIO!
 
-    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
+    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
         self.systemAudioDeviceRepository = systemAudioDeviceRepository
         self.userAgent = userAgent
         self.userDefaults = userDefaults
@@ -47,7 +47,7 @@ class UserAgentAudioDeviceSelectionInteractor {
 }
 
 extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
-    func execute() throws {
+    public func execute() throws {
         try updateSystemAudioDevices()
         try updateDeviceMap()
         try updateSelectedSystemAudioIO()

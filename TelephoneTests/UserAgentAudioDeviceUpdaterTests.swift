@@ -28,6 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCasesTestDoubles
 import XCTest
 
 class UserAgentAudioDeviceUpdaterTests: XCTestCase {

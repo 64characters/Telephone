@@ -28,16 +28,16 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceUpdateInteractor {
-    let userAgent: UserAgent
+public class UserAgentAudioDeviceUpdateInteractor {
+    public let userAgent: UserAgent
 
-    init(userAgent: UserAgent) {
+    public init(userAgent: UserAgent) {
         self.userAgent = userAgent
     }
 }
 
 extension UserAgentAudioDeviceUpdateInteractor: Interactor {
-    func execute() {
+   public func execute() {
         userAgent.updateAudioDevices()
     }
 }

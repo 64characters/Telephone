@@ -29,13 +29,16 @@
 //
 
 import Domain
+import UseCases
 
-class SystemAudioDeviceRepositoryStub {
-    var allDevicesResult = [SystemAudioDevice]()
+public class SystemAudioDeviceRepositoryStub {
+    public var allDevicesResult = [SystemAudioDevice]()
+
+    public init() {}
 }
 
 extension SystemAudioDeviceRepositoryStub: SystemAudioDeviceRepository {
-    func allDevices() throws -> [SystemAudioDevice] {
+    public func allDevices() throws -> [SystemAudioDevice] {
         return allDevicesResult
     }
 }

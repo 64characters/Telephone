@@ -28,6 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol Interactor {
+public protocol Interactor {
     func execute()
 }

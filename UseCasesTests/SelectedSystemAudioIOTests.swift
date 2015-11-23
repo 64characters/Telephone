@@ -29,12 +29,15 @@
 //
 
 import Domain
+import DomainTestDoubles
+@testable import UseCases
+import UseCasesTestDoubles
 import XCTest
 
 class SelectedSystemAudioIOTests: XCTestCase {
-    var deviceFactory: SystemAudioDeviceTestFactory!
-    var systemDevices: SystemAudioDevices!
-    var userDefaultsStub: UserDefaultsStub!
+    private var deviceFactory: SystemAudioDeviceTestFactory!
+    private var systemDevices: SystemAudioDevices!
+    private var userDefaultsStub: UserDefaultsStub!
 
     override func setUp() {
         super.setUp()

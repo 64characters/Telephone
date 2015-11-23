@@ -1,5 +1,5 @@
 //
-//  UserAgentSpy.swift
+//  UserDefaultsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -29,35 +29,21 @@
 //
 
 import Foundation
+import UseCases
 
-class UserAgentSpy: NSObject {
-    var didCallAudioDevices = false
-    var audioDevicesResult = [UserAgentAudioDevice]()
+public class UserDefaultsStub {
+    private var dictionary = [String: AnyObject]()
 
-    var didCallUpdateAudioDevices = false
-
-    var didCallSelectInputAndOutputDevices = false
-    var selectedInputDeviceID: Int?
-    var selectedOutputDeviceID: Int?
+    public init() {}
 }
 
-extension UserAgentSpy: UserAgent {
-    @objc(isStarted) var started: Bool {
-        return false
-    }
-
-    func audioDevices() throws -> [UserAgentAudioDevice] {
-        didCallAudioDevices = true
-        return audioDevicesResult
-    }
-
-    func updateAudioDevices() {
-        didCallUpdateAudioDevices = true
-    }
-
-    func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
-        didCallSelectInputAndOutputDevices = true
-        selectedInputDeviceID = inputDeviceID
-        selectedOutputDeviceID = outputDeviceID
+extension UserDefaultsStub: UserDefaults {
+    @objc public subscript(key: String) -> AnyObject? {
+        get {
+            return dictionary[key]
+        }
+        set {
+            dictionary[key] = newValue
+        }
     }
 }

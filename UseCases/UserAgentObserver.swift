@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol UserAgentObserver: class {
+public protocol UserAgentObserver: class {
     func userAgentDidFinishStarting(userAgent: UserAgent)
     func userAgentDidFinishStopping(userAgent: UserAgent)
     func userAgentDidDetectNAT(userAgent: UserAgent)

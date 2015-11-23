@@ -1,5 +1,5 @@
 //
-//  UserDefaultsKeys.swift
+//  UserDefaultsKeys.m
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,6 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-let kSoundInput = "SoundInput"
-let kSoundOutput = "SoundOutput"
-let kRingtoneOutput = "RingtoneOutput"
+#import "UserDefaultsKeys.h"
+
+NSString * const kSoundInput = @"SoundInput";
+NSString * const kSoundOutput = @"SoundOutput";
+NSString * const kRingtoneOutput = @"RingtoneOutput";

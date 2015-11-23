@@ -28,6 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+
 class UserAgentNotificationsToObserverAdapter {
     let observer: UserAgentObserver
     let userAgent: UserAgent

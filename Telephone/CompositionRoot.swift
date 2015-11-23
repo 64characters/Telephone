@@ -29,6 +29,7 @@
 //
 
 import Foundation
+import UseCases
 
 class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent

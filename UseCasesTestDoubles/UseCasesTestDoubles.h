@@ -1,0 +1,4 @@
+//
+//  UseCasesTestDoubles.h
+//  Telephone
+//

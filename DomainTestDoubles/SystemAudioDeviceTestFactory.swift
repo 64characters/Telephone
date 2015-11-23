@@ -1,5 +1,5 @@
 //
-//  UserDefaultsStub.swift
+//  SystemAudioDeviceTestFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,19 +28,32 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Foundation
+import Domain
 
-class UserDefaultsStub {
-    private var dictionary = [String: AnyObject]()
-}
+public class SystemAudioDeviceTestFactory {
+    public let allDevices: [SystemAudioDevice]
+    public let firstInput: SystemAudioDevice
+    public let firstOutput: SystemAudioDevice
+    public let firstBuiltInInput: SystemAudioDevice
+    public let firstBuiltInOutput: SystemAudioDevice
+    public let someInputDevice: SystemAudioDevice
+    public let someOutputDevice: SystemAudioDevice
+    public let inputOnlyDevice: SystemAudioDevice
+    public let outputOnlyDevice: SystemAudioDevice
 
-extension UserDefaultsStub: UserDefaults {
-    @objc subscript(key: String) -> AnyObject? {
-        get {
-            return dictionary[key]
-        }
-        set {
-            dictionary[key] = newValue
-        }
+    public init() {
+        let device1 = SystemAudioDevice(identifier: 1, uniqueIdentifier: "UID1", name: "Device1", inputCount: 1, outputCount: 0, builtIn: false)
+        let device2 = SystemAudioDevice(identifier: 2, uniqueIdentifier: "UID2", name: "Device2", inputCount: 0, outputCount: 1, builtIn: false)
+        let device3 = SystemAudioDevice(identifier: 3, uniqueIdentifier: "UID3", name: "Device3", inputCount: 1, outputCount: 0, builtIn: true)
+        let device4 = SystemAudioDevice(identifier: 4, uniqueIdentifier: "UID4", name: "Device4", inputCount: 0, outputCount: 1, builtIn: true)
+        allDevices = [device1, device2, device3, device4]
+        firstInput = device1
+        firstOutput = device2
+        firstBuiltInInput = device3
+        firstBuiltInOutput = device4
+        someInputDevice = device1
+        someOutputDevice = device2
+        inputOnlyDevice = device1
+        outputOnlyDevice = device2
     }
 }

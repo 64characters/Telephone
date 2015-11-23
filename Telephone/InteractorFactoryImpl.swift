@@ -26,6 +26,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+
 class InteractorFactoryImpl {
     let systemAudioDeviceRepository: SystemAudioDeviceRepository
     let userDefaults: UserDefaults

@@ -28,12 +28,14 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+
 extension AKSIPUserAgent: UserAgent {
-    func audioDevices() throws -> [UserAgentAudioDevice] {
+    public func audioDevices() throws -> [UserAgentAudioDevice] {
         return try UserAgentAudioDevices().allDevices
     }
 
-    func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
+    public func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
         let success = self.setSoundInputDevice(inputDeviceID, soundOutputDevice: outputDeviceID)
         if !success {
             throw TelephoneError.UserAgentAudioDeviceSelectionError

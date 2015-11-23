@@ -30,6 +30,6 @@
 
 import Foundation
 
-@objc protocol UserDefaults {
+@objc public protocol UserDefaults {
     subscript(key: String) -> AnyObject? { get set }
 }

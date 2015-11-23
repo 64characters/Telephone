@@ -28,24 +28,24 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentObserverComposite {
-    let observers: [UserAgentObserver]
+public class UserAgentObserverComposite {
+    public let observers: [UserAgentObserver]
 
-    init(observers: [UserAgentObserver]) {
+    public init(observers: [UserAgentObserver]) {
         self.observers = observers
     }
 }
 
 extension UserAgentObserverComposite: UserAgentObserver {
-    func userAgentDidFinishStarting(userAgent: UserAgent) {
+    public func userAgentDidFinishStarting(userAgent: UserAgent) {
         onEachObserver { $0.userAgentDidFinishStarting(userAgent) }
     }
 
-    func userAgentDidFinishStopping(userAgent: UserAgent) {
+    public func userAgentDidFinishStopping(userAgent: UserAgent) {
         onEachObserver { $0.userAgentDidFinishStopping(userAgent) }
     }
 
-    func userAgentDidDetectNAT(userAgent: UserAgent) {
+    public func userAgentDidDetectNAT(userAgent: UserAgent) {
         onEachObserver { $0.userAgentDidDetectNAT(userAgent) }
     }
 

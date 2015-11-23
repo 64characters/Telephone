@@ -28,6 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-protocol ThrowingInteractor {
+public protocol ThrowingInteractor {
     func execute() throws
 }

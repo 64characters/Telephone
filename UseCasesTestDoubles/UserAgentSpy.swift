@@ -1,5 +1,5 @@
 //
-//  UserAgent.swift
+//  UserAgentSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -29,10 +29,36 @@
 //
 
 import Foundation
+import UseCases
 
-@objc public protocol UserAgent {
-    var started: Bool { @objc(isStarted) get }
-    func audioDevices() throws -> [UserAgentAudioDevice]
-    func updateAudioDevices()
-    func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws
+public class UserAgentSpy: NSObject {
+    public private(set) var didCallAudioDevices = false
+    public var audioDevicesResult = [UserAgentAudioDevice]()
+
+    public private(set) var didCallUpdateAudioDevices = false
+
+    public private(set) var didCallSelectInputAndOutputDevices = false
+    public private(set) var selectedInputDeviceID: Int?
+    public private(set) var selectedOutputDeviceID: Int?
+}
+
+extension UserAgentSpy: UserAgent {
+    @objc(isStarted) public var started: Bool {
+        return false
+    }
+
+    public func audioDevices() throws -> [UserAgentAudioDevice] {
+        didCallAudioDevices = true
+        return audioDevicesResult
+    }
+
+    public func updateAudioDevices() {
+        didCallUpdateAudioDevices = true
+    }
+
+    public func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
+        didCallSelectInputAndOutputDevices = true
+        selectedInputDeviceID = inputDeviceID
+        selectedOutputDeviceID = outputDeviceID
+    }
 }

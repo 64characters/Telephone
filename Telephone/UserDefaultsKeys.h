@@ -29,6 +29,7 @@
 //
 
 @import Foundation;
+@import UseCases;
 
 extern NSString * const kAccounts;
 extern NSString * const kSTUNServerHost;
@@ -40,9 +41,6 @@ extern NSString * const kConsoleLogLevel;
 extern NSString * const kVoiceActivityDetection;
 extern NSString * const kTransportPort;
 extern NSString * const kTransportPublicHost;
-extern NSString * const kSoundInput;
-extern NSString * const kSoundOutput;
-extern NSString * const kRingtoneOutput;
 extern NSString * const kRingingSound;
 extern NSString * const kFormatTelephoneNumbers;
 extern NSString * const kTelephoneNumberFormatterSplitsLastFourDigits;

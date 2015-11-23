@@ -35,6 +35,15 @@ public struct SystemAudioDevice {
     public let inputCount: Int
     public let outputCount: Int
     public let builtIn: Bool
+
+    public init(identifier: Int, uniqueIdentifier: String, name: String, inputCount: Int, outputCount: Int, builtIn: Bool) {
+        self.identifier = identifier
+        self.uniqueIdentifier = uniqueIdentifier
+        self.name = name
+        self.inputCount = inputCount
+        self.outputCount = outputCount
+        self.builtIn = builtIn
+    }
 }
 
 public extension SystemAudioDevice {

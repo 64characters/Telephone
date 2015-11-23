@@ -29,14 +29,17 @@
 //
 
 import Domain
+import DomainTestDoubles
+import UseCases
+import UseCasesTestDoubles
 import XCTest
 
 class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
-    var systemDevices: SystemAudioDevices!
-    var repositoryStub: SystemAudioDeviceRepositoryStub!
-    var userAgentSpy: UserAgentSpy!
-    var userDefaultsStub: UserDefaultsStub!
-    var interactor: UserAgentAudioDeviceSelectionInteractor!
+    private var systemDevices: SystemAudioDevices!
+    private var repositoryStub: SystemAudioDeviceRepositoryStub!
+    private var userAgentSpy: UserAgentSpy!
+    private var userDefaultsStub: UserDefaultsStub!
+    private var interactor: UserAgentAudioDeviceSelectionInteractor!
 
     override func setUp() {
         super.setUp()
@@ -52,7 +55,7 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
     func testSelectsMappedAudioDevices() {
         try! interactor.execute()
 
-        let userAgentDevices: [UserAgentAudioDevice] = userAgentSpy.audioDevicesResult
+        let userAgentDevices: [UseCases.UserAgentAudioDevice] = userAgentSpy.audioDevicesResult
         XCTAssertEqual(userAgentSpy.selectedInputDeviceID, userAgentDevices[1].identifier)
         XCTAssertEqual(userAgentSpy.selectedOutputDeviceID, userAgentDevices[0].identifier)
     }
@@ -62,9 +65,9 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
         return SystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
     }
 
-    private func createUserAgentDevices() -> [UserAgentAudioDevice] {
-        let device1 = UserAgentAudioDevice(identifier: 1, name: systemDevices.allDevices[1].name)
-        let device2 = UserAgentAudioDevice(identifier: 2, name: systemDevices.allDevices[0].name)
+    private func createUserAgentDevices() -> [UseCases.UserAgentAudioDevice] {
+        let device1 = UseCases.UserAgentAudioDevice(identifier: 1, name: systemDevices.allDevices[1].name)
+        let device2 = UseCases.UserAgentAudioDevice(identifier: 2, name: systemDevices.allDevices[0].name)
         return [device1, device2]
     }
 

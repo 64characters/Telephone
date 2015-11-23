@@ -28,18 +28,18 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentAudioDeviceUpdateAndSelectionInteractor {
-    let updateInteractor: Interactor
-    let selectionInteractor: ThrowingInteractor
+public class UserAgentAudioDeviceUpdateAndSelectionInteractor {
+    public let updateInteractor: Interactor
+    public let selectionInteractor: ThrowingInteractor
 
-    init(updateInteractor: Interactor, selectionInteractor: ThrowingInteractor) {
+    public init(updateInteractor: Interactor, selectionInteractor: ThrowingInteractor) {
         self.updateInteractor = updateInteractor
         self.selectionInteractor = selectionInteractor
     }
 }
 
 extension UserAgentAudioDeviceUpdateAndSelectionInteractor: ThrowingInteractor {
-    func execute() throws {
+    public func execute() throws {
         updateInteractor.execute()
         try selectionInteractor.execute()
     }

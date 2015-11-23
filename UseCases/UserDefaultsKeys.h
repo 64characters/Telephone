@@ -1,5 +1,5 @@
 //
-//  UserAgentObserverSpy.swift
+//  UserDefaultsKeys.h
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,26 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class UserAgentObserverSpy {
-    var didCallUserAgentDidFinishStarting = false
-    var didCallUserAgentDidFinishStopping = false
-    var didCallUserAgentDidDetectNAT = false
-    var lastPassedUserAgent: UserAgent?
-}
+@import Foundation;
 
-extension UserAgentObserverSpy: UserAgentObserver {
-    func userAgentDidFinishStarting(userAgent: UserAgent) {
-        didCallUserAgentDidFinishStarting = true
-        lastPassedUserAgent = userAgent
-    }
-
-    func userAgentDidFinishStopping(userAgent: UserAgent) {
-        didCallUserAgentDidFinishStopping = true
-        lastPassedUserAgent = userAgent
-    }
-
-    func userAgentDidDetectNAT(userAgent: UserAgent) {
-        didCallUserAgentDidDetectNAT = true
-        lastPassedUserAgent = userAgent
-    }
-}
+extern NSString * const kSoundInput;
+extern NSString * const kSoundOutput;
+extern NSString * const kRingtoneOutput;

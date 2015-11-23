@@ -28,6 +28,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+
 class InteractorFactoryStub {
     let interactor: ThrowingInteractor
 

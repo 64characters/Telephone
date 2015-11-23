@@ -28,10 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+@testable import Domain
+import DomainTestDoubles
 import XCTest
 
 class FirstSystemAudioDeviceTests: XCTestCase {
-    var factory: SystemAudioDeviceTestFactory!
+    private var factory: SystemAudioDeviceTestFactory!
 
     override func setUp() {
         super.setUp()

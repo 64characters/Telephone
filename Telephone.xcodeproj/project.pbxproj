@@ -28,7 +28,6 @@
 		AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0302F10EB9F347000738F7 /* AKSIPURI.m */; };
 		AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0693AF110228E4007EF898 /* ActiveAccountTransferViewController.m */; };
 		AA078B2C1BFF80E30013FF8F /* UseCases.h in Headers */ = {isa = PBXBuildFile; fileRef = AA078B2B1BFF80E30013FF8F /* UseCases.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA078B331BFF80E30013FF8F /* UseCases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA078B291BFF80E20013FF8F /* UseCases.framework */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
@@ -65,52 +64,27 @@
 		AA3578B30E40709900021989 /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B20E40709900021989 /* AccountController.m */; };
 		AA3578B60E4070AD00021989 /* CallController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3578B50E4070AD00021989 /* CallController.m */; };
 		AA3905231BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3905221BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift */; };
-		AA3905241BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3905221BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift */; };
 		AA3905251BFFA1CC005A8AA3 /* SystemToUserAgentAudioDeviceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB961BBAB4480064B2C3 /* SystemToUserAgentAudioDeviceMap.swift */; };
-		AA3905261BFFA1CC005A8AA3 /* SystemToUserAgentAudioDeviceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB961BBAB4480064B2C3 /* SystemToUserAgentAudioDeviceMap.swift */; };
 		AA3905281BFFA1D2005A8AA3 /* SystemToUserAgentAudioDeviceMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB941BBAB3990064B2C3 /* SystemToUserAgentAudioDeviceMapTests.swift */; };
-		AA39052A1BFFDD2D005A8AA3 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3905291BFFDD2D005A8AA3 /* UserDefaultsKeys.swift */; };
-		AA39052B1BFFDD53005A8AA3 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3905291BFFDD2D005A8AA3 /* UserDefaultsKeys.swift */; };
 		AA39052C1BFFDDC4005A8AA3 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404AC61BFC8E5D00D00A3E /* Interactor.swift */; };
-		AA39052D1BFFDDC5005A8AA3 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404AC61BFC8E5D00D00A3E /* Interactor.swift */; };
 		AA39052E1BFFDDDA005A8AA3 /* ThrowingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404AC91BFC8E8900D00A3E /* ThrowingInteractor.swift */; };
 		AA39052F1BFFDDDA005A8AA3 /* SelectedSystemAudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7EF1BC4400900FAC228 /* SelectedSystemAudioIO.swift */; };
 		AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8081BC69D8300FAC228 /* SystemAudioDeviceRepository.swift */; };
 		AA3905311BFFDDDA005A8AA3 /* UserAgentAudioDeviceSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BAC1BCD812C00066CFC /* UserAgentAudioDeviceSelectionInteractor.swift */; };
 		AA3905321BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0E1BEB8AC40016C8E6 /* UserAgentAudioDeviceUpdateInteractor.swift */; };
 		AA3905331BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateAndSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404A771BFA505E00D00A3E /* UserAgentAudioDeviceUpdateAndSelectionInteractor.swift */; };
-		AA3905341BFFDDDB005A8AA3 /* ThrowingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404AC91BFC8E8900D00A3E /* ThrowingInteractor.swift */; };
-		AA3905351BFFDDDB005A8AA3 /* SelectedSystemAudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7EF1BC4400900FAC228 /* SelectedSystemAudioIO.swift */; };
-		AA3905361BFFDDDB005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8081BC69D8300FAC228 /* SystemAudioDeviceRepository.swift */; };
-		AA3905371BFFDDDB005A8AA3 /* UserAgentAudioDeviceSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BAC1BCD812C00066CFC /* UserAgentAudioDeviceSelectionInteractor.swift */; };
-		AA3905381BFFDDDB005A8AA3 /* UserAgentAudioDeviceUpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0E1BEB8AC40016C8E6 /* UserAgentAudioDeviceUpdateInteractor.swift */; };
-		AA3905391BFFDDDB005A8AA3 /* UserAgentAudioDeviceUpdateAndSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404A771BFA505E00D00A3E /* UserAgentAudioDeviceUpdateAndSelectionInteractor.swift */; };
 		AA39053A1BFFDDE2005A8AA3 /* UserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */; };
-		AA39053B1BFFDDE3005A8AA3 /* UserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */; };
 		AA39053C1BFFDDED005A8AA3 /* SelectedSystemAudioIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7ED1BC43FB100FAC228 /* SelectedSystemAudioIOTests.swift */; };
 		AA39053D1BFFDDED005A8AA3 /* UserAgentAudioDeviceSelectionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB01BCD814000066CFC /* UserAgentAudioDeviceSelectionInteractorTests.swift */; };
 		AA39053E1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0C1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateInteractorTests.swift */; };
 		AA39053F1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateAndSelectionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404A7A1BFA506D00D00A3E /* UserAgentAudioDeviceUpdateAndSelectionInteractorTests.swift */; };
-		AA3905401BFFDE37005A8AA3 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB31BCD815100066CFC /* UserAgent.swift */; };
 		AA3905411BFFDE37005A8AA3 /* UserAgentObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A631BD542C80030ECE4 /* UserAgentObserver.swift */; };
-		AA3905421BFFDE37005A8AA3 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB31BCD815100066CFC /* UserAgent.swift */; };
-		AA3905431BFFDE37005A8AA3 /* UserAgentObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A631BD542C80030ECE4 /* UserAgentObserver.swift */; };
 		AA3905441BFFDE75005A8AA3 /* UserAgentObserverComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */; };
-		AA3905451BFFDE75005A8AA3 /* UserAgentObserverComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentObserverComposite.swift */; };
 		AA3905461BFFDE7C005A8AA3 /* UserAgentObserverCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */; };
 		AA3905471BFFDE9A005A8AA3 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7FD1BC6908300FAC228 /* UserDefaults.swift */; };
-		AA3905481BFFDE9B005A8AA3 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7FD1BC6908300FAC228 /* UserDefaults.swift */; };
 		AA39054A1BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */; };
-		AA3905511BFFE4A5005A8AA3 /* InteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */; };
-		AA3905531BFFE4A5005A8AA3 /* SystemAudioDeviceRepositoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */; };
-		AA3905541BFFE4A5005A8AA3 /* ThrowingInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */; };
-		AA3905551BFFE4A5005A8AA3 /* UserDefaultsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */; };
-		AA3905561BFFE4A5005A8AA3 /* UserAgentObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */; };
-		AA3905571BFFE4A5005A8AA3 /* UserAgentSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */; };
 		AA39055A1BFFE657005A8AA3 /* SystemAudioDevicesChangeObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeObserverSpy.swift */; };
 		AA39055B1BFFE6B4005A8AA3 /* InteractorFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A141BEBAD9C0016C8E6 /* InteractorFactoryStub.swift */; };
-		AA39055D1BFFE75D005A8AA3 /* SystemAudioDeviceTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */; };
-		AA39055E1BFFE8C1005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */; };
 		AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */; };
 		AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */; };
 		AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F65691072C926000511E8 /* AuthenticationFailureController.m */; };
@@ -128,30 +102,32 @@
 		AA6089D312E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
 		AA6089D412E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
 		AA76E0161BFF86D600CC5C07 /* SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */; };
-		AA76E0171BFF86D600CC5C07 /* SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */; };
 		AA76E0181BFF86DB00CC5C07 /* SystemAudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8051BC6968700FAC228 /* SystemAudioDevices.swift */; };
-		AA76E0191BFF86DB00CC5C07 /* SystemAudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8051BC6968700FAC228 /* SystemAudioDevices.swift */; };
 		AA76E01A1BFF86E100CC5C07 /* SystemAudioDevicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8031BC6963D00FAC228 /* SystemAudioDevicesTests.swift */; };
 		AA76E01B1BFF86E600CC5C07 /* FirstSystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30D84F1BF60E76002F343A /* FirstSystemAudioDevice.swift */; };
-		AA76E01C1BFF86E800CC5C07 /* FirstSystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30D84F1BF60E76002F343A /* FirstSystemAudioDevice.swift */; };
 		AA76E01D1BFF86EF00CC5C07 /* FirstSystemAudioDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30D84A1BF60DDB002F343A /* FirstSystemAudioDeviceTests.swift */; };
 		AA76E01E1BFF86F300CC5C07 /* FirstBuiltInSystemAudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6738A1BF50515006F43A2 /* FirstBuiltInSystemAudioIO.swift */; };
-		AA76E01F1BFF86F400CC5C07 /* FirstBuiltInSystemAudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6738A1BF50515006F43A2 /* FirstBuiltInSystemAudioIO.swift */; };
 		AA76E0201BFF86F900CC5C07 /* FirstBuiltInSystemAudioIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6738D1BF5053C006F43A2 /* FirstBuiltInSystemAudioIOTests.swift */; };
 		AA76E0211BFF86FE00CC5C07 /* FirstSystemAudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30D8471BF606C1002F343A /* FirstSystemAudioIO.swift */; };
-		AA76E0221BFF86FF00CC5C07 /* FirstSystemAudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30D8471BF606C1002F343A /* FirstSystemAudioIO.swift */; };
 		AA76E0231BFF870400CC5C07 /* FirstSystemAudioIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30D8451BF60672002F343A /* FirstSystemAudioIOTests.swift */; };
-		AA76E0241BFF873800CC5C07 /* SystemAudioDeviceTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */; };
 		AA7CB51D11442241004D79DA /* CallTransfer.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB51C11442241004D79DA /* CallTransfer.xib */; };
 		AA7CB51F11442249004D79DA /* ActiveAccountTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB51E11442249004D79DA /* ActiveAccountTransferView.xib */; };
 		AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB527114423A4004D79DA /* ActiveCallTransferView.xib */; };
 		AA7CB5301144242F004D79DA /* EndedCallTransferView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7CB52F1144242F004D79DA /* EndedCallTransferView.xib */; };
+		AA7F6D2C1C0216640064DA3A /* UseCasesTestDoubles.h in Headers */ = {isa = PBXBuildFile; fileRef = AAC4FF971C0215B90060B186 /* UseCasesTestDoubles.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA7F6D2D1C0217020064DA3A /* InteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */; };
+		AA7F6D2E1C0217020064DA3A /* SystemAudioDeviceRepositoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */; };
+		AA7F6D2F1C0217020064DA3A /* ThrowingInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */; };
+		AA7F6D301C0217020064DA3A /* UserAgentObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */; };
+		AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */; };
+		AA7F6D321C0217020064DA3A /* UserDefaultsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */; };
+		AA7F6D3D1C034B700064DA3A /* UserDefaultsKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = AA7F6D3B1C034B700064DA3A /* UserDefaultsKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA7F6D3E1C034B700064DA3A /* UserDefaultsKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D3C1C034B700064DA3A /* UserDefaultsKeys.m */; };
 		AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */; };
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
 		AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA110A56BD9000946F3 /* XSViewController.m */; };
 		AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA310A56BD9000946F3 /* XSWindowController.m */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
-		AA9D080D1BFF7E6F0000F618 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9D08031BFF7E6F0000F618 /* Domain.framework */; };
 		AA9D081A1BFF7F700000F618 /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9D08051BFF7E6F0000F618 /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */; };
 		AAAC618C0FE6A42900FBE053 /* AKNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAC618B0FE6A42900FBE053 /* AKNetworkReachability.m */; };
@@ -171,6 +147,9 @@
 		AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift */; };
 		AAC0FFC21BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */; };
 		AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */; };
+		AAC4FF611C01D0070060B186 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB31BCD815100066CFC /* UserAgent.swift */; };
+		AAC4FF841C0214120060B186 /* DomainTestDoubles.h in Headers */ = {isa = PBXBuildFile; fileRef = AAC4FF831C0214120060B186 /* DomainTestDoubles.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AAC4FF8B1C0214540060B186 /* SystemAudioDeviceTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */; };
 		AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */; };
 		AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92131107A5E9F00F142A4 /* ActiveCallViewController.m */; };
 		AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD92135107A607C00F142A4 /* IncomingCallViewController.m */; };
@@ -183,7 +162,6 @@
 		AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */; };
 		AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */; };
 		AAEF269D1BFF8835007B385B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF269C1BFF8835007B385B /* Error.swift */; };
-		AAEF269E1BFF8835007B385B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF269C1BFF8835007B385B /* Error.swift */; };
 		AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
 		AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
 		AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
@@ -235,12 +213,61 @@
 			remoteGlobalIDString = AA078B281BFF80E20013FF8F;
 			remoteInfo = UseCases;
 		};
+		AA7F6D331C0217140064DA3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC4FF941C0215B90060B186;
+			remoteInfo = UseCasesTestDoubles;
+		};
+		AA7F6D351C0217E60064DA3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA078B281BFF80E20013FF8F;
+			remoteInfo = UseCases;
+		};
+		AA7F6D391C0310FD0064DA3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC4FF941C0215B90060B186;
+			remoteInfo = UseCasesTestDoubles;
+		};
 		AA9D080E1BFF7E6F0000F618 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AA9D08021BFF7E6F0000F618;
 			remoteInfo = Domain;
+		};
+		AAC4FF5F1C01CF3F0060B186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA078B281BFF80E20013FF8F;
+			remoteInfo = UseCases;
+		};
+		AAC4FF891C0214280060B186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA9D08021BFF7E6F0000F618;
+			remoteInfo = Domain;
+		};
+		AAC4FF8C1C0214D20060B186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC4FF801C0214110060B186;
+			remoteInfo = DomainTestDoubles;
+		};
+		AAC4FF8E1C0215030060B186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC4FF801C0214110060B186;
+			remoteInfo = DomainTestDoubles;
 		};
 		AAF99B3014A257A800D087DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -356,7 +383,6 @@
 		AA3578B40E4070AD00021989 /* CallController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = CallController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA3578B50E4070AD00021989 /* CallController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = CallController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA3905221BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDevice.swift; sourceTree = "<group>"; };
-		AA3905291BFFDD2D005A8AA3 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainUserAgentAudioDeviceExtension.swift; sourceTree = "<group>"; };
 		AA3A14F90F309C7C00C45739 /* AKABAddressBook+Localizing.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKABAddressBook+Localizing.h"; sourceTree = "<group>"; tabWidth = 4; };
 		AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKABAddressBook+Localizing.m"; sourceTree = "<group>"; tabWidth = 4; };
@@ -412,6 +438,8 @@
 		AA7CB52A114423AE004D79DA /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/ActiveCallTransferView.xib; sourceTree = "<group>"; };
 		AA7CB53111442434004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
 		AA7CB53211442437004D79DA /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/EndedCallTransferView.xib; sourceTree = "<group>"; };
+		AA7F6D3B1C034B700064DA3A /* UserDefaultsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsKeys.h; sourceTree = "<group>"; };
+		AA7F6D3C1C034B700064DA3A /* UserDefaultsKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsKeys.m; sourceTree = "<group>"; };
 		AA86C85F10FF928D00EF4E8A /* ActiveCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ActiveCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKKeychain.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -455,6 +483,12 @@
 		AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentNotificationsToObserverAdapter.swift; sourceTree = "<group>"; };
 		AAC0FFC01BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgentNotifications.h; sourceTree = "<group>"; };
 		AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPUserAgentNotifications.m; sourceTree = "<group>"; };
+		AAC4FF811C0214110060B186 /* DomainTestDoubles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainTestDoubles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAC4FF831C0214120060B186 /* DomainTestDoubles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainTestDoubles.h; sourceTree = "<group>"; };
+		AAC4FF851C0214120060B186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAC4FF951C0215B90060B186 /* UseCasesTestDoubles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UseCasesTestDoubles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAC4FF971C0215B90060B186 /* UseCasesTestDoubles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UseCasesTestDoubles.h; sourceTree = "<group>"; };
+		AAC4FF991C0215B90060B186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAC6738A1BF50515006F43A2 /* FirstBuiltInSystemAudioIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstBuiltInSystemAudioIO.swift; sourceTree = "<group>"; };
 		AAC6738D1BF5053C006F43A2 /* FirstBuiltInSystemAudioIOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirstBuiltInSystemAudioIOTests.swift; path = DomainTests/FirstBuiltInSystemAudioIOTests.swift; sourceTree = SOURCE_ROOT; };
 		AACD92CE0ED434DD00AF8D17 /* AKActiveCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKActiveCallView.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -542,7 +576,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA078B331BFF80E30013FF8F /* UseCases.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,7 +597,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA9D080D1BFF7E6F0000F618 /* Domain.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF7D1C0214110060B186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF911C0215B90060B186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +678,8 @@
 				AA9D080C1BFF7E6F0000F618 /* DomainTests.xctest */,
 				AA078B291BFF80E20013FF8F /* UseCases.framework */,
 				AA078B321BFF80E30013FF8F /* UseCasesTests.xctest */,
+				AAC4FF811C0214110060B186 /* DomainTestDoubles.framework */,
+				AAC4FF951C0215B90060B186 /* UseCasesTestDoubles.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -643,8 +691,10 @@
 				AA3FAB861BBAAE630064B2C3 /* TelephoneTests */,
 				AA078B2A1BFF80E30013FF8F /* UseCases */,
 				AA078B361BFF80E30013FF8F /* UseCasesTests */,
+				AAC4FF961C0215B90060B186 /* UseCasesTestDoubles */,
 				AA9D08041BFF7E6F0000F618 /* Domain */,
 				AA9D08101BFF7E6F0000F618 /* DomainTests */,
+				AAC4FF821C0214120060B186 /* DomainTestDoubles */,
 				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
 				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -704,7 +754,8 @@
 				AA404AC61BFC8E5D00D00A3E /* Interactor.swift */,
 				AA404AC91BFC8E8900D00A3E /* ThrowingInteractor.swift */,
 				AA32F7FD1BC6908300FAC228 /* UserDefaults.swift */,
-				AA3905291BFFDD2D005A8AA3 /* UserDefaultsKeys.swift */,
+				AA7F6D3B1C034B700064DA3A /* UserDefaultsKeys.h */,
+				AA7F6D3C1C034B700064DA3A /* UserDefaultsKeys.m */,
 				AA078B2B1BFF80E30013FF8F /* UseCases.h */,
 				AA078B2D1BFF80E30013FF8F /* Info.plist */,
 			);
@@ -714,12 +765,6 @@
 		AA078B361BFF80E30013FF8F /* UseCasesTests */ = {
 			isa = PBXGroup;
 			children = (
-				AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */,
-				AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */,
-				AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */,
-				AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */,
-				AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */,
-				AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */,
 				AA078B391BFF80E30013FF8F /* Info.plist */,
 			);
 			path = UseCasesTests;
@@ -872,10 +917,34 @@
 		AA9D08101BFF7E6F0000F618 /* DomainTests */ = {
 			isa = PBXGroup;
 			children = (
-				AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */,
 				AA9D08131BFF7E6F0000F618 /* Info.plist */,
 			);
 			path = DomainTests;
+			sourceTree = "<group>";
+		};
+		AAC4FF821C0214120060B186 /* DomainTestDoubles */ = {
+			isa = PBXGroup;
+			children = (
+				AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */,
+				AAC4FF831C0214120060B186 /* DomainTestDoubles.h */,
+				AAC4FF851C0214120060B186 /* Info.plist */,
+			);
+			path = DomainTestDoubles;
+			sourceTree = "<group>";
+		};
+		AAC4FF961C0215B90060B186 /* UseCasesTestDoubles */ = {
+			isa = PBXGroup;
+			children = (
+				AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */,
+				AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */,
+				AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */,
+				AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */,
+				AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */,
+				AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */,
+				AAC4FF971C0215B90060B186 /* UseCasesTestDoubles.h */,
+				AAC4FF991C0215B90060B186 /* Info.plist */,
+			);
+			path = UseCasesTestDoubles;
 			sourceTree = "<group>";
 		};
 		AADAA2FF107E59FC00789F2D /* Call */ = {
@@ -995,6 +1064,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA078B2C1BFF80E30013FF8F /* UseCases.h in Headers */,
+				AA7F6D3D1C034B700064DA3A /* UserDefaultsKeys.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1003,6 +1073,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA9D081A1BFF7F700000F618 /* Domain.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF7E1C0214110060B186 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC4FF841C0214120060B186 /* DomainTestDoubles.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF921C0215B90060B186 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA7F6D2C1C0216640064DA3A /* UseCasesTestDoubles.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,6 +1147,8 @@
 			dependencies = (
 				AA3905591BFFE604005A8AA3 /* PBXTargetDependency */,
 				AA078B351BFF80E30013FF8F /* PBXTargetDependency */,
+				AAC4FF8F1C0215030060B186 /* PBXTargetDependency */,
+				AA7F6D341C0217140064DA3A /* PBXTargetDependency */,
 			);
 			name = UseCasesTests;
 			productName = UseCasesTests;
@@ -1079,6 +1167,8 @@
 			);
 			dependencies = (
 				AA3FAB8B1BBAAE630064B2C3 /* PBXTargetDependency */,
+				AAC4FF601C01CF3F0060B186 /* PBXTargetDependency */,
+				AA7F6D3A1C0310FD0064DA3A /* PBXTargetDependency */,
 			);
 			name = TelephoneTests;
 			productName = TelephoneTests;
@@ -1115,11 +1205,50 @@
 			);
 			dependencies = (
 				AA9D080F1BFF7E6F0000F618 /* PBXTargetDependency */,
+				AAC4FF8D1C0214D20060B186 /* PBXTargetDependency */,
 			);
 			name = DomainTests;
 			productName = DomainTests;
 			productReference = AA9D080C1BFF7E6F0000F618 /* DomainTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AAC4FF801C0214110060B186 /* DomainTestDoubles */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAC4FF861C0214120060B186 /* Build configuration list for PBXNativeTarget "DomainTestDoubles" */;
+			buildPhases = (
+				AAC4FF7C1C0214110060B186 /* Sources */,
+				AAC4FF7D1C0214110060B186 /* Frameworks */,
+				AAC4FF7E1C0214110060B186 /* Headers */,
+				AAC4FF7F1C0214110060B186 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAC4FF8A1C0214280060B186 /* PBXTargetDependency */,
+			);
+			name = DomainTestDoubles;
+			productName = DomainTestDoubles;
+			productReference = AAC4FF811C0214110060B186 /* DomainTestDoubles.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AAC4FF941C0215B90060B186 /* UseCasesTestDoubles */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAC4FF9A1C0215B90060B186 /* Build configuration list for PBXNativeTarget "UseCasesTestDoubles" */;
+			buildPhases = (
+				AAC4FF901C0215B90060B186 /* Sources */,
+				AAC4FF911C0215B90060B186 /* Frameworks */,
+				AAC4FF921C0215B90060B186 /* Headers */,
+				AAC4FF931C0215B90060B186 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA7F6D361C0217E60064DA3A /* PBXTargetDependency */,
+			);
+			name = UseCasesTestDoubles;
+			productName = UseCasesTestDoubles;
+			productReference = AAC4FF951C0215B90060B186 /* UseCasesTestDoubles.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */ = {
 			isa = PBXNativeTarget;
@@ -1186,6 +1315,12 @@
 					AA9D080B1BFF7E6F0000F618 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
+					AAC4FF801C0214110060B186 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					AAC4FF941C0215B90060B186 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */;
@@ -1208,8 +1343,10 @@
 				AA3FAB841BBAAE630064B2C3 /* TelephoneTests */,
 				AA078B281BFF80E20013FF8F /* UseCases */,
 				AA078B311BFF80E30013FF8F /* UseCasesTests */,
+				AAC4FF941C0215B90060B186 /* UseCasesTestDoubles */,
 				AA9D08021BFF7E6F0000F618 /* Domain */,
 				AA9D080B1BFF7E6F0000F618 /* DomainTests */,
+				AAC4FF801C0214110060B186 /* DomainTestDoubles */,
 				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
 				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
 				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
@@ -1279,6 +1416,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D080A1BFF7E6F0000F618 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF7F1C0214110060B186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF931C0215B90060B186 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1379,11 +1530,11 @@
 				AA3905471BFFDE9A005A8AA3 /* UserDefaults.swift in Sources */,
 				AA3905441BFFDE75005A8AA3 /* UserAgentObserverComposite.swift in Sources */,
 				AA3905311BFFDDDA005A8AA3 /* UserAgentAudioDeviceSelectionInteractor.swift in Sources */,
-				AA3905401BFFDE37005A8AA3 /* UserAgent.swift in Sources */,
 				AA39054A1BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */,
+				AAC4FF611C01D0070060B186 /* UserAgent.swift in Sources */,
 				AA39052E1BFFDDDA005A8AA3 /* ThrowingInteractor.swift in Sources */,
+				AA7F6D3E1C034B700064DA3A /* UserDefaultsKeys.m in Sources */,
 				AA39052F1BFFDDDA005A8AA3 /* SelectedSystemAudioIO.swift in Sources */,
-				AA39052A1BFFDD2D005A8AA3 /* UserDefaultsKeys.swift in Sources */,
 				AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */,
 				AA39053A1BFFDDE2005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
 			);
@@ -1393,28 +1544,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA3905391BFFDDDB005A8AA3 /* UserAgentAudioDeviceUpdateAndSelectionInteractor.swift in Sources */,
-				AA3905381BFFDDDB005A8AA3 /* UserAgentAudioDeviceUpdateInteractor.swift in Sources */,
-				AA39052D1BFFDDC5005A8AA3 /* Interactor.swift in Sources */,
-				AA3905561BFFE4A5005A8AA3 /* UserAgentObserverSpy.swift in Sources */,
-				AA3905531BFFE4A5005A8AA3 /* SystemAudioDeviceRepositoryStub.swift in Sources */,
-				AA3905571BFFE4A5005A8AA3 /* UserAgentSpy.swift in Sources */,
-				AA3905371BFFDDDB005A8AA3 /* UserAgentAudioDeviceSelectionInteractor.swift in Sources */,
-				AA3905541BFFE4A5005A8AA3 /* ThrowingInteractorSpy.swift in Sources */,
-				AA3905341BFFDDDB005A8AA3 /* ThrowingInteractor.swift in Sources */,
-				AA3905351BFFDDDB005A8AA3 /* SelectedSystemAudioIO.swift in Sources */,
-				AA39052B1BFFDD53005A8AA3 /* UserDefaultsKeys.swift in Sources */,
-				AA3905551BFFE4A5005A8AA3 /* UserDefaultsStub.swift in Sources */,
-				AA3905361BFFDDDB005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */,
-				AA3905451BFFDE75005A8AA3 /* UserAgentObserverComposite.swift in Sources */,
-				AA3905421BFFDE37005A8AA3 /* UserAgent.swift in Sources */,
 				AA39053C1BFFDDED005A8AA3 /* SelectedSystemAudioIOTests.swift in Sources */,
 				AA3905461BFFDE7C005A8AA3 /* UserAgentObserverCompositeTests.swift in Sources */,
-				AA39053B1BFFDDE3005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
-				AA39055E1BFFE8C1005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */,
-				AA3905431BFFDE37005A8AA3 /* UserAgentObserver.swift in Sources */,
-				AA3905511BFFE4A5005A8AA3 /* InteractorSpy.swift in Sources */,
-				AA3905481BFFDE9B005A8AA3 /* UserDefaults.swift in Sources */,
 				AA39053D1BFFDDED005A8AA3 /* UserAgentAudioDeviceSelectionInteractorTests.swift in Sources */,
 				AA39053F1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateAndSelectionInteractorTests.swift in Sources */,
 				AA39053E1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateInteractorTests.swift in Sources */,
@@ -1457,7 +1588,6 @@
 				AAEF269D1BFF8835007B385B /* Error.swift in Sources */,
 				AA3905251BFFA1CC005A8AA3 /* SystemToUserAgentAudioDeviceMap.swift in Sources */,
 				AA76E0181BFF86DB00CC5C07 /* SystemAudioDevices.swift in Sources */,
-				AA39055D1BFFE75D005A8AA3 /* SystemAudioDeviceTestFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1465,20 +1595,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA76E0241BFF873800CC5C07 /* SystemAudioDeviceTestFactory.swift in Sources */,
 				AA76E0201BFF86F900CC5C07 /* FirstBuiltInSystemAudioIOTests.swift in Sources */,
 				AA3905281BFFA1D2005A8AA3 /* SystemToUserAgentAudioDeviceMapTests.swift in Sources */,
 				AA76E0231BFF870400CC5C07 /* FirstSystemAudioIOTests.swift in Sources */,
-				AAEF269E1BFF8835007B385B /* Error.swift in Sources */,
-				AA76E0171BFF86D600CC5C07 /* SystemAudioDevice.swift in Sources */,
-				AA3905241BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
-				AA3905261BFFA1CC005A8AA3 /* SystemToUserAgentAudioDeviceMap.swift in Sources */,
-				AA76E0221BFF86FF00CC5C07 /* FirstSystemAudioIO.swift in Sources */,
 				AA76E01D1BFF86EF00CC5C07 /* FirstSystemAudioDeviceTests.swift in Sources */,
-				AA76E01F1BFF86F400CC5C07 /* FirstBuiltInSystemAudioIO.swift in Sources */,
 				AA76E01A1BFF86E100CC5C07 /* SystemAudioDevicesTests.swift in Sources */,
-				AA76E01C1BFF86E800CC5C07 /* FirstSystemAudioDevice.swift in Sources */,
-				AA76E0191BFF86DB00CC5C07 /* SystemAudioDevices.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF7C1C0214110060B186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC4FF8B1C0214540060B186 /* SystemAudioDeviceTestFactory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC4FF901C0215B90060B186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA7F6D2D1C0217020064DA3A /* InteractorSpy.swift in Sources */,
+				AA7F6D2F1C0217020064DA3A /* ThrowingInteractorSpy.swift in Sources */,
+				AA7F6D321C0217020064DA3A /* UserDefaultsStub.swift in Sources */,
+				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
+				AA7F6D2E1C0217020064DA3A /* SystemAudioDeviceRepositoryStub.swift in Sources */,
+				AA7F6D301C0217020064DA3A /* UserAgentObserverSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1528,10 +1670,45 @@
 			target = AA078B281BFF80E20013FF8F /* UseCases */;
 			targetProxy = AA76E0141BFF82F500CC5C07 /* PBXContainerItemProxy */;
 		};
+		AA7F6D341C0217140064DA3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAC4FF941C0215B90060B186 /* UseCasesTestDoubles */;
+			targetProxy = AA7F6D331C0217140064DA3A /* PBXContainerItemProxy */;
+		};
+		AA7F6D361C0217E60064DA3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA078B281BFF80E20013FF8F /* UseCases */;
+			targetProxy = AA7F6D351C0217E60064DA3A /* PBXContainerItemProxy */;
+		};
+		AA7F6D3A1C0310FD0064DA3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAC4FF941C0215B90060B186 /* UseCasesTestDoubles */;
+			targetProxy = AA7F6D391C0310FD0064DA3A /* PBXContainerItemProxy */;
+		};
 		AA9D080F1BFF7E6F0000F618 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AA9D08021BFF7E6F0000F618 /* Domain */;
 			targetProxy = AA9D080E1BFF7E6F0000F618 /* PBXContainerItemProxy */;
+		};
+		AAC4FF601C01CF3F0060B186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA078B281BFF80E20013FF8F /* UseCases */;
+			targetProxy = AAC4FF5F1C01CF3F0060B186 /* PBXContainerItemProxy */;
+		};
+		AAC4FF8A1C0214280060B186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA9D08021BFF7E6F0000F618 /* Domain */;
+			targetProxy = AAC4FF891C0214280060B186 /* PBXContainerItemProxy */;
+		};
+		AAC4FF8D1C0214D20060B186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAC4FF801C0214110060B186 /* DomainTestDoubles */;
+			targetProxy = AAC4FF8C1C0214D20060B186 /* PBXContainerItemProxy */;
+		};
+		AAC4FF8F1C0215030060B186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAC4FF801C0214110060B186 /* DomainTestDoubles */;
+			targetProxy = AAC4FF8E1C0215030060B186 /* PBXContainerItemProxy */;
 		};
 		AAF99B3114A257A800D087DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1848,10 +2025,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1861,7 +2038,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = UseCasesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1876,16 +2052,15 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = UseCasesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2006,7 +2181,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2019,7 +2193,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = DomainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2034,7 +2207,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2043,10 +2215,143 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = DomainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AAC4FF871C0214120060B186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = DomainTestDoubles/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTestDoubles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AAC4FF881C0214120060B186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = DomainTestDoubles/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTestDoubles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AAC4FF9B1C0215B90060B186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = UseCasesTestDoubles/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTestDoubles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AAC4FF9C1C0215B90060B186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = UseCasesTestDoubles/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTestDoubles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -2354,6 +2659,24 @@
 			buildConfigurations = (
 				AA9D08161BFF7E6F0000F618 /* Debug */,
 				AA9D08171BFF7E6F0000F618 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAC4FF861C0214120060B186 /* Build configuration list for PBXNativeTarget "DomainTestDoubles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC4FF871C0214120060B186 /* Debug */,
+				AAC4FF881C0214120060B186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAC4FF9A1C0215B90060B186 /* Build configuration list for PBXNativeTarget "UseCasesTestDoubles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC4FF9B1C0215B90060B186 /* Debug */,
+				AAC4FF9C1C0215B90060B186 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

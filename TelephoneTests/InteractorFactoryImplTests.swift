@@ -26,6 +26,8 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+import UseCases
+import UseCasesTestDoubles
 import XCTest
 
 class InteractorFactoryImplTests: XCTestCase {
