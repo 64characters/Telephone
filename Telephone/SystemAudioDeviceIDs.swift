@@ -56,18 +56,18 @@ class SystemAudioDeviceIDs {
     private func getDeviceIDsBytes(bytes: UnsafeMutablePointer<AudioObjectID>, inout length: UInt32) throws {
         return try audioObject.getPropertyValueBytes(bytes, length: &length)
     }
+}
 
-    private func deviceIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [Int] {
-        let audioObjectIDs = audioObjectIDsWithBytes(bytes, length: length)
-        return audioObjectIDs.map { Int($0) }
-    }
+private func deviceIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [Int] {
+    let audioObjectIDs = audioObjectIDsWithBytes(bytes, length: length)
+    return audioObjectIDs.map { Int($0) }
+}
 
-    private func audioObjectIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [AudioObjectID] {
-        let buffer = UnsafeMutableBufferPointer<AudioObjectID>(start: bytes, count: audioObjectIDCountWithLength(length))
-        return [AudioObjectID](buffer)
-    }
+private func audioObjectIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [AudioObjectID] {
+    let buffer = UnsafeMutableBufferPointer<AudioObjectID>(start: bytes, count: audioObjectIDCountWithLength(length))
+    return [AudioObjectID](buffer)
+}
 
-    private func audioObjectIDCountWithLength(length: UInt32) -> Int {
-        return Int(length) / strideof(AudioObjectID)
-    }
+private func audioObjectIDCountWithLength(length: UInt32) -> Int {
+    return Int(length) / strideof(AudioObjectID)
 }
