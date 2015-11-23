@@ -89,7 +89,7 @@
 		AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */; };
 		AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F65691072C926000511E8 /* AuthenticationFailureController.m */; };
 		AA3FABA71BBC0A0D0064B2C3 /* SystemAudioDevicesChangeMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABA61BBC0A0D0064B2C3 /* SystemAudioDevicesChangeMonitor.swift */; };
-		AA3FABAB1BBC183B0064B2C3 /* SystemAudioDeviceRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAA1BBC183B0064B2C3 /* SystemAudioDeviceRepositoryImpl.swift */; };
+		AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAA1BBC183B0064B2C3 /* SystemAudioDevices.swift */; };
 		AA3FABAE1BBC19C10064B2C3 /* SystemAudioDeviceIDRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAD1BBC19C10064B2C3 /* SystemAudioDeviceIDRepository.swift */; };
 		AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */; };
 		AA4BD4C80E07C28E005A71B2 /* AKSIPUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */; };
@@ -401,7 +401,7 @@
 		AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDevice.swift; sourceTree = "<group>"; };
 		AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevice.swift; sourceTree = "<group>"; };
 		AA3FABA61BBC0A0D0064B2C3 /* SystemAudioDevicesChangeMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesChangeMonitor.swift; sourceTree = "<group>"; };
-		AA3FABAA1BBC183B0064B2C3 /* SystemAudioDeviceRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceRepositoryImpl.swift; sourceTree = "<group>"; };
+		AA3FABAA1BBC183B0064B2C3 /* SystemAudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevices.swift; sourceTree = "<group>"; };
 		AA3FABAD1BBC19C10064B2C3 /* SystemAudioDeviceIDRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceIDRepository.swift; sourceTree = "<group>"; };
 		AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelephoneError.swift; sourceTree = "<group>"; };
 		AA404A771BFA505E00D00A3E /* UserAgentAudioDeviceUpdateAndSelectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceUpdateAndSelectionInteractor.swift; sourceTree = "<group>"; };
@@ -817,7 +817,7 @@
 				AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeObserver.swift */,
 				AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeObserverComposite.swift */,
 				AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeObserverCompositeTests.swift */,
-				AA3FABAA1BBC183B0064B2C3 /* SystemAudioDeviceRepositoryImpl.swift */,
+				AA3FABAA1BBC183B0064B2C3 /* SystemAudioDevices.swift */,
 				AA3FABAD1BBC19C10064B2C3 /* SystemAudioDeviceIDRepository.swift */,
 				AA4C2E781BBFEEAB00C3D096 /* SystemAudioObject.swift */,
 				AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */,
@@ -1505,7 +1505,7 @@
 				AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */,
 				AAD92139107A608B00F142A4 /* EndedCallViewController.m in Sources */,
 				AA32F7FB1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
-				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDeviceRepositoryImpl.swift in Sources */,
+				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */,
 				AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,

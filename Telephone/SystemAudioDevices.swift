@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceRepositoryImpl.swift
+//  SystemAudioDevices.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -32,7 +32,7 @@ import Domain
 import CoreAudio
 import UseCases
 
-class SystemAudioDeviceRepositoryImpl: SystemAudioDeviceRepository {
+class SystemAudioDevices: SystemAudioDeviceRepository {
     func allDevices() throws -> [SystemAudioDevice] {
         let deviceIDRepository = SystemAudioDeviceIDRepository()
         return try deviceIDRepository.allDeviceIDs().map(deviceWithID)

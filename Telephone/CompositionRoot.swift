@@ -44,11 +44,11 @@ class CompositionRoot: NSObject {
         userDefaults = NSUserDefaults.standardUserDefaults()
         queue = createQueue()
 
-        let audioDeviceRepository = SystemAudioDeviceRepositoryImpl()
+        let audioDevices = SystemAudioDevices()
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(
             observer: UserAgentAudioDeviceSelector(
                 interactorFactory: InteractorFactoryImpl(
-                    systemAudioDeviceRepository: audioDeviceRepository,
+                    systemAudioDeviceRepository: audioDevices,
                     userDefaults: userDefaults
                 )
             ),
@@ -61,7 +61,7 @@ class CompositionRoot: NSObject {
                         userAgent: userAgent
                     ),
                     selectionInteractor: UserAgentAudioDeviceSelectionInteractor(
-                        systemAudioDeviceRepository: audioDeviceRepository,
+                        systemAudioDeviceRepository: audioDevices,
                         userAgent: userAgent,
                         userDefaults: userDefaults
                     )
