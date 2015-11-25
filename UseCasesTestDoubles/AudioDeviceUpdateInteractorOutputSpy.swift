@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevices.swift
+//  AudioDeviceUpdateInteractorOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,29 +28,18 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SystemAudioDevices {
-    public let allDevices: [SystemAudioDevice]
-    public let inputDevices: [SystemAudioDevice]
-    public let outputDevices: [SystemAudioDevice]
+import UseCases
 
-    private let deviceNameToDevice: [String: SystemAudioDevice]
+public class AudioDeviceUpdateInteractorOutputSpy {
+    public private(set) var audioDevices: AudioDevices?
+    public private(set) var selectedIO: SelectedAudioIO?
 
-    public init(devices: [SystemAudioDevice]) {
-        self.allDevices = devices
-        inputDevices = devices.filter({ $0.inputDevice })
-        outputDevices = devices.filter({ $0.outputDevice })
-        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
-    }
-
-    public func deviceNamed(name: String) -> SystemAudioDevice? {
-        return deviceNameToDevice[name]
-    }
+    public init() {}
 }
 
-private func deviceNameToDeviceMapWithDevices(devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
-    var result = [String: SystemAudioDevice]()
-    for device in devices {
-        result[device.name] = device
+extension AudioDeviceUpdateInteractorOutputSpy: AudioDeviceUpdateInteractorOutput {
+    public func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO) {
+        self.audioDevices = audioDevices
+        self.selectedIO = selectedIO
     }
-    return result
 }

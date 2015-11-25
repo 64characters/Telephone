@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevices.swift
+//  AudioDeviceUpdateInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,29 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SystemAudioDevices {
-    public let allDevices: [SystemAudioDevice]
-    public let inputDevices: [SystemAudioDevice]
-    public let outputDevices: [SystemAudioDevice]
+import Domain
 
-    private let deviceNameToDevice: [String: SystemAudioDevice]
+public protocol AudioDeviceUpdateInteractorOutput {
+    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO)
+}
 
-    public init(devices: [SystemAudioDevice]) {
-        self.allDevices = devices
-        inputDevices = devices.filter({ $0.inputDevice })
-        outputDevices = devices.filter({ $0.outputDevice })
-        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
-    }
+public class AudioDeviceUpdateInteractor {
+    let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    let userDefaults: UserDefaults
+    let output: AudioDeviceUpdateInteractorOutput
 
-    public func deviceNamed(name: String) -> SystemAudioDevice? {
-        return deviceNameToDevice[name]
+    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: AudioDeviceUpdateInteractorOutput) {
+        self.systemAudioDeviceRepository = systemAudioDeviceRepository
+        self.userDefaults = userDefaults
+        self.output = output
     }
 }
 
-private func deviceNameToDeviceMapWithDevices(devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
-    var result = [String: SystemAudioDevice]()
-    for device in devices {
-        result[device.name] = device
+extension AudioDeviceUpdateInteractor: ThrowingInteractor {
+    public func execute() throws {
+        let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
+        let selectedSystemAudioIO = try SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
+        let audioDevices = AudioDevices(systemAudioDevices: systemAudioDevices)
+        let selectedAudioIO = SelectedAudioIO(selectedSystemAudioIO: selectedSystemAudioIO)
+        output.update(audioDevices, selectedIO: selectedAudioIO)
     }
-    return result
 }

@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevices.swift
+//  SelectedAudioIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,29 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SystemAudioDevices {
-    public let allDevices: [SystemAudioDevice]
-    public let inputDevices: [SystemAudioDevice]
-    public let outputDevices: [SystemAudioDevice]
+public struct SelectedAudioIO {
+    let soundInput: AudioDevice
+    let soundOutput: AudioDevice
+    let ringtoneOutput: AudioDevice
 
-    private let deviceNameToDevice: [String: SystemAudioDevice]
-
-    public init(devices: [SystemAudioDevice]) {
-        self.allDevices = devices
-        inputDevices = devices.filter({ $0.inputDevice })
-        outputDevices = devices.filter({ $0.outputDevice })
-        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
-    }
-
-    public func deviceNamed(name: String) -> SystemAudioDevice? {
-        return deviceNameToDevice[name]
+    public init(soundInput: AudioDevice, soundOutput: AudioDevice, ringtoneOutput: AudioDevice) {
+        self.soundInput = soundInput
+        self.soundOutput = soundOutput
+        self.ringtoneOutput = ringtoneOutput
     }
 }
 
-private func deviceNameToDeviceMapWithDevices(devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
-    var result = [String: SystemAudioDevice]()
-    for device in devices {
-        result[device.name] = device
+extension SelectedAudioIO: Equatable {}
+
+public func ==(lhs: SelectedAudioIO, rhs: SelectedAudioIO) -> Bool {
+    return lhs.soundInput == rhs.soundInput && lhs.soundOutput == rhs.soundOutput && lhs.ringtoneOutput == rhs.ringtoneOutput
+}
+
+extension SelectedAudioIO {
+    init(selectedSystemAudioIO: SelectedSystemAudioIO) {
+        self.init(
+            soundInput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundInput),
+            soundOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundOutput),
+            ringtoneOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.ringtoneOutput)
+        )
     }
-    return result
 }

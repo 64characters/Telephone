@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevices.swift
+//  AudioDevices.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,29 +28,23 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SystemAudioDevices {
-    public let allDevices: [SystemAudioDevice]
-    public let inputDevices: [SystemAudioDevice]
-    public let outputDevices: [SystemAudioDevice]
+import Domain
 
-    private let deviceNameToDevice: [String: SystemAudioDevice]
-
-    public init(devices: [SystemAudioDevice]) {
-        self.allDevices = devices
-        inputDevices = devices.filter({ $0.inputDevice })
-        outputDevices = devices.filter({ $0.outputDevice })
-        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
-    }
-
-    public func deviceNamed(name: String) -> SystemAudioDevice? {
-        return deviceNameToDevice[name]
-    }
+public struct AudioDevices {
+    let inputDevices: [AudioDevice]
+    let outputDevices: [AudioDevice]
 }
 
-private func deviceNameToDeviceMapWithDevices(devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
-    var result = [String: SystemAudioDevice]()
-    for device in devices {
-        result[device.name] = device
+extension AudioDevices: Equatable {}
+
+public func ==(lhs: AudioDevices, rhs: AudioDevices) -> Bool {
+    return lhs.inputDevices == rhs.inputDevices && lhs.outputDevices == rhs.outputDevices
+}
+
+extension AudioDevices {
+    init(systemAudioDevices: SystemAudioDevices) {
+        let inputDevices = systemAudioDevices.inputDevices.map({ AudioDevice(systemAudioDevice: $0) })
+        let outputDevices = systemAudioDevices.outputDevices.map({ AudioDevice(systemAudioDevice: $0) })
+        self.init(inputDevices: inputDevices, outputDevices: outputDevices)
     }
-    return result
 }
