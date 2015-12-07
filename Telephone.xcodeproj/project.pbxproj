@@ -907,6 +907,8 @@
 			children = (
 				AACC029D1C15DCB100913D7B /* AudioDevicePresenter.swift */,
 				AACC029B1C15DC7600913D7B /* AudioDevicePresenterTests.swift */,
+				AA34AF461073B81500FA38F7 /* SoundPreferencesViewController.h */,
+				AA34AF471073B81500FA38F7 /* SoundPreferencesViewController.m */,
 			);
 			name = Sound;
 			sourceTree = "<group>";
@@ -1025,8 +1027,6 @@
 				AA34AF821073BF5D00FA38F7 /* GeneralPreferencesViewController.m */,
 				AA34AF3C1073B7C700FA38F7 /* AccountPreferencesViewController.h */,
 				AA34AF3D1073B7C700FA38F7 /* AccountPreferencesViewController.m */,
-				AA34AF461073B81500FA38F7 /* SoundPreferencesViewController.h */,
-				AA34AF471073B81500FA38F7 /* SoundPreferencesViewController.m */,
 				AA34AF491073B84700FA38F7 /* NetworkPreferencesViewController.h */,
 				AA34AF4A1073B84700FA38F7 /* NetworkPreferencesViewController.m */,
 			);
