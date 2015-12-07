@@ -1,5 +1,5 @@
 //
-//  SelectedAudioIO.swift
+//  AudioDevicePresenterTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,30 +28,24 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SelectedAudioIO {
-    public let soundInput: AudioDevice
-    public let soundOutput: AudioDevice
-    public let ringtoneOutput: AudioDevice
+import UseCases
+import XCTest
 
-    public init(soundInput: AudioDevice, soundOutput: AudioDevice, ringtoneOutput: AudioDevice) {
-        self.soundInput = soundInput
-        self.soundOutput = soundOutput
-        self.ringtoneOutput = ringtoneOutput
-    }
-}
+class AudioDevicePresenterTests: XCTestCase {
+    func testUpdatesViewWithExpectedData() {
+        let outputSpy = AudioDevicePresenterOutputSpy()
+        let presenter = AudioDevicePresenter(output: outputSpy)
+        let inputDevices = ["input1", "input2"]
+        let outputDevices = ["output1", "output2"]
+        let audioDevices = AudioDevices(inputDevices: inputDevices, outputDevices: outputDevices)
+        let selectedIO = SelectedAudioIO(soundInput: "input2", soundOutput: "output2", ringtoneOutput: "output1")
 
-extension SelectedAudioIO: Equatable {}
+        presenter.update(audioDevices, selectedIO: selectedIO)
 
-public func ==(lhs: SelectedAudioIO, rhs: SelectedAudioIO) -> Bool {
-    return lhs.soundInput == rhs.soundInput && lhs.soundOutput == rhs.soundOutput && lhs.ringtoneOutput == rhs.ringtoneOutput
-}
-
-extension SelectedAudioIO {
-    init(selectedSystemAudioIO: SelectedSystemAudioIO) {
-        self.init(
-            soundInput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundInput),
-            soundOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundOutput),
-            ringtoneOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.ringtoneOutput)
-        )
+        XCTAssertEqual(outputSpy.invokedInputAudioDevices, inputDevices)
+        XCTAssertEqual(outputSpy.invokedOutputAudioDevices, outputDevices)
+        XCTAssertEqual(outputSpy.invokedSoundInputDevice, "input2")
+        XCTAssertEqual(outputSpy.invokedSoundOutputDevice, "output2")
+        XCTAssertEqual(outputSpy.invokedRingtoneOutputDevice, "output1")
     }
 }

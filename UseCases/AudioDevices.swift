@@ -31,8 +31,13 @@
 import Domain
 
 public struct AudioDevices {
-    let inputDevices: [AudioDevice]
-    let outputDevices: [AudioDevice]
+    public let inputDevices: [AudioDevice]
+    public let outputDevices: [AudioDevice]
+
+    public init(inputDevices: [AudioDevice], outputDevices: [AudioDevice]) {
+        self.inputDevices = inputDevices
+        self.outputDevices = outputDevices
+    }
 }
 
 extension AudioDevices: Equatable {}

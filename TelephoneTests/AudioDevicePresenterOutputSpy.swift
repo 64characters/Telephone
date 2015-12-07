@@ -1,5 +1,5 @@
 //
-//  SelectedAudioIO.swift
+//  AudioDevicePresenterOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,30 +28,32 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SelectedAudioIO {
-    public let soundInput: AudioDevice
-    public let soundOutput: AudioDevice
-    public let ringtoneOutput: AudioDevice
+class AudioDevicePresenterOutputSpy {
+    var invokedInputAudioDevices: [String] = []
+    var invokedOutputAudioDevices: [String] = []
+    var invokedSoundInputDevice = ""
+    var invokedSoundOutputDevice = ""
+    var invokedRingtoneOutputDevice = ""
+}
 
-    public init(soundInput: AudioDevice, soundOutput: AudioDevice, ringtoneOutput: AudioDevice) {
-        self.soundInput = soundInput
-        self.soundOutput = soundOutput
-        self.ringtoneOutput = ringtoneOutput
+extension AudioDevicePresenterOutputSpy: AudioDevicePresenterOutput {
+    @objc func setInputAudioDevices(devices: [String]) {
+        invokedInputAudioDevices = devices
     }
-}
 
-extension SelectedAudioIO: Equatable {}
+    @objc func setOutputAudioDevices(devices: [String]) {
+        invokedOutputAudioDevices = devices
+    }
 
-public func ==(lhs: SelectedAudioIO, rhs: SelectedAudioIO) -> Bool {
-    return lhs.soundInput == rhs.soundInput && lhs.soundOutput == rhs.soundOutput && lhs.ringtoneOutput == rhs.ringtoneOutput
-}
+    @objc func setSoundInputDevice(device: String) {
+        invokedSoundInputDevice = device
+    }
 
-extension SelectedAudioIO {
-    init(selectedSystemAudioIO: SelectedSystemAudioIO) {
-        self.init(
-            soundInput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundInput),
-            soundOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundOutput),
-            ringtoneOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.ringtoneOutput)
-        )
+    @objc func setSoundOutputDevice(device: String) {
+        invokedSoundOutputDevice = device
+    }
+
+    @objc func setRingtoneOutputDevice(device: String) {
+        invokedRingtoneOutputDevice = device
     }
 }

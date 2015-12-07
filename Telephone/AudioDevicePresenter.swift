@@ -1,5 +1,5 @@
 //
-//  SelectedAudioIO.swift
+//  AudioDevicePresenter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,30 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SelectedAudioIO {
-    public let soundInput: AudioDevice
-    public let soundOutput: AudioDevice
-    public let ringtoneOutput: AudioDevice
+import UseCases
 
-    public init(soundInput: AudioDevice, soundOutput: AudioDevice, ringtoneOutput: AudioDevice) {
-        self.soundInput = soundInput
-        self.soundOutput = soundOutput
-        self.ringtoneOutput = ringtoneOutput
+@objc protocol AudioDevicePresenterOutput {
+    func setInputAudioDevices(devices: [String])
+    func setOutputAudioDevices(devices: [String])
+    func setSoundInputDevice(device: String)
+    func setSoundOutputDevice(device: String)
+    func setRingtoneOutputDevice(device: String)
+}
+
+class AudioDevicePresenter {
+    let output: AudioDevicePresenterOutput
+
+    init(output: AudioDevicePresenterOutput) {
+        self.output = output
     }
 }
 
-extension SelectedAudioIO: Equatable {}
-
-public func ==(lhs: SelectedAudioIO, rhs: SelectedAudioIO) -> Bool {
-    return lhs.soundInput == rhs.soundInput && lhs.soundOutput == rhs.soundOutput && lhs.ringtoneOutput == rhs.ringtoneOutput
-}
-
-extension SelectedAudioIO {
-    init(selectedSystemAudioIO: SelectedSystemAudioIO) {
-        self.init(
-            soundInput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundInput),
-            soundOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.soundOutput),
-            ringtoneOutput: AudioDevice(systemAudioDevice: selectedSystemAudioIO.ringtoneOutput)
-        )
+extension AudioDevicePresenter: AudioDeviceUpdateInteractorOutput {
+    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO) {
+        output.setInputAudioDevices(audioDevices.inputDevices)
+        output.setOutputAudioDevices(audioDevices.outputDevices)
+        output.setSoundInputDevice(selectedIO.soundInput)
+        output.setSoundOutputDevice(selectedIO.soundOutput)
+        output.setRingtoneOutputDevice(selectedIO.ringtoneOutput)
     }
 }
