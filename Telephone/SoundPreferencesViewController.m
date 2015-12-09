@@ -215,7 +215,7 @@
 }
 
 
-#pragma mark - AudioDevicePresenterOutput
+#pragma mark - SoundIOView
 
 - (void)setInputAudioDevices:(NSArray<NSString *> *)devices {
     self.soundInputPopUp.menu = [self menuForDevices:devices];

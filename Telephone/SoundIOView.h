@@ -1,5 +1,5 @@
 //
-//  SoundPreferencesViewController.h
+//  SoundIOView.h
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,33 +28,10 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Foundation;
 
-#import "SoundIOView.h"
+#import "AudioDevicePresenterOutput.h"
 
-
-// A view controller to manage sound preferences.
-@interface SoundPreferencesViewController : NSViewController <SoundIOView>
-
-// Changes sound input and output devices.
-- (IBAction)changeSoundIO:(id)sender;
-
-/// Changes "Use only G.711".
-- (IBAction)changeUseG711Only:(id)sender;
-
-// Refreshes list of available audio devices.
-- (void)updateAudioDevices;
-
-// Updates the list of available sounds for a ringtone. Sounds are being searched in the following locations.
-//
-// ~/Library/Sounds
-// /Library/Sounds
-// /Network/Library/Sounds
-// /System/Library/Sounds
-//
-- (void)updateAvailableSounds;
-
-// Changes a ringtone sound.
-- (IBAction)changeRingtone:(id)sender;
+@protocol SoundIOView <AudioDevicePresenterOutput>
 
 @end
