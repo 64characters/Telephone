@@ -33,6 +33,8 @@
 #import "AppController.h"
 #import "UserDefaultsKeys.h"
 
+#import "Telephone-Swift.h"
+
 
 @interface SoundPreferencesViewController ()
 
@@ -46,13 +48,16 @@
 
 @implementation SoundPreferencesViewController
 
-- (instancetype)init {
-    self = [super initWithNibName:@"SoundPreferencesView" bundle:nil];
-    if (self != nil) {
-        [self setTitle:NSLocalizedString(@"Sound", @"Sound preferences window title.")];
+- (instancetype)initWithObserver:(id<SoundIOViewObserver>)observer {
+    if ((self = [super initWithNibName:@"SoundPreferencesView" bundle:nil])) {
+        _observer = observer;
+        self.title = NSLocalizedString(@"Sound", @"Sound preferences window title.");
     }
-    
     return self;
+}
+
+- (instancetype)init {
+    return [self initWithObserver:nil];
 }
 
 - (void)awakeFromNib {
@@ -66,6 +71,8 @@
     
     [self updateAvailableSounds];
     [self updateAudioDevices];
+
+    [self.observer viewShouldReloadData:self];
 }
 
 - (void)dealloc {

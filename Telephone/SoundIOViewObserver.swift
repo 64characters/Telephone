@@ -1,5 +1,5 @@
 //
-//  SoundPreferencesViewController.h
+//  SoundIOViewObserver.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,38 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Cocoa/Cocoa.h>
-
-#import "SoundIOView.h"
-
-@protocol SoundIOViewObserver;
-
-// A view controller to manage sound preferences.
-@interface SoundPreferencesViewController : NSViewController <SoundIOView>
-
-@property(nonatomic, readonly) id<SoundIOViewObserver> observer;
-
-- (instancetype)initWithObserver:(id<SoundIOViewObserver>)observer;
-
-// Changes sound input and output devices.
-- (IBAction)changeSoundIO:(id)sender;
-
-/// Changes "Use only G.711".
-- (IBAction)changeUseG711Only:(id)sender;
-
-// Refreshes list of available audio devices.
-- (void)updateAudioDevices;
-
-// Updates the list of available sounds for a ringtone. Sounds are being searched in the following locations.
-//
-// ~/Library/Sounds
-// /Library/Sounds
-// /Network/Library/Sounds
-// /System/Library/Sounds
-//
-- (void)updateAvailableSounds;
-
-// Changes a ringtone sound.
-- (IBAction)changeRingtone:(id)sender;
-
-@end
+@objc protocol SoundIOViewObserver {
+    func viewShouldReloadData(view: SoundIOView)
+}

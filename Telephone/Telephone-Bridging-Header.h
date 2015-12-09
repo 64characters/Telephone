@@ -6,3 +6,4 @@
 
 #import "AKSIPUserAgent.h"
 #import "AudioDevicePresenterOutput.h"
+#import "SoundIOView.h"
