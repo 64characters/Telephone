@@ -36,13 +36,6 @@
 // A view controller to manage sound preferences.
 @interface SoundPreferencesViewController : NSViewController <AudioDevicePresenterOutput>
 
-// Outlets.
-@property(nonatomic, weak) IBOutlet NSPopUpButton *soundInputPopUp;
-@property(nonatomic, weak) IBOutlet NSPopUpButton *soundOutputPopUp;
-@property(nonatomic, weak) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
-@property(nonatomic, weak) IBOutlet NSPopUpButton *ringtonePopUp;
-@property(nonatomic, weak) IBOutlet NSButton *useG711OnlyCheckBox;
-
 // Changes sound input and output devices.
 - (IBAction)changeSoundIO:(id)sender;
 

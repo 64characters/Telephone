@@ -34,6 +34,16 @@
 #import "UserDefaultsKeys.h"
 
 
+@interface SoundPreferencesViewController ()
+
+@property(nonatomic, weak) IBOutlet NSPopUpButton *soundInputPopUp;
+@property(nonatomic, weak) IBOutlet NSPopUpButton *soundOutputPopUp;
+@property(nonatomic, weak) IBOutlet NSPopUpButton *ringtoneOutputPopUp;
+@property(nonatomic, weak) IBOutlet NSPopUpButton *ringtonePopUp;
+@property(nonatomic, weak) IBOutlet NSButton *useG711OnlyCheckBox;
+
+@end
+
 @implementation SoundPreferencesViewController
 
 - (instancetype)init {
