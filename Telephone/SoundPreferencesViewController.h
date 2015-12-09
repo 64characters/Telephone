@@ -30,9 +30,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "AudioDevicePresenterOutput.h"
+
 
 // A view controller to manage sound preferences.
-@interface SoundPreferencesViewController : NSViewController
+@interface SoundPreferencesViewController : NSViewController <AudioDevicePresenterOutput>
 
 // Outlets.
 @property(nonatomic, weak) IBOutlet NSPopUpButton *soundInputPopUp;

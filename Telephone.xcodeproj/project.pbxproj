@@ -510,6 +510,7 @@
 		AACC029B1C15DC7600913D7B /* AudioDevicePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioDevicePresenterTests.swift; path = TelephoneTests/AudioDevicePresenterTests.swift; sourceTree = SOURCE_ROOT; };
 		AACC029D1C15DCB100913D7B /* AudioDevicePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDevicePresenter.swift; sourceTree = "<group>"; };
 		AACC02A01C15E17E00913D7B /* AudioDevicePresenterOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDevicePresenterOutputSpy.swift; sourceTree = "<group>"; };
+		AACC02A51C16046B00913D7B /* AudioDevicePresenterOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioDevicePresenterOutput.h; sourceTree = "<group>"; };
 		AACD92CE0ED434DD00AF8D17 /* AKActiveCallView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKActiveCallView.h; sourceTree = "<group>"; tabWidth = 4; };
 		AACD92CF0ED434DD00AF8D17 /* AKActiveCallView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKActiveCallView.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92130107A5E9F00F142A4 /* ActiveCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ActiveCallViewController.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -905,6 +906,7 @@
 		AA7381331C05CE0C008ABC72 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				AACC02A51C16046B00913D7B /* AudioDevicePresenterOutput.h */,
 				AACC029D1C15DCB100913D7B /* AudioDevicePresenter.swift */,
 				AACC029B1C15DC7600913D7B /* AudioDevicePresenterTests.swift */,
 				AA34AF461073B81500FA38F7 /* SoundPreferencesViewController.h */,

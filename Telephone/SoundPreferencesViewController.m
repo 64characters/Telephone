@@ -205,6 +205,43 @@
 }
 
 
+#pragma mark - AudioDevicePresenterOutput
+
+- (void)setInputAudioDevices:(NSArray<NSString *> *)devices {
+    self.soundInputPopUp.menu = [self menuForDevices:devices];
+}
+
+- (void)setOutputAudioDevices:(NSArray<NSString *> *)devices {
+    self.soundOutputPopUp.menu = [self menuForDevices:devices];
+}
+
+- (void)setSoundInputDevice:(NSString *)device {
+    [self.soundInputPopUp selectItemWithTitle:device];
+}
+
+- (void)setSoundOutputDevice:(NSString *)device {
+    [self.soundOutputPopUp selectItemWithTitle:device];
+}
+
+- (void)setRingtoneOutputDevice:(NSString *)device {
+    [self.ringtoneOutputPopUp selectItemWithTitle:device];
+}
+
+- (NSMenu *)menuForDevices:(NSArray<NSString *> *)devices {
+    NSMenu *menu = [[NSMenu alloc] init];
+    for (NSString *device in devices) {
+        [menu addItem:[self menuItemForDevice:device]];
+    }
+    return menu;
+}
+
+- (NSMenuItem *)menuItemForDevice:(NSString *)device {
+    NSMenuItem *item = [[NSMenuItem alloc] init];
+    item.title = device;
+    return item;
+}
+
+
 #pragma mark -
 #pragma mark NSPopUpButton notification
 

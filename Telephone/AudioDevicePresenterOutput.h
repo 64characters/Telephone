@@ -1,5 +1,5 @@
 //
-//  AudioDevicePresenter.swift
+//  AudioDevicePresenterOutput.h
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,22 +28,15 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
+@import Foundation;
 
-class AudioDevicePresenter {
-    let output: AudioDevicePresenterOutput
+@protocol AudioDevicePresenterOutput <NSObject>
 
-    init(output: AudioDevicePresenterOutput) {
-        self.output = output
-    }
-}
+- (void)setInputAudioDevices:(NSArray<NSString *> *)devices;
+- (void)setOutputAudioDevices:(NSArray<NSString *> *)devices;
 
-extension AudioDevicePresenter: AudioDeviceUpdateInteractorOutput {
-    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO) {
-        output.setInputAudioDevices(audioDevices.inputDevices)
-        output.setOutputAudioDevices(audioDevices.outputDevices)
-        output.setSoundInputDevice(selectedIO.soundInput)
-        output.setSoundOutputDevice(selectedIO.soundOutput)
-        output.setRingtoneOutputDevice(selectedIO.ringtoneOutput)
-    }
-}
+- (void)setSoundInputDevice:(NSString *)device;
+- (void)setSoundOutputDevice:(NSString *)device;
+- (void)setRingtoneOutputDevice:(NSString *)device;
+
+@end

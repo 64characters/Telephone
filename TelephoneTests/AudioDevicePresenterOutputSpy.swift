@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class AudioDevicePresenterOutputSpy {
+class AudioDevicePresenterOutputSpy: NSObject {
     var invokedInputAudioDevices: [String] = []
     var invokedOutputAudioDevices: [String] = []
     var invokedSoundInputDevice = ""
@@ -37,23 +37,23 @@ class AudioDevicePresenterOutputSpy {
 }
 
 extension AudioDevicePresenterOutputSpy: AudioDevicePresenterOutput {
-    @objc func setInputAudioDevices(devices: [String]) {
+    func setInputAudioDevices(devices: [String]) {
         invokedInputAudioDevices = devices
     }
 
-    @objc func setOutputAudioDevices(devices: [String]) {
+    func setOutputAudioDevices(devices: [String]) {
         invokedOutputAudioDevices = devices
     }
 
-    @objc func setSoundInputDevice(device: String) {
+    func setSoundInputDevice(device: String) {
         invokedSoundInputDevice = device
     }
 
-    @objc func setSoundOutputDevice(device: String) {
+    func setSoundOutputDevice(device: String) {
         invokedSoundOutputDevice = device
     }
 
-    @objc func setRingtoneOutputDevice(device: String) {
+    func setRingtoneOutputDevice(device: String) {
         invokedRingtoneOutputDevice = device
     }
 }
