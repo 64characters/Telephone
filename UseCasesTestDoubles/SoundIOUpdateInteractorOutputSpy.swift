@@ -32,13 +32,13 @@ import UseCases
 
 public class SoundIOUpdateInteractorOutputSpy {
     public private(set) var audioDevices: AudioDevices?
-    public private(set) var selectedIO: SelectedAudioIO?
+    public private(set) var selectedIO: SelectedSoundIO?
 
     public init() {}
 }
 
 extension SoundIOUpdateInteractorOutputSpy: SoundIOUpdateInteractorOutput {
-    public func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO) {
+    public func update(audioDevices: AudioDevices, selectedIO: SelectedSoundIO) {
         self.audioDevices = audioDevices
         self.selectedIO = selectedIO
     }

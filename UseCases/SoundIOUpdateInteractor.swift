@@ -31,7 +31,7 @@
 import Domain
 
 public protocol SoundIOUpdateInteractorOutput {
-    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO)
+    func update(audioDevices: AudioDevices, selectedIO: SelectedSoundIO)
 }
 
 public class SoundIOUpdateInteractor {
@@ -51,7 +51,7 @@ extension SoundIOUpdateInteractor: ThrowingInteractor {
         let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
         let selectedSystemAudioIO = try SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
         let audioDevices = AudioDevices(systemAudioDevices: systemAudioDevices)
-        let selectedAudioIO = SelectedAudioIO(selectedSystemAudioIO: selectedSystemAudioIO)
-        output.update(audioDevices, selectedIO: selectedAudioIO)
+        let selectedSoundIO = SelectedSoundIO(selectedSystemAudioIO: selectedSystemAudioIO)
+        output.update(audioDevices, selectedIO: selectedSoundIO)
     }
 }
