@@ -1,5 +1,5 @@
 //
-//  AudioDeviceUpdateInteractorTests.swift
+//  SoundIOUpdateInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -34,12 +34,12 @@ import DomainTestDoubles
 import UseCasesTestDoubles
 import XCTest
 
-class AudioDeviceUpdateInteractorTests: XCTestCase {
+class SoundIOUpdateInteractorTests: XCTestCase {
     private var audioDeviceFactory: SystemAudioDeviceTestFactory!
     private var systemAudioDevices: SystemAudioDevices!
     private var audioDeviceRepositoryStub: SystemAudioDeviceRepositoryStub!
     private var userDefaultsDummy: UserDefaultsStub!
-    private var outputSpy: AudioDeviceUpdateInteractorOutputSpy!
+    private var outputSpy: SoundIOUpdateInteractorOutputSpy!
 
     override func setUp() {
         super.setUp()
@@ -48,11 +48,11 @@ class AudioDeviceUpdateInteractorTests: XCTestCase {
         audioDeviceRepositoryStub = SystemAudioDeviceRepositoryStub()
         audioDeviceRepositoryStub.allDevicesResult = audioDeviceFactory.allDevices
         userDefaultsDummy = UserDefaultsStub()
-        outputSpy = AudioDeviceUpdateInteractorOutputSpy()
+        outputSpy = SoundIOUpdateInteractorOutputSpy()
     }
 
     func testCallsOutputWithExpectedAudioDevices() {
-        let interactor = AudioDeviceUpdateInteractor(
+        let interactor = SoundIOUpdateInteractor(
             systemAudioDeviceRepository: audioDeviceRepositoryStub,
             userDefaults: userDefaultsDummy,
             output: outputSpy

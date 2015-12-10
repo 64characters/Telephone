@@ -5,5 +5,5 @@
 #import <pjsua-lib/pjsua.h>
 
 #import "AKSIPUserAgent.h"
-#import "AudioDevicePresenterOutput.h"
-#import "SoundIOView.h"
+#import "SoundIOPresenterOutput.h"
+#import "SoundPreferencesView.h"

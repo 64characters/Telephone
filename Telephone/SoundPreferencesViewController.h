@@ -30,16 +30,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "SoundIOView.h"
+#import "SoundPreferencesView.h"
 
-@protocol SoundIOViewObserver;
+@protocol SoundPreferencesViewObserver;
 
 // A view controller to manage sound preferences.
-@interface SoundPreferencesViewController : NSViewController <SoundIOView>
+@interface SoundPreferencesViewController : NSViewController <SoundPreferencesView>
 
-@property(nonatomic, readonly) id<SoundIOViewObserver> observer;
+@property(nonatomic, readonly) id<SoundPreferencesViewObserver> observer;
 
-- (instancetype)initWithObserver:(id<SoundIOViewObserver>)observer;
+- (instancetype)initWithObserver:(id<SoundPreferencesViewObserver>)observer;
 
 // Changes sound input and output devices.
 - (IBAction)changeSoundIO:(id)sender;

@@ -1,5 +1,5 @@
 //
-//  SoundIOView.h
+//  SoundIOPresenterOutput.h
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,8 +30,13 @@
 
 @import Foundation;
 
-#import "AudioDevicePresenterOutput.h"
+@protocol SoundIOPresenterOutput <NSObject>
 
-@protocol SoundIOView <AudioDevicePresenterOutput>
+- (void)setInputAudioDevices:(NSArray<NSString *> *)devices;
+- (void)setOutputAudioDevices:(NSArray<NSString *> *)devices;
+
+- (void)setSoundInputDevice:(NSString *)device;
+- (void)setSoundOutputDevice:(NSString *)device;
+- (void)setRingtoneOutputDevice:(NSString *)device;
 
 @end

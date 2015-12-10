@@ -48,7 +48,7 @@
 
 @implementation SoundPreferencesViewController
 
-- (instancetype)initWithObserver:(id<SoundIOViewObserver>)observer {
+- (instancetype)initWithObserver:(id<SoundPreferencesViewObserver>)observer {
     if ((self = [super initWithNibName:@"SoundPreferencesView" bundle:nil])) {
         _observer = observer;
         self.title = NSLocalizedString(@"Sound", @"Sound preferences window title.");

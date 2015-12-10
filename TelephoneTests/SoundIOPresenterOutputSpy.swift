@@ -1,5 +1,5 @@
 //
-//  AudioDevicePresenterTests.swift
+//  SoundIOPresenterOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,24 +28,32 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
-import XCTest
+class SoundIOPresenterOutputSpy: NSObject {
+    var invokedInputAudioDevices: [String] = []
+    var invokedOutputAudioDevices: [String] = []
+    var invokedSoundInputDevice = ""
+    var invokedSoundOutputDevice = ""
+    var invokedRingtoneOutputDevice = ""
+}
 
-class AudioDevicePresenterTests: XCTestCase {
-    func testUpdatesViewWithExpectedData() {
-        let outputSpy = AudioDevicePresenterOutputSpy()
-        let presenter = AudioDevicePresenter(output: outputSpy)
-        let inputDevices = ["input1", "input2"]
-        let outputDevices = ["output1", "output2"]
-        let audioDevices = AudioDevices(inputDevices: inputDevices, outputDevices: outputDevices)
-        let selectedIO = SelectedAudioIO(soundInput: "input2", soundOutput: "output2", ringtoneOutput: "output1")
+extension SoundIOPresenterOutputSpy: SoundIOPresenterOutput {
+    func setInputAudioDevices(devices: [String]) {
+        invokedInputAudioDevices = devices
+    }
 
-        presenter.update(audioDevices, selectedIO: selectedIO)
+    func setOutputAudioDevices(devices: [String]) {
+        invokedOutputAudioDevices = devices
+    }
 
-        XCTAssertEqual(outputSpy.invokedInputAudioDevices, inputDevices)
-        XCTAssertEqual(outputSpy.invokedOutputAudioDevices, outputDevices)
-        XCTAssertEqual(outputSpy.invokedSoundInputDevice, "input2")
-        XCTAssertEqual(outputSpy.invokedSoundOutputDevice, "output2")
-        XCTAssertEqual(outputSpy.invokedRingtoneOutputDevice, "output1")
+    func setSoundInputDevice(device: String) {
+        invokedSoundInputDevice = device
+    }
+
+    func setSoundOutputDevice(device: String) {
+        invokedSoundOutputDevice = device
+    }
+
+    func setRingtoneOutputDevice(device: String) {
+        invokedRingtoneOutputDevice = device
     }
 }

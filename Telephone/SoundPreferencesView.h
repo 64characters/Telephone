@@ -1,5 +1,5 @@
 //
-//  SoundIOViewObserver.swift
+//  SoundPreferencesView.h
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,6 +28,10 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@objc protocol SoundIOViewObserver {
-    func viewShouldReloadData(view: SoundIOView)
-}
+@import Foundation;
+
+#import "SoundIOPresenterOutput.h"
+
+@protocol SoundPreferencesView <SoundIOPresenterOutput>
+
+@end

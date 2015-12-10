@@ -1,5 +1,5 @@
 //
-//  AudioDevicePresenter.swift
+//  SoundIOUpdateInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,22 +28,30 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
+import Domain
 
-class AudioDevicePresenter {
-    let output: AudioDevicePresenterOutput
+public protocol SoundIOUpdateInteractorOutput {
+    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO)
+}
 
-    init(output: AudioDevicePresenterOutput) {
+public class SoundIOUpdateInteractor {
+    let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    let userDefaults: UserDefaults
+    let output: SoundIOUpdateInteractorOutput
+
+    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: SoundIOUpdateInteractorOutput) {
+        self.systemAudioDeviceRepository = systemAudioDeviceRepository
+        self.userDefaults = userDefaults
         self.output = output
     }
 }
 
-extension AudioDevicePresenter: AudioDeviceUpdateInteractorOutput {
-    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO) {
-        output.setInputAudioDevices(audioDevices.inputDevices)
-        output.setOutputAudioDevices(audioDevices.outputDevices)
-        output.setSoundInputDevice(selectedIO.soundInput)
-        output.setSoundOutputDevice(selectedIO.soundOutput)
-        output.setRingtoneOutputDevice(selectedIO.ringtoneOutput)
+extension SoundIOUpdateInteractor: ThrowingInteractor {
+    public func execute() throws {
+        let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
+        let selectedSystemAudioIO = try SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
+        let audioDevices = AudioDevices(systemAudioDevices: systemAudioDevices)
+        let selectedAudioIO = SelectedAudioIO(selectedSystemAudioIO: selectedSystemAudioIO)
+        output.update(audioDevices, selectedIO: selectedAudioIO)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  AudioDevicePresenterOutput.h
+//  SoundIOPresenterTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,15 +28,24 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@import Foundation;
+import UseCases
+import XCTest
 
-@protocol AudioDevicePresenterOutput <NSObject>
+class SoundIOPresenterTests: XCTestCase {
+    func testUpdatesViewWithExpectedData() {
+        let outputSpy = SoundIOPresenterOutputSpy()
+        let presenter = SoundIOPresenter(output: outputSpy)
+        let inputDevices = ["input1", "input2"]
+        let outputDevices = ["output1", "output2"]
+        let audioDevices = AudioDevices(inputDevices: inputDevices, outputDevices: outputDevices)
+        let selectedIO = SelectedAudioIO(soundInput: "input2", soundOutput: "output2", ringtoneOutput: "output1")
 
-- (void)setInputAudioDevices:(NSArray<NSString *> *)devices;
-- (void)setOutputAudioDevices:(NSArray<NSString *> *)devices;
+        presenter.update(audioDevices, selectedIO: selectedIO)
 
-- (void)setSoundInputDevice:(NSString *)device;
-- (void)setSoundOutputDevice:(NSString *)device;
-- (void)setRingtoneOutputDevice:(NSString *)device;
-
-@end
+        XCTAssertEqual(outputSpy.invokedInputAudioDevices, inputDevices)
+        XCTAssertEqual(outputSpy.invokedOutputAudioDevices, outputDevices)
+        XCTAssertEqual(outputSpy.invokedSoundInputDevice, "input2")
+        XCTAssertEqual(outputSpy.invokedSoundOutputDevice, "output2")
+        XCTAssertEqual(outputSpy.invokedRingtoneOutputDevice, "output1")
+    }
+}

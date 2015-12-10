@@ -1,5 +1,5 @@
 //
-//  AudioDeviceUpdateInteractor.swift
+//  SoundPreferencesViewObserver.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,30 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Domain
-
-public protocol AudioDeviceUpdateInteractorOutput {
-    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO)
-}
-
-public class AudioDeviceUpdateInteractor {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
-    let output: AudioDeviceUpdateInteractorOutput
-
-    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: AudioDeviceUpdateInteractorOutput) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
-        self.userDefaults = userDefaults
-        self.output = output
-    }
-}
-
-extension AudioDeviceUpdateInteractor: ThrowingInteractor {
-    public func execute() throws {
-        let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
-        let selectedSystemAudioIO = try SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
-        let audioDevices = AudioDevices(systemAudioDevices: systemAudioDevices)
-        let selectedAudioIO = SelectedAudioIO(selectedSystemAudioIO: selectedSystemAudioIO)
-        output.update(audioDevices, selectedIO: selectedAudioIO)
-    }
+@objc protocol SoundPreferencesViewObserver {
+    func viewShouldReloadData(view: SoundPreferencesView)
 }

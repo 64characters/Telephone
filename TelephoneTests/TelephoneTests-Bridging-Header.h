@@ -3,5 +3,5 @@
 //
 
 #import "AKSIPUserAgentNotifications.h"
-#import "AudioDevicePresenterOutput.h"
+#import "SoundIOPresenterOutput.h"
 #import "UserDefaultsKeys.h"

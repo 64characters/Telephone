@@ -1,5 +1,5 @@
 //
-//  AudioDevicePresenterOutputSpy.swift
+//  SoundIOPresenter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,32 +28,22 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class AudioDevicePresenterOutputSpy: NSObject {
-    var invokedInputAudioDevices: [String] = []
-    var invokedOutputAudioDevices: [String] = []
-    var invokedSoundInputDevice = ""
-    var invokedSoundOutputDevice = ""
-    var invokedRingtoneOutputDevice = ""
+import UseCases
+
+class SoundIOPresenter {
+    let output: SoundIOPresenterOutput
+
+    init(output: SoundIOPresenterOutput) {
+        self.output = output
+    }
 }
 
-extension AudioDevicePresenterOutputSpy: AudioDevicePresenterOutput {
-    func setInputAudioDevices(devices: [String]) {
-        invokedInputAudioDevices = devices
-    }
-
-    func setOutputAudioDevices(devices: [String]) {
-        invokedOutputAudioDevices = devices
-    }
-
-    func setSoundInputDevice(device: String) {
-        invokedSoundInputDevice = device
-    }
-
-    func setSoundOutputDevice(device: String) {
-        invokedSoundOutputDevice = device
-    }
-
-    func setRingtoneOutputDevice(device: String) {
-        invokedRingtoneOutputDevice = device
+extension SoundIOPresenter: SoundIOUpdateInteractorOutput {
+    func update(audioDevices: AudioDevices, selectedIO: SelectedAudioIO) {
+        output.setInputAudioDevices(audioDevices.inputDevices)
+        output.setOutputAudioDevices(audioDevices.outputDevices)
+        output.setSoundInputDevice(selectedIO.soundInput)
+        output.setSoundOutputDevice(selectedIO.soundOutput)
+        output.setRingtoneOutputDevice(selectedIO.ringtoneOutput)
     }
 }
