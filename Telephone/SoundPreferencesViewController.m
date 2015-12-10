@@ -57,7 +57,7 @@
 }
 
 - (instancetype)init {
-    return [self initWithObserver:nil];
+    assert(NO);
 }
 
 - (void)awakeFromNib {

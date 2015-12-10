@@ -99,6 +99,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate, PreferencesControllerDelegate>
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
+@property(nonatomic, readonly) PreferencesController *preferencesController;
 
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
@@ -121,19 +122,10 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 @implementation AppController
 
-@synthesize preferencesController = _preferencesController;
 @synthesize accountSetupController = _accountSetupController;
 
 - (NSArray *)enabledAccountControllers {
     return [[self accountControllers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"enabled == YES"]];
-}
-
-- (PreferencesController *)preferencesController {
-    if (_preferencesController == nil) {
-        _preferencesController = [[PreferencesController alloc] init];
-        [_preferencesController setDelegate:self];
-    }
-    return _preferencesController;
 }
 
 - (AccountSetupController *)accountSetupController {
@@ -288,10 +280,11 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         return nil;
     }
 
-    _compositionRoot = [[CompositionRoot alloc] init];
+    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self];
     
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];
+    _preferencesController = _compositionRoot.preferencesController;
     _accountControllers = [[NSMutableArray alloc] init];
     [self setSoundInputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
     [self setSoundOutputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
@@ -385,10 +378,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 }
 
 - (void)dealloc {
-    if ([[_preferencesController delegate] isEqual:self]) {
-        [_preferencesController setDelegate:nil];
-    }
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];

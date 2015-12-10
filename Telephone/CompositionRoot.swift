@@ -33,25 +33,31 @@ import UseCases
 
 class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
+    let preferencesController: PreferencesController
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
     private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
     private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
 
-    override init() {
+    init(preferencesControllerDelegate: PreferencesControllerDelegate) {
         userAgent = AKSIPUserAgent.sharedUserAgent()
         userDefaults = NSUserDefaults.standardUserDefaults()
         queue = createQueue()
 
         let audioDevices = SystemAudioDevices()
+        let interactorFactory = InteractorFactoryImpl(systemAudioDeviceRepository: audioDevices, userDefaults: userDefaults)
+
+        preferencesController = PreferencesController(
+            delegate: preferencesControllerDelegate,
+            soundPreferencesViewObserver: SoundPreferencesViewEventHandler(
+                presenterFactory: PresenterFactoryImpl(),
+                interactorFactory: interactorFactory
+            )
+        )
+
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(
-            observer: UserAgentAudioDeviceSelector(
-                interactorFactory: InteractorFactoryImpl(
-                    systemAudioDeviceRepository: audioDevices,
-                    userDefaults: userDefaults
-                )
-            ),
+            observer: UserAgentAudioDeviceSelector(interactorFactory: interactorFactory),
             userAgent: userAgent
         )
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(

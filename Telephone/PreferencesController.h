@@ -32,6 +32,9 @@
 
 #import "PreferencesControllerDelegate.h"
 
+@protocol SoundPreferencesViewObserver;
+
+NS_ASSUME_NONNULL_BEGIN
 
 // Preferences window toolbar items tags.
 enum {
@@ -67,8 +70,8 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 // A preferences controller.
 @interface PreferencesController : NSWindowController
 
-// The receiver's delegate.
-@property(nonatomic, weak) id<PreferencesControllerDelegate> delegate;
+@property(nonatomic, readonly, weak) id<PreferencesControllerDelegate> delegate;
+@property(nonatomic, readonly) id<SoundPreferencesViewObserver> soundPreferencesViewObserver;
 
 // General preferences view controller.
 @property(nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
@@ -90,7 +93,12 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @property(nonatomic, weak) IBOutlet NSToolbarItem *soundToolbarItem;
 @property(nonatomic, weak) IBOutlet NSToolbarItem *networkToolbarItem;
 
+- (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
+    soundPreferencesViewObserver:(id<SoundPreferencesViewObserver>)soundPreferencesViewObserver;
+
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -116,7 +116,7 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 - (SoundPreferencesViewController *)soundPreferencesViewController {
     if (_soundPreferencesViewController == nil) {
-        _soundPreferencesViewController = [[SoundPreferencesViewController alloc] init];
+        _soundPreferencesViewController = [[SoundPreferencesViewController alloc] initWithObserver:_soundPreferencesViewObserver];
     }
     return _soundPreferencesViewController;
 }
@@ -129,9 +129,12 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
     return _networkPreferencesViewController;
 }
 
-- (instancetype)init {
-    self = [super initWithWindowNibName:@"Preferences"];
-    
+- (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
+    soundPreferencesViewObserver:(id<SoundPreferencesViewObserver>)soundPreferencesViewObserver {
+    if ((self = [super initWithWindowNibName:@"Preferences"])) {
+        self.delegate = delegate;
+        _soundPreferencesViewObserver = soundPreferencesViewObserver;
+    }
     return self;
 }
 

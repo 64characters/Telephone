@@ -63,9 +63,6 @@ extern NSString * const kGrowlNotificationCallEnded;
 // An array of account controllers which are currently enabled.
 @property(nonatomic, readonly, strong) NSArray *enabledAccountControllers;
 
-// Preferences controller.
-@property(nonatomic, readonly) PreferencesController *preferencesController;
-
 // Account setup controller.
 @property(nonatomic, readonly) AccountSetupController *accountSetupController;
 
