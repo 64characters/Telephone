@@ -33,7 +33,7 @@ import XCTest
 
 class SoundIOPresenterTests: XCTestCase {
     func testUpdatesViewWithExpectedData() {
-        let outputSpy = SoundIOPresenterOutputSpy()
+        let outputSpy = SoundPreferencesViewSpy()
         let presenter = SoundIOPresenter(output: outputSpy)
         let inputDevices = ["input1", "input2"]
         let outputDevices = ["output1", "output2"]

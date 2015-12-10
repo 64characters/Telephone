@@ -26,8 +26,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
-
-protocol InteractorFactory {
+public protocol InteractorFactory {
     func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor
+    func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor
 }

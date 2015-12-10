@@ -30,16 +30,18 @@
 
 import UseCases
 
-class InteractorFactoryStub {
-    let interactor: ThrowingInteractor
-
-    init(interactor: ThrowingInteractor) {
-        self.interactor = interactor
-    }
+public class InteractorFactoryStub {
+    public var userAgentAudioDeviceSelectionInteractor: ThrowingInteractor!
+    public var soundIOUpdateInteractor: ThrowingInteractor!
+    public init() {}
 }
 
 extension InteractorFactoryStub: InteractorFactory {
-    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return interactor
+    public func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
+        return userAgentAudioDeviceSelectionInteractor
+    }
+
+    public func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
+        return soundIOUpdateInteractor
     }
 }

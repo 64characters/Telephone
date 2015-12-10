@@ -1,6 +1,8 @@
 //
-//  InteractorFactoryImpl.swift
+//  SoundPreferencesViewEventHandlerTests.swift
 //  Telephone
+//
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -26,24 +28,21 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
+import UseCasesTestDoubles
+import XCTest
 
-class InteractorFactoryImpl {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
+class SoundPreferencesViewEventHandlerTests: XCTestCase {
+    func testExecutesInteractorOnViewDataReload() {
+        let interactorSpy = ThrowingInteractorSpy()
+        let interactorFactoryStub = InteractorFactoryStub()
+        interactorFactoryStub.soundIOUpdateInteractor = interactorSpy
+        let eventHandler = SoundPreferencesViewEventHandler(
+            presenterFactory: PresenterFactoryImpl(),
+            interactorFactory: interactorFactoryStub
+        )
 
-    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
-        self.userDefaults = userDefaults
-    }
-}
+        eventHandler.viewShouldReloadData(SoundPreferencesViewSpy())
 
-extension InteractorFactoryImpl: InteractorFactory {
-    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: systemAudioDeviceRepository, userAgent: userAgent, userDefaults: userDefaults)
-    }
-
-    func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
-        fatalError()
+        XCTAssertTrue(interactorSpy.didCallExecute)
     }
 }

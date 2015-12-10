@@ -1,6 +1,8 @@
 //
-//  InteractorFactoryImpl.swift
+//  SoundPreferencesViewEventHandler.swift
 //  Telephone
+//
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -28,22 +30,25 @@
 
 import UseCases
 
-class InteractorFactoryImpl {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
+class SoundPreferencesViewEventHandler: NSObject {
+    let presenterFactory: PresenterFactory
+    let interactorFactory: InteractorFactory
 
-    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
-        self.userDefaults = userDefaults
+    init(presenterFactory: PresenterFactory, interactorFactory: InteractorFactory) {
+        self.presenterFactory = presenterFactory
+        self.interactorFactory = interactorFactory
     }
 }
 
-extension InteractorFactoryImpl: InteractorFactory {
-    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: systemAudioDeviceRepository, userAgent: userAgent, userDefaults: userDefaults)
-    }
-
-    func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
-        fatalError()
+extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
+    func viewShouldReloadData(view: SoundPreferencesView) {
+        let interactor = interactorFactory.createSoundIOUpdateInteractorWithOutput(
+            presenterFactory.createSoundIOPresenterWithOutput(view)
+        )
+        do {
+            try interactor.execute()
+        } catch {
+            print("Could not load Sound IO view data")
+        }
     }
 }

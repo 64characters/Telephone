@@ -1,6 +1,8 @@
 //
-//  InteractorFactoryImpl.swift
+//  SoundPreferencesViewSpy.swift
 //  Telephone
+//
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -26,24 +28,32 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
-
-class InteractorFactoryImpl {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
-
-    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
-        self.userDefaults = userDefaults
-    }
+class SoundPreferencesViewSpy: NSObject {
+    var invokedInputAudioDevices: [String] = []
+    var invokedOutputAudioDevices: [String] = []
+    var invokedSoundInputDevice = ""
+    var invokedSoundOutputDevice = ""
+    var invokedRingtoneOutputDevice = ""
 }
 
-extension InteractorFactoryImpl: InteractorFactory {
-    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: systemAudioDeviceRepository, userAgent: userAgent, userDefaults: userDefaults)
+extension SoundPreferencesViewSpy: SoundPreferencesView {
+    func setInputAudioDevices(devices: [String]) {
+        invokedInputAudioDevices = devices
     }
 
-    func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
-        fatalError()
+    func setOutputAudioDevices(devices: [String]) {
+        invokedOutputAudioDevices = devices
+    }
+
+    func setSoundInputDevice(device: String) {
+        invokedSoundInputDevice = device
+    }
+
+    func setSoundOutputDevice(device: String) {
+        invokedSoundOutputDevice = device
+    }
+
+    func setRingtoneOutputDevice(device: String) {
+        invokedRingtoneOutputDevice = device
     }
 }

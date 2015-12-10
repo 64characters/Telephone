@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenterOutputSpy.swift
+//  PresenterFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,32 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class SoundIOPresenterOutputSpy: NSObject {
-    var invokedInputAudioDevices: [String] = []
-    var invokedOutputAudioDevices: [String] = []
-    var invokedSoundInputDevice = ""
-    var invokedSoundOutputDevice = ""
-    var invokedRingtoneOutputDevice = ""
-}
-
-extension SoundIOPresenterOutputSpy: SoundIOPresenterOutput {
-    func setInputAudioDevices(devices: [String]) {
-        invokedInputAudioDevices = devices
-    }
-
-    func setOutputAudioDevices(devices: [String]) {
-        invokedOutputAudioDevices = devices
-    }
-
-    func setSoundInputDevice(device: String) {
-        invokedSoundInputDevice = device
-    }
-
-    func setSoundOutputDevice(device: String) {
-        invokedSoundOutputDevice = device
-    }
-
-    func setRingtoneOutputDevice(device: String) {
-        invokedRingtoneOutputDevice = device
-    }
+protocol PresenterFactory {
+    func createSoundIOPresenterWithOutput(output: SoundIOPresenterOutput) -> SoundIOPresenter
 }

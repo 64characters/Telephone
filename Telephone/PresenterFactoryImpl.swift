@@ -1,6 +1,8 @@
 //
-//  InteractorFactoryImpl.swift
+//  PresenterFactoryImpl.swift
 //  Telephone
+//
+//  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -26,24 +28,12 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
+class PresenterFactoryImpl {
 
-class InteractorFactoryImpl {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
-
-    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
-        self.userDefaults = userDefaults
-    }
 }
 
-extension InteractorFactoryImpl: InteractorFactory {
-    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: systemAudioDeviceRepository, userAgent: userAgent, userDefaults: userDefaults)
-    }
-
-    func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
-        fatalError()
+extension PresenterFactoryImpl: PresenterFactory {
+    func createSoundIOPresenterWithOutput(output: SoundIOPresenterOutput) -> SoundIOPresenter {
+        return SoundIOPresenter(output: output)
     }
 }

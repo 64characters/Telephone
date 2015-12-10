@@ -35,7 +35,8 @@ import XCTest
 class UserAgentAudioDeviceSelectorTests: XCTestCase {
     func testCallExecuteWhenUserAgentFinishesStarting() {
         let interactorSpy = ThrowingInteractorSpy()
-        let factoryStub = InteractorFactoryStub(interactor: interactorSpy)
+        let factoryStub = InteractorFactoryStub()
+        factoryStub.userAgentAudioDeviceSelectionInteractor = interactorSpy
         let deviceSelector = UserAgentAudioDeviceSelector(interactorFactory: factoryStub)
         let userAgentDummy = UserAgentSpy()
 
