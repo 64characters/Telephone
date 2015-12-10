@@ -1,5 +1,5 @@
 //
-//  FirstSystemAudioIO.swift
+//  FirstSystemSoundIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct FirstSystemAudioIO {
+struct FirstSystemSoundIO {
     let input: SystemAudioDevice
     let output: SystemAudioDevice
 

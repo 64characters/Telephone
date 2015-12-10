@@ -1,5 +1,5 @@
 //
-//  FirstSystemAudioIOTests.swift
+//  FirstSystemSoundIOTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -32,7 +32,7 @@
 import DomainTestDoubles
 import XCTest
 
-class FirstSystemAudioIOTests: XCTestCase {
+class FirstSystemSoundIOTests: XCTestCase {
     private var deviceFactory: SystemAudioDeviceTestFactory!
 
     override func setUp() {
@@ -43,16 +43,16 @@ class FirstSystemAudioIOTests: XCTestCase {
     func testInputIsFirstInputDevice() {
         let devices = [deviceFactory.someOutputDevice, deviceFactory.inputOnlyDevice, deviceFactory.firstBuiltInInput]
 
-        let audioIO = try! FirstSystemAudioIO(devices: devices)
+        let soundIO = try! FirstSystemSoundIO(devices: devices)
 
-        XCTAssertEqual(audioIO.input, deviceFactory.inputOnlyDevice)
+        XCTAssertEqual(soundIO.input, deviceFactory.inputOnlyDevice)
     }
 
     func testOutputIsFirstOutputDevice() {
         let devices = [deviceFactory.someInputDevice, deviceFactory.outputOnlyDevice, deviceFactory.firstBuiltInOutput]
 
-        let audioIO = try! FirstSystemAudioIO(devices: devices)
+        let soundIO = try! FirstSystemSoundIO(devices: devices)
 
-        XCTAssertEqual(audioIO.output, deviceFactory.outputOnlyDevice)
+        XCTAssertEqual(soundIO.output, deviceFactory.outputOnlyDevice)
     }
 }
