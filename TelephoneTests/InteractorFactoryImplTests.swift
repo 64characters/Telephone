@@ -31,10 +31,18 @@ import UseCasesTestDoubles
 import XCTest
 
 class InteractorFactoryImplTests: XCTestCase {
-    func testCanMakeUserAgentAudioDeviceSelectionInteractor() {
-        let repositoryDummy = SystemAudioDeviceRepositoryStub()
-        let userDefaultsDummy = UserDefaultsStub()
-        let factory = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
+    var repositoryDummy: SystemAudioDeviceRepository!
+    var userDefaultsDummy: UserDefaults!
+    var factory: InteractorFactoryImpl!
+
+    override func setUp() {
+        super.setUp()
+        repositoryDummy = SystemAudioDeviceRepositoryStub()
+        userDefaultsDummy = UserDefaultsStub()
+        factory = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
+    }
+
+    func testCanCreateUserAgentAudioDeviceSelectionInteractor() {
         let userAgentDummy = UserAgentSpy()
 
         let interactor = factory.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgentDummy) as! UserAgentAudioDeviceSelectionInteractor
@@ -43,5 +51,16 @@ class InteractorFactoryImplTests: XCTestCase {
         XCTAssertTrue(interactor.systemAudioDeviceRepository === repositoryDummy)
         XCTAssertTrue(interactor.userAgent === userAgentDummy)
         XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
+    }
+
+    func testCanCreateSoundIOUpdateInteractor() {
+        let outputDummy = SoundIOUpdateInteractorOutputSpy()
+
+        let interactor: SoundIOUpdateInteractor = factory.createSoundIOUpdateInteractorWithOutput(outputDummy) as! SoundIOUpdateInteractor
+
+        XCTAssertNotNil(interactor)
+        XCTAssertTrue(interactor.systemAudioDeviceRepository === repositoryDummy)
+        XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
+        XCTAssertTrue(interactor.output === outputDummy)
     }
 }

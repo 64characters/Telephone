@@ -40,10 +40,18 @@ class InteractorFactoryImpl {
 
 extension InteractorFactoryImpl: InteractorFactory {
     func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: systemAudioDeviceRepository, userAgent: userAgent, userDefaults: userDefaults)
+        return UserAgentAudioDeviceSelectionInteractor(
+            systemAudioDeviceRepository: systemAudioDeviceRepository,
+            userAgent: userAgent,
+            userDefaults: userDefaults
+        )
     }
 
     func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
-        fatalError()
+        return SoundIOUpdateInteractor(
+            systemAudioDeviceRepository: systemAudioDeviceRepository,
+            userDefaults: userDefaults,
+            output: output
+        )
     }
 }

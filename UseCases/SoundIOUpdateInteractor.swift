@@ -30,14 +30,14 @@
 
 import Domain
 
-public protocol SoundIOUpdateInteractorOutput {
+public protocol SoundIOUpdateInteractorOutput: class {
     func update(audioDevices: AudioDevices, selectedIO: SelectedSoundIO)
 }
 
 public class SoundIOUpdateInteractor {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
-    let output: SoundIOUpdateInteractorOutput
+    public let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    public let userDefaults: UserDefaults
+    public let output: SoundIOUpdateInteractorOutput
 
     public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: SoundIOUpdateInteractorOutput) {
         self.systemAudioDeviceRepository = systemAudioDeviceRepository
