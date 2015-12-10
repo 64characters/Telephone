@@ -1,5 +1,5 @@
 //
-//  SelectedSystemAudioIOTests.swift
+//  SelectedSystemSoundIOTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -34,7 +34,7 @@ import DomainTestDoubles
 import UseCasesTestDoubles
 import XCTest
 
-class SelectedSystemAudioIOTests: XCTestCase {
+class SelectedSystemSoundIOTests: XCTestCase {
     private var deviceFactory: SystemAudioDeviceTestFactory!
     private var systemDevices: SystemAudioDevices!
     private var userDefaultsStub: UserDefaultsStub!
@@ -147,8 +147,8 @@ class SelectedSystemAudioIOTests: XCTestCase {
 
     // MARK: - Helper
 
-    private func createSelectedIO() -> SelectedSystemAudioIO {
-        return try! SelectedSystemAudioIO(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
+    private func createSelectedIO() -> SelectedSystemSoundIO {
+        return try! SelectedSystemSoundIO(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
     }
 }
 

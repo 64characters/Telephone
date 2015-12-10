@@ -37,7 +37,7 @@ public class UserAgentAudioDeviceSelectionInteractor {
 
     private var systemAudioDevices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
-    private var selectedSystemAudioIO: SelectedSystemAudioIO!
+    private var selectedSystemSoundIO: SelectedSystemSoundIO!
 
     public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
         self.systemAudioDeviceRepository = systemAudioDeviceRepository
@@ -50,7 +50,7 @@ extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
     public func execute() throws {
         try updateSystemAudioDevices()
         try updateDeviceMap()
-        try updateSelectedSystemAudioIO()
+        try updateSelectedSystemSoundIO()
         try selectUserAgentAudioDevices()
     }
 
@@ -63,13 +63,13 @@ extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
         deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: userAgentDevices)
     }
 
-    private func updateSelectedSystemAudioIO() throws {
-        selectedSystemAudioIO = try SelectedSystemAudioIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
+    private func updateSelectedSystemSoundIO() throws {
+        selectedSystemSoundIO = try SelectedSystemSoundIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
     }
 
     private func selectUserAgentAudioDevices() throws {
-        let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemAudioIO.soundInput)
-        let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemAudioIO.soundOutput)
+        let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.soundInput)
+        let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.soundOutput)
         try userAgent.selectAudioInputDevice(input.identifier, outputDevice: output.identifier)
     }
 
