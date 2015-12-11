@@ -34,6 +34,8 @@
 
 @protocol SoundPreferencesViewObserver;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SoundPreferencesViewController : NSViewController <SoundPreferencesView>
 
 @property(nonatomic, readonly) id<SoundPreferencesViewObserver> observer;
@@ -41,3 +43,5 @@
 - (instancetype)initWithObserver:(id<SoundPreferencesViewObserver>)observer;
 
 @end
+
+NS_ASSUME_NONNULL_END
