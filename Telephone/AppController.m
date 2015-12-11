@@ -52,7 +52,6 @@
 #import "AuthenticationFailureController.h"
 #import "CallController.h"
 #import "PreferencesController.h"
-#import "SoundPreferencesViewController.h"
 #import "UserDefaultsKeys.h"
 
 #import "Telephone-Swift.h"
@@ -526,12 +525,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     // This method will change sound IO in the user agent if there are active
     // calls.
     [self performSelectorOnMainThread:@selector(selectSoundIO) withObject:nil waitUntilDone:YES];
-    
-    // Update audio devices in preferences.
-    [[[self preferencesController] soundPreferencesViewController]
-     performSelectorOnMainThread:@selector(updateAudioDevices)
-                      withObject:nil
-                   waitUntilDone:NO];
 }
 
 // Selects appropriate sound IO from the list of available audio devices.

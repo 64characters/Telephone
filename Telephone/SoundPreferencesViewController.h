@@ -41,25 +41,4 @@
 
 - (instancetype)initWithObserver:(id<SoundPreferencesViewObserver>)observer;
 
-// Changes sound input and output devices.
-- (IBAction)changeSoundIO:(id)sender;
-
-/// Changes "Use only G.711".
-- (IBAction)changeUseG711Only:(id)sender;
-
-// Refreshes list of available audio devices.
-- (void)updateAudioDevices;
-
-// Updates the list of available sounds for a ringtone. Sounds are being searched in the following locations.
-//
-// ~/Library/Sounds
-// /Library/Sounds
-// /Network/Library/Sounds
-// /System/Library/Sounds
-//
-- (void)updateAvailableSounds;
-
-// Changes a ringtone sound.
-- (IBAction)changeRingtone:(id)sender;
-
 @end

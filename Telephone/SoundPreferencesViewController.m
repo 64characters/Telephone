@@ -70,7 +70,6 @@
                              object:[self ringtonePopUp]];
     
     [self updateAvailableSounds];
-    [self updateAudioDevices];
 
     [self.observer viewShouldReloadData:self];
 }
@@ -92,77 +91,12 @@
     [AKSIPUserAgent sharedUserAgent].usesG711Only = (self.useG711OnlyCheckBox.state == NSOnState) ? YES : NO;
 }
 
-- (void)updateAudioDevices {
-    // Populate sound IO pop-up buttons.
-    NSArray *audioDevices = [[NSApp delegate] audioDevices];
-    NSMenu *soundInputMenu = [[NSMenu alloc] init];
-    NSMenu *soundOutputMenu = [[NSMenu alloc] init];
-    NSMenu *ringtoneOutputMenu = [[NSMenu alloc] init];
-    NSString *firstBuiltInInputName = nil;
-    NSString *firstBuiltInOutputName = nil;
-    
-    for (NSUInteger i = 0; i < [audioDevices count]; ++i) {
-        NSDictionary *deviceDict = audioDevices[i];
-        
-        NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-        [aMenuItem setTitle:deviceDict[kAudioDeviceName]];
-        [aMenuItem setTag:i];
-        
-        if ([deviceDict[kAudioDeviceInputsCount] integerValue] > 0) {
-            [soundInputMenu addItem:[aMenuItem copy]];
-            
-            if ([deviceDict[kAudioDeviceBuiltIn] boolValue] && firstBuiltInInputName == nil) {
-                firstBuiltInInputName = [aMenuItem title];
-            }
-        }
-        
-        if ([deviceDict[kAudioDeviceOutputsCount] integerValue] > 0) {
-            [soundOutputMenu addItem:[aMenuItem copy]];
-            [ringtoneOutputMenu addItem:[aMenuItem copy]];
-            
-            if ([deviceDict[kAudioDeviceBuiltIn] boolValue] && firstBuiltInOutputName == nil) {
-                firstBuiltInOutputName = [aMenuItem title];
-            }
-        }
-        
-    }
-    
-    [[self soundInputPopUp] setMenu:soundInputMenu];
-    [[self soundOutputPopUp] setMenu:soundOutputMenu];
-    [[self ringtoneOutputPopUp] setMenu:ringtoneOutputMenu];
-    
-    // Select saved sound devices.
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    NSString *soundInputItemTitle = nil;
-    NSString *lastSoundInput = [defaults stringForKey:kSoundInput];
-    if (lastSoundInput != nil && [[self soundInputPopUp] itemWithTitle:lastSoundInput] != nil) {
-        soundInputItemTitle = lastSoundInput;
-    } else if (firstBuiltInInputName != nil) {
-        soundInputItemTitle = firstBuiltInInputName;
-    }
-    [[self soundInputPopUp] selectItemWithTitle:soundInputItemTitle];
-    
-    NSString *soundOutputItemTitle = nil;
-    NSString *lastSoundOutput = [defaults stringForKey:kSoundOutput];
-    if (lastSoundOutput != nil && [[self soundOutputPopUp] itemWithTitle:lastSoundOutput] != nil) {
-        soundOutputItemTitle = lastSoundOutput;
-    } else if (firstBuiltInOutputName != nil) {
-        soundOutputItemTitle = firstBuiltInOutputName;
-    }
-    [[self soundOutputPopUp] selectItemWithTitle:soundOutputItemTitle];
-    
-    NSString *ringtoneOutputItemTitle = nil;
-    NSString *lastRingtoneOutput = [defaults stringForKey:kRingtoneOutput];
-    if (lastRingtoneOutput != nil && [[self ringtoneOutputPopUp] itemWithTitle:lastRingtoneOutput] != nil) {
-        ringtoneOutputItemTitle = lastRingtoneOutput;
-    } else if (firstBuiltInOutputName != nil) {
-        ringtoneOutputItemTitle = firstBuiltInOutputName;
-    }
-    [[self ringtoneOutputPopUp] selectItemWithTitle:ringtoneOutputItemTitle];
-}
-
+// Sounds are being searched in the following locations:
+//
+// ~/Library/Sounds
+// /Library/Sounds
+// /Network/Library/Sounds
+// /System/Library/Sounds
 - (void)updateAvailableSounds {
     NSArray *libraryPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, YES);
     if ([libraryPaths count] <= 0) {
