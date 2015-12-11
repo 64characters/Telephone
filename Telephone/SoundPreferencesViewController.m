@@ -63,7 +63,6 @@
 - (void)awakeFromNib {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
-    // Subscribe on mouse-down event of the ringing sound selection.
     [notificationCenter addObserver:self
                            selector:@selector(popUpButtonWillPopUp:)
                                name:NSPopUpButtonWillPopUpNotification
@@ -151,7 +150,6 @@
     [[NSUserDefaults standardUserDefaults] setObject:soundName forKey:kRingingSound];
     [[NSApp delegate] setRingtone:[NSSound soundNamed:soundName]];
     
-    // Play selected ringtone once.
     [[[NSApp delegate] ringtone] play];
 }
 

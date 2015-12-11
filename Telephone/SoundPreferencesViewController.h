@@ -34,7 +34,6 @@
 
 @protocol SoundPreferencesViewObserver;
 
-// A view controller to manage sound preferences.
 @interface SoundPreferencesViewController : NSViewController <SoundPreferencesView>
 
 @property(nonatomic, readonly) id<SoundPreferencesViewObserver> observer;
