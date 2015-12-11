@@ -34,6 +34,7 @@
 
 - (void)setInputAudioDevices:(NSArray<NSString *> *)devices;
 - (void)setOutputAudioDevices:(NSArray<NSString *> *)devices;
+- (void)setRingtoneOutputAudioDevices:(NSArray<NSString *> *)devices;
 
 - (void)setSoundInputDevice:(NSString *)device;
 - (void)setSoundOutputDevice:(NSString *)device;

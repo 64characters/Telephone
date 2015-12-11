@@ -42,6 +42,7 @@ extension SoundIOPresenter: SoundIOUpdateInteractorOutput {
     func update(audioDevices: AudioDevices, selectedIO: SelectedSoundIO) {
         output.setInputAudioDevices(audioDevices.inputDevices)
         output.setOutputAudioDevices(audioDevices.outputDevices)
+        output.setRingtoneOutputAudioDevices(audioDevices.outputDevices)
         output.setSoundInputDevice(selectedIO.soundInput)
         output.setSoundOutputDevice(selectedIO.soundOutput)
         output.setRingtoneOutputDevice(selectedIO.ringtoneOutput)

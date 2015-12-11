@@ -167,6 +167,10 @@ NS_ASSUME_NONNULL_END
     self.soundOutputPopUp.menu = [self menuForDevices:devices];
 }
 
+- (void)setRingtoneOutputAudioDevices:(NSArray<NSString *> *)devices {
+    self.ringtoneOutputPopUp.menu = [self menuForDevices:devices];
+}
+
 - (void)setSoundInputDevice:(NSString *)device {
     [self.soundInputPopUp selectItemWithTitle:device];
 }

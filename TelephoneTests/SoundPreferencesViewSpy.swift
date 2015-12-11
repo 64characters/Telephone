@@ -31,6 +31,7 @@
 class SoundPreferencesViewSpy: NSObject {
     var invokedInputAudioDevices: [String] = []
     var invokedOutputAudioDevices: [String] = []
+    var invokedRingtoneOutputAudioDevices: [String] = []
     var invokedSoundInputDevice = ""
     var invokedSoundOutputDevice = ""
     var invokedRingtoneOutputDevice = ""
@@ -43,6 +44,10 @@ extension SoundPreferencesViewSpy: SoundPreferencesView {
 
     func setOutputAudioDevices(devices: [String]) {
         invokedOutputAudioDevices = devices
+    }
+
+    func setRingtoneOutputAudioDevices(devices: [String]!) {
+        invokedRingtoneOutputAudioDevices = devices
     }
 
     func setSoundInputDevice(device: String) {

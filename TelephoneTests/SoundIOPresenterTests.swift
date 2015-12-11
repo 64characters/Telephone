@@ -44,6 +44,7 @@ class SoundIOPresenterTests: XCTestCase {
 
         XCTAssertEqual(outputSpy.invokedInputAudioDevices, inputDevices)
         XCTAssertEqual(outputSpy.invokedOutputAudioDevices, outputDevices)
+        XCTAssertEqual(outputSpy.invokedRingtoneOutputAudioDevices, outputDevices)
         XCTAssertEqual(outputSpy.invokedSoundInputDevice, "input2")
         XCTAssertEqual(outputSpy.invokedSoundOutputDevice, "output2")
         XCTAssertEqual(outputSpy.invokedRingtoneOutputDevice, "output1")
