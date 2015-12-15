@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_END
 }
 
 
-#pragma mark - SoundIOView
+#pragma mark - SoundPreferencesView
 
 - (void)setInputAudioDevices:(NSArray<NSString *> *)devices {
     self.soundInputPopUp.menu = MenuForDevices(devices);
