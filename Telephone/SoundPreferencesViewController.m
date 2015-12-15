@@ -37,6 +37,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSMenu *MenuForSoundsAtPaths(NSArray<NSString *> *paths);
 static NSMenu *MenuForDevices(NSArray<NSString *> *devices);
 static NSMenuItem *MenuItemForDevice(NSString *device);
 
@@ -107,43 +108,9 @@ NS_ASSUME_NONNULL_END
     if ([libraryPaths count] <= 0) {
         return;
     }
-    
-    NSMenu *soundsMenu = [[NSMenu alloc] init];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSSet *allowedSoundFileExtensions = [NSSet setWithObjects:@"aiff", @"aif", @"aifc",
-                                         @"mp3", @"wav", @"sd2", @"au", @"snd", @"m4a", @"m4p", nil];
-    
-    for (NSUInteger i = 0; i < [libraryPaths count]; ++i) {
-        NSString *aPath = libraryPaths[i];
-        NSString *soundPath = [aPath stringByAppendingPathComponent:@"Sounds"];
-        NSArray *soundFiles = [fileManager contentsOfDirectoryAtPath:soundPath error:NULL];
-        
-        BOOL shouldAddSeparator = ([soundsMenu numberOfItems] > 0) ? YES : NO;
-        
-        for (NSUInteger j = 0; j < [soundFiles count]; ++j) {
-            NSString *aFile = soundFiles[j];
-            if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]]) {
-                continue;
-            }
-            
-            NSString *aSound = [aFile stringByDeletingPathExtension];
-            if ([soundsMenu itemWithTitle:aSound] == nil) {
-                if (shouldAddSeparator) {
-                    [soundsMenu addItem:[NSMenuItem separatorItem]];
-                    shouldAddSeparator = NO;
-                }
-                
-                NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
-                [aMenuItem setTitle:aSound];
-                [soundsMenu addItem:aMenuItem];
-            }
-        }
-    }
-    
+    NSMenu *soundsMenu = MenuForSoundsAtPaths(libraryPaths);
     [[self ringtonePopUp] setMenu:soundsMenu];
-    
     NSString *savedSound = [[NSUserDefaults standardUserDefaults] stringForKey:kRingingSound];
-    
     if ([soundsMenu itemWithTitle:savedSound] != nil) {
         [[self ringtonePopUp] selectItemWithTitle:savedSound];
     }
@@ -195,6 +162,42 @@ NS_ASSUME_NONNULL_END
 }
 
 @end
+
+static NSMenu *MenuForSoundsAtPaths(NSArray<NSString *> *paths) {
+    NSMenu *menu = [[NSMenu alloc] init];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSSet *allowedSoundFileExtensions = [NSSet setWithObjects:@"aiff", @"aif", @"aifc",
+                                         @"mp3", @"wav", @"sd2", @"au", @"snd", @"m4a", @"m4p", nil];
+
+    for (NSUInteger i = 0; i < [paths count]; ++i) {
+        NSString *aPath = paths[i];
+        NSString *soundPath = [aPath stringByAppendingPathComponent:@"Sounds"];
+        NSArray *soundFiles = [fileManager contentsOfDirectoryAtPath:soundPath error:NULL];
+
+        BOOL shouldAddSeparator = ([menu numberOfItems] > 0) ? YES : NO;
+
+        for (NSUInteger j = 0; j < [soundFiles count]; ++j) {
+            NSString *aFile = soundFiles[j];
+            if (![allowedSoundFileExtensions containsObject:[aFile pathExtension]]) {
+                continue;
+            }
+
+            NSString *aSound = [aFile stringByDeletingPathExtension];
+            if ([menu itemWithTitle:aSound] == nil) {
+                if (shouldAddSeparator) {
+                    [menu addItem:[NSMenuItem separatorItem]];
+                    shouldAddSeparator = NO;
+                }
+
+                NSMenuItem *aMenuItem = [[NSMenuItem alloc] init];
+                [aMenuItem setTitle:aSound];
+                [menu addItem:aMenuItem];
+            }
+        }
+    }
+
+    return menu;
+}
 
 static NSMenu *MenuForDevices(NSArray<NSString *> *devices) {
     NSMenu *menu = [[NSMenu alloc] init];
