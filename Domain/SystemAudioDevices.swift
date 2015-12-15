@@ -33,17 +33,23 @@ public struct SystemAudioDevices {
     public let inputDevices: [SystemAudioDevice]
     public let outputDevices: [SystemAudioDevice]
 
-    private let deviceNameToDevice: [String: SystemAudioDevice]
+    private let deviceNameToInputDevice: [String: SystemAudioDevice]
+    private let deviceNameToOutputDevice: [String: SystemAudioDevice]
 
     public init(devices: [SystemAudioDevice]) {
         self.allDevices = devices
         inputDevices = devices.filter({ $0.inputDevice })
         outputDevices = devices.filter({ $0.outputDevice })
-        deviceNameToDevice = deviceNameToDeviceMapWithDevices(devices)
+        deviceNameToInputDevice = deviceNameToDeviceMapWithDevices(inputDevices)
+        deviceNameToOutputDevice = deviceNameToDeviceMapWithDevices(outputDevices)
     }
 
-    public func deviceNamed(name: String) -> SystemAudioDevice? {
-        return deviceNameToDevice[name]
+    public func inputDeviceNamed(name: String) -> SystemAudioDevice? {
+        return deviceNameToInputDevice[name]
+    }
+
+    public func outputDeviceNamed(name: String) -> SystemAudioDevice? {
+        return deviceNameToOutputDevice[name]
     }
 }
 

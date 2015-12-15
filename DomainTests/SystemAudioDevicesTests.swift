@@ -42,10 +42,16 @@ class SystemAudioDevicesTests: XCTestCase {
         devices = SystemAudioDevices(devices: deviceFactory.allDevices)
     }
 
-    func testCanGetDeviceByName() {
-        let someDevice = deviceFactory.someInputDevice
+    func testCanGetInputDeviceByName() {
+        let inputDevice = deviceFactory.someInputDevice
 
-        XCTAssertEqual(devices.deviceNamed(someDevice.name), someDevice)
+        XCTAssertEqual(devices.inputDeviceNamed(inputDevice.name), inputDevice)
+    }
+
+    func testCanGetOutputDeviceByName() {
+        let outputDevice = deviceFactory.someOutputDevice
+
+        XCTAssertEqual(devices.outputDeviceNamed(outputDevice.name), outputDevice)
     }
 
     func testCanGetInputDevices() {
