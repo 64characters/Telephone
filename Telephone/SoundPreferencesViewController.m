@@ -97,12 +97,6 @@ NS_ASSUME_NONNULL_END
     [AKSIPUserAgent sharedUserAgent].usesG711Only = (self.useG711OnlyCheckBox.state == NSOnState) ? YES : NO;
 }
 
-// Sounds are being searched in the following locations:
-//
-// ~/Library/Sounds
-// /Library/Sounds
-// /Network/Library/Sounds
-// /System/Library/Sounds
 - (void)updateAvailableSounds {
     NSArray *libraryPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, YES);
     if ([libraryPaths count] <= 0) {
