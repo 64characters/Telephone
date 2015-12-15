@@ -37,6 +37,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSMenu *MenuForDevices(NSArray<NSString *> *devices);
+static NSMenuItem *MenuItemForDevice(NSString *device);
+
 @interface SoundPreferencesViewController ()
 
 @property(nonatomic, weak) IBOutlet NSPopUpButton *soundInputPopUp;
@@ -160,15 +163,15 @@ NS_ASSUME_NONNULL_END
 #pragma mark - SoundIOView
 
 - (void)setInputAudioDevices:(NSArray<NSString *> *)devices {
-    self.soundInputPopUp.menu = [self menuForDevices:devices];
+    self.soundInputPopUp.menu = MenuForDevices(devices);
 }
 
 - (void)setOutputAudioDevices:(NSArray<NSString *> *)devices {
-    self.soundOutputPopUp.menu = [self menuForDevices:devices];
+    self.soundOutputPopUp.menu = MenuForDevices(devices);
 }
 
 - (void)setRingtoneOutputAudioDevices:(NSArray<NSString *> *)devices {
-    self.ringtoneOutputPopUp.menu = [self menuForDevices:devices];
+    self.ringtoneOutputPopUp.menu = MenuForDevices(devices);
 }
 
 - (void)setSoundInputDevice:(NSString *)device {
@@ -183,20 +186,6 @@ NS_ASSUME_NONNULL_END
     [self.ringtoneOutputPopUp selectItemWithTitle:device];
 }
 
-- (NSMenu *)menuForDevices:(NSArray<NSString *> *)devices {
-    NSMenu *menu = [[NSMenu alloc] init];
-    for (NSString *device in devices) {
-        [menu addItem:[self menuItemForDevice:device]];
-    }
-    return menu;
-}
-
-- (NSMenuItem *)menuItemForDevice:(NSString *)device {
-    NSMenuItem *item = [[NSMenuItem alloc] init];
-    item.title = device;
-    return item;
-}
-
 
 #pragma mark -
 #pragma mark NSPopUpButton notification
@@ -206,3 +195,17 @@ NS_ASSUME_NONNULL_END
 }
 
 @end
+
+static NSMenu *MenuForDevices(NSArray<NSString *> *devices) {
+    NSMenu *menu = [[NSMenu alloc] init];
+    for (NSString *device in devices) {
+        [menu addItem:MenuItemForDevice(device)];
+    }
+    return menu;
+}
+
+static NSMenuItem *MenuItemForDevice(NSString *device) {
+    NSMenuItem *item = [[NSMenuItem alloc] init];
+    item.title = device;
+    return item;
+}
