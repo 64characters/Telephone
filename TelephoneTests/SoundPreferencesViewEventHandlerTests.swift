@@ -37,8 +37,8 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
         let interactorFactoryStub = InteractorFactoryStub()
         interactorFactoryStub.soundIOUpdateInteractor = interactorSpy
         let eventHandler = SoundPreferencesViewEventHandler(
-            presenterFactory: PresenterFactoryImpl(),
-            interactorFactory: interactorFactoryStub
+            interactorFactory: interactorFactoryStub,
+            presenterFactory: PresenterFactoryImpl()
         )
 
         eventHandler.viewShouldReloadData(SoundPreferencesViewSpy())

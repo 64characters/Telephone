@@ -31,12 +31,12 @@
 import UseCases
 
 class SoundPreferencesViewEventHandler: NSObject {
-    let presenterFactory: PresenterFactory
     let interactorFactory: InteractorFactory
+    let presenterFactory: PresenterFactory
 
-    init(presenterFactory: PresenterFactory, interactorFactory: InteractorFactory) {
-        self.presenterFactory = presenterFactory
+    init(interactorFactory: InteractorFactory, presenterFactory: PresenterFactory) {
         self.interactorFactory = interactorFactory
+        self.presenterFactory = presenterFactory
     }
 }
 
