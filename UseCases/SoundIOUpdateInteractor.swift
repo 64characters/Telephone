@@ -50,8 +50,9 @@ extension SoundIOUpdateInteractor: ThrowingInteractor {
     public func execute() throws {
         let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
         let selectedSystemSoundIO = try SelectedSystemSoundIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
-        let audioDevices = AudioDevices(systemAudioDevices: systemAudioDevices)
-        let selectedSoundIO = SelectedSoundIO(selectedSystemSoundIO: selectedSystemSoundIO)
-        output.update(audioDevices, selectedIO: selectedSoundIO)
+        output.update(
+            AudioDevices(systemAudioDevices: systemAudioDevices),
+            selectedIO: SelectedSoundIO(selectedSystemSoundIO: selectedSystemSoundIO)
+        )
     }
 }
