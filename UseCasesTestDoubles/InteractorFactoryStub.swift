@@ -32,7 +32,7 @@ import UseCases
 
 public class InteractorFactoryStub {
     public var userAgentAudioDeviceSelectionInteractor: ThrowingInteractor!
-    public var soundIOUpdateInteractor: ThrowingInteractor!
+    public var selectedSoundIOInteractor: ThrowingInteractor!
     public init() {}
 }
 
@@ -41,7 +41,7 @@ extension InteractorFactoryStub: InteractorFactory {
         return userAgentAudioDeviceSelectionInteractor
     }
 
-    public func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
-        return soundIOUpdateInteractor
+    public func createSelectedSoundIOInteractorWithOutput(output: SelectedSoundIOInteractorOutput) -> ThrowingInteractor {
+        return selectedSoundIOInteractor
     }
 }

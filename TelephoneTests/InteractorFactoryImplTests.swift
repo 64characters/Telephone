@@ -53,10 +53,10 @@ class InteractorFactoryImplTests: XCTestCase {
         XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
     }
 
-    func testCanCreateSoundIOUpdateInteractor() {
-        let outputDummy = SoundIOUpdateInteractorOutputSpy()
+    func testCanCreateSelectedSoundIOInteractor() {
+        let outputDummy = SelectedSoundIOInteractorOutputSpy()
 
-        let interactor: SoundIOUpdateInteractor = factory.createSoundIOUpdateInteractorWithOutput(outputDummy) as! SoundIOUpdateInteractor
+        let interactor: SelectedSoundIOInteractor = factory.createSelectedSoundIOInteractorWithOutput(outputDummy) as! SelectedSoundIOInteractor
 
         XCTAssertNotNil(interactor)
         XCTAssertTrue(interactor.systemAudioDeviceRepository === repositoryDummy)

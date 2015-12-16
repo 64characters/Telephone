@@ -47,8 +47,8 @@ extension InteractorFactoryImpl: InteractorFactory {
         )
     }
 
-    func createSoundIOUpdateInteractorWithOutput(output: SoundIOUpdateInteractorOutput) -> ThrowingInteractor {
-        return SoundIOUpdateInteractor(
+    func createSelectedSoundIOInteractorWithOutput(output: SelectedSoundIOInteractorOutput) -> ThrowingInteractor {
+        return SelectedSoundIOInteractor(
             systemAudioDeviceRepository: systemAudioDeviceRepository,
             userDefaults: userDefaults,
             output: output

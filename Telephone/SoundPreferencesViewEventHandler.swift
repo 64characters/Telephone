@@ -42,7 +42,7 @@ class SoundPreferencesViewEventHandler: NSObject {
 
 extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     func viewShouldReloadData(view: SoundPreferencesView) {
-        let interactor = interactorFactory.createSoundIOUpdateInteractorWithOutput(
+        let interactor = interactorFactory.createSelectedSoundIOInteractorWithOutput(
             presenterFactory.createSoundIOPresenterWithOutput(view)
         )
         do {

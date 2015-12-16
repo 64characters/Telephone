@@ -1,5 +1,5 @@
 //
-//  SoundIOUpdateInteractor.swift
+//  SelectedSoundIOInteractorOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,31 +28,18 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import Domain
+import UseCases
 
-public protocol SoundIOUpdateInteractorOutput: class {
-    func update(audioDevices: AudioDevices, selectedIO: SelectedSoundIO)
+public class SelectedSoundIOInteractorOutputSpy {
+    public private(set) var audioDevices: AudioDevices?
+    public private(set) var selectedIO: SelectedSoundIO?
+
+    public init() {}
 }
 
-public class SoundIOUpdateInteractor {
-    public let systemAudioDeviceRepository: SystemAudioDeviceRepository
-    public let userDefaults: UserDefaults
-    public let output: SoundIOUpdateInteractorOutput
-
-    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: SoundIOUpdateInteractorOutput) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
-        self.userDefaults = userDefaults
-        self.output = output
-    }
-}
-
-extension SoundIOUpdateInteractor: ThrowingInteractor {
-    public func execute() throws {
-        let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
-        let selectedSystemSoundIO = try SelectedSystemSoundIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
-        output.update(
-            AudioDevices(systemAudioDevices: systemAudioDevices),
-            selectedIO: SelectedSoundIO(selectedSystemSoundIO: selectedSystemSoundIO)
-        )
+extension SelectedSoundIOInteractorOutputSpy: SelectedSoundIOInteractorOutput {
+    public func update(audioDevices: AudioDevices, selectedIO: SelectedSoundIO) {
+        self.audioDevices = audioDevices
+        self.selectedIO = selectedIO
     }
 }
