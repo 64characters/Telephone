@@ -29,4 +29,5 @@
 public protocol InteractorFactory {
     func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor
     func createSelectedSoundIOInteractorWithOutput(output: SelectedSoundIOInteractorOutput) -> ThrowingInteractor
+    func createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO: SelectedSoundIO) -> Interactor
 }

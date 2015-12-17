@@ -32,17 +32,36 @@ import UseCasesTestDoubles
 import XCTest
 
 class SoundPreferencesViewEventHandlerTests: XCTestCase {
+    private var interactorFactorySpy: InteractorFactorySpy!
+    private var eventHandler: SoundPreferencesViewEventHandler!
+
+    override func setUp() {
+        super.setUp()
+        interactorFactorySpy = InteractorFactorySpy()
+        eventHandler = SoundPreferencesViewEventHandler(
+            interactorFactory: interactorFactorySpy, presenterFactory: PresenterFactoryImpl()
+        )
+    }
+
     func testExecutesInteractorOnViewDataReload() {
         let interactorSpy = ThrowingInteractorSpy()
-        let interactorFactoryStub = InteractorFactorySpy()
-        interactorFactoryStub.stubWithSelectedSoundIOInteractor(interactorSpy)
-        let eventHandler = SoundPreferencesViewEventHandler(
-            interactorFactory: interactorFactoryStub,
-            presenterFactory: PresenterFactoryImpl()
-        )
+        interactorFactorySpy.stubWithSelectedSoundIOInteractor(interactorSpy)
 
         eventHandler.viewShouldReloadData(SoundPreferencesViewSpy())
 
+        XCTAssertTrue(interactorSpy.didCallExecute)
+    }
+
+    func testExecutesUserDefaultsSoundIOSaveInteractorWithExpectedArgumentsOnSoundIOChange() {
+        let interactorSpy = InteractorSpy()
+        interactorFactorySpy.stubWithUserDefaultsSoundIOSaveInteractor(interactorSpy)
+        let soundIO = SelectedSoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
+
+        eventHandler.viewDidChangeSoundInput(
+            soundIO.soundInput, soundOutput: soundIO.soundOutput, ringtoneOutput: soundIO.ringtoneOutput
+        )
+
+        XCTAssertEqual(interactorFactorySpy.invokedSoundIO, soundIO)
         XCTAssertTrue(interactorSpy.didCallExecute)
     }
 }

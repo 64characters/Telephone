@@ -51,4 +51,11 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
             print("Could not load Sound IO view data")
         }
     }
+
+    func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
+        let interactor = interactorFactory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(
+            SelectedSoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput)
+        )
+        interactor.execute()
+    }
 }

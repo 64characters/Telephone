@@ -29,8 +29,8 @@
 //
 
 public class UserDefaultsSoundIOSaveInteractor {
-    let selectedSoundIO: SelectedSoundIO
-    let userDefaults: UserDefaults
+    public let selectedSoundIO: SelectedSoundIO
+    public let userDefaults: UserDefaults
 
     public init(selectedSoundIO: SelectedSoundIO, userDefaults: UserDefaults) {
         self.selectedSoundIO = selectedSoundIO

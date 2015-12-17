@@ -33,6 +33,9 @@ import UseCases
 public class InteractorFactorySpy {
     public private(set) var userAgentAudioDeviceSelectionInteractor: ThrowingInteractor!
     public private(set) var selectedSoundIOInteractor: ThrowingInteractor!
+    public private(set) var userDefaultsSoundIOSaveInteractor: Interactor!
+
+    public private(set) var invokedSoundIO = SelectedSoundIO(soundInput: "", soundOutput: "", ringtoneOutput: "")
 
     public init() {}
 
@@ -43,6 +46,10 @@ public class InteractorFactorySpy {
     public func stubWithSelectedSoundIOInteractor(interactor: ThrowingInteractor) {
         selectedSoundIOInteractor = interactor
     }
+
+    public func stubWithUserDefaultsSoundIOSaveInteractor(interactor: Interactor) {
+        userDefaultsSoundIOSaveInteractor = interactor
+    }
 }
 
 extension InteractorFactorySpy: InteractorFactory {
@@ -52,5 +59,10 @@ extension InteractorFactorySpy: InteractorFactory {
 
     public func createSelectedSoundIOInteractorWithOutput(output: SelectedSoundIOInteractorOutput) -> ThrowingInteractor {
         return selectedSoundIOInteractor
+    }
+
+    public func createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO: SelectedSoundIO) -> Interactor {
+        invokedSoundIO = soundIO
+        return userDefaultsSoundIOSaveInteractor
     }
 }
