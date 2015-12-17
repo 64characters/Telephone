@@ -35,7 +35,7 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
     func testExecutesInteractorOnViewDataReload() {
         let interactorSpy = ThrowingInteractorSpy()
         let interactorFactoryStub = InteractorFactorySpy()
-        interactorFactoryStub.selectedSoundIOInteractor = interactorSpy
+        interactorFactoryStub.stubWithSelectedSoundIOInteractor(interactorSpy)
         let eventHandler = SoundPreferencesViewEventHandler(
             interactorFactory: interactorFactoryStub,
             presenterFactory: PresenterFactoryImpl()

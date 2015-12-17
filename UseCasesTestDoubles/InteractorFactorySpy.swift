@@ -31,9 +31,18 @@
 import UseCases
 
 public class InteractorFactorySpy {
-    public var userAgentAudioDeviceSelectionInteractor: ThrowingInteractor!
-    public var selectedSoundIOInteractor: ThrowingInteractor!
+    public private(set) var userAgentAudioDeviceSelectionInteractor: ThrowingInteractor!
+    public private(set) var selectedSoundIOInteractor: ThrowingInteractor!
+
     public init() {}
+
+    public func stubWithUserAgentAudioDeviceSelectionInteractor(interactor: ThrowingInteractor) {
+        userAgentAudioDeviceSelectionInteractor = interactor
+    }
+
+    public func stubWithSelectedSoundIOInteractor(interactor: ThrowingInteractor) {
+        selectedSoundIOInteractor = interactor
+    }
 }
 
 extension InteractorFactorySpy: InteractorFactory {
