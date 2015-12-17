@@ -32,4 +32,5 @@ import Foundation
 
 @objc public protocol UserDefaults {
     subscript(key: String) -> String? { get set }
+    func stringForKey(key: String) -> String?
 }

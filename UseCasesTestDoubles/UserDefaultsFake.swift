@@ -46,4 +46,8 @@ extension UserDefaultsFake: UserDefaults {
             dictionary[key] = newValue
         }
     }
+
+    @objc public func stringForKey(key: String) -> String? {
+        return dictionary[key]
+    }
 }
