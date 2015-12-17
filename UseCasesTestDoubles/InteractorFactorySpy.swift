@@ -1,5 +1,5 @@
 //
-//  InteractorFactoryStub.swift
+//  InteractorFactorySpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,13 +30,13 @@
 
 import UseCases
 
-public class InteractorFactoryStub {
+public class InteractorFactorySpy {
     public var userAgentAudioDeviceSelectionInteractor: ThrowingInteractor!
     public var selectedSoundIOInteractor: ThrowingInteractor!
     public init() {}
 }
 
-extension InteractorFactoryStub: InteractorFactory {
+extension InteractorFactorySpy: InteractorFactory {
     public func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
         return userAgentAudioDeviceSelectionInteractor
     }
