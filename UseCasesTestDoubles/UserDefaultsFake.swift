@@ -1,5 +1,5 @@
 //
-//  UserDefaultsStub.swift
+//  UserDefaultsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -31,13 +31,13 @@
 import Foundation
 import UseCases
 
-public class UserDefaultsStub {
+public class UserDefaultsFake {
     private var dictionary = [String: AnyObject]()
 
     public init() {}
 }
 
-extension UserDefaultsStub: UserDefaults {
+extension UserDefaultsFake: UserDefaults {
     @objc public subscript(key: String) -> AnyObject? {
         get {
             return dictionary[key]

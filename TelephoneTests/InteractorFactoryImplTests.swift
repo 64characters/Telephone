@@ -38,7 +38,7 @@ class InteractorFactoryImplTests: XCTestCase {
     override func setUp() {
         super.setUp()
         repositoryDummy = SystemAudioDeviceRepositoryStub()
-        userDefaultsDummy = UserDefaultsStub()
+        userDefaultsDummy = UserDefaultsFake()
         factory = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
     }
 

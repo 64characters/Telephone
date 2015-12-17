@@ -37,20 +37,20 @@ import XCTest
 class SelectedSystemSoundIOTests: XCTestCase {
     private var deviceFactory: SystemAudioDeviceTestFactory!
     private var systemDevices: SystemAudioDevices!
-    private var userDefaultsStub: UserDefaultsStub!
+    private var userDefaults: UserDefaultsFake!
 
     override func setUp() {
         super.setUp()
         deviceFactory = SystemAudioDeviceTestFactory()
         systemDevices = SystemAudioDevices(devices: deviceFactory.allDevices)
-        userDefaultsStub = UserDefaultsStub()
+        userDefaults = UserDefaultsFake()
     }
 
     // MARK: - Sound input
 
     func testSelectsAudioDeviceWithNameFromUserDefaultsAsSoundInput() {
         let someDevice = deviceFactory.someInputDevice
-        userDefaultsStub[kSoundInput] = someDevice.name
+        userDefaults[kSoundInput] = someDevice.name
 
         let selectedIO = createSelectedIO()
 
@@ -64,7 +64,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfSoundInputFromUserDefaultsCanNotBeFoundInSystemDevices() {
-        userDefaultsStub[kSoundInput] = kNonexistentDeviceName
+        userDefaults[kSoundInput] = kNonexistentDeviceName
 
         let selectedIO = createSelectedIO()
 
@@ -72,7 +72,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveInputChannels() {
-        userDefaultsStub[kSoundInput] = deviceFactory.outputOnlyDevice.name
+        userDefaults[kSoundInput] = deviceFactory.outputOnlyDevice.name
 
         let selectedIO = createSelectedIO()
 
@@ -83,7 +83,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
 
     func testSelectsAudioDeviceWithNameFromUserDefaultsAsSoundOutput() {
         let someDevice = deviceFactory.someOutputDevice
-        userDefaultsStub[kSoundOutput] = someDevice.name
+        userDefaults[kSoundOutput] = someDevice.name
 
         let selectedIO = createSelectedIO()
 
@@ -97,7 +97,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfSoundOutputFromUserDefaultsCanNotBeFoundInSystemDevices() {
-        userDefaultsStub[kSoundOutput] = kNonexistentDeviceName
+        userDefaults[kSoundOutput] = kNonexistentDeviceName
 
         let selectedIO = createSelectedIO()
 
@@ -105,7 +105,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
-        userDefaultsStub[kSoundOutput] = deviceFactory.inputOnlyDevice.name
+        userDefaults[kSoundOutput] = deviceFactory.inputOnlyDevice.name
 
         let selectedIO = createSelectedIO()
 
@@ -116,7 +116,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
 
     func testSelectsAudioDeviceWithNameFromUserDefaultsAsRingtoneOutput() {
         let someDevice = deviceFactory.someOutputDevice
-        userDefaultsStub[kRingtoneOutput] = someDevice.name
+        userDefaults[kRingtoneOutput] = someDevice.name
 
         let selectedIO = createSelectedIO()
 
@@ -132,13 +132,13 @@ class SelectedSystemSoundIOTests: XCTestCase {
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfRingtoneOutputFromUserDefaultsCanNotBeFoundInSystemDevices() {
         let selectedIO = createSelectedIO()
 
-        userDefaultsStub[kRingtoneOutput] = kNonexistentDeviceName
+        userDefaults[kRingtoneOutput] = kNonexistentDeviceName
 
         XCTAssertEqual(selectedIO.ringtoneOutput, deviceFactory.firstBuiltInOutput)
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
-        userDefaultsStub[kRingtoneOutput] = deviceFactory.inputOnlyDevice.name
+        userDefaults[kRingtoneOutput] = deviceFactory.inputOnlyDevice.name
 
         let selectedIO = createSelectedIO()
 
@@ -148,7 +148,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     // MARK: - Helper
 
     private func createSelectedIO() -> SelectedSystemSoundIO {
-        return try! SelectedSystemSoundIO(systemAudioDevices: systemDevices, userDefaults: userDefaultsStub)
+        return try! SelectedSystemSoundIO(systemAudioDevices: systemDevices, userDefaults: userDefaults)
     }
 }
 

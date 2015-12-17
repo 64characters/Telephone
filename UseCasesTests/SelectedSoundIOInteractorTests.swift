@@ -38,7 +38,7 @@ class SelectedSoundIOInteractorTests: XCTestCase {
     private var audioDeviceFactory: SystemAudioDeviceTestFactory!
     private var systemAudioDevices: SystemAudioDevices!
     private var audioDeviceRepositoryStub: SystemAudioDeviceRepositoryStub!
-    private var userDefaultsDummy: UserDefaultsStub!
+    private var userDefaultsDummy: UserDefaultsFake!
     private var outputSpy: SelectedSoundIOInteractorOutputSpy!
 
     override func setUp() {
@@ -47,7 +47,7 @@ class SelectedSoundIOInteractorTests: XCTestCase {
         systemAudioDevices = SystemAudioDevices(devices: audioDeviceFactory.allDevices)
         audioDeviceRepositoryStub = SystemAudioDeviceRepositoryStub()
         audioDeviceRepositoryStub.allDevicesResult = audioDeviceFactory.allDevices
-        userDefaultsDummy = UserDefaultsStub()
+        userDefaultsDummy = UserDefaultsFake()
         outputSpy = SelectedSoundIOInteractorOutputSpy()
     }
 

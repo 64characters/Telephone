@@ -129,7 +129,7 @@
 		AA7F6D2F1C0217020064DA3A /* ThrowingInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */; };
 		AA7F6D301C0217020064DA3A /* UserAgentObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */; };
 		AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */; };
-		AA7F6D321C0217020064DA3A /* UserDefaultsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */; };
+		AA7F6D321C0217020064DA3A /* UserDefaultsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7F21BC440DE00FAC228 /* UserDefaultsFake.swift */; };
 		AA7F6D3D1C034B700064DA3A /* UserDefaultsKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = AA7F6D3B1C034B700064DA3A /* UserDefaultsKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA7F6D3E1C034B700064DA3A /* UserDefaultsKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D3C1C034B700064DA3A /* UserDefaultsKeys.m */; };
 		AA7F6D451C0381650064DA3A /* SelectedSoundIOInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D441C0381650064DA3A /* SelectedSoundIOInteractorTests.swift */; };
@@ -375,7 +375,7 @@
 		AA30D84F1BF60E76002F343A /* FirstSystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstSystemAudioDevice.swift; sourceTree = "<group>"; };
 		AA32F7ED1BC43FB100FAC228 /* SelectedSystemSoundIOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectedSystemSoundIOTests.swift; path = UseCasesTests/SelectedSystemSoundIOTests.swift; sourceTree = SOURCE_ROOT; };
 		AA32F7EF1BC4400900FAC228 /* SelectedSystemSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSystemSoundIO.swift; sourceTree = "<group>"; };
-		AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStub.swift; sourceTree = "<group>"; };
+		AA32F7F21BC440DE00FAC228 /* UserDefaultsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsFake.swift; sourceTree = "<group>"; };
 		AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceTestFactory.swift; sourceTree = "<group>"; };
 		AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsKeys.h; sourceTree = "<group>"; };
 		AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsKeys.m; sourceTree = "<group>"; };
@@ -999,7 +999,7 @@
 				AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */,
 				AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */,
 				AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */,
-				AA32F7F21BC440DE00FAC228 /* UserDefaultsStub.swift */,
+				AA32F7F21BC440DE00FAC228 /* UserDefaultsFake.swift */,
 				AAC4FF971C0215B90060B186 /* UseCasesTestDoubles.h */,
 				AAC4FF991C0215B90060B186 /* Info.plist */,
 			);
@@ -1692,7 +1692,7 @@
 				AA7F6D2D1C0217020064DA3A /* InteractorSpy.swift in Sources */,
 				AA7F6D2F1C0217020064DA3A /* ThrowingInteractorSpy.swift in Sources */,
 				AA7F6D491C0382550064DA3A /* SelectedSoundIOInteractorOutputSpy.swift in Sources */,
-				AA7F6D321C0217020064DA3A /* UserDefaultsStub.swift in Sources */,
+				AA7F6D321C0217020064DA3A /* UserDefaultsFake.swift in Sources */,
 				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
 				AA7F6D2E1C0217020064DA3A /* SystemAudioDeviceRepositoryStub.swift in Sources */,
 				AA7F6D301C0217020064DA3A /* UserAgentObserverSpy.swift in Sources */,
