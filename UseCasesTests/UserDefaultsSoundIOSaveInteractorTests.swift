@@ -34,14 +34,14 @@ import XCTest
 
 class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
     func testCanCreate() {
-        let selectedSoundIO = SelectedSoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
+        let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
         let userDefaults = UserDefaultsFake()
-        let interactor = UserDefaultsSoundIOSaveInteractor(selectedSoundIO: selectedSoundIO, userDefaults: userDefaults)
+        let interactor = UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
 
         interactor.execute()
 
-        XCTAssertEqual(userDefaults[kSoundInput], selectedSoundIO.soundInput)
-        XCTAssertEqual(userDefaults[kSoundOutput], selectedSoundIO.soundOutput)
-        XCTAssertEqual(userDefaults[kRingtoneOutput], selectedSoundIO.ringtoneOutput)
+        XCTAssertEqual(userDefaults[kSoundInput], soundIO.soundInput)
+        XCTAssertEqual(userDefaults[kSoundOutput], soundIO.soundOutput)
+        XCTAssertEqual(userDefaults[kRingtoneOutput], soundIO.ringtoneOutput)
     }
 }

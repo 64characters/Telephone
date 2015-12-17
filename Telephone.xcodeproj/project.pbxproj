@@ -137,7 +137,7 @@
 		AA7F6D451C0381650064DA3A /* SelectedSoundIOInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D441C0381650064DA3A /* SelectedSoundIOInteractorTests.swift */; };
 		AA7F6D471C0381C00064DA3A /* SelectedSoundIOInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D461C0381C00064DA3A /* SelectedSoundIOInteractor.swift */; };
 		AA7F6D491C0382550064DA3A /* SelectedSoundIOInteractorOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D481C0382550064DA3A /* SelectedSoundIOInteractorOutputSpy.swift */; };
-		AA7F6D4B1C0387160064DA3A /* SelectedSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D4A1C0387160064DA3A /* SelectedSoundIO.swift */; };
+		AA7F6D4B1C0387160064DA3A /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D4A1C0387160064DA3A /* SoundIO.swift */; };
 		AA7F6D4D1C0387B70064DA3A /* AudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D4C1C0387B70064DA3A /* AudioDevice.swift */; };
 		AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */; };
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
@@ -469,7 +469,7 @@
 		AA7F6D441C0381650064DA3A /* SelectedSoundIOInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectedSoundIOInteractorTests.swift; path = UseCasesTests/SelectedSoundIOInteractorTests.swift; sourceTree = SOURCE_ROOT; };
 		AA7F6D461C0381C00064DA3A /* SelectedSoundIOInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSoundIOInteractor.swift; sourceTree = "<group>"; };
 		AA7F6D481C0382550064DA3A /* SelectedSoundIOInteractorOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSoundIOInteractorOutputSpy.swift; sourceTree = "<group>"; };
-		AA7F6D4A1C0387160064DA3A /* SelectedSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSoundIO.swift; sourceTree = "<group>"; };
+		AA7F6D4A1C0387160064DA3A /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		AA7F6D4C1C0387B70064DA3A /* AudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
 		AA86C85F10FF928D00EF4E8A /* ActiveCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ActiveCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
@@ -816,11 +816,11 @@
 				AA7F6D4C1C0387B70064DA3A /* AudioDevice.swift */,
 				AA8BA7F51C04D843008839F2 /* AudioDevices.swift */,
 				AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */,
-				AA7F6D4A1C0387160064DA3A /* SelectedSoundIO.swift */,
 				AA7F6D461C0381C00064DA3A /* SelectedSoundIOInteractor.swift */,
 				AA7F6D441C0381650064DA3A /* SelectedSoundIOInteractorTests.swift */,
 				AA32F7EF1BC4400900FAC228 /* SelectedSystemSoundIO.swift */,
 				AA32F7ED1BC43FB100FAC228 /* SelectedSystemSoundIOTests.swift */,
+				AA7F6D4A1C0387160064DA3A /* SoundIO.swift */,
 				AA32F8081BC69D8300FAC228 /* SystemAudioDeviceRepository.swift */,
 				AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */,
 				AAFA2BAC1BCD812C00066CFC /* UserAgentAudioDeviceSelectionInteractor.swift */,
@@ -1594,7 +1594,7 @@
 				AA3905331BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateAndSelectionInteractor.swift in Sources */,
 				AA3905321BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateInteractor.swift in Sources */,
 				AA3905411BFFDE37005A8AA3 /* UserAgentObserver.swift in Sources */,
-				AA7F6D4B1C0387160064DA3A /* SelectedSoundIO.swift in Sources */,
+				AA7F6D4B1C0387160064DA3A /* SoundIO.swift in Sources */,
 				AA39052C1BFFDDC4005A8AA3 /* Interactor.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */,
 				AA3905471BFFDE9A005A8AA3 /* UserDefaults.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  SelectedSoundIO.swift
+//  SoundIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public struct SelectedSoundIO {
+public struct SoundIO {
     public let soundInput: AudioDevice
     public let soundOutput: AudioDevice
     public let ringtoneOutput: AudioDevice
@@ -40,13 +40,13 @@ public struct SelectedSoundIO {
     }
 }
 
-extension SelectedSoundIO: Equatable {}
+extension SoundIO: Equatable {}
 
-public func ==(lhs: SelectedSoundIO, rhs: SelectedSoundIO) -> Bool {
+public func ==(lhs: SoundIO, rhs: SoundIO) -> Bool {
     return lhs.soundInput == rhs.soundInput && lhs.soundOutput == rhs.soundOutput && lhs.ringtoneOutput == rhs.ringtoneOutput
 }
 
-extension SelectedSoundIO {
+extension SoundIO {
     init(selectedSystemSoundIO: SelectedSystemSoundIO) {
         self.init(
             soundInput: AudioDevice(systemAudioDevice: selectedSystemSoundIO.soundInput),

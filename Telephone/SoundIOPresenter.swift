@@ -39,12 +39,12 @@ class SoundIOPresenter {
 }
 
 extension SoundIOPresenter: SelectedSoundIOInteractorOutput {
-    func update(audioDevices: AudioDevices, selectedIO: SelectedSoundIO) {
+    func update(audioDevices: AudioDevices, soundIO: SoundIO) {
         output.setInputAudioDevices(audioDevices.inputDevices)
         output.setOutputAudioDevices(audioDevices.outputDevices)
         output.setRingtoneOutputAudioDevices(audioDevices.outputDevices)
-        output.setSoundInputDevice(selectedIO.soundInput)
-        output.setSoundOutputDevice(selectedIO.soundOutput)
-        output.setRingtoneOutputDevice(selectedIO.ringtoneOutput)
+        output.setSoundInputDevice(soundIO.soundInput)
+        output.setSoundOutputDevice(soundIO.soundOutput)
+        output.setRingtoneOutputDevice(soundIO.ringtoneOutput)
     }
 }

@@ -65,12 +65,12 @@ class InteractorFactoryImplTests: XCTestCase {
     }
 
     func testCanCreateUserDefaultsSoundIOSaveInteractor() {
-        let soundIO = SelectedSoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
+        let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
 
         let interactor = factory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO) as! UserDefaultsSoundIOSaveInteractor
 
         XCTAssertNotNil(interactor)
-        XCTAssertEqual(interactor.selectedSoundIO, soundIO)
+        XCTAssertEqual(interactor.soundIO, soundIO)
         XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
     }
 }

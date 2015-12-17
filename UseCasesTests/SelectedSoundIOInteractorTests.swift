@@ -61,13 +61,13 @@ class SelectedSoundIOInteractorTests: XCTestCase {
         try! interactor.execute()
 
         XCTAssertEqual(outputSpy.audioDevices, expectedAudioDevices())
-        XCTAssertEqual(outputSpy.selectedIO, expectedSelectedSoundIO())
+        XCTAssertEqual(outputSpy.soundIO, expectedSoundIO())
     }
 
-    private func expectedSelectedSoundIO() -> SelectedSoundIO {
+    private func expectedSoundIO() -> SoundIO {
         let firstBuiltInInput = AudioDevice(systemAudioDevice: audioDeviceFactory.firstBuiltInInput)
         let firstBuiltInOutput = AudioDevice(systemAudioDevice: audioDeviceFactory.firstBuiltInOutput)
-        return SelectedSoundIO(soundInput: firstBuiltInInput, soundOutput: firstBuiltInOutput, ringtoneOutput: firstBuiltInOutput)
+        return SoundIO(soundInput: firstBuiltInInput, soundOutput: firstBuiltInOutput, ringtoneOutput: firstBuiltInOutput)
     }
 
     private func expectedAudioDevices() -> AudioDevices {

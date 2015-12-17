@@ -54,7 +54,7 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
 
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
         let interactor = interactorFactory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(
-            SelectedSoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput)
+            SoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput)
         )
         interactor.execute()
     }

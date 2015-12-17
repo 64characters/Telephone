@@ -55,7 +55,7 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
     func testExecutesUserDefaultsSoundIOSaveInteractorWithExpectedArgumentsOnSoundIOChange() {
         let interactorSpy = InteractorSpy()
         interactorFactorySpy.stubWithUserDefaultsSoundIOSaveInteractor(interactorSpy)
-        let soundIO = SelectedSoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
+        let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
 
         eventHandler.viewDidChangeSoundInput(
             soundIO.soundInput, soundOutput: soundIO.soundOutput, ringtoneOutput: soundIO.ringtoneOutput

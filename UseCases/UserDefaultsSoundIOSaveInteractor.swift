@@ -29,19 +29,19 @@
 //
 
 public class UserDefaultsSoundIOSaveInteractor {
-    public let selectedSoundIO: SelectedSoundIO
+    public let soundIO: SoundIO
     public let userDefaults: UserDefaults
 
-    public init(selectedSoundIO: SelectedSoundIO, userDefaults: UserDefaults) {
-        self.selectedSoundIO = selectedSoundIO
+    public init(soundIO: SoundIO, userDefaults: UserDefaults) {
+        self.soundIO = soundIO
         self.userDefaults = userDefaults
     }
 }
 
 extension UserDefaultsSoundIOSaveInteractor: Interactor {
     public func execute() {
-        userDefaults[kSoundInput] = selectedSoundIO.soundInput
-        userDefaults[kSoundOutput] = selectedSoundIO.soundOutput
-        userDefaults[kRingtoneOutput] = selectedSoundIO.ringtoneOutput
+        userDefaults[kSoundInput] = soundIO.soundInput
+        userDefaults[kSoundOutput] = soundIO.soundOutput
+        userDefaults[kRingtoneOutput] = soundIO.ringtoneOutput
     }
 }
