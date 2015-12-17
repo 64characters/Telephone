@@ -40,11 +40,8 @@ class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
 
         interactor.execute()
 
-        let savedSoundInput = userDefaults[kSoundInput] as! AudioDevice
-        let savedSoundOutput = userDefaults[kSoundOutput] as! AudioDevice
-        let savedRingtoneOutput = userDefaults[kRingtoneOutput] as! AudioDevice
-        XCTAssertEqual(savedSoundInput, selectedSoundIO.soundInput)
-        XCTAssertEqual(savedSoundOutput, selectedSoundIO.soundOutput)
-        XCTAssertEqual(savedRingtoneOutput, selectedSoundIO.ringtoneOutput)
+        XCTAssertEqual(userDefaults[kSoundInput], selectedSoundIO.soundInput)
+        XCTAssertEqual(userDefaults[kSoundOutput], selectedSoundIO.soundOutput)
+        XCTAssertEqual(userDefaults[kRingtoneOutput], selectedSoundIO.ringtoneOutput)
     }
 }

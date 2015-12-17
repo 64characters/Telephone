@@ -56,6 +56,6 @@ struct SelectedSystemSoundIO {
     }
 
     private func deviceNameWithUserDefaultsKey(key: String) -> String? {
-        return userDefaults[key] as? String
+        return userDefaults[key]
     }
 }

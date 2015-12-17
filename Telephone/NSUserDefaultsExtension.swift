@@ -31,9 +31,9 @@
 import UseCases
 
 extension NSUserDefaults: UserDefaults {
-    public subscript(key: String) -> AnyObject? {
+    public subscript(key: String) -> String? {
         get {
-            return objectForKey(key)
+            return stringForKey(key)
         }
         set {
             setObject(newValue, forKey: key)

@@ -31,5 +31,5 @@
 import Foundation
 
 @objc public protocol UserDefaults {
-    subscript(key: String) -> AnyObject? { get set }
+    subscript(key: String) -> String? { get set }
 }

@@ -32,13 +32,13 @@ import Foundation
 import UseCases
 
 public class UserDefaultsFake {
-    private var dictionary = [String: AnyObject]()
+    private var dictionary: [String: String] = [:]
 
     public init() {}
 }
 
 extension UserDefaultsFake: UserDefaults {
-    @objc public subscript(key: String) -> AnyObject? {
+    @objc public subscript(key: String) -> String? {
         get {
             return dictionary[key]
         }
