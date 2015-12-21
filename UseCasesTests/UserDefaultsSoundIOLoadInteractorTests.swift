@@ -51,7 +51,7 @@ class UserDefaultsSoundIOLoadInteractorTests: XCTestCase {
         outputSpy = UserDefaultsSoundIOLoadInteractorOutputSpy()
     }
 
-    func testCallsOutputWithExpectedAudioDevices() {
+    func testCallsOutputWithExpectedAudioDevicesAndSoundIO() {
         let interactor = UserDefaultsSoundIOLoadInteractor(
             systemAudioDeviceRepository: audioDeviceRepositoryStub,
             userDefaults: userDefaultsDummy,
