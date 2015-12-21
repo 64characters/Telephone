@@ -1,5 +1,5 @@
 //
-//  SelectedSoundIOInteractorOutputSpy.swift
+//  UserDefaultsSoundIOLoadInteractorOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,14 +30,14 @@
 
 import UseCases
 
-public class SelectedSoundIOInteractorOutputSpy {
+public class UserDefaultsSoundIOLoadInteractorOutputSpy {
     public private(set) var audioDevices: AudioDevices?
     public private(set) var soundIO: SoundIO?
 
     public init() {}
 }
 
-extension SelectedSoundIOInteractorOutputSpy: SelectedSoundIOInteractorOutput {
+extension UserDefaultsSoundIOLoadInteractorOutputSpy: UserDefaultsSoundIOLoadInteractorOutput {
     public func update(audioDevices: AudioDevices, soundIO: SoundIO) {
         self.audioDevices = audioDevices
         self.soundIO = soundIO

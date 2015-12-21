@@ -1,5 +1,5 @@
 //
-//  SelectedSoundIOInteractor.swift
+//  UserDefaultsSoundIOLoadInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,23 +30,23 @@
 
 import Domain
 
-public protocol SelectedSoundIOInteractorOutput: class {
+public protocol UserDefaultsSoundIOLoadInteractorOutput: class {
     func update(audioDevices: AudioDevices, soundIO: SoundIO)
 }
 
-public class SelectedSoundIOInteractor {
+public class UserDefaultsSoundIOLoadInteractor {
     public let systemAudioDeviceRepository: SystemAudioDeviceRepository
     public let userDefaults: UserDefaults
-    public let output: SelectedSoundIOInteractorOutput
+    public let output: UserDefaultsSoundIOLoadInteractorOutput
 
-    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: SelectedSoundIOInteractorOutput) {
+    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: UserDefaultsSoundIOLoadInteractorOutput) {
         self.systemAudioDeviceRepository = systemAudioDeviceRepository
         self.userDefaults = userDefaults
         self.output = output
     }
 }
 
-extension SelectedSoundIOInteractor: ThrowingInteractor {
+extension UserDefaultsSoundIOLoadInteractor: ThrowingInteractor {
     public func execute() throws {
         let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
         let selectedSystemSoundIO = try SelectedSystemSoundIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)

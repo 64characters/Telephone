@@ -38,7 +38,7 @@ class SoundIOPresenter {
     }
 }
 
-extension SoundIOPresenter: SelectedSoundIOInteractorOutput {
+extension SoundIOPresenter: UserDefaultsSoundIOLoadInteractorOutput {
     func update(audioDevices: AudioDevices, soundIO: SoundIO) {
         output.setInputAudioDevices(audioDevices.inputDevices)
         output.setOutputAudioDevices(audioDevices.outputDevices)
