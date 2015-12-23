@@ -34,13 +34,13 @@ import XCTest
 class SoundIOPresenterTests: XCTestCase {
     func testUpdatesViewWithExpectedData() {
         let outputSpy = SoundPreferencesViewSpy()
-        let presenter = SoundIOPresenter(output: outputSpy)
+        let sut = SoundIOPresenter(output: outputSpy)
         let inputDevices = ["input1", "input2"]
         let outputDevices = ["output1", "output2"]
         let audioDevices = AudioDevices(inputDevices: inputDevices, outputDevices: outputDevices)
         let soundIO = SoundIO(soundInput: "input2", soundOutput: "output2", ringtoneOutput: "output1")
 
-        presenter.update(audioDevices, soundIO: soundIO)
+        sut.update(audioDevices, soundIO: soundIO)
 
         XCTAssertEqual(outputSpy.invokedInputAudioDevices, inputDevices)
         XCTAssertEqual(outputSpy.invokedOutputAudioDevices, outputDevices)

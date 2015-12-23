@@ -33,7 +33,7 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentObserverCompositeTests: XCTestCase {
-    private var composite: UserAgentObserverComposite!
+    private var sut: UserAgentObserverComposite!
     private var observer1: UserAgentObserverSpy!
     private var observer2: UserAgentObserverSpy!
     private var userAgentDummy: UserAgentSpy!
@@ -42,12 +42,12 @@ class UserAgentObserverCompositeTests: XCTestCase {
         super.setUp()
         observer1 = UserAgentObserverSpy()
         observer2 = UserAgentObserverSpy()
-        composite = UserAgentObserverComposite(observers: [observer1, observer2])
+        sut = UserAgentObserverComposite(observers: [observer1, observer2])
         userAgentDummy = UserAgentSpy()
     }
 
     func testCallsDidFinishStartingOnAllChildren() {
-        composite.userAgentDidFinishStarting(userAgentDummy)
+        sut.userAgentDidFinishStarting(userAgentDummy)
 
         XCTAssertTrue(observer1.didCallUserAgentDidFinishStarting)
         XCTAssertTrue(observer2.didCallUserAgentDidFinishStarting)
@@ -55,7 +55,7 @@ class UserAgentObserverCompositeTests: XCTestCase {
     }
 
     func testCallsDidFinishStoppingOnAllChildren() {
-        composite.userAgentDidFinishStopping(userAgentDummy)
+        sut.userAgentDidFinishStopping(userAgentDummy)
 
         XCTAssertTrue(observer1.didCallUserAgentDidFinishStopping)
         XCTAssertTrue(observer2.didCallUserAgentDidFinishStopping)
@@ -63,7 +63,7 @@ class UserAgentObserverCompositeTests: XCTestCase {
     }
 
     func testCallsDidDetectNATOnAllChildren() {
-        composite.userAgentDidDetectNAT(userAgentDummy)
+        sut.userAgentDidDetectNAT(userAgentDummy)
 
         XCTAssertTrue(observer1.didCallUserAgentDidDetectNAT)
         XCTAssertTrue(observer2.didCallUserAgentDidDetectNAT)

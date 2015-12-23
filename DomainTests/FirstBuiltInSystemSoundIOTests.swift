@@ -41,15 +41,15 @@ class FirstBuiltInSystemSoundIOTests: XCTestCase {
     }
 
     func testInputIsTheFirstBuiltInInputDevice() {
-        let devices = try! FirstBuiltInSystemSoundIO(devices: deviceFactory.allDevices)
+        let sut = try! FirstBuiltInSystemSoundIO(devices: deviceFactory.allDevices)
 
-        XCTAssertEqual(devices.input, deviceFactory.firstBuiltInInput)
+        XCTAssertEqual(sut.input, deviceFactory.firstBuiltInInput)
     }
 
     func testOutputIsTheFirstBuiltInOutputDevice() {
-        let devices = try! FirstBuiltInSystemSoundIO(devices: deviceFactory.allDevices)
+        let sut = try! FirstBuiltInSystemSoundIO(devices: deviceFactory.allDevices)
 
-        XCTAssertEqual(devices.output, deviceFactory.firstBuiltInOutput)
+        XCTAssertEqual(sut.output, deviceFactory.firstBuiltInOutput)
     }
 
     func testThrowsIfCanNotFindBuiltInInput() {

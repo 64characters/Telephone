@@ -33,22 +33,22 @@ import XCTest
 
 class UserAgentAudioDeviceUpdaterTests: XCTestCase {
     var interactorSpy: ThrowingInteractorSpy!
-    var updater: UserAgentAudioDeviceUpdater!
+    var sut: UserAgentAudioDeviceUpdater!
 
     override func setUp() {
         super.setUp()
         interactorSpy = ThrowingInteractorSpy()
-        updater = UserAgentAudioDeviceUpdater(interactor: interactorSpy)
+        sut = UserAgentAudioDeviceUpdater(interactor: interactorSpy)
     }
 
     func testExecutesInteractorWhenUpdateAudioDevicesIsCalled() {
-        try! updater.updateAudioDevices()
+        try! sut.updateAudioDevices()
 
         XCTAssertTrue(interactorSpy.didCallExecute)
     }
 
     func testExecutesInteractorWhenSystemAudioDevicesAreUpdated() {
-        updater.systemAudioDevicesDidUpdate()
+        sut.systemAudioDevicesDidUpdate()
 
         XCTAssertTrue(interactorSpy.didCallExecute)
     }

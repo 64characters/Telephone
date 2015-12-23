@@ -37,10 +37,10 @@ class UserAgentAudioDeviceSelectorTests: XCTestCase {
         let interactorSpy = ThrowingInteractorSpy()
         let factoryStub = InteractorFactorySpy()
         factoryStub.stubWithUserAgentAudioDeviceSelectionInteractor(interactorSpy)
-        let deviceSelector = UserAgentAudioDeviceSelector(interactorFactory: factoryStub)
+        let sut = UserAgentAudioDeviceSelector(interactorFactory: factoryStub)
         let userAgentDummy = UserAgentSpy()
 
-        deviceSelector.userAgentDidFinishStarting(userAgentDummy)
+        sut.userAgentDidFinishStarting(userAgentDummy)
 
         XCTAssertTrue(interactorSpy.didCallExecute)
     }

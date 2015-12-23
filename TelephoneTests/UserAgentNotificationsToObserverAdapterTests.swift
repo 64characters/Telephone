@@ -34,7 +34,7 @@ import XCTest
 
 class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
     private var observerSpy: UserAgentObserverSpy!
-    private var adapter: UserAgentNotificationsToObserverAdapter!
+    private var sut: UserAgentNotificationsToObserverAdapter!
     private var userAgentDummy: UserAgent!
     private var notificationCenter: NSNotificationCenter!
 
@@ -42,7 +42,7 @@ class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
         super.setUp()
         observerSpy = UserAgentObserverSpy()
         userAgentDummy = UserAgentSpy()
-        adapter = UserAgentNotificationsToObserverAdapter(observer: observerSpy, userAgent: userAgentDummy)
+        sut = UserAgentNotificationsToObserverAdapter(observer: observerSpy, userAgent: userAgentDummy)
         notificationCenter = NSNotificationCenter.defaultCenter()
     }
 

@@ -33,44 +33,44 @@ import XCTest
 class InteractorFactoryImplTests: XCTestCase {
     var repositoryDummy: SystemAudioDeviceRepository!
     var userDefaultsDummy: UserDefaults!
-    var factory: InteractorFactoryImpl!
+    var sut: InteractorFactoryImpl!
 
     override func setUp() {
         super.setUp()
         repositoryDummy = SystemAudioDeviceRepositoryStub()
         userDefaultsDummy = UserDefaultsFake()
-        factory = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
+        sut = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
     }
 
     func testCanCreateUserAgentAudioDeviceSelectionInteractor() {
         let userAgentDummy = UserAgentSpy()
 
-        let interactor = factory.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgentDummy) as! UserAgentAudioDeviceSelectionInteractor
+        let result = sut.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgentDummy) as! UserAgentAudioDeviceSelectionInteractor
 
-        XCTAssertNotNil(interactor)
-        XCTAssertTrue(interactor.systemAudioDeviceRepository === repositoryDummy)
-        XCTAssertTrue(interactor.userAgent === userAgentDummy)
-        XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
+        XCTAssertNotNil(result)
+        XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)
+        XCTAssertTrue(result.userAgent === userAgentDummy)
+        XCTAssertTrue(result.userDefaults === userDefaultsDummy)
     }
 
     func testCanCreateUserDefaultsSoundIOLoadInteractor() {
         let outputDummy = UserDefaultsSoundIOLoadInteractorOutputSpy()
 
-        let interactor = factory.createUserDefaultsSoundIOLoadInteractorWithOutput(outputDummy) as! UserDefaultsSoundIOLoadInteractor
+        let result = sut.createUserDefaultsSoundIOLoadInteractorWithOutput(outputDummy) as! UserDefaultsSoundIOLoadInteractor
 
-        XCTAssertNotNil(interactor)
-        XCTAssertTrue(interactor.systemAudioDeviceRepository === repositoryDummy)
-        XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
-        XCTAssertTrue(interactor.output === outputDummy)
+        XCTAssertNotNil(result)
+        XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)
+        XCTAssertTrue(result.userDefaults === userDefaultsDummy)
+        XCTAssertTrue(result.output === outputDummy)
     }
 
     func testCanCreateUserDefaultsSoundIOSaveInteractor() {
         let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
 
-        let interactor = factory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO) as! UserDefaultsSoundIOSaveInteractor
+        let result = sut.createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO) as! UserDefaultsSoundIOSaveInteractor
 
-        XCTAssertNotNil(interactor)
-        XCTAssertEqual(interactor.soundIO, soundIO)
-        XCTAssertTrue(interactor.userDefaults === userDefaultsDummy)
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result.soundIO, soundIO)
+        XCTAssertTrue(result.userDefaults === userDefaultsDummy)
     }
 }

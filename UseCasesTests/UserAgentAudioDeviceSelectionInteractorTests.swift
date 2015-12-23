@@ -39,7 +39,7 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
     private var repositoryStub: SystemAudioDeviceRepositoryStub!
     private var userAgentSpy: UserAgentSpy!
     private var userDefaultsDummy: UserDefaultsFake!
-    private var interactor: UserAgentAudioDeviceSelectionInteractor!
+    private var sut: UserAgentAudioDeviceSelectionInteractor!
 
     override func setUp() {
         super.setUp()
@@ -49,11 +49,11 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
         userAgentSpy = UserAgentSpy()
         userAgentSpy.audioDevicesResult = createUserAgentDevices()
         userDefaultsDummy = UserDefaultsFake()
-        interactor = createInteractor()
+        sut = createInteractor()
     }
 
     func testSelectsMappedAudioDevices() {
-        try! interactor.execute()
+        try! sut.execute()
 
         let userAgentDevices: [UseCases.UserAgentAudioDevice] = userAgentSpy.audioDevicesResult
         XCTAssertEqual(userAgentSpy.selectedInputDeviceID, userAgentDevices[1].identifier)

@@ -34,9 +34,9 @@ class SystemAudioDevicesChangeObserverCompositeTests: XCTestCase {
     func testCallsObservers() {
         let observer1 = SystemAudioDevicesChangeObserverSpy()
         let observer2 = SystemAudioDevicesChangeObserverSpy()
-        let composite = SystemAudioDevicesChangeObserverComposite(observers: [observer1, observer2])
+        let sut = SystemAudioDevicesChangeObserverComposite(observers: [observer1, observer2])
 
-        composite.systemAudioDevicesDidUpdate()
+        sut.systemAudioDevicesDidUpdate()
 
         XCTAssertTrue(observer1.didCallSystemAudioDevicesDidUpdate)
         XCTAssertTrue(observer2.didCallSystemAudioDevicesDidUpdate)

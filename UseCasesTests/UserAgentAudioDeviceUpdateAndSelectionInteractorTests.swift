@@ -36,9 +36,9 @@ class UserAgentAudioDeviceUpdateAndSelectionInteractorTests: XCTestCase {
     func testUpdatesAndSelects() {
         let updateInteractorSpy = InteractorSpy()
         let selectionInteractorSpy = ThrowingInteractorSpy()
-        let updateAndSelectionInteractor = UserAgentAudioDeviceUpdateAndSelectionInteractor(updateInteractor: updateInteractorSpy, selectionInteractor: selectionInteractorSpy)
+        let sut = UserAgentAudioDeviceUpdateAndSelectionInteractor(updateInteractor: updateInteractorSpy, selectionInteractor: selectionInteractorSpy)
 
-        try! updateAndSelectionInteractor.execute()
+        try! sut.execute()
 
         XCTAssertTrue(updateInteractorSpy.didCallExecute)
         XCTAssertTrue(selectionInteractorSpy.didCallExecute)

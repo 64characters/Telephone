@@ -34,31 +34,31 @@ import XCTest
 
 class SystemAudioDevicesTests: XCTestCase {
     private var deviceFactory: SystemAudioDeviceTestFactory!
-    private var devices: SystemAudioDevices!
+    private var sut: SystemAudioDevices!
 
     override func setUp() {
         super.setUp()
         deviceFactory = SystemAudioDeviceTestFactory()
-        devices = SystemAudioDevices(devices: deviceFactory.allDevices)
+        sut = SystemAudioDevices(devices: deviceFactory.allDevices)
     }
 
     func testCanGetInputDeviceByName() {
         let inputDevice = deviceFactory.someInputDevice
 
-        XCTAssertEqual(devices.inputDeviceNamed(inputDevice.name), inputDevice)
+        XCTAssertEqual(sut.inputDeviceNamed(inputDevice.name), inputDevice)
     }
 
     func testCanGetOutputDeviceByName() {
         let outputDevice = deviceFactory.someOutputDevice
 
-        XCTAssertEqual(devices.outputDeviceNamed(outputDevice.name), outputDevice)
+        XCTAssertEqual(sut.outputDeviceNamed(outputDevice.name), outputDevice)
     }
 
     func testCanGetInputDevices() {
-        XCTAssertEqual(devices.inputDevices, deviceFactory.inputDevices)
+        XCTAssertEqual(sut.inputDevices, deviceFactory.inputDevices)
     }
 
     func testCanGetOutputDevices() {
-        XCTAssertEqual(devices.outputDevices, deviceFactory.outputDevices)
+        XCTAssertEqual(sut.outputDevices, deviceFactory.outputDevices)
     }
 }

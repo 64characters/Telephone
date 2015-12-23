@@ -36,9 +36,9 @@ class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
     func testCanCreate() {
         let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
         let userDefaults = UserDefaultsFake()
-        let interactor = UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
+        let sut = UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
 
-        interactor.execute()
+        sut.execute()
 
         XCTAssertEqual(userDefaults[kSoundInput], soundIO.soundInput)
         XCTAssertEqual(userDefaults[kSoundOutput], soundIO.soundOutput)
