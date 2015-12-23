@@ -85,11 +85,9 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeSoundIO:(id)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[[self soundInputPopUp] titleOfSelectedItem] forKey:kSoundInput];
-    [defaults setObject:[[self soundOutputPopUp] titleOfSelectedItem] forKey:kSoundOutput];
-    [defaults setObject:[[self ringtoneOutputPopUp] titleOfSelectedItem] forKey:kRingtoneOutput];
-    
+    [self.observer viewDidChangeSoundInput:self.soundInputPopUp.titleOfSelectedItem
+                               soundOutput:self.soundOutputPopUp.titleOfSelectedItem
+                            ringtoneOutput:self.ringtoneOutputPopUp.titleOfSelectedItem];
     [[NSApp delegate] selectSoundIO];
 }
 
