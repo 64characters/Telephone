@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelectorTests.swift
+//  UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -32,16 +32,15 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentAudioDeviceSelectorTests: XCTestCase {
-    func testCallExecuteWhenUserAgentFinishesStarting() {
-        let interactorSpy = ThrowingInteractorSpy()
-        let factoryStub = InteractorFactorySpy()
-        factoryStub.stubWithUserAgentAudioDeviceSelectionInteractor(interactorSpy)
-        let sut = UserAgentAudioDeviceSelector(interactorFactory: factoryStub)
-        let userAgentDummy = UserAgentSpy()
+class UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests: XCTestCase {
+    func testUpdatesAndSelects() {
+        let updateInteractorSpy = InteractorSpy()
+        let selectionInteractorSpy = ThrowingInteractorSpy()
+        let sut = UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(updateInteractor: updateInteractorSpy, selectionInteractor: selectionInteractorSpy)
 
-        sut.userAgentDidFinishStarting(userAgentDummy)
+        try! sut.execute()
 
-        XCTAssertTrue(interactorSpy.didCallExecute)
+        XCTAssertTrue(updateInteractorSpy.didCallExecute)
+        XCTAssertTrue(selectionInteractorSpy.didCallExecute)
     }
 }

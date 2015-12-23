@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelectionInteractor.swift
+//  UserAgentSoundIOSelectionInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -30,7 +30,7 @@
 
 import Domain
 
-public class UserAgentAudioDeviceSelectionInteractor {
+public class UserAgentSoundIOSelectionInteractor {
     public let systemAudioDeviceRepository: SystemAudioDeviceRepository
     public let userAgent: UserAgent
     public let userDefaults: UserDefaults
@@ -46,12 +46,12 @@ public class UserAgentAudioDeviceSelectionInteractor {
     }
 }
 
-extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
+extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     public func execute() throws {
         try updateSystemAudioDevices()
         try updateDeviceMap()
         try updateSelectedSystemSoundIO()
-        try selectUserAgentAudioDevices()
+        try selectUserAgentSoundIO()
     }
 
     private func updateSystemAudioDevices() throws {
@@ -67,10 +67,10 @@ extension UserAgentAudioDeviceSelectionInteractor: ThrowingInteractor {
         selectedSystemSoundIO = try SelectedSystemSoundIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
     }
 
-    private func selectUserAgentAudioDevices() throws {
+    private func selectUserAgentSoundIO() throws {
         let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.soundInput)
         let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.soundOutput)
-        try userAgent.selectAudioInputDevice(input.identifier, outputDevice: output.identifier)
+        try userAgent.selectSoundInputDevice(input.identifier, outputDevice: output.identifier)
     }
 
     private func domainWithUseCaseUserAgentAudioDevice(device: UserAgentAudioDevice) -> Domain.UserAgentAudioDevice {

@@ -55,7 +55,7 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
     func testExecutesUserDefaultsSoundIOSaveInteractorWithExpectedArgumentsOnSoundIOChange() {
         let interactorSpy = InteractorSpy()
         interactorFactorySpy.stubWithUserDefaultsSoundIOSaveInteractor(interactorSpy)
-        interactorFactorySpy.stubWithUserAgentAudioDeviceSelectionInteractor(ThrowingInteractorSpy())
+        interactorFactorySpy.stubWithUserAgentSoundIOSelectionInteractor(ThrowingInteractorSpy())
         let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
 
         sut.viewDidChangeSoundInput(
@@ -66,9 +66,9 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
         XCTAssertTrue(interactorSpy.didCallExecute)
     }
 
-    func testExecutesUserAgentAudioDeviceSelectionInteractorOnSoundIOChange() {
+    func testExecutesUserAgentSoundIOSelectionInteractorOnSoundIOChange() {
         let interactorSpy = ThrowingInteractorSpy()
-        interactorFactorySpy.stubWithUserAgentAudioDeviceSelectionInteractor(interactorSpy)
+        interactorFactorySpy.stubWithUserAgentSoundIOSelectionInteractor(interactorSpy)
         interactorFactorySpy.stubWithUserDefaultsSoundIOSaveInteractor(InteractorSpy())
 
         sut.viewDidChangeSoundInput("", soundOutput: "", ringtoneOutput: "")

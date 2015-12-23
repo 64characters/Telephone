@@ -56,7 +56,7 @@ extension UserAgentSpy: UserAgent {
         didCallUpdateAudioDevices = true
     }
 
-    public func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
+    public func selectSoundInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
         didCallSelectInputAndOutputDevices = true
         selectedInputDeviceID = inputDeviceID
         selectedOutputDeviceID = outputDeviceID

@@ -35,10 +35,10 @@ extension AKSIPUserAgent: UserAgent {
         return try UserAgentAudioDevices().allDevices
     }
 
-    public func selectAudioInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
+    public func selectSoundInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws {
         let success = self.setSoundInputDevice(inputDeviceID, soundOutputDevice: outputDeviceID)
         if !success {
-            throw TelephoneError.UserAgentAudioDeviceSelectionError
+            throw TelephoneError.UserAgentSoundIOSelectionError
         }
     }
 }

@@ -58,16 +58,16 @@ class CompositionRoot: NSObject {
         )
 
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(
-            observer: UserAgentAudioDeviceSelector(interactorFactory: interactorFactory),
+            observer: UserAgentSoundIOSelector(interactorFactory: interactorFactory),
             userAgent: userAgent
         )
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(
             observer: UserAgentAudioDeviceUpdater(
-                interactor: UserAgentAudioDeviceUpdateAndSelectionInteractor(
+                interactor: UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(
                     updateInteractor: UserAgentAudioDeviceUpdateInteractor(
                         userAgent: userAgent
                     ),
-                    selectionInteractor: UserAgentAudioDeviceSelectionInteractor(
+                    selectionInteractor: UserAgentSoundIOSelectionInteractor(
                         systemAudioDeviceRepository: audioDevices,
                         userAgent: userAgent,
                         userDefaults: userDefaults

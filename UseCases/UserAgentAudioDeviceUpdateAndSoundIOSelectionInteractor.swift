@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceUpdateAndSelectionInteractor.swift
+//  UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,7 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public class UserAgentAudioDeviceUpdateAndSelectionInteractor {
+public class UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor {
     public let updateInteractor: Interactor
     public let selectionInteractor: ThrowingInteractor
 
@@ -38,7 +38,7 @@ public class UserAgentAudioDeviceUpdateAndSelectionInteractor {
     }
 }
 
-extension UserAgentAudioDeviceUpdateAndSelectionInteractor: ThrowingInteractor {
+extension UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor: ThrowingInteractor {
     public func execute() throws {
         updateInteractor.execute()
         try selectionInteractor.execute()

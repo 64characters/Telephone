@@ -68,7 +68,7 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
 
     private func selectUserAgentAudioDevicesOrLogError() {
         do {
-            try interactorFactory.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent).execute()
+            try interactorFactory.createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent).execute()
         } catch {
             print("Could not select user agent audio devices: \(error)")
         }

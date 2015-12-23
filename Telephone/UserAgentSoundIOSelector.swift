@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceUpdateAndSelectionInteractorTests.swift
+//  UserAgentSoundIOSelector.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -29,18 +29,29 @@
 //
 
 import UseCases
-import UseCasesTestDoubles
-import XCTest
 
-class UserAgentAudioDeviceUpdateAndSelectionInteractorTests: XCTestCase {
-    func testUpdatesAndSelects() {
-        let updateInteractorSpy = InteractorSpy()
-        let selectionInteractorSpy = ThrowingInteractorSpy()
-        let sut = UserAgentAudioDeviceUpdateAndSelectionInteractor(updateInteractor: updateInteractorSpy, selectionInteractor: selectionInteractorSpy)
+class UserAgentSoundIOSelector {
+    let interactorFactory: InteractorFactory
 
-        try! sut.execute()
-
-        XCTAssertTrue(updateInteractorSpy.didCallExecute)
-        XCTAssertTrue(selectionInteractorSpy.didCallExecute)
+    init(interactorFactory: InteractorFactory) {
+        self.interactorFactory = interactorFactory
     }
+
+    func selectUserAgentSoundIO(userAgent: UserAgent) throws {
+        let interactor = interactorFactory.createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent)
+        try interactor.execute()
+    }
+}
+
+extension UserAgentSoundIOSelector: UserAgentObserver {
+    func userAgentDidFinishStarting(userAgent: UserAgent) {
+        do {
+            try selectUserAgentSoundIO(userAgent)
+        } catch {
+            print("Could not automatically select user agent audio devices: \(error)")
+        }
+    }
+
+    func userAgentDidFinishStopping(userAgent: UserAgent) {}
+    func userAgentDidDetectNAT(userAgent: UserAgent) {}
 }

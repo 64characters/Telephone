@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceSelectionInteractorTests.swift
+//  UserAgentSoundIOSelectionInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexei Kuznetsov. All rights reserved.
@@ -34,12 +34,12 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
+class UserAgentSoundIOSelectionInteractorTests: XCTestCase {
     private var systemDevices: SystemAudioDevices!
     private var repositoryStub: SystemAudioDeviceRepositoryStub!
     private var userAgentSpy: UserAgentSpy!
     private var userDefaultsDummy: UserDefaultsFake!
-    private var sut: UserAgentAudioDeviceSelectionInteractor!
+    private var sut: UserAgentSoundIOSelectionInteractor!
 
     override func setUp() {
         super.setUp()
@@ -71,7 +71,7 @@ class UserAgentAudioDeviceSelectionInteractorTests: XCTestCase {
         return [device1, device2]
     }
 
-    private func createInteractor() -> UserAgentAudioDeviceSelectionInteractor {
-        return UserAgentAudioDeviceSelectionInteractor(systemAudioDeviceRepository: repositoryStub, userAgent: userAgentSpy, userDefaults: userDefaultsDummy)
+    private func createInteractor() -> UserAgentSoundIOSelectionInteractor {
+        return UserAgentSoundIOSelectionInteractor(systemAudioDeviceRepository: repositoryStub, userAgent: userAgentSpy, userDefaults: userDefaultsDummy)
     }
 }

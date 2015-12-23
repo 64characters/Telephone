@@ -31,7 +31,7 @@
 import UseCases
 
 public class InteractorFactorySpy {
-    public private(set) var userAgentAudioDeviceSelectionInteractor: ThrowingInteractor!
+    public private(set) var userAgentSoundIOSelectionInteractor: ThrowingInteractor!
     public private(set) var userDefaultsSoundIOLoadInteractor: ThrowingInteractor!
     public private(set) var userDefaultsSoundIOSaveInteractor: Interactor!
 
@@ -39,8 +39,8 @@ public class InteractorFactorySpy {
 
     public init() {}
 
-    public func stubWithUserAgentAudioDeviceSelectionInteractor(interactor: ThrowingInteractor) {
-        userAgentAudioDeviceSelectionInteractor = interactor
+    public func stubWithUserAgentSoundIOSelectionInteractor(interactor: ThrowingInteractor) {
+        userAgentSoundIOSelectionInteractor = interactor
     }
 
     public func stubWithUserDefaultsSoundIOLoadInteractor(interactor: ThrowingInteractor) {
@@ -53,8 +53,8 @@ public class InteractorFactorySpy {
 }
 
 extension InteractorFactorySpy: InteractorFactory {
-    public func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return userAgentAudioDeviceSelectionInteractor
+    public func createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
+        return userAgentSoundIOSelectionInteractor
     }
 
     public func createUserDefaultsSoundIOLoadInteractorWithOutput(output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {

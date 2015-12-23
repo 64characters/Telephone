@@ -42,10 +42,10 @@ class InteractorFactoryImplTests: XCTestCase {
         sut = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
     }
 
-    func testCanCreateUserAgentAudioDeviceSelectionInteractor() {
+    func testCanCreateUserAgentSoundIOSelectionInteractor() {
         let userAgentDummy = UserAgentSpy()
 
-        let result = sut.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgentDummy) as! UserAgentAudioDeviceSelectionInteractor
+        let result = sut.createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgentDummy) as! UserAgentSoundIOSelectionInteractor
 
         XCTAssertNotNil(result)
         XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)

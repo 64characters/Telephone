@@ -39,8 +39,8 @@ class InteractorFactoryImpl {
 }
 
 extension InteractorFactoryImpl: InteractorFactory {
-    func createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentAudioDeviceSelectionInteractor(
+    func createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
+        return UserAgentSoundIOSelectionInteractor(
             systemAudioDeviceRepository: systemAudioDeviceRepository,
             userAgent: userAgent,
             userDefaults: userDefaults
