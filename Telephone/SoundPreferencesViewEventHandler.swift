@@ -33,10 +33,12 @@ import UseCases
 class SoundPreferencesViewEventHandler: NSObject {
     let interactorFactory: InteractorFactory
     let presenterFactory: PresenterFactory
+    let userAgent: UserAgent
 
-    init(interactorFactory: InteractorFactory, presenterFactory: PresenterFactory) {
+    init(interactorFactory: InteractorFactory, presenterFactory: PresenterFactory, userAgent: UserAgent) {
         self.interactorFactory = interactorFactory
         self.presenterFactory = presenterFactory
+        self.userAgent = userAgent
     }
 }
 
@@ -53,9 +55,22 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     }
 
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
+        updateUserDefaultsWithSoundInput(soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput)
+        selectUserAgentAudioDevicesOrLogError()
+    }
+
+    private func updateUserDefaultsWithSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
         let interactor = interactorFactory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(
             SoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput)
         )
         interactor.execute()
+    }
+
+    private func selectUserAgentAudioDevicesOrLogError() {
+        do {
+            try interactorFactory.createUserAgentAudioDeviceSelectionInteractorWithUserAgent(userAgent).execute()
+        } catch {
+            print("Could not select user agent audio devices: \(error)")
+        }
     }
 }

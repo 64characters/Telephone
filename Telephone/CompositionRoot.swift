@@ -52,7 +52,8 @@ class CompositionRoot: NSObject {
             delegate: preferencesControllerDelegate,
             soundPreferencesViewObserver: SoundPreferencesViewEventHandler(
                 interactorFactory: interactorFactory,
-                presenterFactory: PresenterFactoryImpl()
+                presenterFactory: PresenterFactoryImpl(),
+                userAgent: userAgent
             )
         )
 
