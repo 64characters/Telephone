@@ -88,6 +88,14 @@
 		AA39055A1BFFE657005A8AA3 /* SystemAudioDevicesChangeObserverSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeObserverSpy.swift */; };
 		AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */; };
 		AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */; };
+		AA3B6E801C46B40C0030D410 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E7F1C46B40C0030D410 /* Sound.swift */; };
+		AA3B6E821C46B55C0030D410 /* RepeatingSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E811C46B55C0030D410 /* RepeatingSound.swift */; };
+		AA3B6E871C47AD0B0030D410 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E861C47AD0B0030D410 /* Timer.swift */; };
+		AA3B6E891C47AD150030D410 /* TimerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E881C47AD150030D410 /* TimerFactory.swift */; };
+		AA3B6E8B1C47BFDF0030D410 /* RepeatingSoundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E8A1C47BFDF0030D410 /* RepeatingSoundTests.swift */; };
+		AA3B6E8D1C47C20A0030D410 /* SoundSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */; };
+		AA3B6E8F1C47C3C00030D410 /* TimerFactorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E8E1C47C3C00030D410 /* TimerFactorySpy.swift */; };
+		AA3B6E911C47C6590030D410 /* TimerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3B6E901C47C6590030D410 /* TimerSpy.swift */; };
 		AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F65691072C926000511E8 /* AuthenticationFailureController.m */; };
 		AA3FABA71BBC0A0D0064B2C3 /* SystemAudioDevicesChangeMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABA61BBC0A0D0064B2C3 /* SystemAudioDevicesChangeMonitor.swift */; };
 		AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAA1BBC183B0064B2C3 /* SystemAudioDevices.swift */; };
@@ -144,6 +152,7 @@
 		AA8BA7F61C04D843008839F2 /* AudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA7F51C04D843008839F2 /* AudioDevices.swift */; };
 		AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA110A56BD9000946F3 /* XSViewController.m */; };
 		AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA310A56BD9000946F3 /* XSWindowController.m */; };
+		AA92F8A41C2B02E700C378B6 /* Ringtone.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92F8A31C2B02E700C378B6 /* Ringtone.swift */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
 		AA9D081A1BFF7F700000F618 /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9D08051BFF7E6F0000F618 /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA810B31115D7F9008CA945 /* EndedCallTransferViewController.m */; };
@@ -411,6 +420,14 @@
 		AA3A153F0F30A49C00C45739 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
 		AA3A15470F30A4C200C45739 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
 		AA3A15480F30A4C700C45739 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/AddressBookLabels.strings; sourceTree = "<group>"; };
+		AA3B6E7F1C46B40C0030D410 /* Sound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
+		AA3B6E811C46B55C0030D410 /* RepeatingSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingSound.swift; sourceTree = "<group>"; };
+		AA3B6E861C47AD0B0030D410 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		AA3B6E881C47AD150030D410 /* TimerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFactory.swift; sourceTree = "<group>"; };
+		AA3B6E8A1C47BFDF0030D410 /* RepeatingSoundTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepeatingSoundTests.swift; path = UseCasesTests/RepeatingSoundTests.swift; sourceTree = SOURCE_ROOT; };
+		AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundSpy.swift; sourceTree = "<group>"; };
+		AA3B6E8E1C47C3C00030D410 /* TimerFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFactorySpy.swift; sourceTree = "<group>"; };
+		AA3B6E901C47C6590030D410 /* TimerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerSpy.swift; sourceTree = "<group>"; };
 		AA3F655C1072C66C000511E8 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/ActiveAccountView.xib; sourceTree = "<group>"; };
 		AA3F655D1072C674000511E8 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/ActiveAccountView.xib; sourceTree = "<group>"; };
 		AA3F65681072C926000511E8 /* AuthenticationFailureController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationFailureController.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -481,6 +498,7 @@
 		AA8FBAA210A56BD9000946F3 /* XSWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSWindowController.h; sourceTree = "<group>"; };
 		AA8FBAA310A56BD9000946F3 /* XSWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSWindowController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceRepositoryStub.swift; sourceTree = "<group>"; };
+		AA92F8A31C2B02E700C378B6 /* Ringtone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ringtone.swift; sourceTree = "<group>"; };
 		AA97B47410D3A2CA00FC65DA /* CallTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = CallTransferController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA97B47510D3A2CA00FC65DA /* CallTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = CallTransferController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA9D08031BFF7E6F0000F618 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -789,6 +807,8 @@
 			isa = PBXGroup;
 			children = (
 				AA39055F1C007799005A8AA3 /* Audio Devices */,
+				AA92F89B1C2AF90000C378B6 /* Ringtone */,
+				AA3B6E851C47ACFA0030D410 /* Timer */,
 				AA3905601C0077B7005A8AA3 /* User Agent */,
 				AA404AC61BFC8E5D00D00A3E /* Interactor.swift */,
 				AAB32A111BEBA4BA0016C8E6 /* InteractorFactory.swift */,
@@ -844,6 +864,15 @@
 				AA25AB4F1BE0F7B600E677A4 /* UserAgentObserverCompositeTests.swift */,
 			);
 			name = "User Agent";
+			sourceTree = "<group>";
+		};
+		AA3B6E851C47ACFA0030D410 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				AA3B6E861C47AD0B0030D410 /* Timer.swift */,
+				AA3B6E881C47AD150030D410 /* TimerFactory.swift */,
+			);
+			name = Timer;
 			sourceTree = "<group>";
 		};
 		AA3FAB861BBAAE630064B2C3 /* TelephoneTests */ = {
@@ -955,6 +984,17 @@
 			name = "Call Transfer";
 			sourceTree = "<group>";
 		};
+		AA92F89B1C2AF90000C378B6 /* Ringtone */ = {
+			isa = PBXGroup;
+			children = (
+				AA3B6E811C46B55C0030D410 /* RepeatingSound.swift */,
+				AA3B6E8A1C47BFDF0030D410 /* RepeatingSoundTests.swift */,
+				AA92F8A31C2B02E700C378B6 /* Ringtone.swift */,
+				AA3B6E7F1C46B40C0030D410 /* Sound.swift */,
+			);
+			name = Ringtone;
+			sourceTree = "<group>";
+		};
 		AA9D08041BFF7E6F0000F618 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,8 +1040,11 @@
 			children = (
 				AAB32A141BEBAD9C0016C8E6 /* InteractorFactorySpy.swift */,
 				AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */,
+				AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */,
 				AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */,
 				AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */,
+				AA3B6E8E1C47C3C00030D410 /* TimerFactorySpy.swift */,
+				AA3B6E901C47C6590030D410 /* TimerSpy.swift */,
 				AA25AB541BE0F86E00E677A4 /* UserAgentObserverSpy.swift */,
 				AAFA2BB61BCD815E00066CFC /* UserAgentSpy.swift */,
 				AA32F7F21BC440DE00FAC228 /* UserDefaultsFake.swift */,
@@ -1591,9 +1634,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA3B6E891C47AD150030D410 /* TimerFactory.swift in Sources */,
+				AA3B6E801C46B40C0030D410 /* Sound.swift in Sources */,
 				AA3905331BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift in Sources */,
 				AA3905321BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateInteractor.swift in Sources */,
 				AA3905411BFFDE37005A8AA3 /* UserAgentObserver.swift in Sources */,
+				AA92F8A41C2B02E700C378B6 /* Ringtone.swift in Sources */,
 				AA7F6D4B1C0387160064DA3A /* SoundIO.swift in Sources */,
 				AA39052C1BFFDDC4005A8AA3 /* Interactor.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */,
@@ -1609,7 +1655,9 @@
 				AA7F6D4D1C0387B70064DA3A /* AudioDevice.swift in Sources */,
 				AA7F6D3E1C034B700064DA3A /* UserDefaultsKeys.m in Sources */,
 				AA39052F1BFFDDDA005A8AA3 /* SelectedSystemSoundIO.swift in Sources */,
+				AA3B6E821C46B55C0030D410 /* RepeatingSound.swift in Sources */,
 				AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */,
+				AA3B6E871C47AD0B0030D410 /* Timer.swift in Sources */,
 				AA39053A1BFFDDE2005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1625,6 +1673,7 @@
 				AA39053F1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift in Sources */,
 				AA39053E1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateInteractorTests.swift in Sources */,
 				AA18F5FF1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveInteractorTests.swift in Sources */,
+				AA3B6E8B1C47BFDF0030D410 /* RepeatingSoundTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1700,11 +1749,14 @@
 				AA7F6D2D1C0217020064DA3A /* InteractorSpy.swift in Sources */,
 				AA7F6D2F1C0217020064DA3A /* ThrowingInteractorSpy.swift in Sources */,
 				AA7F6D491C0382550064DA3A /* UserDefaultsSoundIOLoadInteractorOutputSpy.swift in Sources */,
+				AA3B6E8D1C47C20A0030D410 /* SoundSpy.swift in Sources */,
 				AA7F6D321C0217020064DA3A /* UserDefaultsFake.swift in Sources */,
 				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
 				AA7F6D2E1C0217020064DA3A /* SystemAudioDeviceRepositoryStub.swift in Sources */,
 				AA7F6D301C0217020064DA3A /* UserAgentObserverSpy.swift in Sources */,
 				AA6989B11C19CAED0067BFB1 /* InteractorFactorySpy.swift in Sources */,
+				AA3B6E8F1C47C3C00030D410 /* TimerFactorySpy.swift in Sources */,
+				AA3B6E911C47C6590030D410 /* TimerSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
