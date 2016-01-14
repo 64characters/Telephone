@@ -1,5 +1,5 @@
 //
-//  Ringtone.swift
+//  RingtoneFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public protocol Ringtone {
-    func startPlaying()
-    func stopPlaying()
+public protocol RingtoneFactory {
+    func createRingtoneWithTimeInterval(timeInterval: Double) -> Ringtone
 }

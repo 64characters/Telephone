@@ -1,5 +1,5 @@
 //
-//  Ringtone.swift
+//  RingtoneSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,23 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public protocol Ringtone {
-    func startPlaying()
-    func stopPlaying()
+import UseCases
+
+public class RingtoneSpy {
+    public private(set) var didCallStartPlaying = false
+    public private(set) var didCallStopPlaying = false
+    public private(set) var stopPlayingCallCount = 0
+
+    public init() {}
+}
+
+extension RingtoneSpy: Ringtone {
+    public func startPlaying() {
+        didCallStartPlaying = true
+    }
+
+    public func stopPlaying() {
+        didCallStopPlaying = true
+        stopPlayingCallCount += 1
+    }
 }

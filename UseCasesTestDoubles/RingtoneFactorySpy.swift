@@ -1,5 +1,5 @@
 //
-//  Ringtone.swift
+//  RingtoneFactorySpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,24 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public protocol Ringtone {
-    func startPlaying()
-    func stopPlaying()
+import UseCases
+
+public class RingtoneFactorySpy {
+    public private(set) var createRingtoneCallCount = 0
+    public private(set) var invokedTimeInterval: Double = 0
+    public private(set) var ringtone: Ringtone!
+
+    public init() {}
+
+    public func stubWith(ringtone: Ringtone) {
+        self.ringtone = ringtone
+    }
+}
+
+extension RingtoneFactorySpy: RingtoneFactory {
+    public func createRingtoneWithTimeInterval(timeInterval: Double) -> Ringtone {
+        createRingtoneCallCount += 1
+        invokedTimeInterval = timeInterval
+        return ringtone
+    }
 }

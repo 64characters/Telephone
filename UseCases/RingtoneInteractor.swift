@@ -1,5 +1,5 @@
 //
-//  Ringtone.swift
+//  RingtoneInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexei Kuznetsov. All rights reserved.
@@ -28,7 +28,33 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-public protocol Ringtone {
-    func startPlaying()
-    func stopPlaying()
+public protocol RingtoneInteractorInput {
+    func startPlayingRingtone()
+    func stopPlayingRingtone()
+}
+
+public class RingtoneInteractor {
+    public static let ringtoneInterval: Double = 4
+
+    public let ringtoneFactory: RingtoneFactory
+
+    private var ringtone: Ringtone?
+
+    public init(ringtoneFactory: RingtoneFactory) {
+        self.ringtoneFactory = ringtoneFactory
+    }
+}
+
+extension RingtoneInteractor: RingtoneInteractorInput {
+    public func startPlayingRingtone() {
+        if ringtone == nil {
+            ringtone = ringtoneFactory.createRingtoneWithTimeInterval(RingtoneInteractor.ringtoneInterval)
+        }
+        ringtone!.startPlaying()
+    }
+
+    public func stopPlayingRingtone() {
+        ringtone?.stopPlaying()
+        ringtone = nil
+    }
 }
