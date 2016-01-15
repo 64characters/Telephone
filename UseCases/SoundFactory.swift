@@ -1,5 +1,5 @@
 //
-//  RingtoneInteractorTests.swift
+//  SoundFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexei Kuznetsov. All rights reserved.
@@ -28,54 +28,6 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-import UseCases
-import UseCasesTestDoubles
-import XCTest
-
-class RingtoneInteractorTests: XCTestCase {
-    private(set) var ringtoneSpy: RingtoneSpy!
-    private(set) var ringtoneFactorySpy: RingtoneFactorySpy!
-    private(set) var sut: RingtoneInteractorInput!
-
-    override func setUp() {
-        super.setUp()
-        ringtoneSpy = RingtoneSpy()
-        ringtoneFactorySpy = RingtoneFactorySpy()
-        ringtoneFactorySpy.stubWith(ringtoneSpy)
-        sut = RingtoneInteractor(ringtoneFactory: ringtoneFactorySpy)
-    }
-
-    func testStartsPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-
-        XCTAssertTrue(ringtoneSpy.didCallStartPlaying)
-    }
-
-    func testStopsPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-        sut.stopPlayingRingtone()
-
-        XCTAssertTrue(ringtoneSpy.didCallStopPlaying)
-    }
-
-    func testTimerInterval() {
-        try! sut.startPlayingRingtone()
-
-        XCTAssertEqual(ringtoneFactorySpy.invokedTimeInterval, RingtoneInteractor.ringtoneInterval)
-    }
-
-    func testDoesNotCreateRingtoneIfAlreadyExists() {
-        try! sut.startPlayingRingtone()
-        try! sut.startPlayingRingtone()
-
-        XCTAssertEqual(ringtoneFactorySpy.createRingtoneCallCount, 1)
-    }
-
-    func testStopsPlayingRingtoneOnceOnTwoConsecutiveCallsToStopPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-        sut.stopPlayingRingtone()
-        sut.stopPlayingRingtone()
-
-        XCTAssertEqual(ringtoneSpy.stopPlayingCallCount, 1)
-    }
+public protocol SoundFactory {
+    func createSoundWithName(name: String) throws -> Sound
 }

@@ -33,6 +33,11 @@
 		AA1019751C48065700869D01 /* RingtoneSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019741C48065700869D01 /* RingtoneSpy.swift */; };
 		AA1019771C48071700869D01 /* RingtoneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019761C48071700869D01 /* RingtoneFactory.swift */; };
 		AA1019791C48078900869D01 /* RingtoneFactorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */; };
+		AA10197D1C4821C400869D01 /* SoundFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10197C1C4821C400869D01 /* SoundFactory.swift */; };
+		AA1019811C48F08A00869D01 /* SoundFactorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */; };
+		AA1019841C490BD300869D01 /* RingtoneFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* RingtoneFactoryImpl.swift */; };
+		AA1019871C490BE400869D01 /* RingtoneFactoryImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019851C490BE100869D01 /* RingtoneFactoryImplTests.swift */; };
+		AA1019881C490BF100869D01 /* RingtoneFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* RingtoneFactoryImpl.swift */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
@@ -354,6 +359,10 @@
 		AA1019741C48065700869D01 /* RingtoneSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneSpy.swift; sourceTree = "<group>"; };
 		AA1019761C48071700869D01 /* RingtoneFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneFactory.swift; sourceTree = "<group>"; };
 		AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneFactorySpy.swift; sourceTree = "<group>"; };
+		AA10197C1C4821C400869D01 /* SoundFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundFactory.swift; sourceTree = "<group>"; };
+		AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundFactorySpy.swift; sourceTree = "<group>"; };
+		AA1019831C490BD300869D01 /* RingtoneFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneFactoryImpl.swift; sourceTree = "<group>"; };
+		AA1019851C490BE100869D01 /* RingtoneFactoryImplTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneFactoryImplTests.swift; sourceTree = "<group>"; };
 		AA167A1D0F07BF9E00AF8B71 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Creating.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -707,6 +716,7 @@
 				AA86C8B6110339E200EF4E8A /* Call Transfer */,
 				AAECDE8C0E70700B00CEAE7B /* Categories */,
 				AADAA303107E5AD400789F2D /* Preferences */,
+				AA1019821C490BB900869D01 /* Ringtone */,
 				AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */,
 				AA2C03F21BD7BE36001D25F9 /* CompositionRoot.swift */,
 				AA4BD4D60E07C305005A71B2 /* AppController.h */,
@@ -838,6 +848,15 @@
 				AA078B391BFF80E30013FF8F /* Info.plist */,
 			);
 			path = UseCasesTests;
+			sourceTree = "<group>";
+		};
+		AA1019821C490BB900869D01 /* Ringtone */ = {
+			isa = PBXGroup;
+			children = (
+				AA1019831C490BD300869D01 /* RingtoneFactoryImpl.swift */,
+				AA1019851C490BE100869D01 /* RingtoneFactoryImplTests.swift */,
+			);
+			name = Ringtone;
 			sourceTree = "<group>";
 		};
 		AA39055F1C007799005A8AA3 /* Audio Devices */ = {
@@ -1004,6 +1023,7 @@
 				AA1019721C48046D00869D01 /* RingtoneInteractor.swift */,
 				AA1019701C48044900869D01 /* RingtoneInteractorTests.swift */,
 				AA3B6E7F1C46B40C0030D410 /* Sound.swift */,
+				AA10197C1C4821C400869D01 /* SoundFactory.swift */,
 			);
 			name = Ringtone;
 			sourceTree = "<group>";
@@ -1055,6 +1075,7 @@
 				AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */,
 				AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */,
 				AA1019741C48065700869D01 /* RingtoneSpy.swift */,
+				AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */,
 				AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */,
 				AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */,
 				AA277A5C1BD3F63B0030ECE4 /* ThrowingInteractorSpy.swift */,
@@ -1603,6 +1624,7 @@
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
+				AA1019841C490BD300869D01 /* RingtoneFactoryImpl.swift in Sources */,
 				AA19CFF51BED148A00991CAA /* InteractorFactoryImpl.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
@@ -1657,6 +1679,7 @@
 				AA3905321BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateInteractor.swift in Sources */,
 				AA3905411BFFDE37005A8AA3 /* UserAgentObserver.swift in Sources */,
 				AA92F8A41C2B02E700C378B6 /* Ringtone.swift in Sources */,
+				AA10197D1C4821C400869D01 /* SoundFactory.swift in Sources */,
 				AA7F6D4B1C0387160064DA3A /* SoundIO.swift in Sources */,
 				AA39052C1BFFDDC4005A8AA3 /* Interactor.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */,
@@ -1703,6 +1726,8 @@
 				AA6989B51C19D0660067BFB1 /* PresenterFactory.swift in Sources */,
 				AA277A551BD3F2A90030ECE4 /* UserAgentSoundIOSelectorTests.swift in Sources */,
 				AAC0FFB81BE28CAD00A5C7E5 /* SystemAudioDevicesChangeObserverComposite.swift in Sources */,
+				AA1019871C490BE400869D01 /* RingtoneFactoryImplTests.swift in Sources */,
+				AA1019881C490BF100869D01 /* RingtoneFactoryImpl.swift in Sources */,
 				AA277A591BD3F4680030ECE4 /* UserAgentSoundIOSelector.swift in Sources */,
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewObserver.swift in Sources */,
@@ -1775,6 +1800,7 @@
 				AA7F6D2E1C0217020064DA3A /* SystemAudioDeviceRepositoryStub.swift in Sources */,
 				AA7F6D301C0217020064DA3A /* UserAgentObserverSpy.swift in Sources */,
 				AA6989B11C19CAED0067BFB1 /* InteractorFactorySpy.swift in Sources */,
+				AA1019811C48F08A00869D01 /* SoundFactorySpy.swift in Sources */,
 				AA3B6E8F1C47C3C00030D410 /* TimerFactorySpy.swift in Sources */,
 				AA3B6E911C47C6590030D410 /* TimerSpy.swift in Sources */,
 			);

@@ -28,14 +28,14 @@
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-class RepeatingSound {
-    let sound: Sound
-    let timeInterval: Double
-    let timerFactory: TimerFactory
+public class RepeatingSound {
+    public let sound: Sound
+    public let timeInterval: Double
+    public let timerFactory: TimerFactory
 
     private var timer: Timer?
 
-    init(sound: Sound, timeInterval: Double, timerFactory: TimerFactory) {
+    public init(sound: Sound, timeInterval: Double, timerFactory: TimerFactory) {
         self.sound = sound
         self.timeInterval = timeInterval
         self.timerFactory = timerFactory
@@ -43,12 +43,12 @@ class RepeatingSound {
 }
 
 extension RepeatingSound: Ringtone {
-    func startPlaying() {
+    public func startPlaying() {
         sound.play()
         createTimerIfNeeded()
     }
 
-    func stopPlaying() {
+    public func stopPlaying() {
         sound.stop()
         invalidateTimerIfNeeded()
     }

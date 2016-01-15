@@ -33,4 +33,5 @@ enum TelephoneError: ErrorType {
     case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
     case UserAgentAudioDeviceEnumerationError
     case UserAgentSoundIOSelectionError
+    case RingtoneNameNotFoundError
 }

@@ -29,7 +29,7 @@
 //
 
 public protocol RingtoneInteractorInput {
-    func startPlayingRingtone()
+    func startPlayingRingtone() throws
     func stopPlayingRingtone()
 }
 
@@ -46,9 +46,9 @@ public class RingtoneInteractor {
 }
 
 extension RingtoneInteractor: RingtoneInteractorInput {
-    public func startPlayingRingtone() {
+    public func startPlayingRingtone() throws {
         if ringtone == nil {
-            ringtone = ringtoneFactory.createRingtoneWithTimeInterval(RingtoneInteractor.ringtoneInterval)
+            ringtone = try ringtoneFactory.createRingtoneWithTimeInterval(RingtoneInteractor.ringtoneInterval)
         }
         ringtone!.startPlaying()
     }

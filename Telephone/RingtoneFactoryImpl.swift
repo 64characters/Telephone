@@ -1,5 +1,5 @@
 //
-//  RingtoneInteractorTests.swift
+//  RingtoneFactoryImpl.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexei Kuznetsov. All rights reserved.
@@ -29,53 +29,33 @@
 //
 
 import UseCases
-import UseCasesTestDoubles
-import XCTest
 
-class RingtoneInteractorTests: XCTestCase {
-    private(set) var ringtoneSpy: RingtoneSpy!
-    private(set) var ringtoneFactorySpy: RingtoneFactorySpy!
-    private(set) var sut: RingtoneInteractorInput!
+public class RingtoneFactoryImpl {
+    public let soundFactory: SoundFactory
+    public let userDefaults: UserDefaults
+    public let timerFactory: TimerFactory
 
-    override func setUp() {
-        super.setUp()
-        ringtoneSpy = RingtoneSpy()
-        ringtoneFactorySpy = RingtoneFactorySpy()
-        ringtoneFactorySpy.stubWith(ringtoneSpy)
-        sut = RingtoneInteractor(ringtoneFactory: ringtoneFactorySpy)
+    public init(soundFactory: SoundFactory, userDefaults: UserDefaults, timerFactory: TimerFactory) {
+        self.soundFactory = soundFactory
+        self.userDefaults = userDefaults
+        self.timerFactory = timerFactory
+    }
+}
+
+extension RingtoneFactoryImpl: RingtoneFactory {
+    public func createRingtoneWithTimeInterval(timeInterval: Double) throws -> Ringtone {
+        if let name = userDefaults[kRingingSound] {
+            return try createRingtoneWithName(name, timeInterval: timeInterval)
+        } else {
+            throw TelephoneError.RingtoneNameNotFoundError
+        }
     }
 
-    func testStartsPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-
-        XCTAssertTrue(ringtoneSpy.didCallStartPlaying)
-    }
-
-    func testStopsPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-        sut.stopPlayingRingtone()
-
-        XCTAssertTrue(ringtoneSpy.didCallStopPlaying)
-    }
-
-    func testTimerInterval() {
-        try! sut.startPlayingRingtone()
-
-        XCTAssertEqual(ringtoneFactorySpy.invokedTimeInterval, RingtoneInteractor.ringtoneInterval)
-    }
-
-    func testDoesNotCreateRingtoneIfAlreadyExists() {
-        try! sut.startPlayingRingtone()
-        try! sut.startPlayingRingtone()
-
-        XCTAssertEqual(ringtoneFactorySpy.createRingtoneCallCount, 1)
-    }
-
-    func testStopsPlayingRingtoneOnceOnTwoConsecutiveCallsToStopPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-        sut.stopPlayingRingtone()
-        sut.stopPlayingRingtone()
-
-        XCTAssertEqual(ringtoneSpy.stopPlayingCallCount, 1)
+    private func createRingtoneWithName(name: String, timeInterval: Double) throws -> Ringtone {
+        return RepeatingSound(
+            sound: try soundFactory.createSoundWithName(name),
+            timeInterval: timeInterval,
+            timerFactory: timerFactory
+        )
     }
 }
