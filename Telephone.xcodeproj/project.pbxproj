@@ -38,6 +38,8 @@
 		AA1019841C490BD300869D01 /* RingtoneFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* RingtoneFactoryImpl.swift */; };
 		AA1019871C490BE400869D01 /* RingtoneFactoryImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019851C490BE100869D01 /* RingtoneFactoryImplTests.swift */; };
 		AA1019881C490BF100869D01 /* RingtoneFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* RingtoneFactoryImpl.swift */; };
+		AA1019891C491BF900869D01 /* Domain.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA9D08031BFF7E6F0000F618 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AA10198A1C491C0600869D01 /* UseCases.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA078B291BFF80E20013FF8F /* UseCases.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
@@ -331,6 +333,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				AA10198A1C491C0600869D01 /* UseCases.framework in CopyFiles */,
+				AA1019891C491BF900869D01 /* Domain.framework in CopyFiles */,
 				AA222C44182C4A7E0096B024 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
