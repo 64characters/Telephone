@@ -55,15 +55,12 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     }
 
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
-        updateUserDefaultsWithSoundInput(soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput)
+        updateUserDefaultsWithSoundIO(SoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput))
         selectUserAgentAudioDevicesOrLogError()
     }
 
-    private func updateUserDefaultsWithSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
-        let interactor = interactorFactory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(
-            SoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput)
-        )
-        interactor.execute()
+    private func updateUserDefaultsWithSoundIO(soundIO: SoundIO) {
+        interactorFactory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO).execute()
     }
 
     private func selectUserAgentAudioDevicesOrLogError() {
