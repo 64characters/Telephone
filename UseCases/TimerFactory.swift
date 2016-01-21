@@ -2,7 +2,7 @@
 //  TimerFactory.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2016 Alexei Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
