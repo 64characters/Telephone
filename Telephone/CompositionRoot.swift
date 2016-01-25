@@ -26,6 +26,7 @@ class CompositionRoot: NSObject {
 
     private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
     private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
+    private let ringtonePlaybackInteractor: RingtonePlaybackInteractor!
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate) {
         userAgent = AKSIPUserAgent.sharedUserAgent()
@@ -62,6 +63,17 @@ class CompositionRoot: NSObject {
                 )
             ),
             queue: queue
+        )
+
+        ringtonePlaybackInteractor = RingtonePlaybackInteractor(
+            ringtoneFactory: RingtoneFactoryImpl(
+                interactor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
+                    userDefaults: userDefaults,
+                    systemAudioDeviceRepository: audioDevices
+                ),
+                soundFactory: SoundFactoryImpl(),
+                timerFactory: TimerFactoryImpl()
+            )
         )
 
         super.init()
