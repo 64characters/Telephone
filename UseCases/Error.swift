@@ -1,5 +1,5 @@
 //
-//  SoundFactorySpy.swift
+//  Error.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,19 +15,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public class SoundFactorySpy {
-    public private(set) var invokedConfiguration: SoundConfiguration
-
-    public init() {
-        invokedConfiguration = SoundConfiguration(name: "", deviceUID: "")
-    }
-}
-
-extension SoundFactorySpy: SoundFactory {
-    public func createSound(configuration: SoundConfiguration) throws -> Sound {
-        invokedConfiguration = configuration
-        return SoundSpy()
-    }
+public enum Error: ErrorType {
+    case RingtoneSoundNameNotFoundError
 }

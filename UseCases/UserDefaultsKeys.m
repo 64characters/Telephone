@@ -20,3 +20,4 @@
 NSString * const kSoundInput = @"SoundInput";
 NSString * const kSoundOutput = @"SoundOutput";
 NSString * const kRingtoneOutput = @"RingtoneOutput";
+NSString * const kRingingSound = @"RingingSound";

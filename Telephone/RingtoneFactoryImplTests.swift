@@ -20,43 +20,33 @@ import UseCasesTestDoubles
 import XCTest
 
 class RingtoneFactoryImplTests: XCTestCase {
+    private var interactorStub: UserDefaultsRingtoneSoundConfigurationLoadInteractorStub!
     private var soundFactorySpy: SoundFactorySpy!
-    private var userDefaults: UserDefaultsFake!
     private var sut: RingtoneFactoryImpl!
 
     override func setUp() {
         super.setUp()
+        interactorStub = UserDefaultsRingtoneSoundConfigurationLoadInteractorStub()
         soundFactorySpy = SoundFactorySpy()
-        userDefaults = UserDefaultsFake()
-        sut = RingtoneFactoryImpl(soundFactory: soundFactorySpy, userDefaults: userDefaults, timerFactory: TimerFactorySpy())
+        sut = RingtoneFactoryImpl(interactor: interactorStub, soundFactory: soundFactorySpy, timerFactory: TimerFactorySpy())
     }
 
-    func testCreatesSoundWithNameFromUserDefaults() {
-        userDefaults[kRingingSound] = "any-sound"
+    func testCreatesSoundWithConfigurationFromUserDefaultsRingtoneSoundConfigurationLoadInteractor() {
+        let configuration = SoundConfiguration(name: "name", deviceUID: "UID")
+        interactorStub.stubWith(configuration)
 
         try! sut.createRingtoneWithTimeInterval(0)
 
-        XCTAssertEqual(soundFactorySpy.invokedName, "any-sound")
+        XCTAssertEqual(soundFactorySpy.invokedConfiguration.name, configuration.name)
+        XCTAssertEqual(soundFactorySpy.invokedConfiguration.deviceUID, configuration.deviceUID)
     }
 
     func testCreatesRingtoneWithSpecifiedTimeInterval() {
-        userDefaults[kRingingSound] = "any-sound"
-        let anyInterval: Double = 2
+        interactorStub.stubWith(SoundConfiguration(name: "", deviceUID: ""))
+        let interval: Double = 2
 
-        let result = try! sut.createRingtoneWithTimeInterval(anyInterval)
+        let result = try! sut.createRingtoneWithTimeInterval(interval)
 
-        XCTAssertEqual(result.timeInterval, anyInterval)
-    }
-
-    func testThrowsIfSoundNameDoesNotExistInUserDefaults() {
-        var result = false
-
-        do {
-            try sut.createRingtoneWithTimeInterval(0)
-        } catch {
-            result = true
-        }
-
-        XCTAssertTrue(result)
+        XCTAssertEqual(result.timeInterval, interval)
     }
 }

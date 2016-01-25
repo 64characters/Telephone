@@ -18,29 +18,21 @@
 import UseCases
 
 public class RingtoneFactoryImpl {
+    public let interactor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput
     public let soundFactory: SoundFactory
-    public let userDefaults: UserDefaults
     public let timerFactory: TimerFactory
 
-    public init(soundFactory: SoundFactory, userDefaults: UserDefaults, timerFactory: TimerFactory) {
+    public init(interactor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput, soundFactory: SoundFactory, timerFactory: TimerFactory) {
+        self.interactor = interactor
         self.soundFactory = soundFactory
-        self.userDefaults = userDefaults
         self.timerFactory = timerFactory
     }
 }
 
 extension RingtoneFactoryImpl: RingtoneFactory {
     public func createRingtoneWithTimeInterval(timeInterval: Double) throws -> Ringtone {
-        if let name = userDefaults[kRingingSound] {
-            return try createRingtoneWithName(name, timeInterval: timeInterval)
-        } else {
-            throw TelephoneError.RingtoneNameNotFoundError
-        }
-    }
-
-    private func createRingtoneWithName(name: String, timeInterval: Double) throws -> Ringtone {
         return RepeatingSound(
-            sound: try soundFactory.createSoundWithName(name),
+            sound: try soundFactory.createSound(try interactor.execute()),
             timeInterval: timeInterval,
             timerFactory: timerFactory
         )

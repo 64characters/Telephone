@@ -18,8 +18,9 @@
 import UseCases
 
 class SoundFactoryImpl : SoundFactory {
-    func createSoundWithName(name: String) throws -> Sound {
-        if let sound = NSSound(named: name) {
+    func createSound(configuration: SoundConfiguration) throws -> Sound {
+        if let sound = NSSound(named: configuration.name) {
+            sound.playbackDeviceIdentifier = configuration.deviceUID
             return NSSoundToSoundAdapter(sound: sound)
         } else {
             throw TelephoneError.SoundCreationError

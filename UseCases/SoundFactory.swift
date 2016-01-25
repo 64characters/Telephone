@@ -16,5 +16,5 @@
 //
 
 public protocol SoundFactory {
-    func createSoundWithName(name: String) throws -> Sound
+    func createSound(configuration: SoundConfiguration) throws -> Sound
 }

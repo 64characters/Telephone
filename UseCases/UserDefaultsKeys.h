@@ -20,3 +20,4 @@
 extern NSString * const kSoundInput;
 extern NSString * const kSoundOutput;
 extern NSString * const kRingtoneOutput;
+extern NSString * const kRingingSound;
