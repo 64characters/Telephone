@@ -1,5 +1,5 @@
 //
-//  NSUserDefaultsExtension.swift
+//  NSUserDefaults+UserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
