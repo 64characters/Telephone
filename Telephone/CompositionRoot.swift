@@ -21,14 +21,14 @@ import UseCases
 class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     let preferencesController: PreferencesController
+    let ringtonePlaybackInteractor: RingtonePlaybackInteractorInput
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
     private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
     private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
-    private let ringtonePlaybackInteractor: RingtonePlaybackInteractor!
 
-    init(preferencesControllerDelegate: PreferencesControllerDelegate) {
+    init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackInteractorDelegate: ConditionalRingtonePlaybackInteractorDelegate) {
         userAgent = AKSIPUserAgent.sharedUserAgent()
         userDefaults = NSUserDefaults.standardUserDefaults()
         queue = createQueue()
@@ -43,6 +43,20 @@ class CompositionRoot: NSObject {
                 presenterFactory: PresenterFactoryImpl(),
                 userAgent: userAgent
             )
+        )
+
+        ringtonePlaybackInteractor = ConditionalRingtonePlaybackInteractor(
+            origin: RingtonePlaybackInteractor(
+                ringtoneFactory: RingtoneFactoryImpl(
+                    interactor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
+                        userDefaults: userDefaults,
+                        systemAudioDeviceRepository: audioDevices
+                    ),
+                    soundFactory: SoundFactoryImpl(),
+                    timerFactory: TimerFactoryImpl()
+                )
+            ),
+            delegate: conditionalRingtonePlaybackInteractorDelegate
         )
 
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(
@@ -63,17 +77,6 @@ class CompositionRoot: NSObject {
                 )
             ),
             queue: queue
-        )
-
-        ringtonePlaybackInteractor = RingtonePlaybackInteractor(
-            ringtoneFactory: RingtoneFactoryImpl(
-                interactor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
-                    userDefaults: userDefaults,
-                    systemAudioDeviceRepository: audioDevices
-                ),
-                soundFactory: SoundFactoryImpl(),
-                timerFactory: TimerFactoryImpl()
-            )
         )
 
         super.init()

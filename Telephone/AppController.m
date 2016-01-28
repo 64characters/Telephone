@@ -266,7 +266,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         return nil;
     }
 
-    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self];
+    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self conditionalRingtonePlaybackInteractorDelegate:self];
     
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];

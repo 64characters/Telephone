@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-public class ConditionalRingtonePlaybackInteractor {
+public class ConditionalRingtonePlaybackInteractor: NSObject {
     let origin: RingtonePlaybackInteractorInput
     let delegate: ConditionalRingtonePlaybackInteractorDelegate
 
@@ -37,6 +37,6 @@ extension ConditionalRingtonePlaybackInteractor: RingtonePlaybackInteractorInput
     }
 }
 
-public protocol ConditionalRingtonePlaybackInteractorDelegate {
+@objc public protocol ConditionalRingtonePlaybackInteractorDelegate {
     func interactorCanStopPlayingRingtone(interactor: ConditionalRingtonePlaybackInteractor) -> Bool
 }
