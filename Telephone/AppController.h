@@ -139,6 +139,8 @@ extern NSString * const kGrowlNotificationCallEnded;
 // Stops a ringtone timer if needed.
 - (void)stopRingtoneTimerIfNeeded;
 
+- (BOOL)canStopRingtoneTimer;
+
 // Method to be called when a ringtone timer fires.
 - (void)ringtoneTimerTick:(NSTimer *)theTimer;
 

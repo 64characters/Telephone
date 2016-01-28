@@ -648,6 +648,10 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
 }
 
+- (BOOL)canStopRingtoneTimer {
+    return ![self hasIncomingCallControllers];
+}
+
 - (void)ringtoneTimerTick:(NSTimer *)theTimer {
     [[self ringtone] play];
 }

@@ -4,6 +4,7 @@
 
 #import <pjsua-lib/pjsua.h>
 
+#import "AppController.h"
 #import "AKSIPUserAgent.h"
 #import "PreferencesController.h"
 #import "SoundIOPresenterOutput.h"
