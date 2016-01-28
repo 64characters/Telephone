@@ -23,6 +23,10 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		8A7874F01C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift */; };
+		8A7874F21C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift */; };
+		8A7874F41C5A2774002494ED /* RingtonePlaybackInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F31C5A2774002494ED /* RingtonePlaybackInteractorSpy.swift */; };
+		8A7874F61C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift */; };
 		8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6C1C528F720029C3D8 /* Error.swift */; };
 		8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorStub.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -354,6 +358,10 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConditionalRingtonePlaybackInteractorTests.swift; path = UseCasesTests/ConditionalRingtonePlaybackInteractorTests.swift; sourceTree = SOURCE_ROOT; };
+		8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalRingtonePlaybackInteractor.swift; sourceTree = "<group>"; };
+		8A7874F31C5A2774002494ED /* RingtonePlaybackInteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtonePlaybackInteractorSpy.swift; sourceTree = "<group>"; };
+		8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalRingtonePlaybackInteractorTestDelegate.swift; sourceTree = "<group>"; };
 		8ADD6B6C1C528F720029C3D8 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneSoundConfigurationLoadInteractorStub.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1051,6 +1059,8 @@
 		AA92F89B1C2AF90000C378B6 /* Ringtone */ = {
 			isa = PBXGroup;
 			children = (
+				8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift */,
+				8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift */,
 				AA3B6E811C46B55C0030D410 /* RepeatingSound.swift */,
 				AA3B6E8A1C47BFDF0030D410 /* RepeatingSoundTests.swift */,
 				AA92F8A31C2B02E700C378B6 /* Ringtone.swift */,
@@ -1109,9 +1119,11 @@
 		AAC4FF961C0215B90060B186 /* UseCasesTestDoubles */ = {
 			isa = PBXGroup;
 			children = (
+				8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift */,
 				AAB32A141BEBAD9C0016C8E6 /* InteractorFactorySpy.swift */,
 				AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */,
 				AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */,
+				8A7874F31C5A2774002494ED /* RingtonePlaybackInteractorSpy.swift */,
 				AA1019741C48065700869D01 /* RingtoneSpy.swift */,
 				AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */,
 				AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */,
@@ -1716,6 +1728,7 @@
 			files = (
 				AA1019731C48046D00869D01 /* RingtonePlaybackInteractor.swift in Sources */,
 				AA3B6E891C47AD150030D410 /* TimerFactory.swift in Sources */,
+				8A7874F21C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift in Sources */,
 				AA3B6E801C46B40C0030D410 /* Sound.swift in Sources */,
 				AA3905331BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift in Sources */,
 				AA1019771C48071700869D01 /* RingtoneFactory.swift in Sources */,
@@ -1756,6 +1769,7 @@
 				AA3905461BFFDE7C005A8AA3 /* UserAgentObserverCompositeTests.swift in Sources */,
 				AA7F6D451C0381650064DA3A /* UserDefaultsSoundIOLoadInteractorTests.swift in Sources */,
 				AA39053D1BFFDDED005A8AA3 /* UserAgentSoundIOSelectionInteractorTests.swift in Sources */,
+				8A7874F01C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift in Sources */,
 				AA39053F1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift in Sources */,
 				AA1019711C48044900869D01 /* RingtonePlaybackInteractorTests.swift in Sources */,
 				AA39053E1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateInteractorTests.swift in Sources */,
@@ -1838,6 +1852,7 @@
 			files = (
 				AA7F6D2D1C0217020064DA3A /* InteractorSpy.swift in Sources */,
 				AA7F6D2F1C0217020064DA3A /* ThrowingInteractorSpy.swift in Sources */,
+				8A7874F41C5A2774002494ED /* RingtonePlaybackInteractorSpy.swift in Sources */,
 				AA1019791C48078900869D01 /* RingtoneFactorySpy.swift in Sources */,
 				AA7F6D491C0382550064DA3A /* UserDefaultsSoundIOLoadInteractorOutputSpy.swift in Sources */,
 				8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorStub.swift in Sources */,
@@ -1845,6 +1860,7 @@
 				AA7F6D321C0217020064DA3A /* UserDefaultsFake.swift in Sources */,
 				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
 				AA1019751C48065700869D01 /* RingtoneSpy.swift in Sources */,
+				8A7874F61C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift in Sources */,
 				AA7F6D2E1C0217020064DA3A /* SystemAudioDeviceRepositoryStub.swift in Sources */,
 				AA7F6D301C0217020064DA3A /* UserAgentObserverSpy.swift in Sources */,
 				AA6989B11C19CAED0067BFB1 /* InteractorFactorySpy.swift in Sources */,
