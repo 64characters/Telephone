@@ -69,7 +69,10 @@
 
 - (instancetype)initWithSourceCallController:(CallController *)callController {
     AccountController *accountController = callController.accountController;
-    if ((self = [self initWithWindowNibName:@"CallTransfer" accountController:accountController delegate:accountController])) {
+    if ((self = [self initWithWindowNibName:@"CallTransfer"
+                          accountController:accountController
+                 ringtonePlaybackInteractor:accountController.ringtonePlaybackInteractor
+                                   delegate:accountController])) {
         [self setSourceCallController:callController];
         _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController];
     }

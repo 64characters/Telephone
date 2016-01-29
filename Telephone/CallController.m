@@ -108,10 +108,15 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return _endedCallViewController;
 }
 
-- (instancetype)initWithWindowNibName:(NSString *)windowNibName accountController:(AccountController *)accountController delegate:(id<CallControllerDelegate>)delegate {
+- (instancetype)initWithWindowNibName:(NSString *)windowNibName
+                    accountController:(AccountController *)accountController
+           ringtonePlaybackInteractor:(id<RingtonePlaybackInteractorInput>)ringtonePlaybackInteractor
+                             delegate:(id<CallControllerDelegate>)delegate {
+
     if ((self = [self initWithWindowNibName:windowNibName])) {
         _identifier = [NSString ak_uuidString];
         _accountController = accountController;
+        _ringtonePlaybackInteractor = ringtonePlaybackInteractor;
         _callOnHold = NO;
         _callActive = NO;
         _callUnhandled = NO;
@@ -179,7 +184,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (void)acceptCall {
     if ([[self call] isIncoming]) {
-        [[NSApp delegate] stopRingtoneTimerIfNeeded];
+        [self.ringtonePlaybackInteractor stopPlayingRingtone];
     }
     
     [self setCallUnhandled:NO];
@@ -197,7 +202,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     }
     
     if ([[self call] isIncoming]) {
-        [[NSApp delegate] stopRingtoneTimerIfNeeded];
+        [self.ringtonePlaybackInteractor stopPlayingRingtone];
     }
     
     // If remote party hasn't sent back any replies, call hang-up will not happen immediately. Unsubscribe from any
@@ -412,7 +417,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         [[self activeCallViewController] stopCallTimer];
         
         if ([[self call] isIncoming]) {
-            [[NSApp delegate] stopRingtoneTimerIfNeeded];
+            [self.ringtonePlaybackInteractor stopPlayingRingtone];
         }
         
         if ([[[self call] delegate] isEqual:self]) {
@@ -488,7 +493,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[NSApp delegate] pauseITunes];
     
     if ([[notification object] isIncoming]) {
-        [[NSApp delegate] stopRingtoneTimerIfNeeded];
+        [self.ringtonePlaybackInteractor stopPlayingRingtone];
     }
     
     [[[self activeCallViewController] callProgressIndicator] stopAnimation:self];
@@ -513,7 +518,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[self activeCallViewController] stopCallTimer];
     
     if ([[notification object] isIncoming]) {
-        [[NSApp delegate] stopRingtoneTimerIfNeeded];
+        [self.ringtonePlaybackInteractor stopPlayingRingtone];
         [[NSApp delegate] stopUserAttentionTimerIfNeeded];
     }
     

@@ -302,7 +302,10 @@ NSString * const kEmailSIPLabel = @"sip";
     // If it's a regular call, not a transfer, create the new CallController.
     CallController *aCallController;
     if (callTransferController == nil) {
-        aCallController = [[CallController alloc] initWithWindowNibName:@"Call" accountController:self delegate:self];
+        aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
+                                                      accountController:self
+                                             ringtonePlaybackInteractor:self.ringtonePlaybackInteractor
+                                                               delegate:self];
     } else {
         aCallController = callTransferController;
     }
@@ -742,7 +745,10 @@ NSString * const kEmailSIPLabel = @"sip";
     
     [[NSApp delegate] pauseITunes];
     
-    CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call" accountController:self delegate:self];
+    CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
+                                                                  accountController:self
+                                                         ringtonePlaybackInteractor:self.ringtonePlaybackInteractor
+                                                                           delegate:self];
     
     [aCallController setCall:aCall];
     [aCallController setCallActive:YES];
