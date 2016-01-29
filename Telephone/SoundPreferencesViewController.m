@@ -98,9 +98,7 @@ NS_ASSUME_NONNULL_END
 - (IBAction)changeRingtone:(id)sender {
     [[[NSApp delegate] ringtone] stop];
     
-    NSString *soundName = [sender title];
-    [[NSUserDefaults standardUserDefaults] setObject:soundName forKey:kRingingSound];
-    [[NSApp delegate] setRingtone:[NSSound soundNamed:soundName]];
+    [self.observer viewDidChangeRingtoneName:[sender title]];
     
     [[[NSApp delegate] ringtone] play];
 }
