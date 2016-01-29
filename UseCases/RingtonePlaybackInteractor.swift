@@ -15,12 +15,12 @@
 //  GNU General Public License for more details.
 //
 
-public protocol RingtonePlaybackInteractorInput {
+@objc public protocol RingtonePlaybackInteractorInput {
     func startPlayingRingtone() throws
     func stopPlayingRingtone()
 }
 
-public class RingtonePlaybackInteractor {
+public class RingtonePlaybackInteractor: NSObject {
     public static let ringtoneInterval: Double = 4
 
     public let ringtoneFactory: RingtoneFactory

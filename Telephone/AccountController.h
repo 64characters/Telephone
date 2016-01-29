@@ -35,6 +35,7 @@ extern NSString * const kEmailSIPLabel;
 @class AKSIPURI, AKNetworkReachability;
 @class ActiveAccountViewController, AuthenticationFailureController;
 @class CallTransferController;
+@protocol RingtonePlaybackInteractorInput;
 
 // A SIP account controller.
 @interface AccountController : NSWindowController <AKSIPAccountDelegate, CallControllerDelegate>
@@ -44,6 +45,8 @@ extern NSString * const kEmailSIPLabel;
 
 // A SIP account the receiver controls.
 @property(nonatomic, strong) AKSIPAccount *account;
+
+@property(nonatomic, readonly, strong) id<RingtonePlaybackInteractorInput> ringtonePlaybackInteractor;
 
 // A Boolean value indicating whether account is registered.
 @property(nonatomic, assign, getter=isAccountRegistered) BOOL accountRegistered;
@@ -99,7 +102,8 @@ extern NSString * const kEmailSIPLabel;
 
 // Designated initializer.
 // Initializes an AccountController object with a given account.
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount;
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account
+        ringtonePlaybackInteractor:(id<RingtonePlaybackInteractorInput>)ringtonePlaybackInteractor;
 
 // Removes account from the user agent.
 - (void)removeAccountFromUserAgent;

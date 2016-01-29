@@ -17,11 +17,9 @@
 
 import UseCases
 
-public class RingtonePlaybackInteractorSpy {
+public class RingtonePlaybackInteractorSpy: NSObject {
     public private(set) var didCallStartPlayingRingtone = false
     public private(set) var didCallStopPlayingRingtone = false
-
-    public init() {}
 }
 
 extension RingtonePlaybackInteractorSpy: RingtonePlaybackInteractorInput {

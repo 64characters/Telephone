@@ -206,13 +206,15 @@ NSString * const kEmailSIPLabel = @"sip";
     return _authenticationFailureController;
 }
 
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account
+        ringtonePlaybackInteractor:(id<RingtonePlaybackInteractorInput>)ringtonePlaybackInteractor {
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
         return nil;
     }
-    
-    [self setAccount:anAccount];
+
+    [self setAccount:account];
+    _ringtonePlaybackInteractor = ringtonePlaybackInteractor;
     _callControllers = [[NSMutableArray alloc] init];
     [self setSubstitutesPlusCharacter:NO];
     
@@ -1003,16 +1005,23 @@ NSString * const kEmailSIPLabel = @"sip";
                                        isSticky:NO
                                    clickContext:[aCallController identifier]];
     }
-    
-    [[[NSApp delegate] ringtone] play];
-    [[NSApp delegate] startRingtoneTimer];
-    
+
+    [self startPlayingRingtoneOrLogError];
+
     if (![NSApp isActive]) {
         [NSApp requestUserAttention:NSInformationalRequest];
         [[NSApp delegate] startUserAttentionTimer];
     }
     
     [aCall sendRingingNotification];
+}
+
+- (void)startPlayingRingtoneOrLogError {
+    NSError *error;
+    BOOL success = [self.ringtonePlaybackInteractor startPlayingRingtoneAndReturnError:&error];
+    if (!success) {
+        NSLog(@"Could not start playing ringtone: %@", error);
+    }
 }
 
 

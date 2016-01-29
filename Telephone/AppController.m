@@ -86,6 +86,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
+@property(nonatomic, readonly) id<RingtonePlaybackInteractorInput> ringtonePlaybackInteractor;
 
 // Sets selected sound IO to the user agent.
 - (void)setSelectedSoundIOToUserAgent;
@@ -271,6 +272,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];
     _preferencesController = _compositionRoot.preferencesController;
+    _ringtonePlaybackInteractor = _compositionRoot.ringtonePlaybackInteractor;
     _accountControllers = [[NSMutableArray alloc] init];
     [self setSoundInputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
     [self setSoundOutputDeviceIndex:kAKSIPUserAgentInvalidIdentifier];
@@ -1203,7 +1205,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
                                                            realm:accountDict[kRealm]
                                                         username:accountDict[kUsername]];
     
-    AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account];
+    AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account
+                                                                 ringtonePlaybackInteractor:self.ringtonePlaybackInteractor];
     
     [theAccountController setAccountDescription:[[theAccountController account] SIPAddress]];
     [[theAccountController window] setExcludedFromWindowsMenu:YES];
@@ -1278,7 +1281,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
-        AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account];
+        AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account
+                                                                     ringtonePlaybackInteractor:self.ringtonePlaybackInteractor];
         
         [[theAccountController window] setExcludedFromWindowsMenu:YES];
         
@@ -1617,7 +1621,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
-        AccountController *anAccountController = [[AccountController alloc] initWithSIPAccount:account];
+        AccountController *anAccountController = [[AccountController alloc] initWithSIPAccount:account
+                                                                    ringtonePlaybackInteractor:self.ringtonePlaybackInteractor];
         
         [[anAccountController window] setExcludedFromWindowsMenu:YES];
         
