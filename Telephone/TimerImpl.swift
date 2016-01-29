@@ -26,7 +26,7 @@ class TimerImpl {
         self.action = action
     }
 
-    func tick() {
+    @objc func tick() {
         action()
     }
 }
