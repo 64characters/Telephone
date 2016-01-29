@@ -16,8 +16,8 @@
 //
 
 public class UserDefaultsRingtoneSoundNameSaveInteractor {
-    let soundName: String
-    let userDefaults: UserDefaults
+    public let soundName: String
+    public let userDefaults: UserDefaults
 
     public init(soundName: String, userDefaults: UserDefaults) {
         self.soundName = soundName

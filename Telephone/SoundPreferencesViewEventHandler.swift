@@ -46,6 +46,10 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
         selectUserAgentAudioDevicesOrLogError()
     }
 
+    func viewDidChangeRingtoneName(name: String) {
+        interactorFactory.createUserDefaultsRingtoneSoundNameSaveInteractorWithName(name).execute()
+    }
+
     private func updateUserDefaultsWithSoundIO(soundIO: SoundIO) {
         interactorFactory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO).execute()
     }

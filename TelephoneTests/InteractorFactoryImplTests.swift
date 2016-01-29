@@ -21,14 +21,14 @@ import XCTest
 
 class InteractorFactoryImplTests: XCTestCase {
     var repositoryDummy: SystemAudioDeviceRepository!
-    var userDefaultsDummy: UserDefaults!
+    var userDefaults: UserDefaults!
     var sut: InteractorFactoryImpl!
 
     override func setUp() {
         super.setUp()
         repositoryDummy = SystemAudioDeviceRepositoryStub()
-        userDefaultsDummy = UserDefaultsFake()
-        sut = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaultsDummy)
+        userDefaults = UserDefaultsFake()
+        sut = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaults)
     }
 
     func testCanCreateUserAgentSoundIOSelectionInteractor() {
@@ -39,7 +39,7 @@ class InteractorFactoryImplTests: XCTestCase {
         XCTAssertNotNil(result)
         XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)
         XCTAssertTrue(result.userAgent === userAgentDummy)
-        XCTAssertTrue(result.userDefaults === userDefaultsDummy)
+        XCTAssertTrue(result.userDefaults === userDefaults)
     }
 
     func testCanCreateUserDefaultsSoundIOLoadInteractor() {
@@ -49,7 +49,7 @@ class InteractorFactoryImplTests: XCTestCase {
 
         XCTAssertNotNil(result)
         XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)
-        XCTAssertTrue(result.userDefaults === userDefaultsDummy)
+        XCTAssertTrue(result.userDefaults === userDefaults)
         XCTAssertTrue(result.output === outputDummy)
     }
 
@@ -60,6 +60,14 @@ class InteractorFactoryImplTests: XCTestCase {
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.soundIO, soundIO)
-        XCTAssertTrue(result.userDefaults === userDefaultsDummy)
+        XCTAssertTrue(result.userDefaults === userDefaults)
+    }
+
+    func testCanCreateUserDefaultsRingtoneSoundNameSaveInteractor() {
+        let result = sut.createUserDefaultsRingtoneSoundNameSaveInteractorWithName("sound-name") as! UserDefaultsRingtoneSoundNameSaveInteractor
+
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result.soundName, "sound-name")
+        XCTAssertTrue(result.userDefaults === userDefaults)
     }
 }

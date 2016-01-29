@@ -62,4 +62,14 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
 
         XCTAssertTrue(interactorSpy.didCallExecute)
     }
+
+    func testExecutesUserDefaultsRingtoneSoundNameSaveInteractorWithExpectedArgumentsOnRingtoneNameChange() {
+        let interactorSpy = InteractorSpy()
+        interactorFactorySpy.stubWithUserDefaultsRingtoneSoundNameSaveInteractor(interactorSpy)
+
+        sut.viewDidChangeRingtoneName("sound-name")
+
+        XCTAssertEqual(interactorFactorySpy.invokedRingtoneSoundName, "sound-name")
+        XCTAssertTrue(interactorSpy.didCallExecute)
+    }
 }

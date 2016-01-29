@@ -19,4 +19,5 @@ public protocol InteractorFactory {
     func createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor
     func createUserDefaultsSoundIOLoadInteractorWithOutput(output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor
     func createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO: SoundIO) -> Interactor
+    func createUserDefaultsRingtoneSoundNameSaveInteractorWithName(name: String) -> Interactor
 }
