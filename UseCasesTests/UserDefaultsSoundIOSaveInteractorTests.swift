@@ -20,7 +20,7 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
-    func testCanCreate() {
+    func testUsesExpectedUserDefaultsKeys() {
         let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
         let userDefaults = UserDefaultsFake()
         let sut = UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
