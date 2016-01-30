@@ -28,7 +28,11 @@ class RingtoneFactoryImplTests: XCTestCase {
         super.setUp()
         interactorStub = UserDefaultsRingtoneSoundConfigurationLoadInteractorStub()
         soundFactorySpy = SoundFactorySpy()
-        sut = RingtoneFactoryImpl(interactor: interactorStub, soundFactory: soundFactorySpy, timerFactory: TimerFactorySpy())
+        sut = RingtoneFactoryImpl(
+            soundConfigurationLoadinteractor: interactorStub,
+            soundFactory: soundFactorySpy,
+            timerFactory: TimerFactorySpy()
+        )
     }
 
     func testCreatesSoundWithConfigurationFromUserDefaultsRingtoneSoundConfigurationLoadInteractor() {
