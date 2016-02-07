@@ -1,5 +1,5 @@
 //
-//  TimerImpl.swift
+//  NSTimerToTimerAdapter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import UseCases
 
-class TimerImpl {
+class NSTimerToTimerAdapter {
     let action: () -> Void
 
     var systemTimer: NSTimer!
@@ -31,7 +31,7 @@ class TimerImpl {
     }
 }
 
-extension TimerImpl: Timer {
+extension NSTimerToTimerAdapter: Timer {
     var timeInterval: Double {
         return systemTimer.timeInterval
     }
