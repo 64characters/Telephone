@@ -1,5 +1,5 @@
 //
-//  SoundFactoryImpl.swift
+//  UserDefaultsSoundFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import UseCases
 
-class SoundFactoryImpl : SoundFactory {
+class UserDefaultsSoundFactory : SoundFactory {
     func createSound(configuration: SoundConfiguration) throws -> Sound {
         if let sound = NSSound(named: configuration.name) {
             sound.playbackDeviceIdentifier = configuration.deviceUID

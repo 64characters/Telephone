@@ -52,7 +52,7 @@ class CompositionRoot: NSObject {
                         userDefaults: userDefaults,
                         systemAudioDeviceRepository: audioDevices
                     ),
-                    soundFactory: SoundFactoryImpl(),
+                    soundFactory: UserDefaultsSoundFactory(),
                     timerFactory: NSTimerToTimerAdapterFactory()
                 )
             ),
