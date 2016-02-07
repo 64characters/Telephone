@@ -1,5 +1,5 @@
 //
-//  RingtoneFactoryImpl.swift
+//  UserDefaultsRingtoneFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import UseCases
 
-public class RingtoneFactoryImpl {
+public class UserDefaultsRingtoneFactory {
     public let soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput
     public let soundFactory: SoundFactory
     public let timerFactory: TimerFactory
@@ -29,7 +29,7 @@ public class RingtoneFactoryImpl {
     }
 }
 
-extension RingtoneFactoryImpl: RingtoneFactory {
+extension UserDefaultsRingtoneFactory: RingtoneFactory {
     public func createRingtoneWithTimeInterval(timeInterval: Double) throws -> Ringtone {
         return RepeatingSound(
             sound: try soundFactory.createSound(try soundConfigurationLoadinteractor.execute()),

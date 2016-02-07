@@ -1,5 +1,5 @@
 //
-//  RingtoneFactoryImplTests.swift
+//  UserDefaultsRingtoneFactoryTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,16 +19,16 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class RingtoneFactoryImplTests: XCTestCase {
+class UserDefaultsRingtoneFactoryTests: XCTestCase {
     private var interactorStub: UserDefaultsRingtoneSoundConfigurationLoadInteractorStub!
     private var soundFactorySpy: SoundFactorySpy!
-    private var sut: RingtoneFactoryImpl!
+    private var sut: UserDefaultsRingtoneFactory!
 
     override func setUp() {
         super.setUp()
         interactorStub = UserDefaultsRingtoneSoundConfigurationLoadInteractorStub()
         soundFactorySpy = SoundFactorySpy()
-        sut = RingtoneFactoryImpl(
+        sut = UserDefaultsRingtoneFactory(
             soundConfigurationLoadinteractor: interactorStub,
             soundFactory: soundFactorySpy,
             timerFactory: TimerFactorySpy()
