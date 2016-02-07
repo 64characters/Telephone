@@ -52,7 +52,7 @@
 		AA10198E1C4946EE00869D01 /* NSSoundToSoundAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10198D1C4946EE00869D01 /* NSSoundToSoundAdapter.swift */; };
 		AA1019901C49486500869D01 /* SoundFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10198F1C49486500869D01 /* SoundFactoryImpl.swift */; };
 		AA1019931C4949E600869D01 /* NSTimerToTimerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019921C4949E600869D01 /* NSTimerToTimerAdapter.swift */; };
-		AA1019951C494B5700869D01 /* TimerFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019941C494B5700869D01 /* TimerFactoryImpl.swift */; };
+		AA1019951C494B5700869D01 /* NSTimerToTimerAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019941C494B5700869D01 /* NSTimerToTimerAdapterFactory.swift */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
 		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
@@ -395,7 +395,7 @@
 		AA10198D1C4946EE00869D01 /* NSSoundToSoundAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSoundToSoundAdapter.swift; sourceTree = "<group>"; };
 		AA10198F1C49486500869D01 /* SoundFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundFactoryImpl.swift; sourceTree = "<group>"; };
 		AA1019921C4949E600869D01 /* NSTimerToTimerAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimerToTimerAdapter.swift; sourceTree = "<group>"; };
-		AA1019941C494B5700869D01 /* TimerFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFactoryImpl.swift; sourceTree = "<group>"; };
+		AA1019941C494B5700869D01 /* NSTimerToTimerAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimerToTimerAdapterFactory.swift; sourceTree = "<group>"; };
 		AA167A1D0F07BF9E00AF8B71 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Creating.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -904,7 +904,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1019921C4949E600869D01 /* NSTimerToTimerAdapter.swift */,
-				AA1019941C494B5700869D01 /* TimerFactoryImpl.swift */,
+				AA1019941C494B5700869D01 /* NSTimerToTimerAdapterFactory.swift */,
 			);
 			name = Timer;
 			sourceTree = "<group>";
@@ -1721,7 +1721,7 @@
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
 				AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */,
 				AAB3F5791C189D5300973BE5 /* SoundPreferencesViewObserver.swift in Sources */,
-				AA1019951C494B5700869D01 /* TimerFactoryImpl.swift in Sources */,
+				AA1019951C494B5700869D01 /* NSTimerToTimerAdapterFactory.swift in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
 				AAE39A381BD92DF600EFB7BC /* String+Creating.swift in Sources */,
 				AABBB3981BFA1A33004A65B5 /* UserAgentAudioDeviceUpdater.swift in Sources */,

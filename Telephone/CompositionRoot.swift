@@ -53,7 +53,7 @@ class CompositionRoot: NSObject {
                         systemAudioDeviceRepository: audioDevices
                     ),
                     soundFactory: SoundFactoryImpl(),
-                    timerFactory: TimerFactoryImpl()
+                    timerFactory: NSTimerToTimerAdapterFactory()
                 )
             ),
             delegate: conditionalRingtonePlaybackInteractorDelegate

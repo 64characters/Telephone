@@ -1,5 +1,5 @@
 //
-//  TimerFactoryImpl.swift
+//  NSTimerToTimerAdapterFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import UseCases
 
-class TimerFactoryImpl: TimerFactory {
+class NSTimerToTimerAdapterFactory: TimerFactory {
     func createRepeatingTimerWithTimeInterval(timeInterval: Double, action: () -> Void) -> Timer {
         let timer = NSTimerToTimerAdapter(action: action)
         timer.systemTimer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: timer, selector: "tick", userInfo: nil, repeats: true)
