@@ -47,7 +47,7 @@ class CompositionRoot: NSObject {
 
         ringtonePlaybackInteractor = ConditionalRingtonePlaybackInteractor(
             origin: RingtonePlaybackInteractor(
-                ringtoneFactory: UserDefaultsRingtoneFactory(
+                ringtoneFactory: RepeatingSoundFactory(
                     soundFactory: UserDefaultsSoundFactory(
                         soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
                             userDefaults: userDefaults,

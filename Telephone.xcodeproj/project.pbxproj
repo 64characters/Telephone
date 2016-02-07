@@ -45,9 +45,9 @@
 		AA1019791C48078900869D01 /* RingtoneFactorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */; };
 		AA10197D1C4821C400869D01 /* SoundFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10197C1C4821C400869D01 /* SoundFactory.swift */; };
 		AA1019811C48F08A00869D01 /* SoundFactorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */; };
-		AA1019841C490BD300869D01 /* UserDefaultsRingtoneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* UserDefaultsRingtoneFactory.swift */; };
-		AA1019871C490BE400869D01 /* UserDefaultsRingtoneFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019851C490BE100869D01 /* UserDefaultsRingtoneFactoryTests.swift */; };
-		AA1019881C490BF100869D01 /* UserDefaultsRingtoneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* UserDefaultsRingtoneFactory.swift */; };
+		AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* RepeatingSoundFactory.swift */; };
+		AA1019871C490BE400869D01 /* RepeatingSoundFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019851C490BE100869D01 /* RepeatingSoundFactoryTests.swift */; };
+		AA1019881C490BF100869D01 /* RepeatingSoundFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019831C490BD300869D01 /* RepeatingSoundFactory.swift */; };
 		AA1019891C491BF900869D01 /* Domain.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA9D08031BFF7E6F0000F618 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA10198A1C491C0600869D01 /* UseCases.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA078B291BFF80E20013FF8F /* UseCases.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA10198E1C4946EE00869D01 /* NSSoundToSoundAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10198D1C4946EE00869D01 /* NSSoundToSoundAdapter.swift */; };
@@ -392,8 +392,8 @@
 		AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneFactorySpy.swift; sourceTree = "<group>"; };
 		AA10197C1C4821C400869D01 /* SoundFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundFactory.swift; sourceTree = "<group>"; };
 		AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundFactorySpy.swift; sourceTree = "<group>"; };
-		AA1019831C490BD300869D01 /* UserDefaultsRingtoneFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneFactory.swift; sourceTree = "<group>"; };
-		AA1019851C490BE100869D01 /* UserDefaultsRingtoneFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneFactoryTests.swift; sourceTree = "<group>"; };
+		AA1019831C490BD300869D01 /* RepeatingSoundFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingSoundFactory.swift; sourceTree = "<group>"; };
+		AA1019851C490BE100869D01 /* RepeatingSoundFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingSoundFactoryTests.swift; sourceTree = "<group>"; };
 		AA10198D1C4946EE00869D01 /* NSSoundToSoundAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSoundToSoundAdapter.swift; sourceTree = "<group>"; };
 		AA10198F1C49486500869D01 /* UserDefaultsSoundFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsSoundFactory.swift; sourceTree = "<group>"; };
 		AA1019921C4949E600869D01 /* NSTimerToTimerAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimerToTimerAdapter.swift; sourceTree = "<group>"; };
@@ -896,8 +896,8 @@
 			children = (
 				AA10198D1C4946EE00869D01 /* NSSoundToSoundAdapter.swift */,
 				8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */,
-				AA1019831C490BD300869D01 /* UserDefaultsRingtoneFactory.swift */,
-				AA1019851C490BE100869D01 /* UserDefaultsRingtoneFactoryTests.swift */,
+				AA1019831C490BD300869D01 /* RepeatingSoundFactory.swift */,
+				AA1019851C490BE100869D01 /* RepeatingSoundFactoryTests.swift */,
 				AA10198F1C49486500869D01 /* UserDefaultsSoundFactory.swift */,
 			);
 			name = Ringtone;
@@ -1690,7 +1690,7 @@
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
 				8A7874F81C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
-				AA1019841C490BD300869D01 /* UserDefaultsRingtoneFactory.swift in Sources */,
+				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,
 				AA19CFF51BED148A00991CAA /* InteractorFactoryImpl.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
@@ -1803,8 +1803,8 @@
 				AA6989B51C19D0660067BFB1 /* PresenterFactory.swift in Sources */,
 				AA277A551BD3F2A90030ECE4 /* UserAgentSoundIOSelectorTests.swift in Sources */,
 				AAC0FFB81BE28CAD00A5C7E5 /* SystemAudioDevicesChangeObserverComposite.swift in Sources */,
-				AA1019871C490BE400869D01 /* UserDefaultsRingtoneFactoryTests.swift in Sources */,
-				AA1019881C490BF100869D01 /* UserDefaultsRingtoneFactory.swift in Sources */,
+				AA1019871C490BE400869D01 /* RepeatingSoundFactoryTests.swift in Sources */,
+				AA1019881C490BF100869D01 /* RepeatingSoundFactory.swift in Sources */,
 				AA277A591BD3F4680030ECE4 /* UserAgentSoundIOSelector.swift in Sources */,
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewObserver.swift in Sources */,

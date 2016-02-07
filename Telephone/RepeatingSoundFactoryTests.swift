@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneFactoryTests.swift
+//  RepeatingSoundFactoryTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,14 +19,14 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserDefaultsRingtoneFactoryTests: XCTestCase {
+class RepeatingSoundFactoryTests: XCTestCase {
     private var soundFactorySpy: SoundFactorySpy!
-    private var sut: UserDefaultsRingtoneFactory!
+    private var sut: RepeatingSoundFactory!
 
     override func setUp() {
         super.setUp()
         soundFactorySpy = SoundFactorySpy()
-        sut = UserDefaultsRingtoneFactory(
+        sut = RepeatingSoundFactory(
             soundFactory: soundFactorySpy,
             timerFactory: TimerFactorySpy()
         )
