@@ -17,13 +17,18 @@
 
 import UseCases
 
-class UserDefaultsSoundFactory : SoundFactory {
-    func createSound(configuration: SoundConfiguration) throws -> Sound {
-        if let sound = NSSound(named: configuration.name) {
-            sound.playbackDeviceIdentifier = configuration.deviceUID
-            return NSSoundToSoundAdapter(sound: sound)
-        } else {
-            throw TelephoneError.SoundCreationError
-        }
+class UserDefaultsSoundFactory {
+    let soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput
+    let nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory
+
+    init(soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput, nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory) {
+        self.soundConfigurationLoadinteractor = soundConfigurationLoadinteractor
+        self.nsSoundToSoundAdapterFactory = NSSoundToSoundAdapterFactory()
+    }
+}
+
+extension UserDefaultsSoundFactory: SoundFactory {
+    func createSound() throws -> Sound {
+        return try nsSoundToSoundAdapterFactory.createSound(try soundConfigurationLoadinteractor.execute())
     }
 }

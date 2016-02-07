@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneSoundConfigurationLoadInteractorStub.swift
+//  UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,18 +17,15 @@
 
 import UseCases
 
-public class UserDefaultsRingtoneSoundConfigurationLoadInteractorStub {
-    public private(set) var soundConfiguration: SoundConfiguration!
+public class UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy {
+    public private(set) var didCallExecute = false
 
     public init() {}
-
-    public func stubWith(soundConfiguration: SoundConfiguration) {
-        self.soundConfiguration = soundConfiguration
-    }
 }
 
-extension UserDefaultsRingtoneSoundConfigurationLoadInteractorStub: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput {
+extension UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput {
     public func execute() throws -> SoundConfiguration {
-        return soundConfiguration
+        didCallExecute = true
+        return SoundConfiguration(name: "any-name", deviceUID: "any-UID")
     }
 }

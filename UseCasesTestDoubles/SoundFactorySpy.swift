@@ -18,16 +18,14 @@
 import UseCases
 
 public class SoundFactorySpy {
-    public private(set) var invokedConfiguration: SoundConfiguration
+    public private(set) var didCallCreateSound = false
 
-    public init() {
-        invokedConfiguration = SoundConfiguration(name: "", deviceUID: "")
-    }
+    public init() {}
 }
 
 extension SoundFactorySpy: SoundFactory {
-    public func createSound(configuration: SoundConfiguration) throws -> Sound {
-        invokedConfiguration = configuration
+    public func createSound() throws -> Sound {
+        didCallCreateSound = true
         return SoundSpy()
     }
 }

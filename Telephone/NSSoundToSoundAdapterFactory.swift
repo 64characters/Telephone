@@ -1,5 +1,5 @@
 //
-//  SoundFactory.swift
+//  NSSoundToSoundAdapterFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,6 +15,13 @@
 //  GNU General Public License for more details.
 //
 
-public protocol SoundFactory {
-    func createSound() throws -> Sound
+class NSSoundToSoundAdapterFactory {
+    func createSound(configuration: SoundConfiguration) throws -> Sound {
+        if let sound = NSSound(named: configuration.name) {
+            sound.playbackDeviceIdentifier = configuration.deviceUID
+            return NSSoundToSoundAdapter(sound: sound)
+        } else {
+            throw TelephoneError.SoundCreationError
+        }
+    }
 }

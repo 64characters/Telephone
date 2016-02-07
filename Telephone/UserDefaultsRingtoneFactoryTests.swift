@@ -20,33 +20,25 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserDefaultsRingtoneFactoryTests: XCTestCase {
-    private var interactorStub: UserDefaultsRingtoneSoundConfigurationLoadInteractorStub!
     private var soundFactorySpy: SoundFactorySpy!
     private var sut: UserDefaultsRingtoneFactory!
 
     override func setUp() {
         super.setUp()
-        interactorStub = UserDefaultsRingtoneSoundConfigurationLoadInteractorStub()
         soundFactorySpy = SoundFactorySpy()
         sut = UserDefaultsRingtoneFactory(
-            soundConfigurationLoadinteractor: interactorStub,
             soundFactory: soundFactorySpy,
             timerFactory: TimerFactorySpy()
         )
     }
 
-    func testCreatesSoundWithConfigurationFromUserDefaultsRingtoneSoundConfigurationLoadInteractor() {
-        let configuration = SoundConfiguration(name: "name", deviceUID: "UID")
-        interactorStub.stubWith(configuration)
-
+    func testCallsCreateSound() {
         try! sut.createRingtoneWithTimeInterval(0)
 
-        XCTAssertEqual(soundFactorySpy.invokedConfiguration.name, configuration.name)
-        XCTAssertEqual(soundFactorySpy.invokedConfiguration.deviceUID, configuration.deviceUID)
+        XCTAssertTrue(soundFactorySpy.didCallCreateSound)
     }
 
     func testCreatesRingtoneWithSpecifiedTimeInterval() {
-        interactorStub.stubWith(SoundConfiguration(name: "", deviceUID: ""))
         let interval: Double = 2
 
         let result = try! sut.createRingtoneWithTimeInterval(interval)

@@ -18,12 +18,10 @@
 import UseCases
 
 public class UserDefaultsRingtoneFactory {
-    public let soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput
     public let soundFactory: SoundFactory
     public let timerFactory: TimerFactory
 
-    public init(soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput, soundFactory: SoundFactory, timerFactory: TimerFactory) {
-        self.soundConfigurationLoadinteractor = soundConfigurationLoadinteractor
+    public init(soundFactory: SoundFactory, timerFactory: TimerFactory) {
         self.soundFactory = soundFactory
         self.timerFactory = timerFactory
     }
@@ -32,7 +30,7 @@ public class UserDefaultsRingtoneFactory {
 extension UserDefaultsRingtoneFactory: RingtoneFactory {
     public func createRingtoneWithTimeInterval(timeInterval: Double) throws -> Ringtone {
         return RepeatingSound(
-            sound: try soundFactory.createSound(try soundConfigurationLoadinteractor.execute()),
+            sound: try soundFactory.createSound(),
             timeInterval: timeInterval,
             timerFactory: timerFactory
         )

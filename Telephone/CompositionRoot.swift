@@ -48,11 +48,13 @@ class CompositionRoot: NSObject {
         ringtonePlaybackInteractor = ConditionalRingtonePlaybackInteractor(
             origin: RingtonePlaybackInteractor(
                 ringtoneFactory: UserDefaultsRingtoneFactory(
-                    soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
-                        userDefaults: userDefaults,
-                        systemAudioDeviceRepository: audioDevices
+                    soundFactory: UserDefaultsSoundFactory(
+                        soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
+                            userDefaults: userDefaults,
+                            systemAudioDeviceRepository: audioDevices
+                        ),
+                        nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory()
                     ),
-                    soundFactory: UserDefaultsSoundFactory(),
                     timerFactory: NSTimerToTimerAdapterFactory()
                 )
             ),
