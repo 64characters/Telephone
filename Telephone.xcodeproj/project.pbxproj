@@ -31,6 +31,9 @@
 		8A7874F61C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift */; };
 		8A7874F81C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F71C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift */; };
 		8AC1A43C1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */; };
+		8AC1A43E1C67BDCC007778A2 /* NullSoundObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */; };
+		8AC1A43F1C67BE85007778A2 /* NullSoundObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */; };
+		8AC1A4411C67BFA8007778A2 /* SoundObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4401C67BFA8007778A2 /* SoundObserver.swift */; };
 		8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6C1C528F720029C3D8 /* Error.swift */; };
 		8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -370,6 +373,8 @@
 		8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalRingtonePlaybackInteractorTestDelegate.swift; sourceTree = "<group>"; };
 		8A7874F71C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppController+ConditionalRingtonePlaybackInteractorDelegate.swift"; sourceTree = "<group>"; };
 		8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSoundToSoundAdapterFactory.swift; sourceTree = "<group>"; };
+		8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSoundObserver.swift; sourceTree = "<group>"; };
+		8AC1A4401C67BFA8007778A2 /* SoundObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundObserver.swift; sourceTree = "<group>"; };
 		8ADD6B6C1C528F720029C3D8 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -896,6 +901,7 @@
 			children = (
 				AA10198D1C4946EE00869D01 /* NSSoundToSoundAdapter.swift */,
 				8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */,
+				8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */,
 				AA1019831C490BD300869D01 /* RepeatingSoundFactory.swift */,
 				AA1019851C490BE100869D01 /* RepeatingSoundFactoryTests.swift */,
 				AA10198F1C49486500869D01 /* UserDefaultsSoundFactory.swift */,
@@ -1080,6 +1086,7 @@
 				AA3B6E7F1C46B40C0030D410 /* Sound.swift */,
 				AA3166361C4FAF9C00E7ECA5 /* SoundConfiguration.swift */,
 				AA10197C1C4821C400869D01 /* SoundFactory.swift */,
+				8AC1A4401C67BFA8007778A2 /* SoundObserver.swift */,
 				AA31663A1C4FB30800E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadInteractor.swift */,
 				AA3166381C4FB21500E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorTests.swift */,
 				8A4E38311C5BB25F00816F38 /* UserDefaultsRingtoneSoundNameSaveInteractor.swift */,
@@ -1688,6 +1695,7 @@
 				8AC1A43C1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift in Sources */,
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
+				8AC1A43E1C67BDCC007778A2 /* NullSoundObserver.swift in Sources */,
 				8A7874F81C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
 				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,
@@ -1755,6 +1763,7 @@
 				AA39052C1BFFDDC4005A8AA3 /* Interactor.swift in Sources */,
 				8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */,
+				8AC1A4411C67BFA8007778A2 /* SoundObserver.swift in Sources */,
 				AA3905471BFFDE9A005A8AA3 /* UserDefaults.swift in Sources */,
 				AA3905441BFFDE75005A8AA3 /* UserAgentObserverComposite.swift in Sources */,
 				AA7F6D471C0381C00064DA3A /* UserDefaultsSoundIOLoadInteractor.swift in Sources */,
@@ -1815,6 +1824,7 @@
 				AA19CFF91BED149C00991CAA /* InteractorFactoryImpl.swift in Sources */,
 				AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeObserver.swift in Sources */,
 				AABBB3961BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */,
+				8AC1A43F1C67BE85007778A2 /* NullSoundObserver.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* SoundPreferencesViewEventHandlerTests.swift in Sources */,
 				AA6989BA1C19D4BD0067BFB1 /* PresenterFactoryImpl.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift in Sources */,

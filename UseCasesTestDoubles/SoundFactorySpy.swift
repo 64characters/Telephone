@@ -24,7 +24,7 @@ public class SoundFactorySpy {
 }
 
 extension SoundFactorySpy: SoundFactory {
-    public func createSound() throws -> Sound {
+    public func createSound(observer: SoundObserver) throws -> Sound {
         didCallCreateSound = true
         return SoundSpy()
     }

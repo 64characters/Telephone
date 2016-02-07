@@ -17,11 +17,15 @@
 
 import UseCases
 
-class NSSoundToSoundAdapter {
+class NSSoundToSoundAdapter: NSObject {
     let sound: NSSound
+    let observer: SoundObserver
 
-    init(sound: NSSound) {
+    init(sound: NSSound, observer: SoundObserver) {
         self.sound = sound
+        self.observer = observer
+        super.init()
+        self.sound.delegate = self
     }
 }
 
@@ -32,5 +36,11 @@ extension NSSoundToSoundAdapter: Sound {
 
     func stop() {
         sound.stop()
+    }
+}
+
+extension NSSoundToSoundAdapter: NSSoundDelegate {
+    func sound(sound: NSSound, didFinishPlaying aBool: Bool) {
+        observer.soundDidFinishPlaying()
     }
 }

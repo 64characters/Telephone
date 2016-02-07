@@ -28,7 +28,7 @@ class UserDefaultsSoundFactory {
 }
 
 extension UserDefaultsSoundFactory: SoundFactory {
-    func createSound() throws -> Sound {
-        return try nsSoundToSoundAdapterFactory.createSound(try soundConfigurationLoadinteractor.execute())
+    func createSound(observer: SoundObserver) throws -> Sound {
+        return try nsSoundToSoundAdapterFactory.createSound(try soundConfigurationLoadinteractor.execute(), observer: observer)
     }
 }

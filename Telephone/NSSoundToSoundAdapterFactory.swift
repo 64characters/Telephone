@@ -16,10 +16,10 @@
 //
 
 class NSSoundToSoundAdapterFactory {
-    func createSound(configuration: SoundConfiguration) throws -> Sound {
+    func createSound(configuration: SoundConfiguration, observer: SoundObserver) throws -> Sound {
         if let sound = NSSound(named: configuration.name) {
             sound.playbackDeviceIdentifier = configuration.deviceUID
-            return NSSoundToSoundAdapter(sound: sound)
+            return NSSoundToSoundAdapter(sound: sound, observer: observer)
         } else {
             throw TelephoneError.SoundCreationError
         }

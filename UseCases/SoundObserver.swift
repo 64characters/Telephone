@@ -1,5 +1,5 @@
 //
-//  SoundFactory.swift
+//  SoundObserver.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,6 +15,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol SoundFactory {
-    func createSound(observer: SoundObserver) throws -> Sound
+public protocol SoundObserver {
+    func soundDidFinishPlaying()
 }
