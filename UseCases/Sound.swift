@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Sound {
+public protocol Sound: class {
     func play()
     func stop()
 }

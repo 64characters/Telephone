@@ -19,6 +19,7 @@ import UseCases
 
 public class SoundFactorySpy {
     public private(set) var didCallCreateSound = false
+    public private(set) var lastCreatedSound: SoundSpy!
 
     public init() {}
 }
@@ -26,6 +27,7 @@ public class SoundFactorySpy {
 extension SoundFactorySpy: SoundFactory {
     public func createSound(observer: SoundObserver) throws -> Sound {
         didCallCreateSound = true
-        return SoundSpy()
+        lastCreatedSound = SoundSpy(observer: observer)
+        return lastCreatedSound
     }
 }

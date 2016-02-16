@@ -15,6 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-class NullSoundObserver: SoundObserver {
-    func soundDidFinishPlaying() {}
+public class NullSoundObserver: SoundObserver {
+    public init() {}
+    public func soundDidFinishPlaying() {}
 }

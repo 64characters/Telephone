@@ -1,5 +1,5 @@
 //
-//  SoundSpy.swift
+//  SoundPlaybackInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,29 +15,29 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public protocol SoundPlaybackInteractorInput {
+    func play() throws
+}
 
-public class SoundSpy {
-    public private(set) var didCallPlay = false
-    public private(set) var didCallStop = false
+public class SoundPlaybackInteractor {
+    public let soundFactory: SoundFactory
 
-    public let observer: SoundObserver
+    public private(set) var sound: Sound?
 
-    public init(observer: SoundObserver) {
-        self.observer = observer
-    }
-
-    public func notifyObserverOfPlaybackCompletion() {
-        observer.soundDidFinishPlaying()
+    public init(soundFactory: SoundFactory) {
+        self.soundFactory = soundFactory
     }
 }
 
-extension SoundSpy: Sound {
-    public func play() {
-        didCallPlay = true
+extension SoundPlaybackInteractor: SoundPlaybackInteractorInput {
+    public func play() throws {
+        sound = try soundFactory.createSound(self)
+        sound!.play()
     }
+}
 
-    public func stop() {
-        didCallStop = true
+extension SoundPlaybackInteractor: SoundObserver {
+    public func soundDidFinishPlaying() {
+        sound = nil
     }
 }
