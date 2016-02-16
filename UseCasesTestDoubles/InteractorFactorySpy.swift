@@ -46,20 +46,20 @@ public class InteractorFactorySpy {
 }
 
 extension InteractorFactorySpy: InteractorFactory {
-    public func createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
+    public func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
         return userAgentSoundIOSelectionInteractor
     }
 
-    public func createUserDefaultsSoundIOLoadInteractorWithOutput(output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
+    public func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
         return userDefaultsSoundIOLoadInteractor
     }
 
-    public func createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO: SoundIO) -> Interactor {
+    public func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: SoundIO) -> Interactor {
         invokedSoundIO = soundIO
         return userDefaultsSoundIOSaveInteractor
     }
 
-    public func createUserDefaultsRingtoneSoundNameSaveInteractorWithName(name: String) -> Interactor {
+    public func createUserDefaultsRingtoneSoundNameSaveInteractor(name name: String) -> Interactor {
         invokedRingtoneSoundName = name
         return userDefaultsRingtoneSoundNameSaveInteractor
     }

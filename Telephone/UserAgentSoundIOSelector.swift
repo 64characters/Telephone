@@ -25,7 +25,7 @@ class UserAgentSoundIOSelector {
     }
 
     func selectUserAgentSoundIO(userAgent: UserAgent) throws {
-        let interactor = interactorFactory.createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent)
+        let interactor = interactorFactory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent)
         try interactor.execute()
     }
 }

@@ -16,5 +16,5 @@
 //
 
 public protocol SoundFactory {
-    func createSound(observer: SoundObserver) throws -> Sound
+    func createSound(observer observer: SoundObserver) throws -> Sound
 }

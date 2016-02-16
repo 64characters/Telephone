@@ -34,7 +34,7 @@ class InteractorFactoryImplTests: XCTestCase {
     func testCanCreateUserAgentSoundIOSelectionInteractor() {
         let userAgentDummy = UserAgentSpy()
 
-        let result = sut.createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgentDummy) as! UserAgentSoundIOSelectionInteractor
+        let result = sut.createUserAgentSoundIOSelectionInteractor(userAgent: userAgentDummy) as! UserAgentSoundIOSelectionInteractor
 
         XCTAssertNotNil(result)
         XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)
@@ -45,7 +45,7 @@ class InteractorFactoryImplTests: XCTestCase {
     func testCanCreateUserDefaultsSoundIOLoadInteractor() {
         let outputDummy = UserDefaultsSoundIOLoadInteractorOutputSpy()
 
-        let result = sut.createUserDefaultsSoundIOLoadInteractorWithOutput(outputDummy) as! UserDefaultsSoundIOLoadInteractor
+        let result = sut.createUserDefaultsSoundIOLoadInteractor(output: outputDummy) as! UserDefaultsSoundIOLoadInteractor
 
         XCTAssertNotNil(result)
         XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)
@@ -56,7 +56,7 @@ class InteractorFactoryImplTests: XCTestCase {
     func testCanCreateUserDefaultsSoundIOSaveInteractor() {
         let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
 
-        let result = sut.createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO) as! UserDefaultsSoundIOSaveInteractor
+        let result = sut.createUserDefaultsSoundIOSaveInteractor(soundIO: soundIO) as! UserDefaultsSoundIOSaveInteractor
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.soundIO, soundIO)
@@ -64,7 +64,7 @@ class InteractorFactoryImplTests: XCTestCase {
     }
 
     func testCanCreateUserDefaultsRingtoneSoundNameSaveInteractor() {
-        let result = sut.createUserDefaultsRingtoneSoundNameSaveInteractorWithName("sound-name") as! UserDefaultsRingtoneSoundNameSaveInteractor
+        let result = sut.createUserDefaultsRingtoneSoundNameSaveInteractor(name: "sound-name") as! UserDefaultsRingtoneSoundNameSaveInteractor
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.soundName, "sound-name")

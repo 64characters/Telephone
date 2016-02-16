@@ -28,7 +28,7 @@ class InteractorFactoryImpl {
 }
 
 extension InteractorFactoryImpl: InteractorFactory {
-    func createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent: UserAgent) -> ThrowingInteractor {
+    func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
         return UserAgentSoundIOSelectionInteractor(
             systemAudioDeviceRepository: systemAudioDeviceRepository,
             userAgent: userAgent,
@@ -36,7 +36,7 @@ extension InteractorFactoryImpl: InteractorFactory {
         )
     }
 
-    func createUserDefaultsSoundIOLoadInteractorWithOutput(output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
+    func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
         return UserDefaultsSoundIOLoadInteractor(
             systemAudioDeviceRepository: systemAudioDeviceRepository,
             userDefaults: userDefaults,
@@ -44,11 +44,11 @@ extension InteractorFactoryImpl: InteractorFactory {
         )
     }
 
-    func createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO: SoundIO) -> Interactor {
+    func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: SoundIO) -> Interactor {
         return UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
     }
 
-    func createUserDefaultsRingtoneSoundNameSaveInteractorWithName(name: String) -> Interactor {
+    func createUserDefaultsRingtoneSoundNameSaveInteractor(name name: String) -> Interactor {
         return UserDefaultsRingtoneSoundNameSaveInteractor(soundName: name, userDefaults: userDefaults)
     }
 }

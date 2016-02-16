@@ -42,7 +42,7 @@ extension RepeatingSound: Ringtone {
 
     private func createTimerIfNeeded() {
         if timer == nil {
-            timer = timerFactory.createRepeatingTimerWithTimeInterval(timeInterval, action: sound.play)
+            timer = timerFactory.createRepeatingTimer(timeInterval: timeInterval, action: sound.play)
         }
     }
 

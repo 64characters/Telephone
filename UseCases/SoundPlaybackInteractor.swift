@@ -31,7 +31,7 @@ public class SoundPlaybackInteractor {
 
 extension SoundPlaybackInteractor: SoundPlaybackInteractorInput {
     public func play() throws {
-        sound = try soundFactory.createSound(self)
+        sound = try soundFactory.createSound(observer: self)
         sound!.play()
     }
 }

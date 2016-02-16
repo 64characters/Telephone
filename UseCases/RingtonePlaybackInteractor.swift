@@ -35,7 +35,7 @@ public class RingtonePlaybackInteractor: NSObject {
 extension RingtonePlaybackInteractor: RingtonePlaybackInteractorInput {
     public func startPlayingRingtone() throws {
         if ringtone == nil {
-            ringtone = try ringtoneFactory.createRingtoneWithTimeInterval(RingtonePlaybackInteractor.ringtoneInterval)
+            ringtone = try ringtoneFactory.createRingtone(timeInterval: RingtonePlaybackInteractor.ringtoneInterval)
         }
         ringtone!.startPlaying()
     }

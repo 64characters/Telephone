@@ -20,7 +20,7 @@ class PresenterFactoryImpl {
 }
 
 extension PresenterFactoryImpl: PresenterFactory {
-    func createSoundIOPresenterWithOutput(output: SoundIOPresenterOutput) -> SoundIOPresenter {
+    func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter {
         return SoundIOPresenter(output: output)
     }
 }

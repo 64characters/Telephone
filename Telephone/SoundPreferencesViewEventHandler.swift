@@ -31,8 +31,8 @@ class SoundPreferencesViewEventHandler: NSObject {
 
 extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     func viewShouldReloadData(view: SoundPreferencesView) {
-        let interactor = interactorFactory.createUserDefaultsSoundIOLoadInteractorWithOutput(
-            presenterFactory.createSoundIOPresenterWithOutput(view)
+        let interactor = interactorFactory.createUserDefaultsSoundIOLoadInteractor(
+            output: presenterFactory.createSoundIOPresenter(output: view)
         )
         do {
             try interactor.execute()
@@ -47,16 +47,16 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     }
 
     func viewDidChangeRingtoneName(name: String) {
-        interactorFactory.createUserDefaultsRingtoneSoundNameSaveInteractorWithName(name).execute()
+        interactorFactory.createUserDefaultsRingtoneSoundNameSaveInteractor(name: name).execute()
     }
 
     private func updateUserDefaultsWithSoundIO(soundIO: SoundIO) {
-        interactorFactory.createUserDefaultsSoundIOSaveInteractorWithSoundIO(soundIO).execute()
+        interactorFactory.createUserDefaultsSoundIOSaveInteractor(soundIO: soundIO).execute()
     }
 
     private func selectUserAgentAudioDevicesOrLogError() {
         do {
-            try interactorFactory.createUserAgentSoundIOSelectionInteractorWithUserAgent(userAgent).execute()
+            try interactorFactory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent).execute()
         } catch {
             print("Could not select user agent audio devices: \(error)")
         }

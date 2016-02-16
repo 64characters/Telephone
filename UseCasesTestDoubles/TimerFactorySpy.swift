@@ -32,7 +32,7 @@ public class TimerFactorySpy {
 }
 
 extension TimerFactorySpy: TimerFactory {
-    public func createRepeatingTimerWithTimeInterval(timeInterval: Double, action: () -> Void) -> Timer {
+    public func createRepeatingTimer(timeInterval timeInterval: Double, action: () -> Void) -> Timer {
         didCallCreateRepeatingTimer = true
         createRepeatingTimerCallCount += 1
         invokedTimeInterval = timeInterval

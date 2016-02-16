@@ -30,7 +30,7 @@ public class RingtoneFactorySpy {
 }
 
 extension RingtoneFactorySpy: RingtoneFactory {
-    public func createRingtoneWithTimeInterval(timeInterval: Double) -> Ringtone {
+    public func createRingtone(timeInterval timeInterval: Double) -> Ringtone {
         createRingtoneCallCount += 1
         invokedTimeInterval = timeInterval
         return ringtone
