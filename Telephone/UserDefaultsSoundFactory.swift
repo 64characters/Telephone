@@ -18,17 +18,17 @@
 import UseCases
 
 class UserDefaultsSoundFactory {
-    let soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput
+    let soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput
     let nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory
 
-    init(soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput, nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory) {
-        self.soundConfigurationLoadinteractor = soundConfigurationLoadinteractor
+    init(soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput, nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory) {
+        self.soundConfigurationLoadInteractor = soundConfigurationLoadInteractor
         self.nsSoundToSoundAdapterFactory = NSSoundToSoundAdapterFactory()
     }
 }
 
 extension UserDefaultsSoundFactory: SoundFactory {
     func createSound(observer observer: SoundObserver) throws -> Sound {
-        return try nsSoundToSoundAdapterFactory.createSound(configuration: try soundConfigurationLoadinteractor.execute(), observer: observer)
+        return try nsSoundToSoundAdapterFactory.createSound(configuration: try soundConfigurationLoadInteractor.execute(), observer: observer)
     }
 }

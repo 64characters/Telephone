@@ -49,7 +49,7 @@ class CompositionRoot: NSObject {
             origin: RingtonePlaybackInteractor(
                 ringtoneFactory: RepeatingSoundFactory(
                     soundFactory: UserDefaultsSoundFactory(
-                        soundConfigurationLoadinteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
+                        soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
                             userDefaults: userDefaults,
                             systemAudioDeviceRepository: audioDevices
                         ),
