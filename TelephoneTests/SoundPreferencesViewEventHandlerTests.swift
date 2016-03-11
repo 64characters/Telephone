@@ -20,13 +20,18 @@ import XCTest
 
 class SoundPreferencesViewEventHandlerTests: XCTestCase {
     private var interactorFactorySpy: InteractorFactorySpy!
+    private var ringtoneSoundPlaybackInteractorSpy: SoundPlaybackInteractorSpy!
     private var sut: SoundPreferencesViewEventHandler!
 
     override func setUp() {
         super.setUp()
         interactorFactorySpy = InteractorFactorySpy()
+        ringtoneSoundPlaybackInteractorSpy = SoundPlaybackInteractorSpy()
         sut = SoundPreferencesViewEventHandler(
-            interactorFactory: interactorFactorySpy, presenterFactory: PresenterFactoryImpl(), userAgent: UserAgentSpy()
+            interactorFactory: interactorFactorySpy,
+            presenterFactory: PresenterFactoryImpl(),
+            ringtoneSoundPlaybackInteractor: ringtoneSoundPlaybackInteractorSpy,
+            userAgent: UserAgentSpy()
         )
     }
 
@@ -71,5 +76,13 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
 
         XCTAssertEqual(interactorFactorySpy.invokedRingtoneSoundName, "sound-name")
         XCTAssertTrue(interactorSpy.didCallExecute)
+    }
+
+    func testPlaysRingtoneSoundOnRingtoneNameChange() {
+        interactorFactorySpy.stubWithUserDefaultsRingtoneSoundNameSaveInteractor(InteractorSpy())
+
+        sut.viewDidChangeRingtoneName("any-name")
+
+        XCTAssertTrue(ringtoneSoundPlaybackInteractorSpy.didCallPlay)
     }
 }

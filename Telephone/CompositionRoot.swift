@@ -36,11 +36,20 @@ class CompositionRoot: NSObject {
         let audioDevices = SystemAudioDevices()
         let interactorFactory = InteractorFactoryImpl(systemAudioDeviceRepository: audioDevices, userDefaults: userDefaults)
 
+        let userDefaultsSoundFactory = UserDefaultsSoundFactory(
+            soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
+                userDefaults: userDefaults,
+                systemAudioDeviceRepository: audioDevices
+            ),
+            nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory()
+        )
+
         preferencesController = PreferencesController(
             delegate: preferencesControllerDelegate,
             soundPreferencesViewObserver: SoundPreferencesViewEventHandler(
                 interactorFactory: interactorFactory,
                 presenterFactory: PresenterFactoryImpl(),
+                ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor(soundFactory: userDefaultsSoundFactory),
                 userAgent: userAgent
             )
         )
@@ -48,13 +57,7 @@ class CompositionRoot: NSObject {
         ringtonePlaybackInteractor = ConditionalRingtonePlaybackInteractor(
             origin: RingtonePlaybackInteractor(
                 ringtoneFactory: RepeatingSoundFactory(
-                    soundFactory: UserDefaultsSoundFactory(
-                        soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
-                            userDefaults: userDefaults,
-                            systemAudioDeviceRepository: audioDevices
-                        ),
-                        nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory()
-                    ),
+                    soundFactory: userDefaultsSoundFactory,
                     timerFactory: NSTimerToTimerAdapterFactory()
                 )
             ),
