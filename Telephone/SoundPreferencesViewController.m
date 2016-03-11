@@ -96,11 +96,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeRingtone:(id)sender {
-    [[[NSApp delegate] ringtone] stop];
-    
     [self.observer viewDidChangeRingtoneName:[sender title]];
-    
-    [[[NSApp delegate] ringtone] play];
 }
 
 
