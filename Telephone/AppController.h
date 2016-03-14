@@ -20,14 +20,6 @@
 #import "AKSIPUserAgent.h"
 
 
-// Audio device dictionary keys.
-extern NSString * const kAudioDeviceIdentifier;
-extern NSString * const kAudioDeviceUID;
-extern NSString * const kAudioDeviceName;
-extern NSString * const kAudioDeviceInputsCount;
-extern NSString * const kAudioDeviceOutputsCount;
-extern NSString * const kAudioDeviceBuiltIn;
-
 /// NSUserNotification user info dictionary key containing call controller identifier.
 extern NSString * const kUserNotificationCallControllerIdentifierKey;
 
@@ -52,28 +44,6 @@ extern NSString * const kGrowlNotificationCallEnded;
 
 // Account setup controller.
 @property(nonatomic, readonly) AccountSetupController *accountSetupController;
-
-// An array of audio devices available in the system.
-@property(strong) NSArray *audioDevices;
-
-// Index of an audio device for sound input.
-@property(nonatomic, assign) NSInteger soundInputDeviceIndex;
-
-// Index of an audio device for sound output.
-@property(nonatomic, assign) NSInteger soundOutputDeviceIndex;
-
-// Index of an audio device for a ringtone.
-@property(nonatomic, assign) NSInteger ringtoneOutputDeviceIndex;
-
-// A Boolean value indicating whether user agent sound IO should be set as soon
-// as needed, e.g. on the next call.
-@property(nonatomic, assign) BOOL shouldSetUserAgentSoundIO;
-
-// Incoming call ringtone.
-@property(nonatomic, strong) NSSound *ringtone;
-
-// Ringtone timer.
-@property(nonatomic, strong) NSTimer *ringtoneTimer;
 
 // A Boolean value indicating whether accounts should be registered ASAP, e.g. when the user agent finishes starting.
 @property(nonatomic, assign) BOOL shouldRegisterAllAccounts;
@@ -121,28 +91,13 @@ extern NSString * const kGrowlNotificationCallEnded;
 // A shortcut to restart user agent. Sets appropriate flags to start user agent, and then calls |stopUserAgent|.
 - (void)restartUserAgent;
 
-// Updates list of available audio devices.
-- (void)updateAudioDevices;
-
-// Chooses appropriate audio devices for sound IO.
-- (void)selectSoundIO;
-
 // Shows preferences window.
 - (IBAction)showPreferencePanel:(id)sender;
 
 // Adds an account on first application launch.
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
 
-// Starts a ringtone timer.
-- (void)startRingtoneTimer;
-
-// Stops a ringtone timer if needed.
-- (void)stopRingtoneTimerIfNeeded;
-
 - (BOOL)canStopRingtoneTimer;
-
-// Method to be called when a ringtone timer fires.
-- (void)ringtoneTimerTick:(NSTimer *)theTimer;
 
 // Starts a timer for bouncing icon in the Dock.
 - (void)startUserAttentionTimer;

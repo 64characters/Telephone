@@ -79,7 +79,6 @@ NS_ASSUME_NONNULL_END
     [self.observer viewDidChangeSoundInput:self.soundInputPopUp.titleOfSelectedItem
                                soundOutput:self.soundOutputPopUp.titleOfSelectedItem
                             ringtoneOutput:self.ringtoneOutputPopUp.titleOfSelectedItem];
-    [[NSApp delegate] selectSoundIO];
 }
 
 - (IBAction)changeUseG711Only:(id)sender {
