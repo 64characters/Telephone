@@ -16,6 +16,7 @@
 //
 
 @objc public protocol RingtonePlaybackInteractorInput {
+    var playing: Bool { get }
     func startPlayingRingtone() throws
     func stopPlayingRingtone()
 }
@@ -24,6 +25,8 @@ public class RingtonePlaybackInteractor: NSObject {
     public static let ringtoneInterval: Double = 4
 
     public let ringtoneFactory: RingtoneFactory
+
+    public var playing: Bool { return ringtone != nil }
 
     private var ringtone: Ringtone?
 

@@ -18,6 +18,7 @@
 import UseCases
 
 public class RingtonePlaybackInteractorSpy: NSObject {
+    public private(set) var playing = false
     public private(set) var didCallStartPlayingRingtone = false
     public private(set) var didCallStopPlayingRingtone = false
 }
@@ -25,9 +26,11 @@ public class RingtonePlaybackInteractorSpy: NSObject {
 extension RingtonePlaybackInteractorSpy: RingtonePlaybackInteractorInput {
     public func startPlayingRingtone() throws {
         didCallStartPlayingRingtone = true
+        playing = true
     }
 
     public func stopPlayingRingtone() {
         didCallStopPlayingRingtone = true
+        playing = false
     }
 }

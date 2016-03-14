@@ -50,4 +50,10 @@ class ConditionalRingtonePlaybackInteractorTests: XCTestCase {
 
         XCTAssertFalse(originSpy.didCallStopPlayingRingtone)
     }
+
+    func testReturnsPlayingFlagFromOrigin() {
+        try! originSpy.startPlayingRingtone()
+
+        XCTAssertTrue(sut.playing)
+    }
 }

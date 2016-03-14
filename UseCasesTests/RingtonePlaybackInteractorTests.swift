@@ -45,6 +45,19 @@ class RingtonePlaybackInteractorTests: XCTestCase {
         XCTAssertTrue(ringtoneSpy.didCallStopPlaying)
     }
 
+    func testPlayingFlagIsTrueOnStartPlaying() {
+        try! sut.startPlayingRingtone()
+
+        XCTAssertTrue(sut.playing)
+    }
+
+    func testPlayingFlagIsFalseOnStopPlaying() {
+        try! sut.startPlayingRingtone()
+        sut.stopPlayingRingtone()
+
+        XCTAssertFalse(sut.playing)
+    }
+
     func testTimerInterval() {
         try! sut.startPlayingRingtone()
 
