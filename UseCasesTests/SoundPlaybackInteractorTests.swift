@@ -41,7 +41,7 @@ class SoundPlaybackInteractorTests: XCTestCase {
         XCTAssertTrue(soundFactorySpy.lastCreatedSound.didCallPlay)
     }
 
-    func testStopFirstSondOnSecondPlay() {
+    func testStopsFirstSondOnSecondPlay() {
         try! sut.play()
         let soundSpy = soundFactorySpy.lastCreatedSound
         try! sut.play()
