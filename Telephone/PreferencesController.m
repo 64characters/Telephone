@@ -140,14 +140,12 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 }
 
 - (IBAction)changeView:(id)sender {
-    // If the user switches from Network to some other view, check for network settings changes.
-    NSView *contentView = [[self window] contentView];
-    NSView *networkPreferencesView = [[self networkPreferencesViewController] view];
-    
-    if ([contentView isEqual:networkPreferencesView] && [sender tag] != kNetworkPreferencesTag) {
-        if ([[self networkPreferencesViewController] checkForNetworkSettingsChanges:sender]) {
+    if ([self.window.contentView isEqual:self.networkPreferencesViewController.view] && [sender tag] != kNetworkPreferencesTag) {
+        if ([self.networkPreferencesViewController checkForNetworkSettingsChanges:sender]) {
             return;
         }
+    } else if ([self.window.contentView isEqual:self.soundPreferencesViewController.view] && [sender tag] != kSoundPreferencesTag) {
+        [self.soundPreferencesViewController ak_viewWillDisappear];
     }
     
     NSView *view;
@@ -216,8 +214,7 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-    // Stop currently playing ringtone that might be selected in Preferences.
-    [[[NSApp delegate] ringtone] stop];
+    [self.soundPreferencesViewController ak_viewWillDisappear];
 }
 
 @end

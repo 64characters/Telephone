@@ -71,6 +71,10 @@ NS_ASSUME_NONNULL_END
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)ak_viewWillDisappear {
+    [self.observer viewWillDisappear:self];
+}
+
 - (IBAction)changeSoundIO:(id)sender {
     [self.observer viewDidChangeSoundInput:self.soundInputPopUp.titleOfSelectedItem
                                soundOutput:self.soundOutputPopUp.titleOfSelectedItem
