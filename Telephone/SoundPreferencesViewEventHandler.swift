@@ -20,14 +20,20 @@ import UseCases
 class SoundPreferencesViewEventHandler: NSObject {
     let interactorFactory: InteractorFactory
     let presenterFactory: PresenterFactory
+    let ringtoneOutputUpdateInteractor: ThrowingInteractor
     let ringtoneSoundPlaybackInteractor: SoundPlaybackInteractorInput
     let userAgent: UserAgent
 
-    init(interactorFactory: InteractorFactory, presenterFactory: PresenterFactory, ringtoneSoundPlaybackInteractor: SoundPlaybackInteractorInput, userAgent: UserAgent) {
-        self.interactorFactory = interactorFactory
-        self.presenterFactory = presenterFactory
-        self.ringtoneSoundPlaybackInteractor = ringtoneSoundPlaybackInteractor
-        self.userAgent = userAgent
+    init(interactorFactory: InteractorFactory,
+        presenterFactory: PresenterFactory,
+        ringtoneOutputUpdateInteractor: ThrowingInteractor,
+        ringtoneSoundPlaybackInteractor: SoundPlaybackInteractorInput,
+        userAgent: UserAgent) {
+            self.interactorFactory = interactorFactory
+            self.presenterFactory = presenterFactory
+            self.ringtoneOutputUpdateInteractor = ringtoneOutputUpdateInteractor
+            self.ringtoneSoundPlaybackInteractor = ringtoneSoundPlaybackInteractor
+            self.userAgent = userAgent
     }
 }
 
@@ -46,6 +52,7 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
         updateUserDefaultsWithSoundIO(SoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput))
         selectUserAgentAudioDevicesOrLogError()
+        updateRingtoneOutputOrLogError()
     }
 
     func viewDidChangeRingtoneName(name: String) {
@@ -62,6 +69,14 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
             try interactorFactory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent).execute()
         } catch {
             print("Could not select user agent audio devices: \(error)")
+        }
+    }
+
+    private func updateRingtoneOutputOrLogError() {
+        do {
+            try ringtoneOutputUpdateInteractor.execute()
+        } catch {
+            print("Could not update ringtone output: \(error)")
         }
     }
 

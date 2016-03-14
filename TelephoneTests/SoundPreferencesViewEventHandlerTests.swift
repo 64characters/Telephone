@@ -20,16 +20,19 @@ import XCTest
 
 class SoundPreferencesViewEventHandlerTests: XCTestCase {
     private var interactorFactorySpy: InteractorFactorySpy!
+    private var ringtoneOutputUpdateInteractorSpy: ThrowingInteractorSpy!
     private var ringtoneSoundPlaybackInteractorSpy: SoundPlaybackInteractorSpy!
     private var sut: SoundPreferencesViewEventHandler!
 
     override func setUp() {
         super.setUp()
         interactorFactorySpy = InteractorFactorySpy()
+        ringtoneOutputUpdateInteractorSpy = ThrowingInteractorSpy()
         ringtoneSoundPlaybackInteractorSpy = SoundPlaybackInteractorSpy()
         sut = SoundPreferencesViewEventHandler(
             interactorFactory: interactorFactorySpy,
             presenterFactory: PresenterFactoryImpl(),
+            ringtoneOutputUpdateInteractor: ringtoneOutputUpdateInteractorSpy,
             ringtoneSoundPlaybackInteractor: ringtoneSoundPlaybackInteractorSpy,
             userAgent: UserAgentSpy()
         )
@@ -63,9 +66,18 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
         interactorFactorySpy.stubWithUserAgentSoundIOSelectionInteractor(interactorSpy)
         interactorFactorySpy.stubWithUserDefaultsSoundIOSaveInteractor(InteractorSpy())
 
-        sut.viewDidChangeSoundInput("", soundOutput: "", ringtoneOutput: "")
+        sut.viewDidChangeSoundInput("any-input", soundOutput: "any-output", ringtoneOutput: "any-output")
 
         XCTAssertTrue(interactorSpy.didCallExecute)
+    }
+
+    func testExecutesRingtoneOutputUpdateInteractorOnSoundIOChange() {
+        interactorFactorySpy.stubWithUserAgentSoundIOSelectionInteractor(ThrowingInteractorSpy())
+        interactorFactorySpy.stubWithUserDefaultsSoundIOSaveInteractor(InteractorSpy())
+
+        sut.viewDidChangeSoundInput("any-input", soundOutput: "any-output", ringtoneOutput: "any-output")
+
+        XCTAssertTrue(ringtoneOutputUpdateInteractorSpy.didCallExecute)
     }
 
     func testExecutesUserDefaultsRingtoneSoundNameSaveInteractorWithExpectedArgumentsOnRingtoneNameChange() {

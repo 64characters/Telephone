@@ -44,16 +44,6 @@ class CompositionRoot: NSObject {
             nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory()
         )
 
-        preferencesController = PreferencesController(
-            delegate: preferencesControllerDelegate,
-            soundPreferencesViewObserver: SoundPreferencesViewEventHandler(
-                interactorFactory: interactorFactory,
-                presenterFactory: PresenterFactoryImpl(),
-                ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor(soundFactory: userDefaultsSoundFactory),
-                userAgent: userAgent
-            )
-        )
-
         ringtonePlaybackInteractor = ConditionalRingtonePlaybackInteractor(
             origin: RingtonePlaybackInteractor(
                 ringtoneFactory: RepeatingSoundFactory(
@@ -62,6 +52,17 @@ class CompositionRoot: NSObject {
                 )
             ),
             delegate: conditionalRingtonePlaybackInteractorDelegate
+        )
+
+        preferencesController = PreferencesController(
+            delegate: preferencesControllerDelegate,
+            soundPreferencesViewObserver: SoundPreferencesViewEventHandler(
+                interactorFactory: interactorFactory,
+                presenterFactory: PresenterFactoryImpl(),
+                ringtoneOutputUpdateInteractor: RingtoneOutputUpdateInteractor(playback: ringtonePlaybackInteractor),
+                ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor(soundFactory: userDefaultsSoundFactory),
+                userAgent: userAgent
+            )
         )
 
         userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(
