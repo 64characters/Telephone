@@ -97,4 +97,10 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
 
         XCTAssertTrue(ringtoneSoundPlaybackInteractorSpy.didCallPlay)
     }
+
+    func testStopsPlayingRingtoneSoundOnViewWillDisappear() {
+        sut.viewWillDisappear(SoundPreferencesViewSpy())
+
+        XCTAssertTrue(ringtoneSoundPlaybackInteractorSpy.didCallStop)
+    }
 }

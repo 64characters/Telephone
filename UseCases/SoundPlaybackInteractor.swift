@@ -17,6 +17,7 @@
 
 public protocol SoundPlaybackInteractorInput {
     func play() throws
+    func stop()
 }
 
 public class SoundPlaybackInteractor {
@@ -34,6 +35,10 @@ extension SoundPlaybackInteractor: SoundPlaybackInteractorInput {
         sound?.stop()
         sound = try soundFactory.createSound(observer: self)
         sound!.play()
+    }
+
+    public func stop() {
+        sound?.stop()
     }
 }
 

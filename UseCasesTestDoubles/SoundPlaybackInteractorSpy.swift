@@ -19,6 +19,7 @@ import UseCases
 
 public class SoundPlaybackInteractorSpy {
     public private(set) var didCallPlay = false
+    public private(set) var didCallStop = false
 
     public init() {}
 }
@@ -26,5 +27,9 @@ public class SoundPlaybackInteractorSpy {
 extension SoundPlaybackInteractorSpy: SoundPlaybackInteractorInput {
     public func play() throws {
         didCallPlay = true
+    }
+
+    public func stop() {
+        didCallStop = true
     }
 }

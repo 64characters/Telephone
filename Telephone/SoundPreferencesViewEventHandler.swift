@@ -60,6 +60,10 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
         playRingtoneSoundOrLogError()
     }
 
+    func viewWillDisappear(view: SoundPreferencesView) {
+        ringtoneSoundPlaybackInteractor.stop()
+    }
+
     private func updateUserDefaultsWithSoundIO(soundIO: SoundIO) {
         interactorFactory.createUserDefaultsSoundIOSaveInteractor(soundIO: soundIO).execute()
     }
