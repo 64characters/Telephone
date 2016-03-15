@@ -22,7 +22,7 @@ import XCTest
 class UserDefaultsRingtoneSoundNameSaveInteractorTests: XCTestCase {
     func testUsesExpectedUserDefaultsKeys() {
         let userDefaults = UserDefaultsFake()
-        let sut = UserDefaultsRingtoneSoundNameSaveInteractor(soundName: "sound-name", userDefaults: userDefaults)
+        let sut = UserDefaultsRingtoneSoundNameSaveInteractor(name: "sound-name", userDefaults: userDefaults)
 
         sut.execute()
 

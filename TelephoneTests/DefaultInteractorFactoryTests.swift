@@ -67,7 +67,7 @@ class DefaultInteractorFactoryTests: XCTestCase {
         let result = sut.createRingtoneSoundNameSaveInteractor(name: "sound-name") as! UserDefaultsRingtoneSoundNameSaveInteractor
 
         XCTAssertNotNil(result)
-        XCTAssertEqual(result.soundName, "sound-name")
+        XCTAssertEqual(result.name, "sound-name")
         XCTAssertTrue(result.userDefaults === userDefaults)
     }
 }

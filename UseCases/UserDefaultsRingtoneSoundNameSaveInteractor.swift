@@ -16,17 +16,17 @@
 //
 
 public class UserDefaultsRingtoneSoundNameSaveInteractor {
-    public let soundName: String
+    public let name: String
     public let userDefaults: UserDefaults
 
-    public init(soundName: String, userDefaults: UserDefaults) {
-        self.soundName = soundName
+    public init(name: String, userDefaults: UserDefaults) {
+        self.name = name
         self.userDefaults = userDefaults
     }
 }
 
 extension UserDefaultsRingtoneSoundNameSaveInteractor: Interactor {
     public func execute() {
-        userDefaults[kRingingSound] = soundName
+        userDefaults[kRingingSound] = name
     }
 }
