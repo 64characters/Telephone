@@ -17,6 +17,6 @@
 
 @objc public protocol RingtonePlaybackInteractor {
     var playing: Bool { get }
-    func startPlayingRingtone() throws
-    func stopPlayingRingtone()
+    func start() throws
+    func stop()
 }

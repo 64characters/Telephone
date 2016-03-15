@@ -97,7 +97,7 @@ extern NSString * const kGrowlNotificationCallEnded;
 // Adds an account on first application launch.
 - (IBAction)addAccountOnFirstLaunch:(id)sender;
 
-- (BOOL)canStopRingtoneTimer;
+- (BOOL)canStopPlayingRingtone;
 
 // Starts a timer for bouncing icon in the Dock.
 - (void)startUserAttentionTimer;

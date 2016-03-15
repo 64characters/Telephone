@@ -26,8 +26,8 @@ public class RingtoneOutputUpdateInteractor {
 extension RingtoneOutputUpdateInteractor: ThrowingInteractor {
     public func execute() throws {
         if playback.playing {
-            playback.stopPlayingRingtone()
-            try playback.startPlayingRingtone()
+            playback.stop()
+            try playback.start()
         }
     }
 }

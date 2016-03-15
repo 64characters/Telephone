@@ -33,7 +33,7 @@ class RepeatingSoundFactoryTests: XCTestCase {
     }
 
     func testCallsCreateSound() {
-        try! sut.createRingtone(timeInterval: 0)
+        try! sut.createRingtone(interval: 0)
 
         XCTAssertTrue(soundFactorySpy.didCallCreateSound)
     }
@@ -41,7 +41,7 @@ class RepeatingSoundFactoryTests: XCTestCase {
     func testCreatesRingtoneWithSpecifiedTimeInterval() {
         let interval: Double = 2
 
-        let result = try! sut.createRingtone(timeInterval: interval)
+        let result = try! sut.createRingtone(interval: interval)
 
         XCTAssertEqual(result.timeInterval, interval)
     }

@@ -28,17 +28,17 @@ public class ConditionalRingtonePlaybackInteractor: NSObject {
 }
 
 extension ConditionalRingtonePlaybackInteractor: RingtonePlaybackInteractor {
-    public func startPlayingRingtone() throws {
-        try origin.startPlayingRingtone()
+    public func start() throws {
+        try origin.start()
     }
 
-    public func stopPlayingRingtone() {
-        if delegate.interactorCanStopPlayingRingtone(self) {
-            origin.stopPlayingRingtone()
+    public func stop() {
+        if delegate.playbackCanStop(self) {
+            origin.stop()
         }
     }
 }
 
 @objc public protocol ConditionalRingtonePlaybackInteractorDelegate {
-    func interactorCanStopPlayingRingtone(interactor: ConditionalRingtonePlaybackInteractor) -> Bool
+    func playbackCanStop(playback: ConditionalRingtonePlaybackInteractor) -> Bool
 }

@@ -29,52 +29,52 @@ class DefaultRingtonePlaybackInteractorTests: XCTestCase {
         ringtoneSpy = RingtoneSpy()
         ringtoneFactorySpy = RingtoneFactorySpy()
         ringtoneFactorySpy.stubWith(ringtoneSpy)
-        sut = DefaultRingtonePlaybackInteractor(ringtoneFactory: ringtoneFactorySpy)
+        sut = DefaultRingtonePlaybackInteractor(factory: ringtoneFactorySpy)
     }
 
     func testStartsPlayingRingtone() {
-        try! sut.startPlayingRingtone()
+        try! sut.start()
 
         XCTAssertTrue(ringtoneSpy.didCallStartPlaying)
     }
 
     func testStopsPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-        sut.stopPlayingRingtone()
+        try! sut.start()
+        sut.stop()
 
         XCTAssertTrue(ringtoneSpy.didCallStopPlaying)
     }
 
     func testPlayingFlagIsTrueOnStartPlaying() {
-        try! sut.startPlayingRingtone()
+        try! sut.start()
 
         XCTAssertTrue(sut.playing)
     }
 
     func testPlayingFlagIsFalseOnStopPlaying() {
-        try! sut.startPlayingRingtone()
-        sut.stopPlayingRingtone()
+        try! sut.start()
+        sut.stop()
 
         XCTAssertFalse(sut.playing)
     }
 
-    func testTimerInterval() {
-        try! sut.startPlayingRingtone()
+    func testInterval() {
+        try! sut.start()
 
-        XCTAssertEqual(ringtoneFactorySpy.invokedTimeInterval, DefaultRingtonePlaybackInteractor.ringtoneInterval)
+        XCTAssertEqual(ringtoneFactorySpy.invokedInterval, DefaultRingtonePlaybackInteractor.interval)
     }
 
     func testDoesNotCreateRingtoneIfAlreadyExists() {
-        try! sut.startPlayingRingtone()
-        try! sut.startPlayingRingtone()
+        try! sut.start()
+        try! sut.start()
 
         XCTAssertEqual(ringtoneFactorySpy.createRingtoneCallCount, 1)
     }
 
-    func testStopsPlayingRingtoneOnceOnTwoConsecutiveCallsToStopPlayingRingtone() {
-        try! sut.startPlayingRingtone()
-        sut.stopPlayingRingtone()
-        sut.stopPlayingRingtone()
+    func testStopsPlayingRingtoneOnceOnTwoConsecutiveCallsTostop() {
+        try! sut.start()
+        sut.stop()
+        sut.stop()
 
         XCTAssertEqual(ringtoneSpy.stopPlayingCallCount, 1)
     }

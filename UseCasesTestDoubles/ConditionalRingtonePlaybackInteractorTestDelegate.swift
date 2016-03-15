@@ -18,15 +18,15 @@
 import UseCases
 
 public class ConditionalRingtonePlaybackInteractorTestDelegate: NSObject {
-    private var canStopRingtone = true
+    private var canStop = true
 
-    public func forbidStoppingRingtone() {
-        canStopRingtone = false
+    public func forbidStoppingPlayback() {
+        canStop = false
     }
 }
 
 extension ConditionalRingtonePlaybackInteractorTestDelegate: ConditionalRingtonePlaybackInteractorDelegate {
-    public func interactorCanStopPlayingRingtone(interactor: ConditionalRingtonePlaybackInteractor) -> Bool {
-        return canStopRingtone
+    public func playbackCanStop(playback: ConditionalRingtonePlaybackInteractor) -> Bool {
+        return canStop
     }
 }

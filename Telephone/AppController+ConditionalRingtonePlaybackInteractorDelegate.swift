@@ -16,7 +16,7 @@
 //
 
 extension AppController: ConditionalRingtonePlaybackInteractorDelegate {
-    public func interactorCanStopPlayingRingtone(interactor: ConditionalRingtonePlaybackInteractor) -> Bool {
-        return self.canStopRingtoneTimer()
+    public func playbackCanStop(playback: ConditionalRingtonePlaybackInteractor) -> Bool {
+        return self.canStopPlayingRingtone()
     }
 }

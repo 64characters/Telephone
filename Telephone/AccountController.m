@@ -1024,7 +1024,7 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (void)startPlayingRingtoneOrLogError {
     NSError *error;
-    BOOL success = [self.ringtonePlayback startPlayingRingtoneAndReturnError:&error];
+    BOOL success = [self.ringtonePlayback startAndReturnError:&error];
     if (!success) {
         NSLog(@"Could not start playing ringtone: %@", error);
     }

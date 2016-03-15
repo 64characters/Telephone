@@ -28,10 +28,10 @@ public class RepeatingSoundFactory {
 }
 
 extension RepeatingSoundFactory: RingtoneFactory {
-    public func createRingtone(timeInterval timeInterval: Double) throws -> Ringtone {
+    public func createRingtone(interval interval: Double) throws -> Ringtone {
         return RepeatingSound(
             sound: try soundFactory.createSound(observer: NullSoundObserver()),
-            timeInterval: timeInterval,
+            timeInterval: interval,
             timerFactory: timerFactory
         )
     }

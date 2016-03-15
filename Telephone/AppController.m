@@ -352,7 +352,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     }
 }
 
-- (BOOL)canStopRingtoneTimer {
+- (BOOL)canStopPlayingRingtone {
     return ![self hasIncomingCallControllers];
 }
 

@@ -31,28 +31,28 @@ class ConditionalRingtonePlaybackInteractorTests: XCTestCase {
         sut = ConditionalRingtonePlaybackInteractor(origin: originSpy, delegate: delegate)
     }
 
-    func testCallsStartPlayingRingtoneOnOrigin() {
-        try! sut.startPlayingRingtone()
+    func testCallsStartOnOrigin() {
+        try! sut.start()
 
-        XCTAssertTrue(originSpy.didCallStartPlayingRingtone)
+        XCTAssertTrue(originSpy.didCallStart)
     }
 
-    func testCallsStopPlayingRingtoneOnOrigin() {
-        sut.stopPlayingRingtone()
+    func testCallsStopOnOrigin() {
+        sut.stop()
 
-        XCTAssertTrue(originSpy.didCallStopPlayingRingtone)
+        XCTAssertTrue(originSpy.didCallStop)
     }
 
-    func testDoesNotCallStopPlayingRingtoneOnOriginWhenDelegateReturnsFalse() {
-        delegate.forbidStoppingRingtone()
+    func testDoesNotCallStopOnOriginWhenDelegateReturnsFalse() {
+        delegate.forbidStoppingPlayback()
 
-        sut.stopPlayingRingtone()
+        sut.stop()
 
-        XCTAssertFalse(originSpy.didCallStopPlayingRingtone)
+        XCTAssertFalse(originSpy.didCallStop)
     }
 
     func testReturnsPlayingFlagFromOrigin() {
-        try! originSpy.startPlayingRingtone()
+        try! originSpy.start()
 
         XCTAssertTrue(sut.playing)
     }

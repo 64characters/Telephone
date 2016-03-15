@@ -16,28 +16,28 @@
 //
 
 public class DefaultRingtonePlaybackInteractor: NSObject {
-    public static let ringtoneInterval: Double = 4
+    public static let interval: Double = 4
 
-    public let ringtoneFactory: RingtoneFactory
+    public let factory: RingtoneFactory
 
     public var playing: Bool { return ringtone != nil }
 
     private var ringtone: Ringtone?
 
-    public init(ringtoneFactory: RingtoneFactory) {
-        self.ringtoneFactory = ringtoneFactory
+    public init(factory: RingtoneFactory) {
+        self.factory = factory
     }
 }
 
 extension DefaultRingtonePlaybackInteractor: RingtonePlaybackInteractor {
-    public func startPlayingRingtone() throws {
+    public func start() throws {
         if ringtone == nil {
-            ringtone = try ringtoneFactory.createRingtone(timeInterval: DefaultRingtonePlaybackInteractor.ringtoneInterval)
+            ringtone = try factory.createRingtone(interval: DefaultRingtonePlaybackInteractor.interval)
         }
         ringtone!.startPlaying()
     }
 
-    public func stopPlayingRingtone() {
+    public func stop() {
         ringtone?.stopPlaying()
         ringtone = nil
     }

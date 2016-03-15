@@ -46,7 +46,7 @@ class CompositionRoot: NSObject {
 
         ringtonePlayback = ConditionalRingtonePlaybackInteractor(
             origin: DefaultRingtonePlaybackInteractor(
-                ringtoneFactory: RepeatingSoundFactory(
+                factory: RepeatingSoundFactory(
                     soundFactory: userDefaultsSoundFactory,
                     timerFactory: NSTimerToTimerAdapterFactory()
                 )

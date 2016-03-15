@@ -30,18 +30,18 @@ class RingtoneOutputUpdateInteractorTests: XCTestCase {
     }
 
     func testRestartsPlaybackWhenPlaying() {
-        try! spy.startPlayingRingtone()
+        try! spy.start()
 
         try! sut.execute()
 
-        XCTAssertTrue(spy.didCallStopPlayingRingtone)
-        XCTAssertTrue(spy.didCallStartPlayingRingtone)
+        XCTAssertTrue(spy.didCallStop)
+        XCTAssertTrue(spy.didCallStart)
     }
 
     func testDoesNotRestartPlaybackWhenNotPlaying() {
         try! sut.execute()
 
-        XCTAssertFalse(spy.didCallStopPlayingRingtone)
-        XCTAssertFalse(spy.didCallStartPlayingRingtone)
+        XCTAssertFalse(spy.didCallStop)
+        XCTAssertFalse(spy.didCallStart)
     }
 }
