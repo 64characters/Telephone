@@ -48,7 +48,7 @@ extension DefaultInteractorFactory: InteractorFactory {
         return UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
     }
 
-    func createUserDefaultsRingtoneSoundNameSaveInteractor(name name: String) -> Interactor {
+    func createRingtoneSoundNameSaveInteractor(name name: String) -> Interactor {
         return UserDefaultsRingtoneSoundNameSaveInteractor(soundName: name, userDefaults: userDefaults)
     }
 }

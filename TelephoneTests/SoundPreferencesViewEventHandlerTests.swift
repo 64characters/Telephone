@@ -80,9 +80,9 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
         XCTAssertTrue(ringtoneOutputUpdateInteractorSpy.didCallExecute)
     }
 
-    func testExecutesUserDefaultsRingtoneSoundNameSaveInteractorWithExpectedArgumentsOnRingtoneNameChange() {
+    func testExecutesRingtoneSoundNameSaveInteractorWithExpectedArgumentsOnRingtoneNameChange() {
         let interactorSpy = InteractorSpy()
-        interactorFactorySpy.stubWithUserDefaultsRingtoneSoundNameSaveInteractor(interactorSpy)
+        interactorFactorySpy.stubWithRingtoneSoundNameSaveInteractor(interactorSpy)
 
         sut.viewDidChangeRingtoneName("sound-name")
 
@@ -91,7 +91,7 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
     }
 
     func testPlaysRingtoneSoundOnRingtoneNameChange() {
-        interactorFactorySpy.stubWithUserDefaultsRingtoneSoundNameSaveInteractor(InteractorSpy())
+        interactorFactorySpy.stubWithRingtoneSoundNameSaveInteractor(InteractorSpy())
 
         sut.viewDidChangeRingtoneName("any-name")
 
