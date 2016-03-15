@@ -31,7 +31,7 @@ class RepeatingSoundTests: XCTestCase {
         timerFactorySpy = TimerFactorySpy()
         timerSpy = TimerSpy()
         timerFactorySpy.stubWith(timerSpy)
-        sut = RepeatingSound(sound: soundSpy, interval: 1, timerFactory: timerFactorySpy)
+        sut = RepeatingSound(sound: soundSpy, interval: 1, factory: timerFactorySpy)
     }
 
     func testCreatesRepeatingTimerOnStartPlaying() {

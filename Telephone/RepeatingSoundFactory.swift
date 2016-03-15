@@ -32,7 +32,7 @@ extension RepeatingSoundFactory: RingtoneFactory {
         return RepeatingSound(
             sound: try soundFactory.createSound(observer: NullSoundObserver()),
             interval: interval,
-            timerFactory: timerFactory
+            factory: timerFactory
         )
     }
 }
