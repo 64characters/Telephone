@@ -23,7 +23,7 @@ class UserDefaultsSoundFactory {
 
     init(soundConfigurationLoadInteractor: SoundConfigurationLoadInteractor, nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory) {
         self.soundConfigurationLoadInteractor = soundConfigurationLoadInteractor
-        self.nsSoundToSoundAdapterFactory = NSSoundToSoundAdapterFactory()
+        self.nsSoundToSoundAdapterFactory = nsSoundToSoundAdapterFactory
     }
 }
 
