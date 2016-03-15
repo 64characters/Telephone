@@ -34,7 +34,7 @@ class CompositionRoot: NSObject {
         queue = createQueue()
 
         let audioDevices = SystemAudioDevices()
-        let interactorFactory = InteractorFactoryImpl(systemAudioDeviceRepository: audioDevices, userDefaults: userDefaults)
+        let interactorFactory = DefaultInteractorFactory(systemAudioDeviceRepository: audioDevices, userDefaults: userDefaults)
 
         let userDefaultsSoundFactory = UserDefaultsSoundFactory(
             soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(

@@ -67,9 +67,9 @@
 		AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */; };
 		AA18F5FF1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA18F5FE1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveInteractorTests.swift */; };
 		AA18F6011C21CD9600FD8E9F /* UserDefaultsSoundIOSaveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA18F6001C21CD9600FD8E9F /* UserDefaultsSoundIOSaveInteractor.swift */; };
-		AA19CFF51BED148A00991CAA /* InteractorFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* InteractorFactoryImpl.swift */; };
-		AA19CFF81BED149900991CAA /* InteractorFactoryImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF61BED149500991CAA /* InteractorFactoryImplTests.swift */; };
-		AA19CFF91BED149C00991CAA /* InteractorFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* InteractorFactoryImpl.swift */; };
+		AA19CFF51BED148A00991CAA /* DefaultInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */; };
+		AA19CFF81BED149900991CAA /* DefaultInteractorFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */; };
+		AA19CFF91BED149C00991CAA /* DefaultInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */; };
 		AA1A0AA01828E38900278658 /* Telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA1A0A9F1828E38900278658 /* Telephone.icns */; };
 		AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; };
 		AA222C43182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */; };
@@ -424,8 +424,8 @@
 		AA18F5FE1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsSoundIOSaveInteractorTests.swift; path = UseCasesTests/UserDefaultsSoundIOSaveInteractorTests.swift; sourceTree = SOURCE_ROOT; };
 		AA18F6001C21CD9600FD8E9F /* UserDefaultsSoundIOSaveInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsSoundIOSaveInteractor.swift; sourceTree = "<group>"; };
 		AA19171B0F8EA627002BA093 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
-		AA19CFF41BED148A00991CAA /* InteractorFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorFactoryImpl.swift; sourceTree = "<group>"; };
-		AA19CFF61BED149500991CAA /* InteractorFactoryImplTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InteractorFactoryImplTests.swift; path = TelephoneTests/InteractorFactoryImplTests.swift; sourceTree = SOURCE_ROOT; };
+		AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultInteractorFactory.swift; sourceTree = "<group>"; };
+		AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultInteractorFactoryTests.swift; path = TelephoneTests/DefaultInteractorFactoryTests.swift; sourceTree = SOURCE_ROOT; };
 		AA1A0A9F1828E38900278658 /* Telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Telephone.icns; sourceTree = "<group>"; };
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA222C40182C3B5B0096B024 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
@@ -783,14 +783,14 @@
 				AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */,
 				AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */,
 				AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */,
+				AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */,
+				AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */,
 				AA6989B31C19D0660067BFB1 /* PresenterFactory.swift */,
 				AA6989B81C19D4BD0067BFB1 /* PresenterFactoryImpl.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+UserDefaults.swift */,
-				AA19CFF41BED148A00991CAA /* InteractorFactoryImpl.swift */,
-				AA19CFF61BED149500991CAA /* InteractorFactoryImplTests.swift */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				AA4D490A1BB99DD6004D1D4B /* Frameworks */,
@@ -1712,7 +1712,7 @@
 				8A7874F81C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
 				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,
-				AA19CFF51BED148A00991CAA /* InteractorFactoryImpl.swift in Sources */,
+				AA19CFF51BED148A00991CAA /* DefaultInteractorFactory.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
@@ -1836,10 +1836,10 @@
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewObserver.swift in Sources */,
 				AABBB3991BFA1A33004A65B5 /* UserAgentAudioDeviceUpdater.swift in Sources */,
-				AA19CFF81BED149900991CAA /* InteractorFactoryImplTests.swift in Sources */,
+				AA19CFF81BED149900991CAA /* DefaultInteractorFactoryTests.swift in Sources */,
 				AA32F7FC1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA39055A1BFFE657005A8AA3 /* SystemAudioDevicesChangeObserverSpy.swift in Sources */,
-				AA19CFF91BED149C00991CAA /* InteractorFactoryImpl.swift in Sources */,
+				AA19CFF91BED149C00991CAA /* DefaultInteractorFactory.swift in Sources */,
 				AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeObserver.swift in Sources */,
 				AABBB3961BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* SoundPreferencesViewEventHandlerTests.swift in Sources */,

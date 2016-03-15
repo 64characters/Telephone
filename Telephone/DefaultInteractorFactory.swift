@@ -1,5 +1,5 @@
 //
-//  InteractorFactoryImpl.swift
+//  DefaultInteractorFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import UseCases
 
-class InteractorFactoryImpl {
+class DefaultInteractorFactory {
     let systemAudioDeviceRepository: SystemAudioDeviceRepository
     let userDefaults: UserDefaults
 
@@ -27,7 +27,7 @@ class InteractorFactoryImpl {
     }
 }
 
-extension InteractorFactoryImpl: InteractorFactory {
+extension DefaultInteractorFactory: InteractorFactory {
     func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
         return UserAgentSoundIOSelectionInteractor(
             systemAudioDeviceRepository: systemAudioDeviceRepository,

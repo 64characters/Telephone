@@ -1,5 +1,5 @@
 //
-//  InteractorFactoryImplTests.swift
+//  DefaultInteractorFactoryTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -19,16 +19,16 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class InteractorFactoryImplTests: XCTestCase {
+class DefaultInteractorFactoryTests: XCTestCase {
     var repositoryDummy: SystemAudioDeviceRepository!
     var userDefaults: UserDefaults!
-    var sut: InteractorFactoryImpl!
+    var sut: DefaultInteractorFactory!
 
     override func setUp() {
         super.setUp()
         repositoryDummy = SystemAudioDeviceRepositoryStub()
         userDefaults = UserDefaultsFake()
-        sut = InteractorFactoryImpl(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaults)
+        sut = DefaultInteractorFactory(systemAudioDeviceRepository: repositoryDummy, userDefaults: userDefaults)
     }
 
     func testCanCreateUserAgentSoundIOSelectionInteractor() {
