@@ -33,7 +33,7 @@ class UserDefaultsRingtoneSoundConfigurationLoadInteractorTests: XCTestCase {
         audioDeviceRepositoryStub = SystemAudioDeviceRepositoryStub()
         sut = UserDefaultsRingtoneSoundConfigurationLoadInteractor(
             userDefaults: userDefaults,
-            systemAudioDeviceRepository: audioDeviceRepositoryStub
+            repository: audioDeviceRepositoryStub
         )
     }
 

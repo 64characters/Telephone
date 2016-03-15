@@ -39,7 +39,7 @@ class CompositionRoot: NSObject {
         let userDefaultsSoundFactory = UserDefaultsSoundFactory(
             interactor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
                 userDefaults: userDefaults,
-                systemAudioDeviceRepository: audioDevices
+                repository: audioDevices
             ),
             factory: NSSoundToSoundAdapterFactory()
         )

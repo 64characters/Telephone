@@ -19,11 +19,11 @@ import Domain
 
 public class UserDefaultsRingtoneSoundConfigurationLoadInteractor {
     public let userDefaults: UserDefaults
-    public let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    public let repository: SystemAudioDeviceRepository
 
-    public init(userDefaults: UserDefaults, systemAudioDeviceRepository: SystemAudioDeviceRepository) {
+    public init(userDefaults: UserDefaults, repository: SystemAudioDeviceRepository) {
         self.userDefaults = userDefaults
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
+        self.repository = repository
     }
 }
 
@@ -42,7 +42,7 @@ extension UserDefaultsRingtoneSoundConfigurationLoadInteractor: SoundConfigurati
 
     private func ringtoneAudioDeviceUID() throws -> String {
         let selectedSystemSoundIO = try SelectedSystemSoundIO(
-            systemAudioDevices: SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices()),
+            systemAudioDevices: SystemAudioDevices(devices: try repository.allDevices()),
             userDefaults: userDefaults
         )
         return selectedSystemSoundIO.ringtoneOutput.uniqueIdentifier
