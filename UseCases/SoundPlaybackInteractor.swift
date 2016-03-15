@@ -15,35 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol SoundPlaybackInteractorInput {
+public protocol SoundPlaybackInteractor {
     func play() throws
     func stop()
-}
-
-public class SoundPlaybackInteractor {
-    public let soundFactory: SoundFactory
-
-    public private(set) var sound: Sound?
-
-    public init(soundFactory: SoundFactory) {
-        self.soundFactory = soundFactory
-    }
-}
-
-extension SoundPlaybackInteractor: SoundPlaybackInteractorInput {
-    public func play() throws {
-        sound?.stop()
-        sound = try soundFactory.createSound(observer: self)
-        sound!.play()
-    }
-
-    public func stop() {
-        sound?.stop()
-    }
-}
-
-extension SoundPlaybackInteractor: SoundObserver {
-    public func soundDidFinishPlaying() {
-        sound = nil
-    }
 }

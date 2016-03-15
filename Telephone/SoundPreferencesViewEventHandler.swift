@@ -21,13 +21,13 @@ class SoundPreferencesViewEventHandler: NSObject {
     let interactorFactory: InteractorFactory
     let presenterFactory: PresenterFactory
     let ringtoneOutputUpdateInteractor: ThrowingInteractor
-    let ringtoneSoundPlaybackInteractor: SoundPlaybackInteractorInput
+    let ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor
     let userAgent: UserAgent
 
     init(interactorFactory: InteractorFactory,
         presenterFactory: PresenterFactory,
         ringtoneOutputUpdateInteractor: ThrowingInteractor,
-        ringtoneSoundPlaybackInteractor: SoundPlaybackInteractorInput,
+        ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor,
         userAgent: UserAgent) {
             self.interactorFactory = interactorFactory
             self.presenterFactory = presenterFactory

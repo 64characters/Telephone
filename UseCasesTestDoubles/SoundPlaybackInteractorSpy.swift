@@ -24,7 +24,7 @@ public class SoundPlaybackInteractorSpy {
     public init() {}
 }
 
-extension SoundPlaybackInteractorSpy: SoundPlaybackInteractorInput {
+extension SoundPlaybackInteractorSpy: SoundPlaybackInteractor {
     public func play() throws {
         didCallPlay = true
     }

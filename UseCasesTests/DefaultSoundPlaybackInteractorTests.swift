@@ -1,5 +1,5 @@
 //
-//  SoundPlaybackInteractorTests.swift
+//  DefaultSoundPlaybackInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,14 +19,14 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class SoundPlaybackInteractorTests: XCTestCase {
+class DefaultSoundPlaybackInteractorTests: XCTestCase {
     private var soundFactorySpy: SoundFactorySpy!
-    private var sut: SoundPlaybackInteractor!
+    private var sut: DefaultSoundPlaybackInteractor!
 
     override func setUp() {
         super.setUp()
         soundFactorySpy = SoundFactorySpy()
-        sut = SoundPlaybackInteractor(soundFactory: soundFactorySpy)
+        sut = DefaultSoundPlaybackInteractor(soundFactory: soundFactorySpy)
     }
 
     func testCreatesSoundOnPlay() {

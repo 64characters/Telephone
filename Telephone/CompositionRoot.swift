@@ -60,7 +60,7 @@ class CompositionRoot: NSObject {
                 interactorFactory: interactorFactory,
                 presenterFactory: PresenterFactory(),
                 ringtoneOutputUpdateInteractor: RingtoneOutputUpdateInteractor(playback: ringtonePlayback),
-                ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor(soundFactory: userDefaultsSoundFactory),
+                ringtoneSoundPlaybackInteractor: DefaultSoundPlaybackInteractor(soundFactory: userDefaultsSoundFactory),
                 userAgent: userAgent
             )
         )
