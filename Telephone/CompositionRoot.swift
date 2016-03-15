@@ -37,11 +37,11 @@ class CompositionRoot: NSObject {
         let interactorFactory = DefaultInteractorFactory(systemAudioDeviceRepository: audioDevices, userDefaults: userDefaults)
 
         let userDefaultsSoundFactory = UserDefaultsSoundFactory(
-            soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
+            interactor: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
                 userDefaults: userDefaults,
                 systemAudioDeviceRepository: audioDevices
             ),
-            nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory()
+            factory: NSSoundToSoundAdapterFactory()
         )
 
         ringtonePlayback = ConditionalRingtonePlaybackInteractor(
