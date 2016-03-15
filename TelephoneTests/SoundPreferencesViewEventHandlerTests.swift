@@ -31,7 +31,7 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
         ringtoneSoundPlaybackInteractorSpy = SoundPlaybackInteractorSpy()
         sut = SoundPreferencesViewEventHandler(
             interactorFactory: interactorFactorySpy,
-            presenterFactory: PresenterFactoryImpl(),
+            presenterFactory: PresenterFactory(),
             ringtoneOutputUpdateInteractor: ringtoneOutputUpdateInteractorSpy,
             ringtoneSoundPlaybackInteractor: ringtoneSoundPlaybackInteractorSpy,
             userAgent: UserAgentSpy()

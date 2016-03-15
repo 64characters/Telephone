@@ -154,8 +154,6 @@
 		AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A111BEBA4BA0016C8E6 /* InteractorFactory.swift */; };
 		AA6989B41C19D0660067BFB1 /* PresenterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989B31C19D0660067BFB1 /* PresenterFactory.swift */; };
 		AA6989B51C19D0660067BFB1 /* PresenterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989B31C19D0660067BFB1 /* PresenterFactory.swift */; };
-		AA6989B91C19D4BD0067BFB1 /* PresenterFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989B81C19D4BD0067BFB1 /* PresenterFactoryImpl.swift */; };
-		AA6989BA1C19D4BD0067BFB1 /* PresenterFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989B81C19D4BD0067BFB1 /* PresenterFactoryImpl.swift */; };
 		AA76E0161BFF86D600CC5C07 /* SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB9C1BBAB50B0064B2C3 /* SystemAudioDevice.swift */; };
 		AA76E0181BFF86DB00CC5C07 /* SystemAudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8051BC6968700FAC228 /* SystemAudioDevices.swift */; };
 		AA76E01A1BFF86E100CC5C07 /* SystemAudioDevicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8031BC6963D00FAC228 /* SystemAudioDevicesTests.swift */; };
@@ -544,7 +542,6 @@
 		AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPreferencesViewEventHandler.swift; sourceTree = "<group>"; };
 		AA6989A51C19AF2E0067BFB1 /* SoundPreferencesViewEventHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundPreferencesViewEventHandlerTests.swift; path = TelephoneTests/SoundPreferencesViewEventHandlerTests.swift; sourceTree = SOURCE_ROOT; };
 		AA6989B31C19D0660067BFB1 /* PresenterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterFactory.swift; sourceTree = "<group>"; };
-		AA6989B81C19D4BD0067BFB1 /* PresenterFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterFactoryImpl.swift; sourceTree = "<group>"; };
 		AA69ADD90E89578900CF54B3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA7CB52211442300004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
 		AA7CB52311442304004D79DA /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
@@ -786,7 +783,6 @@
 				AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */,
 				AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */,
 				AA6989B31C19D0660067BFB1 /* PresenterFactory.swift */,
-				AA6989B81C19D4BD0067BFB1 /* PresenterFactoryImpl.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
@@ -1752,7 +1748,6 @@
 				AABBB3981BFA1A33004A65B5 /* UserAgentAudioDeviceUpdater.swift in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift in Sources */,
-				AA6989B91C19D4BD0067BFB1 /* PresenterFactoryImpl.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1843,7 +1838,6 @@
 				AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeObserver.swift in Sources */,
 				AABBB3961BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* SoundPreferencesViewEventHandlerTests.swift in Sources */,
-				AA6989BA1C19D4BD0067BFB1 /* PresenterFactoryImpl.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,

@@ -58,7 +58,7 @@ class CompositionRoot: NSObject {
             delegate: preferencesControllerDelegate,
             soundPreferencesViewObserver: SoundPreferencesViewEventHandler(
                 interactorFactory: interactorFactory,
-                presenterFactory: PresenterFactoryImpl(),
+                presenterFactory: PresenterFactory(),
                 ringtoneOutputUpdateInteractor: RingtoneOutputUpdateInteractor(playback: ringtonePlaybackInteractor),
                 ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor(soundFactory: userDefaultsSoundFactory),
                 userAgent: userAgent
