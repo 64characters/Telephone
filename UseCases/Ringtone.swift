@@ -16,7 +16,7 @@
 //
 
 public protocol Ringtone {
-    var timeInterval: Double { get }
+    var interval: Double { get }
     func startPlaying()
     func stopPlaying()
 }

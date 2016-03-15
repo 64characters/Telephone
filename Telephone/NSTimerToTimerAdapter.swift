@@ -32,7 +32,7 @@ class NSTimerToTimerAdapter {
 }
 
 extension NSTimerToTimerAdapter: Timer {
-    var timeInterval: Double {
+    var interval: Double {
         return systemTimer.timeInterval
     }
 

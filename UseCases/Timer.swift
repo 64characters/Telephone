@@ -16,7 +16,7 @@
 //
 
 public protocol Timer {
-    var timeInterval: Double { get }
+    var interval: Double { get }
     var action: () -> Void { get }
     func invalidate()
 }

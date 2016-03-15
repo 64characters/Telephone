@@ -31,7 +31,7 @@ extension RepeatingSoundFactory: RingtoneFactory {
     public func createRingtone(interval interval: Double) throws -> Ringtone {
         return RepeatingSound(
             sound: try soundFactory.createSound(observer: NullSoundObserver()),
-            timeInterval: interval,
+            interval: interval,
             timerFactory: timerFactory
         )
     }

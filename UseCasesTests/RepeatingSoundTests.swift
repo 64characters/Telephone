@@ -31,14 +31,14 @@ class RepeatingSoundTests: XCTestCase {
         timerFactorySpy = TimerFactorySpy()
         timerSpy = TimerSpy()
         timerFactorySpy.stubWith(timerSpy)
-        sut = RepeatingSound(sound: soundSpy, timeInterval: 1, timerFactory: timerFactorySpy)
+        sut = RepeatingSound(sound: soundSpy, interval: 1, timerFactory: timerFactorySpy)
     }
 
     func testCreatesRepeatingTimerOnStartPlaying() {
         sut.startPlaying()
 
         XCTAssertTrue(timerFactorySpy.didCallCreateRepeatingTimer)
-        XCTAssertEqual(timerFactorySpy.invokedTimeInterval, 1)
+        XCTAssertEqual(timerFactorySpy.invokedInterval, 1)
     }
 
     func testInvalidatesRepeatingTimerOnStopPlaying() {

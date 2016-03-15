@@ -18,9 +18,9 @@
 import UseCases
 
 class NSTimerToTimerAdapterFactory: TimerFactory {
-    func createRepeatingTimer(timeInterval timeInterval: Double, action: () -> Void) -> Timer {
+    func createRepeatingTimer(interval interval: Double, action: () -> Void) -> Timer {
         let timer = NSTimerToTimerAdapter(action: action)
-        timer.systemTimer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: timer, selector: "tick", userInfo: nil, repeats: true)
+        timer.systemTimer = NSTimer.scheduledTimerWithTimeInterval(interval, target: timer, selector: "tick", userInfo: nil, repeats: true)
         return timer
     }
 }

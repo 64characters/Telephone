@@ -18,7 +18,7 @@
 import UseCases
 
 public class TimerSpy: Timer {
-    public let timeInterval: Double = 0
+    public let interval: Double = 0
     public let action: () -> Void = {}
 
     public private(set) var didCallInvalidate = false

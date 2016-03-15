@@ -20,7 +20,7 @@ import UseCases
 public class TimerFactorySpy {
     public private(set) var didCallCreateRepeatingTimer = false
     public private(set) var createRepeatingTimerCallCount = 0
-    public private(set) var invokedTimeInterval: Double = 0
+    public private(set) var invokedInterval: Double = 0
 
     private var timer: Timer!
 
@@ -32,10 +32,10 @@ public class TimerFactorySpy {
 }
 
 extension TimerFactorySpy: TimerFactory {
-    public func createRepeatingTimer(timeInterval timeInterval: Double, action: () -> Void) -> Timer {
+    public func createRepeatingTimer(interval interval: Double, action: () -> Void) -> Timer {
         didCallCreateRepeatingTimer = true
         createRepeatingTimerCallCount += 1
-        invokedTimeInterval = timeInterval
+        invokedInterval = interval
         return timer
     }
 }
