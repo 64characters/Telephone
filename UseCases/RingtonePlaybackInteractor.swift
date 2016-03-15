@@ -15,36 +15,8 @@
 //  GNU General Public License for more details.
 //
 
-@objc public protocol RingtonePlaybackInteractorInput {
+@objc public protocol RingtonePlaybackInteractor {
     var playing: Bool { get }
     func startPlayingRingtone() throws
     func stopPlayingRingtone()
-}
-
-public class RingtonePlaybackInteractor: NSObject {
-    public static let ringtoneInterval: Double = 4
-
-    public let ringtoneFactory: RingtoneFactory
-
-    public var playing: Bool { return ringtone != nil }
-
-    private var ringtone: Ringtone?
-
-    public init(ringtoneFactory: RingtoneFactory) {
-        self.ringtoneFactory = ringtoneFactory
-    }
-}
-
-extension RingtonePlaybackInteractor: RingtonePlaybackInteractorInput {
-    public func startPlayingRingtone() throws {
-        if ringtone == nil {
-            ringtone = try ringtoneFactory.createRingtone(timeInterval: RingtonePlaybackInteractor.ringtoneInterval)
-        }
-        ringtone!.startPlaying()
-    }
-
-    public func stopPlayingRingtone() {
-        ringtone?.stopPlaying()
-        ringtone = nil
-    }
 }

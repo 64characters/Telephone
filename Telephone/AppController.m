@@ -60,7 +60,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
-@property(nonatomic, readonly) id<RingtonePlaybackInteractorInput> ringtonePlaybackInteractor;
+@property(nonatomic, readonly) id<RingtonePlaybackInteractor> ringtonePlaybackInteractor;
 
 // Installs Address Book plug-ins.
 - (void)installAddressBookPlugIns;

@@ -16,18 +16,18 @@
 //
 
 public class ConditionalRingtonePlaybackInteractor: NSObject {
-    public let origin: RingtonePlaybackInteractorInput
+    public let origin: RingtonePlaybackInteractor
     public let delegate: ConditionalRingtonePlaybackInteractorDelegate
 
     public var playing: Bool { return origin.playing }
 
-    public init(origin: RingtonePlaybackInteractorInput, delegate: ConditionalRingtonePlaybackInteractorDelegate) {
+    public init(origin: RingtonePlaybackInteractor, delegate: ConditionalRingtonePlaybackInteractorDelegate) {
         self.origin = origin
         self.delegate = delegate
     }
 }
 
-extension ConditionalRingtonePlaybackInteractor: RingtonePlaybackInteractorInput {
+extension ConditionalRingtonePlaybackInteractor: RingtonePlaybackInteractor {
     public func startPlayingRingtone() throws {
         try origin.startPlayingRingtone()
     }

@@ -1,5 +1,5 @@
 //
-//  RingtonePlaybackInteractorTests.swift
+//  DefaultRingtonePlaybackInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,17 +19,17 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class RingtonePlaybackInteractorTests: XCTestCase {
+class DefaultRingtonePlaybackInteractorTests: XCTestCase {
     private(set) var ringtoneSpy: RingtoneSpy!
     private(set) var ringtoneFactorySpy: RingtoneFactorySpy!
-    private(set) var sut: RingtonePlaybackInteractorInput!
+    private(set) var sut: RingtonePlaybackInteractor!
 
     override func setUp() {
         super.setUp()
         ringtoneSpy = RingtoneSpy()
         ringtoneFactorySpy = RingtoneFactorySpy()
         ringtoneFactorySpy.stubWith(ringtoneSpy)
-        sut = RingtonePlaybackInteractor(ringtoneFactory: ringtoneFactorySpy)
+        sut = DefaultRingtonePlaybackInteractor(ringtoneFactory: ringtoneFactorySpy)
     }
 
     func testStartsPlayingRingtone() {
@@ -61,7 +61,7 @@ class RingtonePlaybackInteractorTests: XCTestCase {
     func testTimerInterval() {
         try! sut.startPlayingRingtone()
 
-        XCTAssertEqual(ringtoneFactorySpy.invokedTimeInterval, RingtonePlaybackInteractor.ringtoneInterval)
+        XCTAssertEqual(ringtoneFactorySpy.invokedTimeInterval, DefaultRingtonePlaybackInteractor.ringtoneInterval)
     }
 
     func testDoesNotCreateRingtoneIfAlreadyExists() {

@@ -16,9 +16,9 @@
 //
 
 public class RingtoneOutputUpdateInteractor {
-    public let playback: RingtonePlaybackInteractorInput
+    public let playback: RingtonePlaybackInteractor
 
-    public init(playback: RingtonePlaybackInteractorInput) {
+    public init(playback: RingtonePlaybackInteractor) {
         self.playback = playback
     }
 }

@@ -110,7 +110,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName
                     accountController:(AccountController *)accountController
-           ringtonePlaybackInteractor:(id<RingtonePlaybackInteractorInput>)ringtonePlaybackInteractor
+           ringtonePlaybackInteractor:(id<RingtonePlaybackInteractor>)ringtonePlaybackInteractor
                              delegate:(id<CallControllerDelegate>)delegate {
 
     if ((self = [self initWithWindowNibName:windowNibName])) {

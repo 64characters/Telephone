@@ -23,7 +23,7 @@ public class RingtonePlaybackInteractorSpy: NSObject {
     public private(set) var didCallStopPlayingRingtone = false
 }
 
-extension RingtonePlaybackInteractorSpy: RingtonePlaybackInteractorInput {
+extension RingtonePlaybackInteractorSpy: RingtonePlaybackInteractor {
     public func startPlayingRingtone() throws {
         didCallStartPlayingRingtone = true
         playing = true
