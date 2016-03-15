@@ -16,19 +16,19 @@
 //
 
 public class DefaultSoundPlaybackInteractor {
-    public let soundFactory: SoundFactory
+    public let factory: SoundFactory
 
     public private(set) var sound: Sound?
 
-    public init(soundFactory: SoundFactory) {
-        self.soundFactory = soundFactory
+    public init(factory: SoundFactory) {
+        self.factory = factory
     }
 }
 
 extension DefaultSoundPlaybackInteractor: SoundPlaybackInteractor {
     public func play() throws {
         sound?.stop()
-        sound = try soundFactory.createSound(observer: self)
+        sound = try factory.createSound(observer: self)
         sound!.play()
     }
 

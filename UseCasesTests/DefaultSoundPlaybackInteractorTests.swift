@@ -26,7 +26,7 @@ class DefaultSoundPlaybackInteractorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         soundFactorySpy = SoundFactorySpy()
-        sut = DefaultSoundPlaybackInteractor(soundFactory: soundFactorySpy)
+        sut = DefaultSoundPlaybackInteractor(factory: soundFactorySpy)
     }
 
     func testCreatesSoundOnPlay() {
