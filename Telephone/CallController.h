@@ -46,7 +46,7 @@
 // Account controller the receiver belongs to.
 @property(nonatomic, weak) AccountController *accountController;
 
-@property(nonatomic, readonly, strong) id<RingtonePlaybackInteractor> ringtonePlaybackInteractor;
+@property(nonatomic, readonly, strong) id<RingtonePlaybackInteractor> ringtonePlayback;
 
 // Call transfer controller.
 @property(nonatomic, readonly) CallTransferController *callTransferController;
@@ -99,7 +99,7 @@
 
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName
                     accountController:(AccountController *)accountController
-           ringtonePlaybackInteractor:(id<RingtonePlaybackInteractor>)ringtonePlaybackInteractor
+                     ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback
                              delegate:(id<CallControllerDelegate>)delegate;
 
 // Accepts an incoming call.

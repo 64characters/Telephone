@@ -207,14 +207,14 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
-        ringtonePlaybackInteractor:(id<RingtonePlaybackInteractor>)ringtonePlaybackInteractor {
+        ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback {
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
         return nil;
     }
 
     [self setAccount:account];
-    _ringtonePlaybackInteractor = ringtonePlaybackInteractor;
+    _ringtonePlayback = ringtonePlayback;
     _callControllers = [[NSMutableArray alloc] init];
     [self setSubstitutesPlusCharacter:NO];
     
@@ -304,7 +304,7 @@ NSString * const kEmailSIPLabel = @"sip";
     if (callTransferController == nil) {
         aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                       accountController:self
-                                             ringtonePlaybackInteractor:self.ringtonePlaybackInteractor
+                                                       ringtonePlayback:self.ringtonePlayback
                                                                delegate:self];
     } else {
         aCallController = callTransferController;
@@ -747,7 +747,7 @@ NSString * const kEmailSIPLabel = @"sip";
     
     CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                                   accountController:self
-                                                         ringtonePlaybackInteractor:self.ringtonePlaybackInteractor
+                                                                   ringtonePlayback:self.ringtonePlayback
                                                                            delegate:self];
     
     [aCallController setCall:aCall];
@@ -1024,7 +1024,7 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (void)startPlayingRingtoneOrLogError {
     NSError *error;
-    BOOL success = [self.ringtonePlaybackInteractor startPlayingRingtoneAndReturnError:&error];
+    BOOL success = [self.ringtonePlayback startPlayingRingtoneAndReturnError:&error];
     if (!success) {
         NSLog(@"Could not start playing ringtone: %@", error);
     }

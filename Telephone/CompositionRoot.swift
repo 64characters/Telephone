@@ -21,7 +21,7 @@ import UseCases
 class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     let preferencesController: PreferencesController
-    let ringtonePlaybackInteractor: RingtonePlaybackInteractor
+    let ringtonePlayback: RingtonePlaybackInteractor
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
@@ -44,7 +44,7 @@ class CompositionRoot: NSObject {
             nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory()
         )
 
-        ringtonePlaybackInteractor = ConditionalRingtonePlaybackInteractor(
+        ringtonePlayback = ConditionalRingtonePlaybackInteractor(
             origin: DefaultRingtonePlaybackInteractor(
                 ringtoneFactory: RepeatingSoundFactory(
                     soundFactory: userDefaultsSoundFactory,
@@ -59,7 +59,7 @@ class CompositionRoot: NSObject {
             soundPreferencesViewObserver: SoundPreferencesViewEventHandler(
                 interactorFactory: interactorFactory,
                 presenterFactory: PresenterFactory(),
-                ringtoneOutputUpdateInteractor: RingtoneOutputUpdateInteractor(playback: ringtonePlaybackInteractor),
+                ringtoneOutputUpdateInteractor: RingtoneOutputUpdateInteractor(playback: ringtonePlayback),
                 ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor(soundFactory: userDefaultsSoundFactory),
                 userAgent: userAgent
             )
