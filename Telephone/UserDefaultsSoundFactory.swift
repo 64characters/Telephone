@@ -18,10 +18,10 @@
 import UseCases
 
 class UserDefaultsSoundFactory {
-    let soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput
+    let soundConfigurationLoadInteractor: SoundConfigurationLoadInteractor
     let nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory
 
-    init(soundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput, nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory) {
+    init(soundConfigurationLoadInteractor: SoundConfigurationLoadInteractor, nsSoundToSoundAdapterFactory: NSSoundToSoundAdapterFactory) {
         self.soundConfigurationLoadInteractor = soundConfigurationLoadInteractor
         self.nsSoundToSoundAdapterFactory = NSSoundToSoundAdapterFactory()
     }

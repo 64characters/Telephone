@@ -17,10 +17,6 @@
 
 import Domain
 
-public protocol UserDefaultsRingtoneSoundConfigurationLoadInteractorInput {
-    func execute() throws -> SoundConfiguration
-}
-
 public class UserDefaultsRingtoneSoundConfigurationLoadInteractor {
     public let userDefaults: UserDefaults
     public let systemAudioDeviceRepository: SystemAudioDeviceRepository
@@ -31,7 +27,7 @@ public class UserDefaultsRingtoneSoundConfigurationLoadInteractor {
     }
 }
 
-extension UserDefaultsRingtoneSoundConfigurationLoadInteractor: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput {
+extension UserDefaultsRingtoneSoundConfigurationLoadInteractor: SoundConfigurationLoadInteractor {
     public func execute() throws -> SoundConfiguration {
         return SoundConfiguration(name: try ringtoneSoundName(), deviceUID: try ringtoneAudioDeviceUID())
     }

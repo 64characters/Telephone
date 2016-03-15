@@ -23,7 +23,7 @@ public class UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy {
     public init() {}
 }
 
-extension UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput {
+extension UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy: SoundConfigurationLoadInteractor {
     public func execute() throws -> SoundConfiguration {
         didCallExecute = true
         return SoundConfiguration(name: "any-name", deviceUID: "any-UID")

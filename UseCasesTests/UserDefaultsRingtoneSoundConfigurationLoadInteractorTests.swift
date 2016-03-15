@@ -24,7 +24,7 @@ class UserDefaultsRingtoneSoundConfigurationLoadInteractorTests: XCTestCase {
     private var audioDeviceFactory: SystemAudioDeviceTestFactory!
     private var userDefaults: UserDefaultsFake!
     private var audioDeviceRepositoryStub: SystemAudioDeviceRepositoryStub!
-    private var sut: UserDefaultsRingtoneSoundConfigurationLoadInteractorInput!
+    private var sut: SoundConfigurationLoadInteractor!
 
     override func setUp() {
         super.setUp()
