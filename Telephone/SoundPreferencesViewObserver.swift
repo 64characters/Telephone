@@ -17,6 +17,7 @@
 
 @objc protocol SoundPreferencesViewObserver {
     func viewShouldReloadData(view: SoundPreferencesView)
+    func viewShouldReloadSoundIO(view: SoundPreferencesView)
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String)
     func viewDidChangeRingtoneName(name: String)
     func viewWillDisappear(view: SoundPreferencesView)

@@ -42,6 +42,10 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
         loadUserDefaultsSoundIOInViewOrLogError(view)
     }
 
+    func viewShouldReloadSoundIO(view: SoundPreferencesView) {
+        loadUserDefaultsSoundIOInViewOrLogError(view)
+    }
+
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
         updateUserDefaultsWithSoundIO(SoundIO(soundInput: soundInput, soundOutput: soundOutput, ringtoneOutput: ringtoneOutput))
         selectUserAgentAudioDevicesOrLogError()

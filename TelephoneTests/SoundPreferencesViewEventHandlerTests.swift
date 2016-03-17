@@ -47,6 +47,15 @@ class SoundPreferencesViewEventHandlerTests: XCTestCase {
         XCTAssertTrue(interactorSpy.didCallExecute)
     }
 
+    func testExecutesUserDefaultsSoundIOLoadInteractorOnSoundIOReload() {
+        let spy = ThrowingInteractorSpy()
+        interactorFactorySpy.stubWithUserDefaultsSoundIOLoadInteractor(spy)
+
+        sut.viewShouldReloadSoundIO(SoundPreferencesViewSpy())
+
+        XCTAssertTrue(spy.didCallExecute)
+    }
+
     func testExecutesUserDefaultsSoundIOSaveInteractorWithExpectedArgumentsOnSoundIOChange() {
         let interactorSpy = InteractorSpy()
         interactorFactorySpy.stubWithUserDefaultsSoundIOSaveInteractor(interactorSpy)

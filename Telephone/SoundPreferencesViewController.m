@@ -103,6 +103,12 @@ NS_ASSUME_NONNULL_END
 }
 
 
+#pragma mark - SoundIOPreferences
+
+- (void)reloadSoundIO {
+    [self.observer viewShouldReloadSoundIO:self];
+}
+
 #pragma mark - SoundPreferencesView
 
 - (void)setInputAudioDevices:(NSArray<NSString *> *)devices {

@@ -17,13 +17,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "SoundIOPreferences.h"
 #import "SoundPreferencesView.h"
 
 @protocol SoundPreferencesViewObserver;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SoundPreferencesViewController : NSViewController <SoundPreferencesView>
+@interface SoundPreferencesViewController : NSViewController <SoundIOPreferences, SoundPreferencesView>
 
 @property(nonatomic, readonly) id<SoundPreferencesViewObserver> observer;
 
