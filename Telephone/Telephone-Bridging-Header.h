@@ -7,6 +7,7 @@
 #import "AppController.h"
 #import "AKSIPUserAgent.h"
 #import "PreferencesController.h"
+#import "SoundIOPreferences.h"
 #import "SoundIOPresenterOutput.h"
 #import "SoundPreferencesView.h"
 #import "UserDefaultsKeys.h"
