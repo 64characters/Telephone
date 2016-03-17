@@ -39,14 +39,7 @@ class SoundPreferencesViewEventHandler: NSObject {
 
 extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     func viewShouldReloadData(view: SoundPreferencesView) {
-        let interactor = interactorFactory.createUserDefaultsSoundIOLoadInteractor(
-            output: presenterFactory.createSoundIOPresenter(output: view)
-        )
-        do {
-            try interactor.execute()
-        } catch {
-            print("Could not load Sound IO view data")
-        }
+        loadUserDefaultsSoundIOInViewOrLogError(view)
     }
 
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String) {
@@ -62,6 +55,14 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
 
     func viewWillDisappear(view: SoundPreferencesView) {
         ringtoneSoundPlaybackInteractor.stop()
+    }
+
+    private func loadUserDefaultsSoundIOInViewOrLogError(view: SoundPreferencesView) {
+        do {
+            try createUserDefaultsSoundIOLoadInteractor(view: view).execute()
+        } catch {
+            print("Could not load Sound IO view data")
+        }
     }
 
     private func updateUserDefaultsWithSoundIO(soundIO: SoundIO) {
@@ -94,5 +95,11 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
         } catch {
             print("Could not play ringtone sound: \(error)")
         }
+    }
+
+    private func createUserDefaultsSoundIOLoadInteractor(view view: SoundPreferencesView) -> ThrowingInteractor {
+        return interactorFactory.createUserDefaultsSoundIOLoadInteractor(
+            output: presenterFactory.createSoundIOPresenter(output: view)
+        )
     }
 }
