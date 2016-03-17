@@ -56,7 +56,7 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     }
 
     func viewDidChangeRingtoneName(name: String) {
-        interactorFactory.createUserDefaultsRingtoneSoundNameSaveInteractor(name: name).execute()
+        updateUserDefaultsWithRingtoneSoundName(name)
         playRingtoneSoundOrLogError()
     }
 
@@ -82,6 +82,10 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
         } catch {
             print("Could not update ringtone output: \(error)")
         }
+    }
+
+    private func updateUserDefaultsWithRingtoneSoundName(name: String) {
+        interactorFactory.createUserDefaultsRingtoneSoundNameSaveInteractor(name: name).execute()
     }
 
     private func playRingtoneSoundOrLogError() {
