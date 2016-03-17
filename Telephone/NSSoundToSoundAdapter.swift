@@ -27,6 +27,12 @@ class NSSoundToSoundAdapter: NSObject {
         super.init()
         self.sound.delegate = self
     }
+
+    deinit {
+        if sound.delegate === self {
+            sound.delegate = nil
+        }
+    }
 }
 
 extension NSSoundToSoundAdapter: Sound {
