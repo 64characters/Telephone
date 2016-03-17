@@ -16,7 +16,7 @@
 //
 
 class SystemAudioDevicesChangeObserverSpy {
-    var didCallSystemAudioDevicesDidUpdate = false
+    private(set) var didCallSystemAudioDevicesDidUpdate = false
 }
 
 extension SystemAudioDevicesChangeObserverSpy: SystemAudioDevicesChangeObserver {
