@@ -102,7 +102,7 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 }
 
 - (SoundPreferencesViewController *)soundPreferencesViewController {
-    if (_soundPreferencesViewController == nil) {
+    if (![self isSoundPreferencesViewControllerLoaded]) {
         _soundPreferencesViewController = [[SoundPreferencesViewController alloc] initWithObserver:_soundPreferencesViewObserver];
     }
     return _soundPreferencesViewController;
@@ -114,6 +114,10 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
         [_networkPreferencesViewController setPreferencesController:self];
     }
     return _networkPreferencesViewController;
+}
+
+- (BOOL)isSoundPreferencesViewControllerLoaded {
+    return _soundPreferencesViewController != nil;
 }
 
 - (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
@@ -184,6 +188,15 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
     [[self window] setTitle:title];
     if ([firstResponderView acceptsFirstResponder]) {
         [[self window] makeFirstResponder:firstResponderView];
+    }
+}
+
+
+#pragma mark - SoundIOPreferences
+
+- (void)reloadSoundIO {
+    if ([self isSoundPreferencesViewControllerLoaded]) {
+        [self.soundPreferencesViewController reloadSoundIO];
     }
 }
 

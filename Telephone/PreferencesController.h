@@ -18,6 +18,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "PreferencesControllerDelegate.h"
+#import "SoundIOPreferences.h"
 
 @protocol SoundPreferencesViewObserver;
 
@@ -55,7 +56,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @class SoundPreferencesViewController, NetworkPreferencesViewController;
 
 // A preferences controller.
-@interface PreferencesController : NSWindowController
+@interface PreferencesController : NSWindowController <SoundIOPreferences>
 
 @property(nonatomic, readonly, weak) id<PreferencesControllerDelegate> delegate;
 @property(nonatomic, readonly) id<SoundPreferencesViewObserver> soundPreferencesViewObserver;
