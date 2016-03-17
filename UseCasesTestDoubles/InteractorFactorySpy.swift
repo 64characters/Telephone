@@ -21,7 +21,7 @@ public class InteractorFactorySpy {
     public private(set) var userAgentSoundIOSelectionInteractor: ThrowingInteractor!
     public private(set) var userDefaultsSoundIOLoadInteractor: ThrowingInteractor!
     public private(set) var userDefaultsSoundIOSaveInteractor: Interactor!
-    public private(set) var ringtoneSoundNameSaveInteractor: Interactor!
+    public private(set) var userDefaultsRingtoneSoundNameSaveInteractor: Interactor!
 
     public private(set) var invokedSoundIO = SoundIO(soundInput: "", soundOutput: "", ringtoneOutput: "")
     public private(set) var invokedRingtoneSoundName = ""
@@ -40,8 +40,8 @@ public class InteractorFactorySpy {
         userDefaultsSoundIOSaveInteractor = interactor
     }
 
-    public func stubWithRingtoneSoundNameSaveInteractor(interactor: Interactor) {
-        ringtoneSoundNameSaveInteractor = interactor
+    public func stubWithUserDefaultsRingtoneSoundNameSaveInteractor(interactor: Interactor) {
+        userDefaultsRingtoneSoundNameSaveInteractor = interactor
     }
 }
 
@@ -59,8 +59,8 @@ extension InteractorFactorySpy: InteractorFactory {
         return userDefaultsSoundIOSaveInteractor
     }
 
-    public func createRingtoneSoundNameSaveInteractor(name name: String) -> Interactor {
+    public func createUserDefaultsRingtoneSoundNameSaveInteractor(name name: String) -> Interactor {
         invokedRingtoneSoundName = name
-        return ringtoneSoundNameSaveInteractor
+        return userDefaultsRingtoneSoundNameSaveInteractor
     }
 }

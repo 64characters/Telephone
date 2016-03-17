@@ -56,7 +56,7 @@ extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
     }
 
     func viewDidChangeRingtoneName(name: String) {
-        interactorFactory.createRingtoneSoundNameSaveInteractor(name: name).execute()
+        interactorFactory.createUserDefaultsRingtoneSoundNameSaveInteractor(name: name).execute()
         playRingtoneSoundOrLogError()
     }
 
