@@ -70,17 +70,22 @@ class CompositionRoot: NSObject {
             userAgent: userAgent
         )
         devicesChangeMonitor = SystemAudioDevicesChangeMonitor(
-            observer: UserAgentAudioDeviceUpdater(
-                interactor: UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(
-                    updateInteractor: UserAgentAudioDeviceUpdateInteractor(
-                        userAgent: userAgent
+            observer: SystemAudioDevicesChangeObserverComposite(
+                observers: [
+                    UserAgentAudioDeviceUpdater(
+                        interactor: UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(
+                            updateInteractor: UserAgentAudioDeviceUpdateInteractor(
+                                userAgent: userAgent
+                            ),
+                            selectionInteractor: UserAgentSoundIOSelectionInteractor(
+                                systemAudioDeviceRepository: audioDevices,
+                                userAgent: userAgent,
+                                userDefaults: userDefaults
+                            )
+                        )
                     ),
-                    selectionInteractor: UserAgentSoundIOSelectionInteractor(
-                        systemAudioDeviceRepository: audioDevices,
-                        userAgent: userAgent,
-                        userDefaults: userDefaults
-                    )
-                )
+                    PreferencesSystemAudioDevicesChangeEventTarget(preferences: preferencesController)
+                ]
             ),
             queue: queue
         )
