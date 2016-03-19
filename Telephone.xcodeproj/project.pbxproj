@@ -24,9 +24,9 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		8A0451E61C93308000A08012 /* SoundPlaybackInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0451E51C93308000A08012 /* SoundPlaybackInteractorSpy.swift */; };
-		8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOReloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD6391C9B133200AB3640 /* PreferencesSoundIOReloaderTests.swift */; };
-		8A0FD63C1C9B137900AB3640 /* PreferencesSoundIOReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOReloader.swift */; };
-		8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOReloader.swift */; };
+		8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD6391C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift */; };
+		8A0FD63C1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift */; };
+		8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift */; };
 		8A0FD63F1C9B168400AB3640 /* SoundIOPreferencesSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD63E1C9B168400AB3640 /* SoundIOPreferencesSpy.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */; };
 		8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateInteractorTests.swift */; };
@@ -375,8 +375,8 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8A0451E51C93308000A08012 /* SoundPlaybackInteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackInteractorSpy.swift; sourceTree = "<group>"; };
-		8A0FD6391C9B133200AB3640 /* PreferencesSoundIOReloaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferencesSoundIOReloaderTests.swift; path = TelephoneTests/PreferencesSoundIOReloaderTests.swift; sourceTree = SOURCE_ROOT; };
-		8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOReloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesSoundIOReloader.swift; sourceTree = "<group>"; };
+		8A0FD6391C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferencesSoundIOUpdaterTests.swift; path = TelephoneTests/PreferencesSoundIOUpdaterTests.swift; sourceTree = SOURCE_ROOT; };
+		8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesSoundIOUpdater.swift; sourceTree = "<group>"; };
 		8A0FD63E1C9B168400AB3640 /* SoundIOPreferencesSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIOPreferencesSpy.swift; sourceTree = "<group>"; };
 		8A0FD6451C9B20F800AB3640 /* SoundIOPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundIOPreferences.h; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateInteractorTests.swift; path = UseCasesTests/RingtoneOutputUpdateInteractorTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1063,8 +1063,8 @@
 		AA7381331C05CE0C008ABC72 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOReloader.swift */,
-				8A0FD6391C9B133200AB3640 /* PreferencesSoundIOReloaderTests.swift */,
+				8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift */,
+				8A0FD6391C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift */,
 				8A0FD6451C9B20F800AB3640 /* SoundIOPreferences.h */,
 				AACC029D1C15DCB100913D7B /* SoundIOPresenter.swift */,
 				AACC029B1C15DC7600913D7B /* SoundIOPresenterTests.swift */,
@@ -1749,7 +1749,7 @@
 				AA1019931C4949E600869D01 /* NSTimerToTimerAdapter.swift in Sources */,
 				AA4C2E791BBFEEAB00C3D096 /* SystemAudioObject.swift in Sources */,
 				AA34AF4B1073B84700FA38F7 /* NetworkPreferencesViewController.m in Sources */,
-				8A0FD63C1C9B137900AB3640 /* PreferencesSoundIOReloader.swift in Sources */,
+				8A0FD63C1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
 				AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+UserDefaults.swift in Sources */,
 				AA6989B41C19D0660067BFB1 /* PresenterFactory.swift in Sources */,
 				AA34AF831073BF5D00FA38F7 /* GeneralPreferencesViewController.m in Sources */,
@@ -1865,10 +1865,10 @@
 				AABBB3961BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* SoundPreferencesViewEventHandlerTests.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift in Sources */,
-				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOReloader.swift in Sources */,
+				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,
-				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOReloaderTests.swift in Sources */,
+				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,
 				AAC0FFB51BE28C7600A5C7E5 /* SystemAudioDevicesChangeObserverCompositeTests.swift in Sources */,
 				AA6989A41C19AF1C0067BFB1 /* SoundPreferencesViewEventHandler.swift in Sources */,
 				AACC02A11C15E17E00913D7B /* SoundPreferencesViewSpy.swift in Sources */,

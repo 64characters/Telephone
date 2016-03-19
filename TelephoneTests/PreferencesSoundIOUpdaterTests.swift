@@ -1,5 +1,5 @@
 //
-//  PreferencesSoundIOReloaderTests.swift
+//  PreferencesSoundIOUpdaterTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,10 +17,10 @@
 
 import XCTest
 
-class PreferencesSoundIOReloaderTests: XCTestCase {
+class PreferencesSoundIOUpdaterTests: XCTestCase {
     func testCallsReloadSoundIOOnSystemAudioDevicesUpdate() {
         let spy = SoundIOPreferencesSpy()
-        let sut = PreferencesSoundIOReloader(preferences: spy)
+        let sut = PreferencesSoundIOUpdater(preferences: spy)
 
         sut.systemAudioDevicesDidUpdate()
 

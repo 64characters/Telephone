@@ -1,5 +1,5 @@
 //
-//  PreferencesSoundIOReloader.swift
+//  PreferencesSoundIOUpdater.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-class PreferencesSoundIOReloader {
+class PreferencesSoundIOUpdater {
     let preferences: SoundIOPreferences
 
     init(preferences: SoundIOPreferences) {
@@ -23,7 +23,7 @@ class PreferencesSoundIOReloader {
     }
 }
 
-extension PreferencesSoundIOReloader: SystemAudioDevicesChangeObserver {
+extension PreferencesSoundIOUpdater: SystemAudioDevicesChangeObserver {
     func systemAudioDevicesDidUpdate() {
         preferences.reloadSoundIO()
     }

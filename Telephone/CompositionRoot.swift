@@ -84,7 +84,7 @@ class CompositionRoot: NSObject {
                             )
                         )
                     ),
-                    PreferencesSoundIOReloader(preferences: preferencesController)
+                    PreferencesSoundIOUpdater(preferences: preferencesController)
                 ]
             ),
             queue: queue
