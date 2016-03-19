@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - SoundIOPreferences
 
-- (void)reloadSoundIO {
+- (void)updateSoundIO {
     [self.observer viewShouldReloadSoundIO:self];
 }
 

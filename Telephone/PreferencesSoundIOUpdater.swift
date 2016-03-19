@@ -25,6 +25,6 @@ class PreferencesSoundIOUpdater {
 
 extension PreferencesSoundIOUpdater: SystemAudioDevicesChangeObserver {
     func systemAudioDevicesDidUpdate() {
-        preferences.reloadSoundIO()
+        preferences.updateSoundIO()
     }
 }

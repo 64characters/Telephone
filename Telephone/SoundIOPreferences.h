@@ -19,6 +19,6 @@
 
 @protocol SoundIOPreferences <NSObject>
 
-- (void)reloadSoundIO;
+- (void)updateSoundIO;
 
 @end

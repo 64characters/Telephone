@@ -16,11 +16,11 @@
 //
 
 class SoundIOPreferencesSpy: NSObject {
-    private(set) var didCallReloadSoundIO = false
+    private(set) var didCallUpdateSoundIO = false
 }
 
 extension SoundIOPreferencesSpy: SoundIOPreferences {
-    func reloadSoundIO() {
-        didCallReloadSoundIO = true
+    func updateSoundIO() {
+        didCallUpdateSoundIO = true
     }
 }

@@ -194,9 +194,9 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 #pragma mark - SoundIOPreferences
 
-- (void)reloadSoundIO {
+- (void)updateSoundIO {
     if ([self isSoundPreferencesViewControllerLoaded]) {
-        [self.soundPreferencesViewController reloadSoundIO];
+        [self.soundPreferencesViewController updateSoundIO];
     }
 }
 

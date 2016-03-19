@@ -18,12 +18,12 @@
 import XCTest
 
 class PreferencesSoundIOUpdaterTests: XCTestCase {
-    func testCallsReloadSoundIOOnSystemAudioDevicesUpdate() {
+    func testCallsUpdateSoundIOOnSystemAudioDevicesUpdate() {
         let spy = SoundIOPreferencesSpy()
         let sut = PreferencesSoundIOUpdater(preferences: spy)
 
         sut.systemAudioDevicesDidUpdate()
 
-        XCTAssertTrue(spy.didCallReloadSoundIO)
+        XCTAssertTrue(spy.didCallUpdateSoundIO)
     }
 }
