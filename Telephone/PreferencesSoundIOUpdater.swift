@@ -21,10 +21,14 @@ class PreferencesSoundIOUpdater {
     init(preferences: SoundIOPreferences) {
         self.preferences = preferences
     }
+
+    func updateSoundIO() {
+        preferences.updateSoundIO()
+    }
 }
 
 extension PreferencesSoundIOUpdater: SystemAudioDevicesChangeObserver {
     func systemAudioDevicesDidUpdate() {
-        preferences.updateSoundIO()
+        updateSoundIO()
     }
 }
