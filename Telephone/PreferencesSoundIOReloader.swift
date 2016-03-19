@@ -1,8 +1,8 @@
 //
-//  PreferencesSystemAudioDevicesChangeEventTarget.swift
+//  PreferencesSoundIOReloader.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-class PreferencesSystemAudioDevicesChangeEventTarget {
+class PreferencesSoundIOReloader {
     let preferences: SoundIOPreferences
 
     init(preferences: SoundIOPreferences) {
@@ -23,7 +23,7 @@ class PreferencesSystemAudioDevicesChangeEventTarget {
     }
 }
 
-extension PreferencesSystemAudioDevicesChangeEventTarget: SystemAudioDevicesChangeObserver {
+extension PreferencesSoundIOReloader: SystemAudioDevicesChangeObserver {
     func systemAudioDevicesDidUpdate() {
         preferences.reloadSoundIO()
     }

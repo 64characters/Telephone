@@ -1,8 +1,8 @@
 //
-//  PreferencesSystemAudioDevicesChangeEventTargetTests.swift
+//  PreferencesSoundIOReloaderTests.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -17,10 +17,10 @@
 
 import XCTest
 
-class PreferencesSystemAudioDevicesChangeEventTargetTests: XCTestCase {
+class PreferencesSoundIOReloaderTests: XCTestCase {
     func testCallsReloadSoundIOOnSystemAudioDevicesUpdate() {
         let spy = SoundIOPreferencesSpy()
-        let sut = PreferencesSystemAudioDevicesChangeEventTarget(preferences: spy)
+        let sut = PreferencesSoundIOReloader(preferences: spy)
 
         sut.systemAudioDevicesDidUpdate()
 

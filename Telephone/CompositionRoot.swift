@@ -84,7 +84,7 @@ class CompositionRoot: NSObject {
                             )
                         )
                     ),
-                    PreferencesSystemAudioDevicesChangeEventTarget(preferences: preferencesController)
+                    PreferencesSoundIOReloader(preferences: preferencesController)
                 ]
             ),
             queue: queue
