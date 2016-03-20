@@ -21,11 +21,11 @@ import XCTest
 
 class UserAgentAudioDeviceUpdateInteractorTests: XCTestCase {
     func testCallsUpdateAudioDevices() {
-        let userAgentSpy = UserAgentSpy()
-        let sut = UserAgentAudioDeviceUpdateInteractor(userAgent: userAgentSpy)
+        let spy = UserAgentSpy()
+        let sut = UserAgentAudioDeviceUpdateInteractor(userAgent: spy)
 
         sut.execute()
 
-        XCTAssertTrue(userAgentSpy.didCallUpdateAudioDevices)
+        XCTAssertTrue(spy.didCallUpdateAudioDevices)
     }
 }
