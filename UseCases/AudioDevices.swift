@@ -18,25 +18,26 @@
 import Domain
 
 public struct AudioDevices {
-    public let inputDevices: [AudioDevice]
-    public let outputDevices: [AudioDevice]
+    public let input: [AudioDevice]
+    public let output: [AudioDevice]
 
-    public init(inputDevices: [AudioDevice], outputDevices: [AudioDevice]) {
-        self.inputDevices = inputDevices
-        self.outputDevices = outputDevices
+    public init(input: [AudioDevice], output: [AudioDevice]) {
+        self.input = input
+        self.output = output
     }
 }
 
 extension AudioDevices: Equatable {}
 
 public func ==(lhs: AudioDevices, rhs: AudioDevices) -> Bool {
-    return lhs.inputDevices == rhs.inputDevices && lhs.outputDevices == rhs.outputDevices
+    return lhs.input == rhs.input && lhs.output == rhs.output
 }
 
 extension AudioDevices {
-    init(systemAudioDevices: SystemAudioDevices) {
-        let inputDevices = systemAudioDevices.inputDevices.map({ AudioDevice(device: $0) })
-        let outputDevices = systemAudioDevices.outputDevices.map({ AudioDevice(device: $0) })
-        self.init(inputDevices: inputDevices, outputDevices: outputDevices)
+    init(devices: SystemAudioDevices) {
+        self.init(
+            input: devices.inputDevices.map({ AudioDevice(device: $0) }),
+            output: devices.outputDevices.map({ AudioDevice(device: $0) })
+        )
     }
 }

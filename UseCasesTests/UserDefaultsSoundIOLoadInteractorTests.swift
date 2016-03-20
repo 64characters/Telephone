@@ -58,6 +58,6 @@ class UserDefaultsSoundIOLoadInteractorTests: XCTestCase {
     }
 
     private func expectedAudioDevices() -> AudioDevices {
-        return AudioDevices(systemAudioDevices: systemAudioDevices)
+        return AudioDevices(devices: systemAudioDevices)
     }
 }
