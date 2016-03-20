@@ -29,11 +29,11 @@ class SoundIOPresenterTests: XCTestCase {
 
         sut.update(devices, soundIO: soundIO)
 
-        XCTAssertEqual(spy.invokedInputAudioDevices, input)
-        XCTAssertEqual(spy.invokedOutputAudioDevices, output)
-        XCTAssertEqual(spy.invokedRingtoneOutputAudioDevices, output)
-        XCTAssertEqual(spy.invokedSoundInputDevice, "input2")
-        XCTAssertEqual(spy.invokedSoundOutputDevice, "output2")
-        XCTAssertEqual(spy.invokedRingtoneOutputDevice, "output1")
+        XCTAssertEqual(spy.invokedInputDevices, input)
+        XCTAssertEqual(spy.invokedOutputDevices, output)
+        XCTAssertEqual(spy.invokedRingtoneDevices, output)
+        XCTAssertEqual(spy.invokedInputDevice, "input2")
+        XCTAssertEqual(spy.invokedOutputDevice, "output2")
+        XCTAssertEqual(spy.invokedRingtoneDevice, "output1")
     }
 }

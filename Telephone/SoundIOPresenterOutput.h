@@ -19,12 +19,12 @@
 
 @protocol SoundIOPresenterOutput <NSObject>
 
-- (void)setInputAudioDevices:(NSArray<NSString *> *)devices;
-- (void)setOutputAudioDevices:(NSArray<NSString *> *)devices;
-- (void)setRingtoneOutputAudioDevices:(NSArray<NSString *> *)devices;
+- (void)setInputDevices:(NSArray<NSString *> *)devices;
+- (void)setOutputDevices:(NSArray<NSString *> *)devices;
+- (void)setRingtoneDevices:(NSArray<NSString *> *)devices;
 
-- (void)setSoundInputDevice:(NSString *)device;
-- (void)setSoundOutputDevice:(NSString *)device;
-- (void)setRingtoneOutputDevice:(NSString *)device;
+- (void)setInputDevice:(NSString *)device;
+- (void)setOutputDevice:(NSString *)device;
+- (void)setRingtoneDevice:(NSString *)device;
 
 @end
