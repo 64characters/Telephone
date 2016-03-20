@@ -20,20 +20,20 @@ import XCTest
 
 class SoundIOPresenterTests: XCTestCase {
     func testUpdatesViewWithExpectedData() {
-        let outputSpy = SoundPreferencesViewSpy()
-        let sut = SoundIOPresenter(output: outputSpy)
-        let inputDevices = ["input1", "input2"]
-        let outputDevices = ["output1", "output2"]
-        let audioDevices = AudioDevices(inputDevices: inputDevices, outputDevices: outputDevices)
+        let spy = SoundPreferencesViewSpy()
+        let sut = SoundIOPresenter(output: spy)
+        let input = ["input1", "input2"]
+        let output = ["output1", "output2"]
+        let devices = AudioDevices(inputDevices: input, outputDevices: output)
         let soundIO = SoundIO(soundInput: "input2", soundOutput: "output2", ringtoneOutput: "output1")
 
-        sut.update(audioDevices, soundIO: soundIO)
+        sut.update(devices, soundIO: soundIO)
 
-        XCTAssertEqual(outputSpy.invokedInputAudioDevices, inputDevices)
-        XCTAssertEqual(outputSpy.invokedOutputAudioDevices, outputDevices)
-        XCTAssertEqual(outputSpy.invokedRingtoneOutputAudioDevices, outputDevices)
-        XCTAssertEqual(outputSpy.invokedSoundInputDevice, "input2")
-        XCTAssertEqual(outputSpy.invokedSoundOutputDevice, "output2")
-        XCTAssertEqual(outputSpy.invokedRingtoneOutputDevice, "output1")
+        XCTAssertEqual(spy.invokedInputAudioDevices, input)
+        XCTAssertEqual(spy.invokedOutputAudioDevices, output)
+        XCTAssertEqual(spy.invokedRingtoneOutputAudioDevices, output)
+        XCTAssertEqual(spy.invokedSoundInputDevice, "input2")
+        XCTAssertEqual(spy.invokedSoundOutputDevice, "output2")
+        XCTAssertEqual(spy.invokedRingtoneOutputDevice, "output1")
     }
 }
