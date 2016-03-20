@@ -153,9 +153,9 @@
 		AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA584A680F06CFD2003C4992 /* Localizable.strings */; };
 		AA6089D312E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
 		AA6089D412E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
-		AA6989A31C19AF150067BFB1 /* SoundPreferencesViewEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventHandler.swift */; };
-		AA6989A41C19AF1C0067BFB1 /* SoundPreferencesViewEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventHandler.swift */; };
-		AA6989A71C19AF310067BFB1 /* SoundPreferencesViewEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A51C19AF2E0067BFB1 /* SoundPreferencesViewEventHandlerTests.swift */; };
+		AA6989A31C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A21C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift */; };
+		AA6989A41C19AF1C0067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A21C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift */; };
+		AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A51C19AF2E0067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift */; };
 		AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3F5781C189D5300973BE5 /* SoundPreferencesViewEventTarget.swift */; };
 		AA6989B11C19CAED0067BFB1 /* InteractorFactorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A141BEBAD9C0016C8E6 /* InteractorFactorySpy.swift */; };
 		AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A111BEBA4BA0016C8E6 /* InteractorFactory.swift */; };
@@ -553,8 +553,8 @@
 		AA584A6B0F06D007003C4992 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA6089D512E25DDD00DC44DC /* Russian */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA6089D612E25DE200DC44DC /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPreferencesViewEventHandler.swift; sourceTree = "<group>"; };
-		AA6989A51C19AF2E0067BFB1 /* SoundPreferencesViewEventHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundPreferencesViewEventHandlerTests.swift; path = TelephoneTests/SoundPreferencesViewEventHandlerTests.swift; sourceTree = SOURCE_ROOT; };
+		AA6989A21C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPreferencesViewEventTarget.swift; sourceTree = "<group>"; };
+		AA6989A51C19AF2E0067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultSoundPreferencesViewEventTargetTests.swift; path = TelephoneTests/DefaultSoundPreferencesViewEventTargetTests.swift; sourceTree = SOURCE_ROOT; };
 		AA6989B31C19D0660067BFB1 /* PresenterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterFactory.swift; sourceTree = "<group>"; };
 		AA69ADD90E89578900CF54B3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA7CB52211442300004D79DA /* Russian */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Russian; path = Russian.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
@@ -1063,6 +1063,8 @@
 		AA7381331C05CE0C008ABC72 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				AA6989A21C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift */,
+				AA6989A51C19AF2E0067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift */,
 				8A0FD63B1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift */,
 				8A0FD6391C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift */,
 				8A0FD6451C9B20F800AB3640 /* SoundIOPreferences.h */,
@@ -1070,8 +1072,6 @@
 				AACC029B1C15DC7600913D7B /* SoundIOPresenterTests.swift */,
 				AACC02A51C16046B00913D7B /* SoundIOPresenterOutput.h */,
 				AAB3F5761C189C4700973BE5 /* SoundPreferencesView.h */,
-				AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventHandler.swift */,
-				AA6989A51C19AF2E0067BFB1 /* SoundPreferencesViewEventHandlerTests.swift */,
 				AA34AF461073B81500FA38F7 /* SoundPreferencesViewController.h */,
 				AA34AF471073B81500FA38F7 /* SoundPreferencesViewController.m */,
 				AAB3F5781C189D5300973BE5 /* SoundPreferencesViewEventTarget.swift */,
@@ -1715,7 +1715,7 @@
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
 				AACC029E1C15DCB100913D7B /* SoundIOPresenter.swift in Sources */,
 				AA277A4E1BD16C9E0030ECE4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */,
-				AA6989A31C19AF150067BFB1 /* SoundPreferencesViewEventHandler.swift in Sources */,
+				AA6989A31C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
 				AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */,
 				AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */,
 				AA3FABA71BBC0A0D0064B2C3 /* SystemAudioDevicesChangeEventSource.swift in Sources */,
@@ -1863,14 +1863,14 @@
 				AA19CFF91BED149C00991CAA /* DefaultInteractorFactory.swift in Sources */,
 				AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */,
 				AABBB3961BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */,
-				AA6989A71C19AF310067BFB1 /* SoundPreferencesViewEventHandlerTests.swift in Sources */,
+				AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,
 				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,
 				AAC0FFB51BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift in Sources */,
-				AA6989A41C19AF1C0067BFB1 /* SoundPreferencesViewEventHandler.swift in Sources */,
+				AA6989A41C19AF1C0067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
 				AACC02A11C15E17E00913D7B /* SoundPreferencesViewSpy.swift in Sources */,
 				AACC029C1C15DC7600913D7B /* SoundIOPresenterTests.swift in Sources */,
 			);

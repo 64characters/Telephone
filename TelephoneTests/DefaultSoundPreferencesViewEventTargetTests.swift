@@ -1,5 +1,5 @@
 //
-//  SoundPreferencesViewEventHandlerTests.swift
+//  DefaultSoundPreferencesViewEventTargetTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -18,18 +18,18 @@
 import UseCasesTestDoubles
 import XCTest
 
-class SoundPreferencesViewEventHandlerTests: XCTestCase {
+class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     private var interactorFactorySpy: InteractorFactorySpy!
     private var ringtoneOutputUpdateInteractorSpy: ThrowingInteractorSpy!
     private var ringtoneSoundPlaybackInteractorSpy: SoundPlaybackInteractorSpy!
-    private var sut: SoundPreferencesViewEventHandler!
+    private var sut: DefaultSoundPreferencesViewEventTarget!
 
     override func setUp() {
         super.setUp()
         interactorFactorySpy = InteractorFactorySpy()
         ringtoneOutputUpdateInteractorSpy = ThrowingInteractorSpy()
         ringtoneSoundPlaybackInteractorSpy = SoundPlaybackInteractorSpy()
-        sut = SoundPreferencesViewEventHandler(
+        sut = DefaultSoundPreferencesViewEventTarget(
             interactorFactory: interactorFactorySpy,
             presenterFactory: PresenterFactory(),
             ringtoneOutputUpdateInteractor: ringtoneOutputUpdateInteractorSpy,

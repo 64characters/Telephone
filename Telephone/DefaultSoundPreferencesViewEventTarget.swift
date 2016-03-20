@@ -1,5 +1,5 @@
 //
-//  SoundPreferencesViewEventHandler.swift
+//  DefaultSoundPreferencesViewEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import UseCases
 
-class SoundPreferencesViewEventHandler: NSObject {
+class DefaultSoundPreferencesViewEventTarget: NSObject {
     let interactorFactory: InteractorFactory
     let presenterFactory: PresenterFactory
     let ringtoneOutputUpdateInteractor: ThrowingInteractor
@@ -37,7 +37,7 @@ class SoundPreferencesViewEventHandler: NSObject {
     }
 }
 
-extension SoundPreferencesViewEventHandler: SoundPreferencesViewEventTarget {
+extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarget {
     func viewShouldReloadData(view: SoundPreferencesView) {
         loadUserDefaultsSoundIOInViewOrLogError(view)
     }
