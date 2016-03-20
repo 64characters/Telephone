@@ -22,14 +22,14 @@ import XCTest
 class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
     private var spy: UserAgentEventTargetSpy!
     private var sut: UserAgentNotificationsToEventTargetAdapter!
-    private var userAgentDummy: UserAgent!
+    private var userAgent: UserAgent!
     private var notificationCenter: NSNotificationCenter!
 
     override func setUp() {
         super.setUp()
         spy = UserAgentEventTargetSpy()
-        userAgentDummy = UserAgentSpy()
-        sut = UserAgentNotificationsToEventTargetAdapter(target: spy, userAgent: userAgentDummy)
+        userAgent = UserAgentSpy()
+        sut = UserAgentNotificationsToEventTargetAdapter(target: spy, userAgent: userAgent)
         notificationCenter = NSNotificationCenter.defaultCenter()
     }
 
@@ -52,6 +52,6 @@ class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
     }
 
     private func notificationWithName(name: String) -> NSNotification {
-        return NSNotification(name: name, object: userAgentDummy)
+        return NSNotification(name: name, object: userAgent)
     }
 }
