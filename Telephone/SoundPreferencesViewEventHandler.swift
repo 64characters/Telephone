@@ -37,7 +37,7 @@ class SoundPreferencesViewEventHandler: NSObject {
     }
 }
 
-extension SoundPreferencesViewEventHandler: SoundPreferencesViewObserver {
+extension SoundPreferencesViewEventHandler: SoundPreferencesViewEventTarget {
     func viewShouldReloadData(view: SoundPreferencesView) {
         loadUserDefaultsSoundIOInViewOrLogError(view)
     }

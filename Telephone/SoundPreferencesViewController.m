@@ -42,9 +42,9 @@ NS_ASSUME_NONNULL_END
 
 @implementation SoundPreferencesViewController
 
-- (instancetype)initWithObserver:(id<SoundPreferencesViewObserver>)observer {
+- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget {
     if ((self = [super initWithNibName:@"SoundPreferencesView" bundle:nil])) {
-        _observer = observer;
+        _eventTarget = eventTarget;
         self.title = NSLocalizedString(@"Sound", @"Sound preferences window title.");
     }
     return self;
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_END
     
     [self updateAvailableSounds];
 
-    [self.observer viewShouldReloadData:self];
+    [self.eventTarget viewShouldReloadData:self];
 }
 
 - (void)dealloc {
@@ -72,11 +72,11 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)ak_viewWillDisappear {
-    [self.observer viewWillDisappear:self];
+    [self.eventTarget viewWillDisappear:self];
 }
 
 - (IBAction)changeSoundIO:(id)sender {
-    [self.observer viewDidChangeSoundInput:self.soundInputPopUp.titleOfSelectedItem
+    [self.eventTarget viewDidChangeSoundInput:self.soundInputPopUp.titleOfSelectedItem
                                soundOutput:self.soundOutputPopUp.titleOfSelectedItem
                             ringtoneOutput:self.ringtoneOutputPopUp.titleOfSelectedItem];
 }
@@ -99,14 +99,14 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeRingtone:(id)sender {
-    [self.observer viewDidChangeRingtoneName:[sender title]];
+    [self.eventTarget viewDidChangeRingtoneName:[sender title]];
 }
 
 
 #pragma mark - SoundIOPreferences
 
 - (void)updateSoundIO {
-    [self.observer viewShouldReloadSoundIO:self];
+    [self.eventTarget viewShouldReloadSoundIO:self];
 }
 
 #pragma mark - SoundPreferencesView

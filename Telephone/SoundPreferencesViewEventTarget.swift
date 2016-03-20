@@ -1,5 +1,5 @@
 //
-//  SoundPreferencesViewObserver.swift
+//  SoundPreferencesViewEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-@objc protocol SoundPreferencesViewObserver {
+@objc protocol SoundPreferencesViewEventTarget {
     func viewShouldReloadData(view: SoundPreferencesView)
     func viewShouldReloadSoundIO(view: SoundPreferencesView)
     func viewDidChangeSoundInput(soundInput: String, soundOutput: String, ringtoneOutput: String)

@@ -20,7 +20,7 @@
 #import "PreferencesControllerDelegate.h"
 #import "SoundIOPreferences.h"
 
-@protocol SoundPreferencesViewObserver;
+@protocol SoundPreferencesViewEventTarget;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,7 +59,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @interface PreferencesController : NSWindowController <SoundIOPreferences>
 
 @property(nonatomic, readonly, weak) id<PreferencesControllerDelegate> delegate;
-@property(nonatomic, readonly) id<SoundPreferencesViewObserver> soundPreferencesViewObserver;
+@property(nonatomic, readonly) id<SoundPreferencesViewEventTarget> soundPreferencesViewEventTarget;
 
 // General preferences view controller.
 @property(nonatomic, readonly) GeneralPreferencesViewController *generalPreferencesViewController;
@@ -82,7 +82,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @property(nonatomic, weak) IBOutlet NSToolbarItem *networkToolbarItem;
 
 - (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
-    soundPreferencesViewObserver:(id<SoundPreferencesViewObserver>)soundPreferencesViewObserver;
+ soundPreferencesViewEventTarget:(id<SoundPreferencesViewEventTarget>)soundPreferencesViewEventTarget;
 
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;

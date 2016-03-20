@@ -20,15 +20,15 @@
 #import "SoundIOPreferences.h"
 #import "SoundPreferencesView.h"
 
-@protocol SoundPreferencesViewObserver;
+@protocol SoundPreferencesViewEventTarget;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SoundPreferencesViewController : NSViewController <SoundIOPreferences, SoundPreferencesView>
 
-@property(nonatomic, readonly) id<SoundPreferencesViewObserver> observer;
+@property(nonatomic, readonly) id<SoundPreferencesViewEventTarget> eventTarget;
 
-- (instancetype)initWithObserver:(id<SoundPreferencesViewObserver>)observer;
+- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget;
 
 - (void)ak_viewWillDisappear;
 
