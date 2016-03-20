@@ -16,18 +16,18 @@
 //
 
 public class UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor {
-    public let updateInteractor: Interactor
-    public let selectionInteractor: ThrowingInteractor
+    public let update: Interactor
+    public let selection: ThrowingInteractor
 
-    public init(updateInteractor: Interactor, selectionInteractor: ThrowingInteractor) {
-        self.updateInteractor = updateInteractor
-        self.selectionInteractor = selectionInteractor
+    public init(update: Interactor, selection: ThrowingInteractor) {
+        self.update = update
+        self.selection = selection
     }
 }
 
 extension UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor: ThrowingInteractor {
     public func execute() throws {
-        updateInteractor.execute()
-        try selectionInteractor.execute()
+        update.execute()
+        try selection.execute()
     }
 }

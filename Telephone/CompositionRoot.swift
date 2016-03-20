@@ -74,10 +74,10 @@ class CompositionRoot: NSObject {
                 targets: [
                     UserAgentAudioDeviceUpdater(
                         interactor: UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(
-                            updateInteractor: UserAgentAudioDeviceUpdateInteractor(
+                            update: UserAgentAudioDeviceUpdateInteractor(
                                 userAgent: userAgent
                             ),
-                            selectionInteractor: UserAgentSoundIOSelectionInteractor(
+                            selection: UserAgentSoundIOSelectionInteractor(
                                 systemAudioDeviceRepository: audioDevices,
                                 userAgent: userAgent,
                                 userDefaults: userDefaults
