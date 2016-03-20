@@ -18,17 +18,17 @@
 import UseCases
 
 class UserDefaultsSoundFactory {
-    let interactor: SoundConfigurationLoadInteractor
+    let configurationLoader: SoundConfigurationLoadInteractor
     let factory: NSSoundToSoundAdapterFactory
 
-    init(interactor: SoundConfigurationLoadInteractor, factory: NSSoundToSoundAdapterFactory) {
-        self.interactor = interactor
+    init(configurationLoader: SoundConfigurationLoadInteractor, factory: NSSoundToSoundAdapterFactory) {
+        self.configurationLoader = configurationLoader
         self.factory = factory
     }
 }
 
 extension UserDefaultsSoundFactory: SoundFactory {
     func createSound(eventTarget eventTarget: SoundEventTarget) throws -> Sound {
-        return try factory.createSound(configuration: try interactor.execute(), eventTarget: eventTarget)
+        return try factory.createSound(configuration: try configurationLoader.execute(), eventTarget: eventTarget)
     }
 }
