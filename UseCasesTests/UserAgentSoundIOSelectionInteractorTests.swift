@@ -22,29 +22,29 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentSoundIOSelectionInteractorTests: XCTestCase {
-    private var systemDevices: SystemAudioDevices!
-    private var repositoryStub: SystemAudioDeviceRepositoryStub!
-    private var userAgentSpy: UserAgentSpy!
-    private var userDefaultsDummy: UserDefaultsFake!
+    private var devices: SystemAudioDevices!
+    private var repository: SystemAudioDeviceRepositoryStub!
+    private var userAgent: UserAgentSpy!
+    private var userDefaults: UserDefaultsFake!
     private var sut: UserAgentSoundIOSelectionInteractor!
 
     override func setUp() {
         super.setUp()
-        systemDevices = createSystemDevices()
-        repositoryStub = SystemAudioDeviceRepositoryStub()
-        repositoryStub.allDevicesResult = systemDevices.allDevices
-        userAgentSpy = UserAgentSpy()
-        userAgentSpy.audioDevicesResult = createUserAgentDevices()
-        userDefaultsDummy = UserDefaultsFake()
+        devices = createSystemDevices()
+        repository = SystemAudioDeviceRepositoryStub()
+        repository.allDevicesResult = devices.allDevices
+        userAgent = UserAgentSpy()
+        userAgent.audioDevicesResult = createUserAgentDevices()
+        userDefaults = UserDefaultsFake()
         sut = createInteractor()
     }
 
     func testSelectsMappedAudioDevices() {
         try! sut.execute()
 
-        let userAgentDevices: [UseCases.UserAgentAudioDevice] = userAgentSpy.audioDevicesResult
-        XCTAssertEqual(userAgentSpy.selectedInputDeviceID, userAgentDevices[1].identifier)
-        XCTAssertEqual(userAgentSpy.selectedOutputDeviceID, userAgentDevices[0].identifier)
+        let devices: [UseCases.UserAgentAudioDevice] = userAgent.audioDevicesResult
+        XCTAssertEqual(userAgent.selectedInputDeviceID, devices[1].identifier)
+        XCTAssertEqual(userAgent.selectedOutputDeviceID, devices[0].identifier)
     }
 
     private func createSystemDevices() -> SystemAudioDevices {
@@ -53,12 +53,13 @@ class UserAgentSoundIOSelectionInteractorTests: XCTestCase {
     }
 
     private func createUserAgentDevices() -> [UseCases.UserAgentAudioDevice] {
-        let device1 = UseCases.UserAgentAudioDevice(identifier: 1, name: systemDevices.allDevices[1].name)
-        let device2 = UseCases.UserAgentAudioDevice(identifier: 2, name: systemDevices.allDevices[0].name)
-        return [device1, device2]
+        return [
+            UseCases.UserAgentAudioDevice(identifier: 1, name: devices.allDevices[1].name),
+            UseCases.UserAgentAudioDevice(identifier: 2, name: devices.allDevices[0].name)
+        ]
     }
 
     private func createInteractor() -> UserAgentSoundIOSelectionInteractor {
-        return UserAgentSoundIOSelectionInteractor(repository: repositoryStub, userAgent: userAgentSpy, userDefaults: userDefaultsDummy)
+        return UserAgentSoundIOSelectionInteractor(repository: repository, userAgent: userAgent, userDefaults: userDefaults)
     }
 }
