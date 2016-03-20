@@ -28,7 +28,7 @@ public class DefaultSoundPlaybackInteractor {
 extension DefaultSoundPlaybackInteractor: SoundPlaybackInteractor {
     public func play() throws {
         sound?.stop()
-        sound = try factory.createSound(observer: self)
+        sound = try factory.createSound(eventTarget: self)
         sound!.play()
     }
 
@@ -37,7 +37,7 @@ extension DefaultSoundPlaybackInteractor: SoundPlaybackInteractor {
     }
 }
 
-extension DefaultSoundPlaybackInteractor: SoundObserver {
+extension DefaultSoundPlaybackInteractor: SoundEventTarget {
     public func soundDidFinishPlaying() {
         sound = nil
     }

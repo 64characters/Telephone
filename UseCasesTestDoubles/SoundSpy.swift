@@ -21,14 +21,14 @@ public class SoundSpy {
     public private(set) var didCallPlay = false
     public private(set) var didCallStop = false
 
-    public let observer: SoundObserver
+    public let eventTarget: SoundEventTarget
 
-    public init(observer: SoundObserver) {
-        self.observer = observer
+    public init(eventTarget: SoundEventTarget) {
+        self.eventTarget = eventTarget
     }
 
     public func notifyObserverOfPlaybackCompletion() {
-        observer.soundDidFinishPlaying()
+        eventTarget.soundDidFinishPlaying()
     }
 }
 

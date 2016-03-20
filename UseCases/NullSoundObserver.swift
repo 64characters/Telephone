@@ -1,5 +1,5 @@
 //
-//  NullSoundObserver.swift
+//  NullSoundEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-public class NullSoundObserver: SoundObserver {
+public class NullSoundEventTarget: SoundEventTarget {
     public init() {}
     public func soundDidFinishPlaying() {}
 }

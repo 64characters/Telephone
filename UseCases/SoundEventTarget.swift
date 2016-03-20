@@ -1,5 +1,5 @@
 //
-//  SoundObserver.swift
+//  SoundEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,6 +15,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol SoundObserver {
+public protocol SoundEventTarget {
     func soundDidFinishPlaying()
 }

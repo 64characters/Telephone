@@ -27,7 +27,7 @@ class RepeatingSoundTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        soundSpy = SoundSpy(observer: NullSoundObserver())
+        soundSpy = SoundSpy(eventTarget: NullSoundEventTarget())
         timerFactorySpy = TimerFactorySpy()
         timerSpy = TimerSpy()
         timerFactorySpy.stubWith(timerSpy)

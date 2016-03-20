@@ -28,7 +28,7 @@ class UserDefaultsSoundFactory {
 }
 
 extension UserDefaultsSoundFactory: SoundFactory {
-    func createSound(observer observer: SoundObserver) throws -> Sound {
-        return try factory.createSound(configuration: try interactor.execute(), observer: observer)
+    func createSound(eventTarget eventTarget: SoundEventTarget) throws -> Sound {
+        return try factory.createSound(configuration: try interactor.execute(), eventTarget: eventTarget)
     }
 }
