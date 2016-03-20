@@ -20,15 +20,14 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentSoundIOSelectorTests: XCTestCase {
-    func testCallExecuteWhenUserAgentFinishesStarting() {
-        let interactorSpy = ThrowingInteractorSpy()
-        let factoryStub = InteractorFactorySpy()
-        factoryStub.stubWithUserAgentSoundIOSelectionInteractor(interactorSpy)
-        let sut = UserAgentSoundIOSelector(interactorFactory: factoryStub)
-        let userAgentDummy = UserAgentSpy()
+    func testCallsExecuteWhenUserAgentFinishesStarting() {
+        let spy = ThrowingInteractorSpy()
+        let factory = InteractorFactorySpy()
+        factory.stubWithUserAgentSoundIOSelectionInteractor(spy)
+        let sut = UserAgentSoundIOSelector(factory: factory)
 
-        sut.userAgentDidFinishStarting(userAgentDummy)
+        sut.userAgentDidFinishStarting(UserAgentSpy())
 
-        XCTAssertTrue(interactorSpy.didCallExecute)
+        XCTAssertTrue(spy.didCallExecute)
     }
 }

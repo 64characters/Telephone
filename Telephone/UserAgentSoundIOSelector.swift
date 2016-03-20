@@ -18,15 +18,14 @@
 import UseCases
 
 class UserAgentSoundIOSelector {
-    let interactorFactory: InteractorFactory
+    let factory: InteractorFactory
 
-    init(interactorFactory: InteractorFactory) {
-        self.interactorFactory = interactorFactory
+    init(factory: InteractorFactory) {
+        self.factory = factory
     }
 
     func selectUserAgentSoundIO(userAgent: UserAgent) throws {
-        let interactor = interactorFactory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent)
-        try interactor.execute()
+        try factory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent).execute()
     }
 }
 
