@@ -20,7 +20,7 @@ import Domain
 public typealias AudioDevice = String
 
 extension AudioDevice {
-    init(systemAudioDevice: SystemAudioDevice) {
-        self = systemAudioDevice.name
+    init(device: SystemAudioDevice) {
+        self = device.name
     }
 }

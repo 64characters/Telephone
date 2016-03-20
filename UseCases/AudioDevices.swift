@@ -35,8 +35,8 @@ public func ==(lhs: AudioDevices, rhs: AudioDevices) -> Bool {
 
 extension AudioDevices {
     init(systemAudioDevices: SystemAudioDevices) {
-        let inputDevices = systemAudioDevices.inputDevices.map({ AudioDevice(systemAudioDevice: $0) })
-        let outputDevices = systemAudioDevices.outputDevices.map({ AudioDevice(systemAudioDevice: $0) })
+        let inputDevices = systemAudioDevices.inputDevices.map({ AudioDevice(device: $0) })
+        let outputDevices = systemAudioDevices.outputDevices.map({ AudioDevice(device: $0) })
         self.init(inputDevices: inputDevices, outputDevices: outputDevices)
     }
 }
