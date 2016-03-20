@@ -20,7 +20,7 @@ import UseCases
 class NSTimerToTimerAdapter {
     let action: () -> Void
 
-    var systemTimer: NSTimer!
+    var timer: NSTimer!
 
     init(action: () -> Void) {
         self.action = action
@@ -33,10 +33,10 @@ class NSTimerToTimerAdapter {
 
 extension NSTimerToTimerAdapter: Timer {
     var interval: Double {
-        return systemTimer.timeInterval
+        return timer.timeInterval
     }
 
     func invalidate() {
-        systemTimer.invalidate()
+        timer.invalidate()
     }
 }
