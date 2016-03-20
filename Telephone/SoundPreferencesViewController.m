@@ -76,9 +76,9 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeSoundIO:(id)sender {
-    [self.eventTarget viewDidChangeSoundInput:self.soundInputPopUp.titleOfSelectedItem
-                               soundOutput:self.soundOutputPopUp.titleOfSelectedItem
-                            ringtoneOutput:self.ringtoneOutputPopUp.titleOfSelectedItem];
+    [self.eventTarget viewDidChangeSoundIOWithInput:self.soundInputPopUp.titleOfSelectedItem
+                                             output:self.soundOutputPopUp.titleOfSelectedItem
+                                     ringtoneOutput:self.ringtoneOutputPopUp.titleOfSelectedItem];
 }
 
 - (IBAction)changeUseG711Only:(id)sender {
