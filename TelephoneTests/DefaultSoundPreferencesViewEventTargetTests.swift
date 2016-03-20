@@ -60,10 +60,10 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
         let interactorSpy = InteractorSpy()
         factorySpy.stubWithUserDefaultsSoundIOSaveInteractor(interactorSpy)
         factorySpy.stubWithUserAgentSoundIOSelectionInteractor(ThrowingInteractorSpy())
-        let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
+        let soundIO = SoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
 
         sut.viewDidChangeSoundIO(
-            input: soundIO.soundInput, output: soundIO.soundOutput, ringtoneOutput: soundIO.ringtoneOutput
+            input: soundIO.input, output: soundIO.output, ringtoneOutput: soundIO.ringtoneOutput
         )
 
         XCTAssertEqual(factorySpy.invokedSoundIO, soundIO)

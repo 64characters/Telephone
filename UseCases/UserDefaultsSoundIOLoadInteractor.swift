@@ -39,7 +39,7 @@ extension UserDefaultsSoundIOLoadInteractor: ThrowingInteractor {
         let selectedSystemSoundIO = try SelectedSystemSoundIO(devices: systemAudioDevices, userDefaults: userDefaults)
         output.update(
             AudioDevices(devices: systemAudioDevices),
-            soundIO: SoundIO(selectedSystemSoundIO: selectedSystemSoundIO)
+            soundIO: SoundIO(soundIO: selectedSystemSoundIO)
         )
     }
 }

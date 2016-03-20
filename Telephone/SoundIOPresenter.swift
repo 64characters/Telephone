@@ -30,8 +30,8 @@ extension SoundIOPresenter: UserDefaultsSoundIOLoadInteractorOutput {
         output.setInputDevices(devices.input)
         output.setOutputDevices(devices.output)
         output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.soundInput)
-        output.setOutputDevice(soundIO.soundOutput)
+        output.setInputDevice(soundIO.input)
+        output.setOutputDevice(soundIO.output)
         output.setRingtoneDevice(soundIO.ringtoneOutput)
     }
 }

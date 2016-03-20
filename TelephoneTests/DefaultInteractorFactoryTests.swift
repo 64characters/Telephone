@@ -54,7 +54,7 @@ class DefaultInteractorFactoryTests: XCTestCase {
     }
 
     func testCanCreateUserDefaultsSoundIOSaveInteractor() {
-        let soundIO = SoundIO(soundInput: "input", soundOutput: "output1", ringtoneOutput: "output2")
+        let soundIO = SoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
 
         let result = sut.createUserDefaultsSoundIOSaveInteractor(soundIO: soundIO) as! UserDefaultsSoundIOSaveInteractor
 

@@ -16,13 +16,13 @@
 //
 
 public struct SoundIO {
-    public let soundInput: AudioDevice
-    public let soundOutput: AudioDevice
+    public let input: AudioDevice
+    public let output: AudioDevice
     public let ringtoneOutput: AudioDevice
 
-    public init(soundInput: AudioDevice, soundOutput: AudioDevice, ringtoneOutput: AudioDevice) {
-        self.soundInput = soundInput
-        self.soundOutput = soundOutput
+    public init(input: AudioDevice, output: AudioDevice, ringtoneOutput: AudioDevice) {
+        self.input = input
+        self.output = output
         self.ringtoneOutput = ringtoneOutput
     }
 }
@@ -30,15 +30,15 @@ public struct SoundIO {
 extension SoundIO: Equatable {}
 
 public func ==(lhs: SoundIO, rhs: SoundIO) -> Bool {
-    return lhs.soundInput == rhs.soundInput && lhs.soundOutput == rhs.soundOutput && lhs.ringtoneOutput == rhs.ringtoneOutput
+    return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
 }
 
 extension SoundIO {
-    init(selectedSystemSoundIO: SelectedSystemSoundIO) {
+    init(soundIO: SelectedSystemSoundIO) {
         self.init(
-            soundInput: AudioDevice(device: selectedSystemSoundIO.input),
-            soundOutput: AudioDevice(device: selectedSystemSoundIO.output),
-            ringtoneOutput: AudioDevice(device: selectedSystemSoundIO.ringtoneOutput)
+            input: AudioDevice(device: soundIO.input),
+            output: AudioDevice(device: soundIO.output),
+            ringtoneOutput: AudioDevice(device: soundIO.ringtoneOutput)
         )
     }
 }

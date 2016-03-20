@@ -27,8 +27,8 @@ public class UserDefaultsSoundIOSaveInteractor {
 
 extension UserDefaultsSoundIOSaveInteractor: Interactor {
     public func execute() {
-        userDefaults[kSoundInput] = soundIO.soundInput
-        userDefaults[kSoundOutput] = soundIO.soundOutput
+        userDefaults[kSoundInput] = soundIO.input
+        userDefaults[kSoundOutput] = soundIO.output
         userDefaults[kRingtoneOutput] = soundIO.ringtoneOutput
     }
 }

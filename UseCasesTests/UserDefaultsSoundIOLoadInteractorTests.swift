@@ -54,7 +54,7 @@ class UserDefaultsSoundIOLoadInteractorTests: XCTestCase {
     private func expectedSoundIO() -> SoundIO {
         let firstBuiltInInput = AudioDevice(device: audioDeviceFactory.firstBuiltInInput)
         let firstBuiltInOutput = AudioDevice(device: audioDeviceFactory.firstBuiltInOutput)
-        return SoundIO(soundInput: firstBuiltInInput, soundOutput: firstBuiltInOutput, ringtoneOutput: firstBuiltInOutput)
+        return SoundIO(input: firstBuiltInInput, output: firstBuiltInOutput, ringtoneOutput: firstBuiltInOutput)
     }
 
     private func expectedAudioDevices() -> AudioDevices {

@@ -23,7 +23,7 @@ public class InteractorFactorySpy {
     public private(set) var userDefaultsSoundIOSaveInteractor: Interactor!
     public private(set) var userDefaultsRingtoneSoundNameSaveInteractor: Interactor!
 
-    public private(set) var invokedSoundIO = SoundIO(soundInput: "", soundOutput: "", ringtoneOutput: "")
+    public private(set) var invokedSoundIO = SoundIO(input: "", output: "", ringtoneOutput: "")
     public private(set) var invokedRingtoneSoundName = ""
 
     public init() {}

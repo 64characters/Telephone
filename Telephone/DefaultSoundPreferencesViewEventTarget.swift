@@ -48,7 +48,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
 
     func viewDidChangeSoundIO(input input: String, output: String, ringtoneOutput: String) {
         updateUserDefaultsWithSoundIO(
-            SoundIO(soundInput: input, soundOutput: output, ringtoneOutput: ringtoneOutput)
+            SoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
         )
         selectUserAgentAudioDevicesOrLogError()
         updateRingtoneOutputOrLogError()
