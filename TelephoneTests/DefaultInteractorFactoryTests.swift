@@ -37,7 +37,7 @@ class DefaultInteractorFactoryTests: XCTestCase {
         let result = sut.createUserAgentSoundIOSelectionInteractor(userAgent: userAgentDummy) as! UserAgentSoundIOSelectionInteractor
 
         XCTAssertNotNil(result)
-        XCTAssertTrue(result.systemAudioDeviceRepository === repositoryDummy)
+        XCTAssertTrue(result.repository === repositoryDummy)
         XCTAssertTrue(result.userAgent === userAgentDummy)
         XCTAssertTrue(result.userDefaults === userDefaults)
     }

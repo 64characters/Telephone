@@ -30,7 +30,7 @@ class DefaultInteractorFactory {
 extension DefaultInteractorFactory: InteractorFactory {
     func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
         return UserAgentSoundIOSelectionInteractor(
-            systemAudioDeviceRepository: systemAudioDeviceRepository,
+            repository: systemAudioDeviceRepository,
             userAgent: userAgent,
             userDefaults: userDefaults
         )

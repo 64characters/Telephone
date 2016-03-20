@@ -78,7 +78,7 @@ class CompositionRoot: NSObject {
                                 userAgent: userAgent
                             ),
                             selection: UserAgentSoundIOSelectionInteractor(
-                                systemAudioDeviceRepository: audioDevices,
+                                repository: audioDevices,
                                 userAgent: userAgent,
                                 userDefaults: userDefaults
                             )

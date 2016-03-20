@@ -59,6 +59,6 @@ class UserAgentSoundIOSelectionInteractorTests: XCTestCase {
     }
 
     private func createInteractor() -> UserAgentSoundIOSelectionInteractor {
-        return UserAgentSoundIOSelectionInteractor(systemAudioDeviceRepository: repositoryStub, userAgent: userAgentSpy, userDefaults: userDefaultsDummy)
+        return UserAgentSoundIOSelectionInteractor(repository: repositoryStub, userAgent: userAgentSpy, userDefaults: userDefaultsDummy)
     }
 }

@@ -18,16 +18,16 @@
 import Domain
 
 public class UserAgentSoundIOSelectionInteractor {
-    public let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    public let repository: SystemAudioDeviceRepository
     public let userAgent: UserAgent
     public let userDefaults: UserDefaults
 
-    private var systemAudioDevices: SystemAudioDevices!
+    private var devices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
-    private var selectedSystemSoundIO: SelectedSystemSoundIO!
+    private var soundIO: SelectedSystemSoundIO!
 
-    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
+    public init(repository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
+        self.repository = repository
         self.userAgent = userAgent
         self.userDefaults = userDefaults
     }
@@ -35,28 +35,28 @@ public class UserAgentSoundIOSelectionInteractor {
 
 extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     public func execute() throws {
-        try updateSystemAudioDevices()
+        try updateDevices()
         try updateDeviceMap()
-        try updateSelectedSystemSoundIO()
+        try updateSoundIO()
         try selectUserAgentSoundIO()
     }
 
-    private func updateSystemAudioDevices() throws {
-        systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
+    private func updateDevices() throws {
+        devices = SystemAudioDevices(devices: try repository.allDevices())
     }
 
     private func updateDeviceMap() throws {
         let userAgentDevices = try userAgent.audioDevices().map(domainWithUseCaseUserAgentAudioDevice)
-        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: systemAudioDevices.allDevices, userAgentDevices: userAgentDevices)
+        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: devices.allDevices, userAgentDevices: userAgentDevices)
     }
 
-    private func updateSelectedSystemSoundIO() throws {
-        selectedSystemSoundIO = try SelectedSystemSoundIO(devices: systemAudioDevices, userDefaults: userDefaults)
+    private func updateSoundIO() throws {
+        soundIO = try SelectedSystemSoundIO(devices: devices, userDefaults: userDefaults)
     }
 
     private func selectUserAgentSoundIO() throws {
-        let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.input)
-        let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.output)
+        let input = try deviceMap.userAgentDeviceForSystemDevice(soundIO.input)
+        let output = try deviceMap.userAgentDeviceForSystemDevice(soundIO.output)
         try userAgent.selectSoundInputDevice(input.identifier, outputDevice: output.identifier)
     }
 
