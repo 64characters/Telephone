@@ -30,7 +30,7 @@ class UserAgentSoundIOSelector {
     }
 }
 
-extension UserAgentSoundIOSelector: UserAgentObserver {
+extension UserAgentSoundIOSelector: UserAgentEventTarget {
     func userAgentDidFinishStarting(userAgent: UserAgent) {
         do {
             try selectUserAgentSoundIO(userAgent)

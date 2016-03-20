@@ -20,14 +20,14 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentNotificationsToObserverAdapterTests: XCTestCase {
-    private var observerSpy: UserAgentObserverSpy!
+    private var observerSpy: UserAgentEventTargetSpy!
     private var sut: UserAgentNotificationsToObserverAdapter!
     private var userAgentDummy: UserAgent!
     private var notificationCenter: NSNotificationCenter!
 
     override func setUp() {
         super.setUp()
-        observerSpy = UserAgentObserverSpy()
+        observerSpy = UserAgentEventTargetSpy()
         userAgentDummy = UserAgentSpy()
         sut = UserAgentNotificationsToObserverAdapter(observer: observerSpy, userAgent: userAgentDummy)
         notificationCenter = NSNotificationCenter.defaultCenter()

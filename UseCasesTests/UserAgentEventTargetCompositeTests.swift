@@ -1,5 +1,5 @@
 //
-//  UserAgentObserverCompositeTests.swift
+//  UserAgentEventTargetCompositeTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -19,46 +19,46 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentObserverCompositeTests: XCTestCase {
-    private var sut: UserAgentObserverComposite!
-    private var observer1: UserAgentObserverSpy!
-    private var observer2: UserAgentObserverSpy!
+class UserAgentEventTargetCompositeTests: XCTestCase {
+    private var sut: UserAgentEventTargetComposite!
+    private var target1: UserAgentEventTargetSpy!
+    private var target2: UserAgentEventTargetSpy!
     private var userAgentDummy: UserAgentSpy!
 
     override func setUp() {
         super.setUp()
-        observer1 = UserAgentObserverSpy()
-        observer2 = UserAgentObserverSpy()
-        sut = UserAgentObserverComposite(observers: [observer1, observer2])
+        target1 = UserAgentEventTargetSpy()
+        target2 = UserAgentEventTargetSpy()
+        sut = UserAgentEventTargetComposite(targets: [target1, target2])
         userAgentDummy = UserAgentSpy()
     }
 
     func testCallsDidFinishStartingOnAllChildren() {
         sut.userAgentDidFinishStarting(userAgentDummy)
 
-        XCTAssertTrue(observer1.didCallUserAgentDidFinishStarting)
-        XCTAssertTrue(observer2.didCallUserAgentDidFinishStarting)
+        XCTAssertTrue(target1.didCallUserAgentDidFinishStarting)
+        XCTAssertTrue(target2.didCallUserAgentDidFinishStarting)
         assertUserAgent()
     }
 
     func testCallsDidFinishStoppingOnAllChildren() {
         sut.userAgentDidFinishStopping(userAgentDummy)
 
-        XCTAssertTrue(observer1.didCallUserAgentDidFinishStopping)
-        XCTAssertTrue(observer2.didCallUserAgentDidFinishStopping)
+        XCTAssertTrue(target1.didCallUserAgentDidFinishStopping)
+        XCTAssertTrue(target2.didCallUserAgentDidFinishStopping)
         assertUserAgent()
     }
 
     func testCallsDidDetectNATOnAllChildren() {
         sut.userAgentDidDetectNAT(userAgentDummy)
 
-        XCTAssertTrue(observer1.didCallUserAgentDidDetectNAT)
-        XCTAssertTrue(observer2.didCallUserAgentDidDetectNAT)
+        XCTAssertTrue(target1.didCallUserAgentDidDetectNAT)
+        XCTAssertTrue(target2.didCallUserAgentDidDetectNAT)
         assertUserAgent()
     }
 
     private func assertUserAgent() {
-        XCTAssertTrue(observer1.lastPassedUserAgent === userAgentDummy)
-        XCTAssertTrue(observer2.lastPassedUserAgent === userAgentDummy)
+        XCTAssertTrue(target1.lastPassedUserAgent === userAgentDummy)
+        XCTAssertTrue(target2.lastPassedUserAgent === userAgentDummy)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  UserAgentObserver.swift
+//  UserAgentEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UserAgentObserver: class {
+public protocol UserAgentEventTarget: class {
     func userAgentDidFinishStarting(userAgent: UserAgent)
     func userAgentDidFinishStopping(userAgent: UserAgent)
     func userAgentDidDetectNAT(userAgent: UserAgent)

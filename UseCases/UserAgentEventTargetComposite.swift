@@ -1,5 +1,5 @@
 //
-//  UserAgentObserverComposite.swift
+//  UserAgentEventTargetComposite.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -15,28 +15,28 @@
 //  GNU General Public License for more details.
 //
 
-public class UserAgentObserverComposite {
-    public let observers: [UserAgentObserver]
+public class UserAgentEventTargetComposite {
+    public let targets: [UserAgentEventTarget]
 
-    public init(observers: [UserAgentObserver]) {
-        self.observers = observers
+    public init(targets: [UserAgentEventTarget]) {
+        self.targets = targets
     }
 }
 
-extension UserAgentObserverComposite: UserAgentObserver {
+extension UserAgentEventTargetComposite: UserAgentEventTarget {
     public func userAgentDidFinishStarting(userAgent: UserAgent) {
-        onEachObserver { $0.userAgentDidFinishStarting(userAgent) }
+        onEachTarget { $0.userAgentDidFinishStarting(userAgent) }
     }
 
     public func userAgentDidFinishStopping(userAgent: UserAgent) {
-        onEachObserver { $0.userAgentDidFinishStopping(userAgent) }
+        onEachTarget { $0.userAgentDidFinishStopping(userAgent) }
     }
 
     public func userAgentDidDetectNAT(userAgent: UserAgent) {
-        onEachObserver { $0.userAgentDidDetectNAT(userAgent) }
+        onEachTarget { $0.userAgentDidDetectNAT(userAgent) }
     }
 
-    private func onEachObserver(function: UserAgentObserver -> Void) {
-        for observer in observers { function(observer) }
+    private func onEachTarget(function: UserAgentEventTarget -> Void) {
+        for target in targets { function(target) }
     }
 }

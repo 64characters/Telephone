@@ -18,10 +18,10 @@
 import UseCases
 
 class UserAgentNotificationsToObserverAdapter {
-    let observer: UserAgentObserver
+    let observer: UserAgentEventTarget
     let userAgent: UserAgent
 
-    init(observer: UserAgentObserver, userAgent: UserAgent) {
+    init(observer: UserAgentEventTarget, userAgent: UserAgent) {
         self.observer = observer
         self.userAgent = userAgent
         subscribe()

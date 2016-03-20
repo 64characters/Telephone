@@ -1,5 +1,5 @@
 //
-//  UserAgentObserverSpy.swift
+//  UserAgentEventTargetSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import UseCases
 
-public class UserAgentObserverSpy {
+public class UserAgentEventTargetSpy {
     public private(set) var didCallUserAgentDidFinishStarting = false
     public private(set) var didCallUserAgentDidFinishStopping = false
     public private(set) var didCallUserAgentDidDetectNAT = false
@@ -26,7 +26,7 @@ public class UserAgentObserverSpy {
     public init() {}
 }
 
-extension UserAgentObserverSpy: UserAgentObserver {
+extension UserAgentEventTargetSpy: UserAgentEventTarget {
     public func userAgentDidFinishStarting(userAgent: UserAgent) {
         didCallUserAgentDidFinishStarting = true
         lastPassedUserAgent = userAgent
