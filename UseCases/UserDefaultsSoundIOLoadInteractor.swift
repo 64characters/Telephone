@@ -36,7 +36,7 @@ public class UserDefaultsSoundIOLoadInteractor {
 extension UserDefaultsSoundIOLoadInteractor: ThrowingInteractor {
     public func execute() throws {
         let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
-        let selectedSystemSoundIO = try SelectedSystemSoundIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
+        let selectedSystemSoundIO = try SelectedSystemSoundIO(devices: systemAudioDevices, userDefaults: userDefaults)
         output.update(
             AudioDevices(devices: systemAudioDevices),
             soundIO: SoundIO(selectedSystemSoundIO: selectedSystemSoundIO)

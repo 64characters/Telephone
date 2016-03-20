@@ -36,8 +36,8 @@ public func ==(lhs: SoundIO, rhs: SoundIO) -> Bool {
 extension SoundIO {
     init(selectedSystemSoundIO: SelectedSystemSoundIO) {
         self.init(
-            soundInput: AudioDevice(device: selectedSystemSoundIO.soundInput),
-            soundOutput: AudioDevice(device: selectedSystemSoundIO.soundOutput),
+            soundInput: AudioDevice(device: selectedSystemSoundIO.input),
+            soundOutput: AudioDevice(device: selectedSystemSoundIO.output),
             ringtoneOutput: AudioDevice(device: selectedSystemSoundIO.ringtoneOutput)
         )
     }

@@ -51,12 +51,12 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     }
 
     private func updateSelectedSystemSoundIO() throws {
-        selectedSystemSoundIO = try SelectedSystemSoundIO(systemAudioDevices: systemAudioDevices, userDefaults: userDefaults)
+        selectedSystemSoundIO = try SelectedSystemSoundIO(devices: systemAudioDevices, userDefaults: userDefaults)
     }
 
     private func selectUserAgentSoundIO() throws {
-        let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.soundInput)
-        let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.soundOutput)
+        let input = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.input)
+        let output = try deviceMap.userAgentDeviceForSystemDevice(selectedSystemSoundIO.output)
         try userAgent.selectSoundInputDevice(input.identifier, outputDevice: output.identifier)
     }
 

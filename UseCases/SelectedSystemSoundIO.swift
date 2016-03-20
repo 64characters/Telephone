@@ -18,27 +18,27 @@
 import Domain
 
 struct SelectedSystemSoundIO {
-    let systemAudioDevices: SystemAudioDevices
+    let devices: SystemAudioDevices
     let userDefaults: UserDefaults
 
-    private(set) var soundInput: SystemAudioDevice!
-    private(set) var soundOutput: SystemAudioDevice!
+    private(set) var input: SystemAudioDevice!
+    private(set) var output: SystemAudioDevice!
     private(set) var ringtoneOutput: SystemAudioDevice!
 
-    init(systemAudioDevices: SystemAudioDevices, userDefaults: UserDefaults) throws {
-        self.systemAudioDevices = systemAudioDevices
+    init(devices: SystemAudioDevices, userDefaults: UserDefaults) throws {
+        self.devices = devices
         self.userDefaults = userDefaults
-        let builtInDevices = try FirstBuiltInSystemSoundIO(devices: systemAudioDevices.allDevices)
-        soundInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput) ?? builtInDevices.input
-        soundOutput = outputDeviceByNameWithUserDefaultsKey(kSoundOutput) ?? builtInDevices.output
+        let builtInDevices = try FirstBuiltInSystemSoundIO(devices: devices.allDevices)
+        input = inputDeviceByNameWithUserDefaultsKey(kSoundInput) ?? builtInDevices.input
+        output = outputDeviceByNameWithUserDefaultsKey(kSoundOutput) ?? builtInDevices.output
         ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput) ?? builtInDevices.output
     }
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        return userDefaults.stringForKey(key).flatMap(systemAudioDevices.inputDeviceNamed)
+        return userDefaults.stringForKey(key).flatMap(devices.inputDeviceNamed)
     }
 
     private func outputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        return userDefaults.stringForKey(key).flatMap(systemAudioDevices.outputDeviceNamed)
+        return userDefaults.stringForKey(key).flatMap(devices.outputDeviceNamed)
     }
 }
