@@ -208,9 +208,9 @@
 		AAC0FFB51BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift */; };
 		AAC0FFB71BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargetComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargetComposite.swift */; };
 		AAC0FFB81BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargetComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargetComposite.swift */; };
-		AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBB1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift */; };
-		AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift */; };
-		AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift */; };
+		AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBB1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift */; };
+		AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift */; };
+		AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift */; };
 		AAC0FFC21BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */; };
 		AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */; };
 		AAC4FF611C01D0070060B186 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB31BCD815100066CFC /* UserAgent.swift */; };
@@ -613,8 +613,8 @@
 		AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemAudioDevicesChangeEventTargetCompositeTests.swift; path = TelephoneTests/SystemAudioDevicesChangeEventTargetCompositeTests.swift; sourceTree = SOURCE_ROOT; };
 		AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargetComposite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesChangeEventTargetComposite.swift; sourceTree = "<group>"; };
 		AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesChangeEventTargetSpy.swift; sourceTree = "<group>"; };
-		AAC0FFBB1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentNotificationsToObserverAdapterTests.swift; path = TelephoneTests/UserAgentNotificationsToObserverAdapterTests.swift; sourceTree = SOURCE_ROOT; };
-		AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentNotificationsToObserverAdapter.swift; sourceTree = "<group>"; };
+		AAC0FFBB1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentNotificationsToEventTargetAdapterTests.swift; path = TelephoneTests/UserAgentNotificationsToEventTargetAdapterTests.swift; sourceTree = SOURCE_ROOT; };
+		AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentNotificationsToEventTargetAdapter.swift; sourceTree = "<group>"; };
 		AAC0FFC01BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgentNotifications.h; sourceTree = "<group>"; };
 		AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPUserAgentNotifications.m; sourceTree = "<group>"; };
 		AAC4FF811C0214110060B186 /* DomainTestDoubles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainTestDoubles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1294,8 +1294,8 @@
 				AAE33B101BA7269600C6E48B /* AKSIPCallDelegate.h */,
 				AA0302F00EB9F347000738F7 /* AKSIPURI.h */,
 				AA0302F10EB9F347000738F7 /* AKSIPURI.m */,
-				AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift */,
-				AAC0FFBB1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift */,
+				AAC0FFBD1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift */,
+				AAC0FFBB1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift */,
 			);
 			name = "SIP User Agent";
 			sourceTree = "<group>";
@@ -1769,7 +1769,7 @@
 				AAE39A381BD92DF600EFB7BC /* String+Creating.swift in Sources */,
 				AABBB3981BFA1A33004A65B5 /* UserAgentAudioDeviceUpdater.swift in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
-				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift in Sources */,
+				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1846,7 +1846,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToObserverAdapter.swift in Sources */,
+				AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				AA6989B51C19D0660067BFB1 /* PresenterFactory.swift in Sources */,
 				8A0FD63F1C9B168400AB3640 /* SoundIOPreferencesSpy.swift in Sources */,
 				AA277A551BD3F2A90030ECE4 /* UserAgentSoundIOSelectorTests.swift in Sources */,
@@ -1864,7 +1864,7 @@
 				AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */,
 				AABBB3961BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */,
-				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToObserverAdapterTests.swift in Sources */,
+				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,

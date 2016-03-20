@@ -1,5 +1,5 @@
 //
-//  UserAgentNotificationsToObserverAdapter.swift
+//  UserAgentNotificationsToEventTargetAdapter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,12 +17,12 @@
 
 import UseCases
 
-class UserAgentNotificationsToObserverAdapter {
-    let observer: UserAgentEventTarget
+class UserAgentNotificationsToEventTargetAdapter {
+    let target: UserAgentEventTarget
     let userAgent: UserAgent
 
-    init(observer: UserAgentEventTarget, userAgent: UserAgent) {
-        self.observer = observer
+    init(target: UserAgentEventTarget, userAgent: UserAgent) {
+        self.target = target
         self.userAgent = userAgent
         subscribe()
     }
@@ -47,16 +47,16 @@ class UserAgentNotificationsToObserverAdapter {
 
     dynamic private func SIPUserAgentDidFinishStarting(notification: NSNotification) {
         assert(userAgent === notification.object)
-        observer.userAgentDidFinishStarting(userAgent)
+        target.userAgentDidFinishStarting(userAgent)
     }
 
     dynamic private func SIPUserAgentDidFinishStopping(notification: NSNotification) {
         assert(userAgent === notification.object)
-        observer.userAgentDidFinishStopping(userAgent)
+        target.userAgentDidFinishStopping(userAgent)
     }
 
     dynamic private func SIPUserAgentDidDetectNAT(notification: NSNotification) {
         assert(userAgent === notification.object)
-        observer.userAgentDidDetectNAT(userAgent)
+        target.userAgentDidDetectNAT(userAgent)
     }
 }

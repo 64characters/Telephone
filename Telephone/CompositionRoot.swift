@@ -25,7 +25,7 @@ class CompositionRoot: NSObject {
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
-    private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
+    private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackInteractorDelegate: ConditionalRingtonePlaybackInteractorDelegate) {
@@ -65,8 +65,8 @@ class CompositionRoot: NSObject {
             )
         )
 
-        userAgentNotificationsToObserverAdapter = UserAgentNotificationsToObserverAdapter(
-            observer: UserAgentSoundIOSelector(interactorFactory: interactorFactory),
+        userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
+            target: UserAgentSoundIOSelector(interactorFactory: interactorFactory),
             userAgent: userAgent
         )
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
