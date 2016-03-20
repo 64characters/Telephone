@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeObserverComposite.swift
+//  SystemAudioDevicesChangeEventTargetComposite.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -15,18 +15,18 @@
 //  GNU General Public License for more details.
 //
 
-class SystemAudioDevicesChangeObserverComposite {
-    let observers: [SystemAudioDevicesChangeObserver]
+class SystemAudioDevicesChangeEventTargetComposite {
+    let targets: [SystemAudioDevicesChangeEventTarget]
 
-    init(observers: [SystemAudioDevicesChangeObserver]) {
-        self.observers = observers
+    init(targets: [SystemAudioDevicesChangeEventTarget]) {
+        self.targets = targets
     }
 }
 
-extension SystemAudioDevicesChangeObserverComposite: SystemAudioDevicesChangeObserver {
+extension SystemAudioDevicesChangeEventTargetComposite: SystemAudioDevicesChangeEventTarget {
     func systemAudioDevicesDidUpdate() {
-        for observer in observers {
-            observer.systemAudioDevicesDidUpdate()
+        for target in targets {
+            target.systemAudioDevicesDidUpdate()
         }
     }
 }

@@ -29,7 +29,7 @@ class UserAgentAudioDeviceUpdater {
     }
 }
 
-extension UserAgentAudioDeviceUpdater: SystemAudioDevicesChangeObserver {
+extension UserAgentAudioDeviceUpdater: SystemAudioDevicesChangeEventTarget {
     func systemAudioDevicesDidUpdate() {
         do {
             try updateAudioDevices()

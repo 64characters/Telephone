@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeObserverCompositeTests.swift
+//  SystemAudioDevicesChangeEventTargetCompositeTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,15 +17,15 @@
 
 import XCTest
 
-class SystemAudioDevicesChangeObserverCompositeTests: XCTestCase {
-    func testCallsObservers() {
-        let observer1 = SystemAudioDevicesChangeObserverSpy()
-        let observer2 = SystemAudioDevicesChangeObserverSpy()
-        let sut = SystemAudioDevicesChangeObserverComposite(observers: [observer1, observer2])
+class SystemAudioDevicesChangeEventTargetCompositeTests: XCTestCase {
+    func testCallsEventTargets() {
+        let target1 = SystemAudioDevicesChangeEventTargetSpy()
+        let target2 = SystemAudioDevicesChangeEventTargetSpy()
+        let sut = SystemAudioDevicesChangeEventTargetComposite(targets: [target1, target2])
 
         sut.systemAudioDevicesDidUpdate()
 
-        XCTAssertTrue(observer1.didCallSystemAudioDevicesDidUpdate)
-        XCTAssertTrue(observer2.didCallSystemAudioDevicesDidUpdate)
+        XCTAssertTrue(target1.didCallSystemAudioDevicesDidUpdate)
+        XCTAssertTrue(target2.didCallSystemAudioDevicesDidUpdate)
     }
 }

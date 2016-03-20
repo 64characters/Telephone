@@ -27,7 +27,7 @@ class PreferencesSoundIOUpdater {
     }
 }
 
-extension PreferencesSoundIOUpdater: SystemAudioDevicesChangeObserver {
+extension PreferencesSoundIOUpdater: SystemAudioDevicesChangeEventTarget {
     func systemAudioDevicesDidUpdate() {
         updateSoundIO()
     }

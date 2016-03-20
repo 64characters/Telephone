@@ -26,7 +26,7 @@ class CompositionRoot: NSObject {
     private let queue: dispatch_queue_t
 
     private let userAgentNotificationsToObserverAdapter: UserAgentNotificationsToObserverAdapter
-    private let devicesChangeMonitor: SystemAudioDevicesChangeMonitor!
+    private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackInteractorDelegate: ConditionalRingtonePlaybackInteractorDelegate) {
         userAgent = AKSIPUserAgent.sharedUserAgent()
@@ -69,9 +69,9 @@ class CompositionRoot: NSObject {
             observer: UserAgentSoundIOSelector(interactorFactory: interactorFactory),
             userAgent: userAgent
         )
-        devicesChangeMonitor = SystemAudioDevicesChangeMonitor(
-            observer: SystemAudioDevicesChangeObserverComposite(
-                observers: [
+        devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
+            target: SystemAudioDevicesChangeEventTargetComposite(
+                targets: [
                     UserAgentAudioDeviceUpdater(
                         interactor: UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(
                             updateInteractor: UserAgentAudioDeviceUpdateInteractor(
@@ -92,11 +92,11 @@ class CompositionRoot: NSObject {
 
         super.init()
 
-        devicesChangeMonitor.start()
+        devicesChangeEventSource.start()
     }
 
     deinit {
-        devicesChangeMonitor.stop()
+        devicesChangeEventSource.stop()
     }
 }
 

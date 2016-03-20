@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeMonitor.swift
+//  SystemAudioDevicesChangeEventSource.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,15 +17,15 @@
 
 import CoreAudio
 
-class SystemAudioDevicesChangeMonitor {
-    let observer: SystemAudioDevicesChangeObserver
+class SystemAudioDevicesChangeEventSource {
+    let target: SystemAudioDevicesChangeEventTarget
     let queue: dispatch_queue_t
 
     private let objectID:AudioObjectID
     private var objectPropertyAddress: AudioObjectPropertyAddress
 
-    init(observer: SystemAudioDevicesChangeObserver, queue: dispatch_queue_t) {
-        self.observer = observer
+    init(target: SystemAudioDevicesChangeEventTarget, queue: dispatch_queue_t) {
+        self.target = target
         self.queue = queue
         objectID = AudioObjectID(kAudioObjectSystemObject)
         objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
@@ -46,11 +46,11 @@ class SystemAudioDevicesChangeMonitor {
     }
 
     private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
-        dispatch_async(dispatch_get_main_queue(), notifyObserver)
+        dispatch_async(dispatch_get_main_queue(), notifyTarget)
     }
 
-    private func notifyObserver() {
+    private func notifyTarget() {
         assert(NSThread.isMainThread())
-        observer.systemAudioDevicesDidUpdate()
+        target.systemAudioDevicesDidUpdate()
     }
 }

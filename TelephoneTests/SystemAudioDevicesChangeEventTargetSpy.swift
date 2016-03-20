@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeObserver.swift
+//  SystemAudioDevicesChangeEventTargetSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -15,6 +15,12 @@
 //  GNU General Public License for more details.
 //
 
-protocol SystemAudioDevicesChangeObserver {
-    func systemAudioDevicesDidUpdate()
+class SystemAudioDevicesChangeEventTargetSpy {
+    private(set) var didCallSystemAudioDevicesDidUpdate = false
+}
+
+extension SystemAudioDevicesChangeEventTargetSpy: SystemAudioDevicesChangeEventTarget {
+    func systemAudioDevicesDidUpdate() {
+        didCallSystemAudioDevicesDidUpdate = true
+    }
 }
