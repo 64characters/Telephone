@@ -20,19 +20,19 @@ import UseCases
 class DefaultSoundPreferencesViewEventTarget: NSObject {
     let interactorFactory: InteractorFactory
     let presenterFactory: PresenterFactory
-    let ringtoneOutputUpdateInteractor: ThrowingInteractor
-    let ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor
+    let ringtoneOutputUpdate: ThrowingInteractor
+    let ringtoneSoundPlayback: SoundPlaybackInteractor
     let userAgent: UserAgent
 
     init(interactorFactory: InteractorFactory,
         presenterFactory: PresenterFactory,
-        ringtoneOutputUpdateInteractor: ThrowingInteractor,
-        ringtoneSoundPlaybackInteractor: SoundPlaybackInteractor,
+        ringtoneOutputUpdate: ThrowingInteractor,
+        ringtoneSoundPlayback: SoundPlaybackInteractor,
         userAgent: UserAgent) {
             self.interactorFactory = interactorFactory
             self.presenterFactory = presenterFactory
-            self.ringtoneOutputUpdateInteractor = ringtoneOutputUpdateInteractor
-            self.ringtoneSoundPlaybackInteractor = ringtoneSoundPlaybackInteractor
+            self.ringtoneOutputUpdate = ringtoneOutputUpdate
+            self.ringtoneSoundPlayback = ringtoneSoundPlayback
             self.userAgent = userAgent
     }
 }
@@ -58,7 +58,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
     }
 
     func viewWillDisappear(view: SoundPreferencesView) {
-        ringtoneSoundPlaybackInteractor.stop()
+        ringtoneSoundPlayback.stop()
     }
 
     private func loadUserDefaultsSoundIOInViewOrLogError(view: SoundPreferencesView) {
@@ -83,7 +83,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
 
     private func updateRingtoneOutputOrLogError() {
         do {
-            try ringtoneOutputUpdateInteractor.execute()
+            try ringtoneOutputUpdate.execute()
         } catch {
             print("Could not update ringtone output: \(error)")
         }
@@ -95,7 +95,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
 
     private func playRingtoneSoundOrLogError() {
         do {
-            try ringtoneSoundPlaybackInteractor.play()
+            try ringtoneSoundPlayback.play()
         } catch {
             print("Could not play ringtone sound: \(error)")
         }
