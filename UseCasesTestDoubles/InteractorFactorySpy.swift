@@ -18,49 +18,49 @@
 import UseCases
 
 public class InteractorFactorySpy {
-    public private(set) var userAgentSoundIOSelectionInteractor: ThrowingInteractor!
-    public private(set) var userDefaultsSoundIOLoadInteractor: ThrowingInteractor!
-    public private(set) var userDefaultsSoundIOSaveInteractor: Interactor!
-    public private(set) var userDefaultsRingtoneSoundNameSaveInteractor: Interactor!
+    public private(set) var userAgentSoundIOSelection: ThrowingInteractor!
+    public private(set) var userDefaultsSoundIOLoad: ThrowingInteractor!
+    public private(set) var userDefaultsSoundIOSave: Interactor!
+    public private(set) var userDefaultsRingtoneSoundNameSave: Interactor!
 
     public private(set) var invokedSoundIO = SoundIO(input: "", output: "", ringtoneOutput: "")
     public private(set) var invokedRingtoneSoundName = ""
 
     public init() {}
 
-    public func stubWithUserAgentSoundIOSelectionInteractor(interactor: ThrowingInteractor) {
-        userAgentSoundIOSelectionInteractor = interactor
+    public func stubWithUserAgentSoundIOSelection(interactor: ThrowingInteractor) {
+        userAgentSoundIOSelection = interactor
     }
 
-    public func stubWithUserDefaultsSoundIOLoadInteractor(interactor: ThrowingInteractor) {
-        userDefaultsSoundIOLoadInteractor = interactor
+    public func stubWithUserDefaultsSoundIOLoad(interactor: ThrowingInteractor) {
+        userDefaultsSoundIOLoad = interactor
     }
 
-    public func stubWithUserDefaultsSoundIOSaveInteractor(interactor: Interactor) {
-        userDefaultsSoundIOSaveInteractor = interactor
+    public func stubWithUserDefaultsSoundIOSave(interactor: Interactor) {
+        userDefaultsSoundIOSave = interactor
     }
 
-    public func stubWithUserDefaultsRingtoneSoundNameSaveInteractor(interactor: Interactor) {
-        userDefaultsRingtoneSoundNameSaveInteractor = interactor
+    public func stubWithUserDefaultsRingtoneSoundNameSave(interactor: Interactor) {
+        userDefaultsRingtoneSoundNameSave = interactor
     }
 }
 
 extension InteractorFactorySpy: InteractorFactory {
     public func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
-        return userAgentSoundIOSelectionInteractor
+        return userAgentSoundIOSelection
     }
 
     public func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
-        return userDefaultsSoundIOLoadInteractor
+        return userDefaultsSoundIOLoad
     }
 
     public func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: SoundIO) -> Interactor {
         invokedSoundIO = soundIO
-        return userDefaultsSoundIOSaveInteractor
+        return userDefaultsSoundIOSave
     }
 
     public func createUserDefaultsRingtoneSoundNameSaveInteractor(name name: String) -> Interactor {
         invokedRingtoneSoundName = name
-        return userDefaultsRingtoneSoundNameSaveInteractor
+        return userDefaultsRingtoneSoundNameSave
     }
 }

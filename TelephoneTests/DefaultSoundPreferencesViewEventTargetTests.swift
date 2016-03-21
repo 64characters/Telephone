@@ -40,7 +40,7 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
 
     func testExecutesUserDefaultsSoundIOLoadInteractorOnViewDataReload() {
         let interactorSpy = ThrowingInteractorSpy()
-        factorySpy.stubWithUserDefaultsSoundIOLoadInteractor(interactorSpy)
+        factorySpy.stubWithUserDefaultsSoundIOLoad(interactorSpy)
 
         sut.viewShouldReloadData(SoundPreferencesViewSpy())
 
@@ -49,7 +49,7 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
 
     func testExecutesUserDefaultsSoundIOLoadInteractorOnSoundIOReload() {
         let spy = ThrowingInteractorSpy()
-        factorySpy.stubWithUserDefaultsSoundIOLoadInteractor(spy)
+        factorySpy.stubWithUserDefaultsSoundIOLoad(spy)
 
         sut.viewShouldReloadSoundIO(SoundPreferencesViewSpy())
 
@@ -58,8 +58,8 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
 
     func testExecutesUserDefaultsSoundIOSaveInteractorWithExpectedArgumentsOnSoundIOChange() {
         let interactorSpy = InteractorSpy()
-        factorySpy.stubWithUserDefaultsSoundIOSaveInteractor(interactorSpy)
-        factorySpy.stubWithUserAgentSoundIOSelectionInteractor(ThrowingInteractorSpy())
+        factorySpy.stubWithUserDefaultsSoundIOSave(interactorSpy)
+        factorySpy.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
         let soundIO = SoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
 
         sut.viewDidChangeSoundIO(
@@ -72,8 +72,8 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
 
     func testExecutesUserAgentSoundIOSelectionInteractorOnSoundIOChange() {
         let interactorSpy = ThrowingInteractorSpy()
-        factorySpy.stubWithUserAgentSoundIOSelectionInteractor(interactorSpy)
-        factorySpy.stubWithUserDefaultsSoundIOSaveInteractor(InteractorSpy())
+        factorySpy.stubWithUserAgentSoundIOSelection(interactorSpy)
+        factorySpy.stubWithUserDefaultsSoundIOSave(InteractorSpy())
 
         sut.viewDidChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
 
@@ -81,8 +81,8 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     }
 
     func testExecutesRingtoneOutputUpdateInteractorOnSoundIOChange() {
-        factorySpy.stubWithUserAgentSoundIOSelectionInteractor(ThrowingInteractorSpy())
-        factorySpy.stubWithUserDefaultsSoundIOSaveInteractor(InteractorSpy())
+        factorySpy.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
+        factorySpy.stubWithUserDefaultsSoundIOSave(InteractorSpy())
 
         sut.viewDidChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
 
@@ -91,7 +91,7 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
 
     func testExecutesUserDefaultsRingtoneSoundNameSaveInteractorWithExpectedArgumentsOnRingtoneNameChange() {
         let interactorSpy = InteractorSpy()
-        factorySpy.stubWithUserDefaultsRingtoneSoundNameSaveInteractor(interactorSpy)
+        factorySpy.stubWithUserDefaultsRingtoneSoundNameSave(interactorSpy)
 
         sut.viewDidChangeRingtoneName("sound-name")
 
@@ -100,7 +100,7 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     }
 
     func testPlaysRingtoneSoundOnRingtoneNameChange() {
-        factorySpy.stubWithUserDefaultsRingtoneSoundNameSaveInteractor(InteractorSpy())
+        factorySpy.stubWithUserDefaultsRingtoneSoundNameSave(InteractorSpy())
 
         sut.viewDidChangeRingtoneName("any-name")
 

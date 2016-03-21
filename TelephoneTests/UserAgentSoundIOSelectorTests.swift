@@ -23,7 +23,7 @@ class UserAgentSoundIOSelectorTests: XCTestCase {
     func testCallsExecuteWhenUserAgentFinishesStarting() {
         let spy = ThrowingInteractorSpy()
         let factory = InteractorFactorySpy()
-        factory.stubWithUserAgentSoundIOSelectionInteractor(spy)
+        factory.stubWithUserAgentSoundIOSelection(spy)
         let sut = UserAgentSoundIOSelector(factory: factory)
 
         sut.userAgentDidFinishStarting(UserAgentSpy())
