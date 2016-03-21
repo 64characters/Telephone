@@ -20,31 +20,31 @@ import DomainTestDoubles
 import XCTest
 
 class FirstBuiltInSystemSoundIOTests: XCTestCase {
-    private var deviceFactory: SystemAudioDeviceTestFactory!
+    private var factory: SystemAudioDeviceTestFactory!
 
     override func setUp() {
         super.setUp()
-        deviceFactory = SystemAudioDeviceTestFactory()
+        factory = SystemAudioDeviceTestFactory()
     }
 
     func testInputIsTheFirstBuiltInInputDevice() {
-        let sut = try! FirstBuiltInSystemSoundIO(devices: deviceFactory.allDevices)
+        let sut = try! FirstBuiltInSystemSoundIO(devices: factory.allDevices)
 
-        XCTAssertEqual(sut.input, deviceFactory.firstBuiltInInput)
+        XCTAssertEqual(sut.input, factory.firstBuiltInInput)
     }
 
     func testOutputIsTheFirstBuiltInOutputDevice() {
-        let sut = try! FirstBuiltInSystemSoundIO(devices: deviceFactory.allDevices)
+        let sut = try! FirstBuiltInSystemSoundIO(devices: factory.allDevices)
 
-        XCTAssertEqual(sut.output, deviceFactory.firstBuiltInOutput)
+        XCTAssertEqual(sut.output, factory.firstBuiltInOutput)
     }
 
     func testThrowsIfCanNotFindBuiltInInput() {
-        assertThrowsWhenCreatedWithDevices([deviceFactory.firstBuiltInOutput])
+        assertThrowsWhenCreatedWithDevices([factory.firstBuiltInOutput])
     }
 
     func testThrowsIfCanNotFindBuiltInOutput() {
-        assertThrowsWhenCreatedWithDevices([deviceFactory.firstBuiltInInput])
+        assertThrowsWhenCreatedWithDevices([factory.firstBuiltInInput])
     }
 
     private func assertThrowsWhenCreatedWithDevices(devices: [SystemAudioDevice]) {
