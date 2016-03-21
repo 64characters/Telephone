@@ -20,35 +20,35 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
-    private var spy: UserAgentEventTargetSpy!
+    private var target: UserAgentEventTargetSpy!
     private var sut: UserAgentNotificationsToEventTargetAdapter!
     private var userAgent: UserAgent!
     private var notificationCenter: NSNotificationCenter!
 
     override func setUp() {
         super.setUp()
-        spy = UserAgentEventTargetSpy()
+        target = UserAgentEventTargetSpy()
         userAgent = UserAgentSpy()
-        sut = UserAgentNotificationsToEventTargetAdapter(target: spy, userAgent: userAgent)
+        sut = UserAgentNotificationsToEventTargetAdapter(target: target, userAgent: userAgent)
         notificationCenter = NSNotificationCenter.defaultCenter()
     }
 
     func testCallsDidFinishStarting() {
         notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidFinishStartingNotification))
 
-        XCTAssertTrue(spy.didCallUserAgentDidFinishStarting)
+        XCTAssertTrue(target.didCallUserAgentDidFinishStarting)
     }
 
     func testCallsDidFinishStopping() {
         notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidFinishStoppingNotification))
 
-        XCTAssertTrue(spy.didCallUserAgentDidFinishStopping)
+        XCTAssertTrue(target.didCallUserAgentDidFinishStopping)
     }
 
     func testCallsDidDetectNAT() {
         notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidDetectNATNotification))
 
-        XCTAssertTrue(spy.didCallUserAgentDidDetectNAT)
+        XCTAssertTrue(target.didCallUserAgentDidDetectNAT)
     }
 
     private func notificationWithName(name: String) -> NSNotification {

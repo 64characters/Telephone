@@ -21,13 +21,13 @@ import XCTest
 
 class UserAgentSoundIOSelectorTests: XCTestCase {
     func testCallsExecuteWhenUserAgentFinishesStarting() {
-        let spy = ThrowingInteractorSpy()
+        let interactor = ThrowingInteractorSpy()
         let factory = InteractorFactorySpy()
-        factory.stubWithUserAgentSoundIOSelection(spy)
+        factory.stubWithUserAgentSoundIOSelection(interactor)
         let sut = UserAgentSoundIOSelector(factory: factory)
 
         sut.userAgentDidFinishStarting(UserAgentSpy())
 
-        XCTAssertTrue(spy.didCallExecute)
+        XCTAssertTrue(interactor.didCallExecute)
     }
 }

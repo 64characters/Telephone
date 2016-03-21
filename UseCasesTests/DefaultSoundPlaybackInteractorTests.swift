@@ -51,10 +51,10 @@ class DefaultSoundPlaybackInteractorTests: XCTestCase {
 
     func testStopsFirstSondOnSecondPlay() {
         try! sut.play()
-        let soundSpy = factory.lastCreatedSound
+        let sound = factory.lastCreatedSound
         try! sut.play()
 
-        XCTAssertTrue(soundSpy.didCallStop)
+        XCTAssertTrue(sound.didCallStop)
     }
 
     func testKeepsReferenceToSoundDuringPlayback() {

@@ -21,13 +21,13 @@ import XCTest
 
 class UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests: XCTestCase {
     func testUpdatesAndSelects() {
-        let updateSpy = InteractorSpy()
-        let selectionSpy = ThrowingInteractorSpy()
-        let sut = UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(update: updateSpy, selection: selectionSpy)
+        let update = InteractorSpy()
+        let selection = ThrowingInteractorSpy()
+        let sut = UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(update: update, selection: selection)
 
         try! sut.execute()
 
-        XCTAssertTrue(updateSpy.didCallExecute)
-        XCTAssertTrue(selectionSpy.didCallExecute)
+        XCTAssertTrue(update.didCallExecute)
+        XCTAssertTrue(selection.didCallExecute)
     }
 }

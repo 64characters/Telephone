@@ -20,19 +20,19 @@ import UseCasesTestDoubles
 import XCTest
 
 class RepeatingSoundFactoryTests: XCTestCase {
-    private var spy: SoundFactorySpy!
+    private var factory: SoundFactorySpy!
     private var sut: RepeatingSoundFactory!
 
     override func setUp() {
         super.setUp()
-        spy = SoundFactorySpy()
-        sut = RepeatingSoundFactory(soundFactory: spy, timerFactory: TimerFactorySpy())
+        factory = SoundFactorySpy()
+        sut = RepeatingSoundFactory(soundFactory: factory, timerFactory: TimerFactorySpy())
     }
 
     func testCallsCreateSound() {
         try! sut.createRingtone(interval: 0)
 
-        XCTAssertTrue(spy.didCallCreateSound)
+        XCTAssertTrue(factory.didCallCreateSound)
     }
 
     func testCreatesRingtoneWithSpecifiedInterval() {

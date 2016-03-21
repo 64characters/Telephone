@@ -19,24 +19,24 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentAudioDeviceUpdaterTests: XCTestCase {
-    var spy: ThrowingInteractorSpy!
+    var interactor: ThrowingInteractorSpy!
     var sut: UserAgentAudioDeviceUpdater!
 
     override func setUp() {
         super.setUp()
-        spy = ThrowingInteractorSpy()
-        sut = UserAgentAudioDeviceUpdater(interactor: spy)
+        interactor = ThrowingInteractorSpy()
+        sut = UserAgentAudioDeviceUpdater(interactor: interactor)
     }
 
     func testExecutesInteractorWhenUpdateAudioDevicesIsCalled() {
         try! sut.updateAudioDevices()
 
-        XCTAssertTrue(spy.didCallExecute)
+        XCTAssertTrue(interactor.didCallExecute)
     }
 
     func testExecutesInteractorWhenSystemAudioDevicesAreUpdated() {
         sut.systemAudioDevicesDidUpdate()
 
-        XCTAssertTrue(spy.didCallExecute)
+        XCTAssertTrue(interactor.didCallExecute)
     }
 }
