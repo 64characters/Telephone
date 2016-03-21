@@ -18,16 +18,16 @@
 import Domain
 
 public protocol UserDefaultsSoundIOLoadInteractorOutput: class {
-    func update(audioDevices: AudioDevices, soundIO: SoundIO)
+    func update(devices devices: AudioDevices, soundIO: SoundIO)
 }
 
 public class UserDefaultsSoundIOLoadInteractor {
-    public let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    public let repository: SystemAudioDeviceRepository
     public let userDefaults: UserDefaults
     public let output: UserDefaultsSoundIOLoadInteractorOutput
 
-    public init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: UserDefaultsSoundIOLoadInteractorOutput) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
+    public init(repository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: UserDefaultsSoundIOLoadInteractorOutput) {
+        self.repository = repository
         self.userDefaults = userDefaults
         self.output = output
     }
@@ -35,11 +35,11 @@ public class UserDefaultsSoundIOLoadInteractor {
 
 extension UserDefaultsSoundIOLoadInteractor: ThrowingInteractor {
     public func execute() throws {
-        let systemAudioDevices = SystemAudioDevices(devices: try systemAudioDeviceRepository.allDevices())
-        let selectedSystemSoundIO = try SelectedSystemSoundIO(devices: systemAudioDevices, userDefaults: userDefaults)
+        let devices = SystemAudioDevices(devices: try repository.allDevices())
+        let soundIO = try SelectedSystemSoundIO(devices: devices, userDefaults: userDefaults)
         output.update(
-            AudioDevices(devices: systemAudioDevices),
-            soundIO: SoundIO(soundIO: selectedSystemSoundIO)
+            devices: AudioDevices(devices: devices),
+            soundIO: SoundIO(soundIO: soundIO)
         )
     }
 }

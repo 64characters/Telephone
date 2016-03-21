@@ -27,7 +27,7 @@ class SoundIOPresenterTests: XCTestCase {
         let devices = AudioDevices(input: input, output: output)
         let soundIO = SoundIO(input: "input2", output: "output2", ringtoneOutput: "output1")
 
-        sut.update(devices, soundIO: soundIO)
+        sut.update(devices: devices, soundIO: soundIO)
 
         XCTAssertEqual(spy.invokedInputDevices, input)
         XCTAssertEqual(spy.invokedOutputDevices, output)

@@ -38,7 +38,7 @@ extension DefaultInteractorFactory: InteractorFactory {
 
     func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
         return UserDefaultsSoundIOLoadInteractor(
-            systemAudioDeviceRepository: systemAudioDeviceRepository,
+            repository: systemAudioDeviceRepository,
             userDefaults: userDefaults,
             output: output
         )
