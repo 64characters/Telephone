@@ -19,97 +19,97 @@ import UseCasesTestDoubles
 import XCTest
 
 class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
-    private var factorySpy: InteractorFactorySpy!
-    private var ringtoneOutputUpdateSpy: ThrowingInteractorSpy!
-    private var soundPlaybackSpy: SoundPlaybackInteractorSpy!
+    private var factory: InteractorFactorySpy!
+    private var ringtoneOutputUpdate: ThrowingInteractorSpy!
+    private var soundPlayback: SoundPlaybackInteractorSpy!
     private var sut: DefaultSoundPreferencesViewEventTarget!
 
     override func setUp() {
         super.setUp()
-        factorySpy = InteractorFactorySpy()
-        ringtoneOutputUpdateSpy = ThrowingInteractorSpy()
-        soundPlaybackSpy = SoundPlaybackInteractorSpy()
+        factory = InteractorFactorySpy()
+        ringtoneOutputUpdate = ThrowingInteractorSpy()
+        soundPlayback = SoundPlaybackInteractorSpy()
         sut = DefaultSoundPreferencesViewEventTarget(
-            interactorFactory: factorySpy,
+            interactorFactory: factory,
             presenterFactory: PresenterFactory(),
-            ringtoneOutputUpdate: ringtoneOutputUpdateSpy,
-            ringtoneSoundPlayback: soundPlaybackSpy,
+            ringtoneOutputUpdate: ringtoneOutputUpdate,
+            ringtoneSoundPlayback: soundPlayback,
             userAgent: UserAgentSpy()
         )
     }
 
     func testExecutesUserDefaultsSoundIOLoadInteractorOnViewDataReload() {
-        let interactorSpy = ThrowingInteractorSpy()
-        factorySpy.stubWithUserDefaultsSoundIOLoad(interactorSpy)
+        let interactor = ThrowingInteractorSpy()
+        factory.stubWithUserDefaultsSoundIOLoad(interactor)
 
         sut.viewShouldReloadData(SoundPreferencesViewSpy())
 
-        XCTAssertTrue(interactorSpy.didCallExecute)
+        XCTAssertTrue(interactor.didCallExecute)
     }
 
     func testExecutesUserDefaultsSoundIOLoadInteractorOnSoundIOReload() {
-        let spy = ThrowingInteractorSpy()
-        factorySpy.stubWithUserDefaultsSoundIOLoad(spy)
+        let interactor = ThrowingInteractorSpy()
+        factory.stubWithUserDefaultsSoundIOLoad(interactor)
 
         sut.viewShouldReloadSoundIO(SoundPreferencesViewSpy())
 
-        XCTAssertTrue(spy.didCallExecute)
+        XCTAssertTrue(interactor.didCallExecute)
     }
 
     func testExecutesUserDefaultsSoundIOSaveInteractorWithExpectedArgumentsOnSoundIOChange() {
-        let interactorSpy = InteractorSpy()
-        factorySpy.stubWithUserDefaultsSoundIOSave(interactorSpy)
-        factorySpy.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
+        let interactor = InteractorSpy()
+        factory.stubWithUserDefaultsSoundIOSave(interactor)
+        factory.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
         let soundIO = SoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
 
         sut.viewDidChangeSoundIO(
             input: soundIO.input, output: soundIO.output, ringtoneOutput: soundIO.ringtoneOutput
         )
 
-        XCTAssertEqual(factorySpy.invokedSoundIO, soundIO)
-        XCTAssertTrue(interactorSpy.didCallExecute)
+        XCTAssertEqual(factory.invokedSoundIO, soundIO)
+        XCTAssertTrue(interactor.didCallExecute)
     }
 
     func testExecutesUserAgentSoundIOSelectionInteractorOnSoundIOChange() {
-        let interactorSpy = ThrowingInteractorSpy()
-        factorySpy.stubWithUserAgentSoundIOSelection(interactorSpy)
-        factorySpy.stubWithUserDefaultsSoundIOSave(InteractorSpy())
+        let interactor = ThrowingInteractorSpy()
+        factory.stubWithUserAgentSoundIOSelection(interactor)
+        factory.stubWithUserDefaultsSoundIOSave(InteractorSpy())
 
         sut.viewDidChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
 
-        XCTAssertTrue(interactorSpy.didCallExecute)
+        XCTAssertTrue(interactor.didCallExecute)
     }
 
     func testExecutesRingtoneOutputUpdateInteractorOnSoundIOChange() {
-        factorySpy.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
-        factorySpy.stubWithUserDefaultsSoundIOSave(InteractorSpy())
+        factory.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
+        factory.stubWithUserDefaultsSoundIOSave(InteractorSpy())
 
         sut.viewDidChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
 
-        XCTAssertTrue(ringtoneOutputUpdateSpy.didCallExecute)
+        XCTAssertTrue(ringtoneOutputUpdate.didCallExecute)
     }
 
     func testExecutesUserDefaultsRingtoneSoundNameSaveInteractorWithExpectedArgumentsOnRingtoneNameChange() {
-        let interactorSpy = InteractorSpy()
-        factorySpy.stubWithUserDefaultsRingtoneSoundNameSave(interactorSpy)
+        let interactor = InteractorSpy()
+        factory.stubWithUserDefaultsRingtoneSoundNameSave(interactor)
 
         sut.viewDidChangeRingtoneName("sound-name")
 
-        XCTAssertEqual(factorySpy.invokedRingtoneSoundName, "sound-name")
-        XCTAssertTrue(interactorSpy.didCallExecute)
+        XCTAssertEqual(factory.invokedRingtoneSoundName, "sound-name")
+        XCTAssertTrue(interactor.didCallExecute)
     }
 
     func testPlaysRingtoneSoundOnRingtoneNameChange() {
-        factorySpy.stubWithUserDefaultsRingtoneSoundNameSave(InteractorSpy())
+        factory.stubWithUserDefaultsRingtoneSoundNameSave(InteractorSpy())
 
         sut.viewDidChangeRingtoneName("any-name")
 
-        XCTAssertTrue(soundPlaybackSpy.didCallPlay)
+        XCTAssertTrue(soundPlayback.didCallPlay)
     }
 
     func testStopsPlayingRingtoneSoundOnViewWillDisappear() {
         sut.viewWillDisappear(SoundPreferencesViewSpy())
 
-        XCTAssertTrue(soundPlaybackSpy.didCallStop)
+        XCTAssertTrue(soundPlayback.didCallStop)
     }
 }
