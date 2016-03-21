@@ -20,26 +20,26 @@ import DomainTestDoubles
 import XCTest
 
 class FirstSystemSoundIOTests: XCTestCase {
-    private var deviceFactory: SystemAudioDeviceTestFactory!
+    private var factory: SystemAudioDeviceTestFactory!
 
     override func setUp() {
         super.setUp()
-        deviceFactory = SystemAudioDeviceTestFactory()
+        factory = SystemAudioDeviceTestFactory()
     }
 
     func testInputIsFirstInputDevice() {
-        let devices = [deviceFactory.someOutputDevice, deviceFactory.inputOnlyDevice, deviceFactory.firstBuiltInInput]
+        let devices = [factory.someOutputDevice, factory.inputOnlyDevice, factory.firstBuiltInInput]
 
         let sut = try! FirstSystemSoundIO(devices: devices)
 
-        XCTAssertEqual(sut.input, deviceFactory.inputOnlyDevice)
+        XCTAssertEqual(sut.input, factory.inputOnlyDevice)
     }
 
     func testOutputIsFirstOutputDevice() {
-        let devices = [deviceFactory.someInputDevice, deviceFactory.outputOnlyDevice, deviceFactory.firstBuiltInOutput]
+        let devices = [factory.someInputDevice, factory.outputOnlyDevice, factory.firstBuiltInOutput]
 
         let sut = try! FirstSystemSoundIO(devices: devices)
 
-        XCTAssertEqual(sut.output, deviceFactory.outputOnlyDevice)
+        XCTAssertEqual(sut.output, factory.outputOnlyDevice)
     }
 }
