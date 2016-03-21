@@ -21,8 +21,7 @@ import UseCases
 
 class SystemAudioDevices: SystemAudioDeviceRepository {
     func allDevices() throws -> [SystemAudioDevice] {
-        let deviceIDs = SystemAudioDeviceIDs()
-        return try deviceIDs.allDeviceIDs().map(deviceWithID)
+        return try SystemAudioDeviceIDs().all().map(deviceWithID)
     }
 }
 

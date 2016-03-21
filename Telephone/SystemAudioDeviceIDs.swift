@@ -26,7 +26,7 @@ class SystemAudioDeviceIDs {
         audioObject = SystemAudioObject(objectID: objectID, propertyAddress: propertyAddress)
     }
 
-    func allDeviceIDs() throws -> [Int] {
+    func all() throws -> [Int] {
         let length = try audioObject.propertyDataLength()
         return try deviceIDsWithLength(length)
     }
