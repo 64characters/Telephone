@@ -21,27 +21,27 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserDefaultsRingtoneSoundConfigurationLoadInteractorTests: XCTestCase {
-    private var audioDeviceFactory: SystemAudioDeviceTestFactory!
+    private var factory: SystemAudioDeviceTestFactory!
     private var userDefaults: UserDefaultsFake!
-    private var audioDeviceRepositoryStub: SystemAudioDeviceRepositoryStub!
+    private var repository: SystemAudioDeviceRepositoryStub!
     private var sut: SoundConfigurationLoadInteractor!
 
     override func setUp() {
         super.setUp()
-        audioDeviceFactory = SystemAudioDeviceTestFactory()
+        factory = SystemAudioDeviceTestFactory()
         userDefaults = UserDefaultsFake()
-        audioDeviceRepositoryStub = SystemAudioDeviceRepositoryStub()
+        repository = SystemAudioDeviceRepositoryStub()
         sut = UserDefaultsRingtoneSoundConfigurationLoadInteractor(
             userDefaults: userDefaults,
-            repository: audioDeviceRepositoryStub
+            repository: repository
         )
     }
 
     func testReturnsRingtoneSoundConfigurationFromUserDefaults() {
-        let outputDevice = audioDeviceFactory.someOutputDevice
+        let outputDevice = factory.someOutputDevice
         userDefaults[kRingtoneOutput] = outputDevice.name
         userDefaults[kRingingSound] = "sound-name"
-        audioDeviceRepositoryStub.allDevicesResult = audioDeviceFactory.allDevices
+        repository.allDevicesResult = factory.allDevices
 
         let result = try! sut.execute()
 
@@ -50,7 +50,7 @@ class UserDefaultsRingtoneSoundConfigurationLoadInteractorTests: XCTestCase {
     }
 
     func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInUserDefaults() {
-        audioDeviceRepositoryStub.allDevicesResult = audioDeviceFactory.allDevices
+        repository.allDevicesResult = factory.allDevices
         var result = false
 
         do {
