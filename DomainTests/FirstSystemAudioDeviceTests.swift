@@ -28,32 +28,32 @@ class FirstSystemAudioDeviceTests: XCTestCase {
     }
 
     func testCreatedWithFirstInputDevice() {
-        let sut = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.inputDevice })
+        let sut = try! FirstSystemAudioDevice(devices: factory.all, predicate: { $0.inputDevice })
 
         XCTAssertEqual(sut.device, factory.firstInput)
     }
 
     func testCreatedWithFirstOutputDevice() {
-        let sut = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.outputDevice })
+        let sut = try! FirstSystemAudioDevice(devices: factory.all, predicate: { $0.outputDevice })
 
         XCTAssertEqual(sut.device, factory.firstOutput)
     }
 
     func testCreatedWithFirstBuiltInInputDevice() {
-        let sut = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.builtInInputDevice })
+        let sut = try! FirstSystemAudioDevice(devices: factory.all, predicate: { $0.builtInInputDevice })
 
         XCTAssertEqual(sut.device, factory.firstBuiltInInput)
     }
 
     func testCreatedWithFirstBuiltInOutputDevice() {
-        let sut = try! FirstSystemAudioDevice(devices: factory.allDevices, predicate: { $0.builtInOutputDevice })
+        let sut = try! FirstSystemAudioDevice(devices: factory.all, predicate: { $0.builtInOutputDevice })
 
         XCTAssertEqual(sut.device, factory.firstBuiltInOutput)
     }
 
     func testThrowsSystemAudioDeviceNotFoundErrorIfNotFound() {
         var didThrow = false
-        let devices = [factory.someOutputDevice, factory.firstBuiltInOutput]
+        let devices = [factory.someOutput, factory.firstBuiltInOutput]
 
         do {
             _ = try FirstSystemAudioDevice(devices: devices, predicate: {$0.inputDevice })

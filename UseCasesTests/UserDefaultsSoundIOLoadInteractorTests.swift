@@ -31,9 +31,9 @@ class UserDefaultsSoundIOLoadInteractorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         factory = SystemAudioDeviceTestFactory()
-        devices = SystemAudioDevices(devices: factory.allDevices)
+        devices = SystemAudioDevices(devices: factory.all)
         repository = SystemAudioDeviceRepositoryStub()
-        repository.allDevicesResult = factory.allDevices
+        repository.allDevicesResult = factory.all
         userDefaults = UserDefaultsFake()
         output = UserDefaultsSoundIOLoadInteractorOutputSpy()
     }

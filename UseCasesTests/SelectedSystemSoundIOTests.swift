@@ -34,7 +34,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     // MARK: - Sound input
 
     func testSelectsAudioDeviceWithNameFromUserDefaultsAsSoundInput() {
-        let someDevice = factory.someInputDevice
+        let someDevice = factory.someInput
         userDefaults[kSoundInput] = someDevice.name
 
         let sut = createSelectedIO()
@@ -57,7 +57,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioInputDeviceAsSoundInputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveInputChannels() {
-        userDefaults[kSoundInput] = factory.outputOnlyDevice.name
+        userDefaults[kSoundInput] = factory.outputOnly.name
 
         let sut = createSelectedIO()
 
@@ -67,7 +67,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     // MARK: - Sound output
 
     func testSelectsAudioDeviceWithNameFromUserDefaultsAsSoundOutput() {
-        let someDevice = factory.someOutputDevice
+        let someDevice = factory.someOutput
         userDefaults[kSoundOutput] = someDevice.name
 
         let sut = createSelectedIO()
@@ -90,7 +90,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsSoundOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
-        userDefaults[kSoundOutput] = factory.inputOnlyDevice.name
+        userDefaults[kSoundOutput] = factory.inputOnly.name
 
         let sut = createSelectedIO()
 
@@ -100,7 +100,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     // MARK: - Ringtone output
 
     func testSelectsAudioDeviceWithNameFromUserDefaultsAsRingtoneOutput() {
-        let someDevice = factory.someOutputDevice
+        let someDevice = factory.someOutput
         userDefaults[kRingtoneOutput] = someDevice.name
 
         let sut = createSelectedIO()
@@ -123,7 +123,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     }
 
     func testSelectsBuiltInAudioOutputDeviceAsRingtoneOutputIfAudioDeviceMatchedByNameFromUserDefaultsDoesNotHaveOutputChannels() {
-        userDefaults[kRingtoneOutput] = factory.inputOnlyDevice.name
+        userDefaults[kRingtoneOutput] = factory.inputOnly.name
 
         let sut = createSelectedIO()
 
@@ -134,7 +134,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
 
     private func createSelectedIO() -> SelectedSystemSoundIO {
         return try! SelectedSystemSoundIO(
-            devices: SystemAudioDevices(devices: factory.allDevices),
+            devices: SystemAudioDevices(devices: factory.all),
             userDefaults: userDefaults
         )
     }

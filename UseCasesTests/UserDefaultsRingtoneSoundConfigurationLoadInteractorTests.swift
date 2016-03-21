@@ -38,10 +38,10 @@ class UserDefaultsRingtoneSoundConfigurationLoadInteractorTests: XCTestCase {
     }
 
     func testReturnsRingtoneSoundConfigurationFromUserDefaults() {
-        let outputDevice = factory.someOutputDevice
+        let outputDevice = factory.someOutput
         userDefaults[kRingtoneOutput] = outputDevice.name
         userDefaults[kRingingSound] = "sound-name"
-        repository.allDevicesResult = factory.allDevices
+        repository.allDevicesResult = factory.all
 
         let result = try! sut.execute()
 
@@ -50,7 +50,7 @@ class UserDefaultsRingtoneSoundConfigurationLoadInteractorTests: XCTestCase {
     }
 
     func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInUserDefaults() {
-        repository.allDevicesResult = factory.allDevices
+        repository.allDevicesResult = factory.all
         var result = false
 
         do {

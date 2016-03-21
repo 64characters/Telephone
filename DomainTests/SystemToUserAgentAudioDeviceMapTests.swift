@@ -53,7 +53,7 @@ class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
     }
 
     private func createSystemDevices() -> [SystemAudioDevice] {
-        return Array(SystemAudioDeviceTestFactory().allDevices[0..<2])
+        return Array(SystemAudioDeviceTestFactory().all[0..<2])
     }
 
     private func createUserAgentDevices() -> [UserAgentAudioDevice] {
