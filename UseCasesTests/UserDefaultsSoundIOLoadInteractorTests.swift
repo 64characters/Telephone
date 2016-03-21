@@ -22,42 +22,42 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserDefaultsSoundIOLoadInteractorTests: XCTestCase {
-    private var audioDeviceFactory: SystemAudioDeviceTestFactory!
-    private var systemAudioDevices: SystemAudioDevices!
-    private var audioDeviceRepositoryStub: SystemAudioDeviceRepositoryStub!
-    private var userDefaultsDummy: UserDefaultsFake!
-    private var outputSpy: UserDefaultsSoundIOLoadInteractorOutputSpy!
+    private var factory: SystemAudioDeviceTestFactory!
+    private var devices: SystemAudioDevices!
+    private var repository: SystemAudioDeviceRepositoryStub!
+    private var userDefaults: UserDefaultsFake!
+    private var output: UserDefaultsSoundIOLoadInteractorOutputSpy!
 
     override func setUp() {
         super.setUp()
-        audioDeviceFactory = SystemAudioDeviceTestFactory()
-        systemAudioDevices = SystemAudioDevices(devices: audioDeviceFactory.allDevices)
-        audioDeviceRepositoryStub = SystemAudioDeviceRepositoryStub()
-        audioDeviceRepositoryStub.allDevicesResult = audioDeviceFactory.allDevices
-        userDefaultsDummy = UserDefaultsFake()
-        outputSpy = UserDefaultsSoundIOLoadInteractorOutputSpy()
+        factory = SystemAudioDeviceTestFactory()
+        devices = SystemAudioDevices(devices: factory.allDevices)
+        repository = SystemAudioDeviceRepositoryStub()
+        repository.allDevicesResult = factory.allDevices
+        userDefaults = UserDefaultsFake()
+        output = UserDefaultsSoundIOLoadInteractorOutputSpy()
     }
 
     func testCallsOutputWithExpectedAudioDevicesAndSoundIO() {
         let sut = UserDefaultsSoundIOLoadInteractor(
-            repository: audioDeviceRepositoryStub,
-            userDefaults: userDefaultsDummy,
-            output: outputSpy
+            repository: repository,
+            userDefaults: userDefaults,
+            output: output
         )
 
         try! sut.execute()
 
-        XCTAssertEqual(outputSpy.invokedDevices, expectedAudioDevices())
-        XCTAssertEqual(outputSpy.invokedSoundIO, expectedSoundIO())
+        XCTAssertEqual(output.invokedDevices, expectedAudioDevices())
+        XCTAssertEqual(output.invokedSoundIO, expectedSoundIO())
     }
 
     private func expectedSoundIO() -> SoundIO {
-        let firstBuiltInInput = AudioDevice(device: audioDeviceFactory.firstBuiltInInput)
-        let firstBuiltInOutput = AudioDevice(device: audioDeviceFactory.firstBuiltInOutput)
+        let firstBuiltInInput = AudioDevice(device: factory.firstBuiltInInput)
+        let firstBuiltInOutput = AudioDevice(device: factory.firstBuiltInOutput)
         return SoundIO(input: firstBuiltInInput, output: firstBuiltInOutput, ringtoneOutput: firstBuiltInOutput)
     }
 
     private func expectedAudioDevices() -> AudioDevices {
-        return AudioDevices(devices: systemAudioDevices)
+        return AudioDevices(devices: devices)
     }
 }
