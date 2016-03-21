@@ -43,8 +43,8 @@ class UserAgentSoundIOSelectionInteractorTests: XCTestCase {
         try! sut.execute()
 
         let devices: [UseCases.UserAgentAudioDevice] = userAgent.audioDevicesResult
-        XCTAssertEqual(userAgent.selectedInputDeviceID, devices[1].identifier)
-        XCTAssertEqual(userAgent.selectedOutputDeviceID, devices[0].identifier)
+        XCTAssertEqual(userAgent.invokedInputDeviceID, devices[1].identifier)
+        XCTAssertEqual(userAgent.invokedOutputDeviceID, devices[0].identifier)
     }
 
     private func createSystemDevices() -> SystemAudioDevices {

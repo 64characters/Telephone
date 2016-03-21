@@ -21,5 +21,5 @@ import Foundation
     var started: Bool { @objc(isStarted) get }
     func audioDevices() throws -> [UserAgentAudioDevice]
     func updateAudioDevices()
-    func selectSoundInputDevice(inputDeviceID: Int, outputDevice outputDeviceID: Int) throws
+    func selectSoundIODeviceIDs(input input: Int, output: Int) throws
 }
