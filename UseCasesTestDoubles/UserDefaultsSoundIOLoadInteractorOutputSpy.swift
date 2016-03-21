@@ -18,15 +18,15 @@
 import UseCases
 
 public class UserDefaultsSoundIOLoadInteractorOutputSpy {
-    public private(set) var devices: AudioDevices?
-    public private(set) var soundIO: SoundIO?
+    public private(set) var invokedDevices: AudioDevices?
+    public private(set) var invokedSoundIO: SoundIO?
 
     public init() {}
 }
 
 extension UserDefaultsSoundIOLoadInteractorOutputSpy: UserDefaultsSoundIOLoadInteractorOutput {
     public func update(devices devices: AudioDevices, soundIO: SoundIO) {
-        self.devices = devices
-        self.soundIO = soundIO
+        self.invokedDevices = devices
+        self.invokedSoundIO = soundIO
     }
 }

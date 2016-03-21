@@ -47,8 +47,8 @@ class UserDefaultsSoundIOLoadInteractorTests: XCTestCase {
 
         try! sut.execute()
 
-        XCTAssertEqual(outputSpy.devices, expectedAudioDevices())
-        XCTAssertEqual(outputSpy.soundIO, expectedSoundIO())
+        XCTAssertEqual(outputSpy.invokedDevices, expectedAudioDevices())
+        XCTAssertEqual(outputSpy.invokedSoundIO, expectedSoundIO())
     }
 
     private func expectedSoundIO() -> SoundIO {
