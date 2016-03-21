@@ -28,7 +28,7 @@ class DefaultInteractorFactoryTests: XCTestCase {
         super.setUp()
         repository = SystemAudioDeviceRepositoryStub()
         userDefaults = UserDefaultsFake()
-        sut = DefaultInteractorFactory(systemAudioDeviceRepository: repository, userDefaults: userDefaults)
+        sut = DefaultInteractorFactory(repository: repository, userDefaults: userDefaults)
     }
 
     func testCanCreateUserAgentSoundIOSelectionInteractor() {

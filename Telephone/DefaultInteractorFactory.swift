@@ -18,11 +18,11 @@
 import UseCases
 
 class DefaultInteractorFactory {
-    let systemAudioDeviceRepository: SystemAudioDeviceRepository
+    let repository: SystemAudioDeviceRepository
     let userDefaults: UserDefaults
 
-    init(systemAudioDeviceRepository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
-        self.systemAudioDeviceRepository = systemAudioDeviceRepository
+    init(repository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
+        self.repository = repository
         self.userDefaults = userDefaults
     }
 }
@@ -30,7 +30,7 @@ class DefaultInteractorFactory {
 extension DefaultInteractorFactory: InteractorFactory {
     func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
         return UserAgentSoundIOSelectionInteractor(
-            repository: systemAudioDeviceRepository,
+            repository: repository,
             userAgent: userAgent,
             userDefaults: userDefaults
         )
@@ -38,7 +38,7 @@ extension DefaultInteractorFactory: InteractorFactory {
 
     func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
         return UserDefaultsSoundIOLoadInteractor(
-            repository: systemAudioDeviceRepository,
+            repository: repository,
             userDefaults: userDefaults,
             output: output
         )
