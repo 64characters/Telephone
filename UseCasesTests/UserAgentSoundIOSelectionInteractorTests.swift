@@ -32,7 +32,7 @@ class UserAgentSoundIOSelectionInteractorTests: XCTestCase {
         super.setUp()
         devices = createSystemDevices()
         repository = SystemAudioDeviceRepositoryStub()
-        repository.allDevicesResult = devices.allDevices
+        repository.allDevicesResult = devices.all
         userAgent = UserAgentSpy()
         userAgent.audioDevicesResult = createUserAgentDevices()
         userDefaults = UserDefaultsFake()
@@ -54,8 +54,8 @@ class UserAgentSoundIOSelectionInteractorTests: XCTestCase {
 
     private func createUserAgentDevices() -> [UseCases.UserAgentAudioDevice] {
         return [
-            UseCases.UserAgentAudioDevice(identifier: 1, name: devices.allDevices[1].name),
-            UseCases.UserAgentAudioDevice(identifier: 2, name: devices.allDevices[0].name)
+            UseCases.UserAgentAudioDevice(identifier: 1, name: devices.all[1].name),
+            UseCases.UserAgentAudioDevice(identifier: 2, name: devices.all[0].name)
         ]
     }
 

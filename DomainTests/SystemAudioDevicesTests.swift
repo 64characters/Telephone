@@ -20,32 +20,32 @@ import DomainTestDoubles
 import XCTest
 
 class SystemAudioDevicesTests: XCTestCase {
-    private var deviceFactory: SystemAudioDeviceTestFactory!
+    private var factory: SystemAudioDeviceTestFactory!
     private var sut: SystemAudioDevices!
 
     override func setUp() {
         super.setUp()
-        deviceFactory = SystemAudioDeviceTestFactory()
-        sut = SystemAudioDevices(devices: deviceFactory.allDevices)
+        factory = SystemAudioDeviceTestFactory()
+        sut = SystemAudioDevices(devices: factory.allDevices)
     }
 
     func testCanGetInputDeviceByName() {
-        let inputDevice = deviceFactory.someInputDevice
+        let inputDevice = factory.someInputDevice
 
         XCTAssertEqual(sut.inputDeviceNamed(inputDevice.name), inputDevice)
     }
 
     func testCanGetOutputDeviceByName() {
-        let outputDevice = deviceFactory.someOutputDevice
+        let outputDevice = factory.someOutputDevice
 
         XCTAssertEqual(sut.outputDeviceNamed(outputDevice.name), outputDevice)
     }
 
     func testCanGetInputDevices() {
-        XCTAssertEqual(sut.inputDevices, deviceFactory.inputDevices)
+        XCTAssertEqual(sut.input, factory.inputDevices)
     }
 
     func testCanGetOutputDevices() {
-        XCTAssertEqual(sut.outputDevices, deviceFactory.outputDevices)
+        XCTAssertEqual(sut.output, factory.outputDevices)
     }
 }

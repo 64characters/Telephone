@@ -28,7 +28,7 @@ struct SelectedSystemSoundIO {
     init(devices: SystemAudioDevices, userDefaults: UserDefaults) throws {
         self.devices = devices
         self.userDefaults = userDefaults
-        let builtInDevices = try FirstBuiltInSystemSoundIO(devices: devices.allDevices)
+        let builtInDevices = try FirstBuiltInSystemSoundIO(devices: devices.all)
         input = inputDeviceByNameWithUserDefaultsKey(kSoundInput) ?? builtInDevices.input
         output = outputDeviceByNameWithUserDefaultsKey(kSoundOutput) ?? builtInDevices.output
         ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput) ?? builtInDevices.output
