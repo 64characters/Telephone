@@ -20,27 +20,27 @@ import UseCasesTestDoubles
 import XCTest
 
 class ConditionalRingtonePlaybackInteractorTests: XCTestCase {
-    private var originSpy: RingtonePlaybackInteractorSpy!
+    private var origin: RingtonePlaybackInteractorSpy!
     private var delegate: ConditionalRingtonePlaybackInteractorTestDelegate!
     private var sut: ConditionalRingtonePlaybackInteractor!
 
     override func setUp() {
         super.setUp()
-        originSpy = RingtonePlaybackInteractorSpy()
+        origin = RingtonePlaybackInteractorSpy()
         delegate = ConditionalRingtonePlaybackInteractorTestDelegate()
-        sut = ConditionalRingtonePlaybackInteractor(origin: originSpy, delegate: delegate)
+        sut = ConditionalRingtonePlaybackInteractor(origin: origin, delegate: delegate)
     }
 
     func testCallsStartOnOrigin() {
         try! sut.start()
 
-        XCTAssertTrue(originSpy.didCallStart)
+        XCTAssertTrue(origin.didCallStart)
     }
 
     func testCallsStopOnOrigin() {
         sut.stop()
 
-        XCTAssertTrue(originSpy.didCallStop)
+        XCTAssertTrue(origin.didCallStop)
     }
 
     func testDoesNotCallStopOnOriginWhenDelegateReturnsFalse() {
@@ -48,11 +48,11 @@ class ConditionalRingtonePlaybackInteractorTests: XCTestCase {
 
         sut.stop()
 
-        XCTAssertFalse(originSpy.didCallStop)
+        XCTAssertFalse(origin.didCallStop)
     }
 
     func testReturnsPlayingFlagFromOrigin() {
-        try! originSpy.start()
+        try! origin.start()
 
         XCTAssertTrue(sut.playing)
     }
