@@ -20,28 +20,28 @@ import UseCasesTestDoubles
 import XCTest
 
 class RingtoneOutputUpdateInteractorTests: XCTestCase {
-    private var spy: RingtonePlaybackInteractorSpy!
+    private var playback: RingtonePlaybackInteractorSpy!
     private var sut: ThrowingInteractor!
 
     override func setUp() {
         super.setUp()
-        spy = RingtonePlaybackInteractorSpy()
-        sut = RingtoneOutputUpdateInteractor(playback: spy)
+        playback = RingtonePlaybackInteractorSpy()
+        sut = RingtoneOutputUpdateInteractor(playback: playback)
     }
 
     func testRestartsPlaybackWhenPlaying() {
-        try! spy.start()
+        try! playback.start()
 
         try! sut.execute()
 
-        XCTAssertTrue(spy.didCallStop)
-        XCTAssertTrue(spy.didCallStart)
+        XCTAssertTrue(playback.didCallStop)
+        XCTAssertTrue(playback.didCallStart)
     }
 
     func testDoesNotRestartPlaybackWhenNotPlaying() {
         try! sut.execute()
 
-        XCTAssertFalse(spy.didCallStop)
-        XCTAssertFalse(spy.didCallStart)
+        XCTAssertFalse(playback.didCallStop)
+        XCTAssertFalse(playback.didCallStart)
     }
 }
