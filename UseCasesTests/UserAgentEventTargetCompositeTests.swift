@@ -23,18 +23,18 @@ class UserAgentEventTargetCompositeTests: XCTestCase {
     private var sut: UserAgentEventTargetComposite!
     private var target1: UserAgentEventTargetSpy!
     private var target2: UserAgentEventTargetSpy!
-    private var userAgentDummy: UserAgentSpy!
+    private var userAgent: UserAgentSpy!
 
     override func setUp() {
         super.setUp()
         target1 = UserAgentEventTargetSpy()
         target2 = UserAgentEventTargetSpy()
         sut = UserAgentEventTargetComposite(targets: [target1, target2])
-        userAgentDummy = UserAgentSpy()
+        userAgent = UserAgentSpy()
     }
 
     func testCallsDidFinishStartingOnAllChildren() {
-        sut.userAgentDidFinishStarting(userAgentDummy)
+        sut.userAgentDidFinishStarting(userAgent)
 
         XCTAssertTrue(target1.didCallUserAgentDidFinishStarting)
         XCTAssertTrue(target2.didCallUserAgentDidFinishStarting)
@@ -42,7 +42,7 @@ class UserAgentEventTargetCompositeTests: XCTestCase {
     }
 
     func testCallsDidFinishStoppingOnAllChildren() {
-        sut.userAgentDidFinishStopping(userAgentDummy)
+        sut.userAgentDidFinishStopping(userAgent)
 
         XCTAssertTrue(target1.didCallUserAgentDidFinishStopping)
         XCTAssertTrue(target2.didCallUserAgentDidFinishStopping)
@@ -50,7 +50,7 @@ class UserAgentEventTargetCompositeTests: XCTestCase {
     }
 
     func testCallsDidDetectNATOnAllChildren() {
-        sut.userAgentDidDetectNAT(userAgentDummy)
+        sut.userAgentDidDetectNAT(userAgent)
 
         XCTAssertTrue(target1.didCallUserAgentDidDetectNAT)
         XCTAssertTrue(target2.didCallUserAgentDidDetectNAT)
@@ -58,7 +58,7 @@ class UserAgentEventTargetCompositeTests: XCTestCase {
     }
 
     private func assertUserAgent() {
-        XCTAssertTrue(target1.lastPassedUserAgent === userAgentDummy)
-        XCTAssertTrue(target2.lastPassedUserAgent === userAgentDummy)
+        XCTAssertTrue(target1.lastPassedUserAgent === userAgent)
+        XCTAssertTrue(target2.lastPassedUserAgent === userAgent)
     }
 }
