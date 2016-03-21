@@ -19,7 +19,7 @@ import UseCases
 
 extension AKSIPUserAgent: UserAgent {
     public func audioDevices() throws -> [UserAgentAudioDevice] {
-        return try UserAgentAudioDevices().allDevices
+        return try UserAgentAudioDevices().all
     }
 
     public func selectSoundIODeviceIDs(input input: Int, output: Int) throws {

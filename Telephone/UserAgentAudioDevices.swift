@@ -18,10 +18,10 @@
 import UseCases
 
 struct UserAgentAudioDevices {
-    let allDevices: [UserAgentAudioDevice]
+    let all: [UserAgentAudioDevice]
 
     init() throws {
-        allDevices = try createDevices()
+        all = try createDevices()
     }
 }
 
