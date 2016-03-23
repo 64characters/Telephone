@@ -18,15 +18,32 @@
 public struct UserAgentAudioDevice {
     public let identifier: Int
     public let name: String
+    public let inputs: Int
+    public let outputs: Int
 
-    public init(let identifier: Int, let name: String) {
+    public init(identifier: Int, name: String, inputs: Int, outputs: Int) {
         self.identifier = identifier
         self.name = name
+        self.inputs = inputs
+        self.outputs = outputs
+    }
+}
+
+public extension UserAgentAudioDevice {
+    public var hasInputs: Bool {
+        return inputs > 0
+    }
+
+    public var hasOutputs: Bool {
+        return outputs > 0
     }
 }
 
 extension UserAgentAudioDevice: Equatable {}
 
 public func ==(lhs: UserAgentAudioDevice, rhs: UserAgentAudioDevice) -> Bool {
-    return lhs.identifier == rhs.identifier && lhs.name == rhs.name
+    return lhs.identifier == rhs.identifier &&
+        lhs.name == rhs.name &&
+        lhs.inputs == rhs.inputs &&
+        lhs.outputs == rhs.outputs
 }

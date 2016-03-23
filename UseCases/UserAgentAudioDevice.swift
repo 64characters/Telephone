@@ -20,9 +20,13 @@ import Foundation
 public class UserAgentAudioDevice: NSObject {
     public let identifier: Int
     public let name: String
+    public let inputs: Int
+    public let outputs: Int
 
-    public init(identifier: Int, name: String) {
+    public init(identifier: Int, name: String, inputs: Int, outputs: Int) {
         self.identifier = identifier
         self.name = name
+        self.inputs = inputs
+        self.outputs = outputs
     }
 }

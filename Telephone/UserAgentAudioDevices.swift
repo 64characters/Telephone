@@ -48,14 +48,11 @@ private func devicesWithBytes(bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>,
 
 private func devicesWithBuffer(pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
     var index = 0
-    return pointer.map { deviceInfo -> UserAgentAudioDevice in
-        return UserAgentAudioDevice(identifier: index++, name: nameWithDeviceInfo(deviceInfo))
+    return pointer.map { device -> UserAgentAudioDevice in
+        let result = UserAgentAudioDevice(device: device, identifier: index)
+        index += 1
+        return result
     }
-}
-
-private func nameWithDeviceInfo(device: pjmedia_aud_dev_info) -> String {
-    let name = String.fromBytes(device.name)
-    return name == nil ? "Unknown Device Name" : name!
 }
 
 private let kBufferSize = 32

@@ -1,8 +1,8 @@
 //
-//  DomainUserAgentAudioDeviceExtension.swift
+//  UserAgentAudioDevice+SystemAudioDevice.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -16,14 +16,15 @@
 //
 
 import Domain
+import UseCases
 
-extension Domain.UserAgentAudioDevice {
-    init(device: UserAgentAudioDevice) {
+extension UseCases.UserAgentAudioDevice {
+    convenience init(device: SystemAudioDevice) {
         self.init(
             identifier: device.identifier,
             name: device.name,
-            inputs: device.inputs,
-            outputs: device.outputs
+            inputs: device.inputCount,
+            outputs: device.outputCount
         )
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DomainUserAgentAudioDeviceExtension.swift
+//  UserAgentAudioDevice+SystemAudioDevice.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,13 +17,13 @@
 
 import Domain
 
-extension Domain.UserAgentAudioDevice {
-    init(device: UserAgentAudioDevice) {
+extension UserAgentAudioDevice {
+    init(device: SystemAudioDevice) {
         self.init(
             identifier: device.identifier,
             name: device.name,
-            inputs: device.inputs,
-            outputs: device.outputs
+            inputs: device.inputCount,
+            outputs: device.outputCount
         )
     }
 }

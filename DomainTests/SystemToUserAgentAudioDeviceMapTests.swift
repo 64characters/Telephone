@@ -20,45 +20,49 @@ import DomainTestDoubles
 import XCTest
 
 class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
-    private var systemDevices: [SystemAudioDevice]!
+    private var factory: SystemAudioDeviceTestFactory!
 
     override func setUp() {
         super.setUp()
-        systemDevices = createSystemDevices()
+        factory = SystemAudioDeviceTestFactory()
     }
 
-    func testMapsSystemToUserAgentDeviceByName() {
-        let sut = createDeviceMap()
+    func testMapsSystemToUserAgentDeviceByNameAndIOPort() {
+        let systemDevices = factory.all
+        let userAgentDevices = [
+            UserAgentAudioDevice(device: factory.someInput),
+            UserAgentAudioDevice(device: factory.someOutput)
+        ]
+
+        let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
+
+        XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(factory.someInput), userAgentDevices[0])
+        XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(factory.someOutput), userAgentDevices[1])
+    }
+
+    func testMapsSystemToUserAgentDeviceByNameAndIOPortWhenTwoDevicesHaveTheSameName() {
+        let systemDevices = [factory.someInput, factory.outputWithNameLikeSomeInput]
+        let userAgentDevices = [
+            UserAgentAudioDevice(device: systemDevices[1]),
+            UserAgentAudioDevice(device: systemDevices[0])
+        ]
+
+        let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
         XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[0]), sut.userAgentDevices[1])
         XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[1]), sut.userAgentDevices[0])
     }
 
     func testThrowsWhenNoMatchingUserAgentDeviceFound() {
-        let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: [])
+        let sut = SystemToUserAgentAudioDeviceMap(systemDevices: factory.all, userAgentDevices: [])
 
-        var thrownError: ErrorType?
+        var didThrow = false
         do {
-            try sut.userAgentDeviceForSystemDevice(sut.systemDevices.first!)
+            try sut.userAgentDeviceForSystemDevice(factory.someInput)
         } catch {
-            thrownError = error
+            didThrow = true
         }
 
-        XCTAssertNotNil(thrownError)
-    }
-
-    private func createDeviceMap() -> SystemToUserAgentAudioDeviceMap {
-        let userAgentDevices = createUserAgentDevices()
-        return SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
-    }
-
-    private func createSystemDevices() -> [SystemAudioDevice] {
-        return Array(SystemAudioDeviceTestFactory().all[0..<2])
-    }
-
-    private func createUserAgentDevices() -> [UserAgentAudioDevice] {
-        let device1 = UserAgentAudioDevice(identifier: 1, name: systemDevices[1].name)
-        let device2 = UserAgentAudioDevice(identifier: 2, name: systemDevices[0].name)
-        return [device1, device2]
+        XCTAssertTrue(didThrow)
     }
 }

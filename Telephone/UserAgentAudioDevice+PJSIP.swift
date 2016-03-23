@@ -1,8 +1,8 @@
 //
-//  DomainUserAgentAudioDeviceExtension.swift
+//  UserAgentAudioDevice+PJSIP.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -15,15 +15,20 @@
 //  GNU General Public License for more details.
 //
 
-import Domain
+import UseCases
 
-extension Domain.UserAgentAudioDevice {
-    init(device: UserAgentAudioDevice) {
+extension UserAgentAudioDevice {
+    convenience init(device: pjmedia_aud_dev_info, identifier: Int) {
         self.init(
-            identifier: device.identifier,
-            name: device.name,
-            inputs: device.inputs,
-            outputs: device.outputs
+            identifier: identifier,
+            name: nameOfDevice(device),
+            inputs: Int(device.input_count),
+            outputs: Int(device.output_count)
         )
     }
+}
+
+private func nameOfDevice(device: pjmedia_aud_dev_info) -> String {
+    let name = String.fromBytes(device.name)
+    return name == nil ? "Unknown Device Name" : name!
 }
