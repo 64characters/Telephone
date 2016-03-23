@@ -19,35 +19,35 @@ public struct SystemAudioDevice {
     public let identifier: Int
     public let uniqueIdentifier: String
     public let name: String
-    public let inputCount: Int
-    public let outputCount: Int
+    public let inputs: Int
+    public let outputs: Int
     public let builtIn: Bool
 
-    public init(identifier: Int, uniqueIdentifier: String, name: String, inputCount: Int, outputCount: Int, builtIn: Bool) {
+    public init(identifier: Int, uniqueIdentifier: String, name: String, inputs: Int, outputs: Int, builtIn: Bool) {
         self.identifier = identifier
         self.uniqueIdentifier = uniqueIdentifier
         self.name = name
-        self.inputCount = inputCount
-        self.outputCount = outputCount
+        self.inputs = inputs
+        self.outputs = outputs
         self.builtIn = builtIn
     }
 }
 
 public extension SystemAudioDevice {
-    public var inputDevice: Bool {
-        return inputCount > 0
+    public var hasInputs: Bool {
+        return inputs > 0
     }
 
-    public var outputDevice: Bool {
-        return outputCount > 0
+    public var hasOutputs: Bool {
+        return outputs > 0
     }
 
-    public var builtInInputDevice: Bool {
-        return builtIn && inputDevice
+    public var builtInInput: Bool {
+        return builtIn && hasInputs
     }
 
-    public var builtInOutputDevice: Bool {
-        return builtIn && outputDevice
+    public var builtInOutput: Bool {
+        return builtIn && hasOutputs
     }
 }
 
@@ -63,7 +63,7 @@ public func ==(lhs: SystemAudioDevice, rhs: SystemAudioDevice) -> Bool {
     return lhs.identifier == rhs.identifier &&
         lhs.uniqueIdentifier == rhs.uniqueIdentifier &&
         lhs.name == rhs.name &&
-        lhs.inputCount == rhs.inputCount &&
-        lhs.outputCount == rhs.outputCount &&
+        lhs.inputs == rhs.inputs &&
+        lhs.outputs == rhs.outputs &&
         lhs.builtIn == rhs.builtIn
 }

@@ -31,7 +31,7 @@ private func deviceWithID(deviceID: Int) throws -> SystemAudioDevice {
     let inputCount = try inputCountForDeviceWithID(deviceID)
     let outputCount = try outputCountForDeviceWithID(deviceID)
     let builtIn = try builtInForDeviceWithID(deviceID)
-    return SystemAudioDevice(identifier: deviceID, uniqueIdentifier: uniqueIdentifier, name: name, inputCount: inputCount, outputCount: outputCount, builtIn: builtIn)
+    return SystemAudioDevice(identifier: deviceID, uniqueIdentifier: uniqueIdentifier, name: name, inputs: inputCount, outputs: outputCount, builtIn: builtIn)
 }
 
 private func uniqueIdentifierForDeviceWithID(deviceID: Int) throws -> String {

@@ -20,7 +20,7 @@ struct FirstSystemSoundIO {
     let output: SystemAudioDevice
 
     init(devices: [SystemAudioDevice]) throws {
-        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.inputDevice }).device
-        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.outputDevice }).device
+        input = try FirstSystemAudioDevice(devices: devices, predicate: { $0.hasInputs }).device
+        output = try FirstSystemAudioDevice(devices: devices, predicate: { $0.hasOutputs }).device
     }
 }

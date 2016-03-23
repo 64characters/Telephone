@@ -43,7 +43,7 @@ public class SystemToUserAgentAudioDeviceMap {
     }
 
     private func updateMap(withInputDevice device: SystemAudioDevice) {
-        if device.inputDevice {
+        if device.hasInputs {
             if let userAgentDevice = nameToDevice.inputDeviceNamed(device.name) {
                 map[device] = userAgentDevice
             }
@@ -51,7 +51,7 @@ public class SystemToUserAgentAudioDeviceMap {
     }
 
     private func updateMap(withOutputDevice device: SystemAudioDevice) {
-        if device.outputDevice {
+        if device.hasOutputs {
             if let userAgentDevice = nameToDevice.outputDeviceNamed(device.name) {
                 map[device] = userAgentDevice
             }

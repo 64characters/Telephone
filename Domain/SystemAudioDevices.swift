@@ -25,8 +25,8 @@ public struct SystemAudioDevices {
 
     public init(devices: [SystemAudioDevice]) {
         self.all = devices
-        input = devices.filter({ $0.inputDevice })
-        output = devices.filter({ $0.outputDevice })
+        input = devices.filter({ $0.hasInputs })
+        output = devices.filter({ $0.hasOutputs })
         deviceNameToInputDevice = deviceNameToDeviceMapWithDevices(input)
         deviceNameToOutputDevice = deviceNameToDeviceMapWithDevices(output)
     }

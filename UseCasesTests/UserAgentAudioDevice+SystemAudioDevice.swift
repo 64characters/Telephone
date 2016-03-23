@@ -23,8 +23,8 @@ extension UseCases.UserAgentAudioDevice {
         self.init(
             identifier: device.identifier,
             name: device.name,
-            inputs: device.inputCount,
-            outputs: device.outputCount
+            inputs: device.inputs,
+            outputs: device.outputs
         )
     }
 }
