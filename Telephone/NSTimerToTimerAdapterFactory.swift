@@ -20,7 +20,13 @@ import UseCases
 class NSTimerToTimerAdapterFactory: TimerFactory {
     func createRepeatingTimer(interval interval: Double, action: () -> Void) -> Timer {
         let timer = NSTimerToTimerAdapter(action: action)
-        timer.timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: timer, selector: #selector(NSTimerToTimerAdapter.tick), userInfo: nil, repeats: true)
+        timer.timer = NSTimer.scheduledTimerWithTimeInterval(
+            interval,
+            target: timer,
+            selector: #selector(NSTimerToTimerAdapter.tick),
+            userInfo: nil,
+            repeats: true
+        )
         return timer
     }
 }
