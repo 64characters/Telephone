@@ -17,12 +17,9 @@
 
 extension String {
     static func fromBytes<T>(buffer: T) -> String? {
-        return stringWitBytes(buffer)
+        var bytes = buffer
+        return withUnsafePointer(&bytes, stringWithPointer)
     }
-}
-
-private func stringWitBytes<T>(var bytes: T) -> String? {
-    return withUnsafePointer(&bytes, stringWithPointer)
 }
 
 private func stringWithPointer<T>(pointer: UnsafePointer<T>) -> String? {
