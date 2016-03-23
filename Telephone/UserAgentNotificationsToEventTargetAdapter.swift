@@ -33,9 +33,9 @@ class UserAgentNotificationsToEventTargetAdapter {
 
     private func subscribe() {
         let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: "SIPUserAgentDidFinishStarting:", name: AKSIPUserAgentDidFinishStartingNotification, object: userAgent)
-        nc.addObserver(self, selector: "SIPUserAgentDidFinishStopping:", name: AKSIPUserAgentDidFinishStoppingNotification, object: userAgent)
-        nc.addObserver(self, selector: "SIPUserAgentDidDetectNAT:", name: AKSIPUserAgentDidDetectNATNotification, object: userAgent)
+        nc.addObserver(self, selector: #selector(SIPUserAgentDidFinishStarting), name: AKSIPUserAgentDidFinishStartingNotification, object: userAgent)
+        nc.addObserver(self, selector: #selector(SIPUserAgentDidFinishStopping), name: AKSIPUserAgentDidFinishStoppingNotification, object: userAgent)
+        nc.addObserver(self, selector: #selector(SIPUserAgentDidDetectNAT), name: AKSIPUserAgentDidDetectNATNotification, object: userAgent)
     }
 
     private func unsubscribe() {
