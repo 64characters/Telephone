@@ -26,5 +26,5 @@ void PJSUAOnCallTransferStatus(pjsua_call_id callID,
                                pj_bool_t isFinal,
                                pj_bool_t *wantsFurtherNotifications);
 void PJSUAOnCallReplaced(pjsua_call_id oldCallID, pjsua_call_id newCallID);
-void PJSUAOnCallRegistrationState(pjsua_acc_id accountID);
+void PJSUAOnAccountRegistrationState(pjsua_acc_id accountID);
 void PJSUAOnNATDetect(const pj_stun_nat_detect_result *result);

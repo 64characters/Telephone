@@ -1,5 +1,5 @@
 //
-//  PJSUACallbacks.m
+//  PJSUAOnCallState.m
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -22,31 +22,9 @@
 #import "AKSIPCall.h"
 #import "AKSIPUserAgent.h"
 
-#define THIS_FILE "PJSUACallbacks.m"
+#define THIS_FILE "PJSUAOnCallState.m"
 
-static void LogCallMedia(const pjsua_call_info *callInfo);
-static void CallMediaStateChanged(pjsua_call_info callInfo);
-static const char *MediaStatusTextWithStatus(pjsua_call_media_status status);
-static void ConnectCallToSoundDevice(const pjsua_call_info *callInfo);
-static void PostMediaStateChangeNotification(AKSIPCall *call, pjsua_call_media_status status);
 static void LogCallDump(int call_id);
-
-void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_data *invite) {
-    PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountID));
-    dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
-
-        // AKSIPCall object is created here when the call is incoming.
-        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callID];
-
-        [[account calls] addObject:call];
-
-        [account.delegate SIPAccount:account didReceiveCall:call];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallIncomingNotification
-                                                            object:call];
-    });
-}
 
 void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
     pjsua_call_info callInfo;
@@ -179,147 +157,6 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
     });
 }
 
-void PJSUAOnCallMediaState(pjsua_call_id callID) {
-    pjsua_call_info callInfo;
-    pjsua_call_get_info(callID, &callInfo);
-    LogCallMedia(&callInfo);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CallMediaStateChanged(callInfo);
-    });
-}
-
-static void LogCallMedia(const pjsua_call_info *callInfo) {
-    for (NSUInteger i = 0; i < callInfo->media_cnt; i++) {
-        PJ_LOG(4, (THIS_FILE, "Call %d media %d [type = %s], status is %s",
-                   callInfo->id, i, pjmedia_type_name(callInfo->media[i].type),
-                   MediaStatusTextWithStatus(callInfo->media[i].status)));
-    }
-}
-
-static void CallMediaStateChanged(pjsua_call_info callInfo) {
-    AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-    AKSIPCall *call = [userAgent SIPCallByIdentifier:callInfo.id];
-    if (call == nil) {
-        PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callInfo.id));
-        return;
-    }
-    ConnectCallToSoundDevice(&callInfo);
-    [userAgent stopRingbackForCall:call];
-    PostMediaStateChangeNotification(call, callInfo.media_status);
-}
-
-static const char *MediaStatusTextWithStatus(pjsua_call_media_status status) {
-    const char *texts[] = { "None", "Active", "Local hold", "Remote hold", "Error" };
-    return texts[status];
-}
-
-static void ConnectCallToSoundDevice(const pjsua_call_info *callInfo) {
-    if (callInfo->media_status == PJSUA_CALL_MEDIA_ACTIVE ||
-        callInfo->media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
-        pjsua_conf_connect(callInfo->conf_slot, 0);
-        pjsua_conf_connect(0, callInfo->conf_slot);
-    }
-}
-
-static void PostMediaStateChangeNotification(AKSIPCall *call, pjsua_call_media_status status) {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    NSString *notificationName = nil;
-    switch (status) {
-        case PJSUA_CALL_MEDIA_ACTIVE:
-            notificationName = AKSIPCallMediaDidBecomeActiveNotification;
-            break;
-        case PJSUA_CALL_MEDIA_LOCAL_HOLD:
-            notificationName = AKSIPCallDidLocalHoldNotification;
-            break;
-        case PJSUA_CALL_MEDIA_REMOTE_HOLD:
-            notificationName = AKSIPCallDidRemoteHoldNotification;
-            break;
-        default:
-            break;
-
-    }
-    if (notificationName != nil) {
-        [nc postNotificationName:notificationName object:call];
-    }
-}
-
-void PJSUAOnCallTransferStatus(pjsua_call_id callID,
-                               int statusCode,
-                               const pj_str_t *statusText,
-                               pj_bool_t isFinal,
-                               pj_bool_t *wantsFurtherNotifications) {
-
-    PJ_LOG(3, (THIS_FILE, "Call %d: transfer status=%d (%.*s) %s",
-               callID, statusCode,
-               (int)statusText->slen, statusText->ptr,
-               (isFinal ? "[final]" : "")));
-
-    if (statusCode / 100 == 2) {
-        PJ_LOG(3, (THIS_FILE, "Call %d: call transfered successfully, disconnecting call", callID));
-        pjsua_call_hangup(callID, PJSIP_SC_GONE, NULL, NULL);
-        *wantsFurtherNotifications = PJ_FALSE;
-    }
-
-    NSString *statusTextString = [NSString stringWithPJString:*statusText];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callID];
-
-        [call setTransferStatus:statusCode];
-        [call setTransferStatusText:statusTextString];
-
-        NSDictionary *userInfo = @{@"AKFinalTransferNotification": @((BOOL)isFinal)};
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallTransferStatusDidChangeNotification
-                                                            object:call
-                                                          userInfo:userInfo];
-    });
-}
-
-void PJSUAOnCallReplaced(pjsua_call_id oldCallID, pjsua_call_id newCallID) {
-    pjsua_call_info oldCallInfo, newCallInfo;
-    pjsua_call_get_info(oldCallID, &oldCallInfo);
-    pjsua_call_get_info(newCallID, &newCallInfo);
-
-    PJ_LOG(3, (THIS_FILE, "Call %d with %.*s is being replaced by call %d with %.*s",
-               oldCallID,
-               (int)oldCallInfo.remote_info.slen, oldCallInfo.remote_info.ptr,
-               newCallID,
-               (int)newCallInfo.remote_info.slen, newCallInfo.remote_info.ptr));
-
-    NSInteger accountIdentifier = newCallInfo.acc_id;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d from replaced callback", newCallID));
-        AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-        AKSIPAccount *account = [userAgent accountByIdentifier:accountIdentifier];
-        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:newCallID];
-        [account.calls addObject:call];
-    });
-}
-
-void PJSUAOnCallRegistrationState(pjsua_acc_id accountID) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
-        [account.delegate SIPAccountRegistrationDidChange:account];
-    });
-}
-
-void PJSUAOnNATDetect(const pj_stun_nat_detect_result *result) {
-    if (result->status != PJ_SUCCESS) {
-        pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
-
-    } else {
-        PJ_LOG(3, (THIS_FILE, "NAT detected as %s", result->nat_type_name));
-
-        AKNATType NATType = (AKNATType)result->nat_type;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[AKSIPUserAgent sharedUserAgent] setDetectedNATType:NATType];
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidDetectNATNotification
-                                                                object:[AKSIPUserAgent sharedUserAgent]];
-        });
-    }
-}
-
 /*
  * Print log of call states. Since call states may be too long for logger,
  * printing it is a bit tricky, it should be printed part by part as long
@@ -357,4 +194,3 @@ static void LogCallDump(int call_id) {
     }
     pj_log_set_decor(log_decor);
 }
-

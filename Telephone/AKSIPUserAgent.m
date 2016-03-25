@@ -338,7 +338,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
         userAgentConfig.cb.on_call_media_state = &PJSUAOnCallMediaState;
         userAgentConfig.cb.on_call_transfer_status = &PJSUAOnCallTransferStatus;
         userAgentConfig.cb.on_call_replaced = &PJSUAOnCallReplaced;
-        userAgentConfig.cb.on_reg_state = &PJSUAOnCallRegistrationState;
+        userAgentConfig.cb.on_reg_state = &PJSUAOnAccountRegistrationState;
         userAgentConfig.cb.on_nat_detect = &PJSUAOnNATDetect;
         
         // Initialize PJSUA.
