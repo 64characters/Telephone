@@ -24,7 +24,6 @@
 
 #define THIS_FILE "PJSUACallbacks.m"
 
-// Prints log of call states
 static void log_call_dump(int call_id);
 
 void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
@@ -47,7 +46,6 @@ void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
     });
 }
 
-// The thread on which this callback is called seem to be unpredictable. It is often the main thread, but not always.
 void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
     pjsua_call_info callInfo;
     pjsua_call_get_info(callIdentifier, &callInfo);
@@ -198,8 +196,6 @@ void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
                    callInfo.id, i, pjmedia_type_name(callInfo.media[i].type), statusName[callInfo.media[i].status]));
     }
 
-    // Connect ports appropriately when media status is ACTIVE or REMOTE HOLD, otherwise we should not connect
-    // the ports.
     if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE ||
         callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
         pjsua_conf_connect(callInfo.conf_slot, 0);
