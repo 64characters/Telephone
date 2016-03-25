@@ -24,9 +24,9 @@
 
 #define THIS_FILE "PJSUACallbacks.m"
 
-static void log_call_dump(int call_id);
+static void LogCallDump(int call_id);
 
-void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
+void PJSUAOnIncomingCall(pjsua_acc_id accountIdentifier,
                                pjsua_call_id callIdentifier,
                                pjsip_rx_data *messageData) {
 
@@ -46,7 +46,7 @@ void AKSIPCallIncomingReceived(pjsua_acc_id accountIdentifier,
     });
 }
 
-void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
+void PJSUAOnCallState(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
     pjsua_call_info callInfo;
     pjsua_call_get_info(callIdentifier, &callInfo);
 
@@ -60,7 +60,7 @@ void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) 
                    callInfo.last_status,
                    callInfo.last_status_text.ptr));
         PJ_LOG(5, (THIS_FILE, "Dumping media stats for call %d", callIdentifier));
-        log_call_dump(callIdentifier);
+        LogCallDump(callIdentifier);
 
     } else if (callInfo.state == PJSIP_INV_STATE_EARLY) {
         // pj_str_t is a struct with NOT null-terminated string.
@@ -177,7 +177,7 @@ void AKSIPCallStateChanged(pjsua_call_id callIdentifier, pjsip_event *sipEvent) 
     });
 }
 
-void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
+void PJSUAOnCallMediaState(pjsua_call_id callIdentifier) {
     pjsua_call_info callInfo;
     pjsua_call_get_info(callIdentifier, &callInfo);
 
@@ -234,7 +234,7 @@ void AKSIPCallMediaStateChanged(pjsua_call_id callIdentifier) {
     });
 }
 
-void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
+void PJSUAOnCallTransferStatus(pjsua_call_id callIdentifier,
                                     int statusCode,
                                     const pj_str_t *statusText,
                                     pj_bool_t isFinal,
@@ -266,7 +266,7 @@ void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
     });
 }
 
-void AKSIPCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier) {
+void PJSUAOnCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier) {
     pjsua_call_info oldCallInfo, newCallInfo;
     pjsua_call_get_info(oldCallIdentifier, &oldCallInfo);
     pjsua_call_get_info(newCallIdentifier, &newCallInfo);
@@ -287,14 +287,14 @@ void AKSIPCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIde
     });
 }
 
-void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier) {
+void PJSUAOnCallRegistrationState(pjsua_acc_id accountIdentifier) {
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
         [account.delegate SIPAccountRegistrationDidChange:account];
     });
 }
 
-void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
+void PJSUAOnNATDetect(const pj_stun_nat_detect_result *result) {
     if (result->status != PJ_SUCCESS) {
         pjsua_perror(THIS_FILE, "NAT detection failed", result->status);
 
@@ -316,7 +316,7 @@ void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result) {
  * printing it is a bit tricky, it should be printed part by part as long
  * as the logger can accept.
  */
-static void log_call_dump(int call_id) {
+static void LogCallDump(int call_id) {
     size_t call_dump_len;
     size_t part_len;
     unsigned part_idx;

@@ -17,14 +17,14 @@
 
 #import <pjsua-lib/pjsua.h>
 
-void AKSIPCallIncomingReceived(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
-void AKSIPCallStateChanged(pjsua_call_id, pjsip_event *);
-void AKSIPCallMediaStateChanged(pjsua_call_id);
-void AKSIPCallTransferStatusChanged(pjsua_call_id callIdentifier,
+void PJSUAOnIncomingCall(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
+void PJSUAOnCallState(pjsua_call_id, pjsip_event *);
+void PJSUAOnCallMediaState(pjsua_call_id);
+void PJSUAOnCallTransferStatus(pjsua_call_id callIdentifier,
                                     int statusCode,
                                     const pj_str_t *statusText,
                                     pj_bool_t isFinal,
                                     pj_bool_t *pCont);
-void AKSIPCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier);
-void AKSIPAccountRegistrationStateChanged(pjsua_acc_id accountIdentifier);
-void AKSIPUserAgentDetectedNAT(const pj_stun_nat_detect_result *result);
+void PJSUAOnCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier);
+void PJSUAOnCallRegistrationState(pjsua_acc_id accountIdentifier);
+void PJSUAOnNATDetect(const pj_stun_nat_detect_result *result);

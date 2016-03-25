@@ -333,13 +333,13 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
             transportConfig.public_addr = [[self transportPublicHost] pjString];
         }
         
-        userAgentConfig.cb.on_incoming_call = &AKSIPCallIncomingReceived;
-        userAgentConfig.cb.on_call_media_state = &AKSIPCallMediaStateChanged;
-        userAgentConfig.cb.on_call_state = &AKSIPCallStateChanged;
-        userAgentConfig.cb.on_call_transfer_status = &AKSIPCallTransferStatusChanged;
-        userAgentConfig.cb.on_call_replaced = &AKSIPCallReplaced;
-        userAgentConfig.cb.on_reg_state = &AKSIPAccountRegistrationStateChanged;
-        userAgentConfig.cb.on_nat_detect = &AKSIPUserAgentDetectedNAT;
+        userAgentConfig.cb.on_incoming_call = &PJSUAOnIncomingCall;
+        userAgentConfig.cb.on_call_state = &PJSUAOnCallState;
+        userAgentConfig.cb.on_call_media_state = &PJSUAOnCallMediaState;
+        userAgentConfig.cb.on_call_transfer_status = &PJSUAOnCallTransferStatus;
+        userAgentConfig.cb.on_call_replaced = &PJSUAOnCallReplaced;
+        userAgentConfig.cb.on_reg_state = &PJSUAOnCallRegistrationState;
+        userAgentConfig.cb.on_nat_detect = &PJSUAOnNATDetect;
         
         // Initialize PJSUA.
         status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
