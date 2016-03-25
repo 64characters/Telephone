@@ -26,16 +26,13 @@
 
 static void LogCallDump(int call_id);
 
-void PJSUAOnIncomingCall(pjsua_acc_id accountIdentifier,
-                               pjsua_call_id callIdentifier,
-                               pjsip_rx_data *messageData) {
-
-    PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountIdentifier));
+void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_data *invite) {
+    PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountID));
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
+        AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
 
         // AKSIPCall object is created here when the call is incoming.
-        AKSIPCall *theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callIdentifier];
+        AKSIPCall *theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callID];
 
         [[theAccount calls] addObject:theCall];
 
@@ -46,9 +43,9 @@ void PJSUAOnIncomingCall(pjsua_acc_id accountIdentifier,
     });
 }
 
-void PJSUAOnCallState(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
+void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
     pjsua_call_info callInfo;
-    pjsua_call_get_info(callIdentifier, &callInfo);
+    pjsua_call_get_info(callID, &callInfo);
 
     BOOL mustStartRingback = NO;
     NSNumber *SIPEventCode = nil;
@@ -56,11 +53,11 @@ void PJSUAOnCallState(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
 
     if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
         PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
-                   callIdentifier,
+                   callID,
                    callInfo.last_status,
                    callInfo.last_status_text.ptr));
-        PJ_LOG(5, (THIS_FILE, "Dumping media stats for call %d", callIdentifier));
-        LogCallDump(callIdentifier);
+        PJ_LOG(5, (THIS_FILE, "Dumping media stats for call %d", callID));
+        LogCallDump(callID);
 
     } else if (callInfo.state == PJSIP_INV_STATE_EARLY) {
         // pj_str_t is a struct with NOT null-terminated string.
@@ -69,12 +66,12 @@ void PJSUAOnCallState(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
         int code;
 
         // This can only occur because of TX or RX message.
-        pj_assert(sipEvent->type == PJSIP_EVENT_TSX_STATE);
+        pj_assert(event->type == PJSIP_EVENT_TSX_STATE);
 
-        if (sipEvent->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
-            msg = sipEvent->body.tsx_state.src.rdata->msg_info.msg;
+        if (event->body.tsx_state.type == PJSIP_EVENT_RX_MSG) {
+            msg = event->body.tsx_state.src.rdata->msg_info.msg;
         } else {
-            msg = sipEvent->body.tsx_state.src.tdata->msg;
+            msg = event->body.tsx_state.src.tdata->msg;
         }
 
         code = msg->line.status.code;
@@ -92,10 +89,10 @@ void PJSUAOnCallState(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
         }
 
         PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s (%d %.*s)",
-                   callIdentifier, callInfo.state_text.ptr,
+                   callID, callInfo.state_text.ptr,
                    code, (int)reason.slen, reason.ptr));
     } else {
-        PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s", callIdentifier, callInfo.state_text.ptr));
+        PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s", callID, callInfo.state_text.ptr));
     }
 
     AKSIPCallState state = (AKSIPCallState)callInfo.state;
@@ -106,26 +103,26 @@ void PJSUAOnCallState(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
 
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-        AKSIPCall *call = [userAgent SIPCallByIdentifier:callIdentifier];
+        AKSIPCall *call = [userAgent SIPCallByIdentifier:callID];
         if (call == nil) {
             if (state == kAKSIPCallCallingState) {
                 // As a convenience, AKSIPCall objects for normal outgoing calls are created
                 // in -[AKSIPAccount makeCallTo:]. Outgoing calls for other situations like call transfer are first
                 // seen here, and created on the spot.
-                PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d when handling call state", callIdentifier));
+                PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d when handling call state", callID));
                 AKSIPAccount *account = [userAgent accountByIdentifier:accountIdentifier];
                 if (account != nil) {
-                    call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callIdentifier];
+                    call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callID];
                     [account.calls addObject:call];
                 } else {
                     PJ_LOG(3, (THIS_FILE,
                                "Did not create AKSIPCall for call %d during call state change. Could not find account",
-                               callIdentifier));
+                               callID));
                     return;  // From block.
                 }
 
             } else {
-                PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during call state change", callIdentifier));
+                PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during call state change", callID));
                 return;  // From block.
             }
         }
@@ -177,9 +174,9 @@ void PJSUAOnCallState(pjsua_call_id callIdentifier, pjsip_event *sipEvent) {
     });
 }
 
-void PJSUAOnCallMediaState(pjsua_call_id callIdentifier) {
+void PJSUAOnCallMediaState(pjsua_call_id callID) {
     pjsua_call_info callInfo;
-    pjsua_call_get_info(callIdentifier, &callInfo);
+    pjsua_call_get_info(callID, &callInfo);
 
     const char *statusName[] = {
         "None",
@@ -205,9 +202,9 @@ void PJSUAOnCallMediaState(pjsua_call_id callIdentifier) {
     pjsua_call_media_status mediaStatus = callInfo.media_status;
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-        AKSIPCall *call = [userAgent SIPCallByIdentifier:callIdentifier];
+        AKSIPCall *call = [userAgent SIPCallByIdentifier:callID];
         if (call == nil) {
-            PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callIdentifier));
+            PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callID));
             return;  // From block.
         }
         [userAgent stopRingbackForCall:call];
@@ -234,26 +231,26 @@ void PJSUAOnCallMediaState(pjsua_call_id callIdentifier) {
     });
 }
 
-void PJSUAOnCallTransferStatus(pjsua_call_id callIdentifier,
-                                    int statusCode,
-                                    const pj_str_t *statusText,
-                                    pj_bool_t isFinal,
-                                    pj_bool_t *pCont) {
+void PJSUAOnCallTransferStatus(pjsua_call_id callID,
+                               int statusCode,
+                               const pj_str_t *statusText,
+                               pj_bool_t isFinal,
+                               pj_bool_t *wantsFurtherNotifications) {
 
     PJ_LOG(3, (THIS_FILE, "Call %d: transfer status=%d (%.*s) %s",
-               callIdentifier, statusCode,
+               callID, statusCode,
                (int)statusText->slen, statusText->ptr,
                (isFinal ? "[final]" : "")));
 
     if (statusCode / 100 == 2) {
-        PJ_LOG(3, (THIS_FILE, "Call %d: call transfered successfully, disconnecting call", callIdentifier));
-        pjsua_call_hangup(callIdentifier, PJSIP_SC_GONE, NULL, NULL);
-        *pCont = PJ_FALSE;
+        PJ_LOG(3, (THIS_FILE, "Call %d: call transfered successfully, disconnecting call", callID));
+        pjsua_call_hangup(callID, PJSIP_SC_GONE, NULL, NULL);
+        *wantsFurtherNotifications = PJ_FALSE;
     }
 
     NSString *statusTextString = [NSString stringWithPJString:*statusText];
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callIdentifier];
+        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callID];
 
         [theCall setTransferStatus:statusCode];
         [theCall setTransferStatusText:statusTextString];
@@ -266,30 +263,30 @@ void PJSUAOnCallTransferStatus(pjsua_call_id callIdentifier,
     });
 }
 
-void PJSUAOnCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier) {
+void PJSUAOnCallReplaced(pjsua_call_id oldCallID, pjsua_call_id newCallID) {
     pjsua_call_info oldCallInfo, newCallInfo;
-    pjsua_call_get_info(oldCallIdentifier, &oldCallInfo);
-    pjsua_call_get_info(newCallIdentifier, &newCallInfo);
+    pjsua_call_get_info(oldCallID, &oldCallInfo);
+    pjsua_call_get_info(newCallID, &newCallInfo);
 
     PJ_LOG(3, (THIS_FILE, "Call %d with %.*s is being replaced by call %d with %.*s",
-               oldCallIdentifier,
+               oldCallID,
                (int)oldCallInfo.remote_info.slen, oldCallInfo.remote_info.ptr,
-               newCallIdentifier,
+               newCallID,
                (int)newCallInfo.remote_info.slen, newCallInfo.remote_info.ptr));
 
     NSInteger accountIdentifier = newCallInfo.acc_id;
     dispatch_async(dispatch_get_main_queue(), ^{
-        PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d from replaced callback", newCallIdentifier));
+        PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d from replaced callback", newCallID));
         AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
         AKSIPAccount *account = [userAgent accountByIdentifier:accountIdentifier];
-        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:newCallIdentifier];
+        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:newCallID];
         [account.calls addObject:call];
     });
 }
 
-void PJSUAOnCallRegistrationState(pjsua_acc_id accountIdentifier) {
+void PJSUAOnCallRegistrationState(pjsua_acc_id accountID) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountIdentifier];
+        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
         [account.delegate SIPAccountRegistrationDidChange:account];
     });
 }

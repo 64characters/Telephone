@@ -17,14 +17,14 @@
 
 #import <pjsua-lib/pjsua.h>
 
-void PJSUAOnIncomingCall(pjsua_acc_id, pjsua_call_id, pjsip_rx_data *);
-void PJSUAOnCallState(pjsua_call_id, pjsip_event *);
-void PJSUAOnCallMediaState(pjsua_call_id);
-void PJSUAOnCallTransferStatus(pjsua_call_id callIdentifier,
-                                    int statusCode,
-                                    const pj_str_t *statusText,
-                                    pj_bool_t isFinal,
-                                    pj_bool_t *pCont);
-void PJSUAOnCallReplaced(pjsua_call_id oldCallIdentifier, pjsua_call_id newCallIdentifier);
-void PJSUAOnCallRegistrationState(pjsua_acc_id accountIdentifier);
+void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_data *invite);
+void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event);
+void PJSUAOnCallMediaState(pjsua_call_id callID);
+void PJSUAOnCallTransferStatus(pjsua_call_id callID,
+                               int statusCode,
+                               const pj_str_t *statusText,
+                               pj_bool_t isFinal,
+                               pj_bool_t *wantsFurtherNotifications);
+void PJSUAOnCallReplaced(pjsua_call_id oldCallID, pjsua_call_id newCallID);
+void PJSUAOnCallRegistrationState(pjsua_acc_id accountID);
 void PJSUAOnNATDetect(const pj_stun_nat_detect_result *result);
