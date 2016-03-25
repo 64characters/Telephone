@@ -25,7 +25,7 @@
 static void LogCallMedia(const pjsua_call_info *callInfo);
 static void CallMediaStateChanged(pjsua_call_info callInfo);
 static const char *MediaStatusTextWithStatus(pjsua_call_media_status status);
-static void ConnectCallToSoundDevice(const pjsua_call_info *callInfo);
+static void ConnectCallToSoundDevice(AKSIPCall *call, const pjsua_call_info *callInfo);
 static void PostMediaStateChangeNotification(AKSIPCall *call, pjsua_call_media_status status);
 
 void PJSUAOnCallMediaState(pjsua_call_id callID) {
@@ -52,7 +52,7 @@ static void CallMediaStateChanged(pjsua_call_info callInfo) {
         PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callInfo.id));
         return;
     }
-    ConnectCallToSoundDevice(&callInfo);
+    ConnectCallToSoundDevice(call, &callInfo);
     [userAgent stopRingbackForCall:call];
     PostMediaStateChangeNotification(call, callInfo.media_status);
 }
@@ -62,11 +62,13 @@ static const char *MediaStatusTextWithStatus(pjsua_call_media_status status) {
     return texts[status];
 }
 
-static void ConnectCallToSoundDevice(const pjsua_call_info *callInfo) {
+static void ConnectCallToSoundDevice(AKSIPCall *call, const pjsua_call_info *callInfo) {
     if (callInfo->media_status == PJSUA_CALL_MEDIA_ACTIVE ||
         callInfo->media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
         pjsua_conf_connect(callInfo->conf_slot, 0);
-        pjsua_conf_connect(0, callInfo->conf_slot);
+        if (!call.isMicrophoneMuted) {
+            pjsua_conf_connect(0, callInfo->conf_slot);
+        }
     }
 }
 
