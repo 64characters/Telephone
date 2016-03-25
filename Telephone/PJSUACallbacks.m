@@ -29,17 +29,17 @@ static void LogCallDump(int call_id);
 void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_data *invite) {
     PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountID));
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPAccount *theAccount = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
+        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
 
         // AKSIPCall object is created here when the call is incoming.
-        AKSIPCall *theCall = [[AKSIPCall alloc] initWithSIPAccount:theAccount identifier:callID];
+        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callID];
 
-        [[theAccount calls] addObject:theCall];
+        [[account calls] addObject:call];
 
-        [theAccount.delegate SIPAccount:theAccount didReceiveCall:theCall];
+        [account.delegate SIPAccount:account didReceiveCall:call];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallIncomingNotification
-                                                            object:theCall];
+                                                            object:call];
     });
 }
 
@@ -250,15 +250,15 @@ void PJSUAOnCallTransferStatus(pjsua_call_id callID,
 
     NSString *statusTextString = [NSString stringWithPJString:*statusText];
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPCall *theCall = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callID];
+        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callID];
 
-        [theCall setTransferStatus:statusCode];
-        [theCall setTransferStatusText:statusTextString];
+        [call setTransferStatus:statusCode];
+        [call setTransferStatusText:statusTextString];
 
         NSDictionary *userInfo = @{@"AKFinalTransferNotification": @((BOOL)isFinal)};
 
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallTransferStatusDidChangeNotification
-                                                            object:theCall
+                                                            object:call
                                                           userInfo:userInfo];
     });
 }
