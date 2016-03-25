@@ -24,6 +24,11 @@
 
 #define THIS_FILE "PJSUACallbacks.m"
 
+static void LogCallMedia(const pjsua_call_info *callInfo);
+static void CallMediaStateChanged(pjsua_call_info callInfo);
+static const char *MediaStatusTextWithStatus(pjsua_call_media_status status);
+static void ConnectCallToSoundDevice(const pjsua_call_info *callInfo);
+static void PostMediaStateChangeNotification(AKSIPCall *call, pjsua_call_media_status status);
 static void LogCallDump(int call_id);
 
 void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_data *invite) {
@@ -177,58 +182,65 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
 void PJSUAOnCallMediaState(pjsua_call_id callID) {
     pjsua_call_info callInfo;
     pjsua_call_get_info(callID, &callInfo);
-
-    const char *statusName[] = {
-        "None",
-        "Active",
-        "Local hold",
-        "Remote hold",
-        "Error"
-    };
-
-    for (NSUInteger i = 0; i < callInfo.media_cnt; i++) {
-        assert(callInfo.media[i].status <= PJ_ARRAY_SIZE(statusName));
-        assert(PJSUA_CALL_MEDIA_ERROR == 4);
-        PJ_LOG(4, (THIS_FILE, "Call %d media %d [type = %s], status is %s",
-                   callInfo.id, i, pjmedia_type_name(callInfo.media[i].type), statusName[callInfo.media[i].status]));
-    }
-
-    if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE ||
-        callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
-        pjsua_conf_connect(callInfo.conf_slot, 0);
-        pjsua_conf_connect(0, callInfo.conf_slot);
-    }
-
-    pjsua_call_media_status mediaStatus = callInfo.media_status;
+    LogCallMedia(&callInfo);
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-        AKSIPCall *call = [userAgent SIPCallByIdentifier:callID];
-        if (call == nil) {
-            PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callID));
-            return;  // From block.
-        }
-        [userAgent stopRingbackForCall:call];
-
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        NSString *notificationName = nil;
-        switch (mediaStatus) {
-            case PJSUA_CALL_MEDIA_ACTIVE:
-                notificationName = AKSIPCallMediaDidBecomeActiveNotification;
-                break;
-            case PJSUA_CALL_MEDIA_LOCAL_HOLD:
-                notificationName = AKSIPCallDidLocalHoldNotification;
-                break;
-            case PJSUA_CALL_MEDIA_REMOTE_HOLD:
-                notificationName = AKSIPCallDidRemoteHoldNotification;
-                break;
-            default:
-                break;
-
-        }
-        if (notificationName != nil) {
-            [nc postNotificationName:notificationName object:call];
-        }
+        CallMediaStateChanged(callInfo);
     });
+}
+
+static void LogCallMedia(const pjsua_call_info *callInfo) {
+    for (NSUInteger i = 0; i < callInfo->media_cnt; i++) {
+        PJ_LOG(4, (THIS_FILE, "Call %d media %d [type = %s], status is %s",
+                   callInfo->id, i, pjmedia_type_name(callInfo->media[i].type),
+                   MediaStatusTextWithStatus(callInfo->media[i].status)));
+    }
+}
+
+static void CallMediaStateChanged(pjsua_call_info callInfo) {
+    AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
+    AKSIPCall *call = [userAgent SIPCallByIdentifier:callInfo.id];
+    if (call == nil) {
+        PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callInfo.id));
+        return;
+    }
+    ConnectCallToSoundDevice(&callInfo);
+    [userAgent stopRingbackForCall:call];
+    PostMediaStateChangeNotification(call, callInfo.media_status);
+}
+
+static const char *MediaStatusTextWithStatus(pjsua_call_media_status status) {
+    const char *texts[] = { "None", "Active", "Local hold", "Remote hold", "Error" };
+    return texts[status];
+}
+
+static void ConnectCallToSoundDevice(const pjsua_call_info *callInfo) {
+    if (callInfo->media_status == PJSUA_CALL_MEDIA_ACTIVE ||
+        callInfo->media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+        pjsua_conf_connect(callInfo->conf_slot, 0);
+        pjsua_conf_connect(0, callInfo->conf_slot);
+    }
+}
+
+static void PostMediaStateChangeNotification(AKSIPCall *call, pjsua_call_media_status status) {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    NSString *notificationName = nil;
+    switch (status) {
+        case PJSUA_CALL_MEDIA_ACTIVE:
+            notificationName = AKSIPCallMediaDidBecomeActiveNotification;
+            break;
+        case PJSUA_CALL_MEDIA_LOCAL_HOLD:
+            notificationName = AKSIPCallDidLocalHoldNotification;
+            break;
+        case PJSUA_CALL_MEDIA_REMOTE_HOLD:
+            notificationName = AKSIPCallDidRemoteHoldNotification;
+            break;
+        default:
+            break;
+
+    }
+    if (notificationName != nil) {
+        [nc postNotificationName:notificationName object:call];
+    }
 }
 
 void PJSUAOnCallTransferStatus(pjsua_call_id callID,
