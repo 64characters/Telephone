@@ -333,6 +333,7 @@ NSString * const kEmailSIPLabel = @"sip";
     }
     
     // Set displayed name.
+    [[aCallController window] setTitle:[NSString stringWithFormat:@"↑ %@",[[aCallController window] title]]];
     if ([[destinationURI displayName] length] > 0) {
         [aCallController setDisplayedName:[destinationURI displayName]];
         
@@ -762,7 +763,16 @@ NSString * const kEmailSIPLabel = @"sip";
      [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
     
     // These variables will be changed during the Address Book search if the record is found.
-    NSString *finalTitle = [[aCall remoteURI] SIPAddress];
+    //NSString *finalTitle = [[aCall remoteURI] SIPAddress];
+
+    NSString *arrow = @"↓ ";
+    if([[[[aCall remoteURI] displayName] substringToIndex:2] isEqualToString:@"↑ "])
+    {
+        arrow = @"↑ ";
+        [[aCall remoteURI] setDisplayName:[[[aCall remoteURI] displayName] substringFromIndex:2]];
+    }
+    NSString *finalTitle = [NSString stringWithFormat:@"%@%@", arrow, [[aCall remoteURI] user]];
+    
     NSString *finalDisplayedName = [SIPURIFormatter stringForObjectValue:[aCall remoteURI]];
     NSString *finalStatus = NSLocalizedString(@"calling",
                                               @"John Smith calling. Somebody is calling us right "
