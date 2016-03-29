@@ -188,7 +188,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         defaultsDict[kTransportPort] = @0;
         defaultsDict[kTransportPublicHost] = @"";
         defaultsDict[kRingingSound] = @"Purr";
-        defaultsDict[kSignificantPhoneNumberLength] = @10;
+        defaultsDict[kSignificantPhoneNumberLength] = @9;
         defaultsDict[kPauseITunes] = @YES;
         defaultsDict[kAutoCloseCallWindow] = @NO;
         defaultsDict[kAutoCloseMissedCallWindow] = @NO;
