@@ -762,14 +762,12 @@ NSString * const kEmailSIPLabel = @"sip";
      [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
     
     // These variables will be changed during the Address Book search if the record is found.
-    NSString *finalTitle = [[aCall remoteURI] SIPAddress];
     NSString *finalDisplayedName = [SIPURIFormatter stringForObjectValue:[aCall remoteURI]];
     NSString *finalStatus = NSLocalizedString(@"calling",
                                               @"John Smith calling. Somebody is calling us right "
                                                "now. Call status string. Deliberately in lower case, "
                                                "translators should do the same, if possible.");
-    AKSIPURI *finalRedialURI = [aCall remoteURI];
-    
+
     // Search Address Book for caller's name.
     
     ABAddressBook *AB = [ABAddressBook sharedAddressBook];
@@ -793,9 +791,7 @@ NSString * const kEmailSIPLabel = @"sip";
         NSString *localizedLabel = [AB ak_localizedLabel:kEmailSIPLabel];
         finalStatus = localizedLabel;
         [aCallController setPhoneLabelFromAddressBook:localizedLabel];
-        
-        finalRedialURI = [aCall remoteURI];
-        
+
     } else if ([[[aCall remoteURI] displayName] ak_isTelephoneNumber] ||
                ([[[aCall remoteURI] displayName] length] == 0 &&
                 [[[aCall remoteURI] user] ak_isTelephoneNumber]))
@@ -831,10 +827,6 @@ NSString * const kEmailSIPLabel = @"sip";
                     NSString *localizedLabel = [AB ak_localizedLabel:[phones labelAtIndex:i]];
                     finalStatus = localizedLabel;
                     [aCallController setPhoneLabelFromAddressBook:localizedLabel];
-                    
-                    finalRedialURI = [AKSIPURI SIPURIWithUser:[phones valueAtIndex:i]
-                                                         host:[[[self account] registrationURI] host]
-                                                  displayName:nil];
                     break;
                 }
             }
@@ -873,10 +865,6 @@ NSString * const kEmailSIPLabel = @"sip";
                             NSString *localizedLabel = [AB ak_localizedLabel:[phones labelAtIndex:i]];
                             finalStatus = localizedLabel;
                             [aCallController setPhoneLabelFromAddressBook:localizedLabel];
-                            
-                            finalRedialURI = [AKSIPURI SIPURIWithUser:[phones valueAtIndex:i]
-                                                                 host:[[[self account] registrationURI] host]
-                                                          displayName:nil];
                             break;
                         }
                     }
@@ -921,10 +909,6 @@ NSString * const kEmailSIPLabel = @"sip";
                         NSString *localizedLabel = [AB ak_localizedLabel:[phones labelAtIndex:i]];
                         finalStatus = localizedLabel;
                         [aCallController setPhoneLabelFromAddressBook:localizedLabel];
-                        
-                        finalRedialURI = [AKSIPURI SIPURIWithUser:scannedPhoneNumber
-                                                             host:[[[self account] registrationURI] host]
-                                                      displayName:nil];
                         break;
                     }
                 }
@@ -940,10 +924,10 @@ NSString * const kEmailSIPLabel = @"sip";
     
     // Address Book search ends here.
     
-    [[aCallController window] setTitle:finalTitle];
+    [[aCallController window] setTitle:[[aCall remoteURI] SIPAddress]];
     [aCallController setDisplayedName:finalDisplayedName];
     [aCallController setStatus:finalStatus];
-    [aCallController setRedialURI:finalRedialURI];
+    [aCallController setRedialURI:[aCall remoteURI]];
     
     [aCallController showIncomingCallView];
     
