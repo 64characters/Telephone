@@ -289,6 +289,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
         pjsua_transport_config_default(&transportConfig);
         
         userAgentConfig.max_calls = (unsigned)kAKSIPCallsMax;
+        userAgentConfig.use_timer = PJSUA_SIP_TIMER_INACTIVE;
         
         if ([[self nameservers] count] > 0) {
             userAgentConfig.nameserver_count = (unsigned)[[self nameservers] count];
