@@ -451,9 +451,9 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     
     // Set appropriate token style depending on the search success.
     if ([completions count] > 0) {
-        [tokenField setTokenStyle:NSRoundedTokenStyle];
+        [tokenField setTokenStyle:NSTokenStyleRounded];
     } else {
-        [tokenField setTokenStyle:NSPlainTextTokenStyle];
+        [tokenField setTokenStyle:NSTokenStyleNone];
     }
     
     return [completions copy];
