@@ -18,6 +18,5 @@
 enum TelephoneError: ErrorType {
     case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
     case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
-    case RingtoneNameNotFoundError
     case SoundCreationError
 }
