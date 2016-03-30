@@ -37,7 +37,7 @@ private func createDevices() throws -> [UserAgentAudioDevice] {
 private func getDevicesBytes(bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, inout count: UInt32) throws {
     let status = pjsua_enum_aud_devs(bytes, &count)
     if status != 0 {
-        throw TelephoneError.UserAgentAudioDeviceEnumerationError
+        throw UserAgentError.AudioDeviceEnumerationError
     }
 }
 

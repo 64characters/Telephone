@@ -1,8 +1,8 @@
 //
-//  AKSIPUserAgent+UserAgent.swift
+//  UserAgentError.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -15,17 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-extension AKSIPUserAgent: UserAgent {
-    public func audioDevices() throws -> [UserAgentAudioDevice] {
-        return try UserAgentAudioDevices().all
-    }
-
-    public func selectSoundIODeviceIDs(input input: Int, output: Int) throws {
-        let success = self.setSoundInputDevice(input, soundOutputDevice: output)
-        if !success {
-            throw UserAgentError.SoundIOSelectionError
-        }
-    }
+enum UserAgentError: ErrorType {
+    case AudioDeviceEnumerationError
+    case SoundIOSelectionError
 }
