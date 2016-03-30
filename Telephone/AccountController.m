@@ -71,6 +71,8 @@ NSString * const kEmailSIPLabel = @"sip";
 // Timer for account re-registration in case of registration error.
 @property(nonatomic, strong) NSTimer *reRegistrationTimer;
 
+@property(nonatomic, copy) NSString *destinationToCall;
+
 // Method to be called when account re-registration timer fires.
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer;
 
@@ -222,8 +224,8 @@ NSString * const kEmailSIPLabel = @"sip";
     [self setAttemptingToUnregisterAccount:NO];
     [self setShouldPresentRegistrationError:NO];
     [self setAccountUnavailable:NO];
-    [self setShouldMakeCall:NO];
-    
+    [self setDestinationToCall:@""];
+
     [[self account] setDelegate:self];
     
     [[self window] setTitle:[[self account] SIPAddress]];
@@ -394,6 +396,26 @@ NSString * const kEmailSIPLabel = @"sip";
     [self makeCallToURI:destinationURI phoneLabel:phoneLabel callTransferController:nil];
 }
 
+- (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination {
+    if ([[self account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        [self setDestinationToCall:destination];
+        [self setAccountRegistered:YES];
+    } else {
+        [self makeCallToDestination:destination];
+    }
+}
+
+- (void)makeCallToDestination:(NSString *)destination {
+    [[[self activeAccountViewController] callDestinationField] setTokenStyle:NSTokenStyleRounded];
+    [[[self activeAccountViewController] callDestinationField] setStringValue:destination];
+    [[self activeAccountViewController] makeCall:self];
+}
+
+- (void)makeCallToSavedDestination {
+    [self makeCallToDestination:[self destinationToCall]];
+    [self setDestinationToCall:@""];
+}
+
 - (IBAction)changeAccountState:(id)sender {
     if ([self reRegistrationTimer] != nil) {
         [[self reRegistrationTimer] invalidate];
@@ -549,29 +571,6 @@ NSString * const kEmailSIPLabel = @"sip";
     [[self account] setRegistered:YES];
 }
 
-- (void)handleCatchedURL {
-    AKSIPURI *uri = [AKSIPURI SIPURIWithString:[self catchedURLString]];
-    
-    [self setCatchedURLString:nil];
-    
-    if ([[uri user] length] == 0) {
-        return;
-    }
-    
-    [[[self activeAccountViewController] callDestinationField] setTokenStyle:NSPlainTextTokenStyle];
-    
-    NSString *theString;
-    if ([[uri host] length] > 0) {
-        theString = [uri SIPAddress];
-    } else {
-        theString = [uri user];
-    }
-    
-    [[[self activeAccountViewController] callDestinationField] setStringValue:theString];
-    
-    [[self activeAccountViewController] makeCall:nil];
-}
-
 - (BOOL)isActiveViewDisplayed {
     return [self.window.contentView isEqual:self.activeAccountViewController.view];
 }
@@ -622,22 +621,8 @@ NSString * const kEmailSIPLabel = @"sip";
         } else {
             [self setAccountUnavailable:NO];
             [self showAvailableState];
-            
-            // The user could initiate a call from the Address Book plug-in.
-            if ([self shouldMakeCall]) {
-                // Explicitly display registered mode before calling.
-                [[self window] display];
-                
-                [self setShouldMakeCall:NO];
-                [[self activeAccountViewController] makeCall:nil];
-            }
-            
-            // The user could click a URL.
-            if ([self catchedURLString] != nil) {
-                // Explicitly display registered mode before calling.
-                [[self window] display];
-                
-                [self handleCatchedURL];
+            if ([[self destinationToCall] length] > 0) {
+                [self makeCallToSavedDestination];
             }
         }
         

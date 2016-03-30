@@ -70,13 +70,6 @@ extern NSString * const kEmailSIPLabel;
 // to all incoming calls.
 @property(nonatomic, assign, getter=isAccountUnavailable) BOOL accountUnavailable;
 
-// A Boolean value indicating whether the receiver should make a call ASAP.
-// (User can initiate a call from the Address Book when application is not yet launched.)
-@property(nonatomic, assign) BOOL shouldMakeCall;
-
-// URL string catched by the URL handler.
-@property(nonatomic, copy) NSString *catchedURLString;
-
 // Registrar network reachability. When registrar becomes reachable, we try to register the receiver's account.
 @property(nonatomic, strong) AKNetworkReachability *registrarReachability;
 
@@ -119,6 +112,8 @@ extern NSString * const kEmailSIPLabel;
 // Calls makeCallToURI:phoneLabel:callTransferController: with |callTransferController| set to nil.
 - (void)makeCallToURI:(AKSIPURI *)destinationURI phoneLabel:(NSString *)phoneLabel;
 
+- (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination;
+
 // Changes account state.
 - (IBAction)changeAccountState:(id)sender;
 
@@ -136,8 +131,5 @@ extern NSString * const kEmailSIPLabel;
 
 // Switches account window to the connecting state.
 - (void)showConnectingState;
-
-// Handles |catchedURLString| populated by a URL handler, initiating the call.
-- (void)handleCatchedURL;
 
 @end

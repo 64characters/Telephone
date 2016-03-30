@@ -1555,49 +1555,31 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 // change ActiveAccountViewController's
 // tokenField:representedObjectForEditingString:.
 - (void)addressBookDidDialCallDestination:(NSNotification *)notification {
-    if ([NSApp modalWindow] != nil) {
-        return;
-    }
-    
-    if ([[self enabledAccountControllers] count] == 0) {
+    if (![self canMakeCall]) {
         return;
     }
     
     NSDictionary *userInfo = [notification userInfo];
     
-    NSString *callDestination = nil;
+    NSString *SIPAddressOrNumber = nil;
     if ([[notification name] isEqualToString:AKAddressBookDidDialPhoneNumberNotification]) {
-        callDestination = userInfo[@"AKPhoneNumber"];
+        SIPAddressOrNumber = userInfo[@"AKPhoneNumber"];
     } else if ([[notification name] isEqualToString:AKAddressBookDidDialSIPAddressNotification]) {
-        callDestination = userInfo[@"AKSIPAddress"];
+        SIPAddressOrNumber = userInfo[@"AKSIPAddress"];
     }
     
-    NSString *fullName = userInfo[@"AKFullName"];
-    
-    AccountController *firstEnabledAccountController = [self enabledAccountControllers][0];
-    
-    [[[firstEnabledAccountController activeAccountViewController] callDestinationField]
-     setTokenStyle:NSRoundedTokenStyle];
+    NSString *name = userInfo[@"AKFullName"];
     
     [NSApp activateIgnoringOtherApps:YES];
     
-    NSString *theString;
-    if ([fullName length] > 0) {
-        theString = [NSString stringWithFormat:@"%@ <%@>", fullName, callDestination];
+    NSString *destination;
+    if ([name length] > 0) {
+        destination = [NSString stringWithFormat:@"%@ <%@>", name, SIPAddressOrNumber];
     } else {
-        theString = callDestination;
+        destination = SIPAddressOrNumber;
     }
-    
-    [[[firstEnabledAccountController activeAccountViewController] callDestinationField] setStringValue:theString];
-    
-    if ([[firstEnabledAccountController account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        // Go Available if it's Offline. Make call from the callback.
-        [firstEnabledAccountController setShouldMakeCall:YES];
-        [firstEnabledAccountController setAccountRegistered:YES];
-        
-    } else {
-        [[firstEnabledAccountController activeAccountViewController] makeCall:nil];
-    }
+
+    [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:destination];
 }
 
 
@@ -1605,19 +1587,9 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 #pragma mark Apple event handler for URLs support
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-    if ([[self enabledAccountControllers] count] == 0) {
-        return;
-    }
-    
-    AccountController *firstEnabledAccountController = [self enabledAccountControllers][0];
-    NSString *URLString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-    [firstEnabledAccountController setCatchedURLString:URLString];
-    
-    if ([[firstEnabledAccountController account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        // Go Available if it's Offline. Make call from the callback.
-        [firstEnabledAccountController setAccountRegistered:YES];
-    } else {
-        [firstEnabledAccountController handleCatchedURL];
+    if ([self canMakeCall]) {
+        [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:
+         [[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
     }
 }
 
@@ -1626,30 +1598,24 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 #pragma mark Service Provider
 
 - (void)makeCallFromTextService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
-    
+    if (![self canMakeCall]) {
+        return;
+    }
+
     NSArray *classes = @[[NSString class]];
     NSDictionary *options = @{};
-    if ([NSPasteboard instancesRespondToSelector:
-         @selector(canReadObjectForClasses:options:)] &&
+    if ([NSPasteboard instancesRespondToSelector:@selector(canReadObjectForClasses:options:)] &&
         ![pboard canReadObjectForClasses:classes options:options]) {
         NSLog(@"Could not make call, pboard couldn't give string.");
     }
     
-    NSString *pboardString = [pboard stringForType:NSPasteboardTypeString];
-    
-    AccountController *firstEnabledAccountController = [self accountControllers][0];
-    [[[firstEnabledAccountController activeAccountViewController]
-      callDestinationField] setTokenStyle:NSPlainTextTokenStyle];
-    [[[firstEnabledAccountController activeAccountViewController] callDestinationField] setStringValue:pboardString];
-    
-    if ([[firstEnabledAccountController account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        // Go Available if it's Offline. Make call from the callback.
-        [firstEnabledAccountController setShouldMakeCall:YES];
-        [firstEnabledAccountController setAccountRegistered:YES];
-        
-    } else {
-        [[firstEnabledAccountController activeAccountViewController] makeCall:nil];
-    }
+    [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:[pboard stringForType:NSPasteboardTypeString]];
+}
+
+#pragma mark -
+
+- (BOOL)canMakeCall {
+    return NSApp.modalWindow == nil && self.enabledAccountControllers.count > 0;
 }
 
 @end
