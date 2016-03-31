@@ -29,28 +29,28 @@ class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
 
     func testMapsSystemToUserAgentDeviceByNameAndIOPort() {
         let systemDevices = factory.all
-        let userAgentDevices = [
-            UserAgentAudioDevice(device: factory.someInput),
-            UserAgentAudioDevice(device: factory.someOutput)
+        let userAgentDevices: [UserAgentAudioDevice] = [
+            SimpleUserAgentAudioDevice(device: factory.someInput),
+            SimpleUserAgentAudioDevice(device: factory.someOutput)
         ]
 
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
-        XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(factory.someInput), userAgentDevices[0])
-        XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(factory.someOutput), userAgentDevices[1])
+        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(factory.someInput) == userAgentDevices[0])
+        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(factory.someOutput) == userAgentDevices[1])
     }
 
     func testMapsSystemToUserAgentDeviceByNameAndIOPortWhenTwoDevicesHaveTheSameName() {
         let systemDevices = [factory.someInput, factory.outputWithNameLikeSomeInput]
-        let userAgentDevices = [
-            UserAgentAudioDevice(device: systemDevices[1]),
-            UserAgentAudioDevice(device: systemDevices[0])
+        let userAgentDevices: [UserAgentAudioDevice] = [
+            SimpleUserAgentAudioDevice(device: systemDevices[1]),
+            SimpleUserAgentAudioDevice(device: systemDevices[0])
         ]
 
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
-        XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[0]), sut.userAgentDevices[1])
-        XCTAssertEqual(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[1]), sut.userAgentDevices[0])
+        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[0]) == sut.userAgentDevices[1])
+        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[1]) == sut.userAgentDevices[0])
     }
 
     func testThrowsWhenNoMatchingUserAgentDeviceFound() {

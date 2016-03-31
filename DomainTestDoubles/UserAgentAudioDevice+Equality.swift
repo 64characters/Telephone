@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevice.swift
+//  UserAgentAudioDevice+Equality.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,19 +15,11 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UserAgentAudioDevice {
-    var identifier: Int { get }
-    var name: String  { get }
-    var inputs: Int { get }
-    var outputs: Int { get }
-}
+import Domain
 
-public extension UserAgentAudioDevice {
-    public var hasInputs: Bool {
-        return inputs > 0
-    }
-
-    public var hasOutputs: Bool {
-        return outputs > 0
-    }
+public func ==(lhs: UserAgentAudioDevice, rhs: UserAgentAudioDevice) -> Bool {
+    return lhs.identifier == rhs.identifier &&
+        lhs.name == rhs.name &&
+        lhs.inputs == rhs.inputs &&
+        lhs.outputs == rhs.outputs
 }

@@ -17,7 +17,7 @@
 
 import Domain
 
-extension UserAgentAudioDevice {
+extension SimpleUserAgentAudioDevice {
     init(device: SystemAudioDevice) {
         self.init(
             identifier: device.identifier,

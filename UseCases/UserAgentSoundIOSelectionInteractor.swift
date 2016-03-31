@@ -61,6 +61,6 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     }
 
     private func domainWithUseCaseUserAgentAudioDevice(device: UserAgentAudioDevice) -> Domain.UserAgentAudioDevice {
-        return Domain.UserAgentAudioDevice(device: device)
+        return Domain.SimpleUserAgentAudioDevice(device: device)
     }
 }

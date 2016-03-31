@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevice.swift
+//  SimpleUserAgentAudioDevice.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -15,19 +15,16 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UserAgentAudioDevice {
-    var identifier: Int { get }
-    var name: String  { get }
-    var inputs: Int { get }
-    var outputs: Int { get }
-}
+public struct SimpleUserAgentAudioDevice: UserAgentAudioDevice {
+    public let identifier: Int
+    public let name: String
+    public let inputs: Int
+    public let outputs: Int
 
-public extension UserAgentAudioDevice {
-    public var hasInputs: Bool {
-        return inputs > 0
-    }
-
-    public var hasOutputs: Bool {
-        return outputs > 0
+    public init(identifier: Int, name: String, inputs: Int, outputs: Int) {
+        self.identifier = identifier
+        self.name = name
+        self.inputs = inputs
+        self.outputs = outputs
     }
 }
