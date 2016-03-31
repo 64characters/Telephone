@@ -20,12 +20,23 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserDefaultsRingtoneSoundNameSaveInteractorTests: XCTestCase {
-    func testUsesExpectedUserDefaultsKeys() {
+    func testUpdatesUserDefaults() {
         let userDefaults = UserDefaultsFake()
         let sut = UserDefaultsRingtoneSoundNameSaveInteractor(name: "sound-name", userDefaults: userDefaults)
 
         sut.execute()
 
         XCTAssertEqual(userDefaults[kRingingSound], "sound-name")
+    }
+
+    func testDoesNotUpdateUserDefaultsWithEmptyName() {
+        let userDefaults = UserDefaultsFake()
+        let anyValue = "any-value"
+        userDefaults[kRingingSound] = anyValue
+        let sut = UserDefaultsRingtoneSoundNameSaveInteractor(name: "", userDefaults: userDefaults)
+
+        sut.execute()
+
+        XCTAssertEqual(userDefaults[kRingingSound], anyValue)
     }
 }

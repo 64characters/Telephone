@@ -27,6 +27,8 @@ public class UserDefaultsRingtoneSoundNameSaveInteractor {
 
 extension UserDefaultsRingtoneSoundNameSaveInteractor: Interactor {
     public func execute() {
-        userDefaults[kRingingSound] = name
+        if !name.isEmpty {
+            userDefaults[kRingingSound] = name
+        }
     }
 }
