@@ -1,8 +1,8 @@
 //
-//  Error.swift
+//  NullUserAgentAudioDevice.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -15,6 +15,10 @@
 //  GNU General Public License for more details.
 //
 
-enum Error: ErrorType {
-    case SystemAudioDeviceNotFoundError
+public struct NullUserAgentAudioDevice: UserAgentAudioDevice {
+    public let identifier = 0
+    public let name = ""
+    public let inputs = 0
+    public let outputs = 0
+    public let isNil = true
 }

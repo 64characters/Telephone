@@ -20,6 +20,7 @@ public protocol UserAgentAudioDevice {
     var name: String  { get }
     var inputs: Int { get }
     var outputs: Int { get }
+    var isNil: Bool { get }
 }
 
 public extension UserAgentAudioDevice {

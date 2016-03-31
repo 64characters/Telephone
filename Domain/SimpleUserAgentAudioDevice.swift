@@ -20,6 +20,7 @@ public struct SimpleUserAgentAudioDevice: UserAgentAudioDevice {
     public let name: String
     public let inputs: Int
     public let outputs: Int
+    public let isNil = false
 
     public init(identifier: Int, name: String, inputs: Int, outputs: Int) {
         self.identifier = identifier

@@ -36,8 +36,8 @@ class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
 
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
-        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(factory.someInput) == userAgentDevices[0])
-        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(factory.someOutput) == userAgentDevices[1])
+        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(factory.someInput) == userAgentDevices[0])
+        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(factory.someOutput) == userAgentDevices[1])
     }
 
     func testMapsSystemToUserAgentDeviceByNameAndIOPortWhenTwoDevicesHaveTheSameName() {
@@ -49,20 +49,15 @@ class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
 
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
-        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[0]) == sut.userAgentDevices[1])
-        XCTAssertTrue(try! sut.userAgentDeviceForSystemDevice(sut.systemDevices[1]) == sut.userAgentDevices[0])
+        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(sut.systemDevices[0]) == sut.userAgentDevices[1])
+        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(sut.systemDevices[1]) == sut.userAgentDevices[0])
     }
 
-    func testThrowsWhenNoMatchingUserAgentDeviceFound() {
+    func testReturnsNullObjectWhenNoMatchingUserAgentDeviceFound() {
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: factory.all, userAgentDevices: [])
 
-        var didThrow = false
-        do {
-            try sut.userAgentDeviceForSystemDevice(factory.someInput)
-        } catch {
-            didThrow = true
-        }
+        let result = sut.userAgentDeviceForSystemDevice(factory.someInput)
 
-        XCTAssertTrue(didThrow)
+        XCTAssertTrue(result.isNil)
     }
 }

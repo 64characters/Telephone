@@ -31,11 +31,11 @@ public class SystemToUserAgentAudioDeviceMap {
         systemDevices.forEach(updateIDMap(withDevice:))
     }
 
-    public func userAgentDeviceForSystemDevice(device: SystemAudioDevice) throws -> UserAgentAudioDevice {
+    public func userAgentDeviceForSystemDevice(device: SystemAudioDevice) -> UserAgentAudioDevice {
         if let deviceID = IDMap[device.identifier], result = IDToUserAgentDevice[deviceID] {
             return result
         } else {
-            throw Error.SystemToUserAgentAudioDeviceMapError
+            return NullUserAgentAudioDevice()
         }
     }
 
@@ -46,7 +46,8 @@ public class SystemToUserAgentAudioDeviceMap {
 
     private func updateIDMap(withInputDevice device: SystemAudioDevice) {
         if device.hasInputs {
-            if let userAgentDevice = nameToUserAgentDevice.inputDeviceNamed(device.name) {
+            let userAgentDevice = nameToUserAgentDevice.inputDeviceNamed(device.name)
+            if !userAgentDevice.isNil {
                 IDMap[device.identifier] = userAgentDevice.identifier
             }
         }
@@ -54,7 +55,8 @@ public class SystemToUserAgentAudioDeviceMap {
 
     private func updateIDMap(withOutputDevice device: SystemAudioDevice) {
         if device.hasOutputs {
-            if let userAgentDevice = nameToUserAgentDevice.outputDeviceNamed(device.name) {
+            let userAgentDevice = nameToUserAgentDevice.outputDeviceNamed(device.name)
+            if !userAgentDevice.isNil {
                 IDMap[device.identifier] = userAgentDevice.identifier
             }
         }

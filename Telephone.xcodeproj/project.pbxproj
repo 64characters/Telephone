@@ -31,6 +31,7 @@
 		8A1CC61F1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */; };
 		8A1CC6211CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */; };
 		8A1CC6231CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */; };
+		8A1CC6251CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */; };
 		8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateInteractorTests.swift */; };
 		8A4D0B001C96D6F8005543A2 /* RingtoneOutputUpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateInteractor.swift */; };
@@ -399,6 +400,7 @@
 		8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SystemAudioDevice+Equality.swift"; sourceTree = "<group>"; };
 		8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleUserAgentAudioDevice.swift; sourceTree = "<group>"; };
 		8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+Equality.swift"; sourceTree = "<group>"; };
+		8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullUserAgentAudioDevice.swift; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateInteractorTests.swift; path = UseCasesTests/RingtoneOutputUpdateInteractorTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneOutputUpdateInteractor.swift; sourceTree = "<group>"; };
 		8A4E382F1C5BB20100816F38 /* UserDefaultsRingtoneSoundNameSaveInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsRingtoneSoundNameSaveInteractorTests.swift; path = UseCasesTests/UserDefaultsRingtoneSoundNameSaveInteractorTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1170,6 +1172,7 @@
 				AA30D84A1BF60DDB002F343A /* FirstSystemAudioDeviceTests.swift */,
 				AA30D8471BF606C1002F343A /* FirstSystemSoundIO.swift */,
 				AA30D8451BF60672002F343A /* FirstSystemSoundIOTests.swift */,
+				8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */,
 				AA3FAB9C1BBAB50B0064B2C3 /* SimpleSystemAudioDevice.swift */,
 				8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */,
 				8A9175AF1CABFCA700354E26 /* SystemAudioDevice.swift */,
@@ -1946,6 +1949,7 @@
 				AA76E0161BFF86D600CC5C07 /* SimpleSystemAudioDevice.swift in Sources */,
 				AA76E01B1BFF86E600CC5C07 /* FirstSystemAudioDevice.swift in Sources */,
 				AA76E0211BFF86FE00CC5C07 /* FirstSystemSoundIO.swift in Sources */,
+				8A1CC6251CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift in Sources */,
 				AA3905231BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
 				8A91758F1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift in Sources */,
 				8A1CC6211CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift in Sources */,
