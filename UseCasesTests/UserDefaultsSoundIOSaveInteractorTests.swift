@@ -20,7 +20,7 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
-    func testUsesExpectedUserDefaultsKeys() {
+    func testUpdatesUserDefaults() {
         let soundIO = SoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
         let userDefaults = UserDefaultsFake()
         let sut = UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
@@ -30,5 +30,22 @@ class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
         XCTAssertEqual(userDefaults[kSoundInput], soundIO.input)
         XCTAssertEqual(userDefaults[kSoundOutput], soundIO.output)
         XCTAssertEqual(userDefaults[kRingtoneOutput], soundIO.ringtoneOutput)
+    }
+
+    func testDoesNotUpadteUserDefaultsWithEmptyValues() {
+        let userDefaults = UserDefaultsFake()
+        let anyValue = "any-value"
+        userDefaults[kSoundInput] = anyValue
+        userDefaults[kSoundOutput] = anyValue
+        userDefaults[kRingtoneOutput] = anyValue
+        let sut = UserDefaultsSoundIOSaveInteractor(
+            soundIO: SoundIO(input: "", output: "", ringtoneOutput: ""),
+            userDefaults: userDefaults)
+
+        sut.execute()
+
+        XCTAssertEqual(userDefaults[kSoundInput], anyValue)
+        XCTAssertEqual(userDefaults[kSoundOutput], anyValue)
+        XCTAssertEqual(userDefaults[kRingtoneOutput], anyValue)
     }
 }
