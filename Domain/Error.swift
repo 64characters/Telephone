@@ -16,5 +16,4 @@
 //
 
 enum Error: ErrorType {
-    case SystemAudioDeviceNotFoundError
 }

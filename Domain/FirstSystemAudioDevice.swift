@@ -18,15 +18,15 @@
 struct FirstSystemAudioDevice {
     let device: SystemAudioDevice
 
-    init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) throws {
-        device = try firstOfDevices(devices, predicate: predicate)
+    init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) {
+        device = firstOf(devices, predicate: predicate)
     }
 }
 
-private func firstOfDevices(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) throws -> SystemAudioDevice {
-    if let result =  devices.filter(predicate).first {
+private func firstOf(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) -> SystemAudioDevice {
+    if let result = devices.filter(predicate).first {
         return result
     } else {
-        throw Error.SystemAudioDeviceNotFoundError
+        return NullSystemAudioDevice()
     }
 }

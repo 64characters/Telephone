@@ -28,36 +28,26 @@ class FirstBuiltInSystemSoundIOTests: XCTestCase {
     }
 
     func testInputIsTheFirstBuiltInInputDevice() {
-        let sut = try! FirstBuiltInSystemSoundIO(devices: factory.all)
+        let sut = FirstBuiltInSystemSoundIO(devices: factory.all)
 
         XCTAssertTrue(sut.input == factory.firstBuiltInInput)
     }
 
     func testOutputIsTheFirstBuiltInOutputDevice() {
-        let sut = try! FirstBuiltInSystemSoundIO(devices: factory.all)
+        let sut = FirstBuiltInSystemSoundIO(devices: factory.all)
 
         XCTAssertTrue(sut.output == factory.firstBuiltInOutput)
     }
 
-    func testThrowsIfCanNotFindBuiltInInput() {
-        assertThrowsWhenCreatedWithDevices([factory.firstBuiltInOutput])
+    func testInputIsNilWhenCanNotFindBuiltInInput() {
+        let sut = FirstBuiltInSystemSoundIO(devices: [factory.firstBuiltInOutput])
+
+        XCTAssertTrue(sut.input.isNil)
     }
 
-    func testThrowsIfCanNotFindBuiltInOutput() {
-        assertThrowsWhenCreatedWithDevices([factory.firstBuiltInInput])
-    }
+    func testOutputIsNilWhenCanNotFindBuiltInOutput() {
+        let sut = FirstBuiltInSystemSoundIO(devices: [factory.firstBuiltInInput])
 
-    private func assertThrowsWhenCreatedWithDevices(devices: [SystemAudioDevice]) {
-        var didThrow = false
-
-        do {
-            _ = try FirstBuiltInSystemSoundIO(devices: devices)
-        } catch Error.SystemAudioDeviceNotFoundError {
-            didThrow = true
-        } catch {
-
-        }
-
-        XCTAssertTrue(didThrow)
+        XCTAssertTrue(sut.output.isNil)
     }
 }
