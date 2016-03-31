@@ -55,8 +55,8 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     }
 
     private func selectUserAgentSoundIO() throws {
-        let input = try deviceMap.userAgentDeviceForSystemDevice(soundIO.input)
-        let output = try deviceMap.userAgentDeviceForSystemDevice(soundIO.output)
+        let input = deviceMap.userAgentDeviceForSystemDevice(soundIO.input)
+        let output = deviceMap.userAgentDeviceForSystemDevice(soundIO.output)
         try userAgent.selectSoundIODeviceIDs(input: input.identifier, output: output.identifier)
     }
 

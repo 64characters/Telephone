@@ -661,10 +661,18 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     if (![self isStarted]) {
         return NO;
     }
-    
-    pj_status_t status = pjsua_set_snd_dev((int)input, (int)output);
+
+    pj_status_t status = pjsua_set_snd_dev([self inputDeviceIDWithID:input], [self outputDeviceIDWithID:output]);
     
     return (status == PJ_SUCCESS) ? YES : NO;
+}
+
+- (int)inputDeviceIDWithID:(NSInteger)deviceID {
+    return deviceID >= 0 ? (int)deviceID : PJMEDIA_AUD_DEFAULT_CAPTURE_DEV;
+}
+
+- (int)outputDeviceIDWithID:(NSInteger)deviceID {
+    return deviceID >= 0 ? (int)deviceID : PJMEDIA_AUD_DEFAULT_PLAYBACK_DEV;
 }
 
 - (BOOL)stopSound {

@@ -176,8 +176,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 - (void)stopRingbackForCall:(AKSIPCall *)call;
 
 // Sets sound input and output.
-- (BOOL)setSoundInputDevice:(NSInteger)input
-          soundOutputDevice:(NSInteger)output;
+- (BOOL)setSoundInputDevice:(NSInteger)input soundOutputDevice:(NSInteger)output;
 
 // Stops sound.
 - (BOOL)stopSound;

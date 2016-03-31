@@ -16,7 +16,7 @@
 //
 
 public struct NullSystemAudioDevice: SystemAudioDevice {
-    public let identifier = 0
+    public let identifier = -1
     public let uniqueIdentifier = ""
     public let name = ""
     public let inputs = 0

@@ -16,7 +16,7 @@
 //
 
 public struct NullUserAgentAudioDevice: UserAgentAudioDevice {
-    public let identifier = 0
+    public let identifier = -1
     public let name = ""
     public let inputs = 0
     public let outputs = 0
