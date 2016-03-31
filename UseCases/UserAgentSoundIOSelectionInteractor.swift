@@ -46,8 +46,10 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     }
 
     private func updateDeviceMap() throws {
-        let userAgentDevices = try userAgent.audioDevices().map(domainWithUseCaseUserAgentAudioDevice)
-        deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: devices.all, userAgentDevices: userAgentDevices)
+        deviceMap = SystemToUserAgentAudioDeviceMap(
+            systemDevices: devices.all,
+            userAgentDevices: try userAgent.audioDevices().map(domainWithUseCaseUserAgentAudioDevice)
+        )
     }
 
     private func updateSoundIO() {
@@ -55,9 +57,10 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     }
 
     private func selectUserAgentSoundIO() throws {
-        let input = deviceMap.userAgentDeviceForSystemDevice(soundIO.input)
-        let output = deviceMap.userAgentDeviceForSystemDevice(soundIO.output)
-        try userAgent.selectSoundIODeviceIDs(input: input.identifier, output: output.identifier)
+        try userAgent.selectSoundIODeviceIDs(
+            input: deviceMap.userAgentDeviceForSystemDevice(soundIO.input).identifier,
+            output: deviceMap.userAgentDeviceForSystemDevice(soundIO.output).identifier
+        )
     }
 
     private func domainWithUseCaseUserAgentAudioDevice(device: UserAgentAudioDevice) -> Domain.UserAgentAudioDevice {
