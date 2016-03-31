@@ -41,7 +41,7 @@ extension UserDefaultsRingtoneSoundConfigurationLoadInteractor: SoundConfigurati
     }
 
     private func ringtoneAudioDeviceUID() throws -> String {
-        let soundIO = SelectedSystemSoundIO(
+        let soundIO = SavedSystemSoundIO(
             devices: SystemAudioDevices(devices: try repository.allDevices()),
             userDefaults: userDefaults
         )

@@ -1,5 +1,5 @@
 //
-//  SelectedSystemSoundIO.swift
+//  SavedSystemSoundIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import Domain
 
-struct SelectedSystemSoundIO {
+struct SavedSystemSoundIO {
     let devices: SystemAudioDevices
     let userDefaults: UserDefaults
 

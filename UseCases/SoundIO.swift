@@ -34,7 +34,7 @@ public func ==(lhs: SoundIO, rhs: SoundIO) -> Bool {
 }
 
 extension SoundIO {
-    init(soundIO: SelectedSystemSoundIO) {
+    init(soundIO: SavedSystemSoundIO) {
         self.init(
             input: AudioDevice(device: soundIO.input),
             output: AudioDevice(device: soundIO.output),
