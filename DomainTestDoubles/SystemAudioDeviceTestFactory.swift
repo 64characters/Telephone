@@ -33,12 +33,12 @@ public class SystemAudioDeviceTestFactory {
     public let intputAndOutput: SystemAudioDevice
 
     public init() {
-        let device1 = SystemAudioDevice(identifier: 1, uniqueIdentifier: "UID1", name: "Device1", inputs: 1, outputs: 0, builtIn: false)
-        let device2 = SystemAudioDevice(identifier: 2, uniqueIdentifier: "UID2", name: "Device2", inputs: 0, outputs: 1, builtIn: false)
-        let device3 = SystemAudioDevice(identifier: 3, uniqueIdentifier: "UID3", name: "Device3", inputs: 1, outputs: 0, builtIn: true)
-        let device4 = SystemAudioDevice(identifier: 4, uniqueIdentifier: "UID4", name: "Device4", inputs: 0, outputs: 1, builtIn: true)
-        let device5 = SystemAudioDevice(identifier: 5, uniqueIdentifier: "UID5", name: "Device1", inputs: 0, outputs: 1, builtIn: false)
-        let device6 = SystemAudioDevice(identifier: 6, uniqueIdentifier: "UID6", name: "Device6", inputs: 1, outputs: 1, builtIn: false)
+        let device1 = SimpleSystemAudioDevice(identifier: 1, uniqueIdentifier: "UID1", name: "Device1", inputs: 1, outputs: 0, builtIn: false)
+        let device2 = SimpleSystemAudioDevice(identifier: 2, uniqueIdentifier: "UID2", name: "Device2", inputs: 0, outputs: 1, builtIn: false)
+        let device3 = SimpleSystemAudioDevice(identifier: 3, uniqueIdentifier: "UID3", name: "Device3", inputs: 1, outputs: 0, builtIn: true)
+        let device4 = SimpleSystemAudioDevice(identifier: 4, uniqueIdentifier: "UID4", name: "Device4", inputs: 0, outputs: 1, builtIn: true)
+        let device5 = SimpleSystemAudioDevice(identifier: 5, uniqueIdentifier: "UID5", name: "Device1", inputs: 0, outputs: 1, builtIn: false)
+        let device6 = SimpleSystemAudioDevice(identifier: 6, uniqueIdentifier: "UID6", name: "Device6", inputs: 1, outputs: 1, builtIn: false)
         all = [device1, device2, device3, device4, device5, device6]
         allInput = [device1, device3, device6]
         allOutput = [device2, device4, device5, device6]
