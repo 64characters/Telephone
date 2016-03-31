@@ -26,12 +26,14 @@ class SystemAudioDevices: SystemAudioDeviceRepository {
 }
 
 private func deviceWithID(deviceID: Int) throws -> SystemAudioDevice {
-    let uniqueIdentifier = try uniqueIdentifierForDeviceWithID(deviceID)
-    let name = try nameForDeviceWithID(deviceID)
-    let inputCount = try inputCountForDeviceWithID(deviceID)
-    let outputCount = try outputCountForDeviceWithID(deviceID)
-    let builtIn = try builtInForDeviceWithID(deviceID)
-    return SimpleSystemAudioDevice(identifier: deviceID, uniqueIdentifier: uniqueIdentifier, name: name, inputs: inputCount, outputs: outputCount, builtIn: builtIn)
+    return SimpleSystemAudioDevice(
+        identifier: deviceID,
+        uniqueIdentifier: try uniqueIdentifierForDeviceWithID(deviceID),
+        name: try nameForDeviceWithID(deviceID),
+        inputs: try inputCountForDeviceWithID(deviceID),
+        outputs: try outputCountForDeviceWithID(deviceID),
+        builtIn: try builtInForDeviceWithID(deviceID)
+    )
 }
 
 private func uniqueIdentifierForDeviceWithID(deviceID: Int) throws -> String {
