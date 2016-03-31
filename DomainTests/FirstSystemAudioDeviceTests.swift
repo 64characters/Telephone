@@ -30,25 +30,25 @@ class FirstSystemAudioDeviceTests: XCTestCase {
     func testCreatedWithFirstInputDevice() {
         let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.hasInputs })
 
-        XCTAssertTrue(sut.device == factory.firstInput)
+        XCTAssertTrue(sut == factory.firstInput)
     }
 
     func testCreatedWithFirstOutputDevice() {
         let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.hasOutputs })
 
-        XCTAssertTrue(sut.device == factory.firstOutput)
+        XCTAssertTrue(sut == factory.firstOutput)
     }
 
     func testCreatedWithFirstBuiltInInputDevice() {
         let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.builtInInput })
 
-        XCTAssertTrue(sut.device == factory.firstBuiltInInput)
+        XCTAssertTrue(sut == factory.firstBuiltInInput)
     }
 
     func testCreatedWithFirstBuiltInOutputDevice() {
         let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.builtInOutput })
 
-        XCTAssertTrue(sut.device == factory.firstBuiltInOutput)
+        XCTAssertTrue(sut == factory.firstBuiltInOutput)
     }
 
     func testIsNilWhenDeviceNotFound() {
@@ -57,6 +57,6 @@ class FirstSystemAudioDeviceTests: XCTestCase {
             predicate: { $0.hasInputs }
         )
 
-        XCTAssertTrue(sut.device.isNil)
+        XCTAssertTrue(sut.isNil)
     }
 }

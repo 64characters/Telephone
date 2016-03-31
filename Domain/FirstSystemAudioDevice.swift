@@ -2,7 +2,7 @@
 //  FirstSystemAudioDevice.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 //
 
 struct FirstSystemAudioDevice {
-    let device: SystemAudioDevice
+    private let device: SystemAudioDevice
 
     init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) {
         device = firstOf(devices, predicate: predicate)
@@ -29,4 +29,14 @@ private func firstOf(devices: [SystemAudioDevice], predicate: (SystemAudioDevice
     } else {
         return NullSystemAudioDevice()
     }
+}
+
+extension FirstSystemAudioDevice: SystemAudioDevice {
+    var identifier: Int { return device.identifier }
+    var uniqueIdentifier: String { return device.uniqueIdentifier }
+    var name: String { return device.name }
+    var inputs: Int { return device.inputs }
+    var outputs: Int { return device.outputs }
+    var builtIn: Bool { return device.builtIn }
+    var isNil: Bool { return device.isNil }
 }
