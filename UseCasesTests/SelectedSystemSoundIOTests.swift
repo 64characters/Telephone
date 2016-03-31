@@ -133,7 +133,7 @@ class SelectedSystemSoundIOTests: XCTestCase {
     // MARK: - Helper
 
     private func createSelectedIO() -> SelectedSystemSoundIO {
-        return try! SelectedSystemSoundIO(
+        return SelectedSystemSoundIO(
             devices: SystemAudioDevices(devices: factory.all),
             userDefaults: userDefaults
         )

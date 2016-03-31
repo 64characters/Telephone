@@ -23,4 +23,6 @@ public struct NullSystemAudioDevice: SystemAudioDevice {
     public let outputs = 0
     public let builtIn = false
     public let isNil = true
+
+    public init() {}
 }

@@ -25,20 +25,32 @@ struct SelectedSystemSoundIO {
     private(set) var output: SystemAudioDevice!
     private(set) var ringtoneOutput: SystemAudioDevice!
 
-    init(devices: SystemAudioDevices, userDefaults: UserDefaults) throws {
+    init(devices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.devices = devices
         self.userDefaults = userDefaults
-        let builtInDevices = try FirstBuiltInSystemSoundIO(devices: devices.all)
-        input = inputDeviceByNameWithUserDefaultsKey(kSoundInput) ?? builtInDevices.input
-        output = outputDeviceByNameWithUserDefaultsKey(kSoundOutput) ?? builtInDevices.output
-        ringtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput) ?? builtInDevices.output
+        let builtInDevices = FirstBuiltInSystemSoundIO(devices: devices.all)
+        input = or(inputDeviceByNameWithUserDefaultsKey(kSoundInput), builtInDevices.input)
+        output = or(outputDeviceByNameWithUserDefaultsKey(kSoundOutput), builtInDevices.output)
+        ringtoneOutput = or(outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput), builtInDevices.output)
     }
 
-    private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        return userDefaults.stringForKey(key).flatMap(devices.inputDeviceNamed)
+    private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
+        return deviceByNameWithUserDefaultsKey(key, function: devices.inputDeviceNamed)
     }
 
-    private func outputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice? {
-        return userDefaults.stringForKey(key).flatMap(devices.outputDeviceNamed)
+    private func outputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
+        return deviceByNameWithUserDefaultsKey(key, function: devices.outputDeviceNamed)
     }
+
+    private func deviceByNameWithUserDefaultsKey(key: String, function: String -> SystemAudioDevice) -> SystemAudioDevice {
+        if let name = userDefaults.stringForKey(key) {
+            return function(name)
+        } else {
+            return NullSystemAudioDevice()
+        }
+    }
+}
+
+private func or(first: SystemAudioDevice, _ second: SystemAudioDevice) -> SystemAudioDevice {
+    return first.isNil ? second : first
 }

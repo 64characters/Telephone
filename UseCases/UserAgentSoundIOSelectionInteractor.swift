@@ -37,7 +37,7 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     public func execute() throws {
         try updateDevices()
         try updateDeviceMap()
-        try updateSoundIO()
+        updateSoundIO()
         try selectUserAgentSoundIO()
     }
 
@@ -50,8 +50,8 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
         deviceMap = SystemToUserAgentAudioDeviceMap(systemDevices: devices.all, userAgentDevices: userAgentDevices)
     }
 
-    private func updateSoundIO() throws {
-        soundIO = try SelectedSystemSoundIO(devices: devices, userDefaults: userDefaults)
+    private func updateSoundIO() {
+        soundIO = SelectedSystemSoundIO(devices: devices, userDefaults: userDefaults)
     }
 
     private func selectUserAgentSoundIO() throws {

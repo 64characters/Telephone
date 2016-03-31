@@ -18,10 +18,16 @@
 class NSSoundToSoundAdapterFactory {
     func createSound(configuration configuration: SoundConfiguration, eventTarget: SoundEventTarget) throws -> Sound {
         if let sound = NSSound(named: configuration.name) {
-            sound.playbackDeviceIdentifier = configuration.deviceUID
+            updateSound(sound, withDeviceID: configuration.deviceUID)
             return NSSoundToSoundAdapter(sound: sound, eventTarget: eventTarget)
         } else {
             throw TelephoneError.SoundCreationError
         }
+    }
+}
+
+private func updateSound(sound: NSSound, withDeviceID deviceID: String) {
+    if !deviceID.isEmpty {
+        sound.playbackDeviceIdentifier = deviceID
     }
 }
