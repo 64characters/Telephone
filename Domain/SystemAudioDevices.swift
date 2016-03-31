@@ -31,12 +31,12 @@ public struct SystemAudioDevices {
         deviceNameToOutputDevice = deviceNameToDeviceMapWithDevices(output)
     }
 
-    public func inputDeviceNamed(name: String) -> SystemAudioDevice? {
-        return deviceNameToInputDevice[name]
+    public func inputDeviceNamed(name: String) -> SystemAudioDevice {
+        return deviceNameToInputDevice[name] ?? NullSystemAudioDevice()
     }
 
-    public func outputDeviceNamed(name: String) -> SystemAudioDevice? {
-        return deviceNameToOutputDevice[name]
+    public func outputDeviceNamed(name: String) -> SystemAudioDevice {
+        return deviceNameToOutputDevice[name] ?? NullSystemAudioDevice()
     }
 }
 

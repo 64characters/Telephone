@@ -22,6 +22,7 @@ public protocol SystemAudioDevice {
     var inputs: Int { get }
     var outputs: Int { get }
     var builtIn: Bool { get }
+    var isNil: Bool { get }
 }
 
 public extension SystemAudioDevice {

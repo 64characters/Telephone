@@ -32,13 +32,13 @@ class SystemAudioDevicesTests: XCTestCase {
     func testCanGetInputDeviceByName() {
         let inputDevice = factory.someInput
 
-        XCTAssertTrue(sut.inputDeviceNamed(inputDevice.name)! == inputDevice)
+        XCTAssertTrue(sut.inputDeviceNamed(inputDevice.name) == inputDevice)
     }
 
     func testCanGetOutputDeviceByName() {
         let outputDevice = factory.someOutput
 
-        XCTAssertTrue(sut.outputDeviceNamed(outputDevice.name)! == outputDevice)
+        XCTAssertTrue(sut.outputDeviceNamed(outputDevice.name) == outputDevice)
     }
 
     func testCanGetInputDevices() {
@@ -47,5 +47,10 @@ class SystemAudioDevicesTests: XCTestCase {
 
     func testCanGetOutputDevices() {
         XCTAssertTrue(sut.output == factory.allOutput)
+    }
+
+    func testReturnsNullObjectsWhenNoDevicesFound() {
+        XCTAssertTrue(sut.inputDeviceNamed("nonexistent").isNil)
+        XCTAssertTrue(sut.outputDeviceNamed("nonexistent").isNil)
     }
 }

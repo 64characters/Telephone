@@ -22,6 +22,7 @@ public struct SimpleSystemAudioDevice: SystemAudioDevice {
     public let inputs: Int
     public let outputs: Int
     public let builtIn: Bool
+    public let isNil: Bool = false
 
     public init(identifier: Int, uniqueIdentifier: String, name: String, inputs: Int, outputs: Int, builtIn: Bool) {
         self.identifier = identifier
