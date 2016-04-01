@@ -23,7 +23,7 @@ public class InteractorFactorySpy {
     public private(set) var userDefaultsSoundIOSave: Interactor!
     public private(set) var userDefaultsRingtoneSoundNameSave: Interactor!
 
-    public private(set) var invokedSoundIO = SoundIO(input: "", output: "", ringtoneOutput: "")
+    public private(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
     public private(set) var invokedRingtoneSoundName = ""
 
     public init() {}
@@ -54,7 +54,7 @@ extension InteractorFactorySpy: InteractorFactory {
         return userDefaultsSoundIOLoad
     }
 
-    public func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: SoundIO) -> Interactor {
+    public func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: PresentationSoundIO) -> Interactor {
         invokedSoundIO = soundIO
         return userDefaultsSoundIOSave
     }

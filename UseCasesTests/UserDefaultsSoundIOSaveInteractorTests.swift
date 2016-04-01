@@ -21,7 +21,7 @@ import XCTest
 
 class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
     func testUpdatesUserDefaults() {
-        let soundIO = SoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
+        let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
         let userDefaults = UserDefaultsFake()
         let sut = UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
 
@@ -39,7 +39,7 @@ class UserDefaultsSoundIOSaveInteractorTests: XCTestCase {
         userDefaults[kSoundOutput] = anyValue
         userDefaults[kRingtoneOutput] = anyValue
         let sut = UserDefaultsSoundIOSaveInteractor(
-            soundIO: SoundIO(input: "", output: "", ringtoneOutput: ""),
+            soundIO: PresentationSoundIO(input: "", output: "", ringtoneOutput: ""),
             userDefaults: userDefaults)
 
         sut.execute()

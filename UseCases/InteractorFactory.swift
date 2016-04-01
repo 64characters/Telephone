@@ -18,6 +18,6 @@
 public protocol InteractorFactory {
     func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor
     func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor
-    func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: SoundIO) -> Interactor
+    func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: PresentationSoundIO) -> Interactor
     func createUserDefaultsRingtoneSoundNameSaveInteractor(name name: String) -> Interactor
 }

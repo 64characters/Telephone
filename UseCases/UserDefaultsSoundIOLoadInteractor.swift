@@ -18,7 +18,7 @@
 import Domain
 
 public protocol UserDefaultsSoundIOLoadInteractorOutput: class {
-    func update(devices devices: AudioDevices, soundIO: SoundIO)
+    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO)
 }
 
 public class UserDefaultsSoundIOLoadInteractor {
@@ -38,7 +38,9 @@ extension UserDefaultsSoundIOLoadInteractor: ThrowingInteractor {
         let devices = SystemAudioDevices(devices: try repository.allDevices())
         output.update(
             devices: AudioDevices(devices: devices),
-            soundIO: SoundIO(soundIO: SavedSystemSoundIO(devices: devices, userDefaults: userDefaults))
+            soundIO: PresentationSoundIO(
+                soundIO: SavedSystemSoundIO(devices: devices, userDefaults: userDefaults)
+            )
         )
     }
 }

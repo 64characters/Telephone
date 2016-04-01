@@ -51,10 +51,12 @@ class UserDefaultsSoundIOLoadInteractorTests: XCTestCase {
         XCTAssertEqual(output.invokedSoundIO, expectedSoundIO())
     }
 
-    private func expectedSoundIO() -> SoundIO {
-        let firstBuiltInInput = AudioDevice(device: factory.firstBuiltInInput)
-        let firstBuiltInOutput = AudioDevice(device: factory.firstBuiltInOutput)
-        return SoundIO(input: firstBuiltInInput, output: firstBuiltInOutput, ringtoneOutput: firstBuiltInOutput)
+    private func expectedSoundIO() -> PresentationSoundIO {
+        return PresentationSoundIO(
+            input: AudioDevice(device: factory.firstBuiltInInput),
+            output: AudioDevice(device: factory.firstBuiltInOutput),
+            ringtoneOutput: AudioDevice(device: factory.firstBuiltInOutput)
+        )
     }
 
     private func expectedAudioDevices() -> AudioDevices {

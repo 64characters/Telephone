@@ -26,7 +26,7 @@ class SoundIOPresenter {
 }
 
 extension SoundIOPresenter: UserDefaultsSoundIOLoadInteractorOutput {
-    func update(devices devices: AudioDevices, soundIO: SoundIO) {
+    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
         output.setInputDevices(devices.input)
         output.setOutputDevices(devices.output)
         output.setRingtoneDevices(devices.output)

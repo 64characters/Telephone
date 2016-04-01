@@ -60,7 +60,7 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
         let interactor = InteractorSpy()
         factory.stubWithUserDefaultsSoundIOSave(interactor)
         factory.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
-        let soundIO = SoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
+        let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
 
         sut.viewDidChangeSoundIO(
             input: soundIO.input, output: soundIO.output, ringtoneOutput: soundIO.ringtoneOutput

@@ -16,10 +16,10 @@
 //
 
 public class UserDefaultsSoundIOSaveInteractor {
-    public let soundIO: SoundIO
+    public let soundIO: PresentationSoundIO
     public let userDefaults: UserDefaults
 
-    public init(soundIO: SoundIO, userDefaults: UserDefaults) {
+    public init(soundIO: PresentationSoundIO, userDefaults: UserDefaults) {
         self.soundIO = soundIO
         self.userDefaults = userDefaults
     }

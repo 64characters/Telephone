@@ -1,5 +1,5 @@
 //
-//  SoundIO.swift
+//  PresentationSoundIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-public struct SoundIO {
+public struct PresentationSoundIO {
     public let input: AudioDevice
     public let output: AudioDevice
     public let ringtoneOutput: AudioDevice
@@ -27,13 +27,13 @@ public struct SoundIO {
     }
 }
 
-extension SoundIO: Equatable {}
+extension PresentationSoundIO: Equatable {}
 
-public func ==(lhs: SoundIO, rhs: SoundIO) -> Bool {
+public func ==(lhs: PresentationSoundIO, rhs: PresentationSoundIO) -> Bool {
     return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
 }
 
-extension SoundIO {
+extension PresentationSoundIO {
     init(soundIO: SavedSystemSoundIO) {
         self.init(
             input: AudioDevice(device: soundIO.input),

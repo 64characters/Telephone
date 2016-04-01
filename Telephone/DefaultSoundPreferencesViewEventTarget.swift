@@ -48,7 +48,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
 
     func viewDidChangeSoundIO(input input: String, output: String, ringtoneOutput: String) {
         updateUserDefaultsWithSoundIO(
-            SoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
+            PresentationSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
         )
         selectUserAgentAudioDevicesOrLogError()
         updateRingtoneOutputOrLogError()
@@ -71,7 +71,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         }
     }
 
-    private func updateUserDefaultsWithSoundIO(soundIO: SoundIO) {
+    private func updateUserDefaultsWithSoundIO(soundIO: PresentationSoundIO) {
         interactorFactory.createUserDefaultsSoundIOSaveInteractor(soundIO: soundIO).execute()
     }
 

@@ -44,7 +44,7 @@ extension DefaultInteractorFactory: InteractorFactory {
         )
     }
 
-    func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: SoundIO) -> Interactor {
+    func createUserDefaultsSoundIOSaveInteractor(soundIO soundIO: PresentationSoundIO) -> Interactor {
         return UserDefaultsSoundIOSaveInteractor(soundIO: soundIO, userDefaults: userDefaults)
     }
 
