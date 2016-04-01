@@ -39,7 +39,7 @@ extension UserDefaultsSoundIOLoadInteractor: ThrowingInteractor {
         output.update(
             devices: AudioDevices(devices: devices),
             soundIO: PresentationSoundIO(
-                soundIO: SavedSystemSoundIO(devices: devices, userDefaults: userDefaults)
+                soundIO: PreferredSoundIO(devices: devices, userDefaults: userDefaults)
             )
         )
     }

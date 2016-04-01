@@ -1,5 +1,5 @@
 //
-//  SavedSystemSoundIO.swift
+//  PreferredSoundIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2015 Alexey Kuznetsov
@@ -17,7 +17,7 @@
 
 import Domain
 
-struct SavedSystemSoundIO {
+struct PreferredSoundIO {
     let devices: SystemAudioDevices
     let userDefaults: UserDefaults
 
@@ -28,7 +28,7 @@ struct SavedSystemSoundIO {
     init(devices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.devices = devices
         self.userDefaults = userDefaults
-        let preferredIO = PreferredSoundIO(devices: devices.all)
+        let preferredIO = Domain.PreferredSoundIO(devices: devices.all)
         optionalInput = or(inputDeviceByNameWithUserDefaultsKey(kSoundInput), preferredIO.input)
         optionalOutput = or(outputDeviceByNameWithUserDefaultsKey(kSoundOutput), preferredIO.output)
         optionalRingtoneOutput = or(outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput), preferredIO.output)
@@ -51,7 +51,7 @@ struct SavedSystemSoundIO {
     }
 }
 
-extension SavedSystemSoundIO: SoundIO {
+extension PreferredSoundIO: SoundIO {
     var input: SystemAudioDevice {
         return optionalInput
     }

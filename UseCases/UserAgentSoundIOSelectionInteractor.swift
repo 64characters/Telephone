@@ -24,7 +24,7 @@ public class UserAgentSoundIOSelectionInteractor {
 
     private var devices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
-    private var soundIO: SavedSystemSoundIO!
+    private var soundIO: SoundIO!
 
     public init(repository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
         self.repository = repository
@@ -53,7 +53,7 @@ extension UserAgentSoundIOSelectionInteractor: ThrowingInteractor {
     }
 
     private func updateSoundIO() {
-        soundIO = SavedSystemSoundIO(devices: devices, userDefaults: userDefaults)
+        soundIO = PreferredSoundIO(devices: devices, userDefaults: userDefaults)
     }
 
     private func selectUserAgentSoundIO() throws {
