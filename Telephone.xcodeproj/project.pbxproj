@@ -63,6 +63,8 @@
 		8AAACA051CAE9F81001930C4 /* SystemSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */; };
 		8AAACA071CAE9FEE001930C4 /* SimpleSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA061CAE9FEE001930C4 /* SimpleSoundIOTests.swift */; };
 		8AAACA091CAEA047001930C4 /* SimpleSystemSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA081CAEA047001930C4 /* SimpleSystemSoundIO.swift */; };
+		8AAACA0D1CAEA717001930C4 /* FallingBackSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA0C1CAEA717001930C4 /* FallingBackSoundIO.swift */; };
+		8AAACA0F1CAEA733001930C4 /* FallingBackSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA0E1CAEA733001930C4 /* FallingBackSoundIOTests.swift */; };
 		8AC1A43C1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */; };
 		8AC1A4411C67BFA8007778A2 /* SoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */; };
 		8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackInteractorTests.swift */; };
@@ -437,6 +439,8 @@
 		8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemSoundIO.swift; sourceTree = "<group>"; };
 		8AAACA061CAE9FEE001930C4 /* SimpleSoundIOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleSoundIOTests.swift; path = DomainTests/SimpleSoundIOTests.swift; sourceTree = SOURCE_ROOT; };
 		8AAACA081CAEA047001930C4 /* SimpleSystemSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSystemSoundIO.swift; sourceTree = "<group>"; };
+		8AAACA0C1CAEA717001930C4 /* FallingBackSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallingBackSoundIO.swift; sourceTree = "<group>"; };
+		8AAACA0E1CAEA733001930C4 /* FallingBackSoundIOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FallingBackSoundIOTests.swift; path = DomainTests/FallingBackSoundIOTests.swift; sourceTree = SOURCE_ROOT; };
 		8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSoundToSoundAdapterFactory.swift; sourceTree = "<group>"; };
 		8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSoundObserver.swift; sourceTree = "<group>"; };
 		8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEventTarget.swift; sourceTree = "<group>"; };
@@ -1178,6 +1182,8 @@
 		AA9D08041BFF7E6F0000F618 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				8AAACA0C1CAEA717001930C4 /* FallingBackSoundIO.swift */,
+				8AAACA0E1CAEA733001930C4 /* FallingBackSoundIOTests.swift */,
 				AAC6738A1BF50515006F43A2 /* FirstBuiltInSystemSoundIO.swift */,
 				AAC6738D1BF5053C006F43A2 /* FirstBuiltInSystemSoundIOTests.swift */,
 				AA30D84F1BF60E76002F343A /* FirstSystemAudioDevice.swift */,
@@ -1968,6 +1974,7 @@
 				8A1CC6271CAD5AA200901BE9 /* NullSystemAudioDevice.swift in Sources */,
 				8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */,
 				8AAACA051CAE9F81001930C4 /* SystemSoundIO.swift in Sources */,
+				8AAACA0D1CAEA717001930C4 /* FallingBackSoundIO.swift in Sources */,
 				AA76E01B1BFF86E600CC5C07 /* FirstSystemAudioDevice.swift in Sources */,
 				AA76E0211BFF86FE00CC5C07 /* FirstSystemSoundIO.swift in Sources */,
 				8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */,
@@ -1988,6 +1995,7 @@
 			files = (
 				AA76E0201BFF86F900CC5C07 /* FirstBuiltInSystemSoundIOTests.swift in Sources */,
 				8A9175931CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */,
+				8AAACA0F1CAEA733001930C4 /* FallingBackSoundIOTests.swift in Sources */,
 				AA3905281BFFA1D2005A8AA3 /* SystemToUserAgentAudioDeviceMapTests.swift in Sources */,
 				AA76E0231BFF870400CC5C07 /* FirstSystemSoundIOTests.swift in Sources */,
 				AA76E01D1BFF86EF00CC5C07 /* FirstSystemAudioDeviceTests.swift in Sources */,
