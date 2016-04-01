@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-struct FirstSystemSoundIO {
+struct FirstSystemSoundIO: SystemSoundIO {
     let input: SystemAudioDevice
     let output: SystemAudioDevice
 

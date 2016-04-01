@@ -1,8 +1,8 @@
 //
-//  FirstBuiltInSystemSoundIO.swift
+//  PreferredSoundIO.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -15,12 +15,22 @@
 //  GNU General Public License for more details.
 //
 
-public struct FirstBuiltInSystemSoundIO: SystemSoundIO {
+public struct PreferredSoundIO: SoundIO {
     public let input: SystemAudioDevice
     public let output: SystemAudioDevice
+    public let ringtoneOutput: SystemAudioDevice
 
     public init(devices: [SystemAudioDevice]) {
-        input = FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInput })
-        output = FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutput })
+        let soundIO = createFallingBackSoundIO(devices: devices)
+        input = soundIO.input
+        output = soundIO.output
+        ringtoneOutput = soundIO.ringtoneOutput
     }
+}
+
+private func createFallingBackSoundIO(devices devices: [SystemAudioDevice]) -> SoundIO {
+    return FallingBackSoundIO(
+        origin: SimpleSoundIO(soundIO: FirstBuiltInSystemSoundIO(devices: devices)),
+        fallback: SimpleSoundIO(soundIO: FirstSystemSoundIO(devices: devices))
+    )
 }
