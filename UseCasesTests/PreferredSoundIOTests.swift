@@ -64,6 +64,12 @@ class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.input == factory.firstBuiltInInput)
     }
 
+    func testInputIsFirstInputWhenNotFoundInUserDefaultsAndThereIsNoBuiltInInput() {
+        let sut = createSoundIO(devices: [factory.firstInput, factory.someOutput])
+
+        XCTAssertTrue(sut.input == factory.firstInput)
+    }
+
     // MARK: - Sound output
 
     func testOutputIsDeviceWithNameFromUserDefaults() {
@@ -95,6 +101,12 @@ class PreferredSoundIOTests: XCTestCase {
         let sut = createSoundIO()
 
         XCTAssertTrue(sut.output == factory.firstBuiltInOutput)
+    }
+
+    func testOutputIsFirstOutputWhenNotFoundInUserDefaultsAndThereIsNoBuiltInOutput() {
+        let sut = createSoundIO(devices: [factory.someInput, factory.firstOutput])
+
+        XCTAssertTrue(sut.output == factory.firstOutput)
     }
 
     // MARK: - Ringtone output
@@ -130,11 +142,21 @@ class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.ringtoneOutput == factory.firstBuiltInOutput)
     }
 
+    func testRingtoneOutputIsFirstOutputWhenNotFoundInUserDefaultsAndThereIsNoBuiltInOutput() {
+        let sut = createSoundIO(devices: [factory.someInput, factory.firstOutput])
+
+        XCTAssertTrue(sut.ringtoneOutput == factory.firstOutput)
+    }
+
     // MARK: - Helper
 
     private func createSoundIO() -> UseCases.PreferredSoundIO {
+        return createSoundIO(devices: factory.all)
+    }
+
+    private func createSoundIO(devices devices: [SystemAudioDevice]) -> UseCases.PreferredSoundIO {
         return PreferredSoundIO(
-            devices: SystemAudioDevices(devices: factory.all),
+            devices: SystemAudioDevices(devices: devices),
             userDefaults: userDefaults
         )
     }
