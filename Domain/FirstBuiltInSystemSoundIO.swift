@@ -15,11 +15,11 @@
 //  GNU General Public License for more details.
 //
 
-public struct FirstBuiltInSystemSoundIO: SystemSoundIO {
-    public let input: SystemAudioDevice
-    public let output: SystemAudioDevice
+struct FirstBuiltInSystemSoundIO: SystemSoundIO {
+    let input: SystemAudioDevice
+    let output: SystemAudioDevice
 
-    public init(devices: [SystemAudioDevice]) {
+    init(devices: [SystemAudioDevice]) {
         input = FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInput })
         output = FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutput })
     }

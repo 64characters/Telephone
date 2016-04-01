@@ -28,10 +28,10 @@ struct SavedSystemSoundIO {
     init(devices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.devices = devices
         self.userDefaults = userDefaults
-        let builtInDevices = FirstBuiltInSystemSoundIO(devices: devices.all)
-        input = or(inputDeviceByNameWithUserDefaultsKey(kSoundInput), builtInDevices.input)
-        output = or(outputDeviceByNameWithUserDefaultsKey(kSoundOutput), builtInDevices.output)
-        ringtoneOutput = or(outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput), builtInDevices.output)
+        let preferredIO = PreferredSoundIO(devices: devices.all)
+        input = or(inputDeviceByNameWithUserDefaultsKey(kSoundInput), preferredIO.input)
+        output = or(outputDeviceByNameWithUserDefaultsKey(kSoundOutput), preferredIO.output)
+        ringtoneOutput = or(outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput), preferredIO.output)
     }
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
