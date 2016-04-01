@@ -15,7 +15,7 @@
 //  GNU General Public License for more details.
 //
 
-protocol SoundIO {
+public protocol SoundIO {
     var input: SystemAudioDevice { get }
     var output: SystemAudioDevice { get }
     var ringtoneOutput: SystemAudioDevice { get }

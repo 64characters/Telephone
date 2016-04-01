@@ -21,17 +21,17 @@ struct SavedSystemSoundIO {
     let devices: SystemAudioDevices
     let userDefaults: UserDefaults
 
-    private(set) var input: SystemAudioDevice!
-    private(set) var output: SystemAudioDevice!
-    private(set) var ringtoneOutput: SystemAudioDevice!
+    private(set) var optionalInput: SystemAudioDevice!
+    private(set) var optionalOutput: SystemAudioDevice!
+    private(set) var optionalRingtoneOutput: SystemAudioDevice!
 
     init(devices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.devices = devices
         self.userDefaults = userDefaults
         let preferredIO = PreferredSoundIO(devices: devices.all)
-        input = or(inputDeviceByNameWithUserDefaultsKey(kSoundInput), preferredIO.input)
-        output = or(outputDeviceByNameWithUserDefaultsKey(kSoundOutput), preferredIO.output)
-        ringtoneOutput = or(outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput), preferredIO.output)
+        optionalInput = or(inputDeviceByNameWithUserDefaultsKey(kSoundInput), preferredIO.input)
+        optionalOutput = or(outputDeviceByNameWithUserDefaultsKey(kSoundOutput), preferredIO.output)
+        optionalRingtoneOutput = or(outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput), preferredIO.output)
     }
 
     private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
@@ -48,6 +48,20 @@ struct SavedSystemSoundIO {
         } else {
             return NullSystemAudioDevice()
         }
+    }
+}
+
+extension SavedSystemSoundIO: SoundIO {
+    var input: SystemAudioDevice {
+        return optionalInput
+    }
+
+    var output: SystemAudioDevice {
+        return optionalOutput
+    }
+
+    var ringtoneOutput: SystemAudioDevice {
+        return optionalRingtoneOutput
     }
 }
 

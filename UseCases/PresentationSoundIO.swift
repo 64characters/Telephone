@@ -15,6 +15,8 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
+
 public struct PresentationSoundIO {
     public let input: AudioDevice
     public let output: AudioDevice
@@ -34,7 +36,7 @@ public func ==(lhs: PresentationSoundIO, rhs: PresentationSoundIO) -> Bool {
 }
 
 extension PresentationSoundIO {
-    init(soundIO: SavedSystemSoundIO) {
+    init(soundIO: SoundIO) {
         self.init(
             input: AudioDevice(device: soundIO.input),
             output: AudioDevice(device: soundIO.output),
