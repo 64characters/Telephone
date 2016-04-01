@@ -21,50 +21,28 @@ struct PreferredSoundIO {
     let devices: SystemAudioDevices
     let userDefaults: UserDefaults
 
-    private(set) var optionalInput: SystemAudioDevice!
-    private(set) var optionalOutput: SystemAudioDevice!
-    private(set) var optionalRingtoneOutput: SystemAudioDevice!
+    private let soundIO: SoundIO
 
     init(devices: SystemAudioDevices, userDefaults: UserDefaults) {
         self.devices = devices
         self.userDefaults = userDefaults
-        let preferredIO = Domain.PreferredSoundIO(devices: devices.all)
-        optionalInput = or(inputDeviceByNameWithUserDefaultsKey(kSoundInput), preferredIO.input)
-        optionalOutput = or(outputDeviceByNameWithUserDefaultsKey(kSoundOutput), preferredIO.output)
-        optionalRingtoneOutput = or(outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput), preferredIO.output)
-    }
-
-    private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
-        return deviceByNameWithUserDefaultsKey(key, function: devices.inputDeviceNamed)
-    }
-
-    private func outputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
-        return deviceByNameWithUserDefaultsKey(key, function: devices.outputDeviceNamed)
-    }
-
-    private func deviceByNameWithUserDefaultsKey(key: String, function: String -> SystemAudioDevice) -> SystemAudioDevice {
-        if let name = userDefaults.stringForKey(key) {
-            return function(name)
-        } else {
-            return NullSystemAudioDevice()
-        }
+        soundIO = FallingBackSoundIO(
+            origin: UserDefaultsSoundIO(devices: devices, userDefaults: userDefaults),
+            fallback: Domain.PreferredSoundIO(devices: devices.all)
+        )
     }
 }
 
 extension PreferredSoundIO: SoundIO {
     var input: SystemAudioDevice {
-        return optionalInput
+        return soundIO.input
     }
 
     var output: SystemAudioDevice {
-        return optionalOutput
+        return soundIO.output
     }
 
     var ringtoneOutput: SystemAudioDevice {
-        return optionalRingtoneOutput
+        return soundIO.ringtoneOutput
     }
-}
-
-private func or(first: SystemAudioDevice, _ second: SystemAudioDevice) -> SystemAudioDevice {
-    return first.isNil ? second : first
 }

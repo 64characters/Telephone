@@ -15,26 +15,26 @@
 //  GNU General Public License for more details.
 //
 
-struct FallingBackSoundIO {
-    let origin: SoundIO
-    let fallback: SoundIO
+public struct FallingBackSoundIO {
+    public let origin: SoundIO
+    public let fallback: SoundIO
 
-    init(origin: SoundIO, fallback: SoundIO) {
+    public init(origin: SoundIO, fallback: SoundIO) {
         self.origin = origin
         self.fallback = fallback
     }
 }
 
 extension FallingBackSoundIO: SoundIO {
-    var input: SystemAudioDevice {
+    public var input: SystemAudioDevice {
         return origin.input.isNil ? fallback.input : origin.input
     }
 
-    var output: SystemAudioDevice {
+    public var output: SystemAudioDevice {
         return origin.output.isNil  ? fallback.output : origin.output
     }
 
-    var ringtoneOutput: SystemAudioDevice {
-        return output
+    public var ringtoneOutput: SystemAudioDevice {
+        return origin.ringtoneOutput.isNil ? fallback.ringtoneOutput : origin.ringtoneOutput
     }
 }

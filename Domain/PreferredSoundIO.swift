@@ -15,22 +15,27 @@
 //  GNU General Public License for more details.
 //
 
-public struct PreferredSoundIO: SoundIO {
-    public let input: SystemAudioDevice
-    public let output: SystemAudioDevice
-    public let ringtoneOutput: SystemAudioDevice
+public struct PreferredSoundIO {
+    private let soundIO: SoundIO
 
     public init(devices: [SystemAudioDevice]) {
-        let soundIO = createFallingBackSoundIO(devices: devices)
-        input = soundIO.input
-        output = soundIO.output
-        ringtoneOutput = soundIO.ringtoneOutput
+        soundIO = FallingBackSoundIO(
+            origin: SimpleSoundIO(soundIO: FirstBuiltInSystemSoundIO(devices: devices)),
+            fallback: SimpleSoundIO(soundIO: FirstSystemSoundIO(devices: devices))
+        )
     }
 }
 
-private func createFallingBackSoundIO(devices devices: [SystemAudioDevice]) -> SoundIO {
-    return FallingBackSoundIO(
-        origin: SimpleSoundIO(soundIO: FirstBuiltInSystemSoundIO(devices: devices)),
-        fallback: SimpleSoundIO(soundIO: FirstSystemSoundIO(devices: devices))
-    )
+extension PreferredSoundIO: SoundIO {
+    public var input: SystemAudioDevice {
+        return soundIO.input
+    }
+
+    public var output: SystemAudioDevice {
+        return soundIO.output
+    }
+
+    public var ringtoneOutput: SystemAudioDevice {
+        return soundIO.ringtoneOutput
+    }
 }
