@@ -1147,44 +1147,24 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 }
 
 - (void)SIPUserAgentDidDetectNAT:(NSNotification *)notification {
+    if ([[self userAgent] detectedNATType] != kAKNATTypeBlocked) {
+        return;
+    }
+
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"OK"];
-    
-    switch ([[self userAgent] detectedNATType]) {
-        case kAKNATTypeBlocked:
-            [alert setMessageText:
-             NSLocalizedString(@"Failed to communicate with STUN server.",
-                               @"Failed to communicate with STUN server.")];
-            [alert setInformativeText:
-             NSLocalizedString(@"UDP packets are probably blocked. It is "
-                               "impossible to make or receive calls without that. "
-                               "Make sure that your local firewall and the "
-                               "firewall at your router allow UDP protocol.",
-                               @"Failed to communicate with STUN server "
-                               "informative text.")];
-            [alert runModal];
-            break;
-            
-        case kAKNATTypeSymmetric:
-            [alert setMessageText:
-             NSLocalizedString(@"Symmetric NAT detected.",
-                               @"Detected Symmetric NAT.")];
-            [alert setInformativeText:
-             NSLocalizedString(@"It is very unlikely that two-way conversations "
-                               "will be possible with symmetric NAT. Please "
-                               "contact your SIP provider to find out other NAT "
-                               "traversal options. If you are connected to the "
-                               "internet via personal router, try to replace it "
-                               "with the one that supports \\U201Cfull "
-                               "cone\\U201D, \\U201Crestricted cone\\U201D or "
-                               "\\U201Cport restricted cone\\U201D NAT types.",
-                               @"Detected Symmetric NAT informative text.")];
-            [alert runModal];
-            break;
-            
-        default:
-            break;
-    }
+
+    [alert setMessageText:
+     NSLocalizedString(@"Failed to communicate with STUN server.",
+                       @"Failed to communicate with STUN server.")];
+    [alert setInformativeText:
+     NSLocalizedString(@"UDP packets are probably blocked. It is "
+                       "impossible to make or receive calls without that. "
+                       "Make sure that your local firewall and the "
+                       "firewall at your router allow UDP protocol.",
+                       @"Failed to communicate with STUN server "
+                       "informative text.")];
+    [alert runModal];
 }
 
 
