@@ -18,7 +18,6 @@
 #import "AppController.h"
 
 #import <SystemConfiguration/SystemConfiguration.h>
-#import <Growl/Growl.h>
 
 #import "AKAddressBookPhonePlugIn.h"
 #import "AKAddressBookSIPAddressPlugIn.h"
@@ -41,8 +40,6 @@
 
 
 NSString * const kUserNotificationCallControllerIdentifierKey = @"UserNotificationCallControllerIdentifier";
-NSString * const kGrowlNotificationIncomingCall = @"Incoming Call";
-NSString * const kGrowlNotificationCallEnded = @"Call Ended";
 
 // Bouncing icon in the Dock time interval.
 static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
@@ -56,7 +53,7 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 // Dynamic store callback for DNS changes.
 static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
 
-@interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, GrowlApplicationBridgeDelegate, PreferencesControllerDelegate>
+@interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, PreferencesControllerDelegate>
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
@@ -193,7 +190,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         defaultsDict[kAutoCloseCallWindow] = @NO;
         defaultsDict[kAutoCloseMissedCallWindow] = @NO;
         defaultsDict[kCallWaiting] = @YES;
-        defaultsDict[kShowGrowlNotifications] = @NO;
         defaultsDict[kUseG711Only] = @NO;
 
         NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
@@ -347,7 +343,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
         // [self installAddressBookPlugIns];
         
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-        [GrowlApplicationBridge setGrowlDelegate:self];
         [self installDNSChangesCallback];
     }
 }
@@ -1334,7 +1329,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     // [self installAddressBookPlugIns];
     
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-    [GrowlApplicationBridge setGrowlDelegate:self];
     [self installDNSChangesCallback];
     
     [self setShouldPresentUserAgentLaunchError:YES];
@@ -1483,19 +1477,6 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [callController showWindow:nil];
 }
 
-
-
-#pragma mark -
-#pragma mark GrowlApplicationBridgeDelegate protocol
-
-- (void)growlNotificationWasClicked:(id)clickContext {
-    NSString *identifier = (NSString *)clickContext;
-    [self showWindowOfCallControllerWithIdentifier:identifier];
-}
-
-- (BOOL)hasNetworkClientEntitlement {
-    return YES;
-}
 
 #pragma mark -
 #pragma mark NSWorkspace notifications

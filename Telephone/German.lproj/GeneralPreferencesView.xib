@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesViewController">
@@ -11,68 +11,74 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="201"/>
-        <customView id="150" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="128"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="150" userLabel="General">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="108"/>
             <subviews>
-                <button id="419">
-                    <rect key="frame" x="83" y="58" width="246" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Anruffenster automatisch schließen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="420">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="201" name="value" keyPath="values.AutoCloseCallWindow" id="422"/>
-                    </connections>
-                </button>
-                <button id="415">
-                    <rect key="frame" x="83" y="78" width="192" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Bei Anruf iTunes pausieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="416">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="201" name="value" keyPath="values.PauseITunes" id="418"/>
-                    </connections>
-                </button>
-                <button id="255">
-                    <rect key="frame" x="83" y="98" width="290" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Telefonnummern automatisch formatieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="256">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="201" name="value" keyPath="values.FormatTelephoneNumbers" id="303"/>
-                    </connections>
-                </button>
-                <button id="424">
-                    <rect key="frame" x="83" y="38" width="87" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Anklopfen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="425">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="201" name="value" keyPath="values.CallWaiting" id="427"/>
-                    </connections>
-                </button>
-                <button id="KPE-EC-yBR">
-                    <rect key="frame" x="83" y="18" width="252" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Growl-Benachrichtigungen anzeigen" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Xb6-mJ-xqz">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="201" name="value" keyPath="values.ShowGrowlNotifications" id="1Jo-7Z-CNW"/>
-                    </connections>
-                </button>
+                <stackView orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Sgq-KJ-Jcb">
+                    <rect key="frame" x="85" y="20" width="272" height="74"/>
+                    <beginningViews>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="255">
+                            <rect key="frame" x="-2" y="58" width="276" height="18"/>
+                            <buttonCell key="cell" type="check" title="Telefonnummern automatisch formatieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="256">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="201" name="value" keyPath="values.FormatTelephoneNumbers" id="303"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="415">
+                            <rect key="frame" x="-2" y="38" width="184" height="18"/>
+                            <buttonCell key="cell" type="check" title="Bei Anruf iTunes pausieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="416">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="201" name="value" keyPath="values.PauseITunes" id="418"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="419">
+                            <rect key="frame" x="-2" y="18" width="238" height="18"/>
+                            <buttonCell key="cell" type="check" title="Anruffenster automatisch schließen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="420">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="201" name="value" keyPath="values.AutoCloseCallWindow" id="422"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="424">
+                            <rect key="frame" x="-2" y="-2" width="84" height="18"/>
+                            <buttonCell key="cell" type="check" title="Anklopfen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="425">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="201" name="value" keyPath="values.CallWaiting" id="427"/>
+                            </connections>
+                        </button>
+                    </beginningViews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Sgq-KJ-Jcb" secondAttribute="bottom" constant="20" symbolic="YES" id="NtM-l6-GcV"/>
+                <constraint firstItem="Sgq-KJ-Jcb" firstAttribute="leading" secondItem="150" secondAttribute="leading" constant="85" id="tbb-kg-sSn"/>
+            </constraints>
+            <point key="canvasLocation" x="496" y="463"/>
         </customView>
     </objects>
 </document>

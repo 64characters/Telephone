@@ -107,9 +107,6 @@
 		AA19CFF81BED149900991CAA /* DefaultInteractorFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */; };
 		AA19CFF91BED149C00991CAA /* DefaultInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */; };
 		AA1A0AA01828E38900278658 /* Telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA1A0A9F1828E38900278658 /* Telephone.icns */; };
-		AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; };
-		AA222C43182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */; };
-		AA222C44182C4A7E0096B024 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA222C40182C3B5B0096B024 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */; };
 		AA277A4E1BD16C9E0030ECE4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeEventTarget.swift */; };
 		AA277A4F1BD16CF40030ECE4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeEventTarget.swift */; };
@@ -393,7 +390,6 @@
 			files = (
 				AA10198A1C491C0600869D01 /* UseCases.framework in CopyFiles */,
 				AA1019891C491BF900869D01 /* Domain.framework in CopyFiles */,
-				AA222C44182C4A7E0096B024 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,8 +494,6 @@
 		AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultInteractorFactoryTests.swift; path = TelephoneTests/DefaultInteractorFactoryTests.swift; sourceTree = SOURCE_ROOT; };
 		AA1A0A9F1828E38900278658 /* Telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Telephone.icns; sourceTree = "<group>"; };
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
-		AA222C40182C3B5B0096B024 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
-		AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentEventTargetCompositeTests.swift; path = UseCasesTests/UserAgentEventTargetCompositeTests.swift; sourceTree = SOURCE_ROOT; };
 		AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargetComposite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentEventTargetComposite.swift; sourceTree = "<group>"; };
 		AA25AB541BE0F86E00E677A4 /* UserAgentEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentEventTargetSpy.swift; sourceTree = "<group>"; };
@@ -757,7 +751,6 @@
 			files = (
 				AA4D49091BB99DCC004D1D4B /* AudioUnit.framework in Frameworks */,
 				AA4D49071BB99DBF004D1D4B /* AudioToolbox.framework in Frameworks */,
-				AA222C41182C3B5B0096B024 /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,7 +910,6 @@
 				AA1A0A9F1828E38900278658 /* Telephone.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				AAA7CFFC1825BE1900D53FB9 /* Telephone.entitlements */,
-				AA222C42182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				AA584A680F06CFD2003C4992 /* Localizable.strings */,
 				AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */,
@@ -1076,18 +1068,9 @@
 		AA4D48FF1BB998EC004D1D4B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				AA4D49001BB99910004D1D4B /* Growl */,
 				AA4D49011BB999B9004D1D4B /* XSWindowController */,
 			);
 			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		AA4D49001BB99910004D1D4B /* Growl */ = {
-			isa = PBXGroup;
-			children = (
-				AA222C40182C3B5B0096B024 /* Growl.framework */,
-			);
-			path = Growl;
 			sourceTree = "<group>";
 		};
 		AA4D49011BB999B9004D1D4B /* XSWindowController */ = {
@@ -1706,7 +1689,6 @@
 				AAFC00281074D0B50018C7DA /* AccountPreferencesView.xib in Resources */,
 				AAFC002A1074D0B50018C7DA /* SoundPreferencesView.xib in Resources */,
 				AAFC00261074D0B50018C7DA /* NetworkPreferencesView.xib in Resources */,
-				AA222C43182C3C5D0096B024 /* Growl Registration Ticket.growlRegDict in Resources */,
 				AADAA2C3107E569200789F2D /* IncomingCallView.xib in Resources */,
 				AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */,
 				AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */,
@@ -2697,7 +2679,6 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/Growl\"";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"PJ_AUTOCONF=1",
@@ -2748,7 +2729,6 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/Growl\"";
 				GCC_PREPROCESSOR_DEFINITIONS = "PJ_AUTOCONF=1";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
