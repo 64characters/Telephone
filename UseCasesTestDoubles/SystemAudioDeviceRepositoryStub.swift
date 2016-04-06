@@ -2,7 +2,8 @@
 //  SystemAudioDeviceRepositoryStub.swift
 //  Telephone
 //
-//  Copyright (c) 2008-2015 Alexey Kuznetsov
+//  Copyright (c) 2008-2016 Alexey Kuznetsov
+//  Copyright (c) 2016 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
