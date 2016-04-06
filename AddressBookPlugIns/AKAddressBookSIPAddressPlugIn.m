@@ -41,12 +41,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [_lastSIPAddress release];
-    [_lastFullName release];
-    
-    [super dealloc];
-}
 
 // This plug-in handles emails.
 - (NSString *)actionProperty {

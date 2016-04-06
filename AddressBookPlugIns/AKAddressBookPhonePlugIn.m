@@ -41,12 +41,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [_lastPhoneNumber release];
-    [_lastFullName release];
-    
-    [super dealloc];
-}
 
 // This plug-in handles phone numbers.
 - (NSString *)actionProperty {
