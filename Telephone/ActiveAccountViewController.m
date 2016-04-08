@@ -74,7 +74,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 }
 
 - (IBAction)makeCall:(id)sender {
-    if ([[[self callDestinationField] objectValue] count] == 0) {
+    if (![self canMakeCall]) {
         return;
     }
     
@@ -85,6 +85,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     if (uri != nil) {
         [[self accountController] makeCallToURI:uri phoneLabel:phoneLabel];
     }
+}
+
+- (BOOL)canMakeCall {
+    return [self.callDestinationField.objectValue count] > 0 &&
+    [self.callDestinationField.objectValue isKindOfClass:[NSArray class]] &&
+    [self.callDestinationField.objectValue[0] isKindOfClass:[NSArray class]] &&
+    [self.callDestinationField.objectValue[0][self.callDestinationURIIndex] isKindOfClass:[NSDictionary class]];
 }
 
 - (IBAction)changeCallDestinationURIIndex:(id)sender {
@@ -475,7 +482,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     NSString *trimmedString = [editingString stringByTrimmingCharactersInSet:whitespaceCharset];
     
     AKSIPURI *theURI = [SIPURIFormatter SIPURIFromString:trimmedString];
-    if (theURI == nil) {
+    if (theURI == nil || [[theURI user] length] == 0) {
         return nil;
     }
     
