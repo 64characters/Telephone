@@ -54,11 +54,15 @@ static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
 // Dynamic store callback for DNS changes.
 static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, PreferencesControllerDelegate>
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
 @property(nonatomic, readonly) id<RingtonePlaybackInteractor> ringtonePlayback;
+@property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
+@property(nonatomic, copy) NSString *destinationToCall;
 
 // Installs Address Book plug-ins.
 - (void)installAddressBookPlugIns;
@@ -74,6 +78,8 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 - (void)updateCallsShouldDisplayAccountInfo;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 
 @implementation AppController
@@ -227,6 +233,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     [[self userAgent] setDelegate:self];
     _preferencesController = _compositionRoot.preferencesController;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
+    _destinationToCall = @"";
     _accountControllers = [[NSMutableArray alloc] init];
     [self setShouldRegisterAllAccounts:NO];
     [self setShouldRestartUserAgentASAP:NO];
@@ -1349,6 +1356,10 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
             [accountController setAccountRegistered:YES];
         }
     }
+
+    [self makeCallAfterLaunchIfNeeded];
+
+    [self setFinishedLaunching:YES];
 }
 
 // Reopen all account windows when the user clicks the dock icon.
@@ -1517,31 +1528,28 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 // change ActiveAccountViewController's
 // tokenField:representedObjectForEditingString:.
 - (void)addressBookDidDialCallDestination:(NSNotification *)notification {
-    if (![self canMakeCall]) {
-        return;
-    }
-    
-    NSDictionary *userInfo = [notification userInfo];
-    
+    [NSApp activateIgnoringOtherApps:YES];
+    [self makeCallOrRememberDestination:[self callDestinationWithAddressBookDidDialNotification:notification]];
+}
+
+- (NSString *)callDestinationWithAddressBookDidDialNotification:(NSNotification *)notification {
     NSString *SIPAddressOrNumber = nil;
     if ([[notification name] isEqualToString:AKAddressBookDidDialPhoneNumberNotification]) {
-        SIPAddressOrNumber = userInfo[@"AKPhoneNumber"];
+        SIPAddressOrNumber = notification.userInfo[@"AKPhoneNumber"];
     } else if ([[notification name] isEqualToString:AKAddressBookDidDialSIPAddressNotification]) {
-        SIPAddressOrNumber = userInfo[@"AKSIPAddress"];
-    }
-    
-    NSString *name = userInfo[@"AKFullName"];
-    
-    [NSApp activateIgnoringOtherApps:YES];
-    
-    NSString *destination;
-    if ([name length] > 0) {
-        destination = [NSString stringWithFormat:@"%@ <%@>", name, SIPAddressOrNumber];
-    } else {
-        destination = SIPAddressOrNumber;
+        SIPAddressOrNumber = notification.userInfo[@"AKSIPAddress"];
     }
 
-    [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:destination];
+    NSString *name = notification.userInfo[@"AKFullName"];
+
+    NSString *result;
+    if ([name length] > 0) {
+        result = [NSString stringWithFormat:@"%@ <%@>", name, SIPAddressOrNumber];
+    } else {
+        result = SIPAddressOrNumber;
+    }
+
+    return result;
 }
 
 
@@ -1549,10 +1557,7 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 #pragma mark Apple event handler for URLs support
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-    if ([self canMakeCall]) {
-        [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:
-         [[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
-    }
+    [self makeCallOrRememberDestination:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
 }
 
 
@@ -1560,21 +1565,36 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
 #pragma mark Service Provider
 
 - (void)makeCallFromTextService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
-    if (![self canMakeCall]) {
+    if ([NSPasteboard instancesRespondToSelector:@selector(canReadObjectForClasses:options:)] &&
+        ![pboard canReadObjectForClasses:@[[NSString class]] options:@{}]) {
+        NSLog(@"Could not make call, pboard couldn't give string.");
         return;
     }
-
-    NSArray *classes = @[[NSString class]];
-    NSDictionary *options = @{};
-    if ([NSPasteboard instancesRespondToSelector:@selector(canReadObjectForClasses:options:)] &&
-        ![pboard canReadObjectForClasses:classes options:options]) {
-        NSLog(@"Could not make call, pboard couldn't give string.");
-    }
-    
-    [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:[pboard stringForType:NSPasteboardTypeString]];
+    [self makeCallOrRememberDestination:[pboard stringForType:NSPasteboardTypeString]];
 }
 
 #pragma mark -
+
+- (void)makeCallAfterLaunchIfNeeded {
+    if (self.destinationToCall.length > 0) {
+        [self makeCallTo:self.destinationToCall];
+        self.destinationToCall = @"";
+    }
+}
+
+- (void)makeCallOrRememberDestination:(NSString *)destination {
+    if (self.isFinishedLaunching) {
+        [self makeCallTo:destination];
+    } else {
+        self.destinationToCall = destination;
+    }
+}
+
+- (void)makeCallTo:(NSString *)destination {
+    if ([self canMakeCall]) {
+        [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:destination];
+    }
+}
 
 - (BOOL)canMakeCall {
     return NSApp.modalWindow == nil && self.enabledAccountControllers.count > 0;
