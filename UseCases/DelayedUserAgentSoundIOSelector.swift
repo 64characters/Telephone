@@ -30,7 +30,7 @@ public class DelayedUserAgentSoundIOSelector {
         selection = NullThrowingInteractor()
     }
 
-    private func selectIOOrLogError(userAgent: UserAgent) {
+    private func selectSoundIOOrLogError(userAgent: UserAgent) {
         do {
             try selectSoundIO(userAgent)
         } catch {
@@ -49,11 +49,11 @@ extension DelayedUserAgentSoundIOSelector: UserAgentEventTarget {
     }
 
     public func userAgentDidMakeCall(userAgent: UserAgent) {
-        selectIOOrLogError(userAgent)
+        selectSoundIOOrLogError(userAgent)
     }
 
     public func userAgentDidReceiveCall(userAgent: UserAgent) {
-        selectIOOrLogError(userAgent)
+        selectSoundIOOrLogError(userAgent)
     }
 
     public func userAgentDidDetectNAT(userAgent: UserAgent) {}
