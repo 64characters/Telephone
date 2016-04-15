@@ -21,7 +21,7 @@ import UseCases
 class UserAgentSoundIOSelector {
     let factory: InteractorFactory
 
-    private var selection: ThrowingInteractor = NullThroingInteractor()
+    private var selection: ThrowingInteractor = NullThrowingInteractor()
 
     init(factory: InteractorFactory) {
         self.factory = factory
@@ -29,7 +29,7 @@ class UserAgentSoundIOSelector {
 
     func selectUserAgentSoundIO(userAgent: UserAgent) throws {
         try selection.execute()
-        selection = NullThroingInteractor()
+        selection = NullThrowingInteractor()
     }
 }
 
@@ -39,7 +39,7 @@ extension UserAgentSoundIOSelector: UserAgentEventTarget {
     }
 
     func userAgentDidFinishStopping(userAgent: UserAgent) {
-        selection = NullThroingInteractor()
+        selection = NullThrowingInteractor()
     }
 
     func userAgentDidMakeCall(userAgent: UserAgent) {

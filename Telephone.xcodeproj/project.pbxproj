@@ -78,7 +78,7 @@
 		8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadInteractor.swift */; };
 		8ADD31C61CC10E50008C083C /* UserAgentSoundIOSelectionInteractorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionInteractorFake.swift */; };
 		8ADD31C81CC10FA6008C083C /* InteractorFactoryFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C71CC10FA6008C083C /* InteractorFactoryFake.swift */; };
-		8ADD31CA1CC112A2008C083C /* NullThroingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C91CC112A2008C083C /* NullThroingInteractor.swift */; };
+		8ADD31CA1CC112A2008C083C /* NullThrowingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C91CC112A2008C083C /* NullThrowingInteractor.swift */; };
 		8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6C1C528F720029C3D8 /* Error.swift */; };
 		8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -459,7 +459,7 @@
 		8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundConfigurationLoadInteractor.swift; sourceTree = "<group>"; };
 		8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionInteractorFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentSoundIOSelectionInteractorFake.swift; sourceTree = "<group>"; };
 		8ADD31C71CC10FA6008C083C /* InteractorFactoryFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorFactoryFake.swift; sourceTree = "<group>"; };
-		8ADD31C91CC112A2008C083C /* NullThroingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullThroingInteractor.swift; sourceTree = "<group>"; };
+		8ADD31C91CC112A2008C083C /* NullThrowingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullThrowingInteractor.swift; sourceTree = "<group>"; };
 		8ADD6B6C1C528F720029C3D8 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -957,7 +957,7 @@
 				8ADD6B6C1C528F720029C3D8 /* Error.swift */,
 				AA404AC61BFC8E5D00D00A3E /* Interactor.swift */,
 				AAB32A111BEBA4BA0016C8E6 /* InteractorFactory.swift */,
-				8ADD31C91CC112A2008C083C /* NullThroingInteractor.swift */,
+				8ADD31C91CC112A2008C083C /* NullThrowingInteractor.swift */,
 				AA404AC91BFC8E8900D00A3E /* ThrowingInteractor.swift */,
 				AA32F7FD1BC6908300FAC228 /* UserDefaults.swift */,
 				AA7F6D3B1C034B700064DA3A /* UserDefaultsKeys.h */,
@@ -1884,7 +1884,7 @@
 				AA3166371C4FAF9C00E7ECA5 /* SoundConfiguration.swift in Sources */,
 				AA7F6D4B1C0387160064DA3A /* PresentationSoundIO.swift in Sources */,
 				8AAACA151CAEC555001930C4 /* UserDefaultsSoundIO.swift in Sources */,
-				8ADD31CA1CC112A2008C083C /* NullThroingInteractor.swift in Sources */,
+				8ADD31CA1CC112A2008C083C /* NullThrowingInteractor.swift in Sources */,
 				AA39052C1BFFDDC4005A8AA3 /* Interactor.swift in Sources */,
 				8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */,

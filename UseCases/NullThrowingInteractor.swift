@@ -1,5 +1,5 @@
 //
-//  NullThroingInteractor.swift
+//  NullThrowingInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class NullThroingInteractor: ThrowingInteractor {
+public class NullThrowingInteractor: ThrowingInteractor {
     public init() {}
 
     public func execute() throws {}
