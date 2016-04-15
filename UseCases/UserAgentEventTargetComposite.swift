@@ -26,18 +26,22 @@ public class UserAgentEventTargetComposite {
 
 extension UserAgentEventTargetComposite: UserAgentEventTarget {
     public func userAgentDidFinishStarting(userAgent: UserAgent) {
-        onEachTarget { $0.userAgentDidFinishStarting(userAgent) }
+        targets.forEach { $0.userAgentDidFinishStarting(userAgent) }
     }
 
     public func userAgentDidFinishStopping(userAgent: UserAgent) {
-        onEachTarget { $0.userAgentDidFinishStopping(userAgent) }
+        targets.forEach { $0.userAgentDidFinishStopping(userAgent) }
     }
 
     public func userAgentDidDetectNAT(userAgent: UserAgent) {
-        onEachTarget { $0.userAgentDidDetectNAT(userAgent) }
+        targets.forEach { $0.userAgentDidDetectNAT(userAgent) }
     }
 
-    private func onEachTarget(function: UserAgentEventTarget -> Void) {
-        for target in targets { function(target) }
+    public func userAgentDidMakeCall(userAgent: UserAgent) {
+        targets.forEach { $0.userAgentDidMakeCall(userAgent) }
+    }
+
+    public func userAgentDidReceiveCall(userAgent: UserAgent) {
+        targets.forEach { $0.userAgentDidReceiveCall(userAgent) }
     }
 }

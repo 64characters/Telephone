@@ -41,4 +41,6 @@ extension UserAgentSoundIOSelector: UserAgentEventTarget {
 
     func userAgentDidFinishStopping(userAgent: UserAgent) {}
     func userAgentDidDetectNAT(userAgent: UserAgent) {}
+    func userAgentDidMakeCall(userAgent: UserAgent) {}
+    func userAgentDidReceiveCall(userAgent: UserAgent) {}
 }

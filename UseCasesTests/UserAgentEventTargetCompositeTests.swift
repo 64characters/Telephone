@@ -58,6 +58,22 @@ class UserAgentEventTargetCompositeTests: XCTestCase {
         assertUserAgent()
     }
 
+    func testCallsDidMakeCallOnAllChildren() {
+        sut.userAgentDidMakeCall(userAgent)
+
+        XCTAssertTrue(target1.didCallDidMakeCall)
+        XCTAssertTrue(target2.didCallDidMakeCall)
+        assertUserAgent()
+    }
+
+    func testCallsDidReceiveCallOnAllChildren() {
+        sut.userAgentDidReceiveCall(userAgent)
+
+        XCTAssertTrue(target1.didCallDidReceiveCall)
+        XCTAssertTrue(target2.didCallDidReceiveCall)
+        assertUserAgent()
+    }
+
     private func assertUserAgent() {
         XCTAssertTrue(target1.lastPassedUserAgent === userAgent)
         XCTAssertTrue(target2.lastPassedUserAgent === userAgent)
