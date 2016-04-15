@@ -21,17 +21,36 @@ import UseCases
 class UserAgentSoundIOSelector {
     let factory: InteractorFactory
 
+    private var selection: ThrowingInteractor = NullThroingInteractor()
+
     init(factory: InteractorFactory) {
         self.factory = factory
     }
 
     func selectUserAgentSoundIO(userAgent: UserAgent) throws {
-        try factory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent).execute()
+        try selection.execute()
+        selection = NullThroingInteractor()
     }
 }
 
 extension UserAgentSoundIOSelector: UserAgentEventTarget {
     func userAgentDidFinishStarting(userAgent: UserAgent) {
+        selection = factory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent)
+    }
+
+    func userAgentDidFinishStopping(userAgent: UserAgent) {
+        selection = NullThroingInteractor()
+    }
+
+    func userAgentDidMakeCall(userAgent: UserAgent) {
+        selectIOOrLogError(userAgent)
+    }
+
+    func userAgentDidReceiveCall(userAgent: UserAgent) {
+        selectIOOrLogError(userAgent)
+    }
+
+    private func selectIOOrLogError(userAgent: UserAgent) {
         do {
             try selectUserAgentSoundIO(userAgent)
         } catch {
@@ -39,8 +58,5 @@ extension UserAgentSoundIOSelector: UserAgentEventTarget {
         }
     }
 
-    func userAgentDidFinishStopping(userAgent: UserAgent) {}
     func userAgentDidDetectNAT(userAgent: UserAgent) {}
-    func userAgentDidMakeCall(userAgent: UserAgent) {}
-    func userAgentDidReceiveCall(userAgent: UserAgent) {}
 }
