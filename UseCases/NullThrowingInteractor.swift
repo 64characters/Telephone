@@ -1,5 +1,5 @@
 //
-//  UserAgentEventTarget.swift
+//  NullThrowingInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,11 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UserAgentEventTarget: class {
-    func userAgentDidFinishStarting(userAgent: UserAgent)
-    func userAgentDidFinishStopping(userAgent: UserAgent)
-    func userAgentDidDetectNAT(userAgent: UserAgent)
+public class NullThrowingInteractor: ThrowingInteractor {
+    public init() {}
 
-    func userAgentDidMakeCall(userAgent: UserAgent)
-    func userAgentDidReceiveCall(userAgent: UserAgent)
+    public func execute() throws {}
 }

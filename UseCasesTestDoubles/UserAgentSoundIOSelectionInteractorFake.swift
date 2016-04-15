@@ -1,5 +1,5 @@
 //
-//  UserAgentEventTarget.swift
+//  UserAgentSoundIOSelectionInteractorFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,11 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UserAgentEventTarget: class {
-    func userAgentDidFinishStarting(userAgent: UserAgent)
-    func userAgentDidFinishStopping(userAgent: UserAgent)
-    func userAgentDidDetectNAT(userAgent: UserAgent)
+import UseCases
 
-    func userAgentDidMakeCall(userAgent: UserAgent)
-    func userAgentDidReceiveCall(userAgent: UserAgent)
+public class UserAgentSoundIOSelectionInteractorFake {
+    public let userAgent: UserAgent
+
+    public init(userAgent: UserAgent) {
+        self.userAgent = userAgent
+    }
+}
+
+extension UserAgentSoundIOSelectionInteractorFake: ThrowingInteractor {
+    public func execute() throws {
+        try userAgent.selectSoundIODeviceIDs(input: 0, output: 0)
+    }
 }

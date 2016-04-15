@@ -22,6 +22,8 @@ public class UserAgentEventTargetSpy {
     public private(set) var didCallUserAgentDidFinishStarting = false
     public private(set) var didCallUserAgentDidFinishStopping = false
     public private(set) var didCallUserAgentDidDetectNAT = false
+    public private(set) var didCallDidMakeCall = false
+    public private(set) var didCallDidReceiveCall = false
     public private(set) var lastPassedUserAgent: UserAgent?
 
     public init() {}
@@ -40,6 +42,16 @@ extension UserAgentEventTargetSpy: UserAgentEventTarget {
 
     public func userAgentDidDetectNAT(userAgent: UserAgent) {
         didCallUserAgentDidDetectNAT = true
+        lastPassedUserAgent = userAgent
+    }
+
+    public func userAgentDidMakeCall(userAgent: UserAgent) {
+        didCallDidMakeCall = true
+        lastPassedUserAgent = userAgent
+    }
+
+    public func userAgentDidReceiveCall(userAgent: UserAgent) {
+        didCallDidReceiveCall = true
         lastPassedUserAgent = userAgent
     }
 }

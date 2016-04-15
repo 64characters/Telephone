@@ -21,14 +21,68 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentSoundIOSelectorTests: XCTestCase {
-    func testCallsExecuteWhenUserAgentFinishesStarting() {
-        let interactor = ThrowingInteractorSpy()
-        let factory = InteractorFactorySpy()
-        factory.stubWithUserAgentSoundIOSelection(interactor)
-        let sut = UserAgentSoundIOSelector(factory: factory)
+    private(set) var userAgent: UserAgentSpy!
+    private(set) var sut: UserAgentSoundIOSelector!
 
-        sut.userAgentDidFinishStarting(UserAgentSpy())
+    override func setUp() {
+        super.setUp()
+        userAgent = UserAgentSpy()
+        sut = UserAgentSoundIOSelector(factory: InteractorFactoryFake())
+    }
 
-        XCTAssertTrue(interactor.didCallExecute)
+    func testDoesNotSelectIOWhenUserAgentFinishesStarting() {
+        sut.userAgentDidFinishStarting(userAgent)
+
+        XCTAssertFalse(userAgent.didSelectSoundIO)
+    }
+
+    func testSelectsIOWhenUserAgentMakesCall() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+
+        XCTAssertTrue(userAgent.didSelectSoundIO)
+    }
+
+    func testSelectsIOWhenUserAgentReceivesCall() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidReceiveCall(userAgent)
+
+        XCTAssertTrue(userAgent.didSelectSoundIO)
+    }
+
+    func testSelectsIOOnceWhenUserAgentMakesOrReceivesCallMoreThanOnce() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+        sut.userAgentDidReceiveCall(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+        sut.userAgentDidReceiveCall(userAgent)
+
+        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 1)
+    }
+
+    func testSelectsIOWhenUserAgentMakesCallAfterRestart() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+        sut.userAgentDidFinishStopping(userAgent)
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+
+        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+    }
+
+    func testDoesNotSelectSoundIOIfUserAgentWasNotStarted() {
+        sut.userAgentDidMakeCall(userAgent)
+        sut.userAgentDidReceiveCall(userAgent)
+
+        XCTAssertFalse(userAgent.didSelectSoundIO)
+    }
+
+    func testDoesNotSelectSoundIOIfUserAgentWasStopped() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidFinishStopping(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+        sut.userAgentDidReceiveCall(userAgent)
+
+        XCTAssertFalse(userAgent.didSelectSoundIO)
     }
 }

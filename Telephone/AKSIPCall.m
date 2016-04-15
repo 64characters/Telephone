@@ -28,17 +28,6 @@
 
 const NSInteger kAKSIPCallsMax = 8;
 
-NSString * const AKSIPCallCallingNotification = @"AKSIPCallCalling";
-NSString * const AKSIPCallIncomingNotification = @"AKSIPCallIncoming";
-NSString * const AKSIPCallEarlyNotification = @"AKSIPCallEarly";
-NSString * const AKSIPCallConnectingNotification = @"AKSIPCallConnecting";
-NSString * const AKSIPCallDidConfirmNotification = @"AKSIPCallDidConfirm";
-NSString * const AKSIPCallDidDisconnectNotification = @"AKSIPCallDidDisconnect";
-NSString * const AKSIPCallMediaDidBecomeActiveNotification = @"AKSIPCallMediaDidBecomeActive";
-NSString * const AKSIPCallDidLocalHoldNotification = @"AKSIPCallDidLocalHold";
-NSString * const AKSIPCallDidRemoteHoldNotification = @"AKSIPCallDidRemoteHold";
-NSString * const AKSIPCallTransferStatusDidChangeNotification = @"AKSIPCallTransferStatusDidChange";
-
 @implementation AKSIPCall
 
 - (void)setDelegate:(id<AKSIPCallDelegate>)aDelegate {

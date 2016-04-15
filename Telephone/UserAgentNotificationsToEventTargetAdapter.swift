@@ -52,6 +52,18 @@ class UserAgentNotificationsToEventTargetAdapter {
             name: AKSIPUserAgentDidDetectNATNotification,
             object: userAgent
         )
+        nc.addObserver(
+            self,
+            selector: #selector(SIPUserAgentDidMakeCall),
+            name: AKSIPCallCallingNotification,
+            object: nil
+        )
+        nc.addObserver(
+            self,
+            selector: #selector(SIPUserAgentDidReceiveCall),
+            name: AKSIPCallIncomingNotification,
+            object: nil
+        )
     }
 
     private func unsubscribe() {
@@ -74,5 +86,13 @@ class UserAgentNotificationsToEventTargetAdapter {
     dynamic private func SIPUserAgentDidDetectNAT(notification: NSNotification) {
         assert(userAgent === notification.object)
         target.userAgentDidDetectNAT(userAgent)
+    }
+
+    dynamic private func SIPUserAgentDidMakeCall(notification: NSNotification) {
+        target.userAgentDidMakeCall(userAgent)
+    }
+
+    dynamic private func SIPUserAgentDidReceiveCall(notification: NSNotification) {
+        target.userAgentDidReceiveCall(userAgent)
     }
 }

@@ -24,6 +24,8 @@ public class UserAgentSpy: NSObject {
     public var audioDevicesResult = [UserAgentAudioDevice]()
 
     public private(set) var didCallUpdateAudioDevices = false
+    public private(set) var soundIOSelectionCallCount = 0
+    public var didSelectSoundIO: Bool { return soundIOSelectionCallCount > 0 }
 
     public private(set) var invokedInputDeviceID: Int?
     public private(set) var invokedOutputDeviceID: Int?
@@ -44,6 +46,7 @@ extension UserAgentSpy: UserAgent {
     }
 
     public func selectSoundIODeviceIDs(input input: Int, output: Int) throws {
+        soundIOSelectionCallCount += 1
         invokedInputDeviceID = input
         invokedOutputDeviceID = output
     }
