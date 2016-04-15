@@ -27,9 +27,17 @@ class UserAgentSoundIOSelector {
         self.factory = factory
     }
 
-    func selectUserAgentSoundIO(userAgent: UserAgent) throws {
+    private func selectSoundIO(userAgent: UserAgent) throws {
         try selection.execute()
         selection = NullThrowingInteractor()
+    }
+
+    private func selectIOOrLogError(userAgent: UserAgent) {
+        do {
+            try selectSoundIO(userAgent)
+        } catch {
+            print("Could not automatically select user agent audio devices: \(error)")
+        }
     }
 }
 
@@ -48,14 +56,6 @@ extension UserAgentSoundIOSelector: UserAgentEventTarget {
 
     func userAgentDidReceiveCall(userAgent: UserAgent) {
         selectIOOrLogError(userAgent)
-    }
-
-    private func selectIOOrLogError(userAgent: UserAgent) {
-        do {
-            try selectUserAgentSoundIO(userAgent)
-        } catch {
-            print("Could not automatically select user agent audio devices: \(error)")
-        }
     }
 
     func userAgentDidDetectNAT(userAgent: UserAgent) {}
