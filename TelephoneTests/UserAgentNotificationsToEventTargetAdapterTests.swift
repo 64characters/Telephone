@@ -24,35 +24,51 @@ class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
     private var target: UserAgentEventTargetSpy!
     private var sut: UserAgentNotificationsToEventTargetAdapter!
     private var userAgent: UserAgent!
-    private var notificationCenter: NSNotificationCenter!
+    private var center: NSNotificationCenter!
 
     override func setUp() {
         super.setUp()
         target = UserAgentEventTargetSpy()
         userAgent = UserAgentSpy()
         sut = UserAgentNotificationsToEventTargetAdapter(target: target, userAgent: userAgent)
-        notificationCenter = NSNotificationCenter.defaultCenter()
+        center = NSNotificationCenter.defaultCenter()
     }
 
     func testCallsDidFinishStarting() {
-        notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidFinishStartingNotification))
+        center.postNotification(createUserAgentNotification(name: AKSIPUserAgentDidFinishStartingNotification))
 
         XCTAssertTrue(target.didCallUserAgentDidFinishStarting)
     }
 
     func testCallsDidFinishStopping() {
-        notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidFinishStoppingNotification))
+        center.postNotification(createUserAgentNotification(name: AKSIPUserAgentDidFinishStoppingNotification))
 
         XCTAssertTrue(target.didCallUserAgentDidFinishStopping)
     }
 
     func testCallsDidDetectNAT() {
-        notificationCenter.postNotification(notificationWithName(AKSIPUserAgentDidDetectNATNotification))
+        center.postNotification(createUserAgentNotification(name: AKSIPUserAgentDidDetectNATNotification))
 
         XCTAssertTrue(target.didCallUserAgentDidDetectNAT)
     }
 
-    private func notificationWithName(name: String) -> NSNotification {
+    func testCallsDidMakeCall() {
+        center.postNotification(createCallNotification(name: AKSIPCallCallingNotification))
+
+        XCTAssertTrue(target.didCallDidMakeCall)
+    }
+
+    func testCallsUserAgentDidReceiveCall() {
+        center.postNotification(createCallNotification(name: AKSIPCallIncomingNotification))
+
+        XCTAssertTrue(target.didCallDidReceiveCall)
+    }
+
+    private func createUserAgentNotification(name name: String) -> NSNotification {
         return NSNotification(name: name, object: userAgent)
+    }
+
+    private func createCallNotification(name name: String) -> NSNotification {
+        return NSNotification(name: name, object: nil)
     }
 }
