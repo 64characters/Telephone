@@ -1,5 +1,5 @@
 //
-//  UserAgentSoundIOSelectorTests.swift
+//  DelayedUserAgentSoundIOSelectorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,14 +20,14 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentSoundIOSelectorTests: XCTestCase {
+class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
     private(set) var userAgent: UserAgentSpy!
-    private(set) var sut: UserAgentSoundIOSelector!
+    private(set) var sut: DelayedUserAgentSoundIOSelector!
 
     override func setUp() {
         super.setUp()
         userAgent = UserAgentSpy()
-        sut = UserAgentSoundIOSelector(factory: InteractorFactoryFake())
+        sut = DelayedUserAgentSoundIOSelector(factory: InteractorFactoryFake())
     }
 
     func testDoesNotSelectIOWhenUserAgentFinishesStarting() {

@@ -1,5 +1,5 @@
 //
-//  UserAgentSoundIOSelector.swift
+//  DelayedUserAgentSoundIOSelector.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-class UserAgentSoundIOSelector {
-    let factory: InteractorFactory
+public class DelayedUserAgentSoundIOSelector {
+    public let factory: InteractorFactory
 
     private var selection: ThrowingInteractor = NullThrowingInteractor()
 
-    init(factory: InteractorFactory) {
+    public init(factory: InteractorFactory) {
         self.factory = factory
     }
 
@@ -41,22 +39,22 @@ class UserAgentSoundIOSelector {
     }
 }
 
-extension UserAgentSoundIOSelector: UserAgentEventTarget {
-    func userAgentDidFinishStarting(userAgent: UserAgent) {
+extension DelayedUserAgentSoundIOSelector: UserAgentEventTarget {
+    public func userAgentDidFinishStarting(userAgent: UserAgent) {
         selection = factory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent)
     }
 
-    func userAgentDidFinishStopping(userAgent: UserAgent) {
+    public func userAgentDidFinishStopping(userAgent: UserAgent) {
         selection = NullThrowingInteractor()
     }
 
-    func userAgentDidMakeCall(userAgent: UserAgent) {
+    public func userAgentDidMakeCall(userAgent: UserAgent) {
         selectIOOrLogError(userAgent)
     }
 
-    func userAgentDidReceiveCall(userAgent: UserAgent) {
+    public func userAgentDidReceiveCall(userAgent: UserAgent) {
         selectIOOrLogError(userAgent)
     }
 
-    func userAgentDidDetectNAT(userAgent: UserAgent) {}
+    public func userAgentDidDetectNAT(userAgent: UserAgent) {}
 }
