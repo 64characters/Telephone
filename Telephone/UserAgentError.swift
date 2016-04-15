@@ -17,6 +17,7 @@
 //
 
 enum UserAgentError: ErrorType {
+    case UserAgentNotStarted
     case AudioDeviceEnumerationError
     case SoundIOSelectionError
 }
