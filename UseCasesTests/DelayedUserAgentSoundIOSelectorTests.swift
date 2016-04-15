@@ -85,4 +85,13 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
 
         XCTAssertFalse(userAgent.didSelectSoundIO)
     }
+
+    func testSelectsIOWhenUserAgentMakesCallAfterSelectWhenNeededIsCalled() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+        sut.selectSoundIOWhenNeeded(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+
+        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+    }
 }

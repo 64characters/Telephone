@@ -25,6 +25,10 @@ public class DelayedUserAgentSoundIOSelector {
         self.factory = factory
     }
 
+    public func selectSoundIOWhenNeeded(userAgent: UserAgent) {
+        selection = factory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent)
+    }
+
     private func selectSoundIO(userAgent: UserAgent) throws {
         try selection.execute()
         selection = NullThrowingInteractor()
@@ -41,7 +45,7 @@ public class DelayedUserAgentSoundIOSelector {
 
 extension DelayedUserAgentSoundIOSelector: UserAgentEventTarget {
     public func userAgentDidFinishStarting(userAgent: UserAgent) {
-        selection = factory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent)
+        selectSoundIOWhenNeeded(userAgent)
     }
 
     public func userAgentDidFinishStopping(userAgent: UserAgent) {
