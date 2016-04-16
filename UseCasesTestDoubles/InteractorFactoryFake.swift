@@ -23,10 +23,6 @@ public class InteractorFactoryFake {
 }
 
 extension InteractorFactoryFake: InteractorFactory {
-    public func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentSoundIOSelectionInteractorFake(userAgent: userAgent)
-    }
-
     public func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
         return ThrowingInteractorSpy()
     }

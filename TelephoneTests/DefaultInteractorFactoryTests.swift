@@ -32,17 +32,6 @@ class DefaultInteractorFactoryTests: XCTestCase {
         sut = DefaultInteractorFactory(repository: repository, userDefaults: userDefaults)
     }
 
-    func testCanCreateUserAgentSoundIOSelectionInteractor() {
-        let userAgent = UserAgentSpy()
-
-        let result = sut.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent) as! UserAgentSoundIOSelectionInteractor
-
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result.repository === repository)
-        XCTAssertTrue(result.userAgent === userAgent)
-        XCTAssertTrue(result.userDefaults === userDefaults)
-    }
-
     func testCanCreateUserDefaultsSoundIOLoadInteractor() {
         let output = UserDefaultsSoundIOLoadInteractorOutputSpy()
 

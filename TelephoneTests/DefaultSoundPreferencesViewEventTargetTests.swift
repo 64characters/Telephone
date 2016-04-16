@@ -62,7 +62,6 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     func testExecutesUserDefaultsSoundIOSaveInteractorWithExpectedArgumentsOnSoundIOChange() {
         let interactor = InteractorSpy()
         factory.stubWithUserDefaultsSoundIOSave(interactor)
-        factory.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
         let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
 
         sut.viewDidChangeSoundIO(
@@ -82,7 +81,6 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     }
 
     func testExecutesRingtoneOutputUpdateInteractorOnSoundIOChange() {
-        factory.stubWithUserAgentSoundIOSelection(ThrowingInteractorSpy())
         factory.stubWithUserDefaultsSoundIOSave(InteractorSpy())
 
         sut.viewDidChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
