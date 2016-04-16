@@ -55,14 +55,12 @@ class CompositionRoot: NSObject {
             delegate: conditionalRingtonePlaybackInteractorDelegate
         )
 
-        let userAgentSoundIOSelection = UserAgentSoundIOSelectionInteractor(
-            repository: audioDevices,
-            userAgent: userAgent,
-            userDefaults: userDefaults
-        )
-
-        let delayingUserAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionInteractor(
-            interactor: userAgentSoundIOSelection,
+        let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionInteractor(
+            interactor: UserAgentSoundIOSelectionInteractor(
+                repository: audioDevices,
+                userAgent: userAgent,
+                userDefaults: userDefaults
+            ),
             userAgent: userAgent
         )
 
@@ -71,27 +69,21 @@ class CompositionRoot: NSObject {
             soundPreferencesViewEventTarget: DefaultSoundPreferencesViewEventTarget(
                 interactorFactory: interactorFactory,
                 presenterFactory: PresenterFactory(),
-                userAgentSoundIOSelection: delayingUserAgentSoundIOSelection,
+                userAgentSoundIOSelection: userAgentSoundIOSelection,
                 ringtoneOutputUpdate: RingtoneOutputUpdateInteractor(playback: ringtonePlayback),
                 ringtoneSoundPlayback: DefaultSoundPlaybackInteractor(factory: userDefaultsSoundFactory)
             )
         )
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
-            target: delayingUserAgentSoundIOSelection,
+            target: userAgentSoundIOSelection,
             userAgent: userAgent
         )
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
             target: SystemAudioDevicesChangeEventTargetComposite(
                 targets: [
-                    UserAgentAudioDeviceUpdater(
-                        interactor: UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor(
-                            update: UserAgentAudioDeviceUpdateInteractor(
-                                userAgent: userAgent
-                            ),
-                            selection: userAgentSoundIOSelection
-                        )
-                    ),
+                    UserAgentAudioDeviceUpdateInteractor(userAgent: userAgent),
+                    userAgentSoundIOSelection,
                     PreferencesSoundIOUpdater(preferences: preferencesController)
                 ]
             ),
