@@ -44,8 +44,6 @@
 		8A61363C1CC23AB900A087A4 /* SystemAudioDevicesChangeEventTargetComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargetComposite.swift */; };
 		8A61363D1CC23ABC00A087A4 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift */; };
 		8A61363E1CC23AFF00A087A4 /* SystemAudioDevicesChangeEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */; };
-		8A61363F1CC23CA000A087A4 /* UserAgentAudioDeviceUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBB3971BFA1A33004A65B5 /* UserAgentAudioDeviceUpdater.swift */; };
-		8A6136401CC23CA600A087A4 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBB3951BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift */; };
 		8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A779F8D1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift */; };
 		8A7874F01C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift */; };
 		8A7874F21C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift */; };
@@ -152,11 +150,9 @@
 		AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F8081BC69D8300FAC228 /* SystemAudioDeviceRepository.swift */; };
 		AA3905311BFFDDDA005A8AA3 /* UserAgentSoundIOSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BAC1BCD812C00066CFC /* UserAgentSoundIOSelectionInteractor.swift */; };
 		AA3905321BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0E1BEB8AC40016C8E6 /* UserAgentAudioDeviceUpdateInteractor.swift */; };
-		AA3905331BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404A771BFA505E00D00A3E /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift */; };
 		AA39053A1BFFDDE2005A8AA3 /* UserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */; };
 		AA39053C1BFFDDED005A8AA3 /* PreferredSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7ED1BC43FB100FAC228 /* PreferredSoundIOTests.swift */; };
 		AA39053D1BFFDDED005A8AA3 /* UserAgentSoundIOSelectionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB01BCD814000066CFC /* UserAgentSoundIOSelectionInteractorTests.swift */; };
-		AA39053F1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA404A7A1BFA506D00D00A3E /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift */; };
 		AA3905411BFFDE37005A8AA3 /* UserAgentEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A631BD542C80030ECE4 /* UserAgentEventTarget.swift */; };
 		AA3905441BFFDE75005A8AA3 /* UserAgentEventTargetComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargetComposite.swift */; };
 		AA3905461BFFDE7C005A8AA3 /* UserAgentEventTargetCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetCompositeTests.swift */; };
@@ -584,8 +580,6 @@
 		AA3FABAA1BBC183B0064B2C3 /* SystemAudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevices.swift; sourceTree = "<group>"; };
 		AA3FABAD1BBC19C10064B2C3 /* SystemAudioDeviceIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceIDs.swift; sourceTree = "<group>"; };
 		AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelephoneError.swift; sourceTree = "<group>"; };
-		AA404A771BFA505E00D00A3E /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift; sourceTree = "<group>"; };
-		AA404A7A1BFA506D00D00A3E /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift; path = UseCasesTests/UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift; sourceTree = SOURCE_ROOT; };
 		AA404AC61BFC8E5D00D00A3E /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		AA404AC91BFC8E8900D00A3E /* ThrowingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrowingInteractor.swift; sourceTree = "<group>"; };
 		AA49F33B1BA7431500126A24 /* AKSIPAccountDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPAccountDelegate.h; sourceTree = "<group>"; };
@@ -665,8 +659,6 @@
 		AABAD7EB0E0C171A00CB5930 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AABAD7EC0E0C171A00CB5930 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AABAD7EF0E0C184200CB5930 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
-		AABBB3951BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentAudioDeviceUpdaterTests.swift; path = UseCasesTests/UserAgentAudioDeviceUpdaterTests.swift; sourceTree = SOURCE_ROOT; };
-		AABBB3971BFA1A33004A65B5 /* UserAgentAudioDeviceUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceUpdater.swift; sourceTree = "<group>"; };
 		AABBB39A1BFA1ABC004A65B5 /* InteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorSpy.swift; sourceTree = "<group>"; };
 		AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemAudioDevicesChangeEventTargetCompositeTests.swift; path = UseCasesTests/SystemAudioDevicesChangeEventTargetCompositeTests.swift; sourceTree = SOURCE_ROOT; };
 		AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargetComposite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesChangeEventTargetComposite.swift; sourceTree = "<group>"; };
@@ -1010,12 +1002,8 @@
 				AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift */,
 				AA32F8081BC69D8300FAC228 /* SystemAudioDeviceRepository.swift */,
 				AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */,
-				AABBB3971BFA1A33004A65B5 /* UserAgentAudioDeviceUpdater.swift */,
-				AABBB3951BFA1998004A65B5 /* UserAgentAudioDeviceUpdaterTests.swift */,
 				AAB32A0E1BEB8AC40016C8E6 /* UserAgentAudioDeviceUpdateInteractor.swift */,
 				AAB32A0C1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateInteractorTests.swift */,
-				AA404A771BFA505E00D00A3E /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift */,
-				AA404A7A1BFA506D00D00A3E /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift */,
 				AAFA2BAC1BCD812C00066CFC /* UserAgentSoundIOSelectionInteractor.swift */,
 				AAFA2BB01BCD814000066CFC /* UserAgentSoundIOSelectionInteractorTests.swift */,
 				AA7F6D461C0381C00064DA3A /* UserDefaultsSoundIOLoadInteractor.swift */,
@@ -1866,7 +1854,6 @@
 				8A3D60671C734A8900D7F54C /* NullSoundObserver.swift in Sources */,
 				8A7874F21C5A2612002494ED /* ConditionalRingtonePlaybackInteractor.swift in Sources */,
 				AA3B6E801C46B40C0030D410 /* Sound.swift in Sources */,
-				AA3905331BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift in Sources */,
 				8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadInteractor.swift in Sources */,
 				8ADD31CD1CC165C3008C083C /* DelayingUserAgentSoundIOSelectionInteractor.swift in Sources */,
 				8A61363C1CC23AB900A087A4 /* SystemAudioDevicesChangeEventTargetComposite.swift in Sources */,
@@ -1892,7 +1879,6 @@
 				AA18F6011C21CD9600FD8E9F /* UserDefaultsSoundIOSaveInteractor.swift in Sources */,
 				8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackInteractor.swift in Sources */,
 				AA39054A1BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */,
-				8A61363F1CC23CA000A087A4 /* UserAgentAudioDeviceUpdater.swift in Sources */,
 				AA8BA7F61C04D843008839F2 /* AudioDevices.swift in Sources */,
 				8AA31F041C987B4700ABC4FB /* SoundPlaybackInteractor.swift in Sources */,
 				AAC4FF611C01D0070060B186 /* UserAgent.swift in Sources */,
@@ -1922,11 +1908,9 @@
 				AA39053D1BFFDDED005A8AA3 /* UserAgentSoundIOSelectionInteractorTests.swift in Sources */,
 				8A61363D1CC23ABC00A087A4 /* SystemAudioDevicesChangeEventTargetCompositeTests.swift in Sources */,
 				8A7874F01C5A25D0002494ED /* ConditionalRingtonePlaybackInteractorTests.swift in Sources */,
-				AA39053F1BFFDDED005A8AA3 /* UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractorTests.swift in Sources */,
 				AA1019711C48044900869D01 /* DefaultRingtonePlaybackInteractorTests.swift in Sources */,
 				AA18F5FF1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveInteractorTests.swift in Sources */,
 				8A4E38301C5BB20100816F38 /* UserDefaultsRingtoneSoundNameSaveInteractorTests.swift in Sources */,
-				8A6136401CC23CA600A087A4 /* UserAgentAudioDeviceUpdaterTests.swift in Sources */,
 				AA3166391C4FB21500E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorTests.swift in Sources */,
 				AA3B6E8B1C47BFDF0030D410 /* RepeatingSoundTests.swift in Sources */,
 				8A9175911CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */,
