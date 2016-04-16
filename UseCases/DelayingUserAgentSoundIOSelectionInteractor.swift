@@ -1,5 +1,5 @@
 //
-//  DelayedUserAgentSoundIOSelectionInteractor.swift
+//  DelayingUserAgentSoundIOSelectionInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class DelayedUserAgentSoundIOSelectionInteractor {
+public class DelayingUserAgentSoundIOSelectionInteractor {
     public let interactor: ThrowingInteractor
     public let userAgent: UserAgent
 
@@ -28,7 +28,7 @@ public class DelayedUserAgentSoundIOSelectionInteractor {
     }
 }
 
-extension DelayedUserAgentSoundIOSelectionInteractor: Interactor {
+extension DelayingUserAgentSoundIOSelectionInteractor: Interactor {
     public func execute() {
         selection = interactor
         selectSoundIOOrLogErrorIfNeeded()
@@ -54,7 +54,7 @@ extension DelayedUserAgentSoundIOSelectionInteractor: Interactor {
     }
 }
 
-extension DelayedUserAgentSoundIOSelectionInteractor: UserAgentEventTarget {
+extension DelayingUserAgentSoundIOSelectionInteractor: UserAgentEventTarget {
     public func userAgentDidFinishStarting(userAgent: UserAgent) {
         execute()
     }
@@ -74,7 +74,7 @@ extension DelayedUserAgentSoundIOSelectionInteractor: UserAgentEventTarget {
     public func userAgentDidDetectNAT(userAgent: UserAgent) {}
 }
 
-extension DelayedUserAgentSoundIOSelectionInteractor: SystemAudioDevicesChangeEventTarget {
+extension DelayingUserAgentSoundIOSelectionInteractor: SystemAudioDevicesChangeEventTarget {
     public func systemAudioDevicesDidUpdate() {
         execute()
     }
