@@ -16,12 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public class UserAgentAudioDeviceUpdater {
+    public let interactor: ThrowingInteractor
 
-class UserAgentAudioDeviceUpdater {
-    let interactor: ThrowingInteractor
-
-    init(interactor: ThrowingInteractor) {
+    public init(interactor: ThrowingInteractor) {
         self.interactor = interactor
     }
 
@@ -31,7 +29,7 @@ class UserAgentAudioDeviceUpdater {
 }
 
 extension UserAgentAudioDeviceUpdater: SystemAudioDevicesChangeEventTarget {
-    func systemAudioDevicesDidUpdate() {
+    public func systemAudioDevicesDidUpdate() {
         do {
             try updateAudioDevices()
         } catch {

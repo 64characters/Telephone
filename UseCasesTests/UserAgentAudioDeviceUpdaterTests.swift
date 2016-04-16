@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
 import UseCasesTestDoubles
 import XCTest
 
@@ -27,12 +28,6 @@ class UserAgentAudioDeviceUpdaterTests: XCTestCase {
         super.setUp()
         interactor = ThrowingInteractorSpy()
         sut = UserAgentAudioDeviceUpdater(interactor: interactor)
-    }
-
-    func testExecutesInteractorWhenUpdateAudioDevicesIsCalled() {
-        try! sut.updateAudioDevices()
-
-        XCTAssertTrue(interactor.didCallExecute)
     }
 
     func testExecutesInteractorWhenSystemAudioDevicesAreUpdated() {
