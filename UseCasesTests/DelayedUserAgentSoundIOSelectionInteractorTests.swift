@@ -1,5 +1,5 @@
 //
-//  DelayedUserAgentSoundIOSelectorTests.swift
+//  DelayedUserAgentSoundIOSelectionInteractorTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,14 +20,14 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
+class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
     private(set) var userAgent: UserAgentSpy!
-    private(set) var sut: DelayedUserAgentSoundIOSelector!
+    private(set) var sut: DelayedUserAgentSoundIOSelectionInteractor!
 
     override func setUp() {
         super.setUp()
         userAgent = UserAgentSpy()
-        sut = DelayedUserAgentSoundIOSelector(
+        sut = DelayedUserAgentSoundIOSelectionInteractor(
             interactor: UserAgentSoundIOSelectionInteractorFake(userAgent: userAgent)
         )
     }
@@ -93,11 +93,11 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
         XCTAssertFalse(userAgent.didSelectSoundIO)
     }
 
-    func testSelectsIOWhenUserAgentMakesCallAfterSelectWhenNeededIsCalled() {
+    func testSelectsIOWhenUserAgentMakesCallAfterExecuteIsCalled() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
 
-        sut.selectSoundIOWhenNeeded()
+        sut.execute()
         sut.userAgentDidMakeCall(userAgent)
 
         XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
