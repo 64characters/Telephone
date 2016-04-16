@@ -18,22 +18,26 @@
 
 public class DelayedUserAgentSoundIOSelectionInteractor {
     public let interactor: ThrowingInteractor
+    public let userAgent: UserAgent
 
     private var selection: ThrowingInteractor = NullThrowingInteractor()
 
-    public init(interactor: ThrowingInteractor) {
+    public init(interactor: ThrowingInteractor, userAgent: UserAgent) {
         self.interactor = interactor
+        self.userAgent = userAgent
     }
 }
 
 extension DelayedUserAgentSoundIOSelectionInteractor: Interactor {
     public func execute() {
         selection = interactor
+        selectSoundIOOrLogErrorIfNeeded()
     }
 
-    private func selectSoundIO() throws {
-        try selection.execute()
-        selection = NullThrowingInteractor()
+    private func selectSoundIOOrLogErrorIfNeeded() {
+        if userAgent.hasActiveCalls {
+            selectSoundIOOrLogError()
+        }
     }
 
     private func selectSoundIOOrLogError() {
@@ -42,6 +46,11 @@ extension DelayedUserAgentSoundIOSelectionInteractor: Interactor {
         } catch {
             print("Could not automatically select user agent audio devices: \(error)")
         }
+    }
+
+    private func selectSoundIO() throws {
+        try selection.execute()
+        selection = NullThrowingInteractor()
     }
 }
 

@@ -73,7 +73,9 @@ class CompositionRoot: NSObject {
         )
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
-            target: DelayedUserAgentSoundIOSelectionInteractor(interactor: userAgentSoundIOSelection),
+            target: DelayedUserAgentSoundIOSelectionInteractor(
+                interactor: userAgentSoundIOSelection, userAgent: userAgent
+            ),
             userAgent: userAgent
         )
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
