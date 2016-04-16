@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-protocol SystemAudioDevicesChangeEventTarget {
+public protocol SystemAudioDevicesChangeEventTarget {
     func systemAudioDevicesDidUpdate()
 }

@@ -16,12 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-class SystemAudioDevicesChangeEventTargetSpy {
-    private(set) var didCallSystemAudioDevicesDidUpdate = false
+import UseCases
+
+public class SystemAudioDevicesChangeEventTargetSpy {
+    public private(set) var didCallSystemAudioDevicesDidUpdate = false
+
+    public init() {}
 }
 
 extension SystemAudioDevicesChangeEventTargetSpy: SystemAudioDevicesChangeEventTarget {
-    func systemAudioDevicesDidUpdate() {
+    public func systemAudioDevicesDidUpdate() {
         didCallSystemAudioDevicesDidUpdate = true
     }
 }
