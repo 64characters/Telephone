@@ -33,13 +33,13 @@ class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
         )
     }
 
-    func testDoesNotSelectIOWhenUserAgentFinishesStarting() {
+    func testDoesNotSelectIOOnUserAgentDidFinishStarting() {
         sut.userAgentDidFinishStarting(userAgent)
 
         XCTAssertFalse(userAgent.didSelectSoundIO)
     }
 
-    func testSelectsIOWhenUserAgentMakesCall() {
+    func testSelectsIOOnUserAgentDidMakeCall() {
         sut.userAgentDidFinishStarting(userAgent)
 
         sut.userAgentDidMakeCall(userAgent)
@@ -47,7 +47,7 @@ class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
         XCTAssertTrue(userAgent.didSelectSoundIO)
     }
 
-    func testSelectsIOWhenUserAgentReceivesCall() {
+    func testSelectsIOOnUserAgentDidReceiveCall() {
         sut.userAgentDidFinishStarting(userAgent)
 
         sut.userAgentDidReceiveCall(userAgent)
@@ -66,7 +66,7 @@ class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
         XCTAssertEqual(userAgent.soundIOSelectionCallCount, 1)
     }
 
-    func testSelectsIOWhenUserAgentMakesCallAfterRestart() {
+    func testSelectsIOOnUserAgentDidMakeCallAfterRestart() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
 
@@ -77,7 +77,7 @@ class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
         XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
     }
 
-    func testDoesNotSelectSoundIOIfUserAgentWasNotStarted() {
+    func testDoesNotSelectIOIfUserAgentWasNotStarted() {
         sut.userAgentDidMakeCall(userAgent)
         sut.userAgentDidReceiveCall(userAgent)
 
@@ -94,7 +94,7 @@ class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
         XCTAssertFalse(userAgent.didSelectSoundIO)
     }
 
-    func testSelectsIOWhenUserAgentMakesCallAfterExecuteIsCalled() {
+    func testSelectsIOOnUserAgentDidMakeCallAfterExecuteIsCalled() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
 
@@ -104,7 +104,7 @@ class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
         XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOWhenUserAgentMakesCallAfterSystemAudioDevicesUpdate() {
+    func testSelectsIOOnUserAgentDidMakeCallAfterSystemAudioDevicesUpdate() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
 
@@ -114,7 +114,7 @@ class DelayedUserAgentSoundIOSelectionInteractorTests: XCTestCase {
         XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOWhenUserAgentReceivesCallAfterSystemAudioDevicesUpdate() {
+    func testSelectsIOOnUserAgentDidReceiveCallAfterSystemAudioDevicesUpdate() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
 
