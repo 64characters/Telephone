@@ -40,6 +40,7 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
 
     func testSelectsIOWhenUserAgentMakesCall() {
         sut.userAgentDidFinishStarting(userAgent)
+
         sut.userAgentDidMakeCall(userAgent)
 
         XCTAssertTrue(userAgent.didSelectSoundIO)
@@ -47,6 +48,7 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
 
     func testSelectsIOWhenUserAgentReceivesCall() {
         sut.userAgentDidFinishStarting(userAgent)
+
         sut.userAgentDidReceiveCall(userAgent)
 
         XCTAssertTrue(userAgent.didSelectSoundIO)
@@ -54,6 +56,7 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
 
     func testSelectsIOOnceWhenUserAgentMakesOrReceivesCallMoreThanOnce() {
         sut.userAgentDidFinishStarting(userAgent)
+
         sut.userAgentDidMakeCall(userAgent)
         sut.userAgentDidReceiveCall(userAgent)
         sut.userAgentDidMakeCall(userAgent)
@@ -65,6 +68,7 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
     func testSelectsIOWhenUserAgentMakesCallAfterRestart() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
+
         sut.userAgentDidFinishStopping(userAgent)
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
@@ -81,6 +85,7 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
 
     func testDoesNotSelectIOIfUserAgentWasStopped() {
         sut.userAgentDidFinishStarting(userAgent)
+
         sut.userAgentDidFinishStopping(userAgent)
         sut.userAgentDidMakeCall(userAgent)
         sut.userAgentDidReceiveCall(userAgent)
@@ -91,6 +96,7 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
     func testSelectsIOWhenUserAgentMakesCallAfterSelectWhenNeededIsCalled() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
+
         sut.selectSoundIOWhenNeeded()
         sut.userAgentDidMakeCall(userAgent)
 
