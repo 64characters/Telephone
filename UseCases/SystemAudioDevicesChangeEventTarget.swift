@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor.swift
+//  SystemAudioDevicesChangeEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public class UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor {
-    public let update: Interactor
-    public let selection: ThrowingInteractor
-
-    public init(update: Interactor, selection: ThrowingInteractor) {
-        self.update = update
-        self.selection = selection
-    }
-}
-
-extension UserAgentAudioDeviceUpdateAndSoundIOSelectionInteractor: ThrowingInteractor {
-    public func execute() throws {
-        update.execute()
-        try selection.execute()
-    }
+public protocol SystemAudioDevicesChangeEventTarget {
+    func systemAudioDevicesDidUpdate()
 }

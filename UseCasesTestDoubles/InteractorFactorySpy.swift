@@ -19,7 +19,6 @@
 import UseCases
 
 public class InteractorFactorySpy {
-    public private(set) var userAgentSoundIOSelection: ThrowingInteractor!
     public private(set) var userDefaultsSoundIOLoad: ThrowingInteractor!
     public private(set) var userDefaultsSoundIOSave: Interactor!
     public private(set) var userDefaultsRingtoneSoundNameSave: Interactor!
@@ -28,10 +27,6 @@ public class InteractorFactorySpy {
     public private(set) var invokedRingtoneSoundName = ""
 
     public init() {}
-
-    public func stubWithUserAgentSoundIOSelection(interactor: ThrowingInteractor) {
-        userAgentSoundIOSelection = interactor
-    }
 
     public func stubWithUserDefaultsSoundIOLoad(interactor: ThrowingInteractor) {
         userDefaultsSoundIOLoad = interactor
@@ -47,10 +42,6 @@ public class InteractorFactorySpy {
 }
 
 extension InteractorFactorySpy: InteractorFactory {
-    public func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
-        return userAgentSoundIOSelection
-    }
-
     public func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
         return userDefaultsSoundIOLoad
     }

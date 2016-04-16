@@ -20,6 +20,9 @@ import Foundation
 import UseCases
 
 public class UserAgentSpy: NSObject {
+    @objc(isStarted) public var started = false
+    public private(set) var hasActiveCalls = false
+
     public private(set) var didCallAudioDevices = false
     public var audioDevicesResult = [UserAgentAudioDevice]()
 
@@ -29,13 +32,13 @@ public class UserAgentSpy: NSObject {
 
     public private(set) var invokedInputDeviceID: Int?
     public private(set) var invokedOutputDeviceID: Int?
+
+    public func simulateActiveCalls() {
+        hasActiveCalls = true
+    }
 }
 
 extension UserAgentSpy: UserAgent {
-    @objc(isStarted) public var started: Bool {
-        return false
-    }
-
     public func audioDevices() throws -> [UserAgentAudioDevice] {
         didCallAudioDevices = true
         return audioDevicesResult

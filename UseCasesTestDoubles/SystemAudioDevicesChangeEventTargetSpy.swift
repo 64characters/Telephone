@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDeviceUpdater.swift
+//  SystemAudioDevicesChangeEventTargetSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,24 +18,14 @@
 
 import UseCases
 
-class UserAgentAudioDeviceUpdater {
-    let interactor: ThrowingInteractor
+public class SystemAudioDevicesChangeEventTargetSpy {
+    public private(set) var didCallSystemAudioDevicesDidUpdate = false
 
-    init(interactor: ThrowingInteractor) {
-        self.interactor = interactor
-    }
-
-    func updateAudioDevices() throws {
-        try interactor.execute()
-    }
+    public init() {}
 }
 
-extension UserAgentAudioDeviceUpdater: SystemAudioDevicesChangeEventTarget {
-    func systemAudioDevicesDidUpdate() {
-        do {
-            try updateAudioDevices()
-        } catch {
-            print("Could not automatically update user agent audio devices: \(error)")
-        }
+extension SystemAudioDevicesChangeEventTargetSpy: SystemAudioDevicesChangeEventTarget {
+    public func systemAudioDevicesDidUpdate() {
+        didCallSystemAudioDevicesDidUpdate = true
     }
 }

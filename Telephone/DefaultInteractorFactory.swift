@@ -29,14 +29,6 @@ class DefaultInteractorFactory {
 }
 
 extension DefaultInteractorFactory: InteractorFactory {
-    func createUserAgentSoundIOSelectionInteractor(userAgent userAgent: UserAgent) -> ThrowingInteractor {
-        return UserAgentSoundIOSelectionInteractor(
-            repository: repository,
-            userAgent: userAgent,
-            userDefaults: userDefaults
-        )
-    }
-
     func createUserDefaultsSoundIOLoadInteractor(output output: UserDefaultsSoundIOLoadInteractorOutput) -> ThrowingInteractor {
         return UserDefaultsSoundIOLoadInteractor(
             repository: repository,

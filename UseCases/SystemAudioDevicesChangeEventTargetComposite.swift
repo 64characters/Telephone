@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeEventTarget.swift
+//  SystemAudioDevicesChangeEventTargetComposite.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-protocol SystemAudioDevicesChangeEventTarget {
-    func systemAudioDevicesDidUpdate()
+public class SystemAudioDevicesChangeEventTargetComposite {
+    public let targets: [SystemAudioDevicesChangeEventTarget]
+
+    public init(targets: [SystemAudioDevicesChangeEventTarget]) {
+        self.targets = targets
+    }
+}
+
+extension SystemAudioDevicesChangeEventTargetComposite: SystemAudioDevicesChangeEventTarget {
+   public func systemAudioDevicesDidUpdate() {
+        for target in targets {
+            target.systemAudioDevicesDidUpdate()
+        }
+    }
 }
