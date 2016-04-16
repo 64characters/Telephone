@@ -21,11 +21,23 @@ import UseCasesTestDoubles
 import XCTest
 
 class UserAgentAudioDeviceUpdateInteractorTests: XCTestCase {
-    func testCallsUpdateAudioDevices() {
-        let userAgent = UserAgentSpy()
-        let sut = UserAgentAudioDeviceUpdateInteractor(userAgent: userAgent)
+    private(set) var userAgent: UserAgentSpy!
+    private(set) var sut: UserAgentAudioDeviceUpdateInteractor!
 
+    override func setUp() {
+        super.setUp()
+        userAgent = UserAgentSpy()
+        sut = UserAgentAudioDeviceUpdateInteractor(userAgent: userAgent)
+    }
+
+    func testCallsUpdateAudioDevicesOnExecute() {
         sut.execute()
+
+        XCTAssertTrue(userAgent.didCallUpdateAudioDevices)
+    }
+
+    func testCallsUpdateAudioDevicesOnSystemAudioDevicesUpdate() {
+        sut.systemAudioDevicesDidUpdate()
 
         XCTAssertTrue(userAgent.didCallUpdateAudioDevices)
     }

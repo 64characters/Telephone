@@ -29,3 +29,9 @@ extension UserAgentAudioDeviceUpdateInteractor: Interactor {
         userAgent.updateAudioDevices()
     }
 }
+
+extension UserAgentAudioDeviceUpdateInteractor: SystemAudioDevicesChangeEventTarget {
+    public func systemAudioDevicesDidUpdate() {
+        execute()
+    }
+}
