@@ -27,7 +27,9 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         userAgent = UserAgentSpy()
-        sut = DelayedUserAgentSoundIOSelector(factory: InteractorFactoryFake())
+        sut = DelayedUserAgentSoundIOSelector(
+            interactor: UserAgentSoundIOSelectionInteractorFake(userAgent: userAgent)
+        )
     }
 
     func testDoesNotSelectIOWhenUserAgentFinishesStarting() {
@@ -89,7 +91,7 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
     func testSelectsIOWhenUserAgentMakesCallAfterSelectWhenNeededIsCalled() {
         sut.userAgentDidFinishStarting(userAgent)
         sut.userAgentDidMakeCall(userAgent)
-        sut.selectSoundIOWhenNeeded(userAgent)
+        sut.selectSoundIOWhenNeeded()
         sut.userAgentDidMakeCall(userAgent)
 
         XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)

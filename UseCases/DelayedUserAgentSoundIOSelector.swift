@@ -17,26 +17,26 @@
 //
 
 public class DelayedUserAgentSoundIOSelector {
-    public let factory: InteractorFactory
+    public let interactor: ThrowingInteractor
 
     private var selection: ThrowingInteractor = NullThrowingInteractor()
 
-    public init(factory: InteractorFactory) {
-        self.factory = factory
+    public init(interactor: ThrowingInteractor) {
+        self.interactor = interactor
     }
 
-    public func selectSoundIOWhenNeeded(userAgent: UserAgent) {
-        selection = factory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent)
+    public func selectSoundIOWhenNeeded() {
+        selection = interactor
     }
 
-    private func selectSoundIO(userAgent: UserAgent) throws {
+    private func selectSoundIO() throws {
         try selection.execute()
         selection = NullThrowingInteractor()
     }
 
-    private func selectSoundIOOrLogError(userAgent: UserAgent) {
+    private func selectSoundIOOrLogError() {
         do {
-            try selectSoundIO(userAgent)
+            try selectSoundIO()
         } catch {
             print("Could not automatically select user agent audio devices: \(error)")
         }
@@ -45,7 +45,7 @@ public class DelayedUserAgentSoundIOSelector {
 
 extension DelayedUserAgentSoundIOSelector: UserAgentEventTarget {
     public func userAgentDidFinishStarting(userAgent: UserAgent) {
-        selectSoundIOWhenNeeded(userAgent)
+        selectSoundIOWhenNeeded()
     }
 
     public func userAgentDidFinishStopping(userAgent: UserAgent) {
@@ -53,11 +53,11 @@ extension DelayedUserAgentSoundIOSelector: UserAgentEventTarget {
     }
 
     public func userAgentDidMakeCall(userAgent: UserAgent) {
-        selectSoundIOOrLogError(userAgent)
+        selectSoundIOOrLogError()
     }
 
     public func userAgentDidReceiveCall(userAgent: UserAgent) {
-        selectSoundIOOrLogError(userAgent)
+        selectSoundIOOrLogError()
     }
 
     public func userAgentDidDetectNAT(userAgent: UserAgent) {}

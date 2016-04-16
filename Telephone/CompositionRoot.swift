@@ -66,8 +66,14 @@ class CompositionRoot: NSObject {
             )
         )
 
+        let userAgentSoundIOSelection = UserAgentSoundIOSelectionInteractor(
+            repository: audioDevices,
+            userAgent: userAgent,
+            userDefaults: userDefaults
+        )
+
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
-            target: DelayedUserAgentSoundIOSelector(factory: interactorFactory),
+            target: DelayedUserAgentSoundIOSelector(interactor: userAgentSoundIOSelection),
             userAgent: userAgent
         )
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
@@ -78,11 +84,7 @@ class CompositionRoot: NSObject {
                             update: UserAgentAudioDeviceUpdateInteractor(
                                 userAgent: userAgent
                             ),
-                            selection: UserAgentSoundIOSelectionInteractor(
-                                repository: audioDevices,
-                                userAgent: userAgent,
-                                userDefaults: userDefaults
-                            )
+                            selection: userAgentSoundIOSelection
                         )
                     ),
                     PreferencesSoundIOUpdater(preferences: preferencesController)
