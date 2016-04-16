@@ -96,4 +96,24 @@ class DelayedUserAgentSoundIOSelectorTests: XCTestCase {
 
         XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
     }
+
+    func testSelectsIOWhenUserAgentMakesCallAfterSystemAudioDevicesUpdate() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+
+        sut.systemAudioDevicesDidUpdate()
+        sut.userAgentDidMakeCall(userAgent)
+
+        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+    }
+
+    func testSelectsIOWhenUserAgentReceivesCallAfterSystemAudioDevicesUpdate() {
+        sut.userAgentDidFinishStarting(userAgent)
+        sut.userAgentDidMakeCall(userAgent)
+
+        sut.systemAudioDevicesDidUpdate()
+        sut.userAgentDidReceiveCall(userAgent)
+
+        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+    }
 }

@@ -62,3 +62,9 @@ extension DelayedUserAgentSoundIOSelector: UserAgentEventTarget {
 
     public func userAgentDidDetectNAT(userAgent: UserAgent) {}
 }
+
+extension DelayedUserAgentSoundIOSelector: SystemAudioDevicesChangeEventTarget {
+    public func systemAudioDevicesDidUpdate() {
+        selectSoundIOWhenNeeded()
+    }
+}
