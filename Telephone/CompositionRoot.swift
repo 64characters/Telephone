@@ -55,27 +55,30 @@ class CompositionRoot: NSObject {
             delegate: conditionalRingtonePlaybackInteractorDelegate
         )
 
-        preferencesController = PreferencesController(
-            delegate: preferencesControllerDelegate,
-            soundPreferencesViewEventTarget: DefaultSoundPreferencesViewEventTarget(
-                interactorFactory: interactorFactory,
-                presenterFactory: PresenterFactory(),
-                ringtoneOutputUpdate: RingtoneOutputUpdateInteractor(playback: ringtonePlayback),
-                ringtoneSoundPlayback: DefaultSoundPlaybackInteractor(factory: userDefaultsSoundFactory),
-                userAgent: userAgent
-            )
-        )
-
         let userAgentSoundIOSelection = UserAgentSoundIOSelectionInteractor(
             repository: audioDevices,
             userAgent: userAgent,
             userDefaults: userDefaults
         )
 
+        let delayingUserAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionInteractor(
+            interactor: userAgentSoundIOSelection,
+            userAgent: userAgent
+        )
+
+        preferencesController = PreferencesController(
+            delegate: preferencesControllerDelegate,
+            soundPreferencesViewEventTarget: DefaultSoundPreferencesViewEventTarget(
+                interactorFactory: interactorFactory,
+                presenterFactory: PresenterFactory(),
+                userAgentSoundIOSelection: delayingUserAgentSoundIOSelection,
+                ringtoneOutputUpdate: RingtoneOutputUpdateInteractor(playback: ringtonePlayback),
+                ringtoneSoundPlayback: DefaultSoundPlaybackInteractor(factory: userDefaultsSoundFactory)
+            )
+        )
+
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
-            target: DelayingUserAgentSoundIOSelectionInteractor(
-                interactor: userAgentSoundIOSelection, userAgent: userAgent
-            ),
+            target: delayingUserAgentSoundIOSelection,
             userAgent: userAgent
         )
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(

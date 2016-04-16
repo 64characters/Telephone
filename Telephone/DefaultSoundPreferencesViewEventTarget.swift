@@ -21,20 +21,20 @@ import UseCases
 class DefaultSoundPreferencesViewEventTarget: NSObject {
     let interactorFactory: InteractorFactory
     let presenterFactory: PresenterFactory
+    let userAgentSoundIOSelection: Interactor
     let ringtoneOutputUpdate: ThrowingInteractor
     let ringtoneSoundPlayback: SoundPlaybackInteractor
-    let userAgent: UserAgent
 
     init(interactorFactory: InteractorFactory,
-        presenterFactory: PresenterFactory,
-        ringtoneOutputUpdate: ThrowingInteractor,
-        ringtoneSoundPlayback: SoundPlaybackInteractor,
-        userAgent: UserAgent) {
-            self.interactorFactory = interactorFactory
-            self.presenterFactory = presenterFactory
-            self.ringtoneOutputUpdate = ringtoneOutputUpdate
-            self.ringtoneSoundPlayback = ringtoneSoundPlayback
-            self.userAgent = userAgent
+         presenterFactory: PresenterFactory,
+         userAgentSoundIOSelection: Interactor,
+         ringtoneOutputUpdate: ThrowingInteractor,
+         ringtoneSoundPlayback: SoundPlaybackInteractor) {
+        self.interactorFactory = interactorFactory
+        self.presenterFactory = presenterFactory
+        self.userAgentSoundIOSelection = userAgentSoundIOSelection
+        self.ringtoneOutputUpdate = ringtoneOutputUpdate
+        self.ringtoneSoundPlayback = ringtoneSoundPlayback
     }
 }
 
@@ -51,7 +51,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         updateUserDefaultsWithSoundIO(
             PresentationSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
         )
-        selectUserAgentAudioDevicesOrLogError()
+        userAgentSoundIOSelection.execute()
         updateRingtoneOutputOrLogError()
     }
 
@@ -74,14 +74,6 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
 
     private func updateUserDefaultsWithSoundIO(soundIO: PresentationSoundIO) {
         interactorFactory.createUserDefaultsSoundIOSaveInteractor(soundIO: soundIO).execute()
-    }
-
-    private func selectUserAgentAudioDevicesOrLogError() {
-        do {
-            try interactorFactory.createUserAgentSoundIOSelectionInteractor(userAgent: userAgent).execute()
-        } catch {
-            print("Could not select user agent audio devices: \(error)")
-        }
     }
 
     private func updateRingtoneOutputOrLogError() {
