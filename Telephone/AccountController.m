@@ -89,8 +89,9 @@ NSString * const kEmailSIPLabel = @"sip";
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     if (flag) {
+        Host *host = [[Host alloc] initWithString:self.account.registrar];
         AKNetworkReachability *reachability
-            = [AKNetworkReachability networkReachabilityWithHost:[[self account] registrar]];
+            = [AKNetworkReachability networkReachabilityWithHost:host.address];
         [self setRegistrarReachability:reachability];
         
         if (reachability != nil) {
