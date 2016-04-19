@@ -1,5 +1,5 @@
 //
-//  HostTests.swift
+//  ServiceAddressTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,33 +19,33 @@
 import UseCases
 import XCTest
 
-class HostTests: XCTestCase {
+class ServiceAddressTests: XCTestCase {
     func testCanCreate() {
-        let sut = Host(string: "any")
+        let sut = ServiceAddress(string: "any")
 
         XCTAssertNotNil(sut)
     }
 
-    func testAddressIsFullSourceStringWhenNoPortIsSpecified() {
-        let sut = Host(string: "any")
+    func testHostIsFullSourceStringWhenNoPortIsSpecified() {
+        let sut = ServiceAddress(string: "any")
 
-        XCTAssertEqual(sut.address, "any")
+        XCTAssertEqual(sut.host, "any")
     }
 
-    func testAddressIsSubstringBeforeColon() {
-        let sut = Host(string: "any:123")
+    func testHostIsSubstringBeforeColon() {
+        let sut = ServiceAddress(string: "any:123")
 
-        XCTAssertEqual(sut.address, "any")
+        XCTAssertEqual(sut.host, "any")
     }
 
     func testPortIsSubstringAfterColon() {
-        let sut = Host(string: "any:123")
+        let sut = ServiceAddress(string: "any:123")
 
         XCTAssertEqual(sut.port, "123")
     }
 
     func testPortIsEmptyStringWhenSourceStringEndsWithColon() {
-        let sut = Host(string: "any:")
+        let sut = ServiceAddress(string: "any:")
 
         XCTAssertEqual(sut.port, "")
     }

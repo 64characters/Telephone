@@ -1,5 +1,5 @@
 //
-//  Host.swift
+//  ServiceAddress.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,16 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public class Host: NSObject {
-    public let address: String
+public class ServiceAddress: NSObject {
+    public let host: String
     public let port: String
 
     public init(string: String) {
         if let range = string.rangeOfString(":", options: .BackwardsSearch) {
-            address = string.substringToIndex(range.startIndex)
+            host = string.substringToIndex(range.startIndex)
             port = string.substringFromIndex(range.endIndex)
         } else {
-            address = string
+            host = string
             port = ""
         }
     }
