@@ -20,12 +20,6 @@ import UseCases
 import XCTest
 
 class ServiceAddressTests: XCTestCase {
-    func testCanCreate() {
-        let sut = ServiceAddress(string: "any")
-
-        XCTAssertNotNil(sut)
-    }
-
     func testHostIsFullSourceStringWhenNoPortIsSpecified() {
         let sut = ServiceAddress(string: "any")
 
