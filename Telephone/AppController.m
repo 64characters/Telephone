@@ -898,7 +898,7 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-- (void)registerAllAccountsIfReachable {
+- (void)registerReachableAccounts {
     for (AccountController *controller in [self enabledAccountControllers]) {
         if ([[controller registrarReachability] isReachable]) {
             [controller registerAccount];
@@ -1520,7 +1520,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)workspaceDidWake:(NSNotification *)notification {
     if (self.isUserSessionActive) {
-        [self registerAllAccountsIfReachable];
+        [self registerReachableAccounts];
     }
 }
 
