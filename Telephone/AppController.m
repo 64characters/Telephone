@@ -890,6 +890,43 @@ NS_ASSUME_NONNULL_END
 }
 
 
+#pragma mark - Account registration
+
+- (void)registerAllAccounts {
+    for (AccountController *controller in [self enabledAccountControllers]) {
+        [controller registerAccount];
+    }
+}
+
+- (void)registerAllAccountsIfReachable {
+    for (AccountController *controller in [self enabledAccountControllers]) {
+        if ([[controller registrarReachability] isReachable]) {
+            [controller registerAccount];
+        }
+    }
+}
+
+- (void)registerAllAccountsWhereManualRegistrationRequired {
+    for (AccountController *accountController in [self enabledAccountControllers]) {
+        [self registerAccountIfManualRegistrationRequired:accountController];
+    }
+}
+
+- (void)registerAccountIfManualRegistrationRequired:(AccountController *)controller {
+    if (controller.account.registrar.ak_isIPAddress && [controller.registrarReachability isReachable]) {
+        [controller registerAccount];
+    }
+}
+
+- (void)unregisterAllAccounts {
+    for (AccountController *controller in [self enabledAccountControllers]) {
+        if ([controller isAccountRegistered]) {
+            [controller unregisterAccount];
+        }
+    }
+}
+
+
 #pragma mark -
 #pragma mark AccountSetupController delegate
 
@@ -1495,40 +1532,6 @@ NS_ASSUME_NONNULL_END
 - (void)workspaceSessionDidBecomeActive:(NSNotification *)notification {
     self.userSessionActive = YES;
     [self registerAllAccounts];
-}
-
-- (void)registerAllAccounts {
-    for (AccountController *controller in [self enabledAccountControllers]) {
-        [controller registerAccount];
-    }
-}
-
-- (void)registerAllAccountsIfReachable {
-    for (AccountController *controller in [self enabledAccountControllers]) {
-        if ([[controller registrarReachability] isReachable]) {
-            [controller registerAccount];
-        }
-    }
-}
-
-- (void)unregisterAllAccounts {
-    for (AccountController *controller in [self enabledAccountControllers]) {
-        if ([controller isAccountRegistered]) {
-            [controller unregisterAccount];
-        }
-    }
-}
-
-- (void)registerAllAccountsWhereManualRegistrationRequired {
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        [self registerAccountIfManualRegistrationRequired:accountController];
-    }
-}
-
-- (void)registerAccountIfManualRegistrationRequired:(AccountController *)controller {
-    if (controller.account.registrar.ak_isIPAddress && [controller.registrarReachability isReachable]) {
-        [controller registerAccount];
-    }
 }
 
 
