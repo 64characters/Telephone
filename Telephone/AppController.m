@@ -916,13 +916,8 @@ NS_ASSUME_NONNULL_END
     [self updateAccountsMenuItems];
     
     [[controller window] orderFront:self];
-    
-    // We need to register accounts with IP address as registrar manually.
-    if ([[[controller account] registrar] ak_isIPAddress] &&
-        [[controller registrarReachability] isReachable]) {
-        
-        [controller registerAccount];
-    }
+
+    [self registerAccountIfManualRegistrationRequired:controller];
 }
 
 
@@ -998,13 +993,8 @@ NS_ASSUME_NONNULL_END
         [self accountControllers][index] = controller;
         
         [[controller window] orderFront:nil];
-        
-        // We need to register accounts with IP address as registrar manually.
-        if ([[[controller account] registrar] ak_isIPAddress] &&
-            [[controller registrarReachability] isReachable]) {
-            
-            [controller registerAccount];
-        }
+
+        [self registerAccountIfManualRegistrationRequired:controller];
         
     } else {
         AccountController *controller = [self accountControllers][index];
@@ -1347,16 +1337,7 @@ NS_ASSUME_NONNULL_END
     // menu and context menus.
     [NSApp setServicesProvider:self];
     
-    // Accounts with host name as the registrar will be registered with the
-    // reachability callbacks. But if registrar is IP address, there won't be such
-    // callbacks. Register such accounts here.
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        if ([[[accountController account] registrar] ak_isIPAddress] &&
-            [[accountController registrarReachability] isReachable]) {
-            
-            [accountController registerAccount];
-        }
-    }
+    [self registerAllAccountsWhereManualRegistrationRequired];
 
     [self makeCallAfterLaunchIfNeeded];
 
@@ -1535,6 +1516,18 @@ NS_ASSUME_NONNULL_END
         if ([controller isAccountRegistered]) {
             [controller unregisterAccount];
         }
+    }
+}
+
+- (void)registerAllAccountsWhereManualRegistrationRequired {
+    for (AccountController *accountController in [self enabledAccountControllers]) {
+        [self registerAccountIfManualRegistrationRequired:accountController];
+    }
+}
+
+- (void)registerAccountIfManualRegistrationRequired:(AccountController *)controller {
+    if (controller.account.registrar.ak_isIPAddress && [controller.registrarReachability isReachable]) {
+        [controller registerAccount];
     }
 }
 
