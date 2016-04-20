@@ -24,7 +24,7 @@
 #import "CallControllerDelegate.h"
 
 
-@class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI;
+@class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI, AKSIPUserAgent;
 @class IncomingCallViewController, ActiveCallViewController;
 @class EndedCallViewController, CallTransferController;
 @protocol RingtonePlaybackInteractor;
@@ -46,6 +46,8 @@
 
 // Account controller the receiver belongs to.
 @property(nonatomic, weak) AccountController *accountController;
+
+@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
 @property(nonatomic, readonly, strong) id<RingtonePlaybackInteractor> ringtonePlayback;
 
@@ -100,6 +102,7 @@
 
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName
                     accountController:(AccountController *)accountController
+                            userAgent:(AKSIPUserAgent *)userAgent
                      ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback
                              delegate:(id<CallControllerDelegate>)delegate;
 

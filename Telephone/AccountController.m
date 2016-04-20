@@ -323,6 +323,7 @@ NSString * const kEmailSIPLabel = @"sip";
     if (callTransferController == nil) {
         aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                       accountController:self
+                                                              userAgent:self.userAgent
                                                        ringtonePlayback:self.ringtonePlayback
                                                                delegate:self];
     } else {
@@ -746,6 +747,7 @@ NSString * const kEmailSIPLabel = @"sip";
     
     CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                                   accountController:self
+                                                                          userAgent:self.userAgent
                                                                    ringtonePlayback:self.ringtonePlayback
                                                                            delegate:self];
     
