@@ -50,7 +50,7 @@ extern NSString * const kEmailSIPLabel;
 @property(nonatomic, readonly, strong) id<RingtonePlaybackInteractor> ringtonePlayback;
 
 // A Boolean value indicating whether account is registered.
-@property(nonatomic, assign, getter=isAccountRegistered) BOOL accountRegistered;
+@property(nonatomic, readonly, getter=isAccountRegistered) BOOL accountRegistered;
 
 // An array of call controllers managed by the receiver.
 @property(nonatomic, strong) NSMutableArray *callControllers;
@@ -98,6 +98,10 @@ extern NSString * const kEmailSIPLabel;
 // Initializes an AccountController object with a given account.
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
         ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback;
+
+// Registers the account adding it to the user agent, if needed. The user agent will be started, if it hasn't been yet.
+- (void)registerAccount;
+- (void)unregisterAccount;
 
 // Removes account from the user agent.
 - (void)removeAccountFromUserAgent;
