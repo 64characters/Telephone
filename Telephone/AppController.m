@@ -99,13 +99,13 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)hasIncomingCallControllers {
-    for (AccountController *anAccountController in [self enabledAccountControllers]) {
-        for (CallController *aCallController in [anAccountController callControllers]) {
-            if ([[aCallController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
-                [[aCallController call] isIncoming] &&
-                [aCallController isCallActive] &&
-                ([[aCallController call] state] == kAKSIPCallIncomingState ||
-                 [[aCallController call] state] == kAKSIPCallEarlyState)) {
+    for (AccountController *accountController in [self enabledAccountControllers]) {
+        for (CallController *callController in [accountController callControllers]) {
+            if ([[callController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
+                [[callController call] isIncoming] &&
+                [callController isCallActive] &&
+                ([[callController call] state] == kAKSIPCallIncomingState ||
+                 [[callController call] state] == kAKSIPCallEarlyState)) {
                     return YES;
                 }
         }
@@ -115,9 +115,9 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)hasActiveCallControllers {
-    for (AccountController *anAccountController in [self enabledAccountControllers]) {
-        for (CallController *aCallController in [anAccountController callControllers]) {
-            if ([aCallController isCallActive]) {
+    for (AccountController *accountController in [self enabledAccountControllers]) {
+        for (CallController *callController in [accountController callControllers]) {
+            if ([callController isCallActive]) {
                 return YES;
             }
         }
@@ -149,9 +149,9 @@ NS_ASSUME_NONNULL_END
 
 - (NSUInteger)unhandledIncomingCallsCount {
     NSUInteger count = 0;
-    for (AccountController *anAccountController in [self enabledAccountControllers]) {
-        for (CallController *aCallController in [anAccountController callControllers]) {
-            if ([[aCallController call] isIncoming] && [aCallController isCallUnhandled]) {
+    for (AccountController *accountController in [self enabledAccountControllers]) {
+        for (CallController *callController in [accountController callControllers]) {
+            if ([[callController call] isIncoming] && [callController isCallUnhandled]) {
                 ++count;
             }
         }
@@ -310,12 +310,12 @@ NS_ASSUME_NONNULL_END
 
 - (void)stopUserAgent {
     // Force ended state for all calls and remove accounts from the user agent.
-    for (AccountController *anAccountController in [self enabledAccountControllers]) {
-        for (CallController *aCallController in [anAccountController callControllers]) {
-            [aCallController hangUpCall];
+    for (AccountController *accountController in [self enabledAccountControllers]) {
+        for (CallController *callController in [accountController callControllers]) {
+            [callController hangUpCall];
         }
         
-        [anAccountController removeAccountFromUserAgent];
+        [accountController removeAccountFromUserAgent];
     }
     
     [[self userAgent] stop];
@@ -427,10 +427,10 @@ NS_ASSUME_NONNULL_END
 }
 
 - (CallController *)callControllerByIdentifier:(NSString *)identifier {
-    for (AccountController *anAccountController in [self enabledAccountControllers]) {
-        for (CallController *aCallController in [anAccountController callControllers]) {
-            if ([[aCallController identifier] isEqualToString:identifier]) {
-                return aCallController;
+    for (AccountController *accountController in [self enabledAccountControllers]) {
+        for (CallController *callController in [accountController callControllers]) {
+            if ([[callController identifier] isEqualToString:identifier]) {
+                return callController;
             }
         }
     }
@@ -894,34 +894,34 @@ NS_ASSUME_NONNULL_END
 #pragma mark AccountSetupController delegate
 
 - (void)accountSetupControllerDidAddAccount:(NSNotification *)notification {
-    NSDictionary *accountDict = [notification userInfo];
+    NSDictionary *dict = [notification userInfo];
     
-    NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]];
+    NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@", dict[kUsername], dict[kDomain]];
     
-    AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:accountDict[kFullName]
+    AKSIPAccount *account = [AKSIPAccount SIPAccountWithFullName:dict[kFullName]
                                                       SIPAddress:SIPAddress
-                                                       registrar:accountDict[kDomain]
-                                                           realm:accountDict[kRealm]
-                                                        username:accountDict[kUsername]];
+                                                       registrar:dict[kDomain]
+                                                           realm:dict[kRealm]
+                                                        username:dict[kUsername]];
     
-    AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account
-                                                                           ringtonePlayback:self.ringtonePlayback];
+    AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                 ringtonePlayback:self.ringtonePlayback];
     
-    [theAccountController setAccountDescription:[[theAccountController account] SIPAddress]];
-    [[theAccountController window] setExcludedFromWindowsMenu:YES];
-    [theAccountController setEnabled:YES];
+    [controller setAccountDescription:[[controller account] SIPAddress]];
+    [[controller window] setExcludedFromWindowsMenu:YES];
+    [controller setEnabled:YES];
     
-    [[self accountControllers] addObject:theAccountController];
+    [[self accountControllers] addObject:controller];
     [self updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
     
-    [[theAccountController window] orderFront:self];
+    [[controller window] orderFront:self];
     
     // We need to register accounts with IP address as registrar manually.
-    if ([[[theAccountController account] registrar] ak_isIPAddress] &&
-        [[theAccountController registrarReachability] isReachable]) {
+    if ([[[controller account] registrar] ak_isIPAddress] &&
+        [[controller registrarReachability] isReachable]) {
         
-        [theAccountController registerAccount];
+        [controller registerAccount];
     }
 }
 
@@ -931,10 +931,10 @@ NS_ASSUME_NONNULL_END
 
 - (void)preferencesControllerDidRemoveAccount:(NSNotification *)notification {
     NSInteger index = [[notification userInfo][kAccountIndex] integerValue];
-    AccountController *anAccountController = [self accountControllers][index];
+    AccountController *controller = [self accountControllers][index];
     
-    if ([anAccountController isEnabled]) {
-        [anAccountController removeAccountFromUserAgent];
+    if ([controller isEnabled]) {
+        [controller removeAccountFromUserAgent];
     }
     
     [[self accountControllers] removeObjectAtIndex:index];
@@ -979,49 +979,49 @@ NS_ASSUME_NONNULL_END
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
-        AccountController *theAccountController = [[AccountController alloc] initWithSIPAccount:account
-                                                                               ringtonePlayback:self.ringtonePlayback];
+        AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                     ringtonePlayback:self.ringtonePlayback];
         
-        [[theAccountController window] setExcludedFromWindowsMenu:YES];
+        [[controller window] setExcludedFromWindowsMenu:YES];
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
             description = SIPAddress;
         }
-        [theAccountController setAccountDescription:description];
+        [controller setAccountDescription:description];
         
-        [theAccountController setAccountUnavailable:NO];
-        [theAccountController setEnabled:YES];
-        [theAccountController setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
-        [theAccountController setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
+        [controller setAccountUnavailable:NO];
+        [controller setEnabled:YES];
+        [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
+        [controller setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
         
-        [self accountControllers][index] = theAccountController;
+        [self accountControllers][index] = controller;
         
-        [[theAccountController window] orderFront:nil];
+        [[controller window] orderFront:nil];
         
         // We need to register accounts with IP address as registrar manually.
-        if ([[[theAccountController account] registrar] ak_isIPAddress] &&
-            [[theAccountController registrarReachability] isReachable]) {
+        if ([[[controller account] registrar] ak_isIPAddress] &&
+            [[controller registrarReachability] isReachable]) {
             
-            [theAccountController registerAccount];
+            [controller registerAccount];
         }
         
     } else {
-        AccountController *theAccountController = [self accountControllers][index];
+        AccountController *controller = [self accountControllers][index];
         
         // Close all call windows hanging up all calls.
-        [[theAccountController callControllers] makeObjectsPerformSelector:@selector(close)];
+        [[controller callControllers] makeObjectsPerformSelector:@selector(close)];
         
         // Remove account from the user agent.
-        [theAccountController removeAccountFromUserAgent];
-        [theAccountController setEnabled:NO];
-        [theAccountController setAttemptingToRegisterAccount:NO];
-        [theAccountController setAttemptingToUnregisterAccount:NO];
-        [theAccountController setShouldPresentRegistrationError:NO];
-        [[theAccountController window] orderOut:nil];
+        [controller removeAccountFromUserAgent];
+        [controller setEnabled:NO];
+        [controller setAttemptingToRegisterAccount:NO];
+        [controller setAttemptingToUnregisterAccount:NO];
+        [controller setShouldPresentRegistrationError:NO];
+        [[controller window] orderOut:nil];
         
         // Prevent conflict with setFrameAutosaveName: when re-enabling the account.
-        [theAccountController setWindow:nil];
+        [controller setWindow:nil];
     }
     
     [self updateCallsShouldDisplayAccountInfo];
@@ -1075,7 +1075,7 @@ NS_ASSUME_NONNULL_END
 #pragma mark AKSIPUserAgentDelegate
 
 // Decides whether AKSIPUserAgent should add an account. User agent is started in this method if needed.
-- (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)anAccount {
+- (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)account {
     if ([[self userAgent] state] < kAKSIPUserAgentStarting) {
         [[self userAgent] start];
         
@@ -1294,37 +1294,37 @@ NS_ASSUME_NONNULL_END
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
-        AccountController *anAccountController = [[AccountController alloc] initWithSIPAccount:account
-                                                                              ringtonePlayback:self.ringtonePlayback];
+        AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                     ringtonePlayback:self.ringtonePlayback];
         
-        [[anAccountController window] setExcludedFromWindowsMenu:YES];
+        [[controller window] setExcludedFromWindowsMenu:YES];
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
             description = SIPAddress;
         }
-        [anAccountController setAccountDescription:description];
+        [controller setAccountDescription:description];
         
-        [anAccountController setEnabled:[accountDict[kAccountEnabled] boolValue]];
-        [anAccountController setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
-        [anAccountController setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
+        [controller setEnabled:[accountDict[kAccountEnabled] boolValue]];
+        [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
+        [controller setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
         
-        [[self accountControllers] addObject:anAccountController];
+        [[self accountControllers] addObject:controller];
         
-        if (![anAccountController isEnabled]) {
+        if (![controller isEnabled]) {
             // Prevent conflict with |setFrameAutosaveName:| when enabling the account.
-            [anAccountController setWindow:nil];
+            [controller setWindow:nil];
             
             continue;
         }
         
         if (i == 0) {
-            [[anAccountController window] makeKeyAndOrderFront:self];
+            [[controller window] makeKeyAndOrderFront:self];
             
         } else {
             NSWindow *previousAccountWindow = [[self accountControllers][(i - 1)] window];
             
-            [[anAccountController window] orderWindow:NSWindowBelow relativeTo:[previousAccountWindow windowNumber]];
+            [[controller window] orderWindow:NSWindowBelow relativeTo:[previousAccountWindow windowNumber]];
         }
     }
     
@@ -1368,12 +1368,12 @@ NS_ASSUME_NONNULL_END
     
     // Show incoming call window, if any.
     if ([self hasIncomingCallControllers]) {
-        for (AccountController *anAccountController in [self enabledAccountControllers]) {
-            for (CallController *aCallController in [anAccountController callControllers]) {
-                if ([[aCallController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
-                    [[aCallController call] state] == kAKSIPCallIncomingState) {
+        for (AccountController *accountController in [self enabledAccountControllers]) {
+            for (CallController *callController in [accountController callControllers]) {
+                if ([[callController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
+                    [[callController call] state] == kAKSIPCallIncomingState) {
                     
-                    [aCallController showWindow:nil];
+                    [callController showWindow:nil];
                     
                     // Return early, beause we can't break from two for loops.
                     return YES;
