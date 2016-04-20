@@ -913,7 +913,8 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)registerAccountIfManualRegistrationRequired:(AccountController *)controller {
-    if (controller.account.registrar.ak_isIPAddress && [controller.registrarReachability isReachable]) {
+    ServiceAddress *registrar = [[ServiceAddress alloc] initWithString:controller.account.registrar];
+    if (registrar.host.ak_isIPAddress && [controller.registrarReachability isReachable]) {
         [controller registerAccount];
     }
 }
