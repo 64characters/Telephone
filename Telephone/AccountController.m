@@ -208,7 +208,8 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (AuthenticationFailureController *)authenticationFailureController {
     if (_authenticationFailureController == nil) {
-        _authenticationFailureController = [[AuthenticationFailureController alloc] initWithAccountController:self];
+        _authenticationFailureController
+            = [[AuthenticationFailureController alloc] initWithAccountController:self userAgent:self.userAgent];
     }
     
     return _authenticationFailureController;

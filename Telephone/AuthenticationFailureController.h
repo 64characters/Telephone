@@ -16,21 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-#import <Cocoa/Cocoa.h>
-
+@import Cocoa;
 
 // Posted whenever an AuthenticationFailureController object changes account's
 // username and password.
 extern NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNotification;
 
-@class AccountController;
+@class AccountController, AKSIPUserAgent;
 
 // Instances of AuthenticationFailureController class allow user to update
 // account credentials when authentication fails.
 @interface AuthenticationFailureController : NSWindowController
 
 // The receiver's account controller.
-@property(nonatomic, weak) AccountController *accountController;
+@property(nonatomic, readonly, weak) AccountController *accountController;
+
+@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
 // Informative text outlet.
 @property(nonatomic, weak) IBOutlet NSTextField *informativeText;
@@ -47,9 +48,7 @@ extern NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPas
 // Cancel button outlet.
 @property(nonatomic, weak) IBOutlet NSButton *cancelButton;
 
-
-// Initializes an AuthenticationFailureController object with a given account controller.
-- (instancetype)initWithAccountController:(AccountController *)anAccountController;
+- (instancetype)initWithAccountController:(AccountController *)accountController userAgent:(AKSIPUserAgent *)userAgent;
 
 // Closes a sheet.
 - (IBAction)closeSheet:(id)sender;
