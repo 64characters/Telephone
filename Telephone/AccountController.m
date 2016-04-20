@@ -419,7 +419,7 @@ NSString * const kEmailSIPLabel = @"sip";
 - (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination {
     if (![self isAccountAdded]) {
         [self setDestinationToCall:destination];
-        [self setAccountRegistered:YES];
+        [self registerAccount];
     } else {
         [self makeCallToDestination:destination];
     }
@@ -630,10 +630,10 @@ NSString * const kEmailSIPLabel = @"sip";
             [self setReRegistrationTimer:nil];
         }
         
-        // If the account was offline and the user chose Unavailable state, setAccountRegistered:NO will add the account
+        // If the account was offline and the user chose Unavailable state, -unregisterAccount will add the account
         // to the user agent. User agent will register the account. Set the account to Unavailable (unregister it) here.
         if ([self attemptingToUnregisterAccount]) {
-            [self setAccountRegistered:NO];
+            [self unregisterAccount];
             
         } else {
             [self setAccountUnavailable:NO];
@@ -1026,9 +1026,9 @@ NSString * const kEmailSIPLabel = @"sip";
     }
     
     if ([self attemptingToRegisterAccount]) {
-        [self setAccountRegistered:YES];
+        [self registerAccount];
     } else if ([self attemptingToUnregisterAccount]) {
-        [self setAccountRegistered:NO];
+        [self unregisterAccount];
     }
 }
 
