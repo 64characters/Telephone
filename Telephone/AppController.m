@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) id<RingtonePlaybackInteractor> ringtonePlayback;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
+@property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
 
 // Installs Address Book plug-ins.
 - (void)installAddressBookPlugIns;
@@ -234,6 +235,7 @@ NS_ASSUME_NONNULL_END
     _preferencesController = _compositionRoot.preferencesController;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
     _destinationToCall = @"";
+    _userSessionActive = YES;
     _accountControllers = [[NSMutableArray alloc] init];
     [self setShouldRegisterAllAccounts:NO];
     [self setShouldRestartUserAgentASAP:NO];
@@ -264,6 +266,10 @@ NS_ASSUME_NONNULL_END
     [notificationCenter addObserver:self
                            selector:@selector(workspaceWillSleep:)
                                name:NSWorkspaceWillSleepNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(workspaceDidWake:)
+                               name:NSWorkspaceDidWakeNotification
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(workspaceSessionDidResignActive:)
@@ -915,8 +921,7 @@ NS_ASSUME_NONNULL_END
     if ([[[theAccountController account] registrar] ak_isIPAddress] &&
         [[theAccountController registrarReachability] isReachable]) {
         
-        [theAccountController setAttemptingToRegisterAccount:YES];
-        [theAccountController setAccountRegistered:YES];
+        [theAccountController registerAccount];
     }
 }
 
@@ -998,8 +1003,7 @@ NS_ASSUME_NONNULL_END
         if ([[[theAccountController account] registrar] ak_isIPAddress] &&
             [[theAccountController registrarReachability] isReachable]) {
             
-            [theAccountController setAttemptingToRegisterAccount:YES];
-            [theAccountController setAccountRegistered:YES];
+            [theAccountController registerAccount];
         }
         
     } else {
@@ -1091,9 +1095,7 @@ NS_ASSUME_NONNULL_END
 - (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
     if ([[self userAgent] isStarted]) {
         if ([self shouldRegisterAllAccounts]) {
-            for (AccountController *anAccountController in [self enabledAccountControllers]) {
-                [anAccountController setAccountRegistered:YES];
-            }
+            [self registerAllAccounts];
         }
         
         [self setShouldRegisterAllAccounts:NO];
@@ -1352,8 +1354,7 @@ NS_ASSUME_NONNULL_END
         if ([[[accountController account] registrar] ak_isIPAddress] &&
             [[accountController registrarReachability] isReachable]) {
             
-            [accountController setAttemptingToRegisterAccount:YES];
-            [accountController setAccountRegistered:YES];
+            [accountController registerAccount];
         }
     }
 
@@ -1493,24 +1494,45 @@ NS_ASSUME_NONNULL_END
 #pragma mark -
 #pragma mark NSWorkspace notifications
 
-// Disconnects all calls, removes all accounts from the user agent and destroys it before computer goes to sleep.
 - (void)workspaceWillSleep:(NSNotification *)notification {
     if ([[self userAgent] isStarted]) {
         [self stopUserAgent];
     }
 }
 
-// Unregisters all accounts when a user session is switched out.
-- (void)workspaceSessionDidResignActive:(NSNotification *)notification {
-    for (AccountController *anAccountController in [self enabledAccountControllers]) {
-        [anAccountController setAccountRegistered:NO];
+- (void)workspaceDidWake:(NSNotification *)notification {
+    if (self.isUserSessionActive) {
+        [self registerAllAccountsIfReachable];
     }
 }
 
-// Re-registers all accounts when a user session in switched in.
+- (void)workspaceSessionDidResignActive:(NSNotification *)notification {
+    self.userSessionActive = NO;
+    [self unregisterAllAccounts];
+}
+
 - (void)workspaceSessionDidBecomeActive:(NSNotification *)notification {
-    for (AccountController *anAccountController in [self enabledAccountControllers]) {
-        [anAccountController setAccountRegistered:YES];
+    self.userSessionActive = YES;
+    [self registerAllAccounts];
+}
+
+- (void)registerAllAccounts {
+    for (AccountController *controller in [self enabledAccountControllers]) {
+        [controller registerAccount];
+    }
+}
+
+- (void)registerAllAccountsIfReachable {
+    for (AccountController *controller in [self enabledAccountControllers]) {
+        if ([[controller registrarReachability] isReachable]) {
+            [controller registerAccount];
+        }
+    }
+}
+
+- (void)unregisterAllAccounts {
+    for (AccountController *controller in [self enabledAccountControllers]) {
+        [controller setAccountRegistered:NO];
     }
 }
 

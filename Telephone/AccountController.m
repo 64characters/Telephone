@@ -263,6 +263,13 @@ NSString * const kEmailSIPLabel = @"sip";
     [[self window] setFrameAutosaveName:[[self account] SIPAddress]];
 }
 
+- (void)registerAccount {
+    if (![[[NSApp delegate] userAgent] isStarted]) {
+        [self setAttemptingToRegisterAccount:YES];
+    }
+    [self setAccountRegistered:YES];
+}
+
 - (void)removeAccountFromUserAgent {
     NSAssert([self isEnabled], @"Account conroller must be enabled to remove account from the user agent.");
     
@@ -440,9 +447,8 @@ NSString * const kEmailSIPLabel = @"sip";
         
     } else if (selectedItemTag == kSIPAccountAvailable) {
         [self setAccountUnavailable:NO];
-        [self setAttemptingToRegisterAccount:YES];
         [self setShouldPresentRegistrationError:YES];
-        [self setAccountRegistered:YES];
+        [self registerAccount];
     }
 }
 
@@ -1023,8 +1029,7 @@ NSString * const kEmailSIPLabel = @"sip";
 // This is the moment when the application starts doing its main job.
 - (void)networkReachabilityDidBecomeReachable:(NSNotification *)notification {
     if (![self isAccountUnavailable] && ![self isAccountRegistered]) {
-        [self setAttemptingToRegisterAccount:YES];
-        [self setAccountRegistered:YES];
+        [self registerAccount];
     }
 }
 

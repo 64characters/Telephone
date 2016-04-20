@@ -99,6 +99,9 @@ extern NSString * const kEmailSIPLabel;
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
         ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback;
 
+// Registers the account adding it to the user agent, if needed. The user agent will be started, if it hasn't been yet.
+- (void)registerAccount;
+
 // Removes account from the user agent.
 - (void)removeAccountFromUserAgent;
 
