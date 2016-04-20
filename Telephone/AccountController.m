@@ -135,13 +135,13 @@ NSString * const kEmailSIPLabel = @"sip";
         
         [self showConnectingState];
         
-        BOOL accountAdded = [[[NSApp delegate] userAgent] addAccount:[self account] withPassword:password];
+        BOOL accountAdded = [[self userAgent] addAccount:[self account] withPassword:password];
         
         // Error connecting to registrar.
         if (accountAdded &&
             ![self isAccountRegistered] &&
             [[self account] registrationExpireTime] < 0 &&
-            [[[NSApp delegate] userAgent] isStarted]) {
+            [[self userAgent] isStarted]) {
             
             [self showUnavailableState];
             
@@ -215,22 +215,19 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
-        ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback {
+                         userAgent:(AKSIPUserAgent *)userAgent
+                  ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback {
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
         return nil;
     }
 
-    [self setAccount:account];
+    _account = account;
+    _userAgent = userAgent;
     _ringtonePlayback = ringtonePlayback;
-    _callControllers = [[NSMutableArray alloc] init];
-    [self setSubstitutesPlusCharacter:NO];
     
-    [self setAttemptingToRegisterAccount:NO];
-    [self setAttemptingToUnregisterAccount:NO];
-    [self setShouldPresentRegistrationError:NO];
-    [self setAccountUnavailable:NO];
-    [self setDestinationToCall:@""];
+    _callControllers = [[NSMutableArray alloc] init];
+    _destinationToCall = @"";
 
     [[self account] setDelegate:self];
     
@@ -269,7 +266,7 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (void)registerAccount {
-    if (![[[NSApp delegate] userAgent] isStarted]) {
+    if (![[self userAgent] isStarted]) {
         [self setAttemptingToRegisterAccount:YES];
     }
     [self setAccountRegistered:YES];
@@ -291,7 +288,7 @@ NSString * const kEmailSIPLabel = @"sip";
     }
     
     [self showOfflineState];
-    [[[NSApp delegate] userAgent] removeAccount:[self account]];
+    [[self userAgent] removeAccount:[self account]];
 }
 
 - (void)makeCallToURI:(AKSIPURI *)destinationURI
@@ -674,7 +671,7 @@ NSString * const kEmailSIPLabel = @"sip";
             // interval is less than zero, it is unregistration, not failure. Condition of failure is: last registration
             // status != 2xx AND expiration interval < 0.
             
-            if ([[[NSApp delegate] userAgent] isStarted]) {
+            if ([[self userAgent] isStarted]) {
                 if ([self shouldPresentRegistrationError]) {
                     NSString *statusText;
                     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];

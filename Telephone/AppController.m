@@ -947,6 +947,7 @@ NS_ASSUME_NONNULL_END
     AKSIPAccount *account = [[AKSIPAccount alloc] initWithSettings:settings];
     
     AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                        userAgent:self.userAgent
                                                                  ringtonePlayback:self.ringtonePlayback];
     
     [controller setAccountDescription:[[controller account] SIPAddress]];
@@ -1021,6 +1022,7 @@ NS_ASSUME_NONNULL_END
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                            userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
@@ -1331,6 +1333,7 @@ NS_ASSUME_NONNULL_END
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                            userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
