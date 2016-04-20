@@ -68,6 +68,8 @@ NSString * const kEmailSIPLabel = @"sip";
 
 @interface AccountController ()
 
+@property(nonatomic, readonly, getter=isAccountAdded) BOOL accountAdded;
+
 // Timer for account re-registration in case of registration error.
 @property(nonatomic, strong) NSTimer *reRegistrationTimer;
 
@@ -121,8 +123,7 @@ NSString * const kEmailSIPLabel = @"sip";
         [self setReRegistrationTimer:nil];
     }
     
-    if ([[self account] identifier] != kAKSIPUserAgentInvalidIdentifier) {
-        // Account has been added.
+    if ([self isAccountAdded]) {
         [self showConnectingState];
         
         [[self account] setRegistered:flag];
@@ -184,6 +185,10 @@ NSString * const kEmailSIPLabel = @"sip";
             [self setShouldPresentRegistrationError:NO];
         }
     }
+}
+
+- (BOOL)isAccountAdded {
+    return self.account.identifier != kAKSIPUserAgentInvalidIdentifier;
 }
 
 - (void)setAccountDescription:(NSString *)accountDescription {
@@ -268,6 +273,13 @@ NSString * const kEmailSIPLabel = @"sip";
         [self setAttemptingToRegisterAccount:YES];
     }
     [self setAccountRegistered:YES];
+}
+
+- (void)unregisterAccount {
+    if (![self isAccountAdded]) {
+        [self setAttemptingToUnregisterAccount:YES];
+    }
+    [self setAccountRegistered:NO];
 }
 
 - (void)removeAccountFromUserAgent {
@@ -405,7 +417,7 @@ NSString * const kEmailSIPLabel = @"sip";
 }
 
 - (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination {
-    if ([[self account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
+    if (![self isAccountAdded]) {
         [self setDestinationToCall:destination];
         [self setAccountRegistered:YES];
     } else {
@@ -437,12 +449,10 @@ NSString * const kEmailSIPLabel = @"sip";
         [self removeAccountFromUserAgent];
         
     } else if (selectedItemTag == kSIPAccountUnavailable) {
-        // Unregister account only if it is registered or it wasn't added to the user agent.
-        if ([self isAccountRegistered] || [[self account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        if ([self isAccountRegistered] || ![self isAccountAdded]) {
             [self setAccountUnavailable:YES];
-            [self setAttemptingToUnregisterAccount:YES];
             [self setShouldPresentRegistrationError:YES];
-            [self setAccountRegistered:NO];
+            [self unregisterAccount];
         }
         
     } else if (selectedItemTag == kSIPAccountAvailable) {
@@ -608,9 +618,9 @@ NSString * const kEmailSIPLabel = @"sip";
 // When account registration changes, make appropriate modifications to the UI. A call can also be made from here if
 // the user called from the Address Book or from the application URL handler.
 - (void)SIPAccountRegistrationDidChange:(AKSIPAccount *)account {
-    // Account identifier can be kAKSIPUserAgentInvalidIdentifier if notification on the main thread was delivered after
+    // The account can be not added if notification on the main thread was delivered after
     // user agent had removed the account. Don't bother in that case.
-    if ([[self account] identifier] == kAKSIPUserAgentInvalidIdentifier) {
+    if (![self isAccountAdded]) {
         return;
     }
     

@@ -1532,7 +1532,9 @@ NS_ASSUME_NONNULL_END
 
 - (void)unregisterAllAccounts {
     for (AccountController *controller in [self enabledAccountControllers]) {
-        [controller setAccountRegistered:NO];
+        if ([controller isAccountRegistered]) {
+            [controller unregisterAccount];
+        }
     }
 }
 
