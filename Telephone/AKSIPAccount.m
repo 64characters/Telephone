@@ -23,6 +23,8 @@
 #import "AKSIPUserAgent.h"
 #import "AKSIPCall.h"
 
+#import "Telephone-Swift.h"
+
 
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
@@ -163,49 +165,34 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
-+ (instancetype)SIPAccountWithFullName:(NSString *)aFullName
-                            SIPAddress:(NSString *)aSIPAddress
-                             registrar:(NSString *)aRegistrar
-                                 realm:(NSString *)aRealm
-                              username:(NSString *)aUsername {
-    
-    return [[AKSIPAccount alloc] initWithFullName:aFullName
-                                       SIPAddress:aSIPAddress
-                                        registrar:aRegistrar
-                                            realm:aRealm
-                                         username:aUsername];
-}
-
-- (instancetype)initWithFullName:(NSString *)aFullName
-                      SIPAddress:(NSString *)aSIPAddress
-                       registrar:(NSString *)aRegistrar
-                           realm:(NSString *)aRealm
-                        username:(NSString *)aUsername {
-    
+- (instancetype)initWithSettings:(AKSIPAccountSettings *)settings {
     self = [super init];
     if (self == nil) {
         return nil;
     }
+
+    _userAgent = settings.userAgent;
     
-    [self setRegistrationURI:[AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>",
-                                                         aFullName, aSIPAddress]]];
+    [self setRegistrationURI:
+     [AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", settings.fullName, settings.SIPAddress]]];
     
-    [self setFullName:aFullName];
-    [self setSIPAddress:aSIPAddress];
-    [self setRegistrar:aRegistrar];
-    [self setRealm:aRealm];
-    [self setUsername:aUsername];
+    [self setFullName:settings.fullName];
+    [self setSIPAddress:settings.SIPAddress];
+    [self setRegistrar:settings.registrar];
+    [self setRealm:settings.realm];
+    [self setUsername:settings.username];
     [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
     [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
     [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];
-    
+
     _calls = [[NSMutableArray alloc] init];
     
     return self;
 }
 
 - (instancetype)init {
-    return [self initWithFullName:nil SIPAddress:nil registrar:nil realm:nil username:nil];
+    assert(NO);
+    return nil;
 }
 
 - (NSString *)description {
