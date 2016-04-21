@@ -111,8 +111,8 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 - (NetworkPreferencesViewController *)networkPreferencesViewController {
     if (_networkPreferencesViewController == nil) {
-        _networkPreferencesViewController = [[NetworkPreferencesViewController alloc] init];
-        [_networkPreferencesViewController setPreferencesController:self];
+        _networkPreferencesViewController
+            = [[NetworkPreferencesViewController alloc] initWithPreferencesController:self userAgent:self.userAgent];
     }
     return _networkPreferencesViewController;
 }
