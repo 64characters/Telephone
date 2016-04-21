@@ -26,8 +26,7 @@
 @interface CallTransferController : CallController
 
 // Designated initializer.
-// Initializes a CallTransferController with a given call controller.
-- (instancetype)initWithSourceCallController:(CallController *)callController;
+- (instancetype)initWithSourceCallController:(CallController *)callController userAgent:(AKSIPUserAgent *)userAgent;
 
 // Transfers source call controller's call to the receiver's call.
 - (void)transferCall;

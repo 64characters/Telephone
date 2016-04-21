@@ -19,13 +19,13 @@
 #import <Cocoa/Cocoa.h>
 
 
-@class PreferencesController;
+@class AKSIPUserAgent, PreferencesController;
 
 // A view controller to manage network preferences.
 @interface NetworkPreferencesViewController : NSViewController
 
-// Preferences controller the receiver belongs to.
-@property(nonatomic, weak) PreferencesController *preferencesController;
+@property(nonatomic, readonly, weak) PreferencesController *preferencesController;
+@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
 // Outlets.
 @property(nonatomic, weak) IBOutlet NSTextField *transportPortField;
@@ -35,6 +35,9 @@
 @property(nonatomic, weak) IBOutlet NSButton *useDNSSRVCheckBox;
 @property(nonatomic, weak) IBOutlet NSTextField *outboundProxyHostField;
 @property(nonatomic, weak) IBOutlet NSTextField *outboundProxyPortField;
+
+- (instancetype)initWithPreferencesController:(PreferencesController *)preferencesController
+                                    userAgent:(AKSIPUserAgent *)userAgent;
 
 // Returns YES if network settings have been changed.
 - (BOOL)checkForNetworkSettingsChanges:(id)sender;

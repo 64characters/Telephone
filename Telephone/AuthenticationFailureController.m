@@ -30,17 +30,13 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
 
 @implementation AuthenticationFailureController
 
-- (instancetype)initWithAccountController:(AccountController *)anAccountController {
+- (instancetype)initWithAccountController:(AccountController *)accountController userAgent:(AKSIPUserAgent *)userAgent {
     self = [super initWithWindowNibName:@"AuthenticationFailure"];
     if (self != nil) {
-        [self setAccountController:anAccountController];
+        _accountController = accountController;
+        _userAgent = userAgent;
     }
-    
     return self;
-}
-
-- (instancetype)init {
-    return [self initWithAccountController:nil];
 }
 
 - (void)awakeFromNib {
@@ -76,8 +72,8 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
         [[self accountController] showConnectingState];
         
         // Add account to the user agent.
-        [[[NSApp delegate] userAgent] addAccount:[[self accountController] account]
-                                    withPassword:[[self passwordField] stringValue]];
+        [[self userAgent] addAccount:[[self accountController] account]
+                        withPassword:[[self passwordField] stringValue]];
         
         // Error connecting to registrar.
         if (![[self accountController] isAccountRegistered] &&

@@ -66,6 +66,7 @@ class CompositionRoot: NSObject {
 
         preferencesController = PreferencesController(
             delegate: preferencesControllerDelegate,
+            userAgent: userAgent,
             soundPreferencesViewEventTarget: DefaultSoundPreferencesViewEventTarget(
                 interactorFactory: interactorFactory,
                 presenterFactory: PresenterFactory(),

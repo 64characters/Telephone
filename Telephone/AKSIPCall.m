@@ -198,10 +198,6 @@ const NSInteger kAKSIPCallsMax = 8;
 }
 
 - (void)dealloc {
-    if ([[AKSIPUserAgent sharedUserAgent] isStarted]) {
-        [self hangUp];
-    }
-    
     [self setDelegate:nil];
 }
 

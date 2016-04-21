@@ -76,7 +76,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (CallTransferController *)callTransferController {
     if (_callTransferController == nil) {
-        _callTransferController = [[CallTransferController alloc] initWithSourceCallController:self];
+        _callTransferController = [[CallTransferController alloc] initWithSourceCallController:self userAgent:self.userAgent];
     }
     return _callTransferController;
 }
@@ -109,13 +109,16 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName
                     accountController:(AccountController *)accountController
+                            userAgent:(AKSIPUserAgent *)userAgent
                      ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback
                              delegate:(id<CallControllerDelegate>)delegate {
 
     if ((self = [self initWithWindowNibName:windowNibName])) {
         _identifier = [NSString ak_uuidString];
         _accountController = accountController;
+        _userAgent = userAgent;
         _ringtonePlayback = ringtonePlayback;
+        _delegate = delegate;
         _callOnHold = NO;
         _callActive = NO;
         _callUnhandled = NO;
@@ -236,7 +239,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)redial {
-    if (![[[NSApp delegate] userAgent] isStarted] ||
+    if (![[self userAgent] isStarted] ||
         ![[self accountController] isEnabled] ||
         ![[[[self accountController] window] contentView] isEqual:
           [[[self accountController] activeAccountViewController] view]] ||

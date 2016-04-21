@@ -68,10 +68,11 @@
     _sourceCallController = callController;
 }
 
-- (instancetype)initWithSourceCallController:(CallController *)callController {
+- (instancetype)initWithSourceCallController:(CallController *)callController userAgent:(AKSIPUserAgent *)userAgent {
     AccountController *accountController = callController.accountController;
     if ((self = [self initWithWindowNibName:@"CallTransfer"
                           accountController:accountController
+                                  userAgent:userAgent
                            ringtonePlayback:accountController.ringtonePlayback
                                    delegate:accountController])) {
         [self setSourceCallController:callController];

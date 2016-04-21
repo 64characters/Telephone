@@ -104,15 +104,17 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 - (SoundPreferencesViewController *)soundPreferencesViewController {
     if (![self isSoundPreferencesViewControllerLoaded]) {
-        _soundPreferencesViewController = [[SoundPreferencesViewController alloc] initWithEventTarget:_soundPreferencesViewEventTarget];
+        _soundPreferencesViewController
+            = [[SoundPreferencesViewController alloc] initWithEventTarget:_soundPreferencesViewEventTarget
+                                                                userAgent:self.userAgent];
     }
     return _soundPreferencesViewController;
 }
 
 - (NetworkPreferencesViewController *)networkPreferencesViewController {
     if (_networkPreferencesViewController == nil) {
-        _networkPreferencesViewController = [[NetworkPreferencesViewController alloc] init];
-        [_networkPreferencesViewController setPreferencesController:self];
+        _networkPreferencesViewController
+            = [[NetworkPreferencesViewController alloc] initWithPreferencesController:self userAgent:self.userAgent];
     }
     return _networkPreferencesViewController;
 }
@@ -122,9 +124,11 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 }
 
 - (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
+                       userAgent:(AKSIPUserAgent *)userAgent
  soundPreferencesViewEventTarget:(id<SoundPreferencesViewEventTarget>)soundPreferencesViewEventTarget {
     if ((self = [super initWithWindowNibName:@"Preferences"])) {
         self.delegate = delegate;
+        _userAgent = userAgent;
         _soundPreferencesViewEventTarget = soundPreferencesViewEventTarget;
     }
     return self;

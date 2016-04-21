@@ -31,9 +31,11 @@
 
 @implementation NetworkPreferencesViewController
 
-- (instancetype)init {
+- (instancetype)initWithPreferencesController:(PreferencesController *)preferencesController userAgent:(AKSIPUserAgent *)userAgent {
     self = [super initWithNibName:@"NetworkPreferencesView" bundle:nil];
     if (self != nil) {
+        _preferencesController = preferencesController;
+        _userAgent = userAgent;
         [self setTitle:NSLocalizedString(@"Network", @"Network preferences window title.")];
     }
     
@@ -49,12 +51,7 @@
                                name:AKSIPUserAgentDidFinishStartingNotification
                              object:nil];
     
-    // Show user agent's current transport port as a placeholder string.
-    AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-    if (userAgent.isStarted) {
-        [[[self transportPortField] cell] setPlaceholderString:
-         [NSString stringWithFormat:@"%lu", (unsigned long)userAgent.transportPort]];
-    }
+    [self updateTransportPortPlaceholderWithValueFromUserAgent];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -208,19 +205,19 @@
     }
 }
 
+- (void)updateTransportPortPlaceholderWithValueFromUserAgent {
+    if (self.userAgent.isStarted) {
+        [[[self transportPortField] cell] setPlaceholderString:
+         [NSString stringWithFormat:@"%lu", (unsigned long)self.userAgent.transportPort]];
+    }
+}
+
 
 #pragma mark -
 #pragma mark AKSIPUserAgent notifications
 
 - (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
-    AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-    if (!userAgent.isStarted) {
-        return;
-    }
-    
-    // Show transport port in the network preferences as a placeholder string.
-    [[[self transportPortField] cell] setPlaceholderString:
-     [NSString stringWithFormat:@"%lu", (unsigned long)userAgent.transportPort]];
+    [self updateTransportPortPlaceholderWithValueFromUserAgent];
 }
 
 @end

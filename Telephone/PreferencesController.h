@@ -53,6 +53,7 @@ extern NSString * const AKPreferencesControllerDidSwapAccountsNotification;
 // Sent when preferences controller changes network settings.
 extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification;
 
+@class AKSIPUserAgent;
 @class GeneralPreferencesViewController, AccountPreferencesViewController;
 @class SoundPreferencesViewController, NetworkPreferencesViewController;
 
@@ -60,6 +61,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @interface PreferencesController : NSWindowController <SoundIOPreferences>
 
 @property(nonatomic, readonly, weak) id<PreferencesControllerDelegate> delegate;
+@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 @property(nonatomic, readonly) id<SoundPreferencesViewEventTarget> soundPreferencesViewEventTarget;
 
 // General preferences view controller.
@@ -83,6 +85,7 @@ extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotificat
 @property(nonatomic, weak) IBOutlet NSToolbarItem *networkToolbarItem;
 
 - (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
+                       userAgent:(AKSIPUserAgent *)userAgent
  soundPreferencesViewEventTarget:(id<SoundPreferencesViewEventTarget>)soundPreferencesViewEventTarget;
 
 // Changes window's content view.

@@ -43,9 +43,10 @@ NS_ASSUME_NONNULL_END
 
 @implementation SoundPreferencesViewController
 
-- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget {
+- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget userAgent:(AKSIPUserAgent *)userAgent {
     if ((self = [super initWithNibName:@"SoundPreferencesView" bundle:nil])) {
         _eventTarget = eventTarget;
+        _userAgent = userAgent;
         self.title = NSLocalizedString(@"Sound", @"Sound preferences window title.");
     }
     return self;
@@ -83,7 +84,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeUseG711Only:(id)sender {
-    [AKSIPUserAgent sharedUserAgent].usesG711Only = (self.useG711OnlyCheckBox.state == NSOnState) ? YES : NO;
+    self.userAgent.usesG711Only = (self.useG711OnlyCheckBox.state == NSOnState) ? YES : NO;
 }
 
 - (void)updateAvailableSounds {
