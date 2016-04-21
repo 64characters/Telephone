@@ -91,12 +91,8 @@ static const NSUInteger kAccountsMax = 32;
     
     [[[self accountSetupController] window] makeFirstResponder:
      [[self accountSetupController] fullNameField]];
-    
-    [NSApp beginSheet:[[self accountSetupController] window]
-       modalForWindow:[[self view] window]
-        modalDelegate:nil
-       didEndSelector:NULL
-          contextInfo:NULL];
+
+    [[[self view] window] beginSheet:[[self accountSetupController] window] completionHandler:nil];
 }
 
 - (IBAction)showRemoveAccountSheet:(id)sender {
@@ -124,17 +120,11 @@ static const NSUInteger kAccountsMax = 32;
                         @"Account removal confirmation informative text."),
       selectedAccount]];
     [alert setAlertStyle:NSWarningAlertStyle];
-    SEL didEndSelector = @selector(removeAccountAlertDidEnd:returnCode:contextInfo:);
-    [alert beginSheetModalForWindow:[[self accountsTable] window]
-                      modalDelegate:self
-                     didEndSelector:didEndSelector
-                        contextInfo:NULL];
-}
-
-- (void)removeAccountAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSAlertFirstButtonReturn) {
-        [self removeAccountAtIndex:[[self accountsTable] selectedRow]];
-    }
+    [alert beginSheetModalForWindow:[[self accountsTable] window] completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn) {
+            [self removeAccountAtIndex:[[self accountsTable] selectedRow]];
+        }
+    }];
 }
 
 - (void)removeAccountAtIndex:(NSInteger)index {

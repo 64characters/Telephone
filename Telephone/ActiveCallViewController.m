@@ -99,12 +99,8 @@
     }
     
     CallTransferController *callTransferController = [[self callController] callTransferController];
-    
-    [NSApp beginSheet:[callTransferController window]
-       modalForWindow:[[self callController] window]
-        modalDelegate:nil
-       didEndSelector:NULL
-          contextInfo:NULL];
+
+    [[[self callController] window] beginSheet:[callTransferController window] completionHandler:nil];
 }
 
 - (void)startCallTimer {

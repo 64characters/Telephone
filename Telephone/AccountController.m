@@ -463,7 +463,6 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error {
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"OK"];
     [alert setMessageText:[NSString stringWithFormat:
                            NSLocalizedString(@"Could not register with %@.", @"Registrar connection error."),
                            [[self account] registrar]]];
@@ -478,7 +477,7 @@ NSString * const kEmailSIPLabel = @"sip";
         [alert setInformativeText:error];
     }
     
-    [alert beginSheetModalForWindow:[self window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+    [alert beginSheetModalForWindow:self.window completionHandler:nil];
 }
 
 
@@ -660,13 +659,9 @@ NSString * const kEmailSIPLabel = @"sip";
             
             [[[self authenticationFailureController] usernameField] setStringValue:[[self account] username]];
             [[[self authenticationFailureController] passwordField] setStringValue:password];
-            
-            [NSApp beginSheet:[[self authenticationFailureController] window]
-               modalForWindow:[self window]
-                modalDelegate:nil
-               didEndSelector:NULL
-                  contextInfo:NULL];
-            
+
+            [[self window] beginSheet:[[self authenticationFailureController] window] completionHandler:nil];
+
         } else if (([[self account] registrationStatus] / 100 != 2) &&
                    ([[self account] registrationExpireTime] < 0)) {
             // Raise a sheet if connection to the registrar failed. If last registration status is 2xx and expiration
