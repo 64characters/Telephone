@@ -31,7 +31,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Posted when account is about to make call.
 extern NSString * const AKSIPAccountWillMakeCallNotification;
 
-@class AKSIPAccountSettings, AKSIPCall, AKSIPURI, AKSIPUserAgent;
+@class AKSIPCall, AKSIPURI;
 
 // A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
 // class to make and receive calls.
@@ -39,8 +39,6 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 
 // The receiver's delegate.
 @property(nonatomic, weak) id <AKSIPAccountDelegate> delegate;
-
-@property(nonatomic, weak) AKSIPUserAgent *userAgent;
 
 // The URI for SIP registration.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>
@@ -109,7 +107,21 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 // Calls that belong to the receiver.
 @property(nonatomic, readonly, strong) NSMutableArray *calls;
 
-- (instancetype)initWithSettings:(AKSIPAccountSettings *)settings;
+// Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
+// user name.
++ (instancetype)SIPAccountWithFullName:(NSString *)aFullName
+                            SIPAddress:(NSString *)aSIPAddress
+                             registrar:(NSString *)aRegistrar
+                                 realm:(NSString *)aRealm
+                              username:(NSString *)aUsername;
+
+// Designated initializer.
+// Initializes an AKSIPAccount object with a given full name, SIP address, registrar, realm, and user name.
+- (instancetype)initWithFullName:(NSString *)aFullName
+                      SIPAddress:(NSString *)aSIPAddress
+                       registrar:(NSString *)aRegistrar
+                           realm:(NSString *)aRealm
+                        username:(NSString *)aUsername;
 
 // Makes a call to a given destination URI.
 - (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI;
