@@ -34,8 +34,7 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
 }
 
 - (IBAction)closeSheet:(id)sender {
-    [NSApp endSheet:[sender window]];
-    [[sender window] orderOut:sender];
+    [self.window.sheetParent endSheet:self.window];
 }
 
 - (IBAction)addAccount:(id)sender {
