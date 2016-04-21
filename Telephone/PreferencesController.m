@@ -122,9 +122,11 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 }
 
 - (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
+                       userAgent:(AKSIPUserAgent *)userAgent
  soundPreferencesViewEventTarget:(id<SoundPreferencesViewEventTarget>)soundPreferencesViewEventTarget {
     if ((self = [super initWithWindowNibName:@"Preferences"])) {
         self.delegate = delegate;
+        _userAgent = userAgent;
         _soundPreferencesViewEventTarget = soundPreferencesViewEventTarget;
     }
     return self;
