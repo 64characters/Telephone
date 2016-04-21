@@ -31,7 +31,7 @@ contents:
 
 Configure and build pjsip:
 
-    $ CFLAGS="-mmacosx-version-min=10.9" ./configure --host=x86_64-apple-darwin
+    $ CFLAGS="-mmacosx-version-min=10.10" ./configure --host=x86_64-apple-darwin
     $ make lib
     
 Build Telephone.
