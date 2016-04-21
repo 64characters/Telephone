@@ -22,13 +22,6 @@
 #import "PreferencesController.h"
 #import "UserDefaultsKeys.h"
 
-
-@interface NetworkPreferencesViewController ()
-
-// Method to be called when an alert about network changes is dismissed.
-- (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
-@end
-
 @implementation NetworkPreferencesViewController
 
 - (instancetype)initWithPreferencesController:(PreferencesController *)preferencesController userAgent:(AKSIPUserAgent *)userAgent {
@@ -118,27 +111,24 @@
         [alert setInformativeText:NSLocalizedString(@"New network settings will be applied immediately, all "
                                                      "accounts will be reconnected.",
                                                     @"Network settings change confirmation informative text.")];
+
+        [alert beginSheetModalForWindow:[[self preferencesController] window] completionHandler:^(NSModalResponse returnCode) {
+            [self networkSettingsChangeAlertDidEndWithReturnCode:returnCode sender:sender];
+        }];
         
-        [alert beginSheetModalForWindow:[[self preferencesController] window]
-                          modalDelegate:self
-                         didEndSelector:@selector(networkSettingsChangeAlertDidEnd:returnCode:contextInfo:)
-                            contextInfo:(__bridge void *)(sender)];
         return YES;
     }
     
     return NO;
 }
 
-- (void)networkSettingsChangeAlertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    [[alert window] orderOut:nil];
-    
+- (void)networkSettingsChangeAlertDidEndWithReturnCode:(NSModalResponse)returnCode sender:(id)sender {
     if (returnCode == NSAlertSecondButtonReturn) {
         return;
     }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    id sender = (__bridge id)contextInfo;
     
     if (returnCode == NSAlertFirstButtonReturn) {
         [[[self transportPortField] cell] setPlaceholderString:[[self transportPortField] stringValue]];
