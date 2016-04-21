@@ -104,7 +104,9 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 - (SoundPreferencesViewController *)soundPreferencesViewController {
     if (![self isSoundPreferencesViewControllerLoaded]) {
-        _soundPreferencesViewController = [[SoundPreferencesViewController alloc] initWithEventTarget:_soundPreferencesViewEventTarget];
+        _soundPreferencesViewController
+            = [[SoundPreferencesViewController alloc] initWithEventTarget:_soundPreferencesViewEventTarget
+                                                                userAgent:self.userAgent];
     }
     return _soundPreferencesViewController;
 }

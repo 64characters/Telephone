@@ -21,6 +21,7 @@
 #import "SoundIOPreferences.h"
 #import "SoundPreferencesView.h"
 
+@class AKSIPUserAgent;
 @protocol SoundPreferencesViewEventTarget;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SoundPreferencesViewController : NSViewController <SoundIOPreferences, SoundPreferencesView>
 
 @property(nonatomic, readonly) id<SoundPreferencesViewEventTarget> eventTarget;
+@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
-- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget;
+- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget userAgent:(AKSIPUserAgent *)userAgent;
 
 - (void)ak_viewWillDisappear;
 
