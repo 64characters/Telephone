@@ -55,8 +55,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
 }
 
 - (IBAction)closeSheet:(id)sender {
-    [NSApp endSheet:[sender window]];
-    [[sender window] orderOut:self];
+    [self.window.sheetParent endSheet:self.window];
 }
 
 - (IBAction)changeUsernameAndPassword:(id)sender {
