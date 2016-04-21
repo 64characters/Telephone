@@ -118,6 +118,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         _accountController = accountController;
         _userAgent = userAgent;
         _ringtonePlayback = ringtonePlayback;
+        _delegate = delegate;
         _callOnHold = NO;
         _callActive = NO;
         _callUnhandled = NO;
