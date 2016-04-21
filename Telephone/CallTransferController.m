@@ -93,8 +93,7 @@
     if ([[self sourceCallController] isCallActive] && [[self sourceCallController] isCallOnHold]) {
         [[self sourceCallController] toggleCallHold];
     }
-    [NSApp endSheet:[sender window]];
-    [[sender window] orderOut:sender];
+    [[[self window] sheetParent] endSheet:[self window]];
 }
 
 - (IBAction)showInitialState:(id)sender {
