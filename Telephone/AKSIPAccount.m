@@ -87,6 +87,22 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     return accountInfo.status;
 }
 
+- (NSInteger)registrationErrorCode {
+    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
+        return 0;
+    }
+
+    pjsua_acc_info accountInfo;
+    pj_status_t status;
+
+    status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
+    if (status != PJ_SUCCESS) {
+        return 0;
+    }
+
+    return accountInfo.reg_last_err;
+}
+
 - (NSString *)registrationStatusText {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
         return nil;

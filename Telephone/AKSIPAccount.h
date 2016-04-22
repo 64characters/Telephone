@@ -89,7 +89,10 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 @property(nonatomic, assign, getter=isRegistered) BOOL registered;
 
 // The receiver's SIP registration status code.
-@property(nonatomic, readonly, assign) NSInteger registrationStatus;
+@property(nonatomic, readonly) NSInteger registrationStatus;
+
+// The receiver's SIP registration error code.
+@property(nonatomic, readonly) NSInteger registrationErrorCode;
 
 // The receiver's SIP registration status text.
 @property(nonatomic, readonly, copy) NSString *registrationStatusText;
