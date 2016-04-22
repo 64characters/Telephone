@@ -92,7 +92,6 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
     NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
     [savedAccounts addObject:accountDict];
     [defaults setObject:savedAccounts forKey:kAccounts];
-    [defaults synchronize];
     
     [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", domain]
                            accountName:username

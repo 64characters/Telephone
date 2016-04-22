@@ -1485,7 +1485,6 @@ NS_ASSUME_NONNULL_END
         
         accounts[index] = accountDict;
         [defaults setObject:accounts forKey:kAccounts];
-        [defaults synchronize];
         
         AccountPreferencesViewController *accountPreferencesViewController
             = [[self preferencesController] accountPreferencesViewController];

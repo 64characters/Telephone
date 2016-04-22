@@ -132,7 +132,6 @@ static const NSUInteger kAccountsMax = 32;
     NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
     [savedAccounts removeObjectAtIndex:index];
     [defaults setObject:savedAccounts forKey:kAccounts];
-    [defaults synchronize];
     
     if ([savedAccounts count] < kAccountsMax) {
         [[self addAccountButton] setEnabled:YES];
@@ -524,7 +523,6 @@ static const NSUInteger kAccountsMax = 32;
     savedAccounts[index] = accountDict;
     
     [defaults setObject:savedAccounts forKey:kAccounts];
-    [defaults synchronize];
     
     [[NSNotificationCenter defaultCenter]
      postNotificationName:AKPreferencesControllerDidChangeAccountEnabledNotification
@@ -633,7 +631,6 @@ static const NSUInteger kAccountsMax = 32;
     }
     
     [defaults setObject:accounts forKey:kAccounts];
-    [defaults synchronize];
     
     [[self accountsTable] reloadData];
     
