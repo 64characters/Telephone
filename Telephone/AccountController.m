@@ -645,7 +645,9 @@ NSString * const kEmailSIPLabel = @"sip";
         [self showUnavailableState];
         
         // Handle authentication failure
-        if ([[self account] registrationStatus] == PJSIP_EFAILEDCREDENTIAL) {
+        if ([[self account] registrationStatus] == PJSIP_SC_UNAUTHORIZED &&
+            [[self account] registrationErrorCode] == PJSIP_EFAILEDCREDENTIAL) {
+
             [[[self authenticationFailureController] informativeText] setStringValue:
              [NSString stringWithFormat:
               NSLocalizedString(@"Telephone was unable to login to %@. "
