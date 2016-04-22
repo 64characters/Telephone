@@ -388,23 +388,14 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [self showViewController:self.incomingCallViewController];
 }
 
-- (void)showViewController:(XSViewController *)viewController {
+- (void)showViewController:(NSViewController *)viewController {
     if ([self shouldShowViewController:viewController]) {
-        [self removeCurrentViewControllerIfNeeded];
-        [self addViewController:viewController];
         [self setCallInfoViewResizingWindow:viewController.view];
     }
 }
 
-- (BOOL)shouldShowViewController:(XSViewController *)viewController {
-    return self.countOfViewControllers == 0 || ![[self objectInViewControllersAtIndex:0] isEqual:viewController];
-}
-
-- (void)removeCurrentViewControllerIfNeeded {
-    if (self.countOfViewControllers > 0) {
-        assert(self.countOfViewControllers == 1);
-        [self removeObjectFromViewControllersAtIndex:0];
-    }
+- (BOOL)shouldShowViewController:(NSViewController *)viewController {
+    return ![self.callInfoView isEqual:viewController.view];
 }
 
 
@@ -412,8 +403,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 #pragma mark NSWindow delegate methods
 
 - (void)windowWillClose:(NSNotification *)notification {
-    [super windowWillClose:notification];
-    
     if ([self isCallActive]) {
         [self setCallActive:NO];
         [[self activeCallViewController] stopCallTimer];
@@ -435,13 +424,10 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[NSApp delegate] updateDockTileBadgeLabel];
     
     [self.delegate callControllerWillClose:self];
-    
-    // View controllers must be nullified because of bindings to callController's |displayedName| and |status|. When
-    // this is done in -dealloc this is already too late, and KVO error about releaseing an object that is still being
-    // observied is issued.
-    _incomingCallViewController = nil;
-    _activeCallViewController = nil;
-    _endedCallViewController = nil;
+
+    [_incomingCallViewController removeObservations];
+    [_activeCallViewController removeObservations];
+    [_endedCallViewController removeObservations];
 }
 
 

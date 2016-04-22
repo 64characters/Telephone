@@ -105,16 +105,8 @@
         [self closeSheet:self];
     }
     
-    [self removeViewControllersIfNeeded];
     [self showActiveAccountTransferView];
     [self makeCallDestinationFieldFirstResponder];
-}
-
-- (void)removeViewControllersIfNeeded {
-    if ([self countOfViewControllers] > 0) {
-        [[self viewControllers] removeAllObjects];
-        [self patchResponderChain];
-    }
 }
 
 - (void)showActiveAccountTransferView {

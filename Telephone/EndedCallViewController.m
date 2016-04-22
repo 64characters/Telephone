@@ -24,7 +24,7 @@
 @implementation EndedCallViewController
 
 - (instancetype)initWithNibName:(NSString *)nibName callController:(CallController *)callController {
-    self = [super initWithNibName:nibName bundle:nil windowController:callController];
+    self = [super initWithNibName:nibName bundle:nil];
     
     if (self != nil) {
         [self setCallController:callController];
@@ -41,7 +41,6 @@
 - (void)removeObservations {
     [[self displayedNameField] unbind:NSValueBinding];
     [[self statusField] unbind:NSValueBinding];
-    [super removeObservations];
 }
 
 - (void)awakeFromNib {

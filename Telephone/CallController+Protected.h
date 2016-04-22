@@ -18,8 +18,6 @@
 
 #import "CallController.h"
 
-@class XSViewController;
-
 @interface CallController (Protected)
 
 - (void)setCallInfoViewResizingWindow:(NSView *)newView;

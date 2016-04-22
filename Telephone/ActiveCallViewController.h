@@ -19,12 +19,11 @@
 #import <Cocoa/Cocoa.h>
 
 #import "AKActiveCallView.h"
-#import "XSViewController.h"
 
 
 @class AKResponsiveProgressIndicator, CallController;
 
-@interface ActiveCallViewController : XSViewController <AKActiveCallViewDelegate>
+@interface ActiveCallViewController : NSViewController <AKActiveCallViewDelegate>
 
 // Call controller the receiver belongs to.
 @property(nonatomic, weak) CallController *callController;
@@ -56,6 +55,8 @@
 // Designated initializer.
 // Initializes an ActiveCallViewController object with a given nib file and call controller.
 - (instancetype)initWithNibName:(NSString *)nibName callController:(CallController *)callController;
+
+- (void)removeObservations;
 
 // Hangs up call.
 - (IBAction)hangUpCall:(id)sender;

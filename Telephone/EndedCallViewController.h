@@ -18,12 +18,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "XSViewController.h"
-
 
 @class CallController;
 
-@interface EndedCallViewController : XSViewController
+@interface EndedCallViewController : NSViewController
 
 // Call controller the receiver belongs to.
 @property(nonatomic, weak) CallController *callController;
@@ -41,8 +39,9 @@
 
 // Designated initializer.
 // Initializes an EndedCallViewController object with a given nib file and call controller.
-- (instancetype)initWithNibName:(NSString *)nibName
-       callController:(CallController *)callController;
+- (instancetype)initWithNibName:(NSString *)nibName callController:(CallController *)callController;
+
+- (void)removeObservations;
 
 // Redials a call.
 - (IBAction)redial:(id)sender;

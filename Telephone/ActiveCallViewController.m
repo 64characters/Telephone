@@ -30,7 +30,7 @@
 @implementation ActiveCallViewController
 
 - (instancetype)initWithNibName:(NSString *)nibName callController:(CallController *)callController {
-    self = [super initWithNibName:nibName bundle:nil windowController:callController];
+    self = [super initWithNibName:nibName bundle:nil];
     
     if (self != nil) {
         _enteredDTMF = [[NSMutableString alloc] init];
@@ -48,8 +48,7 @@
 - (void)removeObservations {
     [[self displayedNameField] unbind:NSValueBinding];
     [[self statusField] unbind:NSValueBinding];
-    [super removeObservations];
-}
+ }
 
 - (void)awakeFromNib {
     [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
