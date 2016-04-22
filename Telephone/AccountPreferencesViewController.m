@@ -233,9 +233,9 @@ static const NSUInteger kAccountsMax = 32;
         
         // Description's placeholder string.
         if ([accountDict[kSIPAddress] length] > 0) {
-            [[[self accountDescriptionField] cell] setPlaceholderString:accountDict[kSIPAddress]];
+            [[self accountDescriptionField] setPlaceholderString:accountDict[kSIPAddress]];
         } else {
-            [[[self accountDescriptionField] cell] setPlaceholderString:
+            [[self accountDescriptionField] setPlaceholderString:
              [NSString stringWithFormat:@"%@@%@",
               accountDict[kUsername], accountDict[kDomain]]];
         }
@@ -308,11 +308,11 @@ static const NSUInteger kAccountsMax = 32;
         
         // SIP Address and Registry Server placeholder strings.
         if ([accountDict[kDomain] length] > 0) {
-            [[[self SIPAddressField] cell] setPlaceholderString:[NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]]];
-            [[[self registrarField] cell] setPlaceholderString:accountDict[kDomain]];
+            [[self SIPAddressField] setPlaceholderString:[NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]]];
+            [[self registrarField] setPlaceholderString:accountDict[kDomain]];
         } else {
-            [[[self SIPAddressField] cell] setPlaceholderString:nil];
-            [[[self registrarField] cell] setPlaceholderString:nil];
+            [[self SIPAddressField] setPlaceholderString:nil];
+            [[self registrarField] setPlaceholderString:nil];
         }
         
         // Update headers checkbox.
@@ -325,7 +325,7 @@ static const NSUInteger kAccountsMax = 32;
     } else {  // if (index >= 0)
         [[self accountEnabledCheckBox] setState:NSOffState];
         [[self accountDescriptionField] setStringValue:@""];
-        [[[self accountDescriptionField] cell] setPlaceholderString:nil];
+        [[self accountDescriptionField] setPlaceholderString:nil];
         [[self fullNameField] setStringValue:@""];
         [[self domainField] setStringValue:@""];
         [[self usernameField] setStringValue:@""];
@@ -353,9 +353,9 @@ static const NSUInteger kAccountsMax = 32;
         [[self proxyHostField] setEnabled:NO];
         [[self proxyPortField] setEnabled:NO];
         [[self SIPAddressField] setEnabled:NO];
-        [[[self SIPAddressField] cell] setPlaceholderString:nil];
+        [[self SIPAddressField] setPlaceholderString:nil];
         [[self registrarField] setEnabled:NO];
-        [[[self registrarField] cell] setPlaceholderString:nil];
+        [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
         [[self updateHeadersCheckBox] setEnabled:NO];
     }
@@ -454,21 +454,21 @@ static const NSUInteger kAccountsMax = 32;
         // Set placeholders.
         
         if ([SIPAddress length] > 0) {
-            [[[self accountDescriptionField] cell] setPlaceholderString:SIPAddress];
+            [[self accountDescriptionField] setPlaceholderString:SIPAddress];
         } else {
-            [[[self accountDescriptionField] cell] setPlaceholderString:
+            [[self accountDescriptionField] setPlaceholderString:
              [NSString stringWithFormat:@"%@@%@", username, domain]];
         }
         
         if ([domain length] > 0) {
-            [[[self SIPAddressField] cell] setPlaceholderString:
+            [[self SIPAddressField] setPlaceholderString:
              [NSString stringWithFormat:@"%@@%@", username, domain]];
             
-            [[[self registrarField] cell] setPlaceholderString:domain];
+            [[self registrarField] setPlaceholderString:domain];
             
         } else {
-            [[[self SIPAddressField] cell] setPlaceholderString:nil];
-            [[[self registrarField] cell] setPlaceholderString:nil];
+            [[self SIPAddressField] setPlaceholderString:nil];
+            [[self registrarField] setPlaceholderString:nil];
         }
         
         // Disable account fields.

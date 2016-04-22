@@ -131,7 +131,7 @@
     NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     
     if (returnCode == NSAlertFirstButtonReturn) {
-        [[[self transportPortField] cell] setPlaceholderString:[[self transportPortField] stringValue]];
+        [[self transportPortField] setPlaceholderString:[[self transportPortField] stringValue]];
         
         [defaults setInteger:[[self transportPortField] integerValue] forKey:kTransportPort];
         
@@ -197,7 +197,7 @@
 
 - (void)updateTransportPortPlaceholderWithValueFromUserAgent {
     if (self.userAgent.isStarted) {
-        [[[self transportPortField] cell] setPlaceholderString:
+        [[self transportPortField] setPlaceholderString:
          [NSString stringWithFormat:@"%lu", (unsigned long)self.userAgent.transportPort]];
     }
 }
