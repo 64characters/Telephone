@@ -19,7 +19,6 @@
 #import <Cocoa/Cocoa.h>
 
 #import "AKSIPCall.h"
-#import "XSWindowController.h"
 
 #import "CallControllerDelegate.h"
 
@@ -30,7 +29,7 @@
 @protocol RingtonePlaybackInteractor;
 
 // A call controller.
-@interface CallController : XSWindowController <AKSIPCallDelegate> {
+@interface CallController : NSWindowController <AKSIPCallDelegate> {
   @protected
     ActiveCallViewController *_activeCallViewController;
     EndedCallViewController *_endedCallViewController;

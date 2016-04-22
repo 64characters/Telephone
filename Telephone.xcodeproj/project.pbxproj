@@ -222,8 +222,6 @@
 		AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */; };
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
 		AA8BA7F61C04D843008839F2 /* AudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA7F51C04D843008839F2 /* AudioDevices.swift */; };
-		AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA110A56BD9000946F3 /* XSViewController.m */; };
-		AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8FBAA310A56BD9000946F3 /* XSWindowController.m */; };
 		AA92F8A41C2B02E700C378B6 /* Ringtone.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92F8A31C2B02E700C378B6 /* Ringtone.swift */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
 		AA9D081A1BFF7F700000F618 /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9D08051BFF7E6F0000F618 /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -631,10 +629,6 @@
 		AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKKeychain.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKKeychain.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA8BA7F51C04D843008839F2 /* AudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDevices.swift; sourceTree = "<group>"; };
-		AA8FBAA010A56BD9000946F3 /* XSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSViewController.h; sourceTree = "<group>"; };
-		AA8FBAA110A56BD9000946F3 /* XSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
-		AA8FBAA210A56BD9000946F3 /* XSWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSWindowController.h; sourceTree = "<group>"; };
-		AA8FBAA310A56BD9000946F3 /* XSWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSWindowController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDeviceRepositoryStub.swift; sourceTree = "<group>"; };
 		AA92F8A31C2B02E700C378B6 /* Ringtone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ringtone.swift; sourceTree = "<group>"; };
 		AA97B47410D3A2CA00FC65DA /* CallTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = CallTransferController.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -890,7 +884,6 @@
 				AA9D08101BFF7E6F0000F618 /* DomainTests */,
 				AAC4FF821C0214120060B186 /* DomainTestDoubles */,
 				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
-				AA4D48FF1BB998EC004D1D4B /* ThirdParty */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -1063,25 +1056,6 @@
 				AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */,
 			);
 			name = "Audio Devices";
-			sourceTree = "<group>";
-		};
-		AA4D48FF1BB998EC004D1D4B /* ThirdParty */ = {
-			isa = PBXGroup;
-			children = (
-				AA4D49011BB999B9004D1D4B /* XSWindowController */,
-			);
-			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		AA4D49011BB999B9004D1D4B /* XSWindowController */ = {
-			isa = PBXGroup;
-			children = (
-				AA8FBAA010A56BD9000946F3 /* XSViewController.h */,
-				AA8FBAA110A56BD9000946F3 /* XSViewController.m */,
-				AA8FBAA210A56BD9000946F3 /* XSWindowController.h */,
-				AA8FBAA310A56BD9000946F3 /* XSWindowController.m */,
-			);
-			path = XSWindowController;
 			sourceTree = "<group>";
 		};
 		AA4D490A1BB99DD6004D1D4B /* Frameworks */ = {
@@ -1835,8 +1809,6 @@
 				AAD92139107A608B00F142A4 /* EndedCallViewController.m in Sources */,
 				AA32F7FB1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
-				AA8FBAA410A56BD9000946F3 /* XSViewController.m in Sources */,
-				AA8FBAA510A56BD9000946F3 /* XSWindowController.m in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
 				AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */,

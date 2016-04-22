@@ -18,12 +18,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "XSViewController.h"
-
 
 @class CallController;
 
-@interface IncomingCallViewController : XSViewController
+@interface IncomingCallViewController : NSViewController
 
 // Call controller the receiver belongs to.
 @property(nonatomic, weak) CallController *callController;
@@ -43,6 +41,8 @@
 // Designated initializer.
 // Initializes an IncomingCallViewController object with a given call controller.
 - (instancetype)initWithCallController:(CallController *)callController;
+
+- (void)removeObservations;
 
 // Accepts an incoming call.
 - (IBAction)acceptCall:(id)sender;

@@ -27,7 +27,7 @@
 @synthesize callController = callController_;
 
 - (instancetype)initWithCallController:(CallController *)callController {
-    self = [super initWithNibName:@"IncomingCallView" bundle:nil windowController:callController];
+    self = [super initWithNibName:@"IncomingCallView" bundle:nil];
     
     if (self != nil) {
         [self setCallController:callController];
@@ -44,7 +44,6 @@
 - (void)removeObservations {
     [[self displayedNameField] unbind:NSValueBinding];
     [[self statusField] unbind:NSValueBinding];
-    [super removeObservations];
 }
 
 - (void)awakeFromNib {
