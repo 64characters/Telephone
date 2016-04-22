@@ -172,8 +172,8 @@
             [[self enteredDTMF] appendString:aString];
             [[[self view] window] setTitle:[[self callController] displayedName]];
             
-            if ([[[self displayedNameField] cell] lineBreakMode]!= NSLineBreakByTruncatingHead) {
-                [[[self displayedNameField] cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+            if ([[self displayedNameField] lineBreakMode]!= NSLineBreakByTruncatingHead) {
+                [[self displayedNameField] setLineBreakMode:NSLineBreakByTruncatingHead];
                 [[[[self callController] endedCallViewController] displayedNameField] setSelectable:YES];
             }
             
