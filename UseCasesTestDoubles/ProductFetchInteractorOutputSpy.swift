@@ -20,6 +20,7 @@ import UseCases
 
 public class ProductFetchInteractorOutputSpy {
     public private(set) var invokedProducts: [Product] = []
+    public private(set) var invokedError = ""
 
     public init() {}
 }
@@ -27,5 +28,9 @@ public class ProductFetchInteractorOutputSpy {
 extension ProductFetchInteractorOutputSpy: ProductFetchInteractorOutput {
     public func update(products: [Product]) {
         invokedProducts = products
+    }
+
+    public func showError(error: String) {
+        invokedError = error
     }
 }

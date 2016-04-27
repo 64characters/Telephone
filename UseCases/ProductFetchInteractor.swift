@@ -38,8 +38,13 @@ extension ProductFetchInteractor: StoreClientEventTarget {
     public func storeClient(storeClient: StoreClient, didFetchProducts products: [Product]) {
         output.update(products)
     }
+
+    public func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError error: String) {
+        output.showError(error)
+    }
 }
 
 public protocol ProductFetchInteractorOutput {
     func update(products: [Product])
+    func showError(error: String)
 }

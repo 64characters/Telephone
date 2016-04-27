@@ -21,10 +21,18 @@ import UseCasesTestDoubles
 import XCTest
 
 class ProductFetchInteractorTests: XCTestCase {
+    private var client: StoreClientSpy!
+    private var output: ProductFetchInteractorOutputSpy!
+
+    override func setUp() {
+        super.setUp()
+        client = StoreClientSpy()
+        output = ProductFetchInteractorOutputSpy()
+    }
+
     func testUsesConfiguredIdentifiersWhenFetching() {
         let identifiers = ["any1", "any2"]
-        let client = StoreClientSpy()
-        let sut = ProductFetchInteractor(productIdentifiers: identifiers, client: client, output: ProductFetchInteractorOutputSpy())
+        let sut = ProductFetchInteractor(productIdentifiers: identifiers, client: client, output: output)
 
         sut.execute()
 
@@ -32,15 +40,23 @@ class ProductFetchInteractorTests: XCTestCase {
     }
 
     func testCallsOutputWithFetchedProducts() {
-        let output = ProductFetchInteractorOutputSpy()
-        let sut = ProductFetchInteractor(productIdentifiers: [], client: StoreClientSpy(), output: output)
+        let sut = ProductFetchInteractor(productIdentifiers: [], client: client, output: output)
         let products = [
             Product(identifier: "123", name: "product1", price: "$100"),
             Product(identifier: "456", name: "product2", price: "$200")
         ]
 
-        sut.storeClient(StoreClientSpy(), didFetchProducts: products)
+        sut.storeClient(client, didFetchProducts: products)
 
         XCTAssertEqual(output.invokedProducts, products)
+    }
+
+    func testCallsOutputWithErrorMessageWhenProductFetchFails() {
+        let sut = ProductFetchInteractor(productIdentifiers: [], client: client, output: output)
+        let error = "any"
+
+        sut.storeClient(client, didFailFetchingProductsWithError: error)
+
+        XCTAssertEqual(output.invokedError, error)
     }
 }

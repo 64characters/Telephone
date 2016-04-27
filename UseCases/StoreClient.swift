@@ -22,4 +22,5 @@ public protocol StoreClient {
 
 public protocol StoreClientEventTarget {
     func storeClient(storeClient: StoreClient, didFetchProducts: [Product])
+    func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError: String)
 }
