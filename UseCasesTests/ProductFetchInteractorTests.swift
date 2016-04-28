@@ -42,8 +42,8 @@ class ProductFetchInteractorTests: XCTestCase {
     func testCallsOutputWithFetchedProducts() {
         let sut = ProductFetchInteractor(productIdentifiers: [], client: client, output: output)
         let products = [
-            Product(identifier: "123", name: "product1", price: "$100"),
-            Product(identifier: "456", name: "product2", price: "$200")
+            Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
+            Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
         ]
 
         sut.storeClient(client, didFetchProducts: products)

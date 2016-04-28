@@ -1,5 +1,5 @@
 //
-//  Product.swift
+//  PresentationProduct.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,27 +16,26 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
-
-public struct Product {
+public struct PresentationProduct {
     public let identifier: String
     public let name: String
-    public let price: NSDecimalNumber
-    public let localizedPrice: String
+    public let price: String
 
-    public init(identifier: String, name: String, price: NSDecimalNumber, localizedPrice: String) {
+    public init(identifier: String, name: String, price: String) {
         self.identifier = identifier
         self.name = name
         self.price = price
-        self.localizedPrice = localizedPrice
     }
 }
 
-extension Product: Equatable {}
+public extension PresentationProduct {
+    init(_ product: Product) {
+        self.init(identifier: product.identifier, name: product.name, price: product.localizedPrice)
+    }
+}
 
-public func ==(lhs: Product, rhs: Product) -> Bool {
-    return lhs.identifier == rhs.identifier &&
-        lhs.name == rhs.name &&
-        lhs.price == rhs.price &&
-        lhs.localizedPrice == rhs.localizedPrice
+extension PresentationProduct: Equatable {}
+
+public func ==(lhs: PresentationProduct, rhs: PresentationProduct) -> Bool {
+    return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.price == rhs.price
 }

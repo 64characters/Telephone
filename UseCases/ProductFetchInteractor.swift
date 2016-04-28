@@ -16,6 +16,11 @@
 //  GNU General Public License for more details.
 //
 
+public protocol ProductFetchInteractorOutput {
+    func didFetchProducts(products: [Product])
+    func didFailFetchingProducts(error: String)
+}
+
 public class ProductFetchInteractor {
     let identifiers: [String]
     let client: StoreClient
@@ -36,15 +41,10 @@ extension ProductFetchInteractor: Interactor {
 
 extension ProductFetchInteractor: StoreClientEventTarget {
     public func storeClient(storeClient: StoreClient, didFetchProducts products: [Product]) {
-        output.update(products)
+        output.didFetchProducts(products)
     }
 
     public func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError error: String) {
-        output.showError(error)
+        output.didFailFetchingProducts(error)
     }
-}
-
-public protocol ProductFetchInteractorOutput {
-    func update(products: [Product])
-    func showError(error: String)
 }

@@ -24,12 +24,13 @@ extension Product {
         self.init(
             identifier: product.productIdentifier ?? "N/A",
             name: product.localizedTitle ?? "N/A",
-            price: priceStringWithPrice(product.price, formatter: formatter)
+            price: product.price ?? NSDecimalNumber.zero(),
+            localizedPrice: lozalizedPriceWithPrice(product.price, formatter: formatter)
         )
     }
 }
 
-private func priceStringWithPrice(price: NSDecimalNumber?, formatter: NSNumberFormatter) -> String {
+private func lozalizedPriceWithPrice(price: NSDecimalNumber?, formatter: NSNumberFormatter) -> String {
     if let number = price, string = formatter.stringFromNumber(number) {
         return string
     } else {

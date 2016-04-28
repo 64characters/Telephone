@@ -1,5 +1,5 @@
 //
-//  ProductFetchInteractorOutputSpy.swift
+//  ProductPresenter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,29 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public class ProductFetchInteractorOutputSpy {
-    public private(set) var invokedProducts: [Product] = []
-    public private(set) var invokedError = ""
-
-    public init() {}
+public protocol ProductPresenterOutput {
+    func showProducts(products: [PresentationProduct])
+    func showError(error: String)
 }
 
-extension ProductFetchInteractorOutputSpy: ProductFetchInteractorOutput {
+public class ProductPresenter {
+    let output: ProductPresenterOutput
+
+    public init(output: ProductPresenterOutput) {
+        self.output = output
+    }
+}
+
+extension ProductPresenter: ProductFetchInteractorOutput {
     public func didFetchProducts(products: [Product]) {
-        invokedProducts = products
+        output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
     }
 
     public func didFailFetchingProducts(error: String) {
-        invokedError = error
+        output.showError(error)
     }
+}
+
+private func hasLowerPrice(lhs: Product, _ rhs: Product) -> Bool {
+    return lhs.price.compare(rhs.price) == .OrderedAscending
 }

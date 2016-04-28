@@ -1,5 +1,5 @@
 //
-//  ProductFetchInteractorOutputSpy.swift
+//  ProductPresenterOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,19 +18,19 @@
 
 import UseCases
 
-public class ProductFetchInteractorOutputSpy {
-    public private(set) var invokedProducts: [Product] = []
+public class ProductPresenterOutputSpy {
+    public private(set) var invokedProducts: [PresentationProduct] = []
     public private(set) var invokedError = ""
-
+    
     public init() {}
 }
 
-extension ProductFetchInteractorOutputSpy: ProductFetchInteractorOutput {
-    public func didFetchProducts(products: [Product]) {
+extension ProductPresenterOutputSpy: ProductPresenterOutput {
+    public func showProducts(products: [PresentationProduct]) {
         invokedProducts = products
     }
 
-    public func didFailFetchingProducts(error: String) {
+    public func showError(error: String) {
         invokedError = error
     }
 }
