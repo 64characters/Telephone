@@ -27,12 +27,6 @@ class DefaultStoreClient: NSObject {
     init(eventTarget: StoreClientEventTarget) {
         self.eventTarget = eventTarget
     }
-
-    private func forgetProductsRequest(request: SKRequest) {
-        if request === productsRequest {
-            productsRequest = nil
-        }
-    }
 }
 
 extension DefaultStoreClient: StoreClient {
@@ -57,7 +51,20 @@ extension DefaultStoreClient: SKRequestDelegate {
 
     func request(request: SKRequest, didFailWithError error: NSError?) {
         NSLog("Store request '\(request)' failed: \(error)")
+        notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error))
         forgetProductsRequest(request)
+    }
+
+    private func notifyEventTargetAboutProductFetchFailure(request request: SKRequest, error: String) {
+        if request === productsRequest {
+            eventTarget.storeClient(self, didFailFetchingProductsWithError: error)
+        }
+    }
+
+    private func forgetProductsRequest(request: SKRequest) {
+        if request === productsRequest {
+            productsRequest = nil
+        }
     }
 }
 
@@ -76,4 +83,8 @@ private func productsWithStoreKitProducts(products: [SKProduct]) -> [Product] {
         formatter.locale = product.priceLocale
         return Product(product: product, formatter: formatter)
     }
+}
+
+private func descriptionOf(error: NSError?) -> String {
+    return error?.localizedDescription ?? "Unknown error"
 }
