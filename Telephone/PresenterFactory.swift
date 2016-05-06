@@ -20,4 +20,8 @@ class PresenterFactory {
     func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter {
         return SoundIOPresenter(output: output)
     }
+
+    func createProductPresenter(output output: ProductPresenterOutput) -> ProductPresenter {
+        return ProductPresenter(output: output)
+    }
 }
