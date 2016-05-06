@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public struct PresentationProduct {
+public class PresentationProduct: NSObject {
     public let identifier: String
     public let name: String
     public let price: String
@@ -28,14 +28,26 @@ public struct PresentationProduct {
     }
 }
 
-public extension PresentationProduct {
-    init(_ product: Product) {
-        self.init(identifier: product.identifier, name: product.name, price: product.localizedPrice)
+extension PresentationProduct {
+    public override func isEqual(object: AnyObject?) -> Bool {
+        if let product = object as? PresentationProduct {
+            return isEqualToProduct(product)
+        } else {
+            return false
+        }
+    }
+
+    public override var hash: Int {
+        return identifier.hash ^ name.hash ^ price.hash
+    }
+
+    public func isEqualToProduct(product: PresentationProduct) -> Bool {
+        return self.identifier == product.identifier && self.name == product.name && self.price == product.price
     }
 }
 
-extension PresentationProduct: Equatable {}
-
-public func ==(lhs: PresentationProduct, rhs: PresentationProduct) -> Bool {
-    return lhs.identifier == rhs.identifier && lhs.name == rhs.name && lhs.price == rhs.price
+public extension PresentationProduct {
+    convenience init(_ product: Product) {
+        self.init(identifier: product.identifier, name: product.name, price: product.localizedPrice)
+    }
 }
