@@ -100,6 +100,7 @@
 		8ADD31CA1CC112A2008C083C /* NullThrowingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C91CC112A2008C083C /* NullThrowingInteractor.swift */; };
 		8ADD31CC1CC165B5008C083C /* DelayingUserAgentSoundIOSelectionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A541BD3F2A90030ECE4 /* DelayingUserAgentSoundIOSelectionInteractorTests.swift */; };
 		8ADD31CD1CC165C3008C083C /* DelayingUserAgentSoundIOSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A521BD174D60030ECE4 /* DelayingUserAgentSoundIOSelectionInteractor.swift */; };
+		8ADD6A491CDCF391001EDBBA /* NullStoreClientEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A481CDCF391001EDBBA /* NullStoreClientEventTarget.swift */; };
 		8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6C1C528F720029C3D8 /* Error.swift */; };
 		8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -478,6 +479,7 @@
 		8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionInteractorFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentSoundIOSelectionInteractorFake.swift; sourceTree = "<group>"; };
 		8ADD31C71CC10FA6008C083C /* InteractorFactoryFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorFactoryFake.swift; sourceTree = "<group>"; };
 		8ADD31C91CC112A2008C083C /* NullThrowingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullThrowingInteractor.swift; sourceTree = "<group>"; };
+		8ADD6A481CDCF391001EDBBA /* NullStoreClientEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullStoreClientEventTarget.swift; sourceTree = "<group>"; };
 		8ADD6B6C1C528F720029C3D8 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneSoundConfigurationLoadInteractorSpy.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -960,6 +962,7 @@
 		8A11A0C51CCF9D31007BFC7F /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				8ADD6A481CDCF391001EDBBA /* NullStoreClientEventTarget.swift */,
 				8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */,
 				8A11A0CE1CCFA74F007BFC7F /* Product.swift */,
 				8A11A0C81CCF9DDD007BFC7F /* ProductFetchInteractor.swift */,
@@ -1905,6 +1908,7 @@
 				8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */,
 				8A11A0C91CCF9DDD007BFC7F /* ProductFetchInteractor.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* InteractorFactory.swift in Sources */,
+				8ADD6A491CDCF391001EDBBA /* NullStoreClientEventTarget.swift in Sources */,
 				8AC1A4411C67BFA8007778A2 /* SoundEventTarget.swift in Sources */,
 				AA3905471BFFDE9A005A8AA3 /* UserDefaults.swift in Sources */,
 				AA3905441BFFDE75005A8AA3 /* UserAgentEventTargetComposite.swift in Sources */,

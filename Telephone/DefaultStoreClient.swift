@@ -20,12 +20,20 @@ import StoreKit
 import UseCases
 
 class DefaultStoreClient: NSObject {
-    let eventTarget: StoreClientEventTarget
+    private(set) var eventTarget: StoreClientEventTarget
 
     private var productsRequest: SKProductsRequest?
 
     init(eventTarget: StoreClientEventTarget) {
         self.eventTarget = eventTarget
+    }
+
+    override convenience init() {
+        self.init(eventTarget: NullStoreClientEventTarget())
+    }
+
+    func updateEventTarget(target: StoreClientEventTarget) {
+        eventTarget = target
     }
 }
 
