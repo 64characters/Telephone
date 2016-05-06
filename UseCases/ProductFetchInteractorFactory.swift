@@ -1,5 +1,5 @@
 //
-//  StoreClient.swift
+//  ProductFetchInteractorFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,11 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreClient: class {
-    func fetchProducts(withIdentifiers identifiers: [String])
-}
-
-public protocol StoreClientEventTarget {
-    func storeClient(storeClient: StoreClient, didFetchProducts: [Product])
-    func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError: String)
+public protocol ProductFetchInteractorFactory {
+    func create(output output: ProductFetchInteractorOutput) -> Interactor
 }

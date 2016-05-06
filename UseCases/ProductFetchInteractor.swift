@@ -16,15 +16,15 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductFetchInteractorOutput {
+public protocol ProductFetchInteractorOutput: class {
     func didFetchProducts(products: [Product])
     func didFailFetchingProducts(error: String)
 }
 
 public class ProductFetchInteractor {
-    let identifiers: [String]
-    let client: StoreClient
-    let output: ProductFetchInteractorOutput
+    public let identifiers: [String]
+    public let client: StoreClient
+    public let output: ProductFetchInteractorOutput
 
     public init(productIdentifiers: [String], client: StoreClient, output: ProductFetchInteractorOutput) {
         identifiers = productIdentifiers
