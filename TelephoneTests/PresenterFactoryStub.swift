@@ -1,5 +1,5 @@
 //
-//  PresenterFactory.swift
+//  PresenterFactoryStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-protocol PresenterFactory {
-    func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter
-    func createProductPresenter(output output: ProductPresenterOutput) -> ProductPresenter
+class PresenterFactoryStub {
+    private(set) var productPresenter: ProductPresenter?
+
+    func stubWithProductPresenter(presenter: ProductPresenter) {
+        productPresenter = presenter
+    }
+}
+
+extension PresenterFactoryStub: PresenterFactory {
+    func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter {
+        fatalError()
+    }
+
+    func createProductPresenter(output output: ProductPresenterOutput) -> ProductPresenter {
+        return productPresenter!
+    }
 }

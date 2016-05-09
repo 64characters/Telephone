@@ -1,5 +1,5 @@
 //
-//  PresenterFactory.swift
+//  DefaultPresenterFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-protocol PresenterFactory {
-    func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter
-    func createProductPresenter(output output: ProductPresenterOutput) -> ProductPresenter
+import UseCases
+
+class DefaultPresenterFactory {}
+
+extension DefaultPresenterFactory: PresenterFactory {
+    func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter {
+        return SoundIOPresenter(output: output)
+    }
+
+    func createProductPresenter(output output: ProductPresenterOutput) -> ProductPresenter {
+        return ProductPresenter(output: output)
+    }
 }

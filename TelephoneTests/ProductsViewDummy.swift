@@ -1,5 +1,5 @@
 //
-//  PresenterFactory.swift
+//  ProductsViewDummy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-protocol PresenterFactory {
-    func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter
-    func createProductPresenter(output output: ProductPresenterOutput) -> ProductPresenter
+class ProductsViewDummy: ProductsView {
+    func showProducts(products: [PresentationProduct]) {}
+    func showError(error: String) {}
 }
