@@ -24,17 +24,20 @@ public protocol ProductFetchInteractorOutput: class {
 public class ProductFetchInteractor {
     public let identifiers: [String]
     public let client: StoreClient
+    public let composite: StoreClientEventTargetComposite
     public let output: ProductFetchInteractorOutput
 
-    public init(productIdentifiers: [String], client: StoreClient, output: ProductFetchInteractorOutput) {
+    public init(productIdentifiers: [String], client: StoreClient, composite: StoreClientEventTargetComposite, output: ProductFetchInteractorOutput) {
         identifiers = productIdentifiers
         self.client = client
+        self.composite = composite
         self.output = output
     }
 }
 
 extension ProductFetchInteractor: Interactor {
     public func execute() {
+        composite.addTarget(self)
         client.fetchProducts(withIdentifiers: identifiers)
     }
 }
@@ -42,9 +45,11 @@ extension ProductFetchInteractor: Interactor {
 extension ProductFetchInteractor: StoreClientEventTarget {
     public func storeClient(storeClient: StoreClient, didFetchProducts products: [Product]) {
         output.didFetchProducts(products)
+        composite.removeTarget(self)
     }
 
     public func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError error: String) {
         output.didFailFetchingProducts(error)
+        composite.removeTarget(self)
     }
 }

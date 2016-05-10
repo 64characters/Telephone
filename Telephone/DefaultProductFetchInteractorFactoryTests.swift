@@ -24,14 +24,16 @@ class DefaultProductFetchInteractorFactoryTests: XCTestCase {
     func testCanCreateInteractor() {
         let identifiers = ["123", "456"]
         let client = StoreClientSpy()
+        let composite = StoreClientEventTargetComposite()
         let output = ProductFetchInteractorOutputSpy()
-        let sut = DefaultProductFetchInteractorFactory(identifiers: identifiers, client: client)
+        let sut = DefaultProductFetchInteractorFactory(identifiers: identifiers, client: client, composite: composite)
 
         let result = sut.create(output: output) as! ProductFetchInteractor
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.identifiers, identifiers)
         XCTAssertTrue(result.client === client)
+        XCTAssertTrue(result.composite === composite)
         XCTAssertTrue(result.output === output)
     }
 }

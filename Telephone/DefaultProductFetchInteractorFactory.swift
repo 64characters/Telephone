@@ -21,15 +21,17 @@ import UseCases
 class DefaultProductFetchInteractorFactory {
     let identifiers: [String]
     let client: StoreClient
+    let composite: StoreClientEventTargetComposite
 
-    init(identifiers: [String], client: StoreClient) {
+    init(identifiers: [String], client: StoreClient, composite: StoreClientEventTargetComposite) {
         self.identifiers = identifiers
         self.client = client
+        self.composite = composite
     }
 }
 
 extension DefaultProductFetchInteractorFactory: ProductFetchInteractorFactory {
     func create(output output: ProductFetchInteractorOutput) -> Interactor {
-        return ProductFetchInteractor(productIdentifiers: identifiers, client: client, output: output)
+        return ProductFetchInteractor(productIdentifiers: identifiers, client: client, composite: composite, output: output)
     }
 }

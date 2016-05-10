@@ -21,18 +21,15 @@ import UseCasesTestDoubles
 import XCTest
 
 class ProductFetchInteractorTests: XCTestCase {
-    private var client: StoreClientSpy!
-    private var output: ProductFetchInteractorOutputSpy!
-
-    override func setUp() {
-        super.setUp()
-        client = StoreClientSpy()
-        output = ProductFetchInteractorOutputSpy()
-    }
-
     func testUsesConfiguredIdentifiersWhenFetching() {
         let identifiers = ["any1", "any2"]
-        let sut = ProductFetchInteractor(productIdentifiers: identifiers, client: client, output: output)
+        let client = StoreClientSpy()
+        let sut = ProductFetchInteractor(
+            productIdentifiers: identifiers,
+            client: client,
+            composite: StoreClientEventTargetComposite(),
+            output: ProductFetchInteractorOutputSpy()
+        )
 
         sut.execute()
 
@@ -40,7 +37,11 @@ class ProductFetchInteractorTests: XCTestCase {
     }
 
     func testCallsOutputWithFetchedProducts() {
-        let sut = ProductFetchInteractor(productIdentifiers: [], client: client, output: output)
+        let client = StoreClientSpy()
+        let output = ProductFetchInteractorOutputSpy();
+        let sut = ProductFetchInteractor(
+            productIdentifiers: [], client: client, composite: StoreClientEventTargetComposite(), output: output
+        )
         let products = [
             Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
             Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
@@ -52,11 +53,50 @@ class ProductFetchInteractorTests: XCTestCase {
     }
 
     func testCallsOutputWithErrorMessageWhenProductFetchFails() {
-        let sut = ProductFetchInteractor(productIdentifiers: [], client: client, output: output)
+        let client = StoreClientSpy()
+        let output = ProductFetchInteractorOutputSpy();
+        let sut = ProductFetchInteractor(
+            productIdentifiers: [], client: client, composite: StoreClientEventTargetComposite(), output: output
+        )
         let error = "any"
 
         sut.storeClient(client, didFailFetchingProductsWithError: error)
 
         XCTAssertEqual(output.invokedError, error)
+    }
+
+    func testAddsItselfToEventTargetCompositeOnExecution() {
+        let composite = StoreClientEventTargetComposite()
+        let sut = ProductFetchInteractor(
+            productIdentifiers: [], client: StoreClientSpy(), composite: composite, output: ProductFetchInteractorOutputSpy()
+        )
+
+        sut.execute()
+
+        XCTAssertTrue(composite[0] === sut)
+    }
+
+    func testRemovesItselfFromEventTargetCompositeOnFetchSuccess() {
+        let composite = StoreClientEventTargetComposite()
+        let sut = ProductFetchInteractor(
+            productIdentifiers: [], client: StoreClientSpy(), composite: composite, output: ProductFetchInteractorOutputSpy()
+        )
+        sut.execute()
+
+        sut.storeClient(StoreClientSpy(), didFetchProducts: [])
+
+        XCTAssertEqual(composite.targetsCount, 0)
+    }
+
+    func testRemovesItselfFromEventTargetCompositeOnFetchFailure() {
+        let composite = StoreClientEventTargetComposite()
+        let sut = ProductFetchInteractor(
+            productIdentifiers: [], client: StoreClientSpy(), composite: composite, output: ProductFetchInteractorOutputSpy()
+        )
+        sut.execute()
+
+        sut.storeClient(StoreClientSpy(), didFailFetchingProductsWithError: "any")
+
+        XCTAssertEqual(composite.targetsCount, 0)
     }
 }
