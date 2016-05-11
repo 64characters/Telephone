@@ -40,19 +40,25 @@ extension DefaultStoreClient: StoreClient {
 
 extension DefaultStoreClient: SKProductsRequestDelegate {
     func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
-        eventTarget.storeClient(self, didFetchProducts: productsWithStoreKitProducts(response.products))
+        dispatch_async(dispatch_get_main_queue()) {
+            self.eventTarget.storeClient(self, didFetchProducts: productsWithStoreKitProducts(response.products))
+        }
     }
 }
 
 extension DefaultStoreClient: SKRequestDelegate {
     func requestDidFinish(request: SKRequest) {
-        forgetProductsRequest(request)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.forgetProductsRequest(request)
+        }
     }
 
     func request(request: SKRequest, didFailWithError error: NSError?) {
         NSLog("Store request '\(request)' failed: \(error)")
-        notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error))
-        forgetProductsRequest(request)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error))
+            self.forgetProductsRequest(request)
+        }
     }
 
     private func notifyEventTargetAboutProductFetchFailure(request request: SKRequest, error: String) {
