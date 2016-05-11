@@ -18,7 +18,7 @@
 
 public protocol ProductPresenterOutput {
     func showProducts(products: [PresentationProduct])
-    func showError(error: String)
+    func showProductFetchError(error: String)
 }
 
 public class ProductPresenter {
@@ -35,7 +35,7 @@ extension ProductPresenter: ProductFetchInteractorOutput {
     }
 
     public func didFailFetchingProducts(error: String) {
-        output.showError(error)
+        output.showProductFetchError(error)
     }
 }
 

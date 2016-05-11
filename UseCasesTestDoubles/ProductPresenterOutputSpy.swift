@@ -30,7 +30,7 @@ extension ProductPresenterOutputSpy: ProductPresenterOutput {
         invokedProducts = products
     }
 
-    public func showError(error: String) {
+    public func showProductFetchError(error: String) {
         invokedError = error
     }
 }

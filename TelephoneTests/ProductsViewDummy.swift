@@ -18,5 +18,5 @@
 
 class ProductsViewDummy: ProductsView {
     func showProducts(products: [PresentationProduct]) {}
-    func showError(error: String) {}
+    func showProductFetchError(error: String) {}
 }

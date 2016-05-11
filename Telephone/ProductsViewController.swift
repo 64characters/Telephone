@@ -43,7 +43,7 @@ extension ProductsViewController: ProductsView {
         self.products = products
     }
 
-    func showError(error: String) {
+    func showProductFetchError(error: String) {
 
     }
 }
