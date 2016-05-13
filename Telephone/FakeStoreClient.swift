@@ -19,6 +19,8 @@
 class FakeStoreClient {
     let eventTarget: StoreClientEventTarget
 
+    private var attempts = 0
+
     init(eventTarget: StoreClientEventTarget) {
         self.eventTarget = eventTarget
     }
@@ -26,10 +28,19 @@ class FakeStoreClient {
 
 extension FakeStoreClient: StoreClient {
     func fetchProducts(withIdentifiers identifiers: [String]) {
+        attempts += 1
         dispatch_async(dispatch_get_main_queue(), notifyEventTarget)
     }
 
     private func notifyEventTarget() {
+        if attempts % 2 == 0 {
+            notifyEventTargetWithError()
+        } else {
+            notifyEventTargetWithSuccess()
+        }
+    }
+
+    private func notifyEventTargetWithSuccess() {
         eventTarget.storeClient(
             self,
             didFetchProducts: [
@@ -47,5 +58,9 @@ extension FakeStoreClient: StoreClient {
                 )
             ]
         )
+    }
+
+    private func notifyEventTargetWithError() {
+        eventTarget.storeClient(self, didFailFetchingProductsWithError: "No network connection.")
     }
 }
