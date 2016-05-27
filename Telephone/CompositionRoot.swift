@@ -59,18 +59,18 @@ class CompositionRoot: NSObject {
         let presenterFactory = DefaultPresenterFactory()
         let storeClientEventTargetComposite = StoreClientEventTargetComposite()
 
-        storeWindowController = StoreWindowController(
-            contentViewController: ProductsViewController(
-                eventTarget: DefaultProductsViewEventTarget(
-                    interactorFactory: DefaultProductFetchInteractorFactory(
-                        identifiers: ["one", "two"],
-                        client: FakeStoreClient(eventTarget: storeClientEventTargetComposite),
-                        composite: storeClientEventTargetComposite
-                    ),
-                    presenterFactory: presenterFactory
-                )
-            )
+        let productsViewController = ProductsViewController()
+        let productsViewEventTarget = DefaultProductsViewEventTarget(
+            interactorFactory: DefaultProductFetchInteractorFactory(
+                identifiers: ["one", "two"],
+                client: FakeStoreClient(eventTarget: storeClientEventTargetComposite),
+                composite: storeClientEventTargetComposite
+            ),
+            presenterFactory: presenterFactory
         )
+        productsViewController.eventTarget = productsViewEventTarget
+
+        storeWindowController = StoreWindowController(contentViewController: productsViewController)
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionInteractor(
             interactor: UserAgentSoundIOSelectionInteractor(

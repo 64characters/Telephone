@@ -20,11 +20,10 @@ import Cocoa
 import UseCases
 
 class ProductsViewController: NSViewController {
-    let eventTarget: ProductsViewEventTarget
+    var eventTarget: ProductsViewEventTarget!
     private(set) dynamic var products: [PresentationProduct] = []
 
-    init(eventTarget: ProductsViewEventTarget) {
-        self.eventTarget = eventTarget
+    init() {
         super.init(nibName: "ProductsViewController", bundle: nil)!
     }
 
