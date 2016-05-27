@@ -16,30 +16,67 @@
 //  GNU General Public License for more details.
 //
 
-protocol ProductsViewStateMachine {
-    func handleEvent(event: ProductsViewStateMachineEvent)
-}
+import UseCases
 
-protocol ProductsViewStateMachineTarget {
+protocol ProductsViewStateMachine: ProductsViewEventTarget, ProductFetchInteractorOutput,
+ProductPurchaseInteractorOutput, PurchaseRestorationInteractorOutput {
+    var state: ProductsViewState { get }
+    func changeState(newState: ProductsViewState)
+
     func fetchProducts()
+    func showProducts(products: [Product])
+    func showProductsFetchError(error: String)
+    func purchaseProduct(identifier identifier: String)
+    func showPurchaseError(error: String)
     func restorePurchases()
-    func showProducts()
-    func showProductFetchError()
-    func purchase()
+    func showPurchaseRestorationError(error: String)
     func showThankYou()
-    func showPurchaseError()
-    func showRestoreError()
 }
 
-enum ProductsViewStateMachineEvent {
-    case ViewShouldReload
-    case DidClickReload
-    case DidClickRestore
-    case DidFetch
-    case FetchDidFail
-    case DidClickPurchase
-    case DidPurchase
-    case PurchaseDidFail
-    case DidRestore
-    case RestoreDidFail
+extension ProductsViewStateMachine {
+    func viewShouldReloadData(view: ProductsView) {
+        state.viewShouldReloadData(machine: self)
+    }
+
+    func viewDidStartProductFetch() {
+        state.viewDidStartProductFetch(machine: self)
+    }
+
+    func viewDidMakePurchase(product: PresentationProduct) {
+        state.viewDidMakePurchase(machine: self, product: product)
+    }
+
+    func viewDidStartPurchaseRestoration() {
+        state.viewDidStartPurchaseRestoration(machine: self)
+    }
+}
+
+extension ProductsViewStateMachine {
+    func didFetchProducts(products: [Product]) {
+        state.didFetchProducts(machine: self, products: products)
+    }
+
+    func didFailFetchingProducts(error error: String) {
+        state.didFailFetchingProducts(machine: self, error: error)
+    }
+}
+
+extension ProductsViewStateMachine {
+    func didPurchase(product: Product) {
+        state.didPurchase(machine: self, product: product)
+    }
+
+    func didFailPurchasingProduct(error error: String) {
+        state.didFailPurchasingProduct(machine: self, error: error)
+    }
+}
+
+extension ProductsViewStateMachine {
+    func didRestorePurchases() {
+        state.didRestorePurchases(machine: self)
+    }
+
+    func didFailRestoringPurchases(error error: String) {
+        state.didFailRestoringPurchases(machine: self, error: error)
+    }
 }

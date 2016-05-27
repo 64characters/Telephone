@@ -30,7 +30,7 @@ extension ProductFetchInteractorOutputSpy: ProductFetchInteractorOutput {
         invokedProducts = products
     }
 
-    public func didFailFetchingProducts(error: String) {
+    public func didFailFetchingProducts(error error: String) {
         invokedError = error
     }
 }

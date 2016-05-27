@@ -34,7 +34,7 @@ extension ProductPresenter: ProductFetchInteractorOutput {
         output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
     }
 
-    public func didFailFetchingProducts(error: String) {
+    public func didFailFetchingProducts(error error: String) {
         output.showProductFetchError(error)
     }
 }

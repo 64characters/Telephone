@@ -18,7 +18,7 @@
 
 public protocol ProductFetchInteractorOutput: class {
     func didFetchProducts(products: [Product])
-    func didFailFetchingProducts(error: String)
+    func didFailFetchingProducts(error error: String)
 }
 
 public class ProductFetchInteractor {
@@ -49,7 +49,7 @@ extension ProductFetchInteractor: StoreClientEventTarget {
     }
 
     public func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError error: String) {
-        output.didFailFetchingProducts(error)
+        output.didFailFetchingProducts(error: error)
         composite.removeTarget(self)
     }
 }

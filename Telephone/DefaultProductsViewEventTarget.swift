@@ -30,4 +30,8 @@ extension DefaultProductsViewEventTarget: ProductsViewEventTarget{
     func viewShouldReloadData(view: ProductsView) {
         interactorFactory.create(output: presenterFactory.createProductPresenter(output: view)).execute()
     }
+
+    func viewDidStartProductFetch() {}
+    func viewDidMakePurchase(product: PresentationProduct) {}
+    func viewDidStartPurchaseRestoration() {}
 }

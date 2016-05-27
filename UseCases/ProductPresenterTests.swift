@@ -46,7 +46,7 @@ class ProductPresenterTests: XCTestCase {
     func testShowsErrorOnError() {
         let error = "any"
 
-        sut.didFailFetchingProducts(error)
+        sut.didFailFetchingProducts(error: error)
 
         XCTAssertEqual(output.invokedError, error)
     }

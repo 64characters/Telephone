@@ -1,5 +1,5 @@
 //
-//  ProductsView.swift
+//  ProductPurchaseInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,11 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-protocol ProductsView: ProductPresenterOutput {}
-
-protocol ProductsViewEventTarget {
-    func viewShouldReloadData(view: ProductsView)
-    func viewDidStartProductFetch()
-    func viewDidMakePurchase(product: PresentationProduct)
-    func viewDidStartPurchaseRestoration()
+public protocol ProductPurchaseInteractorOutput {
+    func didPurchase(product: Product)
+    func didFailPurchasingProduct(error error: String)
 }
