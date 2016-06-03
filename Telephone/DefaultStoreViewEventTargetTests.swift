@@ -1,5 +1,5 @@
 //
-//  DefaultProductsViewEventTargetTests.swift
+//  DefaultStoreViewEventTargetTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,12 +20,12 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class DefaultProductsViewEventTargetTests: XCTestCase {
+class DefaultStoreViewEventTargetTests: XCTestCase {
     func testExecutesProductsFetchOnFetchProducts() {
         let interactor = InteractorSpy()
         let factory = StoreInteractorFactorySpy()
         factory.stub(withProductsFetchInteractor: interactor)
-        let sut = DefaultProductsViewEventTarget(interactorFactory: factory, presenterFactory: StorePresenterFactory(output: ProductsViewDummy()))
+        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenterFactory: StorePresenterFactory(output: StoreViewDummy()))
 
         sut.fetchProducts()
 
@@ -33,8 +33,8 @@ class DefaultProductsViewEventTargetTests: XCTestCase {
     }
 
     func testShowsProductsOnShowProducts() {
-        let view = ProductsViewSpy()
-        let sut = DefaultProductsViewEventTarget(
+        let view = StoreViewSpy()
+        let sut = DefaultStoreViewEventTarget(
             interactorFactory: StoreInteractorFactorySpy(), presenterFactory: StorePresenterFactory(output: view)
         )
         let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
@@ -46,8 +46,8 @@ class DefaultProductsViewEventTargetTests: XCTestCase {
     }
 
     func testShowsProductsFetchErrorOnShowProductsFetchError() {
-        let view = ProductsViewSpy()
-        let sut = DefaultProductsViewEventTarget(
+        let view = StoreViewSpy()
+        let sut = DefaultStoreViewEventTarget(
             interactorFactory: StoreInteractorFactorySpy(), presenterFactory: StorePresenterFactory(output: view)
         )
         let error = "any"

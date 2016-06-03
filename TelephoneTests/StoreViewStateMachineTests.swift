@@ -1,5 +1,5 @@
 //
-//  ProductsViewStateMachineTests.swift
+//  StoreViewStateMachineTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,20 +19,20 @@
 import UseCases
 import XCTest
 
-class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
-    private var sut: ProductsViewStateMachine!
-    var state: ProductsViewState = ProductsViewStateNoProducts()
+class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
+    private var sut: StoreViewStateMachine!
+    var state: StoreViewState = StoreViewStateNoProducts()
     private var actions: String!
 
     override func setUp() {
         super.setUp()
         sut = self
-        changeState(ProductsViewStateNoProducts())
+        changeState(StoreViewStateNoProducts())
         actions = ""
     }
 
     func testNormalPurchase() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         sut.didPurchase(createProduct())
@@ -48,7 +48,7 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     }
 
     func testProductFetchFailureAndReload() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailFetchingProducts(error: "any")
         sut.viewDidStartProductFetch()
         sut.didFetchProducts([])
@@ -57,7 +57,7 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     }
 
     func testRestorationAfterProductFetch() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidStartPurchaseRestoration()
         sut.didRestorePurchases()
@@ -66,7 +66,7 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     }
 
     func testRestorationAfterProductFetchFailure() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailFetchingProducts(error: "any")
         sut.viewDidStartPurchaseRestoration()
         sut.didRestorePurchases()
@@ -75,7 +75,7 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     }
 
     func testPurchaseFailure() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         sut.didFailPurchasingProduct(error: "any")
@@ -84,7 +84,7 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     }
 
     func testPurchaseAfterPurchaseFailure() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         sut.didFailPurchasingProduct(error: "any")
@@ -111,7 +111,7 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     }
 
     func testRestorationAfterPurchaseFailure() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         sut.didFailPurchasingProduct(error: "any")
@@ -124,15 +124,15 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     func testShowsThankYouOnViewReloadWhenPurchased() {
         sut.viewDidStartPurchaseRestoration()
         sut.didRestorePurchases()
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
 
         XCTAssertEqual(actions, "RSS")
     }
 
     func testProductFetchOnViewReloadAfterProductFetchFailure() {
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailFetchingProducts(error: "any")
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
 
         XCTAssertEqual(actions, "FFeFSp")
@@ -145,8 +145,8 @@ class ProductsViewStateMachineTests: XCTestCase, ProductsViewStateMachine {
     }
 }
 
-extension ProductsViewStateMachineTests {
-    func changeState(newState: ProductsViewState) {
+extension StoreViewStateMachineTests {
+    func changeState(newState: StoreViewState) {
         state = newState
     }
 

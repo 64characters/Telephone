@@ -1,5 +1,5 @@
 //
-//  DefaultProductsViewEventTarget.swift
+//  DefaultStoreViewEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,11 +16,11 @@
 //  GNU General Public License for more details.
 //
 
-class DefaultProductsViewEventTarget {
+class DefaultStoreViewEventTarget {
     private let interactorFactory: StoreInteractorFactory
     private let presenterFactory: StorePresenterFactory
 
-    private(set) var state: ProductsViewState = ProductsViewStateNoProducts()
+    private(set) var state: StoreViewState = StoreViewStateNoProducts()
 
     init(interactorFactory: StoreInteractorFactory, presenterFactory: StorePresenterFactory) {
         self.interactorFactory = interactorFactory
@@ -28,11 +28,11 @@ class DefaultProductsViewEventTarget {
     }
 }
 
-extension DefaultProductsViewEventTarget: ProductsViewStateMachine {
-    func changeState(newState: ProductsViewState) {
+extension DefaultStoreViewEventTarget: StoreViewStateMachine {
+    func changeState(newState: StoreViewState) {
         state = newState
     }
-    
+
     func fetchProducts() {
         interactorFactory.createProductsFetchInteractor(output: self).execute()
     }

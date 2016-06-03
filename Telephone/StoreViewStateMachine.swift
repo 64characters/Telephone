@@ -1,5 +1,5 @@
 //
-//  ProductsViewStateMachine.swift
+//  StoreViewStateMachine.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,10 +18,10 @@
 
 import UseCases
 
-protocol ProductsViewStateMachine: ProductsViewEventTarget, ProductsFetchInteractorOutput,
+protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchInteractorOutput,
 ProductPurchaseInteractorOutput, PurchaseRestorationInteractorOutput {
-    var state: ProductsViewState { get }
-    func changeState(newState: ProductsViewState)
+    var state: StoreViewState { get }
+    func changeState(newState: StoreViewState)
 
     func fetchProducts()
     func showProducts(products: [Product])
@@ -33,8 +33,8 @@ ProductPurchaseInteractorOutput, PurchaseRestorationInteractorOutput {
     func showThankYou()
 }
 
-extension ProductsViewStateMachine {
-    func viewShouldReloadData(view: ProductsView) {
+extension StoreViewStateMachine {
+    func viewShouldReloadData(view: StoreView) {
         state.viewShouldReloadData(machine: self)
     }
 
@@ -51,7 +51,7 @@ extension ProductsViewStateMachine {
     }
 }
 
-extension ProductsViewStateMachine {
+extension StoreViewStateMachine {
     func didFetchProducts(products: [Product]) {
         state.didFetchProducts(machine: self, products: products)
     }
@@ -61,7 +61,7 @@ extension ProductsViewStateMachine {
     }
 }
 
-extension ProductsViewStateMachine {
+extension StoreViewStateMachine {
     func didPurchase(product: Product) {
         state.didPurchase(machine: self, product: product)
     }
@@ -71,7 +71,7 @@ extension ProductsViewStateMachine {
     }
 }
 
-extension ProductsViewStateMachine {
+extension StoreViewStateMachine {
     func didRestorePurchases() {
         state.didRestorePurchases(machine: self)
     }

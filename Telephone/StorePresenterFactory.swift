@@ -17,9 +17,9 @@
 //
 
 class StorePresenterFactory {
-    private let output: ProductsView
+    private let output: StoreView
 
-    init(output: ProductsView) {
+    init(output: StoreView) {
         self.output = output
     }
 

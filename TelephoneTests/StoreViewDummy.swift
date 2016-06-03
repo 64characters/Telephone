@@ -1,5 +1,5 @@
 //
-//  ProductsViewSpy.swift
+//  StoreViewDummy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class ProductsViewSpy {
-    private(set) var invokedProducts: [PresentationProduct] = []
-    private(set) var invokedError = ""
-}
-
-extension ProductsViewSpy: ProductsView {}
-
-extension ProductsViewSpy: ProductsFetchPresenterOutput {
-    func showProducts(products: [PresentationProduct]) {
-        invokedProducts = products
-    }
-
-    func showProductFetchError(error: String) {
-        invokedError = error
-    }
+class StoreViewDummy: StoreView {
+    func showProducts(products: [PresentationProduct]) {}
+    func showProductFetchError(error: String) {}
 }

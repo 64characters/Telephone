@@ -1,5 +1,5 @@
 //
-//  ProductsViewController.swift
+//  StoreViewController.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,12 +19,12 @@
 import Cocoa
 import UseCases
 
-class ProductsViewController: NSViewController {
-    var eventTarget: ProductsViewEventTarget!
+class StoreViewController: NSViewController {
+    var eventTarget: StoreViewEventTarget!
     private(set) dynamic var products: [PresentationProduct] = []
 
     init() {
-        super.init(nibName: "ProductsViewController", bundle: nil)!
+        super.init(nibName: "StoreViewController", bundle: nil)!
     }
 
     required init?(coder: NSCoder) {
@@ -37,7 +37,7 @@ class ProductsViewController: NSViewController {
     }
 }
 
-extension ProductsViewController: ProductsView {
+extension StoreViewController: StoreView {
     func showProducts(products: [PresentationProduct]) {
         self.products = products
     }
