@@ -18,7 +18,7 @@
 
 import UseCases
 
-protocol ProductsViewStateMachine: ProductsViewEventTarget, ProductFetchInteractorOutput,
+protocol ProductsViewStateMachine: ProductsViewEventTarget, ProductsFetchInteractorOutput,
 ProductPurchaseInteractorOutput, PurchaseRestorationInteractorOutput {
     var state: ProductsViewState { get }
     func changeState(newState: ProductsViewState)

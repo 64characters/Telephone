@@ -1,5 +1,5 @@
 //
-//  DefaultPresenterFactory.swift
+//  ProductsFetchPresenterOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,14 +18,19 @@
 
 import UseCases
 
-class DefaultPresenterFactory {}
+public class ProductsFetchPresenterOutputSpy {
+    public private(set) var invokedProducts: [PresentationProduct] = []
+    public private(set) var invokedError = ""
+    
+    public init() {}
+}
 
-extension DefaultPresenterFactory: PresenterFactory {
-    func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter {
-        return SoundIOPresenter(output: output)
+extension ProductsFetchPresenterOutputSpy: ProductsFetchPresenterOutput {
+    public func showProducts(products: [PresentationProduct]) {
+        invokedProducts = products
     }
 
-    func createProductPresenter(output output: ProductPresenterOutput) -> ProductPresenter {
-        return ProductPresenter(output: output)
+    public func showProductFetchError(error: String) {
+        invokedError = error
     }
 }

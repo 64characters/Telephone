@@ -56,17 +56,16 @@ class CompositionRoot: NSObject {
             delegate: conditionalRingtonePlaybackInteractorDelegate
         )
 
-        let presenterFactory = DefaultPresenterFactory()
         let storeClientEventTargetComposite = StoreClientEventTargetComposite()
 
         let productsViewController = ProductsViewController()
         let productsViewEventTarget = DefaultProductsViewEventTarget(
-            interactorFactory: DefaultProductFetchInteractorFactory(
+            interactorFactory: DefaultStoreInteractorFactory(
                 identifiers: ["one", "two"],
                 client: FakeStoreClient(eventTarget: storeClientEventTargetComposite),
                 composite: storeClientEventTargetComposite
             ),
-            presenterFactory: presenterFactory
+            presenterFactory: StorePresenterFactory(output: productsViewController)
         )
         productsViewController.eventTarget = productsViewEventTarget
 
@@ -86,7 +85,7 @@ class CompositionRoot: NSObject {
             userAgent: userAgent,
             soundPreferencesViewEventTarget: DefaultSoundPreferencesViewEventTarget(
                 interactorFactory: interactorFactory,
-                presenterFactory: presenterFactory,
+                presenterFactory: PresenterFactory(),
                 userAgentSoundIOSelection: userAgentSoundIOSelection,
                 ringtoneOutputUpdate: RingtoneOutputUpdateInteractor(playback: ringtonePlayback),
                 ringtoneSoundPlayback: DefaultSoundPlaybackInteractor(factory: userDefaultsSoundFactory)

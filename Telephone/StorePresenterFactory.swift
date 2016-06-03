@@ -1,5 +1,5 @@
 //
-//  ProductPresenterOutputSpy.swift
+//  StorePresenterFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+class StorePresenterFactory {
+    private let output: ProductsView
 
-public class ProductPresenterOutputSpy {
-    public private(set) var invokedProducts: [PresentationProduct] = []
-    public private(set) var invokedError = ""
-    
-    public init() {}
-}
-
-extension ProductPresenterOutputSpy: ProductPresenterOutput {
-    public func showProducts(products: [PresentationProduct]) {
-        invokedProducts = products
+    init(output: ProductsView) {
+        self.output = output
     }
 
-    public func showProductFetchError(error: String) {
-        invokedError = error
+    func createProductsFetchPresenter() -> ProductsFetchPresenter {
+        return ProductsFetchPresenter(output: output)
     }
 }

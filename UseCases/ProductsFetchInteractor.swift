@@ -1,5 +1,5 @@
 //
-//  ProductFetchInteractor.swift
+//  ProductsFetchInteractor.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductFetchInteractorOutput: class {
+public protocol ProductsFetchInteractorOutput: class {
     func didFetchProducts(products: [Product])
     func didFailFetchingProducts(error error: String)
 }
 
-public class ProductFetchInteractor {
+public class ProductsFetchInteractor {
     public let identifiers: [String]
     public let client: StoreClient
     public let composite: StoreClientEventTargetComposite
-    public let output: ProductFetchInteractorOutput
+    public let output: ProductsFetchInteractorOutput
 
-    public init(productIdentifiers: [String], client: StoreClient, composite: StoreClientEventTargetComposite, output: ProductFetchInteractorOutput) {
+    public init(productIdentifiers: [String], client: StoreClient, composite: StoreClientEventTargetComposite, output: ProductsFetchInteractorOutput) {
         identifiers = productIdentifiers
         self.client = client
         self.composite = composite
@@ -35,14 +35,14 @@ public class ProductFetchInteractor {
     }
 }
 
-extension ProductFetchInteractor: Interactor {
+extension ProductsFetchInteractor: Interactor {
     public func execute() {
         composite.addTarget(self)
         client.fetchProducts(withIdentifiers: identifiers)
     }
 }
 
-extension ProductFetchInteractor: StoreClientEventTarget {
+extension ProductsFetchInteractor: StoreClientEventTarget {
     public func storeClient(storeClient: StoreClient, didFetchProducts products: [Product]) {
         output.didFetchProducts(products)
         composite.removeTarget(self)

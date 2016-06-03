@@ -1,5 +1,5 @@
 //
-//  ProductPresenterTests.swift
+//  ProductsFetchPresenterTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,22 +20,22 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class ProductPresenterTests: XCTestCase {
-    private var output: ProductPresenterOutputSpy!
-    private var sut: ProductPresenter!
+class ProductsFetchPresenterTests: XCTestCase {
+    private var output: ProductsFetchPresenterOutputSpy!
+    private var sut: ProductsFetchPresenter!
 
     override func setUp() {
         super.setUp()
-        output = ProductPresenterOutputSpy()
-        sut = ProductPresenter(output: output)
+        output = ProductsFetchPresenterOutputSpy()
+        sut = ProductsFetchPresenter(output: output)
     }
 
-    func testShowsProductsSortedByPriceOnUpdate() {
+    func testShowsProductsSortedByPriceOnShowProducts() {
         let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 3), localizedPrice: "$3")
         let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
         let product3 = Product(identifier: "789", name: "ghi", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
 
-        sut.didFetchProducts([product1, product2, product3])
+        sut.showProducts([product1, product2, product3])
 
         XCTAssertEqual(
             output.invokedProducts,
@@ -43,10 +43,10 @@ class ProductPresenterTests: XCTestCase {
         )
     }
 
-    func testShowsErrorOnError() {
+    func testShowsErrorOnShowProductsFetchError() {
         let error = "any"
 
-        sut.didFailFetchingProducts(error: error)
+        sut.showProductsFetchError(error)
 
         XCTAssertEqual(output.invokedError, error)
     }

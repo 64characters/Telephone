@@ -34,7 +34,7 @@ class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
         soundPlayback = SoundPlaybackInteractorSpy()
         sut = DefaultSoundPreferencesViewEventTarget(
             interactorFactory: factory,
-            presenterFactory: DefaultPresenterFactory(),
+            presenterFactory: PresenterFactory(),
             userAgentSoundIOSelection: userAgentSoundIOSelection,
             ringtoneOutputUpdate: ringtoneOutputUpdate,
             ringtoneSoundPlayback: soundPlayback

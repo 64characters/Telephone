@@ -21,27 +21,39 @@ import UseCasesTestDoubles
 import XCTest
 
 class DefaultProductsViewEventTargetTests: XCTestCase {
-    func testCreatesInteractorWithOutputFromPresenterFactory() {
-        let interactorFactory = ProductFetchInteractorFactorySpy(interactor: InteractorSpy())
-        let presenter = ProductPresenter(output: ProductPresenterOutputSpy())
-        let presenterFactory = PresenterFactoryStub()
-        presenterFactory.stubWithProductPresenter(presenter)
-        let sut = DefaultProductsViewEventTarget(interactorFactory: interactorFactory, presenterFactory: presenterFactory)
-
-        sut.viewShouldReloadData(ProductsViewDummy())
-
-        XCTAssertTrue(interactorFactory.invokedOutput === presenter)
-    }
-
-    func testExecutesInteractorOnViewShouldReload() {
+    func testExecutesProductsFetchOnFetchProducts() {
         let interactor = InteractorSpy()
-        let sut = DefaultProductsViewEventTarget(
-            interactorFactory: ProductFetchInteractorFactorySpy(interactor: interactor),
-            presenterFactory: DefaultPresenterFactory()
-        )
+        let factory = StoreInteractorFactorySpy()
+        factory.stub(withProductsFetchInteractor: interactor)
+        let sut = DefaultProductsViewEventTarget(interactorFactory: factory, presenterFactory: StorePresenterFactory(output: ProductsViewDummy()))
 
-        sut.viewShouldReloadData(ProductsViewDummy())
+        sut.fetchProducts()
 
         XCTAssertTrue(interactor.didCallExecute)
+    }
+
+    func testShowsProductsOnShowProducts() {
+        let view = ProductsViewSpy()
+        let sut = DefaultProductsViewEventTarget(
+            interactorFactory: StoreInteractorFactorySpy(), presenterFactory: StorePresenterFactory(output: view)
+        )
+        let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
+        let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
+
+        sut.showProducts([product1, product2])
+
+        XCTAssertEqual(view.invokedProducts, [PresentationProduct(product1), PresentationProduct(product2)])
+    }
+
+    func testShowsProductsFetchErrorOnShowProductsFetchError() {
+        let view = ProductsViewSpy()
+        let sut = DefaultProductsViewEventTarget(
+            interactorFactory: StoreInteractorFactorySpy(), presenterFactory: StorePresenterFactory(output: view)
+        )
+        let error = "any"
+
+        sut.showProductsFetchError(error)
+
+        XCTAssertEqual(view.invokedError, error)
     }
 }

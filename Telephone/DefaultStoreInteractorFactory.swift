@@ -1,5 +1,5 @@
 //
-//  DefaultProductFetchInteractorFactory.swift
+//  DefaultStoreInteractorFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-class DefaultProductFetchInteractorFactory {
+class DefaultStoreInteractorFactory {
     let identifiers: [String]
     let client: StoreClient
     let composite: StoreClientEventTargetComposite
@@ -30,8 +30,8 @@ class DefaultProductFetchInteractorFactory {
     }
 }
 
-extension DefaultProductFetchInteractorFactory: ProductFetchInteractorFactory {
-    func create(output output: ProductFetchInteractorOutput) -> Interactor {
-        return ProductFetchInteractor(productIdentifiers: identifiers, client: client, composite: composite, output: output)
+extension DefaultStoreInteractorFactory: StoreInteractorFactory {
+    func createProductsFetchInteractor(output output: ProductsFetchInteractorOutput) -> Interactor {
+        return ProductsFetchInteractor(productIdentifiers: identifiers, client: client, composite: composite, output: output)
     }
 }

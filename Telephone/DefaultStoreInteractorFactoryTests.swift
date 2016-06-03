@@ -1,5 +1,5 @@
 //
-//  DefaultProductFetchInteractorFactoryTests.swift
+//  DefaultStoreInteractorFactoryTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,15 +20,15 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class DefaultProductFetchInteractorFactoryTests: XCTestCase {
+class DefaultStoreInteractorFactoryTests: XCTestCase {
     func testCanCreateInteractor() {
         let identifiers = ["123", "456"]
         let client = StoreClientSpy()
         let composite = StoreClientEventTargetComposite()
-        let output = ProductFetchInteractorOutputSpy()
-        let sut = DefaultProductFetchInteractorFactory(identifiers: identifiers, client: client, composite: composite)
+        let output = ProductsFetchInteractorOutputSpy()
+        let sut = DefaultStoreInteractorFactory(identifiers: identifiers, client: client, composite: composite)
 
-        let result = sut.create(output: output) as! ProductFetchInteractor
+        let result = sut.createProductsFetchInteractor(output: output) as! ProductsFetchInteractor
 
         XCTAssertNotNil(result)
         XCTAssertEqual(result.identifiers, identifiers)

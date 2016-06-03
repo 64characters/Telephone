@@ -17,21 +17,37 @@
 //
 
 class DefaultProductsViewEventTarget {
-    let interactorFactory: ProductFetchInteractorFactory
-    let presenterFactory: PresenterFactory
+    private let interactorFactory: StoreInteractorFactory
+    private let presenterFactory: StorePresenterFactory
 
-    init(interactorFactory: ProductFetchInteractorFactory, presenterFactory: PresenterFactory) {
+    private(set) var state: ProductsViewState = ProductsViewStateNoProducts()
+
+    init(interactorFactory: StoreInteractorFactory, presenterFactory: StorePresenterFactory) {
         self.interactorFactory = interactorFactory
         self.presenterFactory = presenterFactory
     }
 }
 
-extension DefaultProductsViewEventTarget: ProductsViewEventTarget{
-    func viewShouldReloadData(view: ProductsView) {
-        interactorFactory.create(output: presenterFactory.createProductPresenter(output: view)).execute()
+extension DefaultProductsViewEventTarget: ProductsViewStateMachine {
+    func changeState(newState: ProductsViewState) {
+        state = newState
+    }
+    
+    func fetchProducts() {
+        interactorFactory.createProductsFetchInteractor(output: self).execute()
     }
 
-    func viewDidStartProductFetch() {}
-    func viewDidMakePurchase(product: PresentationProduct) {}
-    func viewDidStartPurchaseRestoration() {}
+    func showProducts(products: [Product]) {
+        presenterFactory.createProductsFetchPresenter().showProducts(products)
+    }
+
+    func showProductsFetchError(error: String) {
+        presenterFactory.createProductsFetchPresenter().showProductsFetchError(error)
+    }
+
+    func purchaseProduct(identifier identifier: String) {}
+    func showPurchaseError(error: String) {}
+    func restorePurchases() {}
+    func showPurchaseRestorationError(error: String) {}
+    func showThankYou() {}
 }

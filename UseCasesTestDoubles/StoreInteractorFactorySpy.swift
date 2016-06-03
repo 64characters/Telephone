@@ -1,5 +1,5 @@
 //
-//  ProductFetchInteractorFactory.swift
+//  StoreInteractorFactorySpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductFetchInteractorFactory {
-    func create(output output: ProductFetchInteractorOutput) -> Interactor
+import UseCases
+
+public class StoreInteractorFactorySpy {
+    private var fetchInteractor: Interactor!
+
+    public init() {}
+
+    public func stub(withProductsFetchInteractor interactor: Interactor) {
+        self.fetchInteractor = interactor
+    }
+}
+
+extension StoreInteractorFactorySpy: StoreInteractorFactory {
+    public func createProductsFetchInteractor(output output: ProductsFetchInteractorOutput) -> Interactor {
+        return fetchInteractor
+    }
 }
