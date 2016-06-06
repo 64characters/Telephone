@@ -67,7 +67,7 @@ class CompositionRoot: NSObject {
             ),
             presenterFactory: StorePresenterFactory(output: storeViewController)
         )
-        storeViewController.eventTarget = storeViewEventTarget
+        storeViewController.updateEventTarget(storeViewEventTarget)
 
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 

@@ -54,6 +54,7 @@
 		8A6D96EB1D01D22B00D9C15B /* StorePresenterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96EA1D01D22B00D9C15B /* StorePresenterFactory.swift */; };
 		8A6D96EC1D01D2CE00D9C15B /* StorePresenterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96EA1D01D22B00D9C15B /* StorePresenterFactory.swift */; };
 		8A6D96EE1D01DDA900D9C15B /* StoreViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96ED1D01DDA900D9C15B /* StoreViewSpy.swift */; };
+		8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */; };
 		8A7567351CF7220400D91C04 /* ProductPurchaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567341CF7220400D91C04 /* ProductPurchaseInteractor.swift */; };
 		8A7567371CF7242800D91C04 /* PurchaseRestorationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567361CF7242800D91C04 /* PurchaseRestorationInteractor.swift */; };
 		8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
@@ -462,6 +463,7 @@
 		8A63ECD31CCFBEC400AEC485 /* DefaultStoreClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreClient.swift; sourceTree = "<group>"; };
 		8A6D96EA1D01D22B00D9C15B /* StorePresenterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorePresenterFactory.swift; sourceTree = "<group>"; };
 		8A6D96ED1D01DDA900D9C15B /* StoreViewSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewSpy.swift; sourceTree = "<group>"; };
+		8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullStoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8A7567341CF7220400D91C04 /* ProductPurchaseInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseInteractor.swift; sourceTree = "<group>"; };
 		8A7567361CF7242800D91C04 /* PurchaseRestorationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseRestorationInteractor.swift; sourceTree = "<group>"; };
 		8A7567381CF75DF500D91C04 /* StoreViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewState.swift; sourceTree = "<group>"; };
@@ -1037,6 +1039,7 @@
 				8ADD6A591CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift */,
 				8ADD6A5C1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift */,
 				8AA791FB1CE245940082E4FC /* FakeStoreClient.swift */,
+				8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */,
 				8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */,
 				8A6D96EA1D01D22B00D9C15B /* StorePresenterFactory.swift */,
 				8ADD6A631CE0C591001EDBBA /* StoreView.swift */,
@@ -1906,6 +1909,7 @@
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
 				8A7874F81C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
+				8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */,
 				8A9175A21CA5A02500354E26 /* PJSUAOnCallTransferStatus.m in Sources */,
 				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,
 				AA19CFF51BED148A00991CAA /* DefaultInteractorFactory.swift in Sources */,

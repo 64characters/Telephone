@@ -20,8 +20,8 @@ import Cocoa
 import UseCases
 
 class StoreViewController: NSViewController {
-    var eventTarget: StoreViewEventTarget!
-    private(set) dynamic var products: [PresentationProduct] = []
+    private var target: StoreViewEventTarget = NullStoreViewEventTarget()
+    private dynamic var products: [PresentationProduct] = []
 
     init() {
         super.init(nibName: "StoreViewController", bundle: nil)!
@@ -33,7 +33,11 @@ class StoreViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        eventTarget.viewShouldReloadData(self)
+        target.viewShouldReloadData(self)
+    }
+
+    func updateEventTarget(target: StoreViewEventTarget) {
+        self.target = target
     }
 }
 
