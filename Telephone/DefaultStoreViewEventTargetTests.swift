@@ -32,6 +32,17 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         XCTAssertTrue(interactor.didCallExecute)
     }
 
+    func testShowsProductsFetchProgressOnFetchProducts() {
+        let factory = StoreInteractorFactorySpy()
+        factory.stub(withProductsFetchInteractor: InteractorSpy())
+        let view = StoreViewSpy()
+        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenterFactory: StorePresenterFactory(output: view))
+
+        sut.fetchProducts()
+
+        XCTAssertTrue(view.didCallShowProductsFetchProgress)
+    }
+
     func testShowsProductsOnShowProducts() {
         let view = StoreViewSpy()
         let sut = DefaultStoreViewEventTarget(

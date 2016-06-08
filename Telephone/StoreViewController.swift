@@ -23,11 +23,14 @@ class StoreViewController: NSViewController {
     private var target: StoreViewEventTarget = NullStoreViewEventTarget()
     private dynamic var products: [PresentationProduct] = []
 
-    @IBOutlet private weak var productsContentView: NSView!
-    @IBOutlet private weak var restorePurchasesButton: NSButton!
     @IBOutlet private var productsListView: NSView!
     @IBOutlet private var productsFetchErrorView: NSView!
+    @IBOutlet private var progressView: NSView!
+
+    @IBOutlet private weak var productsContentView: NSView!
+    @IBOutlet private weak var restorePurchasesButton: NSButton!
     @IBOutlet private weak var productsFetchErrorField: NSTextField!
+    @IBOutlet private weak var progressIndicator: NSProgressIndicator!
 
     init() {
         super.init(nibName: "StoreViewController", bundle: nil)!
@@ -63,7 +66,8 @@ extension StoreViewController: StoreView {
     }
 
     func showProductsFetchProgress() {
-
+        progressIndicator.startAnimation(self)
+        showInProductsContentView(progressView)
     }
 
     private func showInProductsContentView(view: NSView) {

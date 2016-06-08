@@ -11,6 +11,8 @@
                 <outlet property="productsFetchErrorField" destination="ZAt-yQ-UK9" id="8cn-Gp-9hw"/>
                 <outlet property="productsFetchErrorView" destination="M3a-G9-Uvd" id="TDy-JW-qyZ"/>
                 <outlet property="productsListView" destination="27z-De-ahO" id="Q2f-qM-xfX"/>
+                <outlet property="progressIndicator" destination="XSd-At-01E" id="vdk-e6-EDz"/>
+                <outlet property="progressView" destination="mA2-JV-Xxq" id="HMO-kP-wdU"/>
                 <outlet property="restorePurchasesButton" destination="kYi-DK-7xw" id="7dh-0j-3bH"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -134,7 +136,7 @@ The subscriptions renew automatically and can be canceled any time according to 
                 <rect key="frame" x="1" y="1" width="438" height="84"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <stackView orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P4M-9J-YRe">
+                    <stackView orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="P4M-9J-YRe">
                         <rect key="frame" x="0.0" y="0.0" width="438" height="84"/>
                         <edgeInsets key="edgeInsets" left="10" right="10" top="10" bottom="10"/>
                         <beginningViews>
@@ -167,10 +169,36 @@ The subscriptions renew automatically and can be canceled any time according to 
                         </customSpacing>
                     </stackView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="P4M-9J-YRe" firstAttribute="top" secondItem="rEE-iq-dnt" secondAttribute="top" id="3gW-6P-N4l"/>
+                    <constraint firstItem="P4M-9J-YRe" firstAttribute="leading" secondItem="rEE-iq-dnt" secondAttribute="leading" id="GeI-eW-HmH"/>
+                    <constraint firstAttribute="bottom" secondItem="P4M-9J-YRe" secondAttribute="bottom" id="cll-oG-5AH"/>
+                    <constraint firstAttribute="trailing" secondItem="P4M-9J-YRe" secondAttribute="trailing" id="m9k-ej-Slc"/>
+                </constraints>
             </view>
             <color key="borderColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
             <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="347" y="861"/>
+        </box>
+        <box boxType="custom" borderType="line" titlePosition="noTitle" id="mA2-JV-Xxq">
+            <rect key="frame" x="0.0" y="0.0" width="440" height="86"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="xO5-Py-Tec">
+                <rect key="frame" x="1" y="1" width="438" height="84"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="XSd-At-01E">
+                        <rect key="frame" x="203" y="26" width="32" height="32"/>
+                    </progressIndicator>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XSd-At-01E" firstAttribute="centerY" secondItem="xO5-Py-Tec" secondAttribute="centerY" id="4dM-bv-aIo"/>
+                    <constraint firstItem="XSd-At-01E" firstAttribute="centerX" secondItem="xO5-Py-Tec" secondAttribute="centerX" id="zcO-uN-cgi"/>
+                </constraints>
+            </view>
+            <color key="borderColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="347" y="1011"/>
         </box>
     </objects>
     <resources>

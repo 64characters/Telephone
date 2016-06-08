@@ -35,6 +35,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
 
     func fetchProducts() {
         interactorFactory.createProductsFetchInteractor(output: self).execute()
+        presenterFactory.createProductsFetchPresenter().showProductsFetchProgress()
     }
 
     func showProducts(products: [Product]) {
