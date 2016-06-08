@@ -45,9 +45,10 @@ class ProductsFetchPresenterTests: XCTestCase {
 
     func testShowsErrorOnShowProductsFetchError() {
         let error = "any"
+        let expected = "Could not fetch products. \(error)"
 
         sut.showProductsFetchError(error)
 
-        XCTAssertEqual(output.invokedError, error)
+        XCTAssertEqual(output.invokedError, expected)
     }
 }

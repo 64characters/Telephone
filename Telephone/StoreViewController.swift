@@ -23,6 +23,12 @@ class StoreViewController: NSViewController {
     private var target: StoreViewEventTarget = NullStoreViewEventTarget()
     private dynamic var products: [PresentationProduct] = []
 
+    @IBOutlet private weak var productsContentView: NSView!
+    @IBOutlet private weak var restorePurchasesButton: NSButton!
+    @IBOutlet private var productsListView: NSView!
+    @IBOutlet private var productsFetchErrorView: NSView!
+    @IBOutlet private weak var productsFetchErrorField: NSTextField!
+
     init() {
         super.init(nibName: "StoreViewController", bundle: nil)!
     }
@@ -39,14 +45,25 @@ class StoreViewController: NSViewController {
     func updateEventTarget(target: StoreViewEventTarget) {
         self.target = target
     }
+
+    @IBAction func fetchProducts(sender: AnyObject) {
+        target.viewDidStartProductFetch()
+    }
 }
 
 extension StoreViewController: StoreView {
     func showProducts(products: [PresentationProduct]) {
         self.products = products
+        showInProductsContentView(productsListView)
     }
 
     func showProductFetchError(error: String) {
+        productsFetchErrorField.stringValue = error
+        showInProductsContentView(productsFetchErrorView)
+    }
 
+    private func showInProductsContentView(view: NSView) {
+        productsContentView.subviews.forEach { $0.removeFromSuperview() }
+        productsContentView.addSubview(view)
     }
 }

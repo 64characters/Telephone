@@ -50,10 +50,9 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         let sut = DefaultStoreViewEventTarget(
             interactorFactory: StoreInteractorFactorySpy(), presenterFactory: StorePresenterFactory(output: view)
         )
-        let error = "any"
 
-        sut.showProductsFetchError(error)
+        sut.showProductsFetchError("any")
 
-        XCTAssertEqual(view.invokedError, error)
+        XCTAssertFalse(view.invokedError.isEmpty)
     }
 }

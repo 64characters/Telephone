@@ -33,10 +33,17 @@ public class ProductsFetchPresenter {
     }
 
     public func showProductsFetchError(error: String) {
-        output.showProductFetchError(error)
+        output.showProductFetchError(productsFetchError(withError: error))
     }
 }
 
 private func hasLowerPrice(lhs: Product, _ rhs: Product) -> Bool {
     return lhs.price.compare(rhs.price) == .OrderedAscending
+}
+
+private func productsFetchError(withError error: String) -> String {
+    let prefix = NSLocalizedString(
+        "Could not fetch products", comment: "Products fetch error."
+    )
+    return "\(prefix). \(error)"
 }
