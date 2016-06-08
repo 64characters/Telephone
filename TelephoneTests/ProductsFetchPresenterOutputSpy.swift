@@ -16,21 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public class ProductsFetchPresenterOutputSpy {
-    public private(set) var invokedProducts: [PresentationProduct] = []
-    public private(set) var invokedError = ""
-    
-    public init() {}
+class ProductsFetchPresenterOutputSpy {
+    private(set) var invokedProducts: [PresentationProduct] = []
+    private(set) var invokedError = ""
 }
 
 extension ProductsFetchPresenterOutputSpy: ProductsFetchPresenterOutput {
-    public func showProducts(products: [PresentationProduct]) {
+    func showProducts(products: [PresentationProduct]) {
         invokedProducts = products
     }
 
-    public func showProductFetchError(error: String) {
+    func showProductFetchError(error: String) {
         invokedError = error
     }
 }

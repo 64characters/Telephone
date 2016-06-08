@@ -16,8 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-import UseCasesTestDoubles
 import XCTest
 
 class ProductsFetchPresenterTests: XCTestCase {

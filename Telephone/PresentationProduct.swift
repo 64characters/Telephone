@@ -16,12 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-public class PresentationProduct: NSObject {
-    public let identifier: String
-    public let name: String
-    public let price: String
+class PresentationProduct: NSObject {
+    let identifier: String
+    let name: String
+    let price: String
 
-    public init(identifier: String, name: String, price: String) {
+    init(identifier: String, name: String, price: String) {
         self.identifier = identifier
         self.name = name
         self.price = price
@@ -29,7 +29,7 @@ public class PresentationProduct: NSObject {
 }
 
 extension PresentationProduct {
-    public override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(object: AnyObject?) -> Bool {
         if let product = object as? PresentationProduct {
             return isEqualToProduct(product)
         } else {
@@ -37,16 +37,16 @@ extension PresentationProduct {
         }
     }
 
-    public override var hash: Int {
+    override var hash: Int {
         return identifier.hash ^ name.hash ^ price.hash
     }
 
-    public func isEqualToProduct(product: PresentationProduct) -> Bool {
+    func isEqualToProduct(product: PresentationProduct) -> Bool {
         return self.identifier == product.identifier && self.name == product.name && self.price == product.price
     }
 }
 
-public extension PresentationProduct {
+extension PresentationProduct {
     convenience init(_ product: Product) {
         self.init(identifier: product.identifier, name: product.name, price: product.localizedPrice)
     }

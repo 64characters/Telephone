@@ -16,23 +16,23 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductsFetchPresenterOutput {
+protocol ProductsFetchPresenterOutput {
     func showProducts(products: [PresentationProduct])
     func showProductFetchError(error: String)
 }
 
-public class ProductsFetchPresenter {
+class ProductsFetchPresenter {
     private let output: ProductsFetchPresenterOutput
 
-    public init(output: ProductsFetchPresenterOutput) {
+    init(output: ProductsFetchPresenterOutput) {
         self.output = output
     }
 
-    public func showProducts(products: [Product]) {
+    func showProducts(products: [Product]) {
         output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
     }
 
-    public func showProductsFetchError(error: String) {
+    func showProductsFetchError(error: String) {
         output.showProductFetchError(productsFetchError(withError: error))
     }
 }
