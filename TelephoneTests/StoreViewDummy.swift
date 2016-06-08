@@ -18,5 +18,6 @@
 
 class StoreViewDummy: StoreView {
     func showProducts(products: [PresentationProduct]) {}
-    func showProductFetchError(error: String) {}
+    func showProductsFetchError(error: String) {}
+    func showProductsFetchProgress() {}
 }

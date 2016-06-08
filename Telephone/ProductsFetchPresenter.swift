@@ -18,7 +18,8 @@
 
 protocol ProductsFetchPresenterOutput {
     func showProducts(products: [PresentationProduct])
-    func showProductFetchError(error: String)
+    func showProductsFetchError(error: String)
+    func showProductsFetchProgress()
 }
 
 class ProductsFetchPresenter {
@@ -33,7 +34,11 @@ class ProductsFetchPresenter {
     }
 
     func showProductsFetchError(error: String) {
-        output.showProductFetchError(productsFetchError(withError: error))
+        output.showProductsFetchError(productsFetchError(withError: error))
+    }
+
+    func showProductsFetchProgress() {
+        output.showProductsFetchProgress()
     }
 }
 

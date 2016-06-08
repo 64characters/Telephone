@@ -57,9 +57,13 @@ extension StoreViewController: StoreView {
         showInProductsContentView(productsListView)
     }
 
-    func showProductFetchError(error: String) {
+    func showProductsFetchError(error: String) {
         productsFetchErrorField.stringValue = error
         showInProductsContentView(productsFetchErrorView)
+    }
+
+    func showProductsFetchProgress() {
+
     }
 
     private func showInProductsContentView(view: NSView) {

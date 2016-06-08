@@ -19,12 +19,12 @@
 import XCTest
 
 class ProductsFetchPresenterTests: XCTestCase {
-    private var output: ProductsFetchPresenterOutputSpy!
+    private var output: StoreViewSpy!
     private var sut: ProductsFetchPresenter!
 
     override func setUp() {
         super.setUp()
-        output = ProductsFetchPresenterOutputSpy()
+        output = StoreViewSpy()
         sut = ProductsFetchPresenter(output: output)
     }
 
@@ -48,5 +48,11 @@ class ProductsFetchPresenterTests: XCTestCase {
         sut.showProductsFetchError(error)
 
         XCTAssertEqual(output.invokedError, expected)
+    }
+
+    func testShowsProductsFetchProgressOnShowProductsFetchProgress() {
+        sut.showProductsFetchProgress()
+
+        XCTAssertTrue(output.didCallShowProductsFetchProgress)
     }
 }
