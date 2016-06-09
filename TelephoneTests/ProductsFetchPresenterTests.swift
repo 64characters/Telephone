@@ -55,4 +55,22 @@ class ProductsFetchPresenterTests: XCTestCase {
 
         XCTAssertTrue(output.didCallShowProductsFetchProgress)
     }
+
+    func testDisablesPurchaseRestorationOnShowProductsFetchProgress() {
+        sut.showProductsFetchProgress()
+
+        XCTAssertTrue(output.didCallDisablePurchaseRestoration)
+    }
+
+    func testEnablesPurchaseRestorationOnShowProducts() {
+        sut.showProducts([])
+
+        XCTAssertTrue(output.didCallEnablePurchaseRestoration)
+    }
+
+    func testEnablesPurchaseRestorationOnShowProductsFetchError() {
+        sut.showProductsFetchError("any")
+
+        XCTAssertTrue(output.didCallEnablePurchaseRestoration)
+    }
 }

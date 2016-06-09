@@ -74,4 +74,12 @@ extension StoreViewController: StoreView {
         productsContentView.subviews.forEach { $0.removeFromSuperview() }
         productsContentView.addSubview(view)
     }
+
+    func disablePurchaseRestoration() {
+        restorePurchasesButton.enabled = false
+    }
+
+    func enablePurchaseRestoration() {
+        restorePurchasesButton.enabled = true
+    }
 }

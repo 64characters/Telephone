@@ -20,6 +20,8 @@ protocol ProductsFetchPresenterOutput {
     func showProducts(products: [PresentationProduct])
     func showProductsFetchError(error: String)
     func showProductsFetchProgress()
+    func disablePurchaseRestoration()
+    func enablePurchaseRestoration()
 }
 
 class ProductsFetchPresenter {
@@ -31,14 +33,17 @@ class ProductsFetchPresenter {
 
     func showProducts(products: [Product]) {
         output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
+        output.enablePurchaseRestoration()
     }
 
     func showProductsFetchError(error: String) {
         output.showProductsFetchError(productsFetchError(withError: error))
+        output.enablePurchaseRestoration()
     }
 
     func showProductsFetchProgress() {
         output.showProductsFetchProgress()
+        output.disablePurchaseRestoration()
     }
 }
 

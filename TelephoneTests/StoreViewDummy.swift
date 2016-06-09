@@ -20,4 +20,6 @@ class StoreViewDummy: StoreView {
     func showProducts(products: [PresentationProduct]) {}
     func showProductsFetchError(error: String) {}
     func showProductsFetchProgress() {}
+    func disablePurchaseRestoration() {}
+    func enablePurchaseRestoration() {}
 }

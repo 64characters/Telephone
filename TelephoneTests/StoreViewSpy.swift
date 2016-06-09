@@ -20,6 +20,8 @@ class StoreViewSpy {
     private(set) var invokedProducts: [PresentationProduct] = []
     private(set) var invokedError = ""
     private(set) var didCallShowProductsFetchProgress = false
+    private(set) var didCallDisablePurchaseRestoration = false
+    private(set) var didCallEnablePurchaseRestoration = false
 }
 
 extension StoreViewSpy: StoreView {}
@@ -35,5 +37,13 @@ extension StoreViewSpy: ProductsFetchPresenterOutput {
 
     func showProductsFetchProgress() {
         didCallShowProductsFetchProgress = true
+    }
+
+    func disablePurchaseRestoration() {
+        didCallDisablePurchaseRestoration = true
+    }
+
+    func enablePurchaseRestoration() {
+        didCallEnablePurchaseRestoration = true
     }
 }
