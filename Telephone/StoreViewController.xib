@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -136,12 +137,24 @@ The subscriptions renew automatically and can be canceled any time according to 
                 <rect key="frame" x="1" y="1" width="438" height="84"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <stackView orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="P4M-9J-YRe">
-                        <rect key="frame" x="0.0" y="0.0" width="438" height="84"/>
-                        <edgeInsets key="edgeInsets" left="10" right="10" top="10" bottom="10"/>
-                        <beginningViews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-QT-0MK">
-                                <rect key="frame" x="10" y="32" width="418" height="42"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="f1z-Cv-lBp" userLabel="Padded View">
+                        <rect key="frame" x="10" y="15" width="418" height="54"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZAt-yQ-UK9">
+                                <rect key="frame" x="-2" y="0.0" width="422" height="17"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Could not fetch products." id="quy-Sv-sGw">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="gLl-QT-0MK">
+                                <rect key="frame" x="193" y="22" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gLl-QT-0MK" secondAttribute="height" multiplier="1:1" id="Bb4-0W-SC9"/>
+                                    <constraint firstAttribute="height" priority="749" constant="32" id="DSe-IY-We7"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="Ksq-g6-vE6"/>
+                                </constraints>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshFreestandingTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KHr-bu-Uh8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -150,30 +163,24 @@ The subscriptions renew automatically and can be canceled any time according to 
                                     <action selector="fetchProducts:" target="-2" id="OA4-Zx-1Zd"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZAt-yQ-UK9">
-                                <rect key="frame" x="7.5" y="10" width="423" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="center" title="Could not fetch products. Please check your network connection and try again." id="quy-Sv-sGw">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </beginningViews>
-                        <visibilityPriorities>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                        </visibilityPriorities>
-                        <customSpacing>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                        </customSpacing>
-                    </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ZAt-yQ-UK9" secondAttribute="trailing" id="ALL-zU-M3x"/>
+                            <constraint firstItem="gLl-QT-0MK" firstAttribute="centerX" secondItem="f1z-Cv-lBp" secondAttribute="centerX" id="F5P-2b-MVt"/>
+                            <constraint firstItem="ZAt-yQ-UK9" firstAttribute="top" secondItem="gLl-QT-0MK" secondAttribute="bottom" constant="5" id="T6S-iY-o4w"/>
+                            <constraint firstItem="ZAt-yQ-UK9" firstAttribute="leading" secondItem="f1z-Cv-lBp" secondAttribute="leading" id="Uoh-LM-YFN"/>
+                            <constraint firstItem="gLl-QT-0MK" firstAttribute="top" secondItem="f1z-Cv-lBp" secondAttribute="top" id="rrr-3t-PTc"/>
+                            <constraint firstAttribute="bottom" secondItem="ZAt-yQ-UK9" secondAttribute="bottom" id="tLJ-hM-Klj"/>
+                        </constraints>
+                    </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="P4M-9J-YRe" firstAttribute="top" secondItem="rEE-iq-dnt" secondAttribute="top" id="3gW-6P-N4l"/>
-                    <constraint firstItem="P4M-9J-YRe" firstAttribute="leading" secondItem="rEE-iq-dnt" secondAttribute="leading" id="GeI-eW-HmH"/>
-                    <constraint firstAttribute="bottom" secondItem="P4M-9J-YRe" secondAttribute="bottom" id="cll-oG-5AH"/>
-                    <constraint firstAttribute="trailing" secondItem="P4M-9J-YRe" secondAttribute="trailing" id="m9k-ej-Slc"/>
+                    <constraint firstItem="f1z-Cv-lBp" firstAttribute="centerX" secondItem="rEE-iq-dnt" secondAttribute="centerX" id="61K-pF-prj"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="f1z-Cv-lBp" secondAttribute="bottom" constant="2" id="6Xx-Up-lRR"/>
+                    <constraint firstAttribute="trailing" secondItem="f1z-Cv-lBp" secondAttribute="trailing" constant="10" id="7jh-bV-Rlk"/>
+                    <constraint firstItem="f1z-Cv-lBp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rEE-iq-dnt" secondAttribute="top" constant="2" id="Cq9-ZP-d7t"/>
+                    <constraint firstItem="f1z-Cv-lBp" firstAttribute="leading" secondItem="rEE-iq-dnt" secondAttribute="leading" constant="10" id="nXV-r0-5kL"/>
+                    <constraint firstItem="f1z-Cv-lBp" firstAttribute="centerY" secondItem="rEE-iq-dnt" secondAttribute="centerY" id="zbu-Vg-2UG"/>
                 </constraints>
             </view>
             <color key="borderColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
