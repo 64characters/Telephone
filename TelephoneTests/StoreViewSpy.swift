@@ -26,7 +26,7 @@ class StoreViewSpy {
 
 extension StoreViewSpy: StoreView {}
 
-extension StoreViewSpy: ProductsFetchPresenterOutput {
+extension StoreViewSpy: StoreViewPresenterOutput {
     func showProducts(products: [PresentationProduct]) {
         invokedProducts = products
     }

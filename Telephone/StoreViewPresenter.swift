@@ -1,5 +1,5 @@
 //
-//  ProductsFetchPresenter.swift
+//  StoreViewPresenter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-protocol ProductsFetchPresenterOutput {
+protocol StoreViewPresenterOutput {
     func showProducts(products: [PresentationProduct])
     func showProductsFetchError(error: String)
     func showProductsFetchProgress()
@@ -24,10 +24,10 @@ protocol ProductsFetchPresenterOutput {
     func enablePurchaseRestoration()
 }
 
-class ProductsFetchPresenter {
-    private let output: ProductsFetchPresenterOutput
+class StoreViewPresenter {
+    private let output: StoreViewPresenterOutput
 
-    init(output: ProductsFetchPresenterOutput) {
+    init(output: StoreViewPresenterOutput) {
         self.output = output
     }
 

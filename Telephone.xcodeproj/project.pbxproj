@@ -96,9 +96,9 @@
 		8AAACA111CAEB9FD001930C4 /* PreferredSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA101CAEB9FD001930C4 /* PreferredSoundIO.swift */; };
 		8AAACA131CAEBA8D001930C4 /* PreferredSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA121CAEBA8D001930C4 /* PreferredSoundIOTests.swift */; };
 		8AAACA151CAEC555001930C4 /* UserDefaultsSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA141CAEC555001930C4 /* UserDefaultsSoundIO.swift */; };
-		8AB5A0C71D084DD300579CE8 /* ProductsFetchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* ProductsFetchPresenter.swift */; };
-		8AB5A0C81D084DD400579CE8 /* ProductsFetchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* ProductsFetchPresenter.swift */; };
-		8AB5A0C91D084DD800579CE8 /* ProductsFetchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F721CCFCFB800EC7C1B /* ProductsFetchPresenterTests.swift */; };
+		8AB5A0C71D084DD300579CE8 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */; };
+		8AB5A0C81D084DD400579CE8 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */; };
+		8AB5A0C91D084DD800579CE8 /* StoreViewPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F721CCFCFB800EC7C1B /* StoreViewPresenterTests.swift */; };
 		8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */; };
 		8AB5A0CC1D084E4F00579CE8 /* PresentationProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */; };
 		8ABB14191CEC83990056CEDC /* StoreViewStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */; };
@@ -477,8 +477,8 @@
 		8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackInteractorTestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalRingtonePlaybackInteractorTestDelegate.swift; sourceTree = "<group>"; };
 		8A7874F71C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackInteractorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppController+ConditionalRingtonePlaybackInteractorDelegate.swift"; sourceTree = "<group>"; };
 		8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Product+SKProduct.swift"; sourceTree = "<group>"; };
-		8A7C4F721CCFCFB800EC7C1B /* ProductsFetchPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductsFetchPresenterTests.swift; path = ../TelephoneTests/ProductsFetchPresenterTests.swift; sourceTree = "<group>"; };
-		8A7C4F741CCFCFEE00EC7C1B /* ProductsFetchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsFetchPresenter.swift; sourceTree = "<group>"; };
+		8A7C4F721CCFCFB800EC7C1B /* StoreViewPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreViewPresenterTests.swift; path = ../TelephoneTests/StoreViewPresenterTests.swift; sourceTree = "<group>"; };
+		8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenter.swift; sourceTree = "<group>"; };
 		8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationProduct.swift; sourceTree = "<group>"; };
 		8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceAddressTests.swift; path = UseCasesTests/ServiceAddressTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAddress.swift; sourceTree = "<group>"; };
@@ -1045,12 +1045,12 @@
 				8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */,
 				8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */,
 				8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */,
-				8A7C4F741CCFCFEE00EC7C1B /* ProductsFetchPresenter.swift */,
-				8A7C4F721CCFCFB800EC7C1B /* ProductsFetchPresenterTests.swift */,
 				8A6D96EA1D01D22B00D9C15B /* StorePresenterFactory.swift */,
 				8ADD6A631CE0C591001EDBBA /* StoreView.swift */,
 				8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */,
 				8ADD6A7D1CE0F995001EDBBA /* StoreViewController.xib */,
+				8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */,
+				8A7C4F721CCFCFB800EC7C1B /* StoreViewPresenterTests.swift */,
 				8A7567381CF75DF500D91C04 /* StoreViewState.swift */,
 				8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */,
 				8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */,
@@ -1951,7 +1951,7 @@
 				8A9175AB1CA5A92500354E26 /* PJSUAOnNATDetect.m in Sources */,
 				AAFCFFBD1074BFCA0018C7DA /* AccountSetupController.m in Sources */,
 				AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */,
-				8AB5A0C71D084DD300579CE8 /* ProductsFetchPresenter.swift in Sources */,
+				8AB5A0C71D084DD300579CE8 /* StoreViewPresenter.swift in Sources */,
 				8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */,
 				8ABB14191CEC83990056CEDC /* StoreViewStateMachine.swift in Sources */,
 				AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */,
@@ -2085,12 +2085,12 @@
 				8A6D96EC1D01D2CE00D9C15B /* StorePresenterFactory.swift in Sources */,
 				AA19CFF91BED149C00991CAA /* DefaultInteractorFactory.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */,
-				8AB5A0C91D084DD800579CE8 /* ProductsFetchPresenterTests.swift in Sources */,
+				8AB5A0C91D084DD800579CE8 /* StoreViewPresenterTests.swift in Sources */,
 				8ADD6A4F1CDCF822001EDBBA /* DefaultStoreInteractorFactoryTests.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */,
 				8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
-				8AB5A0C81D084DD400579CE8 /* ProductsFetchPresenter.swift in Sources */,
+				8AB5A0C81D084DD400579CE8 /* StoreViewPresenter.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,
 				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,

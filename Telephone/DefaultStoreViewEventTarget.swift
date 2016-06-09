@@ -35,15 +35,15 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
 
     func fetchProducts() {
         interactorFactory.createProductsFetchInteractor(output: self).execute()
-        presenterFactory.createProductsFetchPresenter().showProductsFetchProgress()
+        presenterFactory.createStoreViewPresenter().showProductsFetchProgress()
     }
 
     func showProducts(products: [Product]) {
-        presenterFactory.createProductsFetchPresenter().showProducts(products)
+        presenterFactory.createStoreViewPresenter().showProducts(products)
     }
 
     func showProductsFetchError(error: String) {
-        presenterFactory.createProductsFetchPresenter().showProductsFetchError(error)
+        presenterFactory.createStoreViewPresenter().showProductsFetchError(error)
     }
 
     func purchaseProduct(identifier identifier: String) {}

@@ -23,7 +23,7 @@ class StorePresenterFactory {
         self.output = output
     }
 
-    func createProductsFetchPresenter() -> ProductsFetchPresenter {
-        return ProductsFetchPresenter(output: output)
+    func createStoreViewPresenter() -> StoreViewPresenter {
+        return StoreViewPresenter(output: output)
     }
 }

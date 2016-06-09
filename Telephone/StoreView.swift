@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-protocol StoreView: ProductsFetchPresenterOutput {}
+protocol StoreView: StoreViewPresenterOutput {}
 
 protocol StoreViewEventTarget {
     func viewShouldReloadData(view: StoreView)
