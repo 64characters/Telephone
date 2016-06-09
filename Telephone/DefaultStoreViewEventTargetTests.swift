@@ -25,7 +25,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         let interactor = InteractorSpy()
         let factory = StoreInteractorFactorySpy()
         factory.stub(withProductsFetchInteractor: interactor)
-        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenterFactory: StorePresenterFactory(output: StoreViewDummy()))
+        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenter: StoreViewPresenter(output: StoreViewDummy()))
 
         sut.fetchProducts()
 
@@ -36,7 +36,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         let factory = StoreInteractorFactorySpy()
         factory.stub(withProductsFetchInteractor: InteractorSpy())
         let view = StoreViewSpy()
-        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenterFactory: StorePresenterFactory(output: view))
+        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenter: StoreViewPresenter(output: view))
 
         sut.fetchProducts()
 
@@ -46,7 +46,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsOnShowProducts() {
         let view = StoreViewSpy()
         let sut = DefaultStoreViewEventTarget(
-            interactorFactory: StoreInteractorFactorySpy(), presenterFactory: StorePresenterFactory(output: view)
+            interactorFactory: StoreInteractorFactorySpy(), presenter: StoreViewPresenter(output: view)
         )
         let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
         let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
@@ -59,7 +59,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsFetchErrorOnShowProductsFetchError() {
         let view = StoreViewSpy()
         let sut = DefaultStoreViewEventTarget(
-            interactorFactory: StoreInteractorFactorySpy(), presenterFactory: StorePresenterFactory(output: view)
+            interactorFactory: StoreInteractorFactorySpy(), presenter: StoreViewPresenter(output: view)
         )
 
         sut.showProductsFetchError("any")

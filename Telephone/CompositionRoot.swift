@@ -65,7 +65,7 @@ class CompositionRoot: NSObject {
                 client: FakeStoreClient(eventTarget: storeClientEventTargetComposite),
                 composite: storeClientEventTargetComposite
             ),
-            presenterFactory: StorePresenterFactory(output: storeViewController)
+            presenter: StoreViewPresenter(output: storeViewController)
         )
         storeViewController.updateEventTarget(storeViewEventTarget)
 
