@@ -56,14 +56,14 @@ class CompositionRoot: NSObject {
             delegate: conditionalRingtonePlaybackInteractorDelegate
         )
 
-        let storeClientEventTargetComposite = StoreClientEventTargetComposite()
+        let storeClientEventTargets = StoreClientEventTargets()
 
         let storeViewController = StoreViewController()
         let storeViewEventTarget = DefaultStoreViewEventTarget(
             interactorFactory: DefaultStoreInteractorFactory(
                 identifiers: ["one", "two"],
-                client: FakeStoreClient(target: storeClientEventTargetComposite),
-                composite: storeClientEventTargetComposite
+                client: FakeStoreClient(target: storeClientEventTargets),
+                targets: storeClientEventTargets
             ),
             presenter: StoreViewPresenter(output: storeViewController)
         )

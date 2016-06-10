@@ -1,5 +1,5 @@
 //
-//  StoreClientEventTargetComposite.swift
+//  StoreClientEventTargets.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-public class StoreClientEventTargetComposite {
-    public var targetsCount: Int {
+public class StoreClientEventTargets {
+    public var count: Int {
         return targets.count
     }
 
@@ -42,7 +42,7 @@ public class StoreClientEventTargetComposite {
     }
 }
 
-extension StoreClientEventTargetComposite: StoreClientEventTarget {
+extension StoreClientEventTargets: StoreClientEventTarget {
     public func storeClient(storeClient: StoreClient, didFetchProducts products: [Product]) {
         targets.forEach { $0.storeClient(storeClient, didFetchProducts: products) }
     }

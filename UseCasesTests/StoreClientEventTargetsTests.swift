@@ -1,5 +1,5 @@
 //
-//  StoreClientEventTargetCompositeTests.swift
+//  StoreClientEventTargetsTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,16 +20,16 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class StoreClientEventTargetCompositeTests: XCTestCase {
+class StoreClientEventTargetsTests: XCTestCase {
     func testCanAddTargets() {
         let first = StoreClientEventTargetSpy()
         let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargetComposite()
+        let sut = StoreClientEventTargets()
 
         sut.addTarget(first)
         sut.addTarget(second)
 
-        XCTAssertEqual(sut.targetsCount, 2)
+        XCTAssertEqual(sut.count, 2)
         XCTAssertTrue(sut[0] === first)
         XCTAssertTrue(sut[1] === second)
     }
@@ -37,20 +37,20 @@ class StoreClientEventTargetCompositeTests: XCTestCase {
     func testCanRemoveTargets() {
         let first = StoreClientEventTargetSpy()
         let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargetComposite()
+        let sut = StoreClientEventTargets()
         sut.addTarget(first)
         sut.addTarget(second)
 
         sut.removeTarget(first)
 
-        XCTAssertEqual(sut.targetsCount, 1)
+        XCTAssertEqual(sut.count, 1)
         XCTAssertTrue(sut[0] === second)
     }
 
     func testCallsDidFetchProductsOnAllTargets() {
         let first = StoreClientEventTargetSpy()
         let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargetComposite()
+        let sut = StoreClientEventTargets()
         sut.addTarget(first)
         sut.addTarget(second)
 
@@ -63,7 +63,7 @@ class StoreClientEventTargetCompositeTests: XCTestCase {
     func testCallsDidFailFetchingProductsOnAllTargets() {
         let first = StoreClientEventTargetSpy()
         let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargetComposite()
+        let sut = StoreClientEventTargets()
         sut.addTarget(first)
         sut.addTarget(second)
 
