@@ -26,8 +26,14 @@ class FailingStoreClient {
 
 extension FailingStoreClient: StoreClient {
     func fetchProducts(withIdentifiers identifiers: [String]) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(2.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.target.storeClient(self, didFailFetchingProductsWithError: "Network is unreachable.")
-        }
+        dispatch_after(
+            dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
+            dispatch_get_main_queue(),
+            notifyTarget
+        )
+    }
+
+    private func notifyTarget() {
+        target.storeClient(self, didFailFetchingProductsWithError: "Network is unreachable.")
     }
 }
