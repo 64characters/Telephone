@@ -17,12 +17,11 @@
 //
 
 class FakeStoreClient {
-    let eventTarget: StoreClientEventTarget
-
+    private let target: StoreClientEventTarget
     private var attempts = 0
 
-    init(eventTarget: StoreClientEventTarget) {
-        self.eventTarget = eventTarget
+    init(target: StoreClientEventTarget) {
+        self.target = target
     }
 }
 
@@ -32,20 +31,20 @@ extension FakeStoreClient: StoreClient {
         dispatch_after(
             dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
             dispatch_get_main_queue(),
-            notifyEventTarget
+            notifyTarget
         )
     }
 
-    private func notifyEventTarget() {
+    private func notifyTarget() {
         if attempts % 2 == 0 {
-            notifyEventTargetWithError()
+            notifyTargetWithError()
         } else {
-            notifyEventTargetWithSuccess()
+            notifyTargetWithSuccess()
         }
     }
 
-    private func notifyEventTargetWithSuccess() {
-        eventTarget.storeClient(
+    private func notifyTargetWithSuccess() {
+        target.storeClient(
             self,
             didFetchProducts: [
                 Product(
@@ -64,7 +63,7 @@ extension FakeStoreClient: StoreClient {
         )
     }
 
-    private func notifyEventTargetWithError() {
-        eventTarget.storeClient(self, didFailFetchingProductsWithError: "No network connection.")
+    private func notifyTargetWithError() {
+        target.storeClient(self, didFailFetchingProductsWithError: "No network connection.")
     }
 }

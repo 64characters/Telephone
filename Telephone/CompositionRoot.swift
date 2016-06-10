@@ -62,7 +62,7 @@ class CompositionRoot: NSObject {
         let storeViewEventTarget = DefaultStoreViewEventTarget(
             interactorFactory: DefaultStoreInteractorFactory(
                 identifiers: ["one", "two"],
-                client: FakeStoreClient(eventTarget: storeClientEventTargetComposite),
+                client: FakeStoreClient(target: storeClientEventTargetComposite),
                 composite: storeClientEventTargetComposite
             ),
             presenter: StoreViewPresenter(output: storeViewController)
