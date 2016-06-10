@@ -328,6 +328,10 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- (IBAction)showStoreWindow:(id)sender {
+    [self.compositionRoot.storeWindowController showWindowCentered];
+}
+
 - (IBAction)showPreferencePanel:(id)sender {
     if (![[[self preferencesController] window] isVisible]) {
         [[[self preferencesController] window] center];

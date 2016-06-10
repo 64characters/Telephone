@@ -23,6 +23,7 @@ class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     let preferencesController: PreferencesController
     let ringtonePlayback: RingtonePlaybackInteractor
+    let storeWindowController: StoreWindowController
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
@@ -54,6 +55,21 @@ class CompositionRoot: NSObject {
             ),
             delegate: conditionalRingtonePlaybackInteractorDelegate
         )
+
+        let storeClientEventTargets = StoreClientEventTargets()
+
+        let storeViewController = StoreViewController()
+        let storeViewEventTarget = DefaultStoreViewEventTarget(
+            interactorFactory: DefaultStoreInteractorFactory(
+                identifiers: ["one", "two"],
+                client: FakeStoreClient(target: storeClientEventTargets),
+                targets: storeClientEventTargets
+            ),
+            presenter: StoreViewPresenter(output: storeViewController)
+        )
+        storeViewController.updateEventTarget(storeViewEventTarget)
+
+        storeWindowController = StoreWindowController(contentViewController: storeViewController)
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionInteractor(
             interactor: UserAgentSoundIOSelectionInteractor(
