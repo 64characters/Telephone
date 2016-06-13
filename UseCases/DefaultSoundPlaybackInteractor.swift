@@ -17,9 +17,9 @@
 //
 
 public class DefaultSoundPlaybackInteractor {
-    public let factory: SoundFactory
-
     public private(set) var sound: Sound?
+
+    private let factory: SoundFactory
 
     public init(factory: SoundFactory) {
         self.factory = factory

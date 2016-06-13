@@ -19,9 +19,8 @@
 import Domain
 
 struct UserDefaultsSoundIO {
-    let devices: SystemAudioDevices
-    let userDefaults: UserDefaults
-
+    private let devices: SystemAudioDevices
+    private let userDefaults: UserDefaults
     private var optionalInput: SystemAudioDevice!
     private var optionalOutput: SystemAudioDevice!
     private var optionalRingtoneOutput: SystemAudioDevice!

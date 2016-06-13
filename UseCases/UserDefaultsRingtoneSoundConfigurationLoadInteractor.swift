@@ -19,8 +19,8 @@
 import Domain
 
 public class UserDefaultsRingtoneSoundConfigurationLoadInteractor {
-    public let userDefaults: UserDefaults
-    public let repository: SystemAudioDeviceRepository
+    private let userDefaults: UserDefaults
+    private let repository: SystemAudioDeviceRepository
 
     public init(userDefaults: UserDefaults, repository: SystemAudioDeviceRepository) {
         self.userDefaults = userDefaults

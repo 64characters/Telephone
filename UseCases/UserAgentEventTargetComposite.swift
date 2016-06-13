@@ -17,7 +17,7 @@
 //
 
 public class UserAgentEventTargetComposite {
-    public let targets: [UserAgentEventTarget]
+    private let targets: [UserAgentEventTarget]
 
     public init(targets: [UserAgentEventTarget]) {
         self.targets = targets

@@ -17,8 +17,8 @@
 //
 
 public struct FallingBackSoundIO {
-    public let origin: SoundIO
-    public let fallback: SoundIO
+    private let origin: SoundIO
+    private let fallback: SoundIO
 
     public init(origin: SoundIO, fallback: SoundIO) {
         self.origin = origin

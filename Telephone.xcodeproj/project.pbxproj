@@ -115,7 +115,6 @@
 		8ADD31CD1CC165C3008C083C /* DelayingUserAgentSoundIOSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A521BD174D60030ECE4 /* DelayingUserAgentSoundIOSelectionInteractor.swift */; };
 		8ADD6A4B1CDCF75D001EDBBA /* StoreInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A4A1CDCF75D001EDBBA /* StoreInteractorFactory.swift */; };
 		8ADD6A4D1CDCF805001EDBBA /* DefaultStoreInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A4C1CDCF805001EDBBA /* DefaultStoreInteractorFactory.swift */; };
-		8ADD6A4F1CDCF822001EDBBA /* DefaultStoreInteractorFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A4E1CDCF822001EDBBA /* DefaultStoreInteractorFactoryTests.swift */; };
 		8ADD6A501CDCF828001EDBBA /* DefaultStoreInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A4C1CDCF805001EDBBA /* DefaultStoreInteractorFactory.swift */; };
 		8ADD6A5A1CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A591CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift */; };
 		8ADD6A5B1CDCFEB9001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A591CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift */; };
@@ -163,7 +162,6 @@
 		AA18F5FF1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA18F5FE1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveInteractorTests.swift */; };
 		AA18F6011C21CD9600FD8E9F /* UserDefaultsSoundIOSaveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA18F6001C21CD9600FD8E9F /* UserDefaultsSoundIOSaveInteractor.swift */; };
 		AA19CFF51BED148A00991CAA /* DefaultInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */; };
-		AA19CFF81BED149900991CAA /* DefaultInteractorFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */; };
 		AA19CFF91BED149C00991CAA /* DefaultInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */; };
 		AA1A0AA01828E38900278658 /* Telephone.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA1A0A9F1828E38900278658 /* Telephone.icns */; };
 		AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */; };
@@ -520,7 +518,6 @@
 		8ADD31C91CC112A2008C083C /* NullThrowingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullThrowingInteractor.swift; sourceTree = "<group>"; };
 		8ADD6A4A1CDCF75D001EDBBA /* StoreInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInteractorFactory.swift; sourceTree = "<group>"; };
 		8ADD6A4C1CDCF805001EDBBA /* DefaultStoreInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreInteractorFactory.swift; sourceTree = "<group>"; };
-		8ADD6A4E1CDCF822001EDBBA /* DefaultStoreInteractorFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreInteractorFactoryTests.swift; sourceTree = "<group>"; };
 		8ADD6A591CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8ADD6A5C1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreViewEventTargetTests.swift; sourceTree = "<group>"; };
 		8ADD6A5E1CDCFFC4001EDBBA /* StoreInteractorFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInteractorFactorySpy.swift; sourceTree = "<group>"; };
@@ -575,7 +572,6 @@
 		AA18F6001C21CD9600FD8E9F /* UserDefaultsSoundIOSaveInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsSoundIOSaveInteractor.swift; sourceTree = "<group>"; };
 		AA19171B0F8EA627002BA093 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultInteractorFactory.swift; sourceTree = "<group>"; };
-		AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultInteractorFactoryTests.swift; path = TelephoneTests/DefaultInteractorFactoryTests.swift; sourceTree = SOURCE_ROOT; };
 		AA1A0A9F1828E38900278658 /* Telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Telephone.icns; sourceTree = "<group>"; };
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentEventTargetCompositeTests.swift; path = UseCasesTests/UserAgentEventTargetCompositeTests.swift; sourceTree = SOURCE_ROOT; };
@@ -922,7 +918,6 @@
 				AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */,
 				AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */,
 				AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */,
-				AA19CFF61BED149500991CAA /* DefaultInteractorFactoryTests.swift */,
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
@@ -1033,7 +1028,6 @@
 			children = (
 				8A63ECD31CCFBEC400AEC485 /* DefaultStoreClient.swift */,
 				8ADD6A4C1CDCF805001EDBBA /* DefaultStoreInteractorFactory.swift */,
-				8ADD6A4E1CDCF822001EDBBA /* DefaultStoreInteractorFactoryTests.swift */,
 				8ADD6A591CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift */,
 				8ADD6A5C1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift */,
 				8A9534601D05953D00EE9084 /* FailingStoreClient.swift */,
@@ -2074,13 +2068,11 @@
 				8ADD6A6B1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewEventTarget.swift in Sources */,
-				AA19CFF81BED149900991CAA /* DefaultInteractorFactoryTests.swift in Sources */,
 				8ABB141B1CEC86A90056CEDC /* StoreViewStateMachineTests.swift in Sources */,
 				AA32F7FC1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA19CFF91BED149C00991CAA /* DefaultInteractorFactory.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */,
 				8AB5A0C91D084DD800579CE8 /* StoreViewPresenterTests.swift in Sources */,
-				8ADD6A4F1CDCF822001EDBBA /* DefaultStoreInteractorFactoryTests.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */,
 				8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,

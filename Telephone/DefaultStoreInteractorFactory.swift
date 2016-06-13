@@ -19,9 +19,9 @@
 import UseCases
 
 class DefaultStoreInteractorFactory {
-    let identifiers: [String]
-    let client: StoreClient
-    let targets: StoreClientEventTargets
+    private let identifiers: [String]
+    private let client: StoreClient
+    private let targets: StoreClientEventTargets
 
     init(identifiers: [String], client: StoreClient, targets: StoreClientEventTargets) {
         self.identifiers = identifiers

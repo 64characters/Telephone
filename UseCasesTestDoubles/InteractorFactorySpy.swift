@@ -19,12 +19,12 @@
 import UseCases
 
 public class InteractorFactorySpy {
-    public private(set) var userDefaultsSoundIOLoad: ThrowingInteractor!
-    public private(set) var userDefaultsSoundIOSave: Interactor!
-    public private(set) var userDefaultsRingtoneSoundNameSave: Interactor!
-
     public private(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
     public private(set) var invokedRingtoneSoundName = ""
+
+    private var userDefaultsSoundIOLoad: ThrowingInteractor!
+    private var userDefaultsSoundIOSave: Interactor!
+    private var userDefaultsRingtoneSoundNameSave: Interactor!
 
     public init() {}
 

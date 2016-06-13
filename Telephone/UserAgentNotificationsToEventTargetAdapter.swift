@@ -19,8 +19,8 @@
 import UseCases
 
 class UserAgentNotificationsToEventTargetAdapter {
-    let target: UserAgentEventTarget
-    let userAgent: UserAgent
+    private let target: UserAgentEventTarget
+    private let userAgent: UserAgent
 
     init(target: UserAgentEventTarget, userAgent: UserAgent) {
         self.target = target

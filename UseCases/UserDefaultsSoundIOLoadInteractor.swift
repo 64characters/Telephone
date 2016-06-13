@@ -23,9 +23,9 @@ public protocol UserDefaultsSoundIOLoadInteractorOutput: class {
 }
 
 public class UserDefaultsSoundIOLoadInteractor {
-    public let repository: SystemAudioDeviceRepository
-    public let userDefaults: UserDefaults
-    public let output: UserDefaultsSoundIOLoadInteractorOutput
+    private let repository: SystemAudioDeviceRepository
+    private let userDefaults: UserDefaults
+    private let output: UserDefaultsSoundIOLoadInteractorOutput
 
     public init(repository: SystemAudioDeviceRepository, userDefaults: UserDefaults, output: UserDefaultsSoundIOLoadInteractorOutput) {
         self.repository = repository

@@ -17,8 +17,8 @@
 //
 
 public class ConditionalRingtonePlaybackInteractor: NSObject {
-    public let origin: RingtonePlaybackInteractor
-    public let delegate: ConditionalRingtonePlaybackInteractorDelegate
+    private let origin: RingtonePlaybackInteractor
+    private let delegate: ConditionalRingtonePlaybackInteractorDelegate
 
     public var playing: Bool { return origin.playing }
 

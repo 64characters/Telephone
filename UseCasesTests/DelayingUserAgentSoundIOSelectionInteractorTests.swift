@@ -21,8 +21,8 @@ import UseCasesTestDoubles
 import XCTest
 
 class DelayingUserAgentSoundIOSelectionInteractorTests: XCTestCase {
-    private(set) var userAgent: UserAgentSpy!
-    private(set) var sut: DelayingUserAgentSoundIOSelectionInteractor!
+    private var userAgent: UserAgentSpy!
+    private var sut: DelayingUserAgentSoundIOSelectionInteractor!
 
     override func setUp() {
         super.setUp()

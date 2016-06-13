@@ -50,8 +50,8 @@ class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
 
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
-        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(sut.systemDevices[0]) == sut.userAgentDevices[1])
-        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(sut.systemDevices[1]) == sut.userAgentDevices[0])
+        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(systemDevices[0]) == userAgentDevices[1])
+        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(systemDevices[1]) == userAgentDevices[0])
     }
 
     func testReturnsNullObjectWhenNoMatchingUserAgentDeviceFound() {

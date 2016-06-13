@@ -19,7 +19,7 @@
 import UseCases
 
 class NSTimerToTimerAdapter {
-    let action: () -> Void
+    private let action: () -> Void
 
     var timer: NSTimer!
 

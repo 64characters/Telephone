@@ -19,10 +19,9 @@
 import Domain
 
 public class UserAgentSoundIOSelectionInteractor {
-    public let repository: SystemAudioDeviceRepository
-    public let userAgent: UserAgent
-    public let userDefaults: UserDefaults
-
+    private let repository: SystemAudioDeviceRepository
+    private let userAgent: UserAgent
+    private let userDefaults: UserDefaults
     private var devices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
     private var soundIO: SoundIO!
