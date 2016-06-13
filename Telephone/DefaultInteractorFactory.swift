@@ -19,8 +19,8 @@
 import UseCases
 
 class DefaultInteractorFactory {
-    let repository: SystemAudioDeviceRepository
-    let userDefaults: UserDefaults
+    private let repository: SystemAudioDeviceRepository
+    private let userDefaults: UserDefaults
 
     init(repository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
         self.repository = repository

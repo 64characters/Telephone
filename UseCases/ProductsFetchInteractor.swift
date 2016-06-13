@@ -22,10 +22,10 @@ public protocol ProductsFetchInteractorOutput: class {
 }
 
 public class ProductsFetchInteractor {
-    public let identifiers: [String]
-    public let client: StoreClient
-    public let targets: StoreClientEventTargets
-    public let output: ProductsFetchInteractorOutput
+    private let identifiers: [String]
+    private let client: StoreClient
+    private let targets: StoreClientEventTargets
+    private let output: ProductsFetchInteractorOutput
 
     public init(productIdentifiers: [String], client: StoreClient, targets: StoreClientEventTargets, output: ProductsFetchInteractorOutput) {
         identifiers = productIdentifiers

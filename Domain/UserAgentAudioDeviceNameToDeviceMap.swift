@@ -17,8 +17,7 @@
 //
 
 class UserAgentAudioDeviceNameToDeviceMap {
-    let devices: [UserAgentAudioDevice]
-
+    private let devices: [UserAgentAudioDevice]
     private var inputMap: [String: UserAgentAudioDevice] = [:]
     private var outputMap: [String: UserAgentAudioDevice] = [:]
 

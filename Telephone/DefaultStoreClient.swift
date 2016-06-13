@@ -20,8 +20,7 @@ import StoreKit
 import UseCases
 
 class DefaultStoreClient: NSObject {
-    let eventTarget: StoreClientEventTarget
-
+    private let eventTarget: StoreClientEventTarget
     private var productsRequest: SKProductsRequest?
 
     init(eventTarget: StoreClientEventTarget) {

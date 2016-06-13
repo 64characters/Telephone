@@ -17,9 +17,8 @@
 //
 
 public class DelayingUserAgentSoundIOSelectionInteractor {
-    public let interactor: ThrowingInteractor
-    public let userAgent: UserAgent
-
+    private let interactor: ThrowingInteractor
+    private let userAgent: UserAgent
     private var selection: ThrowingInteractor = NullThrowingInteractor()
 
     public init(interactor: ThrowingInteractor, userAgent: UserAgent) {

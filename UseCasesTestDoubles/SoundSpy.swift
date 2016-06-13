@@ -22,7 +22,7 @@ public class SoundSpy {
     public private(set) var didCallPlay = false
     public private(set) var didCallStop = false
 
-    public let eventTarget: SoundEventTarget
+    private let eventTarget: SoundEventTarget
 
     public init(eventTarget: SoundEventTarget) {
         self.eventTarget = eventTarget

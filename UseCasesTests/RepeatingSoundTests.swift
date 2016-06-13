@@ -21,10 +21,10 @@ import UseCasesTestDoubles
 import XCTest
 
 class RepeatingSoundTests: XCTestCase {
-    private(set) var sound: SoundSpy!
-    private(set) var factory: TimerFactorySpy!
-    private(set) var timer: TimerSpy!
-    private(set) var sut: RepeatingSound!
+    private var sound: SoundSpy!
+    private var factory: TimerFactorySpy!
+    private var timer: TimerSpy!
+    private var sut: RepeatingSound!
 
     override func setUp() {
         super.setUp()

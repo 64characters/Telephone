@@ -18,6 +18,5 @@
 
 public protocol Timer {
     var interval: Double { get }
-    var action: () -> Void { get }
     func invalidate()
 }

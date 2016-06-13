@@ -18,11 +18,10 @@
 
 public class DefaultRingtonePlaybackInteractor: NSObject {
     public static let interval: Double = 4
-
-    public let factory: RingtoneFactory
-
+    
     public var playing: Bool { return ringtone != nil }
 
+    private let factory: RingtoneFactory
     private var ringtone: Ringtone?
 
     public init(factory: RingtoneFactory) {

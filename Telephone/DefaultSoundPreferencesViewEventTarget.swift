@@ -19,11 +19,11 @@
 import UseCases
 
 class DefaultSoundPreferencesViewEventTarget: NSObject {
-    let interactorFactory: InteractorFactory
-    let presenterFactory: PresenterFactory
-    let userAgentSoundIOSelection: Interactor
-    let ringtoneOutputUpdate: ThrowingInteractor
-    let ringtoneSoundPlayback: SoundPlaybackInteractor
+    private let interactorFactory: InteractorFactory
+    private let presenterFactory: PresenterFactory
+    private let userAgentSoundIOSelection: Interactor
+    private let ringtoneOutputUpdate: ThrowingInteractor
+    private let ringtoneSoundPlayback: SoundPlaybackInteractor
 
     init(interactorFactory: InteractorFactory,
          presenterFactory: PresenterFactory,

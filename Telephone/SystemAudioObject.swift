@@ -19,8 +19,8 @@
 import CoreAudio
 
 class SystemAudioObject {
-    let objectID: AudioObjectID
-    private(set) var propertyAddress: AudioObjectPropertyAddress
+    private let objectID: AudioObjectID
+    private var propertyAddress: AudioObjectPropertyAddress
 
     init(objectID: AudioObjectID, propertyAddress: AudioObjectPropertyAddress) {
         self.objectID = objectID

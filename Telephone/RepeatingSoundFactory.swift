@@ -18,18 +18,18 @@
 
 import UseCases
 
-public class RepeatingSoundFactory {
-    public let soundFactory: SoundFactory
-    public let timerFactory: TimerFactory
+class RepeatingSoundFactory {
+    private let soundFactory: SoundFactory
+    private let timerFactory: TimerFactory
 
-    public init(soundFactory: SoundFactory, timerFactory: TimerFactory) {
+    init(soundFactory: SoundFactory, timerFactory: TimerFactory) {
         self.soundFactory = soundFactory
         self.timerFactory = timerFactory
     }
 }
 
 extension RepeatingSoundFactory: RingtoneFactory {
-    public func createRingtone(interval interval: Double) throws -> Ringtone {
+    func createRingtone(interval interval: Double) throws -> Ringtone {
         return RepeatingSound(
             sound: try soundFactory.createSound(eventTarget: NullSoundEventTarget()),
             interval: interval,
