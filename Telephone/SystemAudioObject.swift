@@ -43,3 +43,7 @@ class SystemAudioObject {
         }
     }
 }
+
+func objectCount<T>(ofType type: T.Type, inMemoryLength length: Int) -> Int {
+    return Int(ceil(Double(length) / Double(strideof(type))))
+}
