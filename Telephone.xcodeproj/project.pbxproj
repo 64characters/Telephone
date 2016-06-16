@@ -2854,7 +2854,6 @@
 					"-lgsmcodec-x86_64-apple-darwin",
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
-					"-lportaudio-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
@@ -2901,7 +2900,6 @@
 					"-lgsmcodec-x86_64-apple-darwin",
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
-					"-lportaudio-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
