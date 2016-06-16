@@ -13,14 +13,12 @@ near Telephone, in the same parent directory.
 
   [pjsip]: http://www.pjsip.org/
 
-    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.4.5 pjproject
+    $ svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.5.1 pjproject
     $ cd pjproject
 
 Create the file `pjlib/include/pj/config_site.h` with the following
 contents:
 
-    #define PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO 0
-    #define PJMEDIA_AUDIO_DEV_HAS_COREAUDIO 1
     #define PJSIP_DONT_SWITCH_TO_TCP 1
     #define PJSUA_MAX_ACC 32
     #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS 101
