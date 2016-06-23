@@ -97,7 +97,7 @@ class CompositionRoot: NSObject {
             userAgent: userAgent
         )
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
-            target: SystemAudioDevicesChangeEventTargetComposite(
+            target: SystemAudioDevicesChangeEventTargets(
                 targets: [
                     UserAgentAudioDeviceUpdateInteractor(userAgent: userAgent),
                     userAgentSoundIOSelection,

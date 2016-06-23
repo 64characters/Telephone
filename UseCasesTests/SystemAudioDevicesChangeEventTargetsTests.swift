@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeEventTargetComposite.swift
+//  SystemAudioDevicesChangeEventTargetsTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-public class SystemAudioDevicesChangeEventTargetComposite {
-    private let targets: [SystemAudioDevicesChangeEventTarget]
+import UseCases
+import UseCasesTestDoubles
+import XCTest
 
-    public init(targets: [SystemAudioDevicesChangeEventTarget]) {
-        self.targets = targets
-    }
-}
+class SystemAudioDevicesChangeEventTargetsTests: XCTestCase {
+    func testCallsEventTargets() {
+        let target1 = SystemAudioDevicesChangeEventTargetSpy()
+        let target2 = SystemAudioDevicesChangeEventTargetSpy()
+        let sut = SystemAudioDevicesChangeEventTargets(targets: [target1, target2])
 
-extension SystemAudioDevicesChangeEventTargetComposite: SystemAudioDevicesChangeEventTarget {
-   public func systemAudioDevicesDidUpdate() {
-        for target in targets {
-            target.systemAudioDevicesDidUpdate()
-        }
+        sut.systemAudioDevicesDidUpdate()
+
+        XCTAssertTrue(target1.didCallSystemAudioDevicesDidUpdate)
+        XCTAssertTrue(target2.didCallSystemAudioDevicesDidUpdate)
     }
 }
