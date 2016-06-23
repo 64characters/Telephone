@@ -40,6 +40,6 @@
                                     userAgent:(AKSIPUserAgent *)userAgent;
 
 // Returns YES if network settings have been changed.
-- (BOOL)checkForNetworkSettingsChanges:(id)sender;
+- (BOOL)areNetworkSettingsChanged:(id)sender;
 
 @end

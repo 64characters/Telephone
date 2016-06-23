@@ -149,8 +149,8 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 }
 
 - (IBAction)changeView:(id)sender {
-    if ([self.window.contentView isEqual:self.networkPreferencesViewController.view] && [sender tag] != kNetworkPreferencesTag) {
-        if ([self.networkPreferencesViewController checkForNetworkSettingsChanges:sender]) {
+    if ([self shouldCheckNetworkSettingsChanges:sender]) {
+        if ([self.networkPreferencesViewController areNetworkSettingsChanged:sender]) {
             return;
         }
     }
@@ -194,6 +194,12 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
     }
 }
 
+- (BOOL)shouldCheckNetworkSettingsChanges:(id)sender {
+    return self.networkPreferencesViewController.isViewLoaded &&
+    [self.window.contentView isEqual:self.networkPreferencesViewController.view] &&
+    [sender tag] != kNetworkPreferencesTag;
+}
+
 
 #pragma mark - SoundIOPreferences
 
@@ -220,7 +226,7 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 
 - (BOOL)windowShouldClose:(id)window {
     if (_networkPreferencesViewController != nil) {
-        BOOL networkSettingsChanged = [[self networkPreferencesViewController] checkForNetworkSettingsChanges:window];
+        BOOL networkSettingsChanged = [[self networkPreferencesViewController] areNetworkSettingsChanged:window];
         if (networkSettingsChanged) {
             return NO;
         }
