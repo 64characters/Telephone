@@ -1,5 +1,5 @@
 //
-//  UserAgentEventTargetComposite.swift
+//  UserAgentEventTargets.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class UserAgentEventTargetComposite {
+public class UserAgentEventTargets {
     private let targets: [UserAgentEventTarget]
 
     public init(targets: [UserAgentEventTarget]) {
@@ -24,7 +24,7 @@ public class UserAgentEventTargetComposite {
     }
 }
 
-extension UserAgentEventTargetComposite: UserAgentEventTarget {
+extension UserAgentEventTargets: UserAgentEventTarget {
     public func userAgentDidFinishStarting(userAgent: UserAgent) {
         targets.forEach { $0.userAgentDidFinishStarting(userAgent) }
     }

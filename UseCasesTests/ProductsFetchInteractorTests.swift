@@ -65,7 +65,7 @@ class ProductsFetchInteractorTests: XCTestCase {
         XCTAssertEqual(output.invokedError, error)
     }
 
-    func testAddsItselfToEventTargetCompositeOnExecution() {
+    func testAddsItselfToEventTargetsOnExecution() {
         let targets = StoreClientEventTargets()
         let sut = ProductsFetchInteractor(
             productIdentifiers: [], client: StoreClientSpy(), targets: targets, output: ProductsFetchInteractorOutputSpy()
@@ -76,7 +76,7 @@ class ProductsFetchInteractorTests: XCTestCase {
         XCTAssertTrue(targets[0] === sut)
     }
 
-    func testRemovesItselfFromEventTargetCompositeOnFetchSuccess() {
+    func testRemovesItselfFromEventTargetsOnFetchSuccess() {
         let targets = StoreClientEventTargets()
         let sut = ProductsFetchInteractor(
             productIdentifiers: [], client: StoreClientSpy(), targets: targets, output: ProductsFetchInteractorOutputSpy()
@@ -88,7 +88,7 @@ class ProductsFetchInteractorTests: XCTestCase {
         XCTAssertEqual(targets.count, 0)
     }
 
-    func testRemovesItselfFromEventTargetCompositeOnFetchFailure() {
+    func testRemovesItselfFromEventTargetsOnFetchFailure() {
         let targets = StoreClientEventTargets()
         let sut = ProductsFetchInteractor(
             productIdentifiers: [], client: StoreClientSpy(), targets: targets, output: ProductsFetchInteractorOutputSpy()

@@ -1,5 +1,5 @@
 //
-//  UserAgentEventTargetCompositeTests.swift
+//  UserAgentEventTargetsTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,8 +20,8 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentEventTargetCompositeTests: XCTestCase {
-    private var sut: UserAgentEventTargetComposite!
+class UserAgentEventTargetsTests: XCTestCase {
+    private var sut: UserAgentEventTargets!
     private var target1: UserAgentEventTargetSpy!
     private var target2: UserAgentEventTargetSpy!
     private var userAgent: UserAgentSpy!
@@ -30,7 +30,7 @@ class UserAgentEventTargetCompositeTests: XCTestCase {
         super.setUp()
         target1 = UserAgentEventTargetSpy()
         target2 = UserAgentEventTargetSpy()
-        sut = UserAgentEventTargetComposite(targets: [target1, target2])
+        sut = UserAgentEventTargets(targets: [target1, target2])
         userAgent = UserAgentSpy()
     }
 
