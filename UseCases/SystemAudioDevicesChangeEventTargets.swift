@@ -25,9 +25,7 @@ public class SystemAudioDevicesChangeEventTargets {
 }
 
 extension SystemAudioDevicesChangeEventTargets: SystemAudioDevicesChangeEventTarget {
-   public func systemAudioDevicesDidUpdate() {
-        for target in targets {
-            target.systemAudioDevicesDidUpdate()
-        }
+    public func systemAudioDevicesDidUpdate() {
+        targets.forEach { $0.systemAudioDevicesDidUpdate() }
     }
 }
