@@ -30,8 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget userAgent:(AKSIPUserAgent *)userAgent;
 
-- (void)ak_viewWillDisappear;
-
 @end
 
 NS_ASSUME_NONNULL_END
