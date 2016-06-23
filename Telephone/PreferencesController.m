@@ -153,8 +153,6 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
         if ([self.networkPreferencesViewController checkForNetworkSettingsChanges:sender]) {
             return;
         }
-    } else if ([self.window.contentView isEqual:self.soundPreferencesViewController.view] && [sender tag] != kSoundPreferencesTag) {
-        [self.soundPreferencesViewController ak_viewWillDisappear];
     }
     
     NSView *view;
@@ -229,10 +227,6 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
     }
     
     return YES;
-}
-
-- (void)windowWillClose:(NSNotification *)notification {
-    [self.soundPreferencesViewController ak_viewWillDisappear];
 }
 
 @end
