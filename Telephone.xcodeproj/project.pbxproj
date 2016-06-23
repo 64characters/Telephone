@@ -199,8 +199,8 @@
 		AA39053C1BFFDDED005A8AA3 /* PreferredSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7ED1BC43FB100FAC228 /* PreferredSoundIOTests.swift */; };
 		AA39053D1BFFDDED005A8AA3 /* UserAgentSoundIOSelectionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB01BCD814000066CFC /* UserAgentSoundIOSelectionInteractorTests.swift */; };
 		AA3905411BFFDE37005A8AA3 /* UserAgentEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A631BD542C80030ECE4 /* UserAgentEventTarget.swift */; };
-		AA3905441BFFDE75005A8AA3 /* UserAgentEventTargetComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargetComposite.swift */; };
-		AA3905461BFFDE7C005A8AA3 /* UserAgentEventTargetCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetCompositeTests.swift */; };
+		AA3905441BFFDE75005A8AA3 /* UserAgentEventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargets.swift */; };
+		AA3905461BFFDE7C005A8AA3 /* UserAgentEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetsTests.swift */; };
 		AA3905471BFFDE9A005A8AA3 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F7FD1BC6908300FAC228 /* UserDefaults.swift */; };
 		AA39054A1BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */; };
 		AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A14FA0F309C7C00C45739 /* AKABAddressBook+Localizing.m */; };
@@ -574,8 +574,8 @@
 		AA19CFF41BED148A00991CAA /* DefaultInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultInteractorFactory.swift; sourceTree = "<group>"; };
 		AA1A0A9F1828E38900278658 /* Telephone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Telephone.icns; sourceTree = "<group>"; };
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
-		AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetCompositeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentEventTargetCompositeTests.swift; path = UseCasesTests/UserAgentEventTargetCompositeTests.swift; sourceTree = SOURCE_ROOT; };
-		AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargetComposite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentEventTargetComposite.swift; sourceTree = "<group>"; };
+		AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentEventTargetsTests.swift; path = UseCasesTests/UserAgentEventTargetsTests.swift; sourceTree = SOURCE_ROOT; };
+		AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentEventTargets.swift; sourceTree = "<group>"; };
 		AA25AB541BE0F86E00E677A4 /* UserAgentEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentEventTargetSpy.swift; sourceTree = "<group>"; };
 		AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesChangeEventTarget.swift; sourceTree = "<group>"; };
 		AA277A521BD174D60030ECE4 /* DelayingUserAgentSoundIOSelectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayingUserAgentSoundIOSelectionInteractor.swift; sourceTree = "<group>"; };
@@ -1138,8 +1138,8 @@
 			children = (
 				AAFA2BB31BCD815100066CFC /* UserAgent.swift */,
 				AA277A631BD542C80030ECE4 /* UserAgentEventTarget.swift */,
-				AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargetComposite.swift */,
-				AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetCompositeTests.swift */,
+				AA25AB511BE0F7FB00E677A4 /* UserAgentEventTargets.swift */,
+				AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetsTests.swift */,
 			);
 			name = "User Agent";
 			sourceTree = "<group>";
@@ -1996,7 +1996,7 @@
 				8ADD6A4B1CDCF75D001EDBBA /* StoreInteractorFactory.swift in Sources */,
 				8AC1A4411C67BFA8007778A2 /* SoundEventTarget.swift in Sources */,
 				AA3905471BFFDE9A005A8AA3 /* UserDefaults.swift in Sources */,
-				AA3905441BFFDE75005A8AA3 /* UserAgentEventTargetComposite.swift in Sources */,
+				AA3905441BFFDE75005A8AA3 /* UserAgentEventTargets.swift in Sources */,
 				AA7F6D471C0381C00064DA3A /* UserDefaultsSoundIOLoadInteractor.swift in Sources */,
 				AA31663B1C4FB30800E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadInteractor.swift in Sources */,
 				AA3905311BFFDDDA005A8AA3 /* UserAgentSoundIOSelectionInteractor.swift in Sources */,
@@ -2030,7 +2030,7 @@
 			files = (
 				8ADD31CC1CC165B5008C083C /* DelayingUserAgentSoundIOSelectionInteractorTests.swift in Sources */,
 				AA39053C1BFFDDED005A8AA3 /* PreferredSoundIOTests.swift in Sources */,
-				AA3905461BFFDE7C005A8AA3 /* UserAgentEventTargetCompositeTests.swift in Sources */,
+				AA3905461BFFDE7C005A8AA3 /* UserAgentEventTargetsTests.swift in Sources */,
 				8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateInteractorTests.swift in Sources */,
 				AA7F6D451C0381650064DA3A /* UserDefaultsSoundIOLoadInteractorTests.swift in Sources */,
 				AA39053D1BFFDDED005A8AA3 /* UserAgentSoundIOSelectionInteractorTests.swift in Sources */,
