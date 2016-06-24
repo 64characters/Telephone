@@ -17,13 +17,13 @@
 //
 
 class DefaultStoreViewEventTarget {
-    private let useCaseFactory: StoreUseCaseFactory
+    private let factory: StoreUseCaseFactory
     private let presenter: StoreViewPresenter
 
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
 
-    init(useCaseFactory: StoreUseCaseFactory, presenter: StoreViewPresenter) {
-        self.useCaseFactory = useCaseFactory
+    init(factory: StoreUseCaseFactory, presenter: StoreViewPresenter) {
+        self.factory = factory
         self.presenter = presenter
     }
 }
@@ -34,7 +34,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func fetchProducts() {
-        useCaseFactory.createProductsFetchUseCase(output: self).execute()
+        factory.createProductsFetchUseCase(output: self).execute()
         presenter.showProductsFetchProgress()
     }
 

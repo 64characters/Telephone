@@ -39,7 +39,7 @@ class CompositionRoot: NSObject {
         let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, userDefaults: userDefaults)
 
         let userDefaultsSoundFactory = UserDefaultsSoundFactory(
-            configurationLoader: UserDefaultsRingtoneSoundConfigurationLoadUseCase(
+            load: UserDefaultsRingtoneSoundConfigurationLoadUseCase(
                 userDefaults: userDefaults,
                 repository: audioDevices
             ),
@@ -60,7 +60,7 @@ class CompositionRoot: NSObject {
 
         let storeViewController = StoreViewController()
         let storeViewEventTarget = DefaultStoreViewEventTarget(
-            useCaseFactory: DefaultStoreUseCaseFactory(
+            factory: DefaultStoreUseCaseFactory(
                 identifiers: ["one", "two"],
                 client: FakeStoreClient(target: storeClientEventTargets),
                 targets: storeClientEventTargets
