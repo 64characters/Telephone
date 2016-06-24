@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  ConditionalRingtonePlaybackUseCaseTestDelegate.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,16 @@
 
 import UseCases
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
+public class ConditionalRingtonePlaybackUseCaseTestDelegate: NSObject {
+    private var canStop = true
 
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
+    public func forbidStoppingPlayback() {
+        canStop = false
     }
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension ConditionalRingtonePlaybackUseCaseTestDelegate: ConditionalRingtonePlaybackUseCaseDelegate {
+    public func playbackCanStop(playback: ConditionalRingtonePlaybackUseCase) -> Bool {
+        return canStop
     }
 }

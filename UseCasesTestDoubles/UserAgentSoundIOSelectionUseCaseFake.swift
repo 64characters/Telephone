@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  UserAgentSoundIOSelectionUseCaseFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,16 @@
 
 import UseCases
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
+public class UserAgentSoundIOSelectionUseCaseFake {
+    private let userAgent: UserAgent
 
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
+    public init(userAgent: UserAgent) {
+        self.userAgent = userAgent
     }
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension UserAgentSoundIOSelectionUseCaseFake: ThrowingUseCase {
+    public func execute() throws {
+        try userAgent.selectSoundIODeviceIDs(input: 0, output: 0)
     }
 }

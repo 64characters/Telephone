@@ -18,8 +18,8 @@
 
 import UseCases
 
-protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchInteractorOutput,
-ProductPurchaseInteractorOutput, PurchaseRestorationInteractorOutput {
+protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput,
+ProductPurchaseUseCaseOutput, PurchaseRestorationUseCaseOutput {
     var state: StoreViewState { get }
     func changeState(newState: StoreViewState)
 

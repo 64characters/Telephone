@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  SoundPlaybackUseCaseSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,19 @@
 
 import UseCases
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
+public class SoundPlaybackUseCaseSpy {
+    public private(set) var didCallPlay = false
+    public private(set) var didCallStop = false
 
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
-    }
+    public init() {}
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension SoundPlaybackUseCaseSpy: SoundPlaybackUseCase {
+    public func play() throws {
+        didCallPlay = true
+    }
+
+    public func stop() {
+        didCallStop = true
     }
 }

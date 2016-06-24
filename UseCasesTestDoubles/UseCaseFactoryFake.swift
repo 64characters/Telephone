@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  UseCaseFactoryFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,21 @@
 
 import UseCases
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
+public class UseCaseFactoryFake {
+    public init() {}
+}
 
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
+extension UseCaseFactoryFake: UseCaseFactory {
+    public func createUserDefaultsSoundIOLoadUseCase(output output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
+        return ThrowingUseCaseSpy()
+    }
+
+    public func createUserDefaultsSoundIOSaveUseCase(soundIO soundIO: PresentationSoundIO) -> UseCase {
+        return UseCaseSpy()
+    }
+
+    public func createUserDefaultsRingtoneSoundNameSaveUseCase(name name: String) -> UseCase {
+        return UseCaseSpy()
     }
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
-    }
-}

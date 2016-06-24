@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  DefaultSoundPlaybackUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,30 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public class DefaultSoundPlaybackUseCase {
+    public private(set) var sound: Sound?
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
+    private let factory: SoundFactory
 
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
+    public init(factory: SoundFactory) {
+        self.factory = factory
     }
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension DefaultSoundPlaybackUseCase: SoundPlaybackUseCase {
+    public func play() throws {
+        sound?.stop()
+        sound = try factory.createSound(eventTarget: self)
+        sound!.play()
+    }
+
+    public func stop() {
+        sound?.stop()
+    }
+}
+
+extension DefaultSoundPlaybackUseCase: SoundEventTarget {
+    public func soundDidFinishPlaying() {
+        sound = nil
     }
 }

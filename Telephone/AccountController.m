@@ -217,7 +217,7 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
                          userAgent:(AKSIPUserAgent *)userAgent
-                  ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback {
+                  ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback {
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
         return nil;

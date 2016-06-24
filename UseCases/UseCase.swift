@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundFactory.swift
+//  UseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-class UserDefaultsSoundFactory {
-    private let load: SoundConfigurationLoadUseCase
-    private let factory: NSSoundToSoundAdapterFactory
-
-    init(load: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
-        self.load = load
-        self.factory = factory
-    }
-}
-
-extension UserDefaultsSoundFactory: SoundFactory {
-    func createSound(eventTarget eventTarget: SoundEventTarget) throws -> Sound {
-        return try factory.createSound(configuration: try load.execute(), eventTarget: eventTarget)
-    }
+public protocol UseCase {
+    func execute()
 }
