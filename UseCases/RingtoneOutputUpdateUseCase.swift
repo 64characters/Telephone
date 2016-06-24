@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  RingtoneOutputUpdateUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public class RingtoneOutputUpdateUseCase {
+    private let playback: RingtonePlaybackUseCase
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
-
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
+    public init(playback: RingtonePlaybackUseCase) {
+        self.playback = playback
     }
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension RingtoneOutputUpdateUseCase: ThrowingUseCase {
+    public func execute() throws {
+        if playback.playing {
+            playback.stop()
+            try playback.start()
+        }
     }
 }

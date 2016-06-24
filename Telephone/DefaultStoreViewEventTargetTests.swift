@@ -22,21 +22,21 @@ import XCTest
 
 class DefaultStoreViewEventTargetTests: XCTestCase {
     func testExecutesProductsFetchOnFetchProducts() {
-        let interactor = InteractorSpy()
-        let factory = StoreInteractorFactorySpy()
-        factory.stub(withProductsFetchInteractor: interactor)
-        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenter: StoreViewPresenter(output: StoreViewDummy()))
+        let useCase = UseCaseSpy()
+        let factory = StoreUseCaseFactorySpy()
+        factory.stub(withProductsFetchUseCase: useCase)
+        let sut = DefaultStoreViewEventTarget(useCaseFactory: factory, presenter: StoreViewPresenter(output: StoreViewDummy()))
 
         sut.fetchProducts()
 
-        XCTAssertTrue(interactor.didCallExecute)
+        XCTAssertTrue(useCase.didCallExecute)
     }
 
     func testShowsProductsFetchProgressOnFetchProducts() {
-        let factory = StoreInteractorFactorySpy()
-        factory.stub(withProductsFetchInteractor: InteractorSpy())
+        let factory = StoreUseCaseFactorySpy()
+        factory.stub(withProductsFetchUseCase: UseCaseSpy())
         let view = StoreViewSpy()
-        let sut = DefaultStoreViewEventTarget(interactorFactory: factory, presenter: StoreViewPresenter(output: view))
+        let sut = DefaultStoreViewEventTarget(useCaseFactory: factory, presenter: StoreViewPresenter(output: view))
 
         sut.fetchProducts()
 
@@ -46,7 +46,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsOnShowProducts() {
         let view = StoreViewSpy()
         let sut = DefaultStoreViewEventTarget(
-            interactorFactory: StoreInteractorFactorySpy(), presenter: StoreViewPresenter(output: view)
+            useCaseFactory: StoreUseCaseFactorySpy(), presenter: StoreViewPresenter(output: view)
         )
         let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
         let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
@@ -59,7 +59,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsFetchErrorOnShowProductsFetchError() {
         let view = StoreViewSpy()
         let sut = DefaultStoreViewEventTarget(
-            interactorFactory: StoreInteractorFactorySpy(), presenter: StoreViewPresenter(output: view)
+            useCaseFactory: StoreUseCaseFactorySpy(), presenter: StoreViewPresenter(output: view)
         )
 
         sut.showProductsFetchError("any")

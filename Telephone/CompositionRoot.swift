@@ -22,7 +22,7 @@ import UseCases
 class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     let preferencesController: PreferencesController
-    let ringtonePlayback: RingtonePlaybackInteractor
+    let ringtonePlayback: RingtonePlaybackUseCase
     let storeWindowController: StoreWindowController
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
@@ -30,37 +30,37 @@ class CompositionRoot: NSObject {
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
 
-    init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackInteractorDelegate: ConditionalRingtonePlaybackInteractorDelegate) {
+    init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.sharedUserAgent()
         userDefaults = NSUserDefaults.standardUserDefaults()
         queue = createQueue()
 
         let audioDevices = SystemAudioDevices()
-        let interactorFactory = DefaultInteractorFactory(repository: audioDevices, userDefaults: userDefaults)
+        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, userDefaults: userDefaults)
 
         let userDefaultsSoundFactory = UserDefaultsSoundFactory(
-            configurationLoader: UserDefaultsRingtoneSoundConfigurationLoadInteractor(
+            configurationLoader: UserDefaultsRingtoneSoundConfigurationLoadUseCase(
                 userDefaults: userDefaults,
                 repository: audioDevices
             ),
             factory: NSSoundToSoundAdapterFactory()
         )
 
-        ringtonePlayback = ConditionalRingtonePlaybackInteractor(
-            origin: DefaultRingtonePlaybackInteractor(
+        ringtonePlayback = ConditionalRingtonePlaybackUseCase(
+            origin: DefaultRingtonePlaybackUseCase(
                 factory: RepeatingSoundFactory(
                     soundFactory: userDefaultsSoundFactory,
                     timerFactory: NSTimerToTimerAdapterFactory()
                 )
             ),
-            delegate: conditionalRingtonePlaybackInteractorDelegate
+            delegate: conditionalRingtonePlaybackUseCaseDelegate
         )
 
         let storeClientEventTargets = StoreClientEventTargets()
 
         let storeViewController = StoreViewController()
         let storeViewEventTarget = DefaultStoreViewEventTarget(
-            interactorFactory: DefaultStoreInteractorFactory(
+            useCaseFactory: DefaultStoreUseCaseFactory(
                 identifiers: ["one", "two"],
                 client: FakeStoreClient(target: storeClientEventTargets),
                 targets: storeClientEventTargets
@@ -71,8 +71,8 @@ class CompositionRoot: NSObject {
 
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 
-        let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionInteractor(
-            interactor: UserAgentSoundIOSelectionInteractor(
+        let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
+            useCase: UserAgentSoundIOSelectionUseCase(
                 repository: audioDevices,
                 userAgent: userAgent,
                 userDefaults: userDefaults
@@ -84,11 +84,11 @@ class CompositionRoot: NSObject {
             delegate: preferencesControllerDelegate,
             userAgent: userAgent,
             soundPreferencesViewEventTarget: DefaultSoundPreferencesViewEventTarget(
-                interactorFactory: interactorFactory,
+                useCaseFactory: useCaseFactory,
                 presenterFactory: PresenterFactory(),
                 userAgentSoundIOSelection: userAgentSoundIOSelection,
-                ringtoneOutputUpdate: RingtoneOutputUpdateInteractor(playback: ringtonePlayback),
-                ringtoneSoundPlayback: DefaultSoundPlaybackInteractor(factory: userDefaultsSoundFactory)
+                ringtoneOutputUpdate: RingtoneOutputUpdateUseCase(playback: ringtonePlayback),
+                ringtoneSoundPlayback: DefaultSoundPlaybackUseCase(factory: userDefaultsSoundFactory)
             )
         )
 
@@ -99,7 +99,7 @@ class CompositionRoot: NSObject {
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
             target: SystemAudioDevicesChangeEventTargets(
                 targets: [
-                    UserAgentAudioDeviceUpdateInteractor(userAgent: userAgent),
+                    UserAgentAudioDeviceUpdateUseCase(userAgent: userAgent),
                     userAgentSoundIOSelection,
                     PreferencesSoundIOUpdater(preferences: preferencesController)
                 ]

@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  ProductsFetchUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,19 @@
 
 import UseCases
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
+public class ProductsFetchUseCaseOutputSpy {
+    public private(set) var invokedProducts: [Product] = []
+    public private(set) var invokedError = ""
 
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
-    }
+    public init() {}
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension ProductsFetchUseCaseOutputSpy: ProductsFetchUseCaseOutput {
+    public func didFetchProducts(products: [Product]) {
+        invokedProducts = products
+    }
+
+    public func didFailFetchingProducts(error error: String) {
+        invokedError = error
     }
 }

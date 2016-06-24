@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  UserAgentAudioDeviceUpdateUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public class UserAgentAudioDeviceUpdateUseCase {
+    private let userAgent: UserAgent
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
-
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
+    public init(userAgent: UserAgent) {
+        self.userAgent = userAgent
     }
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension UserAgentAudioDeviceUpdateUseCase: UseCase {
+   public func execute() {
+        userAgent.updateAudioDevices()
+    }
+}
+
+extension UserAgentAudioDeviceUpdateUseCase: SystemAudioDevicesChangeEventTarget {
+    public func systemAudioDevicesDidUpdate() {
+        execute()
     }
 }

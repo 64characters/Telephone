@@ -26,7 +26,7 @@
 @class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI, AKSIPUserAgent;
 @class IncomingCallViewController, ActiveCallViewController;
 @class EndedCallViewController, CallTransferController;
-@protocol RingtonePlaybackInteractor;
+@protocol RingtonePlaybackUseCase;
 
 // A call controller.
 @interface CallController : NSWindowController <AKSIPCallDelegate> {
@@ -48,7 +48,7 @@
 
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
-@property(nonatomic, readonly, strong) id<RingtonePlaybackInteractor> ringtonePlayback;
+@property(nonatomic, readonly, strong) id<RingtonePlaybackUseCase> ringtonePlayback;
 
 // Call transfer controller.
 @property(nonatomic, readonly) CallTransferController *callTransferController;
@@ -102,7 +102,7 @@
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName
                     accountController:(AccountController *)accountController
                             userAgent:(AKSIPUserAgent *)userAgent
-                     ringtonePlayback:(id<RingtonePlaybackInteractor>)ringtonePlayback
+                     ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                              delegate:(id<CallControllerDelegate>)delegate;
 
 // Accepts an incoming call.

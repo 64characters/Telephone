@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,15 @@
 
 import UseCases
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
+public class UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy {
+    public private(set) var didCallExecute = false
 
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
-    }
+    public init() {}
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy: SoundConfigurationLoadUseCase {
+    public func execute() throws -> SoundConfiguration {
+        didCallExecute = true
+        return SoundConfiguration(name: "any-name", deviceUID: "any-UID")
     }
 }

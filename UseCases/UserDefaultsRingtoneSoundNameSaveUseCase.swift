@@ -1,5 +1,5 @@
 //
-//  SoundIOPresenter.swift
+//  UserDefaultsRingtoneSoundNameSaveUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public class UserDefaultsRingtoneSoundNameSaveUseCase {
+    private let name: String
+    private let userDefaults: UserDefaults
 
-class SoundIOPresenter {
-    private let output: SoundIOPresenterOutput
-
-    init(output: SoundIOPresenterOutput) {
-        self.output = output
+    public init(name: String, userDefaults: UserDefaults) {
+        self.name = name
+        self.userDefaults = userDefaults
     }
 }
 
-extension SoundIOPresenter: UserDefaultsSoundIOLoadUseCaseOutput {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+extension UserDefaultsRingtoneSoundNameSaveUseCase: UseCase {
+    public func execute() {
+        if !name.isEmpty {
+            userDefaults[kRingingSound] = name
+        }
     }
 }

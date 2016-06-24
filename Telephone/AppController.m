@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
-@property(nonatomic, readonly) id<RingtonePlaybackInteractor> ringtonePlayback;
+@property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
@@ -228,7 +228,7 @@ NS_ASSUME_NONNULL_END
         return nil;
     }
 
-    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self conditionalRingtonePlaybackInteractorDelegate:self];
+    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self conditionalRingtonePlaybackUseCaseDelegate:self];
     
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];

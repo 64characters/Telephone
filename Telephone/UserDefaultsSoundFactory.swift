@@ -19,10 +19,10 @@
 import UseCases
 
 class UserDefaultsSoundFactory {
-    private let configurationLoader: SoundConfigurationLoadInteractor
+    private let configurationLoader: SoundConfigurationLoadUseCase
     private let factory: NSSoundToSoundAdapterFactory
 
-    init(configurationLoader: SoundConfigurationLoadInteractor, factory: NSSoundToSoundAdapterFactory) {
+    init(configurationLoader: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
         self.configurationLoader = configurationLoader
         self.factory = factory
     }
