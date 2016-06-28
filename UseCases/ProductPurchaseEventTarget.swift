@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  ProductPurchaseEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let product: Product
-    private let client: StoreClient
-
-    public init(product: Product, client: StoreClient) {
-        self.product = product
-        self.client = client
-    }
-}
-
-extension ProductPurchaseUseCase: UseCase {
-    public func execute() {
-        client.purchase(product)
-    }
+public protocol ProductPurchaseEventTarget {
+    func didPurchase(product: Product)
+    func didFailPurchasingProduct(error error: String)
 }
