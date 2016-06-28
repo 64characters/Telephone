@@ -35,6 +35,10 @@ extension DefaultStoreClient: StoreClient {
         productsRequest!.delegate = self
         productsRequest!.start()
     }
+
+    func purchase(product: Product) {
+        fatalError()
+    }
 }
 
 extension DefaultStoreClient: SKProductsRequestDelegate {

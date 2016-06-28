@@ -20,12 +20,19 @@ import UseCases
 
 public class StoreClientSpy {
     public private(set) var invokedIdentifiers: [String] = []
+    public private(set) var invokedProduct: Product
 
-    public init() {}
+    public init() {
+        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero(), localizedPrice: "$0")
+    }
 }
 
 extension StoreClientSpy: StoreClient {
     public func fetchProducts(withIdentifiers identifiers: [String]) {
         invokedIdentifiers = identifiers
+    }
+
+    public func purchase(product: Product) {
+        invokedProduct = product
     }
 }

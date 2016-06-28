@@ -29,4 +29,8 @@ extension LoggingStoreClient: StoreClient {
         print("Fetching products: \(identifiers)")
         origin.fetchProducts(withIdentifiers: identifiers)
     }
+
+    func purchase(product: Product) {
+        fatalError()
+    }
 }

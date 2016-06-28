@@ -35,6 +35,10 @@ extension FakeStoreClient: StoreClient {
         )
     }
 
+    func purchase(product: Product) {
+        fatalError()
+    }
+
     private func notifyTarget() {
         if attempts % 2 == 0 {
             notifyTargetWithError()

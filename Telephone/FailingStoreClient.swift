@@ -33,6 +33,10 @@ extension FailingStoreClient: StoreClient {
         )
     }
 
+    func purchase(product: Product) {
+        fatalError()
+    }
+
     private func notifyTarget() {
         target.storeClient(self, didFailFetchingProductsWithError: "Network is unreachable.")
     }

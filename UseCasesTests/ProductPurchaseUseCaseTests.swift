@@ -1,5 +1,5 @@
 //
-//  StoreClient.swift
+//  ProductPurchaseUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,12 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreClient: class {
-    func fetchProducts(withIdentifiers identifiers: [String])
-    func purchase(product: Product)
-}
+import XCTest
+import UseCases
+import UseCasesTestDoubles
 
-public protocol StoreClientEventTarget: class {
-    func storeClient(storeClient: StoreClient, didFetchProducts: [Product])
-    func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError: String)
+class ProductPurchaseUseCaseTests: XCTestCase {
+    func testPurchasesSpecifiedProductOnExecute() {
+        let product = Product(identifier: "1", name: "product", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
+        let client = StoreClientSpy()
+        let sut = ProductPurchaseUseCase(product: product, client: client)
+
+        sut.execute()
+
+        XCTAssertEqual(client.invokedProduct, product)
+    }
 }
