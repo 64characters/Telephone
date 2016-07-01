@@ -20,20 +20,20 @@ import StoreKit
 import UseCases
 
 class DefaultStoreClient: NSObject {
-    private let eventTarget: StoreClientEventTarget
-    private var productsRequest: SKProductsRequest?
+    private let target: StoreClientEventTarget
+    private var request: SKProductsRequest?
 
-    init(eventTarget: StoreClientEventTarget) {
-        self.eventTarget = eventTarget
+    init(target: StoreClientEventTarget) {
+        self.target = target
     }
 }
 
 extension DefaultStoreClient: StoreClient {
     func fetchProducts(withIdentifiers identifiers: [String]) {
-        productsRequest?.cancel()
-        productsRequest = SKProductsRequest(productIdentifiers: Set(identifiers))
-        productsRequest!.delegate = self
-        productsRequest!.start()
+        request?.cancel()
+        request = SKProductsRequest(productIdentifiers: Set(identifiers))
+        request!.delegate = self
+        request!.start()
     }
 
     func purchase(product: Product) {
@@ -44,7 +44,7 @@ extension DefaultStoreClient: StoreClient {
 extension DefaultStoreClient: SKProductsRequestDelegate {
     func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.eventTarget.storeClient(self, didFetchProducts: productsWithStoreKitProducts(response.products))
+            self.target.storeClient(self, didFetchProducts: productsWithStoreKitProducts(response.products))
         }
     }
 }
@@ -65,14 +65,14 @@ extension DefaultStoreClient: SKRequestDelegate {
     }
 
     private func notifyEventTargetAboutProductFetchFailure(request request: SKRequest, error: String) {
-        if request === productsRequest {
-            eventTarget.storeClient(self, didFailFetchingProductsWithError: error)
+        if request === self.request {
+            target.storeClient(self, didFailFetchingProductsWithError: error)
         }
     }
 
     private func forgetProductsRequest(request: SKRequest) {
-        if request === productsRequest {
-            productsRequest = nil
+        if request === self.request {
+            self.request = nil
         }
     }
 }
