@@ -35,9 +35,11 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        sut.didPurchase(createProduct())
+        let product = createProduct()
+        sut.didStartPurchse(product)
+        sut.didPurchase(product)
 
-        XCTAssertEqual(actions, "FSpP123S")
+        XCTAssertEqual(actions, "FSpP123SppS")
     }
 
     func testNormalRestoration() {
@@ -78,20 +80,24 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchse(createProduct())
         sut.didFailPurchasingProduct(error: "any")
 
-        XCTAssertEqual(actions, "FSpP123Pe")
+        XCTAssertEqual(actions, "FSpP123SppPe")
     }
 
     func testPurchaseAfterPurchaseFailure() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        let product = createProduct()
+        sut.didStartPurchse(product)
         sut.didFailPurchasingProduct(error: "any")
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        sut.didPurchase(createProduct())
+        sut.didStartPurchse(product)
+        sut.didPurchase(product)
 
-        XCTAssertEqual(actions, "FSpP123PeP123S")
+        XCTAssertEqual(actions, "FSpP123SppPeP123SppS")
     }
 
     func testRestorationFailure() {
@@ -114,11 +120,12 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchse(createProduct())
         sut.didFailPurchasingProduct(error: "any")
         sut.viewDidStartPurchaseRestoration()
         sut.didRestorePurchases()
 
-        XCTAssertEqual(actions, "FSpP123PeRS")
+        XCTAssertEqual(actions, "FSpP123SppPeRS")
     }
 
     func testShowsThankYouOnViewReloadWhenPurchased() {
@@ -143,6 +150,50 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
 
         XCTAssertEqual(actions, "F")
     }
+
+    func testDidPurchaseBeforeProductFetch() {
+        sut.didPurchase(createProduct())
+
+        XCTAssertEqual(actions, "S")
+    }
+
+    func testDidPurchaseDuringProductFetch() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didPurchase(createProduct())
+
+        XCTAssertEqual(actions, "FS")
+    }
+
+    func testDidPurchaseAfterProductFetch() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.didPurchase(createProduct())
+
+        XCTAssertEqual(actions, "FSpS")
+    }
+
+    func testDidPurchaseAfterProductFetchFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFailFetchingProducts(error: "any")
+        sut.didPurchase(createProduct())
+
+        XCTAssertEqual(actions, "FFeS")
+    }
+
+    func testDidPuchaseDuringRestoration() {
+        sut.viewDidStartPurchaseRestoration()
+        sut.didPurchase(createProduct())
+
+        XCTAssertEqual(actions, "RS")
+    }
+
+    func testDidPurchaseAfterRestorationFailure() {
+        sut.viewDidStartPurchaseRestoration()
+        sut.didFailRestoringPurchases(error: "any")
+        sut.didPurchase(createProduct())
+
+        XCTAssertEqual(actions, "RReS")
+    }
 }
 
 extension StoreViewStateMachineTests {
@@ -164,6 +215,10 @@ extension StoreViewStateMachineTests {
 
     func purchaseProduct(identifier identifier: String) {
         actions.appendContentsOf("P\(identifier)")
+    }
+
+    func showPurchaseProgress() {
+        actions.appendContentsOf("Spp")
     }
 
     func showPurchaseError(error: String) {

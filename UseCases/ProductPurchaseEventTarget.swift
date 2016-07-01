@@ -17,6 +17,7 @@
 //
 
 public protocol ProductPurchaseEventTarget {
+    func didStartPurchse(product: Product)
     func didPurchase(product: Product)
     func didFailPurchasingProduct(error error: String)
 }

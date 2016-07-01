@@ -27,6 +27,7 @@ ProductPurchaseEventTarget, PurchaseRestorationUseCaseOutput {
     func showProducts(products: [Product])
     func showProductsFetchError(error: String)
     func purchaseProduct(identifier identifier: String)
+    func showPurchaseProgress()
     func showPurchaseError(error: String)
     func restorePurchases()
     func showPurchaseRestorationError(error: String)
@@ -62,6 +63,10 @@ extension StoreViewStateMachine {
 }
 
 extension StoreViewStateMachine {
+    func didStartPurchse(product: Product) {
+        state.didStartPurchase(machine: self, product: product)
+    }
+
     func didPurchase(product: Product) {
         state.didPurchase(machine: self, product: product)
     }
