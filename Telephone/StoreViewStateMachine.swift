@@ -63,8 +63,8 @@ extension StoreViewStateMachine {
 }
 
 extension StoreViewStateMachine {
-    func didStartPurchse(product: Product) {
-        state.didStartPurchase(machine: self, product: product)
+    func didStartPurchasing(product: Product) {
+        state.didStartPurchasing(machine: self, product: product)
     }
 
     func didPurchase(product: Product) {

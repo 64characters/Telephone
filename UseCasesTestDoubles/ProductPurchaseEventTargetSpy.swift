@@ -32,7 +32,7 @@ public final class ProductPurchaseEventTargetSpy {
 }
 
 extension ProductPurchaseEventTargetSpy: ProductPurchaseEventTarget {
-    public func didStartPurchse(product: Product) {
+    public func didStartPurchasing(product: Product) {
         didCallDidStartPurchase = true
         invokedProduct = product
     }
