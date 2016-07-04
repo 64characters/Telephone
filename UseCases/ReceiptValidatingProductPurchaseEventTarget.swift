@@ -35,12 +35,12 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
         if receipt.isValid () {
             origin.didPurchase(product)
         } else {
-            origin.didFailPurchasingProduct(error: receiptValidationError())
+            origin.didFailPurchasing(product, error: receiptValidationError())
         }
     }
 
-    public func didFailPurchasingProduct(error error: String) {
-        origin.didFailPurchasingProduct(error: error)
+    public func didFailPurchasing(product: Product, error: String) {
+        origin.didFailPurchasing(product, error: error)
     }
 }
 

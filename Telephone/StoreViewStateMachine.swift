@@ -71,8 +71,8 @@ extension StoreViewStateMachine {
         state.didPurchase(machine: self, product: product)
     }
 
-    func didFailPurchasingProduct(error error: String) {
-        state.didFailPurchasingProduct(machine: self, error: error)
+    func didFailPurchasing(product: Product, error: String) {
+        state.didFailPurchasing(machine: self, product: product, error: error)
     }
 }
 

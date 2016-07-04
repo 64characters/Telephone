@@ -27,7 +27,7 @@
 // Fetching        DidFailFetchingProducts         FetchError      ShowProductsFetchError
 // Fetching        DidPurchase                     Purchased       ShowThankYou
 // Fetched         ViewDidMakePurchase             Fetched         PurchaseProduct
-// Fetched         DidStartPurchase                Purchasing      ShowPurchaseProgress
+// Fetched         DidStartPurchasing              Purchasing      ShowPurchaseProgress
 // Fetched         DidPurchase                     Purchased       ShowThankYou
 // Fetched         ViewDidStartPurchaseRestoration Restoring       RestorePurchasesViewDid
 // FetchError      ViewShouldReloadData            Fetching        FetchProducts
@@ -36,10 +36,10 @@
 // FetchError      DidPurchase                     Purchased       ShowThankYou
 //
 // Purchasing      DidPurchase                     Purchased       ShowThankYou
-// Purchasing      DidFailPurchasingProduct        PurchaseError   ShowPurchaseError
+// Purchasing      DidFailPurchasing               PurchaseError   ShowPurchaseError
 // Purchased       ViewShouldReloadData            Purchased       ShowThankYou
 // PurchaseError   ViewDidMakePurchase             PurchaseError   PurchaseProduct
-// PurchaseError   DidStartPurchase                Purchasing      ShowPurchaseProgress
+// PurchaseError   DidStartPurchasing              Purchasing      ShowPurchaseProgress
 // PurchaseError   ViewDidStartPurchaseRestoration Restoring       RestorePurchases
 //
 // Restoring       DidPurchase                     Purchased       ShowThankYou
@@ -78,7 +78,7 @@ class StoreViewState {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailPurchasingProduct(machine machine: StoreViewStateMachine, error: String)  {
+    func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product, error: String)  {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -183,7 +183,7 @@ class StoreViewStatePurchasing: StoreViewState {
         machine.showThankYou()
     }
 
-    override func didFailPurchasingProduct(machine machine: StoreViewStateMachine, error: String) {
+    override func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product, error: String) {
         machine.changeState(StoreViewStatePurchaseError())
         machine.showPurchaseError(error)
     }

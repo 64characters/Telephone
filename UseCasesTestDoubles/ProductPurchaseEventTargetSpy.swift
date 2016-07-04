@@ -19,9 +19,9 @@
 import UseCases
 
 public final class ProductPurchaseEventTargetSpy {
-    public private(set) var didCallDidStartPurchase = false
+    public private(set) var didCallDidStartPurchasing = false
     public private(set) var didCallDidPurchase = false
-    public private(set) var didCallDidFailPurchasingProduct = false
+    public private(set) var didCallDidFailPurchasing = false
 
     public private(set) var invokedProduct: Product
     public private(set) var invokedError = ""
@@ -33,7 +33,7 @@ public final class ProductPurchaseEventTargetSpy {
 
 extension ProductPurchaseEventTargetSpy: ProductPurchaseEventTarget {
     public func didStartPurchasing(product: Product) {
-        didCallDidStartPurchase = true
+        didCallDidStartPurchasing = true
         invokedProduct = product
     }
 
@@ -42,8 +42,9 @@ extension ProductPurchaseEventTargetSpy: ProductPurchaseEventTarget {
         invokedProduct = product
     }
 
-    public func didFailPurchasingProduct(error error: String) {
-        didCallDidFailPurchasingProduct = true
+    public func didFailPurchasing(product: Product, error: String) {
+        didCallDidFailPurchasing = true
+        invokedProduct = product
         invokedError = error
     }
 }

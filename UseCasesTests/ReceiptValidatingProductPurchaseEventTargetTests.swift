@@ -38,7 +38,7 @@ class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
 
         sut.didPurchase(createProduct())
 
-        XCTAssertTrue(origin.didCallDidFailPurchasingProduct)
+        XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertFalse(origin.invokedError.isEmpty)
     }
 
@@ -49,18 +49,20 @@ class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
 
         sut.didStartPurchasing(product)
 
-        XCTAssertTrue(origin.didCallDidStartPurchase)
+        XCTAssertTrue(origin.didCallDidStartPurchasing)
         XCTAssertEqual(origin.invokedProduct, product)
     }
 
     func testCallsDidFailPurchasingProductOnOriginOnDidFailPurchasingProduct() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
+        let product = createProduct()
         let error = "any"
 
-        sut.didFailPurchasingProduct(error: error)
+        sut.didFailPurchasing(product, error: error)
 
-        XCTAssertTrue(origin.didCallDidFailPurchasingProduct)
+        XCTAssertTrue(origin.didCallDidFailPurchasing)
+        XCTAssertEqual(origin.invokedProduct, product)
         XCTAssertEqual(origin.invokedError, error)
     }
 }

@@ -80,8 +80,9 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        sut.didStartPurchasing(createProduct())
-        sut.didFailPurchasingProduct(error: "any")
+        let product = createProduct()
+        sut.didStartPurchasing(product)
+        sut.didFailPurchasing(product, error: "any")
 
         XCTAssertEqual(actions, "FSpP123SppPe")
     }
@@ -92,7 +93,7 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         let product = createProduct()
         sut.didStartPurchasing(product)
-        sut.didFailPurchasingProduct(error: "any")
+        sut.didFailPurchasing(product, error: "any")
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         sut.didStartPurchasing(product)
         sut.didPurchase(product)
@@ -120,8 +121,9 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        sut.didStartPurchasing(createProduct())
-        sut.didFailPurchasingProduct(error: "any")
+        let product = createProduct()
+        sut.didStartPurchasing(product)
+        sut.didFailPurchasing(product, error: "any")
         sut.viewDidStartPurchaseRestoration()
         sut.didRestorePurchases()
 
