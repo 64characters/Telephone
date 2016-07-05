@@ -1,5 +1,5 @@
 //
-//  StoreUseCaseFactory.swift
+//  NullStore.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreUseCaseFactory {
-    func createProductsFetchUseCase(output output: ProductsFetchUseCaseOutput) -> UseCase
-    func createProductPurchaseUseCase(identifier identifier: String) -> UseCase
+import UseCases
+
+struct NullStore: Store {
+    func purchase(product: Product) {}
 }

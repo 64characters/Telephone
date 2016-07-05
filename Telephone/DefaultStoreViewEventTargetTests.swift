@@ -24,7 +24,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     func testExecutesProductsFetchOnFetchProducts() {
         let useCase = UseCaseSpy()
         let factory = StoreUseCaseFactorySpy()
-        factory.stub(withProductsFetchUseCase: useCase)
+        factory.stub(withProductsFetch: useCase)
         let sut = DefaultStoreViewEventTarget(factory: factory, presenter: StoreViewPresenter(output: StoreViewDummy()))
 
         sut.fetchProducts()
@@ -34,7 +34,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
 
     func testShowsProductsFetchProgressOnFetchProducts() {
         let factory = StoreUseCaseFactorySpy()
-        factory.stub(withProductsFetchUseCase: UseCaseSpy())
+        factory.stub(withProductsFetch: UseCaseSpy())
         let view = StoreViewSpy()
         let sut = DefaultStoreViewEventTarget(factory: factory, presenter: StoreViewPresenter(output: view))
 
@@ -65,5 +65,18 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         sut.showProductsFetchError("any")
 
         XCTAssertFalse(view.invokedError.isEmpty)
+    }
+
+    func testExecutesProductPurchaseWithGivenIdentifierOnPurchaseProduct() {
+        let factory = StoreUseCaseFactorySpy()
+        let purchase = UseCaseSpy()
+        factory.stub(withProductPurchase: purchase)
+        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: StoreViewPresenter(output: StoreViewDummy()))
+        let identifier = "any"
+
+        sut.purchaseProduct(withIdentifier: identifier)
+
+        XCTAssertEqual(factory.invokedIdentifier, identifier)
+        XCTAssertTrue(purchase.didCallExecute)
     }
 }

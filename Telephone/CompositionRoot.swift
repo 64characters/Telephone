@@ -62,6 +62,7 @@ class CompositionRoot: NSObject {
         let storeViewEventTarget = DefaultStoreViewEventTarget(
             factory: DefaultStoreUseCaseFactory(
                 products: AsyncProductsFake(target: productsEventTargets),
+                store: NullStore(),
                 targets: productsEventTargets
             ),
             presenter: StoreViewPresenter(output: storeViewController)
