@@ -26,7 +26,7 @@ ProductPurchaseEventTarget, PurchaseRestorationUseCaseOutput {
     func fetchProducts()
     func showProducts(products: [Product])
     func showProductsFetchError(error: String)
-    func purchaseProduct(identifier identifier: String)
+    func purchaseProduct(withIdentifier identifier: String)
     func showPurchaseProgress()
     func showPurchaseError(error: String)
     func restorePurchases()

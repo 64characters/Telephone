@@ -46,7 +46,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showProductsFetchError(error)
     }
 
-    func purchaseProduct(identifier identifier: String) {}
+    func purchaseProduct(withIdentifier identifier: String) {}
     func showPurchaseProgress() {}
     func showPurchaseError(error: String) {}
     func restorePurchases() {}

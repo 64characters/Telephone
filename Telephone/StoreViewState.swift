@@ -136,7 +136,7 @@ class StoreViewStateFetching: StoreViewState {
 
 class StoreViewStateFetched: StoreViewState {
     override func viewDidMakePurchase(machine machine: StoreViewStateMachine, product: PresentationProduct) {
-        machine.purchaseProduct(identifier: product.identifier)
+        machine.purchaseProduct(withIdentifier: product.identifier)
     }
 
     override func didStartPurchasing(machine machine: StoreViewStateMachine, product: Product) {
@@ -197,7 +197,7 @@ class StoreViewStatePurchased: StoreViewState {
 
 class StoreViewStatePurchaseError: StoreViewState {
     override func viewDidMakePurchase(machine machine: StoreViewStateMachine, product: PresentationProduct) {
-        machine.purchaseProduct(identifier: product.identifier)
+        machine.purchaseProduct(withIdentifier: product.identifier)
     }
 
     override func didStartPurchasing(machine machine: StoreViewStateMachine, product: Product) {

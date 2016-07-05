@@ -215,7 +215,7 @@ extension StoreViewStateMachineTests {
         actions.appendContentsOf("Fe")
     }
 
-    func purchaseProduct(identifier identifier: String) {
+    func purchaseProduct(withIdentifier identifier: String) {
         actions.appendContentsOf("P\(identifier)")
     }
 
