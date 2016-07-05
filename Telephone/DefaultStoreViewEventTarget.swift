@@ -17,10 +17,10 @@
 //
 
 class DefaultStoreViewEventTarget {
+    private(set) var state: StoreViewState = StoreViewStateNoProducts()
+
     private let factory: StoreUseCaseFactory
     private let presenter: StoreViewPresenter
-
-    private(set) var state: StoreViewState = StoreViewStateNoProducts()
 
     init(factory: StoreUseCaseFactory, presenter: StoreViewPresenter) {
         self.factory = factory
