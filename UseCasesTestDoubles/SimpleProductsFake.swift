@@ -1,5 +1,5 @@
 //
-//  SuccessfulFetchProductsFake.swift
+//  SimpleProductsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,22 +18,18 @@
 
 import UseCases
 
-public final class SuccessfulFetchProductsFake {
-    public var all: [Product] { return origin.all }
-    private let origin: Products = SimpleProductsFake()
-    private let target: ProductsEventTarget
+public struct SimpleProductsFake: Products {
+    public var all: [Product] { return Array(products.values) }
+    private let products: [String: Product] = [
+        "123": Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
+        "456": Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
+    ]
 
-    public init(target: ProductsEventTarget) {
-        self.target = target
-    }
-}
+    public init() {}
 
-extension SuccessfulFetchProductsFake: Products {
     public subscript(identifier: String) -> Product? {
-        return origin[identifier]
+        return products[identifier]
     }
 
-    public func fetch() {
-        target.productsDidFetch()
-    }
+    public func fetch() {}
 }

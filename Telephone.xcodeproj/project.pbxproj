@@ -93,6 +93,7 @@
 		8A9D922D1D2AC9B900491D59 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D922C1D2AC9B900491D59 /* Products.swift */; };
 		8A9D922F1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D922E1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift */; };
 		8A9D92311D2AE79300491D59 /* FailingFetchProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92301D2AE79300491D59 /* FailingFetchProductsFake.swift */; };
+		8A9D92331D2BF9D000491D59 /* SimpleProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
 		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
@@ -514,6 +515,7 @@
 		8A9D922C1D2AC9B900491D59 /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		8A9D922E1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessfulFetchProductsFake.swift; sourceTree = "<group>"; };
 		8A9D92301D2AE79300491D59 /* FailingFetchProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingFetchProductsFake.swift; sourceTree = "<group>"; };
+		8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleProductsFake.swift; sourceTree = "<group>"; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
@@ -1361,6 +1363,7 @@
 				AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */,
 				8A7874F31C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift */,
 				AA1019741C48065700869D01 /* RingtoneSpy.swift */,
+				8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */,
 				AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */,
 				8A0451E51C93308000A08012 /* SoundPlaybackUseCaseSpy.swift */,
 				AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */,
@@ -2185,6 +2188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7F6D2D1C0217020064DA3A /* UseCaseSpy.swift in Sources */,
+				8A9D92331D2BF9D000491D59 /* SimpleProductsFake.swift in Sources */,
 				AA7F6D2F1C0217020064DA3A /* ThrowingUseCaseSpy.swift in Sources */,
 				8A7874F41C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift in Sources */,
 				8ADD6A5F1CDCFFC4001EDBBA /* StoreUseCaseFactorySpy.swift in Sources */,
