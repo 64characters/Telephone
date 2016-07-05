@@ -29,6 +29,10 @@ public final class FailingFetchProductsFake {
 }
 
 extension FailingFetchProductsFake: Products {
+    public subscript(identifier: String) -> Product? {
+        return nil
+    }
+
     public func fetch() {
         target.productsDidFailFetching(withError: "error")
     }

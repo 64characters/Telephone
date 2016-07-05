@@ -26,6 +26,10 @@ class AsyncFailingProductsFake {
 }
 
 extension AsyncFailingProductsFake: Products {
+    subscript(identifier: String) -> Product? {
+        return nil
+    }
+
     func fetch() {
         dispatch_after(
             dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),

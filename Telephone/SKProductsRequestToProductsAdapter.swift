@@ -20,7 +20,8 @@ import StoreKit
 import UseCases
 
 class SKProductsRequestToProductsAdapter: NSObject {
-    var all: [Product] = []
+    var all: [Product] { return Array(products.values) }
+    private var products: [String: Product] = [:]
     private var request: SKProductsRequest?
 
     private let identifiers: [String]
@@ -33,6 +34,10 @@ class SKProductsRequestToProductsAdapter: NSObject {
 }
 
 extension SKProductsRequestToProductsAdapter: Products {
+    subscript(identifier: String) -> Product? {
+        return products[identifier]
+    }
+
     func fetch() {
         request?.cancel()
         request = SKProductsRequest(productIdentifiers: Set(identifiers))
@@ -44,7 +49,7 @@ extension SKProductsRequestToProductsAdapter: Products {
 extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
     func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.all = productsWithStoreKitProducts(response.products)
+            self.products = identifierToProduct(fromProducts: productsWithStoreKitProducts(response.products))
             self.target.productsDidFetch()
         }
     }
@@ -97,4 +102,10 @@ private func productsWithStoreKitProducts(products: [SKProduct]) -> [Product] {
 
 private func descriptionOf(error: NSError?) -> String {
     return error?.localizedDescription ?? "Unknown error"
+}
+
+private func identifierToProduct(fromProducts products: [Product]) -> [String: Product] {
+    var result: [String: Product] = [:]
+    products.forEach { result[$0.identifier] = $0 }
+    return result
 }

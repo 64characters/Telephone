@@ -19,19 +19,20 @@
 import UseCases
 
 class AsyncProductsFake {
-    let all: [Product]
+    var all: [Product] { return Array(products.values) }
+    private let products: [String: Product]
     private let target: ProductsEventTarget
     private var attempts = 0
 
     init(target: ProductsEventTarget) {
-        all = [
-            Product(
+        products = [
+            "123": Product(
                 identifier: "123",
                 name: "1 Month",
                 price: NSDecimalNumber(mantissa: 99, exponent: -2, isNegative: false),
                 localizedPrice: "$0.99"
             ),
-            Product(
+            "456": Product(
                 identifier: "456",
                 name: "12 Months",
                 price: NSDecimalNumber(mantissa: 1099, exponent: -2, isNegative: false),
@@ -43,6 +44,10 @@ class AsyncProductsFake {
 }
 
 extension AsyncProductsFake: Products {
+    subscript(identifier: String) -> Product? {
+        return products[identifier]
+    }
+
     func fetch() {
         attempts += 1
         dispatch_after(

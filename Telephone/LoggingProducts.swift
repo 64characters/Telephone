@@ -26,6 +26,11 @@ class LoggingProducts {
 }
 
 extension LoggingProducts: Products {
+    subscript(identifier: String) -> Product? {
+        print("Getting product by identifier \(identifier)")
+        return origin[identifier]
+    }
+
     func fetch() {
         print("Fetching products")
         origin.fetch()

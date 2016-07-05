@@ -18,6 +18,7 @@
 
 public protocol Products {
     var all: [Product] { get }
+    subscript(identifier: String) -> Product? { get }
     func fetch()
 }
 

@@ -19,19 +19,24 @@
 import UseCases
 
 public final class SuccessfulFetchProductsFake {
-    public private(set) var all: [Product]
+    public var all: [Product] { return Array(products.values) }
+    private let products: [String: Product]
     private let target: ProductsEventTarget
 
     public init(target: ProductsEventTarget) {
-        all = [
-            Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
-            Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
+        products = [
+            "123": Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
+            "456": Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
         ]
         self.target = target
     }
 }
 
 extension SuccessfulFetchProductsFake: Products {
+    public subscript(identifier: String) -> Product? {
+        return products[identifier]
+    }
+
     public func fetch() {
         target.productsDidFetch()
     }
