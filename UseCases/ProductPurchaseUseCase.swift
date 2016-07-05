@@ -17,17 +17,19 @@
 //
 
 public class ProductPurchaseUseCase {
-    private let product: Product
+    private let identifier: String
+    private let products: Products
     private let store: Store
 
-    public init(product: Product, store: Store) {
-        self.product = product
+    public init(identifier: String, products: Products, store: Store) {
+        self.identifier = identifier
+        self.products = products
         self.store = store
     }
 }
 
 extension ProductPurchaseUseCase: UseCase {
     public func execute() {
-        store.purchase(product)
+        store.purchase(products[identifier]!)
     }
 }

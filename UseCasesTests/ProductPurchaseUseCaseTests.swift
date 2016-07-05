@@ -21,10 +21,11 @@ import UseCases
 import UseCasesTestDoubles
 
 class ProductPurchaseUseCaseTests: XCTestCase {
-    func testPurchasesSpecifiedProductOnExecute() {
-        let product = Product(identifier: "1", name: "product", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
+    func testPurchasesProductWithGivenIdentifierOnExecute() {
+        let products = SimpleProductsFake()
+        let product = products.all.first!
         let store = StoreSpy()
-        let sut = ProductPurchaseUseCase(product: product, store: store)
+        let sut = ProductPurchaseUseCase(identifier: product.identifier, products: products, store: store)
 
         sut.execute()
 
