@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  StoreSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let product: Product
-    private let store: Store
+import UseCases
 
-    public init(product: Product, store: Store) {
-        self.product = product
-        self.store = store
+public final class StoreSpy {
+    public private(set) var invokedProduct: Product
+
+    public init() {
+        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero(), localizedPrice: "$0")
     }
 }
 
-extension ProductPurchaseUseCase: UseCase {
-    public func execute() {
-        store.purchase(product)
+extension StoreSpy: Store {
+    public func purchase(product: Product) {
+        invokedProduct = product
     }
 }

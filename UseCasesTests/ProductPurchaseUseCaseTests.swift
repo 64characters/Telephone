@@ -23,11 +23,11 @@ import UseCasesTestDoubles
 class ProductPurchaseUseCaseTests: XCTestCase {
     func testPurchasesSpecifiedProductOnExecute() {
         let product = Product(identifier: "1", name: "product", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
-        let client = StoreClientSpy()
-        let sut = ProductPurchaseUseCase(product: product, client: client)
+        let store = StoreSpy()
+        let sut = ProductPurchaseUseCase(product: product, store: store)
 
         sut.execute()
 
-        XCTAssertEqual(client.invokedProduct, product)
+        XCTAssertEqual(store.invokedProduct, product)
     }
 }

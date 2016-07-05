@@ -1,5 +1,5 @@
 //
-//  LoggingStoreClient.swift
+//  LoggingProducts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-class LoggingStoreClient {
-    private let origin: StoreClient
+class LoggingProducts {
+    var all: [Product] { return origin.all }
+    private let origin: Products
 
-    init(origin: StoreClient) {
+    init(origin: Products) {
         self.origin = origin
     }
 }
 
-extension LoggingStoreClient: StoreClient {
-    func fetchProducts(withIdentifiers identifiers: [String]) {
-        print("Fetching products: \(identifiers)")
-        origin.fetchProducts(withIdentifiers: identifiers)
-    }
-
-    func purchase(product: Product) {
-        fatalError()
+extension LoggingProducts: Products {
+    func fetch() {
+        print("Fetching products")
+        origin.fetch()
     }
 }

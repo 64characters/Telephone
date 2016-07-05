@@ -1,5 +1,5 @@
 //
-//  DefaultStoreClient.swift
+//  SKProductsRequestToProductsAdapter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,37 +19,38 @@
 import StoreKit
 import UseCases
 
-class DefaultStoreClient: NSObject {
-    private let target: StoreClientEventTarget
+class SKProductsRequestToProductsAdapter: NSObject {
+    var all: [Product] = []
     private var request: SKProductsRequest?
 
-    init(target: StoreClientEventTarget) {
+    private let identifiers: [String]
+    private let target: ProductsEventTarget
+
+    init(identifiers: [String], target: ProductsEventTarget) {
+        self.identifiers = identifiers
         self.target = target
     }
 }
 
-extension DefaultStoreClient: StoreClient {
-    func fetchProducts(withIdentifiers identifiers: [String]) {
+extension SKProductsRequestToProductsAdapter: Products {
+    func fetch() {
         request?.cancel()
         request = SKProductsRequest(productIdentifiers: Set(identifiers))
         request!.delegate = self
         request!.start()
     }
-
-    func purchase(product: Product) {
-        fatalError()
-    }
 }
 
-extension DefaultStoreClient: SKProductsRequestDelegate {
+extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
     func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.target.storeClient(self, didFetchProducts: productsWithStoreKitProducts(response.products))
+            self.all = productsWithStoreKitProducts(response.products)
+            self.target.productsDidFetch()
         }
     }
 }
 
-extension DefaultStoreClient: SKRequestDelegate {
+extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
     func requestDidFinish(request: SKRequest) {
         dispatch_async(dispatch_get_main_queue()) {
             self.forgetProductsRequest(request)
@@ -66,7 +67,7 @@ extension DefaultStoreClient: SKRequestDelegate {
 
     private func notifyEventTargetAboutProductFetchFailure(request request: SKRequest, error: String) {
         if request === self.request {
-            target.storeClient(self, didFailFetchingProductsWithError: error)
+            self.target.productsDidFailFetching(withError: error)
         }
     }
 

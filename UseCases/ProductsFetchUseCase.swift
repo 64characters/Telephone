@@ -22,14 +22,12 @@ public protocol ProductsFetchUseCaseOutput: class {
 }
 
 public class ProductsFetchUseCase {
-    private let identifiers: [String]
-    private let client: StoreClient
-    private let targets: StoreClientEventTargets
+    private let products: Products
+    private let targets: ProductsEventTargets
     private let output: ProductsFetchUseCaseOutput
 
-    public init(productIdentifiers: [String], client: StoreClient, targets: StoreClientEventTargets, output: ProductsFetchUseCaseOutput) {
-        identifiers = productIdentifiers
-        self.client = client
+    public init(products: Products, targets: ProductsEventTargets, output: ProductsFetchUseCaseOutput) {
+        self.products = products
         self.targets = targets
         self.output = output
     }
@@ -38,17 +36,17 @@ public class ProductsFetchUseCase {
 extension ProductsFetchUseCase: UseCase {
     public func execute() {
         targets.addTarget(self)
-        client.fetchProducts(withIdentifiers: identifiers)
+        products.fetch()
     }
 }
 
-extension ProductsFetchUseCase: StoreClientEventTarget {
-    public func storeClient(storeClient: StoreClient, didFetchProducts products: [Product]) {
-        output.didFetchProducts(products)
+extension ProductsFetchUseCase: ProductsEventTarget {
+    public func productsDidFetch() {
+        output.didFetchProducts(products.all)
         targets.removeTarget(self)
     }
 
-    public func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError error: String) {
+    public func productsDidFailFetching(withError error: String) {
         output.didFailFetchingProducts(error: error)
         targets.removeTarget(self)
     }

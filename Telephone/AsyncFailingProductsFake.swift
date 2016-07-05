@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  AsyncFailingProductsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,25 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let product: Product
-    private let store: Store
+class AsyncFailingProductsFake {
+    let all: [Product] = []
+    private let target: ProductsEventTarget
 
-    public init(product: Product, store: Store) {
-        self.product = product
-        self.store = store
+    init(target: ProductsEventTarget) {
+        self.target = target
     }
 }
 
-extension ProductPurchaseUseCase: UseCase {
-    public func execute() {
-        store.purchase(product)
+extension AsyncFailingProductsFake: Products {
+    func fetch() {
+        dispatch_after(
+            dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
+            dispatch_get_main_queue(),
+            notifyTarget
+        )
+    }
+
+    private func notifyTarget() {
+        target.productsDidFailFetching(withError: "Network is unreachable.")
     }
 }

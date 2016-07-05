@@ -21,81 +21,44 @@ import UseCasesTestDoubles
 import XCTest
 
 class ProductsFetchUseCaseTests: XCTestCase {
-    func testUsesConfiguredIdentifiersWhenFetching() {
-        let identifiers = ["any1", "any2"]
-        let client = StoreClientSpy()
-        let sut = ProductsFetchUseCase(
-            productIdentifiers: identifiers,
-            client: client,
-            targets: StoreClientEventTargets(),
-            output: ProductsFetchUseCaseOutputSpy()
-        )
+    func testCallsOutputWithFetchedProducts() {
+        let targets = ProductsEventTargets()
+        let products = SuccessfulFetchProductsFake(target: targets)
+        let output = ProductsFetchUseCaseOutputSpy();
+        let sut = ProductsFetchUseCase(products: products, targets: targets, output: output)
 
         sut.execute()
 
-        XCTAssertEqual(client.invokedIdentifiers, identifiers)
-    }
-
-    func testCallsOutputWithFetchedProducts() {
-        let client = StoreClientSpy()
-        let output = ProductsFetchUseCaseOutputSpy();
-        let sut = ProductsFetchUseCase(
-            productIdentifiers: [], client: client, targets: StoreClientEventTargets(), output: output
-        )
-        let products = [
-            Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
-            Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
-        ]
-
-        sut.storeClient(client, didFetchProducts: products)
-
-        XCTAssertEqual(output.invokedProducts, products)
+        XCTAssertEqual(output.invokedProducts, products.all)
     }
 
     func testCallsOutputWithErrorMessageWhenProductFetchFails() {
-        let client = StoreClientSpy()
+        let targets = ProductsEventTargets()
+        let products = FailingFetchProductsFake(target: targets)
         let output = ProductsFetchUseCaseOutputSpy();
-        let sut = ProductsFetchUseCase(
-            productIdentifiers: [], client: client, targets: StoreClientEventTargets(), output: output
-        )
-        let error = "any"
-
-        sut.storeClient(client, didFailFetchingProductsWithError: error)
-
-        XCTAssertEqual(output.invokedError, error)
-    }
-
-    func testAddsItselfToEventTargetsOnExecution() {
-        let targets = StoreClientEventTargets()
-        let sut = ProductsFetchUseCase(
-            productIdentifiers: [], client: StoreClientSpy(), targets: targets, output: ProductsFetchUseCaseOutputSpy()
-        )
+        let sut = ProductsFetchUseCase(products: products, targets: targets, output: output)
 
         sut.execute()
 
-        XCTAssertTrue(targets[0] === sut)
+        XCTAssertEqual(output.invokedError, products.error)
     }
 
-    func testRemovesItselfFromEventTargetsOnFetchSuccess() {
-        let targets = StoreClientEventTargets()
-        let sut = ProductsFetchUseCase(
-            productIdentifiers: [], client: StoreClientSpy(), targets: targets, output: ProductsFetchUseCaseOutputSpy()
-        )
-        sut.execute()
+    func testRemovesItselfFromTargetsOnFetchSuccess() {
+        let targets = ProductsEventTargets()
+        let products = SuccessfulFetchProductsFake(target: targets)
+        let sut = ProductsFetchUseCase(products: products, targets: targets, output: ProductsFetchUseCaseOutputSpy())
 
-        sut.storeClient(StoreClientSpy(), didFetchProducts: [])
+        sut.execute()
 
         XCTAssertEqual(targets.count, 0)
     }
 
-    func testRemovesItselfFromEventTargetsOnFetchFailure() {
-        let targets = StoreClientEventTargets()
-        let sut = ProductsFetchUseCase(
-            productIdentifiers: [], client: StoreClientSpy(), targets: targets, output: ProductsFetchUseCaseOutputSpy()
-        )
+    func testRemovesItselfFromTargetsOnFetchFailure() {
+        let targets = ProductsEventTargets()
+        let products = FailingFetchProductsFake(target: targets)
+        let sut = ProductsFetchUseCase(products: products, targets: targets, output: ProductsFetchUseCaseOutputSpy())
+        
         sut.execute()
-
-        sut.storeClient(StoreClientSpy(), didFailFetchingProductsWithError: "any")
 
         XCTAssertEqual(targets.count, 0)
     }

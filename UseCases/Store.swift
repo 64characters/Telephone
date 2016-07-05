@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  Store.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let product: Product
-    private let store: Store
-
-    public init(product: Product, store: Store) {
-        self.product = product
-        self.store = store
-    }
-}
-
-extension ProductPurchaseUseCase: UseCase {
-    public func execute() {
-        store.purchase(product)
-    }
+public protocol Store {
+    func purchase(product: Product)
 }

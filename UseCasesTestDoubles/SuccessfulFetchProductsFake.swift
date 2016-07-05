@@ -1,5 +1,5 @@
 //
-//  FailingStoreClient.swift
+//  SuccessfulFetchProductsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,28 +16,23 @@
 //  GNU General Public License for more details.
 //
 
-class FailingStoreClient {
-    private let target: StoreClientEventTarget
+import UseCases
 
-    init(target: StoreClientEventTarget) {
+public final class SuccessfulFetchProductsFake {
+    public private(set) var all: [Product]
+    private let target: ProductsEventTarget
+
+    public init(target: ProductsEventTarget) {
+        all = [
+            Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
+            Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
+        ]
         self.target = target
     }
 }
 
-extension FailingStoreClient: StoreClient {
-    func fetchProducts(withIdentifiers identifiers: [String]) {
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
-            dispatch_get_main_queue(),
-            notifyTarget
-        )
-    }
-
-    func purchase(product: Product) {
-        fatalError()
-    }
-
-    private func notifyTarget() {
-        target.storeClient(self, didFailFetchingProductsWithError: "Network is unreachable.")
+extension SuccessfulFetchProductsFake: Products {
+    public func fetch() {
+        target.productsDidFetch()
     }
 }

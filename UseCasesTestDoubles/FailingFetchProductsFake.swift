@@ -1,5 +1,5 @@
 //
-//  StoreClientSpy.swift
+//  FailingFetchProductsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,18 @@
 
 import UseCases
 
-public class StoreClientSpy {
-    public private(set) var invokedIdentifiers: [String] = []
-    public private(set) var invokedProduct: Product
+public final class FailingFetchProductsFake {
+    public private(set) var all: [Product] = []
+    public let error = "error"
+    private let target: ProductsEventTarget
 
-    public init() {
-        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero(), localizedPrice: "$0")
+    public init(target: ProductsEventTarget) {
+        self.target = target
     }
 }
 
-extension StoreClientSpy: StoreClient {
-    public func fetchProducts(withIdentifiers identifiers: [String]) {
-        invokedIdentifiers = identifiers
-    }
-
-    public func purchase(product: Product) {
-        invokedProduct = product
+extension FailingFetchProductsFake: Products {
+    public func fetch() {
+        target.productsDidFailFetching(withError: "error")
     }
 }

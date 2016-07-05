@@ -1,5 +1,5 @@
 //
-//  StoreClientEventTargets.swift
+//  ProductsEventTargets.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,38 +16,38 @@
 //  GNU General Public License for more details.
 //
 
-public class StoreClientEventTargets {
+public class ProductsEventTargets {
     public var count: Int {
         return targets.count
     }
 
-    public subscript(index: Int) -> StoreClientEventTarget? {
+    public subscript(index: Int) -> ProductsEventTarget? {
         get {
             return targets[index]
         }
     }
 
-    private var targets: [StoreClientEventTarget] = []
+    private var targets: [ProductsEventTarget] = []
 
     public init() {}
 
-    public func addTarget(target: StoreClientEventTarget) {
+    public func addTarget(target: ProductsEventTarget) {
         targets.append(target)
     }
 
-    public func removeTarget(target: StoreClientEventTarget) {
+    public func removeTarget(target: ProductsEventTarget) {
         if let index = targets.indexOf({ $0 === target }) {
             targets.removeAtIndex(index)
         }
     }
 }
 
-extension StoreClientEventTargets: StoreClientEventTarget {
-    public func storeClient(storeClient: StoreClient, didFetchProducts products: [Product]) {
-        targets.forEach { $0.storeClient(storeClient, didFetchProducts: products) }
+extension ProductsEventTargets: ProductsEventTarget {
+    public func productsDidFetch() {
+        targets.forEach() { $0.productsDidFetch() }
     }
 
-    public func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError error: String) {
-        targets.forEach { $0.storeClient(storeClient, didFailFetchingProductsWithError: error) }
+    public func productsDidFailFetching(withError error: String) {
+        targets.forEach { $0.productsDidFailFetching(withError: error) }
     }
 }
