@@ -22,6 +22,7 @@ import UseCases
 class SKProductsRequestToProductsAdapter: NSObject {
     var all: [Product] { return Array(products.values) }
     private var products: [String: Product] = [:]
+    private var storeKitProducts: [Product: SKProduct] = [:]
     private var request: SKProductsRequest?
 
     private let identifiers: [String]
@@ -46,10 +47,16 @@ extension SKProductsRequestToProductsAdapter: Products {
     }
 }
 
+extension SKProductsRequestToProductsAdapter: StoreKitProducts {
+    subscript(product: Product) -> SKProduct? {
+        return storeKitProducts[product]
+    }
+}
+
 extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
     func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.products = identifierToProduct(fromProducts: productsWithStoreKitProducts(response.products))
+            (self.products, self.storeKitProducts) = productMaps(withProducts: response.products)
             self.target.productsDidFetch()
         }
     }
@@ -83,21 +90,26 @@ extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
     }
 }
 
-private func productsWithStoreKitProducts(products: [SKProduct]?) -> [Product] {
+private func productMaps(withProducts products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
     if let products = products {
-        return productsWithStoreKitProducts(products)
+        return productMaps(withProducts: products)
     } else {
-        return []
+        return ([:], [:])
     }
 }
 
-private func productsWithStoreKitProducts(products: [SKProduct]) -> [Product] {
+private func productMaps(withProducts products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
+    var idToProduct: [String: Product] = [:]
+    var productToSKProduct: [Product: SKProduct] = [:]
     let formatter = NSNumberFormatter()
     formatter.numberStyle = .CurrencyStyle
-    return products.map { product in
-        formatter.locale = product.priceLocale
-        return Product(product: product, formatter: formatter)
+    for skProduct in products {
+        formatter.locale = skProduct.priceLocale
+        let product = Product(product: skProduct, formatter: formatter)
+        idToProduct[product.identifier] = product
+        productToSKProduct[product] = skProduct
     }
+    return (idToProduct, productToSKProduct)
 }
 
 private func descriptionOf(error: NSError?) -> String {
