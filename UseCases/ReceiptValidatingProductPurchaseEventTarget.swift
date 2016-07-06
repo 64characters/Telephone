@@ -42,6 +42,10 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
     public func didFailPurchasing(product: Product, error: String) {
         origin.didFailPurchasing(product, error: error)
     }
+
+    public func didFailPurchasing(product: Product) {
+        origin.didFailPurchasing(product)
+    }
 }
 
 private func receiptValidationError() -> String {

@@ -82,6 +82,10 @@ class StoreViewState {
         print("\(#function) is not supported for \(self)")
     }
 
+    func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product)  {
+        print("\(#function) is not supported for \(self)")
+    }
+
     func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
@@ -186,6 +190,10 @@ class StoreViewStatePurchasing: StoreViewState {
     override func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product, error: String) {
         machine.changeState(StoreViewStatePurchaseError())
         machine.showPurchaseError(error)
+    }
+
+    override func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product) {
+        machine.changeState(StoreViewStatePurchaseError())
     }
 }
 

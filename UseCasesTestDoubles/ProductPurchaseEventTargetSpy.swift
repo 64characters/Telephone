@@ -47,4 +47,9 @@ extension ProductPurchaseEventTargetSpy: ProductPurchaseEventTarget {
         invokedProduct = product
         invokedError = error
     }
+
+    public func didFailPurchasing(product: Product) {
+        didCallDidFailPurchasing = true
+        invokedProduct = product
+    }
 }

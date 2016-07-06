@@ -53,7 +53,7 @@ class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
         XCTAssertEqual(origin.invokedProduct, product)
     }
 
-    func testCallsDidFailPurchasingProductOnOriginOnDidFailPurchasingProduct() {
+    func testCallsDidFailPurchasingProductWithErrorOnOriginOnDidFailPurchasingProductWithError() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
         let product = createProduct()
@@ -64,6 +64,18 @@ class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
         XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertEqual(origin.invokedProduct, product)
         XCTAssertEqual(origin.invokedError, error)
+    }
+
+    func testCallsDidFailPurchasingProductOnOriginOnDidFailPurchasingProduct() {
+        let origin = ProductPurchaseEventTargetSpy()
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
+        let product = createProduct()
+
+        sut.didFailPurchasing(product)
+
+        XCTAssertTrue(origin.didCallDidFailPurchasing)
+        XCTAssertEqual(origin.invokedProduct, product)
+        XCTAssertTrue(origin.invokedError.isEmpty)
     }
 }
 
