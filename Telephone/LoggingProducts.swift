@@ -17,7 +17,6 @@
 //
 
 class LoggingProducts {
-    var all: [Product] { return origin.all }
     private let origin: Products
 
     init(origin: Products) {
@@ -26,6 +25,10 @@ class LoggingProducts {
 }
 
 extension LoggingProducts: Products {
+    var all: [Product] {
+        return origin.all
+    }
+
     subscript(identifier: String) -> Product? {
         print("Getting product by identifier \(identifier)")
         return origin[identifier]

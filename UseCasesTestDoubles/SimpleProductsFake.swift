@@ -18,14 +18,19 @@
 
 import UseCases
 
-public struct SimpleProductsFake: Products {
-    public var all: [Product] { return Array(products.values) }
+public struct SimpleProductsFake {
     private let products: [String: Product] = [
         "123": Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100"),
         "456": Product(identifier: "456", name: "product2", price: NSDecimalNumber(integer: 200), localizedPrice: "$200")
     ]
 
     public init() {}
+}
+
+extension SimpleProductsFake: Products {
+    public var all: [Product] {
+        return Array(products.values)
+    }
 
     public subscript(identifier: String) -> Product? {
         return products[identifier]

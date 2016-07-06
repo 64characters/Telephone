@@ -19,7 +19,6 @@
 import UseCases
 
 public final class SuccessfulFetchProductsFake {
-    public var all: [Product] { return origin.all }
     private let origin: Products = SimpleProductsFake()
     private let target: ProductsEventTarget
 
@@ -29,6 +28,10 @@ public final class SuccessfulFetchProductsFake {
 }
 
 extension SuccessfulFetchProductsFake: Products {
+    public var all: [Product] {
+        return origin.all
+    }
+
     public subscript(identifier: String) -> Product? {
         return origin[identifier]
     }

@@ -19,7 +19,6 @@
 import UseCases
 
 class AsyncProductsFake {
-    var all: [Product] { return Array(products.values) }
     private let products: [String: Product]
     private let target: ProductsEventTarget
     private var attempts = 0
@@ -44,6 +43,10 @@ class AsyncProductsFake {
 }
 
 extension AsyncProductsFake: Products {
+    var all: [Product] {
+        return Array(products.values)
+    }
+
     subscript(identifier: String) -> Product? {
         return products[identifier]
     }

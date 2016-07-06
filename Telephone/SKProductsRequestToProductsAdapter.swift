@@ -20,7 +20,6 @@ import StoreKit
 import UseCases
 
 class SKProductsRequestToProductsAdapter: NSObject {
-    var all: [Product] { return Array(products.values) }
     private var products: [String: Product] = [:]
     private var storeKitProducts: [Product: SKProduct] = [:]
     private var request: SKProductsRequest?
@@ -35,6 +34,10 @@ class SKProductsRequestToProductsAdapter: NSObject {
 }
 
 extension SKProductsRequestToProductsAdapter: Products {
+    var all: [Product] {
+        return Array(products.values)
+    }
+
     subscript(identifier: String) -> Product? {
         return products[identifier]
     }
