@@ -20,7 +20,7 @@ import UseCases
 
 public class StoreUseCaseFactorySpy {
     private var fetch: UseCase!
-    private var purchase: UseCase!
+    private var purchase: ThrowingUseCase!
 
     public private(set) var invokedIdentifier = ""
 
@@ -30,7 +30,7 @@ public class StoreUseCaseFactorySpy {
         self.fetch = fetch
     }
 
-    public func stub(withProductPurchase purchase: UseCase) {
+    public func stub(withProductPurchase purchase: ThrowingUseCase) {
         self.purchase = purchase
     }
 }
@@ -40,7 +40,7 @@ extension StoreUseCaseFactorySpy: StoreUseCaseFactory {
         return fetch
     }
 
-    public func createProductPurchaseUseCase(identifier identifier: String) -> UseCase {
+    public func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase {
         invokedIdentifier = identifier
         return purchase
     }

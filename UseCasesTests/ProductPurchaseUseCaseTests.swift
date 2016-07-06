@@ -27,7 +27,7 @@ class ProductPurchaseUseCaseTests: XCTestCase {
         let store = StoreSpy()
         let sut = ProductPurchaseUseCase(identifier: product.identifier, products: products, store: store)
 
-        sut.execute()
+        try! sut.execute()
 
         XCTAssertEqual(store.invokedProduct, product)
     }

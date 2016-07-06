@@ -17,5 +17,5 @@
 //
 
 public protocol Store {
-    func purchase(product: Product)
+    func purchase(product: Product) throws
 }

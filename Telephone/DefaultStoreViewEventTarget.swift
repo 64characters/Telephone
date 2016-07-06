@@ -47,7 +47,11 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func purchaseProduct(withIdentifier identifier: String) {
-        factory.createProductPurchaseUseCase(identifier: identifier).execute()
+        do {
+            try factory.createProductPurchaseUseCase(identifier: identifier).execute()
+        } catch {
+            print("Could not make purchase: \(error)")
+        }
     }
 
     func showPurchaseProgress() {}

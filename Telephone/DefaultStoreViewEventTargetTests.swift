@@ -69,7 +69,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
 
     func testExecutesProductPurchaseWithGivenIdentifierOnPurchaseProduct() {
         let factory = StoreUseCaseFactorySpy()
-        let purchase = UseCaseSpy()
+        let purchase = ThrowingUseCaseSpy()
         factory.stub(withProductPurchase: purchase)
         let sut = DefaultStoreViewEventTarget(factory: factory, presenter: StoreViewPresenter(output: StoreViewDummy()))
         let identifier = "any"
