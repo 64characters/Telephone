@@ -79,4 +79,13 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         XCTAssertEqual(factory.invokedIdentifier, identifier)
         XCTAssertTrue(purchase.didCallExecute)
     }
+
+    func testShowsPurchaseProgressOnShowPurchaseProgress() {
+        let view = StoreViewSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: StoreViewPresenter(output: view))
+
+        sut.showPurchaseProgress()
+
+        XCTAssertTrue(view.didCallShowPurchaseProgress)
+    }
 }

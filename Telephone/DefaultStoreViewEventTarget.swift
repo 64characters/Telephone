@@ -54,7 +54,9 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         }
     }
 
-    func showPurchaseProgress() {}
+    func showPurchaseProgress() {
+        presenter.showPurchaseProgress()
+    }
     func showPurchaseError(error: String) {}
     func restorePurchases() {}
     func showPurchaseRestorationError(error: String) {}

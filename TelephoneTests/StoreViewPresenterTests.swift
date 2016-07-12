@@ -73,4 +73,16 @@ class StoreViewPresenterTests: XCTestCase {
 
         XCTAssertTrue(output.didCallEnablePurchaseRestoration)
     }
+
+    func testShowsPurchaseProgressOnShowPurchaseProgress() {
+        sut.showPurchaseProgress()
+
+        XCTAssertTrue(output.didCallShowPurchaseProgress)
+    }
+
+    func testDisablesPurchaseRestorationOnShowPurchaseProgress() {
+        sut.showPurchaseProgress()
+
+        XCTAssertTrue(output.didCallDisablePurchaseRestoration)
+    }
 }

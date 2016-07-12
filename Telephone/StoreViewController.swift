@@ -70,6 +70,10 @@ extension StoreViewController: StoreView {
         showInProductsContentView(progressView)
     }
 
+    func showPurchaseProgress() {
+
+    }
+
     private func showInProductsContentView(view: NSView) {
         productsContentView.subviews.forEach { $0.removeFromSuperview() }
         productsContentView.addSubview(view)
