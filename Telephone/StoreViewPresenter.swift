@@ -16,6 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+protocol StoreViewPresenter {
+    func showProducts(products: [Product])
+    func showProductsFetchError(error: String)
+    func showProductsFetchProgress()
+    func showPurchaseProgress()
+}
+
 protocol StoreViewPresenterOutput {
     func showProducts(products: [PresentationProduct])
     func showProductsFetchError(error: String)
@@ -23,43 +30,4 @@ protocol StoreViewPresenterOutput {
     func showPurchaseProgress()
     func disablePurchaseRestoration()
     func enablePurchaseRestoration()
-}
-
-class StoreViewPresenter {
-    private let output: StoreViewPresenterOutput
-
-    init(output: StoreViewPresenterOutput) {
-        self.output = output
-    }
-
-    func showProducts(products: [Product]) {
-        output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
-        output.enablePurchaseRestoration()
-    }
-
-    func showProductsFetchError(error: String) {
-        output.showProductsFetchError(productsFetchError(withError: error))
-        output.enablePurchaseRestoration()
-    }
-
-    func showProductsFetchProgress() {
-        output.showProductsFetchProgress()
-        output.disablePurchaseRestoration()
-    }
-
-    func showPurchaseProgress() {
-        output.showPurchaseProgress()
-        output.disablePurchaseRestoration()
-    }
-}
-
-private func hasLowerPrice(lhs: Product, _ rhs: Product) -> Bool {
-    return lhs.price.compare(rhs.price) == .OrderedAscending
-}
-
-private func productsFetchError(withError error: String) -> String {
-    let prefix = NSLocalizedString(
-        "Could not fetch products", comment: "Products fetch error."
-    )
-    return "\(prefix). \(error)"
 }

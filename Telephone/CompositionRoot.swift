@@ -65,7 +65,7 @@ class CompositionRoot: NSObject {
                 store: NullStore(),
                 targets: productsEventTargets
             ),
-            presenter: StoreViewPresenter(output: storeViewController)
+            presenter: DefaultStoreViewPresenter(output: storeViewController)
         )
         storeViewController.updateEventTarget(storeViewEventTarget)
 

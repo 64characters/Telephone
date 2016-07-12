@@ -1,5 +1,5 @@
 //
-//  StoreViewPresenterTests.swift
+//  DefaultStoreViewPresenterTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,14 +18,14 @@
 
 import XCTest
 
-class StoreViewPresenterTests: XCTestCase {
+class DefaultStoreViewPresenterTests: XCTestCase {
     private var output: StoreViewSpy!
-    private var sut: StoreViewPresenter!
+    private var sut: DefaultStoreViewPresenter!
 
     override func setUp() {
         super.setUp()
         output = StoreViewSpy()
-        sut = StoreViewPresenter(output: output)
+        sut = DefaultStoreViewPresenter(output: output)
     }
 
     func testShowsProductsSortedByPriceOnShowProducts() {
