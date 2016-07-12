@@ -66,12 +66,11 @@ extension StoreViewController: StoreView {
     }
 
     func showProductsFetchProgress() {
-        progressIndicator.startAnimation(self)
-        showInProductsContentView(progressView)
+        showProgress()
     }
 
     func showPurchaseProgress() {
-
+        showProgress()
     }
 
     private func showInProductsContentView(view: NSView) {
@@ -85,5 +84,10 @@ extension StoreViewController: StoreView {
 
     func enablePurchaseRestoration() {
         restorePurchasesButton.enabled = true
+    }
+
+    private func showProgress() {
+        progressIndicator.startAnimation(self)
+        showInProductsContentView(progressView)
     }
 }
