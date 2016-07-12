@@ -73,17 +73,17 @@ extension StoreViewController: StoreView {
         showProgress()
     }
 
-    private func showInProductsContentView(view: NSView) {
-        productsContentView.subviews.forEach { $0.removeFromSuperview() }
-        productsContentView.addSubview(view)
-    }
-
     func disablePurchaseRestoration() {
         restorePurchasesButton.enabled = false
     }
 
     func enablePurchaseRestoration() {
         restorePurchasesButton.enabled = true
+    }
+
+    private func showInProductsContentView(view: NSView) {
+        productsContentView.subviews.forEach { $0.removeFromSuperview() }
+        productsContentView.addSubview(view)
     }
 
     private func showProgress() {
