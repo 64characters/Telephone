@@ -25,7 +25,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         let useCase = UseCaseSpy()
         let factory = StoreUseCaseFactorySpy()
         factory.stub(withProductsFetch: useCase)
-        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: DefaultStoreViewPresenter(output: StoreViewDummy()))
+        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: StoreViewPresenterSpy())
 
         sut.fetchProducts()
 
@@ -35,43 +35,42 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsFetchProgressOnFetchProducts() {
         let factory = StoreUseCaseFactorySpy()
         factory.stub(withProductsFetch: UseCaseSpy())
-        let view = StoreViewSpy()
-        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: DefaultStoreViewPresenter(output: view))
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: presenter)
 
         sut.fetchProducts()
 
-        XCTAssertTrue(view.didCallShowProductsFetchProgress)
+        XCTAssertTrue(presenter.didCallShowProductsFetchProgress)
     }
 
     func testShowsProductsOnShowProducts() {
-        let view = StoreViewSpy()
-        let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), presenter: DefaultStoreViewPresenter(output: view)
-        )
-        let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
-        let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
+        let products = [
+            Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 1), localizedPrice: "$1"),
+            Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
+        ]
 
-        sut.showProducts([product1, product2])
+        sut.showProducts(products)
 
-        XCTAssertEqual(view.invokedProducts, [PresentationProduct(product1), PresentationProduct(product2)])
+        XCTAssertEqual(presenter.invokedProducts, products)
     }
 
     func testShowsProductsFetchErrorOnShowProductsFetchError() {
-        let view = StoreViewSpy()
-        let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), presenter: DefaultStoreViewPresenter(output: view)
-        )
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
+        let error = "any"
 
-        sut.showProductsFetchError("any")
+        sut.showProductsFetchError(error)
 
-        XCTAssertFalse(view.invokedError.isEmpty)
+        XCTAssertEqual(presenter.invokedProductsFetchError, error)
     }
 
     func testExecutesProductPurchaseWithGivenIdentifierOnPurchaseProduct() {
         let factory = StoreUseCaseFactorySpy()
         let purchase = ThrowingUseCaseSpy()
         factory.stub(withProductPurchase: purchase)
-        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: DefaultStoreViewPresenter(output: StoreViewDummy()))
+        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: StoreViewPresenterSpy())
         let identifier = "any"
 
         sut.purchaseProduct(withIdentifier: identifier)
@@ -81,11 +80,11 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     }
 
     func testShowsPurchaseProgressOnShowPurchaseProgress() {
-        let view = StoreViewSpy()
-        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: DefaultStoreViewPresenter(output: view))
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
 
         sut.showPurchaseProgress()
 
-        XCTAssertTrue(view.didCallShowPurchaseProgress)
+        XCTAssertTrue(presenter.didCallShowPurchaseProgress)
     }
 }
