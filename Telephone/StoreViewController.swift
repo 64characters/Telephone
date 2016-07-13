@@ -73,6 +73,10 @@ extension StoreViewController: StoreView {
         showProgress()
     }
 
+    func showPurchaseError(error: String) {
+
+    }
+
     func disablePurchaseRestoration() {
         restorePurchasesButton.enabled = false
     }

@@ -18,6 +18,7 @@
 
 class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
+    private var products: [Product] = []
 
     private let factory: StoreUseCaseFactory
     private let presenter: StoreViewPresenter
@@ -39,6 +40,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func showProducts(products: [Product]) {
+        self.products = products
         presenter.showProducts(products)
     }
 
@@ -57,7 +59,12 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     func showPurchaseProgress() {
         presenter.showPurchaseProgress()
     }
-    func showPurchaseError(error: String) {}
+
+    func showPurchaseError(error: String) {
+        presenter.showProducts(products)
+        presenter.showPurchaseError(error)
+    }
+
     func restorePurchases() {}
     func showPurchaseRestorationError(error: String) {}
     func showThankYou() {}

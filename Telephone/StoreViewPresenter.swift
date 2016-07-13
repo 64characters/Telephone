@@ -21,6 +21,7 @@ protocol StoreViewPresenter {
     func showProductsFetchError(error: String)
     func showProductsFetchProgress()
     func showPurchaseProgress()
+    func showPurchaseError(error: String)
 }
 
 protocol StoreViewPresenterOutput {
@@ -28,6 +29,7 @@ protocol StoreViewPresenterOutput {
     func showProductsFetchError(error: String)
     func showProductsFetchProgress()
     func showPurchaseProgress()
+    func showPurchaseError(error: String)
     func disablePurchaseRestoration()
     func enablePurchaseRestoration()
 }

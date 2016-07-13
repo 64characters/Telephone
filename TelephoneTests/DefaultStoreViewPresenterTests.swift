@@ -47,7 +47,7 @@ class DefaultStoreViewPresenterTests: XCTestCase {
 
         sut.showProductsFetchError(error)
 
-        XCTAssertEqual(output.invokedError, expected)
+        XCTAssertEqual(output.invokedProductsFetchError, expected)
     }
 
     func testShowsProductsFetchProgressOnShowProductsFetchProgress() {
@@ -84,5 +84,18 @@ class DefaultStoreViewPresenterTests: XCTestCase {
         sut.showPurchaseProgress()
 
         XCTAssertTrue(output.didCallDisablePurchaseRestoration)
+    }
+
+    func testShowsPurchaseErrorOnShowPurchaseError() {
+        let error = "any"
+        sut.showPurchaseError(error)
+
+        XCTAssertEqual(output.invokedPurchaseError, error)
+    }
+
+    func testEnablesPurchaseRestorationOnShowPurchaseError() {
+        sut.showPurchaseError("any")
+
+        XCTAssertTrue(output.didCallEnablePurchaseRestoration)
     }
 }

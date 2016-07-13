@@ -46,10 +46,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsOnShowProducts() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
-        let products = [
-            Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 1), localizedPrice: "$1"),
-            Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
-        ]
+        let products = SimpleProductsFake().all
 
         sut.showProducts(products)
 
@@ -86,5 +83,27 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         sut.showPurchaseProgress()
 
         XCTAssertTrue(presenter.didCallShowPurchaseProgress)
+    }
+
+    func testShowsPreviouslyShownProductsOnShowPurchaseError() {
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
+        let products = SimpleProductsFake().all
+        sut.showProducts(products)
+
+        sut.showPurchaseError("any")
+
+        XCTAssertEqual(presenter.invokedProducts, products)
+        XCTAssertEqual(presenter.showProductsCallCount, 2)
+    }
+
+    func testShowsPurchaseErrorOnShowPurchaseError() {
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
+        let error = "any"
+
+        sut.showPurchaseError(error)
+
+        XCTAssertEqual(presenter.invokedPurchaseError, error)
     }
 }

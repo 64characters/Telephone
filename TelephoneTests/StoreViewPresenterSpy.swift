@@ -17,14 +17,17 @@
 //
 
 class StoreViewPresenterSpy {
+    private(set) var showProductsCallCount = 0
     private(set) var invokedProducts: [Product] = []
     private(set) var invokedProductsFetchError = ""
     private(set) var didCallShowProductsFetchProgress = false
     private(set) var didCallShowPurchaseProgress = false
+    private(set) var invokedPurchaseError = ""
 }
 
 extension StoreViewPresenterSpy: StoreViewPresenter {
     func showProducts(products: [Product]) {
+        showProductsCallCount += 1
         invokedProducts = products
     }
 
@@ -38,5 +41,9 @@ extension StoreViewPresenterSpy: StoreViewPresenter {
 
     func showPurchaseProgress() {
         didCallShowPurchaseProgress = true
+    }
+
+    func showPurchaseError(error: String) {
+        invokedPurchaseError = error
     }
 }
