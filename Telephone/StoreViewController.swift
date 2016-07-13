@@ -24,6 +24,7 @@ class StoreViewController: NSViewController {
     private dynamic var products: [PresentationProduct] = []
 
     @IBOutlet private var productsListView: NSView!
+    @IBOutlet private var productsTableView: NSTableView!
     @IBOutlet private var productsFetchErrorView: NSView!
     @IBOutlet private var progressView: NSView!
 
@@ -52,6 +53,10 @@ class StoreViewController: NSViewController {
     @IBAction func fetchProducts(sender: AnyObject) {
         target.viewDidStartProductFetch()
     }
+
+    @IBAction func purchaseProduct(sender: NSButton) {
+        target.viewDidMakePurchase(products[productsTableView.rowForView(sender)])
+    }
 }
 
 extension StoreViewController: StoreView {
@@ -74,7 +79,7 @@ extension StoreViewController: StoreView {
     }
 
     func showPurchaseError(error: String) {
-
+        purchaseErrorAlert(withText: error).beginSheetModalForWindow(view.window!, completionHandler: nil)
     }
 
     func disablePurchaseRestoration() {
@@ -94,4 +99,13 @@ extension StoreViewController: StoreView {
         progressIndicator.startAnimation(self)
         showInProductsContentView(progressView)
     }
+}
+
+extension StoreViewController: NSTableViewDelegate {}
+
+private func purchaseErrorAlert(withText text: String) -> NSAlert {
+    let result = NSAlert()
+    result.messageText = NSLocalizedString("Could not make purchase.", comment: "Product purchase error.")
+    result.informativeText = text
+    return result
 }

@@ -12,6 +12,7 @@
                 <outlet property="productsFetchErrorField" destination="ZAt-yQ-UK9" id="8cn-Gp-9hw"/>
                 <outlet property="productsFetchErrorView" destination="M3a-G9-Uvd" id="TDy-JW-qyZ"/>
                 <outlet property="productsListView" destination="27z-De-ahO" id="Q2f-qM-xfX"/>
+                <outlet property="productsTableView" destination="eYD-l4-AFn" id="YyL-bi-rcn"/>
                 <outlet property="progressIndicator" destination="XSd-At-01E" id="vdk-e6-EDz"/>
                 <outlet property="progressView" destination="mA2-JV-Xxq" id="HMO-kP-wdU"/>
                 <outlet property="restorePurchasesButton" destination="kYi-DK-7xw" id="7dh-0j-3bH"/>
@@ -102,6 +103,7 @@ The subscriptions renew automatically and can be canceled any time according to 
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <action selector="purchaseProduct:" target="-2" id="teF-MJ-T2e"/>
                                                     <binding destination="cBD-EV-Yai" name="title" keyPath="objectValue.price" id="Dhx-Of-fQF"/>
                                                 </connections>
                                             </button>
@@ -115,6 +117,7 @@ The subscriptions renew automatically and can be canceled any time according to 
                         </tableColumns>
                         <connections>
                             <binding destination="cce-WC-Umh" name="content" keyPath="arrangedObjects" id="kbs-h7-8sI"/>
+                            <outlet property="delegate" destination="-2" id="k0F-Ii-Muh"/>
                         </connections>
                     </tableView>
                 </subviews>
