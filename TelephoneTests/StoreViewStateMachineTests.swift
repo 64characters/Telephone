@@ -76,7 +76,7 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FFeRS")
     }
 
-    func testPurchaseFailure() {
+    func testPurchaseFailureWithError() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
@@ -85,6 +85,17 @@ class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFailPurchasing(product, error: "any")
 
         XCTAssertEqual(actions, "FSpP123SppPe")
+    }
+
+    func testPurchaseFailureWithoutError() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        let product = createProduct()
+        sut.didStartPurchasing(product)
+        sut.didFailPurchasing(product)
+
+        XCTAssertEqual(actions, "FSpP123SppScp")
     }
 
     func testPurchaseAfterPurchaseFailure() {
@@ -225,6 +236,10 @@ extension StoreViewStateMachineTests {
 
     func showPurchaseError(error: String) {
         actions.appendContentsOf("Pe")
+    }
+
+    func showCachedProducts() {
+        actions.appendContentsOf("Scp")
     }
 
     func restorePurchases() {

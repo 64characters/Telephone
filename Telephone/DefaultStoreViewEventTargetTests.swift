@@ -85,7 +85,7 @@ class DefaultStoreViewEventTargetTests: XCTestCase {
         XCTAssertTrue(presenter.didCallShowPurchaseProgress)
     }
 
-    func testShowsPreviouslyShownProductsOnShowPurchaseError() {
+    func testShowsCachedProductsOnShowPurchaseError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
         let products = SimpleProductsFake().all

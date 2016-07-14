@@ -36,7 +36,8 @@
 // FetchError      DidPurchase                     Purchased       ShowThankYou
 //
 // Purchasing      DidPurchase                     Purchased       ShowThankYou
-// Purchasing      DidFailPurchasing               PurchaseError   ShowPurchaseError
+// Purchasing      DidFailPurchasingWithError      PurchaseError   ShowPurchaseError
+// Purchasing      DidFailPurchasingWithoutError   PurchaseError   ShowCachedProducts
 // Purchased       ViewShouldReloadData            Purchased       ShowThankYou
 // PurchaseError   ViewDidMakePurchase             PurchaseError   PurchaseProduct
 // PurchaseError   DidStartPurchasing              Purchasing      ShowPurchaseProgress
@@ -194,6 +195,7 @@ class StoreViewStatePurchasing: StoreViewState {
 
     override func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product) {
         machine.changeState(StoreViewStatePurchaseError())
+        machine.showCachedProducts()
     }
 }
 

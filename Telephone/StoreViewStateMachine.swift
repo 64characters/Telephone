@@ -29,6 +29,7 @@ ProductPurchaseEventTarget, PurchaseRestorationUseCaseOutput {
     func purchaseProduct(withIdentifier identifier: String)
     func showPurchaseProgress()
     func showPurchaseError(error: String)
+    func showCachedProducts()
     func restorePurchases()
     func showPurchaseRestorationError(error: String)
     func showThankYou()

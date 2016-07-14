@@ -61,8 +61,12 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func showPurchaseError(error: String) {
-        presenter.showProducts(products)
+        showCachedProducts()
         presenter.showPurchaseError(error)
+    }
+
+    func showCachedProducts() {
+        presenter.showProducts(products)
     }
 
     func restorePurchases() {}

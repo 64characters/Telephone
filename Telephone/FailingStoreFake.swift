@@ -19,6 +19,7 @@
 import UseCases
 
 final class FailingStoreFake {
+    private var attempts = 0
     private var target: ProductPurchaseEventTarget?
 
     func updateTarget(target: ProductPurchaseEventTarget) {
@@ -28,11 +29,20 @@ final class FailingStoreFake {
 
 extension FailingStoreFake: Store {
     func purchase(product: Product) throws {
+        attempts += 1
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(0.2) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
             self.target?.didStartPurchasing(product)
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.target?.didFailPurchasing(product, error: "The store returned a terrible error. Please try again later.")
+            self.notifyTargetAboutFailurePurchasing(product)
+        }
+    }
+
+    private func notifyTargetAboutFailurePurchasing(product: Product) {
+        if attempts % 2 == 0 {
+            target?.didFailPurchasing(product)
+        } else {
+            target?.didFailPurchasing(product, error: "The store returned a terrible error. Please try again later.")
         }
     }
 }
