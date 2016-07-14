@@ -20,7 +20,7 @@ import Cocoa
 import UseCases
 
 class StoreViewController: NSViewController {
-    private var target: StoreViewEventTarget = NullStoreViewEventTarget()
+    private var target: StoreViewEventTarget
     private dynamic var products: [PresentationProduct] = []
 
     @IBOutlet private var productsListView: NSView!
@@ -33,7 +33,8 @@ class StoreViewController: NSViewController {
     @IBOutlet private weak var productsFetchErrorField: NSTextField!
     @IBOutlet private weak var progressIndicator: NSProgressIndicator!
 
-    init() {
+    init(target: StoreViewEventTarget) {
+        self.target = target
         super.init(nibName: "StoreViewController", bundle: nil)!
     }
 

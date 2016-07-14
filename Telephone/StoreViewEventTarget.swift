@@ -1,5 +1,5 @@
 //
-//  StoreView.swift
+//  StoreViewEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,4 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-protocol StoreView: StoreViewPresenterOutput {}
+protocol StoreViewEventTarget {
+    func viewShouldReloadData(view: StoreView)
+    func viewDidStartProductFetch()
+    func viewDidMakePurchase(product: PresentationProduct)
+    func viewDidStartPurchaseRestoration()
+}
