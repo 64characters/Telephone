@@ -46,7 +46,7 @@ class StoreViewController: NSViewController {
         target.viewShouldReloadData(self)
     }
 
-    func updateEventTarget(target: StoreViewEventTarget) {
+    func updateTarget(target: StoreViewEventTarget) {
         self.target = target
     }
 
