@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  SuccessfulFetchProductsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,27 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let identifier: String
-    private let products: Products
-    private let store: Store
+import UseCases
 
-    public init(identifier: String, products: Products, store: Store) {
-        self.identifier = identifier
-        self.products = products
-        self.store = store
+public final class SuccessfulFetchProductsFake {
+    private let origin: Products = SimpleProductsFake()
+    private let target: ProductsEventTarget
+
+    public init(target: ProductsEventTarget) {
+        self.target = target
     }
 }
 
-extension ProductPurchaseUseCase: ThrowingUseCase {
-    public func execute() throws {
-        try store.purchase(products[identifier]!)
+extension SuccessfulFetchProductsFake: Products {
+    public var all: [Product] {
+        return origin.all
+    }
+
+    public subscript(identifier: String) -> Product? {
+        return origin[identifier]
+    }
+
+    public func fetch() {
+        target.productsDidFetch()
     }
 }

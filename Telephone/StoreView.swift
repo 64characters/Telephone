@@ -17,10 +17,3 @@
 //
 
 protocol StoreView: StoreViewPresenterOutput {}
-
-protocol StoreViewEventTarget {
-    func viewShouldReloadData(view: StoreView)
-    func viewDidStartProductFetch()
-    func viewDidMakePurchase(product: PresentationProduct)
-    func viewDidStartPurchaseRestoration()
-}

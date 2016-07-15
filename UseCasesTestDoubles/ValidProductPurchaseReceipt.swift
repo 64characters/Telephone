@@ -1,5 +1,5 @@
 //
-//  StoreClientSpy.swift
+//  ValidProductPurchaseReceipt.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,14 +18,12 @@
 
 import UseCases
 
-public class StoreClientSpy {
-    public private(set) var invokedIdentifiers: [String] = []
-
+public struct ValidProductPurchaseReceipt {
     public init() {}
 }
 
-extension StoreClientSpy: StoreClient {
-    public func fetchProducts(withIdentifiers identifiers: [String]) {
-        invokedIdentifiers = identifiers
+extension ValidProductPurchaseReceipt: ProductPurchaseReceipt {
+    public func isValid() -> Bool {
+        return true
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  Products.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,13 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let identifier: String
-    private let products: Products
-    private let store: Store
-
-    public init(identifier: String, products: Products, store: Store) {
-        self.identifier = identifier
-        self.products = products
-        self.store = store
-    }
+public protocol Products {
+    var all: [Product] { get }
+    subscript(identifier: String) -> Product? { get }
+    func fetch()
 }
 
-extension ProductPurchaseUseCase: ThrowingUseCase {
-    public func execute() throws {
-        try store.purchase(products[identifier]!)
-    }
+public protocol ProductsEventTarget: class {
+    func productsDidFetch()
+    func productsDidFailFetching(withError error: String)
 }

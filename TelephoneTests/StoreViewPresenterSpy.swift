@@ -1,5 +1,5 @@
 //
-//  StoreViewSpy.swift
+//  StoreViewPresenterSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-class StoreViewSpy {
-    private(set) var invokedProducts: [PresentationProduct] = []
+class StoreViewPresenterSpy {
+    private(set) var showProductsCallCount = 0
+    private(set) var invokedProducts: [Product] = []
     private(set) var invokedProductsFetchError = ""
     private(set) var didCallShowProductsFetchProgress = false
     private(set) var didCallShowPurchaseProgress = false
-    private(set) var didCallDisablePurchaseRestoration = false
-    private(set) var didCallEnablePurchaseRestoration = false
     private(set) var invokedPurchaseError = ""
 }
 
-extension StoreViewSpy: StoreView {}
-
-extension StoreViewSpy: StoreViewPresenterOutput {
-    func showProducts(products: [PresentationProduct]) {
+extension StoreViewPresenterSpy: StoreViewPresenter {
+    func showProducts(products: [Product]) {
+        showProductsCallCount += 1
         invokedProducts = products
     }
 
@@ -47,13 +45,5 @@ extension StoreViewSpy: StoreViewPresenterOutput {
 
     func showPurchaseError(error: String) {
         invokedPurchaseError = error
-    }
-
-    func disablePurchaseRestoration() {
-        didCallDisablePurchaseRestoration = true
-    }
-
-    func enablePurchaseRestoration() {
-        didCallEnablePurchaseRestoration = true
     }
 }

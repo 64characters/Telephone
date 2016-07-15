@@ -22,7 +22,7 @@ import UseCases
 extension Product {
     init(product: SKProduct, formatter: NSNumberFormatter) {
         self.init(
-            identifier: product.productIdentifier ?? "N/A",
+            identifier: product.productIdentifier!,
             name: product.localizedTitle ?? "N/A",
             price: product.price ?? NSDecimalNumber.zero(),
             localizedPrice: localizedPriceWithPrice(product.price, formatter: formatter)

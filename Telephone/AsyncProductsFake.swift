@@ -1,5 +1,5 @@
 //
-//  FakeStoreClient.swift
+//  AsyncProductsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,42 @@
 //  GNU General Public License for more details.
 //
 
-class FakeStoreClient {
-    private let target: StoreClientEventTarget
+import UseCases
+
+class AsyncProductsFake {
+    private let products: [String: Product]
+    private let target: ProductsEventTarget
     private var attempts = 0
 
-    init(target: StoreClientEventTarget) {
+    init(target: ProductsEventTarget) {
+        products = [
+            "123": Product(
+                identifier: "123",
+                name: "1 Month",
+                price: NSDecimalNumber(mantissa: 99, exponent: -2, isNegative: false),
+                localizedPrice: "$0.99"
+            ),
+            "456": Product(
+                identifier: "456",
+                name: "12 Months",
+                price: NSDecimalNumber(mantissa: 1099, exponent: -2, isNegative: false),
+                localizedPrice: "$10.99"
+            )
+        ]
         self.target = target
     }
 }
 
-extension FakeStoreClient: StoreClient {
-    func fetchProducts(withIdentifiers identifiers: [String]) {
+extension AsyncProductsFake: Products {
+    var all: [Product] {
+        return Array(products.values)
+    }
+
+    subscript(identifier: String) -> Product? {
+        return products[identifier]
+    }
+
+    func fetch() {
         attempts += 1
         dispatch_after(
             dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
@@ -44,26 +69,10 @@ extension FakeStoreClient: StoreClient {
     }
 
     private func notifyTargetWithSuccess() {
-        target.storeClient(
-            self,
-            didFetchProducts: [
-                Product(
-                    identifier: "123",
-                    name: "1 Month",
-                    price: NSDecimalNumber(mantissa: 99, exponent: -2, isNegative: false),
-                    localizedPrice: "$0.99"
-                ),
-                Product(
-                    identifier: "456",
-                    name: "12 Months",
-                    price: NSDecimalNumber(mantissa: 1099, exponent: -2, isNegative: false),
-                    localizedPrice: "$10.99"
-                )
-            ]
-        )
+        target.productsDidFetch()
     }
 
     private func notifyTargetWithError() {
-        target.storeClient(self, didFailFetchingProductsWithError: "No network connection.")
+        target.productsDidFailFetching(withError: "No network connection.")
     }
 }

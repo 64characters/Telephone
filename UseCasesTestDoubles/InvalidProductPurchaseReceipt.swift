@@ -1,5 +1,5 @@
 //
-//  LoggingStoreClient.swift
+//  InvalidProductPurchaseReceipt.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-class LoggingStoreClient {
-    private let origin: StoreClient
+import UseCases
 
-    init(origin: StoreClient) {
-        self.origin = origin
-    }
+public struct InvalidProductPurchaseReceipt {
+    public init() {}
 }
 
-extension LoggingStoreClient: StoreClient {
-    func fetchProducts(withIdentifiers identifiers: [String]) {
-        print("Fetching products: \(identifiers)")
-        origin.fetchProducts(withIdentifiers: identifiers)
+extension InvalidProductPurchaseReceipt: ProductPurchaseReceipt {
+    public func isValid() -> Bool {
+        return false
     }
 }

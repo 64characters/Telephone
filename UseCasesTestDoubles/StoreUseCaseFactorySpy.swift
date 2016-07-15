@@ -19,17 +19,29 @@
 import UseCases
 
 public class StoreUseCaseFactorySpy {
-    private var fetchUseCase: UseCase!
+    private var fetch: UseCase!
+    private var purchase: ThrowingUseCase!
+
+    public private(set) var invokedIdentifier = ""
 
     public init() {}
 
-    public func stub(withProductsFetchUseCase useCase: UseCase) {
-        self.fetchUseCase = useCase
+    public func stub(withProductsFetch fetch: UseCase) {
+        self.fetch = fetch
+    }
+
+    public func stub(withProductPurchase purchase: ThrowingUseCase) {
+        self.purchase = purchase
     }
 }
 
 extension StoreUseCaseFactorySpy: StoreUseCaseFactory {
     public func createProductsFetchUseCase(output output: ProductsFetchUseCaseOutput) -> UseCase {
-        return fetchUseCase
+        return fetch
+    }
+
+    public func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase {
+        invokedIdentifier = identifier
+        return purchase
     }
 }

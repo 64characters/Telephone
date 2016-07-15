@@ -19,19 +19,23 @@
 import UseCases
 
 class DefaultStoreUseCaseFactory {
-    private let identifiers: [String]
-    private let client: StoreClient
-    private let targets: StoreClientEventTargets
+    private let products: Products
+    private let store: Store
+    private let targets: ProductsEventTargets
 
-    init(identifiers: [String], client: StoreClient, targets: StoreClientEventTargets) {
-        self.identifiers = identifiers
-        self.client = client
+    init(products: Products, store: Store, targets: ProductsEventTargets) {
+        self.products = products
+        self.store = store
         self.targets = targets
     }
 }
 
 extension DefaultStoreUseCaseFactory: StoreUseCaseFactory {
     func createProductsFetchUseCase(output output: ProductsFetchUseCaseOutput) -> UseCase {
-        return ProductsFetchUseCase(productIdentifiers: identifiers, client: client, targets: targets, output: output)
+        return ProductsFetchUseCase(products: products, targets: targets, output: output)
+    }
+
+    func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase {
+        return ProductPurchaseUseCase(identifier: identifier, products: products, store: store)
     }
 }

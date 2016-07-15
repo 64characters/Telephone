@@ -1,5 +1,5 @@
 //
-//  StoreClient.swift
+//  ProductsEventTargetSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,11 +16,21 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreClient: class {
-    func fetchProducts(withIdentifiers identifiers: [String])
+import UseCases
+
+public class ProductsEventTargetSpy {
+    public private(set) var didCallProductsDidFetch = false
+    public private(set) var didCallProductsDidFailFetching = false
+
+    public init() {}
 }
 
-public protocol StoreClientEventTarget: class {
-    func storeClient(storeClient: StoreClient, didFetchProducts: [Product])
-    func storeClient(storeClient: StoreClient, didFailFetchingProductsWithError: String)
+extension ProductsEventTargetSpy: ProductsEventTarget {
+    public func productsDidFetch() {
+        didCallProductsDidFetch = true
+    }
+
+    public func productsDidFailFetching(withError error: String) {
+        didCallProductsDidFailFetching = true
+    }
 }

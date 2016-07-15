@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  ProductPurchaseUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let identifier: String
-    private let products: Products
-    private let store: Store
+import XCTest
+import UseCases
+import UseCasesTestDoubles
 
-    public init(identifier: String, products: Products, store: Store) {
-        self.identifier = identifier
-        self.products = products
-        self.store = store
-    }
-}
+class ProductPurchaseUseCaseTests: XCTestCase {
+    func testPurchasesProductWithGivenIdentifierOnExecute() {
+        let products = SimpleProductsFake()
+        let product = products.all.first!
+        let store = StoreSpy()
+        let sut = ProductPurchaseUseCase(identifier: product.identifier, products: products, store: store)
 
-extension ProductPurchaseUseCase: ThrowingUseCase {
-    public func execute() throws {
-        try store.purchase(products[identifier]!)
+        try! sut.execute()
+
+        XCTAssertEqual(store.invokedProduct, product)
     }
 }

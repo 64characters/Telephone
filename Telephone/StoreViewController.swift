@@ -20,10 +20,11 @@ import Cocoa
 import UseCases
 
 class StoreViewController: NSViewController {
-    private var target: StoreViewEventTarget = NullStoreViewEventTarget()
+    private var target: StoreViewEventTarget
     private dynamic var products: [PresentationProduct] = []
 
     @IBOutlet private var productsListView: NSView!
+    @IBOutlet private var productsTableView: NSTableView!
     @IBOutlet private var productsFetchErrorView: NSView!
     @IBOutlet private var progressView: NSView!
 
@@ -32,7 +33,8 @@ class StoreViewController: NSViewController {
     @IBOutlet private weak var productsFetchErrorField: NSTextField!
     @IBOutlet private weak var progressIndicator: NSProgressIndicator!
 
-    init() {
+    init(target: StoreViewEventTarget) {
+        self.target = target
         super.init(nibName: "StoreViewController", bundle: nil)!
     }
 
@@ -45,12 +47,16 @@ class StoreViewController: NSViewController {
         target.viewShouldReloadData(self)
     }
 
-    func updateEventTarget(target: StoreViewEventTarget) {
+    func updateTarget(target: StoreViewEventTarget) {
         self.target = target
     }
 
     @IBAction func fetchProducts(sender: AnyObject) {
         target.viewDidStartProductFetch()
+    }
+
+    @IBAction func purchaseProduct(sender: NSButton) {
+        target.viewDidMakePurchase(products[productsTableView.rowForView(sender)])
     }
 }
 
@@ -66,13 +72,15 @@ extension StoreViewController: StoreView {
     }
 
     func showProductsFetchProgress() {
-        progressIndicator.startAnimation(self)
-        showInProductsContentView(progressView)
+        showProgress()
     }
 
-    private func showInProductsContentView(view: NSView) {
-        productsContentView.subviews.forEach { $0.removeFromSuperview() }
-        productsContentView.addSubview(view)
+    func showPurchaseProgress() {
+        showProgress()
+    }
+
+    func showPurchaseError(error: String) {
+        purchaseErrorAlert(withText: error).beginSheetModalForWindow(view.window!, completionHandler: nil)
     }
 
     func disablePurchaseRestoration() {
@@ -82,4 +90,23 @@ extension StoreViewController: StoreView {
     func enablePurchaseRestoration() {
         restorePurchasesButton.enabled = true
     }
+
+    private func showInProductsContentView(view: NSView) {
+        productsContentView.subviews.forEach { $0.removeFromSuperview() }
+        productsContentView.addSubview(view)
+    }
+
+    private func showProgress() {
+        progressIndicator.startAnimation(self)
+        showInProductsContentView(progressView)
+    }
+}
+
+extension StoreViewController: NSTableViewDelegate {}
+
+private func purchaseErrorAlert(withText text: String) -> NSAlert {
+    let result = NSAlert()
+    result.messageText = NSLocalizedString("Could not make purchase.", comment: "Product purchase error.")
+    result.informativeText = text
+    return result
 }

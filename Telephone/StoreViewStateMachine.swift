@@ -19,15 +19,17 @@
 import UseCases
 
 protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput,
-ProductPurchaseUseCaseOutput, PurchaseRestorationUseCaseOutput {
+ProductPurchaseEventTarget, PurchaseRestorationUseCaseOutput {
     var state: StoreViewState { get }
     func changeState(newState: StoreViewState)
 
     func fetchProducts()
     func showProducts(products: [Product])
     func showProductsFetchError(error: String)
-    func purchaseProduct(identifier identifier: String)
+    func purchaseProduct(withIdentifier identifier: String)
+    func showPurchaseProgress()
     func showPurchaseError(error: String)
+    func showCachedProducts()
     func restorePurchases()
     func showPurchaseRestorationError(error: String)
     func showThankYou()
@@ -62,12 +64,20 @@ extension StoreViewStateMachine {
 }
 
 extension StoreViewStateMachine {
+    func didStartPurchasing(product: Product) {
+        state.didStartPurchasing(machine: self, product: product)
+    }
+
     func didPurchase(product: Product) {
         state.didPurchase(machine: self, product: product)
     }
 
-    func didFailPurchasingProduct(error error: String) {
-        state.didFailPurchasingProduct(machine: self, error: error)
+    func didFailPurchasing(product: Product, error: String) {
+        state.didFailPurchasing(machine: self, product: product, error: error)
+    }
+
+    func didFailPurchasing(product: Product) {
+        state.didFailPurchasing(machine: self, product: product)
     }
 }
 

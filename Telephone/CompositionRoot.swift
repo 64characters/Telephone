@@ -56,18 +56,20 @@ class CompositionRoot: NSObject {
             delegate: conditionalRingtonePlaybackUseCaseDelegate
         )
 
-        let storeClientEventTargets = StoreClientEventTargets()
+        let productsEventTargets = ProductsEventTargets()
 
-        let storeViewController = StoreViewController()
+        let storeViewController = StoreViewController(target: NullStoreViewEventTarget())
+        let store = FailingStoreFake(target: NullProductPurchaseEventTarget())
         let storeViewEventTarget = DefaultStoreViewEventTarget(
             factory: DefaultStoreUseCaseFactory(
-                identifiers: ["one", "two"],
-                client: FakeStoreClient(target: storeClientEventTargets),
-                targets: storeClientEventTargets
+                products: LoggingProducts(origin: AsyncProductsFake(target: productsEventTargets)),
+                store: LoggingStore(origin: store),
+                targets: productsEventTargets
             ),
-            presenter: StoreViewPresenter(output: storeViewController)
+            presenter: DefaultStoreViewPresenter(output: storeViewController)
         )
-        storeViewController.updateEventTarget(storeViewEventTarget)
+        storeViewController.updateTarget(storeViewEventTarget)
+        store.updateTarget(storeViewEventTarget)
 
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 

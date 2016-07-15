@@ -30,8 +30,8 @@
 		8A0FD63F1C9B168400AB3640 /* SoundIOPreferencesSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0FD63E1C9B168400AB3640 /* SoundIOPreferencesSpy.swift */; };
 		8A11A0C71CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0C61CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift */; };
 		8A11A0C91CCF9DDD007BFC7F /* ProductsFetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0C81CCF9DDD007BFC7F /* ProductsFetchUseCase.swift */; };
-		8A11A0CB1CCFA258007BFC7F /* StoreClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CA1CCFA258007BFC7F /* StoreClientSpy.swift */; };
-		8A11A0CD1CCFA29A007BFC7F /* StoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CC1CCFA29A007BFC7F /* StoreClient.swift */; };
+		8A11A0CB1CCFA258007BFC7F /* StoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CA1CCFA258007BFC7F /* StoreSpy.swift */; };
+		8A11A0CD1CCFA29A007BFC7F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CC1CCFA29A007BFC7F /* Store.swift */; };
 		8A11A0CF1CCFA74F007BFC7F /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CE1CCFA74F007BFC7F /* Product.swift */; };
 		8A11A0D11CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */; };
 		8A1CC61F1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */; };
@@ -39,18 +39,22 @@
 		8A1CC6231CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */; };
 		8A1CC6251CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */; };
 		8A1CC6271CAD5AA200901BE9 /* NullSystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6261CAD5AA200901BE9 /* NullSystemAudioDevice.swift */; };
-		8A3D60671C734A8900D7F54C /* NullSoundObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */; };
+		8A3865161D369A2100EDA7AB /* FailingStoreFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */; };
+		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
 		8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */; };
 		8A4D0B001C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */; };
 		8A4E38301C5BB20100816F38 /* UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E382F1C5BB20100816F38 /* UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift */; };
 		8A4E38321C5BB25F00816F38 /* UserDefaultsRingtoneSoundNameSaveUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E38311C5BB25F00816F38 /* UserDefaultsRingtoneSoundNameSaveUseCase.swift */; };
 		8A57AEA61CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
 		8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
+		8A5EADB01D35508100C53415 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */; };
+		8A5EADB11D35508D00C53415 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */; };
+		8A5EADB41D35517C00C53415 /* StoreViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */; };
 		8A61363B1CC23AA000A087A4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA277A4D1BD16C9D0030ECE4 /* SystemAudioDevicesChangeEventTarget.swift */; };
 		8A61363C1CC23AB900A087A4 /* SystemAudioDevicesChangeEventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargets.swift */; };
 		8A61363D1CC23ABC00A087A4 /* SystemAudioDevicesChangeEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetsTests.swift */; };
 		8A61363E1CC23AFF00A087A4 /* SystemAudioDevicesChangeEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */; };
-		8A63ECD41CCFBEC400AEC485 /* DefaultStoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A63ECD31CCFBEC400AEC485 /* DefaultStoreClient.swift */; };
+		8A63ECD41CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A63ECD31CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift */; };
 		8A6D96EE1D01DDA900D9C15B /* StoreViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96ED1D01DDA900D9C15B /* StoreViewSpy.swift */; };
 		8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */; };
 		8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */; };
@@ -67,6 +71,7 @@
 		8A7E212D1CC23F6B000D02C3 /* UserAgentAudioDeviceUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0C1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateUseCaseTests.swift */; };
 		8A7E21521CC3F6A5000D02C3 /* ServiceAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */; };
 		8A7E21541CC411F3000D02C3 /* ServiceAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */; };
+		8A859A011D2D2BCF00118A66 /* ProductPurchaseEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */; };
 		8A91758F1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91758E1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift */; };
 		8A9175911CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175901CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */; };
 		8A9175931CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175921CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */; };
@@ -80,10 +85,25 @@
 		8A9175AD1CABF61200354E26 /* UserAgentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175AC1CABF61200354E26 /* UserAgentError.swift */; };
 		8A9175AE1CABF61200354E26 /* UserAgentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175AC1CABF61200354E26 /* UserAgentError.swift */; };
 		8A9175B01CABFCA700354E26 /* SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175AF1CABFCA700354E26 /* SystemAudioDevice.swift */; };
-		8A9534611D05953D00EE9084 /* FailingStoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9534601D05953D00EE9084 /* FailingStoreClient.swift */; };
-		8A9534631D059A5300EE9084 /* LoggingStoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9534621D059A5300EE9084 /* LoggingStoreClient.swift */; };
+		8A9513CF1D1D7F0E0034DF2C /* ProductPurchaseUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513CE1D1D7F0E0034DF2C /* ProductPurchaseUseCaseTests.swift */; };
+		8A9513D71D22CD8A0034DF2C /* ProductPurchaseEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513D61D22CD8A0034DF2C /* ProductPurchaseEventTarget.swift */; };
+		8A9513E41D2A6CCA0034DF2C /* ReceiptValidatingProductPurchaseEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513E31D2A6CCA0034DF2C /* ReceiptValidatingProductPurchaseEventTarget.swift */; };
+		8A9513E61D2A6F5A0034DF2C /* ReceiptValidatingProductPurchaseEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513E51D2A6F5A0034DF2C /* ReceiptValidatingProductPurchaseEventTargetTests.swift */; };
+		8A9513E81D2A6FCE0034DF2C /* ProductPurchaseEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513E71D2A6FCE0034DF2C /* ProductPurchaseEventTargetSpy.swift */; };
+		8A9513EC1D2A735F0034DF2C /* ProductPurchaseReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513EB1D2A735F0034DF2C /* ProductPurchaseReceipt.swift */; };
+		8A9513EE1D2A76F90034DF2C /* ValidProductPurchaseReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513ED1D2A76F90034DF2C /* ValidProductPurchaseReceipt.swift */; };
+		8A9513F01D2A77AD0034DF2C /* InvalidProductPurchaseReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513EF1D2A77AD0034DF2C /* InvalidProductPurchaseReceipt.swift */; };
+		8A9534611D05953D00EE9084 /* AsyncFailingProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9534601D05953D00EE9084 /* AsyncFailingProductsFake.swift */; };
+		8A9534631D059A5300EE9084 /* LoggingProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9534621D059A5300EE9084 /* LoggingProducts.swift */; };
+		8A9D922D1D2AC9B900491D59 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D922C1D2AC9B900491D59 /* Products.swift */; };
+		8A9D922F1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D922E1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift */; };
+		8A9D92311D2AE79300491D59 /* FailingFetchProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92301D2AE79300491D59 /* FailingFetchProductsFake.swift */; };
+		8A9D92331D2BF9D000491D59 /* SimpleProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */; };
+		8A9D92351D2C007500491D59 /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92341D2C007500491D59 /* NullStore.swift */; };
+		8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */; };
+		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
-		8AA791FC1CE245940082E4FC /* FakeStoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* FakeStoreClient.swift */; };
+		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
 		8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */; };
 		8AAACA051CAE9F81001930C4 /* SystemSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */; };
@@ -94,9 +114,9 @@
 		8AAACA111CAEB9FD001930C4 /* PreferredSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA101CAEB9FD001930C4 /* PreferredSoundIO.swift */; };
 		8AAACA131CAEBA8D001930C4 /* PreferredSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA121CAEBA8D001930C4 /* PreferredSoundIOTests.swift */; };
 		8AAACA151CAEC555001930C4 /* UserDefaultsSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA141CAEC555001930C4 /* UserDefaultsSoundIO.swift */; };
-		8AB5A0C71D084DD300579CE8 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */; };
-		8AB5A0C81D084DD400579CE8 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */; };
-		8AB5A0C91D084DD800579CE8 /* StoreViewPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F721CCFCFB800EC7C1B /* StoreViewPresenterTests.swift */; };
+		8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* DefaultStoreViewPresenter.swift */; };
+		8AB5A0C81D084DD400579CE8 /* DefaultStoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* DefaultStoreViewPresenter.swift */; };
+		8AB5A0C91D084DD800579CE8 /* DefaultStoreViewPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F721CCFCFB800EC7C1B /* DefaultStoreViewPresenterTests.swift */; };
 		8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */; };
 		8AB5A0CC1D084E4F00579CE8 /* PresentationProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */; };
 		8ABB14191CEC83990056CEDC /* StoreViewStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */; };
@@ -106,6 +126,10 @@
 		8AC1A4411C67BFA8007778A2 /* SoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */; };
 		8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */; };
 		8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */; };
+		8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597B1D36A152008A1007 /* LoggingStore.swift */; };
+		8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
+		8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
+		8AD659841D37CA51008A1007 /* NullProductPurchaseEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */; };
 		8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */; };
 		8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */; };
 		8ADD31C61CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */; };
@@ -125,9 +149,9 @@
 		8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A631CE0C591001EDBBA /* StoreView.swift */; };
 		8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */; };
 		8ADD6A6B1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */; };
-		8ADD6A6F1CE0DCF8001EDBBA /* StoreClientEventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A6E1CE0DCF8001EDBBA /* StoreClientEventTargets.swift */; };
-		8ADD6A711CE0DECC001EDBBA /* StoreClientEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A701CE0DECC001EDBBA /* StoreClientEventTargetsTests.swift */; };
-		8ADD6A771CE0E704001EDBBA /* StoreClientEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A761CE0E704001EDBBA /* StoreClientEventTargetSpy.swift */; };
+		8ADD6A6F1CE0DCF8001EDBBA /* ProductsEventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A6E1CE0DCF8001EDBBA /* ProductsEventTargets.swift */; };
+		8ADD6A711CE0DECC001EDBBA /* ProductsEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A701CE0DECC001EDBBA /* ProductsEventTargetsTests.swift */; };
+		8ADD6A771CE0E704001EDBBA /* ProductsEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A761CE0E704001EDBBA /* ProductsEventTargetSpy.swift */; };
 		8ADD6A801CE0F995001EDBBA /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */; };
 		8ADD6A811CE0F995001EDBBA /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7D1CE0F995001EDBBA /* StoreViewController.xib */; };
 		8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7E1CE0F995001EDBBA /* StoreWindowController.swift */; };
@@ -444,8 +468,8 @@
 		8A0FD6451C9B20F800AB3640 /* SoundIOPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundIOPreferences.h; sourceTree = "<group>"; };
 		8A11A0C61CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductsFetchUseCaseTests.swift; path = UseCasesTests/ProductsFetchUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A11A0C81CCF9DDD007BFC7F /* ProductsFetchUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsFetchUseCase.swift; sourceTree = "<group>"; };
-		8A11A0CA1CCFA258007BFC7F /* StoreClientSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreClientSpy.swift; sourceTree = "<group>"; };
-		8A11A0CC1CCFA29A007BFC7F /* StoreClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreClient.swift; sourceTree = "<group>"; };
+		8A11A0CA1CCFA258007BFC7F /* StoreSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreSpy.swift; sourceTree = "<group>"; };
+		8A11A0CC1CCFA29A007BFC7F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		8A11A0CE1CCFA74F007BFC7F /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsFetchUseCaseOutputSpy.swift; sourceTree = "<group>"; };
 		8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SystemAudioDevice+Equality.swift"; sourceTree = "<group>"; };
@@ -453,13 +477,16 @@
 		8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+Equality.swift"; sourceTree = "<group>"; };
 		8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullUserAgentAudioDevice.swift; sourceTree = "<group>"; };
 		8A1CC6261CAD5AA200901BE9 /* NullSystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSystemAudioDevice.swift; sourceTree = "<group>"; };
+		8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingStoreFake.swift; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateUseCaseTests.swift; path = UseCasesTests/RingtoneOutputUpdateUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneOutputUpdateUseCase.swift; sourceTree = "<group>"; };
 		8A4E382F1C5BB20100816F38 /* UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift; path = UseCasesTests/UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4E38311C5BB25F00816F38 /* UserDefaultsRingtoneSoundNameSaveUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneSoundNameSaveUseCase.swift; sourceTree = "<group>"; };
 		8A57AEA41CBEAF1200A36200 /* AKSIPCallNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCallNotifications.h; sourceTree = "<group>"; };
 		8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCallNotifications.m; sourceTree = "<group>"; };
-		8A63ECD31CCFBEC400AEC485 /* DefaultStoreClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreClient.swift; sourceTree = "<group>"; };
+		8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenter.swift; sourceTree = "<group>"; };
+		8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenterSpy.swift; sourceTree = "<group>"; };
+		8A63ECD31CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKProductsRequestToProductsAdapter.swift; sourceTree = "<group>"; };
 		8A6D96ED1D01DDA900D9C15B /* StoreViewSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewSpy.swift; sourceTree = "<group>"; };
 		8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullStoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseUseCase.swift; sourceTree = "<group>"; };
@@ -472,11 +499,12 @@
 		8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackUseCaseTestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalRingtonePlaybackUseCaseTestDelegate.swift; sourceTree = "<group>"; };
 		8A7874F71C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackUseCaseDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppController+ConditionalRingtonePlaybackUseCaseDelegate.swift"; sourceTree = "<group>"; };
 		8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Product+SKProduct.swift"; sourceTree = "<group>"; };
-		8A7C4F721CCFCFB800EC7C1B /* StoreViewPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreViewPresenterTests.swift; path = ../TelephoneTests/StoreViewPresenterTests.swift; sourceTree = "<group>"; };
-		8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenter.swift; sourceTree = "<group>"; };
+		8A7C4F721CCFCFB800EC7C1B /* DefaultStoreViewPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultStoreViewPresenterTests.swift; path = TelephoneTests/DefaultStoreViewPresenterTests.swift; sourceTree = SOURCE_ROOT; };
+		8A7C4F741CCFCFEE00EC7C1B /* DefaultStoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreViewPresenter.swift; sourceTree = "<group>"; };
 		8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationProduct.swift; sourceTree = "<group>"; };
 		8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceAddressTests.swift; path = UseCasesTests/ServiceAddressTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAddress.swift; sourceTree = "<group>"; };
+		8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseEventSource.swift; sourceTree = "<group>"; };
 		8A91758E1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceNameToDeviceMap.swift; sourceTree = "<group>"; };
 		8A9175901CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+SystemAudioDevice.swift"; sourceTree = "<group>"; };
 		8A9175921CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+SystemAudioDevice.swift"; sourceTree = "<group>"; };
@@ -490,10 +518,25 @@
 		8A9175AA1CA5A92500354E26 /* PJSUAOnNATDetect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PJSUAOnNATDetect.m; sourceTree = "<group>"; };
 		8A9175AC1CABF61200354E26 /* UserAgentError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentError.swift; sourceTree = "<group>"; };
 		8A9175AF1CABFCA700354E26 /* SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevice.swift; sourceTree = "<group>"; };
-		8A9534601D05953D00EE9084 /* FailingStoreClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingStoreClient.swift; sourceTree = "<group>"; };
-		8A9534621D059A5300EE9084 /* LoggingStoreClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStoreClient.swift; sourceTree = "<group>"; };
+		8A9513CE1D1D7F0E0034DF2C /* ProductPurchaseUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductPurchaseUseCaseTests.swift; path = UseCasesTests/ProductPurchaseUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
+		8A9513D61D22CD8A0034DF2C /* ProductPurchaseEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseEventTarget.swift; sourceTree = "<group>"; };
+		8A9513E31D2A6CCA0034DF2C /* ReceiptValidatingProductPurchaseEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptValidatingProductPurchaseEventTarget.swift; sourceTree = "<group>"; };
+		8A9513E51D2A6F5A0034DF2C /* ReceiptValidatingProductPurchaseEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReceiptValidatingProductPurchaseEventTargetTests.swift; path = UseCasesTests/ReceiptValidatingProductPurchaseEventTargetTests.swift; sourceTree = SOURCE_ROOT; };
+		8A9513E71D2A6FCE0034DF2C /* ProductPurchaseEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseEventTargetSpy.swift; sourceTree = "<group>"; };
+		8A9513EB1D2A735F0034DF2C /* ProductPurchaseReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseReceipt.swift; sourceTree = "<group>"; };
+		8A9513ED1D2A76F90034DF2C /* ValidProductPurchaseReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidProductPurchaseReceipt.swift; sourceTree = "<group>"; };
+		8A9513EF1D2A77AD0034DF2C /* InvalidProductPurchaseReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidProductPurchaseReceipt.swift; sourceTree = "<group>"; };
+		8A9534601D05953D00EE9084 /* AsyncFailingProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncFailingProductsFake.swift; sourceTree = "<group>"; };
+		8A9534621D059A5300EE9084 /* LoggingProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingProducts.swift; sourceTree = "<group>"; };
+		8A9D922C1D2AC9B900491D59 /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		8A9D922E1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessfulFetchProductsFake.swift; sourceTree = "<group>"; };
+		8A9D92301D2AE79300491D59 /* FailingFetchProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingFetchProductsFake.swift; sourceTree = "<group>"; };
+		8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleProductsFake.swift; sourceTree = "<group>"; };
+		8A9D92341D2C007500491D59 /* NullStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
+		8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKPaymentQueueToStoreAdapter.swift; sourceTree = "<group>"; };
+		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
-		8AA791FB1CE245940082E4FC /* FakeStoreClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeStoreClient.swift; sourceTree = "<group>"; };
+		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSoundIO.swift; sourceTree = "<group>"; };
 		8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemSoundIO.swift; sourceTree = "<group>"; };
@@ -507,10 +550,13 @@
 		8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewStateMachine.swift; sourceTree = "<group>"; };
 		8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreViewStateMachineTests.swift; path = TelephoneTests/StoreViewStateMachineTests.swift; sourceTree = SOURCE_ROOT; };
 		8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSoundToSoundAdapterFactory.swift; sourceTree = "<group>"; };
-		8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSoundObserver.swift; sourceTree = "<group>"; };
+		8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSoundEventTarget.swift; sourceTree = "<group>"; };
 		8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEventTarget.swift; sourceTree = "<group>"; };
 		8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultSoundPlaybackUseCaseTests.swift; path = UseCasesTests/DefaultSoundPlaybackUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPlaybackUseCase.swift; sourceTree = "<group>"; };
+		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
+		8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewEventTarget.swift; sourceTree = "<group>"; };
+		8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullProductPurchaseEventTarget.swift; sourceTree = "<group>"; };
 		8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtonePlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundConfigurationLoadUseCase.swift; sourceTree = "<group>"; };
 		8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentSoundIOSelectionUseCaseFake.swift; sourceTree = "<group>"; };
@@ -524,9 +570,9 @@
 		8ADD6A601CDD0130001EDBBA /* StoreViewDummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewDummy.swift; sourceTree = "<group>"; };
 		8ADD6A631CE0C591001EDBBA /* StoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterFactory.swift; sourceTree = "<group>"; };
-		8ADD6A6E1CE0DCF8001EDBBA /* StoreClientEventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreClientEventTargets.swift; sourceTree = "<group>"; };
-		8ADD6A701CE0DECC001EDBBA /* StoreClientEventTargetsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreClientEventTargetsTests.swift; path = UseCasesTests/StoreClientEventTargetsTests.swift; sourceTree = SOURCE_ROOT; };
-		8ADD6A761CE0E704001EDBBA /* StoreClientEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreClientEventTargetSpy.swift; sourceTree = "<group>"; };
+		8ADD6A6E1CE0DCF8001EDBBA /* ProductsEventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsEventTargets.swift; sourceTree = "<group>"; };
+		8ADD6A701CE0DECC001EDBBA /* ProductsEventTargetsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductsEventTargetsTests.swift; path = UseCasesTests/ProductsEventTargetsTests.swift; sourceTree = SOURCE_ROOT; };
+		8ADD6A761CE0E704001EDBBA /* ProductsEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsEventTargetSpy.swift; sourceTree = "<group>"; };
 		8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
 		8ADD6A7D1CE0F995001EDBBA /* StoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreViewController.xib; sourceTree = "<group>"; };
 		8ADD6A7E1CE0F995001EDBBA /* StoreWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreWindowController.swift; sourceTree = "<group>"; };
@@ -1011,36 +1057,48 @@
 			isa = PBXGroup;
 			children = (
 				8A11A0CE1CCFA74F007BFC7F /* Product.swift */,
+				8A9D922C1D2AC9B900491D59 /* Products.swift */,
+				8ADD6A6E1CE0DCF8001EDBBA /* ProductsEventTargets.swift */,
+				8ADD6A701CE0DECC001EDBBA /* ProductsEventTargetsTests.swift */,
+				8A859A0E1D2EC8F700118A66 /* ProductPurchaseEventTarget */,
+				8A9513EB1D2A735F0034DF2C /* ProductPurchaseReceipt.swift */,
 				8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */,
+				8A9513CE1D1D7F0E0034DF2C /* ProductPurchaseUseCaseTests.swift */,
 				8A11A0C81CCF9DDD007BFC7F /* ProductsFetchUseCase.swift */,
 				8A11A0C61CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift */,
 				8A7567361CF7242800D91C04 /* PurchaseRestorationUseCase.swift */,
-				8A11A0CC1CCFA29A007BFC7F /* StoreClient.swift */,
-				8ADD6A6E1CE0DCF8001EDBBA /* StoreClientEventTargets.swift */,
-				8ADD6A701CE0DECC001EDBBA /* StoreClientEventTargetsTests.swift */,
+				8A11A0CC1CCFA29A007BFC7F /* Store.swift */,
 				8ADD6A4A1CDCF75D001EDBBA /* StoreUseCaseFactory.swift */,
 			);
 			name = Store;
 			sourceTree = "<group>";
 		};
+		8A5EADB21D3550B500C53415 /* StoreViewPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A7C4F741CCFCFEE00EC7C1B /* DefaultStoreViewPresenter.swift */,
+				8A7C4F721CCFCFB800EC7C1B /* DefaultStoreViewPresenterTests.swift */,
+				8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */,
+			);
+			name = StoreViewPresenter;
+			sourceTree = "<group>";
+		};
 		8A63ECD21CCFBEAB00AEC485 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				8A63ECD31CCFBEC400AEC485 /* DefaultStoreClient.swift */,
 				8ADD6A4C1CDCF805001EDBBA /* DefaultStoreUseCaseFactory.swift */,
-				8ADD6A591CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift */,
-				8ADD6A5C1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift */,
-				8A9534601D05953D00EE9084 /* FailingStoreClient.swift */,
-				8AA791FB1CE245940082E4FC /* FakeStoreClient.swift */,
-				8A9534621D059A5300EE9084 /* LoggingStoreClient.swift */,
-				8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */,
+				8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */,
 				8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */,
 				8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */,
+				8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */,
+				8A859A061D2EC66500118A66 /* Products */,
+				8A859A071D2EC69200118A66 /* Store */,
+				8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */,
 				8ADD6A631CE0C591001EDBBA /* StoreView.swift */,
 				8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */,
 				8ADD6A7D1CE0F995001EDBBA /* StoreViewController.xib */,
-				8A7C4F741CCFCFEE00EC7C1B /* StoreViewPresenter.swift */,
-				8A7C4F721CCFCFB800EC7C1B /* StoreViewPresenterTests.swift */,
+				8AD6597D1D37C95E008A1007 /* StoreViewEventTarget */,
+				8A5EADB21D3550B500C53415 /* StoreViewPresenter */,
 				8A7567381CF75DF500D91C04 /* StoreViewState.swift */,
 				8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */,
 				8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */,
@@ -1048,6 +1106,159 @@
 				8ADD6A7F1CE0F995001EDBBA /* StoreWindowController.xib */,
 			);
 			name = Store;
+			sourceTree = "<group>";
+		};
+		8A859A061D2EC66500118A66 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8A9534601D05953D00EE9084 /* AsyncFailingProductsFake.swift */,
+				8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */,
+				8A9534621D059A5300EE9084 /* LoggingProducts.swift */,
+				8A63ECD31CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8A859A071D2EC69200118A66 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */,
+				8AD6597B1D36A152008A1007 /* LoggingStore.swift */,
+				8A9D92341D2C007500491D59 /* NullStore.swift */,
+				8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */,
+			);
+			name = Store;
+			sourceTree = "<group>";
+		};
+		8A859A081D2EC70700118A66 /* ProductPurchaseReceipt */ = {
+			isa = PBXGroup;
+			children = (
+				8A9513EF1D2A77AD0034DF2C /* InvalidProductPurchaseReceipt.swift */,
+				8A9513ED1D2A76F90034DF2C /* ValidProductPurchaseReceipt.swift */,
+			);
+			name = ProductPurchaseReceipt;
+			sourceTree = "<group>";
+		};
+		8A859A091D2EC71900118A66 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8A9D92301D2AE79300491D59 /* FailingFetchProductsFake.swift */,
+				8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */,
+				8A9D922E1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8A859A0A1D2EC82B00118A66 /* UserAgentSoundIOSelectionUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				AA277A521BD174D60030ECE4 /* DelayingUserAgentSoundIOSelectionUseCase.swift */,
+				AA277A541BD3F2A90030ECE4 /* DelayingUserAgentSoundIOSelectionUseCaseTests.swift */,
+				AAFA2BAC1BCD812C00066CFC /* UserAgentSoundIOSelectionUseCase.swift */,
+				AAFA2BB01BCD814000066CFC /* UserAgentSoundIOSelectionUseCaseTests.swift */,
+			);
+			name = UserAgentSoundIOSelectionUseCase;
+			sourceTree = "<group>";
+		};
+		8A859A0B1D2EC87700118A66 /* RingtonePlaybackUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackUseCase.swift */,
+				8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackUseCaseTests.swift */,
+				AA1019721C48046D00869D01 /* DefaultRingtonePlaybackUseCase.swift */,
+				AA1019701C48044900869D01 /* DefaultRingtonePlaybackUseCaseTests.swift */,
+				8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */,
+			);
+			name = RingtonePlaybackUseCase;
+			sourceTree = "<group>";
+		};
+		8A859A0C1D2EC8A300118A66 /* SoundPlaybackUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */,
+				8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */,
+				8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */,
+			);
+			name = SoundPlaybackUseCase;
+			sourceTree = "<group>";
+		};
+		8A859A0D1D2EC8C800118A66 /* SoundEventTarget */ = {
+			isa = PBXGroup;
+			children = (
+				8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */,
+				8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */,
+			);
+			name = SoundEventTarget;
+			sourceTree = "<group>";
+		};
+		8A859A0E1D2EC8F700118A66 /* ProductPurchaseEventTarget */ = {
+			isa = PBXGroup;
+			children = (
+				8A9513D61D22CD8A0034DF2C /* ProductPurchaseEventTarget.swift */,
+				8A9513E31D2A6CCA0034DF2C /* ReceiptValidatingProductPurchaseEventTarget.swift */,
+				8A9513E51D2A6F5A0034DF2C /* ReceiptValidatingProductPurchaseEventTargetTests.swift */,
+			);
+			name = ProductPurchaseEventTarget;
+			sourceTree = "<group>";
+		};
+		8A859A0F1D2EC93800118A66 /* ThrowingUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				8ADD31C91CC112A2008C083C /* NullThrowingUseCase.swift */,
+				AA404AC91BFC8E8900D00A3E /* ThrowingUseCase.swift */,
+			);
+			name = ThrowingUseCase;
+			sourceTree = "<group>";
+		};
+		8A859A101D2EC98300118A66 /* SoundIO */ = {
+			isa = PBXGroup;
+			children = (
+				8AAACA0C1CAEA717001930C4 /* FallingBackSoundIO.swift */,
+				8AAACA0E1CAEA733001930C4 /* FallingBackSoundIOTests.swift */,
+				8AAACA101CAEB9FD001930C4 /* PreferredSoundIO.swift */,
+				8AAACA121CAEBA8D001930C4 /* PreferredSoundIOTests.swift */,
+				8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */,
+				8AAACA061CAE9FEE001930C4 /* SimpleSoundIOTests.swift */,
+				8AAACA001CAE9EE5001930C4 /* SoundIO.swift */,
+			);
+			name = SoundIO;
+			sourceTree = "<group>";
+		};
+		8A859A111D2EC9D400118A66 /* SystemAudioDevice */ = {
+			isa = PBXGroup;
+			children = (
+				8A1CC6261CAD5AA200901BE9 /* NullSystemAudioDevice.swift */,
+				8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */,
+				AA30D84F1BF60E76002F343A /* FirstSystemAudioDevice.swift */,
+				AA30D84A1BF60DDB002F343A /* FirstSystemAudioDeviceTests.swift */,
+				AA3FAB9C1BBAB50B0064B2C3 /* SimpleSystemAudioDevice.swift */,
+				8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */,
+				8A9175AF1CABFCA700354E26 /* SystemAudioDevice.swift */,
+			);
+			name = SystemAudioDevice;
+			sourceTree = "<group>";
+		};
+		8A859A121D2ECA0000118A66 /* SystemSoundIO */ = {
+			isa = PBXGroup;
+			children = (
+				AAC6738A1BF50515006F43A2 /* FirstBuiltInSystemSoundIO.swift */,
+				AAC6738D1BF5053C006F43A2 /* FirstBuiltInSystemSoundIOTests.swift */,
+				AA30D8471BF606C1002F343A /* FirstSystemSoundIO.swift */,
+				AA30D8451BF60672002F343A /* FirstSystemSoundIOTests.swift */,
+				8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */,
+			);
+			name = SystemSoundIO;
+			sourceTree = "<group>";
+		};
+		8AD6597D1D37C95E008A1007 /* StoreViewEventTarget */ = {
+			isa = PBXGroup;
+			children = (
+				8ADD6A591CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift */,
+				8ADD6A5C1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift */,
+				8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */,
+				8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */,
+			);
+			name = StoreViewEventTarget;
 			sourceTree = "<group>";
 		};
 		AA078B2A1BFF80E30013FF8F /* UseCases */ = {
@@ -1059,10 +1270,9 @@
 				AA3B6E851C47ACFA0030D410 /* Timer */,
 				AA3905601C0077B7005A8AA3 /* User Agent */,
 				8ADD6B6C1C528F720029C3D8 /* Error.swift */,
-				8ADD31C91CC112A2008C083C /* NullThrowingUseCase.swift */,
 				8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */,
 				8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */,
-				AA404AC91BFC8E8900D00A3E /* ThrowingUseCase.swift */,
+				8A859A0F1D2EC93800118A66 /* ThrowingUseCase */,
 				AA404AC61BFC8E5D00D00A3E /* UseCase.swift */,
 				AAB32A111BEBA4BA0016C8E6 /* UseCaseFactory.swift */,
 				AA32F7FD1BC6908300FAC228 /* UserDefaults.swift */,
@@ -1109,8 +1319,6 @@
 			children = (
 				AA7F6D4C1C0387B70064DA3A /* AudioDevice.swift */,
 				AA8BA7F51C04D843008839F2 /* AudioDevices.swift */,
-				AA277A521BD174D60030ECE4 /* DelayingUserAgentSoundIOSelectionUseCase.swift */,
-				AA277A541BD3F2A90030ECE4 /* DelayingUserAgentSoundIOSelectionUseCaseTests.swift */,
 				AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */,
 				AA32F7EF1BC4400900FAC228 /* PreferredSoundIO.swift */,
 				AA32F7ED1BC43FB100FAC228 /* PreferredSoundIOTests.swift */,
@@ -1122,8 +1330,7 @@
 				AA3FAB991BBAB5000064B2C3 /* UserAgentAudioDevice.swift */,
 				AAB32A0E1BEB8AC40016C8E6 /* UserAgentAudioDeviceUpdateUseCase.swift */,
 				AAB32A0C1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateUseCaseTests.swift */,
-				AAFA2BAC1BCD812C00066CFC /* UserAgentSoundIOSelectionUseCase.swift */,
-				AAFA2BB01BCD814000066CFC /* UserAgentSoundIOSelectionUseCaseTests.swift */,
+				8A859A0A1D2EC82B00118A66 /* UserAgentSoundIOSelectionUseCase */,
 				AA7F6D461C0381C00064DA3A /* UserDefaultsSoundIOLoadUseCase.swift */,
 				AA7F6D441C0381650064DA3A /* UserDefaultsSoundIOLoadUseCaseTests.swift */,
 				AA18F6001C21CD9600FD8E9F /* UserDefaultsSoundIOSaveUseCase.swift */,
@@ -1159,6 +1366,7 @@
 				8A0FD63E1C9B168400AB3640 /* SoundIOPreferencesSpy.swift */,
 				AACC02A01C15E17E00913D7B /* SoundPreferencesViewSpy.swift */,
 				8ADD6A601CDD0130001EDBBA /* StoreViewDummy.swift */,
+				8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */,
 				8A6D96ED1D01DDA900D9C15B /* StoreViewSpy.swift */,
 				AA3FAB891BBAAE630064B2C3 /* Info.plist */,
 				AA3FAB911BBAB3570064B2C3 /* TelephoneTests-Bridging-Header.h */,
@@ -1236,26 +1444,19 @@
 		AA92F89B1C2AF90000C378B6 /* Ringtone */ = {
 			isa = PBXGroup;
 			children = (
-				8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackUseCase.swift */,
-				8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackUseCaseTests.swift */,
-				AA1019721C48046D00869D01 /* DefaultRingtonePlaybackUseCase.swift */,
-				AA1019701C48044900869D01 /* DefaultRingtonePlaybackUseCaseTests.swift */,
-				8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */,
-				8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */,
-				8AC1A43D1C67BDCC007778A2 /* NullSoundObserver.swift */,
 				AA3B6E811C46B55C0030D410 /* RepeatingSound.swift */,
 				AA3B6E8A1C47BFDF0030D410 /* RepeatingSoundTests.swift */,
 				AA92F8A31C2B02E700C378B6 /* Ringtone.swift */,
 				AA1019761C48071700869D01 /* RingtoneFactory.swift */,
 				8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */,
 				8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */,
-				8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */,
+				8A859A0B1D2EC87700118A66 /* RingtonePlaybackUseCase */,
 				AA3B6E7F1C46B40C0030D410 /* Sound.swift */,
 				AA3166361C4FAF9C00E7ECA5 /* SoundConfiguration.swift */,
 				8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */,
 				AA10197C1C4821C400869D01 /* SoundFactory.swift */,
-				8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */,
-				8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */,
+				8A859A0D1D2EC8C800118A66 /* SoundEventTarget */,
+				8A859A0C1D2EC8A300118A66 /* SoundPlaybackUseCase */,
 				AA31663A1C4FB30800E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadUseCase.swift */,
 				AA3166381C4FB21500E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests.swift */,
 				8A4E38311C5BB25F00816F38 /* UserDefaultsRingtoneSoundNameSaveUseCase.swift */,
@@ -1267,27 +1468,11 @@
 		AA9D08041BFF7E6F0000F618 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				8AAACA0C1CAEA717001930C4 /* FallingBackSoundIO.swift */,
-				8AAACA0E1CAEA733001930C4 /* FallingBackSoundIOTests.swift */,
-				AAC6738A1BF50515006F43A2 /* FirstBuiltInSystemSoundIO.swift */,
-				AAC6738D1BF5053C006F43A2 /* FirstBuiltInSystemSoundIOTests.swift */,
-				AA30D84F1BF60E76002F343A /* FirstSystemAudioDevice.swift */,
-				AA30D84A1BF60DDB002F343A /* FirstSystemAudioDeviceTests.swift */,
-				AA30D8471BF606C1002F343A /* FirstSystemSoundIO.swift */,
-				AA30D8451BF60672002F343A /* FirstSystemSoundIOTests.swift */,
-				8A1CC6261CAD5AA200901BE9 /* NullSystemAudioDevice.swift */,
-				8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */,
-				8AAACA101CAEB9FD001930C4 /* PreferredSoundIO.swift */,
-				8AAACA121CAEBA8D001930C4 /* PreferredSoundIOTests.swift */,
-				8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */,
-				8AAACA061CAE9FEE001930C4 /* SimpleSoundIOTests.swift */,
-				AA3FAB9C1BBAB50B0064B2C3 /* SimpleSystemAudioDevice.swift */,
-				8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */,
-				8AAACA001CAE9EE5001930C4 /* SoundIO.swift */,
-				8A9175AF1CABFCA700354E26 /* SystemAudioDevice.swift */,
+				8A859A101D2EC98300118A66 /* SoundIO */,
+				8A859A111D2EC9D400118A66 /* SystemAudioDevice */,
 				AA32F8051BC6968700FAC228 /* SystemAudioDevices.swift */,
 				AA32F8031BC6963D00FAC228 /* SystemAudioDevicesTests.swift */,
-				8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */,
+				8A859A121D2ECA0000118A66 /* SystemSoundIO */,
 				AA3FAB961BBAB4480064B2C3 /* SystemToUserAgentAudioDeviceMap.swift */,
 				AA3FAB941BBAB3990064B2C3 /* SystemToUserAgentAudioDeviceMapTests.swift */,
 				AA3905221BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift */,
@@ -1325,15 +1510,18 @@
 			isa = PBXGroup;
 			children = (
 				8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackUseCaseTestDelegate.swift */,
+				8A859A081D2EC70700118A66 /* ProductPurchaseReceipt */,
+				8A859A091D2EC71900118A66 /* Products */,
+				8ADD6A761CE0E704001EDBBA /* ProductsEventTargetSpy.swift */,
 				8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */,
+				8A9513E71D2A6FCE0034DF2C /* ProductPurchaseEventTargetSpy.swift */,
 				AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */,
 				8A7874F31C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift */,
 				AA1019741C48065700869D01 /* RingtoneSpy.swift */,
 				AA1019801C48F08A00869D01 /* SoundFactorySpy.swift */,
 				8A0451E51C93308000A08012 /* SoundPlaybackUseCaseSpy.swift */,
 				AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */,
-				8A11A0CA1CCFA258007BFC7F /* StoreClientSpy.swift */,
-				8ADD6A761CE0E704001EDBBA /* StoreClientEventTargetSpy.swift */,
+				8A11A0CA1CCFA258007BFC7F /* StoreSpy.swift */,
 				8ADD6A5E1CDCFFC4001EDBBA /* StoreUseCaseFactorySpy.swift */,
 				AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */,
 				AA90D7581BC90F9F0059CC03 /* SystemAudioDeviceRepositoryStub.swift */,
@@ -1876,7 +2064,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				8A63ECD41CCFBEC400AEC485 /* DefaultStoreClient.swift in Sources */,
+				8A63ECD41CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift in Sources */,
 				AA4BD4C80E07C28E005A71B2 /* AKSIPUserAgent.m in Sources */,
 				AA10198E1C4946EE00869D01 /* NSSoundToSoundAdapter.swift in Sources */,
 				AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */,
@@ -1885,10 +2073,12 @@
 				AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */,
 				8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
+				8A9D92351D2C007500491D59 /* NullStore.swift in Sources */,
 				8A91759F1CA59F1100354E26 /* PJSUAOnCallMediaState.m in Sources */,
 				8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
 				8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
+				8AD659841D37CA51008A1007 /* NullProductPurchaseEventTarget.swift in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
 				AACC029E1C15DCB100913D7B /* SoundIOPresenter.swift in Sources */,
 				AA6989A31C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
@@ -1918,12 +2108,15 @@
 				8ADD6A5A1CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
 				8A9175A51CA5A10800354E26 /* PJSUAOnCallReplaced.m in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
+				8A859A011D2D2BCF00118A66 /* ProductPurchaseEventSource.swift in Sources */,
 				AABA3A740F8A2B93009E1005 /* AKSIPAccount.m in Sources */,
 				AAAC618C0FE6A42900FBE053 /* AKNetworkReachability.m in Sources */,
+				8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */,
 				AA3FABAE1BBC19C10064B2C3 /* SystemAudioDeviceIDs.swift in Sources */,
 				AAF639F60FEFF13A0089DA3A /* AKResponsiveProgressIndicator.m in Sources */,
-				8A9534611D05953D00EE9084 /* FailingStoreClient.swift in Sources */,
+				8A9534611D05953D00EE9084 /* AsyncFailingProductsFake.swift in Sources */,
 				AA1019901C49486500869D01 /* UserDefaultsSoundFactory.swift in Sources */,
+				8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
 				AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */,
 				AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */,
 				8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */,
@@ -1941,26 +2134,30 @@
 				8A9175AB1CA5A92500354E26 /* PJSUAOnNATDetect.m in Sources */,
 				AAFCFFBD1074BFCA0018C7DA /* AccountSetupController.m in Sources */,
 				AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */,
-				8AB5A0C71D084DD300579CE8 /* StoreViewPresenter.swift in Sources */,
+				8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
+				8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */,
 				8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */,
 				8ABB14191CEC83990056CEDC /* StoreViewStateMachine.swift in Sources */,
 				AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */,
 				AAD92139107A608B00F142A4 /* EndedCallViewController.m in Sources */,
 				AA32F7FB1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
-				8AA791FC1CE245940082E4FC /* FakeStoreClient.swift in Sources */,
+				8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */,
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
 				AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */,
 				AAB3F5791C189D5300973BE5 /* SoundPreferencesViewEventTarget.swift in Sources */,
+				8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */,
 				8ADD6A641CE0C591001EDBBA /* StoreView.swift in Sources */,
+				8A3865161D369A2100EDA7AB /* FailingStoreFake.swift in Sources */,
+				8A5EADB01D35508100C53415 /* StoreViewPresenter.swift in Sources */,
 				AA1019951C494B5700869D01 /* NSTimerToTimerAdapterFactory.swift in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
 				AAE39A381BD92DF600EFB7BC /* String+Creating.swift in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
-				8A9534631D059A5300EE9084 /* LoggingStoreClient.swift in Sources */,
+				8A9534631D059A5300EE9084 /* LoggingProducts.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1971,7 +2168,7 @@
 			files = (
 				AA1019731C48046D00869D01 /* DefaultRingtonePlaybackUseCase.swift in Sources */,
 				AA3B6E891C47AD150030D410 /* TimerFactory.swift in Sources */,
-				8A3D60671C734A8900D7F54C /* NullSoundObserver.swift in Sources */,
+				8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */,
 				8A7874F21C5A2612002494ED /* ConditionalRingtonePlaybackUseCase.swift in Sources */,
 				AA3B6E801C46B40C0030D410 /* Sound.swift in Sources */,
 				8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */,
@@ -1989,9 +2186,12 @@
 				8AAACA151CAEC555001930C4 /* UserDefaultsSoundIO.swift in Sources */,
 				8ADD31CA1CC112A2008C083C /* NullThrowingUseCase.swift in Sources */,
 				8A61363B1CC23AA000A087A4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */,
+				8A9513E41D2A6CCA0034DF2C /* ReceiptValidatingProductPurchaseEventTarget.swift in Sources */,
+				8A9513D71D22CD8A0034DF2C /* ProductPurchaseEventTarget.swift in Sources */,
 				AA39052C1BFFDDC4005A8AA3 /* UseCase.swift in Sources */,
 				8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */,
 				8A11A0C91CCF9DDD007BFC7F /* ProductsFetchUseCase.swift in Sources */,
+				8A9513EC1D2A735F0034DF2C /* ProductPurchaseReceipt.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* UseCaseFactory.swift in Sources */,
 				8ADD6A4B1CDCF75D001EDBBA /* StoreUseCaseFactory.swift in Sources */,
 				8AC1A4411C67BFA8007778A2 /* SoundEventTarget.swift in Sources */,
@@ -2000,7 +2200,7 @@
 				AA7F6D471C0381C00064DA3A /* UserDefaultsSoundIOLoadUseCase.swift in Sources */,
 				AA31663B1C4FB30800E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadUseCase.swift in Sources */,
 				AA3905311BFFDDDA005A8AA3 /* UserAgentSoundIOSelectionUseCase.swift in Sources */,
-				8A11A0CD1CCFA29A007BFC7F /* StoreClient.swift in Sources */,
+				8A11A0CD1CCFA29A007BFC7F /* Store.swift in Sources */,
 				AA18F6011C21CD9600FD8E9F /* UserDefaultsSoundIOSaveUseCase.swift in Sources */,
 				8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */,
 				AA39054A1BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */,
@@ -2011,12 +2211,13 @@
 				AA7F6D4D1C0387B70064DA3A /* AudioDevice.swift in Sources */,
 				8A4D0B001C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift in Sources */,
 				AA7F6D3E1C034B700064DA3A /* UserDefaultsKeys.m in Sources */,
+				8A9D922D1D2AC9B900491D59 /* Products.swift in Sources */,
 				AA39052F1BFFDDDA005A8AA3 /* PreferredSoundIO.swift in Sources */,
 				8A11A0CF1CCFA74F007BFC7F /* Product.swift in Sources */,
 				8A4E38321C5BB25F00816F38 /* UserDefaultsRingtoneSoundNameSaveUseCase.swift in Sources */,
 				AA3B6E821C46B55C0030D410 /* RepeatingSound.swift in Sources */,
 				AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */,
-				8ADD6A6F1CE0DCF8001EDBBA /* StoreClientEventTargets.swift in Sources */,
+				8ADD6A6F1CE0DCF8001EDBBA /* ProductsEventTargets.swift in Sources */,
 				AA3B6E871C47AD0B0030D410 /* Timer.swift in Sources */,
 				8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */,
 				AA39053A1BFFDDE2005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
@@ -2032,11 +2233,13 @@
 				AA39053C1BFFDDED005A8AA3 /* PreferredSoundIOTests.swift in Sources */,
 				AA3905461BFFDE7C005A8AA3 /* UserAgentEventTargetsTests.swift in Sources */,
 				8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift in Sources */,
+				8A9513CF1D1D7F0E0034DF2C /* ProductPurchaseUseCaseTests.swift in Sources */,
 				AA7F6D451C0381650064DA3A /* UserDefaultsSoundIOLoadUseCaseTests.swift in Sources */,
 				AA39053D1BFFDDED005A8AA3 /* UserAgentSoundIOSelectionUseCaseTests.swift in Sources */,
-				8ADD6A711CE0DECC001EDBBA /* StoreClientEventTargetsTests.swift in Sources */,
+				8ADD6A711CE0DECC001EDBBA /* ProductsEventTargetsTests.swift in Sources */,
 				8A61363D1CC23ABC00A087A4 /* SystemAudioDevicesChangeEventTargetsTests.swift in Sources */,
 				8A7874F01C5A25D0002494ED /* ConditionalRingtonePlaybackUseCaseTests.swift in Sources */,
+				8A9513E61D2A6F5A0034DF2C /* ReceiptValidatingProductPurchaseEventTargetTests.swift in Sources */,
 				AA1019711C48044900869D01 /* DefaultRingtonePlaybackUseCaseTests.swift in Sources */,
 				8A11A0C71CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift in Sources */,
 				AA18F5FF1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveUseCaseTests.swift in Sources */,
@@ -2056,10 +2259,12 @@
 			files = (
 				AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */,
+				8A5EADB41D35517C00C53415 /* StoreViewPresenterSpy.swift in Sources */,
 				8A0FD63F1C9B168400AB3640 /* SoundIOPreferencesSpy.swift in Sources */,
 				AA1019871C490BE400869D01 /* RepeatingSoundFactoryTests.swift in Sources */,
 				8AB5A0CC1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
 				8ADD6A501CDCF828001EDBBA /* DefaultStoreUseCaseFactory.swift in Sources */,
+				8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
 				8ADD6A611CDD0130001EDBBA /* StoreViewDummy.swift in Sources */,
 				8ADD6A5D1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift in Sources */,
 				8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
@@ -2072,11 +2277,11 @@
 				AA32F7FC1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA19CFF91BED149C00991CAA /* DefaultUseCaseFactory.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */,
-				8AB5A0C91D084DD800579CE8 /* StoreViewPresenterTests.swift in Sources */,
+				8AB5A0C91D084DD800579CE8 /* DefaultStoreViewPresenterTests.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */,
 				8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
-				8AB5A0C81D084DD400579CE8 /* StoreViewPresenter.swift in Sources */,
+				8AB5A0C81D084DD400579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,
 				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,
@@ -2085,6 +2290,7 @@
 				8ADD6A5B1CDCFEB9001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
 				AA6989A41C19AF1C0067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
 				AACC02A11C15E17E00913D7B /* SoundPreferencesViewSpy.swift in Sources */,
+				8A5EADB11D35508D00C53415 /* StoreViewPresenter.swift in Sources */,
 				AACC029C1C15DC7600913D7B /* SoundIOPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2146,12 +2352,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7F6D2D1C0217020064DA3A /* UseCaseSpy.swift in Sources */,
+				8A9D92331D2BF9D000491D59 /* SimpleProductsFake.swift in Sources */,
 				AA7F6D2F1C0217020064DA3A /* ThrowingUseCaseSpy.swift in Sources */,
 				8A7874F41C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift in Sources */,
 				8ADD6A5F1CDCFFC4001EDBBA /* StoreUseCaseFactorySpy.swift in Sources */,
 				AA1019791C48078900869D01 /* RingtoneFactorySpy.swift in Sources */,
 				8A0451E61C93308000A08012 /* SoundPlaybackUseCaseSpy.swift in Sources */,
-				8ADD6A771CE0E704001EDBBA /* StoreClientEventTargetSpy.swift in Sources */,
+				8ADD6A771CE0E704001EDBBA /* ProductsEventTargetSpy.swift in Sources */,
 				AA7F6D491C0382550064DA3A /* UserDefaultsSoundIOLoadUseCaseOutputSpy.swift in Sources */,
 				8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift in Sources */,
 				8ADD31C61CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift in Sources */,
@@ -2159,17 +2366,22 @@
 				AA7F6D321C0217020064DA3A /* UserDefaultsFake.swift in Sources */,
 				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
 				AA1019751C48065700869D01 /* RingtoneSpy.swift in Sources */,
+				8A9D92311D2AE79300491D59 /* FailingFetchProductsFake.swift in Sources */,
 				8A61363E1CC23AFF00A087A4 /* SystemAudioDevicesChangeEventTargetSpy.swift in Sources */,
 				8ADD31C81CC10FA6008C083C /* UseCaseFactoryFake.swift in Sources */,
+				8A9513EE1D2A76F90034DF2C /* ValidProductPurchaseReceipt.swift in Sources */,
 				8A7874F61C5A29EE002494ED /* ConditionalRingtonePlaybackUseCaseTestDelegate.swift in Sources */,
+				8A9513E81D2A6FCE0034DF2C /* ProductPurchaseEventTargetSpy.swift in Sources */,
 				AA7F6D2E1C0217020064DA3A /* SystemAudioDeviceRepositoryStub.swift in Sources */,
 				AA7F6D301C0217020064DA3A /* UserAgentEventTargetSpy.swift in Sources */,
+				8A9D922F1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift in Sources */,
 				8A11A0D11CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift in Sources */,
-				8A11A0CB1CCFA258007BFC7F /* StoreClientSpy.swift in Sources */,
+				8A11A0CB1CCFA258007BFC7F /* StoreSpy.swift in Sources */,
 				AA6989B11C19CAED0067BFB1 /* UseCaseFactorySpy.swift in Sources */,
 				AA1019811C48F08A00869D01 /* SoundFactorySpy.swift in Sources */,
 				AA3B6E8F1C47C3C00030D410 /* TimerFactorySpy.swift in Sources */,
 				AA3B6E911C47C6590030D410 /* TimerSpy.swift in Sources */,
+				8A9513F01D2A77AD0034DF2C /* InvalidProductPurchaseReceipt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

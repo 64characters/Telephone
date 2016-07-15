@@ -17,10 +17,11 @@
 //
 
 class DefaultStoreViewEventTarget {
+    private(set) var state: StoreViewState = StoreViewStateNoProducts()
+    private var products: [Product] = []
+
     private let factory: StoreUseCaseFactory
     private let presenter: StoreViewPresenter
-
-    private(set) var state: StoreViewState = StoreViewStateNoProducts()
 
     init(factory: StoreUseCaseFactory, presenter: StoreViewPresenter) {
         self.factory = factory
@@ -39,6 +40,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func showProducts(products: [Product]) {
+        self.products = products
         presenter.showProducts(products)
     }
 
@@ -46,8 +48,27 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showProductsFetchError(error)
     }
 
-    func purchaseProduct(identifier identifier: String) {}
-    func showPurchaseError(error: String) {}
+    func purchaseProduct(withIdentifier identifier: String) {
+        do {
+            try factory.createProductPurchaseUseCase(identifier: identifier).execute()
+        } catch {
+            print("Could not make purchase: \(error)")
+        }
+    }
+
+    func showPurchaseProgress() {
+        presenter.showPurchaseProgress()
+    }
+
+    func showPurchaseError(error: String) {
+        showCachedProducts()
+        presenter.showPurchaseError(error)
+    }
+
+    func showCachedProducts() {
+        presenter.showProducts(products)
+    }
+
     func restorePurchases() {}
     func showPurchaseRestorationError(error: String) {}
     func showThankYou() {}

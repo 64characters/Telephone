@@ -32,7 +32,11 @@ public struct Product {
     }
 }
 
-extension Product: Equatable {}
+extension Product: Hashable {
+    public var hashValue: Int {
+        return identifier.hashValue ^ name.hashValue ^ price.hashValue ^ localizedPrice.hashValue
+    }
+}
 
 public func ==(lhs: Product, rhs: Product) -> Bool {
     return lhs.identifier == rhs.identifier &&

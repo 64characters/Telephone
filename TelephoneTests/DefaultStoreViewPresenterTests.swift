@@ -1,5 +1,5 @@
 //
-//  StoreViewPresenterTests.swift
+//  DefaultStoreViewPresenterTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,14 +18,14 @@
 
 import XCTest
 
-class StoreViewPresenterTests: XCTestCase {
+class DefaultStoreViewPresenterTests: XCTestCase {
     private var output: StoreViewSpy!
-    private var sut: StoreViewPresenter!
+    private var sut: DefaultStoreViewPresenter!
 
     override func setUp() {
         super.setUp()
         output = StoreViewSpy()
-        sut = StoreViewPresenter(output: output)
+        sut = DefaultStoreViewPresenter(output: output)
     }
 
     func testShowsProductsSortedByPriceOnShowProducts() {
@@ -47,7 +47,7 @@ class StoreViewPresenterTests: XCTestCase {
 
         sut.showProductsFetchError(error)
 
-        XCTAssertEqual(output.invokedError, expected)
+        XCTAssertEqual(output.invokedProductsFetchError, expected)
     }
 
     func testShowsProductsFetchProgressOnShowProductsFetchProgress() {
@@ -70,6 +70,31 @@ class StoreViewPresenterTests: XCTestCase {
 
     func testEnablesPurchaseRestorationOnShowProductsFetchError() {
         sut.showProductsFetchError("any")
+
+        XCTAssertTrue(output.didCallEnablePurchaseRestoration)
+    }
+
+    func testShowsPurchaseProgressOnShowPurchaseProgress() {
+        sut.showPurchaseProgress()
+
+        XCTAssertTrue(output.didCallShowPurchaseProgress)
+    }
+
+    func testDisablesPurchaseRestorationOnShowPurchaseProgress() {
+        sut.showPurchaseProgress()
+
+        XCTAssertTrue(output.didCallDisablePurchaseRestoration)
+    }
+
+    func testShowsPurchaseErrorOnShowPurchaseError() {
+        let error = "any"
+        sut.showPurchaseError(error)
+
+        XCTAssertEqual(output.invokedPurchaseError, error)
+    }
+
+    func testEnablesPurchaseRestorationOnShowPurchaseError() {
+        sut.showPurchaseError("any")
 
         XCTAssertTrue(output.didCallEnablePurchaseRestoration)
     }

@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  LoggingProducts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,27 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let identifier: String
-    private let products: Products
-    private let store: Store
+class LoggingProducts {
+    private let origin: Products
 
-    public init(identifier: String, products: Products, store: Store) {
-        self.identifier = identifier
-        self.products = products
-        self.store = store
+    init(origin: Products) {
+        self.origin = origin
     }
 }
 
-extension ProductPurchaseUseCase: ThrowingUseCase {
-    public func execute() throws {
-        try store.purchase(products[identifier]!)
+extension LoggingProducts: Products {
+    var all: [Product] {
+        print("Getting all products")
+        return origin.all
+    }
+
+    subscript(identifier: String) -> Product? {
+        print("Getting product by identifier: \(identifier)")
+        return origin[identifier]
+    }
+
+    func fetch() {
+        print("Fetching products")
+        origin.fetch()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  StoreClientEventTargetsTests.swift
+//  ProductsEventTargetsTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,11 +20,11 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class StoreClientEventTargetsTests: XCTestCase {
+class ProductsEventTargetsTests: XCTestCase {
     func testCanAddTargets() {
-        let first = StoreClientEventTargetSpy()
-        let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargets()
+        let first = ProductsEventTargetSpy()
+        let second = ProductsEventTargetSpy()
+        let sut = ProductsEventTargets()
 
         sut.addTarget(first)
         sut.addTarget(second)
@@ -35,9 +35,9 @@ class StoreClientEventTargetsTests: XCTestCase {
     }
 
     func testCanRemoveTargets() {
-        let first = StoreClientEventTargetSpy()
-        let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargets()
+        let first = ProductsEventTargetSpy()
+        let second = ProductsEventTargetSpy()
+        let sut = ProductsEventTargets()
         sut.addTarget(first)
         sut.addTarget(second)
 
@@ -48,28 +48,28 @@ class StoreClientEventTargetsTests: XCTestCase {
     }
 
     func testCallsDidFetchProductsOnAllTargets() {
-        let first = StoreClientEventTargetSpy()
-        let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargets()
+        let first = ProductsEventTargetSpy()
+        let second = ProductsEventTargetSpy()
+        let sut = ProductsEventTargets()
         sut.addTarget(first)
         sut.addTarget(second)
 
-        sut.storeClient(StoreClientSpy(), didFetchProducts: [])
+        sut.productsDidFetch()
 
-        XCTAssertTrue(first.didCallDidFetchProducts)
-        XCTAssertTrue(second.didCallDidFetchProducts)
+        XCTAssertTrue(first.didCallProductsDidFetch)
+        XCTAssertTrue(second.didCallProductsDidFetch)
     }
 
     func testCallsDidFailFetchingProductsOnAllTargets() {
-        let first = StoreClientEventTargetSpy()
-        let second = StoreClientEventTargetSpy()
-        let sut = StoreClientEventTargets()
+        let first = ProductsEventTargetSpy()
+        let second = ProductsEventTargetSpy()
+        let sut = ProductsEventTargets()
         sut.addTarget(first)
         sut.addTarget(second)
 
-        sut.storeClient(StoreClientSpy(), didFailFetchingProductsWithError: "any-error")
+        sut.productsDidFailFetching(withError: "any")
 
-        XCTAssertTrue(first.didCallDidFailFetchingProducts)
-        XCTAssertTrue(second.didCallDidFailFetchingProducts)
+        XCTAssertTrue(first.didCallProductsDidFailFetching)
+        XCTAssertTrue(second.didCallProductsDidFailFetching)
     }
 }

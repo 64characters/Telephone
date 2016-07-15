@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseUseCase.swift
+//  NullStore.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
-    private let identifier: String
-    private let products: Products
-    private let store: Store
+import UseCases
 
-    public init(identifier: String, products: Products, store: Store) {
-        self.identifier = identifier
-        self.products = products
-        self.store = store
-    }
-}
-
-extension ProductPurchaseUseCase: ThrowingUseCase {
-    public func execute() throws {
-        try store.purchase(products[identifier]!)
-    }
+struct NullStore: Store {
+    func purchase(product: Product) {}
 }
