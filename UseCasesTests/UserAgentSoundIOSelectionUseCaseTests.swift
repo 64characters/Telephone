@@ -22,7 +22,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
+final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
     func testSelectsMappedAudioDevices() {
         let factory = SystemAudioDeviceTestFactory()
         let systemDevices = SystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])

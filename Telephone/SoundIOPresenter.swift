@@ -18,7 +18,7 @@
 
 import UseCases
 
-class SoundIOPresenter {
+final class SoundIOPresenter {
     private let output: SoundIOPresenterOutput
 
     init(output: SoundIOPresenterOutput) {

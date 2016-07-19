@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class RepeatingSound {
+public final class RepeatingSound {
     private let sound: Sound
     public let interval: Double
     private let factory: TimerFactory

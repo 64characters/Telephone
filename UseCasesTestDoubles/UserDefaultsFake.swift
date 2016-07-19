@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-public class UserDefaultsFake {
+public final class UserDefaultsFake {
     private var dictionary: [String: String] = [:]
 
     public init() {}

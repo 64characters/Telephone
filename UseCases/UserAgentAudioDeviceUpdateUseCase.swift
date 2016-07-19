@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class UserAgentAudioDeviceUpdateUseCase {
+public final class UserAgentAudioDeviceUpdateUseCase {
     private let userAgent: UserAgent
 
     public init(userAgent: UserAgent) {

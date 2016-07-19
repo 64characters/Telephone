@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class UseCaseFactorySpy {
+public final class UseCaseFactorySpy {
     public private(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
     public private(set) var invokedRingtoneSoundName = ""
 

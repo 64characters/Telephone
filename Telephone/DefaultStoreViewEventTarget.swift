@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class DefaultStoreViewEventTarget {
+final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
     private var products: [Product] = []
 

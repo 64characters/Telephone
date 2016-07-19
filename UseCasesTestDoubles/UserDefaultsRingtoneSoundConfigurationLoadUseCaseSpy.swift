@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy {
+public final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy {
     public private(set) var didCallExecute = false
 
     public init() {}

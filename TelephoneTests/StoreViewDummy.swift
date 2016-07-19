@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class StoreViewDummy: StoreView {
+final class StoreViewDummy: StoreView {
     func showProducts(products: [PresentationProduct]) {}
     func showProductsFetchError(error: String) {}
     func showProductsFetchProgress() {}

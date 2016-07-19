@@ -19,7 +19,7 @@
 import UseCases
 import XCTest
 
-class ServiceAddressTests: XCTestCase {
+final class ServiceAddressTests: XCTestCase {
     func testHostIsFullSourceStringWhenNoPortIsSpecified() {
         let sut = ServiceAddress(string: "any")
 

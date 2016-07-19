@@ -18,7 +18,7 @@
 
 import XCTest
 
-class PreferencesSoundIOUpdaterTests: XCTestCase {
+final class PreferencesSoundIOUpdaterTests: XCTestCase {
     func testCallsUpdateSoundIOOnSystemAudioDevicesUpdate() {
         let preferences = SoundIOPreferencesSpy()
         let sut = PreferencesSoundIOUpdater(preferences: preferences)

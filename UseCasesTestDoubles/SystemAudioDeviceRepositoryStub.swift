@@ -19,7 +19,7 @@
 import Domain
 import UseCases
 
-public class SystemAudioDeviceRepositoryStub {
+public final class SystemAudioDeviceRepositoryStub {
     public var allDevicesResult = [SystemAudioDevice]()
 
     public init() {}

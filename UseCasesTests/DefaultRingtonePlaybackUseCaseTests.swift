@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class DefaultRingtonePlaybackUseCaseTests: XCTestCase {
+final class DefaultRingtonePlaybackUseCaseTests: XCTestCase {
     private var ringtone: RingtoneSpy!
     private var factory: RingtoneFactorySpy!
     private var sut: RingtonePlaybackUseCase!

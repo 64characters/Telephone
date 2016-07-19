@@ -20,7 +20,7 @@
 import DomainTestDoubles
 import XCTest
 
-class SimpleSoundIOTests: XCTestCase {
+final class SimpleSoundIOTests: XCTestCase {
     func testCanCreateWithSystemSoundIO() {
         let factory = SystemAudioDeviceTestFactory()
         let systemIO = SimpleSystemSoundIO(

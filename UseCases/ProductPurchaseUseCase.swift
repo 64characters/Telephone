@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductPurchaseUseCase {
+public final class ProductPurchaseUseCase {
     private let identifier: String
     private let products: Products
     private let store: Store

@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
+final class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
     private var target: UserAgentEventTargetSpy!
     private var sut: UserAgentNotificationsToEventTargetAdapter!
     private var userAgent: UserAgent!

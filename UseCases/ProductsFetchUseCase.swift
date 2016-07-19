@@ -21,7 +21,7 @@ public protocol ProductsFetchUseCaseOutput: class {
     func didFailFetchingProducts(error error: String)
 }
 
-public class ProductsFetchUseCase {
+public final class ProductsFetchUseCase {
     private let products: Products
     private let targets: ProductsEventTargets
     private let output: ProductsFetchUseCaseOutput

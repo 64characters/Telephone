@@ -20,7 +20,7 @@
 import DomainTestDoubles
 import XCTest
 
-class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
+final class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
 
     override func setUp() {

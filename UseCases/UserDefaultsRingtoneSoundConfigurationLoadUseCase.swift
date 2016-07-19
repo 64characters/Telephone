@@ -18,7 +18,7 @@
 
 import Domain
 
-public class UserDefaultsRingtoneSoundConfigurationLoadUseCase {
+public final class UserDefaultsRingtoneSoundConfigurationLoadUseCase {
     private let userDefaults: UserDefaults
     private let repository: SystemAudioDeviceRepository
 

@@ -18,7 +18,7 @@
 
 import UseCases
 
-class NSSoundToSoundAdapter: NSObject {
+final class NSSoundToSoundAdapter: NSObject {
     private let sound: NSSound
     private let eventTarget: SoundEventTarget
 

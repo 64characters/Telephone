@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class UserDefaultsRingtoneSoundNameSaveUseCase {
+public final class UserDefaultsRingtoneSoundNameSaveUseCase {
     private let name: String
     private let userDefaults: UserDefaults
 

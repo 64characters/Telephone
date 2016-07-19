@@ -19,7 +19,7 @@
 import StoreKit
 import UseCases
 
-class SKProductsRequestToProductsAdapter: NSObject {
+final class SKProductsRequestToProductsAdapter: NSObject {
     private var products: [String: Product] = [:]
     private var storeKitProducts: [Product: SKProduct] = [:]
     private var request: SKProductsRequest?

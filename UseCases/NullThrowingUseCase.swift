@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class NullThrowingUseCase: ThrowingUseCase {
+public final class NullThrowingUseCase: ThrowingUseCase {
     public init() {}
 
     public func execute() throws {}

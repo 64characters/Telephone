@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class SystemAudioDevicesChangeEventTargetSpy {
+public final class SystemAudioDevicesChangeEventTargetSpy {
     public private(set) var didCallSystemAudioDevicesDidUpdate = false
 
     public init() {}

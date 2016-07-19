@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class StoreViewSpy {
+final class StoreViewSpy {
     private(set) var invokedProducts: [PresentationProduct] = []
     private(set) var invokedProductsFetchError = ""
     private(set) var didCallShowProductsFetchProgress = false

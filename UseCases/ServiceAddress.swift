@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class ServiceAddress: NSObject {
+public final class ServiceAddress: NSObject {
     public let host: String
     public let port: String
 

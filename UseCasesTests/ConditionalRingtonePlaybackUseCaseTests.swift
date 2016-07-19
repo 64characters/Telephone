@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class ConditionalRingtonePlaybackUseCaseTests: XCTestCase {
+final class ConditionalRingtonePlaybackUseCaseTests: XCTestCase {
     private var origin: RingtonePlaybackUseCaseSpy!
     private var delegate: ConditionalRingtonePlaybackUseCaseTestDelegate!
     private var sut: ConditionalRingtonePlaybackUseCase!

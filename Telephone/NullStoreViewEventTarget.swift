@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class NullStoreViewEventTarget: StoreViewEventTarget {
+final class NullStoreViewEventTarget: StoreViewEventTarget {
     func viewShouldReloadData(view: StoreView) {}
     func viewDidStartProductFetch() {}
     func viewDidMakePurchase(product: PresentationProduct) {}

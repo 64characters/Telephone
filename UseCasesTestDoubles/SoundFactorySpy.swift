@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class SoundFactorySpy {
+public final class SoundFactorySpy {
     public private(set) var didCallCreateSound = false
     public private(set) var lastCreatedSound: SoundSpy!
 

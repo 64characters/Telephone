@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class UserAgentEventTargetSpy {
+public final class UserAgentEventTargetSpy {
     public private(set) var didCallUserAgentDidFinishStarting = false
     public private(set) var didCallUserAgentDidFinishStopping = false
     public private(set) var didCallUserAgentDidDetectNAT = false

@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class DefaultStoreViewPresenter {
+final class DefaultStoreViewPresenter {
     private let output: StoreViewPresenterOutput
 
     init(output: StoreViewPresenterOutput) {

@@ -18,7 +18,7 @@
 
 import UseCases
 
-class UserDefaultsSoundFactory {
+final class UserDefaultsSoundFactory {
     private let load: SoundConfigurationLoadUseCase
     private let factory: NSSoundToSoundAdapterFactory
 

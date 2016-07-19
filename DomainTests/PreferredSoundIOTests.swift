@@ -20,7 +20,7 @@ import Domain
 import DomainTestDoubles
 import XCTest
 
-class PreferredSoundIOTests: XCTestCase {
+final class PreferredSoundIOTests: XCTestCase {
     func testPrefersFirstBuiltInDevices() {
         let factory = SystemAudioDeviceTestFactory()
 

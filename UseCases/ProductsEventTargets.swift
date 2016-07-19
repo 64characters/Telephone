@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class ProductsEventTargets {
+public final class ProductsEventTargets {
     public var count: Int {
         return targets.count
     }

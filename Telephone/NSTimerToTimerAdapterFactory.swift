@@ -18,7 +18,7 @@
 
 import UseCases
 
-class NSTimerToTimerAdapterFactory: TimerFactory {
+final class NSTimerToTimerAdapterFactory: TimerFactory {
     func createRepeatingTimer(interval interval: Double, action: () -> Void) -> Timer {
         let timer = NSTimerToTimerAdapter(action: action)
         timer.timer = NSTimer.scheduledTimerWithTimeInterval(

@@ -21,7 +21,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
+final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
     private var userDefaults: UserDefaultsFake!
     private var repository: SystemAudioDeviceRepositoryStub!

@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class LoggingProducts {
+final class LoggingProducts {
     private let origin: Products
 
     init(origin: Products) {

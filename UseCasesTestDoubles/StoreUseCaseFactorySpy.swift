@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class StoreUseCaseFactorySpy {
+public final class StoreUseCaseFactorySpy {
     private var fetch: UseCase!
     private var purchase: ThrowingUseCase!
 

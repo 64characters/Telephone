@@ -22,7 +22,7 @@ public protocol UserDefaultsSoundIOLoadUseCaseOutput: class {
     func update(devices devices: AudioDevices, soundIO: PresentationSoundIO)
 }
 
-public class UserDefaultsSoundIOLoadUseCase {
+public final class UserDefaultsSoundIOLoadUseCase {
     private let repository: SystemAudioDeviceRepository
     private let userDefaults: UserDefaults
     private let output: UserDefaultsSoundIOLoadUseCaseOutput

@@ -18,7 +18,7 @@
 
 import XCTest
 
-class DefaultStoreViewPresenterTests: XCTestCase {
+final class DefaultStoreViewPresenterTests: XCTestCase {
     private var output: StoreViewSpy!
     private var sut: DefaultStoreViewPresenter!
 

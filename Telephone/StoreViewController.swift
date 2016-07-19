@@ -19,7 +19,7 @@
 import Cocoa
 import UseCases
 
-class StoreViewController: NSViewController {
+final class StoreViewController: NSViewController {
     private var target: StoreViewEventTarget
     private dynamic var products: [PresentationProduct] = []
 

@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-class CompositionRoot: NSObject {
+final class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     let preferencesController: PreferencesController
     let ringtonePlayback: RingtonePlaybackUseCase

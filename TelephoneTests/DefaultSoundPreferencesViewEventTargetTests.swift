@@ -19,7 +19,7 @@
 import UseCasesTestDoubles
 import XCTest
 
-class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
+final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     private var factory: UseCaseFactorySpy!
     private var userAgentSoundIOSelection: UseCaseSpy!
     private var ringtoneOutputUpdate: ThrowingUseCaseSpy!

@@ -22,7 +22,7 @@ import DomainTestDoubles
 import UseCasesTestDoubles
 import XCTest
 
-class PreferredSoundIOTests: XCTestCase {
+final class PreferredSoundIOTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
     private var userDefaults: UserDefaultsFake!
 

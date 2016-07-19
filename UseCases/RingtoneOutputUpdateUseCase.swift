@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class RingtoneOutputUpdateUseCase {
+public final class RingtoneOutputUpdateUseCase {
     private let playback: RingtonePlaybackUseCase
 
     public init(playback: RingtonePlaybackUseCase) {

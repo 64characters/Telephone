@@ -18,7 +18,7 @@
 
 import Foundation
 
-public class UserAgentAudioDevice: NSObject {
+public final class UserAgentAudioDevice: NSObject {
     public let identifier: Int
     public let name: String
     public let inputs: Int

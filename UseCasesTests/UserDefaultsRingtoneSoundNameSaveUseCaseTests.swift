@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserDefaultsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
+final class UserDefaultsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
     func testUpdatesUserDefaults() {
         let userDefaults = UserDefaultsFake()
         let sut = UserDefaultsRingtoneSoundNameSaveUseCase(name: "sound-name", userDefaults: userDefaults)

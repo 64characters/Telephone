@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class DefaultStoreViewEventTargetTests: XCTestCase {
+final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testExecutesProductsFetchOnFetchProducts() {
         let useCase = UseCaseSpy()
         let factory = StoreUseCaseFactorySpy()

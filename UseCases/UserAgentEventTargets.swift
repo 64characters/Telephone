@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class UserAgentEventTargets {
+public final class UserAgentEventTargets {
     private let targets: [UserAgentEventTarget]
 
     public init(targets: [UserAgentEventTarget]) {

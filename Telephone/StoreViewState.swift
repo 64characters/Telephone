@@ -100,7 +100,7 @@ class StoreViewState {
     }
 }
 
-class StoreViewStateNoProducts: StoreViewState {
+final class StoreViewStateNoProducts: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetching())
         machine.fetchProducts()
@@ -122,7 +122,7 @@ class StoreViewStateNoProducts: StoreViewState {
     }
 }
 
-class StoreViewStateFetching: StoreViewState {
+final class StoreViewStateFetching: StoreViewState {
     override func didFetchProducts(machine machine: StoreViewStateMachine, products: [Product]) {
         machine.changeState(StoreViewStateFetched())
         machine.showProducts(products)
@@ -139,7 +139,7 @@ class StoreViewStateFetching: StoreViewState {
     }
 }
 
-class StoreViewStateFetched: StoreViewState {
+final class StoreViewStateFetched: StoreViewState {
     override func viewDidMakePurchase(machine machine: StoreViewStateMachine, product: PresentationProduct) {
         machine.purchaseProduct(withIdentifier: product.identifier)
     }
@@ -160,7 +160,7 @@ class StoreViewStateFetched: StoreViewState {
     }
 }
 
-class StoreViewStateFetchError: StoreViewState {
+final class StoreViewStateFetchError: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetching())
         machine.fetchProducts()
@@ -182,7 +182,7 @@ class StoreViewStateFetchError: StoreViewState {
     }
 }
 
-class StoreViewStatePurchasing: StoreViewState {
+final class StoreViewStatePurchasing: StoreViewState {
     override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
@@ -199,13 +199,13 @@ class StoreViewStatePurchasing: StoreViewState {
     }
 }
 
-class StoreViewStatePurchased: StoreViewState {
+final class StoreViewStatePurchased: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
         machine.showThankYou()
     }
 }
 
-class StoreViewStatePurchaseError: StoreViewState {
+final class StoreViewStatePurchaseError: StoreViewState {
     override func viewDidMakePurchase(machine machine: StoreViewStateMachine, product: PresentationProduct) {
         machine.purchaseProduct(withIdentifier: product.identifier)
     }
@@ -221,7 +221,7 @@ class StoreViewStatePurchaseError: StoreViewState {
     }
 }
 
-class StoreViewStateRestoringPurchases: StoreViewState {
+final class StoreViewStateRestoringPurchases: StoreViewState {
     override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
@@ -238,7 +238,7 @@ class StoreViewStateRestoringPurchases: StoreViewState {
     }
 }
 
-class StoreViewStatePurchaseRestorationError: StoreViewState {
+final class StoreViewStatePurchaseRestorationError: StoreViewState {
     override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()

@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class SoundSpy {
+public final class SoundSpy {
     public private(set) var didCallPlay = false
     public private(set) var didCallStop = false
 

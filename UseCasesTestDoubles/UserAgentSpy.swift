@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-public class UserAgentSpy: NSObject {
+public final class UserAgentSpy: NSObject {
     @objc(isStarted) public var started = false
     public private(set) var hasActiveCalls = false
 
