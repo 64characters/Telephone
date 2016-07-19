@@ -18,7 +18,7 @@
 
 import UseCases
 
-class DefaultStoreUseCaseFactory {
+final class DefaultStoreUseCaseFactory {
     private let products: Products
     private let store: Store
     private let targets: ProductsEventTargets

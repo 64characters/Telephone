@@ -20,7 +20,7 @@ import XCTest
 import UseCases
 import UseCasesTestDoubles
 
-class ProductPurchaseUseCaseTests: XCTestCase {
+final class ProductPurchaseUseCaseTests: XCTestCase {
     func testPurchasesProductWithGivenIdentifierOnExecute() {
         let products = SimpleProductsFake()
         let product = products.all.first!

@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserAgentAudioDeviceUpdateUseCaseTests: XCTestCase {
+final class UserAgentAudioDeviceUpdateUseCaseTests: XCTestCase {
     private var userAgent: UserAgentSpy!
     private var sut: UserAgentAudioDeviceUpdateUseCase!
 

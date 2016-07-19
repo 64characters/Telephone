@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class PresenterFactory {
+final class PresenterFactory {
     func createSoundIOPresenter(output output: SoundIOPresenterOutput) -> SoundIOPresenter {
         return SoundIOPresenter(output: output)
     }

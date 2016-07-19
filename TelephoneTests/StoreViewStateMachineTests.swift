@@ -19,7 +19,7 @@
 import UseCases
 import XCTest
 
-class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
+final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     private var sut: StoreViewStateMachine!
     var state: StoreViewState = StoreViewStateNoProducts()
     private var actions: String!

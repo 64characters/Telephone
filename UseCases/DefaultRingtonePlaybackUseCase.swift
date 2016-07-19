@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class DefaultRingtonePlaybackUseCase: NSObject {
+public final class DefaultRingtonePlaybackUseCase: NSObject {
     public static let interval: Double = 4
     
     public var playing: Bool { return ringtone != nil }

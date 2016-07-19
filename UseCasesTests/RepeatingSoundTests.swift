@@ -20,7 +20,7 @@
 import UseCasesTestDoubles
 import XCTest
 
-class RepeatingSoundTests: XCTestCase {
+final class RepeatingSoundTests: XCTestCase {
     private var sound: SoundSpy!
     private var factory: TimerFactorySpy!
     private var timer: TimerSpy!

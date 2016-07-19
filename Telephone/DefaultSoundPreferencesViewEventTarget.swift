@@ -18,7 +18,7 @@
 
 import UseCases
 
-class DefaultSoundPreferencesViewEventTarget: NSObject {
+final class DefaultSoundPreferencesViewEventTarget: NSObject {
     private let useCaseFactory: UseCaseFactory
     private let presenterFactory: PresenterFactory
     private let userAgentSoundIOSelection: UseCase

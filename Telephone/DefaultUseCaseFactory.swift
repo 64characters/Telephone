@@ -18,7 +18,7 @@
 
 import UseCases
 
-class DefaultUseCaseFactory {
+final class DefaultUseCaseFactory {
     private let repository: SystemAudioDeviceRepository
     private let userDefaults: UserDefaults
 

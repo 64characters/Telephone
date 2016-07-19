@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class RingtoneSpy {
+public final class RingtoneSpy {
     public let interval: Double = 0
 
     public private(set) var didCallStartPlaying = false

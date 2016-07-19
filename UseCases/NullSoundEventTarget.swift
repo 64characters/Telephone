@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class NullSoundEventTarget: SoundEventTarget {
+public final class NullSoundEventTarget: SoundEventTarget {
     public init() {}
     public func soundDidFinishPlaying() {}
 }

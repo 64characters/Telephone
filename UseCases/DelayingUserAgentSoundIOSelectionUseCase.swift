@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class DelayingUserAgentSoundIOSelectionUseCase {
+public final class DelayingUserAgentSoundIOSelectionUseCase {
     private let useCase: ThrowingUseCase
     private let userAgent: UserAgent
     private var selection: ThrowingUseCase = NullThrowingUseCase()

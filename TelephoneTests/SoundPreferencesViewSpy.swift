@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class SoundPreferencesViewSpy: NSObject {
+final class SoundPreferencesViewSpy: NSObject {
     private(set) var invokedInputDevices: [String] = []
     private(set) var invokedOutputDevices: [String] = []
     private(set) var invokedRingtoneDevices: [String] = []

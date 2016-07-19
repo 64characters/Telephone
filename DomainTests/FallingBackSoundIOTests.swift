@@ -20,7 +20,7 @@
 import DomainTestDoubles
 import XCTest
 
-class FallingBackSoundIOTests: XCTestCase {
+final class FallingBackSoundIOTests: XCTestCase {
     private var anyDevice: SystemAudioDevice!
 
     override func setUp() {

@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class SoundIOPreferencesSpy: NSObject {
+final class SoundIOPreferencesSpy: NSObject {
     private(set) var didCallUpdateSoundIO = false
 }
 

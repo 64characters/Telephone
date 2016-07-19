@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class ProductsEventTargetsTests: XCTestCase {
+final class ProductsEventTargetsTests: XCTestCase {
     func testCanAddTargets() {
         let first = ProductsEventTargetSpy()
         let second = ProductsEventTargetSpy()

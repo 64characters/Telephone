@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class DefaultSoundPlaybackUseCaseTests: XCTestCase {
+final class DefaultSoundPlaybackUseCaseTests: XCTestCase {
     private var factory: SoundFactorySpy!
     private var sut: DefaultSoundPlaybackUseCase!
 

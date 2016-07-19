@@ -20,7 +20,7 @@
 import DomainTestDoubles
 import XCTest
 
-class SystemAudioDevicesTests: XCTestCase {
+final class SystemAudioDevicesTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
     private var sut: SystemAudioDevices!
 

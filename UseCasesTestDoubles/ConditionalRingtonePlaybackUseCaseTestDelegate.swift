@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class ConditionalRingtonePlaybackUseCaseTestDelegate: NSObject {
+public final class ConditionalRingtonePlaybackUseCaseTestDelegate: NSObject {
     private var canStop = true
 
     public func forbidStoppingPlayback() {

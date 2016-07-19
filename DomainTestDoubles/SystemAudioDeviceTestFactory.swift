@@ -18,7 +18,7 @@
 
 import Domain
 
-public class SystemAudioDeviceTestFactory {
+public final class SystemAudioDeviceTestFactory {
     public let all: [SystemAudioDevice]
     public let allInput: [SystemAudioDevice]
     public let allOutput: [SystemAudioDevice]

@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class ProductsFetchUseCaseTests: XCTestCase {
+final class ProductsFetchUseCaseTests: XCTestCase {
     func testCallsOutputWithFetchedProducts() {
         let targets = ProductsEventTargets()
         let products = SuccessfulFetchProductsFake(target: targets)

@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class UserDefaultsSoundIOSaveUseCase {
+public final class UserDefaultsSoundIOSaveUseCase {
     private let soundIO: PresentationSoundIO
     private let userDefaults: UserDefaults
 

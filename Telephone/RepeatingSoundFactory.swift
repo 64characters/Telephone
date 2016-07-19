@@ -18,7 +18,7 @@
 
 import UseCases
 
-class RepeatingSoundFactory {
+final class RepeatingSoundFactory {
     private let soundFactory: SoundFactory
     private let timerFactory: TimerFactory
 

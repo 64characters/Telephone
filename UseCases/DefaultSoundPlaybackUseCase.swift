@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class DefaultSoundPlaybackUseCase {
+public final class DefaultSoundPlaybackUseCase {
     public private(set) var sound: Sound?
 
     private let factory: SoundFactory

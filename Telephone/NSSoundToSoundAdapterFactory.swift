@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class NSSoundToSoundAdapterFactory {
+final class NSSoundToSoundAdapterFactory {
     func createSound(configuration configuration: SoundConfiguration, eventTarget: SoundEventTarget) throws -> Sound {
         if let sound = NSSound(named: configuration.name) {
             updateSound(sound, withDeviceID: configuration.deviceUID)

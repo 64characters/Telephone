@@ -18,7 +18,7 @@
 
 import Cocoa
 
-class StoreWindowController: NSWindowController {
+final class StoreWindowController: NSWindowController {
     convenience init(contentViewController controller: NSViewController) {
         self.init(windowNibName: "StoreWindowController")
         contentViewController = controller

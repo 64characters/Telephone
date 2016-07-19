@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class PresentationProduct: NSObject {
+final class PresentationProduct: NSObject {
     let identifier: String
     let name: String
     let price: String

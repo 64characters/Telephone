@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class ThrowingUseCaseSpy {
+public final class ThrowingUseCaseSpy {
     public private(set) var didCallExecute = false
 
     public init() {}

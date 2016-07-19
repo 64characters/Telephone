@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class SystemToUserAgentAudioDeviceMap {
+public final class SystemToUserAgentAudioDeviceMap {
     private let systemDevices: [SystemAudioDevice]
     private let userAgentDevices: [UserAgentAudioDevice]
     private var IDMap: [SystemAudioDeviceID: UserAgentAudioDeviceID] = [:]

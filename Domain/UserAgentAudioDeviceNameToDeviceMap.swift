@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class UserAgentAudioDeviceNameToDeviceMap {
+final class UserAgentAudioDeviceNameToDeviceMap {
     private let devices: [UserAgentAudioDevice]
     private var inputMap: [String: UserAgentAudioDevice] = [:]
     private var outputMap: [String: UserAgentAudioDevice] = [:]

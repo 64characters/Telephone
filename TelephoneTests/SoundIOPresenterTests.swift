@@ -19,7 +19,7 @@
 import UseCases
 import XCTest
 
-class SoundIOPresenterTests: XCTestCase {
+final class SoundIOPresenterTests: XCTestCase {
     func testUpdatesViewWithExpectedData() {
         let output = SoundPreferencesViewSpy()
         let sut = SoundIOPresenter(output: output)

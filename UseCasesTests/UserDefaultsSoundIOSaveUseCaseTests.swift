@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class UserDefaultsSoundIOSaveUseCaseTests: XCTestCase {
+final class UserDefaultsSoundIOSaveUseCaseTests: XCTestCase {
     func testUpdatesUserDefaults() {
         let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
         let userDefaults = UserDefaultsFake()

@@ -18,7 +18,7 @@
 
 import Domain
 
-public class UserAgentSoundIOSelectionUseCase {
+public final class UserAgentSoundIOSelectionUseCase {
     private let repository: SystemAudioDeviceRepository
     private let userAgent: UserAgent
     private let userDefaults: UserDefaults

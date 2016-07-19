@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class TimerFactorySpy {
+public final class TimerFactorySpy {
     public private(set) var didCallCreateRepeatingTimer = false
     public private(set) var createRepeatingTimerCallCount = 0
     public private(set) var invokedInterval: Double = 0

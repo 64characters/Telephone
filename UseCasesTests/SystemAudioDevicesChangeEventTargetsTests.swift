@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class SystemAudioDevicesChangeEventTargetsTests: XCTestCase {
+final class SystemAudioDevicesChangeEventTargetsTests: XCTestCase {
     func testCallsEventTargets() {
         let target1 = SystemAudioDevicesChangeEventTargetSpy()
         let target2 = SystemAudioDevicesChangeEventTargetSpy()

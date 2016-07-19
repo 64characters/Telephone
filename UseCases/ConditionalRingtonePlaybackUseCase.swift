@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class ConditionalRingtonePlaybackUseCase: NSObject {
+public final class ConditionalRingtonePlaybackUseCase: NSObject {
     private let origin: RingtonePlaybackUseCase
     private let delegate: ConditionalRingtonePlaybackUseCaseDelegate
 

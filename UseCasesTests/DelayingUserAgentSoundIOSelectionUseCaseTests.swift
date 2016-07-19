@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
+final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
     private var userAgent: UserAgentSpy!
     private var sut: DelayingUserAgentSoundIOSelectionUseCase!
 

@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class TimerSpy: Timer {
+public final class TimerSpy: Timer {
     public let interval: Double = 0
     public let action: () -> Void = {}
 

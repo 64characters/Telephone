@@ -22,7 +22,7 @@ import DomainTestDoubles
 import UseCasesTestDoubles
 import XCTest
 
-class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
+final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
     private var devices: SystemAudioDevices!
     private var repository: SystemAudioDeviceRepositoryStub!

@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class UseCaseFactoryFake {
+public final class UseCaseFactoryFake {
     public init() {}
 }
 

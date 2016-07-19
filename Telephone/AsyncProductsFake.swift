@@ -18,7 +18,7 @@
 
 import UseCases
 
-class AsyncProductsFake {
+final class AsyncProductsFake {
     private let products: [String: Product]
     private let target: ProductsEventTarget
     private var attempts = 0

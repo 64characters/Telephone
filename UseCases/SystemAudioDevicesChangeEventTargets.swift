@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class SystemAudioDevicesChangeEventTargets {
+public final class SystemAudioDevicesChangeEventTargets {
     private let targets: [SystemAudioDevicesChangeEventTarget]
 
     public init(targets: [SystemAudioDevicesChangeEventTarget]) {

@@ -18,7 +18,7 @@
 
 import CoreAudio
 
-class SystemAudioDeviceIDs {
+final class SystemAudioDeviceIDs {
     private var audioObject: SystemAudioObject
 
     init() {

@@ -20,7 +20,7 @@ import XCTest
 import UseCases
 import UseCasesTestDoubles
 
-class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
+final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
     func testCallsDidPurchaseOnOriginWhenReceiptIsValidOnDidPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: ValidProductPurchaseReceipt())

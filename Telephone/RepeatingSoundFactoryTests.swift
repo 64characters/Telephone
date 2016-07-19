@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class RepeatingSoundFactoryTests: XCTestCase {
+final class RepeatingSoundFactoryTests: XCTestCase {
     private var factory: SoundFactorySpy!
     private var sut: RepeatingSoundFactory!
 

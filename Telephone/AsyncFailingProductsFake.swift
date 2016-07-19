@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-class AsyncFailingProductsFake {
+final class AsyncFailingProductsFake {
     let all: [Product] = []
     private let target: ProductsEventTarget
 

@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class UserAgentSoundIOSelectionUseCaseFake {
+public final class UserAgentSoundIOSelectionUseCaseFake {
     private let userAgent: UserAgent
 
     public init(userAgent: UserAgent) {

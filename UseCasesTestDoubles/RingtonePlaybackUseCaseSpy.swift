@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class RingtonePlaybackUseCaseSpy: NSObject {
+public final class RingtonePlaybackUseCaseSpy: NSObject {
     public private(set) var playing = false
     public private(set) var didCallStart = false
     public private(set) var didCallStop = false
