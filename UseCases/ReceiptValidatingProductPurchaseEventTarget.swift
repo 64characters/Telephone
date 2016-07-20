@@ -18,9 +18,9 @@
 
 public final class ReceiptValidatingProductPurchaseEventTarget {
     private let origin: ProductPurchaseEventTarget
-    private let receipt: ProductPurchaseReceipt
+    private let receipt: ApplicationReceipt
 
-    public init(origin: ProductPurchaseEventTarget, receipt: ProductPurchaseReceipt) {
+    public init(origin: ProductPurchaseEventTarget, receipt: ApplicationReceipt) {
         self.origin = origin
         self.receipt = receipt
     }

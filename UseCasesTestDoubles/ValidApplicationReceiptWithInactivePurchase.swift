@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseReceipt.swift
+//  ValidApplicationReceiptWithInactivePurchase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductPurchaseReceipt {
-    func isValid() -> Bool
-    func hasActivePurchase() -> Bool
+import UseCases
+
+public final class ValidApplicationReceiptWithInactivePurchase {
+    public init() {}
+}
+
+extension ValidApplicationReceiptWithInactivePurchase: ApplicationReceipt {
+    public func isValid() -> Bool {
+        return true
+    }
+
+    public func hasActivePurchase() -> Bool {
+        return false
+    }
 }
