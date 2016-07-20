@@ -33,7 +33,7 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
 
     public func didPurchase(product: Product) {
         if receipt.isValid() {
-            origin.didPurchase(product)
+            checkActivePurchaseAndNotifyOriginAboutPurchaseOf(product)
         } else {
             origin.didFailPurchasing(product, error: receiptValidationError())
         }
@@ -46,8 +46,20 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
     public func didFailPurchasing(product: Product) {
         origin.didFailPurchasing(product)
     }
+
+    private func checkActivePurchaseAndNotifyOriginAboutPurchaseOf(product: Product) {
+        if receipt.hasActivePurchase() {
+            origin.didPurchase(product)
+        } else {
+            origin.didFailPurchasing(product, error: noActivePurchaseError())
+        }
+    }
 }
 
 private func receiptValidationError() -> String {
-    return NSLocalizedString("Could not validate purchase receipt", comment: "Receipt validation error.")
+    return NSLocalizedString("Could not validate receipt.", comment: "Receipt validation error.")
+}
+
+private func noActivePurchaseError() -> String {
+    return NSLocalizedString("Receipt doesn’t contain active purchases.", comment: "No active purchase error.")
 }

@@ -26,4 +26,8 @@ extension ValidProductPurchaseReceipt: ProductPurchaseReceipt {
     public func isValid() -> Bool {
         return true
     }
+
+    public func hasActivePurchase() -> Bool {
+        return true
+    }
 }

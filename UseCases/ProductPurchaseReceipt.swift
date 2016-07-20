@@ -18,4 +18,5 @@
 
 public protocol ProductPurchaseReceipt {
     func isValid() -> Bool
+    func hasActivePurchase() -> Bool
 }

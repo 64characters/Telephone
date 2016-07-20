@@ -1,5 +1,5 @@
 //
-//  InvalidProductPurchaseReceipt.swift
+//  ValidProductPurchaseReceiptWithInactivePurchase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,13 +18,13 @@
 
 import UseCases
 
-public struct InvalidProductPurchaseReceipt {
+public final class ValidProductPurchaseReceiptWithInactivePurchase {
     public init() {}
 }
 
-extension InvalidProductPurchaseReceipt: ProductPurchaseReceipt {
+extension ValidProductPurchaseReceiptWithInactivePurchase: ProductPurchaseReceipt {
     public func isValid() -> Bool {
-        return false
+        return true
     }
 
     public func hasActivePurchase() -> Bool {

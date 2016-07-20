@@ -42,6 +42,16 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
         XCTAssertFalse(origin.invokedError.isEmpty)
     }
 
+    func testCallsDidFailPurchasingProductOnOriginWhenPurchaseIsNotActiveOnDidPurchase() {
+        let origin = ProductPurchaseEventTargetSpy()
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: ValidProductPurchaseReceiptWithInactivePurchase())
+
+        sut.didPurchase(createProduct())
+
+        XCTAssertTrue(origin.didCallDidFailPurchasing)
+        XCTAssertFalse(origin.invokedError.isEmpty)
+    }
+
     func testCallsDidStartPurchasingOnOriginOnDidStartPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
