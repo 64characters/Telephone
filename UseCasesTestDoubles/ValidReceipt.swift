@@ -1,5 +1,5 @@
 //
-//  ApplicationReceipt.swift
+//  ValidReceipt.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ApplicationReceipt {
-    func isValid() -> Bool
-    func hasActivePurchase() -> Bool
+import UseCases
+
+public struct ValidReceipt {
+    public init() {}
+}
+
+extension ValidReceipt: Receipt {
+    public func isValid() -> Bool {
+        return true
+    }
+
+    public func hasActivePurchase() -> Bool {
+        return true
+    }
 }
