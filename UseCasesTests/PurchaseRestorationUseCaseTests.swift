@@ -1,5 +1,5 @@
 //
-//  PurchaseRestorationUseCase.swift
+//  PurchaseRestorationUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public protocol PurchaseRestorationUseCaseOutput {
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error error: String)
-}
+import UseCases
+import UseCasesTestDoubles
+import XCTest
 
-public final class PurchaseRestorationUseCase {
-    private let factory: ReceiptRefreshRequestFactory
+final class PurchaseRestorationUseCaseTests: XCTestCase {
+    func testStartsReceiptRefreshOnExecute() {
+        let request = ReceiptRefreshRequestSpy()
+        let factory = ReceiptRefreshRequestFactoryStub(request: request)
+        let sut = PurchaseRestorationUseCase(factory: factory)
 
-    public init(factory: ReceiptRefreshRequestFactory) {
-        self.factory = factory
-    }
-}
+        sut.execute()
 
-extension PurchaseRestorationUseCase: UseCase {
-    public func execute() {
-        factory.create().start()
+        XCTAssertTrue(request.didCallStart)
     }
 }

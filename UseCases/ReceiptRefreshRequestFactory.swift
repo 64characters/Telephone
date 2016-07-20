@@ -1,5 +1,5 @@
 //
-//  PurchaseRestorationUseCase.swift
+//  ReceiptRefreshRequestFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol PurchaseRestorationUseCaseOutput {
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error error: String)
-}
-
-public final class PurchaseRestorationUseCase {
-    private let factory: ReceiptRefreshRequestFactory
-
-    public init(factory: ReceiptRefreshRequestFactory) {
-        self.factory = factory
-    }
-}
-
-extension PurchaseRestorationUseCase: UseCase {
-    public func execute() {
-        factory.create().start()
-    }
+public protocol ReceiptRefreshRequestFactory {
+    func create() -> ReceiptRefreshRequest
 }
