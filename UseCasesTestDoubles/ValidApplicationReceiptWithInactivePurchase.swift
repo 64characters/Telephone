@@ -18,7 +18,7 @@
 
 import UseCases
 
-public final class ValidApplicationReceiptWithInactivePurchase {
+public struct ValidApplicationReceiptWithInactivePurchase {
     public init() {}
 }
 
