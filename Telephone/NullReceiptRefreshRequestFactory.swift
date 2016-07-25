@@ -1,5 +1,5 @@
 //
-//  StoreViewDummy.swift
+//  NullReceiptRefreshRequestFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-final class StoreViewDummy: StoreView {
-    func showProducts(products: [PresentationProduct]) {}
-    func showProductsFetchError(error: String) {}
-    func showProductsFetchProgress() {}
-    func showPurchaseProgress() {}
-    func showPurchaseError(error: String) {}
-    func showPurchaseRestorationProgress() {}
-    func showPurchaseRestorationError(error: String) {}
-    func disablePurchaseRestoration() {}
-    func enablePurchaseRestoration() {}
+import UseCases
+
+struct NullReceiptRefreshRequestFactory: ReceiptRefreshRequestFactory {
+    func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest {
+        return NullReceiptRefreshRequest()
+    }
+}
+
+struct NullReceiptRefreshRequest: ReceiptRefreshRequest {
+    func start() {}
 }

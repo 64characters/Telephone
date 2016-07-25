@@ -83,6 +83,14 @@ extension StoreViewController: StoreView {
         purchaseErrorAlert(withText: error).beginSheetModalForWindow(view.window!, completionHandler: nil)
     }
 
+    func showPurchaseRestorationProgress() {
+
+    }
+
+    func showPurchaseRestorationError(error: String) {
+
+    }
+
     func disablePurchaseRestoration() {
         restorePurchasesButton.enabled = false
     }

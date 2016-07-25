@@ -64,7 +64,8 @@ final class CompositionRoot: NSObject {
             factory: DefaultStoreUseCaseFactory(
                 products: LoggingProducts(origin: AsyncProductsFake(target: productsEventTargets)),
                 store: LoggingStore(origin: store),
-                targets: productsEventTargets
+                targets: productsEventTargets,
+                factory: NullReceiptRefreshRequestFactory()
             ),
             presenter: DefaultStoreViewPresenter(output: storeViewController)
         )

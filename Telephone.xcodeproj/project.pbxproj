@@ -127,6 +127,7 @@
 		8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */; };
 		8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */; };
 		8ACCBB7B1D4617AD00FC9B7C /* ErrorType+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB7A1D4617AD00FC9B7C /* ErrorType+Description.swift */; };
+		8ACCBB7E1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */; };
 		8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597B1D36A152008A1007 /* LoggingStore.swift */; };
 		8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
 		8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
@@ -563,6 +564,7 @@
 		8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultSoundPlaybackUseCaseTests.swift; path = UseCasesTests/DefaultSoundPlaybackUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ACCBB7A1D4617AD00FC9B7C /* ErrorType+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorType+Description.swift"; sourceTree = "<group>"; };
+		8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullReceiptRefreshRequestFactory.swift; sourceTree = "<group>"; };
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
 		8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullProductPurchaseEventTarget.swift; sourceTree = "<group>"; };
@@ -1107,6 +1109,7 @@
 			children = (
 				8ADD6A4C1CDCF805001EDBBA /* DefaultStoreUseCaseFactory.swift */,
 				8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */,
+				8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */,
 				8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */,
 				8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */,
 				8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */,
@@ -2183,6 +2186,7 @@
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				8A9534631D059A5300EE9084 /* LoggingProducts.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
+				8ACCBB7E1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
