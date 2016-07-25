@@ -1,5 +1,5 @@
 //
-//  InvalidReceipt.swift
+//  ErrorType+Description.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public struct InvalidReceipt {
-    public init() {}
-}
-
-extension InvalidReceipt: Receipt {
-    public func validate() throws {
-        throw ReceiptError.ReceiptInvalid
+extension ErrorType {
+    var description: String {
+        if let error = self as? ReceiptError {
+            return error.message
+        } else {
+            return NSLocalizedString("Error: \(self).", comment: "Error with unknown type.")
+        }
     }
 }

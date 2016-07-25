@@ -19,13 +19,14 @@
 import UseCases
 
 public final class ReceiptRefreshRequestSpy {
-    public private(set) var didCallStart = false
+    public var didCallStart: Bool { return startCount > 0 }
+    public private(set) var startCount = 0
 
     public init() {}
 }
 
 extension ReceiptRefreshRequestSpy: ReceiptRefreshRequest {
     public func start() {
-        didCallStart = true
+        startCount += 1
     }
 }

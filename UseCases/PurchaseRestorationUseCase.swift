@@ -22,15 +22,37 @@ public protocol PurchaseRestorationUseCaseOutput {
 }
 
 public final class PurchaseRestorationUseCase {
+    private var request: ReceiptRefreshRequest?
     private let factory: ReceiptRefreshRequestFactory
+    private let output: PurchaseRestorationUseCaseOutput
 
-    public init(factory: ReceiptRefreshRequestFactory) {
+    public init(factory: ReceiptRefreshRequestFactory, output: PurchaseRestorationUseCaseOutput) {
         self.factory = factory
+        self.output = output
     }
 }
 
 extension PurchaseRestorationUseCase: UseCase {
     public func execute() {
-        factory.create().start()
+        guard request == nil else { return }
+        request = factory.create(target: self)
+        request!.start()
+    }
+}
+
+extension PurchaseRestorationUseCase: ReceiptRefreshRequestTarget {
+    public func didRefreshReceipt(receipt: Receipt) {
+        do {
+            try receipt.validate()
+            output.didRestorePurchases()
+        } catch {
+            output.didFailRestoringPurchases(error: error.description)
+        }
+        request = nil
+    }
+
+    public func didFailRefreshingReceipt(error error: String) {
+        output.didFailRestoringPurchases(error: error)
+        request = nil
     }
 }

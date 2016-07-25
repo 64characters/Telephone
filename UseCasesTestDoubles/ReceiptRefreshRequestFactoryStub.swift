@@ -27,7 +27,7 @@ public final class ReceiptRefreshRequestFactoryStub {
 }
 
 extension ReceiptRefreshRequestFactoryStub: ReceiptRefreshRequestFactory {
-    public func create() -> ReceiptRefreshRequest {
+    public func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest {
         return request
     }
 }

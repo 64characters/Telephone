@@ -17,5 +17,5 @@
 //
 
 public protocol ReceiptRefreshRequestFactory {
-    func create() -> ReceiptRefreshRequest
+    func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest
 }

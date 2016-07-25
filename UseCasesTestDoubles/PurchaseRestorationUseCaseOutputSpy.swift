@@ -1,5 +1,5 @@
 //
-//  InvalidReceipt.swift
+//  PurchaseRestorationUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,12 +18,21 @@
 
 import UseCases
 
-public struct InvalidReceipt {
+public final class PurchaseRestorationUseCaseOutputSpy {
+    public private(set) var didCallDidRestorePurchases = false
+    public private(set) var didCallDidFailRestoringPurchases = false
+    public private(set) var invokedError = ""
+
     public init() {}
 }
 
-extension InvalidReceipt: Receipt {
-    public func validate() throws {
-        throw ReceiptError.ReceiptInvalid
+extension PurchaseRestorationUseCaseOutputSpy: PurchaseRestorationUseCaseOutput {
+    public func didRestorePurchases() {
+        didCallDidRestorePurchases = true
+    }
+
+    public func didFailRestoringPurchases(error error: String) {
+        didCallDidFailRestoringPurchases = true
+        invokedError = error
     }
 }

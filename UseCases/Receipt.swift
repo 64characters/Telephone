@@ -17,6 +17,19 @@
 //
 
 public protocol Receipt {
-    func isValid() -> Bool
-    func hasActivePurchase() -> Bool
+    func validate() throws
+}
+
+public enum ReceiptError: ErrorType {
+    case ReceiptInvalid
+    case NoActivePurchases
+
+    public var message: String {
+        switch self {
+        case .ReceiptInvalid:
+            return NSLocalizedString("Could not validate receipt.", comment: "Receipt validation error.")
+        case .NoActivePurchases:
+            return NSLocalizedString("Receipt doesn’t contain active purchases.", comment: "No active purchase error.")
+        }
+    }
 }

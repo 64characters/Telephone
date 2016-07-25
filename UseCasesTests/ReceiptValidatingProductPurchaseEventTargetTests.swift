@@ -44,7 +44,7 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
 
     func testCallsDidFailPurchasingProductOnOriginWhenPurchaseIsNotActiveOnDidPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
-        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: ValidReceiptWithInactivePurchase())
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
 
         sut.didPurchase(createProduct())
 

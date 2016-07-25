@@ -23,11 +23,5 @@ public struct ValidReceipt {
 }
 
 extension ValidReceipt: Receipt {
-    public func isValid() -> Bool {
-        return true
-    }
-
-    public func hasActivePurchase() -> Bool {
-        return true
-    }
+    public func validate() throws {}
 }

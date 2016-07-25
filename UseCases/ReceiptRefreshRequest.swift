@@ -19,3 +19,8 @@
 public protocol ReceiptRefreshRequest {
     func start()
 }
+
+public protocol ReceiptRefreshRequestTarget {
+    func didRefreshReceipt(receipt: Receipt)
+    func didFailRefreshingReceipt(error error: String)
+}
