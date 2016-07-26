@@ -131,6 +131,7 @@
 		8ACCBB821D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */; };
 		8ACCBB851D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */; };
 		8ACCBB871D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */; };
+		8ACCBB891D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB881D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift */; };
 		8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597B1D36A152008A1007 /* LoggingStore.swift */; };
 		8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
 		8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
@@ -571,6 +572,7 @@
 		8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequestFactoryStub.swift; sourceTree = "<group>"; };
 		8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequestStub.swift; sourceTree = "<group>"; };
 		8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingReceiptRefreshRequestStub.swift; sourceTree = "<group>"; };
+		8ACCBB881D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKReceiptRefreshRequestAdapter.swift; sourceTree = "<group>"; };
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
 		8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullProductPurchaseEventTarget.swift; sourceTree = "<group>"; };
@@ -1294,6 +1296,7 @@
 			children = (
 				8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */,
 				8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */,
+				8ACCBB881D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift */,
 			);
 			name = ReceiptRefreshRequest;
 			sourceTree = "<group>";
@@ -2185,6 +2188,7 @@
 				AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+UserDefaults.swift in Sources */,
 				8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */,
 				8ADD6A4D1CDCF805001EDBBA /* DefaultStoreUseCaseFactory.swift in Sources */,
+				8ACCBB891D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift in Sources */,
 				AA34AF831073BF5D00FA38F7 /* GeneralPreferencesViewController.m in Sources */,
 				8A9175AB1CA5A92500354E26 /* PJSUAOnNATDetect.m in Sources */,
 				AAFCFFBD1074BFCA0018C7DA /* AccountSetupController.m in Sources */,
