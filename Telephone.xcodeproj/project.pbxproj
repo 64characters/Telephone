@@ -128,6 +128,9 @@
 		8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */; };
 		8ACCBB7B1D4617AD00FC9B7C /* ErrorType+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB7A1D4617AD00FC9B7C /* ErrorType+Description.swift */; };
 		8ACCBB7E1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */; };
+		8ACCBB821D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */; };
+		8ACCBB851D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */; };
+		8ACCBB871D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */; };
 		8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597B1D36A152008A1007 /* LoggingStore.swift */; };
 		8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
 		8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
@@ -565,6 +568,9 @@
 		8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ACCBB7A1D4617AD00FC9B7C /* ErrorType+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorType+Description.swift"; sourceTree = "<group>"; };
 		8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullReceiptRefreshRequestFactory.swift; sourceTree = "<group>"; };
+		8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequestFactoryStub.swift; sourceTree = "<group>"; };
+		8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequestStub.swift; sourceTree = "<group>"; };
+		8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingReceiptRefreshRequestStub.swift; sourceTree = "<group>"; };
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
 		8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullProductPurchaseEventTarget.swift; sourceTree = "<group>"; };
@@ -1109,11 +1115,12 @@
 			children = (
 				8ADD6A4C1CDCF805001EDBBA /* DefaultStoreUseCaseFactory.swift */,
 				8AD659831D37CA51008A1007 /* NullProductPurchaseEventTarget.swift */,
-				8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */,
 				8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */,
 				8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */,
 				8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */,
 				8A859A061D2EC66500118A66 /* Products */,
+				8ACCBB831D4674A100FC9B7C /* ReceiptRefreshRequest */,
+				8ACCBB801D46742000FC9B7C /* ReceiptRefreshRequestFactory */,
 				8A859A071D2EC69200118A66 /* Store */,
 				8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */,
 				8ADD6A631CE0C591001EDBBA /* StoreView.swift */,
@@ -1271,6 +1278,24 @@
 				8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */,
 			);
 			name = SystemSoundIO;
+			sourceTree = "<group>";
+		};
+		8ACCBB801D46742000FC9B7C /* ReceiptRefreshRequestFactory */ = {
+			isa = PBXGroup;
+			children = (
+				8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */,
+				8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */,
+			);
+			name = ReceiptRefreshRequestFactory;
+			sourceTree = "<group>";
+		};
+		8ACCBB831D4674A100FC9B7C /* ReceiptRefreshRequest */ = {
+			isa = PBXGroup;
+			children = (
+				8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */,
+				8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */,
+			);
+			name = ReceiptRefreshRequest;
 			sourceTree = "<group>";
 		};
 		8AD6597D1D37C95E008A1007 /* StoreViewEventTarget */ = {
@@ -2105,6 +2130,7 @@
 				8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
 				8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
+				8ACCBB851D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift in Sources */,
 				8AD659841D37CA51008A1007 /* NullProductPurchaseEventTarget.swift in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
 				AACC029E1C15DCB100913D7B /* SoundIOPresenter.swift in Sources */,
@@ -2122,6 +2148,8 @@
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
 				8A7874F81C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackUseCaseDelegate.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
+				8ACCBB821D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift in Sources */,
+				8ACCBB871D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift in Sources */,
 				8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */,
 				8A9175A21CA5A02500354E26 /* PJSUAOnCallTransferStatus.m in Sources */,
 				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,

@@ -58,6 +58,10 @@ final class StoreViewController: NSViewController {
     @IBAction func purchaseProduct(sender: NSButton) {
         target.viewDidMakePurchase(products[productsTableView.rowForView(sender)])
     }
+
+    @IBAction func restorePurchases(sender: AnyObject) {
+        target.viewDidStartPurchaseRestoration()
+    }
 }
 
 extension StoreViewController: StoreView {
@@ -80,15 +84,15 @@ extension StoreViewController: StoreView {
     }
 
     func showPurchaseError(error: String) {
-        purchaseErrorAlert(withText: error).beginSheetModalForWindow(view.window!, completionHandler: nil)
+        purchaseErrorAlert(text: error).beginSheetModalForWindow(view.window!, completionHandler: nil)
     }
 
     func showPurchaseRestorationProgress() {
-
+        showProgress()
     }
 
     func showPurchaseRestorationError(error: String) {
-
+        restorationErrorAlert(text: error).beginSheetModalForWindow(view.window!, completionHandler: nil)
     }
 
     func disablePurchaseRestoration() {
@@ -112,9 +116,17 @@ extension StoreViewController: StoreView {
 
 extension StoreViewController: NSTableViewDelegate {}
 
-private func purchaseErrorAlert(withText text: String) -> NSAlert {
+private func purchaseErrorAlert(text text: String) -> NSAlert {
+    return alert(message: NSLocalizedString("Could not make purchase.", comment: "Product purchase error."), text: text)
+}
+
+private func restorationErrorAlert(text text: String) -> NSAlert {
+    return alert(message: NSLocalizedString("Could not restore purchases.", comment: "Purchase restoration error"), text: text)
+}
+
+private func alert(message message: String, text: String) -> NSAlert {
     let result = NSAlert()
-    result.messageText = NSLocalizedString("Could not make purchase.", comment: "Product purchase error.")
+    result.messageText = message
     result.informativeText = text
     return result
 }
