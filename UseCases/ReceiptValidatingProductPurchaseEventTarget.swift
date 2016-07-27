@@ -32,11 +32,8 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
     }
 
     public func didPurchase(product: Product) {
-        do {
-            try receipt.validate()
-            origin.didPurchase(product)
-        } catch {
-            origin.didFailPurchasing(product, error: error.description)
+        receipt.validate { result in
+            self.notifyOriginAboutPurchaseOf(product, result: result)
         }
     }
 
@@ -46,5 +43,13 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
 
     public func didFailPurchasing(product: Product) {
         origin.didFailPurchasing(product)
+    }
+
+    private func notifyOriginAboutPurchaseOf(product: Product, result: ReceiptValidationResult) {
+        if result == .ReceiptIsValid {
+            self.origin.didPurchase(product)
+        } else {
+            self.origin.didFailPurchasing(product, error: result.message)
+        }
     }
 }

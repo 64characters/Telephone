@@ -42,11 +42,8 @@ extension PurchaseRestorationUseCase: UseCase {
 
 extension PurchaseRestorationUseCase: ReceiptRefreshRequestTarget {
     public func didRefreshReceipt(receipt: Receipt) {
-        do {
-            try receipt.validate()
-            output.didRestorePurchases()
-        } catch {
-            output.didFailRestoringPurchases(error: error.description)
+        receipt.validate { result in
+            self.notifyOutputAfterRefreshOf(receipt, result: result)
         }
         request = nil
     }
@@ -54,5 +51,13 @@ extension PurchaseRestorationUseCase: ReceiptRefreshRequestTarget {
     public func didFailRefreshingReceipt(error error: String) {
         output.didFailRestoringPurchases(error: error)
         request = nil
+    }
+
+    private func notifyOutputAfterRefreshOf(receipt: Receipt, result: ReceiptValidationResult) {
+        if result == .ReceiptIsValid {
+            output.didRestorePurchases()
+        } else {
+            output.didFailRestoringPurchases(error: result.message)
+        }
     }
 }

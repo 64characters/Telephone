@@ -17,17 +17,20 @@
 //
 
 public protocol Receipt {
-    func validate() throws
+    func validate(completion completion: (ReceiptValidationResult) -> Void)
 }
 
-public enum ReceiptError: ErrorType {
-    case ReceiptInvalid
+public enum ReceiptValidationResult {
+    case ReceiptIsValid
+    case ReceiptIsInvalid
     case NoActivePurchases
 
     public var message: String {
         switch self {
-        case .ReceiptInvalid:
-            return NSLocalizedString("Could not validate receipt.", comment: "Receipt validation error.")
+        case ReceiptIsValid:
+            return NSLocalizedString("Receipt is valid.", comment: "Receipt validation success.")
+        case .ReceiptIsInvalid:
+            return NSLocalizedString("Receipt is invalid.", comment: "Receipt validation error.")
         case .NoActivePurchases:
             return NSLocalizedString("Receipt doesn’t contain active purchases.", comment: "No active purchase error.")
         }

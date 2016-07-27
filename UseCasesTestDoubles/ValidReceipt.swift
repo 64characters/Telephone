@@ -23,5 +23,7 @@ public struct ValidReceipt {
 }
 
 extension ValidReceipt: Receipt {
-    public func validate() throws {}
+    public func validate(completion completion: (ReceiptValidationResult) -> Void) {
+        completion(.ReceiptIsValid)
+    }
 }

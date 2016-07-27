@@ -23,7 +23,7 @@ public struct NoActivePurchasesReceipt {
 }
 
 extension NoActivePurchasesReceipt: Receipt {
-    public func validate() throws {
-        throw ReceiptError.NoActivePurchases
+    public func validate(completion completion: (ReceiptValidationResult) -> Void) {
+        completion(.NoActivePurchases)
     }
 }

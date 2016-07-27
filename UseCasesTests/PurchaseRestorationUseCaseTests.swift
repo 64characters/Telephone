@@ -55,7 +55,7 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
         sut.didRefreshReceipt(InvalidReceipt())
 
         XCTAssertTrue(output.didCallDidFailRestoringPurchases)
-        XCTAssertEqual(output.invokedError, ReceiptError.ReceiptInvalid.message)
+        XCTAssertEqual(output.invokedError, ReceiptValidationResult.ReceiptIsInvalid.message)
     }
 
     func testCallsDidFailRestoringPurchasesOnDidRefreshReceiptWhenReceiptDoesNotHaveActivePurchases() {
@@ -68,7 +68,7 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
         sut.didRefreshReceipt(NoActivePurchasesReceipt())
 
         XCTAssertTrue(output.didCallDidFailRestoringPurchases)
-        XCTAssertEqual(output.invokedError, ReceiptError.NoActivePurchases.message)
+        XCTAssertEqual(output.invokedError, ReceiptValidationResult.NoActivePurchases.message)
     }
 
     func testCallsDidFailRestoringPurchasesOnDidFailRefreshingReceipt() {
