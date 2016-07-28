@@ -1,5 +1,5 @@
 //
-//  ReceiptRefreshRequestStub.swift
+//  SucceedingReceiptRefreshRequestFactoryStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,20 +18,16 @@
 
 import UseCases
 
-final class ReceiptRefreshRequestStub {
+final class SucceedingReceiptRefreshRequestFactoryStub {
     private let receipt: Receipt
-    private let target: ReceiptRefreshRequestTarget
 
-    init(receipt: Receipt, target: ReceiptRefreshRequestTarget) {
+    init(receipt: Receipt) {
         self.receipt = receipt
-        self.target = target
     }
 }
 
-extension ReceiptRefreshRequestStub: ReceiptRefreshRequest {
-    func start() {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.target.didRefreshReceipt(self.receipt)
-        }
+extension SucceedingReceiptRefreshRequestFactoryStub: ReceiptRefreshRequestFactory {
+    func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest {
+        return SucceedingReceiptRefreshRequestStub(receipt: receipt, target: target)
     }
 }

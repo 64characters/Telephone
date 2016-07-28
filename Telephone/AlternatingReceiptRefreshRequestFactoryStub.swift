@@ -1,5 +1,5 @@
 //
-//  ReceiptRefreshRequestFactoryStub.swift
+//  AlternatingReceiptRefreshRequestFactoryStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,21 +17,20 @@
 //
 
 import UseCases
-import UseCasesTestDoubles
 
-final class ReceiptRefreshRequestFactoryStub {
+final class AlternatingReceiptRefreshRequestFactoryStub {
     private var attempts = 0
 }
 
-extension ReceiptRefreshRequestFactoryStub: ReceiptRefreshRequestFactory {
+extension AlternatingReceiptRefreshRequestFactoryStub: ReceiptRefreshRequestFactory {
     func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest {
         attempts += 1
         if attempts % 4 == 0 {
-            return ReceiptRefreshRequestStub(receipt: ValidReceipt(), target: target)
+            return SucceedingReceiptRefreshRequestStub(receipt: ValidReceipt(), target: target)
         } else if attempts % 3 == 0 {
-            return ReceiptRefreshRequestStub(receipt: NoActivePurchasesReceipt(), target: target)
+            return SucceedingReceiptRefreshRequestStub(receipt: NoActivePurchasesReceipt(), target: target)
         } else if attempts % 2 == 0 {
-            return ReceiptRefreshRequestStub(receipt: InvalidReceipt(), target: target)
+            return SucceedingReceiptRefreshRequestStub(receipt: InvalidReceipt(), target: target)
         } else {
             return FailingReceiptRefreshRequestStub(target: target)
         }

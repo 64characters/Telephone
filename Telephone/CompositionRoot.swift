@@ -65,7 +65,9 @@ final class CompositionRoot: NSObject {
                 products: LoggingProducts(origin: AsyncProductsFake(target: productsEventTargets)),
                 store: LoggingStore(origin: store),
                 targets: productsEventTargets,
-                factory: ReceiptRefreshRequestFactoryStub()
+                factory: SucceedingReceiptRefreshRequestFactoryStub(
+                    receipt: LoggingReceipt(origin: BundleReceipt(bundle: NSBundle.mainBundle(), gateway: ReceiptXPCGateway()))
+                )
             ),
             presenter: DefaultStoreViewPresenter(output: storeViewController)
         )

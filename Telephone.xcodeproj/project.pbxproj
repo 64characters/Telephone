@@ -72,6 +72,14 @@
 		8A7E21521CC3F6A5000D02C3 /* ServiceAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */; };
 		8A7E21541CC411F3000D02C3 /* ServiceAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */; };
 		8A859A011D2D2BCF00118A66 /* ProductPurchaseEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */; };
+		8A88B4E01D4A55B80083958C /* SucceedingReceiptRefreshRequestFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88B4DF1D4A55B80083958C /* SucceedingReceiptRefreshRequestFactoryStub.swift */; };
+		8A88B4E71D4A64BF0083958C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE706341D4A2E180060FF4F /* main.swift */; };
+		8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */; };
+		8A88B4F01D4A8D470083958C /* BundleReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */; };
+		8A88B4F11D4ABCCB0083958C /* InvalidReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513EF1D2A77AD0034DF2C /* InvalidReceipt.swift */; };
+		8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE348571D3FC5E0005F9981 /* NoActivePurchasesReceipt.swift */; };
+		8A88B4F31D4ABCCB0083958C /* ValidReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513ED1D2A76F90034DF2C /* ValidReceipt.swift */; };
+		8A88B4F51D4ABE380083958C /* LoggingReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88B4F41D4ABE380083958C /* LoggingReceipt.swift */; };
 		8A91758F1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91758E1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift */; };
 		8A9175911CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175901CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */; };
 		8A9175931CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175921CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */; };
@@ -127,8 +135,8 @@
 		8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */; };
 		8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */; };
 		8ACCBB7E1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */; };
-		8ACCBB821D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */; };
-		8ACCBB851D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */; };
+		8ACCBB821D46744E00FC9B7C /* AlternatingReceiptRefreshRequestFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB811D46744E00FC9B7C /* AlternatingReceiptRefreshRequestFactoryStub.swift */; };
+		8ACCBB851D4674C500FC9B7C /* SucceedingReceiptRefreshRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB841D4674C500FC9B7C /* SucceedingReceiptRefreshRequestStub.swift */; };
 		8ACCBB871D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */; };
 		8ACCBB891D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACCBB881D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift */; };
 		8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597B1D36A152008A1007 /* LoggingStore.swift */; };
@@ -170,6 +178,10 @@
 		8AE348691D3FCE7D005F9981 /* ReceiptRefreshRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE348681D3FCE7D005F9981 /* ReceiptRefreshRequest.swift */; };
 		8AE3486B1D3FCEE8005F9981 /* ReceiptRefreshRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3486A1D3FCEE8005F9981 /* ReceiptRefreshRequestFactory.swift */; };
 		8AE348701D3FDDFF005F9981 /* PurchaseRestorationUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3486F1D3FDDFF005F9981 /* PurchaseRestorationUseCaseOutputSpy.swift */; };
+		8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 8AE706231D491C220060FF4F /* ReceiptValidation.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8AE706371D4A2E650060FF4F /* ReceiptValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE706361D4A2E650060FF4F /* ReceiptValidation.swift */; };
+		8AE706391D4A2EDF0060FF4F /* FailingReceiptValidationFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationFake.swift */; };
+		8AE7063D1D4A4D370060FF4F /* ReceiptXPCGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0302F10EB9F347000738F7 /* AKSIPURI.m */; };
@@ -348,6 +360,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8AE7062C1D491C220060FF4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AE706221D491C210060FF4F;
+			remoteInfo = ReceiptValidation;
+		};
 		AA078B341BFF80E30013FF8F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -456,6 +475,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8AE7062E1D491C220060FF4F /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AAF51C4D0EF6CF480098A372 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -517,6 +547,10 @@
 		8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceAddressTests.swift; path = UseCasesTests/ServiceAddressTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAddress.swift; sourceTree = "<group>"; };
 		8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseEventSource.swift; sourceTree = "<group>"; };
+		8A88B4DF1D4A55B80083958C /* SucceedingReceiptRefreshRequestFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SucceedingReceiptRefreshRequestFactoryStub.swift; sourceTree = "<group>"; };
+		8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ReceiptValidation.entitlements; sourceTree = "<group>"; };
+		8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleReceipt.swift; sourceTree = "<group>"; };
+		8A88B4F41D4ABE380083958C /* LoggingReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingReceipt.swift; sourceTree = "<group>"; };
 		8A91758E1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceNameToDeviceMap.swift; sourceTree = "<group>"; };
 		8A9175901CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+SystemAudioDevice.swift"; sourceTree = "<group>"; };
 		8A9175921CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+SystemAudioDevice.swift"; sourceTree = "<group>"; };
@@ -567,8 +601,8 @@
 		8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultSoundPlaybackUseCaseTests.swift; path = UseCasesTests/DefaultSoundPlaybackUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullReceiptRefreshRequestFactory.swift; sourceTree = "<group>"; };
-		8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequestFactoryStub.swift; sourceTree = "<group>"; };
-		8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequestStub.swift; sourceTree = "<group>"; };
+		8ACCBB811D46744E00FC9B7C /* AlternatingReceiptRefreshRequestFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternatingReceiptRefreshRequestFactoryStub.swift; sourceTree = "<group>"; };
+		8ACCBB841D4674C500FC9B7C /* SucceedingReceiptRefreshRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SucceedingReceiptRefreshRequestStub.swift; sourceTree = "<group>"; };
 		8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingReceiptRefreshRequestStub.swift; sourceTree = "<group>"; };
 		8ACCBB881D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKReceiptRefreshRequestAdapter.swift; sourceTree = "<group>"; };
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
@@ -603,6 +637,14 @@
 		8AE348681D3FCE7D005F9981 /* ReceiptRefreshRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequest.swift; sourceTree = "<group>"; };
 		8AE3486A1D3FCEE8005F9981 /* ReceiptRefreshRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshRequestFactory.swift; sourceTree = "<group>"; };
 		8AE3486F1D3FDDFF005F9981 /* PurchaseRestorationUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseRestorationUseCaseOutputSpy.swift; sourceTree = "<group>"; };
+		8AE706231D491C220060FF4F /* ReceiptValidation.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReceiptValidation.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE7062B1D491C220060FF4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AE706331D4A2E180060FF4F /* ReceiptValidation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReceiptValidation-Bridging-Header.h"; sourceTree = "<group>"; };
+		8AE706341D4A2E180060FF4F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8AE706361D4A2E650060FF4F /* ReceiptValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptValidation.swift; sourceTree = "<group>"; };
+		8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingReceiptValidationFake.swift; sourceTree = "<group>"; };
+		8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNSXPCListenerDelegate.swift; sourceTree = "<group>"; };
+		8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptXPCGateway.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Telephone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telephone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0302F00EB9F347000738F7 /* AKSIPURI.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPURI.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -886,6 +928,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8AE706201D491C210060FF4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1013,6 +1062,7 @@
 				AA078B321BFF80E30013FF8F /* UseCasesTests.xctest */,
 				AAC4FF811C0214110060B186 /* DomainTestDoubles.framework */,
 				AAC4FF951C0215B90060B186 /* UseCasesTestDoubles.framework */,
+				8AE706231D491C220060FF4F /* ReceiptValidation.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1029,6 +1079,7 @@
 				AA9D08101BFF7E6F0000F618 /* DomainTests */,
 				AAC4FF821C0214120060B186 /* DomainTestDoubles */,
 				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
+				8AE706241D491C220060FF4F /* ReceiptValidation */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -1119,6 +1170,7 @@
 				8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */,
 				8A859A001D2D2BCF00118A66 /* ProductPurchaseEventSource.swift */,
 				8A859A061D2EC66500118A66 /* Products */,
+				8A88B4EE1D4A8D310083958C /* Receipt */,
 				8ACCBB831D4674A100FC9B7C /* ReceiptRefreshRequest */,
 				8ACCBB801D46742000FC9B7C /* ReceiptRefreshRequestFactory */,
 				8A859A071D2EC69200118A66 /* Store */,
@@ -1280,11 +1332,22 @@
 			name = SystemSoundIO;
 			sourceTree = "<group>";
 		};
+		8A88B4EE1D4A8D310083958C /* Receipt */ = {
+			isa = PBXGroup;
+			children = (
+				8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */,
+				8A88B4F41D4ABE380083958C /* LoggingReceipt.swift */,
+				8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */,
+			);
+			name = Receipt;
+			sourceTree = "<group>";
+		};
 		8ACCBB801D46742000FC9B7C /* ReceiptRefreshRequestFactory */ = {
 			isa = PBXGroup;
 			children = (
+				8ACCBB811D46744E00FC9B7C /* AlternatingReceiptRefreshRequestFactoryStub.swift */,
 				8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */,
-				8ACCBB811D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift */,
+				8A88B4DF1D4A55B80083958C /* SucceedingReceiptRefreshRequestFactoryStub.swift */,
 			);
 			name = ReceiptRefreshRequestFactory;
 			sourceTree = "<group>";
@@ -1293,8 +1356,8 @@
 			isa = PBXGroup;
 			children = (
 				8ACCBB861D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift */,
-				8ACCBB841D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift */,
 				8ACCBB881D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift */,
+				8ACCBB841D4674C500FC9B7C /* SucceedingReceiptRefreshRequestStub.swift */,
 			);
 			name = ReceiptRefreshRequest;
 			sourceTree = "<group>";
@@ -1308,6 +1371,20 @@
 				8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */,
 			);
 			name = StoreViewEventTarget;
+			sourceTree = "<group>";
+		};
+		8AE706241D491C220060FF4F /* ReceiptValidation */ = {
+			isa = PBXGroup;
+			children = (
+				8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */,
+				8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationFake.swift */,
+				8AE706361D4A2E650060FF4F /* ReceiptValidation.swift */,
+				8AE706341D4A2E180060FF4F /* main.swift */,
+				8AE7062B1D491C220060FF4F /* Info.plist */,
+				8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */,
+				8AE706331D4A2E180060FF4F /* ReceiptValidation-Bridging-Header.h */,
+			);
+			path = ReceiptValidation;
 			sourceTree = "<group>";
 		};
 		AA078B2A1BFF80E30013FF8F /* UseCases */ = {
@@ -1753,6 +1830,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8AE706221D491C210060FF4F /* ReceiptValidation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE706301D491C220060FF4F /* Build configuration list for PBXNativeTarget "ReceiptValidation" */;
+			buildPhases = (
+				8AE7061F1D491C210060FF4F /* Sources */,
+				8AE706201D491C210060FF4F /* Frameworks */,
+				8AE706211D491C210060FF4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReceiptValidation;
+			productName = ReceiptValidation;
+			productReference = 8AE706231D491C220060FF4F /* ReceiptValidation.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		8D1107260486CEB800E47090 /* Telephone */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Telephone" */;
@@ -1761,11 +1855,13 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				AAF51C4D0EF6CF480098A372 /* CopyFiles */,
+				8AE7062E1D491C220060FF4F /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				AA76E0151BFF82F500CC5C07 /* PBXTargetDependency */,
+				8AE7062D1D491C220060FF4F /* PBXTargetDependency */,
 			);
 			name = Telephone;
 			productInstallPath = "$(HOME)/Applications";
@@ -1948,9 +2044,17 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
+					8AE706221D491C210060FF4F = {
+						CreatedOnToolsVersion = 7.3.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
 					8D1107260486CEB800E47090 = {
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -2005,11 +2109,19 @@
 				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
 				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
 				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
+				8AE706221D491C210060FF4F /* ReceiptValidation */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8AE706211D491C210060FF4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2111,6 +2223,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8AE7061F1D491C210060FF4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE706371D4A2E650060FF4F /* ReceiptValidation.swift in Sources */,
+				8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */,
+				8AE706391D4A2EDF0060FF4F /* FailingReceiptValidationFake.swift in Sources */,
+				8A88B4E71D4A64BF0083958C /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2130,7 +2253,7 @@
 				8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
 				8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
-				8ACCBB851D4674C500FC9B7C /* ReceiptRefreshRequestStub.swift in Sources */,
+				8ACCBB851D4674C500FC9B7C /* SucceedingReceiptRefreshRequestStub.swift in Sources */,
 				8AD659841D37CA51008A1007 /* NullProductPurchaseEventTarget.swift in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
 				AACC029E1C15DCB100913D7B /* SoundIOPresenter.swift in Sources */,
@@ -2140,6 +2263,7 @@
 				AA3FABA71BBC0A0D0064B2C3 /* SystemAudioDevicesChangeEventSource.swift in Sources */,
 				AAC0FFC21BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA2C03FC1BD7F670001D25F9 /* UserAgentAudioDevices.swift in Sources */,
+				8A88B4F31D4ABCCB0083958C /* ValidReceipt.swift in Sources */,
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
 				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
 				8AC1A43C1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift in Sources */,
@@ -2148,7 +2272,8 @@
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,
 				8A7874F81C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackUseCaseDelegate.swift in Sources */,
 				AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */,
-				8ACCBB821D46744E00FC9B7C /* ReceiptRefreshRequestFactoryStub.swift in Sources */,
+				8AE7063D1D4A4D370060FF4F /* ReceiptXPCGateway.swift in Sources */,
+				8ACCBB821D46744E00FC9B7C /* AlternatingReceiptRefreshRequestFactoryStub.swift in Sources */,
 				8ACCBB871D467A8000FC9B7C /* FailingReceiptRefreshRequestStub.swift in Sources */,
 				8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */,
 				8A9175A21CA5A02500354E26 /* PJSUAOnCallTransferStatus.m in Sources */,
@@ -2169,10 +2294,12 @@
 				8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */,
 				AA3FABAE1BBC19C10064B2C3 /* SystemAudioDeviceIDs.swift in Sources */,
 				AAF639F60FEFF13A0089DA3A /* AKResponsiveProgressIndicator.m in Sources */,
+				8A88B4F01D4A8D470083958C /* BundleReceipt.swift in Sources */,
 				8A9534611D05953D00EE9084 /* AsyncFailingProductsFake.swift in Sources */,
 				AA1019901C49486500869D01 /* UserDefaultsSoundFactory.swift in Sources */,
 				8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
 				AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */,
+				8A88B4E01D4A55B80083958C /* SucceedingReceiptRefreshRequestFactoryStub.swift in Sources */,
 				AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */,
 				8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */,
 				8A91759C1CA59E2700354E26 /* PJSUAOnCallState.m in Sources */,
@@ -2185,6 +2312,7 @@
 				AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+UserDefaults.swift in Sources */,
 				8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */,
 				8ADD6A4D1CDCF805001EDBBA /* DefaultStoreUseCaseFactory.swift in Sources */,
+				8A88B4F51D4ABE380083958C /* LoggingReceipt.swift in Sources */,
 				8ACCBB891D478CA700FC9B7C /* SKReceiptRefreshRequestAdapter.swift in Sources */,
 				AA34AF831073BF5D00FA38F7 /* GeneralPreferencesViewController.m in Sources */,
 				8A9175AB1CA5A92500354E26 /* PJSUAOnNATDetect.m in Sources */,
@@ -2198,6 +2326,7 @@
 				AAD92139107A608B00F142A4 /* EndedCallViewController.m in Sources */,
 				AA32F7FB1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */,
+				8A88B4F11D4ABCCB0083958C /* InvalidReceipt.swift in Sources */,
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
@@ -2212,6 +2341,7 @@
 				AAE39A381BD92DF600EFB7BC /* String+Creating.swift in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,
+				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				8A9534631D059A5300EE9084 /* LoggingProducts.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
@@ -2470,6 +2600,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8AE7062D1D491C220060FF4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8AE706221D491C210060FF4F /* ReceiptValidation */;
+			targetProxy = 8AE7062C1D491C220060FF4F /* PBXContainerItemProxy */;
+		};
 		AA078B351BFF80E30013FF8F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AA078B281BFF80E20013FF8F /* UseCases */;
@@ -2778,6 +2913,41 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8AE706311D491C220060FF4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ReceiptValidation/ReceiptValidation.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ReceiptValidation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.ReceiptValidation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReceiptValidation/ReceiptValidation-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8AE706321D491C220060FF4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ReceiptValidation/ReceiptValidation.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				INFOPLIST_FILE = ReceiptValidation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.ReceiptValidation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReceiptValidation/ReceiptValidation-Bridging-Header.h";
+			};
+			name = Release;
+		};
 		AA078B3A1BFF80E30013FF8F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3094,6 +3264,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"PJ_AUTOCONF=1",
@@ -3143,6 +3314,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "PJ_AUTOCONF=1";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
@@ -3267,6 +3439,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8AE706301D491C220060FF4F /* Build configuration list for PBXNativeTarget "ReceiptValidation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE706311D491C220060FF4F /* Debug */,
+				8AE706321D491C220060FF4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AA078B3E1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "UseCases" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
