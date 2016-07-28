@@ -80,6 +80,7 @@
 		8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE348571D3FC5E0005F9981 /* NoActivePurchasesReceipt.swift */; };
 		8A88B4F31D4ABCCB0083958C /* ValidReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9513ED1D2A76F90034DF2C /* ValidReceipt.swift */; };
 		8A88B4F51D4ABE380083958C /* LoggingReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88B4F41D4ABE380083958C /* LoggingReceipt.swift */; };
+		8A88B4F71D4AC09F0083958C /* SKReceiptRefreshRequestAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88B4F61D4AC09F0083958C /* SKReceiptRefreshRequestAdapterFactory.swift */; };
 		8A91758F1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A91758E1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift */; };
 		8A9175911CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175901CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */; };
 		8A9175931CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175921CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */; };
@@ -551,6 +552,7 @@
 		8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ReceiptValidation.entitlements; sourceTree = "<group>"; };
 		8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleReceipt.swift; sourceTree = "<group>"; };
 		8A88B4F41D4ABE380083958C /* LoggingReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingReceipt.swift; sourceTree = "<group>"; };
+		8A88B4F61D4AC09F0083958C /* SKReceiptRefreshRequestAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKReceiptRefreshRequestAdapterFactory.swift; sourceTree = "<group>"; };
 		8A91758E1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDeviceNameToDeviceMap.swift; sourceTree = "<group>"; };
 		8A9175901CA2BBF900354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+SystemAudioDevice.swift"; sourceTree = "<group>"; };
 		8A9175921CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+SystemAudioDevice.swift"; sourceTree = "<group>"; };
@@ -1347,6 +1349,7 @@
 			children = (
 				8ACCBB811D46744E00FC9B7C /* AlternatingReceiptRefreshRequestFactoryStub.swift */,
 				8ACCBB7D1D46337700FC9B7C /* NullReceiptRefreshRequestFactory.swift */,
+				8A88B4F61D4AC09F0083958C /* SKReceiptRefreshRequestAdapterFactory.swift */,
 				8A88B4DF1D4A55B80083958C /* SucceedingReceiptRefreshRequestFactoryStub.swift */,
 			);
 			name = ReceiptRefreshRequestFactory;
@@ -2299,6 +2302,7 @@
 				AA1019901C49486500869D01 /* UserDefaultsSoundFactory.swift in Sources */,
 				8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
 				AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */,
+				8A88B4F71D4AC09F0083958C /* SKReceiptRefreshRequestAdapterFactory.swift in Sources */,
 				8A88B4E01D4A55B80083958C /* SucceedingReceiptRefreshRequestFactoryStub.swift in Sources */,
 				AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */,
 				8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */,
