@@ -20,8 +20,12 @@
 
 #import "ReceiptValidation.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PKCS7SignatureValidation : NSObject <ReceiptValidation>
 
 - (instancetype)initWithOrigin:(id<ReceiptValidation>)origin certificate:(NSURL *)certificate;
 
 @end
+
+NS_ASSUME_NONNULL_END

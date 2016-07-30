@@ -20,8 +20,12 @@
 
 #import "ReceiptValidation.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PKCS7ContainerValidation : NSObject <ReceiptValidation>
 
 - (instancetype)initWithOrigin:(id<ReceiptValidation>)origin;
 
 @end
+
+NS_ASSUME_NONNULL_END

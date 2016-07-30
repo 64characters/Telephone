@@ -24,8 +24,12 @@ typedef NS_ENUM(NSInteger, Result) {
     ResultNoActivePurchases = 2,
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ReceiptValidation <NSObject>
 
-- (void)validateReceipt:(NSData * _Nonnull)receipt completion:(void (^ _Nonnull)(Result result))completion;
+- (void)validateReceipt:(NSData *)receipt completion:(void (^)(Result result))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

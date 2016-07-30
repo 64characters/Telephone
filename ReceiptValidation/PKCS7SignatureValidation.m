@@ -26,12 +26,16 @@ static X509_STORE *CreateStoreWithCertificateAtURL(NSURL *url);
 static X509 *CreateCertificateWithContentsOfURL(NSURL *url);
 static PKCS7 *CreatePKCS7WithData(NSData *data);
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PKCS7SignatureValidation ()
 
 @property(nonatomic, readonly) id<ReceiptValidation> origin;
 @property(nonatomic, readonly) NSURL *certificate;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 @implementation PKCS7SignatureValidation
 
