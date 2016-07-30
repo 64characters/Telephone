@@ -44,11 +44,15 @@ extension SKReceiptRefreshRequestAdapter: ReceiptRefreshRequest {
 
 extension SKReceiptRefreshRequestAdapter: SKRequestDelegate {
     func requestDidFinish(request: SKRequest) {
-        target.didRefreshReceipt(receipt)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.target.didRefreshReceipt(self.receipt)
+        }
     }
 
     func request(request: SKRequest, didFailWithError error: NSError?) {
-        target.didFailRefreshingReceipt(error: descriptionOf(error))
+        dispatch_async(dispatch_get_main_queue()) {
+            self.target.didFailRefreshingReceipt(error: descriptionOf(error))
+        }
     }
 }
 
