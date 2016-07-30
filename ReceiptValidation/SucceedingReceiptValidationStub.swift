@@ -1,5 +1,5 @@
 //
-//  FailingReceiptValidationFake.swift
+//  SucceedingReceiptValidationStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,8 +18,8 @@
 
 import Foundation
 
-final class FailingReceiptValidationFake: NSObject, ReceiptValidation {
+final class SucceedingReceiptValidationStub: NSObject, ReceiptValidation {
     func validateReceipt(receipt: NSData, completion: (Result) -> Void) {
-        completion(.ReceiptIsInvalid)
+        completion(.ReceiptIsValid)
     }
 }
