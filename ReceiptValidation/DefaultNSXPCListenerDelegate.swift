@@ -18,19 +18,20 @@
 
 import Foundation
 
-final class DefaultNSXPCListenerDelegate: NSObject, NSXPCListenerDelegate {
+final class DefaultNSXPCListenerDelegate: NSObject {
+    private let interface: Protocol
+    private let object: AnyObject
+
+    init(interface: Protocol, object: AnyObject) {
+        self.interface = interface
+        self.object = object
+    }
+}
+
+extension DefaultNSXPCListenerDelegate: NSXPCListenerDelegate {
     func listener(listener: NSXPCListener, shouldAcceptNewConnection connection: NSXPCConnection) -> Bool {
-        connection.exportedInterface = NSXPCInterface(withProtocol: ReceiptValidation.self)
-        let certificate = NSBundle.mainBundle().URLForResource("Certificate", withExtension: "crt")!
-        connection.exportedObject = PKCS7ContainerValidation(
-            origin: CertificateFingerprintValidation(
-                origin: PKCS7SignatureValidation(
-                    origin: SucceedingReceiptValidationStub(),
-                    certificate: certificate
-                ),
-                certificate: certificate
-            )
-        )
+        connection.exportedInterface = NSXPCInterface(withProtocol: interface)
+        connection.exportedObject = object
         connection.resume()
         return true
     }

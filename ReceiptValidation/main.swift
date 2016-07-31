@@ -18,6 +18,19 @@
 
 import Foundation
 
-let delegate = DefaultNSXPCListenerDelegate()  // Have to use a variable, otherwise released.
+let certificate = NSBundle.mainBundle().URLForResource("Certificate", withExtension: "crt")!
+// Have to use a variable, otherwise released because NSXPCListener.delegate is unowned.
+let delegate = DefaultNSXPCListenerDelegate(
+    interface: ReceiptValidation.self,
+    object: PKCS7ContainerValidation(
+        origin: CertificateFingerprintValidation(
+            origin: PKCS7SignatureValidation(
+                origin: SucceedingReceiptValidationStub(),
+                certificate: certificate
+            ),
+            certificate: certificate
+        )
+    )
+)
 NSXPCListener.serviceListener().delegate = delegate
 NSXPCListener.serviceListener().resume()
