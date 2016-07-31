@@ -36,6 +36,7 @@
 		8A11A0D11CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */; };
 		8A1A79241D4CABC60031A0DD /* PKCS7SignatureValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A79231D4CABC60031A0DD /* PKCS7SignatureValidation.m */; };
 		8A1A79261D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A79251D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift */; };
+		8A1A792F1D4E25670031A0DD /* CertificateFingerprintValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */; };
 		8A1CC61F1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */; };
 		8A1CC6211CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */; };
 		8A1CC6231CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */; };
@@ -521,6 +522,8 @@
 		8A1A79221D4CABC60031A0DD /* PKCS7SignatureValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKCS7SignatureValidation.h; sourceTree = "<group>"; };
 		8A1A79231D4CABC60031A0DD /* PKCS7SignatureValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKCS7SignatureValidation.m; sourceTree = "<group>"; };
 		8A1A79251D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SucceedingReceiptValidationStub.swift; sourceTree = "<group>"; };
+		8A1A792D1D4E25670031A0DD /* CertificateFingerprintValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificateFingerprintValidation.h; sourceTree = "<group>"; };
+		8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificateFingerprintValidation.m; sourceTree = "<group>"; };
 		8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SystemAudioDevice+Equality.swift"; sourceTree = "<group>"; };
 		8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleUserAgentAudioDevice.swift; sourceTree = "<group>"; };
 		8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+Equality.swift"; sourceTree = "<group>"; };
@@ -1162,6 +1165,22 @@
 			name = Store;
 			sourceTree = "<group>";
 		};
+		8A1A79301D4E25750031A0DD /* ReceiptValidation */ = {
+			isa = PBXGroup;
+			children = (
+				8A1A792D1D4E25670031A0DD /* CertificateFingerprintValidation.h */,
+				8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */,
+				8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift */,
+				8A88B5A81D4BBC970083958C /* PKCS7ContainerValidation.h */,
+				8A88B5A91D4BBC970083958C /* PKCS7ContainerValidation.m */,
+				8A1A79221D4CABC60031A0DD /* PKCS7SignatureValidation.h */,
+				8A1A79231D4CABC60031A0DD /* PKCS7SignatureValidation.m */,
+				8A88B5AB1D4BBFAC0083958C /* ReceiptValidation.h */,
+				8A1A79251D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift */,
+			);
+			name = ReceiptValidation;
+			sourceTree = "<group>";
+		};
 		8A5EADB21D3550B500C53415 /* StoreViewPresenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1389,13 +1408,7 @@
 			isa = PBXGroup;
 			children = (
 				8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */,
-				8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift */,
-				8A88B5A81D4BBC970083958C /* PKCS7ContainerValidation.h */,
-				8A88B5A91D4BBC970083958C /* PKCS7ContainerValidation.m */,
-				8A1A79221D4CABC60031A0DD /* PKCS7SignatureValidation.h */,
-				8A1A79231D4CABC60031A0DD /* PKCS7SignatureValidation.m */,
-				8A1A79251D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift */,
-				8A88B5AB1D4BBFAC0083958C /* ReceiptValidation.h */,
+				8A1A79301D4E25750031A0DD /* ReceiptValidation */,
 				8AE706341D4A2E180060FF4F /* main.swift */,
 				8AE7062B1D491C220060FF4F /* Info.plist */,
 				8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */,
@@ -2246,6 +2259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1A792F1D4E25670031A0DD /* CertificateFingerprintValidation.m in Sources */,
 				8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */,
 				8A1A79261D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift in Sources */,
 				8A88B5AA1D4BBC970083958C /* PKCS7ContainerValidation.m in Sources */,

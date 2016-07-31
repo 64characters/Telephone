@@ -21,10 +21,15 @@ import Foundation
 final class DefaultNSXPCListenerDelegate: NSObject, NSXPCListenerDelegate {
     func listener(listener: NSXPCListener, shouldAcceptNewConnection connection: NSXPCConnection) -> Bool {
         connection.exportedInterface = NSXPCInterface(withProtocol: ReceiptValidation.self)
+        let certificate = NSBundle.mainBundle().URLForResource("Certificate", withExtension: "crt")!
         connection.exportedObject = PKCS7ContainerValidation(
-            origin: PKCS7SignatureValidation(
-                origin: SucceedingReceiptValidationStub(),
-                certificate: NSBundle.mainBundle().URLForResource("Certificate", withExtension: "crt")!)
+            origin: CertificateFingerprintValidation(
+                origin: PKCS7SignatureValidation(
+                    origin: SucceedingReceiptValidationStub(),
+                    certificate: certificate
+                ),
+                certificate: certificate
+            )
         )
         connection.resume()
         return true
