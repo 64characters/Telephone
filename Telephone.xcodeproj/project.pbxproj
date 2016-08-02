@@ -42,6 +42,32 @@
 		8A1CC6231CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */; };
 		8A1CC6251CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */; };
 		8A1CC6271CAD5AA200901BE9 /* NullSystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6261CAD5AA200901BE9 /* NullSystemAudioDevice.swift */; };
+		8A2E1BF61D50CDBB0085A5EF /* asn_codecs_prim.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BBE1D50CDBB0085A5EF /* asn_codecs_prim.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BF71D50CDBB0085A5EF /* asn_SET_OF.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BC11D50CDBB0085A5EF /* asn_SET_OF.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BF81D50CDBB0085A5EF /* ber_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BC41D50CDBB0085A5EF /* ber_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-conditional-uninitialized"; }; };
+		8A2E1BF91D50CDBB0085A5EF /* ber_tlv_length.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BC61D50CDBB0085A5EF /* ber_tlv_length.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BFA1D50CDBB0085A5EF /* ber_tlv_tag.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BC81D50CDBB0085A5EF /* ber_tlv_tag.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BFB1D50CDBB0085A5EF /* BIT_STRING.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BCA1D50CDBB0085A5EF /* BIT_STRING.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BFC1D50CDBB0085A5EF /* constr_SEQUENCE.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BCC1D50CDBB0085A5EF /* constr_SEQUENCE.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BFD1D50CDBB0085A5EF /* constr_SET_OF.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BCE1D50CDBB0085A5EF /* constr_SET_OF.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BFE1D50CDBB0085A5EF /* constr_TYPE.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BD01D50CDBB0085A5EF /* constr_TYPE.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1BFF1D50CDBB0085A5EF /* constraints.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BD21D50CDBB0085A5EF /* constraints.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C001D50CDBB0085A5EF /* der_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BD41D50CDBB0085A5EF /* der_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C011D50CDBB0085A5EF /* InAppAttribute.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BD61D50CDBB0085A5EF /* InAppAttribute.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C031D50CDBB0085A5EF /* InAppReceipt.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BD91D50CDBB0085A5EF /* InAppReceipt.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C041D50CDBB0085A5EF /* INTEGER.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BDB1D50CDBB0085A5EF /* INTEGER.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-conditional-uninitialized"; }; };
+		8A2E1C051D50CDBB0085A5EF /* NativeEnumerated.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BDD1D50CDBB0085A5EF /* NativeEnumerated.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C061D50CDBB0085A5EF /* NativeInteger.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BDF1D50CDBB0085A5EF /* NativeInteger.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C071D50CDBB0085A5EF /* OCTET_STRING.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE11D50CDBB0085A5EF /* OCTET_STRING.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C081D50CDBB0085A5EF /* Payload.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE31D50CDBB0085A5EF /* Payload.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C091D50CDBB0085A5EF /* per_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE51D50CDBB0085A5EF /* per_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C0A1D50CDBB0085A5EF /* per_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE71D50CDBB0085A5EF /* per_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C0B1D50CDBB0085A5EF /* per_opentype.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE91D50CDBB0085A5EF /* per_opentype.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-unreachable-code"; }; };
+		8A2E1C0C1D50CDBB0085A5EF /* per_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEB1D50CDBB0085A5EF /* per_support.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C0D1D50CDBB0085A5EF /* ReceiptAttribute.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BED1D50CDBB0085A5EF /* ReceiptAttribute.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C0E1D50CDBB0085A5EF /* xer_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEF1D50CDBB0085A5EF /* xer_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C0F1D50CDBB0085A5EF /* xer_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BF11D50CDBB0085A5EF /* xer_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C101D50CDBB0085A5EF /* xer_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BF31D50CDBB0085A5EF /* xer_support.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A3865161D369A2100EDA7AB /* FailingStoreFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
 		8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */; };
@@ -529,6 +555,64 @@
 		8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+Equality.swift"; sourceTree = "<group>"; };
 		8A1CC6241CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullUserAgentAudioDevice.swift; sourceTree = "<group>"; };
 		8A1CC6261CAD5AA200901BE9 /* NullSystemAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSystemAudioDevice.swift; sourceTree = "<group>"; };
+		8A2E1BBB1D50CDBB0085A5EF /* AppReceipt.asn1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppReceipt.asn1; sourceTree = "<group>"; };
+		8A2E1BBC1D50CDBB0085A5EF /* asn_application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn_application.h; sourceTree = "<group>"; };
+		8A2E1BBD1D50CDBB0085A5EF /* asn_codecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn_codecs.h; sourceTree = "<group>"; };
+		8A2E1BBE1D50CDBB0085A5EF /* asn_codecs_prim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asn_codecs_prim.c; sourceTree = "<group>"; };
+		8A2E1BBF1D50CDBB0085A5EF /* asn_codecs_prim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn_codecs_prim.h; sourceTree = "<group>"; };
+		8A2E1BC01D50CDBB0085A5EF /* asn_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn_internal.h; sourceTree = "<group>"; };
+		8A2E1BC11D50CDBB0085A5EF /* asn_SET_OF.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asn_SET_OF.c; sourceTree = "<group>"; };
+		8A2E1BC21D50CDBB0085A5EF /* asn_SET_OF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn_SET_OF.h; sourceTree = "<group>"; };
+		8A2E1BC31D50CDBB0085A5EF /* asn_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn_system.h; sourceTree = "<group>"; };
+		8A2E1BC41D50CDBB0085A5EF /* ber_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ber_decoder.c; sourceTree = "<group>"; };
+		8A2E1BC51D50CDBB0085A5EF /* ber_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ber_decoder.h; sourceTree = "<group>"; };
+		8A2E1BC61D50CDBB0085A5EF /* ber_tlv_length.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ber_tlv_length.c; sourceTree = "<group>"; };
+		8A2E1BC71D50CDBB0085A5EF /* ber_tlv_length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ber_tlv_length.h; sourceTree = "<group>"; };
+		8A2E1BC81D50CDBB0085A5EF /* ber_tlv_tag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ber_tlv_tag.c; sourceTree = "<group>"; };
+		8A2E1BC91D50CDBB0085A5EF /* ber_tlv_tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ber_tlv_tag.h; sourceTree = "<group>"; };
+		8A2E1BCA1D50CDBB0085A5EF /* BIT_STRING.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BIT_STRING.c; sourceTree = "<group>"; };
+		8A2E1BCB1D50CDBB0085A5EF /* BIT_STRING.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIT_STRING.h; sourceTree = "<group>"; };
+		8A2E1BCC1D50CDBB0085A5EF /* constr_SEQUENCE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = constr_SEQUENCE.c; sourceTree = "<group>"; };
+		8A2E1BCD1D50CDBB0085A5EF /* constr_SEQUENCE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constr_SEQUENCE.h; sourceTree = "<group>"; };
+		8A2E1BCE1D50CDBB0085A5EF /* constr_SET_OF.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = constr_SET_OF.c; sourceTree = "<group>"; };
+		8A2E1BCF1D50CDBB0085A5EF /* constr_SET_OF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constr_SET_OF.h; sourceTree = "<group>"; };
+		8A2E1BD01D50CDBB0085A5EF /* constr_TYPE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = constr_TYPE.c; sourceTree = "<group>"; };
+		8A2E1BD11D50CDBB0085A5EF /* constr_TYPE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constr_TYPE.h; sourceTree = "<group>"; };
+		8A2E1BD21D50CDBB0085A5EF /* constraints.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = constraints.c; sourceTree = "<group>"; };
+		8A2E1BD31D50CDBB0085A5EF /* constraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constraints.h; sourceTree = "<group>"; };
+		8A2E1BD41D50CDBB0085A5EF /* der_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = der_encoder.c; sourceTree = "<group>"; };
+		8A2E1BD51D50CDBB0085A5EF /* der_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = der_encoder.h; sourceTree = "<group>"; };
+		8A2E1BD61D50CDBB0085A5EF /* InAppAttribute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = InAppAttribute.c; sourceTree = "<group>"; };
+		8A2E1BD71D50CDBB0085A5EF /* InAppAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppAttribute.h; sourceTree = "<group>"; };
+		8A2E1BD81D50CDBB0085A5EF /* InAppReceipt.asn1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InAppReceipt.asn1; sourceTree = "<group>"; };
+		8A2E1BD91D50CDBB0085A5EF /* InAppReceipt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = InAppReceipt.c; sourceTree = "<group>"; };
+		8A2E1BDA1D50CDBB0085A5EF /* InAppReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppReceipt.h; sourceTree = "<group>"; };
+		8A2E1BDB1D50CDBB0085A5EF /* INTEGER.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = INTEGER.c; sourceTree = "<group>"; };
+		8A2E1BDC1D50CDBB0085A5EF /* INTEGER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTEGER.h; sourceTree = "<group>"; };
+		8A2E1BDD1D50CDBB0085A5EF /* NativeEnumerated.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NativeEnumerated.c; sourceTree = "<group>"; };
+		8A2E1BDE1D50CDBB0085A5EF /* NativeEnumerated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeEnumerated.h; sourceTree = "<group>"; };
+		8A2E1BDF1D50CDBB0085A5EF /* NativeInteger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NativeInteger.c; sourceTree = "<group>"; };
+		8A2E1BE01D50CDBB0085A5EF /* NativeInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeInteger.h; sourceTree = "<group>"; };
+		8A2E1BE11D50CDBB0085A5EF /* OCTET_STRING.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OCTET_STRING.c; sourceTree = "<group>"; };
+		8A2E1BE21D50CDBB0085A5EF /* OCTET_STRING.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTET_STRING.h; sourceTree = "<group>"; };
+		8A2E1BE31D50CDBB0085A5EF /* Payload.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Payload.c; sourceTree = "<group>"; };
+		8A2E1BE41D50CDBB0085A5EF /* Payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payload.h; sourceTree = "<group>"; };
+		8A2E1BE51D50CDBB0085A5EF /* per_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = per_decoder.c; sourceTree = "<group>"; };
+		8A2E1BE61D50CDBB0085A5EF /* per_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = per_decoder.h; sourceTree = "<group>"; };
+		8A2E1BE71D50CDBB0085A5EF /* per_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = per_encoder.c; sourceTree = "<group>"; };
+		8A2E1BE81D50CDBB0085A5EF /* per_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = per_encoder.h; sourceTree = "<group>"; };
+		8A2E1BE91D50CDBB0085A5EF /* per_opentype.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = per_opentype.c; sourceTree = "<group>"; };
+		8A2E1BEA1D50CDBB0085A5EF /* per_opentype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = per_opentype.h; sourceTree = "<group>"; };
+		8A2E1BEB1D50CDBB0085A5EF /* per_support.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = per_support.c; sourceTree = "<group>"; };
+		8A2E1BEC1D50CDBB0085A5EF /* per_support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = per_support.h; sourceTree = "<group>"; };
+		8A2E1BED1D50CDBB0085A5EF /* ReceiptAttribute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ReceiptAttribute.c; sourceTree = "<group>"; };
+		8A2E1BEE1D50CDBB0085A5EF /* ReceiptAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptAttribute.h; sourceTree = "<group>"; };
+		8A2E1BEF1D50CDBB0085A5EF /* xer_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xer_decoder.c; sourceTree = "<group>"; };
+		8A2E1BF01D50CDBB0085A5EF /* xer_decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xer_decoder.h; sourceTree = "<group>"; };
+		8A2E1BF11D50CDBB0085A5EF /* xer_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xer_encoder.c; sourceTree = "<group>"; };
+		8A2E1BF21D50CDBB0085A5EF /* xer_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xer_encoder.h; sourceTree = "<group>"; };
+		8A2E1BF31D50CDBB0085A5EF /* xer_support.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xer_support.c; sourceTree = "<group>"; };
+		8A2E1BF41D50CDBB0085A5EF /* xer_support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xer_support.h; sourceTree = "<group>"; };
 		8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingStoreFake.swift; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateUseCaseTests.swift; path = UseCasesTests/RingtoneOutputUpdateUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneOutputUpdateUseCase.swift; sourceTree = "<group>"; };
@@ -1181,6 +1265,71 @@
 			name = ReceiptValidation;
 			sourceTree = "<group>";
 		};
+		8A2E1BBA1D50CDBB0085A5EF /* ASN1 */ = {
+			isa = PBXGroup;
+			children = (
+				8A2E1BBB1D50CDBB0085A5EF /* AppReceipt.asn1 */,
+				8A2E1BD81D50CDBB0085A5EF /* InAppReceipt.asn1 */,
+				8A2E1BBC1D50CDBB0085A5EF /* asn_application.h */,
+				8A2E1BBD1D50CDBB0085A5EF /* asn_codecs.h */,
+				8A2E1BBE1D50CDBB0085A5EF /* asn_codecs_prim.c */,
+				8A2E1BBF1D50CDBB0085A5EF /* asn_codecs_prim.h */,
+				8A2E1BC01D50CDBB0085A5EF /* asn_internal.h */,
+				8A2E1BC11D50CDBB0085A5EF /* asn_SET_OF.c */,
+				8A2E1BC21D50CDBB0085A5EF /* asn_SET_OF.h */,
+				8A2E1BC31D50CDBB0085A5EF /* asn_system.h */,
+				8A2E1BC41D50CDBB0085A5EF /* ber_decoder.c */,
+				8A2E1BC51D50CDBB0085A5EF /* ber_decoder.h */,
+				8A2E1BC61D50CDBB0085A5EF /* ber_tlv_length.c */,
+				8A2E1BC71D50CDBB0085A5EF /* ber_tlv_length.h */,
+				8A2E1BC81D50CDBB0085A5EF /* ber_tlv_tag.c */,
+				8A2E1BC91D50CDBB0085A5EF /* ber_tlv_tag.h */,
+				8A2E1BCA1D50CDBB0085A5EF /* BIT_STRING.c */,
+				8A2E1BCB1D50CDBB0085A5EF /* BIT_STRING.h */,
+				8A2E1BCC1D50CDBB0085A5EF /* constr_SEQUENCE.c */,
+				8A2E1BCD1D50CDBB0085A5EF /* constr_SEQUENCE.h */,
+				8A2E1BCE1D50CDBB0085A5EF /* constr_SET_OF.c */,
+				8A2E1BCF1D50CDBB0085A5EF /* constr_SET_OF.h */,
+				8A2E1BD01D50CDBB0085A5EF /* constr_TYPE.c */,
+				8A2E1BD11D50CDBB0085A5EF /* constr_TYPE.h */,
+				8A2E1BD21D50CDBB0085A5EF /* constraints.c */,
+				8A2E1BD31D50CDBB0085A5EF /* constraints.h */,
+				8A2E1BD41D50CDBB0085A5EF /* der_encoder.c */,
+				8A2E1BD51D50CDBB0085A5EF /* der_encoder.h */,
+				8A2E1BD61D50CDBB0085A5EF /* InAppAttribute.c */,
+				8A2E1BD71D50CDBB0085A5EF /* InAppAttribute.h */,
+				8A2E1BD91D50CDBB0085A5EF /* InAppReceipt.c */,
+				8A2E1BDA1D50CDBB0085A5EF /* InAppReceipt.h */,
+				8A2E1BDB1D50CDBB0085A5EF /* INTEGER.c */,
+				8A2E1BDC1D50CDBB0085A5EF /* INTEGER.h */,
+				8A2E1BDD1D50CDBB0085A5EF /* NativeEnumerated.c */,
+				8A2E1BDE1D50CDBB0085A5EF /* NativeEnumerated.h */,
+				8A2E1BDF1D50CDBB0085A5EF /* NativeInteger.c */,
+				8A2E1BE01D50CDBB0085A5EF /* NativeInteger.h */,
+				8A2E1BE11D50CDBB0085A5EF /* OCTET_STRING.c */,
+				8A2E1BE21D50CDBB0085A5EF /* OCTET_STRING.h */,
+				8A2E1BE31D50CDBB0085A5EF /* Payload.c */,
+				8A2E1BE41D50CDBB0085A5EF /* Payload.h */,
+				8A2E1BE51D50CDBB0085A5EF /* per_decoder.c */,
+				8A2E1BE61D50CDBB0085A5EF /* per_decoder.h */,
+				8A2E1BE71D50CDBB0085A5EF /* per_encoder.c */,
+				8A2E1BE81D50CDBB0085A5EF /* per_encoder.h */,
+				8A2E1BE91D50CDBB0085A5EF /* per_opentype.c */,
+				8A2E1BEA1D50CDBB0085A5EF /* per_opentype.h */,
+				8A2E1BEB1D50CDBB0085A5EF /* per_support.c */,
+				8A2E1BEC1D50CDBB0085A5EF /* per_support.h */,
+				8A2E1BED1D50CDBB0085A5EF /* ReceiptAttribute.c */,
+				8A2E1BEE1D50CDBB0085A5EF /* ReceiptAttribute.h */,
+				8A2E1BEF1D50CDBB0085A5EF /* xer_decoder.c */,
+				8A2E1BF01D50CDBB0085A5EF /* xer_decoder.h */,
+				8A2E1BF11D50CDBB0085A5EF /* xer_encoder.c */,
+				8A2E1BF21D50CDBB0085A5EF /* xer_encoder.h */,
+				8A2E1BF31D50CDBB0085A5EF /* xer_support.c */,
+				8A2E1BF41D50CDBB0085A5EF /* xer_support.h */,
+			);
+			path = ASN1;
+			sourceTree = "<group>";
+		};
 		8A5EADB21D3550B500C53415 /* StoreViewPresenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1407,6 +1556,7 @@
 		8AE706241D491C220060FF4F /* ReceiptValidation */ = {
 			isa = PBXGroup;
 			children = (
+				8A2E1BBA1D50CDBB0085A5EF /* ASN1 */,
 				8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */,
 				8A1A79301D4E25750031A0DD /* ReceiptValidation */,
 				8AE706341D4A2E180060FF4F /* main.swift */,
@@ -2266,6 +2416,32 @@
 				8AE706391D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift in Sources */,
 				8A88B4E71D4A64BF0083958C /* main.swift in Sources */,
 				8A1A79241D4CABC60031A0DD /* PKCS7SignatureValidation.m in Sources */,
+				8A2E1C0D1D50CDBB0085A5EF /* ReceiptAttribute.c in Sources */,
+				8A2E1BFC1D50CDBB0085A5EF /* constr_SEQUENCE.c in Sources */,
+				8A2E1C011D50CDBB0085A5EF /* InAppAttribute.c in Sources */,
+				8A2E1BFB1D50CDBB0085A5EF /* BIT_STRING.c in Sources */,
+				8A2E1C0C1D50CDBB0085A5EF /* per_support.c in Sources */,
+				8A2E1C091D50CDBB0085A5EF /* per_decoder.c in Sources */,
+				8A2E1BF61D50CDBB0085A5EF /* asn_codecs_prim.c in Sources */,
+				8A2E1C031D50CDBB0085A5EF /* InAppReceipt.c in Sources */,
+				8A2E1BFF1D50CDBB0085A5EF /* constraints.c in Sources */,
+				8A2E1C0F1D50CDBB0085A5EF /* xer_encoder.c in Sources */,
+				8A2E1BF81D50CDBB0085A5EF /* ber_decoder.c in Sources */,
+				8A2E1BFE1D50CDBB0085A5EF /* constr_TYPE.c in Sources */,
+				8A2E1BF71D50CDBB0085A5EF /* asn_SET_OF.c in Sources */,
+				8A2E1C081D50CDBB0085A5EF /* Payload.c in Sources */,
+				8A2E1C041D50CDBB0085A5EF /* INTEGER.c in Sources */,
+				8A2E1BFA1D50CDBB0085A5EF /* ber_tlv_tag.c in Sources */,
+				8A2E1C001D50CDBB0085A5EF /* der_encoder.c in Sources */,
+				8A2E1C061D50CDBB0085A5EF /* NativeInteger.c in Sources */,
+				8A2E1C051D50CDBB0085A5EF /* NativeEnumerated.c in Sources */,
+				8A2E1BFD1D50CDBB0085A5EF /* constr_SET_OF.c in Sources */,
+				8A2E1C0B1D50CDBB0085A5EF /* per_opentype.c in Sources */,
+				8A2E1C0A1D50CDBB0085A5EF /* per_encoder.c in Sources */,
+				8A2E1C101D50CDBB0085A5EF /* xer_support.c in Sources */,
+				8A2E1C0E1D50CDBB0085A5EF /* xer_decoder.c in Sources */,
+				8A2E1C071D50CDBB0085A5EF /* OCTET_STRING.c in Sources */,
+				8A2E1BF91D50CDBB0085A5EF /* ber_tlv_length.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2959,7 +3135,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/LibreSSL/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/ThirdParty/LibreSSL/include\"",
+					"\"$(SRCROOT)/ReceiptValidation/ASN1\"",
+				);
 				INFOPLIST_FILE = ReceiptValidation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/../../../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -2981,7 +3160,10 @@
 				CODE_SIGN_ENTITLEMENTS = ReceiptValidation/ReceiptValidation.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/LibreSSL/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/ThirdParty/LibreSSL/include\"",
+					"\"$(SRCROOT)/ReceiptValidation/ASN1\"",
+				);
 				INFOPLIST_FILE = ReceiptValidation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/../../../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (

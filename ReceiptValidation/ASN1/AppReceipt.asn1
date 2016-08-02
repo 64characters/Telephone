@@ -1,0 +1,11 @@
+ReceiptModule DEFINITIONS ::= BEGIN
+
+ReceiptAttribute ::= SEQUENCE {
+    type    INTEGER,
+    version INTEGER,
+    value   OCTET STRING
+}
+
+Payload ::= SET OF ReceiptAttribute
+
+END
