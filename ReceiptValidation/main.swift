@@ -25,7 +25,9 @@ let delegate = DefaultNSXPCListenerDelegate(
     object: PKCS7ContainerValidation(
         origin: CertificateFingerprintValidation(
             origin: PKCS7SignatureValidation(
-                origin: SucceedingReceiptValidationStub(),
+                origin: ReceiptAttributesValidation(
+                    origin: SucceedingReceiptValidationStub(), attributes: ReceiptAttributesFake()
+                ),
                 certificate: certificate
             ),
             certificate: certificate
