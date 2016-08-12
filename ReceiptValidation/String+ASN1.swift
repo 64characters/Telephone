@@ -20,27 +20,27 @@ import Foundation
 
 extension String {
     init(ASN1UTF8String data: NSData) {
-        self.init(ASN1String: data, ASN1StringType: ASN1UTF8String, encoding: NSUTF8StringEncoding)
+        self.init(ASN1String: data, ASN1StringType: utf8String, encoding: NSUTF8StringEncoding)
     }
 
     init(ASN1IA5String data: NSData) {
-        self.init(ASN1String: data, ASN1StringType: ASN1IA5String, encoding: NSASCIIStringEncoding)
+        self.init(ASN1String: data, ASN1StringType: ia5String, encoding: NSASCIIStringEncoding)
     }
 
     private init(ASN1String data: NSData, ASN1StringType type: UInt8, encoding: NSStringEncoding) {
         var result: String?
         let bytes = UnsafePointer<UInt8>(data.bytes)
-        if bytes[0] == type {
-            let length = data.length - ASN1ContentIndex
-            assert(length == Int(bytes[ASN1LengthIndex]))
-            result = String(data: NSData(bytes: bytes.advancedBy(ASN1ContentIndex), length: length), encoding: encoding)
+        if bytes[typeIndex] == type {
+            let length = data.length - contentIndex
+            assert(length == Int(bytes[lengthIndex]))
+            result = String(data: NSData(bytes: bytes.advancedBy(contentIndex), length: length), encoding: encoding)
         }
         self = result ?? ""
     }
 }
 
-private let ANS1TypeIndex    = 0
-private let ASN1LengthIndex  = 1
-private let ASN1ContentIndex = 2
-private let ASN1UTF8String: UInt8 = 0x0c
-private let ASN1IA5String: UInt8  = 0x16
+private let typeIndex    = 0
+private let lengthIndex  = 1
+private let contentIndex = 2
+private let utf8String: UInt8 = 0x0c
+private let ia5String: UInt8  = 0x16
