@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 
+- (BOOL)isSignatureValidWithRootCertificate:(NSData *)certificate;
+
 @end
 
 NS_ASSUME_NONNULL_END

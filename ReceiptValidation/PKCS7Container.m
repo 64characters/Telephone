@@ -20,10 +20,13 @@
 
 #import <openssl/objects.h>
 #import <openssl/pkcs7.h>
-
-static BOOL IsValid(PKCS7 * _Nullable pkcs7);
+#import <openssl/x509.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+static BOOL IsValid(PKCS7 * _Nullable pkcs7);
+static X509_STORE *CreateStoreWithCertificate(NSData *data);
+static X509 *CreateCertificateWithData(NSData *data);
 
 @interface PKCS7Container ()
 
@@ -58,6 +61,15 @@ NS_ASSUME_NONNULL_END
     return [NSData dataWithBytes:octets->data length:octets->length];
 }
 
+- (BOOL)isSignatureValidWithRootCertificate:(NSData *)certificate {
+    OpenSSL_add_all_digests();
+    X509_STORE *store = CreateStoreWithCertificate(certificate);
+    BOOL result = PKCS7_verify(self.pkcs7, NULL, store, NULL, NULL, 0) == 1;
+    X509_STORE_free(store);
+    EVP_cleanup();
+    return result;
+}
+
 @end
 
 static BOOL IsValid(PKCS7 * _Nullable pkcs7) {
@@ -71,4 +83,22 @@ static BOOL IsValid(PKCS7 * _Nullable pkcs7) {
         return NO;
     }
     return YES;
+}
+
+static X509_STORE * _Nonnull CreateStoreWithCertificate(NSData * _Nonnull data) {
+    NSCParameterAssert(data);
+    X509 *certificate = CreateCertificateWithData(data);
+    X509_STORE *store = X509_STORE_new();
+    assert(store);
+    X509_STORE_add_cert(store, certificate);
+    X509_free(certificate);
+    return store;
+}
+
+static X509 * _Nonnull CreateCertificateWithData(NSData * _Nonnull data) {
+    NSCParameterAssert(data);
+    const unsigned char *bytes = data.bytes;
+    X509 *result = d2i_X509(NULL, &bytes, data.length);
+    assert(result);
+    return result;
 }
