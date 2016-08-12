@@ -35,7 +35,6 @@
 		8A11A0CF1CCFA74F007BFC7F /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CE1CCFA74F007BFC7F /* Product.swift */; };
 		8A11A0D11CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */; };
 		8A1A79241D4CABC60031A0DD /* PKCS7SignatureValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A79231D4CABC60031A0DD /* PKCS7SignatureValidation.m */; };
-		8A1A79261D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A79251D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift */; };
 		8A1A792F1D4E25670031A0DD /* CertificateFingerprintValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */; };
 		8A1CC61F1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */; };
 		8A1CC6211CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */; };
@@ -221,7 +220,6 @@
 		8AE3486B1D3FCEE8005F9981 /* ReceiptRefreshRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3486A1D3FCEE8005F9981 /* ReceiptRefreshRequestFactory.swift */; };
 		8AE348701D3FDDFF005F9981 /* PurchaseRestorationUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3486F1D3FDDFF005F9981 /* PurchaseRestorationUseCaseOutputSpy.swift */; };
 		8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 8AE706231D491C220060FF4F /* ReceiptValidation.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8AE706391D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift */; };
 		8AE7063D1D4A4D370060FF4F /* ReceiptXPCGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -557,7 +555,6 @@
 		8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsFetchUseCaseOutputSpy.swift; sourceTree = "<group>"; };
 		8A1A79221D4CABC60031A0DD /* PKCS7SignatureValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKCS7SignatureValidation.h; sourceTree = "<group>"; };
 		8A1A79231D4CABC60031A0DD /* PKCS7SignatureValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKCS7SignatureValidation.m; sourceTree = "<group>"; };
-		8A1A79251D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SucceedingReceiptValidationStub.swift; sourceTree = "<group>"; };
 		8A1A792D1D4E25670031A0DD /* CertificateFingerprintValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificateFingerprintValidation.h; sourceTree = "<group>"; };
 		8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificateFingerprintValidation.m; sourceTree = "<group>"; };
 		8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SystemAudioDevice+Equality.swift"; sourceTree = "<group>"; };
@@ -760,7 +757,6 @@
 		8AE7062B1D491C220060FF4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AE706331D4A2E180060FF4F /* ReceiptValidation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReceiptValidation-Bridging-Header.h"; sourceTree = "<group>"; };
 		8AE706341D4A2E180060FF4F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingReceiptValidationStub.swift; sourceTree = "<group>"; };
 		8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNSXPCListenerDelegate.swift; sourceTree = "<group>"; };
 		8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptXPCGateway.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1274,7 +1270,6 @@
 			children = (
 				8A1A792D1D4E25670031A0DD /* CertificateFingerprintValidation.h */,
 				8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */,
-				8AE706381D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift */,
 				8A88B5A81D4BBC970083958C /* PKCS7ContainerValidation.h */,
 				8A88B5A91D4BBC970083958C /* PKCS7ContainerValidation.m */,
 				8A1A79221D4CABC60031A0DD /* PKCS7SignatureValidation.h */,
@@ -1282,7 +1277,6 @@
 				8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */,
 				8ABC9A6E1D522E4D004AC220 /* ReceiptAttributesValidation.swift */,
 				8A88B5AB1D4BBFAC0083958C /* ReceiptValidation.h */,
-				8A1A79251D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift */,
 			);
 			name = ReceiptValidation;
 			sourceTree = "<group>";
@@ -2441,11 +2435,9 @@
 			files = (
 				8A1A792F1D4E25670031A0DD /* CertificateFingerprintValidation.m in Sources */,
 				8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */,
-				8A1A79261D4CC7700031A0DD /* SucceedingReceiptValidationStub.swift in Sources */,
 				8A88B5AA1D4BBC970083958C /* PKCS7ContainerValidation.m in Sources */,
 				8A39A1AD1D5BE42100D703AD /* PKCS7Container.m in Sources */,
 				8A39A1B01D5BE70000D703AD /* ASN1Payload.m in Sources */,
-				8AE706391D4A2EDF0060FF4F /* FailingReceiptValidationStub.swift in Sources */,
 				8A88B4E71D4A64BF0083958C /* main.swift in Sources */,
 				8A1A79241D4CABC60031A0DD /* PKCS7SignatureValidation.m in Sources */,
 				8A2E1C0D1D50CDBB0085A5EF /* ReceiptAttribute.c in Sources */,
