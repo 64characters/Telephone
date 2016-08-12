@@ -1,5 +1,5 @@
 //
-//  CertificateFingerprintValidation.h
+//  SHA256Fingerprint.h
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,13 +18,14 @@
 
 @import Foundation;
 
-#import "ReceiptValidation.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CertificateFingerprintValidation : NSObject <ReceiptValidation>
+@interface SHA256Fingerprint : NSObject
 
-- (instancetype)initWithOrigin:(id<ReceiptValidation>)origin certificate:(NSURL *)certificate;
+- (instancetype)initWithSHA256:(NSData *)sha256 NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithContentsOfURL:(NSURL *)url;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 

@@ -3,7 +3,7 @@
 //
 
 #import "ASN1Payload.h"
-#import "CertificateFingerprintValidation.h"
 #import "PKCS7Container.h"
 #import "ReceiptChecksum.h"
 #import "ReceiptValidation.h"
+#import "SHA256Fingerprint.h"

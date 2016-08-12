@@ -34,7 +34,6 @@
 		8A11A0CD1CCFA29A007BFC7F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CC1CCFA29A007BFC7F /* Store.swift */; };
 		8A11A0CF1CCFA74F007BFC7F /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0CE1CCFA74F007BFC7F /* Product.swift */; };
 		8A11A0D11CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */; };
-		8A1A792F1D4E25670031A0DD /* CertificateFingerprintValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */; };
 		8A1CC61F1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */; };
 		8A1CC6211CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */; };
 		8A1CC6231CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */; };
@@ -76,6 +75,8 @@
 		8A39A1C61D5DF97B00D703AD /* ASN1Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1C51D5DF97B00D703AD /* ASN1Receipt.swift */; };
 		8A39A1C81D5E05C200D703AD /* PKCS7ContainerValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1C71D5E05C200D703AD /* PKCS7ContainerValidation.swift */; };
 		8A39A1CA1D5E176900D703AD /* PKCS7SignatureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */; };
+		8A39A1D01D5E22A300D703AD /* SHA256Fingerprint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1CF1D5E22A300D703AD /* SHA256Fingerprint.m */; };
+		8A39A1D21D5E315600D703AD /* CertificateFingerprintValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
 		8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */; };
 		8A4D0B001C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */; };
@@ -553,8 +554,6 @@
 		8A11A0CC1CCFA29A007BFC7F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		8A11A0CE1CCFA74F007BFC7F /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		8A11A0D01CCFA8B5007BFC7F /* ProductsFetchUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsFetchUseCaseOutputSpy.swift; sourceTree = "<group>"; };
-		8A1A792D1D4E25670031A0DD /* CertificateFingerprintValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificateFingerprintValidation.h; sourceTree = "<group>"; };
-		8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificateFingerprintValidation.m; sourceTree = "<group>"; };
 		8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SystemAudioDevice+Equality.swift"; sourceTree = "<group>"; };
 		8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleUserAgentAudioDevice.swift; sourceTree = "<group>"; };
 		8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+Equality.swift"; sourceTree = "<group>"; };
@@ -627,6 +626,9 @@
 		8A39A1C51D5DF97B00D703AD /* ASN1Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASN1Receipt.swift; sourceTree = "<group>"; };
 		8A39A1C71D5E05C200D703AD /* PKCS7ContainerValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7ContainerValidation.swift; sourceTree = "<group>"; };
 		8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7SignatureValidation.swift; sourceTree = "<group>"; };
+		8A39A1CE1D5E22A300D703AD /* SHA256Fingerprint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHA256Fingerprint.h; sourceTree = "<group>"; };
+		8A39A1CF1D5E22A300D703AD /* SHA256Fingerprint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHA256Fingerprint.m; sourceTree = "<group>"; };
+		8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateFingerprintValidation.swift; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateUseCaseTests.swift; path = UseCasesTests/RingtoneOutputUpdateUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneOutputUpdateUseCase.swift; sourceTree = "<group>"; };
 		8A4E382F1C5BB20100816F38 /* UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift; path = UseCasesTests/UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1266,8 +1268,7 @@
 		8A1A79301D4E25750031A0DD /* ReceiptValidation */ = {
 			isa = PBXGroup;
 			children = (
-				8A1A792D1D4E25670031A0DD /* CertificateFingerprintValidation.h */,
-				8A1A792E1D4E25670031A0DD /* CertificateFingerprintValidation.m */,
+				8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */,
 				8A39A1C71D5E05C200D703AD /* PKCS7ContainerValidation.swift */,
 				8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */,
 				8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */,
@@ -1577,8 +1578,10 @@
 				8A21AF641D538FE600122558 /* ReceiptAttributesFake.swift */,
 				8ABC9A701D52473A004AC220 /* ReceiptChecksum.h */,
 				8ABC9A711D52473A004AC220 /* ReceiptChecksum.m */,
-				8A39A1BB1D5C894500D703AD /* String+ASN1.swift */,
 				8A1A79301D4E25750031A0DD /* ReceiptValidation */,
+				8A39A1CE1D5E22A300D703AD /* SHA256Fingerprint.h */,
+				8A39A1CF1D5E22A300D703AD /* SHA256Fingerprint.m */,
+				8A39A1BB1D5C894500D703AD /* String+ASN1.swift */,
 				8AE706341D4A2E180060FF4F /* main.swift */,
 				8AE7062B1D491C220060FF4F /* Info.plist */,
 				8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */,
@@ -2429,7 +2432,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A1A792F1D4E25670031A0DD /* CertificateFingerprintValidation.m in Sources */,
 				8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */,
 				8A39A1AD1D5BE42100D703AD /* PKCS7Container.m in Sources */,
 				8A39A1B01D5BE70000D703AD /* ASN1Payload.m in Sources */,
@@ -2456,12 +2458,14 @@
 				8A2E1C001D50CDBB0085A5EF /* der_encoder.c in Sources */,
 				8A2E1C061D50CDBB0085A5EF /* NativeInteger.c in Sources */,
 				8A2E1C051D50CDBB0085A5EF /* NativeEnumerated.c in Sources */,
+				8A39A1D21D5E315600D703AD /* CertificateFingerprintValidation.swift in Sources */,
 				8A39A1C61D5DF97B00D703AD /* ASN1Receipt.swift in Sources */,
 				8A39A1BC1D5C894500D703AD /* String+ASN1.swift in Sources */,
 				8A39A1CA1D5E176900D703AD /* PKCS7SignatureValidation.swift in Sources */,
 				8A2E1BFD1D50CDBB0085A5EF /* constr_SET_OF.c in Sources */,
 				8A39A1C41D5CA2B900D703AD /* ASN1ReceiptPayload.swift in Sources */,
 				8A2E1C0B1D50CDBB0085A5EF /* per_opentype.c in Sources */,
+				8A39A1D01D5E22A300D703AD /* SHA256Fingerprint.m in Sources */,
 				8A2E1C0A1D50CDBB0085A5EF /* per_encoder.c in Sources */,
 				8A21AF651D538FE600122558 /* ReceiptAttributesFake.swift in Sources */,
 				8A2E1C101D50CDBB0085A5EF /* xer_support.c in Sources */,
