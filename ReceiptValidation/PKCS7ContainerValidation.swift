@@ -1,5 +1,5 @@
 //
-//  PKCS7ContainerValidation.h
+//  PKCS7ContainerValidation.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,16 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+import Foundation
 
-#import "ReceiptValidation.h"
+final class PKCS7ContainerValidation: NSObject {
+    private let origin: ReceiptValidation
 
-NS_ASSUME_NONNULL_BEGIN
+    init(origin: ReceiptValidation) {
+        self.origin = origin
+    }
+}
 
-@interface PKCS7ContainerValidation : NSObject <ReceiptValidation>
-
-- (instancetype)initWithOrigin:(id<ReceiptValidation>)origin;
-
-@end
-
-NS_ASSUME_NONNULL_END
+extension PKCS7ContainerValidation: ReceiptValidation {
+    func validateReceipt(receipt: NSData, completion: (Result) -> Void) {
+        if let _ = PKCS7Container(data: receipt) {
+            origin.validateReceipt(receipt, completion: completion)
+        } else {
+            completion(.ReceiptIsInvalid)
+        }
+    }
+}
