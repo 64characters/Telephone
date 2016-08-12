@@ -8,5 +8,4 @@
 #import "PKCS7ContainerValidation.h"
 #import "PKCS7SignatureValidation.h"
 #import "ReceiptChecksum.h"
-#import "ReceiptPayload.h"
 #import "ReceiptValidation.h"

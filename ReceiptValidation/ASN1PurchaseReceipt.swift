@@ -25,9 +25,9 @@ struct ASN1PurchaseReceipt {
 
     init(attribute: ASN1PayloadAttribute) {
         assert(attribute.type == purchaseReceiptType)
-        var identifier = ""
-        var expiration = NSDate.distantPast()
-        var isCancelled = false
+        var identifier: String?
+        var expiration: NSDate?
+        var isCancelled: Bool?
         if let payload = ASN1Payload(data: attribute.value) {
             for a in payload.attributes {
                 switch a.type {
@@ -42,9 +42,9 @@ struct ASN1PurchaseReceipt {
                 }
             }
         }
-        self.identifier = identifier
-        self.expiration = expiration
-        self.isCancelled = isCancelled
+        self.identifier = identifier ?? ""
+        self.expiration = expiration ?? NSDate.distantPast()
+        self.isCancelled = isCancelled ?? false
     }
 }
 

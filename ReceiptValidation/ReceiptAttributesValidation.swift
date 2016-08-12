@@ -29,19 +29,17 @@ final class ReceiptAttributesValidation: NSObject {
 }
 
 extension ReceiptAttributesValidation: ReceiptValidation {
-    func validateReceipt(data: NSData, completion: (Result) -> Void) {
-        if let payload = ReceiptPayload(data: data) where validate(payload) {
-            origin.validateReceipt(data, completion: completion)
+    func validateReceipt(receipt: NSData, completion: (Result) -> Void) {
+        if let p = ASN1ReceiptPayload(container: PKCS7Container(data: receipt)!) where isReceiptValid(ASN1Receipt(payload: p)) {
+            origin.validateReceipt(receipt, completion: completion)
         } else {
             completion(.ReceiptIsInvalid)
         }
     }
 
-    private func validate(payload: ReceiptPayload) -> Bool {
-        let checksum = ReceiptChecksum(GUID: attributes.guid, opaque: payload.opaque, identifier: payload.identifierData)
-        return payload.identifier == attributes.identifier &&
-            payload.version == attributes.version &&
-            payload.checksum == checksum.dataValue
+    private func isReceiptValid(r: ASN1Receipt) -> Bool {
+        let c = ReceiptChecksum(GUID: attributes.guid, opaque: r.opaque, identifier: r.identifierData)
+        return r.identifier == attributes.identifier && r.version == attributes.version && r.checksum == c.dataValue
     }
 }
 
