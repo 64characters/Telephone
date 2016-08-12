@@ -26,7 +26,10 @@ let delegate = DefaultNSXPCListenerDelegate(
         origin: CertificateFingerprintValidation(
             origin: PKCS7SignatureValidation(
                 origin: ReceiptAttributesValidation(
-                    origin: SucceedingReceiptValidationStub(), attributes: ReceiptAttributesFake()
+                    origin: PurchaseReceiptAttributesValidation(
+                        identifiers: Set(["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"])
+                    ),
+                    attributes: ReceiptAttributesFake()
                 ),
                 certificate: certificate
             ),
