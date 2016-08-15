@@ -38,8 +38,8 @@ extension ReceiptAttributesValidation: ReceiptValidation {
     }
 
     private func isReceiptValid(r: ASN1Receipt) -> Bool {
-        let c = ReceiptChecksum(GUID: attributes.guid, opaque: r.opaque, identifier: r.identifierData)
-        return r.identifier == attributes.identifier && r.version == attributes.version && r.checksum == c.dataValue
+        let c = ReceiptChecksum(guid: attributes.guid, opaque: r.opaque, identifier: r.identifierData)
+        return r.identifier == attributes.identifier && r.version == attributes.version && ReceiptChecksum(sha1: r.checksum) == c
     }
 }
 
