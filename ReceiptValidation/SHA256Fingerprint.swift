@@ -25,9 +25,8 @@ struct SHA256Fingerprint {
         self.sha256 = sha256
     }
 
-    init?(contentsOf url: NSURL) {
-        guard let contents = NSData(contentsOfURL: url) else { return nil }
-        self.init(sha256: digest(of: contents))
+    init(source: NSData) {
+        self.init(sha256: digest(of: source))
     }
 }
 

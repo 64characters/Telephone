@@ -20,9 +20,9 @@ import Foundation
 
 final class CertificateFingerprintValidation: NSObject {
     private let origin: ReceiptValidation
-    private let certificate: NSURL
+    private let certificate: NSData
 
-    init(origin: ReceiptValidation, certificate: NSURL) {
+    init(origin: ReceiptValidation, certificate: NSData) {
         self.origin = origin
         self.certificate = certificate
     }
@@ -30,7 +30,7 @@ final class CertificateFingerprintValidation: NSObject {
 
 extension CertificateFingerprintValidation: ReceiptValidation {
     func validateReceipt(receipt: NSData, completion: (Result) -> Void) {
-        if let f = SHA256Fingerprint(contentsOf: certificate) where f == SHA256Fingerprint(sha256: expected) {
+        if SHA256Fingerprint(source: certificate) == SHA256Fingerprint(sha256: expected) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
             completion(.ReceiptIsInvalid)

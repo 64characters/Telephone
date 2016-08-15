@@ -20,9 +20,9 @@ import Foundation
 
 final class PKCS7SignatureValidation: NSObject {
     private let origin: ReceiptValidation
-    private let certificate: NSURL
+    private let certificate: NSData
 
-    init(origin: ReceiptValidation, certificate: NSURL) {
+    init(origin: ReceiptValidation, certificate: NSData) {
         self.origin = origin
         self.certificate = certificate
     }
@@ -30,7 +30,7 @@ final class PKCS7SignatureValidation: NSObject {
 
 extension PKCS7SignatureValidation: ReceiptValidation {
     func validateReceipt(receipt: NSData, completion: (Result) -> Void) {
-        if PKCS7Container(data: receipt)!.isSignatureValidWithRootCertificate(NSData(contentsOfURL: certificate)!) {
+        if PKCS7Container(data: receipt)!.isSignatureValidWithRootCertificate(certificate) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
             completion(.ReceiptIsInvalid)

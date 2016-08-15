@@ -18,7 +18,7 @@
 
 import Foundation
 
-let certificate = NSBundle.mainBundle().URLForResource("Certificate", withExtension: "crt")!
+let certificate = NSData(contentsOfURL: NSBundle.mainBundle().URLForResource("Certificate", withExtension: "crt")!)!
 // Have to use a variable, otherwise released because NSXPCListener.delegate is unowned.
 let delegate = DefaultNSXPCListenerDelegate(
     interface: ReceiptValidation.self,
