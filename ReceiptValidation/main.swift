@@ -29,7 +29,9 @@ let delegate = DefaultNSXPCListenerDelegate(
                     origin: PurchaseReceiptAttributesValidation(
                         identifiers: Set(["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"])
                     ),
-                    attributes: ReceiptAttributesFake()
+                    attributes: ReceiptAttributes(
+                        identifier: "com.tlphn.Telephone", version: "1.1.7", guid: DeviceGUID().dataValue
+                    )
                 ),
                 certificate: certificate
             ),

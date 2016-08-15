@@ -1,5 +1,5 @@
 //
-//  ReceiptAttributesFake.swift
+//  DeviceGUID.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,10 +19,12 @@
 import Foundation
 import IOKit
 
-struct ReceiptAttributesFake: ReceiptAttributes {
-    let identifier = "com.tlphn.Telephone"
-    let version = "1.1.7"
-    let guid = createGUID()
+struct DeviceGUID {
+    let dataValue: NSData
+
+    init() {
+        dataValue = createGUID()
+    }
 }
 
 private func createGUID() -> NSData {

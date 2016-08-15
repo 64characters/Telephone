@@ -43,8 +43,8 @@ extension ReceiptAttributesValidation: ReceiptValidation {
     }
 }
 
-protocol ReceiptAttributes {
-    var identifier: String { get }
-    var version: String { get }
-    var guid: NSData { get }
+struct ReceiptAttributes {
+    let identifier: String
+    let version: String
+    let guid: NSData
 }
