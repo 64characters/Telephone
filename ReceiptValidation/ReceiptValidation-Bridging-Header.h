@@ -6,4 +6,3 @@
 
 #import "ASN1Payload.h"
 #import "PKCS7Container.h"
-#import "SHA256Fingerprint.h"
