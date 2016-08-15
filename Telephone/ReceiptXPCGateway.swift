@@ -34,19 +34,29 @@ final class ReceiptXPCGateway {
     }
 
     func validateReceipt(receipt: NSData, completion: (ReceiptValidationResult) -> Void) {
-        createValidation(completion: completion).validateReceipt(receipt) { result in handle(result, completion: completion) }
+        validation(completion: completion).validateReceipt(receipt) { result, expiration in
+            didValidateReceipt(with: result, expiration: expiration, completion: completion)
+        }
     }
 
-    private func createValidation(completion completion: (ReceiptValidationResult) -> Void) -> ReceiptValidation {
-        return connection.remoteObjectProxyWithErrorHandler { error in handleError(completion) } as! ReceiptValidation
+    private func validation(completion completion: (ReceiptValidationResult) -> Void) -> ReceiptValidation {
+        return connection.remoteObjectProxyWithErrorHandler { error in
+            didFailReceiptValidation(completion)
+            } as! ReceiptValidation
     }
 }
 
-private func handle(result: Result, completion: (ReceiptValidationResult) -> Void) {
-    dispatch_async(dispatch_get_main_queue()) { handleOnMain(result, completion: completion) }
+private func didValidateReceipt(with result: Result, expiration: NSDate, completion: (ReceiptValidationResult) -> Void) {
+    dispatch_async(dispatch_get_main_queue()) {
+        didValidateReceiptOnMain(with: result, expiration: expiration, completion: completion)
+    }
 }
 
-private func handleOnMain(result: Result, completion: (ReceiptValidationResult) -> Void) {
+private func didFailReceiptValidation(completion: (ReceiptValidationResult) -> Void) {
+    dispatch_async(dispatch_get_main_queue()) { completion(.ReceiptIsInvalid) }
+}
+
+private func didValidateReceiptOnMain(with result: Result, expiration: NSDate, completion: (ReceiptValidationResult) -> Void) {
     switch result {
     case .ReceiptIsValid:
         completion(.ReceiptIsValid)
@@ -55,8 +65,4 @@ private func handleOnMain(result: Result, completion: (ReceiptValidationResult) 
     case .NoActivePurchases:
         completion(.NoActivePurchases)
     }
-}
-
-private func handleError(completion: (ReceiptValidationResult) -> Void) {
-    dispatch_async(dispatch_get_main_queue()) { completion(.ReceiptIsInvalid) }
 }

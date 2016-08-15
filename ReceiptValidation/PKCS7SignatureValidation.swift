@@ -29,11 +29,11 @@ final class PKCS7SignatureValidation: NSObject {
 }
 
 extension PKCS7SignatureValidation: ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (Result) -> Void) {
+    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void) {
         if PKCS7Container(data: receipt)!.isSignatureValidWithRootCertificate(certificate) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
-            completion(.ReceiptIsInvalid)
+            completion(result: .ReceiptIsInvalid, expiration: NSDate.distantPast())
         }
     }
 }

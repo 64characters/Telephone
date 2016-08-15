@@ -27,11 +27,11 @@ final class PKCS7ContainerValidation: NSObject {
 }
 
 extension PKCS7ContainerValidation: ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (Result) -> Void) {
+    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void) {
         if let _ = PKCS7Container(data: receipt) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
-            completion(.ReceiptIsInvalid)
+            completion(result: .ReceiptIsInvalid, expiration: NSDate.distantPast())
         }
     }
 }

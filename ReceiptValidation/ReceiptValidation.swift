@@ -16,8 +16,10 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 @objc public protocol ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (Result) -> Void)
+    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void)
 }
 
 @objc public enum Result: Int {
