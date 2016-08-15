@@ -46,9 +46,10 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
     }
 
     private func notifyOriginAboutPurchaseOf(product: Product, result: ReceiptValidationResult) {
-        if result == .ReceiptIsValid {
+        switch result {
+        case .ReceiptIsValid(expiration: _):
             self.origin.didPurchase(product)
-        } else {
+        default:
             self.origin.didFailPurchasing(product, error: result.message)
         }
     }

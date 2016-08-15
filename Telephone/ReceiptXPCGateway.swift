@@ -59,7 +59,7 @@ private func didFailReceiptValidation(completion: (ReceiptValidationResult) -> V
 private func didValidateReceiptOnMain(with result: Result, expiration: NSDate, completion: (ReceiptValidationResult) -> Void) {
     switch result {
     case .ReceiptIsValid:
-        completion(.ReceiptIsValid)
+        completion(.ReceiptIsValid(expiration: expiration))
     case .ReceiptIsInvalid:
         completion(.ReceiptIsInvalid)
     case .NoActivePurchases:

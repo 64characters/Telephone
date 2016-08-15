@@ -24,6 +24,6 @@ public struct ValidReceipt {
 
 extension ValidReceipt: Receipt {
     public func validate(completion completion: (ReceiptValidationResult) -> Void) {
-        completion(.ReceiptIsValid)
+        completion(.ReceiptIsValid(expiration: NSDate.distantFuture()))
     }
 }

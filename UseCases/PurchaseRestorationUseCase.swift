@@ -54,9 +54,10 @@ extension PurchaseRestorationUseCase: ReceiptRefreshRequestTarget {
     }
 
     private func notifyOutputAfterRefreshOf(receipt: Receipt, result: ReceiptValidationResult) {
-        if result == .ReceiptIsValid {
+        switch result {
+        case .ReceiptIsValid(expiration: _):
             output.didRestorePurchases()
-        } else {
+        default:
             output.didFailRestoringPurchases(error: result.message)
         }
     }

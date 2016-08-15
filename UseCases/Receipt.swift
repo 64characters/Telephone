@@ -16,12 +16,14 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public protocol Receipt {
     func validate(completion completion: (ReceiptValidationResult) -> Void)
 }
 
 public enum ReceiptValidationResult {
-    case ReceiptIsValid
+    case ReceiptIsValid(expiration: NSDate)
     case ReceiptIsInvalid
     case NoActivePurchases
 
