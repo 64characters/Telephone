@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseEventTarget.swift
+//  StoreEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductPurchaseEventTarget {
+public protocol StoreEventTarget {
     func didStartPurchasingProduct(withIdentifier identifier: String)
     func didPurchaseProducts()
     func didFailPurchasingProducts(error error: String)

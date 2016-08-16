@@ -1,5 +1,5 @@
 //
-//  ReceiptValidatingProductPurchaseEventTarget.swift
+//  ReceiptValidatingStoreEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-public final class ReceiptValidatingProductPurchaseEventTarget {
-    private let origin: ProductPurchaseEventTarget
+public final class ReceiptValidatingStoreEventTarget {
+    private let origin: StoreEventTarget
     private let receipt: Receipt
 
-    public init(origin: ProductPurchaseEventTarget, receipt: Receipt) {
+    public init(origin: StoreEventTarget, receipt: Receipt) {
         self.origin = origin
         self.receipt = receipt
     }
 }
 
-extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarget {
+extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
     public func didStartPurchasingProduct(withIdentifier identifier: String) {
         origin.didStartPurchasingProduct(withIdentifier: identifier)
     }

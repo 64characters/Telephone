@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseEventTargetSpy.swift
+//  StoreEventTargetSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-public final class ProductPurchaseEventTargetSpy {
+public final class StoreEventTargetSpy {
     public private(set) var didCallDidStartPurchasing = false
     public private(set) var didCallDidPurchase = false
     public private(set) var didCallDidFailPurchasing = false
@@ -29,7 +29,7 @@ public final class ProductPurchaseEventTargetSpy {
     public init() {}
 }
 
-extension ProductPurchaseEventTargetSpy: ProductPurchaseEventTarget {
+extension StoreEventTargetSpy: StoreEventTarget {
     public func didStartPurchasingProduct(withIdentifier identifier: String) {
         didCallDidStartPurchasing = true
         invokedIdentifier = identifier

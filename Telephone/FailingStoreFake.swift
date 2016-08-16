@@ -20,13 +20,13 @@ import UseCases
 
 final class FailingStoreFake {
     private var attempts = 0
-    private var target: ProductPurchaseEventTarget
+    private var target: StoreEventTarget
 
-    init(target: ProductPurchaseEventTarget) {
+    init(target: StoreEventTarget) {
         self.target = target
     }
 
-    func updateTarget(target: ProductPurchaseEventTarget) {
+    func updateTarget(target: StoreEventTarget) {
         self.target = target
     }
 }

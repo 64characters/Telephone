@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseEventSource.swift
+//  StoreEventSource.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,11 +19,11 @@
 import StoreKit
 import UseCases
 
-final class ProductPurchaseEventSource: NSObject {
+final class StoreEventSource: NSObject {
     private let queue: SKPaymentQueue
-    private let target: ProductPurchaseEventTarget
+    private let target: StoreEventTarget
 
-    init(queue: SKPaymentQueue, target: ProductPurchaseEventTarget) {
+    init(queue: SKPaymentQueue, target: StoreEventTarget) {
         self.queue = queue
         self.target = target
         super.init()
@@ -35,7 +35,7 @@ final class ProductPurchaseEventSource: NSObject {
     }
 }
 
-extension ProductPurchaseEventSource: SKPaymentTransactionObserver {
+extension StoreEventSource: SKPaymentTransactionObserver {
     func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         dispatch_async(dispatch_get_main_queue()) {
             transactions.forEach(self.handleStateChange)

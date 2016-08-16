@@ -28,7 +28,7 @@ final class CompositionRoot: NSObject {
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
-    private let productPurchaseEventSource: ProductPurchaseEventSource
+    private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
 
@@ -80,9 +80,9 @@ final class CompositionRoot: NSObject {
 
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 
-        productPurchaseEventSource = ProductPurchaseEventSource(
+        storeEventSource = StoreEventSource(
             queue: SKPaymentQueue.defaultQueue(),
-            target: ReceiptValidatingProductPurchaseEventTarget(origin: storeViewEventTarget, receipt: receipt)
+            target: ReceiptValidatingStoreEventTarget(origin: storeViewEventTarget, receipt: receipt)
         )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
