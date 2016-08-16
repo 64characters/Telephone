@@ -49,6 +49,16 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
         output.showPurchaseError(error)
         output.enablePurchaseRestoration()
     }
+
+    func showPurchaseRestorationProgress() {
+        output.showPurchaseRestorationProgress()
+        output.disablePurchaseRestoration()
+    }
+
+    func showPurchaseRestorationError(error: String) {
+        output.showPurchaseRestorationError(error)
+        output.enablePurchaseRestoration()
+    }
 }
 
 private func hasLowerPrice(lhs: Product, _ rhs: Product) -> Bool {

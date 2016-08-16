@@ -19,6 +19,7 @@
 final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
     private var products: [Product] = []
+    private var restoration: UseCase?
 
     private let factory: StoreUseCaseFactory
     private let presenter: StoreViewPresenter
@@ -69,7 +70,19 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showProducts(products)
     }
 
-    func restorePurchases() {}
-    func showPurchaseRestorationError(error: String) {}
-    func showThankYou() {}
+    func restorePurchases() {
+        restoration = factory.createPurchaseRestorationUseCase(output: self)
+        restoration!.execute()
+        presenter.showPurchaseRestorationProgress()
+    }
+
+    func showPurchaseRestorationError(error: String) {
+        showCachedProducts()
+        presenter.showPurchaseRestorationError(error)
+        restoration = nil
+    }
+
+    func showThankYou() {
+        restoration = nil
+    }
 }

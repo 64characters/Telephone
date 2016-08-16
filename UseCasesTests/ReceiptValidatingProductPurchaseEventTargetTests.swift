@@ -23,7 +23,7 @@ import UseCasesTestDoubles
 final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
     func testCallsDidPurchaseOnOriginWhenReceiptIsValidOnDidPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
-        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: ValidProductPurchaseReceipt())
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: ValidReceipt())
         let product = createProduct()
 
         sut.didPurchase(product)
@@ -34,7 +34,17 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
 
     func testCallsDidFailPurchasingProductOnOriginWhenReceiptIsNotValidOnDidPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
-        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidReceipt())
+
+        sut.didPurchase(createProduct())
+
+        XCTAssertTrue(origin.didCallDidFailPurchasing)
+        XCTAssertFalse(origin.invokedError.isEmpty)
+    }
+
+    func testCallsDidFailPurchasingProductOnOriginWhenPurchaseIsNotActiveOnDidPurchase() {
+        let origin = ProductPurchaseEventTargetSpy()
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
 
         sut.didPurchase(createProduct())
 
@@ -44,7 +54,7 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
 
     func testCallsDidStartPurchasingOnOriginOnDidStartPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
-        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidReceipt())
         let product = createProduct()
 
         sut.didStartPurchasing(product)
@@ -55,7 +65,7 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
 
     func testCallsDidFailPurchasingProductWithErrorOnOriginOnDidFailPurchasingProductWithError() {
         let origin = ProductPurchaseEventTargetSpy()
-        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidReceipt())
         let product = createProduct()
         let error = "any"
 
@@ -68,7 +78,7 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
 
     func testCallsDidFailPurchasingProductOnOriginOnDidFailPurchasingProduct() {
         let origin = ProductPurchaseEventTargetSpy()
-        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidProductPurchaseReceipt())
+        let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidReceipt())
         let product = createProduct()
 
         sut.didFailPurchasing(product)

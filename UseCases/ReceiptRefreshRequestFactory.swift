@@ -1,5 +1,5 @@
 //
-//  ProductPurchaseReceipt.swift
+//  ReceiptRefreshRequestFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductPurchaseReceipt {
-    func isValid() -> Bool
+public protocol ReceiptRefreshRequestFactory {
+    func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest
 }

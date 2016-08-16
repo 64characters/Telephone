@@ -1,5 +1,5 @@
 //
-//  ValidProductPurchaseReceipt.swift
+//  SucceedingReceiptRefreshRequestFactoryStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,12 +18,16 @@
 
 import UseCases
 
-public struct ValidProductPurchaseReceipt {
-    public init() {}
+final class SucceedingReceiptRefreshRequestFactoryStub {
+    private let receipt: Receipt
+
+    init(receipt: Receipt) {
+        self.receipt = receipt
+    }
 }
 
-extension ValidProductPurchaseReceipt: ProductPurchaseReceipt {
-    public func isValid() -> Bool {
-        return true
+extension SucceedingReceiptRefreshRequestFactoryStub: ReceiptRefreshRequestFactory {
+    func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest {
+        return SucceedingReceiptRefreshRequestStub(receipt: receipt, target: target)
     }
 }

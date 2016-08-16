@@ -21,6 +21,8 @@ import UseCasesTestDoubles
 import XCTest
 
 final class DefaultStoreViewEventTargetTests: XCTestCase {
+    // MARK: - Fetch
+
     func testExecutesProductsFetchOnFetchProducts() {
         let useCase = UseCaseSpy()
         let factory = StoreUseCaseFactorySpy()
@@ -62,6 +64,8 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
 
         XCTAssertEqual(presenter.invokedProductsFetchError, error)
     }
+
+    // MARK: - Purchase
 
     func testExecutesProductPurchaseWithGivenIdentifierOnPurchaseProduct() {
         let factory = StoreUseCaseFactorySpy()
@@ -105,5 +109,52 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         sut.showPurchaseError(error)
 
         XCTAssertEqual(presenter.invokedPurchaseError, error)
+    }
+
+    // MARK: - Restoration
+
+    func testExecutesPurchaseRestorationOnRestorePurchases() {
+        let restoration = UseCaseSpy()
+        let factory = StoreUseCaseFactorySpy()
+        factory.stub(withPurchaseRestoration: restoration)
+        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: StoreViewPresenterSpy())
+
+        sut.restorePurchases()
+
+        XCTAssertTrue(restoration.didCallExecute)
+    }
+
+    func testShowsPurchaseRestorationProgressOnRestorePurchases() {
+        let factory = StoreUseCaseFactorySpy()
+        factory.stub(withPurchaseRestoration: UseCaseSpy())
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: factory, presenter: presenter)
+
+        sut.restorePurchases()
+
+        XCTAssertTrue(presenter.didCallShowPurchaseRestorationProgress)
+    }
+
+    func testShowsCachedProductsOnShowPurchaseRestorationError() {
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
+        let products = SimpleProductsFake().all
+        sut.showProducts(products)
+
+        sut.showPurchaseRestorationError("any")
+
+        XCTAssertEqual(presenter.invokedProducts, products)
+        XCTAssertEqual(presenter.showProductsCallCount, 2)
+    }
+
+    func testShowsPurchaseRestorationErrorOnShowPurchaseRestorationError() {
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: StoreUseCaseFactorySpy(), presenter: presenter)
+
+        let error = "any"
+
+        sut.showPurchaseRestorationError(error)
+
+        XCTAssertEqual(presenter.invokedPurchaseRestorationError, error)
     }
 }

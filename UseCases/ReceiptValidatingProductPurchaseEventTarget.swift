@@ -18,9 +18,9 @@
 
 public final class ReceiptValidatingProductPurchaseEventTarget {
     private let origin: ProductPurchaseEventTarget
-    private let receipt: ProductPurchaseReceipt
+    private let receipt: Receipt
 
-    public init(origin: ProductPurchaseEventTarget, receipt: ProductPurchaseReceipt) {
+    public init(origin: ProductPurchaseEventTarget, receipt: Receipt) {
         self.origin = origin
         self.receipt = receipt
     }
@@ -32,10 +32,8 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
     }
 
     public func didPurchase(product: Product) {
-        if receipt.isValid () {
-            origin.didPurchase(product)
-        } else {
-            origin.didFailPurchasing(product, error: receiptValidationError())
+        receipt.validate { result in
+            self.notifyOriginAboutPurchaseOf(product, result: result)
         }
     }
 
@@ -46,8 +44,13 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
     public func didFailPurchasing(product: Product) {
         origin.didFailPurchasing(product)
     }
-}
 
-private func receiptValidationError() -> String {
-    return NSLocalizedString("Could not validate purchase receipt", comment: "Receipt validation error.")
+    private func notifyOriginAboutPurchaseOf(product: Product, result: ReceiptValidationResult) {
+        switch result {
+        case .ReceiptIsValid(expiration: _):
+            self.origin.didPurchase(product)
+        default:
+            self.origin.didFailPurchasing(product, error: result.message)
+        }
+    }
 }

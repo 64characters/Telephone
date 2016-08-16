@@ -1,5 +1,5 @@
 //
-//  InvalidProductPurchaseReceipt.swift
+//  NullReceiptRefreshRequestFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,12 +18,12 @@
 
 import UseCases
 
-public struct InvalidProductPurchaseReceipt {
-    public init() {}
+struct NullReceiptRefreshRequestFactory: ReceiptRefreshRequestFactory {
+    func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest {
+        return NullReceiptRefreshRequest()
+    }
 }
 
-extension InvalidProductPurchaseReceipt: ProductPurchaseReceipt {
-    public func isValid() -> Bool {
-        return false
-    }
+struct NullReceiptRefreshRequest: ReceiptRefreshRequest {
+    func start() {}
 }

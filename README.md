@@ -4,8 +4,9 @@ appropriate SIP provider. If your office or home phone works via SIP,
 you can use that phone number on your Mac anywhere you have decent
 internet connection.
 
-Building
---------
+## Building
+
+### PJSIP
 
 Telephone's SIP user agent is based on [pjsip][]. You need to build it
 before building Telephone. Name the directory _pjproject_ and place it
@@ -31,5 +32,17 @@ Configure and build pjsip:
 
     $ CFLAGS="-mmacosx-version-min=10.10" ./configure --host=x86_64-apple-darwin
     $ make lib
+
+### LibreSSL
+
+    $ ftp http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.4.2.tar.gz
+    $ ftp http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.4.2.tar.gz.asc
+    $ gpg --verify libressl-2.4.2.tar.gz.asc
+    $ tar xzvf libressl-2.4.2.tar.gz
+    $ cd libressl-2.4.2
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared  CFLAGS='-mmacosx-version-min=10.10'
+    $ make
+    $ make install
+
     
 Build Telephone.

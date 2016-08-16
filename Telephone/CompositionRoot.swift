@@ -17,6 +17,7 @@
 //
 
 import Foundation
+import StoreKit
 import UseCases
 
 final class CompositionRoot: NSObject {
@@ -27,6 +28,7 @@ final class CompositionRoot: NSObject {
     private let userDefaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
+    private let productPurchaseEventSource: ProductPurchaseEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
 
@@ -59,19 +61,30 @@ final class CompositionRoot: NSObject {
         let productsEventTargets = ProductsEventTargets()
 
         let storeViewController = StoreViewController(target: NullStoreViewEventTarget())
-        let store = FailingStoreFake(target: NullProductPurchaseEventTarget())
+        let products = SKProductsRequestToProductsAdapter(
+            identifiers: ["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"],
+            target: productsEventTargets
+        )
+        let store = SKPaymentQueueToStoreAdapter(queue: SKPaymentQueue.defaultQueue(), products: products)
+        let receipt = LoggingReceipt(origin: BundleReceipt(bundle: NSBundle.mainBundle(), gateway: ReceiptXPCGateway()))
         let storeViewEventTarget = DefaultStoreViewEventTarget(
             factory: DefaultStoreUseCaseFactory(
-                products: LoggingProducts(origin: AsyncProductsFake(target: productsEventTargets)),
+                products: LoggingProducts(origin: products),
                 store: LoggingStore(origin: store),
-                targets: productsEventTargets
+                targets: productsEventTargets,
+                factory: SKReceiptRefreshRequestAdapterFactory(receipt: receipt)
             ),
             presenter: DefaultStoreViewPresenter(output: storeViewController)
         )
         storeViewController.updateTarget(storeViewEventTarget)
-        store.updateTarget(storeViewEventTarget)
 
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
+
+        productPurchaseEventSource = ProductPurchaseEventSource(
+            queue: SKPaymentQueue.defaultQueue(),
+            products: LoggingProducts(origin: products),
+            target: ReceiptValidatingProductPurchaseEventTarget(origin: storeViewEventTarget, receipt: receipt)
+        )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCase(
