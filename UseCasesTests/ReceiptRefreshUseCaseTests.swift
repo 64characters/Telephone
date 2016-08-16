@@ -1,5 +1,5 @@
 //
-//  PurchaseRestorationUseCaseTests.swift
+//  ReceiptRefreshUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,12 +20,12 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class PurchaseRestorationUseCaseTests: XCTestCase {
+final class ReceiptRefreshUseCaseTests: XCTestCase {
     func testStartsReceiptRefreshOnExecute() {
         let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
+            output: ReceiptRefreshUseCaseOutputSpy()
         )
 
         sut.execute()
@@ -34,8 +34,8 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
     }
 
     func testCallsDidRestorePurchasesOnDidRefreshReceiptWhenReceiptIsValidAndThereAreActivePurchases() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
+        let output = ReceiptRefreshUseCaseOutputSpy()
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
             output: output
         )
@@ -46,8 +46,8 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
     }
 
     func testCallsDidFailRestoringPurchasesOnDidRefreshReceiptWhenReceiptIsNotValid() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
+        let output = ReceiptRefreshUseCaseOutputSpy()
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
             output: output
         )
@@ -59,8 +59,8 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
     }
 
     func testCallsDidFailRestoringPurchasesOnDidRefreshReceiptWhenReceiptDoesNotHaveActivePurchases() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
+        let output = ReceiptRefreshUseCaseOutputSpy()
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
             output: output
         )
@@ -72,8 +72,8 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
     }
 
     func testCallsDidFailRestoringPurchasesOnDidFailRefreshingReceipt() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
+        let output = ReceiptRefreshUseCaseOutputSpy()
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
             output: output
         )
@@ -87,9 +87,9 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
 
     func testDoesNotStartReceiptRefreshOnExecuteWhenPreviousRefreshIsNotFinished() {
         let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
+            output: ReceiptRefreshUseCaseOutputSpy()
         )
 
         sut.execute()
@@ -100,9 +100,9 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
 
     func testStartsReceiptRefreshOnExecuteWhenPreviousRefreshFinishedWithSuccess() {
         let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
+            output: ReceiptRefreshUseCaseOutputSpy()
         )
 
         sut.execute()
@@ -114,9 +114,9 @@ final class PurchaseRestorationUseCaseTests: XCTestCase {
 
     func testStartsReceiptRefreshOnExecuteWhenPreviousRefreshFinishedWithFailure() {
         let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
+        let sut = ReceiptRefreshUseCase(
             factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
+            output: ReceiptRefreshUseCaseOutputSpy()
         )
 
         sut.execute()

@@ -50,7 +50,7 @@ extension StoreUseCaseFactorySpy: StoreUseCaseFactory {
         return purchase
     }
 
-    public func createPurchaseRestorationUseCase(output output: PurchaseRestorationUseCaseOutput) -> UseCase {
+    public func createReceiptRefreshUseCase(output output: ReceiptRefreshUseCaseOutput) -> UseCase {
         return restoration
     }
 }

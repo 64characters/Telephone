@@ -1,5 +1,5 @@
 //
-//  PurchaseRestorationUseCase.swift
+//  ReceiptRefreshUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,23 @@
 //  GNU General Public License for more details.
 //
 
-public protocol PurchaseRestorationUseCaseOutput {
+public protocol ReceiptRefreshUseCaseOutput {
     func didRestorePurchases()
     func didFailRestoringPurchases(error error: String)
 }
 
-public final class PurchaseRestorationUseCase {
+public final class ReceiptRefreshUseCase {
     private var request: ReceiptRefreshRequest?
     private let factory: ReceiptRefreshRequestFactory
-    private let output: PurchaseRestorationUseCaseOutput
+    private let output: ReceiptRefreshUseCaseOutput
 
-    public init(factory: ReceiptRefreshRequestFactory, output: PurchaseRestorationUseCaseOutput) {
+    public init(factory: ReceiptRefreshRequestFactory, output: ReceiptRefreshUseCaseOutput) {
         self.factory = factory
         self.output = output
     }
 }
 
-extension PurchaseRestorationUseCase: UseCase {
+extension ReceiptRefreshUseCase: UseCase {
     public func execute() {
         guard request == nil else { return }
         request = factory.create(target: self)
@@ -40,10 +40,10 @@ extension PurchaseRestorationUseCase: UseCase {
     }
 }
 
-extension PurchaseRestorationUseCase: ReceiptRefreshRequestTarget {
+extension ReceiptRefreshUseCase: ReceiptRefreshRequestTarget {
     public func didRefreshReceipt(receipt: Receipt) {
         receipt.validate { result in
-            self.notifyOutputAfterRefreshOf(receipt, result: result)
+            self.notifyOutputAfterRefresh(of: receipt, result: result)
         }
         request = nil
     }
@@ -53,7 +53,7 @@ extension PurchaseRestorationUseCase: ReceiptRefreshRequestTarget {
         request = nil
     }
 
-    private func notifyOutputAfterRefreshOf(receipt: Receipt, result: ReceiptValidationResult) {
+    private func notifyOutputAfterRefresh(of receipt: Receipt, result: ReceiptValidationResult) {
         switch result {
         case .ReceiptIsValid(expiration: _):
             output.didRestorePurchases()

@@ -41,7 +41,7 @@ extension DefaultStoreUseCaseFactory: StoreUseCaseFactory {
         return ProductPurchaseUseCase(identifier: identifier, products: products, store: store)
     }
 
-    func createPurchaseRestorationUseCase(output output: PurchaseRestorationUseCaseOutput) -> UseCase {
-        return PurchaseRestorationUseCase(factory: factory, output: output)
+    func createReceiptRefreshUseCase(output output: ReceiptRefreshUseCaseOutput) -> UseCase {
+        return ReceiptRefreshUseCase(factory: factory, output: output)
     }
 }

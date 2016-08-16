@@ -71,7 +71,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func restorePurchases() {
-        restoration = factory.createPurchaseRestorationUseCase(output: self)
+        restoration = factory.createReceiptRefreshUseCase(output: self)
         restoration!.execute()
         presenter.showPurchaseRestorationProgress()
     }

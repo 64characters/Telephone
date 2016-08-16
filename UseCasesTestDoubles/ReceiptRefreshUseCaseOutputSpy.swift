@@ -1,5 +1,5 @@
 //
-//  PurchaseRestorationUseCaseOutputSpy.swift
+//  ReceiptRefreshUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-public final class PurchaseRestorationUseCaseOutputSpy {
+public final class ReceiptRefreshUseCaseOutputSpy {
     public private(set) var didCallDidRestorePurchases = false
     public private(set) var didCallDidFailRestoringPurchases = false
     public private(set) var invokedError = ""
@@ -26,7 +26,7 @@ public final class PurchaseRestorationUseCaseOutputSpy {
     public init() {}
 }
 
-extension PurchaseRestorationUseCaseOutputSpy: PurchaseRestorationUseCaseOutput {
+extension ReceiptRefreshUseCaseOutputSpy: ReceiptRefreshUseCaseOutput {
     public func didRestorePurchases() {
         didCallDidRestorePurchases = true
     }

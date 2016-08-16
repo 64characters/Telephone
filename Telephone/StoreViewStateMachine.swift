@@ -19,7 +19,7 @@
 import UseCases
 
 protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput,
-StoreEventTarget, PurchaseRestorationUseCaseOutput {
+StoreEventTarget, ReceiptRefreshUseCaseOutput {
     var state: StoreViewState { get }
     func changeState(newState: StoreViewState)
 
