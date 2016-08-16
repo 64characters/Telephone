@@ -3529,23 +3529,10 @@
 					"DEBUG=1",
 					"PJ_AUTOCONF=1",
 				);
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
-					"\"$(SRCROOT)/../pjproject/pjlib-util/include\"",
-					"\"$(SRCROOT)/../pjproject/pjmedia/include\"",
-					"\"$(SRCROOT)/../pjproject/pjnath/include\"",
-					"\"$(SRCROOT)/../pjproject/pjsip/include\"",
-				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/include\"";
 				INFOPLIST_FILE = Telephone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../pjproject/pjlib/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjlib-util/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjmedia/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjnath/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjsip/lib\"",
-					"\"$(SRCROOT)/../pjproject/third_party/lib\"",
-				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/lib\"";
 				OTHER_LDFLAGS = (
 					"-lpjsua-x86_64-apple-darwin",
 					"-lpjsip-ua-x86_64-apple-darwin",
@@ -3576,23 +3563,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "PJ_AUTOCONF=1";
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../pjproject/pjlib/include\"",
-					"\"$(SRCROOT)/../pjproject/pjlib-util/include\"",
-					"\"$(SRCROOT)/../pjproject/pjmedia/include\"",
-					"\"$(SRCROOT)/../pjproject/pjnath/include\"",
-					"\"$(SRCROOT)/../pjproject/pjsip/include\"",
-				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/include\"";
 				INFOPLIST_FILE = Telephone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../pjproject/pjlib/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjlib-util/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjmedia/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjnath/lib\"",
-					"\"$(SRCROOT)/../pjproject/pjsip/lib\"",
-					"\"$(SRCROOT)/../pjproject/third_party/lib\"",
-				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/lib\"";
 				OTHER_LDFLAGS = (
 					"-lpjsua-x86_64-apple-darwin",
 					"-lpjsip-ua-x86_64-apple-darwin",
