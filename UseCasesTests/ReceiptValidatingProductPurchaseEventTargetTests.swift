@@ -24,29 +24,27 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
     func testCallsDidPurchaseOnOriginWhenReceiptIsValidOnDidPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: ValidReceipt())
-        let product = createProduct()
 
-        sut.didPurchase(product)
+        sut.didPurchaseProducts()
 
         XCTAssertTrue(origin.didCallDidPurchase)
-        XCTAssertEqual(origin.invokedProduct, product)
     }
 
-    func testCallsDidFailPurchasingProductOnOriginWhenReceiptIsNotValidOnDidPurchase() {
+    func testCallsDidFailPurchasingOnOriginWhenReceiptIsNotValidOnDidPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidReceipt())
 
-        sut.didPurchase(createProduct())
+        sut.didPurchaseProducts()
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertFalse(origin.invokedError.isEmpty)
     }
 
-    func testCallsDidFailPurchasingProductOnOriginWhenPurchaseIsNotActiveOnDidPurchase() {
+    func testCallsDidFailPurchasingOnOriginWhenPurchaseIsNotActiveOnDidPurchase() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
 
-        sut.didPurchase(createProduct())
+        sut.didPurchaseProducts()
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertFalse(origin.invokedError.isEmpty)
@@ -63,28 +61,24 @@ final class ReceiptValidatingProductPurchaseEventTargetTests: XCTestCase {
         XCTAssertEqual(origin.invokedProduct, product)
     }
 
-    func testCallsDidFailPurchasingProductWithErrorOnOriginOnDidFailPurchasingProductWithError() {
+    func testCallsDidFailPurchasingWithErrorOnOriginOnDidFailPurchasingWithError() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidReceipt())
-        let product = createProduct()
         let error = "any"
 
-        sut.didFailPurchasing(product, error: error)
+        sut.didFailPurchasingProducts(error: error)
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertEqual(origin.invokedProduct, product)
         XCTAssertEqual(origin.invokedError, error)
     }
 
-    func testCallsDidFailPurchasingProductOnOriginOnDidFailPurchasingProduct() {
+    func testCallsDidFailPurchasingOnOriginOnDidFailPurchasing() {
         let origin = ProductPurchaseEventTargetSpy()
         let sut = ReceiptValidatingProductPurchaseEventTarget(origin: origin, receipt: InvalidReceipt())
-        let product = createProduct()
 
-        sut.didFailPurchasing(product)
+        sut.didFailPurchasingProducts()
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertEqual(origin.invokedProduct, product)
         XCTAssertTrue(origin.invokedError.isEmpty)
     }
 }

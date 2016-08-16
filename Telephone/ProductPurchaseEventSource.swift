@@ -58,29 +58,29 @@ extension ProductPurchaseEventSource: SKPaymentTransactionObserver {
         case SKPaymentTransactionStatePurchasing:
             target.didStartPurchasing(product)
         case SKPaymentTransactionStatePurchased:
-            target.didPurchase(product)
+            target.didPurchaseProducts()
             queue.finishTransaction(transaction)
         case SKPaymentTransactionStateFailed:
-            handleFaliedStateOf(transaction, product: product)
+            handleFaliedStateOf(transaction)
             queue.finishTransaction(transaction)
         default:
             print("Unhandled state change for transaction: \(transaction)")
         }
     }
 
-    private func handleFaliedStateOf(transaction: SKPaymentTransaction, product: Product) {
+    private func handleFaliedStateOf(transaction: SKPaymentTransaction) {
         if let error = transaction.error {
-            notifyTargetAboutFailedPurchaseOf(product, error: error)
+            notifyTargetAboutFailedPurchase(error: error)
         } else {
-            target.didFailPurchasing(product, error: localizedUnknownError())
+            target.didFailPurchasingProducts(error: localizedUnknownError())
         }
     }
 
-    private func notifyTargetAboutFailedPurchaseOf(product: Product, error: NSError) {
+    private func notifyTargetAboutFailedPurchase(error error: NSError) {
         if shouldReturnError(error) {
-            target.didFailPurchasing(product, error: error.localizedDescription)
+            target.didFailPurchasingProducts(error: error.localizedDescription)
         } else {
-            target.didFailPurchasing(product)
+            target.didFailPurchasingProducts()
         }
     }
 }

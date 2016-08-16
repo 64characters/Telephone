@@ -75,15 +75,15 @@ class StoreViewState {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didPurchase(machine machine: StoreViewStateMachine, product: Product)  {
+    func didPurchaseProducts(machine machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product, error: String)  {
+    func didFailPurchasingProducts(machine machine: StoreViewStateMachine, error: String)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product)  {
+    func didFailPurchasingProducts(machine machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -111,7 +111,7 @@ final class StoreViewStateNoProducts: StoreViewState {
         machine.fetchProducts()
     }
 
-    override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
+    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
@@ -133,7 +133,7 @@ final class StoreViewStateFetching: StoreViewState {
         machine.showProductsFetchError(error)
     }
 
-    override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
+    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
@@ -149,7 +149,7 @@ final class StoreViewStateFetched: StoreViewState {
         machine.showPurchaseProgress()
     }
 
-    override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
+    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
@@ -171,7 +171,7 @@ final class StoreViewStateFetchError: StoreViewState {
         machine.fetchProducts()
     }
 
-    override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
+    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
@@ -183,17 +183,17 @@ final class StoreViewStateFetchError: StoreViewState {
 }
 
 final class StoreViewStatePurchasing: StoreViewState {
-    override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
+    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
 
-    override func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product, error: String) {
+    override func didFailPurchasingProducts(machine machine: StoreViewStateMachine, error: String) {
         machine.changeState(StoreViewStatePurchaseError())
         machine.showPurchaseError(error)
     }
 
-    override func didFailPurchasing(machine machine: StoreViewStateMachine, product: Product) {
+    override func didFailPurchasingProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchaseError())
         machine.showCachedProducts()
     }
@@ -222,7 +222,7 @@ final class StoreViewStatePurchaseError: StoreViewState {
 }
 
 final class StoreViewStateRestoringPurchases: StoreViewState {
-    override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
+    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
@@ -239,7 +239,7 @@ final class StoreViewStateRestoringPurchases: StoreViewState {
 }
 
 final class StoreViewStatePurchaseRestorationError: StoreViewState {
-    override func didPurchase(machine machine: StoreViewStateMachine, product: Product) {
+    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }

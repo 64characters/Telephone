@@ -38,15 +38,15 @@ extension FailingStoreFake: Store {
             self.target.didStartPurchasing(product)
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.notifyTargetAboutFailurePurchasing(product)
+            self.notifyTargetAboutFailure()
         }
     }
 
-    private func notifyTargetAboutFailurePurchasing(product: Product) {
+    private func notifyTargetAboutFailure() {
         if attempts % 2 == 0 {
-            target.didFailPurchasing(product)
+            target.didFailPurchasingProducts()
         } else {
-            target.didFailPurchasing(product, error: "The store returned a terrible error. Please try again later.")
+            target.didFailPurchasingProducts(error: "The store returned a terrible error. Please try again later.")
         }
     }
 }

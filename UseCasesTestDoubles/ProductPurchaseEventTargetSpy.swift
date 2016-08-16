@@ -37,19 +37,16 @@ extension ProductPurchaseEventTargetSpy: ProductPurchaseEventTarget {
         invokedProduct = product
     }
 
-    public func didPurchase(product: Product) {
+    public func didPurchaseProducts() {
         didCallDidPurchase = true
-        invokedProduct = product
     }
 
-    public func didFailPurchasing(product: Product, error: String) {
+    public func didFailPurchasingProducts(error error: String) {
         didCallDidFailPurchasing = true
-        invokedProduct = product
         invokedError = error
     }
 
-    public func didFailPurchasing(product: Product) {
+    public func didFailPurchasingProducts() {
         didCallDidFailPurchasing = true
-        invokedProduct = product
     }
 }

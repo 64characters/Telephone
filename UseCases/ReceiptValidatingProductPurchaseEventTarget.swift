@@ -31,26 +31,26 @@ extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarge
         origin.didStartPurchasing(product)
     }
 
-    public func didPurchase(product: Product) {
+    public func didPurchaseProducts() {
         receipt.validate { result in
-            self.notifyOriginAboutPurchaseOf(product, result: result)
+            self.notifyOriginAboutPurchase(withReceiptValidationResult: result)
         }
     }
 
-    public func didFailPurchasing(product: Product, error: String) {
-        origin.didFailPurchasing(product, error: error)
+    public func didFailPurchasingProducts(error error: String) {
+        origin.didFailPurchasingProducts(error: error)
     }
 
-    public func didFailPurchasing(product: Product) {
-        origin.didFailPurchasing(product)
+    public func didFailPurchasingProducts() {
+        origin.didFailPurchasingProducts()
     }
 
-    private func notifyOriginAboutPurchaseOf(product: Product, result: ReceiptValidationResult) {
+    private func notifyOriginAboutPurchase(withReceiptValidationResult result: ReceiptValidationResult) {
         switch result {
-        case .ReceiptIsValid(expiration: _):
-            self.origin.didPurchase(product)
+        case .ReceiptIsValid:
+            self.origin.didPurchaseProducts()
         default:
-            self.origin.didFailPurchasing(product, error: result.message)
+            self.origin.didFailPurchasingProducts(error: result.message)
         }
     }
 }
