@@ -21,12 +21,10 @@ import UseCases
 
 final class ProductPurchaseEventSource: NSObject {
     private let queue: SKPaymentQueue
-    private let products: Products
     private let target: ProductPurchaseEventTarget
 
-    init(queue: SKPaymentQueue, products: Products, target: ProductPurchaseEventTarget) {
+    init(queue: SKPaymentQueue, target: ProductPurchaseEventTarget) {
         self.queue = queue
-        self.products = products
         self.target = target
         super.init()
         queue.addTransactionObserver(self)
@@ -40,35 +38,26 @@ final class ProductPurchaseEventSource: NSObject {
 extension ProductPurchaseEventSource: SKPaymentTransactionObserver {
     func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         dispatch_async(dispatch_get_main_queue()) {
-            transactions.forEach(self.handleStateChangeOf)
+            transactions.forEach(self.handleStateChange)
         }
     }
 
-    private func handleStateChangeOf(transaction: SKPaymentTransaction) {
-        if let product = products[transaction.payment.productIdentifier] {
-            handleStateChangeOf(transaction, product: product)
-        } else {
-            print("Could not find product with id \(transaction.payment.productIdentifier)")
-        }
-
-    }
-
-    private func handleStateChangeOf(transaction: SKPaymentTransaction, product: Product) {
+    private func handleStateChange(of transaction: SKPaymentTransaction) {
         switch transaction.transactionState {
         case SKPaymentTransactionStatePurchasing:
-            target.didStartPurchasing(product)
+            target.didStartPurchasingProduct(withIdentifier: transaction.payment.productIdentifier)
         case SKPaymentTransactionStatePurchased:
             target.didPurchaseProducts()
             queue.finishTransaction(transaction)
         case SKPaymentTransactionStateFailed:
-            handleFaliedStateOf(transaction)
+            handleFaliedState(of: transaction)
             queue.finishTransaction(transaction)
         default:
             print("Unhandled state change for transaction: \(transaction)")
         }
     }
 
-    private func handleFaliedStateOf(transaction: SKPaymentTransaction) {
+    private func handleFaliedState(of transaction: SKPaymentTransaction) {
         if let error = transaction.error {
             notifyTargetAboutFailedPurchase(error: error)
         } else {

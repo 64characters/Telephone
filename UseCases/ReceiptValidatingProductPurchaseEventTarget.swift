@@ -27,8 +27,8 @@ public final class ReceiptValidatingProductPurchaseEventTarget {
 }
 
 extension ReceiptValidatingProductPurchaseEventTarget: ProductPurchaseEventTarget {
-    public func didStartPurchasing(product: Product) {
-        origin.didStartPurchasing(product)
+    public func didStartPurchasingProduct(withIdentifier identifier: String) {
+        origin.didStartPurchasingProduct(withIdentifier: identifier)
     }
 
     public func didPurchaseProducts() {

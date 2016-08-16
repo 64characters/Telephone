@@ -71,7 +71,7 @@ class StoreViewState {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didStartPurchasing(machine machine: StoreViewStateMachine, product: Product) {
+    func didStartPurchasingProduct(machine machine: StoreViewStateMachine, identifier: String) {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -144,7 +144,7 @@ final class StoreViewStateFetched: StoreViewState {
         machine.purchaseProduct(withIdentifier: product.identifier)
     }
 
-    override func didStartPurchasing(machine machine: StoreViewStateMachine, product: Product) {
+    override func didStartPurchasingProduct(machine machine: StoreViewStateMachine, identifier: String) {
         machine.changeState(StoreViewStatePurchasing())
         machine.showPurchaseProgress()
     }
@@ -210,7 +210,7 @@ final class StoreViewStatePurchaseError: StoreViewState {
         machine.purchaseProduct(withIdentifier: product.identifier)
     }
 
-    override func didStartPurchasing(machine machine: StoreViewStateMachine, product: Product) {
+    override func didStartPurchasingProduct(machine machine: StoreViewStateMachine, identifier: String) {
         machine.changeState(StoreViewStatePurchasing())
         machine.showPurchaseProgress()
     }

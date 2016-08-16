@@ -35,7 +35,7 @@ extension FailingStoreFake: Store {
     func purchase(product: Product) throws {
         attempts += 1
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(0.2) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.target.didStartPurchasing(product)
+            self.target.didStartPurchasingProduct(withIdentifier: product.identifier)
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
             self.notifyTargetAboutFailure()

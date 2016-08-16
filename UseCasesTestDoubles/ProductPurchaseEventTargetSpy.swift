@@ -23,18 +23,16 @@ public final class ProductPurchaseEventTargetSpy {
     public private(set) var didCallDidPurchase = false
     public private(set) var didCallDidFailPurchasing = false
 
-    public private(set) var invokedProduct: Product
+    public private(set) var invokedIdentifier = ""
     public private(set) var invokedError = ""
 
-    public init() {
-        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero(), localizedPrice: "")
-    }
+    public init() {}
 }
 
 extension ProductPurchaseEventTargetSpy: ProductPurchaseEventTarget {
-    public func didStartPurchasing(product: Product) {
+    public func didStartPurchasingProduct(withIdentifier identifier: String) {
         didCallDidStartPurchasing = true
-        invokedProduct = product
+        invokedIdentifier = identifier
     }
 
     public func didPurchaseProducts() {

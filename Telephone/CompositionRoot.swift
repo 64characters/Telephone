@@ -82,7 +82,6 @@ final class CompositionRoot: NSObject {
 
         productPurchaseEventSource = ProductPurchaseEventSource(
             queue: SKPaymentQueue.defaultQueue(),
-            products: LoggingProducts(origin: products),
             target: ReceiptValidatingProductPurchaseEventTarget(origin: storeViewEventTarget, receipt: receipt)
         )
 
