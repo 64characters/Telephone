@@ -22,13 +22,11 @@ final class DefaultStoreUseCaseFactory {
     private let products: Products
     private let store: Store
     private let targets: ProductsEventTargets
-    private let factory: ReceiptRefreshRequestFactory
 
-    init(products: Products, store: Store, targets: ProductsEventTargets, factory: ReceiptRefreshRequestFactory) {
+    init(products: Products, store: Store, targets: ProductsEventTargets) {
         self.products = products
         self.store = store
         self.targets = targets
-        self.factory = factory
     }
 }
 
@@ -39,9 +37,5 @@ extension DefaultStoreUseCaseFactory: StoreUseCaseFactory {
 
     func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase {
         return ProductPurchaseUseCase(identifier: identifier, products: products, store: store)
-    }
-
-    func createReceiptRefreshUseCase(output output: ReceiptRefreshUseCaseOutput) -> UseCase {
-        return ReceiptRefreshUseCase(factory: factory, output: output)
     }
 }

@@ -21,7 +21,6 @@ import UseCases
 public final class StoreUseCaseFactorySpy {
     private var fetch: UseCase!
     private var purchase: ThrowingUseCase!
-    private var restoration: UseCase!
 
     public private(set) var invokedIdentifier = ""
 
@@ -34,10 +33,6 @@ public final class StoreUseCaseFactorySpy {
     public func stub(withProductPurchase purchase: ThrowingUseCase) {
         self.purchase = purchase
     }
-
-    public func stub(withPurchaseRestoration restoration: UseCase) {
-        self.restoration = restoration
-    }
 }
 
 extension StoreUseCaseFactorySpy: StoreUseCaseFactory {
@@ -48,9 +43,5 @@ extension StoreUseCaseFactorySpy: StoreUseCaseFactory {
     public func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase {
         invokedIdentifier = identifier
         return purchase
-    }
-
-    public func createReceiptRefreshUseCase(output output: ReceiptRefreshUseCaseOutput) -> UseCase {
-        return restoration
     }
 }

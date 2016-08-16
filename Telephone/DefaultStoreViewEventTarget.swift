@@ -19,13 +19,14 @@
 final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
     private var products: [Product] = []
-    private var restoration: UseCase?
 
     private let factory: StoreUseCaseFactory
+    private var restoration: UseCase
     private let presenter: StoreViewPresenter
 
-    init(factory: StoreUseCaseFactory, presenter: StoreViewPresenter) {
+    init(factory: StoreUseCaseFactory, purchaseRestoration: UseCase, presenter: StoreViewPresenter) {
         self.factory = factory
+        self.restoration = purchaseRestoration
         self.presenter = presenter
     }
 }
@@ -71,18 +72,16 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func restorePurchases() {
-        restoration = factory.createReceiptRefreshUseCase(output: self)
-        restoration!.execute()
+        restoration.execute()
         presenter.showPurchaseRestorationProgress()
     }
 
     func showPurchaseRestorationError(error: String) {
         showCachedProducts()
         presenter.showPurchaseRestorationError(error)
-        restoration = nil
     }
 
     func showThankYou() {
-        restoration = nil
+
     }
 }

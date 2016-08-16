@@ -20,10 +20,14 @@ import UseCases
 
 public final class StoreEventTargetSpy {
     public private(set) var didCallDidStartPurchasing = false
+    public private(set) var invokedIdentifier = ""
+
     public private(set) var didCallDidPurchase = false
     public private(set) var didCallDidFailPurchasing = false
 
-    public private(set) var invokedIdentifier = ""
+    public private(set) var didCallDidRestore = false
+    public private(set) var didCallDidFailRestoring = false
+
     public private(set) var invokedError = ""
 
     public init() {}
@@ -46,5 +50,14 @@ extension StoreEventTargetSpy: StoreEventTarget {
 
     public func didFailPurchasingProducts() {
         didCallDidFailPurchasing = true
+    }
+
+    public func didRestorePurchases() {
+        didCallDidRestore = true
+    }
+
+    public func didFailRestoringPurchases(error error: String) {
+        didCallDidFailRestoring = true
+        invokedError = error
     }
 }

@@ -18,8 +18,7 @@
 
 import UseCases
 
-protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput,
-StoreEventTarget, ReceiptRefreshUseCaseOutput {
+protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput, StoreEventTarget {
     var state: StoreViewState { get }
     func changeState(newState: StoreViewState)
 
@@ -79,9 +78,7 @@ extension StoreViewStateMachine {
     func didFailPurchasingProducts() {
         state.didFailPurchasingProducts(machine: self)
     }
-}
 
-extension StoreViewStateMachine {
     func didRestorePurchases() {
         state.didRestorePurchases(machine: self)
     }

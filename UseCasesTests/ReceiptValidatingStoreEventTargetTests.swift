@@ -21,36 +21,10 @@ import UseCases
 import UseCasesTestDoubles
 
 final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
-    func testCallsDidPurchaseOnOriginWhenReceiptIsValidOnDidPurchase() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
 
-        sut.didPurchaseProducts()
+    // MARK: - Purchase start
 
-        XCTAssertTrue(origin.didCallDidPurchase)
-    }
-
-    func testCallsDidFailPurchasingOnOriginWhenReceiptIsNotValidOnDidPurchase() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
-
-        sut.didPurchaseProducts()
-
-        XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertFalse(origin.invokedError.isEmpty)
-    }
-
-    func testCallsDidFailPurchasingOnOriginWhenPurchaseIsNotActiveOnDidPurchase() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
-
-        sut.didPurchaseProducts()
-
-        XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertFalse(origin.invokedError.isEmpty)
-    }
-
-    func testCallsDidStartPurchasingOnOriginOnDidStartPurchasing() {
+    func testCallsDidStartPurchasingOnDidStartPurchasing() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
         let identifier = "any"
@@ -61,7 +35,38 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         XCTAssertEqual(origin.invokedIdentifier, identifier)
     }
 
-    func testCallsDidFailPurchasingWithErrorOnOriginOnDidFailPurchasingWithError() {
+    // MARK: - Purchase finish
+
+    func testCallsDidPurchaseWhenReceiptIsValidOnDidPurchase() {
+        let origin = StoreEventTargetSpy()
+        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
+
+        sut.didPurchaseProducts()
+
+        XCTAssertTrue(origin.didCallDidPurchase)
+    }
+
+    func testCallsDidFailPurchasingWhenReceiptIsNotValidOnDidPurchase() {
+        let origin = StoreEventTargetSpy()
+        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
+
+        sut.didPurchaseProducts()
+
+        XCTAssertTrue(origin.didCallDidFailPurchasing)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.ReceiptIsInvalid.message)
+    }
+
+    func testCallsDidFailPurchasingWhenThereAreNoActivePurchasesOnDidPurchase() {
+        let origin = StoreEventTargetSpy()
+        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
+
+        sut.didPurchaseProducts()
+
+        XCTAssertTrue(origin.didCallDidFailPurchasing)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.NoActivePurchases.message)
+    }
+
+    func testCallsDidFailPurchasingWithErrorOnDidFailPurchasingWithError() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
         let error = "any"
@@ -72,7 +77,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         XCTAssertEqual(origin.invokedError, error)
     }
 
-    func testCallsDidFailPurchasingOnOriginOnDidFailPurchasing() {
+    func testCallsDidFailPurchasingOnDidFailPurchasing() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
@@ -81,8 +86,46 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertTrue(origin.invokedError.isEmpty)
     }
-}
 
-private func createProduct() -> Product {
-    return Product(identifier: "1", name: "product", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
+    // MARK: - Restoration finish
+
+    func testCallsDidRestoreWhenReceiptIsValidOnDidRestore() {
+        let origin = StoreEventTargetSpy()
+        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
+
+        sut.didRestorePurchases()
+
+        XCTAssertTrue(origin.didCallDidRestore)
+    }
+
+    func testCallsDidFailRestoringWhenReceiptIsNotValidOnDidRestore() {
+        let origin = StoreEventTargetSpy()
+        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
+
+        sut.didRestorePurchases()
+
+        XCTAssertTrue(origin.didCallDidFailRestoring)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.ReceiptIsInvalid.message)
+    }
+
+    func testCallsDidFailRestoringWhenThereAreNoActivePurchasesOnDidPurchase() {
+        let origin = StoreEventTargetSpy()
+        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
+
+        sut.didRestorePurchases()
+
+        XCTAssertTrue(origin.didCallDidFailRestoring)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.NoActivePurchases.message)
+    }
+
+    func testCallDidFailRestoringOnDidFailRestoring() {
+        let origin = StoreEventTargetSpy()
+        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
+        let error = "any"
+
+        sut.didFailRestoringPurchases(error: error)
+
+        XCTAssertTrue(origin.didCallDidFailRestoring)
+        XCTAssertEqual(origin.invokedError, error)
+    }
 }

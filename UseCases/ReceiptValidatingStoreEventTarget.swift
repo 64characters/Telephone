@@ -45,12 +45,31 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didFailPurchasingProducts()
     }
 
+    public func didRestorePurchases() {
+        receipt.validate { result in
+            self.notifyOriginAboutRestoration(withReceiptValidationResult: result)
+        }
+    }
+
+    public func didFailRestoringPurchases(error error: String) {
+        origin.didFailRestoringPurchases(error: error)
+    }
+
     private func notifyOriginAboutPurchase(withReceiptValidationResult result: ReceiptValidationResult) {
         switch result {
         case .ReceiptIsValid:
             self.origin.didPurchaseProducts()
         default:
             self.origin.didFailPurchasingProducts(error: result.message)
+        }
+    }
+
+    private func notifyOriginAboutRestoration(withReceiptValidationResult result: ReceiptValidationResult) {
+        switch result {
+        case .ReceiptIsValid:
+            origin.didRestorePurchases()
+        default:
+            origin.didFailRestoringPurchases(error: result.message)
         }
     }
 }
