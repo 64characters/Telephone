@@ -98,6 +98,8 @@
 		8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
 		8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
 		8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A779F8D1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift */; };
+		8A7831BE1D636E92006D0D94 /* PurchaseRestorationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7831BD1D636E92006D0D94 /* PurchaseRestorationUseCaseTests.swift */; };
+		8A7831C01D636EDA006D0D94 /* PurchaseRestorationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7831BF1D636EDA006D0D94 /* PurchaseRestorationUseCase.swift */; };
 		8A7874F01C5A25D0002494ED /* ConditionalRingtonePlaybackUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackUseCaseTests.swift */; };
 		8A7874F21C5A2612002494ED /* ConditionalRingtonePlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackUseCase.swift */; };
 		8A7874F41C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7874F31C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift */; };
@@ -145,7 +147,6 @@
 		8A9D922F1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D922E1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift */; };
 		8A9D92311D2AE79300491D59 /* FailingFetchProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92301D2AE79300491D59 /* FailingFetchProductsFake.swift */; };
 		8A9D92331D2BF9D000491D59 /* SimpleProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */; };
-		8A9D92351D2C007500491D59 /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92341D2C007500491D59 /* NullStore.swift */; };
 		8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */; };
 		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
@@ -642,6 +643,8 @@
 		8A7567361CF7242800D91C04 /* ReceiptRefreshUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshUseCase.swift; sourceTree = "<group>"; };
 		8A7567381CF75DF500D91C04 /* StoreViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewState.swift; sourceTree = "<group>"; };
 		8A779F8D1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserAgentAudioDevice+PJSIP.swift"; sourceTree = "<group>"; };
+		8A7831BD1D636E92006D0D94 /* PurchaseRestorationUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseRestorationUseCaseTests.swift; path = UseCasesTests/PurchaseRestorationUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
+		8A7831BF1D636EDA006D0D94 /* PurchaseRestorationUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseRestorationUseCase.swift; sourceTree = "<group>"; };
 		8A7874EF1C5A25D0002494ED /* ConditionalRingtonePlaybackUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConditionalRingtonePlaybackUseCaseTests.swift; path = UseCasesTests/ConditionalRingtonePlaybackUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7874F11C5A2612002494ED /* ConditionalRingtonePlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalRingtonePlaybackUseCase.swift; sourceTree = "<group>"; };
 		8A7874F31C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtonePlaybackUseCaseSpy.swift; sourceTree = "<group>"; };
@@ -687,7 +690,6 @@
 		8A9D922E1D2AE14A00491D59 /* SuccessfulFetchProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessfulFetchProductsFake.swift; sourceTree = "<group>"; };
 		8A9D92301D2AE79300491D59 /* FailingFetchProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingFetchProductsFake.swift; sourceTree = "<group>"; };
 		8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleProductsFake.swift; sourceTree = "<group>"; };
-		8A9D92341D2C007500491D59 /* NullStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
 		8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKPaymentQueueToStoreAdapter.swift; sourceTree = "<group>"; };
 		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
@@ -1250,6 +1252,8 @@
 				8A9513CE1D1D7F0E0034DF2C /* ProductPurchaseUseCaseTests.swift */,
 				8A11A0C81CCF9DDD007BFC7F /* ProductsFetchUseCase.swift */,
 				8A11A0C61CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift */,
+				8A7831BF1D636EDA006D0D94 /* PurchaseRestorationUseCase.swift */,
+				8A7831BD1D636E92006D0D94 /* PurchaseRestorationUseCaseTests.swift */,
 				8A9513EB1D2A735F0034DF2C /* Receipt.swift */,
 				8AE348681D3FCE7D005F9981 /* ReceiptRefreshRequest.swift */,
 				8AE3486A1D3FCEE8005F9981 /* ReceiptRefreshRequestFactory.swift */,
@@ -1388,7 +1392,6 @@
 			children = (
 				8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */,
 				8AD6597B1D36A152008A1007 /* LoggingStore.swift */,
-				8A9D92341D2C007500491D59 /* NullStore.swift */,
 				8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */,
 			);
 			name = Store;
@@ -2486,7 +2489,6 @@
 				AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */,
 				8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
-				8A9D92351D2C007500491D59 /* NullStore.swift in Sources */,
 				8A91759F1CA59F1100354E26 /* PJSUAOnCallMediaState.m in Sources */,
 				8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
@@ -2592,6 +2594,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA1019731C48046D00869D01 /* DefaultRingtonePlaybackUseCase.swift in Sources */,
+				8A7831C01D636EDA006D0D94 /* PurchaseRestorationUseCase.swift in Sources */,
 				8AE3486B1D3FCEE8005F9981 /* ReceiptRefreshRequestFactory.swift in Sources */,
 				AA3B6E891C47AD150030D410 /* TimerFactory.swift in Sources */,
 				8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */,
@@ -2671,6 +2674,7 @@
 				AA1019711C48044900869D01 /* DefaultRingtonePlaybackUseCaseTests.swift in Sources */,
 				8A11A0C71CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift in Sources */,
 				AA18F5FF1C21CD2500FD8E9F /* UserDefaultsSoundIOSaveUseCaseTests.swift in Sources */,
+				8A7831BE1D636E92006D0D94 /* PurchaseRestorationUseCaseTests.swift in Sources */,
 				8A4E38301C5BB20100816F38 /* UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift in Sources */,
 				AA3166391C4FB21500E7ECA5 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests.swift in Sources */,
 				AA3B6E8B1C47BFDF0030D410 /* RepeatingSoundTests.swift in Sources */,

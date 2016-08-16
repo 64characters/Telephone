@@ -31,4 +31,9 @@ extension LoggingStore: Store {
         print("Purchasing \(product)")
         try origin.purchase(product)
     }
+
+    func restorePurchases() {
+        print("Restoring purchases")
+        origin.restorePurchases()
+    }
 }

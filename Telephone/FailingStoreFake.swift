@@ -38,11 +38,15 @@ extension FailingStoreFake: Store {
             self.target.didStartPurchasingProduct(withIdentifier: product.identifier)
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.notifyTargetAboutFailure()
+            self.notifyTargetAboutPurchaseFailure()
         }
     }
 
-    private func notifyTargetAboutFailure() {
+    func restorePurchases() {
+
+    }
+
+    private func notifyTargetAboutPurchaseFailure() {
         if attempts % 2 == 0 {
             target.didFailPurchasingProducts()
         } else {

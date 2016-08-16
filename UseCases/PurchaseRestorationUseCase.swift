@@ -1,5 +1,5 @@
 //
-//  NullStore.swift
+//  PurchaseRestorationUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class PurchaseRestorationUseCase {
+    private let store: Store
 
-struct NullStore: Store {
-    func purchase(product: Product) {}
+    public init(store: Store) {
+        self.store = store
+    }
+}
+
+extension PurchaseRestorationUseCase: UseCase {
+    public func execute() {
+        store.restorePurchases()
+    }
 }

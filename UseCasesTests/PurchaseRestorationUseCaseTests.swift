@@ -1,5 +1,5 @@
 //
-//  StoreSpy.swift
+//  PurchaseRestorationUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,22 +17,16 @@
 //
 
 import UseCases
+import UseCasesTestDoubles
+import XCTest
 
-public final class StoreSpy {
-    public private(set) var invokedProduct: Product
-    public private(set) var didCallRestorePurchases = false
+final class PurchaseRestorationUseCaseTests: XCTestCase {
+    func testCallsRestorePurchasesOnExecute() {
+        let store = StoreSpy()
+        let sut = PurchaseRestorationUseCase(store: store)
 
-    public init() {
-        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero(), localizedPrice: "$0")
-    }
-}
+        sut.execute()
 
-extension StoreSpy: Store {
-    public func purchase(product: Product) {
-        invokedProduct = product
-    }
-
-    public func restorePurchases() {
-        didCallRestorePurchases = true
+        XCTAssertTrue(store.didCallRestorePurchases)
     }
 }
