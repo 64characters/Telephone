@@ -38,26 +38,45 @@ final class StoreEventSource: NSObject {
 extension StoreEventSource: SKPaymentTransactionObserver {
     func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         dispatch_async(dispatch_get_main_queue()) {
-            transactions.forEach(self.handleStateChange)
+            self.handleStateChange(of: transactions)
         }
     }
 
-    private func handleStateChange(of transaction: SKPaymentTransaction) {
-        switch transaction.transactionState {
-        case SKPaymentTransactionStatePurchasing:
-            target.didStartPurchasingProduct(withIdentifier: transaction.payment.productIdentifier)
-        case SKPaymentTransactionStatePurchased:
-            target.didPurchaseProducts()
-            queue.finishTransaction(transaction)
-        case SKPaymentTransactionStateFailed:
-            handleFaliedState(of: transaction)
-            queue.finishTransaction(transaction)
-        default:
-            print("Unhandled state change for transaction: \(transaction)")
+    func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError) {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.target.didFailRestoringPurchases(error: error.localizedDescription)
         }
     }
 
-    private func handleFaliedState(of transaction: SKPaymentTransaction) {
+    private func handleStateChange(of transactions: [SKPaymentTransaction]) {
+        handlePurchasing(transactions.filter { $0.transactionState == SKPaymentTransactionStatePurchasing })
+        handlePurchased(transactions.filter { $0.transactionState == SKPaymentTransactionStatePurchased })
+        handleFailed(transactions.filter { $0.transactionState == SKPaymentTransactionStateFailed })
+        handleRestored(transactions.filter { $0.transactionState == SKPaymentTransactionStateRestored })
+    }
+
+    private func handlePurchasing(transactions: [SKPaymentTransaction]) {
+        transactions.forEach { target.didStartPurchasingProduct(withIdentifier: $0.payment.productIdentifier) }
+    }
+
+    private func handlePurchased(transactions: [SKPaymentTransaction]) {
+        if transactions.count > 0 { target.didPurchaseProducts() }
+        transactions.forEach { queue.finishTransaction($0) }
+    }
+
+    private func handleFailed(transactions: [SKPaymentTransaction]) {
+        transactions.forEach {
+            notifyTargetAboutFailure(of: $0)
+            queue.finishTransaction($0)
+        }
+    }
+
+    private func handleRestored(transactions: [SKPaymentTransaction]) {
+        if transactions.count > 0 { target.didRestorePurchases() }
+        transactions.forEach { queue.finishTransaction($0) }
+    }
+
+    private func notifyTargetAboutFailure(of transaction: SKPaymentTransaction) {
         if let error = transaction.error {
             notifyTargetAboutFailedPurchase(error: error)
         } else {

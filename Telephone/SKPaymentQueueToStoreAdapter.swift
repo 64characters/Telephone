@@ -34,7 +34,7 @@ extension SKPaymentQueueToStoreAdapter: Store {
     }
 
     func restorePurchases() {
-
+        queue.restoreCompletedTransactions()
     }
 
     private func storeKitProduct(forProduct product: Product) throws -> SKProduct {
