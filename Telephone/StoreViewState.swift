@@ -31,7 +31,7 @@
 //
 // Purchasing               DidPurchase                     Purchased                ShowThankYou
 // Purchasing               DidFailPurchasingWithError      PurchaseError            ShowPurchaseError
-// Purchasing               DidFailPurchasingWithoutError   PurchaseError            ShowCachedProducts
+// Purchasing               DidCancelPurchasing             Fetched                  ShowCachedProducts
 // Purchased                ViewShouldReloadData            Purchased                ShowThankYou
 // PurchaseError            ViewDidMakePurchase             PurchaseError            PurchaseProduct
 // PurchaseError            DidStartPurchasing              Purchasing               ShowPurchaseProgress
@@ -78,7 +78,7 @@ class StoreViewState {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailPurchasingProducts(machine machine: StoreViewStateMachine)  {
+    func didCancelPurchasingProducts(machine machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -162,8 +162,8 @@ final class StoreViewStatePurchasing: StoreViewState {
         machine.showPurchaseError(error)
     }
 
-    override func didFailPurchasingProducts(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchaseError())
+    override func didCancelPurchasingProducts(machine machine: StoreViewStateMachine) {
+        machine.changeState(StoreViewStateFetched())
         machine.showCachedProducts()
     }
 }

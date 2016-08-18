@@ -73,12 +73,12 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FSpP123SppPe")
     }
 
-    func testPurchaseFailureWithoutError() {
+    func testPurchaseCancellation() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didFailPurchasingProducts()
+        sut.didCancelPurchasingProducts()
 
         XCTAssertEqual(actions, "FSpP123SppScp")
     }

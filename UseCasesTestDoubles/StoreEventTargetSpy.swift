@@ -24,6 +24,7 @@ public final class StoreEventTargetSpy {
 
     public private(set) var didCallDidPurchase = false
     public private(set) var didCallDidFailPurchasing = false
+    public private(set) var didCallDidCancelPurchasing = false
 
     public private(set) var didCallDidRestore = false
     public private(set) var didCallDidFailRestoring = false
@@ -49,8 +50,8 @@ extension StoreEventTargetSpy: StoreEventTarget {
         invokedError = error
     }
 
-    public func didFailPurchasingProducts() {
-        didCallDidFailPurchasing = true
+    public func didCancelPurchasingProducts() {
+        didCallDidCancelPurchasing = true
     }
 
     public func didRestorePurchases() {

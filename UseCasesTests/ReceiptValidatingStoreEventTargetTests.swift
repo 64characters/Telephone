@@ -66,7 +66,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         XCTAssertEqual(origin.invokedError, ReceiptValidationResult.NoActivePurchases.message)
     }
 
-    func testCallsDidFailPurchasingWithErrorOnDidFailPurchasingWithError() {
+    func testCallsDidFailPurchasingOnDidFailPurchasing() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
         let error = "any"
@@ -77,14 +77,13 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         XCTAssertEqual(origin.invokedError, error)
     }
 
-    func testCallsDidFailPurchasingOnDidFailPurchasing() {
+    func testCallsDidCancelPurchasingOnDidCancelPurchasing() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
-        sut.didFailPurchasingProducts()
+        sut.didCancelPurchasingProducts()
 
-        XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertTrue(origin.invokedError.isEmpty)
+        XCTAssertTrue(origin.didCallDidCancelPurchasing)
     }
 
     // MARK: - Restoration finish

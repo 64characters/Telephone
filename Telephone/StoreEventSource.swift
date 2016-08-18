@@ -85,24 +85,24 @@ extension StoreEventSource: SKPaymentTransactionObserver {
     }
 
     private func notifyTargetAboutFailedPurchase(error error: NSError) {
-        if shouldReturnError(error) {
-            target.didFailPurchasingProducts(error: error.localizedDescription)
+        if isCancelled(error) {
+            target.didCancelPurchasingProducts()
         } else {
-            target.didFailPurchasingProducts()
+            target.didFailPurchasingProducts(error: error.localizedDescription)
         }
     }
 
     private func notifyTargetAboutFailedRestoration(error error: NSError) {
-        if shouldReturnError(error) {
-            target.didFailRestoringPurchases(error: error.localizedDescription)
-        } else {
+        if isCancelled(error) {
             target.didCancelRestoringPurchases()
+        } else {
+            target.didFailRestoringPurchases(error: error.localizedDescription)
         }
     }
 }
 
-private func shouldReturnError(error: NSError) -> Bool {
-    return !(error.domain == SKErrorDomain && error.code == SKErrorPaymentCancelled)
+private func isCancelled(error: NSError) -> Bool {
+    return error.domain == SKErrorDomain && error.code == SKErrorPaymentCancelled
 }
 
 private func localizedUnknownError() -> String {

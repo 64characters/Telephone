@@ -41,8 +41,8 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didFailPurchasingProducts(error: error)
     }
 
-    public func didFailPurchasingProducts() {
-        origin.didFailPurchasingProducts()
+    public func didCancelPurchasingProducts() {
+        origin.didCancelPurchasingProducts()
     }
 
     public func didRestorePurchases() {
