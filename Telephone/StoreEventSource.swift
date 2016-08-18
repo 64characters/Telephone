@@ -44,7 +44,7 @@ extension StoreEventSource: SKPaymentTransactionObserver {
 
     func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.target.didFailRestoringPurchases(error: error.localizedDescription)
+            self.notifyTargetAboutFailedRestoration(error: error)
         }
     }
 
@@ -89,6 +89,14 @@ extension StoreEventSource: SKPaymentTransactionObserver {
             target.didFailPurchasingProducts(error: error.localizedDescription)
         } else {
             target.didFailPurchasingProducts()
+        }
+    }
+
+    private func notifyTargetAboutFailedRestoration(error error: NSError) {
+        if shouldReturnError(error) {
+            target.didFailRestoringPurchases(error: error.localizedDescription)
+        } else {
+            target.didCancelRestoringPurchases()
         }
     }
 }

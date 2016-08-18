@@ -55,6 +55,10 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didFailRestoringPurchases(error: error)
     }
 
+    public func didCancelRestoringPurchases() {
+        origin.didCancelRestoringPurchases()
+    }
+
     private func notifyOriginAboutPurchase(withReceiptValidationResult result: ReceiptValidationResult) {
         switch result {
         case .ReceiptIsValid:

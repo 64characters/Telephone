@@ -30,7 +30,9 @@ protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput
     func showPurchaseError(error: String)
     func showCachedProducts()
     func restorePurchases()
-    func showPurchaseRestorationError(error: String)
+    func showCachedProductsAndRestoreError(error: String)
+    func showCachedFetchErrorAndRestoreError(error: String)
+    func showCachedFetchError()
     func showThankYou()
 }
 
@@ -85,5 +87,9 @@ extension StoreViewStateMachine {
 
     func didFailRestoringPurchases(error error: String) {
         state.didFailRestoringPurchases(machine: self, error: error)
+    }
+
+    func didCancelRestoringPurchases() {
+        state.didCancelRestoringPurchases(machine: self)
     }
 }

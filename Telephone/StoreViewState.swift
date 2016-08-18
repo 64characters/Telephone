@@ -16,38 +16,33 @@
 //  GNU General Public License for more details.
 //
 
-// Given State     Event                           Next State      Action
-// -----------------------------------------------------------------------------
-// NoProducts      ViewShouldReloadData            Fetching        FetchProducts
-// NoProducts      ViewDidStartProductFetch        Fetching        FetchProducts
-// NoProducts      DidPurchase                     Purchased       ShowThankYou
-// NoProducts      ViewDidStartPurchaseRestoration Restoring       RestorePurchases
+// Given State              Event                           Next State               Action
+// ---------------------------------------------------------------------------------------------------------------------
+// NoProducts               ViewShouldReloadData            Fetching                 FetchProducts
 //
-// Fetching        DidFetchProducts                Fetched         ShowProducts
-// Fetching        DidFailFetchingProducts         FetchError      ShowProductsFetchError
-// Fetching        DidPurchase                     Purchased       ShowThankYou
-// Fetched         ViewDidMakePurchase             Fetched         PurchaseProduct
-// Fetched         DidStartPurchasing              Purchasing      ShowPurchaseProgress
-// Fetched         DidPurchase                     Purchased       ShowThankYou
-// Fetched         ViewDidStartPurchaseRestoration Restoring       RestorePurchasesViewDid
-// FetchError      ViewShouldReloadData            Fetching        FetchProducts
-// FetchError      ViewDidStartProductFetch        Fetching        FetchProducts
-// FetchError      ViewDidStartPurchaseRestoration Restoring       RestorePurchases
-// FetchError      DidPurchase                     Purchased       ShowThankYou
+// Fetching                 DidFetchProducts                Fetched                  ShowProducts
+// Fetching                 DidFailFetchingProducts         FetchError               ShowProductsFetchError
+// Fetched                  ViewDidMakePurchase             Fetched                  PurchaseProduct
+// Fetched                  DidStartPurchasing              Purchasing               ShowPurchaseProgress
+// Fetched                  ViewDidStartPurchaseRestoration Restoring                RestorePurchases
+// FetchError               ViewShouldReloadData            Fetching                 FetchProducts
+// FetchError               ViewDidStartProductFetch        Fetching                 FetchProducts
+// FetchError               ViewDidStartPurchaseRestoration RestoringAfterFetchError RestorePurchases
 //
-// Purchasing      DidPurchase                     Purchased       ShowThankYou
-// Purchasing      DidFailPurchasingWithError      PurchaseError   ShowPurchaseError
-// Purchasing      DidFailPurchasingWithoutError   PurchaseError   ShowCachedProducts
-// Purchased       ViewShouldReloadData            Purchased       ShowThankYou
-// PurchaseError   ViewDidMakePurchase             PurchaseError   PurchaseProduct
-// PurchaseError   DidStartPurchasing              Purchasing      ShowPurchaseProgress
-// PurchaseError   ViewDidStartPurchaseRestoration Restoring       RestorePurchases
+// Purchasing               DidPurchase                     Purchased                ShowThankYou
+// Purchasing               DidFailPurchasingWithError      PurchaseError            ShowPurchaseError
+// Purchasing               DidFailPurchasingWithoutError   PurchaseError            ShowCachedProducts
+// Purchased                ViewShouldReloadData            Purchased                ShowThankYou
+// PurchaseError            ViewDidMakePurchase             PurchaseError            PurchaseProduct
+// PurchaseError            DidStartPurchasing              Purchasing               ShowPurchaseProgress
+// PurchaseError            ViewDidStartPurchaseRestoration Restoring                RestorePurchases
 //
-// Restoring       DidPurchase                     Purchased       ShowThankYou
-// Restoring       DidRestorePurchases             Purchased       ShowThankYou
-// Restoring       DidFailRestoringPurchases       RestoreError    ShowRestoreError
-// RestoreError    DidPurchase                     Purchased       ShowThankYou
-// RestoreError    ViewDidStartPurchaseRestoration Restoring       RestorePurchases
+// Restoring                DidRestorePurchases             Purchased                ShowThankYou
+// Restoring                DidFailRestoringPurchases       Fetched                  ShowCachedProductsAndRestoreError
+// Restoring                DidCancelRestoringPurchases     Fetched                  ShowCachedProducts
+// RestoringAfterFetchError DidRestorePurchases             Purchased                ShowThankYou
+// RestoringAfterFetchError DidFailRestoringPurchases       FetchError               ShowCachedFetchErrorAndRestoreError
+// RestoringAfterFetchError DidCancelRestoringPurchases     FetchError               ShowCachedFetchError
 
 
 class StoreViewState {
@@ -98,27 +93,16 @@ class StoreViewState {
     func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String)  {
         print("\(#function) is not supported for \(self)")
     }
+
+    func didCancelRestoringPurchases(machine machine: StoreViewStateMachine)  {
+        print("\(#function) is not supported for \(self)")
+    }
 }
 
 final class StoreViewStateNoProducts: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetching())
         machine.fetchProducts()
-    }
-
-    override func viewDidStartProductFetch(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateFetching())
-        machine.fetchProducts()
-    }
-
-    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
-    }
-
-    override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateRestoringPurchases())
-        machine.restorePurchases()
     }
 }
 
@@ -132,11 +116,6 @@ final class StoreViewStateFetching: StoreViewState {
         machine.changeState(StoreViewStateFetchError())
         machine.showProductsFetchError(error)
     }
-
-    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
-    }
 }
 
 final class StoreViewStateFetched: StoreViewState {
@@ -149,13 +128,8 @@ final class StoreViewStateFetched: StoreViewState {
         machine.showPurchaseProgress()
     }
 
-    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
-    }
-
     override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateRestoringPurchases())
+        machine.changeState(StoreViewStateRestoring())
         machine.restorePurchases()
     }
 }
@@ -171,13 +145,8 @@ final class StoreViewStateFetchError: StoreViewState {
         machine.fetchProducts()
     }
 
-    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
-    }
-
     override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateRestoringPurchases())
+        machine.changeState(StoreViewStateRestoringAfterFetchError())
         machine.restorePurchases()
     }
 }
@@ -216,36 +185,41 @@ final class StoreViewStatePurchaseError: StoreViewState {
     }
 
     override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateRestoringPurchases())
+        machine.changeState(StoreViewStateRestoring())
         machine.restorePurchases()
     }
 }
 
-final class StoreViewStateRestoringPurchases: StoreViewState {
-    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
-    }
-
+final class StoreViewStateRestoring: StoreViewState {
     override func didRestorePurchases(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
 
     override func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String) {
-        machine.changeState(StoreViewStatePurchaseRestorationError())
-        machine.showPurchaseRestorationError(error)
+        machine.changeState(StoreViewStateFetched())
+        machine.showCachedProductsAndRestoreError(error)
+    }
+
+    override func didCancelRestoringPurchases(machine machine: StoreViewStateMachine) {
+        machine.changeState(StoreViewStateFetched())
+        machine.showCachedProducts()
     }
 }
 
-final class StoreViewStatePurchaseRestorationError: StoreViewState {
-    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
+final class StoreViewStateRestoringAfterFetchError: StoreViewState {
+    override func didRestorePurchases(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou()
     }
 
-    override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateRestoringPurchases())
-        machine.restorePurchases()
+    override func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String) {
+        machine.changeState(StoreViewStateFetchError())
+        machine.showCachedFetchErrorAndRestoreError(error)
+    }
+
+    override func didCancelRestoringPurchases(machine machine: StoreViewStateMachine) {
+        machine.changeState(StoreViewStateFetchError())
+        machine.showCachedFetchError()
     }
 }

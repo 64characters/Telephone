@@ -19,6 +19,7 @@
 final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
     private var products: [Product] = []
+    private var fetchError = ""
 
     private let factory: StoreUseCaseFactory
     private var restoration: UseCase
@@ -47,6 +48,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func showProductsFetchError(error: String) {
+        fetchError = error
         presenter.showProductsFetchError(error)
     }
 
@@ -76,9 +78,18 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showPurchaseRestorationProgress()
     }
 
-    func showPurchaseRestorationError(error: String) {
+    func showCachedProductsAndRestoreError(error: String) {
         showCachedProducts()
         presenter.showPurchaseRestorationError(error)
+    }
+
+    func showCachedFetchErrorAndRestoreError(error: String) {
+        showCachedFetchError()
+        presenter.showPurchaseRestorationError(error)
+    }
+
+    func showCachedFetchError() {
+        presenter.showProductsFetchError(fetchError)
     }
 
     func showThankYou() {
