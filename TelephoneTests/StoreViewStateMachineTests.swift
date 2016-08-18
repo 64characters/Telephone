@@ -63,14 +63,14 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FSpP123SppTy")
     }
 
-    func testPurchaseFailureWithError() {
+    func testPurchaseFailure() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didFailPurchasingProducts(error: "any")
 
-        XCTAssertEqual(actions, "FSpP123SppPe")
+        XCTAssertEqual(actions, "FSpP123SppScpPe")
     }
 
     func testPurchaseCancellation() {
@@ -93,7 +93,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
 
-        XCTAssertEqual(actions, "FSpP123SppPeP123SppTy")
+        XCTAssertEqual(actions, "FSpP123SppScpPeP123SppTy")
     }
 
     func testPurchaseAfterRestorationFailure() {
@@ -184,7 +184,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewDidStartPurchaseRestoration()
         sut.didRestorePurchases()
 
-        XCTAssertEqual(actions, "FSpP123SppPeRTy")
+        XCTAssertEqual(actions, "FSpP123SppScpPeRTy")
     }
 
     // MARK: - Other
@@ -225,8 +225,8 @@ extension StoreViewStateMachineTests {
         actions.appendContentsOf("Spp")
     }
 
-    func showPurchaseError(error: String) {
-        actions.appendContentsOf("Pe")
+    func showCachedProductsAndPurchaseError(error: String) {
+        actions.appendContentsOf("ScpPe")
     }
 
     func showCachedProducts() {

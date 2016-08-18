@@ -27,7 +27,7 @@ protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput
     func showProductsFetchError(error: String)
     func purchaseProduct(withIdentifier identifier: String)
     func showPurchaseProgress()
-    func showPurchaseError(error: String)
+    func showCachedProductsAndPurchaseError(error: String)
     func showCachedProducts()
     func restorePurchases()
     func showCachedProductsAndRestoreError(error: String)

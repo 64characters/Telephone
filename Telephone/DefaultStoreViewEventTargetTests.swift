@@ -108,7 +108,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let products = SimpleProductsFake().all
         sut.showProducts(products)
 
-        sut.showPurchaseError("any")
+        sut.showCachedProductsAndPurchaseError("any")
 
         XCTAssertEqual(presenter.invokedProducts, products)
         XCTAssertEqual(presenter.showProductsCallCount, 2)
@@ -121,7 +121,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         )
         let error = "any"
 
-        sut.showPurchaseError(error)
+        sut.showCachedProductsAndPurchaseError(error)
 
         XCTAssertEqual(presenter.invokedPurchaseError, error)
     }

@@ -30,12 +30,9 @@
 // FetchError               ViewDidStartPurchaseRestoration RestoringAfterFetchError RestorePurchases
 //
 // Purchasing               DidPurchase                     Purchased                ShowThankYou
-// Purchasing               DidFailPurchasingWithError      PurchaseError            ShowPurchaseError
+// Purchasing               DidFailPurchasingWithError      Fetched                  ShowCachedProductsAndPurchaseError
 // Purchasing               DidCancelPurchasing             Fetched                  ShowCachedProducts
 // Purchased                ViewShouldReloadData            Purchased                ShowThankYou
-// PurchaseError            ViewDidMakePurchase             PurchaseError            PurchaseProduct
-// PurchaseError            DidStartPurchasing              Purchasing               ShowPurchaseProgress
-// PurchaseError            ViewDidStartPurchaseRestoration Restoring                RestorePurchases
 //
 // Restoring                DidRestorePurchases             Purchased                ShowThankYou
 // Restoring                DidFailRestoringPurchases       Fetched                  ShowCachedProductsAndRestoreError
@@ -158,8 +155,8 @@ final class StoreViewStatePurchasing: StoreViewState {
     }
 
     override func didFailPurchasingProducts(machine machine: StoreViewStateMachine, error: String) {
-        machine.changeState(StoreViewStatePurchaseError())
-        machine.showPurchaseError(error)
+        machine.changeState(StoreViewStateFetched())
+        machine.showCachedProductsAndPurchaseError(error)
     }
 
     override func didCancelPurchasingProducts(machine machine: StoreViewStateMachine) {
@@ -171,22 +168,6 @@ final class StoreViewStatePurchasing: StoreViewState {
 final class StoreViewStatePurchased: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
         machine.showThankYou()
-    }
-}
-
-final class StoreViewStatePurchaseError: StoreViewState {
-    override func viewDidMakePurchase(machine machine: StoreViewStateMachine, product: PresentationProduct) {
-        machine.purchaseProduct(withIdentifier: product.identifier)
-    }
-
-    override func didStartPurchasingProduct(machine machine: StoreViewStateMachine, identifier: String) {
-        machine.changeState(StoreViewStatePurchasing())
-        machine.showPurchaseProgress()
-    }
-
-    override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateRestoring())
-        machine.restorePurchases()
     }
 }
 
