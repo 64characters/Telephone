@@ -38,7 +38,8 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func checkPurchase() {
-
+        factory.createPurchaseCheckUseCase(output: self).execute()
+        presenter.showPurchaseCheckProgress()
     }
 
     func fetchProducts() {

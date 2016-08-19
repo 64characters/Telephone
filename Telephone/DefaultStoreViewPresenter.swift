@@ -25,6 +25,10 @@ final class DefaultStoreViewPresenter {
 }
 
 extension DefaultStoreViewPresenter: StoreViewPresenter {
+    func showPurchaseCheckProgress() {
+
+    }
+
     func showProducts(products: [Product]) {
         output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
         output.enablePurchaseRestoration()

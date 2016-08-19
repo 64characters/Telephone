@@ -17,6 +17,8 @@
 //
 
 protocol StoreViewPresenter {
+    func showPurchaseCheckProgress()
+
     func showProducts(products: [Product])
     func showProductsFetchError(error: String)
     func showProductsFetchProgress()

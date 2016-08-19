@@ -17,6 +17,8 @@
 //
 
 final class StoreViewPresenterSpy {
+    private(set) var didCallShowPurchaseCheckProgress = false
+
     private(set) var showProductsCallCount = 0
     private(set) var invokedProducts: [Product] = []
 
@@ -32,6 +34,10 @@ final class StoreViewPresenterSpy {
 }
 
 extension StoreViewPresenterSpy: StoreViewPresenter {
+    func showPurchaseCheckProgress() {
+        didCallShowPurchaseCheckProgress = true
+    }
+
     func showProducts(products: [Product]) {
         showProductsCallCount += 1
         invokedProducts = products

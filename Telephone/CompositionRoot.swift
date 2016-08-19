@@ -71,6 +71,7 @@ final class CompositionRoot: NSObject {
             factory: DefaultStoreUseCaseFactory(
                 products: LoggingProducts(origin: products),
                 store: LoggingStore(origin: store),
+                receipt: receipt,
                 targets: productsEventTargets
             ),
             purchaseRestoration: PurchaseRestorationUseCase(store: store),

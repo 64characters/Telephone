@@ -22,6 +22,32 @@ import XCTest
 
 final class DefaultStoreViewEventTargetTests: XCTestCase {
 
+    // MARK: - Purchase check
+
+    func testExecutesPurchaseCheckOnCheckPurchase() {
+        let check = UseCaseSpy()
+        let factory = StoreUseCaseFactorySpy()
+        factory.stub(withPurchaseCheck: check)
+        let sut = DefaultStoreViewEventTarget(
+            factory: factory, purchaseRestoration: UseCaseSpy(), presenter: StoreViewPresenterSpy()
+        )
+
+        sut.checkPurchase()
+
+        XCTAssertTrue(check.didCallExecute)
+    }
+
+    func testShowsPurchaseCheckProgressOnCheckPurchase() {
+        let factory = StoreUseCaseFactorySpy()
+        factory.stub(withPurchaseCheck: UseCaseSpy())
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(factory: factory, purchaseRestoration: UseCaseSpy(), presenter: presenter)
+
+        sut.checkPurchase()
+
+        XCTAssertTrue(presenter.didCallShowPurchaseCheckProgress)
+    }
+
     // MARK: - Fetch
 
     func testExecutesProductsFetchOnFetchProducts() {

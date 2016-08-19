@@ -17,6 +17,7 @@
 //
 
 public protocol StoreUseCaseFactory {
+    func createPurchaseCheckUseCase(output output: PurchaseCheckUseCaseOutput) -> UseCase
     func createProductsFetchUseCase(output output: ProductsFetchUseCaseOutput) -> UseCase
     func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase
 }
