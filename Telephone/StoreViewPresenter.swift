@@ -28,6 +28,8 @@ protocol StoreViewPresenter {
 
     func showPurchaseRestorationProgress()
     func showPurchaseRestorationError(error: String)
+
+    func showPurchased(until date: NSDate)
 }
 
 protocol StoreViewPresenterOutput {

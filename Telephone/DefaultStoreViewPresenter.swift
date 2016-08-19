@@ -63,6 +63,10 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
         output.showPurchaseRestorationError(error)
         output.enablePurchaseRestoration()
     }
+
+    func showPurchased(until date: NSDate) {
+
+    }
 }
 
 private func hasLowerPrice(lhs: Product, _ rhs: Product) -> Bool {

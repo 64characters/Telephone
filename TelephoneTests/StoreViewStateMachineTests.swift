@@ -334,7 +334,7 @@ extension StoreViewStateMachineTests {
         actions.appendContentsOf("Scfe")
     }
 
-    func showThankYou() {
+    func showThankYou(expiration expiration: NSDate) {
         actions.appendContentsOf("Ty")
     }
 }

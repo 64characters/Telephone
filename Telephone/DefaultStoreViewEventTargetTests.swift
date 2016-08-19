@@ -241,4 +241,19 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         XCTAssertEqual(presenter.invokedProductsFetchError, error)
         XCTAssertEqual(presenter.showProductsFetchErrorCallCount, 2)
     }
+
+    // MARK: - Purchased
+
+    func testShowsPurchasedOnShowThankYou() {
+        let presenter = StoreViewPresenterSpy()
+        let sut = DefaultStoreViewEventTarget(
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+        )
+        let date = NSDate()
+
+        sut.showThankYou(expiration: date)
+
+        XCTAssertTrue(presenter.didCallShowPurchased)
+        XCTAssertEqual(presenter.invokedDate, date)
+    }
 }

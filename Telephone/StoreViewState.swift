@@ -119,7 +119,7 @@ final class StoreViewStateNoProducts: StoreViewState {
 class StoreViewStateChecking: StoreViewState {
     override func didCheckPurchase(machine machine: StoreViewStateMachine, expiration: NSDate) {
         machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
+        machine.showThankYou(expiration: expiration)
     }
 
     override func didFailCheckingPurchase(machine machine: StoreViewStateMachine) {

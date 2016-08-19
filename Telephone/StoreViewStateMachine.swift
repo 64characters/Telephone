@@ -34,7 +34,7 @@ protocol StoreViewStateMachine: PurchaseCheckUseCaseOutput, StoreViewEventTarget
     func showCachedProductsAndRestoreError(error: String)
     func showCachedFetchErrorAndRestoreError(error: String)
     func showCachedFetchError()
-    func showThankYou()
+    func showThankYou(expiration expiration: NSDate)
 }
 
 // PurchaseCheckUseCaseOutput

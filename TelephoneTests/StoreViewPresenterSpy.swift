@@ -31,6 +31,9 @@ final class StoreViewPresenterSpy {
 
     private(set) var didCallShowPurchaseRestorationProgress = false
     private(set) var invokedPurchaseRestorationError = ""
+
+    private(set) var didCallShowPurchased = false
+    private(set) var invokedDate = NSDate.distantPast()
 }
 
 extension StoreViewPresenterSpy: StoreViewPresenter {
@@ -66,5 +69,10 @@ extension StoreViewPresenterSpy: StoreViewPresenter {
 
     func showPurchaseRestorationError(error: String) {
         invokedPurchaseRestorationError = error
+    }
+
+    func showPurchased(until date: NSDate) {
+        didCallShowPurchased = true
+        invokedDate = date
     }
 }

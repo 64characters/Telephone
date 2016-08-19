@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
     private var products: [Product] = []
@@ -97,7 +99,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showProductsFetchError(fetchError)
     }
 
-    func showThankYou() {
-
+    func showThankYou(expiration expiration: NSDate) {
+        presenter.showPurchased(until: expiration)
     }
 }
