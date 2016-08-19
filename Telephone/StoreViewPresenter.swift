@@ -33,6 +33,8 @@ protocol StoreViewPresenter {
 }
 
 protocol StoreViewPresenterOutput {
+    func showPurchaseCheckProgress()
+
     func showProducts(products: [PresentationProduct])
     func showProductsFetchError(error: String)
     func showProductsFetchProgress()
@@ -45,4 +47,6 @@ protocol StoreViewPresenterOutput {
 
     func disablePurchaseRestoration()
     func enablePurchaseRestoration()
+
+    func showPurchased(until date: NSDate)
 }

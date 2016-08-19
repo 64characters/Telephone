@@ -17,6 +17,8 @@
 //
 
 final class StoreViewSpy {
+    private(set) var didCallShowPurchaseCheckProgress = false
+
     private(set) var invokedProducts: [PresentationProduct] = []
     private(set) var invokedProductsFetchError = ""
     private(set) var didCallShowProductsFetchProgress = false
@@ -30,11 +32,16 @@ final class StoreViewSpy {
     private(set) var didCallDisablePurchaseRestoration = false
     private(set) var didCallEnablePurchaseRestoration = false
 
+    private(set) var didCallShowPurchased = false
 }
 
 extension StoreViewSpy: StoreView {}
 
 extension StoreViewSpy: StoreViewPresenterOutput {
+    func showPurchaseCheckProgress() {
+        didCallShowPurchaseCheckProgress = true
+    }
+
     func showProducts(products: [PresentationProduct]) {
         invokedProducts = products
     }
@@ -69,5 +76,9 @@ extension StoreViewSpy: StoreViewPresenterOutput {
 
     func enablePurchaseRestoration() {
         didCallEnablePurchaseRestoration = true
+    }
+
+    func showPurchased(until date: NSDate) {
+        didCallShowPurchased = true
     }
 }

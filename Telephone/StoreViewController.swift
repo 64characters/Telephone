@@ -65,6 +65,10 @@ final class StoreViewController: NSViewController {
 }
 
 extension StoreViewController: StoreView {
+    func showPurchaseCheckProgress() {
+
+    }
+
     func showProducts(products: [PresentationProduct]) {
         self.products = products
         showInProductsContentView(productsListView)
@@ -101,6 +105,10 @@ extension StoreViewController: StoreView {
 
     func enablePurchaseRestoration() {
         restorePurchasesButton.enabled = true
+    }
+
+    func showPurchased(until date: NSDate) {
+
     }
 
     private func showInProductsContentView(view: NSView) {

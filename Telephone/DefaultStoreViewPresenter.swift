@@ -26,7 +26,8 @@ final class DefaultStoreViewPresenter {
 
 extension DefaultStoreViewPresenter: StoreViewPresenter {
     func showPurchaseCheckProgress() {
-
+        output.showPurchaseCheckProgress()
+        output.disablePurchaseRestoration()
     }
 
     func showProducts(products: [Product]) {
@@ -65,7 +66,7 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
     }
 
     func showPurchased(until date: NSDate) {
-
+        output.showPurchased(until: date)
     }
 }
 
