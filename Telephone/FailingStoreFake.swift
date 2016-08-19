@@ -43,14 +43,18 @@ extension FailingStoreFake: Store {
     }
 
     func restorePurchases() {
-
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+            self.target.didFailRestoringPurchases(error: error)
+        }
     }
 
     private func notifyTargetAboutPurchaseFailure() {
         if attempts % 2 == 0 {
             target.didCancelPurchasingProducts()
         } else {
-            target.didFailPurchasingProducts(error: "The store returned a terrible error. Please try again later.")
+            target.didFailPurchasingProducts(error: error)
         }
     }
 }
+
+private let error = "The store returned a terrible error. Please try again later."
