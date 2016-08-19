@@ -16,49 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public protocol PurchaseRestorationUseCaseOutput {
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error error: String)
-}
-
 public final class PurchaseRestorationUseCase {
-    private var request: ReceiptRefreshRequest?
-    private let factory: ReceiptRefreshRequestFactory
-    private let output: PurchaseRestorationUseCaseOutput
+    private let store: Store
 
-    public init(factory: ReceiptRefreshRequestFactory, output: PurchaseRestorationUseCaseOutput) {
-        self.factory = factory
-        self.output = output
+    public init(store: Store) {
+        self.store = store
     }
 }
 
 extension PurchaseRestorationUseCase: UseCase {
     public func execute() {
-        guard request == nil else { return }
-        request = factory.create(target: self)
-        request!.start()
-    }
-}
-
-extension PurchaseRestorationUseCase: ReceiptRefreshRequestTarget {
-    public func didRefreshReceipt(receipt: Receipt) {
-        receipt.validate { result in
-            self.notifyOutputAfterRefreshOf(receipt, result: result)
-        }
-        request = nil
-    }
-
-    public func didFailRefreshingReceipt(error error: String) {
-        output.didFailRestoringPurchases(error: error)
-        request = nil
-    }
-
-    private func notifyOutputAfterRefreshOf(receipt: Receipt, result: ReceiptValidationResult) {
-        switch result {
-        case .ReceiptIsValid(expiration: _):
-            output.didRestorePurchases()
-        default:
-            output.didFailRestoringPurchases(error: result.message)
-        }
+        store.restorePurchases()
     }
 }

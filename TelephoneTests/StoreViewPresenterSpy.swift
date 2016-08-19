@@ -20,6 +20,7 @@ final class StoreViewPresenterSpy {
     private(set) var showProductsCallCount = 0
     private(set) var invokedProducts: [Product] = []
 
+    private(set) var showProductsFetchErrorCallCount = 0
     private(set) var invokedProductsFetchError = ""
     private(set) var didCallShowProductsFetchProgress = false
 
@@ -37,6 +38,7 @@ extension StoreViewPresenterSpy: StoreViewPresenter {
     }
 
     func showProductsFetchError(error: String) {
+        showProductsFetchErrorCallCount += 1
         invokedProductsFetchError = error
     }
 

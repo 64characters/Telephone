@@ -1,5 +1,5 @@
 //
-//  SucceedingReceiptRefreshRequestFactoryStub.swift
+//  StoreEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public protocol StoreEventTarget {
+    func didStartPurchasingProduct(withIdentifier identifier: String)
 
-final class SucceedingReceiptRefreshRequestFactoryStub {
-    private let receipt: Receipt
+    func didPurchaseProducts()
+    func didFailPurchasingProducts(error error: String)
+    func didCancelPurchasingProducts()
 
-    init(receipt: Receipt) {
-        self.receipt = receipt
-    }
-}
-
-extension SucceedingReceiptRefreshRequestFactoryStub: ReceiptRefreshRequestFactory {
-    func create(target target: ReceiptRefreshRequestTarget) -> ReceiptRefreshRequest {
-        return SucceedingReceiptRefreshRequestStub(receipt: receipt, target: target)
-    }
+    func didRestorePurchases()
+    func didFailRestoringPurchases(error error: String)
+    func didCancelRestoringPurchases()
 }

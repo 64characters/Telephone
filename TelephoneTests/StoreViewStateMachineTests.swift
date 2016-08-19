@@ -31,23 +31,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         actions = ""
     }
 
-    func testNormalPurchase() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFetchProducts([])
-        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        let product = createProduct()
-        sut.didStartPurchasing(product)
-        sut.didPurchase(product)
-
-        XCTAssertEqual(actions, "FSpP123SppS")
-    }
-
-    func testNormalRestoration() {
-        sut.viewDidStartPurchaseRestoration()
-        sut.didRestorePurchases()
-
-        XCTAssertEqual(actions, "RS")
-    }
+    // MARK: - Fetch
 
     func testProductFetchFailureAndReload() {
         sut.viewShouldReloadData(StoreViewDummy())
@@ -56,97 +40,6 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetchProducts([])
 
         XCTAssertEqual(actions, "FFeFSp")
-    }
-
-    func testRestorationAfterProductFetch() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFetchProducts([])
-        sut.viewDidStartPurchaseRestoration()
-        sut.didRestorePurchases()
-
-        XCTAssertEqual(actions, "FSpRS")
-    }
-
-    func testRestorationAfterProductFetchFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFailFetchingProducts(error: "any")
-        sut.viewDidStartPurchaseRestoration()
-        sut.didRestorePurchases()
-
-        XCTAssertEqual(actions, "FFeRS")
-    }
-
-    func testPurchaseFailureWithError() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFetchProducts([])
-        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        let product = createProduct()
-        sut.didStartPurchasing(product)
-        sut.didFailPurchasing(product, error: "any")
-
-        XCTAssertEqual(actions, "FSpP123SppPe")
-    }
-
-    func testPurchaseFailureWithoutError() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFetchProducts([])
-        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        let product = createProduct()
-        sut.didStartPurchasing(product)
-        sut.didFailPurchasing(product)
-
-        XCTAssertEqual(actions, "FSpP123SppScp")
-    }
-
-    func testPurchaseAfterPurchaseFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFetchProducts([])
-        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        let product = createProduct()
-        sut.didStartPurchasing(product)
-        sut.didFailPurchasing(product, error: "any")
-        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        sut.didStartPurchasing(product)
-        sut.didPurchase(product)
-
-        XCTAssertEqual(actions, "FSpP123SppPeP123SppS")
-    }
-
-    func testRestorationFailure() {
-        sut.viewDidStartPurchaseRestoration()
-        sut.didFailRestoringPurchases(error: "any")
-
-        XCTAssertEqual(actions, "RRe")
-    }
-
-    func testRestorationAfterRestorationFailure() {
-        sut.viewDidStartPurchaseRestoration()
-        sut.didFailRestoringPurchases(error: "any")
-        sut.viewDidStartPurchaseRestoration()
-        sut.didRestorePurchases()
-
-        XCTAssertEqual(actions, "RReRS")
-    }
-
-    func testRestorationAfterPurchaseFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFetchProducts([])
-        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
-        let product = createProduct()
-        sut.didStartPurchasing(product)
-        sut.didFailPurchasing(product, error: "any")
-        sut.viewDidStartPurchaseRestoration()
-        sut.didRestorePurchases()
-
-        XCTAssertEqual(actions, "FSpP123SppPeRS")
-    }
-
-    func testShowsThankYouOnViewReloadWhenPurchased() {
-        sut.viewDidStartPurchaseRestoration()
-        sut.didRestorePurchases()
-        sut.viewShouldReloadData(StoreViewDummy())
-
-        XCTAssertEqual(actions, "RSS")
     }
 
     func testProductFetchOnViewReloadAfterProductFetchFailure() {
@@ -158,54 +51,177 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FFeFSp")
     }
 
-    func testManualProductsFetch() {
-        sut.viewDidStartProductFetch()
+    // MARK: - Purchase
 
-        XCTAssertEqual(actions, "F")
-    }
-
-    func testDidPurchaseBeforeProductFetch() {
-        sut.didPurchase(createProduct())
-
-        XCTAssertEqual(actions, "S")
-    }
-
-    func testDidPurchaseDuringProductFetch() {
-        sut.viewShouldReloadData(StoreViewDummy())
-        sut.didPurchase(createProduct())
-
-        XCTAssertEqual(actions, "FS")
-    }
-
-    func testDidPurchaseAfterProductFetch() {
+    func testNormalPurchase() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
-        sut.didPurchase(createProduct())
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didPurchaseProducts()
 
-        XCTAssertEqual(actions, "FSpS")
+        XCTAssertEqual(actions, "FSpP123SppTy")
     }
 
-    func testDidPurchaseAfterProductFetchFailure() {
+    func testPurchaseFailure() {
         sut.viewShouldReloadData(StoreViewDummy())
-        sut.didFailFetchingProducts(error: "any")
-        sut.didPurchase(createProduct())
+        sut.didFetchProducts([])
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didFailPurchasingProducts(error: "any")
 
-        XCTAssertEqual(actions, "FFeS")
+        XCTAssertEqual(actions, "FSpP123SppScpPe")
     }
 
-    func testDidPuchaseDuringRestoration() {
-        sut.viewDidStartPurchaseRestoration()
-        sut.didPurchase(createProduct())
+    func testPurchaseCancellation() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didCancelPurchasingProducts()
 
-        XCTAssertEqual(actions, "RS")
+        XCTAssertEqual(actions, "FSpP123SppScp")
     }
 
-    func testDidPurchaseAfterRestorationFailure() {
+    func testPurchaseAfterPurchaseFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didFailPurchasingProducts(error: "any")
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didPurchaseProducts()
+
+        XCTAssertEqual(actions, "FSpP123SppScpPeP123SppTy")
+    }
+
+    func testPurchaseAfterPurchaseCancellation() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didCancelPurchasingProducts()
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didPurchaseProducts()
+
+        XCTAssertEqual(actions, "FSpP123SppScpP123SppTy")
+    }
+
+    func testPurchaseAfterRestorationFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
         sut.viewDidStartPurchaseRestoration()
         sut.didFailRestoringPurchases(error: "any")
-        sut.didPurchase(createProduct())
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didPurchaseProducts()
 
-        XCTAssertEqual(actions, "RReS")
+        XCTAssertEqual(actions, "FSpRScpReP123SppTy")
+    }
+
+    func testPurchaseAfterRestorationCancellation() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidStartPurchaseRestoration()
+        sut.didCancelRestoringPurchases()
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didPurchaseProducts()
+
+        XCTAssertEqual(actions, "FSpRScpP123SppTy")
+    }
+
+    // MARK: - Restoration
+
+    func testNormalRestoration() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidStartPurchaseRestoration()
+        sut.didRestorePurchases()
+
+        XCTAssertEqual(actions, "FSpRTy")
+    }
+
+    func testRestorationFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidStartPurchaseRestoration()
+        sut.didFailRestoringPurchases(error: "any")
+
+        XCTAssertEqual(actions, "FSpRScpRe")
+    }
+
+    func testRestorationCancellation() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidStartPurchaseRestoration()
+        sut.didCancelRestoringPurchases()
+
+        XCTAssertEqual(actions, "FSpRScp")
+    }
+
+    func testRestorationAfterProductFetchFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFailFetchingProducts(error: "any")
+        sut.viewDidStartPurchaseRestoration()
+        sut.didRestorePurchases()
+
+        XCTAssertEqual(actions, "FFeRTy")
+    }
+
+    func testRestorationFailureAfterProductFetchFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFailFetchingProducts(error: "any")
+        sut.viewDidStartPurchaseRestoration()
+        sut.didFailRestoringPurchases(error: "any")
+
+        XCTAssertEqual(actions, "FFeRScfeRe")
+    }
+
+    func testRestorationCancellationAfterProductFetchFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFailFetchingProducts(error: "any")
+        sut.viewDidStartPurchaseRestoration()
+        sut.didCancelRestoringPurchases()
+
+        XCTAssertEqual(actions, "FFeRScfe")
+    }
+
+    func testRestorationAfterRestorationFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidStartPurchaseRestoration()
+        sut.didFailRestoringPurchases(error: "any")
+        sut.viewDidStartPurchaseRestoration()
+        sut.didRestorePurchases()
+
+        XCTAssertEqual(actions, "FSpRScpReRTy")
+    }
+
+    func testRestorationAfterPurchaseFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didFailPurchasingProducts(error: "any")
+        sut.viewDidStartPurchaseRestoration()
+        sut.didRestorePurchases()
+
+        XCTAssertEqual(actions, "FSpP123SppScpPeRTy")
+    }
+
+    // MARK: - Other
+
+    func testShowsThankYouOnViewReloadWhenPurchased() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidStartPurchaseRestoration()
+        sut.didRestorePurchases()
+        sut.viewShouldReloadData(StoreViewDummy())
+
+        XCTAssertEqual(actions, "FSpRTyTy")
     }
 }
 
@@ -234,8 +250,8 @@ extension StoreViewStateMachineTests {
         actions.appendContentsOf("Spp")
     }
 
-    func showPurchaseError(error: String) {
-        actions.appendContentsOf("Pe")
+    func showCachedProductsAndPurchaseError(error: String) {
+        actions.appendContentsOf("ScpPe")
     }
 
     func showCachedProducts() {
@@ -246,19 +262,23 @@ extension StoreViewStateMachineTests {
         actions.appendContentsOf("R")
     }
     
-    func showPurchaseRestorationError(error: String) {
-        actions.appendContentsOf("Re")
+    func showCachedProductsAndRestoreError(error: String) {
+        actions.appendContentsOf("ScpRe")
+    }
+
+    func showCachedFetchErrorAndRestoreError(error: String) {
+        actions.appendContentsOf("ScfeRe")
+    }
+
+    func showCachedFetchError() {
+        actions.appendContentsOf("Scfe")
     }
 
     func showThankYou() {
-        actions.appendContentsOf("S")
+        actions.appendContentsOf("Ty")
     }
 }
 
 private func createPresentationProduct(identifier identifier: String) -> PresentationProduct {
     return PresentationProduct(identifier: identifier, name: "product1", price: "$100")
-}
-
-private func createProduct() -> Product {
-    return Product(identifier: "123", name: "product1", price: NSDecimalNumber(integer: 100), localizedPrice: "$100")
 }

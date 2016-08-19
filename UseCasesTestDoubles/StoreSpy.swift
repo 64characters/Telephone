@@ -20,6 +20,7 @@ import UseCases
 
 public final class StoreSpy {
     public private(set) var invokedProduct: Product
+    public private(set) var didCallRestorePurchases = false
 
     public init() {
         invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero(), localizedPrice: "$0")
@@ -29,5 +30,9 @@ public final class StoreSpy {
 extension StoreSpy: Store {
     public func purchase(product: Product) {
         invokedProduct = product
+    }
+
+    public func restorePurchases() {
+        didCallRestorePurchases = true
     }
 }

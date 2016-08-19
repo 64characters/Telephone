@@ -33,6 +33,10 @@ extension SKPaymentQueueToStoreAdapter: Store {
         queue.addPayment(try createPayment(withProduct: try storeKitProduct(forProduct: product)))
     }
 
+    func restorePurchases() {
+        queue.restoreCompletedTransactions()
+    }
+
     private func storeKitProduct(forProduct product: Product) throws -> SKProduct {
         if let result = products[product] {
             return result

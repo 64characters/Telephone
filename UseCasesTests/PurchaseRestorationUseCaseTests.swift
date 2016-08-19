@@ -21,108 +21,12 @@ import UseCasesTestDoubles
 import XCTest
 
 final class PurchaseRestorationUseCaseTests: XCTestCase {
-    func testStartsReceiptRefreshOnExecute() {
-        let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
-        )
+    func testCallsRestorePurchasesOnExecute() {
+        let store = StoreSpy()
+        let sut = PurchaseRestorationUseCase(store: store)
 
         sut.execute()
 
-        XCTAssertTrue(request.didCallStart)
-    }
-
-    func testCallsDidRestorePurchasesOnDidRefreshReceiptWhenReceiptIsValidAndThereAreActivePurchases() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
-            output: output
-        )
-
-        sut.didRefreshReceipt(ValidReceipt())
-
-        XCTAssertTrue(output.didCallDidRestorePurchases)
-    }
-
-    func testCallsDidFailRestoringPurchasesOnDidRefreshReceiptWhenReceiptIsNotValid() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
-            output: output
-        )
-
-        sut.didRefreshReceipt(InvalidReceipt())
-
-        XCTAssertTrue(output.didCallDidFailRestoringPurchases)
-        XCTAssertEqual(output.invokedError, ReceiptValidationResult.ReceiptIsInvalid.message)
-    }
-
-    func testCallsDidFailRestoringPurchasesOnDidRefreshReceiptWhenReceiptDoesNotHaveActivePurchases() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
-            output: output
-        )
-
-        sut.didRefreshReceipt(NoActivePurchasesReceipt())
-
-        XCTAssertTrue(output.didCallDidFailRestoringPurchases)
-        XCTAssertEqual(output.invokedError, ReceiptValidationResult.NoActivePurchases.message)
-    }
-
-    func testCallsDidFailRestoringPurchasesOnDidFailRefreshingReceipt() {
-        let output = PurchaseRestorationUseCaseOutputSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: ReceiptRefreshRequestSpy()),
-            output: output
-        )
-        let error = "any"
-
-        sut.didFailRefreshingReceipt(error: error)
-
-        XCTAssertTrue(output.didCallDidFailRestoringPurchases)
-        XCTAssertEqual(output.invokedError, error)
-    }
-
-    func testDoesNotStartReceiptRefreshOnExecuteWhenPreviousRefreshIsNotFinished() {
-        let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
-        )
-
-        sut.execute()
-        sut.execute()
-
-        XCTAssertEqual(request.startCount, 1)
-    }
-
-    func testStartsReceiptRefreshOnExecuteWhenPreviousRefreshFinishedWithSuccess() {
-        let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
-        )
-
-        sut.execute()
-        sut.didRefreshReceipt(ValidReceipt())
-        sut.execute()
-
-        XCTAssertEqual(request.startCount, 2)
-    }
-
-    func testStartsReceiptRefreshOnExecuteWhenPreviousRefreshFinishedWithFailure() {
-        let request = ReceiptRefreshRequestSpy()
-        let sut = PurchaseRestorationUseCase(
-            factory: ReceiptRefreshRequestFactoryStub(request: request),
-            output: PurchaseRestorationUseCaseOutputSpy()
-        )
-
-        sut.execute()
-        sut.didFailRefreshingReceipt(error: "any")
-        sut.execute()
-
-        XCTAssertEqual(request.startCount, 2)
+        XCTAssertTrue(store.didCallRestorePurchases)
     }
 }

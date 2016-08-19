@@ -19,13 +19,15 @@
 final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
     private var products: [Product] = []
-    private var restoration: UseCase?
+    private var fetchError = ""
 
     private let factory: StoreUseCaseFactory
+    private var restoration: UseCase
     private let presenter: StoreViewPresenter
 
-    init(factory: StoreUseCaseFactory, presenter: StoreViewPresenter) {
+    init(factory: StoreUseCaseFactory, purchaseRestoration: UseCase, presenter: StoreViewPresenter) {
         self.factory = factory
+        self.restoration = purchaseRestoration
         self.presenter = presenter
     }
 }
@@ -46,6 +48,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func showProductsFetchError(error: String) {
+        fetchError = error
         presenter.showProductsFetchError(error)
     }
 
@@ -61,7 +64,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showPurchaseProgress()
     }
 
-    func showPurchaseError(error: String) {
+    func showCachedProductsAndPurchaseError(error: String) {
         showCachedProducts()
         presenter.showPurchaseError(error)
     }
@@ -71,18 +74,25 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func restorePurchases() {
-        restoration = factory.createPurchaseRestorationUseCase(output: self)
-        restoration!.execute()
+        restoration.execute()
         presenter.showPurchaseRestorationProgress()
     }
 
-    func showPurchaseRestorationError(error: String) {
+    func showCachedProductsAndRestoreError(error: String) {
         showCachedProducts()
         presenter.showPurchaseRestorationError(error)
-        restoration = nil
+    }
+
+    func showCachedFetchErrorAndRestoreError(error: String) {
+        showCachedFetchError()
+        presenter.showPurchaseRestorationError(error)
+    }
+
+    func showCachedFetchError() {
+        presenter.showProductsFetchError(fetchError)
     }
 
     func showThankYou() {
-        restoration = nil
+
     }
 }

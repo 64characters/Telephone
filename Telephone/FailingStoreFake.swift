@@ -20,13 +20,13 @@ import UseCases
 
 final class FailingStoreFake {
     private var attempts = 0
-    private var target: ProductPurchaseEventTarget
+    private var target: StoreEventTarget
 
-    init(target: ProductPurchaseEventTarget) {
+    init(target: StoreEventTarget) {
         self.target = target
     }
 
-    func updateTarget(target: ProductPurchaseEventTarget) {
+    func updateTarget(target: StoreEventTarget) {
         self.target = target
     }
 }
@@ -35,18 +35,26 @@ extension FailingStoreFake: Store {
     func purchase(product: Product) throws {
         attempts += 1
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(0.2) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.target.didStartPurchasing(product)
+            self.target.didStartPurchasingProduct(withIdentifier: product.identifier)
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.notifyTargetAboutFailurePurchasing(product)
+            self.notifyTargetAboutPurchaseFailure()
         }
     }
 
-    private func notifyTargetAboutFailurePurchasing(product: Product) {
+    func restorePurchases() {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+            self.target.didFailRestoringPurchases(error: error)
+        }
+    }
+
+    private func notifyTargetAboutPurchaseFailure() {
         if attempts % 2 == 0 {
-            target.didFailPurchasing(product)
+            target.didCancelPurchasingProducts()
         } else {
-            target.didFailPurchasing(product, error: "The store returned a terrible error. Please try again later.")
+            target.didFailPurchasingProducts(error: error)
         }
     }
 }
+
+private let error = "The store returned a terrible error. Please try again later."
