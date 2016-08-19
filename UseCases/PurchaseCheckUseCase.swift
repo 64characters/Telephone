@@ -22,3 +22,28 @@ public protocol PurchaseCheckUseCaseOutput {
     func didCheckPurchase(expiration expiration: NSDate)
     func didFailCheckingPurchase()
 }
+
+public class PurchaseCheckUseCase {
+    private let receipt: Receipt
+    private let output: PurchaseCheckUseCaseOutput
+
+    public init(receipt: Receipt, output: PurchaseCheckUseCaseOutput) {
+        self.receipt = receipt
+        self.output = output
+    }
+}
+
+extension PurchaseCheckUseCase: UseCase {
+    public func execute() {
+        receipt.validate(completion: notifyOutput)
+    }
+
+    private func notifyOutput(withResult result: ReceiptValidationResult) {
+        switch result {
+        case .ReceiptIsValid(expiration: let expiration):
+            output.didCheckPurchase(expiration: expiration)
+        default:
+            output.didFailCheckingPurchase()
+        }
+    }
+}

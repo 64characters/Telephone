@@ -1,5 +1,5 @@
 //
-//  ValidReceipt.swift
+//  PurchaseCheckUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,20 +19,21 @@
 import Foundation
 import UseCases
 
-public struct ValidReceipt {
-    private let expiration: NSDate
+public class PurchaseCheckUseCaseOutputSpy {
+    public private(set) var didCallDidCheckPurchase = false
+    public private(set) var invokedExpiration = NSDate.distantPast()
+    public private(set) var didCallDidFailCheckingPurchase = false
 
-    public init(expiration: NSDate) {
-        self.expiration = expiration
-    }
-
-    public init() {
-        self.init(expiration: NSDate.distantFuture())
-    }
+    public init() {}
 }
 
-extension ValidReceipt: Receipt {
-    public func validate(completion completion: (ReceiptValidationResult) -> Void) {
-        completion(.ReceiptIsValid(expiration: expiration))
+extension PurchaseCheckUseCaseOutputSpy: PurchaseCheckUseCaseOutput {
+    public func didCheckPurchase(expiration expiration: NSDate) {
+        didCallDidCheckPurchase = true
+        invokedExpiration = expiration
+    }
+
+    public func didFailCheckingPurchase() {
+        didCallDidFailCheckingPurchase = true
     }
 }
