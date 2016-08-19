@@ -96,6 +96,19 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FSpP123SppScpPeP123SppTy")
     }
 
+    func testPurchaseAfterPurchaseCancellation() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didCancelPurchasingProducts()
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didPurchaseProducts()
+
+        XCTAssertEqual(actions, "FSpP123SppScpP123SppTy")
+    }
+
     func testPurchaseAfterRestorationFailure() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
@@ -108,9 +121,21 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FSpRScpReP123SppTy")
     }
 
+    func testPurchaseAfterRestorationCancellation() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFetchProducts([])
+        sut.viewDidStartPurchaseRestoration()
+        sut.didCancelRestoringPurchases()
+        sut.viewDidMakePurchase(createPresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didPurchaseProducts()
+
+        XCTAssertEqual(actions, "FSpRScpP123SppTy")
+    }
+
     // MARK: - Restoration
 
-    func testRestorationAfterProductFetch() {
+    func testNormalRestoration() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidStartPurchaseRestoration()
@@ -119,7 +144,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FSpRTy")
     }
 
-    func testRestorationFailureAfterProductFetch() {
+    func testRestorationFailure() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidStartPurchaseRestoration()
@@ -128,7 +153,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FSpRScpRe")
     }
 
-    func testRestorationCancellationAfterProductFetch() {
+    func testRestorationCancellation() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidStartPurchaseRestoration()
@@ -164,7 +189,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "FFeRScfe")
     }
 
-    func testRestorationAfterRestorationFailureAfterProductFetch() {
+    func testRestorationAfterRestorationFailure() {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFetchProducts([])
         sut.viewDidStartPurchaseRestoration()
