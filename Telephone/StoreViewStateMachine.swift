@@ -18,10 +18,11 @@
 
 import UseCases
 
-protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput, StoreEventTarget {
+protocol StoreViewStateMachine: PurchaseCheckUseCaseOutput, StoreViewEventTarget, ProductsFetchUseCaseOutput, StoreEventTarget {
     var state: StoreViewState { get }
     func changeState(newState: StoreViewState)
 
+    func checkPurchase()
     func fetchProducts()
     func showProducts(products: [Product])
     func showProductsFetchError(error: String)
@@ -36,6 +37,18 @@ protocol StoreViewStateMachine: StoreViewEventTarget, ProductsFetchUseCaseOutput
     func showThankYou()
 }
 
+// PurchaseCheckUseCaseOutput
+extension StoreViewStateMachine {
+    func didCheckPurchase(expiration expiration: NSDate) {
+        state.didCheckPurchase(machine: self, expiration: expiration)
+    }
+
+    func didFailCheckingPurchase() {
+        state.didFailCheckingPurchase(machine: self)
+    }
+}
+
+// StoreViewEventTarget
 extension StoreViewStateMachine {
     func viewShouldReloadData(view: StoreView) {
         state.viewShouldReloadData(machine: self)
@@ -54,6 +67,7 @@ extension StoreViewStateMachine {
     }
 }
 
+// ProductsFetchUseCaseOutput
 extension StoreViewStateMachine {
     func didFetchProducts(products: [Product]) {
         state.didFetchProducts(machine: self, products: products)
@@ -64,6 +78,7 @@ extension StoreViewStateMachine {
     }
 }
 
+// StoreEventTarget
 extension StoreViewStateMachine {
     func didStartPurchasingProduct(withIdentifier identifier: String) {
         state.didStartPurchasingProduct(machine: self, identifier: identifier)

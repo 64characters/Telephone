@@ -18,32 +18,45 @@
 
 // Given State              Event                           Next State               Action
 // ---------------------------------------------------------------------------------------------------------------------
-// NoProducts               ViewShouldReloadData            Fetching                 FetchProducts
+// NoProducts               ViewShouldReloadData            Checking                 CheckPurchase
+//
+// Checking                 DidCheckPurchase                Purchased                ShowThankYou
+// Checking                 DidFailCheckingPurchase         Fetching                 FetchProducts
+// CheckingAfterFetch       DidCheckPurchase                Purchased                ShowThankYou
+// CheckingAfterFetch       DidFailCheckingPurchase         Fetched                  ShowCachedProducts
 //
 // Fetching                 DidFetchProducts                Fetched                  ShowProducts
 // Fetching                 DidFailFetchingProducts         FetchError               ShowProductsFetchError
 // Fetched                  ViewDidMakePurchase             Fetched                  PurchaseProduct
 // Fetched                  DidStartPurchasing              Purchasing               ShowPurchaseProgress
 // Fetched                  ViewDidStartPurchaseRestoration Restoring                RestorePurchases
-// FetchError               ViewShouldReloadData            Fetching                 FetchProducts
+// FetchError               ViewShouldReloadData            Checking                 CheckPurchase
 // FetchError               ViewDidStartProductFetch        Fetching                 FetchProducts
 // FetchError               ViewDidStartPurchaseRestoration RestoringAfterFetchError RestorePurchases
 //
-// Purchasing               DidPurchase                     Purchased                ShowThankYou
+// Purchasing               DidPurchase                     CheckingAfterFetch       CheckPurchase
 // Purchasing               DidFailPurchasingWithError      Fetched                  ShowCachedProductsAndPurchaseError
 // Purchasing               DidCancelPurchasing             Fetched                  ShowCachedProducts
-// Purchased                ViewShouldReloadData            Purchased                ShowThankYou
+// Purchased                ViewShouldReloadData            Checking                 CheckPurchase
 //
-// Restoring                DidRestorePurchases             Purchased                ShowThankYou
+// Restoring                DidRestorePurchases             CheckingAfterFetch       CheckPurchase
 // Restoring                DidFailRestoringPurchases       Fetched                  ShowCachedProductsAndRestoreError
 // Restoring                DidCancelRestoringPurchases     Fetched                  ShowCachedProducts
-// RestoringAfterFetchError DidRestorePurchases             Purchased                ShowThankYou
+// RestoringAfterFetchError DidRestorePurchases             Checking                 CheckPurchase
 // RestoringAfterFetchError DidFailRestoringPurchases       FetchError               ShowCachedFetchErrorAndRestoreError
 // RestoringAfterFetchError DidCancelRestoringPurchases     FetchError               ShowCachedFetchError
 
 
 class StoreViewState {
     func viewShouldReloadData(machine machine: StoreViewStateMachine) {
+        print("\(#function) is not supported for \(self)")
+    }
+
+    func didCheckPurchase(machine machine: StoreViewStateMachine, expiration: NSDate) {
+        print("\(#function) is not supported for \(self)")
+    }
+
+    func didFailCheckingPurchase(machine machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -98,10 +111,24 @@ class StoreViewState {
 
 final class StoreViewStateNoProducts: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
+        machine.changeState(StoreViewStateChecking())
+        machine.checkPurchase()
+    }
+}
+
+class StoreViewStateChecking: StoreViewState {
+    override func didCheckPurchase(machine machine: StoreViewStateMachine, expiration: NSDate) {
+        machine.changeState(StoreViewStatePurchased())
+        machine.showThankYou()
+    }
+
+    override func didFailCheckingPurchase(machine machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetching())
         machine.fetchProducts()
     }
 }
+
+final class StoreViewStateCheckingAfterFetch: StoreViewStateChecking {}
 
 final class StoreViewStateFetching: StoreViewState {
     override func didFetchProducts(machine machine: StoreViewStateMachine, products: [Product]) {
@@ -133,8 +160,8 @@ final class StoreViewStateFetched: StoreViewState {
 
 final class StoreViewStateFetchError: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStateFetching())
-        machine.fetchProducts()
+        machine.changeState(StoreViewStateChecking())
+        machine.checkPurchase()
     }
 
     override func viewDidStartProductFetch(machine machine: StoreViewStateMachine) {
@@ -150,8 +177,8 @@ final class StoreViewStateFetchError: StoreViewState {
 
 final class StoreViewStatePurchasing: StoreViewState {
     override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
+        machine.changeState(StoreViewStateCheckingAfterFetch())
+        machine.checkPurchase()
     }
 
     override func didFailPurchasingProducts(machine machine: StoreViewStateMachine, error: String) {
@@ -167,14 +194,15 @@ final class StoreViewStatePurchasing: StoreViewState {
 
 final class StoreViewStatePurchased: StoreViewState {
     override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
-        machine.showThankYou()
+        machine.changeState(StoreViewStateChecking())
+        machine.checkPurchase()
     }
 }
 
 final class StoreViewStateRestoring: StoreViewState {
     override func didRestorePurchases(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
+        machine.changeState(StoreViewStateCheckingAfterFetch())
+        machine.checkPurchase()
     }
 
     override func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String) {
@@ -190,8 +218,8 @@ final class StoreViewStateRestoring: StoreViewState {
 
 final class StoreViewStateRestoringAfterFetchError: StoreViewState {
     override func didRestorePurchases(machine machine: StoreViewStateMachine) {
-        machine.changeState(StoreViewStatePurchased())
-        machine.showThankYou()
+        machine.changeState(StoreViewStateChecking())
+        machine.checkPurchase()
     }
 
     override func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String) {
