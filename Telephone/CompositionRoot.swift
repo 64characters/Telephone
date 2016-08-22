@@ -63,10 +63,7 @@ final class CompositionRoot: NSObject {
         let storeViewController = StoreViewController(
             target: NullStoreViewEventTarget(), workspace: NSWorkspace.sharedWorkspace()
         )
-        let products = SKProductsRequestToProductsAdapter(
-            identifiers: ["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"],
-            target: productsEventTargets
-        )
+        let products = SKProductsRequestToProductsAdapter(expected: ExpectedProducts(), target: productsEventTargets)
         let store = SKPaymentQueueToStoreAdapter(queue: SKPaymentQueue.defaultQueue(), products: products)
         let receipt = LoggingReceipt(origin: BundleReceipt(bundle: NSBundle.mainBundle(), gateway: ReceiptXPCGateway()))
         let storeViewEventTarget = DefaultStoreViewEventTarget(

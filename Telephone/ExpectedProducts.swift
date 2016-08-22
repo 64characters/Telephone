@@ -1,5 +1,5 @@
 //
-//  Product+SKProduct.swift
+//  ExpectedProducts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-import StoreKit
-import UseCases
+struct ExpectedProducts {
+    private let map = [
+        "com.tlphn.Telephone.iap.month": NSLocalizedString("1-month optional patronage", comment: "Product name."),
+        "com.tlphn.Telephone.iap.year": NSLocalizedString("12-months optional patronage", comment: "Product name.")
+    ]
 
-extension Product {
-    init(product: SKProduct, name: String, formatter: NSNumberFormatter) {
-        self.init(
-            identifier: product.productIdentifier!,
-            name: name,
-            price: product.price ?? NSDecimalNumber.zero(),
-            localizedPrice: localized(product.price, formatter: formatter)
-        )
+    var identifiers: Set<String> {
+        return Set(map.keys)
     }
-}
 
-private func localized(price: NSDecimalNumber?, formatter: NSNumberFormatter) -> String {
-    if let number = price, string = formatter.stringFromNumber(number) {
-        return string
-    } else {
-        return "N/A"
+    func name(withIdentifier identifier: String) -> String {
+        return map[identifier] ?? NSLocalizedString("Unknown product", comment: "Unknown product name.")
     }
 }
