@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StoreViewController" customModule="Telephone" customModuleProvider="target">
             <connections>
+                <outlet property="expirationField" destination="byH-Ua-KY8" id="4gG-n6-6Tb"/>
                 <outlet property="productsContentView" destination="ooq-CL-lGR" id="tbC-4S-pA1"/>
                 <outlet property="productsFetchErrorField" destination="ZAt-yQ-UK9" id="8cn-Gp-9hw"/>
                 <outlet property="productsFetchErrorView" destination="M3a-G9-Uvd" id="TDy-JW-qyZ"/>
@@ -15,6 +16,7 @@
                 <outlet property="productsTableView" destination="eYD-l4-AFn" id="YyL-bi-rcn"/>
                 <outlet property="progressIndicator" destination="XSd-At-01E" id="vdk-e6-EDz"/>
                 <outlet property="progressView" destination="mA2-JV-Xxq" id="HMO-kP-wdU"/>
+                <outlet property="purchasedView" destination="fpC-LB-IbC" id="sIS-w1-Vd9"/>
                 <outlet property="restorePurchasesButton" destination="kYi-DK-7xw" id="7dh-0j-3bH"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -212,6 +214,62 @@ The subscriptions renew automatically and can be canceled any time according to 
             <color key="borderColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
             <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="347" y="1011"/>
+        </box>
+        <box boxType="custom" borderType="line" titlePosition="noTitle" id="fpC-LB-IbC">
+            <rect key="frame" x="0.0" y="0.0" width="440" height="86"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="yyu-OU-iXv">
+                <rect key="frame" x="1" y="1" width="438" height="84"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8X-aQ-cAN">
+                        <rect key="frame" x="99" y="18" width="239" height="17"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Am-ER-Ei9">
+                                <rect key="frame" x="-2" y="0.0" width="162" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Your subscription ends on" id="Z9K-5X-9uS">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="byH-Ua-KY8">
+                                <rect key="frame" x="159" y="0.0" width="83" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Dec 31, 2016" id="efh-fd-jws">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="9Am-ER-Ei9" firstAttribute="centerY" secondItem="e8X-aQ-cAN" secondAttribute="centerY" id="GAn-6V-zmF"/>
+                            <constraint firstItem="byH-Ua-KY8" firstAttribute="leading" secondItem="9Am-ER-Ei9" secondAttribute="trailing" constant="3" id="L1t-51-YvW"/>
+                            <constraint firstAttribute="trailing" secondItem="byH-Ua-KY8" secondAttribute="trailing" constant="-1" id="Oss-2s-BSV"/>
+                            <constraint firstItem="9Am-ER-Ei9" firstAttribute="leading" secondItem="e8X-aQ-cAN" secondAttribute="leading" id="Xdt-yu-TQj"/>
+                            <constraint firstItem="byH-Ua-KY8" firstAttribute="baseline" secondItem="9Am-ER-Ei9" secondAttribute="baseline" id="aGp-AW-hfQ"/>
+                        </constraints>
+                    </customView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j2j-Ih-N2I">
+                        <rect key="frame" x="167" y="43" width="104" height="24"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Thank you!" id="L2v-xq-Wr7">
+                            <font key="font" metaFont="system" size="20"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="e8X-aQ-cAN" firstAttribute="centerX" secondItem="yyu-OU-iXv" secondAttribute="centerX" id="7F6-O6-TQb"/>
+                    <constraint firstItem="e8X-aQ-cAN" firstAttribute="top" secondItem="j2j-Ih-N2I" secondAttribute="bottom" constant="8" id="E9f-T8-gFW"/>
+                    <constraint firstAttribute="bottom" secondItem="e8X-aQ-cAN" secondAttribute="bottom" constant="18" id="FuI-T7-tGy"/>
+                    <constraint firstItem="j2j-Ih-N2I" firstAttribute="top" secondItem="yyu-OU-iXv" secondAttribute="top" constant="17" id="JFv-Qt-OcL"/>
+                    <constraint firstItem="j2j-Ih-N2I" firstAttribute="centerX" secondItem="yyu-OU-iXv" secondAttribute="centerX" id="KLk-tN-8UD"/>
+                </constraints>
+            </view>
+            <color key="borderColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="347" y="1164"/>
         </box>
     </objects>
     <resources>

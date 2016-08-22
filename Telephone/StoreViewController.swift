@@ -22,16 +22,23 @@ import UseCases
 final class StoreViewController: NSViewController {
     private var target: StoreViewEventTarget
     private dynamic var products: [PresentationProduct] = []
+    private let formatter: NSDateFormatter = {
+        let f = NSDateFormatter()
+        f.dateStyle = .ShortStyle
+        return f
+    }()
 
     @IBOutlet private var productsListView: NSView!
     @IBOutlet private var productsTableView: NSTableView!
     @IBOutlet private var productsFetchErrorView: NSView!
     @IBOutlet private var progressView: NSView!
+    @IBOutlet private var purchasedView: NSView!
 
     @IBOutlet private weak var productsContentView: NSView!
     @IBOutlet private weak var restorePurchasesButton: NSButton!
     @IBOutlet private weak var productsFetchErrorField: NSTextField!
     @IBOutlet private weak var progressIndicator: NSProgressIndicator!
+    @IBOutlet private weak var expirationField: NSTextField!
 
     init(target: StoreViewEventTarget) {
         self.target = target
@@ -66,7 +73,7 @@ final class StoreViewController: NSViewController {
 
 extension StoreViewController: StoreView {
     func showPurchaseCheckProgress() {
-
+        showProgress()
     }
 
     func showProducts(products: [PresentationProduct]) {
@@ -108,7 +115,8 @@ extension StoreViewController: StoreView {
     }
 
     func showPurchased(until date: NSDate) {
-
+        expirationField.stringValue = formatter.stringFromDate(date)
+        showInProductsContentView(purchasedView)
     }
 
     private func showInProductsContentView(view: NSView) {
