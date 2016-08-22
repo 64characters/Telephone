@@ -21,6 +21,7 @@ import UseCases
 
 final class StoreViewController: NSViewController {
     private var target: StoreViewEventTarget
+    private var workspace: NSWorkspace
     private dynamic var products: [PresentationProduct] = []
     private let formatter: NSDateFormatter = {
         let f = NSDateFormatter()
@@ -33,15 +34,17 @@ final class StoreViewController: NSViewController {
     @IBOutlet private var productsFetchErrorView: NSView!
     @IBOutlet private var progressView: NSView!
     @IBOutlet private var purchasedView: NSView!
+    @IBOutlet private var restorePurchasesButton: NSButton!
+    @IBOutlet private var subscriptionsButton: NSButton!
 
     @IBOutlet private weak var productsContentView: NSView!
-    @IBOutlet private weak var restorePurchasesButton: NSButton!
     @IBOutlet private weak var productsFetchErrorField: NSTextField!
     @IBOutlet private weak var progressIndicator: NSProgressIndicator!
     @IBOutlet private weak var expirationField: NSTextField!
 
-    init(target: StoreViewEventTarget) {
+    init(target: StoreViewEventTarget, workspace: NSWorkspace) {
         self.target = target
+        self.workspace = workspace
         super.init(nibName: "StoreViewController", bundle: nil)!
     }
 
@@ -68,6 +71,10 @@ final class StoreViewController: NSViewController {
 
     @IBAction func restorePurchases(sender: AnyObject) {
         target.viewDidStartPurchaseRestoration()
+    }
+
+    @IBAction func manageSubscriptions(sender: AnyObject) {
+        workspace.openURL(NSURL(string: "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions")!)
     }
 }
 
@@ -111,12 +118,19 @@ extension StoreViewController: StoreView {
     }
 
     func enablePurchaseRestoration() {
+        subscriptionsButton.hidden = true
+        restorePurchasesButton.hidden = false
         restorePurchasesButton.enabled = true
     }
 
     func showPurchased(until date: NSDate) {
         expirationField.stringValue = formatter.stringFromDate(date)
         showInProductsContentView(purchasedView)
+    }
+
+    func showSubscriptionManagement() {
+        restorePurchasesButton.hidden = true
+        subscriptionsButton.hidden = false
     }
 
     private func showInProductsContentView(view: NSView) {

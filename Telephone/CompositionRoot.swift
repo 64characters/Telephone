@@ -60,7 +60,9 @@ final class CompositionRoot: NSObject {
 
         let productsEventTargets = ProductsEventTargets()
 
-        let storeViewController = StoreViewController(target: NullStoreViewEventTarget())
+        let storeViewController = StoreViewController(
+            target: NullStoreViewEventTarget(), workspace: NSWorkspace.sharedWorkspace()
+        )
         let products = SKProductsRequestToProductsAdapter(
             identifiers: ["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"],
             target: productsEventTargets

@@ -152,4 +152,10 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
 
         XCTAssertTrue(output.didCallShowPurchased)
     }
+
+    func testShowsSubscriptionManagementOnShowPurchased() {
+        sut.showPurchased(until: NSDate())
+
+        XCTAssertTrue(output.didCallShowSubscriptionManagement)
+    }
 }

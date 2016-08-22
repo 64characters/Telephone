@@ -18,6 +18,7 @@
                 <outlet property="progressView" destination="mA2-JV-Xxq" id="HMO-kP-wdU"/>
                 <outlet property="purchasedView" destination="fpC-LB-IbC" id="sIS-w1-Vd9"/>
                 <outlet property="restorePurchasesButton" destination="kYi-DK-7xw" id="7dh-0j-3bH"/>
+                <outlet property="subscriptionsButton" destination="Bmy-eH-1mE" id="k6J-dJ-KZZ"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -27,20 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooq-CL-lGR" userLabel="Products Content View">
-                    <rect key="frame" x="20" y="61" width="440" height="86"/>
-                </customView>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYi-DK-7xw">
-                    <rect key="frame" x="312" y="13" width="154" height="32"/>
-                    <buttonCell key="cell" type="push" title="Restore Purchases" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Au-Xg-Hs2">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="restorePurchases:" target="-2" id="oYA-dC-C2E"/>
-                    </connections>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-yF-WhX">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-yF-WhX">
                     <rect key="frame" x="18" y="167" width="439" height="85"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="W5b-g9-V4l">
                         <font key="font" metaFont="system"/>
@@ -51,7 +39,45 @@ The subscriptions renew automatically and can be canceled any time according to 
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ooq-CL-lGR" userLabel="Products Content View">
+                    <rect key="frame" x="20" y="61" width="440" height="86"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="86" id="70g-AI-4FR"/>
+                    </constraints>
+                </customView>
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bmy-eH-1mE">
+                    <rect key="frame" x="279" y="13" width="187" height="32"/>
+                    <buttonCell key="cell" type="push" title="Manage Subscriptions..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lhf-s5-m1W">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="manageSubscriptions:" target="-2" id="L0D-V5-koj"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kYi-DK-7xw">
+                    <rect key="frame" x="312" y="13" width="154" height="32"/>
+                    <buttonCell key="cell" type="push" title="Restore Purchases" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Au-Xg-Hs2">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="restorePurchases:" target="-2" id="oYA-dC-C2E"/>
+                    </connections>
+                </button>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="kYi-DK-7xw" secondAttribute="bottom" constant="20" id="1lt-2L-79e"/>
+                <constraint firstAttribute="trailing" secondItem="kYi-DK-7xw" secondAttribute="trailing" constant="20" id="D1I-iN-osP"/>
+                <constraint firstAttribute="bottom" secondItem="Bmy-eH-1mE" secondAttribute="bottom" constant="20" id="Dqn-1J-Yva"/>
+                <constraint firstItem="ooq-CL-lGR" firstAttribute="top" secondItem="Kzb-yF-WhX" secondAttribute="bottom" constant="20" id="O8i-Pw-klR"/>
+                <constraint firstAttribute="trailing" secondItem="ooq-CL-lGR" secondAttribute="trailing" constant="20" id="Q5E-6h-cPW"/>
+                <constraint firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" constant="25" id="bEn-jV-5FB"/>
+                <constraint firstAttribute="trailing" secondItem="Bmy-eH-1mE" secondAttribute="trailing" constant="20" id="lWL-za-LyP"/>
+                <constraint firstItem="Kzb-yF-WhX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="pwt-F8-K6J"/>
+                <constraint firstItem="Kzb-yF-WhX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="tng-Qk-CjW"/>
+                <constraint firstItem="ooq-CL-lGR" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="vIC-Wu-GAz"/>
+            </constraints>
             <point key="canvasLocation" x="347" y="469"/>
         </customView>
         <arrayController editable="NO" id="cce-WC-Umh">

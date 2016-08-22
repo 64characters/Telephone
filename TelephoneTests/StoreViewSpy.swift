@@ -33,6 +33,7 @@ final class StoreViewSpy {
     private(set) var didCallEnablePurchaseRestoration = false
 
     private(set) var didCallShowPurchased = false
+    private(set) var didCallShowSubscriptionManagement = false
 }
 
 extension StoreViewSpy: StoreView {}
@@ -80,5 +81,9 @@ extension StoreViewSpy: StoreViewPresenterOutput {
 
     func showPurchased(until date: NSDate) {
         didCallShowPurchased = true
+    }
+
+    func showSubscriptionManagement() {
+        didCallShowSubscriptionManagement = true
     }
 }

@@ -28,4 +28,5 @@ final class StoreViewDummy: StoreView {
     func disablePurchaseRestoration() {}
     func enablePurchaseRestoration() {}
     func showPurchased(until date: NSDate) {}
+    func showSubscriptionManagement() {}
 }

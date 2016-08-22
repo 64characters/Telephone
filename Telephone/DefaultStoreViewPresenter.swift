@@ -67,6 +67,7 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
 
     func showPurchased(until date: NSDate) {
         output.showPurchased(until: date)
+        output.showSubscriptionManagement()
     }
 }
 

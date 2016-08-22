@@ -49,4 +49,5 @@ protocol StoreViewPresenterOutput {
     func enablePurchaseRestoration()
 
     func showPurchased(until date: NSDate)
+    func showSubscriptionManagement()
 }
