@@ -24,11 +24,11 @@ final class SKProductsRequestToProductsAdapter: NSObject {
     private var storeKitProducts: [Product: SKProduct] = [:]
     private var request: SKProductsRequest?
 
-    private let identifiers: [String]
+    private let expected: ExpectedProducts
     private let target: ProductsEventTarget
 
-    init(identifiers: [String], target: ProductsEventTarget) {
-        self.identifiers = identifiers
+    init(expected: ExpectedProducts, target: ProductsEventTarget) {
+        self.expected = expected
         self.target = target
     }
 }
@@ -44,7 +44,7 @@ extension SKProductsRequestToProductsAdapter: Products {
 
     func fetch() {
         request?.cancel()
-        request = SKProductsRequest(productIdentifiers: Set(identifiers))
+        request = SKProductsRequest(productIdentifiers: expected.identifiers)
         request!.delegate = self
         request!.start()
     }
@@ -59,9 +59,33 @@ extension SKProductsRequestToProductsAdapter: StoreKitProducts {
 extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
     func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         dispatch_async(dispatch_get_main_queue()) {
-            (self.products, self.storeKitProducts) = productMaps(withProducts: response.products)
+            (self.products, self.storeKitProducts) = self.productMaps(withProducts: response.products)
             self.target.productsDidFetch()
         }
+    }
+
+    private func productMaps(withProducts products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
+        if let products = products {
+            return productMaps(withProducts: products)
+        } else {
+            return ([:], [:])
+        }
+    }
+
+    private func productMaps(withProducts products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
+        var idToProduct: [String: Product] = [:]
+        var productToSKProduct: [Product: SKProduct] = [:]
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        for skProduct in products {
+            formatter.locale = skProduct.priceLocale
+            let product = Product(
+                product: skProduct, name: expected.name(withIdentifier: skProduct.productIdentifier!), formatter: formatter
+            )
+            idToProduct[product.identifier] = product
+            productToSKProduct[product] = skProduct
+        }
+        return (idToProduct, productToSKProduct)
     }
 }
 
@@ -91,28 +115,6 @@ extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
             self.request = nil
         }
     }
-}
-
-private func productMaps(withProducts products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
-    if let products = products {
-        return productMaps(withProducts: products)
-    } else {
-        return ([:], [:])
-    }
-}
-
-private func productMaps(withProducts products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
-    var idToProduct: [String: Product] = [:]
-    var productToSKProduct: [Product: SKProduct] = [:]
-    let formatter = NSNumberFormatter()
-    formatter.numberStyle = .CurrencyStyle
-    for skProduct in products {
-        formatter.locale = skProduct.priceLocale
-        let product = Product(product: skProduct, formatter: formatter)
-        idToProduct[product.identifier] = product
-        productToSKProduct[product] = skProduct
-    }
-    return (idToProduct, productToSKProduct)
 }
 
 private func descriptionOf(error: NSError?) -> String {

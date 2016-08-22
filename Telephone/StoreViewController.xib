@@ -116,8 +116,8 @@ The subscriptions renew automatically and can be canceled any time according to 
                                         <rect key="frame" x="1" y="1" width="435" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eH9-SG-F1U">
-                                                <rect key="frame" x="6" y="12" width="100" height="17"/>
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="eH9-SG-F1U">
+                                                <rect key="frame" x="6" y="12" width="97" height="17"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="NEN-L8-9I9">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -127,7 +127,7 @@ The subscriptions renew automatically and can be canceled any time according to 
                                                     <binding destination="cBD-EV-Yai" name="value" keyPath="objectValue.name" id="HIf-f4-hIT"/>
                                                 </connections>
                                             </textField>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zF3-9y-xfi">
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zF3-9y-xfi">
                                                 <rect key="frame" x="352" y="3" width="81" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wUB-pq-l64">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,6 +139,12 @@ The subscriptions renew automatically and can be canceled any time according to 
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="eH9-SG-F1U" firstAttribute="centerY" secondItem="cBD-EV-Yai" secondAttribute="centerY" id="ZKC-2B-Kfy"/>
+                                            <constraint firstAttribute="trailing" secondItem="zF3-9y-xfi" secondAttribute="trailing" constant="8" id="tGl-Ah-Zq3"/>
+                                            <constraint firstItem="zF3-9y-xfi" firstAttribute="centerY" secondItem="cBD-EV-Yai" secondAttribute="centerY" id="uQN-q7-P5m"/>
+                                            <constraint firstItem="eH9-SG-F1U" firstAttribute="leading" secondItem="cBD-EV-Yai" secondAttribute="leading" constant="8" id="vcM-Ci-Fx2"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="textField" destination="eH9-SG-F1U" id="bnL-0z-Wm3"/>
                                         </connections>
