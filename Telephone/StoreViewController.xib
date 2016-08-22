@@ -25,16 +25,16 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="289"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-yF-WhX">
-                    <rect key="frame" x="18" y="167" width="439" height="85"/>
+                    <rect key="frame" x="18" y="167" width="444" height="102"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="W5b-g9-V4l">
                         <font key="font" metaFont="system"/>
-                        <string key="title">Telephone is free and open souce. It is supported by people like you. You can make the ongoing development possible by becoming a patron.
+                        <string key="title">Telephone is free and open souce, it is supported by people like you. Please consider becoming a patron to make ongoing development possible.
 
-The subscriptions renew automatically and can be canceled any time according to the Mac App Store subscription rules.</string>
+The subscriptions renew automatically and can be canceled according to Mac App Store subscription rules.</string>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -68,15 +68,16 @@ The subscriptions renew automatically and can be canceled any time according to 
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="kYi-DK-7xw" secondAttribute="bottom" constant="20" id="1lt-2L-79e"/>
-                <constraint firstAttribute="trailing" secondItem="kYi-DK-7xw" secondAttribute="trailing" constant="20" id="D1I-iN-osP"/>
+                <constraint firstItem="kYi-DK-7xw" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="9Dq-Wz-zpm"/>
                 <constraint firstAttribute="bottom" secondItem="Bmy-eH-1mE" secondAttribute="bottom" constant="20" id="Dqn-1J-Yva"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="top" secondItem="Kzb-yF-WhX" secondAttribute="bottom" constant="20" id="O8i-Pw-klR"/>
-                <constraint firstAttribute="trailing" secondItem="ooq-CL-lGR" secondAttribute="trailing" constant="20" id="Q5E-6h-cPW"/>
-                <constraint firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" constant="25" id="bEn-jV-5FB"/>
-                <constraint firstAttribute="trailing" secondItem="Bmy-eH-1mE" secondAttribute="trailing" constant="20" id="lWL-za-LyP"/>
+                <constraint firstItem="ooq-CL-lGR" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="T7R-O6-V69"/>
+                <constraint firstItem="ooq-CL-lGR" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="VBJ-Zx-sII"/>
+                <constraint firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" constant="20" id="bEn-jV-5FB"/>
+                <constraint firstItem="ooq-CL-lGR" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="fGU-oJ-mCd"/>
+                <constraint firstItem="Bmy-eH-1mE" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="nk3-5U-Xuq"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="pwt-F8-K6J"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="tng-Qk-CjW"/>
-                <constraint firstItem="ooq-CL-lGR" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="vIC-Wu-GAz"/>
             </constraints>
             <point key="canvasLocation" x="347" y="469"/>
         </customView>
