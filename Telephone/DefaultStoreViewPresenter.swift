@@ -25,6 +25,11 @@ final class DefaultStoreViewPresenter {
 }
 
 extension DefaultStoreViewPresenter: StoreViewPresenter {
+    func showPurchaseCheckProgress() {
+        output.showPurchaseCheckProgress()
+        output.disablePurchaseRestoration()
+    }
+
     func showProducts(products: [Product]) {
         output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
         output.enablePurchaseRestoration()
@@ -58,6 +63,11 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
     func showPurchaseRestorationError(error: String) {
         output.showPurchaseRestorationError(error)
         output.enablePurchaseRestoration()
+    }
+
+    func showPurchased(until date: NSDate) {
+        output.showPurchased(until: date)
+        output.showSubscriptionManagement()
     }
 }
 

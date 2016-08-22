@@ -28,6 +28,20 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
         sut = DefaultStoreViewPresenter(output: output)
     }
 
+    // MARK: - Purchase check
+
+    func testShowsPurchaseCheckProgressOnShowPurchaseCheckProgress() {
+        sut.showPurchaseCheckProgress()
+
+        XCTAssertTrue(output.didCallShowPurchaseCheckProgress)
+    }
+
+    func testDisablesPurchaseRestorationOnShowPurchaseCheckProgress() {
+        sut.showPurchaseCheckProgress()
+
+        XCTAssertTrue(output.didCallDisablePurchaseRestoration)
+    }
+
     // MARK: - Fetch
 
     func testShowsProductsSortedByPriceOnShowProducts() {
@@ -129,5 +143,19 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
         sut.showPurchaseRestorationError("any")
 
         XCTAssertTrue(output.didCallEnablePurchaseRestoration)
+    }
+
+    // MARK: - Purchased
+
+    func testShowsPurchasedOnShowPurchased() {
+        sut.showPurchased(until: NSDate())
+
+        XCTAssertTrue(output.didCallShowPurchased)
+    }
+
+    func testShowsSubscriptionManagementOnShowPurchased() {
+        sut.showPurchased(until: NSDate())
+
+        XCTAssertTrue(output.didCallShowSubscriptionManagement)
     }
 }

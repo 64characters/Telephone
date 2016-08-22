@@ -21,16 +21,22 @@ import UseCases
 final class DefaultStoreUseCaseFactory {
     private let products: Products
     private let store: Store
+    private let receipt: Receipt
     private let targets: ProductsEventTargets
 
-    init(products: Products, store: Store, targets: ProductsEventTargets) {
+    init(products: Products, store: Store, receipt: Receipt, targets: ProductsEventTargets) {
         self.products = products
         self.store = store
+        self.receipt = receipt
         self.targets = targets
     }
 }
 
 extension DefaultStoreUseCaseFactory: StoreUseCaseFactory {
+    func createPurchaseCheckUseCase(output output: PurchaseCheckUseCaseOutput) -> UseCase {
+        return PurchaseCheckUseCase(receipt: receipt, output: output)
+    }
+
     func createProductsFetchUseCase(output output: ProductsFetchUseCaseOutput) -> UseCase {
         return ProductsFetchUseCase(products: products, targets: targets, output: output)
     }

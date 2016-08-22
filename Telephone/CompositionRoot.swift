@@ -60,7 +60,9 @@ final class CompositionRoot: NSObject {
 
         let productsEventTargets = ProductsEventTargets()
 
-        let storeViewController = StoreViewController(target: NullStoreViewEventTarget())
+        let storeViewController = StoreViewController(
+            target: NullStoreViewEventTarget(), workspace: NSWorkspace.sharedWorkspace()
+        )
         let products = SKProductsRequestToProductsAdapter(
             identifiers: ["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"],
             target: productsEventTargets
@@ -71,6 +73,7 @@ final class CompositionRoot: NSObject {
             factory: DefaultStoreUseCaseFactory(
                 products: LoggingProducts(origin: products),
                 store: LoggingStore(origin: store),
+                receipt: receipt,
                 targets: productsEventTargets
             ),
             purchaseRestoration: PurchaseRestorationUseCase(store: store),
