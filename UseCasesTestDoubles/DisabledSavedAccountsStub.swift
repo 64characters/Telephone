@@ -1,5 +1,5 @@
 //
-//  UserDefaults.swift
+//  DisabledSavedAccountsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import UseCases
 
-@objc public protocol UserDefaults {
-    subscript(key: String) -> String? { get set }
-    func stringForKey(key: String) -> String?
+public final class DisabledSavedAccountsStub: SavedAccounts {
+    public let haveEnabled = false
+    public init() {}
 }

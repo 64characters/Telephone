@@ -1,5 +1,5 @@
 //
-//  StoreWindowController.swift
+//  UserDefaultsSavedAccounts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-import Cocoa
 import UseCases
 
-final class StoreWindowController: NSWindowController {
-    convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: "StoreWindowController")
-        contentViewController = controller
-    }
+final class UserDefaultsSavedAccounts {
+    private let defaults: NSUserDefaults
 
-    func showWindowCentered() {
-        window?.center()
-        showWindow(self)
+    init(defaults: NSUserDefaults) {
+        self.defaults = defaults
     }
 }
 
-extension StoreWindowController: PurchaseReminderUseCaseOutput {
-    func remindAboutPurchasing() {
-        showWindowCentered()
+extension UserDefaultsSavedAccounts: SavedAccounts {
+    var haveEnabled: Bool {
+        return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
+    }
+
+    private func accounts() -> [[String: AnyObject]] {
+        return defaults.arrayForKey(kAccounts) as? [[String: AnyObject]] ?? []
     }
 }

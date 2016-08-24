@@ -1,5 +1,5 @@
 //
-//  StoreWindowController.swift
+//  PurchaseReminderUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-import Cocoa
 import UseCases
 
-final class StoreWindowController: NSWindowController {
-    convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: "StoreWindowController")
-        contentViewController = controller
-    }
+public final class PurchaseReminderUseCaseOutputSpy {
+    public private(set) var didCallRemind = false
 
-    func showWindowCentered() {
-        window?.center()
-        showWindow(self)
-    }
+    public init() {}
 }
 
-extension StoreWindowController: PurchaseReminderUseCaseOutput {
-    func remindAboutPurchasing() {
-        showWindowCentered()
+extension PurchaseReminderUseCaseOutputSpy: PurchaseReminderUseCaseOutput {
+    public func remindAboutPurchasing() {
+        didCallRemind = true
     }
 }

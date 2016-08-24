@@ -20,12 +20,15 @@ import Foundation
 import UseCases
 
 public final class UserDefaultsFake {
+    @objc public var date: NSDate = NSDate.distantPast()
+    @objc public var version = ""
+
     private var dictionary: [String: String] = [:]
 
     public init() {}
 }
 
-extension UserDefaultsFake: UserDefaults {
+extension UserDefaultsFake: StringUserDefaults {
     @objc public subscript(key: String) -> String? {
         get {
             return dictionary[key]
@@ -39,3 +42,5 @@ extension UserDefaultsFake: UserDefaults {
         return dictionary[key]
     }
 }
+
+extension UserDefaultsFake: PurchaseReminderUserDefaults {}

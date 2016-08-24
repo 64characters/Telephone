@@ -26,7 +26,7 @@ final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
     private var devices: SystemAudioDevices!
     private var repository: SystemAudioDeviceRepositoryStub!
-    private var userDefaults: UserDefaultsFake!
+    private var defaults: UserDefaultsFake!
     private var output: UserDefaultsSoundIOLoadUseCaseOutputSpy!
 
     override func setUp() {
@@ -35,15 +35,13 @@ final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
         devices = SystemAudioDevices(devices: factory.all)
         repository = SystemAudioDeviceRepositoryStub()
         repository.allDevicesResult = factory.all
-        userDefaults = UserDefaultsFake()
+        defaults = UserDefaultsFake()
         output = UserDefaultsSoundIOLoadUseCaseOutputSpy()
     }
 
     func testCallsOutputWithExpectedAudioDevicesAndSoundIO() {
         let sut = UserDefaultsSoundIOLoadUseCase(
-            repository: repository,
-            userDefaults: userDefaults,
-            output: output
+            repository: repository, defaults: defaults, output: output
         )
 
         try! sut.execute()

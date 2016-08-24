@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+UserDefaults.swift
+//  EnabledSavedAccountsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,13 +18,7 @@
 
 import UseCases
 
-extension NSUserDefaults: UserDefaults {
-    public subscript(key: String) -> String? {
-        get {
-            return stringForKey(key)
-        }
-        set {
-            setObject(newValue, forKey: key)
-        }
-    }
+public final class EnabledSavedAccountsStub: SavedAccounts {
+    public let haveEnabled = true
+    public init() {}
 }

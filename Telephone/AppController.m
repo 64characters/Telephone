@@ -572,6 +572,12 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- (void)remindAboutPurchasingAfterDelay {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.compositionRoot.purchaseReminder execute];
+    });
+}
+
 - (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSString *plugInsPath = [mainBundle builtInPlugInsPath];
@@ -1381,6 +1387,8 @@ NS_ASSUME_NONNULL_END
     // Register as service provider to allow making calls from the Services
     // menu and context menus.
     [NSApp setServicesProvider:self];
+
+    [self remindAboutPurchasingAfterDelay];
     
     [self registerAllAccountsWhereManualRegistrationRequired];
 

@@ -23,30 +23,30 @@ import XCTest
 final class UserDefaultsSoundIOSaveUseCaseTests: XCTestCase {
     func testUpdatesUserDefaults() {
         let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
-        let userDefaults = UserDefaultsFake()
-        let sut = UserDefaultsSoundIOSaveUseCase(soundIO: soundIO, userDefaults: userDefaults)
+        let defaults = UserDefaultsFake()
+        let sut = UserDefaultsSoundIOSaveUseCase(soundIO: soundIO, defaults: defaults)
 
         sut.execute()
 
-        XCTAssertEqual(userDefaults[kSoundInput], soundIO.input)
-        XCTAssertEqual(userDefaults[kSoundOutput], soundIO.output)
-        XCTAssertEqual(userDefaults[kRingtoneOutput], soundIO.ringtoneOutput)
+        XCTAssertEqual(defaults[kSoundInput], soundIO.input)
+        XCTAssertEqual(defaults[kSoundOutput], soundIO.output)
+        XCTAssertEqual(defaults[kRingtoneOutput], soundIO.ringtoneOutput)
     }
 
     func testDoesNotUpadteUserDefaultsWithEmptyValues() {
-        let userDefaults = UserDefaultsFake()
+        let defaults = UserDefaultsFake()
         let anyValue = "any-value"
-        userDefaults[kSoundInput] = anyValue
-        userDefaults[kSoundOutput] = anyValue
-        userDefaults[kRingtoneOutput] = anyValue
+        defaults[kSoundInput] = anyValue
+        defaults[kSoundOutput] = anyValue
+        defaults[kRingtoneOutput] = anyValue
         let sut = UserDefaultsSoundIOSaveUseCase(
-            soundIO: PresentationSoundIO(input: "", output: "", ringtoneOutput: ""),
-            userDefaults: userDefaults)
+            soundIO: PresentationSoundIO(input: "", output: "", ringtoneOutput: ""), defaults: defaults
+        )
 
         sut.execute()
 
-        XCTAssertEqual(userDefaults[kSoundInput], anyValue)
-        XCTAssertEqual(userDefaults[kSoundOutput], anyValue)
-        XCTAssertEqual(userDefaults[kRingtoneOutput], anyValue)
+        XCTAssertEqual(defaults[kSoundInput], anyValue)
+        XCTAssertEqual(defaults[kSoundOutput], anyValue)
+        XCTAssertEqual(defaults[kRingtoneOutput], anyValue)
     }
 }

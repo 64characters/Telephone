@@ -1,5 +1,5 @@
 //
-//  StoreWindowController.swift
+//  NSUserDefaults+StringUserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,15 @@
 //  GNU General Public License for more details.
 //
 
-import Cocoa
 import UseCases
 
-final class StoreWindowController: NSWindowController {
-    convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: "StoreWindowController")
-        contentViewController = controller
-    }
-
-    func showWindowCentered() {
-        window?.center()
-        showWindow(self)
-    }
-}
-
-extension StoreWindowController: PurchaseReminderUseCaseOutput {
-    func remindAboutPurchasing() {
-        showWindowCentered()
+extension NSUserDefaults: StringUserDefaults {
+    public subscript(key: String) -> String? {
+        get {
+            return stringForKey(key)
+        }
+        set {
+            setObject(newValue, forKey: key)
+        }
     }
 }
