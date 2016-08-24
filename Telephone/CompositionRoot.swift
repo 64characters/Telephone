@@ -25,6 +25,7 @@ final class CompositionRoot: NSObject {
     let preferencesController: PreferencesController
     let ringtonePlayback: RingtonePlaybackUseCase
     let storeWindowController: StoreWindowController
+    let purchaseReminder: PurchaseReminderUseCase
     private let defaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
@@ -76,6 +77,14 @@ final class CompositionRoot: NSObject {
         storeViewController.updateTarget(storeViewEventTarget)
 
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
+
+        purchaseReminder = PurchaseReminderUseCase(
+            accounts: UserDefaultsSavedAccounts(defaults: defaults),
+                defaults: SimplePurchaseReminderUserDefaults(defaults: defaults),
+                now: NSDate(),
+                version: NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String,
+                output: storeWindowController
+        )
 
         storeEventSource = StoreEventSource(
             queue: SKPaymentQueue.defaultQueue(),

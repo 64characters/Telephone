@@ -22,7 +22,7 @@ public protocol PurchaseReminderUseCaseOutput {
     func remindAboutPurchasing()
 }
 
-public final class PurchaseReminderUseCase {
+public final class PurchaseReminderUseCase: NSObject {
     private let accounts: SavedAccounts
     private let defaults: PurchaseReminderUserDefaults
     private let now: NSDate
