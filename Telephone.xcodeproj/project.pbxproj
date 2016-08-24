@@ -151,6 +151,8 @@
 		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
 		8AA7487F1D6DD775000587DC /* SimplePurchaseReminderUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA7487E1D6DD775000587DC /* SimplePurchaseReminderUserDefaults.swift */; };
+		8AA748811D6DECAB000587DC /* UserDefaultsSavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* UserDefaultsSavedAccounts.swift */; };
+		8AA748831D6DEE61000587DC /* SavedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SavedAccount.swift */; };
 		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
 		8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */; };
@@ -692,6 +694,8 @@
 		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AA7487E1D6DD775000587DC /* SimplePurchaseReminderUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePurchaseReminderUserDefaults.swift; sourceTree = "<group>"; };
+		8AA748801D6DECAB000587DC /* UserDefaultsSavedAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsSavedAccounts.swift; sourceTree = "<group>"; };
+		8AA748821D6DEE61000587DC /* SavedAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedAccount.swift; sourceTree = "<group>"; };
 		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSoundIO.swift; sourceTree = "<group>"; };
@@ -1147,8 +1151,10 @@
 				AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */,
 				AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */,
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
+				8AA748821D6DEE61000587DC /* SavedAccount.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
+				8AA748801D6DECAB000587DC /* UserDefaultsSavedAccounts.swift */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+StringUserDefaults.swift */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -2545,6 +2551,7 @@
 				AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */,
 				8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
 				8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */,
+				8AA748811D6DECAB000587DC /* UserDefaultsSavedAccounts.swift in Sources */,
 				8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */,
 				8ABB14191CEC83990056CEDC /* StoreViewStateMachine.swift in Sources */,
 				AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */,
@@ -2552,6 +2559,7 @@
 				AA32F7FB1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */,
 				8A88B4F11D4ABCCB0083958C /* InvalidReceipt.swift in Sources */,
+				8AA748831D6DEE61000587DC /* SavedAccount.swift in Sources */,
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
