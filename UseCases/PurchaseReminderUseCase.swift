@@ -51,20 +51,20 @@ extension PurchaseReminderUseCase: UseCase {
     }
 
     private func updateDefautls() {
-        defaults.lastPurchaseReminderDate = now
-        defaults.lastPurchaseReminderVersion = version
+        defaults.date = now
+        defaults.version = version
     }
 
     private func lastVersionDoesNotMatch() -> Bool {
-        return defaults.lastPurchaseReminderVersion != version
+        return defaults.version != version
     }
 
     private func isLastDateLaterThanNow() -> Bool {
-        return defaults.lastPurchaseReminderDate.compare(now) == .OrderedDescending
+        return defaults.date.compare(now) == .OrderedDescending
     }
 
     private func haveThirtyDaysPassedSinceLastDate() -> Bool {
-        guard let date = thirtyDaysAfter(defaults.lastPurchaseReminderDate) else { return false }
+        guard let date = thirtyDaysAfter(defaults.date) else { return false }
         return now.laterDate(date) == now
     }
 }

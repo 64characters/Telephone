@@ -29,7 +29,7 @@ final class SimplePurchaseReminderUserDefaults {
 }
 
 extension SimplePurchaseReminderUserDefaults: PurchaseReminderUserDefaults {
-    var lastPurchaseReminderDate: NSDate {
+    var date: NSDate {
         get {
             return defaults.objectForKey(dateKey) as! NSDate
         }
@@ -38,7 +38,7 @@ extension SimplePurchaseReminderUserDefaults: PurchaseReminderUserDefaults {
         }
     }
 
-    var lastPurchaseReminderVersion: String {
+    var version: String {
         get {
             return defaults.stringForKey(versionKey)!
         }

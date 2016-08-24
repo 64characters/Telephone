@@ -20,8 +20,8 @@ import Foundation
 import UseCases
 
 public final class UserDefaultsFake {
-    @objc public var lastPurchaseReminderDate: NSDate = NSDate.distantPast()
-    @objc public var lastPurchaseReminderVersion = ""
+    @objc public var date: NSDate = NSDate.distantPast()
+    @objc public var version = ""
 
     private var dictionary: [String: String] = [:]
 
