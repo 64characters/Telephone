@@ -48,5 +48,5 @@ extension SimplePurchaseReminderUserDefaults: PurchaseReminderUserDefaults {
     }
 }
 
-private let dateKey = "LastPurchaseReminderDate"
-private let versionKey = "LastPurchaseReminderVersion"
+private let dateKey = "PurchaseReminderDate"
+private let versionKey = "PurchaseReminderVersion"
