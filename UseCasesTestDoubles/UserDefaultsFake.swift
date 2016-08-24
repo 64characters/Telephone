@@ -28,7 +28,7 @@ public final class UserDefaultsFake {
     public init() {}
 }
 
-extension UserDefaultsFake: StringUserDefaults {
+extension UserDefaultsFake: KeyValueUserDefaults {
     @objc public subscript(key: String) -> String? {
         get {
             return dictionary[key]

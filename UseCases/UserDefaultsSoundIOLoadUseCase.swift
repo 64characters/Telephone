@@ -24,10 +24,10 @@ public protocol UserDefaultsSoundIOLoadUseCaseOutput: class {
 
 public final class UserDefaultsSoundIOLoadUseCase {
     private let repository: SystemAudioDeviceRepository
-    private let defaults: StringUserDefaults
+    private let defaults: KeyValueUserDefaults
     private let output: UserDefaultsSoundIOLoadUseCaseOutput
 
-    public init(repository: SystemAudioDeviceRepository, defaults: StringUserDefaults, output: UserDefaultsSoundIOLoadUseCaseOutput) {
+    public init(repository: SystemAudioDeviceRepository, defaults: KeyValueUserDefaults, output: UserDefaultsSoundIOLoadUseCaseOutput) {
         self.repository = repository
         self.defaults = defaults
         self.output = output

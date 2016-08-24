@@ -20,10 +20,10 @@ import Domain
 
 struct PreferredSoundIO {
     private let devices: SystemAudioDevices
-    private let defaults: StringUserDefaults
+    private let defaults: KeyValueUserDefaults
     private let soundIO: SoundIO
 
-    init(devices: SystemAudioDevices, defaults: StringUserDefaults) {
+    init(devices: SystemAudioDevices, defaults: KeyValueUserDefaults) {
         self.devices = devices
         self.defaults = defaults
         soundIO = FallingBackSoundIO(

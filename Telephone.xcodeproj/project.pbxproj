@@ -381,7 +381,7 @@
 		AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADAA2CC107E56FD00789F2D /* ActiveCallView.xib */; };
 		AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADAA2D0107E572300789F2D /* EndedCallView.xib */; };
 		AAE39A381BD92DF600EFB7BC /* String+Creating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE39A371BD92DF600EFB7BC /* String+Creating.swift */; };
-		AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+StringUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+StringUserDefaults.swift */; };
+		AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+KeyValueUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueUserDefaults.swift */; };
 		AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */; };
 		AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */; };
 		AAEF269D1BFF8835007B385B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF269C1BFF8835007B385B /* Error.swift */; };
@@ -1000,7 +1000,7 @@
 		AAE33B101BA7269600C6E48B /* AKSIPCallDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCallDelegate.h; sourceTree = "<group>"; };
 		AAE33B111BA72A1800C6E48B /* CallControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallControllerDelegate.h; sourceTree = "<group>"; };
 		AAE39A371BD92DF600EFB7BC /* String+Creating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Creating.swift"; sourceTree = "<group>"; };
-		AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+StringUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+StringUserDefaults.swift"; sourceTree = "<group>"; };
+		AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+KeyValueUserDefaults.swift"; sourceTree = "<group>"; };
 		AAECDE8D0E70703100CEAE7B /* AKNSString+Scanning.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Scanning.h"; sourceTree = "<group>"; tabWidth = 4; };
 		AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Scanning.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSWindow+Resizing.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -1156,7 +1156,7 @@
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
 				8AA748801D6DECAB000587DC /* UserDefaultsSavedAccounts.swift */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
-				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+StringUserDefaults.swift */,
+				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueUserDefaults.swift */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				AA4D490A1BB99DD6004D1D4B /* Frameworks */,
@@ -2541,7 +2541,7 @@
 				AA4C2E791BBFEEAB00C3D096 /* SystemAudioObject.swift in Sources */,
 				AA34AF4B1073B84700FA38F7 /* NetworkPreferencesViewController.m in Sources */,
 				8A0FD63C1C9B137900AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
-				AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+StringUserDefaults.swift in Sources */,
+				AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+KeyValueUserDefaults.swift in Sources */,
 				8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */,
 				8ADD6A4D1CDCF805001EDBBA /* DefaultStoreUseCaseFactory.swift in Sources */,
 				8A88B4F51D4ABE380083958C /* LoggingReceipt.swift in Sources */,

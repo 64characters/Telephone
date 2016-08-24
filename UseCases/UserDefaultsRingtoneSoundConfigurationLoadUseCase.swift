@@ -19,10 +19,10 @@
 import Domain
 
 public final class UserDefaultsRingtoneSoundConfigurationLoadUseCase {
-    private let defaults: StringUserDefaults
+    private let defaults: KeyValueUserDefaults
     private let repository: SystemAudioDeviceRepository
 
-    public init(defaults: StringUserDefaults, repository: SystemAudioDeviceRepository) {
+    public init(defaults: KeyValueUserDefaults, repository: SystemAudioDeviceRepository) {
         self.defaults = defaults
         self.repository = repository
     }
