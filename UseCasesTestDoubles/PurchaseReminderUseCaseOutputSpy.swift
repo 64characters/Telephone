@@ -1,5 +1,5 @@
 //
-//  UserDefaultsFake.swift
+//  PurchaseReminderUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,31 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
 import UseCases
 
-public final class UserDefaultsFake {
-    @objc public var lastPurchaseReminderDate: NSDate = NSDate.distantPast()
-    @objc public var lastPurchaseReminderVersion = ""
-
-    private var dictionary: [String: String] = [:]
+public final class PurchaseReminderUseCaseOutputSpy {
+    public private(set) var didCallRemind = false
 
     public init() {}
 }
 
-extension UserDefaultsFake: UserDefaults {
-    @objc public subscript(key: String) -> String? {
-        get {
-            return dictionary[key]
-        }
-        set {
-            dictionary[key] = newValue
-        }
-    }
-
-    @objc public func stringForKey(key: String) -> String? {
-        return dictionary[key]
+extension PurchaseReminderUseCaseOutputSpy: PurchaseReminderUseCaseOutput {
+    public func remindAboutPurchasing() {
+        didCallRemind = true
     }
 }
-
-extension UserDefaultsFake: PurchaseReminderUserDefaults {}
