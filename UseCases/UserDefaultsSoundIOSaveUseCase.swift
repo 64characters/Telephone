@@ -18,9 +18,9 @@
 
 public final class UserDefaultsSoundIOSaveUseCase {
     private let soundIO: PresentationSoundIO
-    private let userDefaults: UserDefaults
+    private let userDefaults: StringUserDefaults
 
-    public init(soundIO: PresentationSoundIO, userDefaults: UserDefaults) {
+    public init(soundIO: PresentationSoundIO, userDefaults: StringUserDefaults) {
         self.soundIO = soundIO
         self.userDefaults = userDefaults
     }

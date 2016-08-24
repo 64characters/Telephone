@@ -1,5 +1,5 @@
 //
-//  UserDefaults.swift
+//  StringUserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import Foundation
 
-@objc public protocol UserDefaults {
+@objc public protocol StringUserDefaults {
     subscript(key: String) -> String? { get set }
     func stringForKey(key: String) -> String?
 }

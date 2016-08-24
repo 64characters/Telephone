@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+UserDefaults.swift
+//  NSUserDefaults+StringUserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-extension NSUserDefaults: UserDefaults {
+extension NSUserDefaults: StringUserDefaults {
     public subscript(key: String) -> String? {
         get {
             return stringForKey(key)

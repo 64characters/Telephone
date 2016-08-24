@@ -20,9 +20,9 @@ import UseCases
 
 final class DefaultUseCaseFactory {
     private let repository: SystemAudioDeviceRepository
-    private let userDefaults: UserDefaults
+    private let userDefaults: StringUserDefaults
 
-    init(repository: SystemAudioDeviceRepository, userDefaults: UserDefaults) {
+    init(repository: SystemAudioDeviceRepository, userDefaults: StringUserDefaults) {
         self.repository = repository
         self.userDefaults = userDefaults
     }

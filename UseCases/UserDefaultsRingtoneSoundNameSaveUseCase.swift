@@ -18,9 +18,9 @@
 
 public final class UserDefaultsRingtoneSoundNameSaveUseCase {
     private let name: String
-    private let userDefaults: UserDefaults
+    private let userDefaults: StringUserDefaults
 
-    public init(name: String, userDefaults: UserDefaults) {
+    public init(name: String, userDefaults: StringUserDefaults) {
         self.name = name
         self.userDefaults = userDefaults
     }

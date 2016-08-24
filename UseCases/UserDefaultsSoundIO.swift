@@ -20,12 +20,12 @@ import Domain
 
 struct UserDefaultsSoundIO {
     private let devices: SystemAudioDevices
-    private let userDefaults: UserDefaults
+    private let userDefaults: StringUserDefaults
     private var optionalInput: SystemAudioDevice!
     private var optionalOutput: SystemAudioDevice!
     private var optionalRingtoneOutput: SystemAudioDevice!
 
-    init(devices: SystemAudioDevices, userDefaults: UserDefaults) {
+    init(devices: SystemAudioDevices, userDefaults: StringUserDefaults) {
         self.devices = devices
         self.userDefaults = userDefaults
         optionalInput = inputDeviceByNameWithUserDefaultsKey(kSoundInput)

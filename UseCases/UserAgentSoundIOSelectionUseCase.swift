@@ -21,12 +21,12 @@ import Domain
 public final class UserAgentSoundIOSelectionUseCase {
     private let repository: SystemAudioDeviceRepository
     private let userAgent: UserAgent
-    private let userDefaults: UserDefaults
+    private let userDefaults: StringUserDefaults
     private var devices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
     private var soundIO: SoundIO!
 
-    public init(repository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: UserDefaults) {
+    public init(repository: SystemAudioDeviceRepository, userAgent: UserAgent, userDefaults: StringUserDefaults) {
         self.repository = repository
         self.userAgent = userAgent
         self.userDefaults = userDefaults
