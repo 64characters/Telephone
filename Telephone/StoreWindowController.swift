@@ -17,6 +17,7 @@
 //
 
 import Cocoa
+import UseCases
 
 final class StoreWindowController: NSWindowController {
     convenience init(contentViewController controller: NSViewController) {
@@ -27,5 +28,11 @@ final class StoreWindowController: NSWindowController {
     func showWindowCentered() {
         window?.center()
         showWindow(self)
+    }
+}
+
+extension StoreWindowController: PurchaseReminderUseCaseOutput {
+    func remindAboutPurchasing() {
+        showWindowCentered()
     }
 }
