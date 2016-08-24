@@ -22,22 +22,22 @@ import XCTest
 
 final class UserDefaultsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
     func testUpdatesUserDefaults() {
-        let userDefaults = UserDefaultsFake()
-        let sut = UserDefaultsRingtoneSoundNameSaveUseCase(name: "sound-name", userDefaults: userDefaults)
+        let defaults = UserDefaultsFake()
+        let sut = UserDefaultsRingtoneSoundNameSaveUseCase(name: "sound-name", defaults: defaults)
 
         sut.execute()
 
-        XCTAssertEqual(userDefaults[kRingingSound], "sound-name")
+        XCTAssertEqual(defaults[kRingingSound], "sound-name")
     }
 
     func testDoesNotUpdateUserDefaultsWithEmptyName() {
-        let userDefaults = UserDefaultsFake()
+        let defaults = UserDefaultsFake()
         let anyValue = "any-value"
-        userDefaults[kRingingSound] = anyValue
-        let sut = UserDefaultsRingtoneSoundNameSaveUseCase(name: "", userDefaults: userDefaults)
+        defaults[kRingingSound] = anyValue
+        let sut = UserDefaultsRingtoneSoundNameSaveUseCase(name: "", defaults: defaults)
 
         sut.execute()
 
-        XCTAssertEqual(userDefaults[kRingingSound], anyValue)
+        XCTAssertEqual(defaults[kRingingSound], anyValue)
     }
 }

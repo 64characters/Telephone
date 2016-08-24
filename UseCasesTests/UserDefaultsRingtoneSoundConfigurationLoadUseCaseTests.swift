@@ -23,25 +23,25 @@ import XCTest
 
 final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
-    private var userDefaults: UserDefaultsFake!
+    private var defaults: UserDefaultsFake!
     private var repository: SystemAudioDeviceRepositoryStub!
     private var sut: SoundConfigurationLoadUseCase!
 
     override func setUp() {
         super.setUp()
         factory = SystemAudioDeviceTestFactory()
-        userDefaults = UserDefaultsFake()
+        defaults = UserDefaultsFake()
         repository = SystemAudioDeviceRepositoryStub()
         sut = UserDefaultsRingtoneSoundConfigurationLoadUseCase(
-            userDefaults: userDefaults,
+            defaults: defaults,
             repository: repository
         )
     }
 
     func testReturnsRingtoneSoundConfigurationFromUserDefaults() {
         let outputDevice = factory.someOutput
-        userDefaults[kRingtoneOutput] = outputDevice.name
-        userDefaults[kRingingSound] = "sound-name"
+        defaults[kRingtoneOutput] = outputDevice.name
+        defaults[kRingingSound] = "sound-name"
         repository.allDevicesResult = factory.all
 
         let result = try! sut.execute()

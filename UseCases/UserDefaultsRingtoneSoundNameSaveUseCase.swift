@@ -18,18 +18,18 @@
 
 public final class UserDefaultsRingtoneSoundNameSaveUseCase {
     private let name: String
-    private let userDefaults: StringUserDefaults
+    private let defaults: StringUserDefaults
 
-    public init(name: String, userDefaults: StringUserDefaults) {
+    public init(name: String, defaults: StringUserDefaults) {
         self.name = name
-        self.userDefaults = userDefaults
+        self.defaults = defaults
     }
 }
 
 extension UserDefaultsRingtoneSoundNameSaveUseCase: UseCase {
     public func execute() {
         if !name.isEmpty {
-            userDefaults[kRingingSound] = name
+            defaults[kRingingSound] = name
         }
     }
 }

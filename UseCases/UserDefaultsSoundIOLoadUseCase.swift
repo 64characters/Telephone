@@ -24,12 +24,12 @@ public protocol UserDefaultsSoundIOLoadUseCaseOutput: class {
 
 public final class UserDefaultsSoundIOLoadUseCase {
     private let repository: SystemAudioDeviceRepository
-    private let userDefaults: StringUserDefaults
+    private let defaults: StringUserDefaults
     private let output: UserDefaultsSoundIOLoadUseCaseOutput
 
-    public init(repository: SystemAudioDeviceRepository, userDefaults: StringUserDefaults, output: UserDefaultsSoundIOLoadUseCaseOutput) {
+    public init(repository: SystemAudioDeviceRepository, defaults: StringUserDefaults, output: UserDefaultsSoundIOLoadUseCaseOutput) {
         self.repository = repository
-        self.userDefaults = userDefaults
+        self.defaults = defaults
         self.output = output
     }
 }
@@ -39,9 +39,7 @@ extension UserDefaultsSoundIOLoadUseCase: ThrowingUseCase {
         let devices = SystemAudioDevices(devices: try repository.allDevices())
         output.update(
             devices: AudioDevices(devices: devices),
-            soundIO: PresentationSoundIO(
-                soundIO: PreferredSoundIO(devices: devices, userDefaults: userDefaults)
-            )
+            soundIO: PresentationSoundIO(soundIO: PreferredSoundIO(devices: devices, defaults: defaults))
         )
     }
 }

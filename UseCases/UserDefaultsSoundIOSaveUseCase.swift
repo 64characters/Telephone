@@ -18,11 +18,11 @@
 
 public final class UserDefaultsSoundIOSaveUseCase {
     private let soundIO: PresentationSoundIO
-    private let userDefaults: StringUserDefaults
+    private let defaults: StringUserDefaults
 
-    public init(soundIO: PresentationSoundIO, userDefaults: StringUserDefaults) {
+    public init(soundIO: PresentationSoundIO, defaults: StringUserDefaults) {
         self.soundIO = soundIO
-        self.userDefaults = userDefaults
+        self.defaults = defaults
     }
 }
 
@@ -35,19 +35,19 @@ extension UserDefaultsSoundIOSaveUseCase: UseCase {
 
     private func saveInputIfNeeded() {
         if !soundIO.input.isEmpty {
-            userDefaults[kSoundInput] = soundIO.input
+            defaults[kSoundInput] = soundIO.input
         }
     }
 
     private func saveOutputIfNeeded() {
         if !soundIO.output.isEmpty {
-            userDefaults[kSoundOutput] = soundIO.output
+            defaults[kSoundOutput] = soundIO.output
         }
     }
 
     private func saveRingtoneOutputIfNeeded() {
         if !soundIO.ringtoneOutput.isEmpty {
-            userDefaults[kRingtoneOutput] = soundIO.ringtoneOutput
+            defaults[kRingtoneOutput] = soundIO.ringtoneOutput
         }
     }
 }

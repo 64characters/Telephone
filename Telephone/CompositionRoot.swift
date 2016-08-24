@@ -25,7 +25,7 @@ final class CompositionRoot: NSObject {
     let preferencesController: PreferencesController
     let ringtonePlayback: RingtonePlaybackUseCase
     let storeWindowController: StoreWindowController
-    private let userDefaults: NSUserDefaults
+    private let defaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
     private let storeEventSource: StoreEventSource
@@ -34,17 +34,14 @@ final class CompositionRoot: NSObject {
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.sharedUserAgent()
-        userDefaults = NSUserDefaults.standardUserDefaults()
+        defaults = NSUserDefaults.standardUserDefaults()
         queue = createQueue()
 
         let audioDevices = SystemAudioDevices()
-        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, userDefaults: userDefaults)
+        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, defaults: defaults)
 
         let userDefaultsSoundFactory = UserDefaultsSoundFactory(
-            load: UserDefaultsRingtoneSoundConfigurationLoadUseCase(
-                userDefaults: userDefaults,
-                repository: audioDevices
-            ),
+            load: UserDefaultsRingtoneSoundConfigurationLoadUseCase(defaults: defaults, repository: audioDevices),
             factory: NSSoundToSoundAdapterFactory()
         )
 
@@ -86,11 +83,7 @@ final class CompositionRoot: NSObject {
         )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCase(
-                repository: audioDevices,
-                userAgent: userAgent,
-                userDefaults: userDefaults
-            ),
+            useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, defaults: defaults),
             userAgent: userAgent
         )
 
