@@ -80,10 +80,11 @@ final class CompositionRoot: NSObject {
 
         purchaseReminder = PurchaseReminderUseCase(
             accounts: UserDefaultsSavedAccounts(defaults: defaults),
-                defaults: SimplePurchaseReminderUserDefaults(defaults: defaults),
-                now: NSDate(),
-                version: NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String,
-                output: storeWindowController
+            receipt: receipt,
+            defaults: SimplePurchaseReminderUserDefaults(defaults: defaults),
+            now: NSDate(),
+            version: NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String,
+            output: storeWindowController
         )
 
         storeEventSource = StoreEventSource(

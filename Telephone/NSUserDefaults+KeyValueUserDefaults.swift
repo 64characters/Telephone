@@ -27,4 +27,8 @@ extension NSUserDefaults: KeyValueUserDefaults {
             setObject(newValue, forKey: key)
         }
     }
+
+    public func setArray(array: [AnyObject], forKey key: String) {
+        setObject(array, forKey: key)
+    }
 }
