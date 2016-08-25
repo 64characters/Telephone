@@ -23,7 +23,7 @@ public final class UserDefaultsFake {
     public var date: NSDate = NSDate.distantPast()
     public var version = ""
 
-    private var dictionary: [String: String] = [:]
+    private var dictionary: [String: AnyObject] = [:]
 
     public init() {}
 }
@@ -31,7 +31,7 @@ public final class UserDefaultsFake {
 extension UserDefaultsFake: KeyValueUserDefaults {
     @objc public subscript(key: String) -> String? {
         get {
-            return dictionary[key]
+            return stringForKey(key)
         }
         set {
             dictionary[key] = newValue
@@ -39,7 +39,15 @@ extension UserDefaultsFake: KeyValueUserDefaults {
     }
 
     @objc public func stringForKey(key: String) -> String? {
-        return dictionary[key]
+        return dictionary[key] as? String
+    }
+
+    @objc public func setArray(array: [AnyObject], forKey key: String) {
+        dictionary[key] = array
+    }
+
+    @objc public func arrayForKey(key: String) -> [AnyObject]? {
+        return dictionary[key] as? [AnyObject]
     }
 }
 

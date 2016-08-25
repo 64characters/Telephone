@@ -21,4 +21,7 @@ import Foundation
 @objc public protocol KeyValueUserDefaults {
     subscript(key: String) -> String? { get set }
     func stringForKey(key: String) -> String?
+
+    func setArray(array: [AnyObject], forKey key: String)
+    func arrayForKey(defaultName: String) -> [AnyObject]?
 }

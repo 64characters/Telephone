@@ -19,9 +19,9 @@
 import UseCases
 
 final class UserDefaultsSavedAccounts {
-    private let defaults: NSUserDefaults
+    private let defaults: KeyValueUserDefaults
 
-    init(defaults: NSUserDefaults) {
+    init(defaults: KeyValueUserDefaults) {
         self.defaults = defaults
     }
 }
