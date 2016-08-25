@@ -24,13 +24,15 @@ public protocol PurchaseReminderUseCaseOutput {
 
 public final class PurchaseReminderUseCase: NSObject {
     private let accounts: SavedAccounts
+    private let receipt: Receipt
     private let defaults: PurchaseReminderUserDefaults
     private let now: NSDate
     private let version: String
     private let output: PurchaseReminderUseCaseOutput
 
-    public init(accounts: SavedAccounts, defaults: PurchaseReminderUserDefaults, now: NSDate, version: String, output: PurchaseReminderUseCaseOutput) {
+    public init(accounts: SavedAccounts, receipt: Receipt, defaults: PurchaseReminderUserDefaults, now: NSDate, version: String, output: PurchaseReminderUseCaseOutput) {
         self.accounts = accounts
+        self.receipt = receipt
         self.defaults = defaults
         self.now = now
         self.version = version
@@ -41,13 +43,22 @@ public final class PurchaseReminderUseCase: NSObject {
 extension PurchaseReminderUseCase: UseCase {
     public func execute() {
         if accounts.haveEnabled && shouldRemind() {
-            output.remindAboutPurchasing()
-            updateDefautls()
+            receipt.validate(completion: remindIfNotPurchased)
+            self.updateDefautls()
         }
     }
 
     private func shouldRemind() -> Bool {
         return lastVersionDoesNotMatch() || isLastDateLaterThanNow() || haveThirtyDaysPassedSinceLastDate()
+    }
+
+    private func remindIfNotPurchased(result: ReceiptValidationResult) {
+        switch result {
+        case .ReceiptIsValid:
+            break
+        case .ReceiptIsInvalid, .NoActivePurchases:
+            self.output.remindAboutPurchasing()
+        }
     }
 
     private func updateDefautls() {
