@@ -149,10 +149,10 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 }
 
 - (IBAction)changeView:(id)sender {
-    if ([self shouldCheckNetworkSettingsChanges:sender]) {
-        if ([self.networkPreferencesViewController areNetworkSettingsChanged:sender]) {
-            return;
-        }
+    if ([self isNetworkPreferencesViewCurrent] &&
+        [sender tag] != kNetworkPreferencesTag &&
+        [self.networkPreferencesViewController areNetworkSettingsChanged:sender]) {
+        return;
     }
     
     NSView *view;
@@ -194,10 +194,9 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
     }
 }
 
-- (BOOL)shouldCheckNetworkSettingsChanges:(id)sender {
+- (BOOL)isNetworkPreferencesViewCurrent {
     return self.networkPreferencesViewController.isViewLoaded &&
-    [self.window.contentView isEqual:self.networkPreferencesViewController.view] &&
-    [sender tag] != kNetworkPreferencesTag;
+    [self.window.contentView isEqual:self.networkPreferencesViewController.view];
 }
 
 
@@ -225,13 +224,10 @@ NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
 #pragma mark NSWindow delegate
 
 - (BOOL)windowShouldClose:(id)window {
-    if (_networkPreferencesViewController != nil) {
-        BOOL networkSettingsChanged = [[self networkPreferencesViewController] areNetworkSettingsChanged:window];
-        if (networkSettingsChanged) {
-            return NO;
-        }
+    if ([self isNetworkPreferencesViewCurrent] &&
+        [[self networkPreferencesViewController] areNetworkSettingsChanged:window]) {
+        return NO;
     }
-    
     return YES;
 }
 
