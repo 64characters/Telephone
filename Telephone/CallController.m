@@ -35,6 +35,7 @@
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
+#import "MusicPlayer.h"
 #import "UserDefaultsKeys.h"
 
 
@@ -45,6 +46,10 @@ static const NSTimeInterval kCallWindowAutoCloseTime = 1.5;
 static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @interface CallController ()
+
+@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
+@property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
+@property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 
 // Account description field.
 @property(nonatomic, weak) IBOutlet NSTextField *accountDescriptionField;
@@ -111,6 +116,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                     accountController:(AccountController *)accountController
                             userAgent:(AKSIPUserAgent *)userAgent
                      ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
+                          musicPlayer:(id<MusicPlayer>)musicPlayer
                              delegate:(id<CallControllerDelegate>)delegate {
 
     if ((self = [self initWithWindowNibName:windowNibName])) {
@@ -118,10 +124,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         _accountController = accountController;
         _userAgent = userAgent;
         _ringtonePlayback = ringtonePlayback;
+        _musicPlayer = musicPlayer;
         _delegate = delegate;
-        _callOnHold = NO;
-        _callActive = NO;
-        _callUnhandled = NO;
     }
     return self;
 }
@@ -225,7 +229,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[[self incomingCallViewController] acceptCallButton] setEnabled:NO];
     [[[self incomingCallViewController] declineCallButton] setEnabled:NO];
     
-    [[NSApp delegate] resumeITunesIfNeeded];
+    [self.musicPlayer resume];
     [[NSApp delegate] updateDockTileBadgeLabel];
     
     // Optionally close call window.
@@ -417,7 +421,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         
         [[self call] hangUp];
         
-        [[NSApp delegate] resumeITunesIfNeeded];
+        [self.musicPlayer resume];
     }
     
     [self setCallUnhandled:NO];
@@ -452,7 +456,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)SIPCallEarly:(NSNotification *)notification {
-    [[NSApp delegate] pauseITunes];
+    [self.musicPlayer pause];
     
     NSNumber *sipEventCode = [notification userInfo][@"AKSIPEventCode"];
     
@@ -478,7 +482,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (void)SIPCallDidConfirm:(NSNotification *)notification {
     [self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
-    [[NSApp delegate] pauseITunes];
+    [self.musicPlayer pause];
     
     if ([[notification object] isIncoming]) {
         [self.ringtonePlayback stop];
@@ -566,7 +570,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                    userInfo:nil
                                     repeats:NO];
     
-    [[NSApp delegate] resumeITunesIfNeeded];
+    [self.musicPlayer resume];
     
     // Show user notification.
     

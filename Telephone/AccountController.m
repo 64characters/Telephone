@@ -40,6 +40,7 @@
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
+#import "MusicPlayer.h"
 #import "UserDefaultsKeys.h"
 
 
@@ -217,7 +218,9 @@ NSString * const kEmailSIPLabel = @"sip";
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
                          userAgent:(AKSIPUserAgent *)userAgent
-                  ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback {
+                  ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
+                       musicPlayer:(id<MusicPlayer>)musicPlayer {
+
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
         return nil;
@@ -226,6 +229,7 @@ NSString * const kEmailSIPLabel = @"sip";
     _account = account;
     _userAgent = userAgent;
     _ringtonePlayback = ringtonePlayback;
+    _musicPlayer = musicPlayer;
     
     _callControllers = [[NSMutableArray alloc] init];
     _destinationToCall = @"";
@@ -326,6 +330,7 @@ NSString * const kEmailSIPLabel = @"sip";
                                                       accountController:self
                                                               userAgent:self.userAgent
                                                        ringtonePlayback:self.ringtonePlayback
+                                                            musicPlayer:self.musicPlayer
                                                                delegate:self];
     } else {
         aCallController = callTransferController;
@@ -741,12 +746,13 @@ NSString * const kEmailSIPLabel = @"sip";
         }
     }
     
-    [[NSApp delegate] pauseITunes];
+    [self.musicPlayer pause];
     
     CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                                   accountController:self
                                                                           userAgent:self.userAgent
                                                                    ringtonePlayback:self.ringtonePlayback
+                                                                        musicPlayer:self.musicPlayer
                                                                            delegate:self];
     
     [aCallController setCall:aCall];

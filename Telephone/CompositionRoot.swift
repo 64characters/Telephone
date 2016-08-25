@@ -26,6 +26,7 @@ final class CompositionRoot: NSObject {
     let ringtonePlayback: RingtonePlaybackUseCase
     let storeWindowController: StoreWindowController
     let purchaseReminder: PurchaseReminderUseCase
+    let musicPlayer: MusicPlayer
     private let defaults: NSUserDefaults
     private let queue: dispatch_queue_t
 
@@ -108,6 +109,8 @@ final class CompositionRoot: NSObject {
                 ringtoneSoundPlayback: DefaultSoundPlaybackUseCase(factory: userDefaultsSoundFactory)
             )
         )
+
+        musicPlayer = AppleMusicPlayer()!
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,

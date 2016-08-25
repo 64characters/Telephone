@@ -5,8 +5,10 @@
 #import <pjsua-lib/pjsua.h>
 
 #import "AppController.h"
+#import "AppleMusicPlayer.h"
 #import "AKSIPCallNotifications.h"
 #import "AKSIPUserAgent.h"
+#import "MusicPlayer.h"
 #import "PreferencesController.h"
 #import "SoundIOPreferences.h"
 #import "SoundIOPresenterOutput.h"
