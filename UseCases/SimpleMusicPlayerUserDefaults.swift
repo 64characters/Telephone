@@ -1,5 +1,5 @@
 //
-//  KeyValueUserDefaults.swift
+//  SimpleMusicPlayerUserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+public final class SimpleMusicPlayerUserDefaults {
+    private let defaults: KeyValueUserDefaults
 
-@objc public protocol KeyValueUserDefaults {
-    subscript(key: String) -> String? { get set }
-    func stringForKey(key: String) -> String?
-
-    func setBool(value: Bool, forKey key: String)
-    func boolForKey(key: String) -> Bool
-
-    func setArray(array: [AnyObject], forKey key: String)
-    func arrayForKey(key: String) -> [AnyObject]?
-
-    func registerDefaults(defaults: [String: AnyObject])
+    public init(defaults: KeyValueUserDefaults) {
+        self.defaults = defaults
+        defaults.registerDefaults([key: true])
+    }
 }
+
+extension SimpleMusicPlayerUserDefaults: MusicPlayerUserDefaults {
+    public var shouldPause: Bool {
+        get {
+            return defaults.boolForKey(key)
+        }
+        set {
+            defaults.setBool(newValue, forKey: key)
+        }
+    }
+}
+
+private let key = "PauseITunes"

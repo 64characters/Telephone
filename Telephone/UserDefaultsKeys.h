@@ -37,7 +37,6 @@ extern NSString * const kOutboundProxyPort;
 extern NSString * const kUseICE;
 extern NSString * const kUseDNSSRV;
 extern NSString * const kSignificantPhoneNumberLength;
-extern NSString * const kPauseITunes;
 extern NSString * const kAutoCloseCallWindow;
 extern NSString * const kAutoCloseMissedCallWindow;
 extern NSString * const kCallWaiting;

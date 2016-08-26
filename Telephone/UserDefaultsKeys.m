@@ -36,7 +36,6 @@ NSString * const kOutboundProxyPort = @"OutboundProxyPort";
 NSString * const kUseICE = @"UseICE";
 NSString * const kUseDNSSRV = @"UseDNSSRV";
 NSString * const kSignificantPhoneNumberLength = @"SignificantPhoneNumberLength";
-NSString * const kPauseITunes = @"PauseITunes";
 NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
 NSString * const kAutoCloseMissedCallWindow = @"AutoCloseMissedCallWindow";
 NSString * const kCallWaiting = @"CallWaiting";
