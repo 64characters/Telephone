@@ -1,5 +1,5 @@
 //
-//  MusicPlayer.h
+//  MusicPlayerSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,21 @@
 //  GNU General Public License for more details.
 //
 
-@protocol MusicPlayer
+import UseCases
 
-- (void)pause;
-- (void)resume;
+public final class MusicPlayerSpy {
+    public private(set) var didCallPause = false
+    public private(set) var didCallResume = false
 
-@end
+    public init() {}
+}
+
+extension MusicPlayerSpy: MusicPlayer {
+    @objc public func pause() {
+        didCallPause = true
+    }
+
+    @objc public func resume() {
+        didCallResume = true
+    }
+}

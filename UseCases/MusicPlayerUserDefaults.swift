@@ -1,5 +1,5 @@
 //
-//  MusicPlayer.h
+//  MusicPlayerUserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-@protocol MusicPlayer
-
-- (void)pause;
-- (void)resume;
-
-@end
+public protocol MusicPlayerUserDefaults {
+    var shouldPause: Bool { get set }
+}
