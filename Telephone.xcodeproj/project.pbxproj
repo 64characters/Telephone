@@ -166,6 +166,9 @@
 		8AA748AD1D702459000587DC /* MusicPlayerUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748AC1D702459000587DC /* MusicPlayerUserDefaults.swift */; };
 		8AA748B51D70460B000587DC /* SimpleMusicPlayerUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748B01D703ED3000587DC /* SimpleMusicPlayerUserDefaults.swift */; };
 		8AA748B61D704657000587DC /* SimpleMusicPlayerUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748B21D703F45000587DC /* SimpleMusicPlayerUserDefaultsTests.swift */; };
+		8AA748BC1D704962000587DC /* MusicPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BB1D704962000587DC /* MusicPlayers.swift */; };
+		8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BD1D704A40000587DC /* MusicPlayersTests.swift */; };
+		8AA748BF1D704A44000587DC /* MusicPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BB1D704962000587DC /* MusicPlayers.swift */; };
 		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
 		8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */; };
@@ -722,6 +725,8 @@
 		8AA748AC1D702459000587DC /* MusicPlayerUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerUserDefaults.swift; sourceTree = "<group>"; };
 		8AA748B01D703ED3000587DC /* SimpleMusicPlayerUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleMusicPlayerUserDefaults.swift; sourceTree = "<group>"; };
 		8AA748B21D703F45000587DC /* SimpleMusicPlayerUserDefaultsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleMusicPlayerUserDefaultsTests.swift; path = UseCasesTests/SimpleMusicPlayerUserDefaultsTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA748BB1D704962000587DC /* MusicPlayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayers.swift; sourceTree = "<group>"; };
+		8AA748BD1D704A40000587DC /* MusicPlayersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicPlayersTests.swift; path = TelephoneTests/MusicPlayersTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSoundIO.swift; sourceTree = "<group>"; };
@@ -1565,6 +1570,8 @@
 			children = (
 				8AA748911D6F414E000587DC /* AppleMusicPlayer.h */,
 				8AA748921D6F414E000587DC /* AppleMusicPlayer.m */,
+				8AA748BB1D704962000587DC /* MusicPlayers.swift */,
+				8AA748BD1D704A40000587DC /* MusicPlayersTests.swift */,
 				8AA748941D6F6D7C000587DC /* SpotifyMusicPlayer.h */,
 				8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */,
 			);
@@ -2623,6 +2630,7 @@
 				8A9175AB1CA5A92500354E26 /* PJSUAOnNATDetect.m in Sources */,
 				AAFCFFBD1074BFCA0018C7DA /* AccountSetupController.m in Sources */,
 				AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */,
+				8AA748BC1D704962000587DC /* MusicPlayers.swift in Sources */,
 				8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
 				8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */,
 				8AA748811D6DECAB000587DC /* UserDefaultsSavedAccounts.swift in Sources */,
@@ -2775,6 +2783,7 @@
 				8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
 				8ABB141C1CEC86B10056CEDC /* StoreViewStateMachine.swift in Sources */,
 				AA1019881C490BF100869D01 /* RepeatingSoundFactory.swift in Sources */,
+				8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */,
 				8ADD6A6B1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewEventTarget.swift in Sources */,
@@ -2799,6 +2808,7 @@
 				AA6989A41C19AF1C0067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
 				AACC02A11C15E17E00913D7B /* SoundPreferencesViewSpy.swift in Sources */,
 				8A5EADB11D35508D00C53415 /* StoreViewPresenter.swift in Sources */,
+				8AA748BF1D704A44000587DC /* MusicPlayers.swift in Sources */,
 				AACC029C1C15DC7600913D7B /* SoundIOPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
