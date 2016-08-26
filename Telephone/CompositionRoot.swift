@@ -110,7 +110,10 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        musicPlayer = AppleMusicPlayer()!
+        musicPlayer = ConditionalMusicPlayer(
+            origin: AvailableMusicPlayers(),
+            defaults: SimpleMusicPlayerUserDefaults(defaults: defaults)
+        )
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,

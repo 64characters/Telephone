@@ -169,6 +169,7 @@
 		8AA748BC1D704962000587DC /* MusicPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BB1D704962000587DC /* MusicPlayers.swift */; };
 		8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BD1D704A40000587DC /* MusicPlayersTests.swift */; };
 		8AA748BF1D704A44000587DC /* MusicPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BB1D704962000587DC /* MusicPlayers.swift */; };
+		8AA748C11D704B9F000587DC /* AvailableMusicPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748C01D704B9F000587DC /* AvailableMusicPlayers.swift */; };
 		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
 		8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */; };
@@ -727,6 +728,7 @@
 		8AA748B21D703F45000587DC /* SimpleMusicPlayerUserDefaultsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleMusicPlayerUserDefaultsTests.swift; path = UseCasesTests/SimpleMusicPlayerUserDefaultsTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA748BB1D704962000587DC /* MusicPlayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayers.swift; sourceTree = "<group>"; };
 		8AA748BD1D704A40000587DC /* MusicPlayersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicPlayersTests.swift; path = TelephoneTests/MusicPlayersTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA748C01D704B9F000587DC /* AvailableMusicPlayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableMusicPlayers.swift; sourceTree = "<group>"; };
 		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSoundIO.swift; sourceTree = "<group>"; };
@@ -1570,6 +1572,7 @@
 			children = (
 				8AA748911D6F414E000587DC /* AppleMusicPlayer.h */,
 				8AA748921D6F414E000587DC /* AppleMusicPlayer.m */,
+				8AA748C01D704B9F000587DC /* AvailableMusicPlayers.swift */,
 				8AA748BB1D704962000587DC /* MusicPlayers.swift */,
 				8AA748BD1D704A40000587DC /* MusicPlayersTests.swift */,
 				8AA748941D6F6D7C000587DC /* SpotifyMusicPlayer.h */,
@@ -2569,6 +2572,7 @@
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
 				8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
+				8AA748C11D704B9F000587DC /* AvailableMusicPlayers.swift in Sources */,
 				AACC029E1C15DCB100913D7B /* SoundIOPresenter.swift in Sources */,
 				AA6989A31C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
 				AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */,
