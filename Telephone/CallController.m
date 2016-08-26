@@ -18,6 +18,8 @@
 
 #import "CallController.h"
 
+@import UseCases;
+
 #import "AKActiveCallView.h"
 #import "AKResponsiveProgressIndicator.h"
 #import "AKNSString+Creating.h"
@@ -35,7 +37,6 @@
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
-#import "MusicPlayer.h"
 #import "UserDefaultsKeys.h"
 
 

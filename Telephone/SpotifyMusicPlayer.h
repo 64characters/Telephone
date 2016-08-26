@@ -17,8 +17,7 @@
 //
 
 @import Foundation;
-
-#import "MusicPlayer.h"
+@import UseCases;
 
 @interface SpotifyMusicPlayer : NSObject <MusicPlayer>
 

@@ -18,7 +18,8 @@
 
 #import "AccountController.h"
 
-#import <AddressBook/AddressBook.h>
+@import AddressBook;
+@import UseCases;
 
 #import "AKABAddressBook+Localizing.h"
 #import "AKABRecord+Querying.h"
@@ -40,7 +41,6 @@
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
-#import "MusicPlayer.h"
 #import "UserDefaultsKeys.h"
 
 

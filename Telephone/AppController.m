@@ -18,7 +18,8 @@
 
 #import "AppController.h"
 
-#import <SystemConfiguration/SystemConfiguration.h>
+@import SystemConfiguration;
+@import UseCases;
 
 #import "AKAddressBookPhonePlugIn.h"
 #import "AKAddressBookSIPAddressPlugIn.h"
@@ -33,7 +34,6 @@
 #import "ActiveAccountViewController.h"
 #import "AuthenticationFailureController.h"
 #import "CallController.h"
-#import "MusicPlayer.h"
 #import "PreferencesController.h"
 #import "UserDefaultsKeys.h"
 

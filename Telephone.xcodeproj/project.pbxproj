@@ -158,6 +158,7 @@
 		8AA748871D6F10C6000587DC /* SavedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SavedAccount.swift */; };
 		8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748921D6F414E000587DC /* AppleMusicPlayer.m */; };
 		8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */; };
+		8AA748A21D702063000587DC /* MusicPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AA748901D6F40FD000587DC /* MusicPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
 		8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */; };
@@ -1550,11 +1551,18 @@
 			children = (
 				8AA748911D6F414E000587DC /* AppleMusicPlayer.h */,
 				8AA748921D6F414E000587DC /* AppleMusicPlayer.m */,
-				8AA748901D6F40FD000587DC /* MusicPlayer.h */,
 				8AA748941D6F6D7C000587DC /* SpotifyMusicPlayer.h */,
 				8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */,
 			);
 			name = MusicPlayer;
+			sourceTree = "<group>";
+		};
+		8AA7489F1D701DEC000587DC /* Music Player */ = {
+			isa = PBXGroup;
+			children = (
+				8AA748901D6F40FD000587DC /* MusicPlayer.h */,
+			);
+			name = "Music Player";
 			sourceTree = "<group>";
 		};
 		8AD6597D1D37C95E008A1007 /* StoreViewEventTarget */ = {
@@ -1610,6 +1618,7 @@
 			children = (
 				AA39055F1C007799005A8AA3 /* Audio Devices */,
 				AA92F89B1C2AF90000C378B6 /* Ringtone */,
+				8AA7489F1D701DEC000587DC /* Music Player */,
 				8A11A0C51CCF9D31007BFC7F /* Store */,
 				AA3B6E851C47ACFA0030D410 /* Timer */,
 				AA3905601C0077B7005A8AA3 /* User Agent */,
@@ -2018,6 +2027,7 @@
 			files = (
 				AA078B2C1BFF80E30013FF8F /* UseCases.h in Headers */,
 				AA7F6D3D1C034B700064DA3A /* UserDefaultsKeys.h in Headers */,
+				8AA748A21D702063000587DC /* MusicPlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
