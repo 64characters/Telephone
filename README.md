@@ -6,6 +6,22 @@ internet connection.
 
 ## Building
 
+### Opus
+
+Opus codec is optional.
+
+Download:
+
+    $ ftp http://downloads.xiph.org/releases/opus/opus-1.1.3.tar.gz
+    $ tar xzvf opus-1.1.3.tar.gz
+    $ cd opus-1.1.3
+
+Build and install:
+
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/Opus --disable-shared CFLAGS='-O2 -mmacosx-version-min=10.10'
+    $ make
+    $ make install
+
 ### PJSIP
 
 Download:
@@ -24,9 +40,9 @@ Create `pjlib/include/pj/config_site.h`:
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
 
-Build and install:
+Build and install (remove `--with-opus` option if you don’t need Opus):
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --host=x86_64-apple-darwin CFLAGS='-mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --host=x86_64-apple-darwin CFLAGS='-mmacosx-version-min=10.10'
     $ make lib
     $ make install
 
