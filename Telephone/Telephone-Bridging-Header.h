@@ -13,4 +13,5 @@
 #import "SoundIOPreferences.h"
 #import "SoundIOPresenterOutput.h"
 #import "SoundPreferencesView.h"
+#import "SpotifyMusicPlayer.h"
 #import "UserDefaultsKeys.h"
