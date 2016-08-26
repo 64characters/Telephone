@@ -3625,7 +3625,10 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/include\"";
 				INFOPLIST_FILE = Telephone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/lib\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
+					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lpjsua-x86_64-apple-darwin",
 					"-lpjsip-ua-x86_64-apple-darwin",
@@ -3642,6 +3645,7 @@
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
+					"-lopus",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
@@ -3659,7 +3663,10 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/include\"";
 				INFOPLIST_FILE = Telephone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/PJSIP/lib\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
+					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lpjsua-x86_64-apple-darwin",
 					"-lpjsip-ua-x86_64-apple-darwin",
@@ -3676,6 +3683,7 @@
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
+					"-lopus",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
