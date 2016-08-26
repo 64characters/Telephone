@@ -61,9 +61,6 @@ extern NSString * const kUserNotificationCallControllerIdentifierKey;
 // An array of nameservers currently in use in the OS.
 @property(nonatomic, readonly, strong) NSArray *currentNameservers;
 
-// A Boolean value indicating whether the receiver has paused iTunes.
-@property(nonatomic, assign) BOOL didPauseITunes;
-
 // A Boolean value indicating whether user agent launch error should be presented to the user.
 @property(nonatomic, assign) BOOL shouldPresentUserAgentLaunchError;
 
@@ -104,12 +101,6 @@ extern NSString * const kUserNotificationCallControllerIdentifierKey;
 
 // Method to be called when a user attention timer fires.
 - (void)requestUserAttentionTick:(NSTimer *)theTimer;
-
-// Pauses iTunes.
-- (void)pauseITunes;
-
-// Resumes iTunes if needed.
-- (void)resumeITunesIfNeeded;
 
 // Returns a call controller with a given identifier.
 - (CallController *)callControllerByIdentifier:(NSString *)identifier;

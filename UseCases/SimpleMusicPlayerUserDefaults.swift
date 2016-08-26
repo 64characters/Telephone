@@ -1,5 +1,5 @@
 //
-//  UseCases.h
+//  SimpleMusicPlayerUserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+public final class SimpleMusicPlayerUserDefaults {
+    private let defaults: KeyValueUserDefaults
 
-#import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+    public init(defaults: KeyValueUserDefaults) {
+        self.defaults = defaults
+        defaults.registerDefaults([key: true])
+    }
+}
+
+extension SimpleMusicPlayerUserDefaults: MusicPlayerUserDefaults {
+    public var shouldPause: Bool {
+        get {
+            return defaults.boolForKey(key)
+        }
+        set {
+            defaults.setBool(newValue, forKey: key)
+        }
+    }
+}
+
+private let key = "PauseITunes"

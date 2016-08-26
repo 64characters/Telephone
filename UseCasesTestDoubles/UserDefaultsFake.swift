@@ -23,7 +23,12 @@ public final class UserDefaultsFake {
     public var date: NSDate = NSDate.distantPast()
     public var version = ""
 
+    public var registeredDefaults: [String: AnyObject] {
+        return registered
+    }
+
     private var dictionary: [String: AnyObject] = [:]
+    private var registered: [String: AnyObject] = [:]
 
     public init() {}
 }
@@ -42,12 +47,27 @@ extension UserDefaultsFake: KeyValueUserDefaults {
         return dictionary[key] as? String
     }
 
+    @objc public func setBool(value: Bool, forKey key: String) {
+        dictionary[key] = value
+    }
+
+    @objc public func boolForKey(key: String) -> Bool {
+        return dictionary[key] as? Bool ?? false
+    }
+
     @objc public func setArray(array: [AnyObject], forKey key: String) {
         dictionary[key] = array
     }
 
     @objc public func arrayForKey(key: String) -> [AnyObject]? {
         return dictionary[key] as? [AnyObject]
+    }
+
+    @objc public func registerDefaults(defaults: [String : AnyObject]) {
+        for (key, value) in defaults {
+            registered.updateValue(value, forKey: key)
+            dictionary.updateValue(value, forKey: key)
+        }
     }
 }
 

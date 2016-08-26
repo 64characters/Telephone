@@ -1,5 +1,5 @@
 //
-//  UseCases.h
+//  MusicPlayers.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+import UseCases
 
-#import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+final class MusicPlayers {
+    private let players: [MusicPlayer]
+
+    init(players: [MusicPlayer]) {
+        self.players = players
+    }
+}
+
+extension MusicPlayers: MusicPlayer {
+    @objc func pause() {
+        players.forEach { $0.pause() }
+    }
+
+    @objc func resume() {
+        players.forEach { $0.resume() }
+    }
+}

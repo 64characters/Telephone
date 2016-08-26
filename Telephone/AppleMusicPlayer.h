@@ -1,5 +1,5 @@
 //
-//  UseCases.h
+//  AppleMusicPlayer.h
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,6 +17,10 @@
 //
 
 @import Foundation;
+@import UseCases;
 
-#import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+@interface AppleMusicPlayer : NSObject <MusicPlayer>
+
+- (nullable instancetype)init;
+
+@end

@@ -23,5 +23,9 @@
 			<string>com.apple.iTunes.playback</string>
 		</array>
 	</dict>
+	<key>com.apple.security.temporary-exception.apple-events</key>
+	<array>
+		<string>com.spotify.client</string>
+	</array>
 </dict>
 </plist>

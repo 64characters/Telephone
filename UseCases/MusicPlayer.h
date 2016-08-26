@@ -1,5 +1,5 @@
 //
-//  UseCases.h
+//  MusicPlayer.h
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+@protocol MusicPlayer
 
-#import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+- (void)pause;
+- (void)resume;
+
+@end

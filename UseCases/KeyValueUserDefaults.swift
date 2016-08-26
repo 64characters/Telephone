@@ -22,6 +22,11 @@ import Foundation
     subscript(key: String) -> String? { get set }
     func stringForKey(key: String) -> String?
 
+    func setBool(value: Bool, forKey key: String)
+    func boolForKey(key: String) -> Bool
+
     func setArray(array: [AnyObject], forKey key: String)
-    func arrayForKey(defaultName: String) -> [AnyObject]?
+    func arrayForKey(key: String) -> [AnyObject]?
+
+    func registerDefaults(defaults: [String: AnyObject])
 }

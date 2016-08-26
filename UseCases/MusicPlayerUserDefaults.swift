@@ -1,5 +1,5 @@
 //
-//  UseCases.h
+//  MusicPlayerUserDefaults.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
-
-#import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+public protocol MusicPlayerUserDefaults {
+    var shouldPause: Bool { get set }
+}

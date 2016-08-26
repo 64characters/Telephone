@@ -18,7 +18,8 @@
 
 #import "AppController.h"
 
-#import <SystemConfiguration/SystemConfiguration.h>
+@import SystemConfiguration;
+@import UseCases;
 
 #import "AKAddressBookPhonePlugIn.h"
 #import "AKAddressBookSIPAddressPlugIn.h"
@@ -26,7 +27,6 @@
 #import "AKNSString+Scanning.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
-#import "iTunes.h"
 
 #import "AccountController.h"
 #import "AccountPreferencesViewController.h"
@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
+@property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
@@ -194,7 +195,6 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kTransportPublicHost] = @"";
         defaultsDict[kRingingSound] = @"Purr";
         defaultsDict[kSignificantPhoneNumberLength] = @9;
-        defaultsDict[kPauseITunes] = @YES;
         defaultsDict[kAutoCloseCallWindow] = @NO;
         defaultsDict[kAutoCloseMissedCallWindow] = @NO;
         defaultsDict[kCallWaiting] = @YES;
@@ -234,14 +234,10 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setDelegate:self];
     _preferencesController = _compositionRoot.preferencesController;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
+    _musicPlayer = _compositionRoot.musicPlayer;
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = [[NSMutableArray alloc] init];
-    [self setShouldRegisterAllAccounts:NO];
-    [self setShouldRestartUserAgentASAP:NO];
-    [self setTerminating:NO];
-    [self setDidPauseITunes:NO];
-    [self setShouldPresentUserAgentLaunchError:NO];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
@@ -390,44 +386,6 @@ NS_ASSUME_NONNULL_END
 
 - (void)requestUserAttentionTick:(NSTimer *)theTimer {
     [NSApp requestUserAttention:NSInformationalRequest];
-}
-
-
-- (void)pauseITunes {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes]) {
-        return;
-    }
-    
-    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-    
-    if (![iTunes isRunning]) {
-        return;
-    }
-    
-    if ([iTunes playerState] == iTunesEPlSPlaying) {
-        [iTunes pause];
-        [self setDidPauseITunes:YES];
-    }
-}
-
-- (void)resumeITunesIfNeeded {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kPauseITunes]) {
-        return;
-    }
-    
-    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-    
-    if (![iTunes isRunning]) {
-        return;
-    }
-    
-    if ([self didPauseITunes] && ![self hasActiveCallControllers]) {
-        if ([iTunes playerState] == iTunesEPlSPaused) {
-            [[iTunes currentTrack] playOnce:NO];
-        }
-        
-        [self setDidPauseITunes:NO];
-    }
 }
 
 - (CallController *)callControllerByIdentifier:(NSString *)identifier {
@@ -954,7 +912,8 @@ NS_ASSUME_NONNULL_END
     
     AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
                                                                         userAgent:self.userAgent
-                                                                 ringtonePlayback:self.ringtonePlayback];
+                                                                 ringtonePlayback:self.ringtonePlayback
+                                                                      musicPlayer:self.musicPlayer];
     
     [controller setAccountDescription:[[controller account] SIPAddress]];
     [[controller window] setExcludedFromWindowsMenu:YES];
@@ -1025,7 +984,8 @@ NS_ASSUME_NONNULL_END
         
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
                                                                             userAgent:self.userAgent
-                                                                     ringtonePlayback:self.ringtonePlayback];
+                                                                     ringtonePlayback:self.ringtonePlayback
+                                                                          musicPlayer:self.musicPlayer];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
         
@@ -1336,7 +1296,8 @@ NS_ASSUME_NONNULL_END
         
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
                                                                             userAgent:self.userAgent
-                                                                     ringtonePlayback:self.ringtonePlayback];
+                                                                     ringtonePlayback:self.ringtonePlayback
+                                                                          musicPlayer:self.musicPlayer];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
         

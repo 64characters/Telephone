@@ -1,5 +1,5 @@
 //
-//  UseCases.h
+//  ConditionalMusicPlayer.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,26 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+public final class ConditionalMusicPlayer {
+    private let origin: MusicPlayer
+    private let defaults: MusicPlayerUserDefaults
 
-#import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+    public init(origin: MusicPlayer, defaults: MusicPlayerUserDefaults) {
+        self.origin = origin
+        self.defaults = defaults
+    }
+}
+
+extension ConditionalMusicPlayer: MusicPlayer {
+    @objc public func pause() {
+        if defaults.shouldPause {
+            origin.pause()
+        }
+    }
+
+    @objc public func resume() {
+        if defaults.shouldPause {
+            origin.resume()
+        }
+    }
+}

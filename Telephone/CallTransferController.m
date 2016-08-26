@@ -74,6 +74,7 @@
                           accountController:accountController
                                   userAgent:userAgent
                            ringtonePlayback:accountController.ringtonePlayback
+                                musicPlayer:accountController.musicPlayer
                                    delegate:accountController])) {
         [self setSourceCallController:callController];
         _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController];

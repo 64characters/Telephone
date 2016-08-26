@@ -1,5 +1,5 @@
 //
-//  UseCases.h
+//  AvailableMusicPlayers.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,27 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+final class AvailableMusicPlayers {
+    private let players: MusicPlayers
 
-#import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+    init() {
+        var players = [MusicPlayer]()
+        if let p = AppleMusicPlayer() {
+            players.append(p)
+        }
+        if let p = SpotifyMusicPlayer() {
+            players.append(p)
+        }
+        self.players = MusicPlayers(players: players)
+    }
+}
+
+extension AvailableMusicPlayers: MusicPlayer {
+    @objc func pause() {
+        players.pause()
+    }
+
+    @objc func resume() {
+        players.resume()
+    }
+}
