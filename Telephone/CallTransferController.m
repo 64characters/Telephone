@@ -195,6 +195,13 @@
     [[activeCallTransferViewController transferButton] setEnabled:YES];
 }
 
+- (void)SIPCallDidLocalHold:(NSNotification *)notification {
+    [super SIPCallDidLocalHold:notification];
+    ActiveCallTransferViewController *activeCallTransferViewController
+        = (ActiveCallTransferViewController *)[self activeCallViewController];
+    [activeCallTransferViewController callDidHold];
+}
+
 - (void)SIPCallDidRemoteHold:(NSNotification *)notification {
     [super SIPCallDidRemoteHold:notification];
     ActiveCallTransferViewController *activeCallTransferViewController

@@ -68,15 +68,16 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 @synthesize callTransferController = _callTransferController;
 @synthesize incomingCallViewController = _incomingCallViewController;
 
-- (void)setCall:(AKSIPCall *)aCall {
-    if (_call != aCall) {
-        if ([[_call delegate] isEqual:self]) {
-            [_call setDelegate:nil];
+- (void)setCall:(AKSIPCall *)call {
+    if (_call != call) {
+        if (_call.delegate == self) {
+            _call.delegate = nil;
         }
-        
-        _call = aCall;
-        
-        [_call setDelegate:self];
+        _call = call;
+        _call.delegate = self;
+        _incomingCallViewController.representedObject = _call;
+        _activeCallViewController.representedObject = _call;
+        _endedCallViewController.representedObject = _call;
     }
 }
 
@@ -299,15 +300,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if (aCall != nil) {
         [self setCall:aCall];
         [self setCallActive:YES];
-        if (_incomingCallViewController != nil) {
-            [_incomingCallViewController setRepresentedObject:aCall];
-        }
-        if (_activeCallViewController != nil) {
-            [_activeCallViewController setRepresentedObject:aCall];
-        }
-        if (_endedCallViewController != nil) {
-            [_endedCallViewController setRepresentedObject:nil];
-        }
     } else {
         [self showEndedCallView];
         [self setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
