@@ -31,4 +31,6 @@
 // Transfers a call.
 - (IBAction)transferCall:(id)sender;
 
+- (void)callDidHold;
+
 @end

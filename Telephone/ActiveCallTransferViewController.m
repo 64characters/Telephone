@@ -23,7 +23,18 @@
 #import "CallTransferController.h"
 
 
+@interface ActiveCallTransferViewController ()
+
+@property(nonatomic, getter=isWaitingForHold) BOOL waitingForHold;
+
+@end
+
 @implementation ActiveCallTransferViewController
+
+- (void)setRepresentedObject:(id)representedObject {
+    super.representedObject = representedObject;
+    self.waitingForHold = NO;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -33,10 +44,20 @@
 }
 
 - (IBAction)transferCall:(id)sender {
-    if (![[self callController] isCallOnHold]) {
-        [[self callController] toggleCallHold];
+    if (self.callController.isCallOnHold) {
+        [(CallTransferController *)self.callController transferCall];
+    } else {
+        [self.callController toggleCallHold];
+        self.transferButton.enabled = NO;
+        self.waitingForHold = YES;
     }
-    [(CallTransferController *)[self callController] transferCall];
+}
+
+- (void)callDidHold {
+    if (self.isWaitingForHold) {
+        [(CallTransferController *)self.callController transferCall];
+        self.waitingForHold = NO;
+    }
 }
 
 - (IBAction)showCallTransferSheet:(id)sender {
