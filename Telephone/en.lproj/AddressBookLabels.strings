@@ -1,0 +1,27 @@
+﻿/* Home phone number. */
+"home" = "home";
+
+/* Home FAX number. */
+"home fax" = "home fax";
+
+/* Main phone number. */
+"main" = "main";
+
+/* Mobile phone number. */
+"mobile" = "mobile";
+
+/* Other number. */
+"other" = "other";
+
+/* Pager number. */
+"pager" = "pager";
+
+/* SIP address. */
+"sip" = "sip";
+
+/* Work phone number. */
+"work" = "work";
+
+/* Work FAX number. */
+"work fax" = "work fax";
+

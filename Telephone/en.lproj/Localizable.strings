@@ -1,0 +1,160 @@
+﻿/* Accounts preferences window title. */
+"Accounts" = "Accounts";
+
+/* Address not found. */
+"Address Not Found" = "Address Not Found";
+
+/* Telephone quit confirmation informative text. */
+"All active calls will be disconnected." = "All active calls will be disconnected.";
+
+/* Telephone quit confirmation. */
+"Are you sure you want to quit Telephone?" = "Are you sure you want to quit Telephone?";
+
+/* Account registration Available menu item. */
+"Available" = "Available";
+
+/* Busy. */
+"busy" = "busy";
+
+/* Call declined. */
+"call declined" = "call declined";
+
+/* Call ended. */
+"call ended" = "call ended";
+
+/* Call failed. */
+"Call Failed" = "Call Failed";
+
+/* Call transferred. */
+"call transferred" = "call transferred";
+
+/* John Smith calling. Somebody is calling us right now. Call status string. Deliberately in lower case, translators should do the same, if possible.
+   John Smith calling. Somebody is calling us right now. User notification description. Deliberately in lower case, translators should do the same, if possible. */
+"calling" = "calling";
+
+/* Outgoing call in progress. Calling specific phone type (mobile, home, etc). */
+"calling %@..." = "calling %@...";
+
+/* John Smith calling from 1234567. Somebody is calling us right now from some source. User notification description. Deliberately in lower case, translators should do the same, if possible. */
+"calling from %@" = "calling from %@";
+
+/* Outgoing call in progress. */
+"calling..." = "calling...";
+
+/* Cancel button. */
+"Cancel" = "Cancel";
+
+/* Account registration Connecting... menu item. */
+"Connecting..." = "Connecting...";
+
+/* Address Book plug-ins install error, alert message text. */
+"Could not install Address Book plug-ins." = "Could not install Address Book plug-ins.";
+
+/* Registrar connection error. */
+"Could not register with %@." = "Could not register with %@.";
+
+/* SIP user agent start error. */
+"Could not start SIP user agent." = "Could not start SIP user agent.";
+
+/* Decline. Call menu item. */
+"Decline" = "Decline";
+
+/* Delete button. */
+"Delete" = "Delete";
+
+/* Account removal confirmation. */
+"Delete \\U201C%@\\U201D?" = "Delete “%@”?";
+
+/* Don't save button. */
+"Don't Save" = "Don't Save";
+
+/* End Call. Call menu item. */
+"End Call" = "End Call";
+
+/* Error #. */
+"Error %d" = "Error %d";
+
+/* Failed to communicate with STUN server. */
+"Failed to communicate with STUN server." = "Failed to communicate with STUN server.";
+
+/* General preferences window title. */
+"General" = "General";
+
+/* Hold. Call menu item. */
+"Hold" = "Hold";
+
+/* Address Book plug-ins install error, alert informative text. */
+"Make sure you have write permission to \\U201C%@\\U201D." = "Make sure you have write permission to “%@”.";
+
+/* Microphone muted status text. */
+"mic muted" = "mic muted";
+
+/* Microphone unmuted status text. */
+"mic unmuted" = "mic unmuted";
+
+/* Mute. Call menu item. */
+"Mute" = "Mute";
+
+/* Network preferences window title. */
+"Network" = "Network";
+
+/* Network settings change confirmation informative text. */
+"New network settings will be applied immediately, all accounts will be reconnected." = "New network settings will be applied immediately, all accounts will be reconnected.";
+
+/* Call has been taken off hold status text. */
+"off hold" = "off hold";
+
+/* Account registration Offline menu item. */
+"Offline" = "Offline";
+
+/* Call on local hold status text. */
+"on hold" = "on hold";
+
+/* Call on remote hold status text. */
+"on remote hold" = "on remote hold";
+
+/* Registrar connection error informative text. */
+"Please check network connection and Registry Server settings." = "Please check network connection and Registry Server settings.";
+
+/* SIP user agent start error informative text. */
+"Please check your network connection and STUN server settings." = "Please check your network connection and STUN server settings.";
+
+/* Quit button. */
+"Quit" = "Quit";
+
+/* Resume. Call menu item. */
+"Resume" = "Resume";
+
+/* Remote party ringing. */
+"ringing" = "ringing";
+
+/* Save button. */
+"Save" = "Save";
+
+/* Network settings change confirmation. */
+"Save changes to the network settings?" = "Save changes to the network settings?";
+
+/* Sound preferences window title. */
+"Sound" = "Sound";
+
+/* Preferences default window title. */
+"Telephone Preferences" = "Telephone Preferences";
+
+/* Registrar authentication failed. */
+"Telephone was unable to login to %@. Change user name or password and try again." = "Telephone was unable to login to %@. Change user name or password and try again.";
+
+/* Error description. */
+"The error was: \\U201C%d %@\\U201D." = "The error was: “%1$d %2$@”.";
+
+/* Account removal confirmation informative text. */
+"This will delete your currently set up account \\U201C%@\\U201D." = "This will delete your currently set up account “%@”.";
+
+/* Failed to communicate with STUN server informative text. */
+"UDP packets are probably blocked. It is impossible to make or receive calls without that. Make sure that your local firewall and the firewall at your router allow UDP protocol." = "UDP packets are probably blocked. It is impossible to make or receive calls without that. Make sure that your local firewall and the firewall at your router allow UDP protocol.";
+
+/* Account registration Unavailable menu item. */
+"Unavailable" = "Unavailable";
+
+/* Unmute. Call menu item. */
+"Unmute" = "Unmute";
+

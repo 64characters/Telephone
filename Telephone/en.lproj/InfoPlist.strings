@@ -1,0 +1,5 @@
+﻿/* Localized versions of Info.plist keys */
+
+CFBundleName				= "Telephone";
+CFBundleDisplayName			= "Telephone";
+NSHumanReadableCopyright	= "\U00A9 2016 64 Characters";

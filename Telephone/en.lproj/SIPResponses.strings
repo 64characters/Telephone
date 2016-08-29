@@ -1,0 +1,163 @@
+﻿/* 202 Accepted. */
+"Accepted" = "Accepted";
+
+/* 484 Address Incomplete. */
+"Address Incomplete" = "Address Incomplete";
+
+/* 380 Alternative Service. */
+"Alternative Service" = "Alternative Service";
+
+/* 485 Ambiguous. */
+"Ambiguous" = "Ambiguous";
+
+/* 489 Bad Event. */
+"Bad Event" = "Bad Event";
+
+/* 420 Bad Extension. */
+"Bad Extension" = "Bad Extension";
+
+/* 502 Bad Gateway. */
+"Bad Gateway" = "Bad Gateway";
+
+/* 400 Bad Request. */
+"Bad Request" = "Bad Request";
+
+/* 600 Busy Everywhere. */
+"Busy Everywhere" = "Busy Everywhere";
+
+/* 486 Busy Here. */
+"Busy Here" = "Busy Here";
+
+/* 181 Call Is Being Forwarded. */
+"Call Is Being Forwarded" = "Call Is Being Forwarded";
+
+/* 481 Call/Transaction Does Not Exist. */
+"Call/Transaction Does Not Exist" = "Call/Transaction Does Not Exist";
+
+/* 603 Decline. */
+"Decline" = "Decline";
+
+/* 604 Does Not Exist Anywhere. */
+"Does Not Exist Anywhere" = "Does Not Exist Anywhere";
+
+/* 421 Extension Required. */
+"Extension Required" = "Extension Required";
+
+/* 403 Forbidden. */
+"Forbidden" = "Forbidden";
+
+/* 410 Gone. */
+"Gone" = "Gone";
+
+/* 423 Interval Too Brief. */
+"Interval Too Brief" = "Interval Too Brief";
+
+/* 482 Loop Detected. */
+"Loop Detected" = "Loop Detected";
+
+/* 513 Message Too Large. */
+"Message Too Large" = "Message Too Large";
+
+/* 405 Method Not Allowed. */
+"Method Not Allowed" = "Method Not Allowed";
+
+/* 301 Moved Permanently. */
+"Moved Permanently" = "Moved Permanently";
+
+/* 302 Moved Temporarily. */
+"Moved Temporarily" = "Moved Temporarily";
+
+/* 300 Multiple Choices. */
+"Multiple Choices" = "Multiple Choices";
+
+/* 406 Not Acceptable.
+   606 Not Acceptable. */
+"Not Acceptable" = "Not Acceptable";
+
+/* 488 Not Acceptable Here. */
+"Not Acceptable Here" = "Not Acceptable Here";
+
+/* 404 Not Found. */
+"Not Found" = "Not Found";
+
+/* 501 Not Implemented. */
+"Not Implemented" = "Not Implemented";
+
+/* 200 OK. */
+"OK" = "OK";
+
+/* 402 Payment Required. */
+"Payment Required" = "Payment Required";
+
+/* 580 Precondition Failure. */
+"Precondition Failure" = "Precondition Failure";
+
+/* 407 Proxy Authentication Required. */
+"Proxy Authentication Required" = "Proxy Authentication Required";
+
+/* 182 Queued. */
+"Queued" = "Queued";
+
+/* 413 Request Entity Too Large. */
+"Request Entity Too Large" = "Request Entity Too Large";
+
+/* 491 Request Pending. */
+"Request Pending" = "Request Pending";
+
+/* 487 Request Terminated. */
+"Request Terminated" = "Request Terminated";
+
+/* 408 Request Timeout. */
+"Request Timeout" = "Request Timeout";
+
+/* 490 Request Updated. */
+"Request Updated" = "Request Updated";
+
+/* 414 Request-URI Too Long. */
+"Request-URI Too Long" = "Request-URI Too Long";
+
+/* 180 Ringing. */
+"Ringing" = "Ringing";
+
+/* 500 Server Internal Error. */
+"Server Internal Error" = "Server Internal Error";
+
+/* 504 Server Time-out. */
+"Server Time-out" = "Server Time-out";
+
+/* 503 Service Unavailable. */
+"Service Unavailable" = "Service Unavailable";
+
+/* 183 Session Progress. */
+"Session Progress" = "Session Progress";
+
+/* 422 Session Timer Too Small. */
+"Session Timer Too Small" = "Session Timer Too Small";
+
+/* 480 Temporarily Unavailable. */
+"Temporarily Unavailable" = "Temporarily Unavailable";
+
+/* 483 Too Many Hops. */
+"Too Many Hops" = "Too Many Hops";
+
+/* 100 Trying. */
+"Trying" = "Trying";
+
+/* 401 Unauthorized. */
+"Unauthorized" = "Unauthorized";
+
+/* 493 Undecipherable. */
+"Undecipherable" = "Undecipherable";
+
+/* 415 Unsupported Media Type. */
+"Unsupported Media Type" = "Unsupported Media Type";
+
+/* 416 Unsupported URI Scheme. */
+"Unsupported URI Scheme" = "Unsupported URI Scheme";
+
+/* 305 Use Proxy. */
+"Use Proxy" = "Use Proxy";
+
+/* 505 Version Not Supported. */
+"Version Not Supported" = "Version Not Supported";
+
