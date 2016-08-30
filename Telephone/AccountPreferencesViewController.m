@@ -112,11 +112,11 @@ static const NSUInteger kAccountsMax = 32;
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
     [[alert buttons][1] setKeyEquivalent:@"\033"];
     [alert setMessageText:[NSString stringWithFormat:
-                           NSLocalizedString(@"Delete \\U201C%@\\U201D?", @"Account removal confirmation."),
+                           NSLocalizedString(@"Delete “%@”?", @"Account removal confirmation."),
                            selectedAccount]];
     [alert setInformativeText:
      [NSString stringWithFormat:
-      NSLocalizedString(@"This will delete your currently set up account \\U201C%@\\U201D.",
+      NSLocalizedString(@"This will delete your currently set up account “%@”.",
                         @"Account removal confirmation informative text."),
       selectedAccount]];
     [alert setAlertStyle:NSWarningAlertStyle];

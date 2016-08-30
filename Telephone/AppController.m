@@ -476,8 +476,7 @@ NS_ASSUME_NONNULL_END
                                                     @"Address Book plug-ins install error, alert "
                                                      "message text.")];
             [alert setInformativeText:[NSString stringWithFormat:
-                                       NSLocalizedString(@"Make sure you have write permission to "
-                                                          "\\U201C%@\\U201D.",
+                                       NSLocalizedString(@"Make sure you have write permission to “%@”.",
                                                          @"Address Book plug-ins install error, alert "
                                                           "informative text."),
                                        addressBookPlugInsInstallPath]];

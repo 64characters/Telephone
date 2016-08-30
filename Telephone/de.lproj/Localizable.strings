@@ -72,7 +72,7 @@
 "Delete" = "Löschen";
 
 /* Account removal confirmation. */
-"Delete \\U201C%@\\U201D?" = "Wollen Sie „%@“ wirklich löschen?";
+"Delete “%@”?" = "Wollen Sie „%@“ wirklich löschen?";
 
 /* Don't save button. */
 "Don't Save" = "Nicht Sichern";
@@ -93,7 +93,7 @@
 "Hold" = "Halten";
 
 /* Address Book plug-ins install error, alert informative text. */
-"Make sure you have write permission to \\U201C%@\\U201D." = "Stellen Sie sicher, dass Sie Schreibrechte in „%@“ haben.";
+"Make sure you have write permission to “%@”." = "Stellen Sie sicher, dass Sie Schreibrechte in „%@“ haben.";
 
 /* Microphone muted status text. */
 "mic muted" = "Mikrofon stumm";
@@ -156,10 +156,10 @@
 "Telephone was unable to login to %@. Change user name or password and try again." = "Telefon konnte sich nicht in %@ anmelden. Ändern Sie Benutzername oder Passwort und versuchen Sie es erneut.";
 
 /* Error description. */
-"The error was: \\U201C%d %@\\U201D." = "Fehlerbeschreibung: „%1$d %2$@“.";
+"The error was: “%d %@”." = "Fehlerbeschreibung: „%1$d %2$@“.";
 
 /* Account removal confirmation informative text. */
-"This will delete your currently set up account \\U201C%@\\U201D." = "Ihr Account „%@“ wird gelöscht.";
+"This will delete your currently set up account “%@”." = "Ihr Account „%@“ wird gelöscht.";
 
 /* Failed to communicate with STUN server informative text. */
 "UDP packets are probably blocked. It is impossible to make or receive calls without that. Make sure that your local firewall and the firewall at your router allow UDP protocol." = "UDP-Pakete werden anscheinend blockiert. Sie können weder Anrufe tätigen noch empfangen. Stellen Sie sicher, daß Ihre lokale Firewall und die Firewall Ihres Routers das UDP-Protokoll erlaubt.";

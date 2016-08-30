@@ -176,7 +176,7 @@ NSString * const kEmailSIPLabel = @"sip";
                     error = [error stringByAppendingString:@"."];
                 } else {
                     error = [NSString stringWithFormat:
-                             NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.", @"Error description."),
+                             NSLocalizedString(@"The error was: “%d %@”.", @"Error description."),
                              [[self account] registrationStatus], statusText];
                 }
                 
@@ -693,7 +693,7 @@ NSString * const kEmailSIPLabel = @"sip";
                         error = [error stringByAppendingString:@"."];
                     } else {
                         error = [NSString stringWithFormat:
-                                 NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.", @"Error description."),
+                                 NSLocalizedString(@"The error was: “%d %@”.", @"Error description."),
                                  [[self account] registrationStatus], statusText];
                     }
                     
