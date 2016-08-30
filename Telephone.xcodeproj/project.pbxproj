@@ -758,6 +758,9 @@
 		8AA7490A1D75A90D000587DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/StoreWindowController.strings; sourceTree = "<group>"; };
 		8AA7490D1D75A9C1000587DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		8AA749281D75B1BA000587DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/StoreViewController.strings; sourceTree = "<group>"; };
+		8AA7492C1D75E5D5000587DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StoreViewController.strings; sourceTree = "<group>"; };
+		8AA7492E1D75E5DF000587DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StoreWindowController.strings; sourceTree = "<group>"; };
+		8AA749301D75E5E7000587DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSoundIO.swift; sourceTree = "<group>"; };
@@ -3045,6 +3048,7 @@
 				8AA748C21D744FAA000587DC /* Base */,
 				8AA748FD1D749B00000587DC /* ru */,
 				8AA7490D1D75A9C1000587DC /* de */,
+				8AA749301D75E5E7000587DC /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -3065,6 +3069,7 @@
 				8AA748FF1D749E05000587DC /* Base */,
 				8AA749021D749E15000587DC /* ru */,
 				8AA7490A1D75A90D000587DC /* de */,
+				8AA7492E1D75E5DF000587DC /* en */,
 			);
 			name = StoreWindowController.xib;
 			sourceTree = "<group>";
@@ -3075,6 +3080,7 @@
 				8AA749041D749E4D000587DC /* Base */,
 				8AA749071D749E54000587DC /* ru */,
 				8AA749281D75B1BA000587DC /* de */,
+				8AA7492C1D75E5D5000587DC /* en */,
 			);
 			name = StoreViewController.xib;
 			sourceTree = "<group>";
