@@ -47,11 +47,20 @@
 /* Account registration Connecting... menu item. */
 "Connecting..." = "Connecting...";
 
+/* Products fetch error. */
+"Could not fetch products." = "Could not fetch products.";
+
 /* Address Book plug-ins install error, alert message text. */
 "Could not install Address Book plug-ins." = "Could not install Address Book plug-ins.";
 
+/* Product purchase error. */
+"Could not make purchase." = "Could not make purchase.";
+
 /* Registrar connection error. */
 "Could not register with %@." = "Could not register with %@.";
+
+/* Purchase restoration error. */
+"Could not restore purchases." = "Could not restore purchases.";
 
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Could not start SIP user agent.";
@@ -63,7 +72,7 @@
 "Delete" = "Delete";
 
 /* Account removal confirmation. */
-"Delete \\U201C%@\\U201D?" = "Delete “%@”?";
+"Delete “%@”?" = "Delete “%@”?";
 
 /* Don't save button. */
 "Don't Save" = "Don't Save";
@@ -84,13 +93,16 @@
 "Hold" = "Hold";
 
 /* Address Book plug-ins install error, alert informative text. */
-"Make sure you have write permission to \\U201C%@\\U201D." = "Make sure you have write permission to “%@”.";
+"Make sure you have write permission to “%@”." = "Make sure you have write permission to “%@”.";
 
 /* Microphone muted status text. */
 "mic muted" = "mic muted";
 
 /* Microphone unmuted status text. */
 "mic unmuted" = "mic unmuted";
+
+/* Product name. */
+"Monthly optional patronage" = "Monthly optional patronage";
 
 /* Mute. Call menu item. */
 "Mute" = "Mute";
@@ -144,10 +156,10 @@
 "Telephone was unable to login to %@. Change user name or password and try again." = "Telephone was unable to login to %@. Change user name or password and try again.";
 
 /* Error description. */
-"The error was: \\U201C%d %@\\U201D." = "The error was: “%1$d %2$@”.";
+"The error was: “%d %@”." = "The error was: “%1$d %2$@”.";
 
 /* Account removal confirmation informative text. */
-"This will delete your currently set up account \\U201C%@\\U201D." = "This will delete your currently set up account “%@”.";
+"This will delete your currently set up account “%@”." = "This will delete your currently set up account “%@”.";
 
 /* Failed to communicate with STUN server informative text. */
 "UDP packets are probably blocked. It is impossible to make or receive calls without that. Make sure that your local firewall and the firewall at your router allow UDP protocol." = "UDP packets are probably blocked. It is impossible to make or receive calls without that. Make sure that your local firewall and the firewall at your router allow UDP protocol.";
@@ -155,6 +167,15 @@
 /* Account registration Unavailable menu item. */
 "Unavailable" = "Unavailable";
 
+/* Unknown error. */
+"Unknown error" = "Unknown error";
+
+/* Unknown product name. */
+"Unknown product" = "Unknown product";
+
 /* Unmute. Call menu item. */
 "Unmute" = "Unmute";
+
+/* Product name. */
+"Yearly optional patronage" = "Yearly optional patronage";
 

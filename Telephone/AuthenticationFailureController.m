@@ -97,7 +97,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
                 error = [error stringByAppendingString:@"."];
             } else {
                 error = [NSString stringWithFormat:
-                         NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.", @"Error description."),
+                         NSLocalizedString(@"The error was: “%d %@”.", @"Error description."),
                          [[[self accountController] account] registrationStatus], statusText];
             }
             

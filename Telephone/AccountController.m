@@ -47,24 +47,28 @@
 // Account state pop-up button widths.
 //
 // English.
-static const CGFloat kAccountStatePopUpOfflineEnglishWidth = 58.0;
-static const CGFloat kAccountStatePopUpAvailableEnglishWidth = 69.0;
-static const CGFloat kAccountStatePopUpUnavailableEnglishWidth = 81.0;
-static const CGFloat kAccountStatePopUpConnectingEnglishWidth = 90.0;
+static const CGFloat kAccountStatePopUpOfflineEnglishWidth = 56.0;
+static const CGFloat kAccountStatePopUpAvailableEnglishWidth = 67.0;
+static const CGFloat kAccountStatePopUpUnavailableEnglishWidth = 80.0;
+static const CGFloat kAccountStatePopUpConnectingEnglishWidth = 89.0;
 //
 // Russian.
-static const CGFloat kAccountStatePopUpOfflineRussianWidth = 65.0;
-static const CGFloat kAccountStatePopUpAvailableRussianWidth = 73.0;
+static const CGFloat kAccountStatePopUpOfflineRussianWidth = 64.0;
+static const CGFloat kAccountStatePopUpAvailableRussianWidth = 72.0;
 static const CGFloat kAccountStatePopUpUnavailableRussianWidth = 85.0;
 static const CGFloat kAccountStatePopUpConnectingRussianWidth = 96.0;
 //
 // German.
-static const CGFloat kAccountStatePopUpOfflineGermanWidth = 58.0;
-static const CGFloat kAccountStatePopUpAvailableGermanWidth = 74.0;
-static const CGFloat kAccountStatePopUpUnavailableGermanWidth = 101.0;
-static const CGFloat kAccountStatePopUpConnectingGermanWidth = 88.0;
+static const CGFloat kAccountStatePopUpOfflineGermanWidth = 56.0;
+static const CGFloat kAccountStatePopUpAvailableGermanWidth = 72.0;
+static const CGFloat kAccountStatePopUpUnavailableGermanWidth = 100.0;
+static const CGFloat kAccountStatePopUpConnectingGermanWidth = 86.0;
 
 NSString * const kEmailSIPLabel = @"sip";
+
+NSString * const kEnglish = @"en";
+NSString * const kRussian = @"ru";
+NSString * const kGerman = @"de";
 
 
 @interface AccountController ()
@@ -161,7 +165,7 @@ NSString * const kEmailSIPLabel = @"sip";
             if ([self shouldPresentRegistrationError]) {
                 NSString *statusText;
                 NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-                if ([preferredLocalization isEqualToString:@"Russian"]) {
+                if ([preferredLocalization isEqualToString:kRussian]) {
                     statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
                                   [[self account] registrationStatus]];
                 } else {
@@ -176,7 +180,7 @@ NSString * const kEmailSIPLabel = @"sip";
                     error = [error stringByAppendingString:@"."];
                 } else {
                     error = [NSString stringWithFormat:
-                             NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.", @"Error description."),
+                             NSLocalizedString(@"The error was: “%d %@”.", @"Error description."),
                              [[self account] registrationStatus], statusText];
                 }
                 
@@ -491,11 +495,11 @@ NSString * const kEmailSIPLabel = @"sip";
     
     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
-    if ([preferredLocalization isEqualToString:@"English"]) {
+    if ([preferredLocalization isEqualToString:kEnglish]) {
         buttonSize.width = kAccountStatePopUpAvailableEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:@"Russian"]) {
+    } else if ([preferredLocalization isEqualToString:kRussian]) {
         buttonSize.width = kAccountStatePopUpAvailableRussianWidth;
-    } else if ([preferredLocalization isEqualToString:@"German"]) {
+    } else if ([preferredLocalization isEqualToString:kGerman]) {
         buttonSize.width = kAccountStatePopUpAvailableGermanWidth;
     }
     
@@ -519,11 +523,11 @@ NSString * const kEmailSIPLabel = @"sip";
     
     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
-    if ([preferredLocalization isEqualToString:@"English"]) {
+    if ([preferredLocalization isEqualToString:kEnglish]) {
         buttonSize.width = kAccountStatePopUpUnavailableEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:@"Russian"]) {
+    } else if ([preferredLocalization isEqualToString:kRussian]) {
         buttonSize.width = kAccountStatePopUpUnavailableRussianWidth;
-    } else if ([preferredLocalization isEqualToString:@"German"]) {
+    } else if ([preferredLocalization isEqualToString:kGerman]) {
         buttonSize.width = kAccountStatePopUpUnavailableGermanWidth;
     }
     
@@ -548,11 +552,11 @@ NSString * const kEmailSIPLabel = @"sip";
     
     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
-    if ([preferredLocalization isEqualToString:@"English"]) {
+    if ([preferredLocalization isEqualToString:kEnglish]) {
         buttonSize.width = kAccountStatePopUpOfflineEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:@"Russian"]) {
+    } else if ([preferredLocalization isEqualToString:kRussian]) {
         buttonSize.width = kAccountStatePopUpOfflineRussianWidth;
-    } else if ([preferredLocalization isEqualToString:@"German"]) {
+    } else if ([preferredLocalization isEqualToString:kGerman]) {
         buttonSize.width = kAccountStatePopUpOfflineGermanWidth;
     }
     
@@ -574,11 +578,11 @@ NSString * const kEmailSIPLabel = @"sip";
     
     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
-    if ([preferredLocalization isEqualToString:@"English"]) {
+    if ([preferredLocalization isEqualToString:kEnglish]) {
         buttonSize.width = kAccountStatePopUpConnectingEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:@"Russian"]) {
+    } else if ([preferredLocalization isEqualToString:kRussian]) {
         buttonSize.width = kAccountStatePopUpConnectingRussianWidth;
-    } else if ([preferredLocalization isEqualToString:@"German"]) {
+    } else if ([preferredLocalization isEqualToString:kGerman]) {
         buttonSize.width = kAccountStatePopUpConnectingGermanWidth;
     }
     
@@ -679,7 +683,7 @@ NSString * const kEmailSIPLabel = @"sip";
                 if ([self shouldPresentRegistrationError]) {
                     NSString *statusText;
                     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-                    if ([preferredLocalization isEqualToString:@"Russian"]) {
+                    if ([preferredLocalization isEqualToString:kRussian]) {
                         statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
                                       [[self account] registrationStatus]];
                     } else {
@@ -693,7 +697,7 @@ NSString * const kEmailSIPLabel = @"sip";
                         error = [error stringByAppendingString:@"."];
                     } else {
                         error = [NSString stringWithFormat:
-                                 NSLocalizedString(@"The error was: \\U201C%d %@\\U201D.", @"Error description."),
+                                 NSLocalizedString(@"The error was: “%d %@”.", @"Error description."),
                                  [[self account] registrationStatus], statusText];
                     }
                     

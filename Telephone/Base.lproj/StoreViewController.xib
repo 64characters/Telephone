@@ -46,8 +46,8 @@ The subscription renews automatically and can be canceled almost any time based 
                     </constraints>
                 </customView>
                 <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bmy-eH-1mE">
-                    <rect key="frame" x="279" y="13" width="187" height="32"/>
-                    <buttonCell key="cell" type="push" title="Manage Subscriptions..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lhf-s5-m1W">
+                    <rect key="frame" x="280" y="13" width="186" height="32"/>
+                    <buttonCell key="cell" type="push" title="Manage Subscriptions…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lhf-s5-m1W">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -256,18 +256,18 @@ The subscription renews automatically and can be canceled almost any time based 
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8X-aQ-cAN">
-                        <rect key="frame" x="99" y="18" width="239" height="17"/>
+                        <rect key="frame" x="99" y="18" width="240" height="17"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Am-ER-Ei9">
-                                <rect key="frame" x="-2" y="0.0" width="162" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Your subscription ends on" id="Z9K-5X-9uS">
+                                <rect key="frame" x="-2" y="0.0" width="166" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Your subscription ends on " id="Z9K-5X-9uS">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="byH-Ua-KY8">
-                                <rect key="frame" x="159" y="0.0" width="83" height="17"/>
+                                <rect key="frame" x="160" y="0.0" width="83" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Dec 31, 2016" id="efh-fd-jws">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -277,7 +277,7 @@ The subscription renews automatically and can be canceled almost any time based 
                         </subviews>
                         <constraints>
                             <constraint firstItem="9Am-ER-Ei9" firstAttribute="centerY" secondItem="e8X-aQ-cAN" secondAttribute="centerY" id="GAn-6V-zmF"/>
-                            <constraint firstItem="byH-Ua-KY8" firstAttribute="leading" secondItem="9Am-ER-Ei9" secondAttribute="trailing" constant="3" id="L1t-51-YvW"/>
+                            <constraint firstItem="byH-Ua-KY8" firstAttribute="leading" secondItem="9Am-ER-Ei9" secondAttribute="trailing" id="L1t-51-YvW"/>
                             <constraint firstAttribute="trailing" secondItem="byH-Ua-KY8" secondAttribute="trailing" constant="-1" id="Oss-2s-BSV"/>
                             <constraint firstItem="9Am-ER-Ei9" firstAttribute="leading" secondItem="e8X-aQ-cAN" secondAttribute="leading" id="Xdt-yu-TQj"/>
                             <constraint firstItem="byH-Ua-KY8" firstAttribute="baseline" secondItem="9Am-ER-Ei9" secondAttribute="baseline" id="aGp-AW-hfQ"/>

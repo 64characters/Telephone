@@ -151,7 +151,7 @@ private func purchaseErrorAlert(text text: String) -> NSAlert {
 }
 
 private func restorationErrorAlert(text text: String) -> NSAlert {
-    return alert(message: NSLocalizedString("Could not restore purchases.", comment: "Purchase restoration error"), text: text)
+    return alert(message: NSLocalizedString("Could not restore purchases.", comment: "Purchase restoration error."), text: text)
 }
 
 private func alert(message message: String, text: String) -> NSAlert {

@@ -1,0 +1,9 @@
+/* No active purchase error. */
+"Receipt doesn’t contain active purchases." = "В электронном чеке нет действующих покупок.";
+
+/* Receipt validation error. */
+"Receipt is invalid." = "Электронный чек недействителен.";
+
+/* Receipt validation success. */
+"Receipt is valid." = "Электронный чек успешно прошел проверку.";
+

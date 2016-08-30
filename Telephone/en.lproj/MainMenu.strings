@@ -1,0 +1,129 @@
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "Bring All to Front";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
+"23.title" = "Minimize";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "Window";
+
+/* Class = "NSMenu"; title = "AMainMenu"; ObjectID = "29"; */
+"29.title" = "AMainMenu";
+
+/* Class = "NSMenuItem"; title = "Telephone"; ObjectID = "56"; */
+"56.title" = "Telephone";
+
+/* Class = "NSMenu"; title = "Telephone"; ObjectID = "57"; */
+"57.title" = "Telephone";
+
+/* Class = "NSMenuItem"; title = "About Telephone"; ObjectID = "58"; */
+"58.title" = "About Telephone";
+
+/* Class = "NSMenuItem"; title = "Close Window"; ObjectID = "73"; */
+"73.title" = "Close Window";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "81"; */
+"81.title" = "File";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "83"; */
+"83.title" = "File";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
+"103.title" = "Help";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
+"106.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
+"129.title" = "Preferences…";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
+"130.title" = "Services";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "131"; */
+"131.title" = "Services";
+
+/* Class = "NSMenuItem"; title = "Hide Telephone"; ObjectID = "134"; */
+"134.title" = "Hide Telephone";
+
+/* Class = "NSMenuItem"; title = "Quit Telephone"; ObjectID = "136"; */
+"136.title" = "Quit Telephone";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "Hide Others";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "Show All";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "195"; */
+"195.title" = "Stop Speaking";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "196"; */
+"196.title" = "Start Speaking";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "197"; */
+"197.title" = "Copy";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "198"; */
+"198.title" = "Select All";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "199"; */
+"199.title" = "Cut";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "202"; */
+"202.title" = "Delete";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "203"; */
+"203.title" = "Paste";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "205"; */
+"205.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "207"; */
+"207.title" = "Undo";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "211"; */
+"211.title" = "Speech";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "212"; */
+"212.title" = "Speech";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "215"; */
+"215.title" = "Redo";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "217"; */
+"217.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
+"239.title" = "Zoom";
+
+/* Class = "NSMenuItem"; title = "Call"; ObjectID = "497"; */
+"497.title" = "Call";
+
+/* Class = "NSMenu"; title = "Call"; ObjectID = "498"; */
+"498.title" = "Call";
+
+/* Class = "NSMenuItem"; title = "Mute"; ObjectID = "499"; */
+"499.title" = "Mute";
+
+/* Class = "NSMenuItem"; title = "Hold"; ObjectID = "500"; */
+"500.title" = "Hold";
+
+/* Class = "NSMenuItem"; title = "End Call"; ObjectID = "506"; */
+"506.title" = "End Call";
+
+/* Class = "NSMenuItem"; title = "Call Back"; ObjectID = "508"; */
+"508.title" = "Call Back";
+
+/* Class = "NSMenuItem"; title = "Transfer"; ObjectID = "510"; */
+"510.title" = "Transfer";
+
+/* Class = "NSMenuItem"; title = "Answer"; ObjectID = "513"; */
+"513.title" = "Answer";
+
+/* Class = "NSMenuItem"; title = "Support Telephone…"; ObjectID = "rMu-ch-wsu"; */
+"rMu-ch-wsu.title" = "Support Telephone…";
