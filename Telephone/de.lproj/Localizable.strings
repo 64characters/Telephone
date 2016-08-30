@@ -84,7 +84,7 @@
 "Error %d" = "Fehler %d";
 
 /* Failed to communicate with STUN server. */
-"Failed to communicate with STUN server." = "Kommunikationsfehler mit STUN server.";
+"Failed to communicate with STUN server." = "Kommunikationsfehler mit STUN-Server.";
 
 /* General preferences window title. */
 "General" = "Allgemein";
