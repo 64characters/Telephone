@@ -47,11 +47,20 @@
 /* Account registration Connecting... menu item. */
 "Connecting..." = "Connecting...";
 
+/* Products fetch error. */
+"Could not fetch products." = "Could not fetch products.";
+
 /* Address Book plug-ins install error, alert message text. */
 "Could not install Address Book plug-ins." = "Could not install Address Book plug-ins.";
 
+/* Product purchase error. */
+"Could not make purchase." = "Could not make purchase.";
+
 /* Registrar connection error. */
 "Could not register with %@." = "Could not register with %@.";
+
+/* Purchase restoration error. */
+"Could not restore purchases." = "Could not restore purchases.";
 
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Could not start SIP user agent.";
@@ -91,6 +100,9 @@
 
 /* Microphone unmuted status text. */
 "mic unmuted" = "mic unmuted";
+
+/* Product name. */
+"Monthly optional patronage" = "Monthly optional patronage";
 
 /* Mute. Call menu item. */
 "Mute" = "Mute";
@@ -155,6 +167,15 @@
 /* Account registration Unavailable menu item. */
 "Unavailable" = "Unavailable";
 
+/* Unknown error. */
+"Unknown error" = "Unknown error";
+
+/* Unknown product name. */
+"Unknown product" = "Unknown product";
+
 /* Unmute. Call menu item. */
 "Unmute" = "Unmute";
+
+/* Product name. */
+"Yearly optional patronage" = "Yearly optional patronage";
 

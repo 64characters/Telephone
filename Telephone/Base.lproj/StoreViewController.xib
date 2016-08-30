@@ -46,8 +46,8 @@ The subscription renews automatically and can be canceled almost any time based 
                     </constraints>
                 </customView>
                 <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bmy-eH-1mE">
-                    <rect key="frame" x="279" y="13" width="187" height="32"/>
-                    <buttonCell key="cell" type="push" title="Manage Subscriptions..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lhf-s5-m1W">
+                    <rect key="frame" x="280" y="13" width="186" height="32"/>
+                    <buttonCell key="cell" type="push" title="Manage Subscriptions…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lhf-s5-m1W">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

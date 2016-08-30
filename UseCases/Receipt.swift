@@ -30,11 +30,17 @@ public enum ReceiptValidationResult {
     public var message: String {
         switch self {
         case ReceiptIsValid:
-            return NSLocalizedString("Receipt is valid.", comment: "Receipt validation success.")
+            return NSLocalizedString("Receipt is valid.", bundle: bundle(), comment: "Receipt validation success.")
         case .ReceiptIsInvalid:
-            return NSLocalizedString("Receipt is invalid.", comment: "Receipt validation error.")
+            return NSLocalizedString("Receipt is invalid.", bundle: bundle(), comment: "Receipt validation error.")
         case .NoActivePurchases:
-            return NSLocalizedString("Receipt doesn’t contain active purchases.", comment: "No active purchase error.")
+            return NSLocalizedString(
+                "Receipt doesn’t contain active purchases.", bundle: bundle(), comment: "No active purchase error."
+            )
         }
     }
+}
+
+private func bundle() -> NSBundle {
+    return NSBundle(identifier: "com.tlphn.Telephone.UseCases")!
 }

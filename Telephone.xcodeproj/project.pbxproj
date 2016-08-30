@@ -170,6 +170,9 @@
 		8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BD1D704A40000587DC /* MusicPlayersTests.swift */; };
 		8AA748BF1D704A44000587DC /* MusicPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748BB1D704962000587DC /* MusicPlayers.swift */; };
 		8AA748C11D704B9F000587DC /* AvailableMusicPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748C01D704B9F000587DC /* AvailableMusicPlayers.swift */; };
+		8AA748F71D74986A000587DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA748F91D74986A000587DC /* Localizable.strings */; };
+		8AA748FE1D749E05000587DC /* StoreWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA749001D749E05000587DC /* StoreWindowController.xib */; };
+		8AA749031D749E4D000587DC /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA749051D749E4D000587DC /* StoreViewController.xib */; };
 		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
 		8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */; };
@@ -221,9 +224,7 @@
 		8ADD6A711CE0DECC001EDBBA /* ProductsEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A701CE0DECC001EDBBA /* ProductsEventTargetsTests.swift */; };
 		8ADD6A771CE0E704001EDBBA /* ProductsEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A761CE0E704001EDBBA /* ProductsEventTargetSpy.swift */; };
 		8ADD6A801CE0F995001EDBBA /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */; };
-		8ADD6A811CE0F995001EDBBA /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7D1CE0F995001EDBBA /* StoreViewController.xib */; };
 		8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7E1CE0F995001EDBBA /* StoreWindowController.swift */; };
-		8ADD6A831CE0F995001EDBBA /* StoreWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7F1CE0F995001EDBBA /* StoreWindowController.xib */; };
 		8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6C1C528F720029C3D8 /* Error.swift */; };
 		8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift */; };
 		8ADE59911D61D0F000B41275 /* ReceiptChecksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADE59901D61D0F000B41275 /* ReceiptChecksum.swift */; };
@@ -746,6 +747,13 @@
 		8AA748D11D744FAB000587DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NetworkPreferencesView.xib; sourceTree = "<group>"; };
 		8AA748D21D744FAB000587DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		8AA748D31D744FAB000587DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AccountSetup.xib; sourceTree = "<group>"; };
+		8AA748F81D74986A000587DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AA748FA1D74987E000587DC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AA748FD1D749B00000587DC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		8AA748FF1D749E05000587DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StoreWindowController.xib; sourceTree = "<group>"; };
+		8AA749021D749E15000587DC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/StoreWindowController.strings; sourceTree = "<group>"; };
+		8AA749041D749E4D000587DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StoreViewController.xib; sourceTree = "<group>"; };
+		8AA749071D749E54000587DC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/StoreViewController.strings; sourceTree = "<group>"; };
 		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSoundIO.swift; sourceTree = "<group>"; };
@@ -785,9 +793,7 @@
 		8ADD6A701CE0DECC001EDBBA /* ProductsEventTargetsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductsEventTargetsTests.swift; path = UseCasesTests/ProductsEventTargetsTests.swift; sourceTree = SOURCE_ROOT; };
 		8ADD6A761CE0E704001EDBBA /* ProductsEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsEventTargetSpy.swift; sourceTree = "<group>"; };
 		8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
-		8ADD6A7D1CE0F995001EDBBA /* StoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreViewController.xib; sourceTree = "<group>"; };
 		8ADD6A7E1CE0F995001EDBBA /* StoreWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreWindowController.swift; sourceTree = "<group>"; };
-		8ADD6A7F1CE0F995001EDBBA /* StoreWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreWindowController.xib; sourceTree = "<group>"; };
 		8ADD6B6C1C528F720029C3D8 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift; sourceTree = "<group>"; };
 		8ADE59901D61D0F000B41275 /* ReceiptChecksum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptChecksum.swift; sourceTree = "<group>"; };
@@ -859,7 +865,6 @@
 		AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDevices.swift; sourceTree = "<group>"; };
 		AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCall.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCall.m; sourceTree = "<group>"; tabWidth = 4; };
-		AA2ED9930F05AD1E004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		AA2ED99D0F05B36B004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/Account.xib; sourceTree = "<group>"; };
 		AA2ED9A10F05B3BD004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/Call.xib; sourceTree = "<group>"; };
 		AA2ED9A60F05B5CE004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/Preferences.xib; sourceTree = "<group>"; };
@@ -1403,14 +1408,14 @@
 				8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */,
 				8ADD6A631CE0C591001EDBBA /* StoreView.swift */,
 				8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */,
-				8ADD6A7D1CE0F995001EDBBA /* StoreViewController.xib */,
+				8AA749051D749E4D000587DC /* StoreViewController.xib */,
 				8AD6597D1D37C95E008A1007 /* StoreViewEventTarget */,
 				8A5EADB21D3550B500C53415 /* StoreViewPresenter */,
 				8A7567381CF75DF500D91C04 /* StoreViewState.swift */,
 				8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */,
 				8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */,
 				8ADD6A7E1CE0F995001EDBBA /* StoreWindowController.swift */,
-				8ADD6A7F1CE0F995001EDBBA /* StoreWindowController.xib */,
+				8AA749001D749E05000587DC /* StoreWindowController.xib */,
 			);
 			name = Store;
 			sourceTree = "<group>";
@@ -1677,6 +1682,7 @@
 				AA7F6D3B1C034B700064DA3A /* UserDefaultsKeys.h */,
 				AA7F6D3C1C034B700064DA3A /* UserDefaultsKeys.m */,
 				AA078B2B1BFF80E30013FF8F /* UseCases.h */,
+				8AA748F91D74986A000587DC /* Localizable.strings */,
 				AA078B2D1BFF80E30013FF8F /* Info.plist */,
 			);
 			path = UseCases;
@@ -2410,7 +2416,7 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				AA2ED9A50F05B5C6004A13C6 /* Preferences.xib in Resources */,
 				AA2ED99C0F05B362004A13C6 /* Account.xib in Resources */,
-				8ADD6A811CE0F995001EDBBA /* StoreViewController.xib in Resources */,
+				8AA749031D749E4D000587DC /* StoreViewController.xib in Resources */,
 				AA2ED9A00F05B3B5004A13C6 /* Call.xib in Resources */,
 				AA2ED9AC0F05BA11004A13C6 /* AccountSetup.xib in Resources */,
 				AA2ED9B20F05BB5D004A13C6 /* AuthenticationFailure.xib in Resources */,
@@ -2429,7 +2435,7 @@
 				AA7CB51F11442249004D79DA /* ActiveAccountTransferView.xib in Resources */,
 				AA7CB51D11442241004D79DA /* CallTransfer.xib in Resources */,
 				AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */,
-				8ADD6A831CE0F995001EDBBA /* StoreWindowController.xib in Resources */,
+				8AA748FE1D749E05000587DC /* StoreWindowController.xib in Resources */,
 				AA7CB5301144242F004D79DA /* EndedCallTransferView.xib in Resources */,
 				AA53434712ADBAD200B47767 /* Sound.tiff in Resources */,
 			);
@@ -2439,6 +2445,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AA748F71D74986A000587DC /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3032,11 +3039,38 @@
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA2ED9930F05AD1E004A13C6 /* ru */,
 				AA51002A0F1FF943003CE94C /* de */,
 				8AA748C21D744FAA000587DC /* Base */,
+				8AA748FD1D749B00000587DC /* ru */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		8AA748F91D74986A000587DC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AA748F81D74986A000587DC /* en */,
+				8AA748FA1D74987E000587DC /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		8AA749001D749E05000587DC /* StoreWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AA748FF1D749E05000587DC /* Base */,
+				8AA749021D749E15000587DC /* ru */,
+			);
+			name = StoreWindowController.xib;
+			sourceTree = "<group>";
+		};
+		8AA749051D749E4D000587DC /* StoreViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AA749041D749E4D000587DC /* Base */,
+				8AA749071D749E54000587DC /* ru */,
+			);
+			name = StoreViewController.xib;
 			sourceTree = "<group>";
 		};
 		AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */ = {

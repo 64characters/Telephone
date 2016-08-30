@@ -77,7 +77,7 @@ private func hasLowerPrice(lhs: Product, _ rhs: Product) -> Bool {
 
 private func productsFetchError(withError error: String) -> String {
     let prefix = NSLocalizedString(
-        "Could not fetch products", comment: "Products fetch error."
+        "Could not fetch products.", comment: "Products fetch error."
     )
-    return "\(prefix). \(error)"
+    return "\(prefix) \(error)"
 }

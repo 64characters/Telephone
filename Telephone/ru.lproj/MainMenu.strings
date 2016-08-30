@@ -1,0 +1,129 @@
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "Все окна на передний план";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "Окно";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
+"23.title" = "Убрать в Док";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "Окно";
+
+/* Class = "NSMenu"; title = "AMainMenu"; ObjectID = "29"; */
+"29.title" = "AMainMenu";
+
+/* Class = "NSMenuItem"; title = "Telephone"; ObjectID = "56"; */
+"56.title" = "Телефон";
+
+/* Class = "NSMenu"; title = "Telephone"; ObjectID = "57"; */
+"57.title" = "Телефон";
+
+/* Class = "NSMenuItem"; title = "About Telephone"; ObjectID = "58"; */
+"58.title" = "О Телефоне";
+
+/* Class = "NSMenuItem"; title = "Close Window"; ObjectID = "73"; */
+"73.title" = "Закрыть окно";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "81"; */
+"81.title" = "Файл";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "83"; */
+"83.title" = "Файл";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
+"103.title" = "Справка";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
+"106.title" = "Справка";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
+"129.title" = "Настройка…";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
+"130.title" = "Службы";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "131"; */
+"131.title" = "Службы";
+
+/* Class = "NSMenuItem"; title = "Hide Telephone"; ObjectID = "134"; */
+"134.title" = "Скрыть Телефон";
+
+/* Class = "NSMenuItem"; title = "Quit Telephone"; ObjectID = "136"; */
+"136.title" = "Выйти из Телефона";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "Скрыть остальные";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "Показать все";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "195"; */
+"195.title" = "Остановить";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "196"; */
+"196.title" = "Начать";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "197"; */
+"197.title" = "Копировать";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "198"; */
+"198.title" = "Выделить все";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "199"; */
+"199.title" = "Вырезать";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "202"; */
+"202.title" = "Удалить";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "203"; */
+"203.title" = "Вставить";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "205"; */
+"205.title" = "Правка";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "207"; */
+"207.title" = "Отменить";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "211"; */
+"211.title" = "Речь";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "212"; */
+"212.title" = "Речь";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "215"; */
+"215.title" = "Повторить";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "217"; */
+"217.title" = "Правка";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
+"239.title" = "Масштабировать";
+
+/* Class = "NSMenuItem"; title = "Call"; ObjectID = "497"; */
+"497.title" = "Звонок";
+
+/* Class = "NSMenu"; title = "Call"; ObjectID = "498"; */
+"498.title" = "Звонок";
+
+/* Class = "NSMenuItem"; title = "Mute"; ObjectID = "499"; */
+"499.title" = "Отключить микрофон";
+
+/* Class = "NSMenuItem"; title = "Hold"; ObjectID = "500"; */
+"500.title" = "Поставить на ожидание";
+
+/* Class = "NSMenuItem"; title = "End Call"; ObjectID = "506"; */
+"506.title" = "Завершить звонок";
+
+/* Class = "NSMenuItem"; title = "Call Back"; ObjectID = "508"; */
+"508.title" = "Перезвонить";
+
+/* Class = "NSMenuItem"; title = "Transfer"; ObjectID = "510"; */
+"510.title" = "Перевести";
+
+/* Class = "NSMenuItem"; title = "Answer"; ObjectID = "513"; */
+"513.title" = "Ответить";
+
+/* Class = "NSMenuItem"; title = "Support Telephone…"; ObjectID = "rMu-ch-wsu"; */
+"rMu-ch-wsu.title" = "Поддержать проект…";

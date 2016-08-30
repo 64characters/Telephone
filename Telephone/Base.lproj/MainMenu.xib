@@ -22,7 +22,7 @@
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Support Telephone..." id="rMu-ch-wsu">
+                            <menuItem title="Support Telephone…" id="rMu-ch-wsu">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showStoreWindow:" target="450" id="UXk-hd-Ptc"/>

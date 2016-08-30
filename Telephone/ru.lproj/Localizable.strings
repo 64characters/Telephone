@@ -47,11 +47,20 @@
 /* Account registration Connecting... menu item. */
 "Connecting..." = "Соединение...";
 
+/* Products fetch error. */
+"Could not fetch products." = "Не удалось получить список продуктов.";
+
 /* Address Book plug-ins install error, alert message text. */
 "Could not install Address Book plug-ins." = "Не удалось установить плагины к «Адресной книге».";
 
+/* Product purchase error. */
+"Could not make purchase." = "Покупка не удалась.";
+
 /* Registrar connection error. */
 "Could not register with %@." = "Не удалось зарегистрироваться на %@.";
+
+/* Purchase restoration error. */
+"Could not restore purchases." = "Не удалось восстановить покупки.";
 
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Не удалось запустить SIP-подсистему.";
@@ -91,6 +100,9 @@
 
 /* Microphone unmuted status text. */
 "mic unmuted" = "микрофон работает";
+
+/* Product name. */
+"Monthly optional patronage" = "Ежемесячная добровольная поддержка";
 
 /* Mute. Call menu item. */
 "Mute" = "Выключить микрофон";
@@ -155,6 +167,14 @@
 /* Account registration Unavailable menu item. */
 "Unavailable" = "Недоступен";
 
+/* Unknown error. */
+"Unknown error" = "Неизвестная ошибка";
+
+/* Unknown product name. */
+"Unknown product" = "Неизвестный продукт";
+
 /* Unmute. Call menu item. */
 "Unmute" = "Включить микрофон";
 
+/* Product name. */
+"Yearly optional patronage" = "Ежегодная добровольная поддержка";
