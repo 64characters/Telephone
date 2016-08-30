@@ -1,0 +1,129 @@
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "Alle nach vorne bringen";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
+"23.title" = "Im Dock ablegen";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "Fenster";
+
+/* Class = "NSMenu"; title = "AMainMenu"; ObjectID = "29"; */
+"29.title" = "AMainMenu";
+
+/* Class = "NSMenuItem"; title = "Telephone"; ObjectID = "56"; */
+"56.title" = "Telefon";
+
+/* Class = "NSMenu"; title = "Telephone"; ObjectID = "57"; */
+"57.title" = "Telefon";
+
+/* Class = "NSMenuItem"; title = "About Telephone"; ObjectID = "58"; */
+"58.title" = "Über Telefon";
+
+/* Class = "NSMenuItem"; title = "Close Window"; ObjectID = "73"; */
+"73.title" = "Schließen";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "81"; */
+"81.title" = "Ablage";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "83"; */
+"83.title" = "Ablage";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
+"103.title" = "Hilfe";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
+"106.title" = "Hilfe";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
+"129.title" = "Einstellungen …";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
+"130.title" = "Dienste";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "131"; */
+"131.title" = "Dienste";
+
+/* Class = "NSMenuItem"; title = "Hide Telephone"; ObjectID = "134"; */
+"134.title" = "Telefon ausblenden";
+
+/* Class = "NSMenuItem"; title = "Quit Telephone"; ObjectID = "136"; */
+"136.title" = "Telefon beenden";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "Andere ausblenden";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "Alle einblenden";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "195"; */
+"195.title" = "Sprachausgabe stoppen";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "196"; */
+"196.title" = "Sprachausgabe starten";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "197"; */
+"197.title" = "Kopieren";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "198"; */
+"198.title" = "Alles auswählen";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "199"; */
+"199.title" = "Ausschneiden";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "202"; */
+"202.title" = "Löschen";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "203"; */
+"203.title" = "Einsetzen";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "205"; */
+"205.title" = "Bearbeiten";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "207"; */
+"207.title" = "Widerrufen";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "211"; */
+"211.title" = "Sprachausgabe";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "212"; */
+"212.title" = "Sprachausgabe";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "215"; */
+"215.title" = "Wiederholen";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "217"; */
+"217.title" = "Bearbeiten";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
+"239.title" = "Zoomen";
+
+/* Class = "NSMenuItem"; title = "Call"; ObjectID = "497"; */
+"497.title" = "Anruf";
+
+/* Class = "NSMenu"; title = "Call"; ObjectID = "498"; */
+"498.title" = "Anruf";
+
+/* Class = "NSMenuItem"; title = "Mute"; ObjectID = "499"; */
+"499.title" = "Mikrofon aus";
+
+/* Class = "NSMenuItem"; title = "Hold"; ObjectID = "500"; */
+"500.title" = "Halten";
+
+/* Class = "NSMenuItem"; title = "End Call"; ObjectID = "506"; */
+"506.title" = "Anruf beenden";
+
+/* Class = "NSMenuItem"; title = "Call Back"; ObjectID = "508"; */
+"508.title" = "Rückruf";
+
+/* Class = "NSMenuItem"; title = "Transfer"; ObjectID = "510"; */
+"510.title" = "Weiterleiten";
+
+/* Class = "NSMenuItem"; title = "Answer"; ObjectID = "513"; */
+"513.title" = "Annehmen";
+
+/* Class = "NSMenuItem"; title = "Support Telephone…"; ObjectID = "rMu-ch-wsu"; */
+"rMu-ch-wsu.title" = "Telefon unterstützen …";

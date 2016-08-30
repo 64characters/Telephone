@@ -1,0 +1,30 @@
+
+/* Class = "NSButtonCell"; title = "Restore Purchases"; ObjectID = "7Au-Xg-Hs2"; */
+"7Au-Xg-Hs2.title" = "Käufe wiederherstellen";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "CFV-wm-kqZ"; */
+"CFV-wm-kqZ.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Thank you!"; ObjectID = "L2v-xq-Wr7"; */
+"L2v-xq-Wr7.title" = "Danke!";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "NEN-L8-9I9"; */
+"NEN-L8-9I9.title" = "Table View Cell";
+
+/* Class = "NSTextFieldCell"; title = "Telephone is a free and open souce app that is supported by people like you. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be canceled almost any time based on Mac App Store subscription rules."; ObjectID = "W5b-g9-V4l"; */
+"W5b-g9-V4l.title" = "Telefon ist eine freie und quelloffene app, die ausschließlich von ihren Benutzern unterstützt wird. Bitte überlegen Sie sich, das Projekt zu unterstützen, um ständige Weiterentwicklung zu ermöglichen.\n\nDas Abo verlängert sich automatisch und kann fast jederzeit gemäß App-Store-Bedingungen gekündigt werden.";
+
+/* Class = "NSTextFieldCell"; title = "Your subscription ends on"; ObjectID = "Z9K-5X-9uS"; */
+"Z9K-5X-9uS.title" = "Ihr Abonnement endet am";
+
+/* Class = "NSTextFieldCell"; title = "Dec 31, 2016"; ObjectID = "efh-fd-jws"; */
+"efh-fd-jws.title" = "Dec 31, 2016";
+
+/* Class = "NSButtonCell"; title = "Manage Subscriptions…"; ObjectID = "lhf-s5-m1W"; */
+"lhf-s5-m1W.title" = "Abonnements verwalten …";
+
+/* Class = "NSTextFieldCell"; title = "Could not fetch products."; ObjectID = "quy-Sv-sGw"; */
+"quy-Sv-sGw.title" = "Could not fetch products.";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "wUB-pq-l64"; */
+"wUB-pq-l64.title" = "Button";
