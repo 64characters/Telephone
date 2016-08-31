@@ -532,7 +532,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             break;
             
         default:
-            if ([preferredLocalization isEqualToString:@"Russian"]) {
+            if ([preferredLocalization isEqualToString:@"ru"]) {
                 NSString *statusText = [[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]];
                 if (statusText == nil) {
                     [self setStatus:[NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."),

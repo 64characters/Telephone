@@ -203,14 +203,14 @@ NS_ASSUME_NONNULL_END
         NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
         
         // Do not format phone numbers in German localization by default.
-        if ([preferredLocalization isEqualToString:@"German"]) {
+        if ([preferredLocalization isEqualToString:@"de"]) {
             defaultsDict[kFormatTelephoneNumbers] = @NO;
         } else {
             defaultsDict[kFormatTelephoneNumbers] = @YES;
         }
         
         // Split last four digits in Russian localization by default.
-        if ([preferredLocalization isEqualToString:@"Russian"]) {
+        if ([preferredLocalization isEqualToString:@"ru"]) {
             defaultsDict[kTelephoneNumberFormatterSplitsLastFourDigits] = @YES;
         } else {
             defaultsDict[kTelephoneNumberFormatterSplitsLastFourDigits] = @NO;
