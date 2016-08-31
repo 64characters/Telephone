@@ -118,7 +118,7 @@ extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
 }
 
 private func descriptionOf(error: NSError?) -> String {
-    return error?.localizedDescription ?? "Unknown error"
+    return error?.localizedDescription ?? NSLocalizedString("Unknown error", comment: "Unknown error.")
 }
 
 private func identifierToProduct(fromProducts products: [Product]) -> [String: Product] {
