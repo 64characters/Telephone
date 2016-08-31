@@ -64,11 +64,11 @@ final class CompositionRoot: NSObject {
         )
         let products = SKProductsRequestToProductsAdapter(expected: ExpectedProducts(), target: productsEventTargets)
         let store = SKPaymentQueueToStoreAdapter(queue: SKPaymentQueue.defaultQueue(), products: products)
-        let receipt = LoggingReceipt(origin: BundleReceipt(bundle: NSBundle.mainBundle(), gateway: ReceiptXPCGateway()))
+        let receipt = BundleReceipt(bundle: NSBundle.mainBundle(), gateway: ReceiptXPCGateway())
         let storeViewEventTarget = DefaultStoreViewEventTarget(
             factory: DefaultStoreUseCaseFactory(
-                products: LoggingProducts(origin: products),
-                store: LoggingStore(origin: store),
+                products: products,
+                store: store,
                 receipt: receipt,
                 targets: productsEventTargets
             ),
