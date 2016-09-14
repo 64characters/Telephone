@@ -17,9 +17,9 @@
 //
 
 final class UserAgentAudioDeviceNameToDeviceMap {
-    private let devices: [UserAgentAudioDevice]
-    private var inputMap: [String: UserAgentAudioDevice] = [:]
-    private var outputMap: [String: UserAgentAudioDevice] = [:]
+    fileprivate let devices: [UserAgentAudioDevice]
+    fileprivate var inputMap: [String: UserAgentAudioDevice] = [:]
+    fileprivate var outputMap: [String: UserAgentAudioDevice] = [:]
 
     init(devices: [UserAgentAudioDevice]) {
         self.devices = devices
@@ -27,21 +27,21 @@ final class UserAgentAudioDeviceNameToDeviceMap {
         devices.forEach(updateOutputDeviceMap)
     }
 
-    func inputDeviceNamed(name: String) -> UserAgentAudioDevice {
+    func inputDeviceNamed(_ name: String) -> UserAgentAudioDevice {
         return inputMap[name] ?? NullUserAgentAudioDevice()
     }
 
-    func outputDeviceNamed(name: String) -> UserAgentAudioDevice {
+    func outputDeviceNamed(_ name: String) -> UserAgentAudioDevice {
         return outputMap[name] ?? NullUserAgentAudioDevice()
     }
 
-    private func updateInputDeviceMap(withDevice device: UserAgentAudioDevice) {
+    fileprivate func updateInputDeviceMap(withDevice device: UserAgentAudioDevice) {
         if device.hasInputs {
             inputMap[device.name] = device
         }
     }
 
-    private func updateOutputDeviceMap(withDevice device: UserAgentAudioDevice) {
+    fileprivate func updateOutputDeviceMap(withDevice device: UserAgentAudioDevice) {
         if device.hasOutputs {
             outputMap[device.name] = device
         }

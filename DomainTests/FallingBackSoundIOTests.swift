@@ -21,7 +21,7 @@ import DomainTestDoubles
 import XCTest
 
 final class FallingBackSoundIOTests: XCTestCase {
-    private var anyDevice: SystemAudioDevice!
+    fileprivate var anyDevice: SystemAudioDevice!
 
     override func setUp() {
         super.setUp()
@@ -46,7 +46,7 @@ final class FallingBackSoundIOTests: XCTestCase {
         assertNonNullValues(sut)
     }
 
-    private func createNonNullSoundIO() -> SoundIO {
+    fileprivate func createNonNullSoundIO() -> SoundIO {
         return SimpleSoundIO(
             soundIO: SimpleSystemSoundIO(
                 input: anyDevice, output: anyDevice
@@ -54,7 +54,7 @@ final class FallingBackSoundIOTests: XCTestCase {
         )
     }
 
-    private func createNullSoundIO() -> SoundIO {
+    fileprivate func createNullSoundIO() -> SoundIO {
         return SimpleSoundIO(
             input: NullSystemAudioDevice(),
             output: NullSystemAudioDevice(),
@@ -62,7 +62,7 @@ final class FallingBackSoundIOTests: XCTestCase {
         )
     }
 
-    private func assertNonNullValues(sut: FallingBackSoundIO) {
+    fileprivate func assertNonNullValues(_ sut: FallingBackSoundIO) {
         XCTAssertTrue(sut.input == anyDevice)
         XCTAssertTrue(sut.output == anyDevice)
         XCTAssertTrue(sut.ringtoneOutput == anyDevice)
