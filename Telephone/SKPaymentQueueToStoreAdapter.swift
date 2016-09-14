@@ -30,7 +30,7 @@ final class SKPaymentQueueToStoreAdapter {
 
 extension SKPaymentQueueToStoreAdapter: Store {
     func purchase(product: Product) throws {
-        queue.addPayment(try createPayment(withProduct: try storeKitProduct(forProduct: product)))
+        queue.addPayment(SKPayment(product: try storeKitProduct(forProduct: product)))
     }
 
     func restorePurchases() {
@@ -43,13 +43,5 @@ extension SKPaymentQueueToStoreAdapter: Store {
         } else {
             throw TelephoneError.ProductToStoreKitProductMappingError
         }
-    }
-}
-
-private func createPayment(withProduct product: SKProduct) throws -> SKPayment {
-    if let result = SKPayment.paymentWithProduct(product) as? SKPayment {
-        return result
-    } else {
-        throw TelephoneError.PaymentCreationError
     }
 }

@@ -49,10 +49,10 @@ extension StoreEventSource: SKPaymentTransactionObserver {
     }
 
     private func handleStateChange(of transactions: [SKPaymentTransaction]) {
-        handlePurchasing(transactions.filter { $0.transactionState == SKPaymentTransactionStatePurchasing })
-        handlePurchased(transactions.filter { $0.transactionState == SKPaymentTransactionStatePurchased })
-        handleFailed(transactions.filter { $0.transactionState == SKPaymentTransactionStateFailed })
-        handleRestored(transactions.filter { $0.transactionState == SKPaymentTransactionStateRestored })
+        handlePurchasing(transactions.filter { $0.transactionState == .Purchasing })
+        handlePurchased(transactions.filter { $0.transactionState == .Purchased })
+        handleFailed(transactions.filter { $0.transactionState == .Failed })
+        handleRestored(transactions.filter { $0.transactionState == .Restored })
     }
 
     private func handlePurchasing(transactions: [SKPaymentTransaction]) {
@@ -102,7 +102,7 @@ extension StoreEventSource: SKPaymentTransactionObserver {
 }
 
 private func isCancelled(error: NSError) -> Bool {
-    return error.domain == SKErrorDomain && error.code == SKErrorPaymentCancelled
+    return error.domain == SKErrorDomain && error.code == SKErrorCode.PaymentCancelled.rawValue
 }
 
 private func localizedUnknownError() -> String {
