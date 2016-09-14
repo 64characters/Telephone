@@ -80,7 +80,7 @@ extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
         for skProduct in products {
             formatter.locale = skProduct.priceLocale
             let product = Product(
-                product: skProduct, name: expected.name(withIdentifier: skProduct.productIdentifier!), formatter: formatter
+                product: skProduct, name: expected.name(withIdentifier: skProduct.productIdentifier), formatter: formatter
             )
             idToProduct[product.identifier] = product
             productToSKProduct[product] = skProduct
@@ -96,7 +96,7 @@ extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
         }
     }
 
-    func request(request: SKRequest, didFailWithError error: NSError?) {
+    func request(request: SKRequest, didFailWithError error: NSError) {
         NSLog("Store request '\(request)' failed: \(error)")
         dispatch_async(dispatch_get_main_queue()) {
             self.notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error))
@@ -117,8 +117,12 @@ extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
     }
 }
 
-private func descriptionOf(error: NSError?) -> String {
-    return error?.localizedDescription ?? NSLocalizedString("Unknown error", comment: "Unknown error.")
+private func descriptionOf(error: NSError) -> String {
+    if error.localizedDescription.isEmpty {
+        return NSLocalizedString("Unknown error", comment: "Unknown error.")
+    } else {
+        return error.localizedDescription
+    }
 }
 
 private func identifierToProduct(fromProducts products: [Product]) -> [String: Product] {

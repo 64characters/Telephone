@@ -21,5 +21,4 @@ enum TelephoneError: ErrorType {
     case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
     case SoundCreationError
     case ProductToStoreKitProductMappingError
-    case PaymentCreationError
 }

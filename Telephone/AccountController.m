@@ -166,7 +166,7 @@ NSString * const kGerman = @"de";
                 NSString *statusText;
                 NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
                 if ([preferredLocalization isEqualToString:kRussian]) {
-                    statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
+                    statusText = [(AppController *)[NSApp delegate] localizedStringForSIPResponseCode:
                                   [[self account] registrationStatus]];
                 } else {
                     statusText = [[self account] registrationStatusText];
@@ -684,7 +684,7 @@ NSString * const kGerman = @"de";
                     NSString *statusText;
                     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
                     if ([preferredLocalization isEqualToString:kRussian]) {
-                        statusText = [[NSApp delegate] localizedStringForSIPResponseCode:
+                        statusText = [(AppController *)[NSApp delegate] localizedStringForSIPResponseCode:
                                       [[self account] registrationStatus]];
                     } else {
                         statusText = [[self account] registrationStatusText];
@@ -999,7 +999,7 @@ NSString * const kGerman = @"de";
 
     if (![NSApp isActive]) {
         [NSApp requestUserAttention:NSInformationalRequest];
-        [[NSApp delegate] startUserAttentionTimer];
+        [(AppController *)[NSApp delegate] startUserAttentionTimer];
     }
     
     [aCall sendRingingNotification];
