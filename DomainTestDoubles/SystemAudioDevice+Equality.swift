@@ -29,10 +29,10 @@ public func ==(lhs: SystemAudioDevice, rhs: SystemAudioDevice) -> Bool {
 
 public func ==(lhs: [SystemAudioDevice], rhs: [SystemAudioDevice]) -> Bool {
     guard lhs.count == rhs.count else { return false }
-    var generator1 = lhs.makeIterator()
-    var generator2 = rhs.makeIterator()
+    var iterator1 = lhs.makeIterator()
+    var iterator2 = rhs.makeIterator()
     var equal = true
-    while let element1 = generator1.next(), let element2 = generator2.next() , equal {
+    while let element1 = iterator1.next(), let element2 = iterator2.next(), equal {
         equal = element1 == element2
     }
     return equal

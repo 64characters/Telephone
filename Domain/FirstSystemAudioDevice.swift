@@ -20,11 +20,11 @@ struct FirstSystemAudioDevice {
     fileprivate let device: SystemAudioDevice
 
     init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) {
-        device = firstOf(devices, predicate: predicate)
+        device = first(of: devices, predicate: predicate)
     }
 }
 
-private func firstOf(_ devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) -> SystemAudioDevice {
+private func first(of devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) -> SystemAudioDevice {
     if let result = devices.filter(predicate).first {
         return result
     } else {

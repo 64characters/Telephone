@@ -21,8 +21,8 @@ import DomainTestDoubles
 import XCTest
 
 final class SystemAudioDevicesTests: XCTestCase {
-    fileprivate var factory: SystemAudioDeviceTestFactory!
-    fileprivate var sut: SystemAudioDevices!
+    private var factory: SystemAudioDeviceTestFactory!
+    private var sut: SystemAudioDevices!
 
     override func setUp() {
         super.setUp()
@@ -33,13 +33,13 @@ final class SystemAudioDevicesTests: XCTestCase {
     func testCanGetInputDeviceByName() {
         let inputDevice = factory.someInput
 
-        XCTAssertTrue(sut.inputDeviceNamed(inputDevice.name) == inputDevice)
+        XCTAssertTrue(sut.inputDevice(named: inputDevice.name) == inputDevice)
     }
 
     func testCanGetOutputDeviceByName() {
         let outputDevice = factory.someOutput
 
-        XCTAssertTrue(sut.outputDeviceNamed(outputDevice.name) == outputDevice)
+        XCTAssertTrue(sut.outputDevice(named: outputDevice.name) == outputDevice)
     }
 
     func testCanGetInputDevices() {
@@ -51,7 +51,7 @@ final class SystemAudioDevicesTests: XCTestCase {
     }
 
     func testReturnsNullObjectsWhenNoDevicesFound() {
-        XCTAssertTrue(sut.inputDeviceNamed("nonexistent").isNil)
-        XCTAssertTrue(sut.outputDeviceNamed("nonexistent").isNil)
+        XCTAssertTrue(sut.inputDevice(named: "nonexistent").isNil)
+        XCTAssertTrue(sut.outputDevice(named: "nonexistent").isNil)
     }
 }

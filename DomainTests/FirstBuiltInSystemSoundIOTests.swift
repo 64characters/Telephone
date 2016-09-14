@@ -21,7 +21,7 @@ import DomainTestDoubles
 import XCTest
 
 final class FirstBuiltInSystemSoundIOTests: XCTestCase {
-    fileprivate var factory: SystemAudioDeviceTestFactory!
+    private var factory: SystemAudioDeviceTestFactory!
 
     override func setUp() {
         super.setUp()
