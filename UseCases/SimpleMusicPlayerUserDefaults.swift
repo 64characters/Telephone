@@ -17,7 +17,7 @@
 //
 
 public final class SimpleMusicPlayerUserDefaults {
-    private let defaults: KeyValueUserDefaults
+    fileprivate let defaults: KeyValueUserDefaults
 
     public init(defaults: KeyValueUserDefaults) {
         self.defaults = defaults

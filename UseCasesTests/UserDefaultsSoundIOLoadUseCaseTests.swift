@@ -23,11 +23,11 @@ import UseCasesTestDoubles
 import XCTest
 
 final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
-    private var factory: SystemAudioDeviceTestFactory!
-    private var devices: SystemAudioDevices!
-    private var repository: SystemAudioDeviceRepositoryStub!
-    private var defaults: UserDefaultsFake!
-    private var output: UserDefaultsSoundIOLoadUseCaseOutputSpy!
+    fileprivate var factory: SystemAudioDeviceTestFactory!
+    fileprivate var devices: SystemAudioDevices!
+    fileprivate var repository: SystemAudioDeviceRepositoryStub!
+    fileprivate var defaults: UserDefaultsFake!
+    fileprivate var output: UserDefaultsSoundIOLoadUseCaseOutputSpy!
 
     override func setUp() {
         super.setUp()
@@ -50,7 +50,7 @@ final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
         XCTAssertEqual(output.invokedSoundIO, expectedSoundIO())
     }
 
-    private func expectedSoundIO() -> PresentationSoundIO {
+    fileprivate func expectedSoundIO() -> PresentationSoundIO {
         return PresentationSoundIO(
             input: AudioDevice(device: factory.firstBuiltInInput),
             output: AudioDevice(device: factory.firstBuiltInOutput),
@@ -58,7 +58,7 @@ final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
         )
     }
 
-    private func expectedAudioDevices() -> AudioDevices {
+    fileprivate func expectedAudioDevices() -> AudioDevices {
         return AudioDevices(devices: devices)
     }
 }

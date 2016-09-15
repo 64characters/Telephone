@@ -19,11 +19,11 @@
 import Domain
 
 struct UserDefaultsSoundIO {
-    private let devices: SystemAudioDevices
-    private let defaults: KeyValueUserDefaults
-    private var optionalInput: SystemAudioDevice!
-    private var optionalOutput: SystemAudioDevice!
-    private var optionalRingtoneOutput: SystemAudioDevice!
+    fileprivate let devices: SystemAudioDevices
+    fileprivate let defaults: KeyValueUserDefaults
+    fileprivate var optionalInput: SystemAudioDevice!
+    fileprivate var optionalOutput: SystemAudioDevice!
+    fileprivate var optionalRingtoneOutput: SystemAudioDevice!
 
     init(devices: SystemAudioDevices, defaults: KeyValueUserDefaults) {
         self.devices = devices
@@ -33,15 +33,15 @@ struct UserDefaultsSoundIO {
         optionalRingtoneOutput = outputDeviceByNameWithUserDefaultsKey(kRingtoneOutput)
     }
 
-    private func inputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
-        return deviceByNameWithUserDefaultsKey(key, function: devices.inputDeviceNamed)
+    fileprivate func inputDeviceByNameWithUserDefaultsKey(_ key: String) -> SystemAudioDevice {
+        return deviceByNameWithUserDefaultsKey(key, function: devices.inputDevice)
     }
 
-    private func outputDeviceByNameWithUserDefaultsKey(key: String) -> SystemAudioDevice {
-        return deviceByNameWithUserDefaultsKey(key, function: devices.outputDeviceNamed)
+    fileprivate func outputDeviceByNameWithUserDefaultsKey(_ key: String) -> SystemAudioDevice {
+        return deviceByNameWithUserDefaultsKey(key, function: devices.outputDevice)
     }
 
-    private func deviceByNameWithUserDefaultsKey(key: String, function: String -> SystemAudioDevice) -> SystemAudioDevice {
+    fileprivate func deviceByNameWithUserDefaultsKey(_ key: String, function: (String) -> SystemAudioDevice) -> SystemAudioDevice {
         if let name = defaults.stringForKey(key) {
             return function(name)
         } else {

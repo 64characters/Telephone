@@ -19,16 +19,16 @@
 import UseCases
 
 public final class StoreSpy {
-    public private(set) var invokedProduct: Product
-    public private(set) var didCallRestorePurchases = false
+    public fileprivate(set) var invokedProduct: Product
+    public fileprivate(set) var didCallRestorePurchases = false
 
     public init() {
-        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero(), localizedPrice: "$0")
+        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero, localizedPrice: "$0")
     }
 }
 
 extension StoreSpy: Store {
-    public func purchase(product: Product) {
+    public func purchase(_ product: Product) {
         invokedProduct = product
     }
 

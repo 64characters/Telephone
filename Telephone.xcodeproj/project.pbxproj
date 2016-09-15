@@ -226,7 +226,7 @@
 		8ADD6A771CE0E704001EDBBA /* ProductsEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A761CE0E704001EDBBA /* ProductsEventTargetSpy.swift */; };
 		8ADD6A801CE0F995001EDBBA /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */; };
 		8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6A7E1CE0F995001EDBBA /* StoreWindowController.swift */; };
-		8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6C1C528F720029C3D8 /* Error.swift */; };
+		8ADD6B6D1C528F720029C3D8 /* UseCasesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6C1C528F720029C3D8 /* UseCasesError.swift */; };
 		8ADD6B6F1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift */; };
 		8ADE59911D61D0F000B41275 /* ReceiptChecksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADE59901D61D0F000B41275 /* ReceiptChecksum.swift */; };
 		8ADE59931D61D6A200B41275 /* SHA256Fingerprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADE59921D61D6A200B41275 /* SHA256Fingerprint.swift */; };
@@ -802,7 +802,7 @@
 		8ADD6A761CE0E704001EDBBA /* ProductsEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsEventTargetSpy.swift; sourceTree = "<group>"; };
 		8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
 		8ADD6A7E1CE0F995001EDBBA /* StoreWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreWindowController.swift; sourceTree = "<group>"; };
-		8ADD6B6C1C528F720029C3D8 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		8ADD6B6C1C528F720029C3D8 /* UseCasesError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCasesError.swift; sourceTree = "<group>"; };
 		8ADD6B6E1C5639520029C3D8 /* UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift; sourceTree = "<group>"; };
 		8ADE59901D61D0F000B41275 /* ReceiptChecksum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptChecksum.swift; sourceTree = "<group>"; };
 		8ADE59921D61D6A200B41275 /* SHA256Fingerprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA256Fingerprint.swift; sourceTree = "<group>"; };
@@ -1679,7 +1679,7 @@
 				8A11A0C51CCF9D31007BFC7F /* Store */,
 				AA3B6E851C47ACFA0030D410 /* Timer */,
 				AA3905601C0077B7005A8AA3 /* User Agent */,
-				8ADD6B6C1C528F720029C3D8 /* Error.swift */,
+				8ADD6B6C1C528F720029C3D8 /* UseCasesError.swift */,
 				AA32F7FD1BC6908300FAC228 /* KeyValueUserDefaults.swift */,
 				8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */,
 				8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */,
@@ -2738,7 +2738,7 @@
 				8A9513E41D2A6CCA0034DF2C /* ReceiptValidatingStoreEventTarget.swift in Sources */,
 				8A9513D71D22CD8A0034DF2C /* StoreEventTarget.swift in Sources */,
 				AA39052C1BFFDDC4005A8AA3 /* UseCase.swift in Sources */,
-				8ADD6B6D1C528F720029C3D8 /* Error.swift in Sources */,
+				8ADD6B6D1C528F720029C3D8 /* UseCasesError.swift in Sources */,
 				8A11A0C91CCF9DDD007BFC7F /* ProductsFetchUseCase.swift in Sources */,
 				8A9513EC1D2A735F0034DF2C /* Receipt.swift in Sources */,
 				AA6989B21C19CAF60067BFB1 /* UseCaseFactory.swift in Sources */,
@@ -3397,7 +3397,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCases;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3420,7 +3420,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCases;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3435,7 +3435,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -3448,7 +3448,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -3606,7 +3606,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3628,7 +3628,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

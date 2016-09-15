@@ -21,8 +21,8 @@ import UseCasesTestDoubles
 import XCTest
 
 final class DefaultSoundPlaybackUseCaseTests: XCTestCase {
-    private var factory: SoundFactorySpy!
-    private var sut: DefaultSoundPlaybackUseCase!
+    fileprivate var factory: SoundFactorySpy!
+    fileprivate var sut: DefaultSoundPlaybackUseCase!
 
     override func setUp() {
         super.setUp()
@@ -39,7 +39,7 @@ final class DefaultSoundPlaybackUseCaseTests: XCTestCase {
     func testPlaysSoundOnPlay() {
         try! sut.play()
 
-        XCTAssertTrue(factory.lastCreatedSound.didCallPlay)
+        XCTAssertTrue(factory.lastCreatedSound!.didCallPlay)
     }
 
     func testStopsSoundOnStop() {
@@ -47,7 +47,7 @@ final class DefaultSoundPlaybackUseCaseTests: XCTestCase {
 
         sut.stop()
 
-        XCTAssertTrue(factory.lastCreatedSound.didCallStop)
+        XCTAssertTrue(factory.lastCreatedSound!.didCallStop)
     }
 
     func testStopsFirstSondOnSecondPlay() {
@@ -55,7 +55,7 @@ final class DefaultSoundPlaybackUseCaseTests: XCTestCase {
         let sound = factory.lastCreatedSound
         try! sut.play()
 
-        XCTAssertTrue(sound.didCallStop)
+        XCTAssertTrue(sound!.didCallStop)
     }
 
     func testKeepsReferenceToSoundDuringPlayback() {
@@ -67,7 +67,7 @@ final class DefaultSoundPlaybackUseCaseTests: XCTestCase {
     func testDoesNotKeepReferenceToSoundAfterSoundStoppedPlaying() {
         try! sut.play()
 
-        factory.lastCreatedSound.notifyObserverOfPlaybackCompletion()
+        factory.lastCreatedSound!.notifyObserverOfPlaybackCompletion()
 
         XCTAssertNil(sut.sound)
     }

@@ -19,9 +19,9 @@
 import UseCases
 
 public final class FailingFetchProductsFake {
-    public private(set) var all: [Product] = []
+    public fileprivate(set) var all: [Product] = []
     public let error = "error"
-    private let target: ProductsEventTarget
+    fileprivate let target: ProductsEventTarget
 
     public init(target: ProductsEventTarget) {
         self.target = target

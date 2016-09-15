@@ -17,7 +17,7 @@
 //
 
 public final class UserAgentAudioDeviceUpdateUseCase {
-    private let userAgent: UserAgent
+    fileprivate let userAgent: UserAgent
 
     public init(userAgent: UserAgent) {
         self.userAgent = userAgent

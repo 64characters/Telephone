@@ -20,15 +20,15 @@ import Foundation
 import UseCases
 
 public final class UserDefaultsFake {
-    public var date: NSDate = NSDate.distantPast()
+    public var date: Date = Date.distantPast
     public var version = ""
 
-    public var registeredDefaults: [String: AnyObject] {
+    public var registeredDefaults: [String: Any] {
         return registered
     }
 
-    private var dictionary: [String: AnyObject] = [:]
-    private var registered: [String: AnyObject] = [:]
+    fileprivate var dictionary: [String: Any] = [:]
+    fileprivate var registered: [String: Any] = [:]
 
     public init() {}
 }
@@ -39,31 +39,31 @@ extension UserDefaultsFake: KeyValueUserDefaults {
             return stringForKey(key)
         }
         set {
-            dictionary[key] = newValue
+            dictionary[key] = newValue as AnyObject?
         }
     }
 
-    @objc public func stringForKey(key: String) -> String? {
+    @objc public func stringForKey(_ key: String) -> String? {
         return dictionary[key] as? String
     }
 
-    @objc public func setBool(value: Bool, forKey key: String) {
-        dictionary[key] = value
+    @objc public func setBool(_ value: Bool, forKey key: String) {
+        dictionary[key] = value as AnyObject?
     }
 
-    @objc public func boolForKey(key: String) -> Bool {
+    @objc public func boolForKey(_ key: String) -> Bool {
         return dictionary[key] as? Bool ?? false
     }
 
-    @objc public func setArray(array: [AnyObject], forKey key: String) {
-        dictionary[key] = array
+    @objc public func setArray(_ array: [AnyObject], forKey key: String) {
+        dictionary[key] = array as AnyObject?
     }
 
-    @objc public func arrayForKey(key: String) -> [AnyObject]? {
+    @objc public func arrayForKey(_ key: String) -> [AnyObject]? {
         return dictionary[key] as? [AnyObject]
     }
 
-    @objc public func registerDefaults(defaults: [String : AnyObject]) {
+    @objc public func registerDefaults(_ defaults: [String : Any]) {
         for (key, value) in defaults {
             registered.updateValue(value, forKey: key)
             dictionary.updateValue(value, forKey: key)

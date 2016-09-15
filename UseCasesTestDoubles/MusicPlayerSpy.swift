@@ -19,8 +19,8 @@
 import UseCases
 
 public final class MusicPlayerSpy {
-    public private(set) var didCallPause = false
-    public private(set) var didCallResume = false
+    public fileprivate(set) var didCallPause = false
+    public fileprivate(set) var didCallResume = false
 
     public init() {}
 }

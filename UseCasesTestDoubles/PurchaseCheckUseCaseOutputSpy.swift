@@ -19,16 +19,16 @@
 import Foundation
 import UseCases
 
-public class PurchaseCheckUseCaseOutputSpy {
-    public private(set) var didCallDidCheckPurchase = false
-    public private(set) var invokedExpiration = NSDate.distantPast()
-    public private(set) var didCallDidFailCheckingPurchase = false
+open class PurchaseCheckUseCaseOutputSpy {
+    open fileprivate(set) var didCallDidCheckPurchase = false
+    open fileprivate(set) var invokedExpiration = Date.distantPast
+    open fileprivate(set) var didCallDidFailCheckingPurchase = false
 
     public init() {}
 }
 
 extension PurchaseCheckUseCaseOutputSpy: PurchaseCheckUseCaseOutput {
-    public func didCheckPurchase(expiration expiration: NSDate) {
+    public func didCheckPurchase(expiration: Date) {
         didCallDidCheckPurchase = true
         invokedExpiration = expiration
     }

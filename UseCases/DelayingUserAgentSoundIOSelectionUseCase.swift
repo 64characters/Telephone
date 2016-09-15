@@ -17,9 +17,9 @@
 //
 
 public final class DelayingUserAgentSoundIOSelectionUseCase {
-    private let useCase: ThrowingUseCase
-    private let userAgent: UserAgent
-    private var selection: ThrowingUseCase = NullThrowingUseCase()
+    fileprivate let useCase: ThrowingUseCase
+    fileprivate let userAgent: UserAgent
+    fileprivate var selection: ThrowingUseCase = NullThrowingUseCase()
 
     public init(useCase: ThrowingUseCase, userAgent: UserAgent) {
         self.useCase = useCase
@@ -33,13 +33,13 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
         selectSoundIOOrLogErrorIfNeeded()
     }
 
-    private func selectSoundIOOrLogErrorIfNeeded() {
+    fileprivate func selectSoundIOOrLogErrorIfNeeded() {
         if userAgent.hasActiveCalls {
             selectSoundIOOrLogError()
         }
     }
 
-    private func selectSoundIOOrLogError() {
+    fileprivate func selectSoundIOOrLogError() {
         do {
             try selectSoundIO()
         } catch {
@@ -47,30 +47,30 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
         }
     }
 
-    private func selectSoundIO() throws {
+    fileprivate func selectSoundIO() throws {
         try selection.execute()
         selection = NullThrowingUseCase()
     }
 }
 
 extension DelayingUserAgentSoundIOSelectionUseCase: UserAgentEventTarget {
-    public func userAgentDidFinishStarting(userAgent: UserAgent) {
+    public func userAgentDidFinishStarting(_ userAgent: UserAgent) {
         execute()
     }
 
-    public func userAgentDidFinishStopping(userAgent: UserAgent) {
+    public func userAgentDidFinishStopping(_ userAgent: UserAgent) {
         selection = NullThrowingUseCase()
     }
 
-    public func userAgentDidMakeCall(userAgent: UserAgent) {
+    public func userAgentDidMakeCall(_ userAgent: UserAgent) {
         selectSoundIOOrLogError()
     }
 
-    public func userAgentDidReceiveCall(userAgent: UserAgent) {
+    public func userAgentDidReceiveCall(_ userAgent: UserAgent) {
         selectSoundIOOrLogError()
     }
 
-    public func userAgentDidDetectNAT(userAgent: UserAgent) {}
+    public func userAgentDidDetectNAT(_ userAgent: UserAgent) {}
 }
 
 extension DelayingUserAgentSoundIOSelectionUseCase: SystemAudioDevicesChangeEventTarget {

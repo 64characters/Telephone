@@ -19,9 +19,9 @@
 import Domain
 
 struct PreferredSoundIO {
-    private let devices: SystemAudioDevices
-    private let defaults: KeyValueUserDefaults
-    private let soundIO: SoundIO
+    fileprivate let devices: SystemAudioDevices
+    fileprivate let defaults: KeyValueUserDefaults
+    fileprivate let soundIO: SoundIO
 
     init(devices: SystemAudioDevices, defaults: KeyValueUserDefaults) {
         self.devices = devices

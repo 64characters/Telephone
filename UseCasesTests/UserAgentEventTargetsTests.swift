@@ -21,10 +21,10 @@ import UseCasesTestDoubles
 import XCTest
 
 final class UserAgentEventTargetsTests: XCTestCase {
-    private var sut: UserAgentEventTargets!
-    private var target1: UserAgentEventTargetSpy!
-    private var target2: UserAgentEventTargetSpy!
-    private var userAgent: UserAgentSpy!
+    fileprivate var sut: UserAgentEventTargets!
+    fileprivate var target1: UserAgentEventTargetSpy!
+    fileprivate var target2: UserAgentEventTargetSpy!
+    fileprivate var userAgent: UserAgentSpy!
 
     override func setUp() {
         super.setUp()
@@ -74,7 +74,7 @@ final class UserAgentEventTargetsTests: XCTestCase {
         assertUserAgent()
     }
 
-    private func assertUserAgent() {
+    fileprivate func assertUserAgent() {
         XCTAssertTrue(target1.lastPassedUserAgent === userAgent)
         XCTAssertTrue(target2.lastPassedUserAgent === userAgent)
     }

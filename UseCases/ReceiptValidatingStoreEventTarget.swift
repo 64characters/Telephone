@@ -17,8 +17,8 @@
 //
 
 public final class ReceiptValidatingStoreEventTarget {
-    private let origin: StoreEventTarget
-    private let receipt: Receipt
+    fileprivate let origin: StoreEventTarget
+    fileprivate let receipt: Receipt
 
     public init(origin: StoreEventTarget, receipt: Receipt) {
         self.origin = origin
@@ -37,7 +37,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         }
     }
 
-    public func didFailPurchasingProducts(error error: String) {
+    public func didFailPurchasingProducts(error: String) {
         origin.didFailPurchasingProducts(error: error)
     }
 
@@ -51,7 +51,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         }
     }
 
-    public func didFailRestoringPurchases(error error: String) {
+    public func didFailRestoringPurchases(error: String) {
         origin.didFailRestoringPurchases(error: error)
     }
 
@@ -59,18 +59,18 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didCancelRestoringPurchases()
     }
 
-    private func notifyOriginAboutPurchase(withReceiptValidationResult result: ReceiptValidationResult) {
+    fileprivate func notifyOriginAboutPurchase(withReceiptValidationResult result: ReceiptValidationResult) {
         switch result {
-        case .ReceiptIsValid:
+        case .receiptIsValid:
             self.origin.didPurchaseProducts()
         default:
             self.origin.didFailPurchasingProducts(error: result.message)
         }
     }
 
-    private func notifyOriginAboutRestoration(withReceiptValidationResult result: ReceiptValidationResult) {
+    fileprivate func notifyOriginAboutRestoration(withReceiptValidationResult result: ReceiptValidationResult) {
         switch result {
-        case .ReceiptIsValid:
+        case .receiptIsValid:
             origin.didRestorePurchases()
         default:
             origin.didFailRestoringPurchases(error: result.message)

@@ -23,14 +23,14 @@ public protocol PurchaseReminderUseCaseOutput {
 }
 
 public final class PurchaseReminderUseCase: NSObject {
-    private let accounts: SavedAccounts
-    private let receipt: Receipt
-    private let defaults: PurchaseReminderUserDefaults
-    private let now: NSDate
-    private let version: String
-    private let output: PurchaseReminderUseCaseOutput
+    fileprivate let accounts: SavedAccounts
+    fileprivate let receipt: Receipt
+    fileprivate let defaults: PurchaseReminderUserDefaults
+    fileprivate let now: Date
+    fileprivate let version: String
+    fileprivate let output: PurchaseReminderUseCaseOutput
 
-    public init(accounts: SavedAccounts, receipt: Receipt, defaults: PurchaseReminderUserDefaults, now: NSDate, version: String, output: PurchaseReminderUseCaseOutput) {
+    public init(accounts: SavedAccounts, receipt: Receipt, defaults: PurchaseReminderUserDefaults, now: Date, version: String, output: PurchaseReminderUseCaseOutput) {
         self.accounts = accounts
         self.receipt = receipt
         self.defaults = defaults
@@ -48,38 +48,38 @@ extension PurchaseReminderUseCase: UseCase {
         }
     }
 
-    private func shouldRemind() -> Bool {
+    fileprivate func shouldRemind() -> Bool {
         return lastVersionDoesNotMatch() || isLastDateLaterThanNow() || haveThirtyDaysPassedSinceLastDate()
     }
 
-    private func remindIfNotPurchased(result: ReceiptValidationResult) {
+    fileprivate func remindIfNotPurchased(_ result: ReceiptValidationResult) {
         switch result {
-        case .ReceiptIsValid:
+        case .receiptIsValid:
             break
-        case .ReceiptIsInvalid, .NoActivePurchases:
+        case .receiptIsInvalid, .noActivePurchases:
             self.output.remindAboutPurchasing()
         }
     }
 
-    private func updateDefautls() {
+    fileprivate func updateDefautls() {
         defaults.date = now
         defaults.version = version
     }
 
-    private func lastVersionDoesNotMatch() -> Bool {
+    fileprivate func lastVersionDoesNotMatch() -> Bool {
         return defaults.version != version
     }
 
-    private func isLastDateLaterThanNow() -> Bool {
-        return defaults.date.compare(now) == .OrderedDescending
+    fileprivate func isLastDateLaterThanNow() -> Bool {
+        return defaults.date.compare(now) == .orderedDescending
     }
 
-    private func haveThirtyDaysPassedSinceLastDate() -> Bool {
-        guard let date = thirtyDaysAfter(defaults.date) else { return false }
-        return now.laterDate(date) == now
+    fileprivate func haveThirtyDaysPassedSinceLastDate() -> Bool {
+        guard let date = thirtyDaysAfter(defaults.date as Date) else { return false }
+        return (now as NSDate).laterDate(date) == now
     }
 }
 
-private func thirtyDaysAfter(date: NSDate) -> NSDate? {
-    return NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: 30, toDate: date, options: [])
+private func thirtyDaysAfter(_ date: Date) -> Date? {
+    return (Calendar.current as NSCalendar).date(byAdding: .day, value: 30, to: date, options: [])
 }

@@ -19,18 +19,18 @@
 import UseCases
 
 public final class StoreEventTargetSpy {
-    public private(set) var didCallDidStartPurchasing = false
-    public private(set) var invokedIdentifier = ""
+    public fileprivate(set) var didCallDidStartPurchasing = false
+    public fileprivate(set) var invokedIdentifier = ""
 
-    public private(set) var didCallDidPurchase = false
-    public private(set) var didCallDidFailPurchasing = false
-    public private(set) var didCallDidCancelPurchasing = false
+    public fileprivate(set) var didCallDidPurchase = false
+    public fileprivate(set) var didCallDidFailPurchasing = false
+    public fileprivate(set) var didCallDidCancelPurchasing = false
 
-    public private(set) var didCallDidRestore = false
-    public private(set) var didCallDidFailRestoring = false
-    public private(set) var didCallDidCancelRestoring = false
+    public fileprivate(set) var didCallDidRestore = false
+    public fileprivate(set) var didCallDidFailRestoring = false
+    public fileprivate(set) var didCallDidCancelRestoring = false
 
-    public private(set) var invokedError = ""
+    public fileprivate(set) var invokedError = ""
 
     public init() {}
 }
@@ -45,7 +45,7 @@ extension StoreEventTargetSpy: StoreEventTarget {
         didCallDidPurchase = true
     }
 
-    public func didFailPurchasingProducts(error error: String) {
+    public func didFailPurchasingProducts(error: String) {
         didCallDidFailPurchasing = true
         invokedError = error
     }
@@ -58,7 +58,7 @@ extension StoreEventTargetSpy: StoreEventTarget {
         didCallDidRestore = true
     }
 
-    public func didFailRestoringPurchases(error error: String) {
+    public func didFailRestoringPurchases(error: String) {
         didCallDidFailRestoring = true
         invokedError = error
     }

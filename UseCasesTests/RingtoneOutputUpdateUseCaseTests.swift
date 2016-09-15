@@ -21,8 +21,8 @@ import UseCasesTestDoubles
 import XCTest
 
 final class RingtoneOutputUpdateUseCaseTests: XCTestCase {
-    private var playback: RingtonePlaybackUseCaseSpy!
-    private var sut: ThrowingUseCase!
+    fileprivate var playback: RingtonePlaybackUseCaseSpy!
+    fileprivate var sut: ThrowingUseCase!
 
     override func setUp() {
         super.setUp()

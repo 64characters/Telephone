@@ -17,8 +17,8 @@
 //
 
 public final class ConditionalMusicPlayer {
-    private let origin: MusicPlayer
-    private let defaults: MusicPlayerUserDefaults
+    fileprivate let origin: MusicPlayer
+    fileprivate let defaults: MusicPlayerUserDefaults
 
     public init(origin: MusicPlayer, defaults: MusicPlayerUserDefaults) {
         self.origin = origin

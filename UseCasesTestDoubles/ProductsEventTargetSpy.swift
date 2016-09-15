@@ -19,8 +19,8 @@
 import UseCases
 
 public final class ProductsEventTargetSpy {
-    public private(set) var didCallProductsDidFetch = false
-    public private(set) var didCallProductsDidFailFetching = false
+    public fileprivate(set) var didCallProductsDidFetch = false
+    public fileprivate(set) var didCallProductsDidFailFetching = false
 
     public init() {}
 }

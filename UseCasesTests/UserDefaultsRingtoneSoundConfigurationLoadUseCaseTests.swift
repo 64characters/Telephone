@@ -22,10 +22,10 @@ import UseCasesTestDoubles
 import XCTest
 
 final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
-    private var factory: SystemAudioDeviceTestFactory!
-    private var defaults: UserDefaultsFake!
-    private var repository: SystemAudioDeviceRepositoryStub!
-    private var sut: SoundConfigurationLoadUseCase!
+    fileprivate var factory: SystemAudioDeviceTestFactory!
+    fileprivate var defaults: UserDefaultsFake!
+    fileprivate var repository: SystemAudioDeviceRepositoryStub!
+    fileprivate var sut: SoundConfigurationLoadUseCase!
 
     override func setUp() {
         super.setUp()
@@ -55,8 +55,8 @@ final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
         var result = false
 
         do {
-            try sut.execute()
-        } catch Error.RingtoneSoundNameNotFoundError {
+            try _ = sut.execute()
+        } catch UseCasesError.ringtoneSoundNameNotFoundError {
             result = true
         } catch {}
 

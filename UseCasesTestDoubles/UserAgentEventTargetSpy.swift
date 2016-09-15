@@ -19,38 +19,38 @@
 import UseCases
 
 public final class UserAgentEventTargetSpy {
-    public private(set) var didCallUserAgentDidFinishStarting = false
-    public private(set) var didCallUserAgentDidFinishStopping = false
-    public private(set) var didCallUserAgentDidDetectNAT = false
-    public private(set) var didCallDidMakeCall = false
-    public private(set) var didCallDidReceiveCall = false
-    public private(set) var lastPassedUserAgent: UserAgent?
+    public fileprivate(set) var didCallUserAgentDidFinishStarting = false
+    public fileprivate(set) var didCallUserAgentDidFinishStopping = false
+    public fileprivate(set) var didCallUserAgentDidDetectNAT = false
+    public fileprivate(set) var didCallDidMakeCall = false
+    public fileprivate(set) var didCallDidReceiveCall = false
+    public fileprivate(set) var lastPassedUserAgent: UserAgent?
 
     public init() {}
 }
 
 extension UserAgentEventTargetSpy: UserAgentEventTarget {
-    public func userAgentDidFinishStarting(userAgent: UserAgent) {
+    public func userAgentDidFinishStarting(_ userAgent: UserAgent) {
         didCallUserAgentDidFinishStarting = true
         lastPassedUserAgent = userAgent
     }
 
-    public func userAgentDidFinishStopping(userAgent: UserAgent) {
+    public func userAgentDidFinishStopping(_ userAgent: UserAgent) {
         didCallUserAgentDidFinishStopping = true
         lastPassedUserAgent = userAgent
     }
 
-    public func userAgentDidDetectNAT(userAgent: UserAgent) {
+    public func userAgentDidDetectNAT(_ userAgent: UserAgent) {
         didCallUserAgentDidDetectNAT = true
         lastPassedUserAgent = userAgent
     }
 
-    public func userAgentDidMakeCall(userAgent: UserAgent) {
+    public func userAgentDidMakeCall(_ userAgent: UserAgent) {
         didCallDidMakeCall = true
         lastPassedUserAgent = userAgent
     }
 
-    public func userAgentDidReceiveCall(userAgent: UserAgent) {
+    public func userAgentDidReceiveCall(_ userAgent: UserAgent) {
         didCallDidReceiveCall = true
         lastPassedUserAgent = userAgent
     }

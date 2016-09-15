@@ -19,11 +19,11 @@
 import UseCases
 
 public final class StoreUseCaseFactorySpy {
-    private var check: UseCase!
-    private var fetch: UseCase!
-    private var purchase: ThrowingUseCase!
+    fileprivate var check: UseCase!
+    fileprivate var fetch: UseCase!
+    fileprivate var purchase: ThrowingUseCase!
 
-    public private(set) var invokedIdentifier = ""
+    public fileprivate(set) var invokedIdentifier = ""
 
     public init() {}
 
@@ -41,15 +41,15 @@ public final class StoreUseCaseFactorySpy {
 }
 
 extension StoreUseCaseFactorySpy: StoreUseCaseFactory {
-    public func createPurchaseCheckUseCase(output output: PurchaseCheckUseCaseOutput) -> UseCase {
+    public func createPurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase {
         return check
     }
 
-    public func createProductsFetchUseCase(output output: ProductsFetchUseCaseOutput) -> UseCase {
+    public func createProductsFetchUseCase(output: ProductsFetchUseCaseOutput) -> UseCase {
         return fetch
     }
 
-    public func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase {
+    public func createProductPurchaseUseCase(identifier: String) -> ThrowingUseCase {
         invokedIdentifier = identifier
         return purchase
     }

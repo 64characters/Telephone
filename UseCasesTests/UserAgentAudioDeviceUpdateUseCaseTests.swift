@@ -21,8 +21,8 @@ import UseCasesTestDoubles
 import XCTest
 
 final class UserAgentAudioDeviceUpdateUseCaseTests: XCTestCase {
-    private var userAgent: UserAgentSpy!
-    private var sut: UserAgentAudioDeviceUpdateUseCase!
+    fileprivate var userAgent: UserAgentSpy!
+    fileprivate var sut: UserAgentAudioDeviceUpdateUseCase!
 
     override func setUp() {
         super.setUp()

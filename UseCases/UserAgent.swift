@@ -23,5 +23,5 @@ import Foundation
     var hasActiveCalls: Bool { get }
     func audioDevices() throws -> [UserAgentAudioDevice]
     func updateAudioDevices()
-    func selectSoundIODeviceIDs(input input: Int, output: Int) throws
+    func selectSoundIODeviceIDs(input: Int, output: Int) throws
 }

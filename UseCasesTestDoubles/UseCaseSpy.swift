@@ -19,7 +19,7 @@
 import UseCases
 
 public final class UseCaseSpy {
-    public private(set) var didCallExecute = false
+    public fileprivate(set) var didCallExecute = false
 
     public init() {}
 }

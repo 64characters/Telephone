@@ -23,8 +23,8 @@ import UseCasesTestDoubles
 import XCTest
 
 final class PreferredSoundIOTests: XCTestCase {
-    private var factory: SystemAudioDeviceTestFactory!
-    private var defaults: UserDefaultsFake!
+    fileprivate var factory: SystemAudioDeviceTestFactory!
+    fileprivate var defaults: UserDefaultsFake!
 
     override func setUp() {
         super.setUp()
@@ -151,11 +151,11 @@ final class PreferredSoundIOTests: XCTestCase {
 
     // MARK: - Helper
 
-    private func createSoundIO() -> UseCases.PreferredSoundIO {
+    fileprivate func createSoundIO() -> UseCases.PreferredSoundIO {
         return createSoundIO(devices: factory.all)
     }
 
-    private func createSoundIO(devices devices: [SystemAudioDevice]) -> UseCases.PreferredSoundIO {
+    fileprivate func createSoundIO(devices: [SystemAudioDevice]) -> UseCases.PreferredSoundIO {
         return PreferredSoundIO(devices: SystemAudioDevices(devices: devices), defaults: defaults)
     }
 }

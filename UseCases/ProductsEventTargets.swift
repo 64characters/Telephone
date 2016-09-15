@@ -27,17 +27,17 @@ public final class ProductsEventTargets {
         }
     }
 
-    private var targets: [ProductsEventTarget] = []
+    fileprivate var targets: [ProductsEventTarget] = []
 
     public init() {}
 
-    public func addTarget(target: ProductsEventTarget) {
+    public func addTarget(_ target: ProductsEventTarget) {
         targets.append(target)
     }
 
-    public func removeTarget(target: ProductsEventTarget) {
-        if let index = targets.indexOf({ $0 === target }) {
-            targets.removeAtIndex(index)
+    public func removeTarget(_ target: ProductsEventTarget) {
+        if let index = targets.index(where: { $0 === target }) {
+            targets.remove(at: index)
         }
     }
 }

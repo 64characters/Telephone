@@ -19,10 +19,10 @@
 import UseCases
 
 public final class SoundSpy {
-    public private(set) var didCallPlay = false
-    public private(set) var didCallStop = false
+    public fileprivate(set) var didCallPlay = false
+    public fileprivate(set) var didCallStop = false
 
-    private let eventTarget: SoundEventTarget
+    fileprivate let eventTarget: SoundEventTarget
 
     public init(eventTarget: SoundEventTarget) {
         self.eventTarget = eventTarget

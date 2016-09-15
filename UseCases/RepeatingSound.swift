@@ -17,10 +17,10 @@
 //
 
 public final class RepeatingSound {
-    private let sound: Sound
+    fileprivate let sound: Sound
     public let interval: Double
-    private let factory: TimerFactory
-    private var timer: Timer?
+    fileprivate let factory: TimerFactory
+    fileprivate var timer: Timer?
 
     public init(sound: Sound, interval: Double, factory: TimerFactory) {
         self.sound = sound
@@ -40,13 +40,13 @@ extension RepeatingSound: Ringtone {
         invalidateTimerIfNeeded()
     }
 
-    private func createTimerIfNeeded() {
+    fileprivate func createTimerIfNeeded() {
         if timer == nil {
             timer = factory.createRepeatingTimer(interval: interval, action: sound.play)
         }
     }
 
-    private func invalidateTimerIfNeeded() {
+    fileprivate func invalidateTimerIfNeeded() {
         timer?.invalidate()
         timer = nil
     }

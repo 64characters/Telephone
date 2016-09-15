@@ -19,12 +19,12 @@
 import UseCases
 
 public final class UseCaseFactorySpy {
-    public private(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
-    public private(set) var invokedRingtoneSoundName = ""
+    public fileprivate(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
+    public fileprivate(set) var invokedRingtoneSoundName = ""
 
-    private var soundIOLoad: ThrowingUseCase!
-    private var soundIOSave: UseCase!
-    private var ringtoneSoundNameSave: UseCase!
+    fileprivate var soundIOLoad: ThrowingUseCase!
+    fileprivate var soundIOSave: UseCase!
+    fileprivate var ringtoneSoundNameSave: UseCase!
 
     public init() {}
 
@@ -42,16 +42,16 @@ public final class UseCaseFactorySpy {
 }
 
 extension UseCaseFactorySpy: UseCaseFactory {
-    public func createUserDefaultsSoundIOLoadUseCase(output output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
+    public func createUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
         return soundIOLoad
     }
 
-    public func createUserDefaultsSoundIOSaveUseCase(soundIO soundIO: PresentationSoundIO) -> UseCase {
+    public func createUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
         invokedSoundIO = soundIO
         return soundIOSave
     }
 
-    public func createUserDefaultsRingtoneSoundNameSaveUseCase(name name: String) -> UseCase {
+    public func createUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
         invokedRingtoneSoundName = name
         return ringtoneSoundNameSave
     }

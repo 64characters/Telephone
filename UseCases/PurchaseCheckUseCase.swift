@@ -19,13 +19,13 @@
 import Foundation
 
 public protocol PurchaseCheckUseCaseOutput {
-    func didCheckPurchase(expiration expiration: NSDate)
+    func didCheckPurchase(expiration: Date)
     func didFailCheckingPurchase()
 }
 
-public class PurchaseCheckUseCase {
-    private let receipt: Receipt
-    private let output: PurchaseCheckUseCaseOutput
+open class PurchaseCheckUseCase {
+    fileprivate let receipt: Receipt
+    fileprivate let output: PurchaseCheckUseCaseOutput
 
     public init(receipt: Receipt, output: PurchaseCheckUseCaseOutput) {
         self.receipt = receipt
@@ -38,9 +38,9 @@ extension PurchaseCheckUseCase: UseCase {
         receipt.validate(completion: notifyOutput)
     }
 
-    private func notifyOutput(withResult result: ReceiptValidationResult) {
+    fileprivate func notifyOutput(withResult result: ReceiptValidationResult) {
         switch result {
-        case .ReceiptIsValid(expiration: let expiration):
+        case .receiptIsValid(expiration: let expiration):
             output.didCheckPurchase(expiration: expiration)
         default:
             output.didFailCheckingPurchase()

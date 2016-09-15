@@ -17,14 +17,14 @@
 //
 
 public protocol ProductsFetchUseCaseOutput: class {
-    func didFetchProducts(products: [Product])
-    func didFailFetchingProducts(error error: String)
+    func didFetchProducts(_ products: [Product])
+    func didFailFetchingProducts(error: String)
 }
 
 public final class ProductsFetchUseCase {
-    private let products: Products
-    private let targets: ProductsEventTargets
-    private let output: ProductsFetchUseCaseOutput
+    fileprivate let products: Products
+    fileprivate let targets: ProductsEventTargets
+    fileprivate let output: ProductsFetchUseCaseOutput
 
     public init(products: Products, targets: ProductsEventTargets, output: ProductsFetchUseCaseOutput) {
         self.products = products

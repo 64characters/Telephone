@@ -19,8 +19,8 @@
 import UseCases
 
 public final class SuccessfulFetchProductsFake {
-    private let origin: Products = SimpleProductsFake()
-    private let target: ProductsEventTarget
+    fileprivate let origin: Products = SimpleProductsFake()
+    fileprivate let target: ProductsEventTarget
 
     public init(target: ProductsEventTarget) {
         self.target = target

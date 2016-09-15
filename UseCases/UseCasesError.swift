@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  UseCasesError.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public enum Error: ErrorType {
-    case RingtoneSoundNameNotFoundError
+public enum UseCasesError: Error {
+    case ringtoneSoundNameNotFoundError
 }

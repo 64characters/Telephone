@@ -19,20 +19,20 @@
 import UseCases
 
 public final class RingtoneFactorySpy {
-    public private(set) var createRingtoneCallCount = 0
-    public private(set) var invokedInterval: Double = 0
+    public fileprivate(set) var createRingtoneCallCount = 0
+    public fileprivate(set) var invokedInterval: Double = 0
     
-    private var ringtone: Ringtone!
+    fileprivate var ringtone: Ringtone!
 
     public init() {}
 
-    public func stubWith(ringtone: Ringtone) {
+    public func stubWith(_ ringtone: Ringtone) {
         self.ringtone = ringtone
     }
 }
 
 extension RingtoneFactorySpy: RingtoneFactory {
-    public func createRingtone(interval interval: Double) -> Ringtone {
+    public func createRingtone(interval: Double) -> Ringtone {
         createRingtoneCallCount += 1
         invokedInterval = interval
         return ringtone

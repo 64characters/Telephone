@@ -19,8 +19,8 @@
 import Domain
 
 public final class UserDefaultsRingtoneSoundConfigurationLoadUseCase {
-    private let defaults: KeyValueUserDefaults
-    private let repository: SystemAudioDeviceRepository
+    fileprivate let defaults: KeyValueUserDefaults
+    fileprivate let repository: SystemAudioDeviceRepository
 
     public init(defaults: KeyValueUserDefaults, repository: SystemAudioDeviceRepository) {
         self.defaults = defaults
@@ -33,15 +33,15 @@ extension UserDefaultsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationL
         return SoundConfiguration(name: try ringtoneSoundName(), deviceUID: try ringtoneAudioDeviceUID())
     }
 
-    private func ringtoneSoundName() throws -> String {
+    fileprivate func ringtoneSoundName() throws -> String {
         if let name = defaults[kRingingSound] {
             return name
         } else {
-            throw Error.RingtoneSoundNameNotFoundError
+            throw UseCasesError.ringtoneSoundNameNotFoundError
         }
     }
 
-    private func ringtoneAudioDeviceUID() throws -> String {
+    fileprivate func ringtoneAudioDeviceUID() throws -> String {
         let soundIO = PreferredSoundIO(
             devices: SystemAudioDevices(devices: try repository.allDevices()), defaults: defaults
         )

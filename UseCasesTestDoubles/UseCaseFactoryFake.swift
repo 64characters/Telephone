@@ -23,15 +23,15 @@ public final class UseCaseFactoryFake {
 }
 
 extension UseCaseFactoryFake: UseCaseFactory {
-    public func createUserDefaultsSoundIOLoadUseCase(output output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
+    public func createUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
         return ThrowingUseCaseSpy()
     }
 
-    public func createUserDefaultsSoundIOSaveUseCase(soundIO soundIO: PresentationSoundIO) -> UseCase {
+    public func createUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
         return UseCaseSpy()
     }
 
-    public func createUserDefaultsRingtoneSoundNameSaveUseCase(name name: String) -> UseCase {
+    public func createUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
         return UseCaseSpy()
     }
 }

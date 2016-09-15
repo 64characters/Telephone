@@ -17,6 +17,6 @@
 //
 
 public protocol Store {
-    func purchase(product: Product) throws
+    func purchase(_ product: Product) throws
     func restorePurchases()
 }
