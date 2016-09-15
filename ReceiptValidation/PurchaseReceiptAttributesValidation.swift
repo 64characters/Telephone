@@ -51,5 +51,5 @@ private func isLaterThanNow(_ date: Date) -> Bool {
 }
 
 private func hasEarlierExpirationDate(_ lhs: ASN1PurchaseReceipt, _ rhs: ASN1PurchaseReceipt) -> Bool {
-    return (lhs.expiration as NSDate).earlierDate(rhs.expiration as Date) == lhs.expiration as Date
+    return (lhs.expiration as NSDate).earlierDate(rhs.expiration) == lhs.expiration
 }

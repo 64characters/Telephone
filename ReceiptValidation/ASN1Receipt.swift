@@ -32,13 +32,13 @@ struct ASN1Receipt {
             switch attribute.type {
             case identifierType:
                 identifier = String(ASN1UTF8String: attribute.value)
-                identifierData = attribute.value as Data
+                identifierData = attribute.value
             case versionType:
                 version = String(ASN1UTF8String: attribute.value)
             case opaqueType:
-                opaque = attribute.value as Data
+                opaque = attribute.value
             case checksumType:
-                checksum = attribute.value as Data
+                checksum = attribute.value
             default:
                 break
             }
