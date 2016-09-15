@@ -26,11 +26,11 @@ struct ReceiptChecksum {
     }
 
     init(guid: Data, opaque: Data, identifier: Data) {
-        let source = NSMutableData()
+        var source = Data()
         source.append(guid)
         source.append(opaque)
         source.append(identifier)
-        self.init(sha1: digest(of: source as Data))
+        self.init(sha1: digest(of: source))
     }
 }
 
