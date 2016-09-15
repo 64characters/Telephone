@@ -20,9 +20,9 @@ import Foundation
 
 final class DefaultNSXPCListenerDelegate: NSObject {
     fileprivate let interface: Protocol
-    fileprivate let object: AnyObject
+    fileprivate let object: Any
 
-    init(interface: Protocol, object: AnyObject) {
+    init(interface: Protocol, object: Any) {
         self.interface = interface
         self.object = object
     }
