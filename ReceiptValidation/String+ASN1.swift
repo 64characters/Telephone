@@ -27,7 +27,7 @@ extension String {
         self.init(ASN1String: data, ASN1StringType: ia5String, encoding: String.Encoding.ascii)
     }
 
-    fileprivate init(ASN1String data: Data, ASN1StringType type: UInt8, encoding: String.Encoding) {
+    private init(ASN1String data: Data, ASN1StringType type: UInt8, encoding: String.Encoding) {
         var result: String?
         let bytes = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
         if bytes[typeIndex] == type {

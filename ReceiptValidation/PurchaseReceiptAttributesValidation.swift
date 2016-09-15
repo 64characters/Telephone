@@ -33,15 +33,15 @@ extension PurchaseReceiptAttributesValidation: ReceiptValidation {
         }
     }
 
-    fileprivate func latestExpirationOfValidPurchaseReceipts(from receipt: Data) -> Date? {
+    private func latestExpirationOfValidPurchaseReceipts(from receipt: Data) -> Date? {
         return validPurchaseReceipts(from: receipt).max(by: hasEarlierExpirationDate)?.expiration as Date?
     }
 
-    fileprivate func validPurchaseReceipts(from receipt: Data) -> [ASN1PurchaseReceipt] {
+    private func validPurchaseReceipts(from receipt: Data) -> [ASN1PurchaseReceipt] {
         return ASN1PurchaseReceipts(payload: ASN1ReceiptPayload(container: PKCS7Container(data: receipt)!)!).filter(isReceiptValid)
     }
 
-    fileprivate func isReceiptValid(_ receipt: ASN1PurchaseReceipt) -> Bool {
+    private func isReceiptValid(_ receipt: ASN1PurchaseReceipt) -> Bool {
         return !receipt.isCancelled && isLaterThanNow(receipt.expiration as Date) && identifiers.contains(receipt.identifier)
     }
 }
