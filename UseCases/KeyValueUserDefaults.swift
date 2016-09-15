@@ -20,13 +20,15 @@ import Foundation
 
 @objc public protocol KeyValueUserDefaults {
     subscript(key: String) -> String? { get set }
-    func stringForKey(_ key: String) -> String?
+    func string(forKey key: String) -> String?
 
-    func setBool(_ value: Bool, forKey key: String)
-    func boolForKey(_ key: String) -> Bool
+    @objc(setBool:forKey:)
+    func set(_ value: Bool, forKey key: String)
+    func bool(forKey key: String) -> Bool
 
-    func setArray(_ array: [AnyObject], forKey key: String)
-    func arrayForKey(_ key: String) -> [AnyObject]?
+    @objc(serArray:forKey:)
+    func set(_ array: [Any], forKey key: String)
+    func array(forKey key: String) -> [Any]?
 
-    func registerDefaults(_ defaults: [String: Any])
+    func register(defaults: [String: Any])
 }

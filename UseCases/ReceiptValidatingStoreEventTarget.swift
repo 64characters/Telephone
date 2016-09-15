@@ -33,7 +33,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
 
     public func didPurchaseProducts() {
         receipt.validate { result in
-            self.notifyOriginAboutPurchase(withReceiptValidationResult: result)
+            self.notifyOriginAboutPurchase(with: result)
         }
     }
 
@@ -47,7 +47,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
 
     public func didRestorePurchases() {
         receipt.validate { result in
-            self.notifyOriginAboutRestoration(withReceiptValidationResult: result)
+            self.notifyOriginAboutRestoration(with: result)
         }
     }
 
@@ -59,7 +59,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didCancelRestoringPurchases()
     }
 
-    fileprivate func notifyOriginAboutPurchase(withReceiptValidationResult result: ReceiptValidationResult) {
+    private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) {
         switch result {
         case .receiptIsValid:
             self.origin.didPurchaseProducts()
@@ -68,7 +68,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         }
     }
 
-    fileprivate func notifyOriginAboutRestoration(withReceiptValidationResult result: ReceiptValidationResult) {
+    private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) {
         switch result {
         case .receiptIsValid:
             origin.didRestorePurchases()

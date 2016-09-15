@@ -48,11 +48,11 @@ extension PurchaseReminderUseCase: UseCase {
         }
     }
 
-    fileprivate func shouldRemind() -> Bool {
+    private func shouldRemind() -> Bool {
         return lastVersionDoesNotMatch() || isLastDateLaterThanNow() || haveThirtyDaysPassedSinceLastDate()
     }
 
-    fileprivate func remindIfNotPurchased(_ result: ReceiptValidationResult) {
+    private func remindIfNotPurchased(_ result: ReceiptValidationResult) {
         switch result {
         case .receiptIsValid:
             break
@@ -61,25 +61,25 @@ extension PurchaseReminderUseCase: UseCase {
         }
     }
 
-    fileprivate func updateDefautls() {
+    private func updateDefautls() {
         defaults.date = now
         defaults.version = version
     }
 
-    fileprivate func lastVersionDoesNotMatch() -> Bool {
+    private func lastVersionDoesNotMatch() -> Bool {
         return defaults.version != version
     }
 
-    fileprivate func isLastDateLaterThanNow() -> Bool {
+    private func isLastDateLaterThanNow() -> Bool {
         return defaults.date.compare(now) == .orderedDescending
     }
 
-    fileprivate func haveThirtyDaysPassedSinceLastDate() -> Bool {
-        guard let date = thirtyDaysAfter(defaults.date as Date) else { return false }
+    private func haveThirtyDaysPassedSinceLastDate() -> Bool {
+        guard let date = thirtyDays(after: defaults.date) else { return false }
         return (now as NSDate).laterDate(date) == now
     }
 }
 
-private func thirtyDaysAfter(_ date: Date) -> Date? {
+private func thirtyDays(after date: Date) -> Date? {
     return (Calendar.current as NSCalendar).date(byAdding: .day, value: 30, to: date, options: [])
 }

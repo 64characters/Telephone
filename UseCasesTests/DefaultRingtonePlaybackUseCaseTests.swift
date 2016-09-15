@@ -21,15 +21,15 @@ import UseCasesTestDoubles
 import XCTest
 
 final class DefaultRingtonePlaybackUseCaseTests: XCTestCase {
-    fileprivate var ringtone: RingtoneSpy!
-    fileprivate var factory: RingtoneFactorySpy!
-    fileprivate var sut: RingtonePlaybackUseCase!
+    private var ringtone: RingtoneSpy!
+    private var factory: RingtoneFactorySpy!
+    private var sut: RingtonePlaybackUseCase!
 
     override func setUp() {
         super.setUp()
         ringtone = RingtoneSpy()
         factory = RingtoneFactorySpy()
-        factory.stubWith(ringtone)
+        factory.stub(with: ringtone)
         sut = DefaultRingtonePlaybackUseCase(factory: factory)
     }
 

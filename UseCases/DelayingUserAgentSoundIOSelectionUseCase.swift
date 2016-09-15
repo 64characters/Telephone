@@ -33,7 +33,7 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
         selectSoundIOOrLogErrorIfNeeded()
     }
 
-    fileprivate func selectSoundIOOrLogErrorIfNeeded() {
+    private func selectSoundIOOrLogErrorIfNeeded() {
         if userAgent.hasActiveCalls {
             selectSoundIOOrLogError()
         }
@@ -47,7 +47,7 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
         }
     }
 
-    fileprivate func selectSoundIO() throws {
+    private func selectSoundIO() throws {
         try selection.execute()
         selection = NullThrowingUseCase()
     }

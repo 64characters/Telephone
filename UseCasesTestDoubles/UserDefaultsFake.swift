@@ -36,34 +36,34 @@ public final class UserDefaultsFake {
 extension UserDefaultsFake: KeyValueUserDefaults {
     @objc public subscript(key: String) -> String? {
         get {
-            return stringForKey(key)
+            return string(forKey: key)
         }
         set {
-            dictionary[key] = newValue as AnyObject?
+            dictionary[key] = newValue as Any?
         }
     }
 
-    @objc public func stringForKey(_ key: String) -> String? {
+    @objc public func string(forKey key: String) -> String? {
         return dictionary[key] as? String
     }
 
-    @objc public func setBool(_ value: Bool, forKey key: String) {
+    @objc public func set(_ value: Bool, forKey key: String) {
         dictionary[key] = value as AnyObject?
     }
 
-    @objc public func boolForKey(_ key: String) -> Bool {
+    @objc public func bool(forKey key: String) -> Bool {
         return dictionary[key] as? Bool ?? false
     }
 
-    @objc public func setArray(_ array: [AnyObject], forKey key: String) {
-        dictionary[key] = array as AnyObject?
+    @objc public func set(_ array: [Any], forKey key: String) {
+        dictionary[key] = array as Any?
     }
 
-    @objc public func arrayForKey(_ key: String) -> [AnyObject]? {
-        return dictionary[key] as? [AnyObject]
+    @objc public func array(forKey key: String) -> [Any]? {
+        return dictionary[key] as? [Any]
     }
 
-    @objc public func registerDefaults(_ defaults: [String : Any]) {
+    @objc public func register(defaults: [String : Any]) {
         for (key, value) in defaults {
             registered.updateValue(value, forKey: key)
             dictionary.updateValue(value, forKey: key)

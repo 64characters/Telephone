@@ -27,7 +27,7 @@ public final class TimerFactorySpy {
 
     public init() {}
 
-    public func stubWith(_ timer: Timer) {
+    public func stub(with timer: Timer) {
         self.timer = timer
     }
 }

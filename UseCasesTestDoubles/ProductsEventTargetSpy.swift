@@ -30,7 +30,7 @@ extension ProductsEventTargetSpy: ProductsEventTarget {
         didCallProductsDidFetch = true
     }
 
-    public func productsDidFailFetching(withError error: String) {
+    public func productsDidFailFetching(error: String) {
         didCallProductsDidFailFetching = true
     }
 }

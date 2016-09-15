@@ -33,7 +33,7 @@ extension UserDefaultsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationL
         return SoundConfiguration(name: try ringtoneSoundName(), deviceUID: try ringtoneAudioDeviceUID())
     }
 
-    fileprivate func ringtoneSoundName() throws -> String {
+    private func ringtoneSoundName() throws -> String {
         if let name = defaults[kRingingSound] {
             return name
         } else {
@@ -41,7 +41,7 @@ extension UserDefaultsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationL
         }
     }
 
-    fileprivate func ringtoneAudioDeviceUID() throws -> String {
+    private func ringtoneAudioDeviceUID() throws -> String {
         let soundIO = PreferredSoundIO(
             devices: SystemAudioDevices(devices: try repository.allDevices()), defaults: defaults
         )

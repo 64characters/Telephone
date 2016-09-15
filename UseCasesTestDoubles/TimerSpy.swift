@@ -22,8 +22,8 @@ public final class TimerSpy: Timer {
     public let interval: Double = 0
     public let action: () -> Void = {}
 
-    public fileprivate(set) var didCallInvalidate = false
-    public fileprivate(set) var invalidateCallCount = 0
+    public private(set) var didCallInvalidate = false
+    public private(set) var invalidateCallCount = 0
 
     public init() {}
 

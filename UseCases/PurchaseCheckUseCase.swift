@@ -23,7 +23,7 @@ public protocol PurchaseCheckUseCaseOutput {
     func didFailCheckingPurchase()
 }
 
-open class PurchaseCheckUseCase {
+public class PurchaseCheckUseCase {
     fileprivate let receipt: Receipt
     fileprivate let output: PurchaseCheckUseCaseOutput
 
@@ -38,7 +38,7 @@ extension PurchaseCheckUseCase: UseCase {
         receipt.validate(completion: notifyOutput)
     }
 
-    fileprivate func notifyOutput(withResult result: ReceiptValidationResult) {
+    private func notifyOutput(with result: ReceiptValidationResult) {
         switch result {
         case .receiptIsValid(expiration: let expiration):
             output.didCheckPurchase(expiration: expiration)

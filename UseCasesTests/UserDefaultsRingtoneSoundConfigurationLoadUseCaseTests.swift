@@ -22,10 +22,10 @@ import UseCasesTestDoubles
 import XCTest
 
 final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
-    fileprivate var factory: SystemAudioDeviceTestFactory!
-    fileprivate var defaults: UserDefaultsFake!
-    fileprivate var repository: SystemAudioDeviceRepositoryStub!
-    fileprivate var sut: SoundConfigurationLoadUseCase!
+    private var factory: SystemAudioDeviceTestFactory!
+    private var defaults: UserDefaultsFake!
+    private var repository: SystemAudioDeviceRepositoryStub!
+    private var sut: SoundConfigurationLoadUseCase!
 
     override func setUp() {
         super.setUp()

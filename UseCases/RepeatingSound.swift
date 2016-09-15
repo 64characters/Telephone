@@ -40,13 +40,13 @@ extension RepeatingSound: Ringtone {
         invalidateTimerIfNeeded()
     }
 
-    fileprivate func createTimerIfNeeded() {
+    private func createTimerIfNeeded() {
         if timer == nil {
             timer = factory.createRepeatingTimer(interval: interval, action: sound.play)
         }
     }
 
-    fileprivate func invalidateTimerIfNeeded() {
+    private func invalidateTimerIfNeeded() {
         timer?.invalidate()
         timer = nil
     }

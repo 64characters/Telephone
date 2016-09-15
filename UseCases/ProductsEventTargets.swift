@@ -31,11 +31,11 @@ public final class ProductsEventTargets {
 
     public init() {}
 
-    public func addTarget(_ target: ProductsEventTarget) {
+    public func add(_ target: ProductsEventTarget) {
         targets.append(target)
     }
 
-    public func removeTarget(_ target: ProductsEventTarget) {
+    public func remove(_ target: ProductsEventTarget) {
         if let index = targets.index(where: { $0 === target }) {
             targets.remove(at: index)
         }
@@ -47,7 +47,7 @@ extension ProductsEventTargets: ProductsEventTarget {
         targets.forEach() { $0.productsDidFetch() }
     }
 
-    public func productsDidFailFetching(withError error: String) {
-        targets.forEach { $0.productsDidFailFetching(withError: error) }
+    public func productsDidFailFetching(error: String) {
+        targets.forEach { $0.productsDidFailFetching(error: error) }
     }
 }

@@ -26,7 +26,7 @@ public final class RingtoneFactorySpy {
 
     public init() {}
 
-    public func stubWith(_ ringtone: Ringtone) {
+    public func stub(with ringtone: Ringtone) {
         self.ringtone = ringtone
     }
 }

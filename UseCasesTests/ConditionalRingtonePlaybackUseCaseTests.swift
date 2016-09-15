@@ -21,9 +21,9 @@ import UseCasesTestDoubles
 import XCTest
 
 final class ConditionalRingtonePlaybackUseCaseTests: XCTestCase {
-    fileprivate var origin: RingtonePlaybackUseCaseSpy!
-    fileprivate var delegate: ConditionalRingtonePlaybackUseCaseTestDelegate!
-    fileprivate var sut: ConditionalRingtonePlaybackUseCase!
+    private var origin: RingtonePlaybackUseCaseSpy!
+    private var delegate: ConditionalRingtonePlaybackUseCaseTestDelegate!
+    private var sut: ConditionalRingtonePlaybackUseCase!
 
     override func setUp() {
         super.setUp()

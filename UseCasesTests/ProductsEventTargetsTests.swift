@@ -26,8 +26,8 @@ final class ProductsEventTargetsTests: XCTestCase {
         let second = ProductsEventTargetSpy()
         let sut = ProductsEventTargets()
 
-        sut.addTarget(first)
-        sut.addTarget(second)
+        sut.add(first)
+        sut.add(second)
 
         XCTAssertEqual(sut.count, 2)
         XCTAssertTrue(sut[0] === first)
@@ -38,10 +38,10 @@ final class ProductsEventTargetsTests: XCTestCase {
         let first = ProductsEventTargetSpy()
         let second = ProductsEventTargetSpy()
         let sut = ProductsEventTargets()
-        sut.addTarget(first)
-        sut.addTarget(second)
+        sut.add(first)
+        sut.add(second)
 
-        sut.removeTarget(first)
+        sut.remove(first)
 
         XCTAssertEqual(sut.count, 1)
         XCTAssertTrue(sut[0] === second)
@@ -51,8 +51,8 @@ final class ProductsEventTargetsTests: XCTestCase {
         let first = ProductsEventTargetSpy()
         let second = ProductsEventTargetSpy()
         let sut = ProductsEventTargets()
-        sut.addTarget(first)
-        sut.addTarget(second)
+        sut.add(first)
+        sut.add(second)
 
         sut.productsDidFetch()
 
@@ -64,10 +64,10 @@ final class ProductsEventTargetsTests: XCTestCase {
         let first = ProductsEventTargetSpy()
         let second = ProductsEventTargetSpy()
         let sut = ProductsEventTargets()
-        sut.addTarget(first)
-        sut.addTarget(second)
+        sut.add(first)
+        sut.add(second)
 
-        sut.productsDidFailFetching(withError: "any")
+        sut.productsDidFailFetching(error: "any")
 
         XCTAssertTrue(first.didCallProductsDidFailFetching)
         XCTAssertTrue(second.didCallProductsDidFailFetching)

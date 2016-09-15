@@ -41,29 +41,29 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
         try selectUserAgentSoundIO()
     }
 
-    fileprivate func updateDevices() throws {
+    private func updateDevices() throws {
         devices = SystemAudioDevices(devices: try repository.allDevices())
     }
 
-    fileprivate func updateDeviceMap() throws {
+    private func updateDeviceMap() throws {
         deviceMap = SystemToUserAgentAudioDeviceMap(
             systemDevices: devices.all,
-            userAgentDevices: try userAgent.audioDevices().map(domainWithUseCaseUserAgentAudioDevice)
+            userAgentDevices: try userAgent.audioDevices().map(domainAudioDevice)
         )
     }
 
-    fileprivate func updateSoundIO() {
+    private func updateSoundIO() {
         soundIO = PreferredSoundIO(devices: devices, defaults: defaults)
     }
 
-    fileprivate func selectUserAgentSoundIO() throws {
+    private func selectUserAgentSoundIO() throws {
         try userAgent.selectSoundIODeviceIDs(
             input: deviceMap.userAgentDevice(for: soundIO.input).identifier,
             output: deviceMap.userAgentDevice(for: soundIO.output).identifier
         )
     }
 
-    fileprivate func domainWithUseCaseUserAgentAudioDevice(_ device: UserAgentAudioDevice) -> Domain.UserAgentAudioDevice {
+    private func domainAudioDevice(with device: UserAgentAudioDevice) -> Domain.UserAgentAudioDevice {
         return Domain.SimpleUserAgentAudioDevice(device: device)
     }
 }

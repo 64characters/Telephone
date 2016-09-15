@@ -26,7 +26,7 @@ public final class ProductsFetchUseCaseOutputSpy {
 }
 
 extension ProductsFetchUseCaseOutputSpy: ProductsFetchUseCaseOutput {
-    public func didFetchProducts(_ products: [Product]) {
+    public func didFetch(_ products: [Product]) {
         invokedProducts = products
     }
 

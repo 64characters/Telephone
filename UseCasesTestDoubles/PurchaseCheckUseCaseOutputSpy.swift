@@ -19,10 +19,10 @@
 import Foundation
 import UseCases
 
-open class PurchaseCheckUseCaseOutputSpy {
-    open fileprivate(set) var didCallDidCheckPurchase = false
-    open fileprivate(set) var invokedExpiration = Date.distantPast
-    open fileprivate(set) var didCallDidFailCheckingPurchase = false
+public class PurchaseCheckUseCaseOutputSpy {
+    public fileprivate(set) var didCallDidCheckPurchase = false
+    public fileprivate(set) var invokedExpiration = Date.distantPast
+    public fileprivate(set) var didCallDidFailCheckingPurchase = false
 
     public init() {}
 }

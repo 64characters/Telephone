@@ -21,8 +21,8 @@ import UseCasesTestDoubles
 import XCTest
 
 final class DefaultSoundPlaybackUseCaseTests: XCTestCase {
-    fileprivate var factory: SoundFactorySpy!
-    fileprivate var sut: DefaultSoundPlaybackUseCase!
+    private var factory: SoundFactorySpy!
+    private var sut: DefaultSoundPlaybackUseCase!
 
     override func setUp() {
         super.setUp()

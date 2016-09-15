@@ -33,19 +33,19 @@ extension UserDefaultsSoundIOSaveUseCase: UseCase {
         saveRingtoneOutputIfNeeded()
     }
 
-    fileprivate func saveInputIfNeeded() {
+    private func saveInputIfNeeded() {
         if !soundIO.input.isEmpty {
             defaults[kSoundInput] = soundIO.input
         }
     }
 
-    fileprivate func saveOutputIfNeeded() {
+    private func saveOutputIfNeeded() {
         if !soundIO.output.isEmpty {
             defaults[kSoundOutput] = soundIO.output
         }
     }
 
-    fileprivate func saveRingtoneOutputIfNeeded() {
+    private func saveRingtoneOutputIfNeeded() {
         if !soundIO.ringtoneOutput.isEmpty {
             defaults[kRingtoneOutput] = soundIO.ringtoneOutput
         }
