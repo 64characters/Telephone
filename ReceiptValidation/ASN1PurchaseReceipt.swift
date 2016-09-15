@@ -28,7 +28,7 @@ struct ASN1PurchaseReceipt {
         var identifier: String?
         var expiration: Date?
         var isCancelled: Bool?
-        if let payload = ASN1Payload(data: attribute.value as Data) {
+        if let payload = ASN1Payload(data: attribute.value) {
             for a in payload.attributes {
                 switch a.type {
                 case identifierType:
