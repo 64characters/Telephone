@@ -37,7 +37,7 @@ private func createGUID() -> Data {
         var parent: io_object_t = 0
         let status = IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent)
         if status == KERN_SUCCESS {
-            mac = (IORegistryEntryCreateCFProperty(parent, "IOMACAddress" as CFString!, kCFAllocatorDefault, 0).takeRetainedValue() as! CFData) as Data
+            mac = (IORegistryEntryCreateCFProperty(parent, "IOMACAddress" as CFString, kCFAllocatorDefault, 0).takeRetainedValue() as! CFData) as Data
             IOObjectRelease(parent)
         }
         IOObjectRelease(service)
