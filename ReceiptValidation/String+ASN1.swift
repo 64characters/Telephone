@@ -19,21 +19,21 @@
 import Foundation
 
 extension String {
-    init(ASN1UTF8String data: NSData) {
-        self.init(ASN1String: data, ASN1StringType: utf8String, encoding: NSUTF8StringEncoding)
+    init(ASN1UTF8String data: Data) {
+        self.init(ASN1String: data, ASN1StringType: utf8String, encoding: String.Encoding.utf8)
     }
 
-    init(ASN1IA5String data: NSData) {
-        self.init(ASN1String: data, ASN1StringType: ia5String, encoding: NSASCIIStringEncoding)
+    init(ASN1IA5String data: Data) {
+        self.init(ASN1String: data, ASN1StringType: ia5String, encoding: String.Encoding.ascii)
     }
 
-    private init(ASN1String data: NSData, ASN1StringType type: UInt8, encoding: NSStringEncoding) {
+    fileprivate init(ASN1String data: Data, ASN1StringType type: UInt8, encoding: String.Encoding) {
         var result: String?
-        let bytes = UnsafePointer<UInt8>(data.bytes)
+        let bytes = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
         if bytes[typeIndex] == type {
-            let length = data.length - contentIndex
+            let length = data.count - contentIndex
             assert(length == Int(bytes[lengthIndex]))
-            result = String(data: NSData(bytes: bytes.advancedBy(contentIndex), length: length), encoding: encoding)
+            result = String(data: Data(bytes: UnsafePointer<UInt8>(bytes.advanced(by: contentIndex)), count: length), encoding: encoding)
         }
         self = result ?? ""
     }

@@ -26,9 +26,9 @@ struct ASN1PurchaseReceipts {
     }
 }
 
-extension ASN1PurchaseReceipts: SequenceType {
-    func generate() -> IndexingGenerator<[ASN1PurchaseReceipt]> {
-        return all.generate()
+extension ASN1PurchaseReceipts: Sequence {
+    func makeIterator() -> IndexingIterator<[ASN1PurchaseReceipt]> {
+        return all.makeIterator()
     }
 }
 

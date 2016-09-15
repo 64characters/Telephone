@@ -19,21 +19,21 @@
 import Foundation
 
 final class PKCS7SignatureValidation: NSObject {
-    private let origin: ReceiptValidation
-    private let certificate: NSData
+    fileprivate let origin: ReceiptValidation
+    fileprivate let certificate: Data
 
-    init(origin: ReceiptValidation, certificate: NSData) {
+    init(origin: ReceiptValidation, certificate: Data) {
         self.origin = origin
         self.certificate = certificate
     }
 }
 
 extension PKCS7SignatureValidation: ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void) {
-        if PKCS7Container(data: receipt)!.isSignatureValidWithRootCertificate(certificate) {
+    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void) {
+        if PKCS7Container(data: receipt)!.isSignatureValid(withRootCertificate: certificate) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
-            completion(result: .ReceiptIsInvalid, expiration: NSDate.distantPast())
+            completion(.receiptIsInvalid, Date.distantPast)
         }
     }
 }

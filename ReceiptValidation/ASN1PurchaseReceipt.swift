@@ -20,15 +20,15 @@ import Foundation
 
 struct ASN1PurchaseReceipt {
     let identifier: String
-    let expiration: NSDate
+    let expiration: Date
     let isCancelled: Bool
 
     init(attribute: ASN1PayloadAttribute) {
         assert(attribute.type == purchaseReceiptType)
         var identifier: String?
-        var expiration: NSDate?
+        var expiration: Date?
         var isCancelled: Bool?
-        if let payload = ASN1Payload(data: attribute.value) {
+        if let payload = ASN1Payload(data: attribute.value as Data) {
             for a in payload.attributes {
                 switch a.type {
                 case identifierType:
@@ -43,23 +43,23 @@ struct ASN1PurchaseReceipt {
             }
         }
         self.identifier = identifier ?? ""
-        self.expiration = expiration ?? NSDate.distantPast()
+        self.expiration = expiration ?? Date.distantPast
         self.isCancelled = isCancelled ?? false
     }
 }
 
-private func date(from string: String) -> NSDate {
-    return formatter.dateFromString(string) ?? NSDate.distantPast()
+private func date(from string: String) -> Date {
+    return formatter.date(from: string) ?? Date.distantPast
 }
 
-private func isValidDate(string: String) -> Bool {
-    return formatter.dateFromString(string) != nil
+private func isValidDate(_ string: String) -> Bool {
+    return formatter.date(from: string) != nil
 }
 
-private let formatter: NSDateFormatter = {
-    let f = NSDateFormatter()
-    f.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    f.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let formatter: DateFormatter = {
+    let f = DateFormatter()
+    f.locale = Locale(identifier: "en_US_POSIX")
+    f.timeZone = TimeZone(secondsFromGMT: 0)
     f.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
     return f
 }()

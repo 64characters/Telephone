@@ -19,11 +19,11 @@
 import Foundation
 
 @objc public protocol ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void)
+    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void)
 }
 
 @objc public enum Result: Int {
-    case ReceiptIsValid
-    case ReceiptIsInvalid
-    case NoActivePurchases
+    case receiptIsValid
+    case receiptIsInvalid
+    case noActivePurchases
 }

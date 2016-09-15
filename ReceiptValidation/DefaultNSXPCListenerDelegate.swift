@@ -19,8 +19,8 @@
 import Foundation
 
 final class DefaultNSXPCListenerDelegate: NSObject {
-    private let interface: Protocol
-    private let object: AnyObject
+    fileprivate let interface: Protocol
+    fileprivate let object: AnyObject
 
     init(interface: Protocol, object: AnyObject) {
         self.interface = interface
@@ -29,8 +29,8 @@ final class DefaultNSXPCListenerDelegate: NSObject {
 }
 
 extension DefaultNSXPCListenerDelegate: NSXPCListenerDelegate {
-    func listener(listener: NSXPCListener, shouldAcceptNewConnection connection: NSXPCConnection) -> Bool {
-        connection.exportedInterface = NSXPCInterface(withProtocol: interface)
+    func listener(_ listener: NSXPCListener, shouldAcceptNewConnection connection: NSXPCConnection) -> Bool {
+        connection.exportedInterface = NSXPCInterface(with: interface)
         connection.exportedObject = object
         connection.resume()
         return true
