@@ -29,11 +29,11 @@ extension String {
 
     private init(ASN1String data: Data, ASN1StringType type: UInt8, encoding: String.Encoding) {
         var result: String?
-        let bytes = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
-        if bytes[typeIndex] == type {
-            let length = data.count - contentIndex
-            assert(length == Int(bytes[lengthIndex]))
-            result = String(data: Data(bytes: UnsafePointer<UInt8>(bytes.advanced(by: contentIndex)), count: length), encoding: encoding)
+        data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
+            guard bytes[typeIndex] == type else { return }
+            let count = data.count - contentIndex
+            assert(count == Int(bytes[lengthIndex]))
+            result = String(data: Data(bytes: bytes.advanced(by: contentIndex), count: count), encoding: encoding)
         }
         self = result ?? ""
     }
