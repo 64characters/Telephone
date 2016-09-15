@@ -41,7 +41,9 @@ func ==(lhs: SHA256Fingerprint, rhs: SHA256Fingerprint) -> Bool {
 }
 
 private func digest(of source: Data) -> Data {
-    let digest = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))!
-    CC_SHA256((source as NSData).bytes, CC_LONG(source.count), UnsafeMutablePointer<UInt8>(mutating: digest.bytes.bindMemory(to: UInt8.self, capacity: digest.length)))
-    return digest as Data
+    var result = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+    source.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in
+        CC_SHA256(ptr, CC_LONG(source.count), &result)
+    }
+    return Data(bytes: result)
 }
