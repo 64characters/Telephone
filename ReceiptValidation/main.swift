@@ -30,7 +30,7 @@ let delegate = DefaultNSXPCListenerDelegate(
                         identifiers: Set(["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"])
                     ),
                     attributes: ReceiptAttributes(
-                        identifier: "com.tlphn.Telephone", version: "1.2", guid: DeviceGUID().dataValue
+                        identifier: "com.tlphn.Telephone", version: "1.2.1", guid: DeviceGUID().dataValue
                     )
                 ),
                 certificate: certificate
