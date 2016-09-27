@@ -39,10 +39,9 @@ extension PurchaseCheckUseCase: UseCase {
     }
 
     private func notifyOutput(with result: ReceiptValidationResult) {
-        switch result {
-        case .receiptIsValid(expiration: let expiration):
+        if case .receiptIsValid(expiration: let expiration) = result {
             output.didCheckPurchase(expiration: expiration)
-        default:
+        } else {
             output.didFailCheckingPurchase()
         }
     }

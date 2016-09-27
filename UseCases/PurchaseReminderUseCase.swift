@@ -54,10 +54,10 @@ extension PurchaseReminderUseCase: UseCase {
 
     private func remindIfNotPurchased(_ result: ReceiptValidationResult) {
         switch result {
-        case .receiptIsValid:
-            break
         case .receiptIsInvalid, .noActivePurchases:
             self.output.remindAboutPurchasing()
+        default:
+            break
         }
     }
 

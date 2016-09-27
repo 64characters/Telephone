@@ -60,19 +60,17 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
     }
 
     private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) {
-        switch result {
-        case .receiptIsValid:
-            self.origin.didPurchaseProducts()
-        default:
-            self.origin.didFailPurchasingProducts(error: result.localizedDescription)
+        if case .receiptIsValid = result {
+            origin.didPurchaseProducts()
+        } else {
+            origin.didFailPurchasingProducts(error: result.localizedDescription)
         }
     }
 
     private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) {
-        switch result {
-        case .receiptIsValid:
+        if case .receiptIsValid = result {
             origin.didRestorePurchases()
-        default:
+        } else {
             origin.didFailRestoringPurchases(error: result.localizedDescription)
         }
     }
