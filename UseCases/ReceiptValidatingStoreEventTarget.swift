@@ -64,7 +64,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         case .receiptIsValid:
             self.origin.didPurchaseProducts()
         default:
-            self.origin.didFailPurchasingProducts(error: result.message)
+            self.origin.didFailPurchasingProducts(error: result.localizedDescription)
         }
     }
 
@@ -73,7 +73,7 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         case .receiptIsValid:
             origin.didRestorePurchases()
         default:
-            origin.didFailRestoringPurchases(error: result.message)
+            origin.didFailRestoringPurchases(error: result.localizedDescription)
         }
     }
 }

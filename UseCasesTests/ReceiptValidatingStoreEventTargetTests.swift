@@ -53,7 +53,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         sut.didPurchaseProducts()
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.receiptIsInvalid.message)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.receiptIsInvalid.localizedDescription)
     }
 
     func testCallsDidFailPurchasingWhenThereAreNoActivePurchasesOnDidPurchase() {
@@ -63,7 +63,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         sut.didPurchaseProducts()
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.noActivePurchases.message)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.noActivePurchases.localizedDescription)
     }
 
     func testCallsDidFailPurchasingOnDidFailPurchasing() {
@@ -104,7 +104,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         sut.didRestorePurchases()
 
         XCTAssertTrue(origin.didCallDidFailRestoring)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.receiptIsInvalid.message)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.receiptIsInvalid.localizedDescription)
     }
 
     func testCallsDidFailRestoringWhenThereAreNoActivePurchasesOnDidPurchase() {
@@ -114,7 +114,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         sut.didRestorePurchases()
 
         XCTAssertTrue(origin.didCallDidFailRestoring)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.noActivePurchases.message)
+        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.noActivePurchases.localizedDescription)
     }
 
     func testCallsDidFailRestoringOnDidFailRestoring() {

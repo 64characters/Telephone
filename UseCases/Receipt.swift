@@ -27,7 +27,7 @@ public enum ReceiptValidationResult {
     case receiptIsInvalid
     case noActivePurchases
 
-    public var message: String {
+    public var localizedDescription: String {
         switch self {
         case .receiptIsValid:
             return NSLocalizedString("Receipt is valid.", bundle: bundle(), comment: "Receipt validation success.")
