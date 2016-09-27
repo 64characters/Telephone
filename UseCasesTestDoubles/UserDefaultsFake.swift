@@ -48,7 +48,7 @@ extension UserDefaultsFake: KeyValueUserDefaults {
     }
 
     @objc public func set(_ value: Bool, forKey key: String) {
-        dictionary[key] = value as AnyObject?
+        dictionary[key] = value
     }
 
     @objc public func bool(forKey key: String) -> Bool {
@@ -56,7 +56,7 @@ extension UserDefaultsFake: KeyValueUserDefaults {
     }
 
     @objc public func set(_ array: [Any], forKey key: String) {
-        dictionary[key] = array as Any?
+        dictionary[key] = array
     }
 
     @objc public func array(forKey key: String) -> [Any]? {

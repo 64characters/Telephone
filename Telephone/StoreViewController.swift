@@ -61,7 +61,7 @@ final class StoreViewController: NSViewController {
         self.target = target
     }
 
-    @IBAction func fetchProducts(_ sender: AnyObject) {
+    @IBAction func fetchProducts(_ sender: Any) {
         target.viewDidStartProductFetch()
     }
 
@@ -69,11 +69,11 @@ final class StoreViewController: NSViewController {
         target.viewDidMakePurchase(product: products[productsTableView.row(for: sender)])
     }
 
-    @IBAction func restorePurchases(_ sender: AnyObject) {
+    @IBAction func restorePurchases(_ sender: Any) {
         target.viewDidStartPurchaseRestoration()
     }
 
-    @IBAction func manageSubscriptions(_ sender: AnyObject) {
+    @IBAction func manageSubscriptions(_ sender: Any) {
         workspace.open(URL(string: "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions")!)
     }
 }

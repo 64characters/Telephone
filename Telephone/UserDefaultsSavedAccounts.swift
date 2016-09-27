@@ -31,7 +31,7 @@ extension UserDefaultsSavedAccounts: SavedAccounts {
         return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
     }
 
-    fileprivate func accounts() -> [[String: AnyObject]] {
-        return defaults.array(forKey: kAccounts) as? [[String: AnyObject]] ?? []
+    fileprivate func accounts() -> [[String: Any]] {
+        return defaults.array(forKey: kAccounts) as? [[String: Any]] ?? []
     }
 }
