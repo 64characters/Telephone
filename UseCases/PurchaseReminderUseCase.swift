@@ -81,5 +81,5 @@ extension PurchaseReminderUseCase: UseCase {
 }
 
 private func thirtyDays(after date: Date) -> Date? {
-    return (Calendar.current as NSCalendar).date(byAdding: .day, value: 30, to: date, options: [])
+    return Calendar.current.date(byAdding: .day, value: 30, to: date)
 }

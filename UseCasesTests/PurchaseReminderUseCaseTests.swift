@@ -201,9 +201,9 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 }
 
 private func thirtyDaysBefore(_ date: Date) -> Date {
-    return (Calendar.current as NSCalendar).date(byAdding: .day, value: -30, to: date, options: [])!
+    return Calendar.current.date(byAdding: .day, value: -30, to: date)!
 }
 
 private func oneSecondAfter(_ date: Date) -> Date {
-    return (Calendar.current as NSCalendar).date(byAdding: .second, value: 1, to: date, options: [])!
+    return Calendar.current.date(byAdding: .second, value: 1, to: date)!
 }
