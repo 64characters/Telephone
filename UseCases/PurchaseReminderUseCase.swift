@@ -76,7 +76,7 @@ extension PurchaseReminderUseCase: UseCase {
 
     private func haveThirtyDaysPassedSinceLastDate() -> Bool {
         guard let date = thirtyDays(after: defaults.date) else { return false }
-        return (now as NSDate).laterDate(date) == now
+        return now >= date
     }
 }
 

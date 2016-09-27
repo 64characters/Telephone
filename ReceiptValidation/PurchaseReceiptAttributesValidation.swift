@@ -34,7 +34,7 @@ extension PurchaseReceiptAttributesValidation: ReceiptValidation {
     }
 
     private func latestExpirationOfValidPurchaseReceipts(from receipt: Data) -> Date? {
-        return validPurchaseReceipts(from: receipt).max(by: hasEarlierExpirationDate)?.expiration as Date?
+        return validPurchaseReceipts(from: receipt).max(by: hasEarlierExpirationDate)?.expiration
     }
 
     private func validPurchaseReceipts(from receipt: Data) -> [ASN1PurchaseReceipt] {
@@ -42,14 +42,10 @@ extension PurchaseReceiptAttributesValidation: ReceiptValidation {
     }
 
     private func isReceiptValid(_ receipt: ASN1PurchaseReceipt) -> Bool {
-        return !receipt.isCancelled && isLaterThanNow(receipt.expiration as Date) && identifiers.contains(receipt.identifier)
+        return !receipt.isCancelled && receipt.expiration >= Date() && identifiers.contains(receipt.identifier)
     }
 }
 
-private func isLaterThanNow(_ date: Date) -> Bool {
-    return (date as NSDate).laterDate(Date()) == date
-}
-
 private func hasEarlierExpirationDate(_ lhs: ASN1PurchaseReceipt, _ rhs: ASN1PurchaseReceipt) -> Bool {
-    return (lhs.expiration as NSDate).earlierDate(rhs.expiration) == lhs.expiration
+    return lhs.expiration < rhs.expiration
 }
