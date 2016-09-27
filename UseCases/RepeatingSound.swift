@@ -32,7 +32,7 @@ public final class RepeatingSound {
 extension RepeatingSound: Ringtone {
     public func startPlaying() {
         sound.play()
-        createTimerIfNeeded()
+        makeTimerIfNeeded()
     }
 
     public func stopPlaying() {
@@ -40,9 +40,9 @@ extension RepeatingSound: Ringtone {
         invalidateTimerIfNeeded()
     }
 
-    private func createTimerIfNeeded() {
+    private func makeTimerIfNeeded() {
         if timer == nil {
-            timer = factory.createRepeatingTimer(interval: interval, action: sound.play)
+            timer = factory.makeRepeatingTimer(interval: interval, action: sound.play)
         }
     }
 

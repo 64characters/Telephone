@@ -29,9 +29,9 @@ final class RepeatingSoundFactory {
 }
 
 extension RepeatingSoundFactory: RingtoneFactory {
-    func createRingtone(interval: Double) throws -> Ringtone {
+    func makeRingtone(interval: Double) throws -> Ringtone {
         return RepeatingSound(
-            sound: try soundFactory.createSound(target: NullSoundEventTarget()),
+            sound: try soundFactory.makeSound(target: NullSoundEventTarget()),
             interval: interval,
             factory: timerFactory
         )

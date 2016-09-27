@@ -41,15 +41,15 @@ public final class StoreUseCaseFactorySpy {
 }
 
 extension StoreUseCaseFactorySpy: StoreUseCaseFactory {
-    public func createPurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase {
+    public func makePurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase {
         return check
     }
 
-    public func createProductsFetchUseCase(output: ProductsFetchUseCaseOutput) -> UseCase {
+    public func makeProductsFetchUseCase(output: ProductsFetchUseCaseOutput) -> UseCase {
         return fetch
     }
 
-    public func createProductPurchaseUseCase(identifier: String) -> ThrowingUseCase {
+    public func makeProductPurchaseUseCase(identifier: String) -> ThrowingUseCase {
         invokedIdentifier = identifier
         return purchase
     }

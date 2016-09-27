@@ -66,14 +66,14 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
 
     private func loadUserDefaultsSoundIOInViewOrLogError(_ view: SoundPreferencesView) {
         do {
-            try createUserDefaultsSoundIOLoadUseCase(view: view).execute()
+            try makeUserDefaultsSoundIOLoadUseCase(view: view).execute()
         } catch {
             print("Could not load Sound IO view data")
         }
     }
 
     private func updateUserDefaults(with soundIO: PresentationSoundIO) {
-        useCaseFactory.createUserDefaultsSoundIOSaveUseCase(soundIO: soundIO).execute()
+        useCaseFactory.makeUserDefaultsSoundIOSaveUseCase(soundIO: soundIO).execute()
     }
 
     private func updateRingtoneOutputOrLogError() {
@@ -85,7 +85,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
     }
 
     private func updateUserDefaults(withRingtoneSoundName name: String) {
-        useCaseFactory.createUserDefaultsRingtoneSoundNameSaveUseCase(name: name).execute()
+        useCaseFactory.makeUserDefaultsRingtoneSoundNameSaveUseCase(name: name).execute()
     }
 
     private func playRingtoneSoundOrLogError() {
@@ -96,9 +96,9 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         }
     }
 
-    private func createUserDefaultsSoundIOLoadUseCase(view: SoundPreferencesView) -> ThrowingUseCase {
-        return useCaseFactory.createUserDefaultsSoundIOLoadUseCase(
-            output: presenterFactory.createSoundIOPresenter(output: view)
+    private func makeUserDefaultsSoundIOLoadUseCase(view: SoundPreferencesView) -> ThrowingUseCase {
+        return useCaseFactory.makeUserDefaultsSoundIOLoadUseCase(
+            output: presenterFactory.makeSoundIOPresenter(output: view)
         )
     }
 }

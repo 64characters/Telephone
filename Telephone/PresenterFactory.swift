@@ -17,7 +17,7 @@
 //
 
 final class PresenterFactory {
-    func createSoundIOPresenter(output: SoundIOPresenterOutput) -> SoundIOPresenter {
+    func makeSoundIOPresenter(output: SoundIOPresenterOutput) -> SoundIOPresenter {
         return SoundIOPresenter(output: output)
     }
 }

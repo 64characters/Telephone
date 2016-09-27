@@ -30,8 +30,8 @@ final class FallingBackSoundIOTests: XCTestCase {
 
     func testDoesNotFallBackWhenOriginHasNonNullValues() {
         let sut = FallingBackSoundIO(
-            origin: createNonNullSoundIO(),
-            fallback: createNullSoundIO()
+            origin: makeNonNullSoundIO(),
+            fallback: makeNullSoundIO()
         )
 
         assertNonNullIO(sut)
@@ -39,14 +39,14 @@ final class FallingBackSoundIOTests: XCTestCase {
 
     func testFallsBackWhenOriginHasNullValues() {
         let sut = FallingBackSoundIO(
-            origin: createNullSoundIO(),
-            fallback: createNonNullSoundIO()
+            origin: makeNullSoundIO(),
+            fallback: makeNonNullSoundIO()
         )
 
         assertNonNullIO(sut)
     }
 
-    private func createNonNullSoundIO() -> SoundIO {
+    private func makeNonNullSoundIO() -> SoundIO {
         return SimpleSoundIO(
             soundIO: SimpleSystemSoundIO(
                 input: anyDevice, output: anyDevice
@@ -54,7 +54,7 @@ final class FallingBackSoundIOTests: XCTestCase {
         )
     }
 
-    private func createNullSoundIO() -> SoundIO {
+    private func makeNullSoundIO() -> SoundIO {
         return SimpleSoundIO(
             input: NullSystemAudioDevice(),
             output: NullSystemAudioDevice(),

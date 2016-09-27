@@ -26,7 +26,7 @@ public final class SoundFactorySpy {
 }
 
 extension SoundFactorySpy: SoundFactory {
-    public func createSound(target: SoundEventTarget) throws -> Sound {
+    public func makeSound(target: SoundEventTarget) throws -> Sound {
         didCallCreateSound = true
         let result = SoundSpy(target: target)
         lastCreatedSound = result

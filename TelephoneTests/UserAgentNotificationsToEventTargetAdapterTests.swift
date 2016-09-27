@@ -35,40 +35,40 @@ final class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
     }
 
     func testCallsDidFinishStarting() {
-        center.post(createUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidFinishStarting.rawValue))
+        center.post(makeUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidFinishStarting.rawValue))
 
         XCTAssertTrue(target.didCallUserAgentDidFinishStarting)
     }
 
     func testCallsDidFinishStopping() {
-        center.post(createUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidFinishStopping.rawValue))
+        center.post(makeUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidFinishStopping.rawValue))
 
         XCTAssertTrue(target.didCallUserAgentDidFinishStopping)
     }
 
     func testCallsDidDetectNAT() {
-        center.post(createUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidDetectNAT.rawValue))
+        center.post(makeUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidDetectNAT.rawValue))
 
         XCTAssertTrue(target.didCallUserAgentDidDetectNAT)
     }
 
     func testCallsDidMakeCall() {
-        center.post(createCallNotification(name: NSNotification.Name.AKSIPCallCalling.rawValue))
+        center.post(makeCallNotification(name: NSNotification.Name.AKSIPCallCalling.rawValue))
 
         XCTAssertTrue(target.didCallDidMakeCall)
     }
 
     func testCallsUserAgentDidReceiveCall() {
-        center.post(createCallNotification(name: NSNotification.Name.AKSIPCallIncoming.rawValue))
+        center.post(makeCallNotification(name: NSNotification.Name.AKSIPCallIncoming.rawValue))
 
         XCTAssertTrue(target.didCallDidReceiveCall)
     }
 
-    fileprivate func createUserAgentNotification(name: String) -> Notification {
+    fileprivate func makeUserAgentNotification(name: String) -> Notification {
         return Notification(name: Notification.Name(rawValue: name), object: userAgent)
     }
 
-    fileprivate func createCallNotification(name: String) -> Notification {
+    fileprivate func makeCallNotification(name: String) -> Notification {
         return Notification(name: Notification.Name(rawValue: name), object: nil)
     }
 }

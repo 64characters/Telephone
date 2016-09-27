@@ -32,7 +32,7 @@ public final class DefaultRingtonePlaybackUseCase: NSObject {
 extension DefaultRingtonePlaybackUseCase: RingtonePlaybackUseCase {
     public func start() throws {
         if ringtone == nil {
-            ringtone = try factory.createRingtone(interval: DefaultRingtonePlaybackUseCase.interval)
+            ringtone = try factory.makeRingtone(interval: DefaultRingtonePlaybackUseCase.interval)
         }
         ringtone!.startPlaying()
     }

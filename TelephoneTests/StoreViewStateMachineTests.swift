@@ -86,7 +86,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -98,7 +98,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didFailPurchasingProducts(error: "any")
 
@@ -109,7 +109,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didCancelPurchasingProducts()
 
@@ -120,10 +120,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didFailPurchasingProducts(error: "any")
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -135,10 +135,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didCancelPurchasingProducts()
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -152,7 +152,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.viewDidStartPurchaseRestoration()
         sut.didFailRestoringPurchases(error: "any")
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -166,7 +166,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.viewDidStartPurchaseRestoration()
         sut.didCancelRestoringPurchases()
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -255,7 +255,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.viewShouldReloadData(StoreViewDummy())
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: createPresentationProduct(identifier: "123"))
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didFailPurchasingProducts(error: "any")
         sut.viewDidStartPurchaseRestoration()
@@ -339,6 +339,6 @@ extension StoreViewStateMachineTests {
     }
 }
 
-private func createPresentationProduct(identifier: String) -> PresentationProduct {
+private func makePresentationProduct(identifier: String) -> PresentationProduct {
     return PresentationProduct(identifier: identifier, name: "product1", price: "$100")
 }

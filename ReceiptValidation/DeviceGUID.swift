@@ -23,12 +23,12 @@ struct DeviceGUID {
     let dataValue: Data
 
     init() {
-        dataValue = createGUID()
+        dataValue = makeGUID()
     }
 }
 
-private func createGUID() -> Data {
-    let iterator = createIterator()
+private func makeGUID() -> Data {
+    let iterator = makeIterator()
     guard iterator != 0 else { return Data() }
 
     var mac = Data()
@@ -49,7 +49,7 @@ private func createGUID() -> Data {
     return mac
 }
 
-private func createIterator() -> io_iterator_t {
+private func makeIterator() -> io_iterator_t {
     var port: mach_port_t = 0
     var status = IOMasterPort(mach_port_t(MACH_PORT_NULL), &port)
     guard status == KERN_SUCCESS else { return 0 }
