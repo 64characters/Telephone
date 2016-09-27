@@ -249,7 +249,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let sut = DefaultStoreViewEventTarget(
             factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
         )
-        let date = NSDate()
+        let date = Date()
 
         sut.showThankYou(expiration: date)
 

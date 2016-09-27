@@ -16,8 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-enum UserAgentError: ErrorType {
-    case UserAgentNotStarted
-    case AudioDeviceEnumerationError
-    case SoundIOSelectionError
+enum UserAgentError: Error {
+    case userAgentNotStarted
+    case audioDeviceEnumerationError
+    case soundIOSelectionError
 }

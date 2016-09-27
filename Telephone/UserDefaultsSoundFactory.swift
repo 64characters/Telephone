@@ -19,8 +19,8 @@
 import UseCases
 
 final class UserDefaultsSoundFactory {
-    private let load: SoundConfigurationLoadUseCase
-    private let factory: NSSoundToSoundAdapterFactory
+    fileprivate let load: SoundConfigurationLoadUseCase
+    fileprivate let factory: NSSoundToSoundAdapterFactory
 
     init(load: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
         self.load = load
@@ -29,7 +29,7 @@ final class UserDefaultsSoundFactory {
 }
 
 extension UserDefaultsSoundFactory: SoundFactory {
-    func createSound(eventTarget eventTarget: SoundEventTarget) throws -> Sound {
-        return try factory.createSound(configuration: try load.execute(), eventTarget: eventTarget)
+    func createSound(target: SoundEventTarget) throws -> Sound {
+        return try factory.createSound(configuration: try load.execute(), eventTarget: target)
     }
 }

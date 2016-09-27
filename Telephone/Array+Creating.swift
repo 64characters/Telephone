@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+KeyValueUserDefaults.swift
+//  Array+Creating.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-extension UserDefaults: KeyValueUserDefaults {
-    public subscript(key: String) -> String? {
-        get {
-            return string(forKey: key)
-        }
-        set {
-            set(newValue, forKey: key)
-        }
-    }
-
-    public func set(_ array: [Any], forKey key: String) {
-        set(array, forKey: key)
+extension Array {
+    init(tuple: Any) {
+        self = Mirror(reflecting: tuple).children.map { $0.value as! Element }
     }
 }

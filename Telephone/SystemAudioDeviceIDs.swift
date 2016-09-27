@@ -19,7 +19,7 @@
 import CoreAudio
 
 final class SystemAudioDeviceIDs {
-    private var audioObject: SystemAudioObject
+    fileprivate var audioObject: SystemAudioObject
 
     init() {
         let objectID = AudioObjectID(kAudioObjectSystemObject)
@@ -32,30 +32,30 @@ final class SystemAudioDeviceIDs {
         return try deviceIDsWithLength(length)
     }
 
-    private func deviceIDsWithLength(length: UInt32) throws -> [Int] {
+    fileprivate func deviceIDsWithLength(_ length: UInt32) throws -> [Int] {
         let count = audioObjectIDCountWithLength(length)
-        let bytes = UnsafeMutablePointer<AudioObjectID>.alloc(count)
-        defer { bytes.dealloc(count) }
+        let bytes = UnsafeMutablePointer<AudioObjectID>.allocate(capacity: count)
+        defer { bytes.deallocate(capacity: count) }
         var usedLength = length
         try getDeviceIDsBytes(bytes, length: &usedLength)
         return deviceIDsWithBytes(bytes, length: usedLength)
     }
 
-    private func getDeviceIDsBytes(bytes: UnsafeMutablePointer<AudioObjectID>, inout length: UInt32) throws {
+    fileprivate func getDeviceIDsBytes(_ bytes: UnsafeMutablePointer<AudioObjectID>, length: inout UInt32) throws {
         return try audioObject.getPropertyValueBytes(bytes, length: &length)
     }
 }
 
-private func deviceIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [Int] {
+private func deviceIDsWithBytes(_ bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [Int] {
     let audioObjectIDs = audioObjectIDsWithBytes(bytes, length: length)
     return audioObjectIDs.map { Int($0) }
 }
 
-private func audioObjectIDsWithBytes(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [AudioObjectID] {
+private func audioObjectIDsWithBytes(_ bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [AudioObjectID] {
     let buffer = UnsafeMutableBufferPointer<AudioObjectID>(start: bytes, count: audioObjectIDCountWithLength(length))
     return [AudioObjectID](buffer)
 }
 
-private func audioObjectIDCountWithLength(length: UInt32) -> Int {
+private func audioObjectIDCountWithLength(_ length: UInt32) -> Int {
     return objectCount(ofType: AudioObjectID.self, inMemoryLength: Int(length))
 }

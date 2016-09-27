@@ -17,7 +17,7 @@
 //
 
 final class SoundIOPreferencesSpy: NSObject {
-    private(set) var didCallUpdateSoundIO = false
+    fileprivate(set) var didCallUpdateSoundIO = false
 }
 
 extension SoundIOPreferencesSpy: SoundIOPreferences {

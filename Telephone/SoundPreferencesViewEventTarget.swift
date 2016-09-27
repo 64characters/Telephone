@@ -17,9 +17,9 @@
 //
 
 @objc protocol SoundPreferencesViewEventTarget {
-    func viewShouldReloadData(view: SoundPreferencesView)
-    func viewShouldReloadSoundIO(view: SoundPreferencesView)
-    func viewDidChangeSoundIO(input input: String, output: String, ringtoneOutput: String)
-    func viewDidChangeRingtoneName(name: String)
-    func viewWillDisappear(view: SoundPreferencesView)
+    func viewShouldReloadData(_ view: SoundPreferencesView)
+    func viewShouldReloadSoundIO(_ view: SoundPreferencesView)
+    func viewDidChangeSoundIO(input: String, output: String, ringtoneOutput: String)
+    func viewDidChangeRingtoneName(_ name: String)
+    func viewWillDisappear(_ view: SoundPreferencesView)
 }

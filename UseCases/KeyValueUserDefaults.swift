@@ -26,9 +26,10 @@ import Foundation
     func set(_ value: Bool, forKey key: String)
     func bool(forKey key: String) -> Bool
 
-    @objc(serArray:forKey:)
+    @objc(setArray:forKey:)
     func set(_ array: [Any], forKey key: String)
     func array(forKey key: String) -> [Any]?
 
+    @objc(registerDefaults:)
     func register(defaults: [String: Any])
 }

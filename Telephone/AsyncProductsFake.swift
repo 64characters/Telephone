@@ -19,9 +19,9 @@
 import UseCases
 
 final class AsyncProductsFake {
-    private let products: [String: Product]
-    private let target: ProductsEventTarget
-    private var attempts = 0
+    fileprivate let products: [String: Product]
+    fileprivate let target: ProductsEventTarget
+    fileprivate var attempts = 0
 
     init(target: ProductsEventTarget) {
         products = [
@@ -53,14 +53,13 @@ extension AsyncProductsFake: Products {
 
     func fetch() {
         attempts += 1
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
-            dispatch_get_main_queue(),
-            notifyTarget
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(UInt64(1.0) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC),
+            execute: notifyTarget
         )
     }
 
-    private func notifyTarget() {
+    fileprivate func notifyTarget() {
         if attempts % 2 == 0 {
             notifyTargetWithError()
         } else {
@@ -68,11 +67,11 @@ extension AsyncProductsFake: Products {
         }
     }
 
-    private func notifyTargetWithSuccess() {
+    fileprivate func notifyTargetWithSuccess() {
         target.productsDidFetch()
     }
 
-    private func notifyTargetWithError() {
-        target.productsDidFailFetching(withError: "No network connection.")
+    fileprivate func notifyTargetWithError() {
+        target.productsDidFailFetching(error: "No network connection.")
     }
 }

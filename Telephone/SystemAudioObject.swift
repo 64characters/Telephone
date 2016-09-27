@@ -19,8 +19,8 @@
 import CoreAudio
 
 final class SystemAudioObject {
-    private let objectID: AudioObjectID
-    private var propertyAddress: AudioObjectPropertyAddress
+    fileprivate let objectID: AudioObjectID
+    fileprivate var propertyAddress: AudioObjectPropertyAddress
 
     init(objectID: AudioObjectID, propertyAddress: AudioObjectPropertyAddress) {
         self.objectID = objectID
@@ -31,19 +31,19 @@ final class SystemAudioObject {
         var length: UInt32 = 0
         let status = AudioObjectGetPropertyDataSize(objectID, &propertyAddress, 0, nil, &length)
         if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int(status))
+            throw TelephoneError.systemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int(status))
         }
         return length
     }
 
-    func getPropertyValueBytes(bytes: UnsafeMutablePointer<Void>, inout length: UInt32) throws {
+    func getPropertyValueBytes(_ bytes: UnsafeMutableRawPointer, length: inout UInt32) throws {
         let status = AudioObjectGetPropertyData(objectID, &propertyAddress, 0, nil, &length, bytes)
         if status != noErr {
-            throw TelephoneError.SystemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
+            throw TelephoneError.systemAudioDevicePropertyDataGetError(systemErrorCode: Int(status))
         }
     }
 }
 
 func objectCount<T>(ofType type: T.Type, inMemoryLength length: Int) -> Int {
-    return Int(ceil(Double(length) / Double(strideof(type))))
+    return Int(ceil(Double(length) / Double(MemoryLayout<T>.stride)))
 }

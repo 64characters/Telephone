@@ -17,7 +17,7 @@
 //
 
 extension AppController: ConditionalRingtonePlaybackUseCaseDelegate {
-    public func playbackCanStop(playback: ConditionalRingtonePlaybackUseCase) -> Bool {
+    public func playbackCanStop(_ playback: ConditionalRingtonePlaybackUseCase) -> Bool {
         return self.canStopPlayingRingtone()
     }
 }

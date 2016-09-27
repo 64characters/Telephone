@@ -18,15 +18,15 @@
 
 final class StoreViewDummy: StoreView {
     func showPurchaseCheckProgress() {}
-    func showProducts(products: [PresentationProduct]) {}
-    func showProductsFetchError(error: String) {}
+    func showProducts(_ products: [PresentationProduct]) {}
+    func showProductsFetchError(_ error: String) {}
     func showProductsFetchProgress() {}
     func showPurchaseProgress() {}
-    func showPurchaseError(error: String) {}
+    func showPurchaseError(_ error: String) {}
     func showPurchaseRestorationProgress() {}
-    func showPurchaseRestorationError(error: String) {}
+    func showPurchaseRestorationError(_ error: String) {}
     func disablePurchaseRestoration() {}
     func enablePurchaseRestoration() {}
-    func showPurchased(until date: NSDate) {}
+    func showPurchased(until date: Date) {}
     func showSubscriptionManagement() {}
 }

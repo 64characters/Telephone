@@ -20,18 +20,18 @@ import StoreKit
 import UseCases
 
 extension Product {
-    init(product: SKProduct, name: String, formatter: NSNumberFormatter) {
+    init(product: SKProduct, name: String, formatter: NumberFormatter) {
         self.init(
             identifier: product.productIdentifier,
             name: name,
-            price: product.price ?? NSDecimalNumber.zero(),
+            price: product.price,
             localizedPrice: localized(product.price, formatter: formatter)
         )
     }
 }
 
-private func localized(price: NSDecimalNumber?, formatter: NSNumberFormatter) -> String {
-    if let number = price, string = formatter.stringFromNumber(number) {
+private func localized(_ price: NSDecimalNumber?, formatter: NumberFormatter) -> String {
+    if let number = price, let string = formatter.string(from: number) {
         return string
     } else {
         return "N/A"

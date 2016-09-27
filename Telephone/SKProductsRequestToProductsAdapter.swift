@@ -20,12 +20,12 @@ import StoreKit
 import UseCases
 
 final class SKProductsRequestToProductsAdapter: NSObject {
-    private var products: [String: Product] = [:]
-    private var storeKitProducts: [Product: SKProduct] = [:]
-    private var request: SKProductsRequest?
+    fileprivate var products: [String: Product] = [:]
+    fileprivate var storeKitProducts: [Product: SKProduct] = [:]
+    fileprivate var request: SKProductsRequest?
 
-    private let expected: ExpectedProducts
-    private let target: ProductsEventTarget
+    fileprivate let expected: ExpectedProducts
+    fileprivate let target: ProductsEventTarget
 
     init(expected: ExpectedProducts, target: ProductsEventTarget) {
         self.expected = expected
@@ -57,14 +57,14 @@ extension SKProductsRequestToProductsAdapter: StoreKitProducts {
 }
 
 extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
-    func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        DispatchQueue.main.async {
             (self.products, self.storeKitProducts) = self.productMaps(withProducts: response.products)
             self.target.productsDidFetch()
         }
     }
 
-    private func productMaps(withProducts products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
+    fileprivate func productMaps(withProducts products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
         if let products = products {
             return productMaps(withProducts: products)
         } else {
@@ -72,11 +72,11 @@ extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
         }
     }
 
-    private func productMaps(withProducts products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
+    fileprivate func productMaps(withProducts products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
         var idToProduct: [String: Product] = [:]
         var productToSKProduct: [Product: SKProduct] = [:]
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
         for skProduct in products {
             formatter.locale = skProduct.priceLocale
             let product = Product(
@@ -90,34 +90,34 @@ extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
 }
 
 extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
-    func requestDidFinish(request: SKRequest) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func requestDidFinish(_ request: SKRequest) {
+        DispatchQueue.main.async {
             self.forgetProductsRequest(request)
         }
     }
 
-    func request(request: SKRequest, didFailWithError error: NSError) {
+    func request(_ request: SKRequest, didFailWithError error: Error) {
         NSLog("Store request '\(request)' failed: \(error)")
-        dispatch_async(dispatch_get_main_queue()) {
-            self.notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error))
+        DispatchQueue.main.async {
+            self.notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error as NSError))
             self.forgetProductsRequest(request)
         }
     }
 
-    private func notifyEventTargetAboutProductFetchFailure(request request: SKRequest, error: String) {
+    fileprivate func notifyEventTargetAboutProductFetchFailure(request: SKRequest, error: String) {
         if request === self.request {
-            self.target.productsDidFailFetching(withError: error)
+            self.target.productsDidFailFetching(error: error)
         }
     }
 
-    private func forgetProductsRequest(request: SKRequest) {
+    fileprivate func forgetProductsRequest(_ request: SKRequest) {
         if request === self.request {
             self.request = nil
         }
     }
 }
 
-private func descriptionOf(error: NSError) -> String {
+private func descriptionOf(_ error: NSError) -> String {
     if error.localizedDescription.isEmpty {
         return NSLocalizedString("Unknown error", comment: "Unknown error.")
     } else {

@@ -19,8 +19,8 @@
 import UseCases
 
 final class RepeatingSoundFactory {
-    private let soundFactory: SoundFactory
-    private let timerFactory: TimerFactory
+    fileprivate let soundFactory: SoundFactory
+    fileprivate let timerFactory: TimerFactory
 
     init(soundFactory: SoundFactory, timerFactory: TimerFactory) {
         self.soundFactory = soundFactory
@@ -29,9 +29,9 @@ final class RepeatingSoundFactory {
 }
 
 extension RepeatingSoundFactory: RingtoneFactory {
-    func createRingtone(interval interval: Double) throws -> Ringtone {
+    func createRingtone(interval: Double) throws -> Ringtone {
         return RepeatingSound(
-            sound: try soundFactory.createSound(eventTarget: NullSoundEventTarget()),
+            sound: try soundFactory.createSound(target: NullSoundEventTarget()),
             interval: interval,
             factory: timerFactory
         )

@@ -32,7 +32,7 @@ public struct ValidReceipt {
 }
 
 extension ValidReceipt: Receipt {
-    public func validate(completion: (ReceiptValidationResult) -> Void) {
+    public func validate(completion: @escaping (ReceiptValidationResult) -> Void) {
         completion(.receiptIsValid(expiration: expiration))
     }
 }

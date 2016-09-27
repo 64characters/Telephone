@@ -19,8 +19,15 @@
 @import Foundation;
 @import UseCases;
 
+@class iTunesApplication;
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface AppleMusicPlayer : NSObject <MusicPlayer>
 
-- (nullable instancetype)init;
+- (instancetype)initWithApplication:(iTunesApplication *)application NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

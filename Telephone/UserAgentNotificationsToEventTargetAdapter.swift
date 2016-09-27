@@ -19,8 +19,8 @@
 import UseCases
 
 final class UserAgentNotificationsToEventTargetAdapter {
-    private let target: UserAgentEventTarget
-    private let userAgent: UserAgent
+    fileprivate let target: UserAgentEventTarget
+    fileprivate let userAgent: UserAgent
 
     init(target: UserAgentEventTarget, userAgent: UserAgent) {
         self.target = target
@@ -32,67 +32,67 @@ final class UserAgentNotificationsToEventTargetAdapter {
         unsubscribe()
     }
 
-    private func subscribe() {
-        let nc = NSNotificationCenter.defaultCenter()
+    fileprivate func subscribe() {
+        let nc = NotificationCenter.default
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidFinishStarting),
-            name: AKSIPUserAgentDidFinishStartingNotification,
+            name: NSNotification.Name.AKSIPUserAgentDidFinishStarting,
             object: userAgent
         )
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidFinishStopping),
-            name: AKSIPUserAgentDidFinishStoppingNotification,
+            name: NSNotification.Name.AKSIPUserAgentDidFinishStopping,
             object: userAgent
         )
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidDetectNAT),
-            name: AKSIPUserAgentDidDetectNATNotification,
+            name: NSNotification.Name.AKSIPUserAgentDidDetectNAT,
             object: userAgent
         )
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidMakeCall),
-            name: AKSIPCallCallingNotification,
+            name: NSNotification.Name.AKSIPCallCalling,
             object: nil
         )
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidReceiveCall),
-            name: AKSIPCallIncomingNotification,
+            name: NSNotification.Name.AKSIPCallIncoming,
             object: nil
         )
     }
 
-    private func unsubscribe() {
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStartingNotification, object: userAgent)
-        nc.removeObserver(self, name: AKSIPUserAgentDidFinishStoppingNotification, object: userAgent)
-        nc.removeObserver(self, name: AKSIPUserAgentDidDetectNATNotification, object: userAgent)
+    fileprivate func unsubscribe() {
+        let nc = NotificationCenter.default
+        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidFinishStarting, object: userAgent)
+        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidFinishStopping, object: userAgent)
+        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidDetectNAT, object: userAgent)
     }
 
-    dynamic private func SIPUserAgentDidFinishStarting(notification: NSNotification) {
-        assert(userAgent === notification.object)
+    dynamic fileprivate func SIPUserAgentDidFinishStarting(_ notification: Notification) {
+        assert(userAgent === notification.object as! UserAgent)
         target.userAgentDidFinishStarting(userAgent)
     }
 
-    dynamic private func SIPUserAgentDidFinishStopping(notification: NSNotification) {
-        assert(userAgent === notification.object)
+    dynamic fileprivate func SIPUserAgentDidFinishStopping(_ notification: Notification) {
+        assert(userAgent === notification.object as! UserAgent)
         target.userAgentDidFinishStopping(userAgent)
     }
 
-    dynamic private func SIPUserAgentDidDetectNAT(notification: NSNotification) {
-        assert(userAgent === notification.object)
+    dynamic fileprivate func SIPUserAgentDidDetectNAT(_ notification: Notification) {
+        assert(userAgent === notification.object as! UserAgent)
         target.userAgentDidDetectNAT(userAgent)
     }
 
-    dynamic private func SIPUserAgentDidMakeCall(notification: NSNotification) {
+    dynamic fileprivate func SIPUserAgentDidMakeCall(_ notification: Notification) {
         target.userAgentDidMakeCall(userAgent)
     }
 
-    dynamic private func SIPUserAgentDidReceiveCall(notification: NSNotification) {
+    dynamic fileprivate func SIPUserAgentDidReceiveCall(_ notification: Notification) {
         target.userAgentDidReceiveCall(userAgent)
     }
 }

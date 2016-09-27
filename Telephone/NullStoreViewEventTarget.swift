@@ -17,8 +17,8 @@
 //
 
 final class NullStoreViewEventTarget: StoreViewEventTarget {
-    func viewShouldReloadData(view: StoreView) {}
+    func viewShouldReloadData(_ view: StoreView) {}
     func viewDidStartProductFetch() {}
-    func viewDidMakePurchase(product: PresentationProduct) {}
+    func viewDidMakePurchase(_ product: PresentationProduct) {}
     func viewDidStartPurchaseRestoration() {}
 }

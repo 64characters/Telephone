@@ -19,13 +19,13 @@
 import Foundation
 
 final class DefaultStoreViewEventTarget {
-    private(set) var state: StoreViewState = StoreViewStateNoProducts()
-    private var products: [Product] = []
-    private var fetchError = ""
+    fileprivate(set) var state: StoreViewState = StoreViewStateNoProducts()
+    fileprivate var products: [Product] = []
+    fileprivate var fetchError = ""
 
-    private let factory: StoreUseCaseFactory
-    private var restoration: UseCase
-    private let presenter: StoreViewPresenter
+    fileprivate let factory: StoreUseCaseFactory
+    fileprivate var restoration: UseCase
+    fileprivate let presenter: StoreViewPresenter
 
     init(factory: StoreUseCaseFactory, purchaseRestoration: UseCase, presenter: StoreViewPresenter) {
         self.factory = factory
@@ -35,7 +35,7 @@ final class DefaultStoreViewEventTarget {
 }
 
 extension DefaultStoreViewEventTarget: StoreViewStateMachine {
-    func changeState(newState: StoreViewState) {
+    func changeState(_ newState: StoreViewState) {
         state = newState
     }
 
@@ -49,12 +49,12 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showProductsFetchProgress()
     }
 
-    func showProducts(products: [Product]) {
+    func showProducts(_ products: [Product]) {
         self.products = products
         presenter.showProducts(products)
     }
 
-    func showProductsFetchError(error: String) {
+    func showProductsFetchError(_ error: String) {
         fetchError = error
         presenter.showProductsFetchError(error)
     }
@@ -71,7 +71,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showPurchaseProgress()
     }
 
-    func showCachedProductsAndPurchaseError(error: String) {
+    func showCachedProductsAndPurchaseError(_ error: String) {
         showCachedProducts()
         presenter.showPurchaseError(error)
     }
@@ -85,12 +85,12 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showPurchaseRestorationProgress()
     }
 
-    func showCachedProductsAndRestoreError(error: String) {
+    func showCachedProductsAndRestoreError(_ error: String) {
         showCachedProducts()
         presenter.showPurchaseRestorationError(error)
     }
 
-    func showCachedFetchErrorAndRestoreError(error: String) {
+    func showCachedFetchErrorAndRestoreError(_ error: String) {
         showCachedFetchError()
         presenter.showPurchaseRestorationError(error)
     }
@@ -99,7 +99,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showProductsFetchError(fetchError)
     }
 
-    func showThankYou(expiration expiration: NSDate) {
+    func showThankYou(expiration: Date) {
         presenter.showPurchased(until: expiration)
     }
 }

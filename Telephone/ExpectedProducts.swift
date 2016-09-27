@@ -17,7 +17,7 @@
 //
 
 struct ExpectedProducts {
-    private let map = [
+    fileprivate let map = [
         "com.tlphn.Telephone.iap.month": NSLocalizedString("Monthly optional patronage", comment: "Product name."),
         "com.tlphn.Telephone.iap.year": NSLocalizedString("Yearly optional patronage", comment: "Product name.")
     ]

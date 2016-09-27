@@ -16,9 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-enum TelephoneError: ErrorType {
-    case SystemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
-    case SystemAudioDevicePropertyDataGetError(systemErrorCode: Int)
-    case SoundCreationError
-    case ProductToStoreKitProductMappingError
+enum TelephoneError: Error {
+    case systemAudioDevicePropertyDataSizeGetError(systemErrorCode: Int)
+    case systemAudioDevicePropertyDataGetError(systemErrorCode: Int)
+    case soundCreationError
+    case productToStoreKitProductMappingError
 }

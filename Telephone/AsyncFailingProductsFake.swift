@@ -18,7 +18,7 @@
 
 final class AsyncFailingProductsFake {
     let all: [Product] = []
-    private let target: ProductsEventTarget
+    fileprivate let target: ProductsEventTarget
 
     init(target: ProductsEventTarget) {
         self.target = target
@@ -31,14 +31,13 @@ extension AsyncFailingProductsFake: Products {
     }
 
     func fetch() {
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
-            dispatch_get_main_queue(),
-            notifyTarget
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(UInt64(1.0) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC),
+            execute: notifyTarget
         )
     }
 
-    private func notifyTarget() {
-        target.productsDidFailFetching(withError: "Network is unreachable.")
+    fileprivate func notifyTarget() {
+        target.productsDidFailFetching(error: "Network is unreachable.")
     }
 }

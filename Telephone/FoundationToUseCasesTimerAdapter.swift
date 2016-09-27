@@ -1,5 +1,5 @@
 //
-//  NSTimerToTimerAdapter.swift
+//  FoundationToUseCasesTimerAdapter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,15 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
 import UseCases
 
-final class NSTimerToTimerAdapter {
+final class FoundationToUseCasesTimerAdapter {
     private let action: () -> Void
 
-    var timer: NSTimer!
+    var timer: Foundation.Timer!
 
-    init(action: () -> Void) {
+    init(action: @escaping () -> Void) {
         self.action = action
     }
 
@@ -32,7 +33,7 @@ final class NSTimerToTimerAdapter {
     }
 }
 
-extension NSTimerToTimerAdapter: Timer {
+extension FoundationToUseCasesTimerAdapter: UseCases.Timer {
     var interval: Double {
         return timer.timeInterval
     }

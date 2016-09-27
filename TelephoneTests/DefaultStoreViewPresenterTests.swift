@@ -19,8 +19,8 @@
 import XCTest
 
 final class DefaultStoreViewPresenterTests: XCTestCase {
-    private var output: StoreViewSpy!
-    private var sut: DefaultStoreViewPresenter!
+    fileprivate var output: StoreViewSpy!
+    fileprivate var sut: DefaultStoreViewPresenter!
 
     override func setUp() {
         super.setUp()
@@ -45,9 +45,9 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
     // MARK: - Fetch
 
     func testShowsProductsSortedByPriceOnShowProducts() {
-        let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 3), localizedPrice: "$3")
-        let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
-        let product3 = Product(identifier: "789", name: "ghi", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
+        let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(string: "3"), localizedPrice: "$3")
+        let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(string: "1"), localizedPrice: "$1")
+        let product3 = Product(identifier: "789", name: "ghi", price: NSDecimalNumber(string: "2"), localizedPrice: "$2")
 
         sut.showProducts([product1, product2, product3])
 
@@ -148,13 +148,13 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
     // MARK: - Purchased
 
     func testShowsPurchasedOnShowPurchased() {
-        sut.showPurchased(until: NSDate())
+        sut.showPurchased(until: Date())
 
         XCTAssertTrue(output.didCallShowPurchased)
     }
 
     func testShowsSubscriptionManagementOnShowPurchased() {
-        sut.showPurchased(until: NSDate())
+        sut.showPurchased(until: Date())
 
         XCTAssertTrue(output.didCallShowSubscriptionManagement)
     }

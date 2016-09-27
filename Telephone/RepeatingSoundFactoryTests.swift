@@ -21,8 +21,8 @@ import UseCasesTestDoubles
 import XCTest
 
 final class RepeatingSoundFactoryTests: XCTestCase {
-    private var factory: SoundFactorySpy!
-    private var sut: RepeatingSoundFactory!
+    fileprivate var factory: SoundFactorySpy!
+    fileprivate var sut: RepeatingSoundFactory!
 
     override func setUp() {
         super.setUp()
@@ -31,7 +31,7 @@ final class RepeatingSoundFactoryTests: XCTestCase {
     }
 
     func testCallsCreateSound() {
-        try! sut.createRingtone(interval: 0)
+        try! _ = sut.createRingtone(interval: 0)
 
         XCTAssertTrue(factory.didCallCreateSound)
     }

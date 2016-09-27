@@ -17,36 +17,36 @@
 //
 
 final class SoundPreferencesViewSpy: NSObject {
-    private(set) var invokedInputDevices: [String] = []
-    private(set) var invokedOutputDevices: [String] = []
-    private(set) var invokedRingtoneDevices: [String] = []
-    private(set) var invokedInputDevice = ""
-    private(set) var invokedOutputDevice = ""
-    private(set) var invokedRingtoneDevice = ""
+    fileprivate(set) var invokedInputDevices: [String] = []
+    fileprivate(set) var invokedOutputDevices: [String] = []
+    fileprivate(set) var invokedRingtoneDevices: [String] = []
+    fileprivate(set) var invokedInputDevice = ""
+    fileprivate(set) var invokedOutputDevice = ""
+    fileprivate(set) var invokedRingtoneDevice = ""
 }
 
 extension SoundPreferencesViewSpy: SoundPreferencesView {
-    func setInputDevices(devices: [String]) {
+    func setInputDevices(_ devices: [String]) {
         invokedInputDevices = devices
     }
 
-    func setOutputDevices(devices: [String]) {
+    func setOutputDevices(_ devices: [String]) {
         invokedOutputDevices = devices
     }
 
-    func setRingtoneDevices(devices: [String]!) {
+    func setRingtoneDevices(_ devices: [String]!) {
         invokedRingtoneDevices = devices
     }
 
-    func setInputDevice(device: String) {
+    func setInputDevice(_ device: String) {
         invokedInputDevice = device
     }
 
-    func setOutputDevice(device: String) {
+    func setOutputDevice(_ device: String) {
         invokedOutputDevice = device
     }
 
-    func setRingtoneDevice(device: String) {
+    func setRingtoneDevice(_ device: String) {
         invokedRingtoneDevice = device
     }
 }

@@ -20,11 +20,11 @@ import UseCasesTestDoubles
 import XCTest
 
 final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
-    private var factory: UseCaseFactorySpy!
-    private var userAgentSoundIOSelection: UseCaseSpy!
-    private var ringtoneOutputUpdate: ThrowingUseCaseSpy!
-    private var soundPlayback: SoundPlaybackUseCaseSpy!
-    private var sut: DefaultSoundPreferencesViewEventTarget!
+    fileprivate var factory: UseCaseFactorySpy!
+    fileprivate var userAgentSoundIOSelection: UseCaseSpy!
+    fileprivate var ringtoneOutputUpdate: ThrowingUseCaseSpy!
+    fileprivate var soundPlayback: SoundPlaybackUseCaseSpy!
+    fileprivate var sut: DefaultSoundPreferencesViewEventTarget!
 
     override func setUp() {
         super.setUp()

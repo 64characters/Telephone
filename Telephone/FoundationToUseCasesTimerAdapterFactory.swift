@@ -1,5 +1,5 @@
 //
-//  String+Creating.swift
+//  FoundationToUseCasesTimerAdapterFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-extension String {
-    static func fromBytes<T>(buffer: T) -> String? {
-        var bytes = buffer
-        return withUnsafePointer(&bytes, stringWithPointer)
+import UseCases
+
+final class FoundationToUseCasesTimerAdapterFactory: TimerFactory {
+    func createRepeatingTimer(interval: Double, action: @escaping () -> Void) -> UseCases.Timer {
+        let timer = FoundationToUseCasesTimerAdapter(action: action)
+        timer.timer = Timer.scheduledTimer(
+            timeInterval: interval,
+            target: timer,
+            selector: #selector(FoundationToUseCasesTimerAdapter.tick),
+            userInfo: nil,
+            repeats: true
+        )
+        return timer
     }
-}
-
-private func stringWithPointer<T>(pointer: UnsafePointer<T>) -> String? {
-    return String(UTF8String: int8PointerWithPointer(pointer))
-}
-
-private func int8PointerWithPointer<T>(pointer: UnsafePointer<T>) -> UnsafePointer<Int8> {
-    return unsafeBitCast(pointer, UnsafePointer<Int8>.self)
 }

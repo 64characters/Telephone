@@ -48,81 +48,81 @@
 
 
 class StoreViewState {
-    func viewShouldReloadData(machine machine: StoreViewStateMachine) {
+    func viewShouldReloadData(machine: StoreViewStateMachine) {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didCheckPurchase(machine machine: StoreViewStateMachine, expiration: NSDate) {
+    func didCheckPurchase(machine: StoreViewStateMachine, expiration: Date) {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailCheckingPurchase(machine machine: StoreViewStateMachine)  {
+    func didFailCheckingPurchase(machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func viewDidStartProductFetch(machine machine: StoreViewStateMachine)  {
+    func viewDidStartProductFetch(machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFetchProducts(machine machine: StoreViewStateMachine, products: [Product])  {
+    func didFetchProducts(machine: StoreViewStateMachine, products: [Product])  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailFetchingProducts(machine machine: StoreViewStateMachine, error: String)  {
+    func didFailFetchingProducts(machine: StoreViewStateMachine, error: String)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func viewDidMakePurchase(machine machine: StoreViewStateMachine, product: PresentationProduct)  {
+    func viewDidMakePurchase(machine: StoreViewStateMachine, product: PresentationProduct)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didStartPurchasingProduct(machine machine: StoreViewStateMachine, identifier: String) {
+    func didStartPurchasingProduct(machine: StoreViewStateMachine, identifier: String) {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didPurchaseProducts(machine machine: StoreViewStateMachine)  {
+    func didPurchaseProducts(machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailPurchasingProducts(machine machine: StoreViewStateMachine, error: String)  {
+    func didFailPurchasingProducts(machine: StoreViewStateMachine, error: String)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didCancelPurchasingProducts(machine machine: StoreViewStateMachine)  {
+    func didCancelPurchasingProducts(machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine)  {
+    func viewDidStartPurchaseRestoration(machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didRestorePurchases(machine machine: StoreViewStateMachine)  {
+    func didRestorePurchases(machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String)  {
+    func didFailRestoringPurchases(machine: StoreViewStateMachine, error: String)  {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didCancelRestoringPurchases(machine machine: StoreViewStateMachine)  {
+    func didCancelRestoringPurchases(machine: StoreViewStateMachine)  {
         print("\(#function) is not supported for \(self)")
     }
 }
 
 final class StoreViewStateNoProducts: StoreViewState {
-    override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
+    override func viewShouldReloadData(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateChecking())
         machine.checkPurchase()
     }
 }
 
 class StoreViewStateChecking: StoreViewState {
-    override func didCheckPurchase(machine machine: StoreViewStateMachine, expiration: NSDate) {
+    override func didCheckPurchase(machine: StoreViewStateMachine, expiration: Date) {
         machine.changeState(StoreViewStatePurchased())
         machine.showThankYou(expiration: expiration)
     }
 
-    override func didFailCheckingPurchase(machine machine: StoreViewStateMachine) {
+    override func didFailCheckingPurchase(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetching())
         machine.fetchProducts()
     }
@@ -131,103 +131,103 @@ class StoreViewStateChecking: StoreViewState {
 final class StoreViewStateCheckingAfterFetch: StoreViewStateChecking {}
 
 final class StoreViewStateFetching: StoreViewState {
-    override func didFetchProducts(machine machine: StoreViewStateMachine, products: [Product]) {
+    override func didFetchProducts(machine: StoreViewStateMachine, products: [Product]) {
         machine.changeState(StoreViewStateFetched())
         machine.showProducts(products)
     }
 
-    override func didFailFetchingProducts(machine machine: StoreViewStateMachine, error: String) {
+    override func didFailFetchingProducts(machine: StoreViewStateMachine, error: String) {
         machine.changeState(StoreViewStateFetchError())
         machine.showProductsFetchError(error)
     }
 }
 
 final class StoreViewStateFetched: StoreViewState {
-    override func viewDidMakePurchase(machine machine: StoreViewStateMachine, product: PresentationProduct) {
+    override func viewDidMakePurchase(machine: StoreViewStateMachine, product: PresentationProduct) {
         machine.purchaseProduct(withIdentifier: product.identifier)
     }
 
-    override func didStartPurchasingProduct(machine machine: StoreViewStateMachine, identifier: String) {
+    override func didStartPurchasingProduct(machine: StoreViewStateMachine, identifier: String) {
         machine.changeState(StoreViewStatePurchasing())
         machine.showPurchaseProgress()
     }
 
-    override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
+    override func viewDidStartPurchaseRestoration(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateRestoring())
         machine.restorePurchases()
     }
 }
 
 final class StoreViewStateFetchError: StoreViewState {
-    override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
+    override func viewShouldReloadData(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateChecking())
         machine.checkPurchase()
     }
 
-    override func viewDidStartProductFetch(machine machine: StoreViewStateMachine) {
+    override func viewDidStartProductFetch(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetching())
         machine.fetchProducts()
     }
 
-    override func viewDidStartPurchaseRestoration(machine machine: StoreViewStateMachine) {
+    override func viewDidStartPurchaseRestoration(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateRestoringAfterFetchError())
         machine.restorePurchases()
     }
 }
 
 final class StoreViewStatePurchasing: StoreViewState {
-    override func didPurchaseProducts(machine machine: StoreViewStateMachine) {
+    override func didPurchaseProducts(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateCheckingAfterFetch())
         machine.checkPurchase()
     }
 
-    override func didFailPurchasingProducts(machine machine: StoreViewStateMachine, error: String) {
+    override func didFailPurchasingProducts(machine: StoreViewStateMachine, error: String) {
         machine.changeState(StoreViewStateFetched())
         machine.showCachedProductsAndPurchaseError(error)
     }
 
-    override func didCancelPurchasingProducts(machine machine: StoreViewStateMachine) {
+    override func didCancelPurchasingProducts(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetched())
         machine.showCachedProducts()
     }
 }
 
 final class StoreViewStatePurchased: StoreViewState {
-    override func viewShouldReloadData(machine machine: StoreViewStateMachine) {
+    override func viewShouldReloadData(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateChecking())
         machine.checkPurchase()
     }
 }
 
 final class StoreViewStateRestoring: StoreViewState {
-    override func didRestorePurchases(machine machine: StoreViewStateMachine) {
+    override func didRestorePurchases(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateCheckingAfterFetch())
         machine.checkPurchase()
     }
 
-    override func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String) {
+    override func didFailRestoringPurchases(machine: StoreViewStateMachine, error: String) {
         machine.changeState(StoreViewStateFetched())
         machine.showCachedProductsAndRestoreError(error)
     }
 
-    override func didCancelRestoringPurchases(machine machine: StoreViewStateMachine) {
+    override func didCancelRestoringPurchases(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetched())
         machine.showCachedProducts()
     }
 }
 
 final class StoreViewStateRestoringAfterFetchError: StoreViewState {
-    override func didRestorePurchases(machine machine: StoreViewStateMachine) {
+    override func didRestorePurchases(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateChecking())
         machine.checkPurchase()
     }
 
-    override func didFailRestoringPurchases(machine machine: StoreViewStateMachine, error: String) {
+    override func didFailRestoringPurchases(machine: StoreViewStateMachine, error: String) {
         machine.changeState(StoreViewStateFetchError())
         machine.showCachedFetchErrorAndRestoreError(error)
     }
 
-    override func didCancelRestoringPurchases(machine machine: StoreViewStateMachine) {
+    override func didCancelRestoringPurchases(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetchError())
         machine.showCachedFetchError()
     }

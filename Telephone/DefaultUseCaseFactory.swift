@@ -19,8 +19,8 @@
 import UseCases
 
 final class DefaultUseCaseFactory {
-    private let repository: SystemAudioDeviceRepository
-    private let defaults: KeyValueUserDefaults
+    fileprivate let repository: SystemAudioDeviceRepository
+    fileprivate let defaults: KeyValueUserDefaults
 
     init(repository: SystemAudioDeviceRepository, defaults: KeyValueUserDefaults) {
         self.repository = repository
@@ -29,15 +29,15 @@ final class DefaultUseCaseFactory {
 }
 
 extension DefaultUseCaseFactory: UseCaseFactory {
-    func createUserDefaultsSoundIOLoadUseCase(output output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
+    func createUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
         return UserDefaultsSoundIOLoadUseCase(repository: repository, defaults: defaults, output: output)
     }
 
-    func createUserDefaultsSoundIOSaveUseCase(soundIO soundIO: PresentationSoundIO) -> UseCase {
+    func createUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
         return UserDefaultsSoundIOSaveUseCase(soundIO: soundIO, defaults: defaults)
     }
 
-    func createUserDefaultsRingtoneSoundNameSaveUseCase(name name: String) -> UseCase {
+    func createUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
         return UserDefaultsRingtoneSoundNameSaveUseCase(name: name, defaults: defaults)
     }
 }

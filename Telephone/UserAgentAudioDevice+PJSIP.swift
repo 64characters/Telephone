@@ -29,7 +29,7 @@ extension UserAgentAudioDevice {
     }
 }
 
-private func nameOfDevice(device: pjmedia_aud_dev_info) -> String {
+private func nameOfDevice(_ device: pjmedia_aud_dev_info) -> String {
     let name = String.fromBytes(device.name)
     return name == nil ? "Unknown Device Name" : name!
 }
