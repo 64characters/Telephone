@@ -17,5 +17,5 @@
 //
 
 public protocol RingtoneFactory {
-    func createRingtone(interval: Double) throws -> Ringtone
+    func makeRingtone(interval: Double) throws -> Ringtone
 }

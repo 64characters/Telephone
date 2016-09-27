@@ -19,7 +19,7 @@
 import UseCases
 
 final class FoundationToUseCasesTimerAdapterFactory: TimerFactory {
-    func createRepeatingTimer(interval: Double, action: @escaping () -> Void) -> UseCases.Timer {
+    func makeRepeatingTimer(interval: Double, action: @escaping () -> Void) -> UseCases.Timer {
         let timer = FoundationToUseCasesTimerAdapter(action: action)
         timer.timer = Timer.scheduledTimer(
             timeInterval: interval,

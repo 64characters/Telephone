@@ -19,7 +19,7 @@
 import UseCases
 
 public final class RingtoneFactorySpy {
-    public fileprivate(set) var createRingtoneCallCount = 0
+    public fileprivate(set) var makeRingtoneCallCount = 0
     public fileprivate(set) var invokedInterval: Double = 0
     
     fileprivate var ringtone: Ringtone!
@@ -32,8 +32,8 @@ public final class RingtoneFactorySpy {
 }
 
 extension RingtoneFactorySpy: RingtoneFactory {
-    public func createRingtone(interval: Double) -> Ringtone {
-        createRingtoneCallCount += 1
+    public func makeRingtone(interval: Double) -> Ringtone {
+        makeRingtoneCallCount += 1
         invokedInterval = interval
         return ringtone
     }

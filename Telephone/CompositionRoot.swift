@@ -37,7 +37,7 @@ final class CompositionRoot: NSObject {
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
-        queue = createQueue()
+        queue = makeQueue()
 
         let audioDevices = SystemAudioDevices()
         let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, defaults: defaults)
@@ -140,7 +140,7 @@ final class CompositionRoot: NSObject {
     }
 }
 
-private func createQueue() -> DispatchQueue {
+private func makeQueue() -> DispatchQueue {
     let label = Bundle.main.bundleIdentifier! + ".background-queue"
     return DispatchQueue(label: label, attributes: [])
 }

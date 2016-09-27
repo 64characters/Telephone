@@ -33,15 +33,15 @@ final class DefaultStoreUseCaseFactory {
 }
 
 extension DefaultStoreUseCaseFactory: StoreUseCaseFactory {
-    func createPurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase {
+    func makePurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase {
         return PurchaseCheckUseCase(receipt: receipt, output: output)
     }
 
-    func createProductsFetchUseCase(output: ProductsFetchUseCaseOutput) -> UseCase {
+    func makeProductsFetchUseCase(output: ProductsFetchUseCaseOutput) -> UseCase {
         return ProductsFetchUseCase(products: products, targets: targets, output: output)
     }
 
-    func createProductPurchaseUseCase(identifier: String) -> ThrowingUseCase {
+    func makeProductPurchaseUseCase(identifier: String) -> ThrowingUseCase {
         return ProductPurchaseUseCase(identifier: identifier, products: products, store: store)
     }
 }

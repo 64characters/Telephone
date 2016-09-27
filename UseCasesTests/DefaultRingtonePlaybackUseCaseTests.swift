@@ -69,7 +69,7 @@ final class DefaultRingtonePlaybackUseCaseTests: XCTestCase {
         try! sut.start()
         try! sut.start()
 
-        XCTAssertEqual(factory.createRingtoneCallCount, 1)
+        XCTAssertEqual(factory.makeRingtoneCallCount, 1)
     }
 
     func testStopsPlayingRingtoneOnceOnTwoConsecutiveCallsTostop() {

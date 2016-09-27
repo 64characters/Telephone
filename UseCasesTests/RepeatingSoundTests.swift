@@ -53,7 +53,7 @@ final class RepeatingSoundTests: XCTestCase {
         sut.startPlaying()
         sut.startPlaying()
 
-        XCTAssertEqual(factory.createRepeatingTimerCallCount, 1)
+        XCTAssertEqual(factory.makeRepeatingTimerCallCount, 1)
     }
 
     func testInvalidatesTimerOnceOnTwoConsecutiveCallsToStopPlaying() {

@@ -29,7 +29,7 @@ public final class DefaultSoundPlaybackUseCase {
 extension DefaultSoundPlaybackUseCase: SoundPlaybackUseCase {
     public func play() throws {
         sound?.stop()
-        sound = try factory.createSound(target: self)
+        sound = try factory.makeSound(target: self)
         sound!.play()
     }
 

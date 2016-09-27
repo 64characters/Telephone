@@ -29,15 +29,15 @@ final class DefaultUseCaseFactory {
 }
 
 extension DefaultUseCaseFactory: UseCaseFactory {
-    func createUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
+    func makeUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
         return UserDefaultsSoundIOLoadUseCase(repository: repository, defaults: defaults, output: output)
     }
 
-    func createUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
+    func makeUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
         return UserDefaultsSoundIOSaveUseCase(soundIO: soundIO, defaults: defaults)
     }
 
-    func createUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
+    func makeUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
         return UserDefaultsRingtoneSoundNameSaveUseCase(name: name, defaults: defaults)
     }
 }

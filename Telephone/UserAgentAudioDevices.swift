@@ -22,11 +22,11 @@ struct UserAgentAudioDevices {
     let all: [UserAgentAudioDevice]
 
     init() throws {
-        all = try createDevices()
+        all = try makeDevices()
     }
 }
 
-private func createDevices() throws -> [UserAgentAudioDevice] {
+private func makeDevices() throws -> [UserAgentAudioDevice] {
     let bytes = UnsafeMutablePointer<pjmedia_aud_dev_info>.allocate(capacity: bufferSize)
     var count = UInt32(bufferSize)
     try copyDevicesBytes(to: bytes, count: &count)

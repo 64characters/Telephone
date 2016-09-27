@@ -42,16 +42,16 @@ public final class UseCaseFactorySpy {
 }
 
 extension UseCaseFactorySpy: UseCaseFactory {
-    public func createUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
+    public func makeUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
         return soundIOLoad
     }
 
-    public func createUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
+    public func makeUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
         invokedSoundIO = soundIO
         return soundIOSave
     }
 
-    public func createUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
+    public func makeUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
         invokedRingtoneSoundName = name
         return ringtoneSoundNameSave
     }

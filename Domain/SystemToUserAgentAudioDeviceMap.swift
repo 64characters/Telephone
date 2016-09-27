@@ -26,7 +26,7 @@ public final class SystemToUserAgentAudioDeviceMap {
     public init(systemDevices: [SystemAudioDevice], userAgentDevices: [UserAgentAudioDevice]) {
         self.systemDevices = systemDevices
         self.userAgentDevices = userAgentDevices
-        IDToUserAgentDevice = createIDToDeviceMap(from: userAgentDevices)
+        IDToUserAgentDevice = makeIDToDeviceMap(from: userAgentDevices)
         nameToUserAgentDevice = UserAgentAudioDeviceNameToDeviceMap(devices: userAgentDevices)
         systemDevices.forEach(updateIDMap(with:))
     }
@@ -63,7 +63,7 @@ public final class SystemToUserAgentAudioDeviceMap {
     }
 }
 
-private func createIDToDeviceMap(from devices: [UserAgentAudioDevice]) -> [UserAgentAudioDeviceID: UserAgentAudioDevice] {
+private func makeIDToDeviceMap(from devices: [UserAgentAudioDevice]) -> [UserAgentAudioDeviceID: UserAgentAudioDevice] {
     var map: [UserAgentAudioDeviceID: UserAgentAudioDevice] = [:]
     devices.forEach({ map[$0.identifier] = $0 })
     return map
