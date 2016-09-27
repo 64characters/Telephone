@@ -41,7 +41,7 @@ extension StoreViewPresenterSpy: StoreViewPresenter {
         didCallShowPurchaseCheckProgress = true
     }
 
-    func showProducts(_ products: [Product]) {
+    func show(_ products: [Product]) {
         showProductsCallCount += 1
         invokedProducts = products
     }

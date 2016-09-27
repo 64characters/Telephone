@@ -24,7 +24,7 @@ protocol StoreViewStateMachine: PurchaseCheckUseCaseOutput, StoreViewEventTarget
 
     func checkPurchase()
     func fetchProducts()
-    func showProducts(_ products: [Product])
+    func show(_ products: [Product])
     func showProductsFetchError(_ error: String)
     func purchaseProduct(withIdentifier identifier: String)
     func showPurchaseProgress()
@@ -58,7 +58,7 @@ extension StoreViewStateMachine {
         state.viewDidStartProductFetch(machine: self)
     }
 
-    func viewDidMakePurchase(_ product: PresentationProduct) {
+    func viewDidMakePurchase(product: PresentationProduct) {
         state.viewDidMakePurchase(machine: self, product: product)
     }
 

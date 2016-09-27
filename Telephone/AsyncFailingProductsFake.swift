@@ -31,13 +31,10 @@ extension AsyncFailingProductsFake: Products {
     }
 
     func fetch() {
-        DispatchQueue.main.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(UInt64(1.0) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC),
-            execute: notifyTarget
-        )
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: notifyTarget)
     }
 
-    fileprivate func notifyTarget() {
+    private func notifyTarget() {
         target.productsDidFailFetching(error: "Network is unreachable.")
     }
 }

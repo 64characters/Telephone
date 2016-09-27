@@ -34,21 +34,21 @@ final class FailingStoreFake {
 extension FailingStoreFake: Store {
     func purchase(_ product: Product) throws {
         attempts += 1
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(UInt64(0.2) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.target.didStartPurchasingProduct(withIdentifier: product.identifier)
         }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(UInt64(1.0) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.notifyTargetAboutPurchaseFailure()
         }
     }
 
     func restorePurchases() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(UInt64(1.0) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.target.didFailRestoringPurchases(error: error)
         }
     }
 
-    fileprivate func notifyTargetAboutPurchaseFailure() {
+    private func notifyTargetAboutPurchaseFailure() {
         if attempts % 2 == 0 {
             target.didCancelPurchasingProducts()
         } else {

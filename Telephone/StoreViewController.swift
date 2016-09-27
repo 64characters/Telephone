@@ -20,8 +20,8 @@ import Cocoa
 import UseCases
 
 final class StoreViewController: NSViewController {
-    fileprivate var target: StoreViewEventTarget
-    fileprivate var workspace: NSWorkspace
+    private var target: StoreViewEventTarget
+    private var workspace: NSWorkspace
     fileprivate dynamic var products: [PresentationProduct] = []
     fileprivate let formatter: DateFormatter = {
         let f = DateFormatter()
@@ -29,8 +29,8 @@ final class StoreViewController: NSViewController {
         return f
     }()
 
+    @IBOutlet private var productsTableView: NSTableView!
     @IBOutlet fileprivate var productsListView: NSView!
-    @IBOutlet fileprivate var productsTableView: NSTableView!
     @IBOutlet fileprivate var productsFetchErrorView: NSView!
     @IBOutlet fileprivate var progressView: NSView!
     @IBOutlet fileprivate var purchasedView: NSView!
@@ -66,7 +66,7 @@ final class StoreViewController: NSViewController {
     }
 
     @IBAction func purchaseProduct(_ sender: NSButton) {
-        target.viewDidMakePurchase(products[productsTableView.row(for: sender)])
+        target.viewDidMakePurchase(product: products[productsTableView.row(for: sender)])
     }
 
     @IBAction func restorePurchases(_ sender: AnyObject) {
@@ -83,7 +83,7 @@ extension StoreViewController: StoreView {
         showProgress()
     }
 
-    func showProducts(_ products: [PresentationProduct]) {
+    func show(_ products: [PresentationProduct]) {
         self.products = products
         showInProductsContentView(productsListView)
     }
@@ -133,12 +133,12 @@ extension StoreViewController: StoreView {
         subscriptionsButton.isHidden = false
     }
 
-    fileprivate func showInProductsContentView(_ view: NSView) {
+    private func showInProductsContentView(_ view: NSView) {
         productsContentView.subviews.forEach { $0.removeFromSuperview() }
         productsContentView.addSubview(view)
     }
 
-    fileprivate func showProgress() {
+    private func showProgress() {
         progressIndicator.startAnimation(self)
         showInProductsContentView(progressView)
     }

@@ -49,9 +49,9 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
         presenter.showProductsFetchProgress()
     }
 
-    func showProducts(_ products: [Product]) {
+    func show(_ products: [Product]) {
         self.products = products
-        presenter.showProducts(products)
+        presenter.show(products)
     }
 
     func showProductsFetchError(_ error: String) {
@@ -77,7 +77,7 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     }
 
     func showCachedProducts() {
-        presenter.showProducts(products)
+        presenter.show(products)
     }
 
     func restorePurchases() {

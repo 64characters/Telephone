@@ -43,7 +43,7 @@ extension StoreViewSpy: StoreViewPresenterOutput {
         didCallShowPurchaseCheckProgress = true
     }
 
-    func showProducts(_ products: [PresentationProduct]) {
+    func show(_ products: [PresentationProduct]) {
         invokedProducts = products
     }
 

@@ -39,7 +39,7 @@ final class ReceiptXPCGateway {
         }
     }
 
-    fileprivate func validation(completion: @escaping (ReceiptValidationResult) -> Void) -> ReceiptValidation {
+    private func validation(completion: @escaping (ReceiptValidationResult) -> Void) -> ReceiptValidation {
         return connection.remoteObjectProxyWithErrorHandler { error in
             didFailReceiptValidation(completion)
             } as! ReceiptValidation
@@ -47,16 +47,14 @@ final class ReceiptXPCGateway {
 }
 
 private func didValidateReceipt(with result: Result, expiration: Date, completion: @escaping (ReceiptValidationResult) -> Void) {
-    DispatchQueue.main.async {
-        didValidateReceiptOnMain(with: result, expiration: expiration, completion: completion)
-    }
+    DispatchQueue.main.async { handleDidValidateReceiptOnMain(result: result, expiration: expiration, completion: completion) }
 }
 
 private func didFailReceiptValidation(_ completion: @escaping (ReceiptValidationResult) -> Void) {
     DispatchQueue.main.async { completion(.receiptIsInvalid) }
 }
 
-private func didValidateReceiptOnMain(with result: Result, expiration: Date, completion: (ReceiptValidationResult) -> Void) {
+private func handleDidValidateReceiptOnMain(result: Result, expiration: Date, completion: (ReceiptValidationResult) -> Void) {
     switch result {
     case .receiptIsValid:
         completion(.receiptIsValid(expiration: expiration))

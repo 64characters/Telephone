@@ -44,47 +44,47 @@ extension StoreEventSource: SKPaymentTransactionObserver {
 
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
         DispatchQueue.main.async {
-            self.notifyTargetAboutFailedRestoration(error: error as NSError)
+            self.notifyTargetAboutFailedRestoration(error: error)
         }
     }
 
-    fileprivate func handleStateChange(of transactions: [SKPaymentTransaction]) {
+    private func handleStateChange(of transactions: [SKPaymentTransaction]) {
         handlePurchasing(transactions.filter { $0.transactionState == .purchasing })
         handlePurchased(transactions.filter { $0.transactionState == .purchased })
         handleFailed(transactions.filter { $0.transactionState == .failed })
         handleRestored(transactions.filter { $0.transactionState == .restored })
     }
 
-    fileprivate func handlePurchasing(_ transactions: [SKPaymentTransaction]) {
+    private func handlePurchasing(_ transactions: [SKPaymentTransaction]) {
         transactions.forEach { target.didStartPurchasingProduct(withIdentifier: $0.payment.productIdentifier) }
     }
 
-    fileprivate func handlePurchased(_ transactions: [SKPaymentTransaction]) {
+    private func handlePurchased(_ transactions: [SKPaymentTransaction]) {
         if transactions.count > 0 { target.didPurchaseProducts() }
         transactions.forEach { queue.finishTransaction($0) }
     }
 
-    fileprivate func handleFailed(_ transactions: [SKPaymentTransaction]) {
+    private func handleFailed(_ transactions: [SKPaymentTransaction]) {
         transactions.forEach {
             notifyTargetAboutFailure(of: $0)
             queue.finishTransaction($0)
         }
     }
 
-    fileprivate func handleRestored(_ transactions: [SKPaymentTransaction]) {
+    private func handleRestored(_ transactions: [SKPaymentTransaction]) {
         if transactions.count > 0 { target.didRestorePurchases() }
         transactions.forEach { queue.finishTransaction($0) }
     }
 
-    fileprivate func notifyTargetAboutFailure(of transaction: SKPaymentTransaction) {
+    private func notifyTargetAboutFailure(of transaction: SKPaymentTransaction) {
         if let error = transaction.error {
-            notifyTargetAboutFailedPurchase(error: error as NSError)
+            notifyTargetAboutFailedPurchase(error: error)
         } else {
             target.didFailPurchasingProducts(error: localizedUnknownError())
         }
     }
 
-    fileprivate func notifyTargetAboutFailedPurchase(error: NSError) {
+    private func notifyTargetAboutFailedPurchase(error: Error) {
         if isCancelled(error) {
             target.didCancelPurchasingProducts()
         } else {
@@ -92,7 +92,7 @@ extension StoreEventSource: SKPaymentTransactionObserver {
         }
     }
 
-    fileprivate func notifyTargetAboutFailedRestoration(error: NSError) {
+    private func notifyTargetAboutFailedRestoration(error: Error) {
         if isCancelled(error) {
             target.didCancelRestoringPurchases()
         } else {
@@ -101,8 +101,12 @@ extension StoreEventSource: SKPaymentTransactionObserver {
     }
 }
 
-private func isCancelled(_ error: NSError) -> Bool {
-    return error.domain == SKErrorDomain && error.code == SKError.paymentCancelled.rawValue
+private func isCancelled(_ error: Error) -> Bool {
+    if let error = error as? SKError, error.code == .paymentCancelled  {
+        return true
+    } else {
+        return false
+    }
 }
 
 private func localizedUnknownError() -> String {

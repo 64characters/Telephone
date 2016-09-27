@@ -20,11 +20,11 @@ import UseCases
 
 final class NSSoundToSoundAdapter: NSObject {
     fileprivate let sound: NSSound
-    fileprivate let eventTarget: SoundEventTarget
+    fileprivate let target: SoundEventTarget
 
-    init(sound: NSSound, eventTarget: SoundEventTarget) {
+    init(sound: NSSound, target: SoundEventTarget) {
         self.sound = sound
-        self.eventTarget = eventTarget
+        self.target = target
         super.init()
         self.sound.delegate = self
     }
@@ -47,7 +47,7 @@ extension NSSoundToSoundAdapter: Sound {
 }
 
 extension NSSoundToSoundAdapter: NSSoundDelegate {
-    func sound(_ sound: NSSound, didFinishPlaying aBool: Bool) {
-        eventTarget.soundDidFinishPlaying()
+    func sound(_ sound: NSSound, didFinishPlaying flag: Bool) {
+        target.soundDidFinishPlaying()
     }
 }

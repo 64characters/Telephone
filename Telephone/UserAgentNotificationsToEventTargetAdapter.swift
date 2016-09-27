@@ -19,12 +19,12 @@
 import UseCases
 
 final class UserAgentNotificationsToEventTargetAdapter {
-    fileprivate let target: UserAgentEventTarget
-    fileprivate let userAgent: UserAgent
+    private let target: UserAgentEventTarget
+    private let agent: UserAgent
 
-    init(target: UserAgentEventTarget, userAgent: UserAgent) {
+    init(target: UserAgentEventTarget, agent: UserAgent) {
         self.target = target
-        self.userAgent = userAgent
+        self.agent = agent
         subscribe()
     }
 
@@ -32,25 +32,25 @@ final class UserAgentNotificationsToEventTargetAdapter {
         unsubscribe()
     }
 
-    fileprivate func subscribe() {
+    private func subscribe() {
         let nc = NotificationCenter.default
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidFinishStarting),
             name: NSNotification.Name.AKSIPUserAgentDidFinishStarting,
-            object: userAgent
+            object: agent
         )
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidFinishStopping),
             name: NSNotification.Name.AKSIPUserAgentDidFinishStopping,
-            object: userAgent
+            object: agent
         )
         nc.addObserver(
             self,
             selector: #selector(SIPUserAgentDidDetectNAT),
             name: NSNotification.Name.AKSIPUserAgentDidDetectNAT,
-            object: userAgent
+            object: agent
         )
         nc.addObserver(
             self,
@@ -66,33 +66,33 @@ final class UserAgentNotificationsToEventTargetAdapter {
         )
     }
 
-    fileprivate func unsubscribe() {
+    private func unsubscribe() {
         let nc = NotificationCenter.default
-        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidFinishStarting, object: userAgent)
-        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidFinishStopping, object: userAgent)
-        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidDetectNAT, object: userAgent)
+        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidFinishStarting, object: agent)
+        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidFinishStopping, object: agent)
+        nc.removeObserver(self, name: NSNotification.Name.AKSIPUserAgentDidDetectNAT, object: agent)
     }
 
-    dynamic fileprivate func SIPUserAgentDidFinishStarting(_ notification: Notification) {
-        assert(userAgent === notification.object as! UserAgent)
-        target.userAgentDidFinishStarting(userAgent)
+    @objc private func SIPUserAgentDidFinishStarting(_ notification: Notification) {
+        assert(agent === notification.object as! UserAgent)
+        target.userAgentDidFinishStarting(agent)
     }
 
-    dynamic fileprivate func SIPUserAgentDidFinishStopping(_ notification: Notification) {
-        assert(userAgent === notification.object as! UserAgent)
-        target.userAgentDidFinishStopping(userAgent)
+    @objc private func SIPUserAgentDidFinishStopping(_ notification: Notification) {
+        assert(agent === notification.object as! UserAgent)
+        target.userAgentDidFinishStopping(agent)
     }
 
-    dynamic fileprivate func SIPUserAgentDidDetectNAT(_ notification: Notification) {
-        assert(userAgent === notification.object as! UserAgent)
-        target.userAgentDidDetectNAT(userAgent)
+    @objc private func SIPUserAgentDidDetectNAT(_ notification: Notification) {
+        assert(agent === notification.object as! UserAgent)
+        target.userAgentDidDetectNAT(agent)
     }
 
-    dynamic fileprivate func SIPUserAgentDidMakeCall(_ notification: Notification) {
-        target.userAgentDidMakeCall(userAgent)
+    @objc private func SIPUserAgentDidMakeCall(_ notification: Notification) {
+        target.userAgentDidMakeCall(agent)
     }
 
-    dynamic fileprivate func SIPUserAgentDidReceiveCall(_ notification: Notification) {
-        target.userAgentDidReceiveCall(userAgent)
+    @objc private func SIPUserAgentDidReceiveCall(_ notification: Notification) {
+        target.userAgentDidReceiveCall(agent)
     }
 }

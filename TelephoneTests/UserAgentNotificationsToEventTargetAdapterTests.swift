@@ -21,16 +21,16 @@ import UseCasesTestDoubles
 import XCTest
 
 final class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
-    fileprivate var target: UserAgentEventTargetSpy!
-    fileprivate var sut: UserAgentNotificationsToEventTargetAdapter!
-    fileprivate var userAgent: UserAgent!
-    fileprivate var center: NotificationCenter!
+    private var target: UserAgentEventTargetSpy!
+    private var sut: UserAgentNotificationsToEventTargetAdapter!
+    private var userAgent: UserAgent!
+    private var center: NotificationCenter!
 
     override func setUp() {
         super.setUp()
         target = UserAgentEventTargetSpy()
         userAgent = UserAgentSpy()
-        sut = UserAgentNotificationsToEventTargetAdapter(target: target, userAgent: userAgent)
+        sut = UserAgentNotificationsToEventTargetAdapter(target: target, agent: userAgent)
         center = NotificationCenter.default
     }
 

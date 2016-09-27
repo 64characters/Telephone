@@ -27,12 +27,12 @@ final class CompositionRoot: NSObject {
     let storeWindowController: StoreWindowController
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
-    fileprivate let defaults: UserDefaults
-    fileprivate let queue: DispatchQueue
+    private let defaults: UserDefaults
+    private let queue: DispatchQueue
 
-    fileprivate let storeEventSource: StoreEventSource
-    fileprivate let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
-    fileprivate let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let storeEventSource: StoreEventSource
+    private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
+    private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
@@ -117,7 +117,7 @@ final class CompositionRoot: NSObject {
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,
-            userAgent: userAgent
+            agent: userAgent
         )
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
             target: SystemAudioDevicesChangeEventTargets(

@@ -19,10 +19,10 @@
 import CoreAudio
 
 final class SystemAudioDevicesChangeEventSource {
-    fileprivate let target: SystemAudioDevicesChangeEventTarget
-    fileprivate let queue: DispatchQueue
-    fileprivate let objectID:AudioObjectID
-    fileprivate var objectPropertyAddress: AudioObjectPropertyAddress
+    private let target: SystemAudioDevicesChangeEventTarget
+    private let queue: DispatchQueue
+    private let objectID:AudioObjectID
+    private var objectPropertyAddress: AudioObjectPropertyAddress
 
     init(target: SystemAudioDevicesChangeEventTarget, queue: DispatchQueue) {
         self.target = target
@@ -45,11 +45,11 @@ final class SystemAudioDevicesChangeEventSource {
         }
     }
 
-    fileprivate func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
+    private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
         DispatchQueue.main.async(execute: notifyTarget)
     }
 
-    fileprivate func notifyTarget() {
+    private func notifyTarget() {
         assert(Thread.isMainThread)
         target.systemAudioDevicesDidUpdate()
     }

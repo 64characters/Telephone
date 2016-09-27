@@ -30,6 +30,6 @@ final class UserDefaultsSoundFactory {
 
 extension UserDefaultsSoundFactory: SoundFactory {
     func createSound(target: SoundEventTarget) throws -> Sound {
-        return try factory.createSound(configuration: try load.execute(), eventTarget: target)
+        return try factory.createSound(configuration: try load.execute(), target: target)
     }
 }

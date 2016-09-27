@@ -17,7 +17,7 @@
 //
 
 final class PreferencesSoundIOUpdater {
-    fileprivate let preferences: SoundIOPreferences
+    private let preferences: SoundIOPreferences
 
     init(preferences: SoundIOPreferences) {
         self.preferences = preferences

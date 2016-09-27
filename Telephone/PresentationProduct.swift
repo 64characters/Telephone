@@ -31,7 +31,7 @@ final class PresentationProduct: NSObject {
 extension PresentationProduct {
     override func isEqual(_ object: Any?) -> Bool {
         if let product = object as? PresentationProduct {
-            return isEqualToProduct(product)
+            return isEqual(toProduct: product)
         } else {
             return false
         }
@@ -41,7 +41,7 @@ extension PresentationProduct {
         return identifier.hash ^ name.hash ^ price.hash
     }
 
-    func isEqualToProduct(_ product: PresentationProduct) -> Bool {
+    func isEqual(toProduct product: PresentationProduct) -> Bool {
         return self.identifier == product.identifier && self.name == product.name && self.price == product.price
     }
 }

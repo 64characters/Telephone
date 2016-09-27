@@ -30,14 +30,14 @@ final class SKPaymentQueueToStoreAdapter {
 
 extension SKPaymentQueueToStoreAdapter: Store {
     func purchase(_ product: Product) throws {
-        queue.add(SKPayment(product: try storeKitProduct(forProduct: product)))
+        queue.add(SKPayment(product: try storeKitProduct(for: product)))
     }
 
     func restorePurchases() {
         queue.restoreCompletedTransactions()
     }
 
-    fileprivate func storeKitProduct(forProduct product: Product) throws -> SKProduct {
+    private func storeKitProduct(for product: Product) throws -> SKProduct {
         if let result = products[product] {
             return result
         } else {

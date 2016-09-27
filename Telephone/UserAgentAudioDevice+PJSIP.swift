@@ -22,14 +22,17 @@ extension UserAgentAudioDevice {
     convenience init(device: pjmedia_aud_dev_info, identifier: Int) {
         self.init(
             identifier: identifier,
-            name: nameOfDevice(device),
+            name: nameOf(device),
             inputs: Int(device.input_count),
             outputs: Int(device.output_count)
         )
     }
 }
 
-private func nameOfDevice(_ device: pjmedia_aud_dev_info) -> String {
-    let name = String.fromBytes(device.name)
-    return name == nil ? "Unknown Device Name" : name!
+private func nameOf(_ device: pjmedia_aud_dev_info) -> String {
+    if let name = String(utf8String: [CChar](tuple: device.name)), !name.isEmpty {
+        return name
+    } else {
+        return NSLocalizedString("Unknown device", comment: "Audio device name is unknown.")
+    }
 }

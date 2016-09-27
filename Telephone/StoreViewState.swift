@@ -133,7 +133,7 @@ final class StoreViewStateCheckingAfterFetch: StoreViewStateChecking {}
 final class StoreViewStateFetching: StoreViewState {
     override func didFetchProducts(machine: StoreViewStateMachine, products: [Product]) {
         machine.changeState(StoreViewStateFetched())
-        machine.showProducts(products)
+        machine.show(products)
     }
 
     override func didFailFetchingProducts(machine: StoreViewStateMachine, error: String) {

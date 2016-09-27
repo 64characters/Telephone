@@ -19,8 +19,8 @@
 import XCTest
 
 final class DefaultStoreViewPresenterTests: XCTestCase {
-    fileprivate var output: StoreViewSpy!
-    fileprivate var sut: DefaultStoreViewPresenter!
+    private var output: StoreViewSpy!
+    private var sut: DefaultStoreViewPresenter!
 
     override func setUp() {
         super.setUp()
@@ -49,7 +49,7 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
         let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(string: "1"), localizedPrice: "$1")
         let product3 = Product(identifier: "789", name: "ghi", price: NSDecimalNumber(string: "2"), localizedPrice: "$2")
 
-        sut.showProducts([product1, product2, product3])
+        sut.show([product1, product2, product3])
 
         XCTAssertEqual(
             output.invokedProducts,
@@ -79,7 +79,7 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
     }
 
     func testEnablesPurchaseRestorationOnShowProducts() {
-        sut.showProducts([])
+        sut.show([])
 
         XCTAssertTrue(output.didCallEnablePurchaseRestoration)
     }

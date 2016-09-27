@@ -30,13 +30,13 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
         output.disablePurchaseRestoration()
     }
 
-    func showProducts(_ products: [Product]) {
-        output.showProducts(products.sorted(by: hasLowerPrice).map({PresentationProduct($0)}))
+    func show(_ products: [Product]) {
+        output.show(products.sorted(by: hasLowerPrice).map({PresentationProduct($0)}))
         output.enablePurchaseRestoration()
     }
 
     func showProductsFetchError(_ error: String) {
-        output.showProductsFetchError(productsFetchError(withError: error))
+        output.showProductsFetchError(productsFetchError(error: error))
         output.enablePurchaseRestoration()
     }
 
@@ -75,7 +75,7 @@ private func hasLowerPrice(_ lhs: Product, _ rhs: Product) -> Bool {
     return lhs.price.compare(rhs.price) == .orderedAscending
 }
 
-private func productsFetchError(withError error: String) -> String {
+private func productsFetchError(error: String) -> String {
     let prefix = NSLocalizedString(
         "Could not fetch products.", comment: "Products fetch error."
     )

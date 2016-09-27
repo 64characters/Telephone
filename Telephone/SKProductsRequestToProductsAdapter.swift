@@ -59,20 +59,20 @@ extension SKProductsRequestToProductsAdapter: StoreKitProducts {
 extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async {
-            (self.products, self.storeKitProducts) = self.productMaps(withProducts: response.products)
+            (self.products, self.storeKitProducts) = self.productMaps(with: response.products)
             self.target.productsDidFetch()
         }
     }
 
-    fileprivate func productMaps(withProducts products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
+    private func productMaps(with products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
         if let products = products {
-            return productMaps(withProducts: products)
+            return productMaps(with: products)
         } else {
             return ([:], [:])
         }
     }
 
-    fileprivate func productMaps(withProducts products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
+    private func productMaps(with products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
         var idToProduct: [String: Product] = [:]
         var productToSKProduct: [Product: SKProduct] = [:]
         let formatter = NumberFormatter()
@@ -99,25 +99,25 @@ extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
     func request(_ request: SKRequest, didFailWithError error: Error) {
         NSLog("Store request '\(request)' failed: \(error)")
         DispatchQueue.main.async {
-            self.notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error as NSError))
+            self.notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error))
             self.forgetProductsRequest(request)
         }
     }
 
-    fileprivate func notifyEventTargetAboutProductFetchFailure(request: SKRequest, error: String) {
+    private func notifyEventTargetAboutProductFetchFailure(request: SKRequest, error: String) {
         if request === self.request {
             self.target.productsDidFailFetching(error: error)
         }
     }
 
-    fileprivate func forgetProductsRequest(_ request: SKRequest) {
+    private func forgetProductsRequest(_ request: SKRequest) {
         if request === self.request {
             self.request = nil
         }
     }
 }
 
-private func descriptionOf(_ error: NSError) -> String {
+private func descriptionOf(_ error: Error) -> String {
     if error.localizedDescription.isEmpty {
         return NSLocalizedString("Unknown error", comment: "Unknown error.")
     } else {

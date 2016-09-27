@@ -19,7 +19,7 @@
 protocol StoreViewPresenter {
     func showPurchaseCheckProgress()
 
-    func showProducts(_ products: [Product])
+    func show(_ products: [Product])
     func showProductsFetchError(_ error: String)
     func showProductsFetchProgress()
 
@@ -35,7 +35,7 @@ protocol StoreViewPresenter {
 protocol StoreViewPresenterOutput {
     func showPurchaseCheckProgress()
 
-    func showProducts(_ products: [PresentationProduct])
+    func show(_ products: [PresentationProduct])
     func showProductsFetchError(_ error: String)
     func showProductsFetchProgress()
 

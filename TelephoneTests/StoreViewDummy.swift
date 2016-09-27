@@ -18,7 +18,7 @@
 
 final class StoreViewDummy: StoreView {
     func showPurchaseCheckProgress() {}
-    func showProducts(_ products: [PresentationProduct]) {}
+    func show(_ products: [PresentationProduct]) {}
     func showProductsFetchError(_ error: String) {}
     func showProductsFetchProgress() {}
     func showPurchaseProgress() {}
