@@ -17,7 +17,7 @@
 //
 
 @objc public protocol RingtonePlaybackUseCase {
-    var playing: Bool { get }
+    var isPlaying: Bool { get }
     func start() throws
     func stop()
 }

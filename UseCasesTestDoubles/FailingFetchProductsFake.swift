@@ -20,8 +20,8 @@ import UseCases
 
 public final class FailingFetchProductsFake {
     public private(set) var all: [Product] = []
-    public let error = "error"
-    private let target: ProductsEventTarget
+    public let error = "any"
+    fileprivate let target: ProductsEventTarget
 
     public init(target: ProductsEventTarget) {
         self.target = target
@@ -34,6 +34,6 @@ extension FailingFetchProductsFake: Products {
     }
 
     public func fetch() {
-        target.productsDidFailFetching(withError: "error")
+        target.productsDidFailFetching(error: error)
     }
 }

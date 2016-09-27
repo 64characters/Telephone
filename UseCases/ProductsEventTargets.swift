@@ -27,17 +27,17 @@ public final class ProductsEventTargets {
         }
     }
 
-    private var targets: [ProductsEventTarget] = []
+    fileprivate var targets: [ProductsEventTarget] = []
 
     public init() {}
 
-    public func addTarget(target: ProductsEventTarget) {
+    public func add(_ target: ProductsEventTarget) {
         targets.append(target)
     }
 
-    public func removeTarget(target: ProductsEventTarget) {
-        if let index = targets.indexOf({ $0 === target }) {
-            targets.removeAtIndex(index)
+    public func remove(_ target: ProductsEventTarget) {
+        if let index = targets.index(where: { $0 === target }) {
+            targets.remove(at: index)
         }
     }
 }
@@ -47,7 +47,7 @@ extension ProductsEventTargets: ProductsEventTarget {
         targets.forEach() { $0.productsDidFetch() }
     }
 
-    public func productsDidFailFetching(withError error: String) {
-        targets.forEach { $0.productsDidFailFetching(withError: error) }
+    public func productsDidFailFetching(error: String) {
+        targets.forEach { $0.productsDidFailFetching(error: error) }
     }
 }

@@ -17,7 +17,7 @@
 //
 
 public protocol UseCaseFactory {
-    func createUserDefaultsSoundIOLoadUseCase(output output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase
-    func createUserDefaultsSoundIOSaveUseCase(soundIO soundIO: PresentationSoundIO) -> UseCase
-    func createUserDefaultsRingtoneSoundNameSaveUseCase(name name: String) -> UseCase
+    func createUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase
+    func createUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase
+    func createUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase
 }

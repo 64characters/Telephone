@@ -21,7 +21,7 @@ struct FirstBuiltInSystemSoundIO: SystemSoundIO {
     let output: SystemAudioDevice
 
     init(devices: [SystemAudioDevice]) {
-        input = FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInInput })
-        output = FirstSystemAudioDevice(devices: devices, predicate: { $0.builtInOutput })
+        input = FirstSystemAudioDevice(devices: devices, predicate: { $0.isBuiltInInput })
+        output = FirstSystemAudioDevice(devices: devices, predicate: { $0.isBuiltInOutput })
     }
 }

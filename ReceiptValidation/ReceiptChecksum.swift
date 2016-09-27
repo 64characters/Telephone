@@ -19,17 +19,17 @@
 import Foundation
 
 struct ReceiptChecksum {
-    private let sha1: NSData
+    fileprivate let sha1: Data
 
-    init(sha1: NSData) {
+    init(sha1: Data) {
         self.sha1 = sha1
     }
 
-    init(guid: NSData, opaque: NSData, identifier: NSData) {
-        let source = NSMutableData()
-        source.appendData(guid)
-        source.appendData(opaque)
-        source.appendData(identifier)
+    init(guid: Data, opaque: Data, identifier: Data) {
+        var source = Data()
+        source.append(guid)
+        source.append(opaque)
+        source.append(identifier)
         self.init(sha1: digest(of: source))
     }
 }
@@ -44,8 +44,10 @@ func ==(lhs: ReceiptChecksum, rhs: ReceiptChecksum) -> Bool {
     return lhs.sha1 == rhs.sha1
 }
 
-private func digest(of source: NSData) -> NSData {
-    let digest = NSMutableData(length: Int(CC_SHA1_DIGEST_LENGTH))!
-    CC_SHA1(source.bytes, CC_LONG(source.length), UnsafeMutablePointer<UInt8>(digest.bytes))
-    return digest
+private func digest(of source: Data) -> Data {
+    var result = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+    source.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in
+        CC_SHA1(ptr, CC_LONG(source.count), &result)
+    }
+    return Data(bytes: result)
 }

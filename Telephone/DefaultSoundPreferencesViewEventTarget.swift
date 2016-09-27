@@ -19,11 +19,11 @@
 import UseCases
 
 final class DefaultSoundPreferencesViewEventTarget: NSObject {
-    private let useCaseFactory: UseCaseFactory
-    private let presenterFactory: PresenterFactory
-    private let userAgentSoundIOSelection: UseCase
-    private let ringtoneOutputUpdate: ThrowingUseCase
-    private let ringtoneSoundPlayback: SoundPlaybackUseCase
+    fileprivate let useCaseFactory: UseCaseFactory
+    fileprivate let presenterFactory: PresenterFactory
+    fileprivate let userAgentSoundIOSelection: UseCase
+    fileprivate let ringtoneOutputUpdate: ThrowingUseCase
+    fileprivate let ringtoneSoundPlayback: SoundPlaybackUseCase
 
     init(useCaseFactory: UseCaseFactory,
          presenterFactory: PresenterFactory,
@@ -39,32 +39,32 @@ final class DefaultSoundPreferencesViewEventTarget: NSObject {
 }
 
 extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarget {
-    func viewShouldReloadData(view: SoundPreferencesView) {
+    func viewShouldReloadData(_ view: SoundPreferencesView) {
         loadUserDefaultsSoundIOInViewOrLogError(view)
     }
 
-    func viewShouldReloadSoundIO(view: SoundPreferencesView) {
+    func viewShouldReloadSoundIO(_ view: SoundPreferencesView) {
         loadUserDefaultsSoundIOInViewOrLogError(view)
     }
 
-    func viewDidChangeSoundIO(input input: String, output: String, ringtoneOutput: String) {
-        updateUserDefaultsWithSoundIO(
-            PresentationSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
+    func viewDidChangeSoundIO(input: String, output: String, ringtoneOutput: String) {
+        updateUserDefaults(
+            with: PresentationSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
         )
         userAgentSoundIOSelection.execute()
         updateRingtoneOutputOrLogError()
     }
 
-    func viewDidChangeRingtoneName(name: String) {
-        updateUserDefaultsWithRingtoneSoundName(name)
+    func viewDidChangeRingtoneName(_ name: String) {
+        updateUserDefaults(withRingtoneSoundName: name)
         playRingtoneSoundOrLogError()
     }
 
-    func viewWillDisappear(view: SoundPreferencesView) {
+    func viewWillDisappear(_ view: SoundPreferencesView) {
         ringtoneSoundPlayback.stop()
     }
 
-    private func loadUserDefaultsSoundIOInViewOrLogError(view: SoundPreferencesView) {
+    private func loadUserDefaultsSoundIOInViewOrLogError(_ view: SoundPreferencesView) {
         do {
             try createUserDefaultsSoundIOLoadUseCase(view: view).execute()
         } catch {
@@ -72,7 +72,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         }
     }
 
-    private func updateUserDefaultsWithSoundIO(soundIO: PresentationSoundIO) {
+    private func updateUserDefaults(with soundIO: PresentationSoundIO) {
         useCaseFactory.createUserDefaultsSoundIOSaveUseCase(soundIO: soundIO).execute()
     }
 
@@ -84,7 +84,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         }
     }
 
-    private func updateUserDefaultsWithRingtoneSoundName(name: String) {
+    private func updateUserDefaults(withRingtoneSoundName name: String) {
         useCaseFactory.createUserDefaultsRingtoneSoundNameSaveUseCase(name: name).execute()
     }
 
@@ -96,7 +96,7 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         }
     }
 
-    private func createUserDefaultsSoundIOLoadUseCase(view view: SoundPreferencesView) -> ThrowingUseCase {
+    private func createUserDefaultsSoundIOLoadUseCase(view: SoundPreferencesView) -> ThrowingUseCase {
         return useCaseFactory.createUserDefaultsSoundIOLoadUseCase(
             output: presenterFactory.createSoundIOPresenter(output: view)
         )

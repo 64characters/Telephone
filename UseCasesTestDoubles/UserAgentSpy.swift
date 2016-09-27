@@ -20,18 +20,18 @@ import Foundation
 import UseCases
 
 public final class UserAgentSpy: NSObject {
-    @objc(isStarted) public var started = false
-    public private(set) var hasActiveCalls = false
+    public var isStarted = false
+    public fileprivate(set) var hasActiveCalls = false
 
-    public private(set) var didCallAudioDevices = false
+    public fileprivate(set) var didCallAudioDevices = false
     public var audioDevicesResult = [UserAgentAudioDevice]()
 
-    public private(set) var didCallUpdateAudioDevices = false
-    public private(set) var soundIOSelectionCallCount = 0
+    public fileprivate(set) var didCallUpdateAudioDevices = false
+    public fileprivate(set) var soundIOSelectionCallCount = 0
     public var didSelectSoundIO: Bool { return soundIOSelectionCallCount > 0 }
 
-    public private(set) var invokedInputDeviceID: Int?
-    public private(set) var invokedOutputDeviceID: Int?
+    public fileprivate(set) var invokedInputDeviceID: Int?
+    public fileprivate(set) var invokedOutputDeviceID: Int?
 
     public func simulateActiveCalls() {
         hasActiveCalls = true
@@ -48,7 +48,7 @@ extension UserAgentSpy: UserAgent {
         didCallUpdateAudioDevices = true
     }
 
-    public func selectSoundIODeviceIDs(input input: Int, output: Int) throws {
+    public func selectSoundIODeviceIDs(input: Int, output: Int) throws {
         soundIOSelectionCallCount += 1
         invokedInputDeviceID = input
         invokedOutputDeviceID = output

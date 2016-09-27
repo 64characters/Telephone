@@ -19,7 +19,7 @@
 import UseCases
 
 public final class ConditionalRingtonePlaybackUseCaseTestDelegate: NSObject {
-    private var canStop = true
+    fileprivate var canStop = true
 
     public func forbidStoppingPlayback() {
         canStop = false
@@ -27,7 +27,7 @@ public final class ConditionalRingtonePlaybackUseCaseTestDelegate: NSObject {
 }
 
 extension ConditionalRingtonePlaybackUseCaseTestDelegate: ConditionalRingtonePlaybackUseCaseDelegate {
-    public func playbackCanStop(playback: ConditionalRingtonePlaybackUseCase) -> Bool {
+    public func playbackCanStop(_ playback: ConditionalRingtonePlaybackUseCase) -> Bool {
         return canStop
     }
 }

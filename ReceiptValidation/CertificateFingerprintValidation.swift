@@ -19,30 +19,30 @@
 import Foundation
 
 final class CertificateFingerprintValidation: NSObject {
-    private let origin: ReceiptValidation
-    private let certificate: NSData
+    fileprivate let origin: ReceiptValidation
+    fileprivate let certificate: Data
 
-    init(origin: ReceiptValidation, certificate: NSData) {
+    init(origin: ReceiptValidation, certificate: Data) {
         self.origin = origin
         self.certificate = certificate
     }
 }
 
 extension CertificateFingerprintValidation: ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void) {
+    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void) {
         if SHA256Fingerprint(source: certificate) == SHA256Fingerprint(sha256: expected) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
-            completion(result: .ReceiptIsInvalid, expiration: NSDate.distantPast())
+            completion(.receiptIsInvalid, Date.distantPast)
         }
     }
 }
 
-private let bytes: [UInt8] = [
-    0xb0, 0xb1, 0x73, 0x0e, 0xcb, 0xc7, 0xff, 0x45,
-    0x05, 0x14, 0x2c, 0x49, 0xf1, 0x29, 0x5e, 0x6e,
-    0xda, 0x6b, 0xca, 0xed, 0x7e, 0x2c, 0x68, 0xc5,
-    0xbe, 0x91, 0xb5, 0xa1, 0x10, 0x01, 0xf0, 0x24
-]
-
-private let expected = NSData(bytes: bytes, length: bytes.count)
+private let expected = Data(
+    bytes: [
+        0xb0, 0xb1, 0x73, 0x0e, 0xcb, 0xc7, 0xff, 0x45,
+        0x05, 0x14, 0x2c, 0x49, 0xf1, 0x29, 0x5e, 0x6e,
+        0xda, 0x6b, 0xca, 0xed, 0x7e, 0x2c, 0x68, 0xc5,
+        0xbe, 0x91, 0xb5, 0xa1, 0x10, 0x01, 0xf0, 0x24
+    ]
+)

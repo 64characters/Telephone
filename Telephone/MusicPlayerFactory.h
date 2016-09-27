@@ -1,5 +1,5 @@
 //
-//  NSTimerToTimerAdapterFactory.swift
+//  MusicPlayerFactory.h
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+@import Foundation;
 
-final class NSTimerToTimerAdapterFactory: TimerFactory {
-    func createRepeatingTimer(interval interval: Double, action: () -> Void) -> Timer {
-        let timer = NSTimerToTimerAdapter(action: action)
-        timer.timer = NSTimer.scheduledTimerWithTimeInterval(
-            interval,
-            target: timer,
-            selector: #selector(NSTimerToTimerAdapter.tick),
-            userInfo: nil,
-            repeats: true
-        )
-        return timer
-    }
-}
+#import "MusicPlayer.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface MusicPlayerFactory : NSObject
+
+- (nullable id<MusicPlayer>)makeAppleMusicPlayer;
+- (nullable id<MusicPlayer>)makeSpotifyMusicPlayer;
+
+@end
+
+NS_ASSUME_NONNULL_END

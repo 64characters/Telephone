@@ -21,11 +21,11 @@ import ReceiptValidation
 import UseCases
 
 final class ReceiptXPCGateway {
-    private let connection: NSXPCConnection
+    fileprivate let connection: NSXPCConnection
 
     init() {
         connection = NSXPCConnection(serviceName: "com.tlphn.Telephone.ReceiptValidation")
-        connection.remoteObjectInterface = NSXPCInterface(withProtocol: ReceiptValidation.self)
+        connection.remoteObjectInterface = NSXPCInterface(with: ReceiptValidation.self)
         connection.resume()
     }
 
@@ -33,36 +33,34 @@ final class ReceiptXPCGateway {
         connection.invalidate()
     }
 
-    func validateReceipt(receipt: NSData, completion: (ReceiptValidationResult) -> Void) {
+    func validateReceipt(_ receipt: Data, completion: @escaping (ReceiptValidationResult) -> Void) {
         validation(completion: completion).validateReceipt(receipt) { result, expiration in
             didValidateReceipt(with: result, expiration: expiration, completion: completion)
         }
     }
 
-    private func validation(completion completion: (ReceiptValidationResult) -> Void) -> ReceiptValidation {
+    private func validation(completion: @escaping (ReceiptValidationResult) -> Void) -> ReceiptValidation {
         return connection.remoteObjectProxyWithErrorHandler { error in
             didFailReceiptValidation(completion)
             } as! ReceiptValidation
     }
 }
 
-private func didValidateReceipt(with result: Result, expiration: NSDate, completion: (ReceiptValidationResult) -> Void) {
-    dispatch_async(dispatch_get_main_queue()) {
-        didValidateReceiptOnMain(with: result, expiration: expiration, completion: completion)
-    }
+private func didValidateReceipt(with result: Result, expiration: Date, completion: @escaping (ReceiptValidationResult) -> Void) {
+    DispatchQueue.main.async { handleDidValidateReceiptOnMain(result: result, expiration: expiration, completion: completion) }
 }
 
-private func didFailReceiptValidation(completion: (ReceiptValidationResult) -> Void) {
-    dispatch_async(dispatch_get_main_queue()) { completion(.ReceiptIsInvalid) }
+private func didFailReceiptValidation(_ completion: @escaping (ReceiptValidationResult) -> Void) {
+    DispatchQueue.main.async { completion(.receiptIsInvalid) }
 }
 
-private func didValidateReceiptOnMain(with result: Result, expiration: NSDate, completion: (ReceiptValidationResult) -> Void) {
+private func handleDidValidateReceiptOnMain(result: Result, expiration: Date, completion: (ReceiptValidationResult) -> Void) {
     switch result {
-    case .ReceiptIsValid:
-        completion(.ReceiptIsValid(expiration: expiration))
-    case .ReceiptIsInvalid:
-        completion(.ReceiptIsInvalid)
-    case .NoActivePurchases:
-        completion(.NoActivePurchases)
+    case .receiptIsValid:
+        completion(.receiptIsValid(expiration: expiration))
+    case .receiptIsInvalid:
+        completion(.receiptIsInvalid)
+    case .noActivePurchases:
+        completion(.noActivePurchases)
     }
 }

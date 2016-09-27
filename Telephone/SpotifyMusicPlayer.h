@@ -19,8 +19,15 @@
 @import Foundation;
 @import UseCases;
 
+@class SpotifyApplication;
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SpotifyMusicPlayer : NSObject <MusicPlayer>
 
-- (nullable instancetype)init;
+- (instancetype)initWithApplication:(SpotifyApplication *)application NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

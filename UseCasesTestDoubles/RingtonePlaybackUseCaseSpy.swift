@@ -19,19 +19,19 @@
 import UseCases
 
 public final class RingtonePlaybackUseCaseSpy: NSObject {
-    public private(set) var playing = false
-    public private(set) var didCallStart = false
-    public private(set) var didCallStop = false
+    public fileprivate(set) var isPlaying = false
+    public fileprivate(set) var didCallStart = false
+    public fileprivate(set) var didCallStop = false
 }
 
 extension RingtonePlaybackUseCaseSpy: RingtonePlaybackUseCase {
     public func start() throws {
         didCallStart = true
-        playing = true
+        isPlaying = true
     }
 
     public func stop() {
         didCallStop = true
-        playing = false
+        isPlaying = false
     }
 }

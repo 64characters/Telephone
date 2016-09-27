@@ -17,7 +17,7 @@
 //
 
 final class DefaultStoreViewPresenter {
-    private let output: StoreViewPresenterOutput
+    fileprivate let output: StoreViewPresenterOutput
 
     init(output: StoreViewPresenterOutput) {
         self.output = output
@@ -30,13 +30,13 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
         output.disablePurchaseRestoration()
     }
 
-    func showProducts(products: [Product]) {
-        output.showProducts(products.sort(hasLowerPrice).map({PresentationProduct($0)}))
+    func show(_ products: [Product]) {
+        output.show(products.sorted(by: hasLowerPrice).map({PresentationProduct($0)}))
         output.enablePurchaseRestoration()
     }
 
-    func showProductsFetchError(error: String) {
-        output.showProductsFetchError(productsFetchError(withError: error))
+    func showProductsFetchError(_ error: String) {
+        output.showProductsFetchError(productsFetchError(error: error))
         output.enablePurchaseRestoration()
     }
 
@@ -50,7 +50,7 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
         output.disablePurchaseRestoration()
     }
 
-    func showPurchaseError(error: String) {
+    func showPurchaseError(_ error: String) {
         output.showPurchaseError(error)
         output.enablePurchaseRestoration()
     }
@@ -60,22 +60,22 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
         output.disablePurchaseRestoration()
     }
 
-    func showPurchaseRestorationError(error: String) {
+    func showPurchaseRestorationError(_ error: String) {
         output.showPurchaseRestorationError(error)
         output.enablePurchaseRestoration()
     }
 
-    func showPurchased(until date: NSDate) {
+    func showPurchased(until date: Date) {
         output.showPurchased(until: date)
         output.showSubscriptionManagement()
     }
 }
 
-private func hasLowerPrice(lhs: Product, _ rhs: Product) -> Bool {
-    return lhs.price.compare(rhs.price) == .OrderedAscending
+private func hasLowerPrice(_ lhs: Product, _ rhs: Product) -> Bool {
+    return lhs.price < rhs.price
 }
 
-private func productsFetchError(withError error: String) -> String {
+private func productsFetchError(error: String) -> String {
     let prefix = NSLocalizedString(
         "Could not fetch products.", comment: "Products fetch error."
     )

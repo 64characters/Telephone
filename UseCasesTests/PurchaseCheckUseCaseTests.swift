@@ -23,7 +23,7 @@ import XCTest
 final class PurchaseCheckUseCaseTests: XCTestCase {
     func testCallsDidCheckPurchaseWhenReceiptIsValid() {
         let output = PurchaseCheckUseCaseOutputSpy()
-        let expiration = NSDate()
+        let expiration = Date()
         let sut = PurchaseCheckUseCase(receipt: ValidReceipt(expiration: expiration), output: output)
 
         sut.execute()

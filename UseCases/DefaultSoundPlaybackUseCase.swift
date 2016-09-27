@@ -17,9 +17,9 @@
 //
 
 public final class DefaultSoundPlaybackUseCase {
-    public private(set) var sound: Sound?
+    public fileprivate(set) var sound: Sound?
 
-    private let factory: SoundFactory
+    fileprivate let factory: SoundFactory
 
     public init(factory: SoundFactory) {
         self.factory = factory
@@ -29,7 +29,7 @@ public final class DefaultSoundPlaybackUseCase {
 extension DefaultSoundPlaybackUseCase: SoundPlaybackUseCase {
     public func play() throws {
         sound?.stop()
-        sound = try factory.createSound(eventTarget: self)
+        sound = try factory.createSound(target: self)
         sound!.play()
     }
 

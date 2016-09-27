@@ -19,7 +19,7 @@
 import UseCases
 
 final class UserDefaultsSavedAccounts {
-    private let defaults: KeyValueUserDefaults
+    fileprivate let defaults: KeyValueUserDefaults
 
     init(defaults: KeyValueUserDefaults) {
         self.defaults = defaults
@@ -31,7 +31,7 @@ extension UserDefaultsSavedAccounts: SavedAccounts {
         return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
     }
 
-    private func accounts() -> [[String: AnyObject]] {
-        return defaults.arrayForKey(kAccounts) as? [[String: AnyObject]] ?? []
+    fileprivate func accounts() -> [[String: Any]] {
+        return defaults.array(forKey: kAccounts) as? [[String: Any]] ?? []
     }
 }

@@ -20,26 +20,26 @@ import UseCases
 
 protocol StoreViewStateMachine: PurchaseCheckUseCaseOutput, StoreViewEventTarget, ProductsFetchUseCaseOutput, StoreEventTarget {
     var state: StoreViewState { get }
-    func changeState(newState: StoreViewState)
+    func changeState(_ newState: StoreViewState)
 
     func checkPurchase()
     func fetchProducts()
-    func showProducts(products: [Product])
-    func showProductsFetchError(error: String)
+    func show(_ products: [Product])
+    func showProductsFetchError(_ error: String)
     func purchaseProduct(withIdentifier identifier: String)
     func showPurchaseProgress()
-    func showCachedProductsAndPurchaseError(error: String)
+    func showCachedProductsAndPurchaseError(_ error: String)
     func showCachedProducts()
     func restorePurchases()
-    func showCachedProductsAndRestoreError(error: String)
-    func showCachedFetchErrorAndRestoreError(error: String)
+    func showCachedProductsAndRestoreError(_ error: String)
+    func showCachedFetchErrorAndRestoreError(_ error: String)
     func showCachedFetchError()
-    func showThankYou(expiration expiration: NSDate)
+    func showThankYou(expiration: Date)
 }
 
 // PurchaseCheckUseCaseOutput
 extension StoreViewStateMachine {
-    func didCheckPurchase(expiration expiration: NSDate) {
+    func didCheckPurchase(expiration: Date) {
         state.didCheckPurchase(machine: self, expiration: expiration)
     }
 
@@ -50,7 +50,7 @@ extension StoreViewStateMachine {
 
 // StoreViewEventTarget
 extension StoreViewStateMachine {
-    func viewShouldReloadData(view: StoreView) {
+    func viewShouldReloadData(_ view: StoreView) {
         state.viewShouldReloadData(machine: self)
     }
 
@@ -69,11 +69,11 @@ extension StoreViewStateMachine {
 
 // ProductsFetchUseCaseOutput
 extension StoreViewStateMachine {
-    func didFetchProducts(products: [Product]) {
+    func didFetch(_ products: [Product]) {
         state.didFetchProducts(machine: self, products: products)
     }
 
-    func didFailFetchingProducts(error error: String) {
+    func didFailFetchingProducts(error: String) {
         state.didFailFetchingProducts(machine: self, error: error)
     }
 }
@@ -88,7 +88,7 @@ extension StoreViewStateMachine {
         state.didPurchaseProducts(machine: self)
     }
 
-    func didFailPurchasingProducts(error error: String) {
+    func didFailPurchasingProducts(error: String) {
         state.didFailPurchasingProducts(machine: self, error: error)
     }
 
@@ -100,7 +100,7 @@ extension StoreViewStateMachine {
         state.didRestorePurchases(machine: self)
     }
 
-    func didFailRestoringPurchases(error error: String) {
+    func didFailRestoringPurchases(error: String) {
         state.didFailRestoringPurchases(machine: self, error: error)
     }
 

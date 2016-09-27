@@ -17,7 +17,7 @@
 //
 
 final class LoggingProducts {
-    private let origin: Products
+    fileprivate let origin: Products
 
     init(origin: Products) {
         self.origin = origin

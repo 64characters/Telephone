@@ -19,13 +19,13 @@
 import Domain
 
 public protocol UserDefaultsSoundIOLoadUseCaseOutput: class {
-    func update(devices devices: AudioDevices, soundIO: PresentationSoundIO)
+    func update(devices: AudioDevices, soundIO: PresentationSoundIO)
 }
 
 public final class UserDefaultsSoundIOLoadUseCase {
-    private let repository: SystemAudioDeviceRepository
-    private let defaults: KeyValueUserDefaults
-    private let output: UserDefaultsSoundIOLoadUseCaseOutput
+    fileprivate let repository: SystemAudioDeviceRepository
+    fileprivate let defaults: KeyValueUserDefaults
+    fileprivate let output: UserDefaultsSoundIOLoadUseCaseOutput
 
     public init(repository: SystemAudioDeviceRepository, defaults: KeyValueUserDefaults, output: UserDefaultsSoundIOLoadUseCaseOutput) {
         self.repository = repository

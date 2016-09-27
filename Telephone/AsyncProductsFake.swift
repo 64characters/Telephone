@@ -19,24 +19,14 @@
 import UseCases
 
 final class AsyncProductsFake {
-    private let products: [String: Product]
-    private let target: ProductsEventTarget
-    private var attempts = 0
+    fileprivate let products: [String: Product]
+    fileprivate let target: ProductsEventTarget
+    fileprivate var attempts = 0
 
     init(target: ProductsEventTarget) {
         products = [
-            "123": Product(
-                identifier: "123",
-                name: "1 Month",
-                price: NSDecimalNumber(mantissa: 99, exponent: -2, isNegative: false),
-                localizedPrice: "$0.99"
-            ),
-            "456": Product(
-                identifier: "456",
-                name: "12 Months",
-                price: NSDecimalNumber(mantissa: 1099, exponent: -2, isNegative: false),
-                localizedPrice: "$10.99"
-            )
+            "123": Product(identifier: "123", name: "1 Month", price: 0.99, localizedPrice: "$0.99"),
+            "456": Product(identifier: "456", name: "12 Months", price: 10.99, localizedPrice: "$10.99")
         ]
         self.target = target
     }
@@ -53,11 +43,7 @@ extension AsyncProductsFake: Products {
 
     func fetch() {
         attempts += 1
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)),
-            dispatch_get_main_queue(),
-            notifyTarget
-        )
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: notifyTarget)
     }
 
     private func notifyTarget() {
@@ -73,6 +59,6 @@ extension AsyncProductsFake: Products {
     }
 
     private func notifyTargetWithError() {
-        target.productsDidFailFetching(withError: "No network connection.")
+        target.productsDidFailFetching(error: "No network connection.")
     }
 }

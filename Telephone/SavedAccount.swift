@@ -19,7 +19,7 @@
 struct SavedAccount {
     let isEnabled: Bool
 
-    init(dict: [String: AnyObject]) {
+    init(dict: [String: Any]) {
         isEnabled = dict[kAccountEnabled] as? Bool ?? false
     }
 }

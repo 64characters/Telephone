@@ -24,16 +24,16 @@ public func ==(lhs: SystemAudioDevice, rhs: SystemAudioDevice) -> Bool {
         lhs.name == rhs.name &&
         lhs.inputs == rhs.inputs &&
         lhs.outputs == rhs.outputs &&
-        lhs.builtIn == rhs.builtIn
+        lhs.isBuiltIn == rhs.isBuiltIn
 }
 
 public func ==(lhs: [SystemAudioDevice], rhs: [SystemAudioDevice]) -> Bool {
     guard lhs.count == rhs.count else { return false }
-    var generator1 = lhs.generate()
-    var generator2 = rhs.generate()
-    var equal = true
-    while let element1 = generator1.next(), element2 = generator2.next() where equal {
-        equal = element1 == element2
+    var iterator1 = lhs.makeIterator()
+    var iterator2 = rhs.makeIterator()
+    var isEqual = true
+    while let element1 = iterator1.next(), let element2 = iterator2.next(), isEqual {
+        isEqual = element1 == element2
     }
-    return equal
+    return isEqual
 }

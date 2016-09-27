@@ -19,8 +19,8 @@
 import Foundation
 
 final class ReceiptAttributesValidation: NSObject {
-    private let origin: ReceiptValidation
-    private let attributes: ReceiptAttributes
+    fileprivate let origin: ReceiptValidation
+    fileprivate let attributes: ReceiptAttributes
 
     init(origin: ReceiptValidation, attributes: ReceiptAttributes) {
         self.origin = origin
@@ -29,15 +29,15 @@ final class ReceiptAttributesValidation: NSObject {
 }
 
 extension ReceiptAttributesValidation: ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void) {
-        if let p = ASN1ReceiptPayload(container: PKCS7Container(data: receipt)!) where isReceiptValid(ASN1Receipt(payload: p)) {
+    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void) {
+        if let p = ASN1ReceiptPayload(container: PKCS7Container(data: receipt)!), isReceiptValid(ASN1Receipt(payload: p)) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
-            completion(result: .ReceiptIsInvalid, expiration: NSDate.distantPast())
+            completion(.receiptIsInvalid, Date.distantPast)
         }
     }
 
-    private func isReceiptValid(r: ASN1Receipt) -> Bool {
+    private func isReceiptValid(_ r: ASN1Receipt) -> Bool {
         let c = ReceiptChecksum(guid: attributes.guid, opaque: r.opaque, identifier: r.identifierData)
         return r.identifier == attributes.identifier && r.version == attributes.version && ReceiptChecksum(sha1: r.checksum) == c
     }
@@ -46,5 +46,5 @@ extension ReceiptAttributesValidation: ReceiptValidation {
 struct ReceiptAttributes {
     let identifier: String
     let version: String
-    let guid: NSData
+    let guid: Data
 }

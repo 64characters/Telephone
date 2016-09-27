@@ -19,17 +19,17 @@
 import UseCases
 
 public final class SoundSpy {
-    public private(set) var didCallPlay = false
-    public private(set) var didCallStop = false
+    public fileprivate(set) var didCallPlay = false
+    public fileprivate(set) var didCallStop = false
 
-    private let eventTarget: SoundEventTarget
+    private let target: SoundEventTarget
 
-    public init(eventTarget: SoundEventTarget) {
-        self.eventTarget = eventTarget
+    public init(target: SoundEventTarget) {
+        self.target = target
     }
 
     public func notifyObserverOfPlaybackCompletion() {
-        eventTarget.soundDidFinishPlaying()
+        target.soundDidFinishPlaying()
     }
 }
 

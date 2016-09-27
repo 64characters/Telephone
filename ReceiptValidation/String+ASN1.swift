@@ -19,21 +19,21 @@
 import Foundation
 
 extension String {
-    init(ASN1UTF8String data: NSData) {
-        self.init(ASN1String: data, ASN1StringType: utf8String, encoding: NSUTF8StringEncoding)
+    init(ASN1UTF8String data: Data) {
+        self.init(ASN1String: data, ASN1StringType: utf8String, encoding: String.Encoding.utf8)
     }
 
-    init(ASN1IA5String data: NSData) {
-        self.init(ASN1String: data, ASN1StringType: ia5String, encoding: NSASCIIStringEncoding)
+    init(ASN1IA5String data: Data) {
+        self.init(ASN1String: data, ASN1StringType: ia5String, encoding: String.Encoding.ascii)
     }
 
-    private init(ASN1String data: NSData, ASN1StringType type: UInt8, encoding: NSStringEncoding) {
+    private init(ASN1String data: Data, ASN1StringType type: UInt8, encoding: String.Encoding) {
         var result: String?
-        let bytes = UnsafePointer<UInt8>(data.bytes)
-        if bytes[typeIndex] == type {
-            let length = data.length - contentIndex
-            assert(length == Int(bytes[lengthIndex]))
-            result = String(data: NSData(bytes: bytes.advancedBy(contentIndex), length: length), encoding: encoding)
+        data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
+            guard bytes[typeIndex] == type else { return }
+            let count = data.count - contentIndex
+            assert(count == Int(bytes[lengthIndex]))
+            result = String(data: Data(bytes: bytes.advanced(by: contentIndex), count: count), encoding: encoding)
         }
         self = result ?? ""
     }

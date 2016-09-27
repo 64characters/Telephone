@@ -17,21 +17,21 @@
 //
 
 final class BundleReceipt {
-    private let bundle: NSBundle
-    private let gateway: ReceiptXPCGateway
+    fileprivate let bundle: Bundle
+    fileprivate let gateway: ReceiptXPCGateway
 
-    init(bundle: NSBundle, gateway: ReceiptXPCGateway) {
+    init(bundle: Bundle, gateway: ReceiptXPCGateway) {
         self.bundle = bundle
         self.gateway = gateway
     }
 }
 
 extension BundleReceipt: Receipt {
-    func validate(completion completion: (ReceiptValidationResult) -> Void) {
-        if let url = bundle.appStoreReceiptURL, let data = NSData(contentsOfURL: url) {
+    func validate(completion: @escaping (ReceiptValidationResult) -> Void) {
+        if let url = bundle.appStoreReceiptURL, let data = try? Data(contentsOf: url) {
             gateway.validateReceipt(data, completion: completion)
         } else {
-            completion(.ReceiptIsInvalid)
+            completion(.receiptIsInvalid)
         }
     }
 }

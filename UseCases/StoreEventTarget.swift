@@ -20,10 +20,10 @@ public protocol StoreEventTarget {
     func didStartPurchasingProduct(withIdentifier identifier: String)
 
     func didPurchaseProducts()
-    func didFailPurchasingProducts(error error: String)
+    func didFailPurchasingProducts(error: String)
     func didCancelPurchasingProducts()
 
     func didRestorePurchases()
-    func didFailRestoringPurchases(error error: String)
+    func didFailRestoringPurchases(error: String)
     func didCancelRestoringPurchases()
 }

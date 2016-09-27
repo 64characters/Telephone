@@ -41,13 +41,13 @@ final class FirstSystemAudioDeviceTests: XCTestCase {
     }
 
     func testCreatedWithFirstBuiltInInputDevice() {
-        let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.builtInInput })
+        let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.isBuiltInInput })
 
         XCTAssertTrue(sut == factory.firstBuiltInInput)
     }
 
     func testCreatedWithFirstBuiltInOutputDevice() {
-        let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.builtInOutput })
+        let sut = FirstSystemAudioDevice(devices: factory.all, predicate: { $0.isBuiltInOutput })
 
         XCTAssertTrue(sut == factory.firstBuiltInOutput)
     }

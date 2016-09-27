@@ -27,27 +27,27 @@ struct UserAgentAudioDevices {
 }
 
 private func createDevices() throws -> [UserAgentAudioDevice] {
-    let bytes = UnsafeMutablePointer<pjmedia_aud_dev_info>.alloc(kBufferSize)
-    var count = UInt32(kBufferSize)
-    try getDevicesBytes(bytes, count: &count)
-    let result = devicesWithBytes(bytes, count: Int(count))
-    bytes.dealloc(kBufferSize)
+    let bytes = UnsafeMutablePointer<pjmedia_aud_dev_info>.allocate(capacity: bufferSize)
+    var count = UInt32(bufferSize)
+    try copyDevicesBytes(to: bytes, count: &count)
+    let result = devices(with: bytes, count: Int(count))
+    bytes.deallocate(capacity: bufferSize)
     return result
 }
 
-private func getDevicesBytes(bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, inout count: UInt32) throws {
+private func copyDevicesBytes(to bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: inout UInt32) throws {
     let status = pjsua_enum_aud_devs(bytes, &count)
     if status != 0 {
-        throw UserAgentError.AudioDeviceEnumerationError
+        throw UserAgentError.audioDeviceEnumerationError
     }
 }
 
-private func devicesWithBytes(bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: Int) -> [UserAgentAudioDevice] {
+private func devices(with bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: Int) -> [UserAgentAudioDevice] {
     let buffer = UnsafeBufferPointer<pjmedia_aud_dev_info>(start: bytes, count: count)
-    return devicesWithBuffer(buffer)
+    return devices(with: buffer)
 }
 
-private func devicesWithBuffer(pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
+private func devices(with pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
     var index = 0
     return pointer.map { device -> UserAgentAudioDevice in
         let result = UserAgentAudioDevice(device: device, identifier: index)
@@ -56,4 +56,4 @@ private func devicesWithBuffer(pointer: UnsafeBufferPointer<pjmedia_aud_dev_info
     }
 }
 
-private let kBufferSize = 32
+private let bufferSize = 32

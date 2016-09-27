@@ -17,10 +17,10 @@
 //
 
 public final class ConditionalRingtonePlaybackUseCase: NSObject {
-    private let origin: RingtonePlaybackUseCase
-    private let delegate: ConditionalRingtonePlaybackUseCaseDelegate
+    fileprivate let origin: RingtonePlaybackUseCase
+    fileprivate let delegate: ConditionalRingtonePlaybackUseCaseDelegate
 
-    public var playing: Bool { return origin.playing }
+    public var isPlaying: Bool { return origin.isPlaying }
 
     public init(origin: RingtonePlaybackUseCase, delegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         self.origin = origin
@@ -41,5 +41,5 @@ extension ConditionalRingtonePlaybackUseCase: RingtonePlaybackUseCase {
 }
 
 @objc public protocol ConditionalRingtonePlaybackUseCaseDelegate {
-    func playbackCanStop(playback: ConditionalRingtonePlaybackUseCase) -> Bool
+    func playbackCanStop(_ playback: ConditionalRingtonePlaybackUseCase) -> Bool
 }

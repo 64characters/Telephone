@@ -17,7 +17,7 @@
 //
 
 final class PurchaseReceiptAttributesValidation: NSObject {
-    private let identifiers: Set<String>
+    fileprivate let identifiers: Set<String>
 
     init(identifiers: Set<String>) {
         self.identifiers = identifiers
@@ -25,31 +25,27 @@ final class PurchaseReceiptAttributesValidation: NSObject {
 }
 
 extension PurchaseReceiptAttributesValidation: ReceiptValidation {
-    func validateReceipt(receipt: NSData, completion: (result: Result, expiration: NSDate) -> Void) {
+    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void) {
         if let expiration = latestExpirationOfValidPurchaseReceipts(from: receipt) {
-            completion(result: .ReceiptIsValid, expiration: expiration)
+            completion(.receiptIsValid, expiration)
         } else {
-            completion(result: .NoActivePurchases, expiration: NSDate.distantPast())
+            completion(.noActivePurchases, Date.distantPast)
         }
     }
 
-    private func latestExpirationOfValidPurchaseReceipts(from receipt: NSData) -> NSDate? {
-        return validPurchaseReceipts(from: receipt).maxElement(hasEarlierExpirationDate)?.expiration
+    private func latestExpirationOfValidPurchaseReceipts(from receipt: Data) -> Date? {
+        return validPurchaseReceipts(from: receipt).max(by: hasEarlierExpirationDate)?.expiration
     }
 
-    private func validPurchaseReceipts(from receipt: NSData) -> [ASN1PurchaseReceipt] {
+    private func validPurchaseReceipts(from receipt: Data) -> [ASN1PurchaseReceipt] {
         return ASN1PurchaseReceipts(payload: ASN1ReceiptPayload(container: PKCS7Container(data: receipt)!)!).filter(isReceiptValid)
     }
 
-    private func isReceiptValid(receipt: ASN1PurchaseReceipt) -> Bool {
-        return !receipt.isCancelled && isLaterThanNow(receipt.expiration) && identifiers.contains(receipt.identifier)
+    private func isReceiptValid(_ receipt: ASN1PurchaseReceipt) -> Bool {
+        return !receipt.isCancelled && receipt.expiration >= Date() && identifiers.contains(receipt.identifier)
     }
 }
 
-private func isLaterThanNow(date: NSDate) -> Bool {
-    return date.laterDate(NSDate()) == date
-}
-
-private func hasEarlierExpirationDate(lhs: ASN1PurchaseReceipt, _ rhs: ASN1PurchaseReceipt) -> Bool {
-    return lhs.expiration.earlierDate(rhs.expiration) == lhs.expiration
+private func hasEarlierExpirationDate(_ lhs: ASN1PurchaseReceipt, _ rhs: ASN1PurchaseReceipt) -> Bool {
+    return lhs.expiration < rhs.expiration
 }

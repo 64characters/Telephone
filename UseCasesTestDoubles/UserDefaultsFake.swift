@@ -20,15 +20,15 @@ import Foundation
 import UseCases
 
 public final class UserDefaultsFake {
-    public var date: NSDate = NSDate.distantPast()
+    public var date: Date = Date.distantPast
     public var version = ""
 
-    public var registeredDefaults: [String: AnyObject] {
+    public var registeredDefaults: [String: Any] {
         return registered
     }
 
-    private var dictionary: [String: AnyObject] = [:]
-    private var registered: [String: AnyObject] = [:]
+    fileprivate var dictionary: [String: Any] = [:]
+    fileprivate var registered: [String: Any] = [:]
 
     public init() {}
 }
@@ -36,34 +36,34 @@ public final class UserDefaultsFake {
 extension UserDefaultsFake: KeyValueUserDefaults {
     @objc public subscript(key: String) -> String? {
         get {
-            return stringForKey(key)
+            return string(forKey: key)
         }
         set {
-            dictionary[key] = newValue
+            dictionary[key] = newValue as Any?
         }
     }
 
-    @objc public func stringForKey(key: String) -> String? {
+    @objc public func string(forKey key: String) -> String? {
         return dictionary[key] as? String
     }
 
-    @objc public func setBool(value: Bool, forKey key: String) {
+    @objc public func set(_ value: Bool, forKey key: String) {
         dictionary[key] = value
     }
 
-    @objc public func boolForKey(key: String) -> Bool {
+    @objc public func bool(forKey key: String) -> Bool {
         return dictionary[key] as? Bool ?? false
     }
 
-    @objc public func setArray(array: [AnyObject], forKey key: String) {
+    @objc public func set(_ array: [Any], forKey key: String) {
         dictionary[key] = array
     }
 
-    @objc public func arrayForKey(key: String) -> [AnyObject]? {
-        return dictionary[key] as? [AnyObject]
+    @objc public func array(forKey key: String) -> [Any]? {
+        return dictionary[key] as? [Any]
     }
 
-    @objc public func registerDefaults(defaults: [String : AnyObject]) {
+    @objc public func register(defaults: [String : Any]) {
         for (key, value) in defaults {
             registered.updateValue(value, forKey: key)
             dictionary.updateValue(value, forKey: key)

@@ -17,8 +17,8 @@
 //
 
 public final class ReceiptValidatingStoreEventTarget {
-    private let origin: StoreEventTarget
-    private let receipt: Receipt
+    fileprivate let origin: StoreEventTarget
+    fileprivate let receipt: Receipt
 
     public init(origin: StoreEventTarget, receipt: Receipt) {
         self.origin = origin
@@ -33,11 +33,11 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
 
     public func didPurchaseProducts() {
         receipt.validate { result in
-            self.notifyOriginAboutPurchase(withReceiptValidationResult: result)
+            self.notifyOriginAboutPurchase(with: result)
         }
     }
 
-    public func didFailPurchasingProducts(error error: String) {
+    public func didFailPurchasingProducts(error: String) {
         origin.didFailPurchasingProducts(error: error)
     }
 
@@ -47,11 +47,11 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
 
     public func didRestorePurchases() {
         receipt.validate { result in
-            self.notifyOriginAboutRestoration(withReceiptValidationResult: result)
+            self.notifyOriginAboutRestoration(with: result)
         }
     }
 
-    public func didFailRestoringPurchases(error error: String) {
+    public func didFailRestoringPurchases(error: String) {
         origin.didFailRestoringPurchases(error: error)
     }
 
@@ -59,21 +59,19 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didCancelRestoringPurchases()
     }
 
-    private func notifyOriginAboutPurchase(withReceiptValidationResult result: ReceiptValidationResult) {
-        switch result {
-        case .ReceiptIsValid:
-            self.origin.didPurchaseProducts()
-        default:
-            self.origin.didFailPurchasingProducts(error: result.message)
+    private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) {
+        if case .receiptIsValid = result {
+            origin.didPurchaseProducts()
+        } else {
+            origin.didFailPurchasingProducts(error: result.localizedDescription)
         }
     }
 
-    private func notifyOriginAboutRestoration(withReceiptValidationResult result: ReceiptValidationResult) {
-        switch result {
-        case .ReceiptIsValid:
+    private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) {
+        if case .receiptIsValid = result {
             origin.didRestorePurchases()
-        default:
-            origin.didFailRestoringPurchases(error: result.message)
+        } else {
+            origin.didFailRestoringPurchases(error: result.localizedDescription)
         }
     }
 }

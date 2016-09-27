@@ -19,21 +19,21 @@
 import UseCases
 
 public final class TimerFactorySpy {
-    public private(set) var didCallCreateRepeatingTimer = false
-    public private(set) var createRepeatingTimerCallCount = 0
-    public private(set) var invokedInterval: Double = 0
+    public fileprivate(set) var didCallCreateRepeatingTimer = false
+    public fileprivate(set) var createRepeatingTimerCallCount = 0
+    public fileprivate(set) var invokedInterval: Double = 0
 
-    private var timer: Timer!
+    fileprivate var timer: Timer!
 
     public init() {}
 
-    public func stubWith(timer: Timer) {
+    public func stub(with timer: Timer) {
         self.timer = timer
     }
 }
 
 extension TimerFactorySpy: TimerFactory {
-    public func createRepeatingTimer(interval interval: Double, action: () -> Void) -> Timer {
+    public func createRepeatingTimer(interval: Double, action: @escaping () -> Void) -> Timer {
         didCallCreateRepeatingTimer = true
         createRepeatingTimerCallCount += 1
         invokedInterval = interval

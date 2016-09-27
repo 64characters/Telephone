@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SpotifyMusicPlayer ()
 
-@property(nonatomic, readonly) SpotifyApplication *app;
+@property(nonatomic, readonly) SpotifyApplication *application;
 @property(nonatomic) BOOL didPause;
 
 @end
@@ -33,12 +33,9 @@ NS_ASSUME_NONNULL_END
 
 @implementation SpotifyMusicPlayer
 
-- (nullable instancetype)init {
+- (instancetype)initWithApplication:(SpotifyApplication *)application {
     if ((self = [super init])) {
-        _app = [SBApplication applicationWithBundleIdentifier:@"com.spotify.client"];
-        if (!_app) {
-            return nil;
-        }
+        _application = application;
     }
     return self;
 }
@@ -46,19 +43,19 @@ NS_ASSUME_NONNULL_END
 #pragma mark - MusicPlayer
 
 - (void)pause {
-    if (!self.app.isRunning || self.app.playerState != SpotifyEPlSPlaying) {
+    if (!self.application.isRunning || self.application.playerState != SpotifyEPlSPlaying) {
         return;
     }
-    [self.app pause];
+    [self.application pause];
     self.didPause = YES;
 }
 
 - (void)resume {
-    if (!self.app.isRunning || !self.didPause) {
+    if (!self.application.isRunning || !self.didPause) {
         return;
     }
-    if (self.app.playerState == SpotifyEPlSPaused) {
-        [self.app play];
+    if (self.application.playerState == SpotifyEPlSPaused) {
+        [self.application play];
     }
     self.didPause = NO;
 }

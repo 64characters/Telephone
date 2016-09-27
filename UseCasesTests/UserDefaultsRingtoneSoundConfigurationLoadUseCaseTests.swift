@@ -55,8 +55,8 @@ final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
         var result = false
 
         do {
-            try sut.execute()
-        } catch Error.RingtoneSoundNameNotFoundError {
+            try _ = sut.execute()
+        } catch UseCasesError.ringtoneSoundNameNotFoundError {
             result = true
         } catch {}
 

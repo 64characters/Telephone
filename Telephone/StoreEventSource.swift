@@ -20,58 +20,58 @@ import StoreKit
 import UseCases
 
 final class StoreEventSource: NSObject {
-    private let queue: SKPaymentQueue
-    private let target: StoreEventTarget
+    fileprivate let queue: SKPaymentQueue
+    fileprivate let target: StoreEventTarget
 
     init(queue: SKPaymentQueue, target: StoreEventTarget) {
         self.queue = queue
         self.target = target
         super.init()
-        queue.addTransactionObserver(self)
+        queue.add(self)
     }
 
     deinit {
-        queue.removeTransactionObserver(self)
+        queue.remove(self)
     }
 }
 
 extension StoreEventSource: SKPaymentTransactionObserver {
-    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        DispatchQueue.main.async {
             self.handleStateChange(of: transactions)
         }
     }
 
-    func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        DispatchQueue.main.async {
             self.notifyTargetAboutFailedRestoration(error: error)
         }
     }
 
     private func handleStateChange(of transactions: [SKPaymentTransaction]) {
-        handlePurchasing(transactions.filter { $0.transactionState == .Purchasing })
-        handlePurchased(transactions.filter { $0.transactionState == .Purchased })
-        handleFailed(transactions.filter { $0.transactionState == .Failed })
-        handleRestored(transactions.filter { $0.transactionState == .Restored })
+        handlePurchasing(transactions.filter { $0.transactionState == .purchasing })
+        handlePurchased(transactions.filter { $0.transactionState == .purchased })
+        handleFailed(transactions.filter { $0.transactionState == .failed })
+        handleRestored(transactions.filter { $0.transactionState == .restored })
     }
 
-    private func handlePurchasing(transactions: [SKPaymentTransaction]) {
+    private func handlePurchasing(_ transactions: [SKPaymentTransaction]) {
         transactions.forEach { target.didStartPurchasingProduct(withIdentifier: $0.payment.productIdentifier) }
     }
 
-    private func handlePurchased(transactions: [SKPaymentTransaction]) {
+    private func handlePurchased(_ transactions: [SKPaymentTransaction]) {
         if transactions.count > 0 { target.didPurchaseProducts() }
         transactions.forEach { queue.finishTransaction($0) }
     }
 
-    private func handleFailed(transactions: [SKPaymentTransaction]) {
+    private func handleFailed(_ transactions: [SKPaymentTransaction]) {
         transactions.forEach {
             notifyTargetAboutFailure(of: $0)
             queue.finishTransaction($0)
         }
     }
 
-    private func handleRestored(transactions: [SKPaymentTransaction]) {
+    private func handleRestored(_ transactions: [SKPaymentTransaction]) {
         if transactions.count > 0 { target.didRestorePurchases() }
         transactions.forEach { queue.finishTransaction($0) }
     }
@@ -84,7 +84,7 @@ extension StoreEventSource: SKPaymentTransactionObserver {
         }
     }
 
-    private func notifyTargetAboutFailedPurchase(error error: NSError) {
+    private func notifyTargetAboutFailedPurchase(error: Error) {
         if isCancelled(error) {
             target.didCancelPurchasingProducts()
         } else {
@@ -92,7 +92,7 @@ extension StoreEventSource: SKPaymentTransactionObserver {
         }
     }
 
-    private func notifyTargetAboutFailedRestoration(error error: NSError) {
+    private func notifyTargetAboutFailedRestoration(error: Error) {
         if isCancelled(error) {
             target.didCancelRestoringPurchases()
         } else {
@@ -101,8 +101,12 @@ extension StoreEventSource: SKPaymentTransactionObserver {
     }
 }
 
-private func isCancelled(error: NSError) -> Bool {
-    return error.domain == SKErrorDomain && error.code == SKErrorCode.PaymentCancelled.rawValue
+private func isCancelled(_ error: Error) -> Bool {
+    if let error = error as? SKError, error.code == .paymentCancelled  {
+        return true
+    } else {
+        return false
+    }
 }
 
 private func localizedUnknownError() -> String {

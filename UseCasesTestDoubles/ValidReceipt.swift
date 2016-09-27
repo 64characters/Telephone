@@ -20,19 +20,19 @@ import Foundation
 import UseCases
 
 public struct ValidReceipt {
-    private let expiration: NSDate
+    fileprivate let expiration: Date
 
-    public init(expiration: NSDate) {
+    public init(expiration: Date) {
         self.expiration = expiration
     }
 
     public init() {
-        self.init(expiration: NSDate.distantFuture())
+        self.init(expiration: Date.distantFuture)
     }
 }
 
 extension ValidReceipt: Receipt {
-    public func validate(completion completion: (ReceiptValidationResult) -> Void) {
-        completion(.ReceiptIsValid(expiration: expiration))
+    public func validate(completion: @escaping (ReceiptValidationResult) -> Void) {
+        completion(.receiptIsValid(expiration: expiration))
     }
 }

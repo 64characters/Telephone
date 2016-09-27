@@ -19,14 +19,14 @@
 import UseCases
 
 public final class UserDefaultsSoundIOLoadUseCaseOutputSpy {
-    public private(set) var invokedDevices: AudioDevices?
-    public private(set) var invokedSoundIO: PresentationSoundIO?
+    public fileprivate(set) var invokedDevices: AudioDevices?
+    public fileprivate(set) var invokedSoundIO: PresentationSoundIO?
 
     public init() {}
 }
 
 extension UserDefaultsSoundIOLoadUseCaseOutputSpy: UserDefaultsSoundIOLoadUseCaseOutput {
-    public func update(devices devices: AudioDevices, soundIO: PresentationSoundIO) {
+    public func update(devices: AudioDevices, soundIO: PresentationSoundIO) {
         self.invokedDevices = devices
         self.invokedSoundIO = soundIO
     }

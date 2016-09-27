@@ -1,5 +1,5 @@
 //
-//  NSTimerToTimerAdapter.swift
+//  UseCasesError.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,28 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-final class NSTimerToTimerAdapter {
-    private let action: () -> Void
-
-    var timer: NSTimer!
-
-    init(action: () -> Void) {
-        self.action = action
-    }
-
-    @objc func tick() {
-        action()
-    }
-}
-
-extension NSTimerToTimerAdapter: Timer {
-    var interval: Double {
-        return timer.timeInterval
-    }
-
-    func invalidate() {
-        timer.invalidate()
-    }
+public enum UseCasesError: Error {
+    case ringtoneSoundNameNotFoundError
 }

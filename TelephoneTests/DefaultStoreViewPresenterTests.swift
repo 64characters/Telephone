@@ -45,11 +45,11 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
     // MARK: - Fetch
 
     func testShowsProductsSortedByPriceOnShowProducts() {
-        let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(integer: 3), localizedPrice: "$3")
-        let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(integer: 1), localizedPrice: "$1")
-        let product3 = Product(identifier: "789", name: "ghi", price: NSDecimalNumber(integer: 2), localizedPrice: "$2")
+        let product1 = Product(identifier: "123", name: "abc", price: 3, localizedPrice: "$3")
+        let product2 = Product(identifier: "456", name: "def", price: 1, localizedPrice: "$1")
+        let product3 = Product(identifier: "789", name: "ghi", price: 2, localizedPrice: "$2")
 
-        sut.showProducts([product1, product2, product3])
+        sut.show([product1, product2, product3])
 
         XCTAssertEqual(
             output.invokedProducts,
@@ -79,7 +79,7 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
     }
 
     func testEnablesPurchaseRestorationOnShowProducts() {
-        sut.showProducts([])
+        sut.show([])
 
         XCTAssertTrue(output.didCallEnablePurchaseRestoration)
     }
@@ -148,13 +148,13 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
     // MARK: - Purchased
 
     func testShowsPurchasedOnShowPurchased() {
-        sut.showPurchased(until: NSDate())
+        sut.showPurchased(until: Date())
 
         XCTAssertTrue(output.didCallShowPurchased)
     }
 
     func testShowsSubscriptionManagementOnShowPurchased() {
-        sut.showPurchased(until: NSDate())
+        sut.showPurchased(until: Date())
 
         XCTAssertTrue(output.didCallShowSubscriptionManagement)
     }

@@ -155,7 +155,7 @@ final class PreferredSoundIOTests: XCTestCase {
         return createSoundIO(devices: factory.all)
     }
 
-    private func createSoundIO(devices devices: [SystemAudioDevice]) -> UseCases.PreferredSoundIO {
+    private func createSoundIO(devices: [SystemAudioDevice]) -> UseCases.PreferredSoundIO {
         return PreferredSoundIO(devices: SystemAudioDevices(devices: devices), defaults: defaults)
     }
 }

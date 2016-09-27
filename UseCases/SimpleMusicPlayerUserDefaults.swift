@@ -17,21 +17,21 @@
 //
 
 public final class SimpleMusicPlayerUserDefaults {
-    private let defaults: KeyValueUserDefaults
+    fileprivate let defaults: KeyValueUserDefaults
 
     public init(defaults: KeyValueUserDefaults) {
         self.defaults = defaults
-        defaults.registerDefaults([key: true])
+        defaults.register(defaults: [key: true])
     }
 }
 
 extension SimpleMusicPlayerUserDefaults: MusicPlayerUserDefaults {
     public var shouldPause: Bool {
         get {
-            return defaults.boolForKey(key)
+            return defaults.bool(forKey: key)
         }
         set {
-            defaults.setBool(newValue, forKey: key)
+            defaults.set(newValue, forKey: key)
         }
     }
 }

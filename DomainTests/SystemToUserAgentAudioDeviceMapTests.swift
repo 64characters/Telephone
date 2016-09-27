@@ -37,8 +37,8 @@ final class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
 
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
-        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(factory.someInput) == userAgentDevices[0])
-        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(factory.someOutput) == userAgentDevices[1])
+        XCTAssertTrue(sut.userAgentDevice(for: factory.someInput) == userAgentDevices[0])
+        XCTAssertTrue(sut.userAgentDevice(for: factory.someOutput) == userAgentDevices[1])
     }
 
     func testMapsSystemToUserAgentDeviceByNameAndIOPortWhenTwoDevicesHaveTheSameName() {
@@ -50,14 +50,14 @@ final class SystemToUserAgentAudioDeviceMapTests: XCTestCase {
 
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: systemDevices, userAgentDevices: userAgentDevices)
 
-        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(systemDevices[0]) == userAgentDevices[1])
-        XCTAssertTrue(sut.userAgentDeviceForSystemDevice(systemDevices[1]) == userAgentDevices[0])
+        XCTAssertTrue(sut.userAgentDevice(for: systemDevices[0]) == userAgentDevices[1])
+        XCTAssertTrue(sut.userAgentDevice(for: systemDevices[1]) == userAgentDevices[0])
     }
 
     func testReturnsNullObjectWhenNoMatchingUserAgentDeviceFound() {
         let sut = SystemToUserAgentAudioDeviceMap(systemDevices: factory.all, userAgentDevices: [])
 
-        let result = sut.userAgentDeviceForSystemDevice(factory.someInput)
+        let result = sut.userAgentDevice(for: factory.someInput)
 
         XCTAssertTrue(result.isNil)
     }

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppleMusicPlayer ()
 
-@property(nonatomic, readonly) iTunesApplication *app;
+@property(nonatomic, readonly) iTunesApplication *application;
 @property(nonatomic) BOOL didPause;
 
 @end
@@ -33,12 +33,9 @@ NS_ASSUME_NONNULL_END
 
 @implementation AppleMusicPlayer
 
-- (nullable instancetype)init {
+- (instancetype)initWithApplication:(iTunesApplication *)application {
     if ((self = [super init])) {
-        _app = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-        if (!_app) {
-            return nil;
-        }
+        _application = application;
     }
     return self;
 }
@@ -46,19 +43,19 @@ NS_ASSUME_NONNULL_END
 #pragma mark - MusicPlayer
 
 - (void)pause {
-    if (!self.app.isRunning || self.app.playerState != iTunesEPlSPlaying) {
+    if (!self.application.isRunning || self.application.playerState != iTunesEPlSPlaying) {
         return;
     }
-    [self.app pause];
+    [self.application pause];
     self.didPause = YES;
 }
 
 - (void)resume {
-    if (!self.app.isRunning || !self.didPause) {
+    if (!self.application.isRunning || !self.didPause) {
         return;
     }
-    if (self.app.playerState == iTunesEPlSPaused) {
-        [self.app playOnce:NO];
+    if (self.application.playerState == iTunesEPlSPaused) {
+        [self.application playOnce:NO];
     }
     self.didPause = NO;
 }

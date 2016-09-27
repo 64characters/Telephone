@@ -20,30 +20,30 @@ import Foundation
 import UseCases
 
 final class SimplePurchaseReminderUserDefaults {
-    private let defaults: NSUserDefaults
+    fileprivate let defaults: UserDefaults
 
-    init(defaults: NSUserDefaults) {
+    init(defaults: UserDefaults) {
         self.defaults = defaults
-        defaults.registerDefaults([dateKey: NSDate.distantPast(), versionKey: ""])
+        defaults.register(defaults: [dateKey: Date.distantPast, versionKey: ""])
     }
 }
 
 extension SimplePurchaseReminderUserDefaults: PurchaseReminderUserDefaults {
-    var date: NSDate {
+    var date: Date {
         get {
-            return defaults.objectForKey(dateKey) as! NSDate
+            return defaults.object(forKey: dateKey) as! Date
         }
         set {
-            defaults.setObject(newValue, forKey: dateKey)
+            defaults.set(newValue, forKey: dateKey)
         }
     }
 
     var version: String {
         get {
-            return defaults.stringForKey(versionKey)!
+            return defaults.string(forKey: versionKey)!
         }
         set {
-            defaults.setObject(newValue, forKey: versionKey)
+            defaults.set(newValue, forKey: versionKey)
         }
     }
 }

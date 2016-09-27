@@ -17,5 +17,5 @@
 //
 
 public protocol TimerFactory {
-    func createRepeatingTimer(interval interval: Double, action: () -> Void) -> Timer
+    func createRepeatingTimer(interval: Double, action: @escaping () -> Void) -> Timer
 }

@@ -19,18 +19,18 @@
 import UseCases
 
 public final class ProductsFetchUseCaseOutputSpy {
-    public private(set) var invokedProducts: [Product] = []
-    public private(set) var invokedError = ""
+    public fileprivate(set) var invokedProducts: [Product] = []
+    public fileprivate(set) var invokedError = ""
 
     public init() {}
 }
 
 extension ProductsFetchUseCaseOutputSpy: ProductsFetchUseCaseOutput {
-    public func didFetchProducts(products: [Product]) {
+    public func didFetch(_ products: [Product]) {
         invokedProducts = products
     }
 
-    public func didFailFetchingProducts(error error: String) {
+    public func didFailFetchingProducts(error: String) {
         invokedError = error
     }
 }

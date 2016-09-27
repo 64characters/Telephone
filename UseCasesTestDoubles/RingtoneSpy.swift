@@ -21,9 +21,9 @@ import UseCases
 public final class RingtoneSpy {
     public let interval: Double = 0
 
-    public private(set) var didCallStartPlaying = false
-    public private(set) var didCallStopPlaying = false
-    public private(set) var stopPlayingCallCount = 0
+    public fileprivate(set) var didCallStartPlaying = false
+    public fileprivate(set) var didCallStopPlaying = false
+    public fileprivate(set) var stopPlayingCallCount = 0
 
     public init() {}
 }

@@ -19,13 +19,13 @@
 import Foundation
 
 struct SHA256Fingerprint {
-    private let sha256: NSData
+    fileprivate let sha256: Data
 
-    init(sha256: NSData) {
+    init(sha256: Data) {
         self.sha256 = sha256
     }
 
-    init(source: NSData) {
+    init(source: Data) {
         self.init(sha256: digest(of: source))
     }
 }
@@ -40,8 +40,10 @@ func ==(lhs: SHA256Fingerprint, rhs: SHA256Fingerprint) -> Bool {
     return lhs.sha256 == rhs.sha256
 }
 
-private func digest(of source: NSData) -> NSData {
-    let digest = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))!
-    CC_SHA256(source.bytes, CC_LONG(source.length), UnsafeMutablePointer<UInt8>(digest.bytes))
-    return digest
+private func digest(of source: Data) -> Data {
+    var result = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+    source.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in
+        CC_SHA256(ptr, CC_LONG(source.count), &result)
+    }
+    return Data(bytes: result)
 }

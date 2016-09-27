@@ -18,17 +18,17 @@
 
 import UseCases
 
-extension NSUserDefaults: KeyValueUserDefaults {
+extension UserDefaults: KeyValueUserDefaults {
     public subscript(key: String) -> String? {
         get {
-            return stringForKey(key)
+            return string(forKey: key)
         }
         set {
-            setObject(newValue, forKey: key)
+            set(newValue, forKey: key)
         }
     }
 
-    public func setArray(array: [AnyObject], forKey key: String) {
-        setObject(array, forKey: key)
+    public func set(_ array: [Any], forKey key: String) {
+        set(array, forKey: key)
     }
 }

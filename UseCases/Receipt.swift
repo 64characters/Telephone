@@ -19,21 +19,21 @@
 import Foundation
 
 public protocol Receipt {
-    func validate(completion completion: (ReceiptValidationResult) -> Void)
+    func validate(completion: @escaping (ReceiptValidationResult) -> Void)
 }
 
 public enum ReceiptValidationResult {
-    case ReceiptIsValid(expiration: NSDate)
-    case ReceiptIsInvalid
-    case NoActivePurchases
+    case receiptIsValid(expiration: Date)
+    case receiptIsInvalid
+    case noActivePurchases
 
-    public var message: String {
+    public var localizedDescription: String {
         switch self {
-        case ReceiptIsValid:
+        case .receiptIsValid:
             return NSLocalizedString("Receipt is valid.", bundle: bundle(), comment: "Receipt validation success.")
-        case .ReceiptIsInvalid:
+        case .receiptIsInvalid:
             return NSLocalizedString("Receipt is invalid.", bundle: bundle(), comment: "Receipt validation error.")
-        case .NoActivePurchases:
+        case .noActivePurchases:
             return NSLocalizedString(
                 "Receipt doesn’t contain active purchases.", bundle: bundle(), comment: "No active purchase error."
             )
@@ -41,6 +41,6 @@ public enum ReceiptValidationResult {
     }
 }
 
-private func bundle() -> NSBundle {
-    return NSBundle(identifier: "com.tlphn.Telephone.UseCases")!
+private func bundle() -> Bundle {
+    return Bundle(identifier: "com.tlphn.Telephone.UseCases")!
 }

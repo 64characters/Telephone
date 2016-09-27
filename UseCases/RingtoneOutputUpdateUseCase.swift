@@ -17,7 +17,7 @@
 //
 
 public final class RingtoneOutputUpdateUseCase {
-    private let playback: RingtonePlaybackUseCase
+    fileprivate let playback: RingtonePlaybackUseCase
 
     public init(playback: RingtonePlaybackUseCase) {
         self.playback = playback
@@ -26,7 +26,7 @@ public final class RingtoneOutputUpdateUseCase {
 
 extension RingtoneOutputUpdateUseCase: ThrowingUseCase {
     public func execute() throws {
-        if playback.playing {
+        if playback.isPlaying {
             playback.stop()
             try playback.start()
         }

@@ -55,6 +55,6 @@ final class ConditionalRingtonePlaybackUseCaseTests: XCTestCase {
     func testReturnsPlayingFlagFromOrigin() {
         try! origin.start()
 
-        XCTAssertTrue(sut.playing)
+        XCTAssertTrue(sut.isPlaying)
     }
 }

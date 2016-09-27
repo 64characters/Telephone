@@ -17,7 +17,7 @@
 //
 
 public final class UserAgentEventTargets {
-    private let targets: [UserAgentEventTarget]
+    fileprivate let targets: [UserAgentEventTarget]
 
     public init(targets: [UserAgentEventTarget]) {
         self.targets = targets
@@ -25,23 +25,23 @@ public final class UserAgentEventTargets {
 }
 
 extension UserAgentEventTargets: UserAgentEventTarget {
-    public func userAgentDidFinishStarting(userAgent: UserAgent) {
+    public func userAgentDidFinishStarting(_ userAgent: UserAgent) {
         targets.forEach { $0.userAgentDidFinishStarting(userAgent) }
     }
 
-    public func userAgentDidFinishStopping(userAgent: UserAgent) {
+    public func userAgentDidFinishStopping(_ userAgent: UserAgent) {
         targets.forEach { $0.userAgentDidFinishStopping(userAgent) }
     }
 
-    public func userAgentDidDetectNAT(userAgent: UserAgent) {
+    public func userAgentDidDetectNAT(_ userAgent: UserAgent) {
         targets.forEach { $0.userAgentDidDetectNAT(userAgent) }
     }
 
-    public func userAgentDidMakeCall(userAgent: UserAgent) {
+    public func userAgentDidMakeCall(_ userAgent: UserAgent) {
         targets.forEach { $0.userAgentDidMakeCall(userAgent) }
     }
 
-    public func userAgentDidReceiveCall(userAgent: UserAgent) {
+    public func userAgentDidReceiveCall(_ userAgent: UserAgent) {
         targets.forEach { $0.userAgentDidReceiveCall(userAgent) }
     }
 }

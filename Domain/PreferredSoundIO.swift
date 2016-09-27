@@ -17,7 +17,7 @@
 //
 
 public struct PreferredSoundIO {
-    private let soundIO: SoundIO
+    fileprivate let soundIO: SoundIO
 
     public init(devices: [SystemAudioDevice]) {
         soundIO = FallingBackSoundIO(

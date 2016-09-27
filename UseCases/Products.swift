@@ -24,5 +24,5 @@ public protocol Products {
 
 public protocol ProductsEventTarget: class {
     func productsDidFetch()
-    func productsDidFailFetching(withError error: String)
+    func productsDidFailFetching(error: String)
 }

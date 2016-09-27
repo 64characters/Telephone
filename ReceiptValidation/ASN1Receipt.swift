@@ -17,17 +17,17 @@ import Foundation
 
 struct ASN1Receipt {
     let identifier: String
-    let identifierData: NSData
+    let identifierData: Data
     let version: String
-    let opaque: NSData
-    let checksum: NSData
+    let opaque: Data
+    let checksum: Data
 
     init(payload: ASN1ReceiptPayload) {
         var identifier: String?
-        var identifierData: NSData?
+        var identifierData: Data?
         var version: String?
-        var opaque: NSData?
-        var checksum: NSData?
+        var opaque: Data?
+        var checksum: Data?
         for attribute in payload.attributes {
             switch attribute.type {
             case identifierType:
@@ -44,10 +44,10 @@ struct ASN1Receipt {
             }
         }
         self.identifier = identifier ?? ""
-        self.identifierData = identifierData ?? NSData()
+        self.identifierData = identifierData ?? Data()
         self.version = version ?? ""
-        self.opaque = opaque ?? NSData()
-        self.checksum = checksum ?? NSData()
+        self.opaque = opaque ?? Data()
+        self.checksum = checksum ?? Data()
     }
 }
 

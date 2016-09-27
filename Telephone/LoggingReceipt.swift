@@ -17,7 +17,7 @@
 //
 
 final class LoggingReceipt {
-    private let origin: Receipt
+    fileprivate let origin: Receipt
 
     init(origin: Receipt) {
         self.origin = origin
@@ -25,7 +25,7 @@ final class LoggingReceipt {
 }
 
 extension LoggingReceipt: Receipt {
-    func validate(completion completion: (ReceiptValidationResult) -> Void) {
+    func validate(completion: @escaping (ReceiptValidationResult) -> Void) {
         print("Starting receipt validation")
         origin.validate { result in
             print("Receipt validation result: \(result)")

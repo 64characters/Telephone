@@ -20,21 +20,21 @@ import UseCases
 
 extension AKSIPUserAgent: UserAgent {
     public var hasActiveCalls: Bool {
-        return started && activeCallsCount > 0
+        return isStarted && activeCallsCount > 0
     }
 
     public func audioDevices() throws -> [UserAgentAudioDevice] {
-        if started {
+        if isStarted {
             return try UserAgentAudioDevices().all
         } else {
-            throw UserAgentError.UserAgentNotStarted
+            throw UserAgentError.userAgentNotStarted
         }
     }
 
-    public func selectSoundIODeviceIDs(input input: Int, output: Int) throws {
+    public func selectSoundIODeviceIDs(input: Int, output: Int) throws {
         let success = self.setSoundInputDevice(input, soundOutputDevice: output)
         if !success {
-            throw UserAgentError.SoundIOSelectionError
+            throw UserAgentError.soundIOSelectionError
         }
     }
 }

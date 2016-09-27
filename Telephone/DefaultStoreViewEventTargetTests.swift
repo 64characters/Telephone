@@ -81,7 +81,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         )
         let products = SimpleProductsFake().all
 
-        sut.showProducts(products)
+        sut.show(products)
 
         XCTAssertEqual(presenter.invokedProducts, products)
     }
@@ -132,7 +132,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
             factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
         )
         let products = SimpleProductsFake().all
-        sut.showProducts(products)
+        sut.show(products)
 
         sut.showCachedProductsAndPurchaseError("any")
 
@@ -182,7 +182,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
             factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
         )
         let products = SimpleProductsFake().all
-        sut.showProducts(products)
+        sut.show(products)
 
         sut.showCachedProductsAndRestoreError("any")
 
@@ -249,7 +249,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let sut = DefaultStoreViewEventTarget(
             factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
         )
-        let date = NSDate()
+        let date = Date()
 
         sut.showThankYou(expiration: date)
 

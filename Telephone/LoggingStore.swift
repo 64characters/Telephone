@@ -19,7 +19,7 @@
 import UseCases
 
 final class LoggingStore {
-    private let origin: Store
+    fileprivate let origin: Store
 
     init(origin: Store) {
         self.origin = origin
@@ -27,7 +27,7 @@ final class LoggingStore {
 }
 
 extension LoggingStore: Store {
-    func purchase(product: Product) throws {
+    func purchase(_ product: Product) throws {
         print("Purchasing \(product)")
         try origin.purchase(product)
     }

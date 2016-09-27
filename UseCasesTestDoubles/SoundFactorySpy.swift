@@ -19,16 +19,17 @@
 import UseCases
 
 public final class SoundFactorySpy {
-    public private(set) var didCallCreateSound = false
-    public private(set) var lastCreatedSound: SoundSpy!
+    public fileprivate(set) var didCallCreateSound = false
+    public fileprivate(set) var lastCreatedSound: SoundSpy?
 
     public init() {}
 }
 
 extension SoundFactorySpy: SoundFactory {
-    public func createSound(eventTarget eventTarget: SoundEventTarget) throws -> Sound {
+    public func createSound(target: SoundEventTarget) throws -> Sound {
         didCallCreateSound = true
-        lastCreatedSound = SoundSpy(eventTarget: eventTarget)
-        return lastCreatedSound
+        let result = SoundSpy(target: target)
+        lastCreatedSound = result
+        return result
     }
 }

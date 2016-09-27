@@ -19,10 +19,10 @@
 import UseCases
 
 final class DefaultStoreUseCaseFactory {
-    private let products: Products
-    private let store: Store
-    private let receipt: Receipt
-    private let targets: ProductsEventTargets
+    fileprivate let products: Products
+    fileprivate let store: Store
+    fileprivate let receipt: Receipt
+    fileprivate let targets: ProductsEventTargets
 
     init(products: Products, store: Store, receipt: Receipt, targets: ProductsEventTargets) {
         self.products = products
@@ -33,15 +33,15 @@ final class DefaultStoreUseCaseFactory {
 }
 
 extension DefaultStoreUseCaseFactory: StoreUseCaseFactory {
-    func createPurchaseCheckUseCase(output output: PurchaseCheckUseCaseOutput) -> UseCase {
+    func createPurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase {
         return PurchaseCheckUseCase(receipt: receipt, output: output)
     }
 
-    func createProductsFetchUseCase(output output: ProductsFetchUseCaseOutput) -> UseCase {
+    func createProductsFetchUseCase(output: ProductsFetchUseCaseOutput) -> UseCase {
         return ProductsFetchUseCase(products: products, targets: targets, output: output)
     }
 
-    func createProductPurchaseUseCase(identifier identifier: String) -> ThrowingUseCase {
+    func createProductPurchaseUseCase(identifier: String) -> ThrowingUseCase {
         return ProductPurchaseUseCase(identifier: identifier, products: products, store: store)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  Array+Creating.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-public enum Error: ErrorType {
-    case RingtoneSoundNameNotFoundError
+extension Array {
+    init(tuple: Any) {
+        self = Mirror(reflecting: tuple).children.map { $0.value as! Element }
+    }
 }

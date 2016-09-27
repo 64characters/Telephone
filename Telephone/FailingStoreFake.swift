@@ -19,31 +19,31 @@
 import UseCases
 
 final class FailingStoreFake {
-    private var attempts = 0
-    private var target: StoreEventTarget
+    fileprivate var attempts = 0
+    fileprivate var target: StoreEventTarget
 
     init(target: StoreEventTarget) {
         self.target = target
     }
 
-    func updateTarget(target: StoreEventTarget) {
+    func updateTarget(_ target: StoreEventTarget) {
         self.target = target
     }
 }
 
 extension FailingStoreFake: Store {
-    func purchase(product: Product) throws {
+    func purchase(_ product: Product) throws {
         attempts += 1
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(0.2) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.target.didStartPurchasingProduct(withIdentifier: product.identifier)
         }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.notifyTargetAboutPurchaseFailure()
         }
     }
 
     func restorePurchases() {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(1.0) * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.target.didFailRestoringPurchases(error: error)
         }
     }

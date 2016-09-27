@@ -19,8 +19,8 @@
 import UseCases
 
 public final class ProductsEventTargetSpy {
-    public private(set) var didCallProductsDidFetch = false
-    public private(set) var didCallProductsDidFailFetching = false
+    public fileprivate(set) var didCallProductsDidFetch = false
+    public fileprivate(set) var didCallProductsDidFailFetching = false
 
     public init() {}
 }
@@ -30,7 +30,7 @@ extension ProductsEventTargetSpy: ProductsEventTarget {
         didCallProductsDidFetch = true
     }
 
-    public func productsDidFailFetching(withError error: String) {
+    public func productsDidFailFetching(error: String) {
         didCallProductsDidFailFetching = true
     }
 }

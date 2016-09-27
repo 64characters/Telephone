@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  FoundationToUseCasesTimerAdapterFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,5 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-enum Error: ErrorType {
+import UseCases
+
+final class FoundationToUseCasesTimerAdapterFactory: TimerFactory {
+    func createRepeatingTimer(interval: Double, action: @escaping () -> Void) -> UseCases.Timer {
+        let timer = FoundationToUseCasesTimerAdapter(action: action)
+        timer.timer = Timer.scheduledTimer(
+            timeInterval: interval,
+            target: timer,
+            selector: #selector(FoundationToUseCasesTimerAdapter.tick),
+            userInfo: nil,
+            repeats: true
+        )
+        return timer
+    }
 }

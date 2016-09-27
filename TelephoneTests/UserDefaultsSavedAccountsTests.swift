@@ -23,7 +23,7 @@ import XCTest
 final class UserDefaultsSavedAccountsTests: XCTestCase {
     func testHaveEnabledIsTrueWhenAtLeastOneAccountIsEnabled() {
         let defaults = UserDefaultsFake()
-        defaults.setArray(
+        defaults.set(
             [[kAccountEnabled: false], [kAccountEnabled: true], [kAccountEnabled: false]],
             forKey: kAccounts
         )
@@ -35,7 +35,7 @@ final class UserDefaultsSavedAccountsTests: XCTestCase {
 
     func testHaveEnabledIsFalseWhenThereAreNoEnabledAccounts() {
         let defaults = UserDefaultsFake()
-        defaults.setArray(
+        defaults.set(
             [[kAccountEnabled: false], [kAccountEnabled: false], [kAccountEnabled: false]],
             forKey: kAccounts
         )

@@ -17,6 +17,6 @@
 //
 
 public protocol PurchaseReminderUserDefaults: class {
-    var date: NSDate { get set }
+    var date: Date { get set }
     var version: String { get set }
 }

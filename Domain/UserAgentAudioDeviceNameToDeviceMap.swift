@@ -27,21 +27,21 @@ final class UserAgentAudioDeviceNameToDeviceMap {
         devices.forEach(updateOutputDeviceMap)
     }
 
-    func inputDeviceNamed(name: String) -> UserAgentAudioDevice {
+    func inputDevice(named name: String) -> UserAgentAudioDevice {
         return inputMap[name] ?? NullUserAgentAudioDevice()
     }
 
-    func outputDeviceNamed(name: String) -> UserAgentAudioDevice {
+    func outputDevice(named name: String) -> UserAgentAudioDevice {
         return outputMap[name] ?? NullUserAgentAudioDevice()
     }
 
-    private func updateInputDeviceMap(withDevice device: UserAgentAudioDevice) {
+    private func updateInputDeviceMap(with device: UserAgentAudioDevice) {
         if device.hasInputs {
             inputMap[device.name] = device
         }
     }
 
-    private func updateOutputDeviceMap(withDevice device: UserAgentAudioDevice) {
+    private func updateOutputDeviceMap(with device: UserAgentAudioDevice) {
         if device.hasOutputs {
             outputMap[device.name] = device
         }

@@ -29,7 +29,7 @@ final class DefaultRingtonePlaybackUseCaseTests: XCTestCase {
         super.setUp()
         ringtone = RingtoneSpy()
         factory = RingtoneFactorySpy()
-        factory.stubWith(ringtone)
+        factory.stub(with: ringtone)
         sut = DefaultRingtonePlaybackUseCase(factory: factory)
     }
 
@@ -49,14 +49,14 @@ final class DefaultRingtonePlaybackUseCaseTests: XCTestCase {
     func testPlayingFlagIsTrueOnStartPlaying() {
         try! sut.start()
 
-        XCTAssertTrue(sut.playing)
+        XCTAssertTrue(sut.isPlaying)
     }
 
     func testPlayingFlagIsFalseOnStopPlaying() {
         try! sut.start()
         sut.stop()
 
-        XCTAssertFalse(sut.playing)
+        XCTAssertFalse(sut.isPlaying)
     }
 
     func testInterval() {

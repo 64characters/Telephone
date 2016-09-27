@@ -19,8 +19,8 @@
 import StoreKit
 
 final class SKPaymentQueueToStoreAdapter {
-    private let queue: SKPaymentQueue
-    private let products: StoreKitProducts
+    fileprivate let queue: SKPaymentQueue
+    fileprivate let products: StoreKitProducts
 
     init(queue: SKPaymentQueue, products: StoreKitProducts) {
         self.queue = queue
@@ -29,19 +29,19 @@ final class SKPaymentQueueToStoreAdapter {
 }
 
 extension SKPaymentQueueToStoreAdapter: Store {
-    func purchase(product: Product) throws {
-        queue.addPayment(SKPayment(product: try storeKitProduct(forProduct: product)))
+    func purchase(_ product: Product) throws {
+        queue.add(SKPayment(product: try storeKitProduct(for: product)))
     }
 
     func restorePurchases() {
         queue.restoreCompletedTransactions()
     }
 
-    private func storeKitProduct(forProduct product: Product) throws -> SKProduct {
+    private func storeKitProduct(for product: Product) throws -> SKProduct {
         if let result = products[product] {
             return result
         } else {
-            throw TelephoneError.ProductToStoreKitProductMappingError
+            throw TelephoneError.productToStoreKitProductMappingError
         }
     }
 }

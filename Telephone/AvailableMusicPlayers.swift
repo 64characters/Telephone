@@ -17,14 +17,14 @@
 //
 
 final class AvailableMusicPlayers {
-    private let players: MusicPlayers
+    fileprivate let players: MusicPlayers
 
-    init() {
+    init(factory: MusicPlayerFactory) {
         var players = [MusicPlayer]()
-        if let p = AppleMusicPlayer() {
+        if let p = factory.makeAppleMusicPlayer() {
             players.append(p)
         }
-        if let p = SpotifyMusicPlayer() {
+        if let p = factory.makeSpotifyMusicPlayer() {
             players.append(p)
         }
         self.players = MusicPlayers(players: players)
