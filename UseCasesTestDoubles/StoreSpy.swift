@@ -23,7 +23,7 @@ public final class StoreSpy {
     public fileprivate(set) var didCallRestorePurchases = false
 
     public init() {
-        invokedProduct = Product(identifier: "", name: "", price: NSDecimalNumber.zero, localizedPrice: "$0")
+        invokedProduct = Product(identifier: "", name: "", price: 0, localizedPrice: "$0")
     }
 }
 

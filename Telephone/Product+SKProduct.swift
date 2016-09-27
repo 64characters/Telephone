@@ -24,7 +24,7 @@ extension Product {
         self.init(
             identifier: product.productIdentifier,
             name: name,
-            price: product.price,
+            price: product.price as Decimal,
             localizedPrice: localized(product.price, formatter: formatter)
         )
     }

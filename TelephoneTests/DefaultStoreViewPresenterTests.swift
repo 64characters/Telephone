@@ -45,9 +45,9 @@ final class DefaultStoreViewPresenterTests: XCTestCase {
     // MARK: - Fetch
 
     func testShowsProductsSortedByPriceOnShowProducts() {
-        let product1 = Product(identifier: "123", name: "abc", price: NSDecimalNumber(string: "3"), localizedPrice: "$3")
-        let product2 = Product(identifier: "456", name: "def", price: NSDecimalNumber(string: "1"), localizedPrice: "$1")
-        let product3 = Product(identifier: "789", name: "ghi", price: NSDecimalNumber(string: "2"), localizedPrice: "$2")
+        let product1 = Product(identifier: "123", name: "abc", price: 3, localizedPrice: "$3")
+        let product2 = Product(identifier: "456", name: "def", price: 1, localizedPrice: "$1")
+        let product3 = Product(identifier: "789", name: "ghi", price: 2, localizedPrice: "$2")
 
         sut.show([product1, product2, product3])
 

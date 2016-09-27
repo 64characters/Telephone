@@ -25,18 +25,8 @@ final class AsyncProductsFake {
 
     init(target: ProductsEventTarget) {
         products = [
-            "123": Product(
-                identifier: "123",
-                name: "1 Month",
-                price: NSDecimalNumber(mantissa: 99, exponent: -2, isNegative: false),
-                localizedPrice: "$0.99"
-            ),
-            "456": Product(
-                identifier: "456",
-                name: "12 Months",
-                price: NSDecimalNumber(mantissa: 1099, exponent: -2, isNegative: false),
-                localizedPrice: "$10.99"
-            )
+            "123": Product(identifier: "123", name: "1 Month", price: 0.99, localizedPrice: "$0.99"),
+            "456": Product(identifier: "456", name: "12 Months", price: 10.99, localizedPrice: "$10.99")
         ]
         self.target = target
     }

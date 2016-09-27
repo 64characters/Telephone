@@ -72,7 +72,7 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
 }
 
 private func hasLowerPrice(_ lhs: Product, _ rhs: Product) -> Bool {
-    return lhs.price.compare(rhs.price) == .orderedAscending
+    return lhs.price < rhs.price
 }
 
 private func productsFetchError(error: String) -> String {
