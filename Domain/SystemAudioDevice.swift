@@ -22,7 +22,7 @@ public protocol SystemAudioDevice {
     var name: String { get }
     var inputs: Int { get }
     var outputs: Int { get }
-    var builtIn: Bool { get }
+    var isBuiltIn: Bool { get }
     var isNil: Bool { get }
 }
 
@@ -35,11 +35,11 @@ public extension SystemAudioDevice {
         return outputs > 0
     }
 
-    public var builtInInput: Bool {
-        return builtIn && hasInputs
+    public var isBuiltInInput: Bool {
+        return isBuiltIn && hasInputs
     }
 
-    public var builtInOutput: Bool {
-        return builtIn && hasOutputs
+    public var isBuiltInOutput: Bool {
+        return isBuiltIn && hasOutputs
     }
 }

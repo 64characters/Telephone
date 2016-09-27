@@ -20,7 +20,7 @@ public final class ConditionalRingtonePlaybackUseCase: NSObject {
     fileprivate let origin: RingtonePlaybackUseCase
     fileprivate let delegate: ConditionalRingtonePlaybackUseCaseDelegate
 
-    public var playing: Bool { return origin.playing }
+    public var isPlaying: Bool { return origin.isPlaying }
 
     public init(origin: RingtonePlaybackUseCase, delegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         self.origin = origin

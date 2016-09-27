@@ -38,6 +38,6 @@ extension FirstSystemAudioDevice: SystemAudioDevice {
     var name: String { return device.name }
     var inputs: Int { return device.inputs }
     var outputs: Int { return device.outputs }
-    var builtIn: Bool { return device.builtIn }
+    var isBuiltIn: Bool { return device.isBuiltIn }
     var isNil: Bool { return device.isNil }
 }

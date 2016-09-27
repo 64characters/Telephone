@@ -49,14 +49,14 @@ final class DefaultRingtonePlaybackUseCaseTests: XCTestCase {
     func testPlayingFlagIsTrueOnStartPlaying() {
         try! sut.start()
 
-        XCTAssertTrue(sut.playing)
+        XCTAssertTrue(sut.isPlaying)
     }
 
     func testPlayingFlagIsFalseOnStopPlaying() {
         try! sut.start()
         sut.stop()
 
-        XCTAssertFalse(sut.playing)
+        XCTAssertFalse(sut.isPlaying)
     }
 
     func testInterval() {

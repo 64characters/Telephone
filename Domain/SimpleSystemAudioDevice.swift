@@ -22,15 +22,15 @@ public struct SimpleSystemAudioDevice: SystemAudioDevice {
     public let name: String
     public let inputs: Int
     public let outputs: Int
-    public let builtIn: Bool
+    public let isBuiltIn: Bool
     public let isNil: Bool = false
 
-    public init(identifier: Int, uniqueIdentifier: String, name: String, inputs: Int, outputs: Int, builtIn: Bool) {
+    public init(identifier: Int, uniqueIdentifier: String, name: String, inputs: Int, outputs: Int, isBuiltIn: Bool) {
         self.identifier = identifier
         self.uniqueIdentifier = uniqueIdentifier
         self.name = name
         self.inputs = inputs
         self.outputs = outputs
-        self.builtIn = builtIn
+        self.isBuiltIn = isBuiltIn
     }
 }

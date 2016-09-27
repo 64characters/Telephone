@@ -33,7 +33,7 @@ private func device(withID deviceID: Int) throws -> SystemAudioDevice {
         name: try name(forDeviceWithID: deviceID),
         inputs: try inputCount(forDeviceWithID: deviceID),
         outputs: try outputCount(forDeviceWithID: deviceID),
-        builtIn: try isBuiltIn(forDeviceWithID: deviceID)
+        isBuiltIn: try isBuiltIn(forDeviceWithID: deviceID)
     )
 }
 

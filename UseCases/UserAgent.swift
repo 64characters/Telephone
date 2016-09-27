@@ -19,7 +19,7 @@
 import Foundation
 
 @objc public protocol UserAgent {
-    var started: Bool { @objc(isStarted) get }
+    var isStarted: Bool { get }
     var hasActiveCalls: Bool { get }
     func audioDevices() throws -> [UserAgentAudioDevice]
     func updateAudioDevices()

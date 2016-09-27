@@ -20,7 +20,7 @@ import Foundation
 import UseCases
 
 public final class UserAgentSpy: NSObject {
-    @objc(isStarted) public var started = false
+    public var isStarted = false
     public fileprivate(set) var hasActiveCalls = false
 
     public fileprivate(set) var didCallAudioDevices = false
