@@ -21,7 +21,7 @@
 #import "AKActiveCallView.h"
 
 
-@class AKResponsiveProgressIndicator, CallController;
+@class CallController;
 
 @interface ActiveCallViewController : NSViewController <AKActiveCallViewDelegate>
 
@@ -34,22 +34,12 @@
 // DTMF digits entered by a user.
 @property(nonatomic, strong) NSMutableString *enteredDTMF;
 
-// Tracking area to monitor a mouse hovering call progress indicator. When mouse enters that area, progress indicator
-// is being replaced with hang-up button.
-@property(nonatomic, strong) NSTrackingArea *callProgressIndicatorTrackingArea;
-
 
 // Display Name field outlet.
 @property(nonatomic, weak) IBOutlet NSTextField *displayedNameField;
 
 // Status field outlet.
 @property(nonatomic, weak) IBOutlet NSTextField *statusField;
-
-// Call progress indicator outlet.
-@property(nonatomic, strong) IBOutlet AKResponsiveProgressIndicator *callProgressIndicator;
-
-// Hang-up button outlet.
-@property(nonatomic, strong) IBOutlet NSButton *hangUpButton;
 
 
 // Designated initializer.
@@ -78,5 +68,11 @@
 
 // Method to be called when call timer fires.
 - (void)callTimerTick:(NSTimer *)theTimer;
+
+- (void)showProgress;
+- (void)showHangUp;
+
+- (void)allowHangUp;
+- (void)disallowHangUp;
 
 @end

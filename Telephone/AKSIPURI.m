@@ -99,7 +99,7 @@
     }
     
     pjsip_name_addr *nameAddr;
-    nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKSIPUserAgent sharedUserAgent] pjPool],
+    nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKSIPUserAgent sharedUserAgent] pool],
                                                   (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
                                                   [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
     if (nameAddr == NULL) {

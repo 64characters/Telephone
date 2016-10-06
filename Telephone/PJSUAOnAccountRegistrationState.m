@@ -23,7 +23,7 @@
 
 void PJSUAOnAccountRegistrationState(pjsua_acc_id accountID) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
+        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountWithIdentifier:accountID];
         [account.delegate SIPAccountRegistrationDidChange:account];
     });
 }

@@ -23,7 +23,7 @@
 #import "CallControllerDelegate.h"
 
 
-@class AccountController, AKSIPCall, AKResponsiveProgressIndicator, AKSIPURI, AKSIPUserAgent;
+@class AccountController, AKSIPCall, AKSIPURI, AKSIPUserAgent;
 @class IncomingCallViewController, ActiveCallViewController;
 @class EndedCallViewController, CallTransferController;
 @protocol MusicPlayer, RingtonePlaybackUseCase;
@@ -124,7 +124,7 @@
 // Method to be called when intermediate call status timer fires.
 - (void)intermediateStatusTimerTick:(NSTimer *)theTimer;
 
-- (void)showActiveCallView;
+- (void)prepareForCall;
 - (void)showEndedCallView;
 - (void)showIncomingCallView;
 

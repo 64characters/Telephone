@@ -60,6 +60,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 @interface AKSIPUserAgent : NSObject {
   @private
     AKSIPUserAgentCallData _callData[PJSUA_MAX_CALLS];
+    pj_thread_desc _descriptor;
 }
 
 // The receiver's delegate.
@@ -77,9 +78,6 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // NAT type that has been detected by the receiver.
 @property(nonatomic, assign) AKNATType detectedNATType;
 
-// A lock that is used to start and stop the receiver.
-@property(strong) NSLock *pjsuaLock;
-
 // The number of acitve calls controlled by the receiver.
 @property(nonatomic, readonly, assign) NSUInteger activeCallsCount;
 
@@ -87,7 +85,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 @property(nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;
 
 // A pool used by the underlying PJSUA library of the receiver.
-@property(readonly, assign) pj_pool_t *pjPool;
+@property(readonly, assign) pj_pool_t *pool;
 
 // An array of DNS servers to use by the receiver. If set, DNS SRV will be
 // enabled. Only first kAKSIPUserAgentNameserversMax are used.
@@ -162,10 +160,10 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 - (BOOL)removeAccount:(AKSIPAccount *)account;
 
 // Returns a SIP account with a given identifier.
-- (AKSIPAccount *)accountByIdentifier:(NSInteger)anIdentifier;
+- (AKSIPAccount *)accountWithIdentifier:(NSInteger)identifier;
 
 // Returns a SIP call with a given identifier.
-- (AKSIPCall *)SIPCallByIdentifier:(NSInteger)anIdentifier;
+- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
 
 // Hangs up all calls controlled by the receiver.
 - (void)hangUpAllCalls;

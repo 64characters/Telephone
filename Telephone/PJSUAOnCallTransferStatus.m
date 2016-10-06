@@ -43,7 +43,7 @@ void PJSUAOnCallTransferStatus(pjsua_call_id callID,
 
     NSString *statusTextString = [NSString stringWithPJString:*statusText];
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] SIPCallByIdentifier:callID];
+        AKSIPCall *call = [[AKSIPUserAgent sharedUserAgent] callWithIdentifier:callID];
 
         [call setTransferStatus:statusCode];
         [call setTransferStatusText:statusTextString];

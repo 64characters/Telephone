@@ -26,11 +26,6 @@
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
-// Notifications.
-//
-// Posted when account is about to make call.
-extern NSString * const AKSIPAccountWillMakeCallNotification;
-
 @class AKSIPCall, AKSIPURI;
 
 // A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
@@ -110,6 +105,8 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
 // Calls that belong to the receiver.
 @property(nonatomic, readonly, strong) NSMutableArray *calls;
 
+@property(nonatomic) NSThread *thread;
+
 // Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
 // user name.
 + (instancetype)SIPAccountWithFullName:(NSString *)aFullName
@@ -127,6 +124,8 @@ extern NSString * const AKSIPAccountWillMakeCallNotification;
                         username:(NSString *)aUsername;
 
 // Makes a call to a given destination URI.
-- (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI;
+- (void)makeCallTo:(AKSIPURI *)destination completion:(void (^)(AKSIPCall *))completion;
+
+- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
 
 @end

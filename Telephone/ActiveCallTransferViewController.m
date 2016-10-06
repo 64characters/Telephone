@@ -27,6 +27,9 @@
 
 @property(nonatomic, getter=isWaitingForHold) BOOL waitingForHold;
 
+@property(nonatomic, weak) IBOutlet NSButton *cancelButton;
+@property(nonatomic, weak) IBOutlet NSButton *transferButton;
+
 @end
 
 @implementation ActiveCallTransferViewController
@@ -48,7 +51,7 @@
         [(CallTransferController *)self.callController transferCall];
     } else {
         [self.callController toggleCallHold];
-        self.transferButton.enabled = NO;
+        [self disallowTransfer];
         self.waitingForHold = YES;
     }
 }
@@ -60,8 +63,26 @@
     }
 }
 
+- (void)allowTransfer {
+    self.transferButton.enabled = YES;
+}
+
+- (void)disallowTransfer {
+    self.transferButton.enabled = NO;
+}
+
 - (IBAction)showCallTransferSheet:(id)sender {
     // Do nothing.
+}
+
+- (void)allowHangUp {
+    [super allowHangUp];
+    self.cancelButton.enabled = YES;
+}
+
+- (void)disallowHangUp {
+    [super disallowHangUp];
+    self.cancelButton.enabled = NO;
 }
 
 

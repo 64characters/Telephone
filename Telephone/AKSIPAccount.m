@@ -27,7 +27,17 @@
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
-NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCall";
+@interface AKSIPCallParameters : NSObject
+
+@property(nonatomic, readonly) AKSIPURI *destination;
+@property(nonatomic, readonly) pjsua_acc_id account;
+@property(nonatomic, readonly) void (^ _Nonnull completion)(BOOL, pjsua_call_id);
+
+- (instancetype)initWithDestination:(AKSIPURI *)destination
+                            account:(pjsua_acc_id)account
+                         completion:(void (^ _Nonnull)(BOOL, pjsua_call_id))completion;
+
+@end
 
 @implementation AKSIPAccount
 
@@ -228,23 +238,51 @@ NSString * const AKSIPAccountWillMakeCallNotification = @"AKSIPAccountWillMakeCa
     return [self SIPAddress];
 }
 
-- (AKSIPCall *)makeCallTo:(AKSIPURI *)destinationURI {
-    [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPAccountWillMakeCallNotification
-                                                        object:self];
-    
-    pjsua_call_id callIdentifier;
-    pj_str_t uri = [[destinationURI description] pjString];
-    
-    pj_status_t status = pjsua_call_make_call((pjsua_acc_id)[self identifier], &uri, 0, NULL, NULL, &callIdentifier);
-    AKSIPCall *call = nil;
-    if (status == PJ_SUCCESS) {
-        call = [[AKSIPCall alloc] initWithSIPAccount:self identifier:callIdentifier];
-        [self.calls addObject:call];
-    } else {
-        NSLog(@"Error making call to %@ via account %@", destinationURI, self);
+- (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {
+    void (^onCallMakeCompletion)(BOOL, pjsua_call_id) = ^(BOOL success, pjsua_call_id callID) {
+        if (success) {
+            completion([self callWithIdentifier:callID]);
+        } else {
+            NSLog(@"Error making call to %@ via account %@", destination, self);
+            completion(nil);
+        }
+    };
+    AKSIPCallParameters *parameters = [[AKSIPCallParameters alloc] initWithDestination:destination
+                                                                               account:(pjsua_acc_id)self.identifier
+                                                                            completion:onCallMakeCompletion];
+    assert(self.thread);
+    [self performSelector:@selector(thread_makeCallWithParameters:) onThread:self.thread withObject:parameters waitUntilDone:NO];
+}
+
+- (void)thread_makeCallWithParameters:(AKSIPCallParameters *)parameters {
+    pj_str_t uri = parameters.destination.description.pjString;
+    pjsua_call_id callID = PJSUA_INVALID_ID;
+    BOOL success = pjsua_call_make_call(parameters.account, &uri, 0, NULL, NULL, &callID) == PJ_SUCCESS;
+    dispatch_async(dispatch_get_main_queue(), ^{ parameters.completion(success, callID); });
+}
+
+- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier {
+    for (AKSIPCall *call in self.calls) {
+        if (call.identifier == identifier) {
+            return call;
+        }
     }
-    
-    return call;
+    return nil;
+}
+
+@end
+
+@implementation AKSIPCallParameters
+
+- (instancetype)initWithDestination:(AKSIPURI *)destination
+                            account:(pjsua_acc_id)account
+                         completion:(void (^ _Nonnull)(BOOL, pjsua_call_id))completion {
+    if ((self = [super init])) {
+        _destination = destination;
+        _account = account;
+        _completion = completion;
+    }
+    return self;
 }
 
 @end

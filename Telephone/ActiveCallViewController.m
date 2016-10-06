@@ -19,13 +19,22 @@
 #import "ActiveCallViewController.h"
 
 #import "AKNSWindow+Resizing.h"
-#import "AKResponsiveProgressIndicator.h"
 #import "AKSIPCall.h"
 
 #import "CallController.h"
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 
+
+@interface ActiveCallViewController ()
+
+@property(nonatomic, getter=isShowingProgress) BOOL showingProgress;
+@property(nonatomic) NSTrackingArea *trackingArea;
+
+@property(nonatomic) IBOutlet NSProgressIndicator *callProgressIndicator;
+@property(nonatomic) IBOutlet NSButton *hangUpButton;
+
+@end
 
 @implementation ActiveCallViewController
 
@@ -53,31 +62,7 @@
 - (void)awakeFromNib {
     [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
     [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-    [[self callProgressIndicator] startAnimation:self];
-    
-    // Set hang-up button origin manually.
-    NSRect hangUpButtonFrame = [[self hangUpButton] frame];
-    NSRect progressIndicatorFrame = [[self callProgressIndicator] frame];
-    hangUpButtonFrame.origin.x = progressIndicatorFrame.origin.x + 1;
-    hangUpButtonFrame.origin.y = progressIndicatorFrame.origin.y + 1;
-    [[self hangUpButton] setFrame:hangUpButtonFrame];
-    
-    // Add mouse tracking area to switch between call progress indicator and a hang-up button in the active call view.
-    NSRect trackingRect = [[self callProgressIndicator] frame];
-    
-    NSUInteger trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways;
-    
-    NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:trackingRect
-                                                                 options:trackingOptions
-                                                                   owner:self
-                                                                userInfo:nil];
-    
-    [[self view] addTrackingArea:trackingArea];
-    [self setCallProgressIndicatorTrackingArea:trackingArea];
-    
-    // Add support for clicking call progress indicator to hang-up.
-    [[self callProgressIndicator] setTarget:self];
-    [[self callProgressIndicator] setAction:@selector(hangUpCall:)];
+    self.hangUpButton.frame = self.callProgressIndicator.frame;
 }
 
 - (IBAction)hangUpCall:(id)sender {
@@ -136,18 +121,67 @@
     }
 }
 
+- (void)showProgress {
+    if (!self.isShowingProgress) {
+        [self.callProgressIndicator startAnimation:self];
+        [self addTrackingArea];
+        self.showingProgress = YES;
+    }
+    [self showCallProgressIndicator];
+}
+
+- (void)showHangUp {
+    if (self.isShowingProgress) {
+        [self.callProgressIndicator stopAnimation:nil];
+        [self removeTrackingArea];
+        self.showingProgress = NO;
+    }
+    [self showHangUpButton];
+}
+
+- (void)showCallProgressIndicator {
+    if (self.callProgressIndicator.superview == nil) {
+        [self.view replaceSubview:self.hangUpButton with:self.callProgressIndicator];
+    }
+}
+
+- (void)showHangUpButton {
+    if (self.hangUpButton.superview == nil) {
+        [self.view replaceSubview:self.callProgressIndicator with:self.hangUpButton];
+    }
+}
+
+- (void)addTrackingArea {
+    self.trackingArea = [[NSTrackingArea alloc] initWithRect:self.callProgressIndicator.frame
+                                                     options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways)
+                                                       owner:self
+                                                    userInfo:nil];
+    [self.view addTrackingArea:self.trackingArea];
+}
+
+- (void)removeTrackingArea {
+    [self.view removeTrackingArea:self.trackingArea];
+    self.trackingArea = nil;
+}
+
+- (void)allowHangUp {
+    self.hangUpButton.enabled = YES;
+}
+
+- (void)disallowHangUp {
+    self.hangUpButton.enabled = NO;
+}
+
 
 #pragma mark -
 #pragma mark NSResponder overrides
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-    [[self view] replaceSubview:[self callProgressIndicator]
-                           with:[self hangUpButton]];
+    [self showHangUpButton];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-    [[self view] replaceSubview:[self hangUpButton]
-                           with:[self callProgressIndicator]];
+    [self showCallProgressIndicator];
 }
 
 
@@ -234,6 +268,8 @@
         
     } else if ([menuItem action] == @selector(hangUpCall:)) {
         [menuItem setTitle:NSLocalizedString(@"End Call", @"End Call. Call menu item.")];
+
+        return self.hangUpButton.isEnabled;
     }
     
     return YES;
