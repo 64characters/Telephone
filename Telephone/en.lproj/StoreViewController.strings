@@ -11,8 +11,8 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "NEN-L8-9I9"; */
 "NEN-L8-9I9.title" = "Table View Cell";
 
-/* Class = "NSTextFieldCell"; title = "Telephone is a free and open souce app that is supported by people like you. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be canceled almost any time based on Mac App Store subscription rules."; ObjectID = "W5b-g9-V4l"; */
-"W5b-g9-V4l.title" = "Telephone is a free and open souce app that is supported by people like you. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be canceled almost any time based on Mac App Store subscription rules.";
+/* Class = "NSTextFieldCell"; title = "Telephone is a free and open souce app that is supported only by its users. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be canceled almost any time based on Mac App Store subscription rules."; ObjectID = "W5b-g9-V4l"; */
+"W5b-g9-V4l.title" = "Telephone is a free and open souce app that is supported only by its users. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be canceled almost any time based on Mac App Store subscription rules.";
 
 /* Class = "NSTextFieldCell"; title = "Your subscription ends on "; ObjectID = "Z9K-5X-9uS"; */
 "Z9K-5X-9uS.title" = "Your subscription ends on ";
