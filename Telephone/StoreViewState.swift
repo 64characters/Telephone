@@ -30,9 +30,11 @@
 // Fetched                  ViewDidMakePurchase             Fetched                  PurchaseProduct
 // Fetched                  DidStartPurchasing              Purchasing               ShowPurchaseProgress
 // Fetched                  ViewDidStartPurchaseRestoration Restoring                RestorePurchases
+// Fetched                  ViewDidStartReceiptRefresh      Refreshing               RefreshReceipt
 // FetchError               ViewShouldReloadData            Checking                 CheckPurchase
 // FetchError               ViewDidStartProductFetch        Fetching                 FetchProducts
 // FetchError               ViewDidStartPurchaseRestoration RestoringAfterFetchError RestorePurchases
+// FetchError               ViewDidStartReceiptRefresh      Refreshing               RefreshReceipt
 //
 // Purchasing               DidPurchase                     CheckingAfterFetch       CheckPurchase
 // Purchasing               DidFailPurchasingWithError      Fetched                  ShowCachedProductsAndPurchaseError
@@ -46,6 +48,8 @@
 // RestoringAfterFetchError DidRestorePurchases             Checking                 CheckPurchase
 // RestoringAfterFetchError DidFailRestoringPurchases       FetchError               ShowCachedFetchErrorAndRestoreError
 // RestoringAfterFetchError DidCancelRestoringPurchases     FetchError               ShowCachedFetchError
+//
+// Refreshing               N/A                             N/A                      N/A
 
 
 class StoreViewState {
@@ -94,6 +98,10 @@ class StoreViewState {
     }
 
     func viewDidStartPurchaseRestoration(machine: StoreViewStateMachine)  {
+        print("\(#function) is not supported for \(self)")
+    }
+
+    func viewDidStartReceiptRefresh(machine: StoreViewStateMachine) {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -157,6 +165,11 @@ final class StoreViewStateFetched: StoreViewState {
         machine.changeState(StoreViewStateRestoring())
         machine.restorePurchases()
     }
+
+    override func viewDidStartReceiptRefresh(machine: StoreViewStateMachine) {
+        machine.changeState(StoreViewStateRefreshing())
+        machine.refreshReceipt()
+    }
 }
 
 final class StoreViewStateFetchError: StoreViewState {
@@ -173,6 +186,11 @@ final class StoreViewStateFetchError: StoreViewState {
     override func viewDidStartPurchaseRestoration(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateRestoringAfterFetchError())
         machine.restorePurchases()
+    }
+
+    override func viewDidStartReceiptRefresh(machine: StoreViewStateMachine) {
+        machine.changeState(StoreViewStateRefreshing())
+        machine.refreshReceipt()
     }
 }
 
@@ -238,3 +256,5 @@ final class StoreViewStateRestoringAfterFetchError: StoreViewState {
         machine.showCachedFetchError()
     }
 }
+
+final class StoreViewStateRefreshing: StoreViewState {}

@@ -35,6 +35,7 @@ final class StoreViewController: NSViewController {
     @IBOutlet fileprivate var progressView: NSView!
     @IBOutlet fileprivate var purchasedView: NSView!
     @IBOutlet fileprivate var restorePurchasesButton: NSButton!
+    @IBOutlet fileprivate var refreshReceiptButton: NSButton!
     @IBOutlet fileprivate var subscriptionsButton: NSButton!
 
     @IBOutlet fileprivate weak var productsContentView: NSView!
@@ -61,7 +62,7 @@ final class StoreViewController: NSViewController {
         self.target = target
     }
 
-    @IBAction func fetchProducts(_ sender: Any) {
+    @IBAction func fetchProducts(_ sender: NSButton) {
         target.viewDidStartProductFetch()
     }
 
@@ -69,11 +70,19 @@ final class StoreViewController: NSViewController {
         target.viewDidMakePurchase(product: products[productsTableView.row(for: sender)])
     }
 
-    @IBAction func restorePurchases(_ sender: Any) {
+    @IBAction func restorePurchases(_ sender: NSButton) {
         target.viewDidStartPurchaseRestoration()
     }
 
-    @IBAction func manageSubscriptions(_ sender: Any) {
+    @IBAction func refreshReceipt(_ sender: NSButton) {
+        makeReceiptRefreshAlert().beginSheetModal(for: view.window!) { response in
+            if response == NSAlertFirstButtonReturn {
+                self.target.viewDidStartReceiptRefresh()
+            }
+        }
+    }
+
+    @IBAction func manageSubscriptions(_ sender: NSButton) {
         workspace.open(URL(string: "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions")!)
     }
 }
@@ -102,7 +111,7 @@ extension StoreViewController: StoreView {
     }
 
     func showPurchaseError(_ error: String) {
-        purchaseErrorAlert(text: error).beginSheetModal(for: view.window!, completionHandler: nil)
+        makePurchaseErrorAlert(text: error).beginSheetModal(for: view.window!, completionHandler: nil)
     }
 
     func showPurchaseRestorationProgress() {
@@ -110,17 +119,20 @@ extension StoreViewController: StoreView {
     }
 
     func showPurchaseRestorationError(_ error: String) {
-        restorationErrorAlert(text: error).beginSheetModal(for: view.window!, completionHandler: nil)
+        makeRestorationErrorAlert(text: error).beginSheetModal(for: view.window!, completionHandler: nil)
     }
 
     func disablePurchaseRestoration() {
         restorePurchasesButton.isEnabled = false
+        refreshReceiptButton.isEnabled = false;
     }
 
     func enablePurchaseRestoration() {
         subscriptionsButton.isHidden = true
         restorePurchasesButton.isHidden = false
+        refreshReceiptButton.isHidden = false
         restorePurchasesButton.isEnabled = true
+        refreshReceiptButton.isEnabled = true
     }
 
     func showPurchased(until date: Date) {
@@ -130,6 +142,7 @@ extension StoreViewController: StoreView {
 
     func showSubscriptionManagement() {
         restorePurchasesButton.isHidden = true
+        refreshReceiptButton.isHidden = true
         subscriptionsButton.isHidden = false
     }
 
@@ -146,17 +159,32 @@ extension StoreViewController: StoreView {
 
 extension StoreViewController: NSTableViewDelegate {}
 
-private func purchaseErrorAlert(text: String) -> NSAlert {
-    return alert(message: NSLocalizedString("Could not make purchase.", comment: "Product purchase error."), text: text)
+private func makePurchaseErrorAlert(text: String) -> NSAlert {
+    return makeAlert(message: NSLocalizedString("Could not make purchase.", comment: "Product purchase error."), text: text)
 }
 
-private func restorationErrorAlert(text: String) -> NSAlert {
-    return alert(message: NSLocalizedString("Could not restore purchases.", comment: "Purchase restoration error."), text: text)
+private func makeRestorationErrorAlert(text: String) -> NSAlert {
+    return makeAlert(message: NSLocalizedString("Could not restore purchases.", comment: "Purchase restoration error."), text: text)
 }
 
-private func alert(message: String, text: String) -> NSAlert {
+private func makeAlert(message: String, text: String) -> NSAlert {
     let result = NSAlert()
     result.messageText = message
     result.informativeText = text
+    return result
+}
+
+private func makeReceiptRefreshAlert() -> NSAlert {
+    let result = NSAlert()
+    result.messageText = NSLocalizedString("Refresh receipt?", comment: "Receipt refresh alert message text.")
+    result.informativeText = NSLocalizedString(
+        "Telepohne will quit and the system will attempt to refresh the application receipt. " +
+        "After that, Telephone will be started again. " +
+        "You may be asked to enter your App Store credentials.",
+        comment: "Receipt refresh alert informative text."
+    )
+    result.addButton(withTitle: NSLocalizedString("Quit and Refresh", comment: "Receipt refresh alert button."))
+    result.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel button."))
+    result.buttons[1].keyEquivalent = "\u{1b}"
     return result
 }

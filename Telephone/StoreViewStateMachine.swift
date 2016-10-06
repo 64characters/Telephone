@@ -31,6 +31,7 @@ protocol StoreViewStateMachine: PurchaseCheckUseCaseOutput, StoreViewEventTarget
     func showCachedProductsAndPurchaseError(_ error: String)
     func showCachedProducts()
     func restorePurchases()
+    func refreshReceipt()
     func showCachedProductsAndRestoreError(_ error: String)
     func showCachedFetchErrorAndRestoreError(_ error: String)
     func showCachedFetchError()
@@ -64,6 +65,10 @@ extension StoreViewStateMachine {
 
     func viewDidStartPurchaseRestoration() {
         state.viewDidStartPurchaseRestoration(machine: self)
+    }
+
+    func viewDidStartReceiptRefresh() {
+        state.viewDidStartReceiptRefresh(machine: self)
     }
 }
 

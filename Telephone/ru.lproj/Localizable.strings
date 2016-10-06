@@ -134,6 +134,12 @@
 /* Quit button. */
 "Quit" = "Выйти";
 
+/* Receipt refresh alert button. */
+"Quit and Refresh" = "Выйти и обновить";
+
+/* Receipt refresh alert message text. */
+"Refresh receipt?" = "Обновить электронный чек?";
+
 /* Resume. Call menu item. */
 "Resume" = "Продолжить разговор";
 
@@ -155,6 +161,9 @@
 /* Registrar authentication failed. */
 "Telephone was unable to login to %@. Change user name or password and try again." = "Телефон не смог зарегистрироваться на сервере %@. Проверьте имя пользователя и пароль.";
 
+/* Receipt refresh alert informative text. */
+"Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials." = "Работа Телефона будет завершена, и система предпримет попытку обновить электронный чек приложения. После этого Телефон будет снова запущен. В процессе система может вас попросить залогиниться в Аппстор.";
+
 /* Error description. */
 "The error was: “%d %@”." = "%2$@, ошибка %1$d.";
 
@@ -166,6 +175,9 @@
 
 /* Account registration Unavailable menu item. */
 "Unavailable" = "Недоступен";
+
+/* Audio device name is unknown. */
+"Unknown device" = "Неизвестное устройство";
 
 /* Unknown error. */
 "Unknown error" = "Неизвестная ошибка";

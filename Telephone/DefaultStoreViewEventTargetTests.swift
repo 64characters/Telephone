@@ -29,7 +29,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let factory = StoreUseCaseFactorySpy()
         factory.stub(withPurchaseCheck: check)
         let sut = DefaultStoreViewEventTarget(
-            factory: factory, purchaseRestoration: UseCaseSpy(), presenter: StoreViewPresenterSpy()
+            factory: factory, purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: StoreViewPresenterSpy()
         )
 
         sut.checkPurchase()
@@ -41,7 +41,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let factory = StoreUseCaseFactorySpy()
         factory.stub(withPurchaseCheck: UseCaseSpy())
         let presenter = StoreViewPresenterSpy()
-        let sut = DefaultStoreViewEventTarget(factory: factory, purchaseRestoration: UseCaseSpy(), presenter: presenter)
+        let sut = DefaultStoreViewEventTarget(factory: factory, purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter)
 
         sut.checkPurchase()
 
@@ -55,7 +55,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let factory = StoreUseCaseFactorySpy()
         factory.stub(withProductsFetch: useCase)
         let sut = DefaultStoreViewEventTarget(
-            factory: factory, purchaseRestoration: UseCaseSpy(), presenter: StoreViewPresenterSpy()
+            factory: factory, purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: StoreViewPresenterSpy()
         )
 
         sut.fetchProducts()
@@ -67,7 +67,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let factory = StoreUseCaseFactorySpy()
         factory.stub(withProductsFetch: UseCaseSpy())
         let presenter = StoreViewPresenterSpy()
-        let sut = DefaultStoreViewEventTarget(factory: factory, purchaseRestoration: UseCaseSpy(), presenter: presenter)
+        let sut = DefaultStoreViewEventTarget(factory: factory, purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter)
 
         sut.fetchProducts()
 
@@ -77,7 +77,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsOnShowProducts() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let products = SimpleProductsFake().all
 
@@ -89,7 +89,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsProductsFetchErrorOnShowProductsFetchError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let error = "any"
 
@@ -105,7 +105,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         let purchase = ThrowingUseCaseSpy()
         factory.stub(withProductPurchase: purchase)
         let sut = DefaultStoreViewEventTarget(
-            factory: factory, purchaseRestoration: UseCaseSpy(), presenter: StoreViewPresenterSpy()
+            factory: factory, purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: StoreViewPresenterSpy()
         )
         let identifier = "any"
 
@@ -118,7 +118,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsPurchaseProgressOnShowPurchaseProgress() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
 
         sut.showPurchaseProgress()
@@ -129,7 +129,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsCachedProductsOnShowPurchaseError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let products = SimpleProductsFake().all
         sut.show(products)
@@ -143,7 +143,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsPurchaseErrorOnShowPurchaseError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let error = "any"
 
@@ -157,7 +157,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testExecutesPurchaseRestorationOnRestorePurchases() {
         let restoration = UseCaseSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: restoration, presenter: StoreViewPresenterSpy()
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: restoration, receiptRefresh: UseCaseSpy(), presenter: StoreViewPresenterSpy()
         )
 
         sut.restorePurchases()
@@ -168,7 +168,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsPurchaseRestorationProgressOnRestorePurchases() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
 
         sut.restorePurchases()
@@ -179,7 +179,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsCachedProductsOnShowCachedProductsAndRestoreError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let products = SimpleProductsFake().all
         sut.show(products)
@@ -193,7 +193,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsPurchaseRestorationErrorOnShowCachedProductsAndRestoreError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let error = "any"
 
@@ -205,7 +205,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsCachedFetchErrorOnShowCachedFetchErrorAndRestoreError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let error = "any1"
         sut.showProductsFetchError(error)
@@ -219,7 +219,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsPurchaseRestorationErrorOnShowCachedFetchErrorAndRestoreError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let error = "any"
 
@@ -231,7 +231,7 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
     func testShowsCahcedFetchErrorOnShowCachedFetchError() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let error = "any1"
         sut.showProductsFetchError(error)
@@ -242,12 +242,25 @@ final class DefaultStoreViewEventTargetTests: XCTestCase {
         XCTAssertEqual(presenter.showProductsFetchErrorCallCount, 2)
     }
 
+    // MARK: - Receipt refresh
+
+    func testExecutesReceiptRefreshOnRefreshReceipt() {
+        let refresh = UseCaseSpy()
+        let sut = DefaultStoreViewEventTarget(
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: refresh, presenter: StoreViewPresenterSpy()
+        )
+
+        sut.refreshReceipt()
+
+        XCTAssertTrue(refresh.didCallExecute)
+    }
+
     // MARK: - Purchased
 
     func testShowsPurchasedOnShowThankYou() {
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(
-            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), presenter: presenter
+            factory: StoreUseCaseFactorySpy(), purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter
         )
         let date = Date()
 
