@@ -39,6 +39,7 @@ Create `pjlib/include/pj/config_site.h`:
     #define PJ_DNS_MAX_IP_IN_A_REC 32
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
+    #define PJ_GETHOSTIP_DISABLE_LOCAL_RESOLUTION 1
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
