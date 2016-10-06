@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -17,6 +17,7 @@
                 <outlet property="progressIndicator" destination="XSd-At-01E" id="vdk-e6-EDz"/>
                 <outlet property="progressView" destination="mA2-JV-Xxq" id="HMO-kP-wdU"/>
                 <outlet property="purchasedView" destination="fpC-LB-IbC" id="sIS-w1-Vd9"/>
+                <outlet property="refreshReceiptButton" destination="tFh-9Q-oFf" id="2DK-RO-xtZ"/>
                 <outlet property="restorePurchasesButton" destination="kYi-DK-7xw" id="7dh-0j-3bH"/>
                 <outlet property="subscriptionsButton" destination="Bmy-eH-1mE" id="k6J-dJ-KZZ"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -65,14 +66,28 @@ The subscription renews automatically and can be canceled almost any time based 
                         <action selector="restorePurchases:" target="-2" id="oYA-dC-C2E"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-9Q-oFf">
+                    <rect key="frame" x="14" y="13" width="47" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="Azz-yr-SIz">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent">R</string>
+                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="refreshReceipt:" target="-2" id="06t-0w-qG1"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="kYi-DK-7xw" secondAttribute="bottom" constant="20" id="1lt-2L-79e"/>
                 <constraint firstItem="kYi-DK-7xw" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="9Dq-Wz-zpm"/>
+                <constraint firstAttribute="bottom" secondItem="tFh-9Q-oFf" secondAttribute="bottom" constant="20" id="Aru-GB-p66"/>
                 <constraint firstAttribute="bottom" secondItem="Bmy-eH-1mE" secondAttribute="bottom" constant="20" id="Dqn-1J-Yva"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="top" secondItem="Kzb-yF-WhX" secondAttribute="bottom" constant="20" id="O8i-Pw-klR"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="T7R-O6-V69"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="VBJ-Zx-sII"/>
+                <constraint firstItem="tFh-9Q-oFf" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="VdK-6j-VJ6"/>
                 <constraint firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" constant="20" id="bEn-jV-5FB"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="fGU-oJ-mCd"/>
                 <constraint firstItem="Bmy-eH-1mE" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="nk3-5U-Xuq"/>
@@ -94,7 +109,7 @@ The subscription renews automatically and can be canceled almost any time based 
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="eYD-l4-AFn">
-                        <rect key="frame" x="0.0" y="0.0" width="438" height="0.0"/>
+                        <rect key="frame" x="0.0" y="0.0" width="438" height="84"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <size key="intercellSpacing" width="3" height="2"/>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -159,7 +174,6 @@ The subscription renews automatically and can be canceled almost any time based 
                         </connections>
                     </tableView>
                 </subviews>
-                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
             </clipView>
             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Yod-Ye-NDa">
                 <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
@@ -307,5 +321,6 @@ The subscription renews automatically and can be canceled almost any time based 
     </objects>
     <resources>
         <image name="NSRefreshFreestandingTemplate" width="14" height="14"/>
+        <image name="NSRefreshTemplate" width="11" height="15"/>
     </resources>
 </document>
