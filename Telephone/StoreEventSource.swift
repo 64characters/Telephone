@@ -42,6 +42,12 @@ extension StoreEventSource: SKPaymentTransactionObserver {
         }
     }
 
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        DispatchQueue.main.async {
+            self.target.didRestorePurchases()
+        }
+    }
+
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
         DispatchQueue.main.async {
             self.notifyTargetAboutFailedRestoration(error: error)
