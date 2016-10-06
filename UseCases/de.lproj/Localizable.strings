@@ -1,9 +1,9 @@
 /* No active purchase error. */
-"Receipt doesn’t contain active purchases." = "Elektronische Quittung enthält keine aktiven Käufe.";
+"Receipt doesn’t contain active purchases." = "Receipt enthält keine aktiven Käufe.";
 
 /* Receipt validation error. */
-"Receipt is invalid." = "Elektronische Quittung ist ungültig.";
+"Receipt is invalid." = "Receipt ist ungültig.";
 
 /* Receipt validation success. */
-"Receipt is valid." = "Elektronische Quittung ist gültig.";
+"Receipt is valid." = "Receipt ist gültig.";
 
