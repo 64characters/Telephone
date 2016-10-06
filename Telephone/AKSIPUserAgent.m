@@ -536,6 +536,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     }
     
     [anAccount setIdentifier:accountIdentifier];
+    [anAccount setThread:self.thread];
     
     [[self accounts] addObject:anAccount];
     
@@ -565,22 +566,21 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     return YES;
 }
 
-- (AKSIPAccount *)accountByIdentifier:(NSInteger)anIdentifier {
-    for (AKSIPAccount *anAccount in [self accounts]) {
-        if ([anAccount identifier] == anIdentifier) {
-            return anAccount;
+- (AKSIPAccount *)accountWithIdentifier:(NSInteger)identifier {
+    for (AKSIPAccount *account in self.accounts) {
+        if (account.identifier == identifier) {
+            return account;
         }
     }
     
     return nil;
 }
 
-- (AKSIPCall *)SIPCallByIdentifier:(NSInteger)anIdentifier {
-    for (AKSIPAccount *anAccount in [self accounts]) {
-        for (AKSIPCall *aCall in [anAccount calls]) {
-            if ([aCall identifier] == anIdentifier) {
-                return aCall;
-            }
+- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier {
+    for (AKSIPAccount *account in self.accounts) {
+        AKSIPCall *call = [account callWithIdentifier:identifier];
+        if (call) {
+            return call;
         }
     }
     

@@ -392,10 +392,8 @@ NSString * const kGerman = @"de";
     // Set URI for redial.
     [aCallController setRedialURI:destinationURI];
     
-    if (callTransferController == nil) {
-        [aCallController showActiveCallView];
-    }
-    
+    [aCallController prepareForCall];
+
     if ([phoneLabel length] > 0) {
         [aCallController setStatus:
          [NSString stringWithFormat:NSLocalizedString(@"calling %@...",
@@ -410,14 +408,15 @@ NSString * const kGerman = @"de";
     }
     
     // Finally, make a call.
-    AKSIPCall *aCall = [[self account] makeCallTo:destinationURI];
-    if (aCall != nil) {
-        [aCallController setCall:aCall];
-        [aCallController setCallActive:YES];
-    } else {
-        [aCallController showEndedCallView];
-        [aCallController setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
-    }
+    [self.account makeCallTo:destinationURI completion:^(AKSIPCall *call) {
+        if (call != nil) {
+            [aCallController setCall:call];
+            [aCallController setCallActive:YES];
+        } else {
+            [aCallController showEndedCallView];
+            [aCallController setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
+        }
+    }];
 }
 
 - (void)makeCallToURI:(AKSIPURI *)destinationURI phoneLabel:(NSString *)phoneLabel {

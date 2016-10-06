@@ -27,7 +27,7 @@
 void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_data *invite) {
     PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountID));
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountByIdentifier:accountID];
+        AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountWithIdentifier:accountID];
 
         // AKSIPCall object is created here when the call is incoming.
         AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callID];

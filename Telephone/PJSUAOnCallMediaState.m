@@ -48,7 +48,7 @@ static void LogCallMedia(const pjsua_call_info *callInfo) {
 
 static void CallMediaStateChanged(pjsua_call_info callInfo) {
     AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-    AKSIPCall *call = [userAgent SIPCallByIdentifier:callInfo.id];
+    AKSIPCall *call = [userAgent callWithIdentifier:callInfo.id];
     if (call == nil) {
         PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callInfo.id));
         return;

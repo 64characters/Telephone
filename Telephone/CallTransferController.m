@@ -142,6 +142,10 @@
     return _activeCallViewController;
 }
 
+- (ActiveCallTransferViewController *)activeCallTransferViewController {
+    return (ActiveCallTransferViewController *)self.activeCallViewController;
+}
+
 // Substitutes EndedCallTransferViewController.
 - (EndedCallViewController *)endedCallViewController {
     if (_endedCallViewController == nil) {
@@ -156,29 +160,23 @@
     // Do nothing.
 }
 
+- (void)prepareForCall {
+    [super prepareForCall];
+    [self.activeCallTransferViewController disallowTransfer];
+}
+
 
 #pragma mark -
 #pragma mark AKSIPCall notifications
 
-- (void)SIPCallCalling:(NSNotification *)notification {
-    [super SIPCallCalling:notification];
-    ActiveCallTransferViewController *activeCallTransferViewController
-        = (ActiveCallTransferViewController *)[self activeCallViewController];
-    [[activeCallTransferViewController transferButton] setEnabled:NO];
-}
-
 - (void)SIPCallEarly:(NSNotification *)notification {
     [super SIPCallEarly:notification];
-    ActiveCallTransferViewController *activeCallTransferViewController
-        = (ActiveCallTransferViewController *)[self activeCallViewController];
-    [[activeCallTransferViewController transferButton] setEnabled:NO];
+    [self.activeCallTransferViewController disallowTransfer];
 }
 
 - (void)SIPCallDidConfirm:(NSNotification *)notification {
     [super SIPCallDidConfirm:notification];
-    ActiveCallTransferViewController *activeCallTransferViewController
-        = (ActiveCallTransferViewController *)[self activeCallViewController];
-    [[activeCallTransferViewController transferButton] setEnabled:YES];
+    [self.activeCallTransferViewController allowTransfer];
 }
 
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
@@ -190,23 +188,17 @@
 
 - (void)SIPCallMediaDidBecomeActive:(NSNotification *)notification {
     [super SIPCallMediaDidBecomeActive:notification];
-    ActiveCallTransferViewController *activeCallTransferViewController
-        = (ActiveCallTransferViewController *)[self activeCallViewController];
-    [[activeCallTransferViewController transferButton] setEnabled:YES];
+    [self.activeCallTransferViewController allowTransfer];
 }
 
 - (void)SIPCallDidLocalHold:(NSNotification *)notification {
     [super SIPCallDidLocalHold:notification];
-    ActiveCallTransferViewController *activeCallTransferViewController
-        = (ActiveCallTransferViewController *)[self activeCallViewController];
-    [activeCallTransferViewController callDidHold];
+    [self.activeCallTransferViewController callDidHold];
 }
 
 - (void)SIPCallDidRemoteHold:(NSNotification *)notification {
     [super SIPCallDidRemoteHold:notification];
-    ActiveCallTransferViewController *activeCallTransferViewController
-        = (ActiveCallTransferViewController *)[self activeCallViewController];
-    [[activeCallTransferViewController transferButton] setEnabled:NO];
+    [self.activeCallTransferViewController disallowTransfer];
 }
 
 

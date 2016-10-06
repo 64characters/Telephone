@@ -24,13 +24,9 @@
 // An active call controller of a call transfer.
 @interface ActiveCallTransferViewController : ActiveCallViewController
 
-// Call transfer button.
-@property(nonatomic, weak) IBOutlet NSButton *transferButton;
-
-
-// Transfers a call.
-- (IBAction)transferCall:(id)sender;
-
 - (void)callDidHold;
+
+- (void)allowTransfer;
+- (void)disallowTransfer;
 
 @end

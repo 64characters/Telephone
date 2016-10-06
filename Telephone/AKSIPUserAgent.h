@@ -160,10 +160,10 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 - (BOOL)removeAccount:(AKSIPAccount *)account;
 
 // Returns a SIP account with a given identifier.
-- (AKSIPAccount *)accountByIdentifier:(NSInteger)anIdentifier;
+- (AKSIPAccount *)accountWithIdentifier:(NSInteger)identifier;
 
 // Returns a SIP call with a given identifier.
-- (AKSIPCall *)SIPCallByIdentifier:(NSInteger)anIdentifier;
+- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
 
 // Hangs up all calls controlled by the receiver.
 - (void)hangUpAllCalls;
