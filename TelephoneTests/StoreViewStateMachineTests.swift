@@ -265,6 +265,18 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "CpFSpP123SppScpPeRCpTy")
     }
 
+    func testRestorationDuringPurchase() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFailCheckingPurchase()
+        sut.didFetch([])
+        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasingProduct(withIdentifier: "123")
+        sut.didRestorePurchases()
+        sut.didCheckPurchase(expiration: Date.distantFuture)
+
+        XCTAssertEqual(actions, "CpFSpP123SppCpTy")
+    }
+
     // MARK: - Other
 
     func testShowsThankYouOnViewReloadWhenPurchased() {

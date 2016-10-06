@@ -37,6 +37,7 @@
 // Purchasing               DidPurchase                     CheckingAfterFetch       CheckPurchase
 // Purchasing               DidFailPurchasingWithError      Fetched                  ShowCachedProductsAndPurchaseError
 // Purchasing               DidCancelPurchasing             Fetched                  ShowCachedProducts
+// Purchasing               DidRestorePurchases             CheckingAfterFetch       CheckPurchase
 // Purchased                ViewShouldReloadData            Checking                 CheckPurchase
 //
 // Restoring                DidRestorePurchases             CheckingAfterFetch       CheckPurchase
@@ -189,6 +190,11 @@ final class StoreViewStatePurchasing: StoreViewState {
     override func didCancelPurchasingProducts(machine: StoreViewStateMachine) {
         machine.changeState(StoreViewStateFetched())
         machine.showCachedProducts()
+    }
+
+    override func didRestorePurchases(machine: StoreViewStateMachine) {
+        machine.changeState(StoreViewStateCheckingAfterFetch())
+        machine.checkPurchase()
     }
 }
 
