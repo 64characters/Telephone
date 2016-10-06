@@ -277,6 +277,26 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         XCTAssertEqual(actions, "CpFSpP123SppCpTy")
     }
 
+    // MARK: - Receipt refresh
+
+    func testReceiptRefreshAfterProductFetch() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFailCheckingPurchase()
+        sut.didFetch([])
+        sut.viewDidStartReceiptRefresh()
+
+        XCTAssertEqual(actions, "CpFSpRr")
+    }
+
+    func testReceiptRefreshAfterProductFetchFailure() {
+        sut.viewShouldReloadData(StoreViewDummy())
+        sut.didFailCheckingPurchase()
+        sut.didFailFetchingProducts(error: "any")
+        sut.viewDidStartReceiptRefresh()
+
+        XCTAssertEqual(actions, "CpFFeRr")
+    }
+
     // MARK: - Other
 
     func testShowsThankYouOnViewReloadWhenPurchased() {
@@ -332,6 +352,10 @@ extension StoreViewStateMachineTests {
 
     func restorePurchases() {
         actions.append("R")
+    }
+
+    func refreshReceipt() {
+        actions.append("Rr")
     }
     
     func showCachedProductsAndRestoreError(_ error: String) {

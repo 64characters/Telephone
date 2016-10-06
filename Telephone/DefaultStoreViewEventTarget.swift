@@ -24,12 +24,14 @@ final class DefaultStoreViewEventTarget {
     fileprivate var fetchError = ""
 
     fileprivate let factory: StoreUseCaseFactory
-    fileprivate var restoration: UseCase
+    fileprivate let restoration: UseCase
+    fileprivate let refresh: UseCase
     fileprivate let presenter: StoreViewPresenter
 
-    init(factory: StoreUseCaseFactory, purchaseRestoration: UseCase, presenter: StoreViewPresenter) {
+    init(factory: StoreUseCaseFactory, purchaseRestoration: UseCase, receiptRefresh: UseCase, presenter: StoreViewPresenter) {
         self.factory = factory
         self.restoration = purchaseRestoration
+        self.refresh = receiptRefresh
         self.presenter = presenter
     }
 }
@@ -83,6 +85,10 @@ extension DefaultStoreViewEventTarget: StoreViewStateMachine {
     func restorePurchases() {
         restoration.execute()
         presenter.showPurchaseRestorationProgress()
+    }
+
+    func refreshReceipt() {
+        refresh.execute()
     }
 
     func showCachedProductsAndRestoreError(_ error: String) {

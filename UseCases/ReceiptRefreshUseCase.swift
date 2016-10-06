@@ -1,5 +1,5 @@
 //
-//  NullStoreViewEventTarget.swift
+//  ReceiptRefreshUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-final class NullStoreViewEventTarget: StoreViewEventTarget {
-    func viewShouldReloadData(_ view: StoreView) {}
-    func viewDidStartProductFetch() {}
-    func viewDidMakePurchase(product: PresentationProduct) {}
-    func viewDidStartPurchaseRestoration() {}
-    func viewDidStartReceiptRefresh() {}
+public final class ReceiptRefreshUseCase {
+    public init() {}
+}
+
+extension ReceiptRefreshUseCase: UseCase {
+    public func execute() {
+        exit(173)
+    }
 }

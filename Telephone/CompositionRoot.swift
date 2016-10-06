@@ -73,6 +73,7 @@ final class CompositionRoot: NSObject {
                 targets: productsEventTargets
             ),
             purchaseRestoration: PurchaseRestorationUseCase(store: store),
+            receiptRefresh: ReceiptRefreshUseCase(),
             presenter: DefaultStoreViewPresenter(output: storeViewController)
         )
         storeViewController.updateTarget(storeViewEventTarget)

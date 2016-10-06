@@ -21,4 +21,5 @@ protocol StoreViewEventTarget {
     func viewDidStartProductFetch()
     func viewDidMakePurchase(product: PresentationProduct)
     func viewDidStartPurchaseRestoration()
+    func viewDidStartReceiptRefresh()
 }
