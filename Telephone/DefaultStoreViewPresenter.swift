@@ -33,7 +33,7 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
     }
 
     func show(_ products: [Product]) {
-        output.show(products.sorted(by: hasLowerPrice).map({PresentationProduct($0)}))
+        output.show(products.sorted().map(PresentationProduct.init))
         output.enablePurchaseRestoration()
     }
 
@@ -71,10 +71,6 @@ extension DefaultStoreViewPresenter: StoreViewPresenter {
         output.showPurchased(until: date)
         output.showSubscriptionManagement()
     }
-}
-
-private func hasLowerPrice(_ lhs: Product, _ rhs: Product) -> Bool {
-    return lhs.price < rhs.price
 }
 
 private func productsFetchError(error: String) -> String {

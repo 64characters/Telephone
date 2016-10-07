@@ -38,9 +38,17 @@ extension Product: Hashable {
     }
 }
 
-public func ==(lhs: Product, rhs: Product) -> Bool {
-    return lhs.identifier == rhs.identifier &&
-        lhs.name == rhs.name &&
-        lhs.price == rhs.price &&
-        lhs.localizedPrice == rhs.localizedPrice
+extension Product: Equatable {
+    public static func ==(lhs: Product, rhs: Product) -> Bool {
+        return lhs.identifier == rhs.identifier &&
+            lhs.name == rhs.name &&
+            lhs.price == rhs.price &&
+            lhs.localizedPrice == rhs.localizedPrice
+    }
+}
+
+extension Product: Comparable {
+    public static func <(lhs: Product, rhs: Product) -> Bool {
+        return lhs.price < rhs.price
+    }
 }

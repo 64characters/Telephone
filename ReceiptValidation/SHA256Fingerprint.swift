@@ -36,8 +36,10 @@ extension SHA256Fingerprint: Hashable {
     }
 }
 
-func ==(lhs: SHA256Fingerprint, rhs: SHA256Fingerprint) -> Bool {
-    return lhs.sha256 == rhs.sha256
+extension SHA256Fingerprint: Equatable {
+    static func ==(lhs: SHA256Fingerprint, rhs: SHA256Fingerprint) -> Bool {
+        return lhs.sha256 == rhs.sha256
+    }
 }
 
 private func digest(of source: Data) -> Data {
