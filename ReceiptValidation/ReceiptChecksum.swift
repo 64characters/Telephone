@@ -40,8 +40,10 @@ extension ReceiptChecksum: Hashable {
     }
 }
 
-func ==(lhs: ReceiptChecksum, rhs: ReceiptChecksum) -> Bool {
-    return lhs.sha1 == rhs.sha1
+extension ReceiptChecksum: Equatable {
+    static func ==(lhs: ReceiptChecksum, rhs: ReceiptChecksum) -> Bool {
+        return lhs.sha1 == rhs.sha1
+    }
 }
 
 private func digest(of source: Data) -> Data {

@@ -30,10 +30,10 @@ public struct PresentationSoundIO {
     }
 }
 
-extension PresentationSoundIO: Equatable {}
-
-public func ==(lhs: PresentationSoundIO, rhs: PresentationSoundIO) -> Bool {
-    return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
+extension PresentationSoundIO: Equatable {
+    public static func ==(lhs: PresentationSoundIO, rhs: PresentationSoundIO) -> Bool {
+        return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
+    }
 }
 
 extension PresentationSoundIO {

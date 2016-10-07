@@ -28,10 +28,10 @@ public struct AudioDevices {
     }
 }
 
-extension AudioDevices: Equatable {}
-
-public func ==(lhs: AudioDevices, rhs: AudioDevices) -> Bool {
-    return lhs.input == rhs.input && lhs.output == rhs.output
+extension AudioDevices: Equatable {
+    public static func ==(lhs: AudioDevices, rhs: AudioDevices) -> Bool {
+        return lhs.input == rhs.input && lhs.output == rhs.output
+    }
 }
 
 extension AudioDevices {
