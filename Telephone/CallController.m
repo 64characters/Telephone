@@ -376,6 +376,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)showEndedCallView {
+    self.window.styleMask |= NSWindowStyleMaskClosable;
     [self showViewController:self.endedCallViewController];
 }
 

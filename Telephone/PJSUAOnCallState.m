@@ -92,8 +92,7 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
             if (state == kAKSIPCallCallingState) {
                 AKSIPAccount *account = [userAgent accountWithIdentifier:accountIdentifier];
                 if (account != nil) {
-                    call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callID];
-                    [account.calls addObject:call];
+                    call = [account addCallWithIdentifier:callID];
                 } else {
                     PJ_LOG(3, (THIS_FILE,
                                "Did not create AKSIPCall for call %d during call state change. Could not find account",
@@ -116,7 +115,7 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
 
         if (state == kAKSIPCallDisconnectedState) {
             [userAgent stopRingbackForCall:call];
-            [call.account.calls removeObject:call];
+            [call.account removeCall:call];
             [nc postNotificationName:AKSIPCallDidDisconnectNotification object:call];
 
         } else if (state == kAKSIPCallEarlyState) {

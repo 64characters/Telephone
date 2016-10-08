@@ -553,7 +553,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     
     [anAccount.delegate SIPAccountWillRemove:anAccount];
     
-    [[anAccount calls] removeAllObjects];
+    [anAccount removeAllCalls];
     
     pj_status_t status = pjsua_acc_del((pjsua_acc_id)[anAccount identifier]);
     if (status != PJ_SUCCESS) {
