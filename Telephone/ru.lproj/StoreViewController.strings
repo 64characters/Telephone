@@ -11,7 +11,7 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "NEN-L8-9I9"; */
 "NEN-L8-9I9.title" = "Table View Cell";
 
-/* Class = "NSTextFieldCell"; title = "Telephone is a free and open souce app that is supported only by its users. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be cancelled almost any time based on Mac App Store subscription rules."; ObjectID = "W5b-g9-V4l"; */
+/* Class = "NSTextFieldCell"; title = "Telephone is a free and open source app that is supported only by its users. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be cancelled almost any time based on Mac App Store subscription rules."; ObjectID = "W5b-g9-V4l"; */
 "W5b-g9-V4l.title" = "Телефон бесплатен, и его код открыт. Поддержите проект, чтобы сделать возможным его дальнейшее развитие.\n\nПодписка обновляется автоматически и может быть прервана практически в любой момент в соответствии с правилами Аппстора.";
 
 /* Class = "NSTextFieldCell"; title = "Your subscription ends on "; ObjectID = "Z9K-5X-9uS"; */

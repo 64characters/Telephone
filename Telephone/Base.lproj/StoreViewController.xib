@@ -33,7 +33,7 @@
                     <rect key="frame" x="18" y="167" width="444" height="102"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="W5b-g9-V4l">
                         <font key="font" metaFont="system"/>
-                        <string key="title">Telephone is a free and open souce app that is supported only by its users. Please consider becoming a patron to make ongoing development possible.
+                        <string key="title">Telephone is a free and open source app that is supported only by its users. Please consider becoming a patron to make ongoing development possible.
 
 The subscription renews automatically and can be cancelled almost any time based on Mac App Store subscription rules.</string>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
