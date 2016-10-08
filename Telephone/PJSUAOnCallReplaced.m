@@ -40,7 +40,6 @@ void PJSUAOnCallReplaced(pjsua_call_id oldCallID, pjsua_call_id newCallID) {
         PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d from replaced callback", newCallID));
         AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
         AKSIPAccount *account = [userAgent accountWithIdentifier:accountIdentifier];
-        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:newCallID];
-        [account.calls addObject:call];
+        [account addCallWithIdentifier:newCallID];
     });
 }

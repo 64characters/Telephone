@@ -102,9 +102,6 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Presence online status text.
 @property(nonatomic, readonly, copy) NSString *onlineStatusText;
 
-// Calls that belong to the receiver.
-@property(nonatomic, readonly, strong) NSMutableArray *calls;
-
 @property(nonatomic) NSThread *thread;
 
 // Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
@@ -126,6 +123,9 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Makes a call to a given destination URI.
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^)(AKSIPCall *))completion;
 
+- (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier;
 - (AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
+- (void)removeCall:(AKSIPCall *)call;
+- (void)removeAllCalls;
 
 @end

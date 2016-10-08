@@ -28,15 +28,8 @@ void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_
     PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountID));
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountWithIdentifier:accountID];
-
-        // AKSIPCall object is created here when the call is incoming.
-        AKSIPCall *call = [[AKSIPCall alloc] initWithSIPAccount:account identifier:callID];
-
-        [[account calls] addObject:call];
-
+        AKSIPCall *call = [account addCallWithIdentifier:callID];
         [account.delegate SIPAccount:account didReceiveCall:call];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallIncomingNotification
-                                                            object:call];
+        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallIncomingNotification object:call];
     });
 }

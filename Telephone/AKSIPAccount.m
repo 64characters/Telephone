@@ -39,6 +39,12 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 @end
 
+@interface AKSIPAccount ()
+
+@property(nonatomic, readonly) NSMutableArray *calls;
+
+@end
+
 @implementation AKSIPAccount
 
 - (void)setProxyPort:(NSUInteger)port {
@@ -241,7 +247,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {
     void (^onCallMakeCompletion)(BOOL, pjsua_call_id) = ^(BOOL success, pjsua_call_id callID) {
         if (success) {
-            completion([self callWithIdentifier:callID]);
+            completion([self addCallWithIdentifier:callID]);
         } else {
             NSLog(@"Error making call to %@ via account %@", destination, self);
             completion(nil);
@@ -261,6 +267,15 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     dispatch_async(dispatch_get_main_queue(), ^{ parameters.completion(success, callID); });
 }
 
+- (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier; {
+    AKSIPCall *call = [self callWithIdentifier:identifier];
+    if (!call) {
+        call = [[AKSIPCall alloc] initWithSIPAccount:self identifier:identifier];
+        [self.calls addObject:call];
+    }
+    return call;
+}
+
 - (AKSIPCall *)callWithIdentifier:(NSInteger)identifier {
     for (AKSIPCall *call in self.calls) {
         if (call.identifier == identifier) {
@@ -268,6 +283,14 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
         }
     }
     return nil;
+}
+
+- (void)removeCall:(AKSIPCall *)call {
+    [self.calls removeObject:call];
+}
+
+- (void)removeAllCalls {
+    [self.calls removeAllObjects];
 }
 
 @end
