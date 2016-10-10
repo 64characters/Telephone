@@ -53,16 +53,16 @@ static const CGFloat kUnavailableEnglishWidth = 98.0;
 static const CGFloat kConnectingEnglishWidth = 108.0;
 //
 // Russian.
-static const CGFloat kOfflineRussianWidth = 64.0;
-static const CGFloat kAvailableRussianWidth = 72.0;
-static const CGFloat kUnavailableRussianWidth = 85.0;
-static const CGFloat kConnectingRussianWidth = 96.0;
+static const CGFloat kOfflineRussianWidth = 81.0;
+static const CGFloat kAvailableRussianWidth = 90.0;
+static const CGFloat kUnavailableRussianWidth = 103.0;
+static const CGFloat kConnectingRussianWidth = 115.0;
 //
 // German.
-static const CGFloat kOfflineGermanWidth = 56.0;
-static const CGFloat kAvailableGermanWidth = 72.0;
-static const CGFloat kUnavailableGermanWidth = 100.0;
-static const CGFloat kConnectingGermanWidth = 86.0;
+static const CGFloat kOfflineGermanWidth = 73.0;
+static const CGFloat kAvailableGermanWidth = 90.0;
+static const CGFloat kUnavailableGermanWidth = 120.0;
+static const CGFloat kConnectingGermanWidth = 104.0;
 
 NSString * const kEmailSIPLabel = @"sip";
 

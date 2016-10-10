@@ -1,0 +1,21 @@
+
+/* Class = "NSWindow"; title = "Account"; ObjectID = "3"; */
+"3.title" = "Account";
+
+/* Class = "NSMenuItem"; title = "Available"; ObjectID = "45b-yq-Hu2"; */
+"45b-yq-Hu2.title" = "Verfügbar";
+
+/* Class = "NSMenuItem"; title = "Offline"; ObjectID = "JFn-Jw-rQe"; */
+"JFn-Jw-rQe.title" = "Offline";
+
+/* Class = "NSMenuItem"; title = "Offline"; ObjectID = "aEv-gV-BF6"; */
+"aEv-gV-BF6.title" = "Offline";
+
+/* Class = "NSToolbarItem"; label = "Account State"; ObjectID = "q93-R7-UiB"; */
+"q93-R7-UiB.label" = "Account State";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Account State"; ObjectID = "q93-R7-UiB"; */
+"q93-R7-UiB.paletteLabel" = "Account State";
+
+/* Class = "NSMenuItem"; title = "Unavailable"; ObjectID = "tBT-83-toA"; */
+"tBT-83-toA.title" = "Nicht verfügbar";
