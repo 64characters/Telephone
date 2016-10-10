@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="box content view" minToolsVersion="7.0"/>
@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="accountStateImageView" destination="XTB-Ca-zvW" id="NKe-lx-Xs1"/>
                 <outlet property="accountStatePopUp" destination="8kv-8M-WnO" id="QTV-ZO-Tni"/>
+                <outlet property="accountStateToolbarItem" destination="q93-R7-UiB" id="24v-BY-jYW"/>
                 <outlet property="availableStateItem" destination="45b-yq-Hu2" id="8c6-x7-khg"/>
                 <outlet property="offlineStateItem" destination="aEv-gV-BF6" id="aI9-oe-thS"/>
                 <outlet property="unavailableStateItem" destination="tBT-83-toA" id="y3d-XB-qX1"/>
@@ -33,17 +34,16 @@
                     <toolbarItem implicitItemIdentifier="5B2D55D8-29B2-4DF6-B4EB-FB47643AC74A" label="Account State" paletteLabel="Account State" tag="-1" id="q93-R7-UiB" userLabel="Account State">
                         <nil key="toolTip"/>
                         <size key="minSize" width="73" height="16"/>
-                        <size key="maxSize" width="108" height="16"/>
-                        <box key="view" misplaced="YES" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="SHh-3W-jWp">
-                            <rect key="frame" x="4" y="14" width="73" height="16"/>
+                        <size key="maxSize" width="76" height="16"/>
+                        <box key="view" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="SHh-3W-jWp">
+                            <rect key="frame" x="3" y="14" width="76" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView" id="88u-Bi-Zq4">
-                                <rect key="frame" x="0.0" y="0.0" width="73" height="16"/>
+                                <rect key="frame" x="0.0" y="0.0" width="76" height="16"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <popUpButton verticalHuggingPriority="750" misplaced="YES" id="8kv-8M-WnO">
-                                        <rect key="frame" x="2" y="-1" width="71" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8kv-8M-WnO">
+                                        <rect key="frame" x="2" y="-1" width="74" height="17"/>
                                         <popUpButtonCell key="cell" type="recessed" title="Offline" bezelStyle="recessed" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="ubg-x7-fdq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -69,12 +69,18 @@
                                             <action selector="changeAccountState:" target="-2" id="MQQ-k8-N6P"/>
                                         </connections>
                                     </popUpButton>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="XTB-Ca-zvW">
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XTB-Ca-zvW">
                                         <rect key="frame" x="9" y="4" width="8" height="8"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="offline-state" id="HcY-Fh-LCT"/>
                                     </imageView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="XTB-Ca-zvW" firstAttribute="centerY" secondItem="8kv-8M-WnO" secondAttribute="centerY" id="1sJ-nX-DvE"/>
+                                    <constraint firstItem="8kv-8M-WnO" firstAttribute="centerY" secondItem="88u-Bi-Zq4" secondAttribute="centerY" id="M3h-v7-KmY"/>
+                                    <constraint firstItem="XTB-Ca-zvW" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" constant="9" id="PVF-9g-CcK"/>
+                                    <constraint firstItem="8kv-8M-WnO" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" constant="2" id="RKn-Ih-doJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="8kv-8M-WnO" secondAttribute="trailing" id="daG-g5-b7Y"/>
+                                </constraints>
                             </view>
                         </box>
                     </toolbarItem>

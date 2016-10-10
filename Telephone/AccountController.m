@@ -44,25 +44,25 @@
 #import "UserDefaultsKeys.h"
 
 
-// Account state pop-up button widths.
+// Account state toolbar item widths.
 //
 // English.
-static const CGFloat kAccountStatePopUpOfflineEnglishWidth = 71.0;
-static const CGFloat kAccountStatePopUpAvailableEnglishWidth = 82.0;
-static const CGFloat kAccountStatePopUpUnavailableEnglishWidth = 96.0;
-static const CGFloat kAccountStatePopUpConnectingEnglishWidth = 106.0;
+static const CGFloat kOfflineEnglishWidth = 73.0;
+static const CGFloat kAvailableEnglishWidth = 84.0;
+static const CGFloat kUnavailableEnglishWidth = 98.0;
+static const CGFloat kConnectingEnglishWidth = 108.0;
 //
 // Russian.
-static const CGFloat kAccountStatePopUpOfflineRussianWidth = 64.0;
-static const CGFloat kAccountStatePopUpAvailableRussianWidth = 72.0;
-static const CGFloat kAccountStatePopUpUnavailableRussianWidth = 85.0;
-static const CGFloat kAccountStatePopUpConnectingRussianWidth = 96.0;
+static const CGFloat kOfflineRussianWidth = 64.0;
+static const CGFloat kAvailableRussianWidth = 72.0;
+static const CGFloat kUnavailableRussianWidth = 85.0;
+static const CGFloat kConnectingRussianWidth = 96.0;
 //
 // German.
-static const CGFloat kAccountStatePopUpOfflineGermanWidth = 56.0;
-static const CGFloat kAccountStatePopUpAvailableGermanWidth = 72.0;
-static const CGFloat kAccountStatePopUpUnavailableGermanWidth = 100.0;
-static const CGFloat kAccountStatePopUpConnectingGermanWidth = 86.0;
+static const CGFloat kOfflineGermanWidth = 56.0;
+static const CGFloat kAvailableGermanWidth = 72.0;
+static const CGFloat kUnavailableGermanWidth = 100.0;
+static const CGFloat kConnectingGermanWidth = 86.0;
 
 NSString * const kEmailSIPLabel = @"sip";
 
@@ -80,6 +80,7 @@ NSString * const kGerman = @"de";
 
 @property(nonatomic, copy) NSString *destinationToCall;
 
+@property(nonatomic, weak) IBOutlet NSToolbarItem *accountStateToolbarItem;
 @property(nonatomic, weak) IBOutlet NSImageView *accountStateImageView;
 @property(nonatomic, weak) IBOutlet NSPopUpButton *accountStatePopUp;
 @property(nonatomic, weak) IBOutlet NSMenuItem *availableStateItem;
@@ -494,19 +495,17 @@ NSString * const kGerman = @"de";
 
 
 - (void)showAvailableState {
-    NSSize buttonSize = [[self accountStatePopUp] frame].size;
-    
-    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-    
-    if ([preferredLocalization isEqualToString:kEnglish]) {
-        buttonSize.width = kAccountStatePopUpAvailableEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:kRussian]) {
-        buttonSize.width = kAccountStatePopUpAvailableRussianWidth;
-    } else if ([preferredLocalization isEqualToString:kGerman]) {
-        buttonSize.width = kAccountStatePopUpAvailableGermanWidth;
+    NSSize size = [[self accountStateToolbarItem] maxSize];
+    NSString *localization = [[NSBundle mainBundle] preferredLocalizations][0];
+    if ([localization isEqualToString:kEnglish]) {
+        size.width = kAvailableEnglishWidth;
+    } else if ([localization isEqualToString:kRussian]) {
+        size.width = kAvailableRussianWidth;
+    } else if ([localization isEqualToString:kGerman]) {
+        size.width = kAvailableGermanWidth;
     }
-    
-    [[self accountStatePopUp] setFrameSize:buttonSize];
+    [[self accountStateToolbarItem] setMaxSize:size];
+
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Available", @"Account registration Available menu item.")];
     [[self accountStateImageView] setImage:[NSImage imageNamed:@"available-state"]];
     
@@ -520,19 +519,17 @@ NSString * const kGerman = @"de";
 }
 
 - (void)showUnavailableState {
-    NSSize buttonSize = [[self accountStatePopUp] frame].size;
-    
-    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-    
-    if ([preferredLocalization isEqualToString:kEnglish]) {
-        buttonSize.width = kAccountStatePopUpUnavailableEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:kRussian]) {
-        buttonSize.width = kAccountStatePopUpUnavailableRussianWidth;
-    } else if ([preferredLocalization isEqualToString:kGerman]) {
-        buttonSize.width = kAccountStatePopUpUnavailableGermanWidth;
+    NSSize size = [[self accountStateToolbarItem] maxSize];
+    NSString *localization = [[NSBundle mainBundle] preferredLocalizations][0];
+    if ([localization isEqualToString:kEnglish]) {
+        size.width = kUnavailableEnglishWidth;
+    } else if ([localization isEqualToString:kRussian]) {
+        size.width = kUnavailableRussianWidth;
+    } else if ([localization isEqualToString:kGerman]) {
+        size.width = kUnavailableGermanWidth;
     }
-    
-    [[self accountStatePopUp] setFrameSize:buttonSize];
+    [[self accountStateToolbarItem] setMaxSize:size];
+
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
     [[self accountStateImageView] setImage:[NSImage imageNamed:@"unavailable-state"]];
     
@@ -546,19 +543,17 @@ NSString * const kGerman = @"de";
 }
 
 - (void)showOfflineState {
-    NSSize buttonSize = [[self accountStatePopUp] frame].size;
-    
-    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-    
-    if ([preferredLocalization isEqualToString:kEnglish]) {
-        buttonSize.width = kAccountStatePopUpOfflineEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:kRussian]) {
-        buttonSize.width = kAccountStatePopUpOfflineRussianWidth;
-    } else if ([preferredLocalization isEqualToString:kGerman]) {
-        buttonSize.width = kAccountStatePopUpOfflineGermanWidth;
+    NSSize size = [[self accountStateToolbarItem] maxSize];
+    NSString *localization = [[NSBundle mainBundle] preferredLocalizations][0];
+    if ([localization isEqualToString:kEnglish]) {
+        size.width = kOfflineEnglishWidth;
+    } else if ([localization isEqualToString:kRussian]) {
+        size.width = kOfflineRussianWidth;
+    } else if ([localization isEqualToString:kGerman]) {
+        size.width = kOfflineGermanWidth;
     }
-    
-    [[self accountStatePopUp] setFrameSize:buttonSize];
+    [[self accountStateToolbarItem] setMaxSize:size];
+
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Offline", @"Account registration Offline menu item.")];
     [[self accountStateImageView] setImage:[NSImage imageNamed:@"offline-state"]];
     
@@ -570,19 +565,17 @@ NSString * const kGerman = @"de";
 }
 
 - (void)showConnectingState {
-    NSSize buttonSize = [[self accountStatePopUp] frame].size;
-    
-    NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-    
-    if ([preferredLocalization isEqualToString:kEnglish]) {
-        buttonSize.width = kAccountStatePopUpConnectingEnglishWidth;
-    } else if ([preferredLocalization isEqualToString:kRussian]) {
-        buttonSize.width = kAccountStatePopUpConnectingRussianWidth;
-    } else if ([preferredLocalization isEqualToString:kGerman]) {
-        buttonSize.width = kAccountStatePopUpConnectingGermanWidth;
+    NSSize size = [[self accountStateToolbarItem] maxSize];
+    NSString *localization = [[NSBundle mainBundle] preferredLocalizations][0];
+    if ([localization isEqualToString:kEnglish]) {
+        size.width = kConnectingEnglishWidth;
+    } else if ([localization isEqualToString:kRussian]) {
+        size.width = kConnectingRussianWidth;
+    } else if ([localization isEqualToString:kGerman]) {
+        size.width = kConnectingGermanWidth;
     }
-    
-    [[self accountStatePopUp] setFrameSize:buttonSize];
+    [[self accountStateToolbarItem] setMaxSize:size];
+
     [[self accountStatePopUp] setTitle:
      NSLocalizedString(@"Connecting...", @"Account registration Connecting... menu item.")];
 }
