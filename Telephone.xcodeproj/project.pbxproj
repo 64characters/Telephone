@@ -243,6 +243,7 @@
 		8AE396F41D6C8B3800DCFB9E /* SavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */; };
 		8AE396F71D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */; };
 		8AE396F91D6DAFFA00DCFB9E /* PurchaseReminderUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderUserDefaults.swift */; };
+		8AE4E95C1DABBBF90003F063 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4E95B1DABBBF90003F063 /* Images.xcassets */; };
 		8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 8AE706231D491C220060FF4F /* ReceiptValidation.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8AE7063D1D4A4D370060FF4F /* ReceiptXPCGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */; };
 		8AFC630E1D8C6F490022470D /* Array+Creating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC630D1D8C6F490022470D /* Array+Creating.swift */; };
@@ -821,6 +822,7 @@
 		8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedAccounts.swift; sourceTree = "<group>"; };
 		8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisabledSavedAccountsStub.swift; sourceTree = "<group>"; };
 		8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderUserDefaults.swift; sourceTree = "<group>"; };
+		8AE4E95B1DABBBF90003F063 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8AE706231D491C220060FF4F /* ReceiptValidation.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReceiptValidation.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE7062B1D491C220060FF4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AE706331D4A2E180060FF4F /* ReceiptValidation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReceiptValidation-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 				AA2ED9B10F05BB5D004A13C6 /* AuthenticationFailure.xib */,
 				AA2ED9AB0F05BA11004A13C6 /* AccountSetup.xib */,
 				AA53434612ADBAD200B47767 /* Sound.tiff */,
+				8AE4E95B1DABBBF90003F063 /* Images.xcassets */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2461,6 +2464,7 @@
 				AA2ED9AC0F05BA11004A13C6 /* AccountSetup.xib in Resources */,
 				AA2ED9B20F05BB5D004A13C6 /* AuthenticationFailure.xib in Resources */,
 				AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */,
+				8AE4E95C1DABBBF90003F063 /* Images.xcassets in Resources */,
 				AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */,
 				AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */,
 				AA1A0AA01828E38900278658 /* Telephone.icns in Resources */,

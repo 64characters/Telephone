@@ -47,10 +47,10 @@
 // Account state pop-up button widths.
 //
 // English.
-static const CGFloat kAccountStatePopUpOfflineEnglishWidth = 56.0;
-static const CGFloat kAccountStatePopUpAvailableEnglishWidth = 67.0;
-static const CGFloat kAccountStatePopUpUnavailableEnglishWidth = 80.0;
-static const CGFloat kAccountStatePopUpConnectingEnglishWidth = 89.0;
+static const CGFloat kAccountStatePopUpOfflineEnglishWidth = 71.0;
+static const CGFloat kAccountStatePopUpAvailableEnglishWidth = 82.0;
+static const CGFloat kAccountStatePopUpUnavailableEnglishWidth = 96.0;
+static const CGFloat kAccountStatePopUpConnectingEnglishWidth = 106.0;
 //
 // Russian.
 static const CGFloat kAccountStatePopUpOfflineRussianWidth = 64.0;
@@ -79,6 +79,12 @@ NSString * const kGerman = @"de";
 @property(nonatomic, strong) NSTimer *reRegistrationTimer;
 
 @property(nonatomic, copy) NSString *destinationToCall;
+
+@property(nonatomic, weak) IBOutlet NSImageView *accountStateImageView;
+@property(nonatomic, weak) IBOutlet NSPopUpButton *accountStatePopUp;
+@property(nonatomic, weak) IBOutlet NSMenuItem *availableStateItem;
+@property(nonatomic, weak) IBOutlet NSMenuItem *unavailableStateItem;
+@property(nonatomic, weak) IBOutlet NSMenuItem *offlineStateItem;
 
 // Method to be called when account re-registration timer fires.
 - (void)reRegistrationTimerTick:(NSTimer *)theTimer;
@@ -443,26 +449,24 @@ NSString * const kGerman = @"de";
     [self setDestinationToCall:@""];
 }
 
-- (IBAction)changeAccountState:(id)sender {
+- (IBAction)changeAccountState:(NSPopUpButton *)sender {
     if ([self reRegistrationTimer] != nil) {
         [[self reRegistrationTimer] invalidate];
         [self setReRegistrationTimer:nil];
     }
     
-    NSInteger selectedItemTag = [[sender selectedItem] tag];
-    
-    if (selectedItemTag == kSIPAccountOffline) {
+    if ([sender.selectedItem isEqual:self.offlineStateItem]) {
         [self setAccountUnavailable:NO];
         [self removeAccountFromUserAgent];
         
-    } else if (selectedItemTag == kSIPAccountUnavailable) {
+    } else if ([sender.selectedItem isEqual:self.unavailableStateItem]) {
         if ([self isAccountRegistered] || ![self isAccountAdded]) {
             [self setAccountUnavailable:YES];
             [self setShouldPresentRegistrationError:YES];
             [self unregisterAccount];
         }
         
-    } else if (selectedItemTag == kSIPAccountAvailable) {
+    } else if ([sender.selectedItem isEqual:self.availableStateItem]) {
         [self setAccountUnavailable:NO];
         [self setShouldPresentRegistrationError:YES];
         [self registerAccount];
@@ -504,9 +508,7 @@ NSString * const kGerman = @"de";
     
     [[self accountStatePopUp] setFrameSize:buttonSize];
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Available", @"Account registration Available menu item.")];
-    
-    [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountAvailable] setState:NSOnState];
-    [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountUnavailable] setState:NSOffState];
+    [[self accountStateImageView] setImage:[NSImage imageNamed:@"available-state"]];
     
     if (![self isActiveViewDisplayed]) {
         [[self window] setContentView:[[self activeAccountViewController] view]];
@@ -531,11 +533,8 @@ NSString * const kGerman = @"de";
     }
     
     [[self accountStatePopUp] setFrameSize:buttonSize];
-    [[self accountStatePopUp] setTitle:
-     NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
-    
-    [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountAvailable] setState:NSOffState];
-    [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountUnavailable] setState:NSOnState];
+    [[self accountStatePopUp] setTitle:NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
+    [[self accountStateImageView] setImage:[NSImage imageNamed:@"unavailable-state"]];
     
     if (![self isActiveViewDisplayed]) {
         [[self window] setContentView:[[self activeAccountViewController] view]];
@@ -561,9 +560,7 @@ NSString * const kGerman = @"de";
     
     [[self accountStatePopUp] setFrameSize:buttonSize];
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Offline", @"Account registration Offline menu item.")];
-    
-    [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountAvailable] setState:NSOffState];
-    [[[[self accountStatePopUp] menu] itemWithTag:kSIPAccountUnavailable] setState:NSOffState];
+    [[self accountStateImageView] setImage:[NSImage imageNamed:@"offline-state"]];
     
     NSRect frame = [[[self window] contentView] frame];
     NSView *emptyView = [[NSView alloc] initWithFrame:frame];
