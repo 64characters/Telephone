@@ -7,6 +7,9 @@
 /* Telephone quit confirmation informative text. */
 "All active calls will be disconnected." = "All active calls will be disconnected.";
 
+/* Call answer button. */
+"Answer" = "Answer";
+
 /* Telephone quit confirmation. */
 "Are you sure you want to quit Telephone?" = "Are you sure you want to quit Telephone?";
 
@@ -65,7 +68,8 @@
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Could not start SIP user agent.";
 
-/* Decline. Call menu item. */
+/* Call decline button.
+   Decline. Call menu item. */
 "Decline" = "Decline";
 
 /* Delete button. */
