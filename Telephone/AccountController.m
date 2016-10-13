@@ -981,6 +981,9 @@ NSString * const kGerman = @"de";
     NSUserNotification *userNotification = [[NSUserNotification alloc] init];
     userNotification.title = notificationTitle;
     userNotification.informativeText = notificationDescription;
+    userNotification.actionButtonTitle = NSLocalizedString(@"Answer", @"Call answer button.");
+    NSString *decline = NSLocalizedString(@"Decline", @"Call decline button.");
+    userNotification.additionalActions = @[[NSUserNotificationAction actionWithIdentifier:@"decline" title:decline]];
     userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: aCallController.identifier};
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
 

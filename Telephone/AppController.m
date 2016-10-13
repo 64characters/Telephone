@@ -1468,19 +1468,23 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - NSUserNotificationCenterDelegate
 
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center
-       didActivateNotification:(NSUserNotification *)notification {
-    
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
     NSString *identifier = notification.userInfo[kUserNotificationCallControllerIdentifierKey];
-    [self showWindowOfCallControllerWithIdentifier:identifier];
-}
-
-- (void)showWindowOfCallControllerWithIdentifier:(NSString *)identifier {
-    CallController *callController = [self callControllerByIdentifier:identifier];
-    if (![NSApp isActive]) {
-        [NSApp activateIgnoringOtherApps:YES];
+    CallController *controller = [self callControllerByIdentifier:identifier];
+    switch (notification.activationType) {
+        case NSUserNotificationActivationTypeContentsClicked:
+            [controller showWindow:self];
+            [center removeDeliveredNotification:notification];
+            break;
+        case NSUserNotificationActivationTypeActionButtonClicked:
+            [controller acceptCall];
+            break;
+        case NSUserNotificationActivationTypeAdditionalActionClicked:
+            [controller hangUpCall];
+            break;
+        default:
+            break;
     }
-    [callController showWindow:nil];
 }
 
 
