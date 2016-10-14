@@ -29,7 +29,7 @@ public final class SettingsRingtoneSoundNameSaveUseCase {
 extension SettingsRingtoneSoundNameSaveUseCase: UseCase {
     public func execute() {
         if !name.isEmpty {
-            settings[kRingingSound] = name
+            settings[SettingsKeys.ringingSound] = name
         }
     }
 }

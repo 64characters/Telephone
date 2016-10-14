@@ -28,9 +28,9 @@ struct SettingsSoundIO {
     init(devices: SystemAudioDevices, settings: KeyValueSettings) {
         self.devices = devices
         self.settings = settings
-        optionalInput = inputDeviceByName(withSettingsKey: kSoundInput)
-        optionalOutput = outputDeviceByName(withSettingsKey: kSoundOutput)
-        optionalRingtoneOutput = outputDeviceByName(withSettingsKey: kRingtoneOutput)
+        optionalInput = inputDeviceByName(withSettingsKey: SettingsKeys.soundInput)
+        optionalOutput = outputDeviceByName(withSettingsKey: SettingsKeys.soundOutput)
+        optionalRingtoneOutput = outputDeviceByName(withSettingsKey: SettingsKeys.ringtoneOutput)
     }
 
     private func inputDeviceByName(withSettingsKey key: String) -> SystemAudioDevice {

@@ -34,7 +34,7 @@ extension SettingsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationLoadU
     }
 
     private func ringtoneSoundName() throws -> String {
-        if let name = settings[kRingingSound] {
+        if let name = settings[SettingsKeys.ringingSound] {
             return name
         } else {
             throw UseCasesError.ringtoneSoundNameNotFoundError

@@ -17,7 +17,7 @@
 //
 
 import DomainTestDoubles
-import UseCases
+@testable import UseCases
 import UseCasesTestDoubles
 import XCTest
 
@@ -37,8 +37,8 @@ final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
 
     func testReturnsRingtoneSoundConfigurationFromSettings() {
         let outputDevice = factory.someOutput
-        settings[kRingtoneOutput] = outputDevice.name
-        settings[kRingingSound] = "sound-name"
+        settings[SettingsKeys.ringtoneOutput] = outputDevice.name
+        settings[SettingsKeys.ringingSound] = "sound-name"
         repository.allDevicesResult = factory.all
 
         let result = try! sut.execute()

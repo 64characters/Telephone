@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+@testable import UseCases
 import UseCasesTestDoubles
 import XCTest
 
@@ -28,25 +28,25 @@ final class SettingsSoundIOSaveUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertEqual(settings[kSoundInput], soundIO.input)
-        XCTAssertEqual(settings[kSoundOutput], soundIO.output)
-        XCTAssertEqual(settings[kRingtoneOutput], soundIO.ringtoneOutput)
+        XCTAssertEqual(settings[SettingsKeys.soundInput], soundIO.input)
+        XCTAssertEqual(settings[SettingsKeys.soundOutput], soundIO.output)
+        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], soundIO.ringtoneOutput)
     }
 
     func testDoesNotUpadteSettingsWithEmptyValues() {
         let settings = SettingsFake()
         let anyValue = "any-value"
-        settings[kSoundInput] = anyValue
-        settings[kSoundOutput] = anyValue
-        settings[kRingtoneOutput] = anyValue
+        settings[SettingsKeys.soundInput] = anyValue
+        settings[SettingsKeys.soundOutput] = anyValue
+        settings[SettingsKeys.ringtoneOutput] = anyValue
         let sut = SettingsSoundIOSaveUseCase(
             soundIO: PresentationSoundIO(input: "", output: "", ringtoneOutput: ""), settings: settings
         )
 
         sut.execute()
 
-        XCTAssertEqual(settings[kSoundInput], anyValue)
-        XCTAssertEqual(settings[kSoundOutput], anyValue)
-        XCTAssertEqual(settings[kRingtoneOutput], anyValue)
+        XCTAssertEqual(settings[SettingsKeys.soundInput], anyValue)
+        XCTAssertEqual(settings[SettingsKeys.soundOutput], anyValue)
+        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], anyValue)
     }
 }

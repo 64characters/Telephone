@@ -1,5 +1,5 @@
 //
-//  SettingsKeys.h
+//  SettingsKeys.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
-
-extern NSString * const kSoundInput;
-extern NSString * const kSoundOutput;
-extern NSString * const kRingtoneOutput;
-extern NSString * const kRingingSound;
+struct SettingsKeys {
+    static let soundInput = "SoundInput"
+    static let soundOutput = "SoundOutput"
+    static let ringtoneOutput = "RingtoneOutput"
+    static let ringingSound = "RingingSound"
+}

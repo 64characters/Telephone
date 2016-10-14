@@ -35,19 +35,19 @@ extension SettingsSoundIOSaveUseCase: UseCase {
 
     private func saveInputIfNeeded() {
         if !soundIO.input.isEmpty {
-            settings[kSoundInput] = soundIO.input
+            settings[SettingsKeys.soundInput] = soundIO.input
         }
     }
 
     private func saveOutputIfNeeded() {
         if !soundIO.output.isEmpty {
-            settings[kSoundOutput] = soundIO.output
+            settings[SettingsKeys.soundOutput] = soundIO.output
         }
     }
 
     private func saveRingtoneOutputIfNeeded() {
         if !soundIO.ringtoneOutput.isEmpty {
-            settings[kRingtoneOutput] = soundIO.ringtoneOutput
+            settings[SettingsKeys.ringtoneOutput] = soundIO.ringtoneOutput
         }
     }
 }

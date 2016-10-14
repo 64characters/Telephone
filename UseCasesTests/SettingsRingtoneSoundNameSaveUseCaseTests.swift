@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+@testable import UseCases
 import UseCasesTestDoubles
 import XCTest
 
@@ -27,17 +27,17 @@ final class SettingsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertEqual(settings[kRingingSound], "sound-name")
+        XCTAssertEqual(settings[SettingsKeys.ringingSound], "sound-name")
     }
 
     func testDoesNotUpdateSettingsWithEmptyName() {
         let settings = SettingsFake()
         let anyValue = "any-value"
-        settings[kRingingSound] = anyValue
+        settings[SettingsKeys.ringingSound] = anyValue
         let sut = SettingsRingtoneSoundNameSaveUseCase(name: "", settings: settings)
 
         sut.execute()
 
-        XCTAssertEqual(settings[kRingingSound], anyValue)
+        XCTAssertEqual(settings[SettingsKeys.ringingSound], anyValue)
     }
 }
