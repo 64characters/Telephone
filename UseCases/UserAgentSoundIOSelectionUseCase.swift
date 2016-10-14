@@ -21,15 +21,15 @@ import Domain
 public final class UserAgentSoundIOSelectionUseCase {
     fileprivate let repository: SystemAudioDeviceRepository
     fileprivate let userAgent: UserAgent
-    fileprivate let defaults: KeyValueUserDefaults
+    fileprivate let settings: KeyValueSettings
     fileprivate var devices: SystemAudioDevices!
     fileprivate var deviceMap: SystemToUserAgentAudioDeviceMap!
     fileprivate var soundIO: SoundIO!
 
-    public init(repository: SystemAudioDeviceRepository, userAgent: UserAgent, defaults: KeyValueUserDefaults) {
+    public init(repository: SystemAudioDeviceRepository, userAgent: UserAgent, settings: KeyValueSettings) {
         self.repository = repository
         self.userAgent = userAgent
-        self.defaults = defaults
+        self.settings = settings
     }
 }
 
@@ -53,7 +53,7 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
     }
 
     private func updateSoundIO() {
-        soundIO = PreferredSoundIO(devices: devices, defaults: defaults)
+        soundIO = PreferredSoundIO(devices: devices, settings: settings)
     }
 
     private func selectUserAgentSoundIO() throws {

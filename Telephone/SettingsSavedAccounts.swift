@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneSoundNameSaveUseCase.swift
+//  SettingsSavedAccounts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-public final class UserDefaultsRingtoneSoundNameSaveUseCase {
-    fileprivate let name: String
-    fileprivate let defaults: KeyValueUserDefaults
+import UseCases
 
-    public init(name: String, defaults: KeyValueUserDefaults) {
-        self.name = name
-        self.defaults = defaults
+final class SettingsSavedAccounts {
+    fileprivate let settings: KeyValueSettings
+
+    init(settings: KeyValueSettings) {
+        self.settings = settings
     }
 }
 
-extension UserDefaultsRingtoneSoundNameSaveUseCase: UseCase {
-    public func execute() {
-        if !name.isEmpty {
-            defaults[kRingingSound] = name
-        }
+extension SettingsSavedAccounts: SavedAccounts {
+    var haveEnabled: Bool {
+        return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
+    }
+
+    fileprivate func accounts() -> [[String: Any]] {
+        return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
     }
 }

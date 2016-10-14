@@ -1,5 +1,5 @@
 //
-//  SimpleMusicPlayerUserDefaults.swift
+//  SettingsRingtoneSoundNameSaveUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public final class SimpleMusicPlayerUserDefaults {
-    fileprivate let defaults: KeyValueUserDefaults
+public final class SettingsRingtoneSoundNameSaveUseCase {
+    fileprivate let name: String
+    fileprivate let settings: KeyValueSettings
 
-    public init(defaults: KeyValueUserDefaults) {
-        self.defaults = defaults
-        defaults.register(defaults: [key: true])
+    public init(name: String, settings: KeyValueSettings) {
+        self.name = name
+        self.settings = settings
     }
 }
 
-extension SimpleMusicPlayerUserDefaults: MusicPlayerUserDefaults {
-    public var shouldPause: Bool {
-        get {
-            return defaults.bool(forKey: key)
-        }
-        set {
-            defaults.set(newValue, forKey: key)
+extension SettingsRingtoneSoundNameSaveUseCase: UseCase {
+    public func execute() {
+        if !name.isEmpty {
+            settings[kRingingSound] = name
         }
     }
 }
-
-private let key = "PauseITunes"

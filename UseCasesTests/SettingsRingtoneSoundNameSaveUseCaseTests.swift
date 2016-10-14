@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneSoundNameSaveUseCaseTests.swift
+//  SettingsRingtoneSoundNameSaveUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,24 +20,24 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class UserDefaultsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
-    func testUpdatesUserDefaults() {
-        let defaults = UserDefaultsFake()
-        let sut = UserDefaultsRingtoneSoundNameSaveUseCase(name: "sound-name", defaults: defaults)
+final class SettingsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
+    func testUpdatesSettings() {
+        let settings = SettingsFake()
+        let sut = SettingsRingtoneSoundNameSaveUseCase(name: "sound-name", settings: settings)
 
         sut.execute()
 
-        XCTAssertEqual(defaults[kRingingSound], "sound-name")
+        XCTAssertEqual(settings[kRingingSound], "sound-name")
     }
 
-    func testDoesNotUpdateUserDefaultsWithEmptyName() {
-        let defaults = UserDefaultsFake()
+    func testDoesNotUpdateSettingsWithEmptyName() {
+        let settings = SettingsFake()
         let anyValue = "any-value"
-        defaults[kRingingSound] = anyValue
-        let sut = UserDefaultsRingtoneSoundNameSaveUseCase(name: "", defaults: defaults)
+        settings[kRingingSound] = anyValue
+        let sut = SettingsRingtoneSoundNameSaveUseCase(name: "", settings: settings)
 
         sut.execute()
 
-        XCTAssertEqual(defaults[kRingingSound], anyValue)
+        XCTAssertEqual(settings[kRingingSound], anyValue)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  UserDefaultsFake.swift
+//  SettingsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-public final class UserDefaultsFake {
+public final class SettingsFake {
     public var date: Date = Date.distantPast
     public var version = ""
 
@@ -33,7 +33,7 @@ public final class UserDefaultsFake {
     public init() {}
 }
 
-extension UserDefaultsFake: KeyValueUserDefaults {
+extension SettingsFake: KeyValueSettings {
     @objc public subscript(key: String) -> String? {
         get {
             return string(forKey: key)
@@ -71,4 +71,4 @@ extension UserDefaultsFake: KeyValueUserDefaults {
     }
 }
 
-extension UserDefaultsFake: PurchaseReminderUserDefaults {}
+extension SettingsFake: PurchaseReminderSettings {}

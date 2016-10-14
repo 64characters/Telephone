@@ -1,5 +1,5 @@
 //
-//  SimplePurchaseReminderUserDefaults.swift
+//  UserDefaultsPurchaseReminderSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-final class SimplePurchaseReminderUserDefaults {
+final class UserDefaultsPurchaseReminderSettings {
     fileprivate let defaults: UserDefaults
 
     init(defaults: UserDefaults) {
@@ -28,7 +28,7 @@ final class SimplePurchaseReminderUserDefaults {
     }
 }
 
-extension SimplePurchaseReminderUserDefaults: PurchaseReminderUserDefaults {
+extension UserDefaultsPurchaseReminderSettings: PurchaseReminderSettings {
     var date: Date {
         get {
             return defaults.object(forKey: dateKey) as! Date

@@ -1,5 +1,5 @@
 //
-//  PurchaseReminderUserDefaults.swift
+//  MusicPlayerSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol PurchaseReminderUserDefaults: class {
-    var date: Date { get set }
-    var version: String { get set }
+public protocol MusicPlayerSettings {
+    var shouldPause: Bool { get set }
 }

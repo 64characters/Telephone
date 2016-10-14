@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundIOLoadUseCaseOutputSpy.swift
+//  PurchaseReminderSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class UserDefaultsSoundIOLoadUseCaseOutputSpy {
-    public fileprivate(set) var invokedDevices: AudioDevices?
-    public fileprivate(set) var invokedSoundIO: PresentationSoundIO?
-
-    public init() {}
-}
-
-extension UserDefaultsSoundIOLoadUseCaseOutputSpy: UserDefaultsSoundIOLoadUseCaseOutput {
-    public func update(devices: AudioDevices, soundIO: PresentationSoundIO) {
-        self.invokedDevices = devices
-        self.invokedSoundIO = soundIO
-    }
+public protocol PurchaseReminderSettings: class {
+    var date: Date { get set }
+    var version: String { get set }
 }

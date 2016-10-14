@@ -1,5 +1,5 @@
 //
-//  UserDefaultsKeys.m
+//  SimpleMusicPlayerSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-#import "UserDefaultsKeys.h"
+public final class SimpleMusicPlayerSettings {
+    fileprivate let settings: KeyValueSettings
 
-NSString * const kSoundInput = @"SoundInput";
-NSString * const kSoundOutput = @"SoundOutput";
-NSString * const kRingtoneOutput = @"RingtoneOutput";
-NSString * const kRingingSound = @"RingingSound";
+    public init(settings: KeyValueSettings) {
+        self.settings = settings
+        settings.register(defaults: [key: true])
+    }
+}
+
+extension SimpleMusicPlayerSettings: MusicPlayerSettings {
+    public var shouldPause: Bool {
+        get {
+            return settings.bool(forKey: key)
+        }
+        set {
+            settings.set(newValue, forKey: key)
+        }
+    }
+}
+
+private let key = "PauseITunes"

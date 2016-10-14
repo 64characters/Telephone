@@ -1,5 +1,5 @@
 //
-//  KeyValueUserDefaults.swift
+//  SimpleSoundFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import UseCases
 
-@objc public protocol KeyValueUserDefaults {
-    subscript(key: String) -> String? { get set }
-    func string(forKey key: String) -> String?
+final class SimpleSoundFactory {
+    fileprivate let load: SoundConfigurationLoadUseCase
+    fileprivate let factory: NSSoundToSoundAdapterFactory
 
-    @objc(setBool:forKey:)
-    func set(_ value: Bool, forKey key: String)
-    func bool(forKey key: String) -> Bool
+    init(load: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
+        self.load = load
+        self.factory = factory
+    }
+}
 
-    @objc(setArray:forKey:)
-    func set(_ array: [Any], forKey key: String)
-    func array(forKey key: String) -> [Any]?
-
-    @objc(registerDefaults:)
-    func register(defaults: [String: Any])
+extension SimpleSoundFactory: SoundFactory {
+    func makeSound(target: SoundEventTarget) throws -> Sound {
+        return try factory.makeSound(configuration: try load.execute(), target: target)
+    }
 }

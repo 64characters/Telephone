@@ -1,5 +1,5 @@
 //
-//  UserDefaultsKeys.h
+//  SettingsKeys.m
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+#import "SettingsKeys.h"
 
-extern NSString * const kSoundInput;
-extern NSString * const kSoundOutput;
-extern NSString * const kRingtoneOutput;
-extern NSString * const kRingingSound;
+NSString * const kSoundInput = @"SoundInput";
+NSString * const kSoundOutput = @"SoundOutput";
+NSString * const kRingtoneOutput = @"RingtoneOutput";
+NSString * const kRingingSound = @"RingingSound";

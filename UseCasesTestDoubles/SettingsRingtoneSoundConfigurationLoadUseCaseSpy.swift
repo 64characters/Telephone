@@ -1,5 +1,5 @@
 //
-//  MusicPlayerUserDefaults.swift
+//  SettingsRingtoneSoundConfigurationLoadUseCaseSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-public protocol MusicPlayerUserDefaults {
-    var shouldPause: Bool { get set }
+import UseCases
+
+public final class SettingsRingtoneSoundConfigurationLoadUseCaseSpy {
+    public fileprivate(set) var didCallExecute = false
+
+    public init() {}
+}
+
+extension SettingsRingtoneSoundConfigurationLoadUseCaseSpy: SoundConfigurationLoadUseCase {
+    public func execute() throws -> SoundConfiguration {
+        didCallExecute = true
+        return SoundConfiguration(name: "any-name", deviceUID: "any-UID")
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundFactory.swift
+//  KeyValueSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import Foundation
 
-final class UserDefaultsSoundFactory {
-    fileprivate let load: SoundConfigurationLoadUseCase
-    fileprivate let factory: NSSoundToSoundAdapterFactory
+@objc public protocol KeyValueSettings {
+    subscript(key: String) -> String? { get set }
+    func string(forKey key: String) -> String?
 
-    init(load: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
-        self.load = load
-        self.factory = factory
-    }
-}
+    @objc(setBool:forKey:)
+    func set(_ value: Bool, forKey key: String)
+    func bool(forKey key: String) -> Bool
 
-extension UserDefaultsSoundFactory: SoundFactory {
-    func makeSound(target: SoundEventTarget) throws -> Sound {
-        return try factory.makeSound(configuration: try load.execute(), target: target)
-    }
+    @objc(setArray:forKey:)
+    func set(_ array: [Any], forKey key: String)
+    func array(forKey key: String) -> [Any]?
+
+    @objc(registerDefaults:)
+    func register(defaults: [String: Any])
 }

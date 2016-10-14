@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+KeyValueUserDefaults.swift
+//  SettingsKeys.h
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+@import Foundation;
 
-extension UserDefaults: KeyValueUserDefaults {
-    public subscript(key: String) -> String? {
-        get {
-            return string(forKey: key)
-        }
-        set {
-            set(newValue, forKey: key)
-        }
-    }
-
-    public func set(_ array: [Any], forKey key: String) {
-        set(array, forKey: key)
-    }
-}
+extern NSString * const kSoundInput;
+extern NSString * const kSoundOutput;
+extern NSString * const kRingtoneOutput;
+extern NSString * const kRingingSound;

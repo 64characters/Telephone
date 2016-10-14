@@ -40,17 +40,17 @@ final class CompositionRoot: NSObject {
         queue = makeQueue()
 
         let audioDevices = SystemAudioDevices()
-        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, defaults: defaults)
+        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, settings: defaults)
 
-        let userDefaultsSoundFactory = UserDefaultsSoundFactory(
-            load: UserDefaultsRingtoneSoundConfigurationLoadUseCase(defaults: defaults, repository: audioDevices),
+        let soundFactory = SimpleSoundFactory(
+            load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, repository: audioDevices),
             factory: NSSoundToSoundAdapterFactory()
         )
 
         ringtonePlayback = ConditionalRingtonePlaybackUseCase(
             origin: DefaultRingtonePlaybackUseCase(
                 factory: RepeatingSoundFactory(
-                    soundFactory: userDefaultsSoundFactory,
+                    soundFactory: soundFactory,
                     timerFactory: FoundationToUseCasesTimerAdapterFactory()
                 )
             ),
@@ -81,9 +81,9 @@ final class CompositionRoot: NSObject {
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 
         purchaseReminder = PurchaseReminderUseCase(
-            accounts: UserDefaultsSavedAccounts(defaults: defaults),
+            accounts: SettingsSavedAccounts(settings: defaults),
             receipt: receipt,
-            defaults: SimplePurchaseReminderUserDefaults(defaults: defaults),
+            settings: UserDefaultsPurchaseReminderSettings(defaults: defaults),
             now: Date(),
             version: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,
             output: storeWindowController
@@ -95,7 +95,7 @@ final class CompositionRoot: NSObject {
         )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, defaults: defaults),
+            useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, settings: defaults),
             userAgent: userAgent
         )
 
@@ -107,13 +107,13 @@ final class CompositionRoot: NSObject {
                 presenterFactory: PresenterFactory(),
                 userAgentSoundIOSelection: userAgentSoundIOSelection,
                 ringtoneOutputUpdate: RingtoneOutputUpdateUseCase(playback: ringtonePlayback),
-                ringtoneSoundPlayback: DefaultSoundPlaybackUseCase(factory: userDefaultsSoundFactory)
+                ringtoneSoundPlayback: DefaultSoundPlaybackUseCase(factory: soundFactory)
             )
         )
 
         musicPlayer = ConditionalMusicPlayer(
             origin: AvailableMusicPlayers(factory: MusicPlayerFactory()),
-            defaults: SimpleMusicPlayerUserDefaults(defaults: defaults)
+            settings: SimpleMusicPlayerSettings(settings: defaults)
         )
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(

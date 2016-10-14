@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift
+//  NSUserDefaults+KeyValueSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,15 +18,17 @@
 
 import UseCases
 
-public final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy {
-    public fileprivate(set) var didCallExecute = false
+extension UserDefaults: KeyValueSettings {
+    public subscript(key: String) -> String? {
+        get {
+            return string(forKey: key)
+        }
+        set {
+            set(newValue, forKey: key)
+        }
+    }
 
-    public init() {}
-}
-
-extension UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy: SoundConfigurationLoadUseCase {
-    public func execute() throws -> SoundConfiguration {
-        didCallExecute = true
-        return SoundConfiguration(name: "any-name", deviceUID: "any-UID")
+    public func set(_ array: [Any], forKey key: String) {
+        set(array, forKey: key)
     }
 }

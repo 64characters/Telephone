@@ -1,5 +1,5 @@
 //
-//  MusicPlayerUserDefaultsFake.swift
+//  SettingsSoundIOLoadUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,8 +18,16 @@
 
 import UseCases
 
-public final class MusicPlayerUserDefaultsFake: MusicPlayerUserDefaults {
-    public var shouldPause: Bool = false
+public final class SettingsSoundIOLoadUseCaseOutputSpy {
+    public fileprivate(set) var invokedDevices: AudioDevices?
+    public fileprivate(set) var invokedSoundIO: PresentationSoundIO?
 
     public init() {}
+}
+
+extension SettingsSoundIOLoadUseCaseOutputSpy: SettingsSoundIOLoadUseCaseOutput {
+    public func update(devices: AudioDevices, soundIO: PresentationSoundIO) {
+        self.invokedDevices = devices
+        self.invokedSoundIO = soundIO
+    }
 }

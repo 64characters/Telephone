@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSavedAccountsTests.swift
+//  SettingsSavedAccountsTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,27 +20,27 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class UserDefaultsSavedAccountsTests: XCTestCase {
+final class SettingsSavedAccountsTests: XCTestCase {
     func testHaveEnabledIsTrueWhenAtLeastOneAccountIsEnabled() {
-        let defaults = UserDefaultsFake()
-        defaults.set(
+        let settings = SettingsFake()
+        settings.set(
             [[kAccountEnabled: false], [kAccountEnabled: true], [kAccountEnabled: false]],
             forKey: kAccounts
         )
 
-        let sut = UserDefaultsSavedAccounts(defaults: defaults)
+        let sut = SettingsSavedAccounts(settings: settings)
 
         XCTAssertTrue(sut.haveEnabled)
     }
 
     func testHaveEnabledIsFalseWhenThereAreNoEnabledAccounts() {
-        let defaults = UserDefaultsFake()
-        defaults.set(
+        let settings = SettingsFake()
+        settings.set(
             [[kAccountEnabled: false], [kAccountEnabled: false], [kAccountEnabled: false]],
             forKey: kAccounts
         )
 
-        let sut = UserDefaultsSavedAccounts(defaults: defaults)
+        let sut = SettingsSavedAccounts(settings: settings)
 
         XCTAssertFalse(sut.haveEnabled)
     }

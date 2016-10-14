@@ -19,4 +19,4 @@
 @import Foundation;
 
 #import "MusicPlayer.h"
-#import "UserDefaultsKeys.h"
+#import "SettingsKeys.h"
