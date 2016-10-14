@@ -23,12 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 // A Keychain Services wrapper.
 @interface AKKeychain : NSObject
 
-// Returns password for the first Keychain item with a specified service name and account name.
-+ (NSString *)passwordForServiceName:(NSString *)serviceName accountName:(NSString *)accountName;
+// Returns password for the first Keychain item with a specified service and account.
++ (NSString *)passwordForService:(NSString *)service account:(NSString *)account;
 
-// Adds an item to the Keychain with a specified service name, account name, and password. If the same item already
+// Adds an item to the Keychain with a specified service, account, and password. If the same item already
 // exists, its password will be replaced with the new one.
-+ (BOOL)addItemWithServiceName:(NSString *)serviceName accountName:(NSString *)accountName password:(NSString *)password;
++ (BOOL)addItemWithService:(NSString *)service account:(NSString *)account password:(NSString *)password;
 
 @end
 

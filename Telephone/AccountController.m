@@ -141,9 +141,8 @@ NSString * const kGerman = @"de";
         [[self account] setRegistered:flag];
         
     } else {
-        NSString *serviceName = [NSString stringWithFormat:@"SIP: %@",
-                                 [[self account] registrar]];
-        NSString *password = [AKKeychain passwordForServiceName:serviceName accountName:[[self account] username]];
+        NSString *serviceName = [NSString stringWithFormat:@"SIP: %@", [[self account] registrar]];
+        NSString *password = [AKKeychain passwordForService:serviceName account:[[self account] username]];
         
         [self showConnectingState];
         
@@ -653,9 +652,8 @@ NSString * const kGerman = @"de";
                                 @"Registrar authentication failed."),
               [[self account] registrar]]];
             
-            NSString *serviceName = [NSString stringWithFormat:@"SIP: %@",
-                                     [[self account] registrar]];
-            NSString *password = [AKKeychain passwordForServiceName:serviceName accountName:[[self account] username]];
+            NSString *service = [NSString stringWithFormat:@"SIP: %@", [[self account] registrar]];
+            NSString *password = [AKKeychain passwordForService:service account:[[self account] username]];
             
             [[[self authenticationFailureController] usernameField] setStringValue:[[self account] username]];
             [[[self authenticationFailureController] passwordField] setStringValue:password];
