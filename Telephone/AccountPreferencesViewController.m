@@ -253,15 +253,15 @@ static const NSUInteger kAccountsMax = 32;
         // User Name.
         [[self usernameField] setStringValue:accountDict[kUsername]];
         
-        NSString *keychainServiceName;
+        NSString *keychainService;
         if ([accountDict[kRegistrar] length] > 0) {
-            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", accountDict[kRegistrar]];
+            keychainService = [NSString stringWithFormat:@"SIP: %@", accountDict[kRegistrar]];
         } else {
-            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", accountDict[kDomain]];
+            keychainService = [NSString stringWithFormat:@"SIP: %@", accountDict[kDomain]];
         }
         
         // Password.
-        [[self passwordField] setStringValue:[AKKeychain passwordForServiceName:keychainServiceName accountName:accountDict[kUsername]]];
+        [[self passwordField] setStringValue:[AKKeychain passwordForService:keychainService account:accountDict[kUsername]]];
         
         // Reregister every...
         if ([accountDict[kReregistrationTime] integerValue] > 0) {
@@ -397,25 +397,22 @@ static const NSUInteger kAccountsMax = 32;
         accountDict[kDomain] = domain;
         accountDict[kUsername] = username;
         
-        NSString *keychainServiceName;
+        NSString *keychainService;
         if ([registrar length] > 0) {
-            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", registrar];
+            keychainService = [NSString stringWithFormat:@"SIP: %@", registrar];
         } else {
-            keychainServiceName = [NSString stringWithFormat:@"SIP: %@", domain];
+            keychainService = [NSString stringWithFormat:@"SIP: %@", domain];
         }
         
-        NSString *keychainAccountName = username;
+        NSString *keychainAccount = username;
         
-        NSString *keychainPassword = [AKKeychain passwordForServiceName:keychainServiceName
-                                                            accountName:keychainAccountName];
+        NSString *keychainPassword = [AKKeychain passwordForService:keychainService account:keychainAccount];
         
         NSString *currentPassword = [[self passwordField] stringValue];
         
         // Save password only if it's been changed.
         if (![keychainPassword isEqualToString:currentPassword]) {
-            [AKKeychain addItemWithServiceName:keychainServiceName
-                                   accountName:keychainAccountName
-                                      password:currentPassword];
+            [AKKeychain addItemWithService:keychainService account:keychainAccount password:currentPassword];
         }
         
         accountDict[kReregistrationTime] = @([[self reregistrationTimeField] integerValue]);
