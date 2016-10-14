@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+KeyValueUserDefaults.swift
+//  SimpleSoundFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,17 +18,18 @@
 
 import UseCases
 
-extension UserDefaults: KeyValueUserDefaults {
-    public subscript(key: String) -> String? {
-        get {
-            return string(forKey: key)
-        }
-        set {
-            set(newValue, forKey: key)
-        }
-    }
+final class SimpleSoundFactory {
+    fileprivate let load: SoundConfigurationLoadUseCase
+    fileprivate let factory: NSSoundToSoundAdapterFactory
 
-    public func set(_ array: [Any], forKey key: String) {
-        set(array, forKey: key)
+    init(load: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
+        self.load = load
+        self.factory = factory
+    }
+}
+
+extension SimpleSoundFactory: SoundFactory {
+    func makeSound(target: SoundEventTarget) throws -> Sound {
+        return try factory.makeSound(configuration: try load.execute(), target: target)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  KeyValueUserDefaults.swift
+//  SettingsSoundIOLoadUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import UseCases
 
-@objc public protocol KeyValueUserDefaults {
-    subscript(key: String) -> String? { get set }
-    func string(forKey key: String) -> String?
+public final class SettingsSoundIOLoadUseCaseOutputSpy {
+    public fileprivate(set) var invokedDevices: AudioDevices?
+    public fileprivate(set) var invokedSoundIO: PresentationSoundIO?
 
-    @objc(setBool:forKey:)
-    func set(_ value: Bool, forKey key: String)
-    func bool(forKey key: String) -> Bool
+    public init() {}
+}
 
-    @objc(setArray:forKey:)
-    func set(_ array: [Any], forKey key: String)
-    func array(forKey key: String) -> [Any]?
-
-    @objc(registerDefaults:)
-    func register(defaults: [String: Any])
+extension SettingsSoundIOLoadUseCaseOutputSpy: SettingsSoundIOLoadUseCaseOutput {
+    public func update(devices: AudioDevices, soundIO: PresentationSoundIO) {
+        self.invokedDevices = devices
+        self.invokedSoundIO = soundIO
+    }
 }

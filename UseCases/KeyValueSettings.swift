@@ -1,5 +1,5 @@
 //
-//  UserDefaultsKeys.h
+//  KeyValueSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+import Foundation
 
-extern NSString * const kSoundInput;
-extern NSString * const kSoundOutput;
-extern NSString * const kRingtoneOutput;
-extern NSString * const kRingingSound;
+@objc public protocol KeyValueSettings {
+    subscript(key: String) -> String? { get set }
+    func string(forKey key: String) -> String?
+
+    @objc(setBool:forKey:)
+    func set(_ value: Bool, forKey key: String)
+    func bool(forKey key: String) -> Bool
+
+    @objc(setArray:forKey:)
+    func set(_ array: [Any], forKey key: String)
+    func array(forKey key: String) -> [Any]?
+
+    @objc(registerDefaults:)
+    func register(defaults: [String: Any])
+}

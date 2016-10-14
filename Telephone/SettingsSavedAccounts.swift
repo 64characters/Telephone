@@ -1,5 +1,5 @@
 //
-//  SimpleMusicPlayerUserDefaults.swift
+//  SettingsSavedAccounts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-public final class SimpleMusicPlayerUserDefaults {
-    fileprivate let defaults: KeyValueUserDefaults
+import UseCases
 
-    public init(defaults: KeyValueUserDefaults) {
-        self.defaults = defaults
-        defaults.register(defaults: [key: true])
+final class SettingsSavedAccounts {
+    fileprivate let settings: KeyValueSettings
+
+    init(settings: KeyValueSettings) {
+        self.settings = settings
     }
 }
 
-extension SimpleMusicPlayerUserDefaults: MusicPlayerUserDefaults {
-    public var shouldPause: Bool {
-        get {
-            return defaults.bool(forKey: key)
-        }
-        set {
-            defaults.set(newValue, forKey: key)
-        }
+extension SettingsSavedAccounts: SavedAccounts {
+    var haveEnabled: Bool {
+        return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
+    }
+
+    fileprivate func accounts() -> [[String: Any]] {
+        return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
     }
 }
-
-private let key = "PauseITunes"

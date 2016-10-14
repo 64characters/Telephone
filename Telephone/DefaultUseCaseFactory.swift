@@ -20,24 +20,24 @@ import UseCases
 
 final class DefaultUseCaseFactory {
     fileprivate let repository: SystemAudioDeviceRepository
-    fileprivate let defaults: KeyValueUserDefaults
+    fileprivate let settings: KeyValueSettings
 
-    init(repository: SystemAudioDeviceRepository, defaults: KeyValueUserDefaults) {
+    init(repository: SystemAudioDeviceRepository, settings: KeyValueSettings) {
         self.repository = repository
-        self.defaults = defaults
+        self.settings = settings
     }
 }
 
 extension DefaultUseCaseFactory: UseCaseFactory {
-    func makeUserDefaultsSoundIOLoadUseCase(output: UserDefaultsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
-        return UserDefaultsSoundIOLoadUseCase(repository: repository, defaults: defaults, output: output)
+    func makeSettingsSoundIOLoadUseCase(output: SettingsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
+        return SettingsSoundIOLoadUseCase(repository: repository, settings: settings, output: output)
     }
 
-    func makeUserDefaultsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
-        return UserDefaultsSoundIOSaveUseCase(soundIO: soundIO, defaults: defaults)
+    func makeSettingsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
+        return SettingsSoundIOSaveUseCase(soundIO: soundIO, settings: settings)
     }
 
-    func makeUserDefaultsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
-        return UserDefaultsRingtoneSoundNameSaveUseCase(name: name, defaults: defaults)
+    func makeSettingsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
+        return SettingsRingtoneSoundNameSaveUseCase(name: name, settings: settings)
     }
 }

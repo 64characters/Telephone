@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundIOLoadUseCaseTests.swift
+//  SettingsSoundIOLoadUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -22,12 +22,12 @@ import DomainTestDoubles
 import UseCasesTestDoubles
 import XCTest
 
-final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
+final class SettingsSoundIOLoadUseCaseTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
     private var devices: SystemAudioDevices!
     private var repository: SystemAudioDeviceRepositoryStub!
-    private var defaults: UserDefaultsFake!
-    private var output: UserDefaultsSoundIOLoadUseCaseOutputSpy!
+    private var settings: SettingsFake!
+    private var output: SettingsSoundIOLoadUseCaseOutputSpy!
 
     override func setUp() {
         super.setUp()
@@ -35,13 +35,13 @@ final class UserDefaultsSoundIOLoadUseCaseTests: XCTestCase {
         devices = SystemAudioDevices(devices: factory.all)
         repository = SystemAudioDeviceRepositoryStub()
         repository.allDevicesResult = factory.all
-        defaults = UserDefaultsFake()
-        output = UserDefaultsSoundIOLoadUseCaseOutputSpy()
+        settings = SettingsFake()
+        output = SettingsSoundIOLoadUseCaseOutputSpy()
     }
 
     func testCallsOutputWithExpectedAudioDevicesAndSoundIO() {
-        let sut = UserDefaultsSoundIOLoadUseCase(
-            repository: repository, defaults: defaults, output: output
+        let sut = SettingsSoundIOLoadUseCase(
+            repository: repository, settings: settings, output: output
         )
 
         try! sut.execute()

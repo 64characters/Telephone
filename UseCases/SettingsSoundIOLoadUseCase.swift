@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundIOLoadUseCase.swift
+//  SettingsSoundIOLoadUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,28 +18,28 @@
 
 import Domain
 
-public protocol UserDefaultsSoundIOLoadUseCaseOutput: class {
+public protocol SettingsSoundIOLoadUseCaseOutput: class {
     func update(devices: AudioDevices, soundIO: PresentationSoundIO)
 }
 
-public final class UserDefaultsSoundIOLoadUseCase {
+public final class SettingsSoundIOLoadUseCase {
     fileprivate let repository: SystemAudioDeviceRepository
-    fileprivate let defaults: KeyValueUserDefaults
-    fileprivate let output: UserDefaultsSoundIOLoadUseCaseOutput
+    fileprivate let settings: KeyValueSettings
+    fileprivate let output: SettingsSoundIOLoadUseCaseOutput
 
-    public init(repository: SystemAudioDeviceRepository, defaults: KeyValueUserDefaults, output: UserDefaultsSoundIOLoadUseCaseOutput) {
+    public init(repository: SystemAudioDeviceRepository, settings: KeyValueSettings, output: SettingsSoundIOLoadUseCaseOutput) {
         self.repository = repository
-        self.defaults = defaults
+        self.settings = settings
         self.output = output
     }
 }
 
-extension UserDefaultsSoundIOLoadUseCase: ThrowingUseCase {
+extension SettingsSoundIOLoadUseCase: ThrowingUseCase {
     public func execute() throws {
         let devices = SystemAudioDevices(devices: try repository.allDevices())
         output.update(
             devices: AudioDevices(devices: devices),
-            soundIO: PresentationSoundIO(soundIO: PreferredSoundIO(devices: devices, defaults: defaults))
+            soundIO: PresentationSoundIO(soundIO: PreferredSoundIO(devices: devices, settings: settings))
         )
     }
 }

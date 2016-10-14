@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundIOSaveUseCase.swift
+//  SettingsSoundIOSaveUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-public final class UserDefaultsSoundIOSaveUseCase {
+public final class SettingsSoundIOSaveUseCase {
     fileprivate let soundIO: PresentationSoundIO
-    fileprivate let defaults: KeyValueUserDefaults
+    fileprivate let settings: KeyValueSettings
 
-    public init(soundIO: PresentationSoundIO, defaults: KeyValueUserDefaults) {
+    public init(soundIO: PresentationSoundIO, settings: KeyValueSettings) {
         self.soundIO = soundIO
-        self.defaults = defaults
+        self.settings = settings
     }
 }
 
-extension UserDefaultsSoundIOSaveUseCase: UseCase {
+extension SettingsSoundIOSaveUseCase: UseCase {
     public func execute() {
         saveInputIfNeeded()
         saveOutputIfNeeded()
@@ -35,19 +35,19 @@ extension UserDefaultsSoundIOSaveUseCase: UseCase {
 
     private func saveInputIfNeeded() {
         if !soundIO.input.isEmpty {
-            defaults[kSoundInput] = soundIO.input
+            settings[SettingsKeys.soundInput] = soundIO.input
         }
     }
 
     private func saveOutputIfNeeded() {
         if !soundIO.output.isEmpty {
-            defaults[kSoundOutput] = soundIO.output
+            settings[SettingsKeys.soundOutput] = soundIO.output
         }
     }
 
     private func saveRingtoneOutputIfNeeded() {
         if !soundIO.ringtoneOutput.isEmpty {
-            defaults[kRingtoneOutput] = soundIO.ringtoneOutput
+            settings[SettingsKeys.ringtoneOutput] = soundIO.ringtoneOutput
         }
     }
 }

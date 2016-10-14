@@ -21,11 +21,11 @@ import UseCasesTestDoubles
 import XCTest
 
 final class ConditionalMusicPlayerTests: XCTestCase {
-    func testPausesAndResumesWhenEnabledInUserDefaults() {
+    func testPausesAndResumesWhenEnabledInSettings() {
         let origin = MusicPlayerSpy()
-        let defaults = MusicPlayerUserDefaultsFake()
-        defaults.shouldPause = true
-        let sut = ConditionalMusicPlayer(origin: origin, defaults: defaults)
+        let settings = MusicPlayerSettingsFake()
+        settings.shouldPause = true
+        let sut = ConditionalMusicPlayer(origin: origin, settings: settings)
 
         sut.pause()
         sut.resume()
@@ -34,11 +34,11 @@ final class ConditionalMusicPlayerTests: XCTestCase {
         XCTAssertTrue(origin.didCallResume)
     }
 
-    func testDoesNotPauseAndResumeWhenDisabledInUserDefaults() {
+    func testDoesNotPauseAndResumeWhenDisabledInSettings() {
         let origin = MusicPlayerSpy()
-        let defaults = MusicPlayerUserDefaultsFake()
-        defaults.shouldPause = false
-        let sut = ConditionalMusicPlayer(origin: origin, defaults: defaults)
+        let settings = MusicPlayerSettingsFake()
+        settings.shouldPause = false
+        let sut = ConditionalMusicPlayer(origin: origin, settings: settings)
 
         sut.pause()
         sut.resume()

@@ -22,14 +22,14 @@ import XCTest
 
 final class PurchaseReminderUseCaseTests: XCTestCase {
     func testDoesNotRemindWhenThereAreNoEnabledAccounts() {
-        let defaults = UserDefaultsFake()
-        defaults.date = Date.distantPast
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = Date.distantPast
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: DisabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: Date(),
             version: "any",
             output: output
@@ -41,14 +41,14 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
     }
 
     func testDoesNotRemindWhenReceiptIsValid() {
-        let defaults = UserDefaultsFake()
-        defaults.date = Date.distantPast
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = Date.distantPast
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: ValidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: Date(),
             version: "other",
             output: output
@@ -60,14 +60,14 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
     }
 
     func testRemindsWhenMoreThanThirtyDaysPassedSinceLastReminder() {
-        let defaults = UserDefaultsFake()
-        defaults.date = Date.distantPast
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = Date.distantPast
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: Date(),
             version: "any",
             output: output
@@ -80,14 +80,14 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
     func testDoesNotRemindWhenLessThanThirtyDaysPassedSinceLastReminder() {
         let now = Date()
-        let defaults = UserDefaultsFake()
-        defaults.date = oneSecondAfter(thirtyDaysBefore(now))
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = oneSecondAfter(thirtyDaysBefore(now))
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: now,
             version: "any",
             output: output
@@ -100,14 +100,14 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
     func testRemindsWhenExactlyThirtyDaysPassedSinceLastReminder() {
         let now = Date()
-        let defaults = UserDefaultsFake()
-        defaults.date = thirtyDaysBefore(now)
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = thirtyDaysBefore(now)
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: now,
             version: "any",
             output: output
@@ -120,14 +120,14 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
     func testRemindsWhenLastReminderDateIsLaterThanNow() {
         let now = Date()
-        let defaults = UserDefaultsFake()
-        defaults.date = oneSecondAfter(now)
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = oneSecondAfter(now)
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: now,
             version: "any",
             output: output
@@ -140,14 +140,14 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
     func testDoesNotRemindWhenLastReminderDateIsExactlyNow() {
         let now = Date()
-        let defaults = UserDefaultsFake()
-        defaults.date = now
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = now
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: now,
             version: "any",
             output: output
@@ -160,14 +160,14 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
     func testRemindsWhenLessThanThirtyDaysPassedSinceLastReminderAndLastReminderVersionDoesNotMatchCurrentVersion() {
         let now = Date()
-        let defaults = UserDefaultsFake()
-        defaults.date = oneSecondAfter(thirtyDaysBefore(now))
-        defaults.version = "any"
+        let settings = SettingsFake()
+        settings.date = oneSecondAfter(thirtyDaysBefore(now))
+        settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: now,
             version: "other",
             output: output
@@ -178,16 +178,16 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         XCTAssertTrue(output.didCallRemind)
     }
 
-    func testSavesCurrentDateAndVersionToUserDefaultsWhenReminds() {
+    func testSavesCurrentDateAndVersionToSettingsWhenReminds() {
         let now = Date()
-        let defaults = UserDefaultsFake()
-        defaults.date = oneSecondAfter(now)
-        defaults.version = "old"
+        let settings = SettingsFake()
+        settings.date = oneSecondAfter(now)
+        settings.version = "old"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
             accounts: EnabledSavedAccountsStub(),
             receipt: InvalidReceipt(),
-            defaults: defaults,
+            settings: settings,
             now: now,
             version: "new",
             output: output
@@ -195,8 +195,8 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertEqual(defaults.date, now)
-        XCTAssertEqual(defaults.version, "new")
+        XCTAssertEqual(settings.date, now)
+        XCTAssertEqual(settings.version, "new")
     }
 }
 

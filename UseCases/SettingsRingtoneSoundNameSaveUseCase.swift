@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy.swift
+//  SettingsRingtoneSoundNameSaveUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class SettingsRingtoneSoundNameSaveUseCase {
+    fileprivate let name: String
+    fileprivate let settings: KeyValueSettings
 
-public final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy {
-    public fileprivate(set) var didCallExecute = false
-
-    public init() {}
+    public init(name: String, settings: KeyValueSettings) {
+        self.name = name
+        self.settings = settings
+    }
 }
 
-extension UserDefaultsRingtoneSoundConfigurationLoadUseCaseSpy: SoundConfigurationLoadUseCase {
-    public func execute() throws -> SoundConfiguration {
-        didCallExecute = true
-        return SoundConfiguration(name: "any-name", deviceUID: "any-UID")
+extension SettingsRingtoneSoundNameSaveUseCase: UseCase {
+    public func execute() {
+        if !name.isEmpty {
+            settings[SettingsKeys.ringingSound] = name
+        }
     }
 }

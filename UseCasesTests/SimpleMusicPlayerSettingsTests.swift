@@ -1,5 +1,5 @@
 //
-//  SimpleMusicPlayerUserDefaultsTests.swift
+//  SimpleMusicPlayerSettingsTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,29 +20,29 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class SimpleMusicPlayerUserDefaultsTests: XCTestCase {
-    func testGetsFromUserDefaultsWithExpectedKey() {
-        let defaults = UserDefaultsFake()
-        defaults.set(true, forKey: key)
-        let sut = SimpleMusicPlayerUserDefaults(defaults: defaults)
+final class SimpleMusicPlayerSettingsTests: XCTestCase {
+    func testGetsFromSettingsWithExpectedKey() {
+        let settings = SettingsFake()
+        settings.set(true, forKey: key)
+        let sut = SimpleMusicPlayerSettings(settings: settings)
 
         XCTAssertTrue(sut.shouldPause)
     }
 
-    func testSetsToUserDefaultsWithExpectedKey() {
-        let defaults = UserDefaultsFake()
-        let sut = SimpleMusicPlayerUserDefaults(defaults: defaults)
+    func testSetsToSettingsWithExpectedKey() {
+        let settings = SettingsFake()
+        let sut = SimpleMusicPlayerSettings(settings: settings)
 
         sut.shouldPause = true
 
-        XCTAssertTrue(defaults.bool(forKey: key))
+        XCTAssertTrue(settings.bool(forKey: key))
     }
 
     func testRegistersDefaults() {
-        let defaults = UserDefaultsFake()
-        _ = SimpleMusicPlayerUserDefaults(defaults: defaults)
+        let settings = SettingsFake()
+        _ = SimpleMusicPlayerSettings(settings: settings)
 
-        XCTAssertTrue(defaults.registeredDefaults[key] as! Bool)
+        XCTAssertTrue(settings.registeredDefaults[key] as! Bool)
     }
 }
 

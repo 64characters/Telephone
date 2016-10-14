@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests.swift
+//  SettingsRingtoneSoundConfigurationLoadUseCaseTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,31 +17,28 @@
 //
 
 import DomainTestDoubles
-import UseCases
+@testable import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
+final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
-    private var defaults: UserDefaultsFake!
+    private var settings: SettingsFake!
     private var repository: SystemAudioDeviceRepositoryStub!
     private var sut: SoundConfigurationLoadUseCase!
 
     override func setUp() {
         super.setUp()
         factory = SystemAudioDeviceTestFactory()
-        defaults = UserDefaultsFake()
+        settings = SettingsFake()
         repository = SystemAudioDeviceRepositoryStub()
-        sut = UserDefaultsRingtoneSoundConfigurationLoadUseCase(
-            defaults: defaults,
-            repository: repository
-        )
+        sut = SettingsRingtoneSoundConfigurationLoadUseCase(settings: settings, repository: repository)
     }
 
-    func testReturnsRingtoneSoundConfigurationFromUserDefaults() {
+    func testReturnsRingtoneSoundConfigurationFromSettings() {
         let outputDevice = factory.someOutput
-        defaults[kRingtoneOutput] = outputDevice.name
-        defaults[kRingingSound] = "sound-name"
+        settings[SettingsKeys.ringtoneOutput] = outputDevice.name
+        settings[SettingsKeys.ringingSound] = "sound-name"
         repository.allDevicesResult = factory.all
 
         let result = try! sut.execute()
@@ -50,7 +47,7 @@ final class UserDefaultsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
         XCTAssertEqual(result.deviceUID, outputDevice.uniqueIdentifier)
     }
 
-    func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInUserDefaults() {
+    func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInSettings() {
         repository.allDevicesResult = factory.all
         var result = false
 

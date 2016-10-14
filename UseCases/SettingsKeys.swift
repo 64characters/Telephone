@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundFactory.swift
+//  SettingsKeys.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-final class UserDefaultsSoundFactory {
-    fileprivate let load: SoundConfigurationLoadUseCase
-    fileprivate let factory: NSSoundToSoundAdapterFactory
-
-    init(load: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
-        self.load = load
-        self.factory = factory
-    }
-}
-
-extension UserDefaultsSoundFactory: SoundFactory {
-    func makeSound(target: SoundEventTarget) throws -> Sound {
-        return try factory.makeSound(configuration: try load.execute(), target: target)
-    }
+struct SettingsKeys {
+    static let soundInput = "SoundInput"
+    static let soundOutput = "SoundOutput"
+    static let ringtoneOutput = "RingtoneOutput"
+    static let ringingSound = "RingingSound"
 }

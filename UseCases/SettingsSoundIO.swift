@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSoundIO.swift
+//  SettingsSoundIO.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,31 +18,31 @@
 
 import Domain
 
-struct UserDefaultsSoundIO {
+struct SettingsSoundIO {
     private let devices: SystemAudioDevices
-    private let defaults: KeyValueUserDefaults
+    private let settings: KeyValueSettings
     fileprivate var optionalInput: SystemAudioDevice!
     fileprivate var optionalOutput: SystemAudioDevice!
     fileprivate var optionalRingtoneOutput: SystemAudioDevice!
 
-    init(devices: SystemAudioDevices, defaults: KeyValueUserDefaults) {
+    init(devices: SystemAudioDevices, settings: KeyValueSettings) {
         self.devices = devices
-        self.defaults = defaults
-        optionalInput = inputDeviceByName(withUserDefaultsKey: kSoundInput)
-        optionalOutput = outputDeviceByName(withUserDefaultsKey: kSoundOutput)
-        optionalRingtoneOutput = outputDeviceByName(withUserDefaultsKey: kRingtoneOutput)
+        self.settings = settings
+        optionalInput = inputDeviceByName(withSettingsKey: SettingsKeys.soundInput)
+        optionalOutput = outputDeviceByName(withSettingsKey: SettingsKeys.soundOutput)
+        optionalRingtoneOutput = outputDeviceByName(withSettingsKey: SettingsKeys.ringtoneOutput)
     }
 
-    private func inputDeviceByName(withUserDefaultsKey key: String) -> SystemAudioDevice {
-        return deviceByName(withUserDefaultsKey: key, function: devices.inputDevice)
+    private func inputDeviceByName(withSettingsKey key: String) -> SystemAudioDevice {
+        return deviceByName(withSettingsKey: key, function: devices.inputDevice)
     }
 
-    private func outputDeviceByName(withUserDefaultsKey key: String) -> SystemAudioDevice {
-        return deviceByName(withUserDefaultsKey: key, function: devices.outputDevice)
+    private func outputDeviceByName(withSettingsKey key: String) -> SystemAudioDevice {
+        return deviceByName(withSettingsKey: key, function: devices.outputDevice)
     }
 
-    private func deviceByName(withUserDefaultsKey key: String, function: (String) -> SystemAudioDevice) -> SystemAudioDevice {
-        if let name = defaults.string(forKey: key) {
+    private func deviceByName(withSettingsKey key: String, function: (String) -> SystemAudioDevice) -> SystemAudioDevice {
+        if let name = settings.string(forKey: key) {
             return function(name)
         } else {
             return NullSystemAudioDevice()
@@ -50,7 +50,7 @@ struct UserDefaultsSoundIO {
     }
 }
 
-extension UserDefaultsSoundIO: SoundIO {
+extension SettingsSoundIO: SoundIO {
     var input: SystemAudioDevice {
         return optionalInput
     }

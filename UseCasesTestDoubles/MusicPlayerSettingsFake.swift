@@ -1,5 +1,5 @@
 //
-//  UserDefaultsSavedAccounts.swift
+//  MusicPlayerSettingsFake.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,20 +18,8 @@
 
 import UseCases
 
-final class UserDefaultsSavedAccounts {
-    fileprivate let defaults: KeyValueUserDefaults
+public final class MusicPlayerSettingsFake: MusicPlayerSettings {
+    public var shouldPause: Bool = false
 
-    init(defaults: KeyValueUserDefaults) {
-        self.defaults = defaults
-    }
-}
-
-extension UserDefaultsSavedAccounts: SavedAccounts {
-    var haveEnabled: Bool {
-        return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
-    }
-
-    fileprivate func accounts() -> [[String: Any]] {
-        return defaults.array(forKey: kAccounts) as? [[String: Any]] ?? []
-    }
+    public init() {}
 }

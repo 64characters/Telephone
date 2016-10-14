@@ -1,5 +1,5 @@
 //
-//  MusicPlayerUserDefaultsFake.swift
+//  PurchaseReminderSettings.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class MusicPlayerUserDefaultsFake: MusicPlayerUserDefaults {
-    public var shouldPause: Bool = false
-
-    public init() {}
+public protocol PurchaseReminderSettings: class {
+    var date: Date { get set }
+    var version: String { get set }
 }

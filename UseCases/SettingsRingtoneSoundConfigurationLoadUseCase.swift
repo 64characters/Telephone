@@ -1,5 +1,5 @@
 //
-//  UserDefaultsRingtoneSoundConfigurationLoadUseCase.swift
+//  SettingsRingtoneSoundConfigurationLoadUseCase.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,23 +18,23 @@
 
 import Domain
 
-public final class UserDefaultsRingtoneSoundConfigurationLoadUseCase {
-    fileprivate let defaults: KeyValueUserDefaults
+public final class SettingsRingtoneSoundConfigurationLoadUseCase {
+    fileprivate let settings: KeyValueSettings
     fileprivate let repository: SystemAudioDeviceRepository
 
-    public init(defaults: KeyValueUserDefaults, repository: SystemAudioDeviceRepository) {
-        self.defaults = defaults
+    public init(settings: KeyValueSettings, repository: SystemAudioDeviceRepository) {
+        self.settings = settings
         self.repository = repository
     }
 }
 
-extension UserDefaultsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationLoadUseCase {
+extension SettingsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationLoadUseCase {
     public func execute() throws -> SoundConfiguration {
         return SoundConfiguration(name: try ringtoneSoundName(), deviceUID: try ringtoneAudioDeviceUID())
     }
 
     private func ringtoneSoundName() throws -> String {
-        if let name = defaults[kRingingSound] {
+        if let name = settings[SettingsKeys.ringingSound] {
             return name
         } else {
             throw UseCasesError.ringtoneSoundNameNotFoundError
@@ -43,7 +43,7 @@ extension UserDefaultsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationL
 
     private func ringtoneAudioDeviceUID() throws -> String {
         let soundIO = PreferredSoundIO(
-            devices: SystemAudioDevices(devices: try repository.allDevices()), defaults: defaults
+            devices: SystemAudioDevices(devices: try repository.allDevices()), settings: settings
         )
         return soundIO.ringtoneOutput.uniqueIdentifier
     }
