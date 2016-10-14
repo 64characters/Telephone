@@ -18,10 +18,11 @@
 
 #import "AKKeychain.h"
 
-
 @implementation AKKeychain
 
-+ (NSString *)passwordForServiceName:(NSString *)serviceName accountName:(NSString *)accountName {
++ (nonnull NSString *)passwordForServiceName:(nonnull NSString *)serviceName accountName:(nonnull NSString *)accountName {
+    NSParameterAssert(serviceName);
+    NSParameterAssert(accountName);
     void *passwordData = nil;
     UInt32 passwordLength;
     OSStatus findStatus;
@@ -36,7 +37,7 @@
                                                 NULL);  // Keychain item reference.
     
     if (findStatus != noErr) {
-        return nil;
+        return @"";
     }
     
     NSString *password = [[NSString alloc] initWithBytes:passwordData
@@ -48,9 +49,13 @@
     return password;
 }
 
-+ (BOOL)addItemWithServiceName:(NSString *)serviceName
-                   accountName:(NSString *)accountName
-                      password:(NSString *)password {
++ (BOOL)addItemWithServiceName:(nonnull NSString *)serviceName
+                   accountName:(nonnull NSString *)accountName
+                      password:(nonnull NSString *)password {
+
+    NSParameterAssert(serviceName);
+    NSParameterAssert(accountName);
+    NSParameterAssert(password);
     
     SecKeychainItemRef keychainItemRef = nil;
     OSStatus addStatus, findStatus, modifyStatus;

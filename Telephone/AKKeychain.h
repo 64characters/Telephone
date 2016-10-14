@@ -16,8 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
 
 // A Keychain Services wrapper.
 @interface AKKeychain : NSObject
@@ -27,8 +28,8 @@
 
 // Adds an item to the Keychain with a specified service name, account name, and password. If the same item already
 // exists, its password will be replaced with the new one.
-+ (BOOL)addItemWithServiceName:(NSString *)serviceName
-                   accountName:(NSString *)accountName
-                      password:(NSString *)password;
++ (BOOL)addItemWithServiceName:(NSString *)serviceName accountName:(NSString *)accountName password:(NSString *)password;
 
 @end
+
+NS_ASSUME_NONNULL_END
