@@ -23,14 +23,14 @@ public protocol PurchaseReminderUseCaseOutput {
 }
 
 public final class PurchaseReminderUseCase: NSObject {
-    fileprivate let accounts: SavedAccounts
+    fileprivate let accounts: Accounts
     fileprivate let receipt: Receipt
     fileprivate let settings: PurchaseReminderSettings
     fileprivate let now: Date
     fileprivate let version: String
     fileprivate let output: PurchaseReminderUseCaseOutput
 
-    public init(accounts: SavedAccounts, receipt: Receipt, settings: PurchaseReminderSettings, now: Date, version: String, output: PurchaseReminderUseCaseOutput) {
+    public init(accounts: Accounts, receipt: Receipt, settings: PurchaseReminderSettings, now: Date, version: String, output: PurchaseReminderUseCaseOutput) {
         self.accounts = accounts
         self.receipt = receipt
         self.settings = settings

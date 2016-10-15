@@ -1,5 +1,5 @@
 //
-//  SettingsSavedAccounts.swift
+//  EnabledAccountsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,20 +18,7 @@
 
 import UseCases
 
-final class SettingsSavedAccounts {
-    fileprivate let settings: KeyValueSettings
-
-    init(settings: KeyValueSettings) {
-        self.settings = settings
-    }
-}
-
-extension SettingsSavedAccounts: SavedAccounts {
-    var haveEnabled: Bool {
-        return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
-    }
-
-    fileprivate func accounts() -> [[String: Any]] {
-        return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
-    }
+public final class EnabledAccountsStub: Accounts {
+    public let haveEnabled = true
+    public init() {}
 }

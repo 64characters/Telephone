@@ -81,7 +81,7 @@ final class CompositionRoot: NSObject {
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 
         purchaseReminder = PurchaseReminderUseCase(
-            accounts: SettingsSavedAccounts(settings: defaults),
+            accounts: SettingsAccounts(settings: defaults),
             receipt: receipt,
             settings: UserDefaultsPurchaseReminderSettings(defaults: defaults),
             now: Date(),

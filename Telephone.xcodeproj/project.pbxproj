@@ -155,11 +155,11 @@
 		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
 		8AA7487F1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */; };
-		8AA748811D6DECAB000587DC /* SettingsSavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */; };
-		8AA748831D6DEE61000587DC /* SavedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SavedAccount.swift */; };
-		8AA748851D6F0D00000587DC /* SettingsSavedAccountsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748841D6F0D00000587DC /* SettingsSavedAccountsTests.swift */; };
-		8AA748861D6F10B6000587DC /* SettingsSavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */; };
-		8AA748871D6F10C6000587DC /* SavedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SavedAccount.swift */; };
+		8AA748811D6DECAB000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
+		8AA748831D6DEE61000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
+		8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */; };
+		8AA748861D6F10B6000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
+		8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
 		8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748921D6F414E000587DC /* AppleMusicPlayer.m */; };
 		8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */; };
 		8AA748A21D702063000587DC /* MusicPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AA748901D6F40FD000587DC /* MusicPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -241,9 +241,9 @@
 		8AE396EC1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396EB1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift */; };
 		8AE396EE1D6C873300DCFB9E /* PurchaseReminderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396ED1D6C873300DCFB9E /* PurchaseReminderUseCase.swift */; };
 		8AE396F01D6C887F00DCFB9E /* PurchaseReminderUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396EF1D6C887F00DCFB9E /* PurchaseReminderUseCaseOutputSpy.swift */; };
-		8AE396F21D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F11D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift */; };
-		8AE396F41D6C8B3800DCFB9E /* SavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */; };
-		8AE396F71D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */; };
+		8AE396F21D6C8ACB00DCFB9E /* EnabledAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F11D6C8ACB00DCFB9E /* EnabledAccountsStub.swift */; };
+		8AE396F41D6C8B3800DCFB9E /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F31D6C8B3800DCFB9E /* Accounts.swift */; };
+		8AE396F71D6C8C2600DCFB9E /* DisabledAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */; };
 		8AE396F91D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift */; };
 		8AE4E95C1DABBBF90003F063 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4E95B1DABBBF90003F063 /* Images.xcassets */; };
 		8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 8AE706231D491C220060FF4F /* ReceiptValidation.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -721,9 +721,9 @@
 		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsPurchaseReminderSettings.swift; sourceTree = "<group>"; };
-		8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSavedAccounts.swift; sourceTree = "<group>"; };
-		8AA748821D6DEE61000587DC /* SavedAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedAccount.swift; sourceTree = "<group>"; };
-		8AA748841D6F0D00000587DC /* SettingsSavedAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsSavedAccountsTests.swift; path = TelephoneTests/SettingsSavedAccountsTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA748801D6DECAB000587DC /* SettingsAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccounts.swift; sourceTree = "<group>"; };
+		8AA748821D6DEE61000587DC /* SettingsAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccount.swift; sourceTree = "<group>"; };
+		8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsAccountsTests.swift; path = TelephoneTests/SettingsAccountsTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA748901D6F40FD000587DC /* MusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayer.h; sourceTree = "<group>"; };
 		8AA748911D6F414E000587DC /* AppleMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleMusicPlayer.h; sourceTree = "<group>"; };
 		8AA748921D6F414E000587DC /* AppleMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleMusicPlayer.m; sourceTree = "<group>"; };
@@ -823,9 +823,9 @@
 		8AE396EB1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseReminderUseCaseTests.swift; path = UseCasesTests/PurchaseReminderUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8AE396ED1D6C873300DCFB9E /* PurchaseReminderUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderUseCase.swift; sourceTree = "<group>"; };
 		8AE396EF1D6C887F00DCFB9E /* PurchaseReminderUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderUseCaseOutputSpy.swift; sourceTree = "<group>"; };
-		8AE396F11D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnabledSavedAccountsStub.swift; sourceTree = "<group>"; };
-		8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedAccounts.swift; sourceTree = "<group>"; };
-		8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisabledSavedAccountsStub.swift; sourceTree = "<group>"; };
+		8AE396F11D6C8ACB00DCFB9E /* EnabledAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnabledAccountsStub.swift; sourceTree = "<group>"; };
+		8AE396F31D6C8B3800DCFB9E /* Accounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisabledAccountsStub.swift; sourceTree = "<group>"; };
 		8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderSettings.swift; sourceTree = "<group>"; };
 		8AE4E95B1DABBBF90003F063 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8AE706231D491C220060FF4F /* ReceiptValidation.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReceiptValidation.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1206,9 +1206,9 @@
 				AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */,
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
-				8AA748821D6DEE61000587DC /* SavedAccount.swift */,
-				8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */,
-				8AA748841D6F0D00000587DC /* SettingsSavedAccountsTests.swift */,
+				8AA748821D6DEE61000587DC /* SettingsAccount.swift */,
+				8AA748801D6DECAB000587DC /* SettingsAccounts.swift */,
+				8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
@@ -1321,7 +1321,6 @@
 				8A7831BD1D636E92006D0D94 /* PurchaseRestorationUseCaseTests.swift */,
 				8A9513EB1D2A735F0034DF2C /* Receipt.swift */,
 				8AAA5BE41DA695D2005A7BFE /* ReceiptRefreshUseCase.swift */,
-				8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */,
 				8A11A0CC1CCFA29A007BFC7F /* Store.swift */,
 				8A859A0E1D2EC8F700118A66 /* StoreEventTarget */,
 				8ADD6A4A1CDCF75D001EDBBA /* StoreUseCaseFactory.swift */,
@@ -1647,13 +1646,13 @@
 			name = StoreViewEventTarget;
 			sourceTree = "<group>";
 		};
-		8AE396F51D6C8BFF00DCFB9E /* SavedAccounts */ = {
+		8AE396F51D6C8BFF00DCFB9E /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
-				8AE396F11D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift */,
-				8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */,
+				8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */,
+				8AE396F11D6C8ACB00DCFB9E /* EnabledAccountsStub.swift */,
 			);
-			name = SavedAccounts;
+			name = Accounts;
 			sourceTree = "<group>";
 		};
 		8AE706241D491C220060FF4F /* ReceiptValidation */ = {
@@ -1687,6 +1686,7 @@
 		AA078B2A1BFF80E30013FF8F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				8AE396F31D6C8B3800DCFB9E /* Accounts.swift */,
 				AA39055F1C007799005A8AA3 /* Audio Devices */,
 				AA92F89B1C2AF90000C378B6 /* Ringtone */,
 				8AA7489F1D701DEC000587DC /* Music Player */,
@@ -1933,6 +1933,7 @@
 		AAC4FF961C0215B90060B186 /* UseCasesTestDoubles */ = {
 			isa = PBXGroup;
 			children = (
+				8AE396F51D6C8BFF00DCFB9E /* Accounts */,
 				8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackUseCaseTestDelegate.swift */,
 				8AA748AA1D7023B5000587DC /* MusicPlayerSettingsFake.swift */,
 				8AA748A81D7022BA000587DC /* MusicPlayerSpy.swift */,
@@ -1945,7 +1946,6 @@
 				AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */,
 				8A7874F31C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift */,
 				AA1019741C48065700869D01 /* RingtoneSpy.swift */,
-				8AE396F51D6C8BFF00DCFB9E /* SavedAccounts */,
 				AA32F7F21BC440DE00FAC228 /* SettingsFake.swift */,
 				8ADD6B6E1C5639520029C3D8 /* SettingsRingtoneSoundConfigurationLoadUseCaseSpy.swift */,
 				AA7F6D481C0382550064DA3A /* SettingsSoundIOLoadUseCaseOutputSpy.swift */,
@@ -2691,7 +2691,7 @@
 				8AA748BC1D704962000587DC /* MusicPlayers.swift in Sources */,
 				8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
 				8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */,
-				8AA748811D6DECAB000587DC /* SettingsSavedAccounts.swift in Sources */,
+				8AA748811D6DECAB000587DC /* SettingsAccounts.swift in Sources */,
 				8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */,
 				8ABB14191CEC83990056CEDC /* StoreViewStateMachine.swift in Sources */,
 				AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */,
@@ -2699,7 +2699,7 @@
 				AA32F7FB1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */,
 				8A88B4F11D4ABCCB0083958C /* InvalidReceipt.swift in Sources */,
-				8AA748831D6DEE61000587DC /* SavedAccount.swift in Sources */,
+				8AA748831D6DEE61000587DC /* SettingsAccount.swift in Sources */,
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
@@ -2778,7 +2778,7 @@
 				AA39052F1BFFDDDA005A8AA3 /* PreferredSoundIO.swift in Sources */,
 				8A11A0CF1CCFA74F007BFC7F /* Product.swift in Sources */,
 				8A4E38321C5BB25F00816F38 /* SettingsRingtoneSoundNameSaveUseCase.swift in Sources */,
-				8AE396F41D6C8B3800DCFB9E /* SavedAccounts.swift in Sources */,
+				8AE396F41D6C8B3800DCFB9E /* Accounts.swift in Sources */,
 				AA3B6E821C46B55C0030D410 /* RepeatingSound.swift in Sources */,
 				AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */,
 				8ADD6A6F1CE0DCF8001EDBBA /* ProductsEventTargets.swift in Sources */,
@@ -2846,12 +2846,12 @@
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewEventTarget.swift in Sources */,
 				8ABB141B1CEC86A90056CEDC /* StoreViewStateMachineTests.swift in Sources */,
-				8AA748871D6F10C6000587DC /* SavedAccount.swift in Sources */,
+				8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */,
 				AA32F7FC1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA19CFF91BED149C00991CAA /* DefaultUseCaseFactory.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */,
 				8AB5A0C91D084DD800579CE8 /* DefaultStoreViewPresenterTests.swift in Sources */,
-				8AA748861D6F10B6000587DC /* SettingsSavedAccounts.swift in Sources */,
+				8AA748861D6F10B6000587DC /* SettingsAccounts.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */,
 				8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
@@ -2859,7 +2859,7 @@
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,
 				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,
-				8AA748851D6F0D00000587DC /* SettingsSavedAccountsTests.swift in Sources */,
+				8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */,
 				8A9175AE1CABF61200354E26 /* UserAgentError.swift in Sources */,
 				8A6D96EE1D01DDA900D9C15B /* StoreViewSpy.swift in Sources */,
 				8ADD6A5B1CDCFEB9001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
@@ -2941,9 +2941,9 @@
 				AA7F6D321C0217020064DA3A /* SettingsFake.swift in Sources */,
 				8AA748A91D7022BA000587DC /* MusicPlayerSpy.swift in Sources */,
 				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
-				8AE396F21D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift in Sources */,
+				8AE396F21D6C8ACB00DCFB9E /* EnabledAccountsStub.swift in Sources */,
 				8AA748AB1D7023B5000587DC /* MusicPlayerSettingsFake.swift in Sources */,
-				8AE396F71D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift in Sources */,
+				8AE396F71D6C8C2600DCFB9E /* DisabledAccountsStub.swift in Sources */,
 				AA1019751C48065700869D01 /* RingtoneSpy.swift in Sources */,
 				8A9D92311D2AE79300491D59 /* FailingFetchProductsFake.swift in Sources */,
 				8A61363E1CC23AFF00A087A4 /* SystemAudioDevicesChangeEventTargetSpy.swift in Sources */,

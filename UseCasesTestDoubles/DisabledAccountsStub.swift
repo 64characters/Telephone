@@ -1,5 +1,5 @@
 //
-//  SavedAccounts.swift
+//  DisabledAccountsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-public protocol SavedAccounts {
-    var haveEnabled: Bool { get }
+import UseCases
+
+public final class DisabledAccountsStub: Accounts {
+    public let haveEnabled = false
+    public init() {}
 }

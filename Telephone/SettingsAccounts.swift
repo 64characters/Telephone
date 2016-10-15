@@ -1,5 +1,5 @@
 //
-//  SavedAccount.swift
+//  SettingsAccounts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-struct SavedAccount {
-    let isEnabled: Bool
+import UseCases
 
-    init(dict: [String: Any]) {
-        isEnabled = dict[kAccountEnabled] as? Bool ?? false
+final class SettingsAccounts {
+    fileprivate let settings: KeyValueSettings
+
+    init(settings: KeyValueSettings) {
+        self.settings = settings
+    }
+}
+
+extension SettingsAccounts: Accounts {
+    var haveEnabled: Bool {
+        return accounts().map({ SettingsAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
+    }
+
+    fileprivate func accounts() -> [[String: Any]] {
+        return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
     }
 }

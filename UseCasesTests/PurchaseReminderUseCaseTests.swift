@@ -27,7 +27,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: DisabledSavedAccountsStub(),
+            accounts: DisabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: Date(),
@@ -46,7 +46,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: ValidReceipt(),
             settings: settings,
             now: Date(),
@@ -65,7 +65,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: Date(),
@@ -85,7 +85,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: now,
@@ -105,7 +105,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: now,
@@ -125,7 +125,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: now,
@@ -145,7 +145,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: now,
@@ -165,7 +165,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "any"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: now,
@@ -185,7 +185,7 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
         settings.version = "old"
         let output = PurchaseReminderUseCaseOutputSpy()
         let sut = PurchaseReminderUseCase(
-            accounts: EnabledSavedAccountsStub(),
+            accounts: EnabledAccountsStub(),
             receipt: InvalidReceipt(),
             settings: settings,
             now: now,
