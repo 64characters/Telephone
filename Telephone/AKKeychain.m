@@ -18,25 +18,27 @@
 
 #import "AKKeychain.h"
 
-
 @implementation AKKeychain
 
-+ (NSString *)passwordForServiceName:(NSString *)serviceName accountName:(NSString *)accountName {
++ (nonnull NSString *)passwordForService:(nonnull NSString *)service account:(nonnull NSString *)account {
+    NSParameterAssert(service);
+    NSParameterAssert(account);
+
     void *passwordData = nil;
     UInt32 passwordLength;
     OSStatus findStatus;
     
     findStatus = SecKeychainFindGenericPassword(NULL,   // Default keychain.
-                                                (UInt32)[serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                                [serviceName UTF8String],
-                                                (UInt32)[accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                                [accountName UTF8String],
+                                                (UInt32)[service lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                [service UTF8String],
+                                                (UInt32)[account lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                [account UTF8String],
                                                 &passwordLength,
                                                 &passwordData,
                                                 NULL);  // Keychain item reference.
     
     if (findStatus != noErr) {
-        return nil;
+        return @"";
     }
     
     NSString *password = [[NSString alloc] initWithBytes:passwordData
@@ -48,9 +50,10 @@
     return password;
 }
 
-+ (BOOL)addItemWithServiceName:(NSString *)serviceName
-                   accountName:(NSString *)accountName
-                      password:(NSString *)password {
++ (BOOL)addItemWithService:(nonnull NSString *)service account:(nonnull NSString *)account password:(nonnull NSString *)password {
+    NSParameterAssert(service);
+    NSParameterAssert(account);
+    NSParameterAssert(password);
     
     SecKeychainItemRef keychainItemRef = nil;
     OSStatus addStatus, findStatus, modifyStatus;
@@ -59,10 +62,10 @@
     
     // Add item to keychain.
     addStatus = SecKeychainAddGenericPassword(NULL,   // NULL for default keychain.
-                                              (UInt32)[serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                              [serviceName UTF8String],
-                                              (UInt32)[accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                              [accountName UTF8String],
+                                              (UInt32)[service lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                              [service UTF8String],
+                                              (UInt32)[account lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                              [account UTF8String],
                                               (UInt32)passwordData.length,
                                               passwordData.bytes,
                                               NULL);  // Don't need keychain item reference.
@@ -73,10 +76,10 @@
     } else if (addStatus == errSecDuplicateItem) {
         // Get the pointer to the duplicate item.
         findStatus = SecKeychainFindGenericPassword(NULL,               // Default keychain.
-                                                    (UInt32)[serviceName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                                    [serviceName UTF8String],
-                                                    (UInt32)[accountName lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
-                                                    [accountName UTF8String],
+                                                    (UInt32)[service lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                    [service UTF8String],
+                                                    (UInt32)[account lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                    [account UTF8String],
                                                     NULL,
                                                     NULL,
                                                     &keychainItemRef);  // Pointer to the duplicate item.

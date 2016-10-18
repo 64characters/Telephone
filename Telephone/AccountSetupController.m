@@ -97,9 +97,9 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
     [savedAccounts addObject:accountDict];
     [defaults setObject:savedAccounts forKey:kAccounts];
     
-    [AKKeychain addItemWithServiceName:[NSString stringWithFormat:@"SIP: %@", domain]
-                           accountName:username
-                              password:[[self passwordField] stringValue]];
+    [AKKeychain addItemWithService:[NSString stringWithFormat:@"SIP: %@", domain]
+                           account:username
+                          password:[[self passwordField] stringValue]];
     
     [self closeSheet:sender];
     

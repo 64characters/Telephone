@@ -47,8 +47,8 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
                         @"Registrar authentication failed."), registrar]];
     
     NSString *username = [[[self accountController] account] username];
-    NSString *serviceName = [NSString stringWithFormat:@"SIP: %@", [[[self accountController] account] registrar]];
-    NSString *password = [AKKeychain passwordForServiceName:serviceName accountName:username];
+    NSString *service = [NSString stringWithFormat:@"SIP: %@", [[[self accountController] account] registrar]];
+    NSString *password = [AKKeychain passwordForService:service account:username];
     
     [[self usernameField] setStringValue:username];
     [[self passwordField] setStringValue:password];
@@ -105,11 +105,8 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
         }
         
         if ([[self mustSaveCheckBox] state] == NSOnState) {
-            NSString *serviceName = [NSString stringWithFormat:@"SIP: %@",
-                                     [[[self accountController] account] registrar]];
-            [AKKeychain addItemWithServiceName:serviceName
-                                   accountName:username
-                                      password:[[self passwordField] stringValue]];
+            NSString *service = [NSString stringWithFormat:@"SIP: %@", [[[self accountController] account] registrar]];
+            [AKKeychain addItemWithService:service account:username password:[[self passwordField] stringValue]];
         }
         
         [[NSNotificationCenter defaultCenter]
