@@ -305,16 +305,22 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)stopUserAgent {
-    // Force ended state for all calls and remove accounts from the user agent.
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        for (CallController *callController in [accountController callControllers]) {
+    [self hangUpCallsAndRemoveAccountsFromUserAgent];
+    [self.userAgent stop];
+}
+
+- (void)stopUserAgentAndWait {
+    [self hangUpCallsAndRemoveAccountsFromUserAgent];
+    [self.userAgent stopAndWait];
+}
+
+- (void)hangUpCallsAndRemoveAccountsFromUserAgent {
+    for (AccountController *accountController in self.enabledAccountControllers) {
+        for (CallController *callController in accountController.callControllers) {
             [callController hangUpCall];
         }
-        
         [accountController removeAccountFromUserAgent];
     }
-    
-    [[self userAgent] stop];
 }
 
 - (void)restartUserAgent {
@@ -1481,8 +1487,8 @@ NS_ASSUME_NONNULL_END
 #pragma mark NSWorkspace notifications
 
 - (void)workspaceWillSleep:(NSNotification *)notification {
-    if ([[self userAgent] isStarted]) {
-        [self stopUserAgent];
+    if (self.userAgent.isStarted) {
+        [self stopUserAgentAndWait];
     }
 }
 

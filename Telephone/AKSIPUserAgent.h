@@ -153,6 +153,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 
 // Stops user agent.
 - (void)stop;
+- (void)stopAndWait;
 
 // Adds an account to the user agent.
 - (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword;
