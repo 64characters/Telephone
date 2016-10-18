@@ -318,7 +318,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)restartUserAgent {
-    if ([[self userAgent] state] > kAKSIPUserAgentStopped) {
+    if ([[self userAgent] isStarted]) {
         [self setShouldRegisterAllAccounts:YES];
         [self stopUserAgent];
     }
@@ -1073,22 +1073,15 @@ NS_ASSUME_NONNULL_END
 #pragma mark -
 #pragma mark AKSIPUserAgentDelegate
 
-// Decides whether AKSIPUserAgent should add an account. User agent is started in this method if needed.
 - (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)account {
-    if ([[self userAgent] state] < kAKSIPUserAgentStarting) {
-        [[self userAgent] start];
-        
-        // Don't add the account right now, let user agent start first.
-        // The account should be added later, from the callback.
-        return NO;
-        
-    } else if ([[self userAgent] state] < kAKSIPUserAgentStarted) {
-        // User agent is starting, don't add account right now.
-        // The account should be added later, from the callback.
+    if (self.userAgent.isStarted) {
+        return YES;
+    } else {
+        if (self.userAgent.state == kAKSIPUserAgentStopped) {
+            [self.userAgent start];
+        }
         return NO;
     }
-    
-    return YES;
 }
 
 - (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {

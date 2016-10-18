@@ -27,7 +27,8 @@
 typedef NS_ENUM(NSUInteger, AKSIPUserAgentState) {
     kAKSIPUserAgentStopped,
     kAKSIPUserAgentStarting,
-    kAKSIPUserAgentStarted
+    kAKSIPUserAgentStarted,
+    kAKSIPUserAgentStopping
 };
 
 // NAT types, as specified by RFC 3489.

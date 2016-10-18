@@ -450,6 +450,11 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)stop {
+    if (self.state != kAKSIPUserAgentStarted) {
+        NSLog(@"Ignoring user agent stop because it is not started");
+        return;
+    }
+    self.state = kAKSIPUserAgentStopping;
     void (^completion)() = ^{
         pj_shutdown();
         [self.accounts removeAllObjects];
