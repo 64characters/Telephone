@@ -116,7 +116,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (BOOL)isStarted {
-    return self.state == kAKSIPUserAgentStarted;
+    return self.state == AKSIPUserAgentStateStarted;
 }
 
 - (NSUInteger)activeCallsCount {
@@ -235,7 +235,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)start {
-    if (self.state != kAKSIPUserAgentStopped) {
+    if (self.state != AKSIPUserAgentStateStopped) {
         NSLog(@"Ignoring user agent start because it is not stopped");
         return;
     }
@@ -243,9 +243,9 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
         NSLog(@"Error initializing PJSIP");
         return;
     }
-    self.state = kAKSIPUserAgentStarting;
+    self.state = AKSIPUserAgentStateStarting;
     void (^completion)(BOOL) = ^(BOOL didStart) {
-        self.state = didStart ? kAKSIPUserAgentStarted : kAKSIPUserAgentStopped;
+        self.state = didStart ? AKSIPUserAgentStateStarted : AKSIPUserAgentStateStopped;
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidFinishStartingNotification object:self];
     };
     [self performSelector:@selector(thread_startWithCompletion:) onThread:self.thread withObject:completion waitUntilDone:NO];
@@ -450,15 +450,15 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)stop {
-    if (self.state != kAKSIPUserAgentStarted) {
+    if (self.state != AKSIPUserAgentStateStarted) {
         NSLog(@"Ignoring user agent stop because it is not started");
         return;
     }
-    self.state = kAKSIPUserAgentStopping;
+    self.state = AKSIPUserAgentStateStopping;
     void (^completion)() = ^{
         pj_shutdown();
         [self.accounts removeAllObjects];
-        self.state = kAKSIPUserAgentStopped;
+        self.state = AKSIPUserAgentStateStopped;
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidFinishStoppingNotification object:self];
     };
     [self performSelector:@selector(thread_stopWithCompletion:) onThread:self.thread withObject:completion waitUntilDone:NO];
@@ -668,7 +668,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)updateCodecs {
-    if (self.state < kAKSIPUserAgentStarting) {
+    if (self.state < AKSIPUserAgentStateStarting) {
         return;
     }
     const unsigned kCodecInfoSize = 64;

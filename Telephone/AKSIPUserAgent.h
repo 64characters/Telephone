@@ -24,11 +24,11 @@
 
 
 // User agent states.
-typedef NS_ENUM(NSUInteger, AKSIPUserAgentState) {
-    kAKSIPUserAgentStopped,
-    kAKSIPUserAgentStarting,
-    kAKSIPUserAgentStarted,
-    kAKSIPUserAgentStopping
+typedef NS_ENUM(NSInteger, AKSIPUserAgentState) {
+    AKSIPUserAgentStateStopped,
+    AKSIPUserAgentStateStarting,
+    AKSIPUserAgentStateStarted,
+    AKSIPUserAgentStateStopping
 };
 
 // NAT types, as specified by RFC 3489.

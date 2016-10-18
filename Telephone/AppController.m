@@ -1077,7 +1077,7 @@ NS_ASSUME_NONNULL_END
     if (self.userAgent.isStarted) {
         return YES;
     } else {
-        if (self.userAgent.state == kAKSIPUserAgentStopped) {
+        if (self.userAgent.state == AKSIPUserAgentStateStopped) {
             [self.userAgent start];
         }
         return NO;
