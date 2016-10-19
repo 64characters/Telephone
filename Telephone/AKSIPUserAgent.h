@@ -24,10 +24,11 @@
 
 
 // User agent states.
-typedef NS_ENUM(NSUInteger, AKSIPUserAgentState) {
-    kAKSIPUserAgentStopped,
-    kAKSIPUserAgentStarting,
-    kAKSIPUserAgentStarted
+typedef NS_ENUM(NSInteger, AKSIPUserAgentState) {
+    AKSIPUserAgentStateStopped,
+    AKSIPUserAgentStateStarting,
+    AKSIPUserAgentStateStarted,
+    AKSIPUserAgentStateStopping
 };
 
 // NAT types, as specified by RFC 3489.
@@ -152,6 +153,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 
 // Stops user agent.
 - (void)stop;
+- (void)stopAndWait;
 
 // Adds an account to the user agent.
 - (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword;
