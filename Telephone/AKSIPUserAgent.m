@@ -674,7 +674,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)updateCodecs {
-    if (self.state < AKSIPUserAgentStateStarting) {
+    if (self.state == AKSIPUserAgentStateStopped || self.state == AKSIPUserAgentStateStopping) {
         return;
     }
     const unsigned kCodecInfoSize = 64;
