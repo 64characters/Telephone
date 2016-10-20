@@ -116,7 +116,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (BOOL)isStarted {
-    return self.state == kAKSIPUserAgentStarted;
+    return self.state == AKSIPUserAgentStateStarted;
 }
 
 - (NSUInteger)activeCallsCount {
@@ -235,17 +235,16 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)start {
-    if (self.state != kAKSIPUserAgentStopped) {
-        NSLog(@"Ignoring user agent start because it is not stopped");
+    if (self.state != AKSIPUserAgentStateStopped) {
         return;
     }
     if (pj_init() != PJ_SUCCESS) {
         NSLog(@"Error initializing PJSIP");
         return;
     }
-    self.state = kAKSIPUserAgentStarting;
+    self.state = AKSIPUserAgentStateStarting;
     void (^completion)(BOOL) = ^(BOOL didStart) {
-        self.state = didStart ? kAKSIPUserAgentStarted : kAKSIPUserAgentStopped;
+        self.state = didStart ? AKSIPUserAgentStateStarted : AKSIPUserAgentStateStopped;
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidFinishStartingNotification object:self];
     };
     [self performSelector:@selector(thread_startWithCompletion:) onThread:self.thread withObject:completion waitUntilDone:NO];
@@ -450,16 +449,28 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)stop {
-    void (^completion)() = ^{
-        pj_shutdown();
-        [self.accounts removeAllObjects];
-        self.state = kAKSIPUserAgentStopped;
-        [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidFinishStoppingNotification object:self];
-    };
-    [self performSelector:@selector(thread_stopWithCompletion:) onThread:self.thread withObject:completion waitUntilDone:NO];
+    if (self.state != AKSIPUserAgentStateStarted) {
+         return;
+    }
+    self.state = AKSIPUserAgentStateStopping;
+    [self performSelector:@selector(thread_stopWithCompletion:) onThread:self.thread withObject:^{[self finishStopping];} waitUntilDone:NO];
 }
 
-- (void)thread_stopWithCompletion:(void (^ _Nullable)(void))completion {
+- (void)stopAndWait {
+    if (self.state != AKSIPUserAgentStateStarted) {
+         return;
+    }
+    self.state = AKSIPUserAgentStateStopping;
+    [self performSelector:@selector(thread_stop) onThread:self.thread withObject:nil waitUntilDone:YES];
+    [self finishStopping];
+}
+
+- (void)thread_stopWithCompletion:(void (^ _Nonnull)(void))completion {
+    [self thread_stop];
+    dispatch_async(dispatch_get_main_queue(), completion);
+}
+
+- (void)thread_stop {
     if (self.ringbackPort && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
         pjsua_conf_remove_port(self.ringbackSlot);
         self.ringbackSlot = kAKSIPUserAgentInvalidIdentifier;
@@ -473,13 +484,13 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     if (pjsua_destroy() != PJ_SUCCESS) {
         NSLog(@"Error stopping SIP user agent");
     }
-    if (completion) {
-        dispatch_async(dispatch_get_main_queue(), completion);
-    }
 }
 
-- (void)thread_stop {
-    [self thread_stopWithCompletion:nil];
+- (void)finishStopping {
+    pj_shutdown();
+    [self.accounts removeAllObjects];
+    self.state = AKSIPUserAgentStateStopped;
+    [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidFinishStoppingNotification object:self];
 }
 
 - (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword {
@@ -663,7 +674,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 }
 
 - (void)updateCodecs {
-    if (self.state < kAKSIPUserAgentStarting) {
+    if (self.state == AKSIPUserAgentStateStopped || self.state == AKSIPUserAgentStateStopping) {
         return;
     }
     const unsigned kCodecInfoSize = 64;
