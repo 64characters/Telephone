@@ -305,20 +305,26 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)stopUserAgent {
-    // Force ended state for all calls and remove accounts from the user agent.
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        for (CallController *callController in [accountController callControllers]) {
+    [self hangUpCallsAndRemoveAccountsFromUserAgent];
+    [self.userAgent stop];
+}
+
+- (void)stopUserAgentAndWait {
+    [self hangUpCallsAndRemoveAccountsFromUserAgent];
+    [self.userAgent stopAndWait];
+}
+
+- (void)hangUpCallsAndRemoveAccountsFromUserAgent {
+    for (AccountController *accountController in self.enabledAccountControllers) {
+        for (CallController *callController in accountController.callControllers) {
             [callController hangUpCall];
         }
-        
         [accountController removeAccountFromUserAgent];
     }
-    
-    [[self userAgent] stop];
 }
 
 - (void)restartUserAgent {
-    if ([[self userAgent] state] > kAKSIPUserAgentStopped) {
+    if ([[self userAgent] isStarted]) {
         [self setShouldRegisterAllAccounts:YES];
         [self stopUserAgent];
     }
@@ -1073,22 +1079,15 @@ NS_ASSUME_NONNULL_END
 #pragma mark -
 #pragma mark AKSIPUserAgentDelegate
 
-// Decides whether AKSIPUserAgent should add an account. User agent is started in this method if needed.
 - (BOOL)SIPUserAgentShouldAddAccount:(AKSIPAccount *)account {
-    if ([[self userAgent] state] < kAKSIPUserAgentStarting) {
-        [[self userAgent] start];
-        
-        // Don't add the account right now, let user agent start first.
-        // The account should be added later, from the callback.
-        return NO;
-        
-    } else if ([[self userAgent] state] < kAKSIPUserAgentStarted) {
-        // User agent is starting, don't add account right now.
-        // The account should be added later, from the callback.
+    if (self.userAgent.isStarted) {
+        return YES;
+    } else {
+        if (self.userAgent.state == AKSIPUserAgentStateStopped) {
+            [self.userAgent start];
+        }
         return NO;
     }
-    
-    return YES;
 }
 
 - (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
@@ -1492,8 +1491,8 @@ NS_ASSUME_NONNULL_END
 #pragma mark NSWorkspace notifications
 
 - (void)workspaceWillSleep:(NSNotification *)notification {
-    if ([[self userAgent] isStarted]) {
-        [self stopUserAgent];
+    if (self.userAgent.isStarted) {
+        [self stopUserAgentAndWait];
     }
 }
 
