@@ -29,6 +29,6 @@ extension UserDefaults: KeyValueSettings {
     }
 
     public func set(_ array: [Any], forKey key: String) {
-        set(array, forKey: key)
+        set(array as Any, forKey: key)
     }
 }
