@@ -26,6 +26,10 @@ import Foundation
     func set(_ value: Bool, forKey key: String)
     func bool(forKey key: String) -> Bool
 
+    @objc(setInteger:forKey:)
+    func set(_ value: Int, forKey key: String)
+    func integer(forKey key: String) -> Int
+
     @objc(setArray:forKey:)
     func set(_ array: [Any], forKey key: String)
     func array(forKey key: String) -> [Any]?

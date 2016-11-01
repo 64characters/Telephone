@@ -1,5 +1,5 @@
 //
-//  AccountsSettingsMigrationTests.swift
+//  AccountUUIDSettingsMigrationTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -19,11 +19,11 @@
 import UseCasesTestDoubles
 import XCTest
 
-final class AccountsSettingsMigrationTests: XCTestCase {
+final class AccountUUIDSettingsMigrationTests: XCTestCase {
     func testAddsUUIDs() {
         let settings = SettingsFake()
         settings.set([[kAccountEnabled: true], [kAccountEnabled: false]], forKey: kAccounts)
-        let sut = AccountsSettingsMigration(settings: settings)
+        let sut = AccountUUIDSettingsMigration(settings: settings)
 
         sut.execute()
 
@@ -38,7 +38,7 @@ final class AccountsSettingsMigrationTests: XCTestCase {
             [[kAccountEnabled: true, kUniqueIdentifier: "foo"], [kAccountEnabled: false, kUniqueIdentifier: "bar"]],
             forKey: kAccounts
         )
-        let sut = AccountsSettingsMigration(settings: settings)
+        let sut = AccountUUIDSettingsMigration(settings: settings)
 
         sut.execute()
 

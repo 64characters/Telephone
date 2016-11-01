@@ -1,5 +1,5 @@
 //
-//  AccountsSettingsMigration.swift
+//  AccountUUIDSettingsMigration.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class AccountsSettingsMigration {
+final class AccountUUIDSettingsMigration {
     fileprivate let settings: KeyValueSettings
 
     init(settings: KeyValueSettings) {
@@ -26,7 +26,7 @@ final class AccountsSettingsMigration {
     }
 }
 
-extension AccountsSettingsMigration: SettingsMigration {
+extension AccountUUIDSettingsMigration: SettingsMigration {
     func execute() {
         save(accounts: loadAccounts().map(addUUIDIfNeeded))
     }

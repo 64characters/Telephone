@@ -40,6 +40,7 @@ NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
 NSString * const kAutoCloseMissedCallWindow = @"AutoCloseMissedCallWindow";
 NSString * const kCallWaiting = @"CallWaiting";
 NSString * const kUseG711Only = @"UseG711Only";
+NSString * const kSettingsVersion = @"SettingsVersion";
 
 NSString * const kUniqueIdentifier = @"UniqueIdentifier";
 NSString * const kDescription = @"Description";

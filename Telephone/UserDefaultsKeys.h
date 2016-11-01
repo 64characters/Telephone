@@ -41,6 +41,7 @@ extern NSString * const kAutoCloseCallWindow;
 extern NSString * const kAutoCloseMissedCallWindow;
 extern NSString * const kCallWaiting;
 extern NSString * const kUseG711Only;
+extern NSString * const kSettingsVersion;
 
 // Account keys
 extern NSString * const kUniqueIdentifier;
