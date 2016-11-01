@@ -210,6 +210,8 @@
 		8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597B1D36A152008A1007 /* LoggingStore.swift */; };
 		8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
 		8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
+		8ADA109A1DC8D20E0038E0A5 /* SettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */; };
+		8ADA109B1DC8D2440038E0A5 /* SettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */; };
 		8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */; };
 		8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */; };
 		8ADD31C61CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */; };
@@ -800,6 +802,7 @@
 		8AD397BB1DC77D0F00C6FB62 /* AccountsSettingsMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsSettingsMigration.swift; sourceTree = "<group>"; };
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
 		8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewEventTarget.swift; sourceTree = "<group>"; };
+		8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMigration.swift; sourceTree = "<group>"; };
 		8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtonePlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundConfigurationLoadUseCase.swift; sourceTree = "<group>"; };
 		8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentSoundIOSelectionUseCaseFake.swift; sourceTree = "<group>"; };
@@ -1193,12 +1196,11 @@
 				8AA748881D6F3A76000587DC /* MusicPlayer */,
 				AADAA303107E5AD400789F2D /* Preferences */,
 				AA1019821C490BB900869D01 /* Ringtone */,
+				8ADA10981DC8D1F20038E0A5 /* SettingsMigration */,
 				AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */,
 				8A63ECD21CCFBEAB00AEC485 /* Store */,
 				AA1019911C4949C700869D01 /* Timer */,
 				AA2C03F21BD7BE36001D25F9 /* CompositionRoot.swift */,
-				8AD397BB1DC77D0F00C6FB62 /* AccountsSettingsMigration.swift */,
-				8AD397B91DC77C7700C6FB62 /* AccountsSettingsMigrationTests.swift */,
 				AA4BD4D60E07C305005A71B2 /* AppController.h */,
 				AA4BD4D70E07C305005A71B2 /* AppController.m */,
 				8A7874F71C5A2F4D002494ED /* AppController+ConditionalRingtonePlaybackUseCaseDelegate.swift */,
@@ -1651,6 +1653,16 @@
 				8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */,
 			);
 			name = StoreViewEventTarget;
+			sourceTree = "<group>";
+		};
+		8ADA10981DC8D1F20038E0A5 /* SettingsMigration */ = {
+			isa = PBXGroup;
+			children = (
+				8AD397BB1DC77D0F00C6FB62 /* AccountsSettingsMigration.swift */,
+				8AD397B91DC77C7700C6FB62 /* AccountsSettingsMigrationTests.swift */,
+				8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */,
+			);
+			name = SettingsMigration;
 			sourceTree = "<group>";
 		};
 		8AE396F51D6C8BFF00DCFB9E /* Accounts */ = {
@@ -2673,6 +2685,7 @@
 				AA3FABAE1BBC19C10064B2C3 /* SystemAudioDeviceIDs.swift in Sources */,
 				8A88B4F01D4A8D470083958C /* BundleReceipt.swift in Sources */,
 				8A9534611D05953D00EE9084 /* AsyncFailingProductsFake.swift in Sources */,
+				8ADA109A1DC8D20E0038E0A5 /* SettingsMigration.swift in Sources */,
 				8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */,
 				AA1019901C49486500869D01 /* SimpleSoundFactory.swift in Sources */,
 				8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
@@ -2871,6 +2884,7 @@
 				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,
 				8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */,
 				8A9175AE1CABF61200354E26 /* UserAgentError.swift in Sources */,
+				8ADA109B1DC8D2440038E0A5 /* SettingsMigration.swift in Sources */,
 				8A6D96EE1D01DDA900D9C15B /* StoreViewSpy.swift in Sources */,
 				8ADD6A5B1CDCFEB9001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
 				AA6989A41C19AF1C0067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,

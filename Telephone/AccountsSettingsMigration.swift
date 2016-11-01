@@ -19,12 +19,14 @@
 import UseCases
 
 final class AccountsSettingsMigration {
-    private let settings: KeyValueSettings
+    fileprivate let settings: KeyValueSettings
 
     init(settings: KeyValueSettings) {
         self.settings = settings
     }
+}
 
+extension AccountsSettingsMigration: SettingsMigration {
     func execute() {
         save(accounts: loadAccounts().map(addUUIDIfNeeded))
     }
