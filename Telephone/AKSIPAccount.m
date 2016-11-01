@@ -235,8 +235,8 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     _registrar = [registrar copy];
     _realm = [realm copy];
     _username = [username copy];
-    [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
-    [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
+    self.proxyPort = kAKSIPAccountDefaultSIPProxyPort;
+    self.reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
     _identifier = kAKSIPUserAgentInvalidIdentifier;
     
     _calls = [[NSMutableArray alloc] init];
