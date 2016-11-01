@@ -41,6 +41,7 @@ NSString * const kAutoCloseMissedCallWindow = @"AutoCloseMissedCallWindow";
 NSString * const kCallWaiting = @"CallWaiting";
 NSString * const kUseG711Only = @"UseG711Only";
 
+NSString * const kUniqueIdentifier = @"UniqueIdentifier";
 NSString * const kDescription = @"Description";
 NSString * const kFullName = @"FullName";
 NSString * const kSIPAddress = @"SIPAddress";
