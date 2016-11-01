@@ -81,6 +81,7 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
     
     NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
     accountDict[kAccountEnabled] = @YES;
+    accountDict[kUniqueIdentifier] = [NSUUID UUID].UUIDString;
     accountDict[kFullName] = fullName;
     accountDict[kDomain] = domain;
     accountDict[kRealm] = @"*";

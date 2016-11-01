@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+KeyValueSettings.swift
+//  EnabledAccountsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,17 +18,7 @@
 
 import UseCases
 
-extension UserDefaults: KeyValueSettings {
-    public subscript(key: String) -> String? {
-        get {
-            return string(forKey: key)
-        }
-        set {
-            set(newValue, forKey: key)
-        }
-    }
-
-    public func set(_ array: [Any], forKey key: String) {
-        set(array as Any, forKey: key)
-    }
+public final class EnabledAccountsStub: Accounts {
+    public let haveEnabled = true
+    public init() {}
 }

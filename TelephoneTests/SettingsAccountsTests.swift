@@ -1,5 +1,5 @@
 //
-//  SettingsSavedAccountsTests.swift
+//  SettingsAccountsTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -20,7 +20,7 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class SettingsSavedAccountsTests: XCTestCase {
+final class SettingsAccountsTests: XCTestCase {
     func testHaveEnabledIsTrueWhenAtLeastOneAccountIsEnabled() {
         let settings = SettingsFake()
         settings.set(
@@ -28,7 +28,7 @@ final class SettingsSavedAccountsTests: XCTestCase {
             forKey: kAccounts
         )
 
-        let sut = SettingsSavedAccounts(settings: settings)
+        let sut = SettingsAccounts(settings: settings)
 
         XCTAssertTrue(sut.haveEnabled)
     }
@@ -40,7 +40,7 @@ final class SettingsSavedAccountsTests: XCTestCase {
             forKey: kAccounts
         )
 
-        let sut = SettingsSavedAccounts(settings: settings)
+        let sut = SettingsAccounts(settings: settings)
 
         XCTAssertFalse(sut.haveEnabled)
     }

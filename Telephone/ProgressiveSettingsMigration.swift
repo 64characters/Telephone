@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+KeyValueSettings.swift
+//  ProgressiveSettingsMigration.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,17 +18,21 @@
 
 import UseCases
 
-extension UserDefaults: KeyValueSettings {
-    public subscript(key: String) -> String? {
-        get {
-            return string(forKey: key)
-        }
-        set {
-            set(newValue, forKey: key)
-        }
-    }
+final class ProgressiveSettingsMigration: NSObject {
+    fileprivate let settings: KeyValueSettings
+    fileprivate let factory: SettingsMigrationFactory
 
-    public func set(_ array: [Any], forKey key: String) {
-        set(array as Any, forKey: key)
+    init(settings: KeyValueSettings, factory: SettingsMigrationFactory) {
+        self.settings = settings
+        self.factory = factory
+    }
+}
+
+extension ProgressiveSettingsMigration: SettingsMigration {
+    func execute() {
+        if settings.integer(forKey: kSettingsVersion) < 1 {
+            factory.makeAccountUUIDMigration(settings: settings).execute()
+            settings.set(1, forKey: kSettingsVersion)
+        }
     }
 }

@@ -546,7 +546,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
         return NO;
     }
     
-    [anAccount setIdentifier:accountIdentifier];
+    [anAccount updateIdentifier:accountIdentifier];
     [anAccount setThread:self.thread];
     
     [[self accounts] addObject:anAccount];
@@ -572,7 +572,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     }
     
     [[self accounts] removeObject:anAccount];
-    [anAccount setIdentifier:kAKSIPUserAgentInvalidIdentifier];
+    [anAccount updateIdentifier:kAKSIPUserAgentInvalidIdentifier];
     
     return YES;
 }

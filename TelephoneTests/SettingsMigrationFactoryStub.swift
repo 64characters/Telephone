@@ -1,5 +1,5 @@
 //
-//  AKNSString+Creating.m
+//  SettingsMigrationFactoryStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-#import "AKNSString+Creating.h"
+final class SettingsMigrationFactoryStub {
+    var accountUUID: SettingsMigration!
 
-
-@implementation NSString (AKStringCreatingAdditions)
-
-+ (NSString *)ak_uuidString {
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    
-    return (__bridge_transfer NSString *)string;
+    func stub(withAccountUUIDMigration accountUUID: SettingsMigration) {
+        self.accountUUID = accountUUID
+    }
 }
 
-@end
+extension SettingsMigrationFactoryStub: SettingsMigrationFactory {
+    func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
+        return accountUUID
+    }
+}

@@ -27,6 +27,7 @@ final class CompositionRoot: NSObject {
     let storeWindowController: StoreWindowController
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
+    let settingsMigration: ProgressiveSettingsMigration
     private let defaults: UserDefaults
     private let queue: DispatchQueue
 
@@ -81,7 +82,7 @@ final class CompositionRoot: NSObject {
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 
         purchaseReminder = PurchaseReminderUseCase(
-            accounts: SettingsSavedAccounts(settings: defaults),
+            accounts: SettingsAccounts(settings: defaults),
             receipt: receipt,
             settings: UserDefaultsPurchaseReminderSettings(defaults: defaults),
             now: Date(),
@@ -115,6 +116,8 @@ final class CompositionRoot: NSObject {
             origin: AvailableMusicPlayers(factory: MusicPlayerFactory()),
             settings: SimpleMusicPlayerSettings(settings: defaults)
         )
+
+        settingsMigration = ProgressiveSettingsMigration(settings: defaults, factory: DefaultSettingsMigrationFactory())
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,

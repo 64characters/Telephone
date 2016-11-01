@@ -41,6 +41,9 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 @interface AKSIPAccount ()
 
+@property(nonatomic, copy) NSString *username;
+@property(nonatomic) NSInteger identifier;
+
 @property(nonatomic, readonly) NSMutableArray *calls;
 
 @end
@@ -195,53 +198,62 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
-+ (instancetype)SIPAccountWithFullName:(NSString *)aFullName
-                            SIPAddress:(NSString *)aSIPAddress
-                             registrar:(NSString *)aRegistrar
-                                 realm:(NSString *)aRealm
-                              username:(NSString *)aUsername {
++ (instancetype)SIPAccountWithUniqueIdentifier:(NSString *)uniqueIdentifier
+                                      fullName:(NSString *)fullName
+                                    SIPAddress:(NSString *)SIPAddress
+                                     registrar:(NSString *)registrar
+                                         realm:(NSString *)realm
+                                      username:(NSString *)username {
     
-    return [[AKSIPAccount alloc] initWithFullName:aFullName
-                                       SIPAddress:aSIPAddress
-                                        registrar:aRegistrar
-                                            realm:aRealm
-                                         username:aUsername];
+    return [[AKSIPAccount alloc] initWithUniqueIdentifier:uniqueIdentifier
+                                                 fullName:fullName
+                                               SIPAddress:SIPAddress
+                                                registrar:registrar
+                                                    realm:realm
+                                                 username:username];
 }
 
-- (instancetype)initWithFullName:(NSString *)aFullName
-                      SIPAddress:(NSString *)aSIPAddress
-                       registrar:(NSString *)aRegistrar
-                           realm:(NSString *)aRealm
-                        username:(NSString *)aUsername {
+- (instancetype)initWithUniqueIdentifier:(NSString *)uniqueIdentifier
+                                fullName:(NSString *)fullName
+                              SIPAddress:(NSString *)SIPAddress
+                               registrar:(NSString *)registrar
+                                   realm:(NSString *)realm
+                                username:(NSString *)username {
+
+    NSParameterAssert(uniqueIdentifier.length > 0);
     
     self = [super init];
     if (self == nil) {
         return nil;
     }
     
-    [self setRegistrationURI:[AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>",
-                                                         aFullName, aSIPAddress]]];
-    
-    [self setFullName:aFullName];
-    [self setSIPAddress:aSIPAddress];
-    [self setRegistrar:aRegistrar];
-    [self setRealm:aRealm];
-    [self setUsername:aUsername];
-    [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
-    [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
-    [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];
+    _registrationURI = [AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", fullName, SIPAddress]];
+
+    _uniqueIdentifier = [uniqueIdentifier copy];
+    _fullName = [fullName copy];
+    _SIPAddress = [SIPAddress copy];
+    _registrar = [registrar copy];
+    _realm = [realm copy];
+    _username = [username copy];
+    self.proxyPort = kAKSIPAccountDefaultSIPProxyPort;
+    self.reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
+    _identifier = kAKSIPUserAgentInvalidIdentifier;
     
     _calls = [[NSMutableArray alloc] init];
     
     return self;
 }
 
-- (instancetype)init {
-    return [self initWithFullName:nil SIPAddress:nil registrar:nil realm:nil username:nil];
-}
-
 - (NSString *)description {
     return [self SIPAddress];
+}
+
+- (void)updateUsername:(NSString *)username {
+    self.username = username;
+}
+
+- (void)updateIdentifier:(NSInteger)identifier {
+    self.identifier = identifier;
 }
 
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {

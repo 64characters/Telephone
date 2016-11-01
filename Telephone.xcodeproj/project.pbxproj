@@ -155,11 +155,11 @@
 		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
 		8AA7487F1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */; };
-		8AA748811D6DECAB000587DC /* SettingsSavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */; };
-		8AA748831D6DEE61000587DC /* SavedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SavedAccount.swift */; };
-		8AA748851D6F0D00000587DC /* SettingsSavedAccountsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748841D6F0D00000587DC /* SettingsSavedAccountsTests.swift */; };
-		8AA748861D6F10B6000587DC /* SettingsSavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */; };
-		8AA748871D6F10C6000587DC /* SavedAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SavedAccount.swift */; };
+		8AA748811D6DECAB000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
+		8AA748831D6DEE61000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
+		8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */; };
+		8AA748861D6F10B6000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
+		8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
 		8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748921D6F414E000587DC /* AppleMusicPlayer.m */; };
 		8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */; };
 		8AA748A21D702063000587DC /* MusicPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AA748901D6F40FD000587DC /* MusicPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -204,9 +204,22 @@
 		8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */; };
 		8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */; };
 		8AC87E891D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */; };
+		8AD397BA1DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD397B91DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift */; };
+		8AD397BC1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD397BB1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift */; };
+		8AD397BD1DC77D5900C6FB62 /* AccountUUIDSettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD397BB1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift */; };
 		8AD6597C1D36A152008A1007 /* LoggingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597B1D36A152008A1007 /* LoggingStore.swift */; };
 		8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
 		8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
+		8ADA109A1DC8D20E0038E0A5 /* SettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */; };
+		8ADA109B1DC8D2440038E0A5 /* SettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */; };
+		8ADA109D1DC8D3040038E0A5 /* ProgressiveSettingsMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA109C1DC8D3040038E0A5 /* ProgressiveSettingsMigrationTests.swift */; };
+		8ADA109F1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA109E1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift */; };
+		8ADA10A01DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA109E1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift */; };
+		8ADA10A21DC8D4F30038E0A5 /* SettingsMigrationSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10A11DC8D4F30038E0A5 /* SettingsMigrationSpy.swift */; };
+		8ADA10A41DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10A31DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift */; };
+		8ADA10A61DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10A51DC8D6E90038E0A5 /* SettingsMigrationFactory.swift */; };
+		8ADA10A71DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10A51DC8D6E90038E0A5 /* SettingsMigrationFactory.swift */; };
+		8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10A81DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift */; };
 		8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */; };
 		8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */; };
 		8ADD31C61CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */; };
@@ -241,9 +254,9 @@
 		8AE396EC1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396EB1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift */; };
 		8AE396EE1D6C873300DCFB9E /* PurchaseReminderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396ED1D6C873300DCFB9E /* PurchaseReminderUseCase.swift */; };
 		8AE396F01D6C887F00DCFB9E /* PurchaseReminderUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396EF1D6C887F00DCFB9E /* PurchaseReminderUseCaseOutputSpy.swift */; };
-		8AE396F21D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F11D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift */; };
-		8AE396F41D6C8B3800DCFB9E /* SavedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */; };
-		8AE396F71D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */; };
+		8AE396F21D6C8ACB00DCFB9E /* EnabledAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F11D6C8ACB00DCFB9E /* EnabledAccountsStub.swift */; };
+		8AE396F41D6C8B3800DCFB9E /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F31D6C8B3800DCFB9E /* Accounts.swift */; };
+		8AE396F71D6C8C2600DCFB9E /* DisabledAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */; };
 		8AE396F91D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift */; };
 		8AE4E95C1DABBBF90003F063 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4E95B1DABBBF90003F063 /* Images.xcassets */; };
 		8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 8AE706231D491C220060FF4F /* ReceiptValidation.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -271,7 +284,6 @@
 		AA1019931C4949E600869D01 /* FoundationToUseCasesTimerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019921C4949E600869D01 /* FoundationToUseCasesTimerAdapter.swift */; };
 		AA1019951C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019941C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
-		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
 		AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */; };
 		AA18F5FF1C21CD2500FD8E9F /* SettingsSoundIOSaveUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA18F5FE1C21CD2500FD8E9F /* SettingsSoundIOSaveUseCaseTests.swift */; };
@@ -721,9 +733,9 @@
 		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsPurchaseReminderSettings.swift; sourceTree = "<group>"; };
-		8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSavedAccounts.swift; sourceTree = "<group>"; };
-		8AA748821D6DEE61000587DC /* SavedAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedAccount.swift; sourceTree = "<group>"; };
-		8AA748841D6F0D00000587DC /* SettingsSavedAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsSavedAccountsTests.swift; path = TelephoneTests/SettingsSavedAccountsTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA748801D6DECAB000587DC /* SettingsAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccounts.swift; sourceTree = "<group>"; };
+		8AA748821D6DEE61000587DC /* SettingsAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccount.swift; sourceTree = "<group>"; };
+		8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsAccountsTests.swift; path = TelephoneTests/SettingsAccountsTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA748901D6F40FD000587DC /* MusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayer.h; sourceTree = "<group>"; };
 		8AA748911D6F414E000587DC /* AppleMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleMusicPlayer.h; sourceTree = "<group>"; };
 		8AA748921D6F414E000587DC /* AppleMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleMusicPlayer.m; sourceTree = "<group>"; };
@@ -793,8 +805,17 @@
 		8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultSoundPlaybackUseCaseTests.swift; path = UseCasesTests/DefaultSoundPlaybackUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReceiptAttributesValidation.swift; sourceTree = "<group>"; };
+		8AD397B91DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUUIDSettingsMigrationTests.swift; sourceTree = "<group>"; };
+		8AD397BB1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUUIDSettingsMigration.swift; sourceTree = "<group>"; };
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
 		8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewEventTarget.swift; sourceTree = "<group>"; };
+		8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMigration.swift; sourceTree = "<group>"; };
+		8ADA109C1DC8D3040038E0A5 /* ProgressiveSettingsMigrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressiveSettingsMigrationTests.swift; path = TelephoneTests/ProgressiveSettingsMigrationTests.swift; sourceTree = SOURCE_ROOT; };
+		8ADA109E1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressiveSettingsMigration.swift; sourceTree = "<group>"; };
+		8ADA10A11DC8D4F30038E0A5 /* SettingsMigrationSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMigrationSpy.swift; sourceTree = "<group>"; };
+		8ADA10A31DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMigrationFactoryStub.swift; sourceTree = "<group>"; };
+		8ADA10A51DC8D6E90038E0A5 /* SettingsMigrationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMigrationFactory.swift; sourceTree = "<group>"; };
+		8ADA10A81DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSettingsMigrationFactory.swift; sourceTree = "<group>"; };
 		8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtonePlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundConfigurationLoadUseCase.swift; sourceTree = "<group>"; };
 		8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentSoundIOSelectionUseCaseFake.swift; sourceTree = "<group>"; };
@@ -823,9 +844,9 @@
 		8AE396EB1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseReminderUseCaseTests.swift; path = UseCasesTests/PurchaseReminderUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8AE396ED1D6C873300DCFB9E /* PurchaseReminderUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderUseCase.swift; sourceTree = "<group>"; };
 		8AE396EF1D6C887F00DCFB9E /* PurchaseReminderUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderUseCaseOutputSpy.swift; sourceTree = "<group>"; };
-		8AE396F11D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnabledSavedAccountsStub.swift; sourceTree = "<group>"; };
-		8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedAccounts.swift; sourceTree = "<group>"; };
-		8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisabledSavedAccountsStub.swift; sourceTree = "<group>"; };
+		8AE396F11D6C8ACB00DCFB9E /* EnabledAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnabledAccountsStub.swift; sourceTree = "<group>"; };
+		8AE396F31D6C8B3800DCFB9E /* Accounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisabledAccountsStub.swift; sourceTree = "<group>"; };
 		8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderSettings.swift; sourceTree = "<group>"; };
 		8AE4E95B1DABBBF90003F063 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8AE706231D491C220060FF4F /* ReceiptValidation.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReceiptValidation.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -862,8 +883,6 @@
 		AA1019941C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationToUseCasesTimerAdapterFactory.swift; sourceTree = "<group>"; };
 		AA167A1D0F07BF9E00AF8B71 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SIPResponses.strings; sourceTree = "<group>"; };
-		AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Creating.h"; sourceTree = "<group>"; tabWidth = 4; };
-		AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Creating.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AA16CBE40F856ACD000CAFD1 /* AKNSString+PJSUA.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+PJSUA.h"; sourceTree = "<group>"; tabWidth = 4; };
 		AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+PJSUA.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AA16CC9C0F857009000CAFD1 /* AKNSString+Escaping.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Escaping.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -1188,6 +1207,7 @@
 				8AA748881D6F3A76000587DC /* MusicPlayer */,
 				AADAA303107E5AD400789F2D /* Preferences */,
 				AA1019821C490BB900869D01 /* Ringtone */,
+				8ADA10981DC8D1F20038E0A5 /* Settings Migration */,
 				AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */,
 				8A63ECD21CCFBEAB00AEC485 /* Store */,
 				AA1019911C4949C700869D01 /* Timer */,
@@ -1206,9 +1226,9 @@
 				AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */,
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
-				8AA748821D6DEE61000587DC /* SavedAccount.swift */,
-				8AA748801D6DECAB000587DC /* SettingsSavedAccounts.swift */,
-				8AA748841D6F0D00000587DC /* SettingsSavedAccountsTests.swift */,
+				8AA748821D6DEE61000587DC /* SettingsAccount.swift */,
+				8AA748801D6DECAB000587DC /* SettingsAccounts.swift */,
+				8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
@@ -1321,7 +1341,6 @@
 				8A7831BD1D636E92006D0D94 /* PurchaseRestorationUseCaseTests.swift */,
 				8A9513EB1D2A735F0034DF2C /* Receipt.swift */,
 				8AAA5BE41DA695D2005A7BFE /* ReceiptRefreshUseCase.swift */,
-				8AE396F31D6C8B3800DCFB9E /* SavedAccounts.swift */,
 				8A11A0CC1CCFA29A007BFC7F /* Store.swift */,
 				8A859A0E1D2EC8F700118A66 /* StoreEventTarget */,
 				8ADD6A4A1CDCF75D001EDBBA /* StoreUseCaseFactory.swift */,
@@ -1647,13 +1666,43 @@
 			name = StoreViewEventTarget;
 			sourceTree = "<group>";
 		};
-		8AE396F51D6C8BFF00DCFB9E /* SavedAccounts */ = {
+		8ADA10981DC8D1F20038E0A5 /* Settings Migration */ = {
 			isa = PBXGroup;
 			children = (
-				8AE396F11D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift */,
-				8AE396F61D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift */,
+				8ADA10AA1DC8DB5D0038E0A5 /* SettingsMigration */,
+				8ADA10AB1DC8DB740038E0A5 /* SettingsMigrationFactory */,
 			);
-			name = SavedAccounts;
+			name = "Settings Migration";
+			sourceTree = "<group>";
+		};
+		8ADA10AA1DC8DB5D0038E0A5 /* SettingsMigration */ = {
+			isa = PBXGroup;
+			children = (
+				8AD397BB1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift */,
+				8AD397B91DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift */,
+				8ADA109E1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift */,
+				8ADA109C1DC8D3040038E0A5 /* ProgressiveSettingsMigrationTests.swift */,
+				8ADA10991DC8D20E0038E0A5 /* SettingsMigration.swift */,
+			);
+			name = SettingsMigration;
+			sourceTree = "<group>";
+		};
+		8ADA10AB1DC8DB740038E0A5 /* SettingsMigrationFactory */ = {
+			isa = PBXGroup;
+			children = (
+				8ADA10A81DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift */,
+				8ADA10A51DC8D6E90038E0A5 /* SettingsMigrationFactory.swift */,
+			);
+			name = SettingsMigrationFactory;
+			sourceTree = "<group>";
+		};
+		8AE396F51D6C8BFF00DCFB9E /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */,
+				8AE396F11D6C8ACB00DCFB9E /* EnabledAccountsStub.swift */,
+			);
+			name = Accounts;
 			sourceTree = "<group>";
 		};
 		8AE706241D491C220060FF4F /* ReceiptValidation */ = {
@@ -1687,6 +1736,7 @@
 		AA078B2A1BFF80E30013FF8F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				8AE396F31D6C8B3800DCFB9E /* Accounts.swift */,
 				AA39055F1C007799005A8AA3 /* Audio Devices */,
 				AA92F89B1C2AF90000C378B6 /* Ringtone */,
 				8AA7489F1D701DEC000587DC /* Music Player */,
@@ -1787,6 +1837,8 @@
 		AA3FAB861BBAAE630064B2C3 /* TelephoneTests */ = {
 			isa = PBXGroup;
 			children = (
+				8ADA10A31DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift */,
+				8ADA10A11DC8D4F30038E0A5 /* SettingsMigrationSpy.swift */,
 				8A0FD63E1C9B168400AB3640 /* SoundIOPreferencesSpy.swift */,
 				AACC02A01C15E17E00913D7B /* SoundPreferencesViewSpy.swift */,
 				8ADD6A601CDD0130001EDBBA /* StoreViewDummy.swift */,
@@ -1933,6 +1985,7 @@
 		AAC4FF961C0215B90060B186 /* UseCasesTestDoubles */ = {
 			isa = PBXGroup;
 			children = (
+				8AE396F51D6C8BFF00DCFB9E /* Accounts */,
 				8A7874F51C5A29EE002494ED /* ConditionalRingtonePlaybackUseCaseTestDelegate.swift */,
 				8AA748AA1D7023B5000587DC /* MusicPlayerSettingsFake.swift */,
 				8AA748A81D7022BA000587DC /* MusicPlayerSpy.swift */,
@@ -1945,7 +1998,6 @@
 				AA1019781C48078900869D01 /* RingtoneFactorySpy.swift */,
 				8A7874F31C5A2774002494ED /* RingtonePlaybackUseCaseSpy.swift */,
 				AA1019741C48065700869D01 /* RingtoneSpy.swift */,
-				8AE396F51D6C8BFF00DCFB9E /* SavedAccounts */,
 				AA32F7F21BC440DE00FAC228 /* SettingsFake.swift */,
 				8ADD6B6E1C5639520029C3D8 /* SettingsRingtoneSoundConfigurationLoadUseCaseSpy.swift */,
 				AA7F6D481C0382550064DA3A /* SettingsSoundIOLoadUseCaseOutputSpy.swift */,
@@ -2022,8 +2074,6 @@
 		AAECDE8C0E70700B00CEAE7B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */,
-				AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */,
 				AA16CBE40F856ACD000CAFD1 /* AKNSString+PJSUA.h */,
 				AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */,
 				AAECDE8D0E70703100CEAE7B /* AKNSString+Scanning.h */,
@@ -2653,9 +2703,10 @@
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				8A57AEA61CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
+				8ADA10A61DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
-				AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */,
 				AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */,
+				8ADA109F1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
 				8ADD6A5A1CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
 				8A9175A51CA5A10800354E26 /* PJSUAOnCallReplaced.m in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
@@ -2666,6 +2717,7 @@
 				AA3FABAE1BBC19C10064B2C3 /* SystemAudioDeviceIDs.swift in Sources */,
 				8A88B4F01D4A8D470083958C /* BundleReceipt.swift in Sources */,
 				8A9534611D05953D00EE9084 /* AsyncFailingProductsFake.swift in Sources */,
+				8ADA109A1DC8D20E0038E0A5 /* SettingsMigration.swift in Sources */,
 				8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */,
 				AA1019901C49486500869D01 /* SimpleSoundFactory.swift in Sources */,
 				8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
@@ -2691,15 +2743,16 @@
 				8AA748BC1D704962000587DC /* MusicPlayers.swift in Sources */,
 				8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
 				8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */,
-				8AA748811D6DECAB000587DC /* SettingsSavedAccounts.swift in Sources */,
+				8AA748811D6DECAB000587DC /* SettingsAccounts.swift in Sources */,
 				8ADD6A821CE0F995001EDBBA /* StoreWindowController.swift in Sources */,
 				8ABB14191CEC83990056CEDC /* StoreViewStateMachine.swift in Sources */,
 				AAD92136107A607C00F142A4 /* IncomingCallViewController.m in Sources */,
 				AAD92139107A608B00F142A4 /* EndedCallViewController.m in Sources */,
 				AA32F7FB1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */,
+				8AD397BC1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift in Sources */,
 				8A88B4F11D4ABCCB0083958C /* InvalidReceipt.swift in Sources */,
-				8AA748831D6DEE61000587DC /* SavedAccount.swift in Sources */,
+				8AA748831D6DEE61000587DC /* SettingsAccount.swift in Sources */,
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
@@ -2714,6 +2767,7 @@
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,
 				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
+				8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */,
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				8A9534631D059A5300EE9084 /* LoggingProducts.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
@@ -2778,7 +2832,7 @@
 				AA39052F1BFFDDDA005A8AA3 /* PreferredSoundIO.swift in Sources */,
 				8A11A0CF1CCFA74F007BFC7F /* Product.swift in Sources */,
 				8A4E38321C5BB25F00816F38 /* SettingsRingtoneSoundNameSaveUseCase.swift in Sources */,
-				8AE396F41D6C8B3800DCFB9E /* SavedAccounts.swift in Sources */,
+				8AE396F41D6C8B3800DCFB9E /* Accounts.swift in Sources */,
 				AA3B6E821C46B55C0030D410 /* RepeatingSound.swift in Sources */,
 				AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */,
 				8ADD6A6F1CE0DCF8001EDBBA /* ProductsEventTargets.swift in Sources */,
@@ -2831,6 +2885,7 @@
 				AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */,
 				8A5EADB41D35517C00C53415 /* StoreViewPresenterSpy.swift in Sources */,
+				8AD397BD1DC77D5900C6FB62 /* AccountUUIDSettingsMigration.swift in Sources */,
 				8A0FD63F1C9B168400AB3640 /* SoundIOPreferencesSpy.swift in Sources */,
 				AA1019871C490BE400869D01 /* RepeatingSoundFactoryTests.swift in Sources */,
 				8AB5A0CC1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
@@ -2839,30 +2894,37 @@
 				8ADD6A611CDD0130001EDBBA /* StoreViewDummy.swift in Sources */,
 				8ADD6A5D1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift in Sources */,
 				8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
+				8ADA10A71DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */,
 				8ABB141C1CEC86B10056CEDC /* StoreViewStateMachine.swift in Sources */,
+				8ADA109D1DC8D3040038E0A5 /* ProgressiveSettingsMigrationTests.swift in Sources */,
 				AA1019881C490BF100869D01 /* RepeatingSoundFactory.swift in Sources */,
 				8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */,
 				8ADD6A6B1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
+				8AD397BA1DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift in Sources */,
 				AA6989AE1C19B13F0067BFB1 /* SoundPreferencesViewEventTarget.swift in Sources */,
 				8ABB141B1CEC86A90056CEDC /* StoreViewStateMachineTests.swift in Sources */,
-				8AA748871D6F10C6000587DC /* SavedAccount.swift in Sources */,
+				8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */,
 				AA32F7FC1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA19CFF91BED149C00991CAA /* DefaultUseCaseFactory.swift in Sources */,
 				AA6989A71C19AF310067BFB1 /* DefaultSoundPreferencesViewEventTargetTests.swift in Sources */,
 				8AB5A0C91D084DD800579CE8 /* DefaultStoreViewPresenterTests.swift in Sources */,
-				8AA748861D6F10B6000587DC /* SettingsSavedAccounts.swift in Sources */,
+				8AA748861D6F10B6000587DC /* SettingsAccounts.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */,
 				8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */,
+				8ADA10A41DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
 				8AB5A0C81D084DD400579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,
 				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,
-				8AA748851D6F0D00000587DC /* SettingsSavedAccountsTests.swift in Sources */,
+				8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */,
+				8ADA10A01DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
 				8A9175AE1CABF61200354E26 /* UserAgentError.swift in Sources */,
+				8ADA109B1DC8D2440038E0A5 /* SettingsMigration.swift in Sources */,
 				8A6D96EE1D01DDA900D9C15B /* StoreViewSpy.swift in Sources */,
 				8ADD6A5B1CDCFEB9001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
+				8ADA10A21DC8D4F30038E0A5 /* SettingsMigrationSpy.swift in Sources */,
 				AA6989A41C19AF1C0067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
 				AACC02A11C15E17E00913D7B /* SoundPreferencesViewSpy.swift in Sources */,
 				8A5EADB11D35508D00C53415 /* StoreViewPresenter.swift in Sources */,
@@ -2941,9 +3003,9 @@
 				AA7F6D321C0217020064DA3A /* SettingsFake.swift in Sources */,
 				8AA748A91D7022BA000587DC /* MusicPlayerSpy.swift in Sources */,
 				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
-				8AE396F21D6C8ACB00DCFB9E /* EnabledSavedAccountsStub.swift in Sources */,
+				8AE396F21D6C8ACB00DCFB9E /* EnabledAccountsStub.swift in Sources */,
 				8AA748AB1D7023B5000587DC /* MusicPlayerSettingsFake.swift in Sources */,
-				8AE396F71D6C8C2600DCFB9E /* DisabledSavedAccountsStub.swift in Sources */,
+				8AE396F71D6C8C2600DCFB9E /* DisabledAccountsStub.swift in Sources */,
 				AA1019751C48065700869D01 /* RingtoneSpy.swift in Sources */,
 				8A9D92311D2AE79300491D59 /* FailingFetchProductsFake.swift in Sources */,
 				8A61363E1CC23AFF00A087A4 /* SystemAudioDevicesChangeEventTargetSpy.swift in Sources */,

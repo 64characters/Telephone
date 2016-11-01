@@ -1,5 +1,5 @@
 //
-//  SavedAccount.swift
+//  DisabledAccountsStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-struct SavedAccount {
-    let isEnabled: Bool
+import UseCases
 
-    init(dict: [String: Any]) {
-        isEnabled = dict[kAccountEnabled] as? Bool ?? false
-    }
+public final class DisabledAccountsStub: Accounts {
+    public let haveEnabled = false
+    public init() {}
 }

@@ -1,5 +1,5 @@
 //
-//  SettingsSavedAccounts.swift
+//  SettingsMigrationSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,22 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-final class SettingsSavedAccounts {
-    fileprivate let settings: KeyValueSettings
-
-    init(settings: KeyValueSettings) {
-        self.settings = settings
-    }
+final class SettingsMigrationSpy {
+    var didCallExecute = false
 }
 
-extension SettingsSavedAccounts: SavedAccounts {
-    var haveEnabled: Bool {
-        return accounts().map({ SavedAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
-    }
-
-    fileprivate func accounts() -> [[String: Any]] {
-        return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
+extension SettingsMigrationSpy: SettingsMigration {
+    func execute() {
+        didCallExecute = true
     }
 }

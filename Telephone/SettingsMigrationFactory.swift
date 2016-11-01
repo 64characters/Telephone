@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+KeyValueSettings.swift
+//  SettingsMigrationFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-extension UserDefaults: KeyValueSettings {
-    public subscript(key: String) -> String? {
-        get {
-            return string(forKey: key)
-        }
-        set {
-            set(newValue, forKey: key)
-        }
-    }
-
-    public func set(_ array: [Any], forKey key: String) {
-        set(array as Any, forKey: key)
-    }
+protocol SettingsMigrationFactory {
+    func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration
 }

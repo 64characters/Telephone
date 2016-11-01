@@ -21,7 +21,6 @@
 @import UseCases;
 
 #import "AKActiveCallView.h"
-#import "AKNSString+Creating.h"
 #import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPURI.h"
@@ -125,7 +124,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                              delegate:(id<CallControllerDelegate>)delegate {
 
     if ((self = [self initWithWindowNibName:windowNibName])) {
-        _identifier = [NSString ak_uuidString];
+        _identifier = [NSUUID UUID].UUIDString;
         _accountController = accountController;
         _userAgent = userAgent;
         _ringtonePlayback = ringtonePlayback;

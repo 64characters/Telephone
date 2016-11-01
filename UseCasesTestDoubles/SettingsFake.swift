@@ -55,6 +55,14 @@ extension SettingsFake: KeyValueSettings {
         return dictionary[key] as? Bool ?? false
     }
 
+    @objc public func set(_ value: Int, forKey key: String) {
+        dictionary[key] = value
+    }
+
+    @objc public func integer(forKey key: String) -> Int {
+        return dictionary[key] as? Int ?? 0
+    }
+
     @objc public func set(_ array: [Any], forKey key: String) {
         dictionary[key] = array
     }

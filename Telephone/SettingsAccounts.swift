@@ -1,5 +1,5 @@
 //
-//  KeyValueSettings.swift
+//  SettingsAccounts.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import UseCases
 
-@objc public protocol KeyValueSettings {
-    subscript(key: String) -> String? { get set }
-    func string(forKey key: String) -> String?
+final class SettingsAccounts {
+    fileprivate let settings: KeyValueSettings
 
-    @objc(setBool:forKey:)
-    func set(_ value: Bool, forKey key: String)
-    func bool(forKey key: String) -> Bool
+    init(settings: KeyValueSettings) {
+        self.settings = settings
+    }
+}
 
-    @objc(setInteger:forKey:)
-    func set(_ value: Int, forKey key: String)
-    func integer(forKey key: String) -> Int
+extension SettingsAccounts: Accounts {
+    var haveEnabled: Bool {
+        return accounts().map({ SettingsAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
+    }
 
-    @objc(setArray:forKey:)
-    func set(_ array: [Any], forKey key: String)
-    func array(forKey key: String) -> [Any]?
-
-    @objc(registerDefaults:)
-    func register(defaults: [String: Any])
+    fileprivate func accounts() -> [[String: Any]] {
+        return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
+    }
 }

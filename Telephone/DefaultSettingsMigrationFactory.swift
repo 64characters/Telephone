@@ -1,5 +1,5 @@
 //
-//  SavedAccounts.swift
+//  DefaultSettingsMigrationFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-public protocol SavedAccounts {
-    var haveEnabled: Bool { get }
+final class DefaultSettingsMigrationFactory {}
+
+extension DefaultSettingsMigrationFactory: SettingsMigrationFactory {
+    func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
+        return AccountUUIDSettingsMigration(settings: settings)
+    }
 }

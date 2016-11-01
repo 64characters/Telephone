@@ -1,5 +1,5 @@
 //
-//  AKNSString+Creating.h
+//  SettingsMigration.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,13 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-#import <Foundation/Foundation.h>
-
-
-// A category for creating strings.
-@interface NSString (AKStringCreatingAdditions)
-
-// Returns a newly created UUID string.
-+ (NSString *)ak_uuidString;
-
-@end
+protocol SettingsMigration {
+    func execute()
+}
