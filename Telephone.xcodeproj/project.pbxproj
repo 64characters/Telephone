@@ -284,7 +284,6 @@
 		AA1019931C4949E600869D01 /* FoundationToUseCasesTimerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019921C4949E600869D01 /* FoundationToUseCasesTimerAdapter.swift */; };
 		AA1019951C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1019941C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift */; };
 		AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */; };
-		AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */; };
 		AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */; };
 		AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */; };
 		AA18F5FF1C21CD2500FD8E9F /* SettingsSoundIOSaveUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA18F5FE1C21CD2500FD8E9F /* SettingsSoundIOSaveUseCaseTests.swift */; };
@@ -884,8 +883,6 @@
 		AA1019941C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationToUseCasesTimerAdapterFactory.swift; sourceTree = "<group>"; };
 		AA167A1D0F07BF9E00AF8B71 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SIPResponses.strings; sourceTree = "<group>"; };
 		AA167A480F0805B700AF8B71 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SIPResponses.strings; sourceTree = "<group>"; };
-		AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Creating.h"; sourceTree = "<group>"; tabWidth = 4; };
-		AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Creating.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AA16CBE40F856ACD000CAFD1 /* AKNSString+PJSUA.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+PJSUA.h"; sourceTree = "<group>"; tabWidth = 4; };
 		AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+PJSUA.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AA16CC9C0F857009000CAFD1 /* AKNSString+Escaping.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSString+Escaping.h"; sourceTree = "<group>"; tabWidth = 4; };
@@ -2077,8 +2074,6 @@
 		AAECDE8C0E70700B00CEAE7B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				AA16CBE10F856A4A000CAFD1 /* AKNSString+Creating.h */,
-				AA16CBE20F856A4A000CAFD1 /* AKNSString+Creating.m */,
 				AA16CBE40F856ACD000CAFD1 /* AKNSString+PJSUA.h */,
 				AA16CBE50F856ACD000CAFD1 /* AKNSString+PJSUA.m */,
 				AAECDE8D0E70703100CEAE7B /* AKNSString+Scanning.h */,
@@ -2710,7 +2705,6 @@
 				8A57AEA61CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
 				8ADA10A61DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */,
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
-				AA16CBE30F856A4A000CAFD1 /* AKNSString+Creating.m in Sources */,
 				AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */,
 				8ADA109F1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
 				8ADD6A5A1CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
