@@ -40,20 +40,22 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // TODO(eofster): strange property. Do we need this?
 @property(nonatomic, copy) AKSIPURI *registrationURI;
 
+@property(nonatomic, readonly) NSString *uniqueIdentifier;
+
 // Full name of the registration URI.
-@property(nonatomic, copy) NSString *fullName;
+@property(nonatomic, readonly) NSString *fullName;
 
 // SIP address of the registration URI.
-@property(nonatomic, copy) NSString *SIPAddress;
+@property(nonatomic, readonly) NSString *SIPAddress;
 
 // Registrar.
-@property(nonatomic, copy) NSString *registrar;
+@property(nonatomic, readonly) NSString *registrar;
 
 // Realm. Pass nil to make a credential that can be used to authenticate against any challenges.
-@property(nonatomic, copy) NSString *realm;
+@property(nonatomic, readonly) NSString *realm;
 
 // Authentication user name.
-@property(nonatomic, copy) NSString *username;
+@property(nonatomic, readonly) NSString *username;
 
 // SIP proxy host.
 @property(nonatomic, copy) NSString *proxyHost;
@@ -78,7 +80,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 @property(nonatomic, assign) BOOL updatesViaHeader;
 
 // The receiver's identifier at the user agent.
-@property(nonatomic, assign) NSInteger identifier;
+@property(nonatomic, readonly) NSInteger identifier;
 
 // A Boolean value indicating whether the receiver is registered.
 @property(nonatomic, assign, getter=isRegistered) BOOL registered;
@@ -104,21 +106,22 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
 @property(nonatomic) NSThread *thread;
 
-// Creates and returns an AKSIPAccount object initialized with a given full name, SIP address, registrar, realm, and
-// user name.
-+ (instancetype)SIPAccountWithFullName:(NSString *)aFullName
-                            SIPAddress:(NSString *)aSIPAddress
-                             registrar:(NSString *)aRegistrar
-                                 realm:(NSString *)aRealm
-                              username:(NSString *)aUsername;
++ (instancetype)SIPAccountWithUniqueIdentifier:(NSString *)uniqueIdentifier
+                                      fullName:(NSString *)fullName
+                                    SIPAddress:(NSString *)SIPAddress
+                                     registrar:(NSString *)registrar
+                                         realm:(NSString *)realm
+                                      username:(NSString *)username;
 
-// Designated initializer.
-// Initializes an AKSIPAccount object with a given full name, SIP address, registrar, realm, and user name.
-- (instancetype)initWithFullName:(NSString *)aFullName
-                      SIPAddress:(NSString *)aSIPAddress
-                       registrar:(NSString *)aRegistrar
-                           realm:(NSString *)aRealm
-                        username:(NSString *)aUsername;
+- (instancetype)initWithUniqueIdentifier:(NSString *)uniqueIdentifier
+                                fullName:(NSString *)fullName
+                              SIPAddress:(NSString *)SIPAddress
+                               registrar:(NSString *)registrar
+                                   realm:(NSString *)realm
+                                username:(NSString *)username;
+
+- (void)updateUsername:(NSString *)username;
+- (void)updateIdentifier:(NSInteger)identifier;
 
 // Makes a call to a given destination URI.
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^)(AKSIPCall *))completion;
