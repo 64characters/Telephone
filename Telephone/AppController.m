@@ -1193,6 +1193,8 @@ NS_ASSUME_NONNULL_END
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    [self.compositionRoot.settingsMigration execute];
     
     // Read main settings from defaults.
     if ([defaults boolForKey:kUseDNSSRV]) {

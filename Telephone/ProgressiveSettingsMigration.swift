@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class ProgressiveSettingsMigration {
+final class ProgressiveSettingsMigration: NSObject {
     fileprivate let settings: KeyValueSettings
     fileprivate let factory: SettingsMigrationFactory
 
