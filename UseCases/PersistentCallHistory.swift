@@ -78,7 +78,7 @@ private extension CallHistoryRecord {
     init(dictionary: [String: Any]) {
         accountID = dictionary[accountIDKey] as? String ?? ""
         user = dictionary[userKey] as? String ?? ""
-        domain = dictionary[domainKey] as? String ?? ""
+        host = dictionary[hostKey] as? String ?? ""
         date = dictionary[dateKey] as? Date ?? Date.distantPast
         isIncoming = dictionary[incomingKey] as? Bool ?? false
         isMissed = dictionary[missedKey] as? Bool ?? false
@@ -90,7 +90,7 @@ private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] 
         return [
             accountIDKey: $0.accountID,
             userKey: $0.user,
-            domainKey: $0.domain,
+            hostKey: $0.host,
             dateKey: $0.date,
             incomingKey: $0.isIncoming,
             missedKey: $0.isMissed
@@ -105,7 +105,7 @@ private func write(_ plist: [[String: Any]], to url: URL) throws {
 
 private let accountIDKey = "accountID"
 private let userKey = "user"
-private let domainKey = "domain"
+private let hostKey = "host"
 private let dateKey = "date"
 private let incomingKey = "incoming"
 private let missedKey = "missed"

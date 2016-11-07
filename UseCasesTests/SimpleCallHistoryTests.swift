@@ -60,7 +60,7 @@ private func makeRecord1() -> CallHistoryRecord {
     return CallHistoryRecord(
         accountID: "any-accountID",
         user: "any-user",
-        domain: "any-domain",
+        host: "any-host",
         date: Date(),
         isIncoming: false,
         isMissed: false
@@ -71,7 +71,7 @@ private func makeRecord2() -> CallHistoryRecord {
     return CallHistoryRecord(
         accountID: "other-accountID",
         user: "other-user",
-        domain: "other-domain",
+        host: "other-host",
         date: Date.distantPast,
         isIncoming: true,
         isMissed: true
