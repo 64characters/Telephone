@@ -19,7 +19,6 @@
 public protocol CallHistory {
     var allRecords: [CallHistoryRecord] { get }
     func add(_ record: CallHistoryRecord)
-    func add(_ records: [CallHistoryRecord])
     func remove(at index: Int)
     func removeAll()
 }

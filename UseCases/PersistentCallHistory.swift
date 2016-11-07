@@ -55,10 +55,6 @@ extension PersistentCallHistory: CallHistory {
         save()
     }
 
-    public func add(_ records: [CallHistoryRecord]) {
-        origin.add(records)
-    }
-
     public func remove(at index: Int) {
         origin.remove(at: index)
         save()

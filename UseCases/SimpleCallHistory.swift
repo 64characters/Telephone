@@ -31,10 +31,6 @@ extension SimpleCallHistory: CallHistory {
         records.append(record)
     }
 
-    public func add(_ multiple: [CallHistoryRecord]) {
-        records.append(contentsOf: multiple)
-    }
-
     public func remove(at index: Int) {
         records.remove(at: index)
     }

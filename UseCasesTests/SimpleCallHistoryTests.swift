@@ -20,7 +20,7 @@ import UseCases
 import XCTest
 
 final class SimpleCallHistoryTests: XCTestCase {
-    func testCanAddIndividualRecords() {
+    func testCanAddRecords() {
         let sut = SimpleCallHistory()
         let record1 = makeRecord1()
         let record2 = makeRecord2()
@@ -41,15 +41,6 @@ final class SimpleCallHistoryTests: XCTestCase {
         sut.remove(at: 0)
 
         XCTAssertEqual(sut.allRecords, [record2])
-    }
-
-    func testCanAddMultipleRecords() {
-        let sut = SimpleCallHistory()
-        let records = [makeRecord1(), makeRecord2()]
-
-        sut.add(records)
-
-        XCTAssertEqual(sut.allRecords, records)
     }
 
     func testCanRemoveAllRecords() {
