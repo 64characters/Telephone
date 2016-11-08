@@ -17,6 +17,7 @@
 //
 
 import UseCases
+import UseCasesTestDoubles
 import XCTest
 
 final class PersistentCallHistoryTests: XCTestCase {
@@ -83,25 +84,11 @@ final class PersistentCallHistoryTests: XCTestCase {
 }
 
 private func makeRecord1() -> CallHistoryRecord {
-    return CallHistoryRecord(
-        accountID: "any-accountID",
-        user: "any-user",
-        host: "any-host",
-        date: Date(),
-        isIncoming: false,
-        isMissed: false
-    )
+    return CallHistoryRecordTestFactory().makeRecord(number: 1)
 }
 
 private func makeRecord2() -> CallHistoryRecord {
-    return CallHistoryRecord(
-        accountID: "other-accountID",
-        user: "other-user",
-        host: "other-host",
-        date: Date.distantPast,
-        isIncoming: true,
-        isMissed: true
-    )
+    return CallHistoryRecordTestFactory().makeRecord(number: 2)
 }
 
 private func removeFile(at url: URL) {
