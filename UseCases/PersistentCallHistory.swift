@@ -18,30 +18,21 @@
 
 public final class PersistentCallHistory {
     fileprivate let origin: CallHistory
-    fileprivate let url: URL
+    fileprivate let storage: PropertyListStorage
 
-    public init(origin: CallHistory, url: URL) {
+    public init(origin: CallHistory, storage: PropertyListStorage) {
         self.origin = origin
-        self.url = url
+        self.storage = storage
         origin.removeAll()
-        populateOriginRecordsFromURL()
+        load()
     }
 
-    private func populateOriginRecordsFromURL() {
+    private func load() {
         do {
-            addToOrigin(records: try readRecords(from: url))
+            try storage.load().forEach({ origin.add(CallHistoryRecord(dictionary: $0)) })
         } catch {
             print("Could not read call history from file: \(error)")
         }
-    }
-
-    private func addToOrigin(records: Any) {
-        guard let records = records as? NSArray else { return }
-        records.flatMap({ $0 as? [String: Any] }).forEach({ origin.add(CallHistoryRecord(dictionary: $0)) })
-    }
-
-    private func readRecords(from url: URL) throws -> Any {
-        return try PropertyListSerialization.propertyList(from: try Data(contentsOf: url), options: [], format: nil)
     }
 }
 
@@ -67,7 +58,7 @@ extension PersistentCallHistory: CallHistory {
 
     private func save() {
         do {
-            try write(dictionaries(from: origin.allRecords), to: url)
+            try storage.save(dictionaries(from: origin.allRecords))
         } catch {
             print("Could not save call history to file: \(error)")
         }
@@ -96,11 +87,6 @@ private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] 
             missedKey: $0.isMissed
         ]
     }
-}
-
-private func write(_ plist: [[String: Any]], to url: URL) throws {
-    try PropertyListSerialization.data(fromPropertyList: plist, format: .binary, options: 0)
-        .write(to: url, options: .atomic)
 }
 
 private let accountIDKey = "accountID"

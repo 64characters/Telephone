@@ -21,53 +21,43 @@ import UseCasesTestDoubles
 import XCTest
 
 final class PersistentCallHistoryTests: XCTestCase {
-    private var url: URL!
-
-    override func setUp() {
-        super.setUp()
-        url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-            .appendingPathComponent("\(ProcessInfo.processInfo.globallyUniqueString)-call-history.plist")
-    }
-
-    override func tearDown() {
-        super.tearDown()
-        removeFile(at: url)
-    }
-
     func testPersistsAfterAdding() {
+        let storage = MemoryPropertyListStorage()
         let record1 = makeRecord1()
         let record2 = makeRecord2()
 
-        var sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
+        var sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
         sut.add(record1)
         sut.add(record2)
-        sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
+        sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
         XCTAssertEqual(sut.allRecords, [record1, record2])
     }
 
     func testPersistsAfterRemovingIndividual() {
+        let storage = MemoryPropertyListStorage()
         let record1 = makeRecord1()
         let record2 = makeRecord2()
 
-        var sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
+        var sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
         sut.add(record1)
         sut.add(record2)
         sut.remove(record1)
-        sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
+        sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
         XCTAssertEqual(sut.allRecords, [record2])
     }
 
     func testPersistsAfterRemovingAll() {
+        let storage = MemoryPropertyListStorage()
         let record1 = makeRecord1()
         let record2 = makeRecord2()
 
-        var sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
+        var sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
         sut.add(record1)
         sut.add(record2)
         sut.removeAll()
-        sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
+        sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
         XCTAssertEqual(sut.allRecords, [])
     }
@@ -77,7 +67,7 @@ final class PersistentCallHistoryTests: XCTestCase {
         origin.add(makeRecord1())
         origin.add(makeRecord2())
 
-        let sut = PersistentCallHistory(origin: origin, url: url)
+        let sut = PersistentCallHistory(origin: origin, storage: MemoryPropertyListStorage())
 
         XCTAssertEqual(sut.allRecords.count, 0)
     }
@@ -89,16 +79,4 @@ private func makeRecord1() -> CallHistoryRecord {
 
 private func makeRecord2() -> CallHistoryRecord {
     return CallHistoryRecordTestFactory().makeRecord(number: 2)
-}
-
-private func removeFile(at url: URL) {
-    do {
-        try FileManager.default.removeItem(at: url)
-    } catch let error as NSError {
-        if !(error.domain == NSCocoaErrorDomain && error.code == NSFileNoSuchFileError) {
-            XCTFail()
-        }
-    } catch {
-        XCTFail()
-    }
 }
