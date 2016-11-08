@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class CallHistoryRecordTestFactory {
+public final class CallHistoryRecordTestFactory {
     public init() {}
 
     public func makeRecord(number: Int) -> CallHistoryRecord {

@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class CallHistoryEventTargetSpy {
+public final class CallHistoryEventTargetSpy {
     public var didUpdateCallCount = 0
     public var didCallDidUpdate: Bool { return didUpdateCallCount > 0 }
 

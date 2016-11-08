@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class NotifyingCallHistory {
+public final class NotifyingCallHistory {
     fileprivate let origin: CallHistory
     fileprivate let target: CallHistoryEventTarget
 

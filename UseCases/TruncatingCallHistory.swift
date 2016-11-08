@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public class TruncatingCallHistory {
+public final class TruncatingCallHistory {
     fileprivate var records = [CallHistoryRecord]()
 
     fileprivate let limit: Int
