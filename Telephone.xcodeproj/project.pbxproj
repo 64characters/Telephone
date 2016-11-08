@@ -266,8 +266,6 @@
 		8AE7063D1D4A4D370060FF4F /* ReceiptXPCGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */; };
 		8AEF77A41DCB9C0900C73BCB /* CallHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77A31DCB9C0900C73BCB /* CallHistoryRecord.swift */; };
 		8AEF77A61DCB9DCD00C73BCB /* CallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77A51DCB9DCD00C73BCB /* CallHistory.swift */; };
-		8AEF77AA1DCCB65900C73BCB /* SimpleCallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77A91DCCB65900C73BCB /* SimpleCallHistory.swift */; };
-		8AEF77AC1DCCB99C00C73BCB /* SimpleCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77AB1DCCB99C00C73BCB /* SimpleCallHistoryTests.swift */; };
 		8AEF77AF1DCCC64100C73BCB /* PersistentCallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77AE1DCCC64100C73BCB /* PersistentCallHistory.swift */; };
 		8AEF77B11DCCC70300C73BCB /* PersistentCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */; };
 		8AFC630E1D8C6F490022470D /* Array+Creating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC630D1D8C6F490022470D /* Array+Creating.swift */; };
@@ -869,8 +867,6 @@
 		8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptXPCGateway.swift; sourceTree = "<group>"; };
 		8AEF77A31DCB9C0900C73BCB /* CallHistoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecord.swift; sourceTree = "<group>"; };
 		8AEF77A51DCB9DCD00C73BCB /* CallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistory.swift; sourceTree = "<group>"; };
-		8AEF77A91DCCB65900C73BCB /* SimpleCallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCallHistory.swift; sourceTree = "<group>"; };
-		8AEF77AB1DCCB99C00C73BCB /* SimpleCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleCallHistoryTests.swift; path = UseCasesTests/SimpleCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8AEF77AE1DCCC64100C73BCB /* PersistentCallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentCallHistory.swift; sourceTree = "<group>"; };
 		8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistentCallHistoryTests.swift; path = UseCasesTests/PersistentCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8AFC630C1D8C24670022470D /* Spotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
@@ -1766,8 +1762,6 @@
 				8AEF77A51DCB9DCD00C73BCB /* CallHistory.swift */,
 				8AEF77AE1DCCC64100C73BCB /* PersistentCallHistory.swift */,
 				8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */,
-				8AEF77A91DCCB65900C73BCB /* SimpleCallHistory.swift */,
-				8AEF77AB1DCCB99C00C73BCB /* SimpleCallHistoryTests.swift */,
 				8A143C841DD0D26500B1CD23 /* TruncatingCallHistory.swift */,
 				8A143C821DD0D22900B1CD23 /* TruncatingCallHistoryTests.swift */,
 			);
@@ -2884,7 +2878,6 @@
 				AA3905301BFFDDDA005A8AA3 /* SystemAudioDeviceRepository.swift in Sources */,
 				8ADD6A6F1CE0DCF8001EDBBA /* ProductsEventTargets.swift in Sources */,
 				8AAA5BE51DA695D2005A7BFE /* ReceiptRefreshUseCase.swift in Sources */,
-				8AEF77AA1DCCB65900C73BCB /* SimpleCallHistory.swift in Sources */,
 				8AA748AD1D702459000587DC /* MusicPlayerSettings.swift in Sources */,
 				AA3B6E871C47AD0B0030D410 /* Timer.swift in Sources */,
 				8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */,
@@ -2925,7 +2918,6 @@
 				8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift in Sources */,
 				8A7E21521CC3F6A5000D02C3 /* ServiceAddressTests.swift in Sources */,
 				8A7E212D1CC23F6B000D02C3 /* UserAgentAudioDeviceUpdateUseCaseTests.swift in Sources */,
-				8AEF77AC1DCCB99C00C73BCB /* SimpleCallHistoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

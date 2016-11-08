@@ -38,10 +38,10 @@ final class PersistentCallHistoryTests: XCTestCase {
         let record1 = makeRecord1()
         let record2 = makeRecord2()
 
-        var sut = PersistentCallHistory(origin: SimpleCallHistory(), url: url)
+        var sut = PersistentCallHistory(origin: TruncatingCallHistory(limit: 2), url: url)
         sut.add(record1)
         sut.add(record2)
-        sut = PersistentCallHistory(origin: SimpleCallHistory(), url: url)
+        sut = PersistentCallHistory(origin: TruncatingCallHistory(limit: 2), url: url)
 
         XCTAssertEqual(sut.allRecords, [record1, record2])
     }
@@ -50,11 +50,11 @@ final class PersistentCallHistoryTests: XCTestCase {
         let record1 = makeRecord1()
         let record2 = makeRecord2()
 
-        var sut = PersistentCallHistory(origin: SimpleCallHistory(), url: url)
+        var sut = PersistentCallHistory(origin: TruncatingCallHistory(limit: 2), url: url)
         sut.add(record1)
         sut.add(record2)
         sut.remove(at: 0)
-        sut = PersistentCallHistory(origin: SimpleCallHistory(), url: url)
+        sut = PersistentCallHistory(origin: TruncatingCallHistory(limit: 2), url: url)
 
         XCTAssertEqual(sut.allRecords, [record2])
     }
@@ -63,17 +63,17 @@ final class PersistentCallHistoryTests: XCTestCase {
         let record1 = makeRecord1()
         let record2 = makeRecord2()
 
-        var sut = PersistentCallHistory(origin: SimpleCallHistory(), url: url)
+        var sut = PersistentCallHistory(origin: TruncatingCallHistory(limit: 2), url: url)
         sut.add(record1)
         sut.add(record2)
         sut.removeAll()
-        sut = PersistentCallHistory(origin: SimpleCallHistory(), url: url)
+        sut = PersistentCallHistory(origin: TruncatingCallHistory(limit: 2), url: url)
 
         XCTAssertEqual(sut.allRecords, [])
     }
 
     func testDiscardsOriginContentAfterCreation() {
-        let origin = SimpleCallHistory()
+        let origin = TruncatingCallHistory(limit: 2)
         origin.add(makeRecord1())
         origin.add(makeRecord2())
 
