@@ -19,15 +19,13 @@
 import Foundation
 
 public struct CallHistoryRecord {
-    public let accountID: String
     public let user: String
     public let host: String
     public let date: Date
     public let isIncoming: Bool
     public let isMissed: Bool
 
-    public init(accountID: String, user: String, host: String, date: Date, isIncoming: Bool, isMissed: Bool) {
-        self.accountID = accountID
+    public init(user: String, host: String, date: Date, isIncoming: Bool, isMissed: Bool) {
         self.user = user
         self.host = host
         self.date = date
@@ -38,8 +36,7 @@ public struct CallHistoryRecord {
 
 extension CallHistoryRecord: Equatable {
     public static func ==(lhs: CallHistoryRecord, rhs: CallHistoryRecord) -> Bool {
-        return lhs.accountID == rhs.accountID &&
-            lhs.user == rhs.user &&
+        return lhs.user == rhs.user &&
             lhs.host == rhs.host &&
             lhs.date == rhs.date &&
             lhs.isIncoming == rhs.isIncoming &&
