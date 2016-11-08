@@ -21,7 +21,7 @@ public class TruncatingCallHistory {
 
     fileprivate let limit: Int
 
-    public init(limit: Int) {
+    public init(limit: Int = 100) {
         self.limit = limit
     }
 }

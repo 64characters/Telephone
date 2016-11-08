@@ -22,7 +22,7 @@ import XCTest
 
 final class TruncatingCallHistoryTests: XCTestCase {
     func testCanAddRecords() {
-        let sut = TruncatingCallHistory(limit: 2)
+        let sut = TruncatingCallHistory()
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -34,7 +34,7 @@ final class TruncatingCallHistoryTests: XCTestCase {
     }
 
     func testCanRemoveIndividualRecords() {
-        let sut = TruncatingCallHistory(limit: 2)
+        let sut = TruncatingCallHistory()
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -47,7 +47,7 @@ final class TruncatingCallHistoryTests: XCTestCase {
     }
 
     func testCanRemoveAllRecords() {
-        let sut = TruncatingCallHistory(limit: 2)
+        let sut = TruncatingCallHistory()
         let factory = CallHistoryRecordTestFactory()
         sut.add(factory.makeRecord(number: 1))
         sut.add(factory.makeRecord(number: 2))
