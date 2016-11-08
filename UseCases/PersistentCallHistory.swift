@@ -87,7 +87,7 @@ private extension CallHistoryRecord {
 
 private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] {
     return records.map {
-        return [
+        [
             accountIDKey: $0.accountID,
             userKey: $0.user,
             hostKey: $0.host,
