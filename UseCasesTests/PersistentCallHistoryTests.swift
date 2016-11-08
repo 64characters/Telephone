@@ -53,7 +53,7 @@ final class PersistentCallHistoryTests: XCTestCase {
         var sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
         sut.add(record1)
         sut.add(record2)
-        sut.remove(at: 0)
+        sut.remove(record1)
         sut = PersistentCallHistory(origin: TruncatingCallHistory(), url: url)
 
         XCTAssertEqual(sut.allRecords, [record2])

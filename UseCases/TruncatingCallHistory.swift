@@ -38,8 +38,10 @@ extension TruncatingCallHistory: CallHistory {
         }
     }
 
-    public func remove(at index: Int) {
-        records.remove(at: index)
+    public func remove(_ record: CallHistoryRecord) {
+        if let index = records.index(of: record) {
+            records.remove(at: index)
+        }
     }
 
     public func removeAll() {

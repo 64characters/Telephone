@@ -41,7 +41,7 @@ final class TruncatingCallHistoryTests: XCTestCase {
         sut.add(record1)
         sut.add(record2)
 
-        sut.remove(at: 0)
+        sut.remove(record1)
 
         XCTAssertEqual(sut.allRecords, [record2])
     }
