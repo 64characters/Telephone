@@ -1,5 +1,5 @@
 //
-//  AKNSString+Scanning.h
+//  NSString+Analyzing.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,16 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-#import <Foundation/Foundation.h>
+import Foundation
 
+public extension NSString {
 
-// A category for scanning strings.
-@interface NSString (AKStringScanningAdditions)
-
-// A Boolean value indicating whether the receiver consists only of a-z or A-Z.
-@property(nonatomic, readonly, assign) BOOL ak_hasLetters;
-
-// A Boolean value indicating whether the receiver is an IP address.
-@property(nonatomic, readonly, assign) BOOL ak_isIPAddress;
-
-@end
+    /// A Boolean value indicating whether the receiver is a telephone number, e.g. it consists of contiguous digits
+    /// with an optional leading plus character.
+    @objc(ak_isTelephoneNumber)
+    var isTelephoneNumber: Bool {
+        return NSPredicate(format: "SELF MATCHES '\\\\+?\\\\d+'").evaluate(with: self)
+    }
+}

@@ -21,7 +21,6 @@
 @import UseCases;
 
 #import "AKActiveCallView.h"
-#import "AKNSString+Scanning.h"
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
