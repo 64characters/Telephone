@@ -69,7 +69,7 @@ private extension CallHistoryRecord {
     init(dictionary: [String: Any]) {
         user = dictionary[userKey] as? String ?? ""
         host = dictionary[hostKey] as? String ?? ""
-        date = dictionary[dateKey] as? Date ?? Date.distantPast
+        start = dictionary[startKey] as? Date ?? Date.distantPast
         isIncoming = dictionary[incomingKey] as? Bool ?? false
         isMissed = dictionary[missedKey] as? Bool ?? false
     }
@@ -80,7 +80,7 @@ private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] 
         [
             userKey: $0.user,
             hostKey: $0.host,
-            dateKey: $0.date,
+            startKey: $0.start,
             incomingKey: $0.isIncoming,
             missedKey: $0.isMissed
         ]
@@ -89,6 +89,6 @@ private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] 
 
 private let userKey = "user"
 private let hostKey = "host"
-private let dateKey = "date"
+private let startKey = "start"
 private let incomingKey = "incoming"
 private let missedKey = "missed"

@@ -21,14 +21,14 @@ import Foundation
 public struct CallHistoryRecord {
     public let user: String
     public let host: String
-    public let date: Date
+    public let start: Date
     public let isIncoming: Bool
     public let isMissed: Bool
 
-    public init(user: String, host: String, date: Date, isIncoming: Bool, isMissed: Bool) {
+    public init(user: String, host: String, start: Date, isIncoming: Bool, isMissed: Bool) {
         self.user = user
         self.host = host
-        self.date = date
+        self.start = start
         self.isIncoming = isIncoming
         self.isMissed = isMissed
     }
@@ -38,7 +38,7 @@ extension CallHistoryRecord: Equatable {
     public static func ==(lhs: CallHistoryRecord, rhs: CallHistoryRecord) -> Bool {
         return lhs.user == rhs.user &&
             lhs.host == rhs.host &&
-            lhs.date == rhs.date &&
+            lhs.start == rhs.start &&
             lhs.isIncoming == rhs.isIncoming &&
             lhs.isMissed == rhs.isMissed
     }

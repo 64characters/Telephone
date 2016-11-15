@@ -47,7 +47,7 @@ extension CallHistoryRecordAddUseCase: UseCase {
 
     private func recordByRemovingHost(from record: CallHistoryRecord) -> CallHistoryRecord {
         return CallHistoryRecord(
-            user: record.user, host: "", date: record.date, isIncoming: record.isIncoming, isMissed: record.isMissed
+            user: record.user, host: "", start: record.start, isIncoming: record.isIncoming, isMissed: record.isMissed
         )
     }
 }
