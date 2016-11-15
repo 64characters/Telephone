@@ -25,7 +25,7 @@ public final class CallHistoryRecordTestFactory {
         return CallHistoryRecord(
             user: "user-\(number)",
             host: "host-\(number)",
-            start: Date(),
+            date: Date(),
             duration: 60,
             isIncoming: false,
             isMissed: false
