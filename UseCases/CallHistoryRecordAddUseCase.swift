@@ -35,7 +35,7 @@ extension CallHistoryRecordAddUseCase: UseCase {
 
     private func recordByRemovingHostIfNeeded(from record: CallHistoryRecord) -> CallHistoryRecord {
         if shouldRemoveHost(from: record) {
-            return recordByRemovingHost(from: record)
+            return record.removingHost()
         } else {
             return record
         }
@@ -43,11 +43,5 @@ extension CallHistoryRecordAddUseCase: UseCase {
 
     private func shouldRemoveHost(from record: CallHistoryRecord) -> Bool {
         return record.host == domain || record.user.isTelephoneNumber && record.user.characters.count > 4
-    }
-
-    private func recordByRemovingHost(from record: CallHistoryRecord) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            user: record.user, host: "", start: record.start, isIncoming: record.isIncoming, isMissed: record.isMissed
-        )
     }
 }

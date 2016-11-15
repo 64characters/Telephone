@@ -22,15 +22,28 @@ public struct CallHistoryRecord {
     public let user: String
     public let host: String
     public let start: Date
+    public let duration: Int
     public let isIncoming: Bool
     public let isMissed: Bool
 
-    public init(user: String, host: String, start: Date, isIncoming: Bool, isMissed: Bool) {
+    public init(user: String, host: String, start: Date, duration: Int, isIncoming: Bool, isMissed: Bool) {
         self.user = user
         self.host = host
         self.start = start
+        self.duration = duration
         self.isIncoming = isIncoming
         self.isMissed = isMissed
+    }
+
+    public func removingHost() -> CallHistoryRecord {
+        return CallHistoryRecord(
+            user: user,
+            host: "",
+            start: start,
+            duration: duration,
+            isIncoming: isIncoming,
+            isMissed: isMissed
+        )
     }
 }
 
@@ -39,6 +52,7 @@ extension CallHistoryRecord: Equatable {
         return lhs.user == rhs.user &&
             lhs.host == rhs.host &&
             lhs.start == rhs.start &&
+            lhs.duration == rhs.duration &&
             lhs.isIncoming == rhs.isIncoming &&
             lhs.isMissed == rhs.isMissed
     }

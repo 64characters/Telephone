@@ -35,27 +35,27 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: record.host)
-        let expected = CallHistoryRecord(user: record.user, host: "", start: record.start, isIncoming: record.isIncoming, isMissed: record.isMissed)
 
         sut.execute()
 
-        XCTAssertEqual(history.allRecords, [expected])
+        XCTAssertEqual(history.allRecords, [record.removingHost()])
     }
 
     func testAddsCopyOfRecordWithEmptyHostWhenUserIsATelephoneNumberLongerThanFourCharacters() {
         let history = TruncatingCallHistory()
-        let record = CallHistoryRecord(user: "12345", host: "any-host", start: Date(), isIncoming: false, isMissed: false)
+        let record = CallHistoryRecord(user: "12345", host: "any-host", start: Date(), duration: 60, isIncoming: false, isMissed: false)
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
-        let expected = CallHistoryRecord(user: record.user, host: "", start: record.start, isIncoming: record.isIncoming, isMissed: record.isMissed)
 
         sut.execute()
 
-        XCTAssertEqual(history.allRecords, [expected])
+        XCTAssertEqual(history.allRecords, [record.removingHost()])
     }
 
     func testAddsOriginalRecordWhenUserIsATelephoneNumberWithLengthEqualToFourCharacters() {
         let history = TruncatingCallHistory()
-        let record = CallHistoryRecord(user: "1234", host: "any-host", start: Date(), isIncoming: false, isMissed: false)
+        let record = CallHistoryRecord(
+            user: "1234", host: "any-host", start: Date(), duration: 60, isIncoming: false, isMissed: false
+        )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
         sut.execute()
@@ -65,7 +65,9 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
 
     func testAddsOriginalRecordWhenUserIsATelephoneNumberShorterThanFourCharacters() {
         let history = TruncatingCallHistory()
-        let record = CallHistoryRecord(user: "123", host: "any-host", start: Date(), isIncoming: false, isMissed: false)
+        let record = CallHistoryRecord(
+            user: "123", host: "any-host", start: Date(), duration: 60, isIncoming: false, isMissed: false
+        )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
         sut.execute()
