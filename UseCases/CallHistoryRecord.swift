@@ -57,3 +57,14 @@ extension CallHistoryRecord: Equatable {
             lhs.isMissed == rhs.isMissed
     }
 }
+
+extension CallHistoryRecord {
+    public init(call: Call) {
+        user = call.remote.user
+        host = call.remote.host
+        date = call.date
+        duration = call.duration
+        isIncoming = call.isIncoming
+        isMissed = call.isMissed
+    }
+}
