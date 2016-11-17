@@ -46,6 +46,7 @@
 		8A11B3DE1DDCC07E002EDA93 /* CallNotificationsToEventTargetAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11B3DD1DDCC07E002EDA93 /* CallNotificationsToEventTargetAdapterTests.swift */; };
 		8A11B3DF1DDCC092002EDA93 /* CallNotificationsToEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11B3DB1DDCC028002EDA93 /* CallNotificationsToEventTargetAdapter.swift */; };
 		8A11B3E11DDCDC2D002EDA93 /* CallEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11B3E01DDCDC2D002EDA93 /* CallEventTargetSpy.swift */; };
+		8A11B3E31DDDE81C002EDA93 /* URI+AKSIPURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A11B3E21DDDE81C002EDA93 /* URI+AKSIPURI.swift */; };
 		8A143C831DD0D22900B1CD23 /* TruncatingCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A143C821DD0D22900B1CD23 /* TruncatingCallHistoryTests.swift */; };
 		8A143C851DD0D26500B1CD23 /* TruncatingCallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A143C841DD0D26500B1CD23 /* TruncatingCallHistory.swift */; };
 		8A143C871DD0D40C00B1CD23 /* CallHistoryRecordTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A143C861DD0D40C00B1CD23 /* CallHistoryRecordTestFactory.swift */; };
@@ -634,6 +635,7 @@
 		8A11B3DB1DDCC028002EDA93 /* CallNotificationsToEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallNotificationsToEventTargetAdapter.swift; sourceTree = "<group>"; };
 		8A11B3DD1DDCC07E002EDA93 /* CallNotificationsToEventTargetAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallNotificationsToEventTargetAdapterTests.swift; path = TelephoneTests/CallNotificationsToEventTargetAdapterTests.swift; sourceTree = SOURCE_ROOT; };
 		8A11B3E01DDCDC2D002EDA93 /* CallEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallEventTargetSpy.swift; sourceTree = "<group>"; };
+		8A11B3E21DDDE81C002EDA93 /* URI+AKSIPURI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URI+AKSIPURI.swift"; sourceTree = "<group>"; };
 		8A143C821DD0D22900B1CD23 /* TruncatingCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TruncatingCallHistoryTests.swift; path = UseCasesTests/TruncatingCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8A143C841DD0D26500B1CD23 /* TruncatingCallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TruncatingCallHistory.swift; sourceTree = "<group>"; };
 		8A143C861DD0D40C00B1CD23 /* CallHistoryRecordTestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordTestFactory.swift; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 				8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */,
 				8ACD2ADF1DD200D700E81984 /* SimplePropertyListStorage.swift */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
+				8A11B3E21DDDE81C002EDA93 /* URI+AKSIPURI.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -2845,6 +2848,7 @@
 				AA3A14FB0F309C7C00C45739 /* AKABAddressBook+Localizing.m in Sources */,
 				AA16CBE60F856ACD000CAFD1 /* AKNSString+PJSUA.m in Sources */,
 				8ADA109F1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
+				8A11B3E31DDDE81C002EDA93 /* URI+AKSIPURI.swift in Sources */,
 				8ACD2AE01DD200D700E81984 /* SimplePropertyListStorage.swift in Sources */,
 				8ADD6A5A1CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
 				8A9175A51CA5A10800354E26 /* PJSUAOnCallReplaced.m in Sources */,

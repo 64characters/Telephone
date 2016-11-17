@@ -39,10 +39,11 @@ final class CallNotificationsToEventTargetAdapter {
     }
 
     @objc private func SIPCallDidDisconnect(_ notification: Notification) {
+        let call = notification.object as! AKSIPCall
         target.callDidDisconnect(
             SimpleCall(
-                accountID: "",
-                remote: URI(user: "", host: ""),
+                accountID: call.account.uniqueIdentifier,
+                remote: URI(call.remoteURI),
                 date: Date(),
                 duration: 0,
                 isIncoming: false,
