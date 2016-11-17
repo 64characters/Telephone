@@ -111,7 +111,7 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 @property(nonatomic, readonly) AKSIPAccount *account;
 
 @property(nonatomic, readonly) NSDate *date;
-@property(nonatomic, readonly) NSInteger duration;
+@property(nonatomic) NSInteger duration;
 @property(nonatomic, readonly, getter=isMissed) BOOL missed;
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier incoming:(BOOL)isIncoming;
