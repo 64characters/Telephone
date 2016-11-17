@@ -160,17 +160,18 @@ const NSInteger kAKSIPCallsMax = 8;
 
 #pragma mark -
 
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount identifier:(NSInteger)anIdentifier {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier incoming:(BOOL)isIncoming {
     self = [super init];
     if (self == nil) {
         return nil;
     }
     
-    _identifier = anIdentifier;
-    _account = anAccount;
+    _identifier = identifier;
+    _account = account;
+    _incoming = isIncoming;
 
     pjsua_call_info callInfo;
-    pj_status_t status = pjsua_call_get_info((pjsua_call_id)anIdentifier, &callInfo);
+    pj_status_t status = pjsua_call_get_info((pjsua_call_id)identifier, &callInfo);
     if (status == PJ_SUCCESS) {
         _state = (AKSIPCallState)callInfo.state;
         _stateText = [NSString stringWithPJString:callInfo.state_text];
@@ -178,7 +179,6 @@ const NSInteger kAKSIPCallsMax = 8;
         _lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
         _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]];
         _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]];
-        _incoming = callInfo.state == kAKSIPCallIncomingState;
     } else {
         _state = kAKSIPCallNullState;
         _stateText = @"";

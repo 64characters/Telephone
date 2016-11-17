@@ -114,9 +114,7 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 @property(nonatomic, readonly) NSInteger duration;
 @property(nonatomic, readonly, getter=isMissed) BOOL missed;
 
-// Designated initializer.
-// Initializes a AKSIPCall object with a given SIP account and identifier.
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount identifier:(NSInteger)anIdentifier;
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier incoming:(BOOL)isIncoming;
 
 // Answers the call.
 - (void)answer;
