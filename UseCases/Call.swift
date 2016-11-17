@@ -18,7 +18,7 @@
 
 import Foundation
 
-public protocol Call {
+@objc public protocol Call {
     var accountID: String { get }
     var remote: URI { get }
     var date: Date  { get }

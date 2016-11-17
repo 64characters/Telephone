@@ -16,7 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-public struct URI {
+import Foundation
+
+public final class URI: NSObject {
     public let user: String
     public let host: String
 

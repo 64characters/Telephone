@@ -166,35 +166,30 @@ const NSInteger kAKSIPCallsMax = 8;
         return nil;
     }
     
-    [self setIdentifier:anIdentifier];
-    [self setAccount:anAccount];
-    
+    _identifier = anIdentifier;
+    _account = anAccount;
+
     pjsua_call_info callInfo;
     pj_status_t status = pjsua_call_get_info((pjsua_call_id)anIdentifier, &callInfo);
     if (status == PJ_SUCCESS) {
-        [self setState:(AKSIPCallState)callInfo.state];
-        [self setStateText:[NSString stringWithPJString:callInfo.state_text]];
-        [self setLastStatus:callInfo.last_status];
-        [self setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
-        [self setRemoteURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]]];
-        [self setLocalURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]]];
-        
-        if (callInfo.state == kAKSIPCallIncomingState) {
-            [self setIncoming:YES];
-        } else {
-            [self setIncoming:NO];
-        }
-        
+        _state = (AKSIPCallState)callInfo.state;
+        _stateText = [NSString stringWithPJString:callInfo.state_text];
+        _lastStatus = callInfo.last_status;
+        _lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
+        _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]];
+        _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]];
+        _incoming = callInfo.state == kAKSIPCallIncomingState;
     } else {
-        [self setState:kAKSIPCallNullState];
-        [self setIncoming:NO];
+        _state = kAKSIPCallNullState;
+        _stateText = @"";
+        _lastStatusText = @"";
+        _localURI = [AKSIPURI SIPURIWithUser:@"" host:@"" displayName:@""];
+        _remoteURI = [AKSIPURI SIPURIWithUser:@"" host:@"" displayName:@""];
     }
+
+    _date = [NSDate date];
     
     return self;
-}
-
-- (instancetype)init {
-    return [self initWithSIPAccount:nil identifier:kAKSIPUserAgentInvalidIdentifier];
 }
 
 - (void)dealloc {
@@ -225,7 +220,7 @@ const NSInteger kAKSIPCallsMax = 8;
 
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall {
     [self setTransferStatus:kAKSIPUserAgentInvalidIdentifier];
-    [self setTransferStatusText:nil];
+    [self setTransferStatusText:@""];
     pj_status_t status = pjsua_call_xfer_replaces((pjsua_call_id)[self identifier],
                                                   (pjsua_call_id)[destinationCall identifier],
                                                   PJSUA_XFER_NO_REQUIRE_REPLACES,

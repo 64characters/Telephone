@@ -23,6 +23,8 @@
 #import "AKSIPCallNotifications.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern const NSInteger kAKSIPCallsMax;
 
 typedef NS_ENUM(NSUInteger, AKSIPCallState) {
@@ -57,61 +59,64 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 @property(nonatomic, weak) id<AKSIPCallDelegate> delegate;
 
 // The receiver's identifier.
-@property(nonatomic, assign) NSInteger identifier;
+@property(nonatomic) NSInteger identifier;
 
 // SIP URI of the local Contact header.
-@property(nonatomic, copy) AKSIPURI *localURI;
+@property(nonatomic, readonly) AKSIPURI *localURI;
 
 // SIP URI of the remote Contact header.
-@property(nonatomic, copy) AKSIPURI *remoteURI;
+@property(nonatomic, readonly) AKSIPURI *remoteURI;
 
 // Call state.
-@property(assign) AKSIPCallState state;
+@property(nonatomic) AKSIPCallState state;
 
 // Call state text.
-@property(copy) NSString *stateText;
+@property(nonatomic, copy) NSString *stateText;
 
 // Call's last status code.
-@property(assign) NSInteger lastStatus;
+@property(nonatomic) NSInteger lastStatus;
 
 // Call's last status text.
-@property(copy) NSString *lastStatusText;
+@property(nonatomic, copy) NSString *lastStatusText;
 
 // Call transfer status code.
-@property(assign) NSInteger transferStatus;
+@property(nonatomic) NSInteger transferStatus;
 
 // Call transfer status text.
-@property(copy) NSString *transferStatusText;
+@property(nonatomic, copy) NSString *transferStatusText;
 
 // A Boolean value indicating whether the call is active, i.e. it has active
 // INVITE session and the INVITE session has not been disconnected.
-@property(nonatomic, readonly, assign, getter=isActive) BOOL active;
+@property(nonatomic, readonly, getter=isActive) BOOL active;
 
 // A Boolean value indicating whether the call has a media session.
-@property(nonatomic, readonly, assign) BOOL hasMedia;
+@property(nonatomic, readonly) BOOL hasMedia;
 
 // A Boolean value indicating whether the call's media is active.
-@property(nonatomic, readonly, assign) BOOL hasActiveMedia;
+@property(nonatomic, readonly) BOOL hasActiveMedia;
 
 // A Boolean value indicating whether the call is incoming.
-@property(assign, getter=isIncoming) BOOL incoming;
+@property(nonatomic, getter=isIncoming) BOOL incoming;
 
 // A Boolean value indicating whether microphone is muted.
-@property(nonatomic, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
+@property(nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;
 
 // A Boolean value indicating whether the call is on local hold.
-@property(nonatomic, readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
+@property(nonatomic, readonly, getter=isOnLocalHold) BOOL onLocalHold;
 
 // A Boolean value indicating whether the call is on remote hold.
-@property(nonatomic, readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
+@property(nonatomic, readonly, getter=isOnRemoteHold) BOOL onRemoteHold;
 
 // The account the call belongs to.
-@property(nonatomic, weak) AKSIPAccount *account;
+@property(nonatomic, readonly) AKSIPAccount *account;
+
+@property(nonatomic, readonly) NSDate *date;
+@property(nonatomic, readonly) NSInteger duration;
+@property(nonatomic, readonly, getter=isMissed) BOOL missed;
 
 // Designated initializer.
 // Initializes a AKSIPCall object with a given SIP account and identifier.
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount
-              identifier:(NSInteger)anIdentifier;
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount identifier:(NSInteger)anIdentifier;
 
 // Answers the call.
 - (void)answer;
@@ -155,3 +160,5 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 - (void)toggleHold;
 
 @end
+
+NS_ASSUME_NONNULL_END

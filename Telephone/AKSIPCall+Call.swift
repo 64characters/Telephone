@@ -1,5 +1,5 @@
 //
-//  URI+AKSIPURI.swift
+//  AKSIPCall+Call.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,11 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import Foundation
 
-extension URI {
-    init(_ uri: AKSIPURI) {
-        user = uri.user
-        host = uri.host
+extension AKSIPCall: Call {
+    public var accountID: String {
+        return account.uniqueIdentifier
+    }
+
+    public var remote: URI {
+        return URI(user: remoteURI.user, host: remoteURI.host)
     }
 }

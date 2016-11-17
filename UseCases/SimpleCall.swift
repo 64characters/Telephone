@@ -18,7 +18,7 @@
 
 import Foundation
 
-public struct SimpleCall: Call {
+public final class SimpleCall: NSObject, Call {
     public let accountID: String
     public let remote: URI
     public let date: Date
