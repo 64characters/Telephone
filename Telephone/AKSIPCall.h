@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 @property(nonatomic, readonly, getter=isActive) BOOL active;
 
 // A Boolean value indicating whether the call is incoming.
-@property(nonatomic, getter=isIncoming) BOOL incoming;
+@property(nonatomic, readonly, getter=isIncoming) BOOL incoming;
 
 // A Boolean value indicating whether microphone is muted.
 @property(nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;
