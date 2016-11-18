@@ -133,20 +133,8 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 // Sends DTMF.
 - (void)sendDTMFDigits:(NSString *)digits;
 
-// Mutes microphone.
-- (void)muteMicrophone;
-
-// Unmutes microphone.
-- (void)unmuteMicrophone;
-
 // Toggles microphone mute.
 - (void)toggleMicrophoneMute;
-
-// Places the call on hold.
-- (void)hold;
-
-// Releases the call from hold.
-- (void)unhold;
 
 // Toggles call hold.
 - (void)toggleHold;
