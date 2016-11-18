@@ -115,6 +115,10 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return _endedCallViewController;
 }
 
+- (BOOL)isCallUnhandled {
+    return self.call.isMissed;
+}
+
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName
                     accountController:(AccountController *)accountController
                             userAgent:(AKSIPUserAgent *)userAgent
@@ -195,17 +199,12 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if ([[self call] isIncoming]) {
         [self.ringtonePlayback stop];
     }
-    
-    [self setCallUnhandled:NO];
-    [(AppController *)[NSApp delegate] updateDockTileBadgeLabel];
-    
     [[self call] answer];
 }
 
 - (void)hangUpCall {
     [self setCallActive:NO];
-    [self setCallUnhandled:NO];
-    
+
     if (_activeCallViewController != nil) {
         [[self activeCallViewController] stopCallTimer];
     }
@@ -233,8 +232,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[[self incomingCallViewController] declineCallButton] setEnabled:NO];
     
     [self.musicPlayer resume];
-    [(AppController *)[NSApp delegate] updateDockTileBadgeLabel];
-    
+
     // Optionally close call window.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
         ![self isKindOfClass:[CallTransferController class]]) {
@@ -293,11 +291,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             [self setStatus:NSLocalizedString(@"Call Failed", @"Call failed.")];
         }
     }];
-    
-    if ([self isCallUnhandled]) {
-        [self setCallUnhandled:NO];
-        [(AppController *)[NSApp delegate] updateDockTileBadgeLabel];
-    }
 }
 
 - (void)toggleCallHold {
@@ -413,9 +406,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         
         [self.musicPlayer resume];
     }
-    
-    [self setCallUnhandled:NO];
-    [(AppController *)[NSApp delegate] updateDockTileBadgeLabel];
     
     [self.delegate callControllerWillClose:self];
 

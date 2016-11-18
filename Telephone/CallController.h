@@ -92,7 +92,7 @@
 @property(nonatomic, assign, getter=isCallActive) BOOL callActive;
 
 // A Boolean value indicating whether the receiver's call is unhandled.
-@property(nonatomic, assign, getter=isCallUnhandled) BOOL callUnhandled;
+@property(nonatomic, readonly, getter=isCallUnhandled) BOOL callUnhandled;
 
 
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName

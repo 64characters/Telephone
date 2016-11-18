@@ -748,7 +748,6 @@ NSString * const kGerman = @"de";
     
     [aCallController setCall:aCall];
     [aCallController setCallActive:YES];
-    [aCallController setCallUnhandled:YES];
     [[self callControllers] addObject:aCallController];
     
     AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
@@ -1009,6 +1008,7 @@ NSString * const kGerman = @"de";
 
 - (void)callControllerWillClose:(CallController *)callController {
     [self.callControllers removeObject:callController];
+    [(AppController *)[NSApp delegate] updateDockTileBadgeLabel];
 }
 
 

@@ -28,6 +28,12 @@
 
 const NSInteger kAKSIPCallsMax = 8;
 
+@interface AKSIPCall ()
+
+@property(nonatomic, getter=isMissed) BOOL missed;
+
+@end
+
 @implementation AKSIPCall
 
 - (void)setDelegate:(id<AKSIPCallDelegate>)aDelegate {
@@ -169,6 +175,7 @@ const NSInteger kAKSIPCallsMax = 8;
     _identifier = identifier;
     _account = account;
     _incoming = isIncoming;
+    _missed = _incoming;
 
     pjsua_call_info callInfo;
     pj_status_t status = pjsua_call_get_info((pjsua_call_id)identifier, &callInfo);
@@ -202,7 +209,9 @@ const NSInteger kAKSIPCallsMax = 8;
 
 - (void)answer {
     pj_status_t status = pjsua_call_answer((pjsua_call_id)[self identifier], PJSIP_SC_OK, NULL, NULL);
-    if (status != PJ_SUCCESS) {
+    if (status == PJ_SUCCESS) {
+        self.missed = NO;
+    } else {
         NSLog(@"Error answering call %@", self);
     }
 }
@@ -213,7 +222,9 @@ const NSInteger kAKSIPCallsMax = 8;
     }
     
     pj_status_t status = pjsua_call_hangup((pjsua_call_id)[self identifier], 0, NULL, NULL);
-    if (status != PJ_SUCCESS) {
+    if (status == PJ_SUCCESS) {
+        self.missed = NO;
+    } else {
         NSLog(@"Error hanging up call %@", self);
     }
 }

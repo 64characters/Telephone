@@ -246,8 +246,16 @@ NS_ASSUME_NONNULL_END
                                name:AKAccountSetupControllerDidAddAccountNotification
                              object:nil];
     [notificationCenter addObserver:self
+                           selector:@selector(SIPCallCalling:)
+                               name:AKSIPCallCallingNotification
+                             object:nil];
+    [notificationCenter addObserver:self
                            selector:@selector(SIPCallIncoming:)
                                name:AKSIPCallIncomingNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(SIPCallConnecting:)
+                               name:AKSIPCallConnectingNotification
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(SIPCallDidDisconnect:)
@@ -1431,11 +1439,20 @@ NS_ASSUME_NONNULL_END
 #pragma mark -
 #pragma mark AKSIPCall notifications
 
+- (void)SIPCallCalling:(NSNotification *)notification {
+    [self updateDockTileBadgeLabel];
+}
+
 - (void)SIPCallIncoming:(NSNotification *)notification {
     [self updateDockTileBadgeLabel];
 }
 
+- (void)SIPCallConnecting:(NSNotification *)notification {
+    [self updateDockTileBadgeLabel];
+}
+
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
+    [self updateDockTileBadgeLabel];
     if ([self shouldRestartUserAgentASAP] && ![self hasActiveCallControllers]) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
         [self setShouldRestartUserAgentASAP:NO];
