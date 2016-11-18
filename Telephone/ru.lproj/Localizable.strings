@@ -53,9 +53,6 @@
 /* Products fetch error. */
 "Could not fetch products." = "Не удалось получить список продуктов.";
 
-/* Address Book plug-ins install error, alert message text. */
-"Could not install Address Book plug-ins." = "Не удалось установить плагины к «Адресной книге».";
-
 /* Product purchase error. */
 "Could not make purchase." = "Покупка не удалась.";
 
@@ -95,9 +92,6 @@
 
 /* Hold. Call menu item. */
 "Hold" = "Поставить на ожидание";
-
-/* Address Book plug-ins install error, alert informative text. */
-"Make sure you have write permission to “%@”." = "Проверьте права на запись в «%@».";
 
 /* Microphone muted status text. */
 "mic muted" = "микрофон выключен";

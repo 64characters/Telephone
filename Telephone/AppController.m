@@ -366,10 +366,6 @@ NS_ASSUME_NONNULL_END
         [[[self accountSetupController] otherButton] setTarget:[self accountSetupController]];
         [[[self accountSetupController] otherButton] setAction:@selector(closeSheet:)];
         
-        // If we want to be in Mac App Store, we can't write to |~/Library/ Address Book Plug-Ins| any more.
-        //
-        // [self installAddressBookPlugIns];
-        
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
         [self installDNSChangesCallback];
     }
@@ -470,34 +466,6 @@ NS_ASSUME_NONNULL_END
     [[NSApp dockTile] setBadgeLabel:badgeString];
 }
 
-- (void)installAddressBookPlugIns {
-    NSError *error = nil;
-    BOOL installed = [self installAddressBookPlugInsAndReturnError:&error];
-    if (!installed && error != nil) {
-        NSLog(@"%@", error);
-        
-        NSString *libraryPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, NO)[0];
-        
-        if ([libraryPath length] > 0) {
-            NSString *addressBookPlugInsInstallPath
-              = [libraryPath stringByAppendingPathComponent:@"Address Book Plug-Ins"];
-            
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
-            [alert setMessageText:NSLocalizedString(@"Could not install Address Book plug-ins.",
-                                                    @"Address Book plug-ins install error, alert "
-                                                     "message text.")];
-            [alert setInformativeText:[NSString stringWithFormat:
-                                       NSLocalizedString(@"Make sure you have write permission to “%@”.",
-                                                         @"Address Book plug-ins install error, alert "
-                                                          "informative text."),
-                                       addressBookPlugInsInstallPath]];
-            
-            [alert runModal];
-        }
-    }
-}
-
 - (void)installDNSChangesCallback {
     NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"];
     SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(kCFAllocatorDefault,
@@ -545,105 +513,6 @@ NS_ASSUME_NONNULL_END
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.compositionRoot.purchaseReminder execute];
     });
-}
-
-// Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|. Updates plug-ins if the installed versions are
-// outdated. Does not guaranteed to return a valid |error| if the method returns NO.
-- (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    NSString *plugInsPath = [mainBundle builtInPlugInsPath];
-    
-    NSString *phonePlugInPath = [plugInsPath stringByAppendingPathComponent:@"TelephoneAddressBookPhonePlugIn.bundle"];
-    NSString *SIPAddressPlugInPath = [plugInsPath stringByAppendingPathComponent:
-                                      @"TelephoneAddressBookSIPAddressPlugIn.bundle"];
-    
-    NSArray *libraryPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    if ([libraryPaths count] == 0) {
-        return NO;
-    }
-    
-    NSString *installPath = [libraryPaths[0] stringByAppendingPathComponent:@"Address Book Plug-Ins"];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    // Create |~/Library/Address Book Plug-Ins| if needed.
-    BOOL isDir;
-    BOOL pathExists = [fileManager fileExistsAtPath:installPath isDirectory:&isDir];
-    if (!pathExists) {
-        BOOL created = [fileManager createDirectoryAtPath:installPath
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:error];
-        if (!created) {
-            return NO;
-        }
-        
-    } else if (!isDir) {
-        NSLog(@"%@ is not a directory", installPath);
-        return NO;
-    }
-    
-    
-    NSBundle *phonePlugInBundle = [NSBundle bundleWithPath:phonePlugInPath];
-    NSInteger phonePlugInVersion = [[phonePlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
-    NSString *phonePlugInInstallPath = [installPath stringByAppendingPathComponent:[phonePlugInPath lastPathComponent]];
-    NSBundle *installedPhonePlugInBundle = [NSBundle bundleWithPath:phonePlugInInstallPath];
-    
-    BOOL shouldInstallPhonePlugIn = YES;
-    if (installedPhonePlugInBundle != nil) {
-        NSInteger installedPhonePlugInVersion = [[installedPhonePlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
-        
-        // Remove the old plug-in version if it needs updating.
-        if (installedPhonePlugInVersion < phonePlugInVersion) {
-            BOOL removed = [fileManager removeItemAtPath:phonePlugInInstallPath error:error];
-            if (!removed) {
-                return NO;
-            }
-        } else {
-            // Don't copy the new version if it's not newer.
-            shouldInstallPhonePlugIn = NO;
-        }
-    }
-    
-    NSBundle *SIPAddressPlugInBundle = [NSBundle bundleWithPath:SIPAddressPlugInPath];
-    NSInteger SIPAddressPlugInVersion = [[SIPAddressPlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
-    NSString *SIPAddressPlugInInstallPath = [installPath stringByAppendingPathComponent:
-                                             [SIPAddressPlugInPath lastPathComponent]];
-    NSBundle *installedSIPAddressPlugInBundle = [NSBundle bundleWithPath:SIPAddressPlugInInstallPath];
-    
-    BOOL shouldInstallSIPAddressPlugIn = YES;
-    if (installedSIPAddressPlugInBundle != nil) {
-        NSInteger installedSIPAddressPlugInVersion = [[installedSIPAddressPlugInBundle infoDictionary][@"CFBundleVersion"] integerValue];
-        
-        // Remove the old plug-in version if it needs updating.
-        if (installedSIPAddressPlugInVersion < SIPAddressPlugInVersion) {
-            BOOL removed = [fileManager removeItemAtPath:SIPAddressPlugInInstallPath error:error];
-            if (!removed) {
-                return NO;
-            }
-        } else {
-            // Don't copy the new version if it's not newer.
-            shouldInstallSIPAddressPlugIn = NO;
-        }
-    }
-    
-    BOOL installed;
-    
-    if (shouldInstallPhonePlugIn) {
-        installed = [fileManager copyItemAtPath:phonePlugInPath toPath:phonePlugInInstallPath error:error];
-        if (!installed) {
-            return NO;
-        }
-    }
-    
-    if (shouldInstallSIPAddressPlugIn) {
-        installed = [fileManager copyItemAtPath:SIPAddressPlugInPath toPath:SIPAddressPlugInInstallPath error:error];
-        if (!installed) {
-            return NO;
-        }
-    }
-    
-    return YES;
 }
 
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode {
@@ -1347,10 +1216,6 @@ NS_ASSUME_NONNULL_END
     
     // Update account menu items.
     [self updateAccountsMenuItems];
-    
-    // If we want to be in Mac App Store, we can't write to |~/Library/ Address Book Plug-Ins| any more.
-    //
-    // [self installAddressBookPlugIns];
     
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
     [self installDNSChangesCallback];
