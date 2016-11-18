@@ -52,56 +52,26 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 
 @class AKSIPAccount, AKSIPURI;
 
-// A class representing a SIP call.
 @interface AKSIPCall : NSObject
 
-// The receiver's delegate.
 @property(nonatomic, weak) id<AKSIPCallDelegate> delegate;
 
-// The receiver's identifier.
 @property(nonatomic) NSInteger identifier;
-
-// SIP URI of the local Contact header.
 @property(nonatomic, readonly) AKSIPURI *localURI;
-
-// SIP URI of the remote Contact header.
 @property(nonatomic, readonly) AKSIPURI *remoteURI;
-
-// Call state.
 @property(nonatomic) AKSIPCallState state;
-
-// Call state text.
 @property(nonatomic, copy) NSString *stateText;
-
-// Call's last status code.
 @property(nonatomic) NSInteger lastStatus;
-
-// Call's last status text.
 @property(nonatomic, copy) NSString *lastStatusText;
-
-// Call transfer status code.
 @property(nonatomic) NSInteger transferStatus;
-
-// Call transfer status text.
 @property(nonatomic, copy) NSString *transferStatusText;
 
-// A Boolean value indicating whether the call is active, i.e. it has active
-// INVITE session and the INVITE session has not been disconnected.
 @property(nonatomic, readonly, getter=isActive) BOOL active;
-
-// A Boolean value indicating whether the call is incoming.
 @property(nonatomic, readonly, getter=isIncoming) BOOL incoming;
-
-// A Boolean value indicating whether microphone is muted.
 @property(nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;
-
-// A Boolean value indicating whether the call is on local hold.
 @property(nonatomic, readonly, getter=isOnLocalHold) BOOL onLocalHold;
-
-// A Boolean value indicating whether the call is on remote hold.
 @property(nonatomic, readonly, getter=isOnRemoteHold) BOOL onRemoteHold;
 
-// The account the call belongs to.
 @property(nonatomic, readonly) AKSIPAccount *account;
 
 @property(nonatomic, readonly) NSDate *date;
@@ -110,33 +80,17 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier incoming:(BOOL)isIncoming;
 
-// Answers the call.
 - (void)answer;
-
-// Hangs-up the call.
 - (void)hangUp;
 
-// Attended call transfer. Sends REFER request to the receiver's remote party to initiate new INVITE session to the URL
-// of |destinationCall|. The party at |destinationCall| then should replace the call with us with the new call from the
-// REFER recipient.
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall;
 
-// Sends ringing notification to another party.
 - (void)sendRingingNotification;
-
-// Replies with 480 Temporarily Unavailable.
 - (void)replyWithTemporarilyUnavailable;
-
-// Replies with 486 Busy Here.
 - (void)replyWithBusyHere;
 
-// Sends DTMF.
 - (void)sendDTMFDigits:(NSString *)digits;
-
-// Toggles microphone mute.
 - (void)toggleMicrophoneMute;
-
-// Toggles call hold.
 - (void)toggleHold;
 
 @end
