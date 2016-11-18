@@ -30,6 +30,7 @@ const NSInteger kAKSIPCallsMax = 8;
 
 @interface AKSIPCall ()
 
+@property(nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;
 @property(nonatomic, getter=isMissed) BOOL missed;
 
 @end
