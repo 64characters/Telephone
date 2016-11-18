@@ -161,23 +161,16 @@ const NSInteger kAKSIPCallsMax = 8;
     _incoming = isIncoming;
     _missed = _incoming;
 
-    pjsua_call_info callInfo;
-    pj_status_t status = pjsua_call_get_info((pjsua_call_id)identifier, &callInfo);
-    if (status == PJ_SUCCESS) {
-        _state = (AKSIPCallState)callInfo.state;
-        _stateText = [NSString stringWithPJString:callInfo.state_text];
-        _lastStatus = callInfo.last_status;
-        _lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
-        _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]];
-        _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]];
-    } else {
-        _state = kAKSIPCallNullState;
-        _stateText = @"";
-        _lastStatusText = @"";
-        _localURI = [AKSIPURI SIPURIWithUser:@"" host:@"" displayName:@""];
-        _remoteURI = [AKSIPURI SIPURIWithUser:@"" host:@"" displayName:@""];
-    }
-    
+    pjsua_call_info call;
+    pj_status_t status = pjsua_call_get_info((pjsua_call_id)identifier, &call);
+    assert(status == PJ_SUCCESS);
+    _state = (AKSIPCallState)call.state;
+    _stateText = [NSString stringWithPJString:call.state_text];
+    _lastStatus = call.last_status;
+    _lastStatusText = [NSString stringWithPJString:call.last_status_text];
+    _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.local_info]];
+    _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.remote_info]];
+
     return self;
 }
 
