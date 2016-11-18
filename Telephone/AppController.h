@@ -24,9 +24,6 @@
 /// NSUserNotification user info dictionary key containing call controller identifier.
 extern NSString * const kUserNotificationCallControllerIdentifierKey;
 
-@class AKSIPUserAgent, PreferencesController, CallController;
-@class AccountSetupController;
-
 // Application controller and NSApplication delegate.
 @interface AppController : NSObject <AKSIPUserAgentDelegate>
 
