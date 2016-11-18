@@ -127,7 +127,6 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^)(AKSIPCall *))completion;
 
 - (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier;
-- (AKSIPCall *)addIncomingCallWithIdentifier:(NSInteger)identifier;
 - (AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
 - (void)removeCall:(AKSIPCall *)call;
 - (void)removeAllCalls;

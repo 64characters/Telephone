@@ -280,17 +280,9 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 }
 
 - (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier {
-    return [self addCallWithIdentifier:identifier incoming:NO];
-}
-
-- (AKSIPCall *)addIncomingCallWithIdentifier:(NSInteger)identifier {
-    return [self addCallWithIdentifier:identifier incoming:YES];
-}
-
-- (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier incoming:(BOOL)isIncoming {
     AKSIPCall *call = [self callWithIdentifier:identifier];
     if (!call) {
-        call = [[AKSIPCall alloc] initWithSIPAccount:self identifier:identifier incoming:isIncoming];
+        call = [[AKSIPCall alloc] initWithSIPAccount:self identifier:identifier];
         [self.calls addObject:call];
     }
     return call;

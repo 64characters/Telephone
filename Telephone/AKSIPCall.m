@@ -148,7 +148,7 @@ const NSInteger kAKSIPCallsMax = 8;
 
 #pragma mark -
 
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier incoming:(BOOL)isIncoming {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier {
     self = [super init];
     if (self == nil) {
         return nil;
@@ -158,12 +158,12 @@ const NSInteger kAKSIPCallsMax = 8;
     _identifier = identifier;
 
     _date = [NSDate date];
-    _incoming = isIncoming;
-    _missed = _incoming;
 
     pjsua_call_info call;
     pj_status_t status = pjsua_call_get_info((pjsua_call_id)identifier, &call);
     assert(status == PJ_SUCCESS);
+    _incoming = call.role == PJSIP_ROLE_UAS;
+    _missed = _incoming;
     _state = (AKSIPCallState)call.state;
     _stateText = [NSString stringWithPJString:call.state_text];
     _lastStatus = call.last_status;
