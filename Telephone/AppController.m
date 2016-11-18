@@ -58,6 +58,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, PreferencesControllerDelegate>
 
+@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
+@property(nonatomic, readonly) NSMutableArray *accountControllers;
+@property(nonatomic, readonly) AccountSetupController *accountSetupController;
+@property(nonatomic) BOOL shouldRegisterAllAccounts;
+@property(nonatomic) BOOL shouldRestartUserAgentASAP;
+@property(nonatomic, getter=isTerminating) BOOL terminating;
+@property(nonatomic) BOOL shouldPresentUserAgentLaunchError;
+@property(nonatomic, nullable) NSTimer *userAttentionTimer;
+@property(nonatomic) NSArray *accountsMenuItems;
+@property(nonatomic, weak) IBOutlet NSMenu *windowMenu;
+@property(nonatomic, weak) IBOutlet NSMenuItem *preferencesMenuItem;
+
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
@@ -65,19 +77,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
-
-// Installs Address Book plug-ins.
-- (void)installAddressBookPlugIns;
-
-// Installs a callback to monitor system DNS servers changes.
-- (void)installDNSChangesCallback;
-
-// Creates directory for file at the specified path.  Also creates intermediate
-// directories.
-- (void)createDirectoryForFileAtPath:(NSString *)path;
-
-// Updates callsShouldDisplayAccountInfo on account controllers.
-- (void)updateCallsShouldDisplayAccountInfo;
 
 @end
 
@@ -238,6 +237,7 @@ NS_ASSUME_NONNULL_END
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = [[NSMutableArray alloc] init];
+    _accountsMenuItems = @[];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
@@ -438,10 +438,8 @@ NS_ASSUME_NONNULL_END
     }
     if ([itemsArray count] > 0) {
         [itemsArray insertObject:[NSMenuItem separatorItem] atIndex:0];
-        [self setAccountsMenuItems:itemsArray];
-    } else {
-        [self setAccountsMenuItems:nil];
     }
+    [self setAccountsMenuItems:itemsArray];
     
     // Add menu items to the Window menu.
     NSUInteger itemTag = 4;
@@ -549,6 +547,8 @@ NS_ASSUME_NONNULL_END
     });
 }
 
+// Installs Address Book plug-ins to |~/Library/Address Book Plug-Ins|. Updates plug-ins if the installed versions are
+// outdated. Does not guaranteed to return a valid |error| if the method returns NO.
 - (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSString *plugInsPath = [mainBundle builtInPlugInsPath];
