@@ -985,11 +985,6 @@ NSString * const kGerman = @"de";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
 
     [self startPlayingRingtoneOrLogError];
-
-    if (![NSApp isActive]) {
-        [NSApp requestUserAttention:NSInformationalRequest];
-        [(AppController *)[NSApp delegate] startUserAttentionTimer];
-    }
     
     [aCall sendRingingNotification];
 }

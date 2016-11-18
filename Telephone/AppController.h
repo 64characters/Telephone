@@ -93,18 +93,6 @@ extern NSString * const kUserNotificationCallControllerIdentifierKey;
 
 - (BOOL)canStopPlayingRingtone;
 
-// Starts a timer for bouncing icon in the Dock.
-- (void)startUserAttentionTimer;
-
-// Stops a timer for bouncing icon in the Dock if needed.
-- (void)stopUserAttentionTimerIfNeeded;
-
-// Method to be called when a user attention timer fires.
-- (void)requestUserAttentionTick:(NSTimer *)theTimer;
-
-// Returns a call controller with a given identifier.
-- (CallController *)callControllerByIdentifier:(NSString *)identifier;
-
 // Updates Dock tile badge label.
 - (void)updateDockTileBadgeLabel;
 

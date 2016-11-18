@@ -452,7 +452,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     
     if ([[notification object] isIncoming]) {
         [self.ringtonePlayback stop];
-        [(AppController *)[NSApp delegate] stopUserAttentionTimerIfNeeded];
     }
     
     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];

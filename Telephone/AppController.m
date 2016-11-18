@@ -1445,6 +1445,10 @@ NS_ASSUME_NONNULL_END
 
 - (void)SIPCallIncoming:(NSNotification *)notification {
     [self updateDockTileBadgeLabel];
+    if (![NSApp isActive]) {
+        [NSApp requestUserAttention:NSInformationalRequest];
+        [self startUserAttentionTimer];
+    }
 }
 
 - (void)SIPCallConnecting:(NSNotification *)notification {
@@ -1453,6 +1457,9 @@ NS_ASSUME_NONNULL_END
 
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
     [self updateDockTileBadgeLabel];
+    if ([[notification object] isIncoming]) {
+        [self stopUserAttentionTimerIfNeeded];
+    }
     if ([self shouldRestartUserAgentASAP] && ![self hasActiveCallControllers]) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
         [self setShouldRestartUserAgentASAP:NO];
