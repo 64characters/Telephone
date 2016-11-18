@@ -89,12 +89,6 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 // INVITE session and the INVITE session has not been disconnected.
 @property(nonatomic, readonly, getter=isActive) BOOL active;
 
-// A Boolean value indicating whether the call has a media session.
-@property(nonatomic, readonly) BOOL hasMedia;
-
-// A Boolean value indicating whether the call's media is active.
-@property(nonatomic, readonly) BOOL hasActiveMedia;
-
 // A Boolean value indicating whether the call is incoming.
 @property(nonatomic, getter=isIncoming) BOOL incoming;
 

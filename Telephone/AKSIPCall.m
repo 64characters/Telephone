@@ -122,25 +122,6 @@ const NSInteger kAKSIPCallsMax = 8;
     return (pjsua_call_is_active((pjsua_call_id)[self identifier])) ? YES : NO;
 }
 
-- (BOOL)hasMedia {
-    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return NO;
-    }
-    
-    return (pjsua_call_has_media((pjsua_call_id)[self identifier])) ? YES : NO;
-}
-
-- (BOOL)hasActiveMedia {
-    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return NO;
-    }
-    
-    pjsua_call_info callInfo;
-    pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
-    
-    return (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) ? YES : NO;
-}
-
 - (BOOL)isOnLocalHold {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
         return NO;
