@@ -54,29 +54,28 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 
 @interface AKSIPCall : NSObject
 
+@property(nonatomic, readonly) AKSIPAccount *account;
+@property(nonatomic) NSInteger identifier;
+
 @property(nonatomic, weak) id<AKSIPCallDelegate> delegate;
 
-@property(nonatomic) NSInteger identifier;
-@property(nonatomic, readonly) AKSIPURI *localURI;
-@property(nonatomic, readonly) AKSIPURI *remoteURI;
 @property(nonatomic) AKSIPCallState state;
 @property(nonatomic, copy) NSString *stateText;
 @property(nonatomic) NSInteger lastStatus;
 @property(nonatomic, copy) NSString *lastStatusText;
 @property(nonatomic) NSInteger transferStatus;
 @property(nonatomic, copy) NSString *transferStatusText;
+@property(nonatomic) NSInteger duration;
 
+@property(nonatomic, readonly) NSDate *date;
+@property(nonatomic, readonly) AKSIPURI *localURI;
+@property(nonatomic, readonly) AKSIPURI *remoteURI;
 @property(nonatomic, readonly, getter=isActive) BOOL active;
 @property(nonatomic, readonly, getter=isIncoming) BOOL incoming;
+@property(nonatomic, readonly, getter=isMissed) BOOL missed;
 @property(nonatomic, readonly, getter=isMicrophoneMuted) BOOL microphoneMuted;
 @property(nonatomic, readonly, getter=isOnLocalHold) BOOL onLocalHold;
 @property(nonatomic, readonly, getter=isOnRemoteHold) BOOL onRemoteHold;
-
-@property(nonatomic, readonly) AKSIPAccount *account;
-
-@property(nonatomic, readonly) NSDate *date;
-@property(nonatomic) NSInteger duration;
-@property(nonatomic, readonly, getter=isMissed) BOOL missed;
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier incoming:(BOOL)isIncoming;
 

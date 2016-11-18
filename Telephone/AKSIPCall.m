@@ -153,9 +153,11 @@ const NSInteger kAKSIPCallsMax = 8;
     if (self == nil) {
         return nil;
     }
-    
-    _identifier = identifier;
+
     _account = account;
+    _identifier = identifier;
+
+    _date = [NSDate date];
     _incoming = isIncoming;
     _missed = _incoming;
 
@@ -175,8 +177,6 @@ const NSInteger kAKSIPCallsMax = 8;
         _localURI = [AKSIPURI SIPURIWithUser:@"" host:@"" displayName:@""];
         _remoteURI = [AKSIPURI SIPURIWithUser:@"" host:@"" displayName:@""];
     }
-
-    _date = [NSDate date];
     
     return self;
 }
