@@ -16,23 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 #import "AKSIPUserAgent.h"
 
-
-/// NSUserNotification user info dictionary key containing call controller identifier.
 extern NSString * const kUserNotificationCallControllerIdentifierKey;
 
-// Application controller and NSApplication delegate.
 @interface AppController : NSObject <AKSIPUserAgentDelegate>
 
 - (BOOL)canStopPlayingRingtone;
 
-// Updates Dock tile badge label.
 - (void)updateDockTileBadgeLabel;
 
-// Returns a localized string describing a given SIP response code.
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode;
 
 @end
