@@ -74,6 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) PreferencesController *preferencesController;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
+@property(nonatomic, readonly) id<ApplicationDataLocations> locations;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
@@ -174,20 +175,6 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kSTUNServerPort] = @0;
         defaultsDict[kVoiceActivityDetection] = @NO;
         defaultsDict[kUseICE] = @NO;
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSArray *applicationSupportURLs = [fileManager URLsForDirectory:NSApplicationSupportDirectory
-                                                              inDomains:NSUserDomainMask];
-        
-        if ([applicationSupportURLs count] > 0) {
-            NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-            NSURL *applicationSupportURL = applicationSupportURLs[0];
-            NSURL *logURL = [applicationSupportURL URLByAppendingPathComponent:bundleIdentifier];
-            logURL = [logURL URLByAppendingPathComponent:@"Telephone.log"];
-            
-            defaultsDict[kLogFileName] = [logURL path];
-        }
-        
         defaultsDict[kLogLevel] = @3;
         defaultsDict[kConsoleLogLevel] = @0;
         defaultsDict[kTransportPort] = @0;
@@ -234,6 +221,7 @@ NS_ASSUME_NONNULL_END
     _preferencesController = _compositionRoot.preferencesController;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
     _musicPlayer = _compositionRoot.musicPlayer;
+    _locations = _compositionRoot.applicationDataLocations;
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = [[NSMutableArray alloc] init];
@@ -481,24 +469,6 @@ NS_ASSUME_NONNULL_END
     CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, kCFRunLoopDefaultMode);
     CFRelease(runLoopSource);
     CFRelease(dynamicStore);
-}
-
-- (void)createDirectoryForFileAtPath:(NSString *)path {
-    NSString *directoryPath = [path stringByDeletingLastPathComponent];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL exists = [fileManager fileExistsAtPath:directoryPath
-                                    isDirectory:NULL];
-    if (!exists) {
-        NSError *error = nil;
-        BOOL created = [fileManager createDirectoryAtPath:directoryPath
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:&error];
-        if (!created) {
-            NSLog(@"Error creating directory %@. %@",
-                  directoryPath, [error localizedDescription]);
-        }
-    }
 }
 
 - (void)updateCallsShouldDisplayAccountInfo {
@@ -1092,13 +1062,7 @@ NS_ASSUME_NONNULL_END
     NSString *bundleShortVersion = [mainBundle infoDictionary][@"CFBundleShortVersionString"];
     
     [[self userAgent] setUserAgentString:[NSString stringWithFormat:@"%@ %@", bundleName, bundleShortVersion]];
-    
-    NSString *logFileName = [defaults stringForKey:kLogFileName];
-    if ([logFileName length] > 0) {
-        [self createDirectoryForFileAtPath:logFileName];
-        [[self userAgent] setLogFileName:logFileName];
-    }
-    
+    [[self userAgent] setLogFileName:[[self.locations logs] URLByAppendingPathComponent:@"Telephone.log"].path];
     [[self userAgent] setLogLevel:[defaults integerForKey:kLogLevel]];
     [[self userAgent] setConsoleLogLevel:[defaults integerForKey:kConsoleLogLevel]];
     [[self userAgent] setDetectsVoiceActivity:[defaults boolForKey:kVoiceActivityDetection]];

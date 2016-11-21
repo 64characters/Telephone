@@ -23,7 +23,6 @@ extern NSString * const kAccounts;
 extern NSString * const kSTUNServerHost;
 extern NSString * const kSTUNServerPort;
 extern NSString * const kSTUNDomain;
-extern NSString * const kLogFileName;
 extern NSString * const kLogLevel;
 extern NSString * const kConsoleLogLevel;
 extern NSString * const kVoiceActivityDetection;

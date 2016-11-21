@@ -22,7 +22,6 @@ NSString * const kAccounts = @"Accounts";
 NSString * const kSTUNServerHost = @"STUNServerHost";
 NSString * const kSTUNServerPort = @"STUNServerPort";
 NSString * const kSTUNDomain = @"STUNDomain";
-NSString * const kLogFileName = @"LogFileName";
 NSString * const kLogLevel = @"LogLevel";
 NSString * const kConsoleLogLevel = @"ConsoleLogLevel";
 NSString * const kVoiceActivityDetection = @"VoiceActivityDetection";

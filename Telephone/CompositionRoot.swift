@@ -28,6 +28,7 @@ final class CompositionRoot: NSObject {
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
     let settingsMigration: ProgressiveSettingsMigration
+    let applicationDataLocations: ApplicationDataLocations
     private let defaults: UserDefaults
     private let queue: DispatchQueue
 
@@ -118,6 +119,11 @@ final class CompositionRoot: NSObject {
         )
 
         settingsMigration = ProgressiveSettingsMigration(settings: defaults, factory: DefaultSettingsMigrationFactory())
+
+        applicationDataLocations = DirectoryCreatingApplicationDataLocations(
+            origin: SimpleApplicationDataLocations(manager: FileManager.default, bundle: Bundle.main),
+            manager: FileManager.default
+        )
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,
