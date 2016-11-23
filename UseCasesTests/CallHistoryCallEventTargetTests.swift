@@ -22,10 +22,12 @@ import XCTest
 
 final class CallHistoryCallEventTargetTests: XCTestCase {
     func testAddsRecordToCallHistoryOnCallDisconnect() {
-        let histories = CallHistoriesFake()
+        let accountID = "any-id"
+        let histories = DefaultCallHistories()
+        histories.add(TruncatingCallHistory(), forAccountWithID: accountID)
         let sut = CallHistoryCallEventTarget(histories: histories)
         let call = SimpleCall(
-            accountID: "any-accountID",
+            accountID: accountID,
             remote: URI(user: "any-user", host: "any-host"),
             date: Date(),
             duration: 60,

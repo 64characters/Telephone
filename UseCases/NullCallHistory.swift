@@ -1,5 +1,5 @@
 //
-//  CallHistories.swift
+//  NullCallHistory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,13 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistories {
-    func add(_ history: CallHistory, forAccountWithID accountID: String)
-    func remove(historyForAccountWithID accountID: String)
-    func history(forAccountWithID accountID: String) -> CallHistory
+public final class NullCallHistory {
+    public init() {}
+}
+
+extension NullCallHistory: CallHistory {
+    public var allRecords: [CallHistoryRecord] { return [] }
+    public func add(_ record: CallHistoryRecord) {}
+    public func remove(_ record: CallHistoryRecord) {}
+    public func removeAll() {}
 }

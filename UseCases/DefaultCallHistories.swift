@@ -1,5 +1,5 @@
 //
-//  CallHistoriesFake.swift
+//  DefaultCallHistories.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,22 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class CallHistoriesFake {
+public final class DefaultCallHistories {
     fileprivate var histories: [String: CallHistory] = [:]
 
     public init() {}
 }
 
-extension CallHistoriesFake: CallHistories {
+extension DefaultCallHistories: CallHistories {
+    public func add(_ history: CallHistory, forAccountWithID accountID: String) {
+        histories[accountID] = history
+    }
+
+    public func remove(historyForAccountWithID accountID: String) {
+        histories.removeValue(forKey: accountID)
+    }
+
     public func history(forAccountWithID accountID: String) -> CallHistory {
-        if let h = histories[accountID] {
-            return h
-        } else {
-            let h = TruncatingCallHistory()
-            histories[accountID] = h
-            return h
-        }
+        return histories[accountID] ?? NullCallHistory()
     }
 }
