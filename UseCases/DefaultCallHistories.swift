@@ -23,7 +23,7 @@ public final class DefaultCallHistories {
 }
 
 extension DefaultCallHistories: CallHistories {
-    public func add(_ history: CallHistory, forAccountWithID accountID: String) {
+    public func set(_ history: CallHistory, forAccountWithID accountID: String) {
         histories[accountID] = history
     }
 

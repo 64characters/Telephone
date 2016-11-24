@@ -21,11 +21,11 @@ import UseCases
 import UseCasesTestDoubles
 
 final class DefaultCallHistoriesTests: XCTestCase {
-    func testCanAddHistory() {
+    func testCanSetHistory() {
         let history = TruncatingCallHistory()
         let sut = DefaultCallHistories()
 
-        sut.add(history, forAccountWithID: "any")
+        sut.set(history, forAccountWithID: "any")
 
         XCTAssertTrue(sut.history(forAccountWithID: "any") as! TruncatingCallHistory === history)
     }
@@ -34,7 +34,7 @@ final class DefaultCallHistoriesTests: XCTestCase {
         let history = TruncatingCallHistory()
         let sut = DefaultCallHistories()
 
-        sut.add(history, forAccountWithID: "any")
+        sut.set(history, forAccountWithID: "any")
         sut.remove(historyForAccountWithID: "any")
 
         XCTAssertTrue(sut.history(forAccountWithID: "any") as? NullCallHistory != nil)
