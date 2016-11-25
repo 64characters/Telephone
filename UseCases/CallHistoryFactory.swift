@@ -1,9 +1,6 @@
 //
-//  NotifyingCallHistoryFactory.swift
+//  CallHistoryFactory.swift
 //  Telephone
-//
-//  Copyright (c) 2008-2016 Alexey Kuznetsov
-//  Copyright (c) 2016 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -16,17 +13,6 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
-import UseCases
-
-final class NotifyingCallHistoryFactory {
-    private let factory: PersistentCallHistoryFactory
-
-    init(factory: PersistentCallHistoryFactory) {
-        self.factory = factory
-    }
-
-    func make(uuid: String) -> NotifyingCallHistory {
-        return NotifyingCallHistory(origin: factory.make(uuid: uuid))
-    }
+public protocol CallHistoryFactory {
+    func make(uuid: String) -> CallHistory
 }

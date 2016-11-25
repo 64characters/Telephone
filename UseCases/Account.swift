@@ -1,5 +1,5 @@
 //
-//  NotifyingCallHistoryFactory.swift
+//  Account.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
-import UseCases
-
-final class NotifyingCallHistoryFactory {
-    private let factory: PersistentCallHistoryFactory
-
-    init(factory: PersistentCallHistoryFactory) {
-        self.factory = factory
-    }
-
-    func make(uuid: String) -> NotifyingCallHistory {
-        return NotifyingCallHistory(origin: factory.make(uuid: uuid))
-    }
+public protocol Account {
+    var uuid: String { get }
 }

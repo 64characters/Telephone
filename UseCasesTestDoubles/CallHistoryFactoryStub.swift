@@ -1,5 +1,5 @@
 //
-//  NotifyingCallHistoryFactory.swift
+//  CallHistoryFactoryStub.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
 import UseCases
 
-final class NotifyingCallHistoryFactory {
-    private let factory: PersistentCallHistoryFactory
+public final class CallHistoryFactoryStub {
+    fileprivate let history: CallHistory
 
-    init(factory: PersistentCallHistoryFactory) {
-        self.factory = factory
+    public init(history: CallHistory) {
+        self.history = history
     }
+}
 
-    func make(uuid: String) -> NotifyingCallHistory {
-        return NotifyingCallHistory(origin: factory.make(uuid: uuid))
+extension CallHistoryFactoryStub: CallHistoryFactory {
+    public func make(uuid: String) -> CallHistory {
+        return history
     }
 }

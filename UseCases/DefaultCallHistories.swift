@@ -18,20 +18,25 @@
 
 public final class DefaultCallHistories {
     fileprivate var histories: [String: CallHistory] = [:]
+    fileprivate let factory: CallHistoryFactory
 
-    public init() {}
+    public init(factory: CallHistoryFactory) {
+        self.factory = factory
+    }
 }
 
 extension DefaultCallHistories: CallHistories {
-    public func set(_ history: CallHistory, forAccountWithID accountID: String) {
-        histories[accountID] = history
-    }
-
-    public func remove(historyForAccountWithID accountID: String) {
-        histories.removeValue(forKey: accountID)
-    }
-
     public func history(forAccountWithID accountID: String) -> CallHistory {
         return histories[accountID] ?? NullCallHistory()
+    }
+}
+
+extension DefaultCallHistories: UserAgentAccountEventTarget {
+    public func didAdd(_ account: Account, to agent: UserAgent) {
+        histories[account.uuid] = factory.make(uuid: account.uuid)
+    }
+
+    public func willRemove(_ account: Account, from agent: UserAgent) {
+        histories.removeValue(forKey: account.uuid)
     }
 }
