@@ -47,4 +47,6 @@ extension TruncatingCallHistory: CallHistory {
     public func removeAll() {
         records.removeAll()
     }
+
+    public func updateTarget(_ target: CallHistoryEventTarget) {}
 }

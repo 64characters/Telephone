@@ -23,7 +23,8 @@ import XCTest
 final class NotifyingCallHistoryTests: XCTestCase {
     func testNotifiesTargetAfterAdding() {
         let target = CallHistoryEventTargetSpy()
-        let sut = NotifyingCallHistory(origin: TruncatingCallHistory(), target: target)
+        let sut = NotifyingCallHistory(origin: TruncatingCallHistory())
+        sut.updateTarget(target)
         let factory = CallHistoryRecordTestFactory()
 
         sut.add(factory.makeRecord(number: 1))
@@ -33,7 +34,8 @@ final class NotifyingCallHistoryTests: XCTestCase {
 
     func testNotifiesTargetAfterRemovingIndividual() {
         let target = CallHistoryEventTargetSpy()
-        let sut = NotifyingCallHistory(origin: TruncatingCallHistory(), target: target)
+        let sut = NotifyingCallHistory(origin: TruncatingCallHistory())
+        sut.updateTarget(target)
         let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
 
         sut.add(record)
@@ -44,7 +46,8 @@ final class NotifyingCallHistoryTests: XCTestCase {
 
     func testNotifiesTargetAfterRemovingAll() {
         let target = CallHistoryEventTargetSpy()
-        let sut = NotifyingCallHistory(origin: TruncatingCallHistory(), target: target)
+        let sut = NotifyingCallHistory(origin: TruncatingCallHistory())
+        sut.updateTarget(target)
         let factory = CallHistoryRecordTestFactory()
 
         sut.add(factory.makeRecord(number: 1))

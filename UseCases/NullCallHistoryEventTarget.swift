@@ -1,5 +1,5 @@
 //
-//  NullCallHistory.swift
+//  NullCallHistoryEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public final class NullCallHistory {
-    public init() {}
-}
-
-extension NullCallHistory: CallHistory {
-    public var allRecords: [CallHistoryRecord] { return [] }
-    public func add(_ record: CallHistoryRecord) {}
-    public func remove(_ record: CallHistoryRecord) {}
-    public func removeAll() {}
-    public func updateTarget(_ target: CallHistoryEventTarget) {}
+final class NullCallHistoryEventTarget: CallHistoryEventTarget {
+    func callHistoryDidUpdate(_ history: CallHistory) {}
 }

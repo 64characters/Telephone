@@ -56,6 +56,10 @@ extension PersistentCallHistory: CallHistory {
         save()
     }
 
+    public func updateTarget(_ target: CallHistoryEventTarget) {
+        origin.updateTarget(target)
+    }
+
     private func save() {
         do {
             try storage.save(dictionaries(from: origin.allRecords))

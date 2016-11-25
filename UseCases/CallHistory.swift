@@ -21,4 +21,5 @@ public protocol CallHistory {
     func add(_ record: CallHistoryRecord)
     func remove(_ record: CallHistoryRecord)
     func removeAll()
+    func updateTarget(_ target: CallHistoryEventTarget)
 }

@@ -18,11 +18,10 @@
 
 public final class NotifyingCallHistory {
     fileprivate let origin: CallHistory
-    fileprivate let target: CallHistoryEventTarget
+    fileprivate var target: CallHistoryEventTarget = NullCallHistoryEventTarget()
 
-    public init(origin: CallHistory, target: CallHistoryEventTarget) {
+    public init(origin: CallHistory) {
         self.origin = origin
-        self.target = target
     }
 }
 
@@ -44,5 +43,9 @@ extension NotifyingCallHistory: CallHistory {
     public func removeAll() {
         origin.removeAll()
         target.callHistoryDidUpdate(self)
+    }
+
+    public func updateTarget(_ target: CallHistoryEventTarget) {
+        self.target = target
     }
 }
