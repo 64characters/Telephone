@@ -20,13 +20,15 @@ import Foundation
 import UseCases
 
 final class NotifyingCallHistoryFactory {
-    private let factory: PersistentCallHistoryFactory
+    fileprivate let factory: PersistentCallHistoryFactory
 
     init(factory: PersistentCallHistoryFactory) {
         self.factory = factory
     }
+}
 
-    func make(uuid: String) -> NotifyingCallHistory {
+extension NotifyingCallHistoryFactory: CallHistoryFactory {
+    func make(uuid: String) -> CallHistory {
         return NotifyingCallHistory(origin: factory.make(uuid: uuid))
     }
 }
