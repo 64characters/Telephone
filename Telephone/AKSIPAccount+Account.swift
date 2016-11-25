@@ -1,5 +1,5 @@
 //
-//  UserAgentAccountEventTarget.swift
+//  AKSIPAccount+Account.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,11 @@
 //  GNU General Public License for more details.
 //
 
-@objc public protocol UserAgentAccountEventTarget {
-    @objc(didAddAccount:toUserAgent:)
-    func didAdd(_ account: Account, to agent: UserAgent)
+import Foundation
+import UseCases
 
-    @objc(willRemoveAccount:fromUserAgent:)
-    func willRemove(_ account: Account, from agent: UserAgent)
+extension AKSIPAccount: Account {
+    public var uuid: String {
+        return uniqueIdentifier
+    }
 }

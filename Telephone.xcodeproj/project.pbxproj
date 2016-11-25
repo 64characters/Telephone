@@ -271,6 +271,7 @@
 		8ADB739E1DE872E20032B4C2 /* CallHistoryFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB739D1DE872E20032B4C2 /* CallHistoryFactoryStub.swift */; };
 		8ADB73A01DE877010032B4C2 /* CallHistory+Nil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB739F1DE877010032B4C2 /* CallHistory+Nil.swift */; };
 		8ADB73A21DE88CA90032B4C2 /* UserAgentAccountEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB73A11DE88CA90032B4C2 /* UserAgentAccountEventTarget.swift */; };
+		8ADB73A41DE893C40032B4C2 /* AKSIPAccount+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB73A31DE893C40032B4C2 /* AKSIPAccount+Account.swift */; };
 		8ADD31C61CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */; };
 		8ADD31C81CC10FA6008C083C /* UseCaseFactoryFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C71CC10FA6008C083C /* UseCaseFactoryFake.swift */; };
 		8ADD31CA1CC112A2008C083C /* NullThrowingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADD31C91CC112A2008C083C /* NullThrowingUseCase.swift */; };
@@ -919,6 +920,7 @@
 		8ADB739D1DE872E20032B4C2 /* CallHistoryFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryFactoryStub.swift; sourceTree = "<group>"; };
 		8ADB739F1DE877010032B4C2 /* CallHistory+Nil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CallHistory+Nil.swift"; sourceTree = "<group>"; };
 		8ADB73A11DE88CA90032B4C2 /* UserAgentAccountEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAccountEventTarget.swift; sourceTree = "<group>"; };
+		8ADB73A31DE893C40032B4C2 /* AKSIPAccount+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSIPAccount+Account.swift"; sourceTree = "<group>"; };
 		8ADD31C51CC10E50008C083C /* UserAgentSoundIOSelectionUseCaseFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentSoundIOSelectionUseCaseFake.swift; sourceTree = "<group>"; };
 		8ADD31C71CC10FA6008C083C /* UseCaseFactoryFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCaseFactoryFake.swift; sourceTree = "<group>"; };
 		8ADD31C91CC112A2008C083C /* NullThrowingUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullThrowingUseCase.swift; sourceTree = "<group>"; };
@@ -2335,6 +2337,7 @@
 				AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */,
 				AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */,
 				AA49F33B1BA7431500126A24 /* AKSIPAccountDelegate.h */,
+				8ADB73A31DE893C40032B4C2 /* AKSIPAccount+Account.swift */,
 				AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */,
 				AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */,
 				8A11B3EB1DDE0472002EDA93 /* AKSIPCall+Call.swift */,
@@ -2884,6 +2887,7 @@
 				8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */,
 				8AD9A0D21DDF76DE000BB2F2 /* SimpleApplicationDataLocations.swift in Sources */,
 				8A63ECD41CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift in Sources */,
+				8ADB73A41DE893C40032B4C2 /* AKSIPAccount+Account.swift in Sources */,
 				AA4BD4C80E07C28E005A71B2 /* AKSIPUserAgent.m in Sources */,
 				AA10198E1C4946EE00869D01 /* NSSoundToSoundAdapter.swift in Sources */,
 				8A635DD81D8C211300E2DBD0 /* MusicPlayerFactory.m in Sources */,

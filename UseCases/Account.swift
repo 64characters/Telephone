@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Account {
+@objc public protocol Account {
     var uuid: String { get }
 }

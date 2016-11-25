@@ -18,7 +18,7 @@
 
 import UseCases
 
-public struct SimpleAccount: Account {
+public final class SimpleAccount: Account {
     public let uuid: String
 
     public init(uuid: String) {
