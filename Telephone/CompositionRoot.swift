@@ -145,7 +145,8 @@ final class CompositionRoot: NSObject {
                 factory: NotifyingCallHistoryFactory(
                     factory: PersistentCallHistoryFactory(
                         history: TruncatingCallHistoryFactory(limit: 1000),
-                        storage: SimplePropertyListStorageFactory(locations: applicationDataLocations)
+                        storage: SimplePropertyListStorageFactory(),
+                        locations: applicationDataLocations
                     )
                 )
             )

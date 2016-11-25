@@ -22,13 +22,17 @@ import UseCases
 final class PersistentCallHistoryFactory {
     private let history: TruncatingCallHistoryFactory
     private let storage: SimplePropertyListStorageFactory
+    private let locations: ApplicationDataLocations
 
-    init(history: TruncatingCallHistoryFactory, storage: SimplePropertyListStorageFactory) {
+    init(history: TruncatingCallHistoryFactory, storage: SimplePropertyListStorageFactory, locations: ApplicationDataLocations) {
         self.history = history
         self.storage = storage
+        self.locations = locations
     }
 
     func make(uuid: String) -> PersistentCallHistory {
-        return PersistentCallHistory(origin: history.make(), storage: storage.make(uuid: uuid))
+        return PersistentCallHistory(
+            origin: history.make(), storage: storage.make(directory: locations.callHistories(), name: uuid)
+        )
     }
 }

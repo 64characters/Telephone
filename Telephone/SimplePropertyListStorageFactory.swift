@@ -19,13 +19,7 @@
 import Foundation
 
 final class SimplePropertyListStorageFactory {
-    private let locations: ApplicationDataLocations
-
-    init(locations: ApplicationDataLocations) {
-        self.locations = locations
-    }
-
-    func make(uuid: String) -> SimplePropertyListStorage {
-        return SimplePropertyListStorage(url: locations.logs().appendingPathComponent("\(uuid).plist"))
+    func make(directory: URL, name: String) -> SimplePropertyListStorage {
+        return SimplePropertyListStorage(url: directory.appendingPathComponent("\(name).plist"))
     }
 }
