@@ -140,6 +140,17 @@ final class CompositionRoot: NSObject {
             queue: queue
         )
 
+        userAgent.update(
+            DefaultCallHistories(
+                factory: NotifyingCallHistoryFactory(
+                    factory: PersistentCallHistoryFactory(
+                        history: TruncatingCallHistoryFactory(limit: 1000),
+                        storage: SimplePropertyListStorageFactory(locations: applicationDataLocations)
+                    )
+                )
+            )
+        )
+
         super.init()
 
         devicesChangeEventSource.start()
