@@ -22,6 +22,8 @@
 #import "AKSIPAccountDelegate.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 // SIP account defaults.
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
@@ -51,7 +53,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Registrar.
 @property(nonatomic, readonly) NSString *registrar;
 
-// Realm. Pass nil to make a credential that can be used to authenticate against any challenges.
+// Realm. Pass empty string to make a credential that can be used to authenticate against any challenges.
 @property(nonatomic, readonly) NSString *realm;
 
 // Authentication user name.
@@ -127,8 +129,10 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^)(AKSIPCall *))completion;
 
 - (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier;
-- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
+- (nullable AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
 - (void)removeCall:(AKSIPCall *)call;
 - (void)removeAllCalls;
 
 @end
+
+NS_ASSUME_NONNULL_END

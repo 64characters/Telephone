@@ -24,6 +24,8 @@
 #import "AKSIPCall.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
@@ -47,6 +49,8 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 @property(nonatomic, readonly) NSMutableArray *calls;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 @implementation AKSIPAccount
 
@@ -124,7 +128,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 - (NSString *)registrationStatusText {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return nil;
+        return @"";
     }
     
     pjsua_acc_info accountInfo;
@@ -132,7 +136,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     
     status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
-        return nil;
+        return @"";
     }
     
     return [NSString stringWithPJString:accountInfo.status_text];
@@ -184,7 +188,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 - (NSString *)onlineStatusText {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return nil;
+        return @"";
     }
     
     pjsua_acc_info accountInfo;
@@ -192,7 +196,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     
     status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
-        return nil;
+        return @"";
     }
     
     return [NSString stringWithPJString:accountInfo.online_status_text];
@@ -221,6 +225,11 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
                                 username:(NSString *)username {
 
     NSParameterAssert(uniqueIdentifier.length > 0);
+    NSParameterAssert(fullName);
+    NSParameterAssert(SIPAddress);
+    NSParameterAssert(registrar);
+    NSParameterAssert(realm);
+    NSParameterAssert(username);
     
     self = [super init];
     if (self == nil) {
@@ -288,7 +297,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     return call;
 }
 
-- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier {
+- (nullable AKSIPCall *)callWithIdentifier:(NSInteger)identifier {
     for (AKSIPCall *call in self.calls) {
         if (call.identifier == identifier) {
             return call;
