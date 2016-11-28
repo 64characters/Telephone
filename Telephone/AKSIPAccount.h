@@ -40,7 +40,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // The URI for SIP registration.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>
 // TODO(eofster): strange property. Do we need this?
-@property(nonatomic, copy) AKSIPURI *registrationURI;
+@property(nonatomic, readonly) AKSIPURI *registrationURI;
 
 @property(nonatomic, readonly) NSString *uniqueIdentifier;
 
@@ -64,28 +64,28 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
 // Network port to use with the SIP proxy.
 // Default: 5060.
-@property(nonatomic, assign) NSUInteger proxyPort;
+@property(nonatomic) NSUInteger proxyPort;
 
 // SIP re-registration time.
 // Default: 300 (sec).
-@property(nonatomic, assign) NSUInteger reregistrationTime;
+@property(nonatomic) NSUInteger reregistrationTime;
 
 /// A Boolean value indicating if Contact header should be automatically updated.
 ///
 /// When YES, the library will keep track of the public IP address from the response of the REGISTER request.
-@property(nonatomic, assign) BOOL updatesContactHeader;
+@property(nonatomic) BOOL updatesContactHeader;
 
 /// A Boolean value indicating if Via header should be automatically updated.
 ///
 /// When YES, the "sent-by" field of the Via header will be overwritten for outgoing messages with the same interface
 /// address as the one in the REGISTER request.
-@property(nonatomic, assign) BOOL updatesViaHeader;
+@property(nonatomic) BOOL updatesViaHeader;
 
 // The receiver's identifier at the user agent.
 @property(nonatomic, readonly) NSInteger identifier;
 
 // A Boolean value indicating whether the receiver is registered.
-@property(nonatomic, assign, getter=isRegistered) BOOL registered;
+@property(nonatomic, getter=isRegistered) BOOL registered;
 
 // The receiver's SIP registration status code.
 @property(nonatomic, readonly) NSInteger registrationStatus;
@@ -94,17 +94,17 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 @property(nonatomic, readonly) NSInteger registrationErrorCode;
 
 // The receiver's SIP registration status text.
-@property(nonatomic, readonly, copy) NSString *registrationStatusText;
+@property(nonatomic, readonly) NSString *registrationStatusText;
 
 // An up to date expiration interval for the receiver's registration session.
-@property(nonatomic, readonly, assign) NSInteger registrationExpireTime;
+@property(nonatomic, readonly) NSInteger registrationExpireTime;
 
 // A Boolean value indicating whether the receiver is online in terms of SIP
 // presence.
-@property(nonatomic, assign, getter=isOnline) BOOL online;
+@property(nonatomic, getter=isOnline) BOOL online;
 
 // Presence online status text.
-@property(nonatomic, readonly, copy) NSString *onlineStatusText;
+@property(nonatomic, readonly) NSString *onlineStatusText;
 
 @property(nonatomic) NSThread *thread;
 
