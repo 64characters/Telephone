@@ -188,7 +188,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // |setSoundInputDevice:soundOutputDevice:| must be called to set appropriate sound IO.
 - (void)updateAudioDevices;
 
-- (void)updateAccountEventTarget:(id<UserAgentAccountEventTarget>)target;
+- (void)updateAccountEventTarget:(id<UserAgentAccountEventTarget>)target NS_SWIFT_NAME(updateAccountEventTarget(_:));
 
 // Returns a string that describes given SIP response code from RFC 3261.
 - (NSString *)stringForSIPResponseCode:(NSInteger)responseCode;

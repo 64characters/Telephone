@@ -140,7 +140,7 @@ final class CompositionRoot: NSObject {
             queue: queue
         )
 
-        userAgent.update(
+        userAgent.updateAccountEventTarget(
             DefaultCallHistories(
                 factory: NotifyingCallHistoryFactory(
                     factory: PersistentCallHistoryFactory(
