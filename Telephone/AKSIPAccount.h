@@ -108,13 +108,6 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
 @property(nonatomic) NSThread *thread;
 
-+ (instancetype)SIPAccountWithUniqueIdentifier:(NSString *)uniqueIdentifier
-                                      fullName:(NSString *)fullName
-                                    SIPAddress:(NSString *)SIPAddress
-                                     registrar:(NSString *)registrar
-                                         realm:(NSString *)realm
-                                      username:(NSString *)username;
-
 - (instancetype)initWithUniqueIdentifier:(NSString *)uniqueIdentifier
                                 fullName:(NSString *)fullName
                               SIPAddress:(NSString *)SIPAddress

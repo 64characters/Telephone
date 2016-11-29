@@ -202,21 +202,6 @@ NS_ASSUME_NONNULL_END
     return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
-+ (instancetype)SIPAccountWithUniqueIdentifier:(NSString *)uniqueIdentifier
-                                      fullName:(NSString *)fullName
-                                    SIPAddress:(NSString *)SIPAddress
-                                     registrar:(NSString *)registrar
-                                         realm:(NSString *)realm
-                                      username:(NSString *)username {
-    
-    return [[AKSIPAccount alloc] initWithUniqueIdentifier:uniqueIdentifier
-                                                 fullName:fullName
-                                               SIPAddress:SIPAddress
-                                                registrar:registrar
-                                                    realm:realm
-                                                 username:username];
-}
-
 - (instancetype)initWithUniqueIdentifier:(NSString *)uniqueIdentifier
                                 fullName:(NSString *)fullName
                               SIPAddress:(NSString *)SIPAddress
