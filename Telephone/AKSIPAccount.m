@@ -207,7 +207,8 @@ NS_ASSUME_NONNULL_END
                               SIPAddress:(NSString *)SIPAddress
                                registrar:(NSString *)registrar
                                    realm:(NSString *)realm
-                                username:(NSString *)username {
+                                username:(NSString *)username
+                                  domain:(NSString *)domain {
 
     NSParameterAssert(uniqueIdentifier.length > 0);
     NSParameterAssert(fullName);
@@ -215,6 +216,7 @@ NS_ASSUME_NONNULL_END
     NSParameterAssert(registrar);
     NSParameterAssert(realm);
     NSParameterAssert(username);
+    NSParameterAssert(domain);
     
     self = [super init];
     if (self == nil) {
@@ -229,6 +231,7 @@ NS_ASSUME_NONNULL_END
     _registrar = [registrar copy];
     _realm = [realm copy];
     _username = [username copy];
+    _domain = [domain copy];
     self.proxyPort = kAKSIPAccountDefaultSIPProxyPort;
     self.reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
     _identifier = kAKSIPUserAgentInvalidIdentifier;

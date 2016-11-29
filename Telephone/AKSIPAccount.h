@@ -59,6 +59,8 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Authentication user name.
 @property(nonatomic, readonly) NSString *username;
 
+@property(nonatomic, readonly) NSString *domain;
+
 // SIP proxy host.
 @property(nonatomic, copy) NSString *proxyHost;
 
@@ -113,7 +115,8 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
                               SIPAddress:(NSString *)SIPAddress
                                registrar:(NSString *)registrar
                                    realm:(NSString *)realm
-                                username:(NSString *)username;
+                                username:(NSString *)username
+                                  domain:(NSString *)domain;
 
 - (void)updateUsername:(NSString *)username;
 - (void)updateIdentifier:(NSInteger)identifier;
