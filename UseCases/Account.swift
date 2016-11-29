@@ -18,4 +18,5 @@
 
 @objc public protocol Account {
     var uuid: String { get }
+    var domain: String { get }
 }

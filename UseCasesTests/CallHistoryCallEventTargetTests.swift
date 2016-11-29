@@ -24,7 +24,7 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
     func testAddsRecordToCallHistoryOnCallDisconnect() {
         let accountID = "any-id"
         let histories = DefaultCallHistories(factory: CallHistoryFactoryStub(history: TruncatingCallHistory()))
-        histories.didAdd(SimpleAccount(uuid: accountID), to: UserAgentSpy())
+        histories.didAdd(SimpleAccount(uuid: accountID, domain: "any-domain"), to: UserAgentSpy())
         let sut = CallHistoryCallEventTarget(histories: histories)
         let call = SimpleCall(
             accountID: accountID,
