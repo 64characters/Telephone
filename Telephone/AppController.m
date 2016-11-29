@@ -754,11 +754,9 @@ NS_ASSUME_NONNULL_END
 - (void)accountSetupControllerDidAddAccount:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     
-    NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@", dict[kUsername], dict[kDomain]];
-    
     AKSIPAccount *account = [[AKSIPAccount alloc] initWithUniqueIdentifier:dict[kUniqueIdentifier]
                                                                   fullName:dict[kFullName]
-                                                                SIPAddress:SIPAddress
+                                                                SIPAddress:dict[kSIPAddress]
                                                                  registrar:dict[kDomain]
                                                                      realm:dict[kRealm]
                                                                   username:dict[kUsername]
@@ -808,24 +806,10 @@ NS_ASSUME_NONNULL_END
     
     BOOL isEnabled = [accountDict[kAccountEnabled] boolValue];
     if (isEnabled) {
-        NSString *SIPAddress;
-        if ([accountDict[kSIPAddress] length] > 0) {
-            SIPAddress = accountDict[kSIPAddress];
-        } else {
-            SIPAddress = [NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]];
-        }
-        
-        NSString *registrar;
-        if ([accountDict[kRegistrar] length] > 0) {
-            registrar = accountDict[kRegistrar];
-        } else {
-            registrar = accountDict[kDomain];
-        }
-        
         AKSIPAccount *account = [[AKSIPAccount alloc] initWithUniqueIdentifier:accountDict[kUniqueIdentifier]
                                                                       fullName:accountDict[kFullName]
-                                                                    SIPAddress:SIPAddress
-                                                                     registrar:registrar
+                                                                    SIPAddress:accountDict[kSIPAddress]
+                                                                     registrar:accountDict[kRegistrar]
                                                                          realm:accountDict[kRealm]
                                                                       username:accountDict[kUsername]
                                                                         domain:accountDict[kDomain]];
@@ -847,7 +831,7 @@ NS_ASSUME_NONNULL_END
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
-            description = SIPAddress;
+            description = account.SIPAddress;
         }
         [controller setAccountDescription:description];
         
@@ -1105,35 +1089,13 @@ NS_ASSUME_NONNULL_END
     for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
         NSDictionary *accountDict = savedAccounts[i];
 
-        NSString *uniqueIdentifier = accountDict[kUniqueIdentifier];
-        NSString *fullName = accountDict[kFullName];
-        
-        NSString *SIPAddress;
-        if ([accountDict[kSIPAddress] length] > 0) {
-            SIPAddress = accountDict[kSIPAddress];
-        } else {
-            SIPAddress = [NSString stringWithFormat:@"%@@%@",
-                          accountDict[kUsername], accountDict[kDomain]];
-        }
-        
-        NSString *registrar;
-        if ([accountDict[kRegistrar] length] > 0) {
-            registrar = accountDict[kRegistrar];
-        } else {
-            registrar = accountDict[kDomain];
-        }
-        
-        NSString *realm = accountDict[kRealm];
-        NSString *username = accountDict[kUsername];
-        NSString *domain = accountDict[kDomain];
-        
-        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUniqueIdentifier:uniqueIdentifier
-                                                                      fullName:fullName
-                                                                    SIPAddress:SIPAddress
-                                                                     registrar:registrar
-                                                                         realm:realm
-                                                                      username:username
-                                                                        domain:domain];
+        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUniqueIdentifier:accountDict[kUniqueIdentifier]
+                                                                      fullName:accountDict[kFullName]
+                                                                    SIPAddress:accountDict[kSIPAddress]
+                                                                     registrar:accountDict[kRegistrar]
+                                                                         realm:accountDict[kRealm]
+                                                                      username:accountDict[kUsername]
+                                                                        domain:accountDict[kDomain]];
         
         account.reregistrationTime = [accountDict[kReregistrationTime] integerValue];
         if ([accountDict[kUseProxy] boolValue]) {
@@ -1152,7 +1114,7 @@ NS_ASSUME_NONNULL_END
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
-            description = SIPAddress;
+            description = account.SIPAddress;
         }
         [controller setAccountDescription:description];
         
