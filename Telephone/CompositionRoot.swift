@@ -35,6 +35,7 @@ final class CompositionRoot: NSObject {
     private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
@@ -140,15 +141,22 @@ final class CompositionRoot: NSObject {
             queue: queue
         )
 
-        userAgent.updateAccountEventTarget(
-            DefaultCallHistories(
-                factory: NotifyingCallHistoryFactory(
-                    factory: PersistentCallHistoryFactory(
-                        history: TruncatingCallHistoryFactory(limit: 1000),
-                        storage: SimplePropertyListStorageFactory(),
-                        locations: applicationDataLocations
-                    )
+        let callHistories = DefaultCallHistories(
+            factory: NotifyingCallHistoryFactory(
+                factory: PersistentCallHistoryFactory(
+                    history: TruncatingCallHistoryFactory(limit: 1000),
+                    storage: SimplePropertyListStorageFactory(),
+                    locations: applicationDataLocations
                 )
+            )
+        )
+
+        userAgent.updateAccountEventTarget(callHistories)
+
+        callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default,
+            target: CallHistoryCallEventTarget(
+                histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
             )
         )
 
