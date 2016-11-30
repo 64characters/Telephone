@@ -54,6 +54,10 @@ NS_ASSUME_NONNULL_END
 
 @implementation AKSIPAccount
 
+- (NSString *)uuid {
+    return _uniqueIdentifier;
+}
+
 - (void)setProxyPort:(NSUInteger)port {
     if (port > 0 && port < 65535) {
         _proxyPort = port;

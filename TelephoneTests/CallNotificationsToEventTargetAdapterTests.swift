@@ -25,7 +25,12 @@ class CallNotificationsToEventTargetAdapterTests: XCTestCase {
         let center = NotificationCenter.default
         let target = CallEventTargetSpy()
         let call = SimpleCall(
-            accountID: "", remote: URI(user: "", host: ""), date: Date(), duration: 0, isIncoming: false, isMissed: false
+            account: SimpleAccount(uuid: "any-uuid", domain: "any-domain"),
+            remote: URI(user: "any-user", host: "any-host"),
+            date: Date(),
+            duration: 0,
+            isIncoming: false,
+            isMissed: false
         )
         withExtendedLifetime(CallNotificationsToEventTargetAdapter(center: center, target: target)) {
 

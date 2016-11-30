@@ -19,6 +19,8 @@
 #import <Foundation/Foundation.h>
 #import <pjsua-lib/pjsua.h>
 
+@import UseCases;
+
 #import "AKSIPAccountDelegate.h"
 
 
@@ -32,7 +34,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
 // A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
 // class to make and receive calls.
-@interface AKSIPAccount : NSObject
+@interface AKSIPAccount : NSObject <Account>
 
 // The receiver's delegate.
 @property(nonatomic, weak) id <AKSIPAccountDelegate> delegate;
@@ -59,7 +61,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Authentication user name.
 @property(nonatomic, readonly) NSString *username;
 
-@property(nonatomic, readonly) NSString *domain;
+@property(nonatomic, readonly, copy) NSString *domain;
 
 // SIP proxy host.
 @property(nonatomic, copy) NSString *proxyHost;

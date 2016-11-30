@@ -19,7 +19,7 @@
 import Foundation
 
 @objc public protocol Call {
-    var accountID: String { get }
+    var account: Account { get }
     var remote: URI { get }
     var date: Date  { get }
     var duration: Int  { get }

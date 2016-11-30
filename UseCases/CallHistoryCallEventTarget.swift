@@ -26,6 +26,6 @@ public final class CallHistoryCallEventTarget {
 
 extension CallHistoryCallEventTarget: CallEventTarget {
     public func callDidDisconnect(_ call: Call) {
-        histories.history(forAccountWithID: call.accountID).add(CallHistoryRecord(call: call))
+        histories.history(forAccountWithID: call.account.uuid).add(CallHistoryRecord(call: call))
     }
 }

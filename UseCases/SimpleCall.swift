@@ -19,15 +19,15 @@
 import Foundation
 
 public final class SimpleCall: NSObject, Call {
-    public let accountID: String
+    public let account: Account
     public let remote: URI
     public let date: Date
     public let duration: Int
     public let isIncoming: Bool
     public let isMissed: Bool
 
-    public init(accountID: String, remote: URI, date: Date, duration: Int, isIncoming: Bool, isMissed: Bool) {
-        self.accountID = accountID
+    public init(account: Account, remote: URI, date: Date, duration: Int, isIncoming: Bool, isMissed: Bool) {
+        self.account = account
         self.remote = remote
         self.date = date
         self.duration = duration

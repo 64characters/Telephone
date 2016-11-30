@@ -22,12 +22,12 @@ import XCTest
 
 final class CallHistoryCallEventTargetTests: XCTestCase {
     func testAddsRecordToCallHistoryOnCallDisconnect() {
-        let accountID = "any-id"
+        let account = SimpleAccount(uuid: "any-id", domain: "any-domain")
         let histories = DefaultCallHistories(factory: CallHistoryFactoryStub(history: TruncatingCallHistory()))
-        histories.didAdd(SimpleAccount(uuid: accountID, domain: "any-domain"), to: UserAgentSpy())
+        histories.didAdd(account, to: UserAgentSpy())
         let sut = CallHistoryCallEventTarget(histories: histories)
         let call = SimpleCall(
-            accountID: accountID,
+            account: account,
             remote: URI(user: "any-user", host: "any-host"),
             date: Date(),
             duration: 60,
@@ -37,6 +37,6 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
 
         sut.callDidDisconnect(call)
 
-        XCTAssertEqual(histories.history(forAccountWithID: call.accountID).allRecords, [CallHistoryRecord(call: call)])
+        XCTAssertEqual(histories.history(forAccountWithID: call.account.uuid).allRecords, [CallHistoryRecord(call: call)])
     }
 }

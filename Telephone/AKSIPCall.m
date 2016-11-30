@@ -28,10 +28,13 @@
 
 const NSInteger kAKSIPCallsMax = 8;
 
-@interface AKSIPCall ()
+@interface AKSIPCall () {
+    URI *_remote;
+    BOOL _incoming;
+    BOOL _missed;
+}
 
 @property(nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;
-@property(nonatomic, getter=isMissed) BOOL missed;
 
 @end
 
@@ -115,6 +118,22 @@ const NSInteger kAKSIPCallsMax = 8;
     _delegate = aDelegate;
 }
 
+- (URI *)remote {
+    return _remote;
+}
+
+- (BOOL)isIncoming {
+    return _incoming;
+}
+
+- (BOOL)isMissed {
+    return _missed;
+}
+
+- (void)setMissed:(BOOL)flag {
+    _missed = flag;
+}
+
 - (BOOL)isActive {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
         return NO;
@@ -170,6 +189,7 @@ const NSInteger kAKSIPCallsMax = 8;
     _lastStatusText = [NSString stringWithPJString:call.last_status_text];
     _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.local_info]];
     _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.remote_info]];
+    _remote = [[URI alloc] initWithUser:_remoteURI.user host:_remoteURI.host];
 
     return self;
 }
