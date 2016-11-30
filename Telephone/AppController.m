@@ -754,13 +754,13 @@ NS_ASSUME_NONNULL_END
 - (void)accountSetupControllerDidAddAccount:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     
-    AKSIPAccount *account = [[AKSIPAccount alloc] initWithUniqueIdentifier:dict[kUniqueIdentifier]
-                                                                  fullName:dict[kFullName]
-                                                                SIPAddress:dict[kSIPAddress]
-                                                                 registrar:dict[kDomain]
-                                                                     realm:dict[kRealm]
-                                                                  username:dict[kUsername]
-                                                                    domain:dict[kDomain]];
+    AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:dict[kUUID]
+                                                      fullName:dict[kFullName]
+                                                    SIPAddress:dict[kSIPAddress]
+                                                     registrar:dict[kDomain]
+                                                         realm:dict[kRealm]
+                                                      username:dict[kUsername]
+                                                        domain:dict[kDomain]];
     
     AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
                                                                         userAgent:self.userAgent
@@ -806,13 +806,13 @@ NS_ASSUME_NONNULL_END
     
     BOOL isEnabled = [accountDict[kAccountEnabled] boolValue];
     if (isEnabled) {
-        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUniqueIdentifier:accountDict[kUniqueIdentifier]
-                                                                      fullName:accountDict[kFullName]
-                                                                    SIPAddress:accountDict[kSIPAddress]
-                                                                     registrar:accountDict[kRegistrar]
-                                                                         realm:accountDict[kRealm]
-                                                                      username:accountDict[kUsername]
-                                                                        domain:accountDict[kDomain]];
+        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:accountDict[kUUID]
+                                                          fullName:accountDict[kFullName]
+                                                        SIPAddress:accountDict[kSIPAddress]
+                                                         registrar:accountDict[kRegistrar]
+                                                             realm:accountDict[kRealm]
+                                                          username:accountDict[kUsername]
+                                                            domain:accountDict[kDomain]];
 
         account.reregistrationTime = [accountDict[kReregistrationTime] integerValue];
         if ([accountDict[kUseProxy] boolValue]) {
@@ -1089,14 +1089,14 @@ NS_ASSUME_NONNULL_END
     for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
         NSDictionary *accountDict = savedAccounts[i];
 
-        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUniqueIdentifier:accountDict[kUniqueIdentifier]
-                                                                      fullName:accountDict[kFullName]
-                                                                    SIPAddress:accountDict[kSIPAddress]
-                                                                     registrar:accountDict[kRegistrar]
-                                                                         realm:accountDict[kRealm]
-                                                                      username:accountDict[kUsername]
-                                                                        domain:accountDict[kDomain]];
-        
+        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:accountDict[kUUID]
+                                                          fullName:accountDict[kFullName]
+                                                        SIPAddress:accountDict[kSIPAddress]
+                                                         registrar:accountDict[kRegistrar]
+                                                             realm:accountDict[kRealm]
+                                                          username:accountDict[kUsername]
+                                                            domain:accountDict[kDomain]];
+
         account.reregistrationTime = [accountDict[kReregistrationTime] integerValue];
         if ([accountDict[kUseProxy] boolValue]) {
             account.proxyHost = accountDict[kProxyHost];

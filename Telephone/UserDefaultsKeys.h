@@ -43,7 +43,7 @@ extern NSString * const kUseG711Only;
 extern NSString * const kSettingsVersion;
 
 // Account keys
-extern NSString * const kUniqueIdentifier;
+extern NSString * const kUUID;
 extern NSString * const kDescription;
 extern NSString * const kFullName;
 extern NSString * const kSIPAddress;

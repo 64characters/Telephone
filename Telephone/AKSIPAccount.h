@@ -44,8 +44,6 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // TODO(eofster): strange property. Do we need this?
 @property(nonatomic, readonly) AKSIPURI *registrationURI;
 
-@property(nonatomic, readonly) NSString *uniqueIdentifier;
-
 // Full name of the registration URI.
 @property(nonatomic, readonly) NSString *fullName;
 
@@ -112,13 +110,13 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
 @property(nonatomic) NSThread *thread;
 
-- (instancetype)initWithUniqueIdentifier:(NSString *)uniqueIdentifier
-                                fullName:(NSString *)fullName
-                              SIPAddress:(nullable NSString *)SIPAddress
-                               registrar:(nullable NSString *)registrar
-                                   realm:(NSString *)realm
-                                username:(NSString *)username
-                                  domain:(NSString *)domain;
+- (instancetype)initWithUUID:(NSString *)uuid
+                    fullName:(NSString *)fullName
+                  SIPAddress:(nullable NSString *)SIPAddress
+                   registrar:(nullable NSString *)registrar
+                       realm:(NSString *)realm
+                    username:(NSString *)username
+                      domain:(NSString *)domain;
 
 - (void)updateUsername:(NSString *)username;
 - (void)updateIdentifier:(NSInteger)identifier;

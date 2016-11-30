@@ -41,7 +41,9 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 @end
 
-@interface AKSIPAccount ()
+@interface AKSIPAccount () {
+    NSString *_uuid;
+}
 
 @property(nonatomic, copy) NSString *username;
 @property(nonatomic) NSInteger identifier;
@@ -55,7 +57,7 @@ NS_ASSUME_NONNULL_END
 @implementation AKSIPAccount
 
 - (NSString *)uuid {
-    return _uniqueIdentifier;
+    return _uuid;
 }
 
 - (void)setProxyPort:(NSUInteger)port {
@@ -206,15 +208,15 @@ NS_ASSUME_NONNULL_END
     return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
-- (instancetype)initWithUniqueIdentifier:(NSString *)uniqueIdentifier
-                                fullName:(NSString *)fullName
-                              SIPAddress:(nullable NSString *)SIPAddress
-                               registrar:(nullable NSString *)registrar
-                                   realm:(NSString *)realm
-                                username:(NSString *)username
-                                  domain:(NSString *)domain {
+- (instancetype)initWithUUID:(NSString *)uuid
+                    fullName:(NSString *)fullName
+                  SIPAddress:(nullable NSString *)SIPAddress
+                   registrar:(nullable NSString *)registrar
+                       realm:(NSString *)realm
+                    username:(NSString *)username
+                      domain:(NSString *)domain {
 
-    NSParameterAssert(uniqueIdentifier.length > 0);
+    NSParameterAssert(uuid.length > 0);
     NSParameterAssert(fullName);
     NSParameterAssert(realm);
     NSParameterAssert(username);
@@ -229,7 +231,7 @@ NS_ASSUME_NONNULL_END
 
     _registrationURI = [AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", fullName, finalSIPAddress]];
 
-    _uniqueIdentifier = [uniqueIdentifier copy];
+    _uuid = [uuid copy];
     _fullName = [fullName copy];
     _SIPAddress = [finalSIPAddress copy];
     _registrar = [registrar.length > 0 ? registrar : domain copy];

@@ -49,7 +49,7 @@ private func addUUIDIfNeeded(to dict: [String: Any]) -> [String: Any] {
 }
 
 private func shouldAddUUID(to dict: [String: Any]) -> Bool {
-    if let uuid = dict[kUniqueIdentifier] as? String, !uuid.isEmpty {
+    if let uuid = dict[kUUID] as? String, !uuid.isEmpty {
         return false
     } else {
         return true
@@ -58,6 +58,6 @@ private func shouldAddUUID(to dict: [String: Any]) -> Bool {
 
 private func addUUID(to dict: [String: Any]) -> [String: Any] {
     var result = dict
-    result[kUniqueIdentifier] = UUID().uuidString
+    result[kUUID] = UUID().uuidString
     return result
 }
