@@ -1,5 +1,5 @@
 //
-//  CallHistory.swift
+//  CallHistoryRecordAddUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistory: class {
-    var allRecords: [CallHistoryRecord] { get }
-    func add(_ record: CallHistoryRecord)
-    func remove(_ record: CallHistoryRecord)
-    func removeAll()
-    func updateTarget(_ target: CallHistoryEventTarget)
+public protocol CallHistoryRecordAddUseCaseFactory {
+    func make(history: CallHistory, record: CallHistoryRecord, domain: String) -> UseCase
 }

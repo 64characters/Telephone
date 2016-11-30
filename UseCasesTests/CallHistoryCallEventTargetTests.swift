@@ -21,22 +21,41 @@ import UseCasesTestDoubles
 import XCTest
 
 final class CallHistoryCallEventTargetTests: XCTestCase {
-    func testAddsRecordToCallHistoryOnCallDisconnect() {
+    func testCreatesUseCaseWithExpectedArgumentsOnDidDisconnect() {
         let account = SimpleAccount(uuid: "any-id", domain: "any-domain")
-        let histories = DefaultCallHistories(factory: CallHistoryFactoryStub(history: TruncatingCallHistory()))
+        let history: CallHistory = TruncatingCallHistory()
+        let histories = DefaultCallHistories(factory: CallHistoryFactoryStub(history: history))
         histories.didAdd(account, to: UserAgentSpy())
-        let sut = CallHistoryCallEventTarget(histories: histories)
-        let call = SimpleCall(
-            account: account,
-            remote: URI(user: "any-user", host: "any-host"),
-            date: Date(),
-            duration: 60,
-            isIncoming: false,
-            isMissed: false
-        )
+        let factory = CallHistoryRecordAddUseCaseFactoryStub(add: UseCaseSpy())
+        let sut = CallHistoryCallEventTarget(histories: histories, factory: factory)
+        let call = makeCall(account: account)
 
         sut.callDidDisconnect(call)
 
-        XCTAssertEqual(histories.history(forAccountWithID: call.account.uuid).allRecords, [CallHistoryRecord(call: call)])
+        XCTAssertTrue(factory.invokedHistory === history)
+        XCTAssertEqual(factory.invokedRecord, CallHistoryRecord(call: call))
+        XCTAssertEqual(factory.invokedDomain, account.domain)
     }
+
+    func testExecutesUseCaseOnDidDisconnect() {
+        let histories = DefaultCallHistories(factory: CallHistoryFactoryStub(history: TruncatingCallHistory()))
+        let add = UseCaseSpy()
+        let sut = CallHistoryCallEventTarget(histories: histories, factory: CallHistoryRecordAddUseCaseFactoryStub(add: add))
+        let call = makeCall(account: SimpleAccount(uuid: "any-id", domain: "any-domain"))
+
+        sut.callDidDisconnect(call)
+
+        XCTAssertTrue(add.didCallExecute)
+    }
+}
+
+private func makeCall(account: Account) -> Call {
+    return SimpleCall(
+        account: account,
+        remote: URI(user: "any-user", host: "any-host"),
+        date: Date(),
+        duration: 60,
+        isIncoming: false,
+        isMissed: false
+    )
 }

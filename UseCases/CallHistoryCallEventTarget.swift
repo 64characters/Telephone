@@ -18,14 +18,20 @@
 
 public final class CallHistoryCallEventTarget {
     fileprivate let histories: CallHistories
+    fileprivate let factory: CallHistoryRecordAddUseCaseFactory
 
-    public init(histories: CallHistories) {
+    public init(histories: CallHistories, factory: CallHistoryRecordAddUseCaseFactory) {
         self.histories = histories
+        self.factory = factory
     }
 }
 
 extension CallHistoryCallEventTarget: CallEventTarget {
     public func callDidDisconnect(_ call: Call) {
-        histories.history(forAccountWithID: call.account.uuid).add(CallHistoryRecord(call: call))
+        factory.make(
+            history: histories.history(forAccountWithID: call.account.uuid),
+            record: CallHistoryRecord(call: call),
+            domain: call.account.domain
+        ).execute()
     }
 }
