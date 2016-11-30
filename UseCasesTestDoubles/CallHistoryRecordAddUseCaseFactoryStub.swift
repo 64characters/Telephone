@@ -18,7 +18,7 @@
 
 import UseCases
 
-public class CallHistoryRecordAddUseCaseFactoryStub {
+public final class CallHistoryRecordAddUseCaseFactoryStub {
     public fileprivate(set) var invokedHistory: CallHistory!
     public fileprivate(set) var invokedRecord: CallHistoryRecord!
     public fileprivate(set) var invokedDomain = ""
