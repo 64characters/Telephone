@@ -43,6 +43,8 @@
 #import "IncomingCallViewController.h"
 #import "UserDefaultsKeys.h"
 
+#import "Telephone-Swift.h"
+
 
 // Account state pop-up button widths.
 //
@@ -222,7 +224,8 @@ NSString * const kGerman = @"de";
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
                          userAgent:(AKSIPUserAgent *)userAgent
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
-                       musicPlayer:(id<MusicPlayer>)musicPlayer {
+                       musicPlayer:(id<MusicPlayer>)musicPlayer
+                       sleepStatus:(WorkspaceSleepStatus *)sleepStatus {
 
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
@@ -233,6 +236,7 @@ NSString * const kGerman = @"de";
     _userAgent = userAgent;
     _ringtonePlayback = ringtonePlayback;
     _musicPlayer = musicPlayer;
+    _sleepStatus = sleepStatus;
     
     _callControllers = [[NSMutableArray alloc] init];
     _destinationToCall = @"";
@@ -1042,7 +1046,7 @@ NSString * const kGerman = @"de";
 
 // This is the moment when the application starts doing its main job.
 - (void)networkReachabilityDidBecomeReachable:(NSNotification *)notification {
-    if (![self isAccountUnavailable] && ![self isAccountRegistered]) {
+    if (!self.sleepStatus.isSleeping && !self.isAccountUnavailable && !self.isAccountRegistered) {
         [self registerAccount];
     }
 }

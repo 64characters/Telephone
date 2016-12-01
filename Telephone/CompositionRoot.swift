@@ -27,6 +27,7 @@ final class CompositionRoot: NSObject {
     let storeWindowController: StoreWindowController
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
+    let workstationSleepStatus: WorkspaceSleepStatus
     private let defaults: UserDefaults
     private let queue: DispatchQueue
 
@@ -115,6 +116,8 @@ final class CompositionRoot: NSObject {
             origin: AvailableMusicPlayers(factory: MusicPlayerFactory()),
             defaults: SimpleMusicPlayerUserDefaults(defaults: defaults)
         )
+
+        workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared())
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,

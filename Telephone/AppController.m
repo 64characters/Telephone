@@ -62,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) PreferencesController *preferencesController;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
+@property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
@@ -235,6 +236,7 @@ NS_ASSUME_NONNULL_END
     _preferencesController = _compositionRoot.preferencesController;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
     _musicPlayer = _compositionRoot.musicPlayer;
+    _sleepStatus = _compositionRoot.workstationSleepStatus;
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = [[NSMutableArray alloc] init];
@@ -924,7 +926,8 @@ NS_ASSUME_NONNULL_END
     AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
                                                                         userAgent:self.userAgent
                                                                  ringtonePlayback:self.ringtonePlayback
-                                                                      musicPlayer:self.musicPlayer];
+                                                                      musicPlayer:self.musicPlayer
+                                                                      sleepStatus:self.sleepStatus];
     
     [controller setAccountDescription:[[controller account] SIPAddress]];
     [[controller window] setExcludedFromWindowsMenu:YES];
@@ -996,7 +999,8 @@ NS_ASSUME_NONNULL_END
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
-                                                                          musicPlayer:self.musicPlayer];
+                                                                          musicPlayer:self.musicPlayer
+                                                                          sleepStatus:self.sleepStatus];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
         
@@ -1303,7 +1307,8 @@ NS_ASSUME_NONNULL_END
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
-                                                                          musicPlayer:self.musicPlayer];
+                                                                          musicPlayer:self.musicPlayer
+                                                                          sleepStatus:self.sleepStatus];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
         
