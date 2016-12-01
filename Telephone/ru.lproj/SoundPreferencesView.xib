@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SoundPreferencesViewController">
@@ -16,14 +16,13 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="251" userLabel="Sound">
             <rect key="frame" x="0.0" y="0.0" width="539" height="210"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <popUpButton verticalHuggingPriority="750" id="376">
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="376">
                     <rect key="frame" x="171" y="112" width="230" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="377">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -33,27 +32,27 @@
                         <action selector="changeSoundIO:" target="-2" id="380"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" id="375">
-                    <rect key="frame" x="115" y="118" width="54" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="375">
+                    <rect key="frame" x="116" y="119" width="53" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Звонок:" id="379">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="332">
-                    <rect key="frame" x="171" y="54" width="288" height="14"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="332">
+                    <rect key="frame" x="171" y="54" width="283" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Рингтоны поместите в папку ~/Библиотеки/Sounds" id="333">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" id="277">
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="277">
                     <rect key="frame" x="171" y="72" width="170" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="165" id="3Sw-x9-MKa"/>
+                    </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="278">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -63,18 +62,16 @@
                         <action selector="changeRingtone:" target="-2" id="374"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" id="275">
-                    <rect key="frame" x="108" y="78" width="61" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="275">
+                    <rect key="frame" x="109" y="79" width="60" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Рингтон:" id="276">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" id="220">
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="220">
                     <rect key="frame" x="171" y="142" width="230" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="221">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -84,9 +81,11 @@
                         <action selector="changeSoundIO:" target="-2" id="232"/>
                     </connections>
                 </popUpButton>
-                <popUpButton verticalHuggingPriority="750" id="214">
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="214">
                     <rect key="frame" x="171" y="172" width="230" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="225" id="aDi-Ht-Uvm"/>
+                    </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="215">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -96,27 +95,24 @@
                         <action selector="changeSoundIO:" target="-2" id="231"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" id="212">
-                    <rect key="frame" x="119" y="148" width="50" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="212">
+                    <rect key="frame" x="121" y="149" width="48" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Выход:" id="213">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="210">
-                    <rect key="frame" x="128" y="178" width="41" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="210">
+                    <rect key="frame" x="130" y="179" width="39" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Вход:" id="211">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="6ea-xp-VHq">
-                    <rect key="frame" x="171" y="18" width="243" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="6ea-xp-VHq">
+                    <rect key="frame" x="171" y="18" width="233" height="18"/>
                     <buttonCell key="cell" type="check" title="Использовать только кодек G.711" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8X6-V9-mWw">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -127,6 +123,30 @@
                     </connections>
                 </button>
             </subviews>
+            <constraints>
+                <constraint firstItem="275" firstAttribute="trailing" secondItem="212" secondAttribute="trailing" id="0Zd-Jp-NMU"/>
+                <constraint firstItem="6ea-xp-VHq" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="3Wb-SM-DnS"/>
+                <constraint firstItem="376" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="5sL-Hv-orH"/>
+                <constraint firstItem="210" firstAttribute="trailing" secondItem="212" secondAttribute="trailing" id="BAj-NM-YeC"/>
+                <constraint firstItem="220" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="CbA-r6-ohj"/>
+                <constraint firstItem="210" firstAttribute="baseline" secondItem="214" secondAttribute="baseline" id="Kbx-Im-v68"/>
+                <constraint firstItem="6ea-xp-VHq" firstAttribute="top" secondItem="332" secondAttribute="bottom" constant="20" id="QhM-Pd-SV4"/>
+                <constraint firstItem="277" firstAttribute="top" secondItem="376" secondAttribute="bottom" constant="19" id="RVP-5L-5WZ"/>
+                <constraint firstItem="332" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="WhX-5B-e2t"/>
+                <constraint firstItem="376" firstAttribute="width" secondItem="214" secondAttribute="width" id="XF8-Xj-Cqm"/>
+                <constraint firstItem="214" firstAttribute="top" secondItem="251" secondAttribute="top" constant="14" id="a5r-yw-T0M"/>
+                <constraint firstItem="220" firstAttribute="width" secondItem="214" secondAttribute="width" id="cq7-i3-B1V"/>
+                <constraint firstItem="375" firstAttribute="trailing" secondItem="212" secondAttribute="trailing" id="geh-9D-k29"/>
+                <constraint firstItem="214" firstAttribute="leading" secondItem="251" secondAttribute="leading" constant="173" id="kdx-Bb-7Tc"/>
+                <constraint firstItem="277" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="mJc-mM-ugx"/>
+                <constraint firstItem="375" firstAttribute="baseline" secondItem="376" secondAttribute="baseline" id="oWt-KS-fCL"/>
+                <constraint firstItem="332" firstAttribute="top" secondItem="277" secondAttribute="bottom" constant="7" id="r1j-wf-L8W"/>
+                <constraint firstItem="275" firstAttribute="baseline" secondItem="277" secondAttribute="baseline" id="sHF-3Z-Ann"/>
+                <constraint firstItem="212" firstAttribute="baseline" secondItem="220" secondAttribute="baseline" id="t0s-HR-VyL"/>
+                <constraint firstItem="220" firstAttribute="top" secondItem="214" secondAttribute="bottom" constant="9" id="xMM-hi-04j"/>
+                <constraint firstItem="376" firstAttribute="top" secondItem="220" secondAttribute="bottom" constant="9" id="y0g-b9-Gsr"/>
+                <constraint firstItem="214" firstAttribute="leading" secondItem="210" secondAttribute="trailing" constant="6" id="z9I-W2-9xz"/>
+            </constraints>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="evI-Y4-9zY"/>
     </objects>
