@@ -541,6 +541,12 @@ NS_ASSUME_NONNULL_END
     });
 }
 
+- (void)optOutOfAutomaticWindowTabbing {
+    if ([NSWindow respondsToSelector:@selector(allowsAutomaticWindowTabbing)]) {
+        NSWindow.allowsAutomaticWindowTabbing = NO;
+    }
+}
+
 - (BOOL)installAddressBookPlugInsAndReturnError:(NSError **)error {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSString *plugInsPath = [mainBundle builtInPlugInsPath];
@@ -1193,6 +1199,8 @@ NS_ASSUME_NONNULL_END
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    [self optOutOfAutomaticWindowTabbing];
     
     // Read main settings from defaults.
     if ([defaults boolForKey:kUseDNSSRV]) {
