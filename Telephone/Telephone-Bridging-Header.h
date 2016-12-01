@@ -5,7 +5,10 @@
 #import <pjsua-lib/pjsua.h>
 
 #import "AppController.h"
+#import "AKSIPAccount.h"
+#import "AKSIPCall.h"
 #import "AKSIPCallNotifications.h"
+#import "AKSIPURI.h"
 #import "AKSIPUserAgent.h"
 #import "MusicPlayerFactory.h"
 #import "PreferencesController.h"

@@ -23,7 +23,6 @@ extern NSString * const kAccounts;
 extern NSString * const kSTUNServerHost;
 extern NSString * const kSTUNServerPort;
 extern NSString * const kSTUNDomain;
-extern NSString * const kLogFileName;
 extern NSString * const kLogLevel;
 extern NSString * const kConsoleLogLevel;
 extern NSString * const kVoiceActivityDetection;
@@ -44,7 +43,7 @@ extern NSString * const kUseG711Only;
 extern NSString * const kSettingsVersion;
 
 // Account keys
-extern NSString * const kUniqueIdentifier;
+extern NSString * const kUUID;
 extern NSString * const kDescription;
 extern NSString * const kFullName;
 extern NSString * const kSIPAddress;

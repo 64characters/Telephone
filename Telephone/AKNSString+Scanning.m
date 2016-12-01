@@ -21,12 +21,6 @@
 
 @implementation NSString (AKStringScanningAdditions)
 
-- (BOOL)ak_isTelephoneNumber {
-    NSPredicate *telephoneNumberPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '\\\\+?\\\\d+'"];
-    
-    return ([telephoneNumberPredicate evaluateWithObject:self]) ? YES : NO;
-}
-
 - (BOOL)ak_hasLetters {
     NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
     

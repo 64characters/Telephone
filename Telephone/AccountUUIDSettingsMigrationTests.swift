@@ -28,14 +28,14 @@ final class AccountUUIDSettingsMigrationTests: XCTestCase {
         sut.execute()
 
         let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
-        XCTAssertNotNil(UUID(uuidString: (accounts[0][kUniqueIdentifier] as! String)))
-        XCTAssertNotNil(UUID(uuidString: (accounts[1][kUniqueIdentifier] as! String)))
+        XCTAssertNotNil(UUID(uuidString: (accounts[0][kUUID] as! String)))
+        XCTAssertNotNil(UUID(uuidString: (accounts[1][kUUID] as! String)))
     }
 
     func testDoesNotUpdateUUIDs() {
         let settings = SettingsFake()
         settings.set(
-            [[kAccountEnabled: true, kUniqueIdentifier: "foo"], [kAccountEnabled: false, kUniqueIdentifier: "bar"]],
+            [[kAccountEnabled: true, kUUID: "foo"], [kAccountEnabled: false, kUUID: "bar"]],
             forKey: kAccounts
         )
         let sut = AccountUUIDSettingsMigration(settings: settings)
@@ -43,7 +43,7 @@ final class AccountUUIDSettingsMigrationTests: XCTestCase {
         sut.execute()
 
         let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
-        XCTAssertEqual((accounts[0][kUniqueIdentifier] as! String), "foo")
-        XCTAssertEqual((accounts[1][kUniqueIdentifier] as! String), "bar")
+        XCTAssertEqual((accounts[0][kUUID] as! String), "foo")
+        XCTAssertEqual((accounts[1][kUUID] as! String), "bar")
     }
 }

@@ -18,11 +18,11 @@
 
 #import "ActiveAccountViewController.h"
 
-#import <AddressBook/AddressBook.h>
+@import AddressBook;
+@import UseCases;
 
 #import "AKABRecord+Querying.h"
 #import "AKABAddressBook+Localizing.h"
-#import "AKNSString+Scanning.h"
 #import "AKSIPURI.h"
 #import "AKSIPURIFormatter.h"
 #import "AKTelephoneNumberFormatter.h"

@@ -748,7 +748,6 @@ NSString * const kGerman = @"de";
     
     [aCallController setCall:aCall];
     [aCallController setCallActive:YES];
-    [aCallController setCallUnhandled:YES];
     [[self callControllers] addObject:aCallController];
     
     AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
@@ -986,11 +985,6 @@ NSString * const kGerman = @"de";
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
 
     [self startPlayingRingtoneOrLogError];
-
-    if (![NSApp isActive]) {
-        [NSApp requestUserAttention:NSInformationalRequest];
-        [(AppController *)[NSApp delegate] startUserAttentionTimer];
-    }
     
     [aCall sendRingingNotification];
 }
@@ -1009,6 +1003,7 @@ NSString * const kGerman = @"de";
 
 - (void)callControllerWillClose:(CallController *)callController {
     [self.callControllers removeObject:callController];
+    [(AppController *)[NSApp delegate] updateDockTileBadgeLabel];
 }
 
 

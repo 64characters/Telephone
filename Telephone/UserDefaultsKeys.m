@@ -22,7 +22,6 @@ NSString * const kAccounts = @"Accounts";
 NSString * const kSTUNServerHost = @"STUNServerHost";
 NSString * const kSTUNServerPort = @"STUNServerPort";
 NSString * const kSTUNDomain = @"STUNDomain";
-NSString * const kLogFileName = @"LogFileName";
 NSString * const kLogLevel = @"LogLevel";
 NSString * const kConsoleLogLevel = @"ConsoleLogLevel";
 NSString * const kVoiceActivityDetection = @"VoiceActivityDetection";
@@ -42,7 +41,7 @@ NSString * const kCallWaiting = @"CallWaiting";
 NSString * const kUseG711Only = @"UseG711Only";
 NSString * const kSettingsVersion = @"SettingsVersion";
 
-NSString * const kUniqueIdentifier = @"UniqueIdentifier";
+NSString * const kUUID = @"UUID";
 NSString * const kDescription = @"Description";
 NSString * const kFullName = @"FullName";
 NSString * const kSIPAddress = @"SIPAddress";

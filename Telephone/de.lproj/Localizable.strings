@@ -53,9 +53,6 @@
 /* Products fetch error. */
 "Could not fetch products." = "Die Produkte konnten nicht heruntergeladen werden.";
 
-/* Address Book plug-ins install error, alert message text. */
-"Could not install Address Book plug-ins." = "Die Adressbuch-Plugins konnten nicht installiert werden.";
-
 /* Product purchase error. */
 "Could not make purchase." = "Der Kauf konnte nicht abgeschlossen werden.";
 
@@ -95,9 +92,6 @@
 
 /* Hold. Call menu item. */
 "Hold" = "Halten";
-
-/* Address Book plug-ins install error, alert informative text. */
-"Make sure you have write permission to “%@”." = "Stellen Sie sicher, dass Sie Schreibrechte in „%@“ haben.";
 
 /* Microphone muted status text. */
 "mic muted" = "Mikrofon stumm";

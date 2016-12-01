@@ -28,6 +28,16 @@
 
 const NSInteger kAKSIPCallsMax = 8;
 
+@interface AKSIPCall () {
+    URI *_remote;
+    BOOL _incoming;
+    BOOL _missed;
+}
+
+@property(nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;
+
+@end
+
 @implementation AKSIPCall
 
 - (void)setDelegate:(id<AKSIPCallDelegate>)aDelegate {
@@ -108,31 +118,28 @@ const NSInteger kAKSIPCallsMax = 8;
     _delegate = aDelegate;
 }
 
+- (URI *)remote {
+    return _remote;
+}
+
+- (BOOL)isIncoming {
+    return _incoming;
+}
+
+- (BOOL)isMissed {
+    return _missed;
+}
+
+- (void)setMissed:(BOOL)flag {
+    _missed = flag;
+}
+
 - (BOOL)isActive {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
         return NO;
     }
     
     return (pjsua_call_is_active((pjsua_call_id)[self identifier])) ? YES : NO;
-}
-
-- (BOOL)hasMedia {
-    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return NO;
-    }
-    
-    return (pjsua_call_has_media((pjsua_call_id)[self identifier])) ? YES : NO;
-}
-
-- (BOOL)hasActiveMedia {
-    if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return NO;
-    }
-    
-    pjsua_call_info callInfo;
-    pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
-    
-    return (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE) ? YES : NO;
 }
 
 - (BOOL)isOnLocalHold {
@@ -160,41 +167,31 @@ const NSInteger kAKSIPCallsMax = 8;
 
 #pragma mark -
 
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount identifier:(NSInteger)anIdentifier {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier {
     self = [super init];
     if (self == nil) {
         return nil;
     }
-    
-    [self setIdentifier:anIdentifier];
-    [self setAccount:anAccount];
-    
-    pjsua_call_info callInfo;
-    pj_status_t status = pjsua_call_get_info((pjsua_call_id)anIdentifier, &callInfo);
-    if (status == PJ_SUCCESS) {
-        [self setState:(AKSIPCallState)callInfo.state];
-        [self setStateText:[NSString stringWithPJString:callInfo.state_text]];
-        [self setLastStatus:callInfo.last_status];
-        [self setLastStatusText:[NSString stringWithPJString:callInfo.last_status_text]];
-        [self setRemoteURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.remote_info]]];
-        [self setLocalURI:[AKSIPURI SIPURIWithString:[NSString stringWithPJString:callInfo.local_info]]];
-        
-        if (callInfo.state == kAKSIPCallIncomingState) {
-            [self setIncoming:YES];
-        } else {
-            [self setIncoming:NO];
-        }
-        
-    } else {
-        [self setState:kAKSIPCallNullState];
-        [self setIncoming:NO];
-    }
-    
-    return self;
-}
 
-- (instancetype)init {
-    return [self initWithSIPAccount:nil identifier:kAKSIPUserAgentInvalidIdentifier];
+    _account = account;
+    _identifier = identifier;
+
+    _date = [NSDate date];
+
+    pjsua_call_info call;
+    pj_status_t status = pjsua_call_get_info((pjsua_call_id)identifier, &call);
+    assert(status == PJ_SUCCESS);
+    _incoming = call.role == PJSIP_ROLE_UAS;
+    _missed = _incoming;
+    _state = (AKSIPCallState)call.state;
+    _stateText = [NSString stringWithPJString:call.state_text];
+    _lastStatus = call.last_status;
+    _lastStatusText = [NSString stringWithPJString:call.last_status_text];
+    _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.local_info]];
+    _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.remote_info]];
+    _remote = [[URI alloc] initWithUser:_remoteURI.user host:_remoteURI.host];
+
+    return self;
 }
 
 - (void)dealloc {
@@ -207,7 +204,9 @@ const NSInteger kAKSIPCallsMax = 8;
 
 - (void)answer {
     pj_status_t status = pjsua_call_answer((pjsua_call_id)[self identifier], PJSIP_SC_OK, NULL, NULL);
-    if (status != PJ_SUCCESS) {
+    if (status == PJ_SUCCESS) {
+        self.missed = NO;
+    } else {
         NSLog(@"Error answering call %@", self);
     }
 }
@@ -218,14 +217,16 @@ const NSInteger kAKSIPCallsMax = 8;
     }
     
     pj_status_t status = pjsua_call_hangup((pjsua_call_id)[self identifier], 0, NULL, NULL);
-    if (status != PJ_SUCCESS) {
+    if (status == PJ_SUCCESS) {
+        self.missed = NO;
+    } else {
         NSLog(@"Error hanging up call %@", self);
     }
 }
 
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall {
     [self setTransferStatus:kAKSIPUserAgentInvalidIdentifier];
-    [self setTransferStatusText:nil];
+    [self setTransferStatusText:@""];
     pj_status_t status = pjsua_call_xfer_replaces((pjsua_call_id)[self identifier],
                                                   (pjsua_call_id)[destinationCall identifier],
                                                   PJSUA_XFER_NO_REQUIRE_REPLACES,

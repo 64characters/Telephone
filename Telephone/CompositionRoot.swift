@@ -28,12 +28,14 @@ final class CompositionRoot: NSObject {
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
     let settingsMigration: ProgressiveSettingsMigration
+    let applicationDataLocations: ApplicationDataLocations
     private let defaults: UserDefaults
     private let queue: DispatchQueue
 
     private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
@@ -119,6 +121,11 @@ final class CompositionRoot: NSObject {
 
         settingsMigration = ProgressiveSettingsMigration(settings: defaults, factory: DefaultSettingsMigrationFactory())
 
+        applicationDataLocations = DirectoryCreatingApplicationDataLocations(
+            origin: SimpleApplicationDataLocations(manager: FileManager.default, bundle: Bundle.main),
+            manager: FileManager.default
+        )
+
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,
             agent: userAgent
@@ -132,6 +139,25 @@ final class CompositionRoot: NSObject {
                 ]
             ),
             queue: queue
+        )
+
+        let callHistories = DefaultCallHistories(
+            factory: NotifyingCallHistoryFactory(
+                factory: PersistentCallHistoryFactory(
+                    history: TruncatingCallHistoryFactory(limit: 1000),
+                    storage: SimplePropertyListStorageFactory(),
+                    locations: applicationDataLocations
+                )
+            )
+        )
+
+        userAgent.updateAccountEventTarget(callHistories)
+
+        callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default,
+            target: CallHistoryCallEventTarget(
+                histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
+            )
         )
 
         super.init()
