@@ -17,5 +17,5 @@
 //
 
 public protocol CallHistories {
-    func history(forAccountWithID accountID: String) -> CallHistory
+    func history(for account: Account) -> CallHistory
 }

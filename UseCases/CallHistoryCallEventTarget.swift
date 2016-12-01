@@ -29,7 +29,7 @@ public final class CallHistoryCallEventTarget {
 extension CallHistoryCallEventTarget: CallEventTarget {
     public func callDidDisconnect(_ call: Call) {
         factory.make(
-            history: histories.history(forAccountWithID: call.account.uuid),
+            history: histories.history(for: call.account),
             record: CallHistoryRecord(call: call),
             domain: call.account.domain
         ).execute()

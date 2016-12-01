@@ -23,11 +23,11 @@ import UseCasesTestDoubles
 final class DefaultCallHistoriesTests: XCTestCase {
     func testSetsHistoryOnDidAddAccount() {
         let sut = DefaultCallHistories(factory: CallHistoryFactoryStub(history: TruncatingCallHistory()))
-        let accountID = "any-uuid"
+        let account = SimpleAccount(uuid: "any-uuid", domain: "any-domain")
 
-        sut.didAdd(SimpleAccount(uuid: accountID, domain: "any-domain"), to: UserAgentSpy())
+        sut.didAdd(account, to: UserAgentSpy())
 
-        XCTAssertFalse(sut.history(forAccountWithID: accountID).isNil)
+        XCTAssertFalse(sut.history(for: account).isNil)
     }
 
     func testRemovesHistoryOnWillRemoveAccount() {
@@ -37,6 +37,6 @@ final class DefaultCallHistoriesTests: XCTestCase {
 
         sut.willRemove(account, from: UserAgentSpy())
 
-        XCTAssertTrue(sut.history(forAccountWithID: account.uuid).isNil)
+        XCTAssertTrue(sut.history(for: account).isNil)
     }
 }

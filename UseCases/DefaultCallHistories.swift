@@ -26,8 +26,8 @@ public final class DefaultCallHistories {
 }
 
 extension DefaultCallHistories: CallHistories {
-    public func history(forAccountWithID accountID: String) -> CallHistory {
-        return histories[accountID] ?? NullCallHistory()
+    public func history(for account: Account) -> CallHistory {
+        return histories[account.uuid] ?? NullCallHistory()
     }
 }
 
