@@ -29,6 +29,7 @@ final class CompositionRoot: NSObject {
     let musicPlayer: MusicPlayer
     let settingsMigration: ProgressiveSettingsMigration
     let applicationDataLocations: ApplicationDataLocations
+    let workstationSleepStatus: WorkspaceSleepStatus
     private let defaults: UserDefaults
     private let queue: DispatchQueue
 
@@ -125,6 +126,8 @@ final class CompositionRoot: NSObject {
             origin: SimpleApplicationDataLocations(manager: FileManager.default, bundle: Bundle.main),
             manager: FileManager.default
         )
+
+        workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared())
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,
