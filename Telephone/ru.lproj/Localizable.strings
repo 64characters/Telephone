@@ -7,6 +7,9 @@
 /* Telephone quit confirmation informative text. */
 "All active calls will be disconnected." = "Будут прекращены все незавершенные звонки.";
 
+/* Call answer button. */
+"Answer" = "Ответить";
+
 /* Telephone quit confirmation. */
 "Are you sure you want to quit Telephone?" = "Вы действительно хотите выйти из Телефона?";
 
@@ -50,9 +53,6 @@
 /* Products fetch error. */
 "Could not fetch products." = "Не удалось получить список продуктов.";
 
-/* Address Book plug-ins install error, alert message text. */
-"Could not install Address Book plug-ins." = "Не удалось установить плагины к «Адресной книге».";
-
 /* Product purchase error. */
 "Could not make purchase." = "Покупка не удалась.";
 
@@ -65,7 +65,8 @@
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Не удалось запустить SIP-подсистему.";
 
-/* Decline. Call menu item. */
+/* Call decline button.
+ Decline. Call menu item. */
 "Decline" = "Отклонить";
 
 /* Delete button. */
@@ -91,9 +92,6 @@
 
 /* Hold. Call menu item. */
 "Hold" = "Поставить на ожидание";
-
-/* Address Book plug-ins install error, alert informative text. */
-"Make sure you have write permission to “%@”." = "Проверьте права на запись в «%@».";
 
 /* Microphone muted status text. */
 "mic muted" = "микрофон выключен";

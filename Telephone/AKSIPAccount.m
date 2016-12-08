@@ -24,6 +24,8 @@
 #import "AKSIPCall.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
@@ -39,13 +41,24 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 @end
 
-@interface AKSIPAccount ()
+@interface AKSIPAccount () {
+    NSString *_uuid;
+}
+
+@property(nonatomic, copy) NSString *username;
+@property(nonatomic) NSInteger identifier;
 
 @property(nonatomic, readonly) NSMutableArray *calls;
 
 @end
 
+NS_ASSUME_NONNULL_END
+
 @implementation AKSIPAccount
+
+- (NSString *)uuid {
+    return _uuid;
+}
 
 - (void)setProxyPort:(NSUInteger)port {
     if (port > 0 && port < 65535) {
@@ -121,7 +134,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 - (NSString *)registrationStatusText {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return nil;
+        return @"";
     }
     
     pjsua_acc_info accountInfo;
@@ -129,7 +142,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     
     status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
-        return nil;
+        return @"";
     }
     
     return [NSString stringWithPJString:accountInfo.status_text];
@@ -181,7 +194,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 - (NSString *)onlineStatusText {
     if ([self identifier] == kAKSIPUserAgentInvalidIdentifier) {
-        return nil;
+        return @"";
     }
     
     pjsua_acc_info accountInfo;
@@ -189,59 +202,61 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     
     status = pjsua_acc_get_info((pjsua_acc_id)[self identifier], &accountInfo);
     if (status != PJ_SUCCESS) {
-        return nil;
+        return @"";
     }
     
     return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
-+ (instancetype)SIPAccountWithFullName:(NSString *)aFullName
-                            SIPAddress:(NSString *)aSIPAddress
-                             registrar:(NSString *)aRegistrar
-                                 realm:(NSString *)aRealm
-                              username:(NSString *)aUsername {
-    
-    return [[AKSIPAccount alloc] initWithFullName:aFullName
-                                       SIPAddress:aSIPAddress
-                                        registrar:aRegistrar
-                                            realm:aRealm
-                                         username:aUsername];
-}
+- (instancetype)initWithUUID:(NSString *)uuid
+                    fullName:(NSString *)fullName
+                  SIPAddress:(nullable NSString *)SIPAddress
+                   registrar:(nullable NSString *)registrar
+                       realm:(NSString *)realm
+                    username:(NSString *)username
+                      domain:(NSString *)domain {
 
-- (instancetype)initWithFullName:(NSString *)aFullName
-                      SIPAddress:(NSString *)aSIPAddress
-                       registrar:(NSString *)aRegistrar
-                           realm:(NSString *)aRealm
-                        username:(NSString *)aUsername {
+    NSParameterAssert(uuid.length > 0);
+    NSParameterAssert(fullName);
+    NSParameterAssert(realm);
+    NSParameterAssert(username);
+    NSParameterAssert(domain);
     
     self = [super init];
     if (self == nil) {
         return nil;
     }
-    
-    [self setRegistrationURI:[AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>",
-                                                         aFullName, aSIPAddress]]];
-    
-    [self setFullName:aFullName];
-    [self setSIPAddress:aSIPAddress];
-    [self setRegistrar:aRegistrar];
-    [self setRealm:aRealm];
-    [self setUsername:aUsername];
-    [self setProxyPort:kAKSIPAccountDefaultSIPProxyPort];
-    [self setReregistrationTime:kAKSIPAccountDefaultReregistrationTime];
-    [self setIdentifier:kAKSIPUserAgentInvalidIdentifier];
+
+    NSString *finalSIPAddress = SIPAddress.length > 0 ? SIPAddress : [NSString stringWithFormat:@"%@@%@", username, domain];
+
+    _registrationURI = [AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", fullName, finalSIPAddress]];
+
+    _uuid = [uuid copy];
+    _fullName = [fullName copy];
+    _SIPAddress = [finalSIPAddress copy];
+    _registrar = [registrar.length > 0 ? registrar : domain copy];
+    _realm = [realm copy];
+    _username = [username copy];
+    _domain = [domain copy];
+    self.proxyPort = kAKSIPAccountDefaultSIPProxyPort;
+    self.reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
+    _identifier = kAKSIPUserAgentInvalidIdentifier;
     
     _calls = [[NSMutableArray alloc] init];
     
     return self;
 }
 
-- (instancetype)init {
-    return [self initWithFullName:nil SIPAddress:nil registrar:nil realm:nil username:nil];
-}
-
 - (NSString *)description {
     return [self SIPAddress];
+}
+
+- (void)updateUsername:(NSString *)username {
+    self.username = username;
+}
+
+- (void)updateIdentifier:(NSInteger)identifier {
+    self.identifier = identifier;
 }
 
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {
@@ -267,7 +282,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     dispatch_async(dispatch_get_main_queue(), ^{ parameters.completion(success, callID); });
 }
 
-- (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier; {
+- (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier {
     AKSIPCall *call = [self callWithIdentifier:identifier];
     if (!call) {
         call = [[AKSIPCall alloc] initWithSIPAccount:self identifier:identifier];
@@ -276,7 +291,7 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
     return call;
 }
 
-- (AKSIPCall *)callWithIdentifier:(NSInteger)identifier {
+- (nullable AKSIPCall *)callWithIdentifier:(NSInteger)identifier {
     for (AKSIPCall *call in self.calls) {
         if (call.identifier == identifier) {
             return call;

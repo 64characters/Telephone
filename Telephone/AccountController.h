@@ -23,13 +23,6 @@
 #import "CallController.h"
 
 
-// Account states.
-enum {
-    kSIPAccountOffline     = 1,
-    kSIPAccountUnavailable = 2,
-    kSIPAccountAvailable   = 3
-};
-
 // Address Book label for SIP address in the email field.
 extern NSString * const kEmailSIPLabel;
 
@@ -87,9 +80,6 @@ extern NSString * const kEmailSIPLabel;
 
 // An authentication failure controller.
 @property(nonatomic, readonly) AuthenticationFailureController *authenticationFailureController;
-
-// Account state pop-up button outlet.
-@property(nonatomic, weak) IBOutlet NSPopUpButton *accountStatePopUp;
 
 // A Boolean value indicating if call windows should display account name.
 @property(nonatomic, assign) BOOL callsShouldDisplayAccountInfo;

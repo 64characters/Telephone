@@ -18,7 +18,8 @@
 
 #import "AKSIPURIFormatter.h"
 
-#import "AKNSString+Scanning.h"
+@import UseCases;
+
 #import "AKSIPURI.h"
 #import "AKTelephoneNumberFormatter.h"
 

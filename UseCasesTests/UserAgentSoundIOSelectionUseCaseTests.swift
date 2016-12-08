@@ -35,7 +35,7 @@ final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         let userAgent = UserAgentSpy()
         userAgent.audioDevicesResult = userAgentDevices
         let sut = UserAgentSoundIOSelectionUseCase(
-            repository: repository, userAgent: userAgent, defaults: UserDefaultsFake()
+            repository: repository, userAgent: userAgent, settings: SettingsFake()
         )
 
         try! sut.execute()

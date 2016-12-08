@@ -7,6 +7,9 @@
 /* Telephone quit confirmation informative text. */
 "All active calls will be disconnected." = "Alle aktiven Gespräche werden beendet.";
 
+/* Call answer button. */
+"Answer" = "Annehmen";
+
 /* Telephone quit confirmation. */
 "Are you sure you want to quit Telephone?" = "Wollen Sie Telefon wirklich beenden?";
 
@@ -50,9 +53,6 @@
 /* Products fetch error. */
 "Could not fetch products." = "Die Produkte konnten nicht heruntergeladen werden.";
 
-/* Address Book plug-ins install error, alert message text. */
-"Could not install Address Book plug-ins." = "Die Adressbuch-Plugins konnten nicht installiert werden.";
-
 /* Product purchase error. */
 "Could not make purchase." = "Der Kauf konnte nicht abgeschlossen werden.";
 
@@ -65,7 +65,8 @@
 /* SIP user agent start error. */
 "Could not start SIP user agent." = "Konnte SIP user agent nicht starten.";
 
-/* Decline. Call menu item. */
+/* Call decline button.
+ Decline. Call menu item. */
 "Decline" = "Ablehnen";
 
 /* Delete button. */
@@ -91,9 +92,6 @@
 
 /* Hold. Call menu item. */
 "Hold" = "Halten";
-
-/* Address Book plug-ins install error, alert informative text. */
-"Make sure you have write permission to “%@”." = "Stellen Sie sicher, dass Sie Schreibrechte in „%@“ haben.";
 
 /* Microphone muted status text. */
 "mic muted" = "Mikrofon stumm";

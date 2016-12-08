@@ -23,7 +23,7 @@ public protocol PurchaseCheckUseCaseOutput {
     func didFailCheckingPurchase()
 }
 
-public class PurchaseCheckUseCase {
+public final class PurchaseCheckUseCase {
     fileprivate let receipt: Receipt
     fileprivate let output: PurchaseCheckUseCaseOutput
 

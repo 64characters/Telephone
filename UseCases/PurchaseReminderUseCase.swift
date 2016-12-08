@@ -23,17 +23,17 @@ public protocol PurchaseReminderUseCaseOutput {
 }
 
 public final class PurchaseReminderUseCase: NSObject {
-    fileprivate let accounts: SavedAccounts
+    fileprivate let accounts: Accounts
     fileprivate let receipt: Receipt
-    fileprivate let defaults: PurchaseReminderUserDefaults
+    fileprivate let settings: PurchaseReminderSettings
     fileprivate let now: Date
     fileprivate let version: String
     fileprivate let output: PurchaseReminderUseCaseOutput
 
-    public init(accounts: SavedAccounts, receipt: Receipt, defaults: PurchaseReminderUserDefaults, now: Date, version: String, output: PurchaseReminderUseCaseOutput) {
+    public init(accounts: Accounts, receipt: Receipt, settings: PurchaseReminderSettings, now: Date, version: String, output: PurchaseReminderUseCaseOutput) {
         self.accounts = accounts
         self.receipt = receipt
-        self.defaults = defaults
+        self.settings = settings
         self.now = now
         self.version = version
         self.output = output
@@ -44,7 +44,7 @@ extension PurchaseReminderUseCase: UseCase {
     public func execute() {
         if accounts.haveEnabled && shouldRemind() {
             receipt.validate(completion: remindIfNotPurchased)
-            self.updateDefautls()
+            self.updateSettings()
         }
     }
 
@@ -61,21 +61,21 @@ extension PurchaseReminderUseCase: UseCase {
         }
     }
 
-    private func updateDefautls() {
-        defaults.date = now
-        defaults.version = version
+    private func updateSettings() {
+        settings.date = now
+        settings.version = version
     }
 
     private func lastVersionDoesNotMatch() -> Bool {
-        return defaults.version != version
+        return settings.version != version
     }
 
     private func isLastDateLaterThanNow() -> Bool {
-        return defaults.date.compare(now) == .orderedDescending
+        return settings.date.compare(now) == .orderedDescending
     }
 
     private func haveThirtyDaysPassedSinceLastDate() -> Bool {
-        guard let date = thirtyDays(after: defaults.date) else { return false }
+        guard let date = thirtyDays(after: settings.date) else { return false }
         return now >= date
     }
 }

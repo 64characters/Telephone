@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-public class PurchaseCheckUseCaseOutputSpy {
+public final class PurchaseCheckUseCaseOutputSpy {
     public fileprivate(set) var didCallDidCheckPurchase = false
     public fileprivate(set) var invokedExpiration = Date.distantPast
     public fileprivate(set) var didCallDidFailCheckingPurchase = false

@@ -66,7 +66,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
     
     if ([username length] > 0) {
         [[self accountController] removeAccountFromUserAgent];
-        [[[self accountController] account] setUsername:username];
+        [[[self accountController] account] updateUsername:username];
         
         [[self accountController] showConnectingState];
         

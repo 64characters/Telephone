@@ -18,6 +18,8 @@
 
 #import "AKSIPUserAgent.h"
 
+@import UseCases;
+
 #import "AKNSString+PJSUA.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
@@ -68,6 +70,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 @property(nonatomic, assign) NSInteger ringbackCount;
 
 @property(nonatomic, readonly) NSThread *thread;
+@property(nonatomic) id<UserAgentAccountEventTarget> accountEventTarget;
 
 /// Updates codecs according to usesG711Only property value.
 - (void)updateCodecs;
@@ -546,12 +549,14 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
         return NO;
     }
     
-    [anAccount setIdentifier:accountIdentifier];
+    [anAccount updateIdentifier:accountIdentifier];
     [anAccount setThread:self.thread];
     
     [[self accounts] addObject:anAccount];
     
     [anAccount setOnline:YES];
+
+    [self.accountEventTarget didAddAccount:anAccount toUserAgent:self];
     
     return YES;
 }
@@ -561,7 +566,8 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
         [anAccount identifier] == kAKSIPUserAgentInvalidIdentifier) {
         return NO;
     }
-    
+
+    [self.accountEventTarget willRemoveAccount:anAccount fromUserAgent:self];
     [anAccount.delegate SIPAccountWillRemove:anAccount];
     
     [anAccount removeAllCalls];
@@ -572,7 +578,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     }
     
     [[self accounts] removeObject:anAccount];
-    [anAccount setIdentifier:kAKSIPUserAgentInvalidIdentifier];
+    [anAccount updateIdentifier:kAKSIPUserAgentInvalidIdentifier];
     
     return YES;
 }
@@ -726,6 +732,10 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     });
     
     return [priorities[identifier] unsignedIntegerValue];
+}
+
+- (void)updateAccountEventTarget:(id<UserAgentAccountEventTarget>)target {
+    self.accountEventTarget = target;
 }
 
 - (NSString *)stringForSIPResponseCode:(NSInteger)responseCode {

@@ -27,6 +27,8 @@ final class CompositionRoot: NSObject {
     let storeWindowController: StoreWindowController
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
+    let settingsMigration: ProgressiveSettingsMigration
+    let applicationDataLocations: ApplicationDataLocations
     let workstationSleepStatus: WorkspaceSleepStatus
     private let defaults: UserDefaults
     private let queue: DispatchQueue
@@ -34,6 +36,7 @@ final class CompositionRoot: NSObject {
     private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
@@ -41,17 +44,17 @@ final class CompositionRoot: NSObject {
         queue = makeQueue()
 
         let audioDevices = SystemAudioDevices()
-        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, defaults: defaults)
+        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, settings: defaults)
 
-        let userDefaultsSoundFactory = UserDefaultsSoundFactory(
-            load: UserDefaultsRingtoneSoundConfigurationLoadUseCase(defaults: defaults, repository: audioDevices),
+        let soundFactory = SimpleSoundFactory(
+            load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, repository: audioDevices),
             factory: NSSoundToSoundAdapterFactory()
         )
 
         ringtonePlayback = ConditionalRingtonePlaybackUseCase(
             origin: DefaultRingtonePlaybackUseCase(
                 factory: RepeatingSoundFactory(
-                    soundFactory: userDefaultsSoundFactory,
+                    soundFactory: soundFactory,
                     timerFactory: FoundationToUseCasesTimerAdapterFactory()
                 )
             ),
@@ -82,9 +85,9 @@ final class CompositionRoot: NSObject {
         storeWindowController = StoreWindowController(contentViewController: storeViewController)
 
         purchaseReminder = PurchaseReminderUseCase(
-            accounts: UserDefaultsSavedAccounts(defaults: defaults),
+            accounts: SettingsAccounts(settings: defaults),
             receipt: receipt,
-            defaults: SimplePurchaseReminderUserDefaults(defaults: defaults),
+            settings: UserDefaultsPurchaseReminderSettings(defaults: defaults),
             now: Date(),
             version: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,
             output: storeWindowController
@@ -96,7 +99,7 @@ final class CompositionRoot: NSObject {
         )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, defaults: defaults),
+            useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, settings: defaults),
             userAgent: userAgent
         )
 
@@ -108,13 +111,20 @@ final class CompositionRoot: NSObject {
                 presenterFactory: PresenterFactory(),
                 userAgentSoundIOSelection: userAgentSoundIOSelection,
                 ringtoneOutputUpdate: RingtoneOutputUpdateUseCase(playback: ringtonePlayback),
-                ringtoneSoundPlayback: DefaultSoundPlaybackUseCase(factory: userDefaultsSoundFactory)
+                ringtoneSoundPlayback: DefaultSoundPlaybackUseCase(factory: soundFactory)
             )
         )
 
         musicPlayer = ConditionalMusicPlayer(
             origin: AvailableMusicPlayers(factory: MusicPlayerFactory()),
-            defaults: SimpleMusicPlayerUserDefaults(defaults: defaults)
+            settings: SimpleMusicPlayerSettings(settings: defaults)
+        )
+
+        settingsMigration = ProgressiveSettingsMigration(settings: defaults, factory: DefaultSettingsMigrationFactory())
+
+        applicationDataLocations = DirectoryCreatingApplicationDataLocations(
+            origin: SimpleApplicationDataLocations(manager: FileManager.default, bundle: Bundle.main),
+            manager: FileManager.default
         )
 
         workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared())
@@ -132,6 +142,25 @@ final class CompositionRoot: NSObject {
                 ]
             ),
             queue: queue
+        )
+
+        let callHistories = DefaultCallHistories(
+            factory: NotifyingCallHistoryFactory(
+                factory: PersistentCallHistoryFactory(
+                    history: TruncatingCallHistoryFactory(limit: 1000),
+                    storage: SimplePropertyListStorageFactory(),
+                    locations: applicationDataLocations
+                )
+            )
+        )
+
+        userAgent.updateAccountEventTarget(callHistories)
+
+        callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default,
+            target: CallHistoryCallEventTarget(
+                histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
+            )
         )
 
         super.init()

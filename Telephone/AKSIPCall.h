@@ -19,9 +19,13 @@
 #import <Foundation/Foundation.h>
 #import <pjsua-lib/pjsua.h>
 
+@import UseCases;
+
 #import "AKSIPCallDelegate.h"
 #import "AKSIPCallNotifications.h"
 
+
+NS_ASSUME_NONNULL_BEGIN
 
 extern const NSInteger kAKSIPCallsMax;
 
@@ -50,108 +54,44 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 
 @class AKSIPAccount, AKSIPURI;
 
-// A class representing a SIP call.
-@interface AKSIPCall : NSObject
+@interface AKSIPCall : NSObject <Call>
 
-// The receiver's delegate.
+@property(nonatomic, readonly) AKSIPAccount<Account> *account;
+@property(nonatomic) NSInteger identifier;
+
 @property(nonatomic, weak) id<AKSIPCallDelegate> delegate;
 
-// The receiver's identifier.
-@property(nonatomic, assign) NSInteger identifier;
+@property(nonatomic) AKSIPCallState state;
+@property(nonatomic, copy) NSString *stateText;
+@property(nonatomic) NSInteger lastStatus;
+@property(nonatomic, copy) NSString *lastStatusText;
+@property(nonatomic) NSInteger transferStatus;
+@property(nonatomic, copy) NSString *transferStatusText;
+@property(nonatomic) NSInteger duration;
 
-// SIP URI of the local Contact header.
-@property(nonatomic, copy) AKSIPURI *localURI;
+@property(nonatomic, readonly, copy) NSDate *date;
+@property(nonatomic, readonly) AKSIPURI *localURI;
+@property(nonatomic, readonly) AKSIPURI *remoteURI;
+@property(nonatomic, readonly, getter=isActive) BOOL active;
+@property(nonatomic, readonly, getter=isMicrophoneMuted) BOOL microphoneMuted;
+@property(nonatomic, readonly, getter=isOnLocalHold) BOOL onLocalHold;
+@property(nonatomic, readonly, getter=isOnRemoteHold) BOOL onRemoteHold;
 
-// SIP URI of the remote Contact header.
-@property(nonatomic, copy) AKSIPURI *remoteURI;
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier;
 
-// Call state.
-@property(assign) AKSIPCallState state;
-
-// Call state text.
-@property(copy) NSString *stateText;
-
-// Call's last status code.
-@property(assign) NSInteger lastStatus;
-
-// Call's last status text.
-@property(copy) NSString *lastStatusText;
-
-// Call transfer status code.
-@property(assign) NSInteger transferStatus;
-
-// Call transfer status text.
-@property(copy) NSString *transferStatusText;
-
-// A Boolean value indicating whether the call is active, i.e. it has active
-// INVITE session and the INVITE session has not been disconnected.
-@property(nonatomic, readonly, assign, getter=isActive) BOOL active;
-
-// A Boolean value indicating whether the call has a media session.
-@property(nonatomic, readonly, assign) BOOL hasMedia;
-
-// A Boolean value indicating whether the call's media is active.
-@property(nonatomic, readonly, assign) BOOL hasActiveMedia;
-
-// A Boolean value indicating whether the call is incoming.
-@property(assign, getter=isIncoming) BOOL incoming;
-
-// A Boolean value indicating whether microphone is muted.
-@property(nonatomic, assign, getter=isMicrophoneMuted) BOOL microphoneMuted;
-
-// A Boolean value indicating whether the call is on local hold.
-@property(nonatomic, readonly, assign, getter=isOnLocalHold) BOOL onLocalHold;
-
-// A Boolean value indicating whether the call is on remote hold.
-@property(nonatomic, readonly, assign, getter=isOnRemoteHold) BOOL onRemoteHold;
-
-// The account the call belongs to.
-@property(nonatomic, weak) AKSIPAccount *account;
-
-// Designated initializer.
-// Initializes a AKSIPCall object with a given SIP account and identifier.
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)anAccount
-              identifier:(NSInteger)anIdentifier;
-
-// Answers the call.
 - (void)answer;
-
-// Hangs-up the call.
 - (void)hangUp;
 
-// Attended call transfer. Sends REFER request to the receiver's remote party to initiate new INVITE session to the URL
-// of |destinationCall|. The party at |destinationCall| then should replace the call with us with the new call from the
-// REFER recipient.
 - (void)attendedTransferToCall:(AKSIPCall *)destinationCall;
 
-// Sends ringing notification to another party.
 - (void)sendRingingNotification;
-
-// Replies with 480 Temporarily Unavailable.
 - (void)replyWithTemporarilyUnavailable;
-
-// Replies with 486 Busy Here.
 - (void)replyWithBusyHere;
 
-// Sends DTMF.
 - (void)sendDTMFDigits:(NSString *)digits;
-
-// Mutes microphone.
-- (void)muteMicrophone;
-
-// Unmutes microphone.
-- (void)unmuteMicrophone;
-
-// Toggles microphone mute.
 - (void)toggleMicrophoneMute;
-
-// Places the call on hold.
-- (void)hold;
-
-// Releases the call from hold.
-- (void)unhold;
-
-// Toggles call hold.
 - (void)toggleHold;
 
 @end
+
+NS_ASSUME_NONNULL_END

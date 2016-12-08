@@ -54,6 +54,7 @@ typedef struct _AKSIPUserAgentCallData {
 extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 
 @class AKSIPAccount, AKSIPCall;
+@protocol UserAgentAccountEventTarget;
 
 // The AKSIPUserAgent class implements SIP User Agent functionality. You can use it to create, configure, and start user
 // agent, add and remove accounts, and set sound devices for input and output. You need to restart the user agent after
@@ -186,6 +187,8 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // You might want to call this method when system audio devices are changed. After calling this method,
 // |setSoundInputDevice:soundOutputDevice:| must be called to set appropriate sound IO.
 - (void)updateAudioDevices;
+
+- (void)updateAccountEventTarget:(id<UserAgentAccountEventTarget>)target NS_SWIFT_NAME(updateAccountEventTarget(_:));
 
 // Returns a string that describes given SIP response code from RFC 3261.
 - (NSString *)stringForSIPResponseCode:(NSInteger)responseCode;
