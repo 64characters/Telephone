@@ -39,7 +39,7 @@ extension DefaultSoundPlaybackUseCase: SoundPlaybackUseCase {
 }
 
 extension DefaultSoundPlaybackUseCase: SoundEventTarget {
-    public func soundDidFinishPlaying() {
-        sound = nil
+    public func didFinishPlaying(_ sound: Sound) {
+        self.sound = nil
     }
 }

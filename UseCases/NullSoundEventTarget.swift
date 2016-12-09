@@ -18,5 +18,5 @@
 
 public final class NullSoundEventTarget: SoundEventTarget {
     public init() {}
-    public func soundDidFinishPlaying() {}
+    public func didFinishPlaying(_ sound: Sound) {}
 }

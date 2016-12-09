@@ -48,6 +48,6 @@ extension NSSoundToSoundAdapter: Sound {
 
 extension NSSoundToSoundAdapter: NSSoundDelegate {
     func sound(_ sound: NSSound, didFinishPlaying flag: Bool) {
-        target.soundDidFinishPlaying()
+        target.didFinishPlaying(self)
     }
 }

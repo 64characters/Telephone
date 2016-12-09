@@ -29,7 +29,7 @@ public final class SoundSpy {
     }
 
     public func notifyObserverOfPlaybackCompletion() {
-        target.soundDidFinishPlaying()
+        target.didFinishPlaying(self)
     }
 }
 

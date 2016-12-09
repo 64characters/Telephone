@@ -17,5 +17,5 @@
 //
 
 public protocol SoundEventTarget {
-    func soundDidFinishPlaying()
+    func didFinishPlaying(_ sound: Sound)
 }
