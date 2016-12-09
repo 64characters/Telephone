@@ -32,17 +32,17 @@ extension NotifyingCallHistory: CallHistory {
 
     public func add(_ record: CallHistoryRecord) {
         origin.add(record)
-        target.callHistoryDidUpdate(self)
+        target.didUpdate(self)
     }
 
     public func remove(_ record: CallHistoryRecord) {
         origin.remove(record)
-        target.callHistoryDidUpdate(self)
+        target.didUpdate(self)
     }
 
     public func removeAll() {
         origin.removeAll()
-        target.callHistoryDidUpdate(self)
+        target.didUpdate(self)
     }
 
     public func updateTarget(_ target: CallHistoryEventTarget) {

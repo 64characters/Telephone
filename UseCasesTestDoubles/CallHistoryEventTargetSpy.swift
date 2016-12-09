@@ -26,7 +26,7 @@ public final class CallHistoryEventTargetSpy {
 }
 
 extension CallHistoryEventTargetSpy: CallHistoryEventTarget {
-    public func callHistoryDidUpdate(_ history: CallHistory) {
+    public func didUpdate(_ history: CallHistory) {
         didUpdateCallCount += 1
     }
 }

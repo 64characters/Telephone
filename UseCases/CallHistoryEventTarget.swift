@@ -17,5 +17,5 @@
 //
 
 public protocol CallHistoryEventTarget {
-    func callHistoryDidUpdate(_ history: CallHistory)
+    func didUpdate(_ history: CallHistory)
 }
