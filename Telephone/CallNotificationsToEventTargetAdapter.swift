@@ -39,6 +39,6 @@ final class CallNotificationsToEventTargetAdapter {
     }
 
     @objc private func SIPCallDidDisconnect(_ notification: Notification) {
-        target.callDidDisconnect(notification.object as! Call)
+        target.didDisconnect(notification.object as! Call)
     }
 }

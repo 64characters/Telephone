@@ -19,13 +19,13 @@
 import UseCases
 
 public final class CallEventTargetSpy {
-    public fileprivate(set) var didCallCallDidDisconnect = false
+    public fileprivate(set) var didCallDidDisconnect = false
 
     public init() {}
 }
 
 extension CallEventTargetSpy: CallEventTarget {
-    public func callDidDisconnect(_ call: Call) {
-        didCallCallDidDisconnect = true
+    public func didDisconnect(_ call: Call) {
+        didCallDidDisconnect = true
     }
 }

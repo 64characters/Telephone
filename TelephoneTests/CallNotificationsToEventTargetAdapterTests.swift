@@ -36,7 +36,7 @@ class CallNotificationsToEventTargetAdapterTests: XCTestCase {
 
             center.post(Notification(name: Notification.Name.AKSIPCallDidDisconnect, object: call, userInfo: nil))
 
-            XCTAssertTrue(target.didCallCallDidDisconnect)
+            XCTAssertTrue(target.didCallDidDisconnect)
         }
     }
 }

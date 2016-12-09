@@ -17,5 +17,5 @@
 //
 
 public protocol CallEventTarget {
-    func callDidDisconnect(_ call: Call)
+    func didDisconnect(_ call: Call)
 }
