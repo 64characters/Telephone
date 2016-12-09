@@ -35,6 +35,6 @@ extension AsyncFailingProductsFake: Products {
     }
 
     private func notifyTarget() {
-        target.productsDidFailFetching(error: "Network is unreachable.")
+        target.didFailFetching(self, error: "Network is unreachable.")
     }
 }

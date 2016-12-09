@@ -55,10 +55,10 @@ extension AsyncProductsFake: Products {
     }
 
     private func notifyTargetWithSuccess() {
-        target.productsDidFetch()
+        target.didFetch(self)
     }
 
     private func notifyTargetWithError() {
-        target.productsDidFailFetching(error: "No network connection.")
+        target.didFailFetching(self, error: "No network connection.")
     }
 }

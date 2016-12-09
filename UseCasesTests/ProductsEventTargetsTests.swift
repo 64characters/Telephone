@@ -47,29 +47,29 @@ final class ProductsEventTargetsTests: XCTestCase {
         XCTAssertTrue(sut[0] === second)
     }
 
-    func testCallsDidFetchProductsOnAllTargets() {
+    func testCallsDidFetchOnAllTargets() {
         let first = ProductsEventTargetSpy()
         let second = ProductsEventTargetSpy()
         let sut = ProductsEventTargets()
         sut.add(first)
         sut.add(second)
 
-        sut.productsDidFetch()
+        sut.didFetch(SimpleProductsFake())
 
-        XCTAssertTrue(first.didCallProductsDidFetch)
-        XCTAssertTrue(second.didCallProductsDidFetch)
+        XCTAssertTrue(first.didCallDidFetch)
+        XCTAssertTrue(second.didCallDidFetch)
     }
 
-    func testCallsDidFailFetchingProductsOnAllTargets() {
+    func testCallsDidFailFetchingOnAllTargets() {
         let first = ProductsEventTargetSpy()
         let second = ProductsEventTargetSpy()
         let sut = ProductsEventTargets()
         sut.add(first)
         sut.add(second)
 
-        sut.productsDidFailFetching(error: "any")
+        sut.didFailFetching(SimpleProductsFake(), error: "any")
 
-        XCTAssertTrue(first.didCallProductsDidFailFetching)
-        XCTAssertTrue(second.didCallProductsDidFailFetching)
+        XCTAssertTrue(first.didCallDidFailFetching)
+        XCTAssertTrue(second.didCallDidFailFetching)
     }
 }

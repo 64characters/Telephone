@@ -17,6 +17,6 @@
 //
 
 public protocol ProductsEventTarget: class {
-    func productsDidFetch()
-    func productsDidFailFetching(error: String)
+    func didFetch(_ products: Products)
+    func didFailFetching(_ products: Products, error: String)
 }

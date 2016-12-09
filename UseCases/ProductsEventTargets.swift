@@ -43,11 +43,11 @@ public final class ProductsEventTargets {
 }
 
 extension ProductsEventTargets: ProductsEventTarget {
-    public func productsDidFetch() {
-        targets.forEach() { $0.productsDidFetch() }
+    public func didFetch(_ products: Products) {
+        targets.forEach() { $0.didFetch(products) }
     }
 
-    public func productsDidFailFetching(error: String) {
-        targets.forEach { $0.productsDidFailFetching(error: error) }
+    public func didFailFetching(_ products: Products, error: String) {
+        targets.forEach { $0.didFailFetching(products, error: error) }
     }
 }
