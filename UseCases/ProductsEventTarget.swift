@@ -1,5 +1,5 @@
 //
-//  Products.swift
+//  ProductsEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Products {
-    var all: [Product] { get }
-    subscript(identifier: String) -> Product? { get }
-    func fetch()
+public protocol ProductsEventTarget: class {
+    func productsDidFetch()
+    func productsDidFailFetching(error: String)
 }
