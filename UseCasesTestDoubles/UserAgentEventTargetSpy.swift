@@ -19,39 +19,39 @@
 import UseCases
 
 public final class UserAgentEventTargetSpy {
-    public fileprivate(set) var didCallUserAgentDidFinishStarting = false
-    public fileprivate(set) var didCallUserAgentDidFinishStopping = false
-    public fileprivate(set) var didCallUserAgentDidDetectNAT = false
+    public fileprivate(set) var didCallDidFinishStarting = false
+    public fileprivate(set) var didCallDidFinishStopping = false
+    public fileprivate(set) var didCallDidDetectNAT = false
     public fileprivate(set) var didCallDidMakeCall = false
     public fileprivate(set) var didCallDidReceiveCall = false
-    public fileprivate(set) var lastPassedUserAgent: UserAgent?
+    public fileprivate(set) var lastPassedAgent: UserAgent?
 
     public init() {}
 }
 
 extension UserAgentEventTargetSpy: UserAgentEventTarget {
-    public func userAgentDidFinishStarting(_ userAgent: UserAgent) {
-        didCallUserAgentDidFinishStarting = true
-        lastPassedUserAgent = userAgent
+    public func didFinishStarting(_ agent: UserAgent) {
+        didCallDidFinishStarting = true
+        lastPassedAgent = agent
     }
 
-    public func userAgentDidFinishStopping(_ userAgent: UserAgent) {
-        didCallUserAgentDidFinishStopping = true
-        lastPassedUserAgent = userAgent
+    public func didFinishStopping(_ agent: UserAgent) {
+        didCallDidFinishStopping = true
+        lastPassedAgent = agent
     }
 
-    public func userAgentDidDetectNAT(_ userAgent: UserAgent) {
-        didCallUserAgentDidDetectNAT = true
-        lastPassedUserAgent = userAgent
+    public func didDetectNAT(_ agent: UserAgent) {
+        didCallDidDetectNAT = true
+        lastPassedAgent = agent
     }
 
-    public func userAgentDidMakeCall(_ userAgent: UserAgent) {
+    public func didMakeCall(_ agent: UserAgent) {
         didCallDidMakeCall = true
-        lastPassedUserAgent = userAgent
+        lastPassedAgent = agent
     }
 
-    public func userAgentDidReceiveCall(_ userAgent: UserAgent) {
+    public func didReceiveCall(_ agent: UserAgent) {
         didCallDidReceiveCall = true
-        lastPassedUserAgent = userAgent
+        lastPassedAgent = agent
     }
 }

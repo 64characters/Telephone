@@ -54,23 +54,23 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
 }
 
 extension DelayingUserAgentSoundIOSelectionUseCase: UserAgentEventTarget {
-    public func userAgentDidFinishStarting(_ userAgent: UserAgent) {
+    public func didFinishStarting(_ agent: UserAgent) {
         execute()
     }
 
-    public func userAgentDidFinishStopping(_ userAgent: UserAgent) {
+    public func didFinishStopping(_ agent: UserAgent) {
         selection = NullThrowingUseCase()
     }
 
-    public func userAgentDidMakeCall(_ userAgent: UserAgent) {
+    public func didMakeCall(_ agent: UserAgent) {
         selectSoundIOOrLogError()
     }
 
-    public func userAgentDidReceiveCall(_ userAgent: UserAgent) {
+    public func didReceiveCall(_ agent: UserAgent) {
         selectSoundIOOrLogError()
     }
 
-    public func userAgentDidDetectNAT(_ userAgent: UserAgent) {}
+    public func didDetectNAT(_ agent: UserAgent) {}
 }
 
 extension DelayingUserAgentSoundIOSelectionUseCase: SystemAudioDevicesChangeEventTarget {

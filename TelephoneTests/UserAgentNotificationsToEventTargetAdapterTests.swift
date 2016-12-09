@@ -37,19 +37,19 @@ final class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
     func testCallsDidFinishStarting() {
         center.post(makeUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidFinishStarting.rawValue))
 
-        XCTAssertTrue(target.didCallUserAgentDidFinishStarting)
+        XCTAssertTrue(target.didCallDidFinishStarting)
     }
 
     func testCallsDidFinishStopping() {
         center.post(makeUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidFinishStopping.rawValue))
 
-        XCTAssertTrue(target.didCallUserAgentDidFinishStopping)
+        XCTAssertTrue(target.didCallDidFinishStopping)
     }
 
     func testCallsDidDetectNAT() {
         center.post(makeUserAgentNotification(name: NSNotification.Name.AKSIPUserAgentDidDetectNAT.rawValue))
 
-        XCTAssertTrue(target.didCallUserAgentDidDetectNAT)
+        XCTAssertTrue(target.didCallDidDetectNAT)
     }
 
     func testCallsDidMakeCall() {
