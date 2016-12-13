@@ -35,14 +35,14 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     // MARK: - Check before fetch
 
     func testNormalPurchaseCheck() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
         XCTAssertEqual(actions, "CpTy")
     }
 
     func testFetchAfterPurchaseCheckFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
 
@@ -50,7 +50,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testFetchFailureAfterPurchaseCheckFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFailFetchingProducts(error: "any")
 
@@ -60,20 +60,20 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     // MARK: - Fetch
 
     func testProductFetchFailureAndReload() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFailFetchingProducts(error: "any")
-        sut.viewDidStartProductFetch()
+        sut.didStartProductFetch()
         sut.didFetch([])
 
         XCTAssertEqual(actions, "CpFFeFSp")
     }
 
     func testProductFetchOnViewReloadAfterProductFetchFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFailFetchingProducts(error: "any")
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
 
@@ -83,10 +83,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     // MARK: - Purchase
 
     func testNormalPurchase() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -95,10 +95,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testPurchaseFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didFailPurchasingProducts(error: "any")
 
@@ -106,10 +106,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testPurchaseCancellation() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didCancelPurchasingProducts()
 
@@ -117,13 +117,13 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testPurchaseAfterPurchaseFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didFailPurchasingProducts(error: "any")
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -132,13 +132,13 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testPurchaseAfterPurchaseCancellation() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didCancelPurchasingProducts()
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -147,12 +147,12 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testPurchaseAfterRestorationFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didFailRestoringPurchases(error: "any")
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -161,12 +161,12 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testPurchaseAfterRestorationCancellation() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didCancelRestoringPurchases()
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didPurchaseProducts()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -177,10 +177,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     // MARK: - Restoration
 
     func testNormalRestoration() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didRestorePurchases()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
@@ -188,30 +188,30 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testRestorationFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didFailRestoringPurchases(error: "any")
 
         XCTAssertEqual(actions, "CpFSpRScpRe")
     }
 
     func testRestorationCancellation() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didCancelRestoringPurchases()
 
         XCTAssertEqual(actions, "CpFSpRScp")
     }
 
     func testRestorationAfterProductFetchFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFailFetchingProducts(error: "any")
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didRestorePurchases()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
@@ -219,32 +219,32 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testRestorationFailureAfterProductFetchFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFailFetchingProducts(error: "any")
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didFailRestoringPurchases(error: "any")
 
         XCTAssertEqual(actions, "CpFFeRScfeRe")
     }
 
     func testRestorationCancellationAfterProductFetchFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFailFetchingProducts(error: "any")
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didCancelRestoringPurchases()
 
         XCTAssertEqual(actions, "CpFFeRScfe")
     }
 
     func testRestorationAfterRestorationFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didFailRestoringPurchases(error: "any")
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didRestorePurchases()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
@@ -252,13 +252,13 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testRestorationAfterPurchaseFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didFailPurchasingProducts(error: "any")
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didRestorePurchases()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
@@ -266,10 +266,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     }
 
     func testRestorationDuringPurchase() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidMakePurchase(product: makePresentationProduct(identifier: "123"))
+        sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
         sut.didRestorePurchases()
         sut.didCheckPurchase(expiration: Date.distantFuture)
@@ -280,19 +280,19 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     // MARK: - Receipt refresh
 
     func testReceiptRefreshAfterProductFetch() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartReceiptRefresh()
+        sut.didStartReceiptRefresh()
 
         XCTAssertEqual(actions, "CpFSpRr")
     }
 
     func testReceiptRefreshAfterProductFetchFailure() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFailFetchingProducts(error: "any")
-        sut.viewDidStartReceiptRefresh()
+        sut.didStartReceiptRefresh()
 
         XCTAssertEqual(actions, "CpFFeRr")
     }
@@ -300,13 +300,13 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     // MARK: - Other
 
     func testShowsThankYouOnViewReloadWhenPurchased() {
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didFailCheckingPurchase()
         sut.didFetch([])
-        sut.viewDidStartPurchaseRestoration()
+        sut.didStartPurchaseRestoration()
         sut.didRestorePurchases()
         sut.didCheckPurchase(expiration: Date.distantFuture)
-        sut.viewShouldReloadData(StoreViewDummy())
+        sut.shouldReloadData()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
         XCTAssertEqual(actions, "CpFSpRCpTyCpTy")

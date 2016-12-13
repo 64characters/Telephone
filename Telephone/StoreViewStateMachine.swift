@@ -51,23 +51,23 @@ extension StoreViewStateMachine {
 
 // StoreViewEventTarget
 extension StoreViewStateMachine {
-    func viewShouldReloadData(_ view: StoreView) {
+    func shouldReloadData() {
         state.viewShouldReloadData(machine: self)
     }
 
-    func viewDidStartProductFetch() {
+    func didStartProductFetch() {
         state.viewDidStartProductFetch(machine: self)
     }
 
-    func viewDidMakePurchase(product: PresentationProduct) {
+    func didStartPurchasing(_ product: PresentationProduct) {
         state.viewDidMakePurchase(machine: self, product: product)
     }
 
-    func viewDidStartPurchaseRestoration() {
+    func didStartPurchaseRestoration() {
         state.viewDidStartPurchaseRestoration(machine: self)
     }
 
-    func viewDidStartReceiptRefresh() {
+    func didStartReceiptRefresh() {
         state.viewDidStartReceiptRefresh(machine: self)
     }
 }

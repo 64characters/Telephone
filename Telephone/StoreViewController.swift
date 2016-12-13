@@ -55,7 +55,7 @@ final class StoreViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        target.viewShouldReloadData(self)
+        target.shouldReloadData()
     }
 
     func updateTarget(_ target: StoreViewEventTarget) {
@@ -63,21 +63,21 @@ final class StoreViewController: NSViewController {
     }
 
     @IBAction func fetchProducts(_ sender: NSButton) {
-        target.viewDidStartProductFetch()
+        target.didStartProductFetch()
     }
 
     @IBAction func purchaseProduct(_ sender: NSButton) {
-        target.viewDidMakePurchase(product: products[productsTableView.row(for: sender)])
+        target.didStartPurchasing(products[productsTableView.row(for: sender)])
     }
 
     @IBAction func restorePurchases(_ sender: NSButton) {
-        target.viewDidStartPurchaseRestoration()
+        target.didStartPurchaseRestoration()
     }
 
     @IBAction func refreshReceipt(_ sender: NSButton) {
         makeReceiptRefreshAlert().beginSheetModal(for: view.window!) { response in
             if response == NSAlertFirstButtonReturn {
-                self.target.viewDidStartReceiptRefresh()
+                self.target.didStartReceiptRefresh()
             }
         }
     }
