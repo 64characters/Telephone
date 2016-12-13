@@ -30,7 +30,7 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
         let sut = CallHistoryCallEventTarget(histories: histories, factory: factory)
         let call = makeCall(account: account)
 
-        sut.callDidDisconnect(call)
+        sut.didDisconnect(call)
 
         XCTAssertTrue(factory.invokedHistory === history)
         XCTAssertEqual(factory.invokedRecord, CallHistoryRecord(call: call))
@@ -43,7 +43,7 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
         let sut = CallHistoryCallEventTarget(histories: histories, factory: CallHistoryRecordAddUseCaseFactoryStub(add: add))
         let call = makeCall(account: SimpleAccount(uuid: "any-id", domain: "any-domain"))
 
-        sut.callDidDisconnect(call)
+        sut.didDisconnect(call)
 
         XCTAssertTrue(add.didCallExecute)
     }

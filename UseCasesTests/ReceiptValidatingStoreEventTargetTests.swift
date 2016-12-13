@@ -41,7 +41,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
 
-        sut.didPurchaseProducts()
+        sut.didPurchase()
 
         XCTAssertTrue(origin.didCallDidPurchase)
     }
@@ -50,7 +50,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
-        sut.didPurchaseProducts()
+        sut.didPurchase()
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertEqual(origin.invokedError, ReceiptValidationResult.receiptIsInvalid.localizedDescription)
@@ -60,7 +60,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
 
-        sut.didPurchaseProducts()
+        sut.didPurchase()
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertEqual(origin.invokedError, ReceiptValidationResult.noActivePurchases.localizedDescription)
@@ -71,7 +71,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
         let error = "any"
 
-        sut.didFailPurchasingProducts(error: error)
+        sut.didFailPurchasing(error: error)
 
         XCTAssertTrue(origin.didCallDidFailPurchasing)
         XCTAssertEqual(origin.invokedError, error)
@@ -81,7 +81,7 @@ final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
-        sut.didCancelPurchasingProducts()
+        sut.didCancelPurchasing()
 
         XCTAssertTrue(origin.didCallDidCancelPurchasing)
     }

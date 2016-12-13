@@ -17,5 +17,5 @@
 //
 
 final class NullCallHistoryEventTarget: CallHistoryEventTarget {
-    func callHistoryDidUpdate(_ history: CallHistory) {}
+    func didUpdate(_ history: CallHistory) {}
 }

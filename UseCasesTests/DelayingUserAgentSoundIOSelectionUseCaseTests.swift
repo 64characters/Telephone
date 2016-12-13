@@ -21,116 +21,116 @@ import UseCasesTestDoubles
 import XCTest
 
 final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
-    private var userAgent: UserAgentSpy!
+    private var agent: UserAgentSpy!
     private var sut: DelayingUserAgentSoundIOSelectionUseCase!
 
     override func setUp() {
         super.setUp()
-        userAgent = UserAgentSpy()
+        agent = UserAgentSpy()
         sut = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCaseFake(userAgent: userAgent),
-            userAgent: userAgent
+            useCase: UserAgentSoundIOSelectionUseCaseFake(userAgent: agent),
+            userAgent: agent
         )
     }
 
-    func testDoesNotSelectIOOnUserAgentDidFinishStarting() {
-        sut.userAgentDidFinishStarting(userAgent)
+    func testDoesNotSelectIOOnDidFinishStarting() {
+        sut.didFinishStarting(agent)
 
-        XCTAssertFalse(userAgent.didSelectSoundIO)
+        XCTAssertFalse(agent.didSelectSoundIO)
     }
 
-    func testSelectsIOOnUserAgentDidMakeCall() {
-        sut.userAgentDidFinishStarting(userAgent)
+    func testSelectsIOOnDidMakeCall() {
+        sut.didFinishStarting(agent)
 
-        sut.userAgentDidMakeCall(userAgent)
+        sut.didMakeCall(agent)
 
-        XCTAssertTrue(userAgent.didSelectSoundIO)
+        XCTAssertTrue(agent.didSelectSoundIO)
     }
 
-    func testSelectsIOOnUserAgentDidReceiveCall() {
-        sut.userAgentDidFinishStarting(userAgent)
+    func testSelectsIOOnDidReceiveCall() {
+        sut.didFinishStarting(agent)
 
-        sut.userAgentDidReceiveCall(userAgent)
+        sut.didReceiveCall(agent)
 
-        XCTAssertTrue(userAgent.didSelectSoundIO)
+        XCTAssertTrue(agent.didSelectSoundIO)
     }
 
     func testSelectsIOOnceWhenUserAgentMakesOrReceivesCallMoreThanOnce() {
-        sut.userAgentDidFinishStarting(userAgent)
+        sut.didFinishStarting(agent)
 
-        sut.userAgentDidMakeCall(userAgent)
-        sut.userAgentDidReceiveCall(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
-        sut.userAgentDidReceiveCall(userAgent)
+        sut.didMakeCall(agent)
+        sut.didReceiveCall(agent)
+        sut.didMakeCall(agent)
+        sut.didReceiveCall(agent)
 
-        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 1)
+        XCTAssertEqual(agent.soundIOSelectionCallCount, 1)
     }
 
-    func testSelectsIOOnUserAgentDidMakeCallAfterRestart() {
-        sut.userAgentDidFinishStarting(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
+    func testSelectsIOOnDidMakeCallAfterRestart() {
+        sut.didFinishStarting(agent)
+        sut.didMakeCall(agent)
 
-        sut.userAgentDidFinishStopping(userAgent)
-        sut.userAgentDidFinishStarting(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
+        sut.didFinishStopping(agent)
+        sut.didFinishStarting(agent)
+        sut.didMakeCall(agent)
 
-        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+        XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
     func testDoesNotSelectIOIfUserAgentWasNotStarted() {
-        sut.userAgentDidMakeCall(userAgent)
-        sut.userAgentDidReceiveCall(userAgent)
+        sut.didMakeCall(agent)
+        sut.didReceiveCall(agent)
 
-        XCTAssertFalse(userAgent.didSelectSoundIO)
+        XCTAssertFalse(agent.didSelectSoundIO)
     }
 
     func testDoesNotSelectIOIfUserAgentWasStopped() {
-        sut.userAgentDidFinishStarting(userAgent)
+        sut.didFinishStarting(agent)
 
-        sut.userAgentDidFinishStopping(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
-        sut.userAgentDidReceiveCall(userAgent)
+        sut.didFinishStopping(agent)
+        sut.didMakeCall(agent)
+        sut.didReceiveCall(agent)
 
-        XCTAssertFalse(userAgent.didSelectSoundIO)
+        XCTAssertFalse(agent.didSelectSoundIO)
     }
 
-    func testSelectsIOOnUserAgentDidMakeCallAfterExecuteIsCalled() {
-        sut.userAgentDidFinishStarting(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
+    func testSelectsIOOnDidMakeCallAfterExecuteIsCalled() {
+        sut.didFinishStarting(agent)
+        sut.didMakeCall(agent)
 
         sut.execute()
-        sut.userAgentDidMakeCall(userAgent)
+        sut.didMakeCall(agent)
 
-        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+        XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOOnUserAgentDidMakeCallAfterSystemAudioDevicesUpdate() {
-        sut.userAgentDidFinishStarting(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
+    func testSelectsIOOnDidMakeCallAfterSystemAudioDevicesUpdate() {
+        sut.didFinishStarting(agent)
+        sut.didMakeCall(agent)
 
         sut.systemAudioDevicesDidUpdate()
-        sut.userAgentDidMakeCall(userAgent)
+        sut.didMakeCall(agent)
 
-        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+        XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOOnUserAgentDidReceiveCallAfterSystemAudioDevicesUpdate() {
-        sut.userAgentDidFinishStarting(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
+    func testSelectsIOOnDidReceiveCallAfterSystemAudioDevicesUpdate() {
+        sut.didFinishStarting(agent)
+        sut.didMakeCall(agent)
 
         sut.systemAudioDevicesDidUpdate()
-        sut.userAgentDidReceiveCall(userAgent)
+        sut.didReceiveCall(agent)
 
-        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+        XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
     func testSelectsIOOnExecuteWhenUserAgentHasActiveCalls() {
-        sut.userAgentDidFinishStarting(userAgent)
-        sut.userAgentDidMakeCall(userAgent)
-        userAgent.simulateActiveCalls()
+        sut.didFinishStarting(agent)
+        sut.didMakeCall(agent)
+        agent.simulateActiveCalls()
 
         sut.systemAudioDevicesDidUpdate()
 
-        XCTAssertEqual(userAgent.soundIOSelectionCallCount, 2)
+        XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 }

@@ -17,10 +17,10 @@
 //
 
 public protocol UserAgentEventTarget: class {
-    func userAgentDidFinishStarting(_ userAgent: UserAgent)
-    func userAgentDidFinishStopping(_ userAgent: UserAgent)
-    func userAgentDidDetectNAT(_ userAgent: UserAgent)
+    func didFinishStarting(_ agent: UserAgent)
+    func didFinishStopping(_ agent: UserAgent)
+    func didDetectNAT(_ agent: UserAgent)
 
-    func userAgentDidMakeCall(_ userAgent: UserAgent)
-    func userAgentDidReceiveCall(_ userAgent: UserAgent)
+    func didMakeCall(_ agent: UserAgent)
+    func didReceiveCall(_ agent: UserAgent)
 }

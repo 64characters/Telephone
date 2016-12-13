@@ -1,5 +1,5 @@
 //
-//  ProductsEventTargetSpy.swift
+//  ProductsEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class ProductsEventTargetSpy {
-    public fileprivate(set) var didCallDidFetch = false
-    public fileprivate(set) var didCallDidFailFetching = false
-
-    public init() {}
-}
-
-extension ProductsEventTargetSpy: ProductsEventTarget {
-    public func didFetch(_ products: Products) {
-        didCallDidFetch = true
-    }
-
-    public func didFailFetching(_ products: Products, error: String) {
-        didCallDidFailFetching = true
-    }
+public protocol ProductsEventTarget: class {
+    func didFetch(_ products: Products)
+    func didFailFetching(_ products: Products, error: String)
 }

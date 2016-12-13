@@ -24,42 +24,42 @@ final class UserAgentEventTargetsTests: XCTestCase {
     private var sut: UserAgentEventTargets!
     private var target1: UserAgentEventTargetSpy!
     private var target2: UserAgentEventTargetSpy!
-    private var userAgent: UserAgentSpy!
+    private var agent: UserAgentSpy!
 
     override func setUp() {
         super.setUp()
         target1 = UserAgentEventTargetSpy()
         target2 = UserAgentEventTargetSpy()
         sut = UserAgentEventTargets(targets: [target1, target2])
-        userAgent = UserAgentSpy()
+        agent = UserAgentSpy()
     }
 
     func testCallsDidFinishStartingOnAllChildren() {
-        sut.userAgentDidFinishStarting(userAgent)
+        sut.didFinishStarting(agent)
 
-        XCTAssertTrue(target1.didCallUserAgentDidFinishStarting)
-        XCTAssertTrue(target2.didCallUserAgentDidFinishStarting)
+        XCTAssertTrue(target1.didCallDidFinishStarting)
+        XCTAssertTrue(target2.didCallDidFinishStarting)
         assertUserAgent()
     }
 
     func testCallsDidFinishStoppingOnAllChildren() {
-        sut.userAgentDidFinishStopping(userAgent)
+        sut.didFinishStopping(agent)
 
-        XCTAssertTrue(target1.didCallUserAgentDidFinishStopping)
-        XCTAssertTrue(target2.didCallUserAgentDidFinishStopping)
+        XCTAssertTrue(target1.didCallDidFinishStopping)
+        XCTAssertTrue(target2.didCallDidFinishStopping)
         assertUserAgent()
     }
 
     func testCallsDidDetectNATOnAllChildren() {
-        sut.userAgentDidDetectNAT(userAgent)
+        sut.didDetectNAT(agent)
 
-        XCTAssertTrue(target1.didCallUserAgentDidDetectNAT)
-        XCTAssertTrue(target2.didCallUserAgentDidDetectNAT)
+        XCTAssertTrue(target1.didCallDidDetectNAT)
+        XCTAssertTrue(target2.didCallDidDetectNAT)
         assertUserAgent()
     }
 
     func testCallsDidMakeCallOnAllChildren() {
-        sut.userAgentDidMakeCall(userAgent)
+        sut.didMakeCall(agent)
 
         XCTAssertTrue(target1.didCallDidMakeCall)
         XCTAssertTrue(target2.didCallDidMakeCall)
@@ -67,7 +67,7 @@ final class UserAgentEventTargetsTests: XCTestCase {
     }
 
     func testCallsDidReceiveCallOnAllChildren() {
-        sut.userAgentDidReceiveCall(userAgent)
+        sut.didReceiveCall(agent)
 
         XCTAssertTrue(target1.didCallDidReceiveCall)
         XCTAssertTrue(target2.didCallDidReceiveCall)
@@ -75,7 +75,7 @@ final class UserAgentEventTargetsTests: XCTestCase {
     }
 
     private func assertUserAgent() {
-        XCTAssertTrue(target1.lastPassedUserAgent === userAgent)
-        XCTAssertTrue(target2.lastPassedUserAgent === userAgent)
+        XCTAssertTrue(target1.lastPassedAgent === agent)
+        XCTAssertTrue(target2.lastPassedAgent === agent)
     }
 }

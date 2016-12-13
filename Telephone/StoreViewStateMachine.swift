@@ -41,7 +41,7 @@ protocol StoreViewStateMachine: PurchaseCheckUseCaseOutput, StoreViewEventTarget
 // PurchaseCheckUseCaseOutput
 extension StoreViewStateMachine {
     func didCheckPurchase(expiration: Date) {
-        state.didCheckPurchase(machine: self, expiration: expiration)
+        state.didCheckPurchase(expiration: expiration, machine: self)
     }
 
     func didFailCheckingPurchase() {
@@ -51,54 +51,54 @@ extension StoreViewStateMachine {
 
 // StoreViewEventTarget
 extension StoreViewStateMachine {
-    func viewShouldReloadData(_ view: StoreView) {
-        state.viewShouldReloadData(machine: self)
+    func shouldReloadData() {
+        state.shouldReloadData(machine: self)
     }
 
-    func viewDidStartProductFetch() {
-        state.viewDidStartProductFetch(machine: self)
+    func didStartProductFetch() {
+        state.didStartProductFetch(machine: self)
     }
 
-    func viewDidMakePurchase(product: PresentationProduct) {
-        state.viewDidMakePurchase(machine: self, product: product)
+    func didStartPurchasing(_ product: PresentationProduct) {
+        state.viewDidStartPurchasing(product, machine: self)
     }
 
-    func viewDidStartPurchaseRestoration() {
-        state.viewDidStartPurchaseRestoration(machine: self)
+    func didStartPurchaseRestoration() {
+        state.didStartPurchaseRestoration(machine: self)
     }
 
-    func viewDidStartReceiptRefresh() {
-        state.viewDidStartReceiptRefresh(machine: self)
+    func didStartReceiptRefresh() {
+        state.didStartReceiptRefresh(machine: self)
     }
 }
 
 // ProductsFetchUseCaseOutput
 extension StoreViewStateMachine {
     func didFetch(_ products: [Product]) {
-        state.didFetchProducts(machine: self, products: products)
+        state.didFetch(products, machine: self)
     }
 
     func didFailFetchingProducts(error: String) {
-        state.didFailFetchingProducts(machine: self, error: error)
+        state.didFailFetchingProducts(error: error, machine: self)
     }
 }
 
 // StoreEventTarget
 extension StoreViewStateMachine {
     func didStartPurchasingProduct(withIdentifier identifier: String) {
-        state.didStartPurchasingProduct(machine: self, identifier: identifier)
+        state.didStartPurchasing(machine: self)
     }
 
-    func didPurchaseProducts() {
-        state.didPurchaseProducts(machine: self)
+    func didPurchase() {
+        state.didPurchase(machine: self)
     }
 
-    func didFailPurchasingProducts(error: String) {
-        state.didFailPurchasingProducts(machine: self, error: error)
+    func didFailPurchasing(error: String) {
+        state.didFailPurchasing(error: error, machine: self)
     }
 
-    func didCancelPurchasingProducts() {
-        state.didCancelPurchasingProducts(machine: self)
+    func didCancelPurchasing() {
+        state.didCancelPurchasing(machine: self)
     }
 
     func didRestorePurchases() {
@@ -106,7 +106,7 @@ extension StoreViewStateMachine {
     }
 
     func didFailRestoringPurchases(error: String) {
-        state.didFailRestoringPurchases(machine: self, error: error)
+        state.didFailRestoringPurchases(error: error, machine: self)
     }
 
     func didCancelRestoringPurchases() {

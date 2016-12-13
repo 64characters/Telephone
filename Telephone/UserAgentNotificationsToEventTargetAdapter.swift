@@ -75,24 +75,24 @@ final class UserAgentNotificationsToEventTargetAdapter {
 
     @objc private func SIPUserAgentDidFinishStarting(_ notification: Notification) {
         assert(agent === notification.object as! UserAgent)
-        target.userAgentDidFinishStarting(agent)
+        target.didFinishStarting(agent)
     }
 
     @objc private func SIPUserAgentDidFinishStopping(_ notification: Notification) {
         assert(agent === notification.object as! UserAgent)
-        target.userAgentDidFinishStopping(agent)
+        target.didFinishStopping(agent)
     }
 
     @objc private func SIPUserAgentDidDetectNAT(_ notification: Notification) {
         assert(agent === notification.object as! UserAgent)
-        target.userAgentDidDetectNAT(agent)
+        target.didDetectNAT(agent)
     }
 
     @objc private func SIPUserAgentDidMakeCall(_ notification: Notification) {
-        target.userAgentDidMakeCall(agent)
+        target.didMakeCall(agent)
     }
 
     @objc private func SIPUserAgentDidReceiveCall(_ notification: Notification) {
-        target.userAgentDidReceiveCall(agent)
+        target.didReceiveCall(agent)
     }
 }

@@ -60,7 +60,7 @@ extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async {
             (self.products, self.storeKitProducts) = self.productMaps(with: response.products)
-            self.target.productsDidFetch()
+            self.target.didFetch(self)
         }
     }
 
@@ -106,7 +106,7 @@ extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
 
     private func notifyEventTargetAboutProductFetchFailure(request: SKRequest, error: String) {
         if request === self.request {
-            self.target.productsDidFailFetching(error: error)
+            self.target.didFailFetching(self, error: error)
         }
     }
 

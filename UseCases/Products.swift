@@ -21,8 +21,3 @@ public protocol Products {
     subscript(identifier: String) -> Product? { get }
     func fetch()
 }
-
-public protocol ProductsEventTarget: class {
-    func productsDidFetch()
-    func productsDidFailFetching(error: String)
-}

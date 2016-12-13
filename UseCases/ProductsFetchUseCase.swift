@@ -41,12 +41,12 @@ extension ProductsFetchUseCase: UseCase {
 }
 
 extension ProductsFetchUseCase: ProductsEventTarget {
-    public func productsDidFetch() {
+    public func didFetch(_ products: Products) {
         output.didFetch(products.all)
         targets.remove(self)
     }
 
-    public func productsDidFailFetching(error: String) {
+    public func didFailFetching(_ products: Products, error: String) {
         output.didFailFetchingProducts(error: error)
         targets.remove(self)
     }

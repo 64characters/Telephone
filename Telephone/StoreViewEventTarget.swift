@@ -17,9 +17,9 @@
 //
 
 protocol StoreViewEventTarget {
-    func viewShouldReloadData(_ view: StoreView)
-    func viewDidStartProductFetch()
-    func viewDidMakePurchase(product: PresentationProduct)
-    func viewDidStartPurchaseRestoration()
-    func viewDidStartReceiptRefresh()
+    func shouldReloadData()
+    func didStartProductFetch()
+    func didStartPurchasing(_ product: PresentationProduct)
+    func didStartPurchaseRestoration()
+    func didStartReceiptRefresh()
 }

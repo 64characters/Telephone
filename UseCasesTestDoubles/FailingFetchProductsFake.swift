@@ -34,6 +34,6 @@ extension FailingFetchProductsFake: Products {
     }
 
     public func fetch() {
-        target.productsDidFailFetching(error: error)
+        target.didFailFetching(self, error: error)
     }
 }

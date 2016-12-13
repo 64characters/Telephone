@@ -37,6 +37,6 @@ extension SuccessfulFetchProductsFake: Products {
     }
 
     public func fetch() {
-        target.productsDidFetch()
+        target.didFetch(self)
     }
 }

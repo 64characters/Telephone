@@ -50,9 +50,9 @@ extension FailingStoreFake: Store {
 
     private func notifyTargetAboutPurchaseFailure() {
         if attempts % 2 == 0 {
-            target.didCancelPurchasingProducts()
+            target.didCancelPurchasing()
         } else {
-            target.didFailPurchasingProducts(error: error)
+            target.didFailPurchasing(error: error)
         }
     }
 }
