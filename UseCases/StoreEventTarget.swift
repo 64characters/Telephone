@@ -19,9 +19,9 @@
 public protocol StoreEventTarget {
     func didStartPurchasingProduct(withIdentifier identifier: String)
 
-    func didPurchaseProducts()
-    func didFailPurchasingProducts(error: String)
-    func didCancelPurchasingProducts()
+    func didPurchase()
+    func didFailPurchasing(error: String)
+    func didCancelPurchasing()
 
     func didRestorePurchases()
     func didFailRestoringPurchases(error: String)

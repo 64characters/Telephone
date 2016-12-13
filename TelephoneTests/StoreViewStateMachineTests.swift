@@ -88,7 +88,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didPurchaseProducts()
+        sut.didPurchase()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
         XCTAssertEqual(actions, "CpFSpP123SppCpTy")
@@ -100,7 +100,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didFailPurchasingProducts(error: "any")
+        sut.didFailPurchasing(error: "any")
 
         XCTAssertEqual(actions, "CpFSpP123SppScpPe")
     }
@@ -111,7 +111,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didCancelPurchasingProducts()
+        sut.didCancelPurchasing()
 
         XCTAssertEqual(actions, "CpFSpP123SppScp")
     }
@@ -122,10 +122,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didFailPurchasingProducts(error: "any")
+        sut.didFailPurchasing(error: "any")
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didPurchaseProducts()
+        sut.didPurchase()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
         XCTAssertEqual(actions, "CpFSpP123SppScpPeP123SppCpTy")
@@ -137,10 +137,10 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didCancelPurchasingProducts()
+        sut.didCancelPurchasing()
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didPurchaseProducts()
+        sut.didPurchase()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
         XCTAssertEqual(actions, "CpFSpP123SppScpP123SppCpTy")
@@ -154,7 +154,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFailRestoringPurchases(error: "any")
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didPurchaseProducts()
+        sut.didPurchase()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
         XCTAssertEqual(actions, "CpFSpRScpReP123SppCpTy")
@@ -168,7 +168,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didCancelRestoringPurchases()
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didPurchaseProducts()
+        sut.didPurchase()
         sut.didCheckPurchase(expiration: Date.distantFuture)
 
         XCTAssertEqual(actions, "CpFSpRScpP123SppCpTy")
@@ -257,7 +257,7 @@ final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
         sut.didFetch([])
         sut.didStartPurchasing(makePresentationProduct(identifier: "123"))
         sut.didStartPurchasingProduct(withIdentifier: "123")
-        sut.didFailPurchasingProducts(error: "any")
+        sut.didFailPurchasing(error: "any")
         sut.didStartPurchaseRestoration()
         sut.didRestorePurchases()
         sut.didCheckPurchase(expiration: Date.distantFuture)

@@ -41,16 +41,16 @@ extension StoreEventTargetSpy: StoreEventTarget {
         invokedIdentifier = identifier
     }
 
-    public func didPurchaseProducts() {
+    public func didPurchase() {
         didCallDidPurchase = true
     }
 
-    public func didFailPurchasingProducts(error: String) {
+    public func didFailPurchasing(error: String) {
         didCallDidFailPurchasing = true
         invokedError = error
     }
 
-    public func didCancelPurchasingProducts() {
+    public func didCancelPurchasing() {
         didCallDidCancelPurchasing = true
     }
 

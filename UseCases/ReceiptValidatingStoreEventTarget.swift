@@ -31,18 +31,18 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didStartPurchasingProduct(withIdentifier: identifier)
     }
 
-    public func didPurchaseProducts() {
+    public func didPurchase() {
         receipt.validate { result in
             self.notifyOriginAboutPurchase(with: result)
         }
     }
 
-    public func didFailPurchasingProducts(error: String) {
-        origin.didFailPurchasingProducts(error: error)
+    public func didFailPurchasing(error: String) {
+        origin.didFailPurchasing(error: error)
     }
 
-    public func didCancelPurchasingProducts() {
-        origin.didCancelPurchasingProducts()
+    public func didCancelPurchasing() {
+        origin.didCancelPurchasing()
     }
 
     public func didRestorePurchases() {
@@ -61,9 +61,9 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
 
     private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) {
         if case .receiptIsValid = result {
-            origin.didPurchaseProducts()
+            origin.didPurchase()
         } else {
-            origin.didFailPurchasingProducts(error: result.localizedDescription)
+            origin.didFailPurchasing(error: result.localizedDescription)
         }
     }
 

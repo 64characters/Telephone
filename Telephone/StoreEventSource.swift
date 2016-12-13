@@ -66,7 +66,7 @@ extension StoreEventSource: SKPaymentTransactionObserver {
     }
 
     private func handlePurchased(_ transactions: [SKPaymentTransaction]) {
-        if transactions.count > 0 { target.didPurchaseProducts() }
+        if transactions.count > 0 { target.didPurchase() }
         transactions.forEach { queue.finishTransaction($0) }
     }
 
@@ -86,15 +86,15 @@ extension StoreEventSource: SKPaymentTransactionObserver {
         if let error = transaction.error {
             notifyTargetAboutFailedPurchase(error: error)
         } else {
-            target.didFailPurchasingProducts(error: localizedUnknownError())
+            target.didFailPurchasing(error: localizedUnknownError())
         }
     }
 
     private func notifyTargetAboutFailedPurchase(error: Error) {
         if isCancelled(error) {
-            target.didCancelPurchasingProducts()
+            target.didCancelPurchasing()
         } else {
-            target.didFailPurchasingProducts(error: error.localizedDescription)
+            target.didFailPurchasing(error: error.localizedDescription)
         }
     }
 
