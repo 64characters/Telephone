@@ -511,6 +511,9 @@ NSString * const kGerman = @"de";
 
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Available", @"Account registration Available menu item.")];
     [[self accountStateImageView] setImage:[NSImage imageNamed:@"available-state"]];
+
+    [[self availableStateItem] setState:NSOnState];
+    [[self unavailableStateItem] setState:NSOffState];
     
     if (![self isActiveViewDisplayed]) {
         [[self window] setContentView:[[self activeAccountViewController] view]];
@@ -535,6 +538,9 @@ NSString * const kGerman = @"de";
 
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.")];
     [[self accountStateImageView] setImage:[NSImage imageNamed:@"unavailable-state"]];
+
+    [[self availableStateItem] setState:NSOffState];
+    [[self unavailableStateItem] setState:NSOnState];
     
     if (![self isActiveViewDisplayed]) {
         [[self window] setContentView:[[self activeAccountViewController] view]];
@@ -559,6 +565,9 @@ NSString * const kGerman = @"de";
 
     [[self accountStatePopUp] setTitle:NSLocalizedString(@"Offline", @"Account registration Offline menu item.")];
     [[self accountStateImageView] setImage:[NSImage imageNamed:@"offline-state"]];
+
+    [[self availableStateItem] setState:NSOffState];
+    [[self unavailableStateItem] setState:NSOffState];
     
     NSRect frame = [[[self window] contentView] frame];
     NSView *emptyView = [[NSView alloc] initWithFrame:frame];
