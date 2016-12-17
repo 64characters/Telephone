@@ -42,10 +42,14 @@ extension PurchaseReceiptAttributesValidation: ReceiptValidation {
     }
 
     private func isReceiptValid(_ receipt: ASN1PurchaseReceipt) -> Bool {
-        return !receipt.isCancelled && receipt.expiration >= Date() && identifiers.contains(receipt.identifier)
+        return !receipt.isCancelled && sixMonths(after: receipt.expiration) >= Date() && identifiers.contains(receipt.identifier)
     }
 }
 
 private func hasEarlierExpirationDate(_ lhs: ASN1PurchaseReceipt, _ rhs: ASN1PurchaseReceipt) -> Bool {
     return lhs.expiration < rhs.expiration
+}
+
+private func sixMonths(after date: Date) -> Date {
+    return date.addingTimeInterval(60 * 60 * 24 * 30 * 6)
 }
