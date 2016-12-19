@@ -932,7 +932,7 @@ NSString * const kGerman = @"de";
     
     // Address Book search ends here.
     
-    [[aCallController window] setTitle:[[aCall remoteURI] SIPAddress]];
+    [[aCallController window] setTitle:([[aCall remoteURI] SIPAddress] ?: @"")];
     [aCallController setDisplayedName:finalDisplayedName];
     [aCallController setStatus:finalStatus];
     [aCallController setRedialURI:[aCall remoteURI]];
