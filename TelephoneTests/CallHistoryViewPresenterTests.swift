@@ -45,10 +45,7 @@ final class CallHistoryViewPresenterTests: XCTestCase {
 
 private func makeContact(record: CallHistoryRecord, number: Int) -> Contact {
     return Contact(
-        name: "any-name-\(number)",
-        address: LabeledContactAddress(
-            origin: ContactAddress(user: record.user, host: record.host), label: "any-label-\(number)"
-        )
+        name: "any-name-\(number)", address: LabeledContactAddress(origin: record.address, label: "any-label-\(number)")
     )
 }
 

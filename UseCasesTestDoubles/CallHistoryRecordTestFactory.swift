@@ -23,8 +23,7 @@ public final class CallHistoryRecordTestFactory {
 
     public func makeRecord(number: Int) -> CallHistoryRecord {
         return CallHistoryRecord(
-            user: "user-\(number)",
-            host: "host-\(number)",
+            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
             date: Date(),
             duration: 60,
             isIncoming: false,

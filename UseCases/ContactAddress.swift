@@ -25,4 +25,14 @@ public struct ContactAddress {
         self.user = user
         self.host = host
     }
+
+    public init(_ uri: URI) {
+        self.init(user: uri.user, host: uri.host)
+    }
+}
+
+extension ContactAddress: Equatable {
+    public static func ==(lhs: ContactAddress, rhs: ContactAddress) -> Bool {
+        return lhs.user == rhs.user && lhs.host == rhs.host
+    }
 }
