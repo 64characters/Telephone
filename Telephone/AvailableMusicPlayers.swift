@@ -27,6 +27,9 @@ final class AvailableMusicPlayers {
         if let p = factory.makeSpotifyMusicPlayer() {
             players.append(p)
         }
+        if let p = factory.makeDeezerMusicPlayer() {
+            players.append(p)
+        }
         self.players = MusicPlayers(players: players)
     }
 }

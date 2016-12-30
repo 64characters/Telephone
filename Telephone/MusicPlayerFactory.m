@@ -22,6 +22,8 @@
 #import "iTunes.h"
 #import "Spotify.h"
 #import "SpotifyMusicPlayer.h"
+#import "Deezer.h"
+#import "DeezerMusicPlayer.h"
 
 @implementation MusicPlayerFactory
 
@@ -38,6 +40,15 @@
     SBApplication *application = [SBApplication applicationWithBundleIdentifier:@"com.spotify.client"];
     if (application) {
         return [[SpotifyMusicPlayer alloc] initWithApplication:(SpotifyApplication *)application];
+    } else {
+        return nil;
+    }
+}
+
+- (nullable id<MusicPlayer>)makeDeezerMusicPlayer {
+    SBApplication *application = [SBApplication applicationWithBundleIdentifier:@"com.deezer.Deezer"];
+    if (application) {
+        return [[DeezerMusicPlayer alloc] initWithApplication:(DeezerApplication *)application];
     } else {
         return nil;
     }

@@ -1,5 +1,5 @@
 //
-//  MusicPlayerFactory.h
+//  DeezerMusicPlayer.h
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -17,16 +17,16 @@
 //
 
 @import Foundation;
+@import UseCases;
 
-#import "MusicPlayer.h"
+@class DeezerApplication;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MusicPlayerFactory : NSObject
+@interface DeezerMusicPlayer : NSObject <MusicPlayer>
 
-- (nullable id<MusicPlayer>)makeAppleMusicPlayer;
-- (nullable id<MusicPlayer>)makeSpotifyMusicPlayer;
-- (nullable id<MusicPlayer>)makeDeezerMusicPlayer;
+- (instancetype)initWithApplication:(DeezerApplication *)application NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 

@@ -55,7 +55,7 @@
                         </customView>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="520">
                             <rect key="frame" x="-2" y="38" width="242" height="18"/>
-                            <buttonCell key="cell" type="check" title="Pause iTunes and Spotify during call" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="521">
+                            <buttonCell key="cell" type="check" title="Pause iTunes/Spotify/Deezer during call" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="521">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
