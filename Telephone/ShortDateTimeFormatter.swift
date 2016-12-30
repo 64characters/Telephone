@@ -21,8 +21,7 @@ import Foundation
 final class ShortDateTimeFormatter: DateFormatter {
     override init() {
         super.init()
-        dateStyle = .short
-        timeStyle = .short
+        setLocalizedDateFormatFromTemplate("MMMdjmm")
     }
 
     required init?(coder decoder: NSCoder) {
