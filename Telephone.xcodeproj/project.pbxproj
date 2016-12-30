@@ -105,6 +105,8 @@
 		8A39A1D21D5E315600D703AD /* CertificateFingerprintValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */; };
 		8A39A1D41D5E36FA00D703AD /* ReceiptValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
+		8A42E0C51E168DB300CE09B8 /* ShortDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */; };
+		8A42E0C61E168DB300CE09B8 /* ShortDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */; };
 		8A46FDBB1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */; };
 		8A46FDBD1DD4A8100022A822 /* NSString+Analyzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */; };
 		8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */; };
@@ -765,6 +767,7 @@
 		8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7SignatureValidation.swift; sourceTree = "<group>"; };
 		8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateFingerprintValidation.swift; sourceTree = "<group>"; };
 		8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptValidation.swift; sourceTree = "<group>"; };
+		8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortDateTimeFormatter.swift; sourceTree = "<group>"; };
 		8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordAddUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordAddUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Analyzing.swift"; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateUseCaseTests.swift; path = UseCasesTests/RingtoneOutputUpdateUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1871,6 +1874,7 @@
 				8A778C051E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift */,
 				8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */,
 				8ACB9C831E13F93C0081A0A5 /* PresentationContactAddress.swift */,
+				8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */,
 				8AD9A0DD1DE34ECE000BB2F2 /* TruncatingCallHistoryFactory.swift */,
 			);
 			name = "Call History";
@@ -3011,6 +3015,7 @@
 				8ADA109A1DC8D20E0038E0A5 /* SettingsMigration.swift in Sources */,
 				8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */,
 				AA1019901C49486500869D01 /* SimpleSoundFactory.swift in Sources */,
+				8A42E0C51E168DB300CE09B8 /* ShortDateTimeFormatter.swift in Sources */,
 				8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
 				AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */,
 				AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */,
@@ -3231,6 +3236,7 @@
 				8AB5A0CC1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
 				8ADD6A501CDCF828001EDBBA /* DefaultStoreUseCaseFactory.swift in Sources */,
 				8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
+				8A42E0C61E168DB300CE09B8 /* ShortDateTimeFormatter.swift in Sources */,
 				8A778C0C1E0C116F004B00B8 /* PresentationCallHistoryRecord.swift in Sources */,
 				8ADD6A611CDD0130001EDBBA /* StoreViewDummy.swift in Sources */,
 				8ADD6A5D1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift in Sources */,

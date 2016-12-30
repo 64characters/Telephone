@@ -28,7 +28,7 @@ final class CallHistoryViewPresenterTests: XCTestCase {
         let contact1 = makeContact(record: record1, number: 1)
         let contact2 = makeContact(record: record2, number: 2)
         let view = CallHistoryViewSpy()
-        let sut = CallHistoryViewPresenter(view: view)
+        let sut = CallHistoryViewPresenter(view: view, dateFormatter: ShortDateTimeFormatter())
         let expected1 = makePresentationCallHistoryRecord(contact: contact1, record: record1)
         let expected2 = makePresentationCallHistoryRecord(contact: contact2, record: record2)
 
@@ -52,7 +52,7 @@ private func makeContact(record: CallHistoryRecord, number: Int) -> Contact {
 private func makePresentationCallHistoryRecord(contact: Contact, record: CallHistoryRecord) -> PresentationCallHistoryRecord {
     return PresentationCallHistoryRecord(
         contact: makePresentationContact(contact: contact),
-        date: "",
+        date: ShortDateTimeFormatter().string(from: record.date),
         duration: "",
         isIncoming: record.isIncoming,
         isMissed: record.isMissed
