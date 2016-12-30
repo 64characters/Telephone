@@ -107,6 +107,8 @@
 		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
 		8A42E0C51E168DB300CE09B8 /* ShortDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */; };
 		8A42E0C61E168DB300CE09B8 /* ShortDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */; };
+		8A42E0C81E168F4F00CE09B8 /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */; };
+		8A42E0C91E168F4F00CE09B8 /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */; };
 		8A46FDBB1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */; };
 		8A46FDBD1DD4A8100022A822 /* NSString+Analyzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */; };
 		8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */; };
@@ -768,6 +770,7 @@
 		8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateFingerprintValidation.swift; sourceTree = "<group>"; };
 		8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptValidation.swift; sourceTree = "<group>"; };
 		8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortDateTimeFormatter.swift; sourceTree = "<group>"; };
+		8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationFormatter.swift; sourceTree = "<group>"; };
 		8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordAddUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordAddUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Analyzing.swift"; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateUseCaseTests.swift; path = UseCasesTests/RingtoneOutputUpdateUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1869,6 +1872,7 @@
 				8A778C071E0AE98F004B00B8 /* CallHistoryViewPresenter.swift */,
 				8A778C091E0AE9C7004B00B8 /* CallHistoryViewPresenterTests.swift */,
 				8A1DA8101DEF2CAE00F5BA40 /* DefaultCallHistoryRecordAddUseCaseFactory.swift */,
+				8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */,
 				8AD9A0D91DE34B83000BB2F2 /* NotifyingCallHistoryFactory.swift */,
 				8AD9A0DB1DE34CC1000BB2F2 /* PersistentCallHistoryFactory.swift */,
 				8A778C051E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift */,
@@ -2955,6 +2959,7 @@
 				8ADD6A801CE0F995001EDBBA /* StoreViewController.swift in Sources */,
 				AA2C03F31BD7BE36001D25F9 /* CompositionRoot.swift in Sources */,
 				AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */,
+				8A42E0C81E168F4F00CE09B8 /* DurationFormatter.swift in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */,
 				8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
 				8A91759F1CA59F1100354E26 /* PJSUAOnCallMediaState.m in Sources */,
@@ -3275,6 +3280,7 @@
 				8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */,
 				8ADA10A01DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
 				8A9175AE1CABF61200354E26 /* UserAgentError.swift in Sources */,
+				8A42E0C91E168F4F00CE09B8 /* DurationFormatter.swift in Sources */,
 				8ADA109B1DC8D2440038E0A5 /* SettingsMigration.swift in Sources */,
 				8A6D96EE1D01DDA900D9C15B /* StoreViewSpy.swift in Sources */,
 				8ACB9C821E13F8F50081A0A5 /* PresentationContact.swift in Sources */,

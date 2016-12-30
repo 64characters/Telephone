@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  DurationFormatter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import Foundation
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+final class DurationFormatter: DateComponentsFormatter {
+    override init() {
+        super.init()
+        unitsStyle = .short
+        allowedUnits = [.hour, .minute, .second]
+    }
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+    required init?(coder decoder: NSCoder) {
+        fatalError("\(#function) is not supported")
     }
 }

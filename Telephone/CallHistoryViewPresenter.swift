@@ -21,10 +21,12 @@ import UseCases
 final class CallHistoryViewPresenter {
     fileprivate let view: CallHistoryView
     fileprivate let dateFormatter: DateFormatter
+    fileprivate let durationFormatter: DateComponentsFormatter
 
-    init(view: CallHistoryView, dateFormatter: DateFormatter) {
+    init(view: CallHistoryView, dateFormatter: DateFormatter, durationFormatter: DateComponentsFormatter) {
         self.view = view
         self.dateFormatter = dateFormatter
+        self.durationFormatter = durationFormatter
     }
 }
 
@@ -37,7 +39,7 @@ extension CallHistoryViewPresenter: ContactCallHistoryRecordsGetUseCaseOutput {
         return PresentationCallHistoryRecord(
             contact: PresentationContact(record.contact),
             date: dateFormatter.string(from: record.origin.date),
-            duration: "",
+            duration: durationFormatter.string(from: TimeInterval(record.origin.duration)) ?? "",
             isIncoming: record.origin.isIncoming,
             isMissed: record.origin.isMissed
         )
