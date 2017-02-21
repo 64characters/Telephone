@@ -19,5 +19,11 @@
 import Cocoa
 
 final class CallHistoryViewController: NSViewController {
+    fileprivate var records: [PresentationCallHistoryRecord] = []
+}
 
+extension CallHistoryViewController: CallHistoryView {
+    func show(_ records: [PresentationCallHistoryRecord]) {
+        self.records = records
+    }
 }
