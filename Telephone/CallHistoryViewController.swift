@@ -19,7 +19,7 @@
 import Cocoa
 
 final class CallHistoryViewController: NSViewController {
-    fileprivate var records: [PresentationCallHistoryRecord] = []
+    @objc fileprivate(set) var records: [PresentationCallHistoryRecord] = []
 }
 
 extension CallHistoryViewController: CallHistoryView {

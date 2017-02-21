@@ -50,6 +50,9 @@
                                                         <rect key="frame" x="7" y="17" width="10" height="10"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call" id="7Bf-tN-avV"/>
+                                                        <connections>
+                                                            <binding destination="GQL-B4-dJ7" name="hidden" keyPath="objectValue.isIncoming" id="tOK-kH-icO"/>
+                                                        </connections>
                                                     </imageView>
                                                 </subviews>
                                             </tableCellView>
@@ -80,6 +83,9 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address.host" id="0Fv-rd-pe4"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF">
                                                         <rect key="frame" x="0.0" y="5" width="156" height="14"/>
@@ -89,6 +95,9 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address.label" id="z5B-7j-9gZ"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <connections>
@@ -122,6 +131,9 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <binding destination="0ms-m8-Hi7" name="value" keyPath="objectValue.date" id="IL4-rZ-m21"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0oC-9Q-fGf">
                                                         <rect key="frame" x="0.0" y="5" width="116" height="14"/>
@@ -131,6 +143,9 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <binding destination="0ms-m8-Hi7" name="value" keyPath="objectValue.duration" id="xxt-bf-yS2"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <connections>
@@ -140,6 +155,9 @@
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>
+                                <connections>
+                                    <binding destination="AID-oa-47f" name="content" keyPath="arrangedObjects" id="Zlx-va-MpK"/>
+                                </connections>
                             </tableView>
                         </subviews>
                     </clipView>
@@ -155,6 +173,11 @@
             </subviews>
             <point key="canvasLocation" x="97" y="170"/>
         </customView>
+        <arrayController id="AID-oa-47f">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="records" id="1De-nC-pRl"/>
+            </connections>
+        </arrayController>
     </objects>
     <resources>
         <image name="outgoing-call" width="10" height="10"/>
