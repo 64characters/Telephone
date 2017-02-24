@@ -154,8 +154,6 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        userAgent.updateAccountEventTarget(callHistories)
-
         callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
             center: NotificationCenter.default,
             target: CallHistoryCallEventTarget(

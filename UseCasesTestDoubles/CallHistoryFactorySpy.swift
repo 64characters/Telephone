@@ -1,5 +1,5 @@
 //
-//  CallHistory+Nil.swift
+//  CallHistoryFactorySpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,8 +18,19 @@
 
 import UseCases
 
-public extension CallHistory {
-    var isNil: Bool {
-        return self as? NullCallHistory != nil
+public final class CallHistoryFactorySpy {
+    public fileprivate(set) var invokedUUID = ""
+
+    fileprivate let history: CallHistory
+
+    public init(history: CallHistory) {
+        self.history = history
+    }
+}
+
+extension CallHistoryFactorySpy: CallHistoryFactory {
+    public func make(uuid: String) -> CallHistory {
+        invokedUUID = uuid
+        return history
     }
 }
