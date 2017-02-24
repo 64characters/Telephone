@@ -25,3 +25,9 @@ public struct LabeledContactAddress {
         self.label = label
     }
 }
+
+extension LabeledContactAddress: Equatable {
+    public static func ==(lhs: LabeledContactAddress, rhs: LabeledContactAddress) -> Bool {
+        return lhs.origin == rhs.origin && lhs.label == rhs.label
+    }
+}

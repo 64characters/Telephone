@@ -19,3 +19,25 @@
 public protocol ContactCallHistoryRecordsGetUseCaseOutput {
     func update(records: [ContactCallHistoryRecord])
 }
+
+public final class ContactCallHistoryRecordsGetUseCase {
+    fileprivate let output: ContactCallHistoryRecordsGetUseCaseOutput
+
+    public init(output: ContactCallHistoryRecordsGetUseCaseOutput) {
+        self.output = output
+    }
+}
+
+extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutput {
+    public func update(records: [CallHistoryRecord]) {
+        output.update(records: records.map(makeContactCallHistoryRecord))
+    }
+
+    private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
+        return ContactCallHistoryRecord(origin: record, contact: makeContact(address: record.address))
+    }
+
+    private func makeContact(address: ContactAddress) -> Contact {
+        return Contact(name: "any-name", address: LabeledContactAddress(origin: address, label: "any-label"))
+    }
+}

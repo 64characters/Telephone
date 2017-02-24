@@ -25,3 +25,9 @@ public struct ContactCallHistoryRecord {
         self.contact = contact
     }
 }
+
+extension ContactCallHistoryRecord: Equatable {
+    public static func ==(lhs: ContactCallHistoryRecord, rhs: ContactCallHistoryRecord) -> Bool {
+        return lhs.origin == rhs.origin && lhs.contact == rhs.contact
+    }
+}

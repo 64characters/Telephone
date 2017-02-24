@@ -1,5 +1,5 @@
 //
-//  Contact.swift
+//  ContactCallHistoryRecordsGetUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public struct Contact {
-    public let name: String
-    public let address: LabeledContactAddress
+import UseCases
 
-    public init(name: String, address: LabeledContactAddress) {
-        self.name = name
-        self.address = address
-    }
+public final class ContactCallHistoryRecordsGetUseCaseOutputSpy {
+    public fileprivate(set) var invokedRecords: [ContactCallHistoryRecord] = []
+
+    public init() {}
 }
 
-extension Contact: Equatable {
-    public static func ==(lhs: Contact, rhs: Contact) -> Bool {
-        return lhs.name == rhs.name && lhs.address == rhs.address
+extension ContactCallHistoryRecordsGetUseCaseOutputSpy: ContactCallHistoryRecordsGetUseCaseOutput {
+    public func update(records: [ContactCallHistoryRecord]) {
+        invokedRecords = records
     }
 }
