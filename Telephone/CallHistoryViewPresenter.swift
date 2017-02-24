@@ -32,7 +32,7 @@ final class CallHistoryViewPresenter {
 
 extension CallHistoryViewPresenter: ContactCallHistoryRecordsGetUseCaseOutput {
     func update(records: [ContactCallHistoryRecord]) {
-        view.show(records.map(makeRecord))
+        view.show(records.map(makeRecord).reversed())
     }
 
     private func makeRecord(from record: ContactCallHistoryRecord) -> PresentationCallHistoryRecord {
