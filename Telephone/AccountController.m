@@ -72,8 +72,13 @@ NSString * const kEnglish = @"en";
 NSString * const kRussian = @"ru";
 NSString * const kGerman = @"de";
 
+static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
+
 
 @interface AccountController ()
+
+@property(nonatomic) ActiveAccountViewController *activeAccountViewController;
+@property(nonatomic) CallHistoryViewController *callHistoryViewController;
 
 @property(nonatomic, readonly, getter=isAccountAdded) BOOL accountAdded;
 
@@ -81,6 +86,9 @@ NSString * const kGerman = @"de";
 @property(nonatomic, strong) NSTimer *reRegistrationTimer;
 
 @property(nonatomic, copy) NSString *destinationToCall;
+
+@property(nonatomic, weak) IBOutlet NSView *activeAccountView;
+@property(nonatomic, weak) IBOutlet NSView *callHistoryView;
 
 @property(nonatomic, weak) IBOutlet NSToolbarItem *accountStateToolbarItem;
 @property(nonatomic, weak) IBOutlet NSImageView *accountStateImageView;
@@ -96,7 +104,6 @@ NSString * const kGerman = @"de";
 
 @implementation AccountController
 
-@synthesize activeAccountViewController = _activeAccountViewController;
 @synthesize authenticationFailureController = _authenticationFailureController;
 
 - (void)setEnabled:(BOOL)flag {
@@ -211,14 +218,6 @@ NSString * const kGerman = @"de";
     }
 }
 
-- (ActiveAccountViewController *)activeAccountViewController {
-    if (_activeAccountViewController == nil) {
-        _activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self];
-    }
-    
-    return _activeAccountViewController;
-}
-
 - (AuthenticationFailureController *)authenticationFailureController {
     if (_authenticationFailureController == nil) {
         _authenticationFailureController
@@ -228,11 +227,16 @@ NSString * const kGerman = @"de";
     return _authenticationFailureController;
 }
 
+- (BOOL)canMakeCalls {
+    return self.activeAccountViewController.allowsCallDestinationInput;
+}
+
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
                          userAgent:(AKSIPUserAgent *)userAgent
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                        musicPlayer:(id<MusicPlayer>)musicPlayer
-                       sleepStatus:(WorkspaceSleepStatus *)sleepStatus {
+                       sleepStatus:(WorkspaceSleepStatus *)sleepStatus
+                           factory:(CallHistoryViewEventTargetFactory *)factory {
 
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
@@ -244,6 +248,7 @@ NSString * const kGerman = @"de";
     _ringtonePlayback = ringtonePlayback;
     _musicPlayer = musicPlayer;
     _sleepStatus = sleepStatus;
+    _factory = factory;
     
     _callControllers = [[NSMutableArray alloc] init];
     _destinationToCall = @"";
@@ -514,14 +519,8 @@ NSString * const kGerman = @"de";
 
     [[self availableStateItem] setState:NSOnState];
     [[self unavailableStateItem] setState:NSOffState];
-    
-    if (![self isActiveViewDisplayed]) {
-        [[self window] setContentView:[[self activeAccountViewController] view]];
-        
-        if ([[[self activeAccountViewController] callDestinationField] acceptsFirstResponder]) {
-            [[self window] makeFirstResponder:[[self activeAccountViewController] callDestinationField]];
-        }
-    }
+
+    [self.activeAccountViewController allowCallDestinationInput];
 }
 
 - (void)showUnavailableState {
@@ -541,14 +540,8 @@ NSString * const kGerman = @"de";
 
     [[self availableStateItem] setState:NSOffState];
     [[self unavailableStateItem] setState:NSOnState];
-    
-    if (![self isActiveViewDisplayed]) {
-        [[self window] setContentView:[[self activeAccountViewController] view]];
-        
-        if ([[[self activeAccountViewController] callDestinationField] acceptsFirstResponder]) {
-            [[self window] makeFirstResponder:[[self activeAccountViewController] callDestinationField]];
-        }
-    }
+
+    [self.activeAccountViewController allowCallDestinationInput];
 }
 
 - (void)showOfflineState {
@@ -568,12 +561,8 @@ NSString * const kGerman = @"de";
 
     [[self availableStateItem] setState:NSOffState];
     [[self unavailableStateItem] setState:NSOffState];
-    
-    NSRect frame = [[[self window] contentView] frame];
-    NSView *emptyView = [[NSView alloc] initWithFrame:frame];
-    NSUInteger autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    [emptyView setAutoresizingMask:autoresizingMask];
-    [[self window] setContentView:emptyView];
+
+    [self.activeAccountViewController disallowCallDestinationInput];
 }
 
 - (void)showConnectingState {
@@ -596,15 +585,20 @@ NSString * const kGerman = @"de";
     [[self account] setRegistered:YES];
 }
 
-- (BOOL)isActiveViewDisplayed {
-    return [self.window.contentView isEqual:self.activeAccountViewController.view];
-}
-
 
 #pragma mark -
 #pragma mark NSWindow delegate methods
 
 - (void)windowDidLoad {
+    self.activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self];
+    [self.activeAccountView addSubview:self.activeAccountViewController.view];
+    [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
+
+    self.callHistoryViewController = [[CallHistoryViewController alloc] init];
+    self.callHistoryViewController.target = [self.factory makeFor:self.account view:self.callHistoryViewController];
+    [self.callHistoryView addSubview:self.callHistoryViewController.view];
+    [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];
+
     [self showOfflineState];
 }
 
@@ -1049,3 +1043,11 @@ NSString * const kGerman = @"de";
 }
 
 @end
+
+static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view) {
+    NSMutableArray<NSLayoutConstraint *> *result = [NSMutableArray array];
+    NSDictionary *views = @{@"view": view};
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views]];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:views]];
+    return result;
+}

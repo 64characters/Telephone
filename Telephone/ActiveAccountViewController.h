@@ -40,6 +40,7 @@ extern NSString * const kPhoneLabel;
 // Call destination URI.
 @property(nonatomic, readonly, copy) AKSIPURI *callDestinationURI;
 
+@property(nonatomic, readonly) BOOL allowsCallDestinationInput;
 
 // Initializes an ActiveAccountViewController object with a given account controller.
 - (instancetype)initWithAccountController:(AccountController *)accountController;
@@ -49,5 +50,8 @@ extern NSString * const kPhoneLabel;
 
 // Changes the active SIP URI index in the call destination token.
 - (IBAction)changeCallDestinationURIIndex:(id)sender;
+
+- (void)allowCallDestinationInput;
+- (void)disallowCallDestinationInput;
 
 @end

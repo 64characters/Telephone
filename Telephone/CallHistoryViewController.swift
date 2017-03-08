@@ -19,7 +19,21 @@
 import Cocoa
 
 final class CallHistoryViewController: NSViewController {
-    @objc fileprivate(set) var records: [PresentationCallHistoryRecord] = []
+    @objc fileprivate(set) dynamic var records: [PresentationCallHistoryRecord] = []
+
+    var target: CallHistoryViewEventTarget?
+
+    init() {
+        super.init(nibName: "CallHistoryViewController", bundle: nil)!
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        self.target?.shouldReloadData()
+    }
 }
 
 extension CallHistoryViewController: CallHistoryView {

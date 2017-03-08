@@ -246,8 +246,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (void)redial {
     if (![[self userAgent] isStarted] ||
         ![[self accountController] isEnabled] ||
-        ![[[[self accountController] window] contentView] isEqual:
-          [[[self accountController] activeAccountViewController] view]] ||
+        ![[self accountController] canMakeCalls] ||
         [self redialURI] == nil) {
         
         return;

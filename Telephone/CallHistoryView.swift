@@ -18,6 +18,6 @@
 
 import UseCases
 
-protocol CallHistoryView {
+@objc protocol CallHistoryView {
     func show(_ records: [PresentationCallHistoryRecord])
 }

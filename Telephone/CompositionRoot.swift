@@ -30,6 +30,7 @@ final class CompositionRoot: NSObject {
     let settingsMigration: ProgressiveSettingsMigration
     let applicationDataLocations: ApplicationDataLocations
     let workstationSleepStatus: WorkspaceSleepStatus
+    let callHistoryViewEventTargetFactory: CallHistoryViewEventTargetFactory
     private let defaults: UserDefaults
     private let queue: DispatchQueue
 
@@ -159,6 +160,10 @@ final class CompositionRoot: NSObject {
             target: CallHistoryCallEventTarget(
                 histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
             )
+        )
+
+        callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
+            histories: callHistories, dateFormatter: ShortDateTimeFormatter(), durationFormatter: DurationFormatter()
         )
 
         super.init()

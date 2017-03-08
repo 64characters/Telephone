@@ -108,6 +108,7 @@
 		8A41A74D1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */; };
 		8A41A74F1E5B593800E0C854 /* CallHistoryViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */; };
 		8A41A7501E5B593800E0C854 /* CallHistoryViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */; };
+		8A41A7521E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A7511E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift */; };
 		8A41A7551E5DAEC800E0C854 /* ContactCallHistoryRecordsGetUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A7531E5D8A0900E0C854 /* ContactCallHistoryRecordsGetUseCaseTests.swift */; };
 		8A41A7571E5DB4F500E0C854 /* ContactCallHistoryRecordsGetUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A7561E5DB4F500E0C854 /* ContactCallHistoryRecordsGetUseCaseOutputSpy.swift */; };
 		8A42E0C51E168DB300CE09B8 /* ShortDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */; };
@@ -773,6 +774,7 @@
 		8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptValidation.swift; sourceTree = "<group>"; };
 		8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryViewEventTargetTests.swift; path = TelephoneTests/CallHistoryViewEventTargetTests.swift; sourceTree = SOURCE_ROOT; };
 		8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewEventTarget.swift; sourceTree = "<group>"; };
+		8A41A7511E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewEventTargetFactory.swift; sourceTree = "<group>"; };
 		8A41A7531E5D8A0900E0C854 /* ContactCallHistoryRecordsGetUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactCallHistoryRecordsGetUseCaseTests.swift; path = UseCasesTests/ContactCallHistoryRecordsGetUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A41A7561E5DB4F500E0C854 /* ContactCallHistoryRecordsGetUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecordsGetUseCaseOutputSpy.swift; sourceTree = "<group>"; };
 		8A42E0C41E168DB300CE09B8 /* ShortDateTimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortDateTimeFormatter.swift; sourceTree = "<group>"; };
@@ -1111,8 +1113,6 @@
 		AA3B6E8C1C47C20A0030D410 /* SoundSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundSpy.swift; sourceTree = "<group>"; };
 		AA3B6E8E1C47C3C00030D410 /* TimerFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFactorySpy.swift; sourceTree = "<group>"; };
 		AA3B6E901C47C6590030D410 /* TimerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerSpy.swift; sourceTree = "<group>"; };
-		AA3F655C1072C66C000511E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/ActiveAccountView.xib; sourceTree = "<group>"; };
-		AA3F655D1072C674000511E8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/ActiveAccountView.xib; sourceTree = "<group>"; };
 		AA3F65681072C926000511E8 /* AuthenticationFailureController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationFailureController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA3F65691072C926000511E8 /* AuthenticationFailureController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationFailureController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1874,6 +1874,7 @@
 				8A778C021E095B5D004B00B8 /* CallHistoryViewController.xib */,
 				8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */,
 				8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */,
+				8A41A7511E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift */,
 				8A778C071E0AE98F004B00B8 /* CallHistoryViewPresenter.swift */,
 				8A778C091E0AE9C7004B00B8 /* CallHistoryViewPresenterTests.swift */,
 				8A1DA8101DEF2CAE00F5BA40 /* DefaultCallHistoryRecordAddUseCaseFactory.swift */,
@@ -3031,6 +3032,7 @@
 				AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */,
 				8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */,
 				8A91759C1CA59E2700354E26 /* PJSUAOnCallState.m in Sources */,
+				8A41A7521E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift in Sources */,
 				AA34AF3E1073B7C700FA38F7 /* AccountPreferencesViewController.m in Sources */,
 				8A778C061E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift in Sources */,
 				AA34AF481073B81500FA38F7 /* SoundPreferencesViewController.m in Sources */,
@@ -3625,8 +3627,6 @@
 		AA34ACC2106E229A00FA38F7 /* ActiveAccountView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA3F655C1072C66C000511E8 /* ru */,
-				AA3F655D1072C674000511E8 /* de */,
 				8AA748C41D744FAA000587DC /* Base */,
 			);
 			name = ActiveAccountView.xib;

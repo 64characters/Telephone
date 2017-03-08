@@ -53,6 +53,10 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     }
 }
 
+- (BOOL)allowsCallDestinationInput {
+    return !self.callDestinationField.isHidden;
+}
+
 - (instancetype)initWithAccountController:(AccountController *)accountController {
     if ((self = [self initWithNibName:@"ActiveAccountView" bundle:nil])) {
         _accountController = accountController;
@@ -96,6 +100,17 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 
 - (IBAction)changeCallDestinationURIIndex:(id)sender {
     [self setCallDestinationURIIndex:[sender tag]];
+}
+
+- (void)allowCallDestinationInput {
+    self.callDestinationField.hidden = NO;
+    if (self.callDestinationField.acceptsFirstResponder) {
+        [self.view.window makeFirstResponder:self.callDestinationField];
+    }
+}
+
+- (void)disallowCallDestinationInput {
+    self.callDestinationField.hidden = YES;
 }
 
 

@@ -27,8 +27,8 @@
 extern NSString * const kEmailSIPLabel;
 
 @class AKSIPURI, AKNetworkReachability;
-@class ActiveAccountViewController, AuthenticationFailureController;
-@class CallTransferController, WorkspaceSleepStatus;
+@class AuthenticationFailureController;
+@class CallHistoryViewEventTargetFactory, CallTransferController, WorkspaceSleepStatus;
 @protocol MusicPlayer, RingtonePlaybackUseCase;
 
 // A SIP account controller.
@@ -42,6 +42,7 @@ extern NSString * const kEmailSIPLabel;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
+@property(nonatomic, readonly) CallHistoryViewEventTargetFactory *factory;
 
 // A Boolean value indicating whether account is registered.
 @property(nonatomic, readonly, getter=isAccountRegistered) BOOL accountRegistered;
@@ -75,21 +76,21 @@ extern NSString * const kEmailSIPLabel;
 // A replacement for the plus character in the phone number.
 @property(nonatomic, copy) NSString *plusCharacterSubstitution;
 
-// An active account view controller.
-@property(nonatomic, readonly) ActiveAccountViewController *activeAccountViewController;
-
 // An authentication failure controller.
 @property(nonatomic, readonly) AuthenticationFailureController *authenticationFailureController;
 
 // A Boolean value indicating if call windows should display account name.
 @property(nonatomic, assign) BOOL callsShouldDisplayAccountInfo;
 
+@property(nonatomic, readonly) BOOL canMakeCalls;
+
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
                          userAgent:(AKSIPUserAgent *)userAgent
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                        musicPlayer:(id<MusicPlayer>)musicPlayer
-                       sleepStatus:(WorkspaceSleepStatus *)sleepStatus;
+                       sleepStatus:(WorkspaceSleepStatus *)sleepStatus
+                           factory:(CallHistoryViewEventTargetFactory *)factory;
 
 // Registers the account adding it to the user agent, if needed. The user agent will be started, if it hasn't been yet.
 - (void)registerAccount;

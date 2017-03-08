@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-final class CallHistoryViewEventTarget {
+final class CallHistoryViewEventTarget: NSObject {
     private let recordsGet: UseCase
 
     init(recordsGet: UseCase) {
