@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import Cocoa
 import UseCases
 
 final class PresentationCallHistoryRecord: NSObject {
@@ -24,14 +24,12 @@ final class PresentationCallHistoryRecord: NSObject {
     let date: String
     let duration: String
     let isIncoming: Bool
-    let isMissed: Bool
 
-    init(contact: PresentationContact, date: String, duration: String, isIncoming: Bool, isMissed: Bool) {
+    init(contact: PresentationContact, date: String, duration: String, isIncoming: Bool) {
         self.contact = contact
         self.date = date
         self.duration = duration
         self.isIncoming = isIncoming
-        self.isMissed = isMissed
     }
 }
 
@@ -45,14 +43,13 @@ extension PresentationCallHistoryRecord {
     }
 
     override var hash: Int {
-        return contact.hash ^ date.hash ^ duration.hash ^ (isIncoming ? 1231 : 1237) ^ (isMissed ? 1231 : 1237)
+        return contact.hash ^ date.hash ^ duration.hash ^ (isIncoming ? 1231 : 1237)
     }
 
     private func isEqual(to record: PresentationCallHistoryRecord) -> Bool {
         return contact == record.contact &&
             date == record.date &&
             duration == record.duration &&
-            isIncoming == record.isIncoming &&
-            isMissed == record.isMissed
+            isIncoming == record.isIncoming
     }
 }

@@ -16,15 +16,18 @@
 //  GNU General Public License for more details.
 //
 
+import Cocoa
 import Foundation
 
 final class PresentationContact: NSObject {
     let name: String
     let address: PresentationContactAddress
+    let color: NSColor
 
-    init(name: String, address: PresentationContactAddress) {
+    init(name: String, address: PresentationContactAddress, color: NSColor) {
         self.name = name
         self.address = address
+        self.color = color
     }
 }
 
@@ -38,21 +41,22 @@ extension PresentationContact {
     }
 
     override var hash: Int {
-        return name.hash ^ address.hash
+        return name.hash ^ address.hash ^ color.hash
     }
 
     private func isEqual(to contact: PresentationContact) -> Bool {
-        return name == contact.name && address == contact.address
+        return name == contact.name && address == contact.address && color == contact.color
     }
 }
 
 extension PresentationContact {
-    convenience init(_ contact: Contact) {
+    convenience init(contact: Contact, color: NSColor) {
         self.init(
             name: contact.name,
             address: PresentationContactAddress(
                 user: contact.address.origin.user, host: contact.address.origin.host, label: contact.address.label
-            )
+            ),
+            color: color
         )
     }
 }

@@ -89,6 +89,7 @@
                                                         </textFieldCell>
                                                         <connections>
                                                             <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address.user" id="EvO-Xe-uh1"/>
+                                                            <binding destination="WWY-ZO-bzC" name="textColor" keyPath="objectValue.contact.color" id="gPH-7Y-lSS"/>
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">

@@ -43,6 +43,25 @@ final class CallHistoryViewPresenterTests: XCTestCase {
 
         XCTAssertEqual(view.invokedRecords, [expected2, expected1])
     }
+
+    func testContactColorIsRedForMissedCallRecords() {
+        let record = CallHistoryRecord(
+            address: ContactAddress(user: "any-user", host: "any-host"),
+            date: Date(),
+            duration: 0,
+            isIncoming: false,
+            isMissed: true
+        )
+        let contact = makeContact(record: record, number: 1)
+        let view = CallHistoryViewSpy()
+        let sut = CallHistoryViewPresenter(
+            view: view, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
+        )
+
+        sut.update(records: [ContactCallHistoryRecord(origin: record, contact: contact)])
+
+        XCTAssertEqual(view.invokedRecords.first!.contact.color, NSColor.red)
+    }
 }
 
 private func makeContact(record: CallHistoryRecord, number: Int) -> Contact {
@@ -53,19 +72,23 @@ private func makeContact(record: CallHistoryRecord, number: Int) -> Contact {
 
 private func makePresentationCallHistoryRecord(contact: Contact, record: CallHistoryRecord) -> PresentationCallHistoryRecord {
     return PresentationCallHistoryRecord(
-        contact: makePresentationContact(contact: contact),
+        contact: makePresentationContact(contact: contact, color: contactColor(for: record)),
         date: ShortRelativeDateTimeFormatter().string(from: record.date),
         duration: DurationFormatter().string(from: TimeInterval(record.duration))!,
-        isIncoming: record.isIncoming,
-        isMissed: record.isMissed
+        isIncoming: record.isIncoming
     )
 }
 
-private func makePresentationContact(contact: Contact) -> PresentationContact {
+private func makePresentationContact(contact: Contact, color: NSColor) -> PresentationContact {
     return PresentationContact(
         name: contact.name,
         address: PresentationContactAddress(
             user: contact.address.origin.user, host: contact.address.origin.host, label: contact.address.label
-        )
+        ),
+        color: color
     )
+}
+
+private func contactColor(for record: CallHistoryRecord) -> NSColor {
+    return record.isMissed ? NSColor.red : NSColor.controlTextColor
 }
