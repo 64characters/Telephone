@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "outgoing-call.png",
+      "filename" : "outgoing-call-dark.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
-      "filename" : "outgoing-call@2x.png",
+      "filename" : "outgoing-call-dark@2x.png",
       "scale" : "2x"
     }
   ],

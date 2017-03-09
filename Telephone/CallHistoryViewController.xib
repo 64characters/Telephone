@@ -41,19 +41,22 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <prototypeCellViews>
-                                            <tableCellView id="GQL-B4-dJ7">
+                                            <tableCellView id="GQL-B4-dJ7" customClass="CallHistoryOutgoingCallCellView" customModule="Telephone" customModuleProvider="target">
                                                 <rect key="frame" x="1" y="1" width="20" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-zC-WCA">
                                                         <rect key="frame" x="7" y="17" width="10" height="10"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call" id="7Bf-tN-avV"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call-dark" id="7Bf-tN-avV"/>
                                                         <connections>
                                                             <binding destination="GQL-B4-dJ7" name="hidden" keyPath="objectValue.isIncoming" id="tOK-kH-icO"/>
                                                         </connections>
                                                     </imageView>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="outgoingCallView" destination="cdt-zC-WCA" id="ye4-fE-mSS"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -179,6 +182,6 @@
         </arrayController>
     </objects>
     <resources>
-        <image name="outgoing-call" width="10" height="10"/>
+        <image name="outgoing-call-dark" width="10" height="10"/>
     </resources>
 </document>
