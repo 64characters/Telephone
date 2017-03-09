@@ -1,5 +1,5 @@
 //
-//  ShortDateTimerFormatter.swift
+//  ShortRelativeDateTimeFormatter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,10 +18,12 @@
 
 import Foundation
 
-final class ShortDateTimeFormatter: DateFormatter {
+final class ShortRelativeDateTimeFormatter: DateFormatter {
     override init() {
         super.init()
-        setLocalizedDateFormatFromTemplate("MMMdjmm")
+        dateStyle = .short
+        timeStyle = .short
+        doesRelativeDateFormatting = true
     }
 
     required init?(coder decoder: NSCoder) {

@@ -163,7 +163,7 @@ final class CompositionRoot: NSObject {
         )
 
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
-            histories: callHistories, dateFormatter: ShortDateTimeFormatter(), durationFormatter: DurationFormatter()
+            histories: callHistories, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
         )
 
         super.init()
