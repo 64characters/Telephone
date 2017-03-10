@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  CallHistoryViewEventTarget.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+final class CallHistoryViewEventTarget: NSObject {
+    private let recordsGet: UseCase
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+    init(recordsGet: UseCase) {
+        self.recordsGet = recordsGet
+    }
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+    func shouldReloadData() {
+        recordsGet.execute()
     }
 }

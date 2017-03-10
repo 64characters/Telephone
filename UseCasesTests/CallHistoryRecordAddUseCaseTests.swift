@@ -34,7 +34,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsCopyOfRecordWithEmptyHostWhenHostMatchesDomain() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
-        let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: record.host)
+        let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: record.address.host)
 
         sut.execute()
 
@@ -43,7 +43,9 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
 
     func testAddsCopyOfRecordWithEmptyHostWhenUserIsATelephoneNumberLongerThanFourCharacters() {
         let history = TruncatingCallHistory()
-        let record = CallHistoryRecord(user: "12345", host: "any-host", date: Date(), duration: 60, isIncoming: false, isMissed: false)
+        let record = CallHistoryRecord(
+            address: ContactAddress(user: "12345", host: "any-host"), date: Date(), duration: 60, isIncoming: false, isMissed: false
+        )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
         sut.execute()
@@ -54,7 +56,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberWithLengthEqualToFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            user: "1234", host: "any-host", date: Date(), duration: 60, isIncoming: false, isMissed: false
+            address: ContactAddress(user: "1234", host: "any-host"), date: Date(), duration: 60, isIncoming: false, isMissed: false
         )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
@@ -66,7 +68,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberShorterThanFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            user: "123", host: "any-host", date: Date(), duration: 60, isIncoming: false, isMissed: false
+            address: ContactAddress(user: "123", host: "any-host"), date: Date(), duration: 60, isIncoming: false, isMissed: false
         )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 

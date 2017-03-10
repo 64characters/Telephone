@@ -76,6 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, readonly) id<ApplicationDataLocations> locations;
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
+@property(nonatomic, readonly) CallHistoryViewEventTargetFactory *factory;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
@@ -224,6 +225,7 @@ NS_ASSUME_NONNULL_END
     _musicPlayer = _compositionRoot.musicPlayer;
     _locations = _compositionRoot.applicationDataLocations;
     _sleepStatus = _compositionRoot.workstationSleepStatus;
+    _factory = _compositionRoot.callHistoryViewEventTargetFactory;
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = [[NSMutableArray alloc] init];
@@ -774,7 +776,8 @@ NS_ASSUME_NONNULL_END
                                                                         userAgent:self.userAgent
                                                                  ringtonePlayback:self.ringtonePlayback
                                                                       musicPlayer:self.musicPlayer
-                                                                      sleepStatus:self.sleepStatus];
+                                                                      sleepStatus:self.sleepStatus
+                                                                          factory:self.factory];
     
     [controller setAccountDescription:[[controller account] SIPAddress]];
     [[controller window] setExcludedFromWindowsMenu:YES];
@@ -835,7 +838,8 @@ NS_ASSUME_NONNULL_END
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
                                                                           musicPlayer:self.musicPlayer
-                                                                          sleepStatus:self.sleepStatus];
+                                                                          sleepStatus:self.sleepStatus
+                                                                              factory:self.factory];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
         
@@ -1121,7 +1125,8 @@ NS_ASSUME_NONNULL_END
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
                                                                           musicPlayer:self.musicPlayer
-                                                                          sleepStatus:self.sleepStatus];
+                                                                          sleepStatus:self.sleepStatus
+                                                                              factory:self.factory];
         
         [[controller window] setExcludedFromWindowsMenu:YES];
         

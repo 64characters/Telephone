@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  LabeledContactAddress.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public struct LabeledContactAddress {
+    public let origin: ContactAddress
+    public let label: String
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+    public init(origin: ContactAddress, label: String) {
+        self.origin = origin
+        self.label = label
+    }
+}
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+extension LabeledContactAddress: Equatable {
+    public static func ==(lhs: LabeledContactAddress, rhs: LabeledContactAddress) -> Bool {
+        return lhs.origin == rhs.origin && lhs.label == rhs.label
     }
 }

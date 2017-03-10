@@ -1,5 +1,5 @@
 //
-//  CallHistoryFactoryStub.swift
+//  DurationFormatter.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import Foundation
 
-public final class CallHistoryFactoryStub {
-    fileprivate let history: CallHistory
-
-    public init(history: CallHistory) {
-        self.history = history
+final class DurationFormatter: DateComponentsFormatter {
+    override init() {
+        super.init()
+        unitsStyle = .short
+        allowedUnits = [.hour, .minute, .second]
     }
-}
 
-extension CallHistoryFactoryStub: CallHistoryFactory {
-    public func make(uuid: String) -> CallHistory {
-        return history
+    required init?(coder decoder: NSCoder) {
+        fatalError("\(#function) is not supported")
     }
 }

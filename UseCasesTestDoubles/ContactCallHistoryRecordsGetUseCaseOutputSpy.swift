@@ -1,5 +1,5 @@
 //
-//  NullCallHistory.swift
+//  ContactCallHistoryRecordsGetUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public final class NullCallHistory {
+import UseCases
+
+public final class ContactCallHistoryRecordsGetUseCaseOutputSpy {
+    public fileprivate(set) var invokedRecords: [ContactCallHistoryRecord] = []
+
     public init() {}
 }
 
-extension NullCallHistory: CallHistory {
-    public var allRecords: [CallHistoryRecord] { return [] }
-    public func add(_ record: CallHistoryRecord) {}
-    public func remove(_ record: CallHistoryRecord) {}
-    public func removeAll() {}
-    public func updateTarget(_ target: CallHistoryEventTarget) {}
+extension ContactCallHistoryRecordsGetUseCaseOutputSpy: ContactCallHistoryRecordsGetUseCaseOutput {
+    public func update(records: [ContactCallHistoryRecord]) {
+        invokedRecords = records
+    }
 }

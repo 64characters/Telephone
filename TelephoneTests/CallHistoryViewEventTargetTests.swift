@@ -1,5 +1,5 @@
 //
-//  CallHistory+Nil.swift
+//  CallHistoryViewEventTargetTests.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import XCTest
+import UseCasesTestDoubles
 
-public extension CallHistory {
-    var isNil: Bool {
-        return self as? NullCallHistory != nil
+final class CallHistoryViewEventTargetTests: XCTestCase {
+    func testExecutesCallHistoryRecordsGetUseCaseOnShouldReloadData() {
+        let get = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(recordsGet: get)
+
+        sut.shouldReloadData()
+
+        XCTAssertTrue(get.didCallExecute)
     }
 }

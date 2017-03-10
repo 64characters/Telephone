@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  ContactCallHistoryRecord.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public struct ContactCallHistoryRecord {
+    public let origin: CallHistoryRecord
+    public let contact: Contact
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+    public init(origin: CallHistoryRecord, contact: Contact) {
+        self.origin = origin
+        self.contact = contact
+    }
+}
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+extension ContactCallHistoryRecord: Equatable {
+    public static func ==(lhs: ContactCallHistoryRecord, rhs: ContactCallHistoryRecord) -> Bool {
+        return lhs.origin == rhs.origin && lhs.contact == rhs.contact
     }
 }

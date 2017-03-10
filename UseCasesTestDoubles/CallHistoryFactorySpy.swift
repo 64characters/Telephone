@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  CallHistoryFactorySpy.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,16 +18,19 @@
 
 import UseCases
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+public final class CallHistoryFactorySpy {
+    public fileprivate(set) var invokedUUID = ""
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+    fileprivate let history: CallHistory
+
+    public init(history: CallHistory) {
+        self.history = history
+    }
+}
+
+extension CallHistoryFactorySpy: CallHistoryFactory {
+    public func make(uuid: String) -> CallHistory {
+        invokedUUID = uuid
+        return history
     }
 }

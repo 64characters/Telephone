@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AccountController">
@@ -10,7 +11,9 @@
                 <outlet property="accountStateImageView" destination="XTB-Ca-zvW" id="NKe-lx-Xs1"/>
                 <outlet property="accountStatePopUp" destination="8kv-8M-WnO" id="QTV-ZO-Tni"/>
                 <outlet property="accountStateToolbarItem" destination="q93-R7-UiB" id="24v-BY-jYW"/>
+                <outlet property="activeAccountView" destination="BJB-cW-pU5" id="0xB-Sg-Ivn"/>
                 <outlet property="availableStateItem" destination="45b-yq-Hu2" id="8c6-x7-khg"/>
+                <outlet property="callHistoryView" destination="P1D-w1-bLn" id="lRj-W1-edc"/>
                 <outlet property="offlineStateItem" destination="aEv-gV-BF6" id="aI9-oe-thS"/>
                 <outlet property="unavailableStateItem" destination="tBT-83-toA" id="y3d-XB-qX1"/>
                 <outlet property="window" destination="3" id="21"/>
@@ -20,14 +23,40 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Account" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="3">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="133" y="579" width="260" height="62"/>
+            <rect key="contentRect" x="133" y="579" width="300" height="184"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-            <value key="minSize" type="size" width="260" height="62"/>
-            <value key="maxSize" type="size" width="2560" height="62"/>
-            <view key="contentView" id="4">
-                <rect key="frame" x="0.0" y="0.0" width="260" height="62"/>
+            <value key="minSize" type="size" width="300" height="184"/>
+            <view key="contentView" wantsLayer="YES" id="4">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="184"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="BJB-cW-pU5">
+                        <rect key="frame" x="0.0" y="123" width="300" height="61"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="61" id="aEF-BK-RYg"/>
+                        </constraints>
+                    </customView>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="6zb-TV-5Ys">
+                        <rect key="frame" x="0.0" y="120" width="300" height="5"/>
+                    </box>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="P1D-w1-bLn">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="122"/>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BJB-cW-pU5" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="7IW-bQ-F8P"/>
+                    <constraint firstItem="BJB-cW-pU5" firstAttribute="top" secondItem="4" secondAttribute="top" id="BvC-xa-pKI"/>
+                    <constraint firstAttribute="bottom" secondItem="P1D-w1-bLn" secondAttribute="bottom" id="FOu-g2-hCj"/>
+                    <constraint firstItem="6zb-TV-5Ys" firstAttribute="top" secondItem="BJB-cW-pU5" secondAttribute="bottom" id="cXm-zG-2QO"/>
+                    <constraint firstItem="6zb-TV-5Ys" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="qxv-wg-S8T"/>
+                    <constraint firstAttribute="trailing" secondItem="6zb-TV-5Ys" secondAttribute="trailing" id="tIt-dX-KXF"/>
+                    <constraint firstItem="P1D-w1-bLn" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="vwo-SN-3Zf"/>
+                    <constraint firstAttribute="trailing" secondItem="P1D-w1-bLn" secondAttribute="trailing" id="w4w-Xs-YvD"/>
+                    <constraint firstItem="P1D-w1-bLn" firstAttribute="top" secondItem="6zb-TV-5Ys" secondAttribute="bottom" id="wX8-EH-lol"/>
+                    <constraint firstAttribute="trailing" secondItem="BJB-cW-pU5" secondAttribute="trailing" id="wc2-x7-3sh"/>
+                </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="2C054331-BFAD-476A-99A4-B2A04C36B553" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="57">
                 <allowedToolbarItems>

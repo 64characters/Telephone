@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  CallHistoryOutgoingCallCellView.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import Cocoa
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+final class CallHistoryOutgoingCallCellView: NSTableCellView {
+    @IBOutlet private weak var outgoingCallView: NSImageView!
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+    override var backgroundStyle: NSBackgroundStyle {
+        didSet {
+            outgoingCallView.image = NSImage(named: name(for: backgroundStyle))
+        }
     }
+}
+
+private func name(for style: NSBackgroundStyle) -> String {
+    return style == .dark ? "outgoing-call-light" : "outgoing-call-dark"
 }

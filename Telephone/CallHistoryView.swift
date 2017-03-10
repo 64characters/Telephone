@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  CallHistoryView.swift
 //  Telephone
 //
 //  Copyright (c) 2008-2016 Alexey Kuznetsov
@@ -18,16 +18,6 @@
 
 import UseCases
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
-
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
-    }
+@objc protocol CallHistoryView {
+    func show(_ records: [PresentationCallHistoryRecord])
 }

@@ -27,16 +27,16 @@ public final class DefaultCallHistories {
 
 extension DefaultCallHistories: CallHistories {
     public func history(for account: Account) -> CallHistory {
-        return histories[account.uuid] ?? NullCallHistory()
-    }
-}
-
-extension DefaultCallHistories: UserAgentAccountEventTarget {
-    public func didAdd(_ account: Account, to agent: UserAgent) {
-        histories[account.uuid] = factory.make(uuid: account.uuid)
+        if let history = histories[account.uuid] {
+            return history
+        } else {
+            return makeHistory(uuid: account.uuid)
+        }
     }
 
-    public func willRemove(_ account: Account, from agent: UserAgent) {
-        histories.removeValue(forKey: account.uuid)
+    private func makeHistory(uuid: String) -> CallHistory {
+        let result = factory.make(uuid: uuid)
+        histories[uuid] = result
+        return result
     }
 }
