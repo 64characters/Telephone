@@ -2,4 +2,3 @@
 
 CFBundleName				= "Telephone";
 CFBundleDisplayName			= "Telephone";
-NSHumanReadableCopyright	= "\U00A9 2016 64 Characters";
