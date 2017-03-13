@@ -29,7 +29,7 @@ final class CallHistoryViewEventTargetFactory: NSObject {
         self.durationFormatter = durationFormatter
     }
 
-    func make(for account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
+    func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
         return CallHistoryViewEventTarget(
             recordsGet: CallHistoryRecordsGetUseCase(
                 history: histories.history(for: account),
