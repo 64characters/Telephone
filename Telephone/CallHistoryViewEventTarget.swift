@@ -16,14 +16,22 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
+
 final class CallHistoryViewEventTarget: NSObject {
-    private let recordsGet: UseCase
+    fileprivate let recordsGet: UseCase
 
     init(recordsGet: UseCase) {
         self.recordsGet = recordsGet
     }
 
     func shouldReloadData() {
+        recordsGet.execute()
+    }
+}
+
+extension CallHistoryViewEventTarget: CallHistoryEventTarget {
+    func didUpdate(_ history: CallHistory) {
         recordsGet.execute()
     }
 }

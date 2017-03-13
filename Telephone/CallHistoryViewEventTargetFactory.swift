@@ -30,9 +30,10 @@ final class CallHistoryViewEventTargetFactory: NSObject {
     }
 
     func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
-        return CallHistoryViewEventTarget(
+        let history = histories.history(for: account)
+        let result = CallHistoryViewEventTarget(
             recordsGet: CallHistoryRecordsGetUseCase(
-                history: histories.history(for: account),
+                history: history,
                 output: ContactCallHistoryRecordsGetUseCase(
                     output: CallHistoryViewPresenter(
                         view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
@@ -40,5 +41,7 @@ final class CallHistoryViewEventTargetFactory: NSObject {
                 )
             )
         )
+        history.updateTarget(result)
+        return result
     }
 }

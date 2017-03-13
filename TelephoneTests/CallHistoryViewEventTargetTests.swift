@@ -28,4 +28,13 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
 
         XCTAssertTrue(get.didCallExecute)
     }
+
+    func testExecutesCallHistoryRecordsGetUseCaseOnDidUpdateHistory() {
+        let get = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(recordsGet: get)
+
+        sut.didUpdate(TruncatingCallHistory())
+
+        XCTAssertTrue(get.didCallExecute)
+    }
 }
