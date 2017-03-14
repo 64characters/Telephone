@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordAddUseCaseFactoryStub.swift
+//  CallHistoryRecordAddUseCaseFactorySpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-public final class CallHistoryRecordAddUseCaseFactoryStub {
+public final class CallHistoryRecordAddUseCaseFactorySpy {
     public fileprivate(set) var invokedHistory: CallHistory!
     public fileprivate(set) var invokedRecord: CallHistoryRecord!
     public fileprivate(set) var invokedDomain = ""
@@ -30,7 +30,7 @@ public final class CallHistoryRecordAddUseCaseFactoryStub {
     }
 }
 
-extension CallHistoryRecordAddUseCaseFactoryStub: CallHistoryRecordAddUseCaseFactory {
+extension CallHistoryRecordAddUseCaseFactorySpy: CallHistoryRecordAddUseCaseFactory {
     public func make(history: CallHistory, record: CallHistoryRecord, domain: String) -> UseCase {
         invokedHistory = history
         invokedRecord = record
