@@ -40,7 +40,7 @@ final class CallHistoryViewEventTargetFactory: NSObject {
                     )
                 )
             ),
-            factory: DefaultCallHistoryRecordRemoveUseCaseFactory()
+            factory: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history)
         )
         history.updateTarget(result)
         return result

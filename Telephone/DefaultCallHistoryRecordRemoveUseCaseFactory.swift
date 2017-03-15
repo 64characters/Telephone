@@ -19,7 +19,13 @@
 import UseCases
 
 final class DefaultCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
+    private let history: CallHistory
+
+    init(history: CallHistory) {
+        self.history = history
+    }
+
     public func make(index: Int) -> UseCase {
-        fatalError("Not implemented")
+        return CallHistoryRecordRemoveUseCase(history: history, index: index)
     }
 }
