@@ -20,9 +20,9 @@ import UseCases
 
 final class CallHistoryViewEventTarget: NSObject {
     fileprivate let recordsGet: UseCase
-    private let factory: CallHistoryRecordRemoveByIndexUseCaseFactory
+    private let factory: CallHistoryRecordRemoveUseCaseFactory
 
-    init(recordsGet: UseCase, factory: CallHistoryRecordRemoveByIndexUseCaseFactory) {
+    init(recordsGet: UseCase, factory: CallHistoryRecordRemoveUseCaseFactory) {
         self.recordsGet = recordsGet
         self.factory = factory
     }

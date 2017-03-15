@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordRemoveByIndexUseCaseFactory.swift
+//  CallHistoryRecordRemoveUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistoryRecordRemoveByIndexUseCaseFactory {
+public protocol CallHistoryRecordRemoveUseCaseFactory {
     func make(index: Int) -> UseCase
 }

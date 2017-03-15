@@ -23,7 +23,7 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
     func testExecutesCallHistoryRecordsGetUseCaseOnShouldReloadData() {
         let get = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
-            recordsGet: get, factory: CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: UseCaseSpy())
+            recordsGet: get, factory: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy())
         )
 
         sut.shouldReloadData()
@@ -34,7 +34,7 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
     func testExecutesCallHistoryRecordsGetUseCaseOnDidUpdateHistory() {
         let get = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
-            recordsGet: get, factory: CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: UseCaseSpy())
+            recordsGet: get, factory: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy())
         )
 
         sut.didUpdate(TruncatingCallHistory())
@@ -42,8 +42,8 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertTrue(get.didCallExecute)
     }
 
-    func testCreatesCallHistoryRecordRemoveByIndexUseCaseWithExpectedIndexOnShouldRemoveRecord() {
-        let factory = CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: UseCaseSpy())
+    func testCreatesCallHistoryRecordRemoveUseCaseWithExpectedIndexOnShouldRemoveRecord() {
+        let factory = CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy())
         let sut = CallHistoryViewEventTarget(recordsGet: UseCaseSpy(), factory: factory)
 
         sut.shouldRemoveRecord(at: 2)
@@ -51,10 +51,10 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertEqual(factory.invokedIndex, 2)
     }
 
-    func testExecutesCallHistoryRecordRemoveByIndexUseCaseOnShouldRemoveRecord() {
+    func testExecutesCallHistoryRecordRemoveUseCaseOnShouldRemoveRecord() {
         let remove = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
-            recordsGet: UseCaseSpy(), factory: CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: remove)
+            recordsGet: UseCaseSpy(), factory: CallHistoryRecordRemoveUseCaseFactorySpy(remove: remove)
         )
 
         sut.shouldRemoveRecord(at: 0)

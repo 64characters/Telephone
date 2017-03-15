@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class DefaultCallHistoryRecordRemoveByIndexUseCaseFactory: CallHistoryRecordRemoveByIndexUseCaseFactory {
+final class DefaultCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
     public func make(index: Int) -> UseCase {
         fatalError("Not implemented")
     }

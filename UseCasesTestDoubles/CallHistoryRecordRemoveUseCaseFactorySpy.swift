@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordRemoveByIndexUseCaseFactorySpy.swift
+//  CallHistoryRecordRemoveUseCaseFactorySpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-public final class CallHistoryRecordRemoveByIndexUseCaseFactorySpy {
+public final class CallHistoryRecordRemoveUseCaseFactorySpy {
     public fileprivate(set) var invokedIndex = -1
 
     fileprivate let remove: UseCase
@@ -28,7 +28,7 @@ public final class CallHistoryRecordRemoveByIndexUseCaseFactorySpy {
     }
 }
 
-extension CallHistoryRecordRemoveByIndexUseCaseFactorySpy: CallHistoryRecordRemoveByIndexUseCaseFactory {
+extension CallHistoryRecordRemoveUseCaseFactorySpy: CallHistoryRecordRemoveUseCaseFactory {
     public func make(index: Int) -> UseCase {
         invokedIndex = index
         return remove
