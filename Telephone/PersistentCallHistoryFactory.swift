@@ -20,17 +20,19 @@ import Foundation
 import UseCases
 
 final class PersistentCallHistoryFactory {
-    private let history: TruncatingCallHistoryFactory
-    private let storage: SimplePropertyListStorageFactory
-    private let locations: ApplicationDataLocations
+    fileprivate let history: TruncatingCallHistoryFactory
+    fileprivate let storage: SimplePropertyListStorageFactory
+    fileprivate let locations: ApplicationDataLocations
 
     init(history: TruncatingCallHistoryFactory, storage: SimplePropertyListStorageFactory, locations: ApplicationDataLocations) {
         self.history = history
         self.storage = storage
         self.locations = locations
     }
+}
 
-    func make(uuid: String) -> PersistentCallHistory {
+extension PersistentCallHistoryFactory: CallHistoryFactory {
+    func make(uuid: String) -> CallHistory {
         return PersistentCallHistory(
             origin: history.make(), storage: storage.make(directory: locations.callHistories(), name: uuid)
         )

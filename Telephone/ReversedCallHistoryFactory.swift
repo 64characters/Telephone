@@ -1,5 +1,5 @@
 //
-//  NotifyingCallHistoryFactory.swift
+//  ReversedCallHistoryFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class NotifyingCallHistoryFactory {
+final class ReversedCallHistoryFactory {
     fileprivate let origin: CallHistoryFactory
 
     init(origin: CallHistoryFactory) {
@@ -26,8 +26,8 @@ final class NotifyingCallHistoryFactory {
     }
 }
 
-extension NotifyingCallHistoryFactory: CallHistoryFactory {
+extension ReversedCallHistoryFactory: CallHistoryFactory {
     func make(uuid: String) -> CallHistory {
-        return NotifyingCallHistory(origin: origin.make(uuid: uuid))
+        return ReversedCallHistory(origin: origin.make(uuid: uuid))
     }
 }
