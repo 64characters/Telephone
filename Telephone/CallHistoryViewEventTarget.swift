@@ -20,13 +20,19 @@ import UseCases
 
 final class CallHistoryViewEventTarget: NSObject {
     fileprivate let recordsGet: UseCase
+    private let factory: CallHistoryRecordRemoveByIndexUseCaseFactory
 
-    init(recordsGet: UseCase) {
+    init(recordsGet: UseCase, factory: CallHistoryRecordRemoveByIndexUseCaseFactory) {
         self.recordsGet = recordsGet
+        self.factory = factory
     }
 
     func shouldReloadData() {
         recordsGet.execute()
+    }
+
+    func shouldRemoveRecord(at index: Int) {
+        factory.make(index: index).execute()
     }
 }
 

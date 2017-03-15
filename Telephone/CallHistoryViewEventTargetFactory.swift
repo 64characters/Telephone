@@ -39,7 +39,8 @@ final class CallHistoryViewEventTargetFactory: NSObject {
                         view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
                     )
                 )
-            )
+            ),
+            factory: DefaultCallHistoryRecordRemoveByIndexUseCaseFactory()
         )
         history.updateTarget(result)
         return result

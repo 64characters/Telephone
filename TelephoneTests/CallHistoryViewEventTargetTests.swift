@@ -22,7 +22,9 @@ import UseCasesTestDoubles
 final class CallHistoryViewEventTargetTests: XCTestCase {
     func testExecutesCallHistoryRecordsGetUseCaseOnShouldReloadData() {
         let get = UseCaseSpy()
-        let sut = CallHistoryViewEventTarget(recordsGet: get)
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: get, factory: CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: UseCaseSpy())
+        )
 
         sut.shouldReloadData()
 
@@ -31,10 +33,32 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
 
     func testExecutesCallHistoryRecordsGetUseCaseOnDidUpdateHistory() {
         let get = UseCaseSpy()
-        let sut = CallHistoryViewEventTarget(recordsGet: get)
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: get, factory: CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: UseCaseSpy())
+        )
 
         sut.didUpdate(TruncatingCallHistory())
 
         XCTAssertTrue(get.didCallExecute)
+    }
+
+    func testCreatesCallHistoryRecordRemoveByIndexUseCaseWithExpectedIndexOnShouldRemoveRecord() {
+        let factory = CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: UseCaseSpy())
+        let sut = CallHistoryViewEventTarget(recordsGet: UseCaseSpy(), factory: factory)
+
+        sut.shouldRemoveRecord(at: 2)
+
+        XCTAssertEqual(factory.invokedIndex, 2)
+    }
+
+    func testExecutesCallHistoryRecordRemoveByIndexUseCaseOnShouldRemoveRecord() {
+        let remove = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: UseCaseSpy(), factory: CallHistoryRecordRemoveByIndexUseCaseFactorySpy(remove: remove)
+        )
+
+        sut.shouldRemoveRecord(at: 0)
+
+        XCTAssertTrue(remove.didCallExecute)
     }
 }
