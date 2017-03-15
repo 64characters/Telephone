@@ -18,16 +18,16 @@
 
 public final class CallHistoryRecordRemoveUseCase {
     fileprivate let history: CallHistory
-    fileprivate let record: CallHistoryRecord
+    fileprivate let index: Int
 
-    public init(history: CallHistory, record: CallHistoryRecord) {
+    public init(history: CallHistory, index: Int) {
         self.history = history
-        self.record = record
+        self.index = index
     }
 }
 
 extension CallHistoryRecordRemoveUseCase: UseCase {
     public func execute() {
-        history.remove(record)
+        history.remove(history.allRecords[index])
     }
 }
