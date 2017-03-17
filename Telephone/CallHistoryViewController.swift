@@ -19,8 +19,14 @@
 import Cocoa
 
 final class CallHistoryViewController: NSViewController {
+    var keyView: NSView {
+        return tableView
+    }
+
     @objc fileprivate(set) dynamic var records: [PresentationCallHistoryRecord] = []
+
     @IBOutlet private weak var recordsController: NSArrayController!
+    @IBOutlet private weak var tableView: NSTableView!
 
     var target: CallHistoryViewEventTarget?
 
@@ -37,10 +43,20 @@ final class CallHistoryViewController: NSViewController {
     }
 
     override func keyDown(with event: NSEvent) {
-        interpretKeyEvents([event])
+        switch event.keyCode {
+        case 0x33, 0x75:
+            deleteRecord()
+        default:
+            super.keyDown(with: event)
+        }
     }
 
-    override func deleteBackward(_ sender: Any?) {
+    func updateNextKeyView(_ view: NSView) {
+        keyView.nextKeyView = view
+    }
+
+    private func deleteRecord() {
+        guard !records.isEmpty else { return }
         let index = recordsController.selectionIndex
         makeAlert(recordName: records[index].date).beginSheetModal(for: view.window!) { response in
             if response == NSAlertFirstButtonReturn {

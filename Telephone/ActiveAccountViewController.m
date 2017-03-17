@@ -57,6 +57,10 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     return !self.callDestinationField.isHidden;
 }
 
+- (NSView *)keyView {
+    return self.callDestinationField;
+}
+
 - (instancetype)initWithAccountController:(AccountController *)accountController {
     if ((self = [self initWithNibName:@"ActiveAccountView" bundle:nil])) {
         _accountController = accountController;
@@ -111,6 +115,10 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 
 - (void)disallowCallDestinationInput {
     self.callDestinationField.hidden = YES;
+}
+
+- (void)updateNextKeyView:(NSView *)view {
+    self.keyView.nextKeyView = view;
 }
 
 

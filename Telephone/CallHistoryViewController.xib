@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CallHistoryViewController" customModule="Telephone" customModuleProvider="target">
             <connections>
                 <outlet property="recordsController" destination="AID-oa-47f" id="bPd-gg-Kb6"/>
+                <outlet property="tableView" destination="ziE-jX-sRX" id="qO2-Oq-73Y"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
