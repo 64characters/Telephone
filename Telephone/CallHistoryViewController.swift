@@ -43,10 +43,9 @@ final class CallHistoryViewController: NSViewController {
     }
 
     override func keyDown(with event: NSEvent) {
-        switch event.keyCode {
-        case 0x33, 0x75:
+        if isDeletion(event) {
             deleteRecord()
-        default:
+        } else {
             super.keyDown(with: event)
         }
     }
@@ -64,6 +63,10 @@ final class CallHistoryViewController: NSViewController {
                 self.target?.shouldRemoveRecord(at: index)
             }
         }
+    }
+
+    private func isDeletion(_ event: NSEvent) -> Bool {
+        return event.keyCode == 0x33 || event.keyCode == 0x75
     }
 }
 
