@@ -10,6 +10,9 @@
 /* Call answer button. */
 "Answer" = "Answer";
 
+/* Call history record removal alert. */
+"Are you sure you want to delete the record “%@”?" = "Are you sure you want to delete the record “%@”?";
+
 /* Telephone quit confirmation. */
 "Are you sure you want to quit Telephone?" = "Are you sure you want to quit Telephone?";
 
@@ -164,6 +167,9 @@
 
 /* Error description. */
 "The error was: “%d %@”." = "The error was: “%1$d %2$@”.";
+
+/* Call history record removal alert informative text. */
+"This action cannot be undone." = "This action cannot be undone.";
 
 /* Account removal confirmation informative text. */
 "This will delete your currently set up account “%@”." = "This will delete your currently set up account “%@”.";
