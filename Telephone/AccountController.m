@@ -595,9 +595,12 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
     self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    self.callHistoryViewController.target = [self.factory makeFor:self.account view:self.callHistoryViewController];
+    self.callHistoryViewController.target = [self.factory makeWithAccount:self.account view:self.callHistoryViewController];
     [self.callHistoryView addSubview:self.callHistoryViewController.view];
     [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];
+
+    [self.activeAccountViewController updateNextKeyView:self.callHistoryViewController.keyView];
+    [self.callHistoryViewController updateNextKeyView:self.activeAccountViewController.keyView];
 
     [self showOfflineState];
 }

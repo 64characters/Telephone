@@ -41,6 +41,7 @@ extern NSString * const kPhoneLabel;
 @property(nonatomic, readonly, copy) AKSIPURI *callDestinationURI;
 
 @property(nonatomic, readonly) BOOL allowsCallDestinationInput;
+@property(nonatomic, readonly) NSView *keyView;
 
 // Initializes an ActiveAccountViewController object with a given account controller.
 - (instancetype)initWithAccountController:(AccountController *)accountController;
@@ -53,5 +54,7 @@ extern NSString * const kPhoneLabel;
 
 - (void)allowCallDestinationInput;
 - (void)disallowCallDestinationInput;
+
+- (void)updateNextKeyView:(NSView *)view;
 
 @end

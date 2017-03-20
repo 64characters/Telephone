@@ -1,5 +1,5 @@
 //
-//  NotifyingCallHistoryFactory.swift
+//  ReversedCallHistory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,32 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class ReversedCallHistory {
+    fileprivate let origin: CallHistory
 
-final class NotifyingCallHistoryFactory {
-    fileprivate let origin: CallHistoryFactory
-
-    init(origin: CallHistoryFactory) {
+    public init(origin: CallHistory) {
         self.origin = origin
     }
 }
 
-extension NotifyingCallHistoryFactory: CallHistoryFactory {
-    func make(uuid: String) -> CallHistory {
-        return NotifyingCallHistory(origin: origin.make(uuid: uuid))
+extension ReversedCallHistory: CallHistory {
+    public var allRecords: [CallHistoryRecord] {
+        return origin.allRecords.reversed()
+    }
+
+    public func add(_ record: CallHistoryRecord) {
+        origin.add(record)
+    }
+
+    public func remove(_ record: CallHistoryRecord) {
+        origin.remove(record)
+    }
+
+    public func removeAll() {
+        origin.removeAll()
+    }
+
+    public func updateTarget(_ target: CallHistoryEventTarget) {
+        origin.updateTarget(target)
     }
 }

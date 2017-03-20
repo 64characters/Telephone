@@ -147,10 +147,12 @@ final class CompositionRoot: NSObject {
 
         let callHistories = DefaultCallHistories(
             factory: NotifyingCallHistoryFactory(
-                factory: PersistentCallHistoryFactory(
-                    history: TruncatingCallHistoryFactory(limit: 1000),
-                    storage: SimplePropertyListStorageFactory(),
-                    locations: applicationDataLocations
+                origin: ReversedCallHistoryFactory(
+                    origin: PersistentCallHistoryFactory(
+                        history: TruncatingCallHistoryFactory(limit: 1000),
+                        storage: SimplePropertyListStorageFactory(),
+                        locations: applicationDataLocations
+                    )
                 )
             )
         )

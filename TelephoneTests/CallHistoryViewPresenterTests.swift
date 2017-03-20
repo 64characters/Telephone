@@ -21,7 +21,7 @@ import UseCasesTestDoubles
 import XCTest
 
 final class CallHistoryViewPresenterTests: XCTestCase {
-    func testShowsRecordsReversedOnRecordsUpdate() {
+    func testShowsRecordsOnRecordsUpdate() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -41,7 +41,7 @@ final class CallHistoryViewPresenterTests: XCTestCase {
             ]
         )
 
-        XCTAssertEqual(view.invokedRecords, [expected2, expected1])
+        XCTAssertEqual(view.invokedRecords, [expected1, expected2])
     }
 
     func testContactColorIsRedForMissedCallRecords() {

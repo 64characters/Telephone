@@ -19,7 +19,14 @@
 import Cocoa
 
 final class CallHistoryViewController: NSViewController {
+    var keyView: NSView {
+        return tableView
+    }
+
     @objc fileprivate(set) dynamic var records: [PresentationCallHistoryRecord] = []
+
+    @IBOutlet private weak var recordsController: NSArrayController!
+    @IBOutlet private weak var tableView: NSTableView!
 
     var target: CallHistoryViewEventTarget?
 
@@ -32,7 +39,34 @@ final class CallHistoryViewController: NSViewController {
     }
 
     override func viewDidLoad() {
-        self.target?.shouldReloadData()
+        target?.shouldReloadData()
+    }
+
+    override func keyDown(with event: NSEvent) {
+        if isDeletion(event) {
+            deleteRecord()
+        } else {
+            super.keyDown(with: event)
+        }
+    }
+
+    func updateNextKeyView(_ view: NSView) {
+        keyView.nextKeyView = view
+    }
+
+    private func deleteRecord() {
+        guard !records.isEmpty else { return }
+        let index = recordsController.selectionIndex
+        makeAlert(recordName: records[index].date).beginSheetModal(for: view.window!) { response in
+            if response == NSAlertFirstButtonReturn {
+                self.recordsController.remove(atArrangedObjectIndex: index)
+                self.target?.shouldRemoveRecord(at: index)
+            }
+        }
+    }
+
+    private func isDeletion(_ event: NSEvent) -> Bool {
+        return event.keyCode == 0x33 || event.keyCode == 0x75
     }
 }
 
@@ -40,4 +74,20 @@ extension CallHistoryViewController: CallHistoryView {
     func show(_ records: [PresentationCallHistoryRecord]) {
         self.records = records
     }
+}
+
+private func makeAlert(recordName name: String) -> NSAlert {
+    let a = NSAlert()
+    a.messageText = String(
+        format: NSLocalizedString(
+            "Are you sure you want to delete the record “%@”?", comment: "Call history record removal alert."
+        ), name
+    )
+    a.informativeText = NSLocalizedString(
+        "This action cannot be undone.", comment: "Call history record removal alert informative text."
+    )
+    a.addButton(withTitle: NSLocalizedString("Delete", comment: "Delete button."))
+    a.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel button."))
+    a.buttons[1].keyEquivalent = "\u{1b}"
+    return a
 }

@@ -10,6 +10,9 @@
 /* Call answer button. */
 "Answer" = "Annehmen";
 
+/* Call history record removal alert. */
+"Are you sure you want to delete the record “%@”?" = "Wollen Sie den Datensatz „%@“ wirklich löschen?";
+
 /* Telephone quit confirmation. */
 "Are you sure you want to quit Telephone?" = "Wollen Sie Telefon wirklich beenden?";
 
@@ -164,6 +167,9 @@
 
 /* Error description. */
 "The error was: “%d %@”." = "Fehlerbeschreibung: „%1$d %2$@“.";
+
+/* Call history record removal alert informative text. */
+"This action cannot be undone." = "Dieser Vorgang kann nicht rückgängig gemacht werden.";
 
 /* Account removal confirmation informative text. */
 "This will delete your currently set up account “%@”." = "Ihr Account „%@“ wird gelöscht.";

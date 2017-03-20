@@ -1,5 +1,5 @@
 //
-//  CallHistoryViewEventTarget.swift
+//  ReversedCallHistoryFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,26 +18,16 @@
 
 import UseCases
 
-final class CallHistoryViewEventTarget: NSObject {
-    fileprivate let recordsGet: UseCase
-    private let factory: CallHistoryRecordRemoveUseCaseFactory
+final class ReversedCallHistoryFactory {
+    fileprivate let origin: CallHistoryFactory
 
-    init(recordsGet: UseCase, factory: CallHistoryRecordRemoveUseCaseFactory) {
-        self.recordsGet = recordsGet
-        self.factory = factory
-    }
-
-    func shouldReloadData() {
-        recordsGet.execute()
-    }
-
-    func shouldRemoveRecord(at index: Int) {
-        factory.make(index: index).execute()
+    init(origin: CallHistoryFactory) {
+        self.origin = origin
     }
 }
 
-extension CallHistoryViewEventTarget: CallHistoryEventTarget {
-    func didUpdate(_ history: CallHistory) {
-        recordsGet.execute()
+extension ReversedCallHistoryFactory: CallHistoryFactory {
+    func make(uuid: String) -> CallHistory {
+        return ReversedCallHistory(origin: origin.make(uuid: uuid))
     }
 }

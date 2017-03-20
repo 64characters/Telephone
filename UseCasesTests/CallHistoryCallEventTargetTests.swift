@@ -25,7 +25,7 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
         let account = SimpleAccount(uuid: "any-id", domain: "any-domain")
         let history: CallHistory = TruncatingCallHistory()
         let histories = DefaultCallHistories(factory: CallHistoryFactorySpy(history: history))
-        let factory = CallHistoryRecordAddUseCaseFactoryStub(add: UseCaseSpy())
+        let factory = CallHistoryRecordAddUseCaseFactorySpy(add: UseCaseSpy())
         let sut = CallHistoryCallEventTarget(histories: histories, factory: factory)
         let call = makeCall(account: account)
 
@@ -39,7 +39,7 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
     func testExecutesUseCaseOnDidDisconnect() {
         let histories = DefaultCallHistories(factory: CallHistoryFactorySpy(history: TruncatingCallHistory()))
         let add = UseCaseSpy()
-        let sut = CallHistoryCallEventTarget(histories: histories, factory: CallHistoryRecordAddUseCaseFactoryStub(add: add))
+        let sut = CallHistoryCallEventTarget(histories: histories, factory: CallHistoryRecordAddUseCaseFactorySpy(add: add))
         let call = makeCall(account: SimpleAccount(uuid: "any-id", domain: "any-domain"))
 
         sut.didDisconnect(call)

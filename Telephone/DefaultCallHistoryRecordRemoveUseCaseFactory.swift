@@ -1,5 +1,5 @@
 //
-//  CallHistoryViewEventTarget.swift
+//  DefaultCallHistoryRecordRemoveUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,26 +18,14 @@
 
 import UseCases
 
-final class CallHistoryViewEventTarget: NSObject {
-    fileprivate let recordsGet: UseCase
-    private let factory: CallHistoryRecordRemoveUseCaseFactory
+final class DefaultCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
+    private let history: CallHistory
 
-    init(recordsGet: UseCase, factory: CallHistoryRecordRemoveUseCaseFactory) {
-        self.recordsGet = recordsGet
-        self.factory = factory
+    init(history: CallHistory) {
+        self.history = history
     }
 
-    func shouldReloadData() {
-        recordsGet.execute()
-    }
-
-    func shouldRemoveRecord(at index: Int) {
-        factory.make(index: index).execute()
-    }
-}
-
-extension CallHistoryViewEventTarget: CallHistoryEventTarget {
-    func didUpdate(_ history: CallHistory) {
-        recordsGet.execute()
+    public func make(index: Int) -> UseCase {
+        return CallHistoryRecordRemoveUseCase(history: history, index: index)
     }
 }
