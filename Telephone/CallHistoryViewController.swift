@@ -43,7 +43,9 @@ final class CallHistoryViewController: NSViewController {
     }
 
     override func keyDown(with event: NSEvent) {
-        if isDeletion(event) {
+        if isReturnKey(event) {
+            pickRecord()
+        } else if isDeleteKey(event) {
             deleteRecord()
         } else {
             super.keyDown(with: event)
@@ -52,6 +54,11 @@ final class CallHistoryViewController: NSViewController {
 
     func updateNextKeyView(_ view: NSView) {
         keyView.nextKeyView = view
+    }
+
+    private func pickRecord() {
+        guard !records.isEmpty else { return }
+        target?.didSelectRecord(at: recordsController.selectionIndex)
     }
 
     private func deleteRecord() {
@@ -65,7 +72,11 @@ final class CallHistoryViewController: NSViewController {
         }
     }
 
-    private func isDeletion(_ event: NSEvent) -> Bool {
+    private func isReturnKey(_ event: NSEvent) -> Bool {
+        return event.keyCode == 0x24
+    }
+
+    private func isDeleteKey(_ event: NSEvent) -> Bool {
         return event.keyCode == 0x33 || event.keyCode == 0x75
     }
 }
