@@ -16,10 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-final class DefaultCallHistoryCallMakeUseCaseFactory {}
+import UseCases
+
+final class DefaultCallHistoryCallMakeUseCaseFactory {
+    fileprivate let account: Account
+    fileprivate let history: CallHistory
+
+    init(account: Account, history: CallHistory) {
+        self.account = account
+        self.history = history
+    }
+}
 
 extension DefaultCallHistoryCallMakeUseCaseFactory: CallHistoryCallMakeUseCaseFactory {
     func make(index: Int) -> UseCase {
-        fatalError("Not implemented")
+        return CallHistoryCallMakeUseCase(account: account, history: history, index: index)
     }
 }
