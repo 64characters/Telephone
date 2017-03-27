@@ -46,7 +46,7 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertTrue(get.didCallExecute)
     }
 
-    func testCreatesCallHistoryCallMakeUseCaseWithExpectedIndexOnDidSelectRecord() {
+    func testCreatesCallHistoryCallMakeUseCaseWithExpectedIndexOnDidPickRecord() {
         let factory = CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
         let sut = CallHistoryViewEventTarget(
             recordsGet: UseCaseSpy(),
@@ -54,12 +54,12 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
             callMake: factory
         )
 
-        sut.didSelectRecord(at: 3)
+        sut.didPickRecord(at: 3)
 
         XCTAssertEqual(factory.invokedIndex, 3)
     }
 
-    func testExecutesCallHistoryCallMakeUseCaseOnDidSelectRecord() {
+    func testExecutesCallHistoryCallMakeUseCaseOnDidPickRecord() {
         let callMake = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
             recordsGet: UseCaseSpy(),
@@ -67,7 +67,7 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
             callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: callMake)
         )
 
-        sut.didSelectRecord(at: 1)
+        sut.didPickRecord(at: 1)
 
         XCTAssertTrue(callMake.didCallExecute)
     }

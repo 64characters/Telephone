@@ -63,7 +63,7 @@ final class CallHistoryViewController: NSViewController {
 
     private func pickRecord() {
         guard !records.isEmpty else { return }
-        target?.didSelectRecord(at: recordsController.selectionIndex)
+        target?.didPickRecord(at: recordsController.selectionIndex)
     }
 
     private func deleteRecord() {

@@ -33,7 +33,7 @@ final class CallHistoryViewEventTarget: NSObject {
         recordsGet.execute()
     }
 
-    func didSelectRecord(at index: Int) {
+    func didPickRecord(at index: Int) {
         callMake.make(index: index).execute()
     }
 
