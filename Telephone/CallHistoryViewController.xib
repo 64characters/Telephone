@@ -176,6 +176,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="didDoubleClick:" target="-2" id="4wo-vb-AIE"/>
                                     <binding destination="AID-oa-47f" name="content" keyPath="arrangedObjects" id="Zlx-va-MpK"/>
                                     <binding destination="AID-oa-47f" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Zlx-va-MpK" id="oAI-ah-7AL"/>
                                 </connections>

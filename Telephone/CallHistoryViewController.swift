@@ -56,6 +56,11 @@ final class CallHistoryViewController: NSViewController {
         keyView.nextKeyView = view
     }
 
+    @IBAction func didDoubleClick(_ sender: NSTableView) {
+        guard sender.clickedRow != -1 else { return }
+        pickRecord()
+    }
+
     private func pickRecord() {
         guard !records.isEmpty else { return }
         target?.didSelectRecord(at: recordsController.selectionIndex)
