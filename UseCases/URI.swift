@@ -30,6 +30,10 @@ public final class URI: NSObject {
     public convenience init(_ address: ContactAddress) {
         self.init(user: address.user, host: address.host)
     }
+
+    public override var description: String {
+        return "\(user)@\(host)"
+    }
 }
 
 extension URI {
