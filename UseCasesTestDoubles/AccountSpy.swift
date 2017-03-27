@@ -1,5 +1,5 @@
 //
-//  SimpleAccount.swift
+//  AccountSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,16 +18,19 @@
 
 import UseCases
 
-public final class SimpleAccount {
-    public let uuid: String
-    public let domain: String
+public final class AccountSpy {
+    public let uuid = ""
+    public let domain = ""
 
-    public init(uuid: String, domain: String) {
-        self.uuid = uuid
-        self.domain = domain
-    }
+    public fileprivate(set) var didCallMakeCallTo = false
+    public fileprivate(set) var invokedURI: URI?
+
+    public init() {}
 }
 
-extension SimpleAccount: Account {
-    public func makeCall(to uri: URI) {}
+extension AccountSpy: Account {
+    public func makeCall(to uri: URI) {
+        didCallMakeCallTo = true
+        invokedURI = uri
+    }
 }
