@@ -259,6 +259,10 @@ NS_ASSUME_NONNULL_END
     self.identifier = identifier;
 }
 
+- (void)makeCallTo:(URI *)uri {
+    NSLog(@"Not calling %@", uri);
+}
+
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {
     void (^onCallMakeCompletion)(BOOL, pjsua_call_id) = ^(BOOL success, pjsua_call_id callID) {
         if (success) {
