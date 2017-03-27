@@ -35,11 +35,8 @@ final class PresentationCallHistoryRecord: NSObject {
 
 extension PresentationCallHistoryRecord {
     override func isEqual(_ object: Any?) -> Bool {
-        if let record = object as? PresentationCallHistoryRecord {
-            return isEqual(to: record)
-        } else {
-            return false
-        }
+        guard let record = object as? PresentationCallHistoryRecord else { return false }
+        return isEqual(to: record)
     }
 
     override var hash: Int {

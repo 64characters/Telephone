@@ -30,11 +30,8 @@ final class PresentationProduct: NSObject {
 
 extension PresentationProduct {
     override func isEqual(_ object: Any?) -> Bool {
-        if let product = object as? PresentationProduct {
-            return isEqual(toProduct: product)
-        } else {
-            return false
-        }
+        guard let product = object as? PresentationProduct else { return false }
+        return isEqual(toProduct: product)
     }
 
     override var hash: Int {
