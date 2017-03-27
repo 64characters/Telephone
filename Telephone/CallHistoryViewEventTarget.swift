@@ -20,19 +20,25 @@ import UseCases
 
 final class CallHistoryViewEventTarget: NSObject {
     fileprivate let recordsGet: UseCase
-    private let factory: CallHistoryRecordRemoveUseCaseFactory
+    private let recordRemove: CallHistoryRecordRemoveUseCaseFactory
+    private let callMake: CallHistoryCallMakeUseCaseFactory
 
-    init(recordsGet: UseCase, factory: CallHistoryRecordRemoveUseCaseFactory) {
+    init(recordsGet: UseCase, recordRemove: CallHistoryRecordRemoveUseCaseFactory, callMake: CallHistoryCallMakeUseCaseFactory) {
         self.recordsGet = recordsGet
-        self.factory = factory
+        self.recordRemove = recordRemove
+        self.callMake = callMake
     }
 
     func shouldReloadData() {
         recordsGet.execute()
     }
 
+    func didSelectRecord(at index: Int) {
+        callMake.make(index: index).execute()
+    }
+
     func shouldRemoveRecord(at index: Int) {
-        factory.make(index: index).execute()
+        recordRemove.make(index: index).execute()
     }
 }
 
