@@ -1,9 +1,6 @@
 //
-//  SimpleAccount.swift
+//  CallHistoryCallMakeUseCaseFactory.swift
 //  Telephone
-//
-//  Copyright © 2008-2016 Alexey Kuznetsov
-//  Copyright © 2016-2017 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -16,18 +13,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class SimpleAccount {
-    public let uuid: String
-    public let domain: String
-
-    public init(uuid: String, domain: String) {
-        self.uuid = uuid
-        self.domain = domain
-    }
-}
-
-extension SimpleAccount: Account {
-    public func makeCall(to uri: URI) {}
+public protocol CallHistoryCallMakeUseCaseFactory {
+    func make(index: Int) -> UseCase
 }

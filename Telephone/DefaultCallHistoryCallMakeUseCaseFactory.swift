@@ -1,5 +1,5 @@
 //
-//  DefaultCallHistoryRecordRemoveUseCaseFactory.swift
+//  DefaultCallHistoryCallMakeUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,16 +18,18 @@
 
 import UseCases
 
-final class DefaultCallHistoryRecordRemoveUseCaseFactory {
+final class DefaultCallHistoryCallMakeUseCaseFactory {
+    fileprivate let account: Account
     fileprivate let history: CallHistory
 
-    init(history: CallHistory) {
+    init(account: Account, history: CallHistory) {
+        self.account = account
         self.history = history
     }
 }
 
-extension DefaultCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
-    public func make(index: Int) -> UseCase {
-        return CallHistoryRecordRemoveUseCase(history: history, index: index)
+extension DefaultCallHistoryCallMakeUseCaseFactory: CallHistoryCallMakeUseCaseFactory {
+    func make(index: Int) -> UseCase {
+        return CallHistoryCallMakeUseCase(account: account, history: history, index: index)
     }
 }

@@ -32,11 +32,8 @@ final class PresentationContactAddress: NSObject {
 
 extension PresentationContactAddress {
     override func isEqual(_ object: Any?) -> Bool {
-        if let address = object as? PresentationContactAddress {
-            return isEqual(to: address)
-        } else {
-            return false
-        }
+        guard let address = object as? PresentationContactAddress else { return false }
+        return isEqual(to: address)
     }
 
     override var hash: Int {

@@ -1,9 +1,6 @@
 //
-//  DefaultCallHistoryRecordRemoveUseCaseFactory.swift
+//  CallHistoryCallMakeUseCase.swift
 //  Telephone
-//
-//  Copyright © 2008-2016 Alexey Kuznetsov
-//  Copyright © 2016-2017 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -16,18 +13,20 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-final class DefaultCallHistoryRecordRemoveUseCaseFactory {
+public final class CallHistoryCallMakeUseCase {
+    fileprivate let account: Account
     fileprivate let history: CallHistory
+    fileprivate let index: Int
 
-    init(history: CallHistory) {
+    public init(account: Account, history: CallHistory, index: Int) {
+        self.account = account
         self.history = history
+        self.index = index
     }
 }
 
-extension DefaultCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
-    public func make(index: Int) -> UseCase {
-        return CallHistoryRecordRemoveUseCase(history: history, index: index)
+extension CallHistoryCallMakeUseCase: UseCase {
+    public func execute() {
+        account.makeCall(to: URI(history.allRecords[index].address))
     }
 }

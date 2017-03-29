@@ -33,11 +33,8 @@ final class PresentationContact: NSObject {
 
 extension PresentationContact {
     override func isEqual(_ object: Any?) -> Bool {
-        if let contact = object as? PresentationContact {
-            return isEqual(to: contact)
-        } else {
-            return false
-        }
+        guard let contact = object as? PresentationContact else { return false }
+        return isEqual(to: contact)
     }
 
     override var hash: Int {

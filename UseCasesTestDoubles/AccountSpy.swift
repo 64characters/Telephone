@@ -1,5 +1,5 @@
 //
-//  DefaultCallHistoryRecordRemoveUseCaseFactory.swift
+//  AccountSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,16 +18,19 @@
 
 import UseCases
 
-final class DefaultCallHistoryRecordRemoveUseCaseFactory {
-    fileprivate let history: CallHistory
+public final class AccountSpy {
+    public let uuid = ""
+    public let domain = ""
 
-    init(history: CallHistory) {
-        self.history = history
-    }
+    public fileprivate(set) var didCallMakeCallTo = false
+    public fileprivate(set) var invokedURI: URI?
+
+    public init() {}
 }
 
-extension DefaultCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
-    public func make(index: Int) -> UseCase {
-        return CallHistoryRecordRemoveUseCase(history: history, index: index)
+extension AccountSpy: Account {
+    public func makeCall(to uri: URI) {
+        didCallMakeCallTo = true
+        invokedURI = uri
     }
 }

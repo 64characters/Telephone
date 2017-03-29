@@ -26,4 +26,27 @@ public final class URI: NSObject {
         self.user = user
         self.host = host
     }
+
+    public convenience init(_ address: ContactAddress) {
+        self.init(user: address.user, host: address.host)
+    }
+
+    public override var description: String {
+        return "\(user)@\(host)"
+    }
+}
+
+extension URI {
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let uri = object as? URI else { return false }
+        return isEqual(to: uri)
+    }
+
+    public override var hash: Int {
+        return user.hash ^ host.hash
+    }
+
+    private func isEqual(to uri: URI) -> Bool {
+        return user == uri.user && host == uri.host
+    }
 }

@@ -587,6 +587,24 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 
 #pragma mark -
+#pragma mark Account
+
+- (NSString *)uuid {
+    return self.account.uuid;
+}
+
+- (NSString *)domain {
+    return self.account.domain;
+}
+
+- (void)makeCallTo:(URI *)uri {
+    if (self.isAccountAdded) {
+        [self makeCallToURI:[AKSIPURI SIPURIWithUser:uri.user host:uri.host displayName:@""] phoneLabel:@""];
+    }
+}
+
+
+#pragma mark -
 #pragma mark NSWindow delegate methods
 
 - (void)windowDidLoad {
@@ -595,7 +613,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
     self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    self.callHistoryViewController.target = [self.factory makeWithAccount:self.account view:self.callHistoryViewController];
+    self.callHistoryViewController.target = [self.factory makeWithAccount:self view:self.callHistoryViewController];
     [self.callHistoryView addSubview:self.callHistoryViewController.view];
     [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];
 
