@@ -17,8 +17,7 @@
 //
 
 @import Foundation;
-
-#import "MusicPlayer.h"
+@import UseCases;
 
 NS_ASSUME_NONNULL_BEGIN
 

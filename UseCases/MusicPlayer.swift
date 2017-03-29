@@ -1,5 +1,5 @@
 //
-//  MusicPlayer.h
+//  MusicPlayer.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-@protocol MusicPlayer
-
-- (void)pause;
-- (void)resume;
-
-@end
+@objc public protocol MusicPlayer {
+    func pause()
+    func resume()
+}

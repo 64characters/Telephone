@@ -97,6 +97,7 @@
 		8A32A4E81D6719730086B49D /* PurchaseCheckUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32A4E71D6719730086B49D /* PurchaseCheckUseCase.swift */; };
 		8A32A4EA1D675A300086B49D /* PurchaseCheckUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32A4E91D675A300086B49D /* PurchaseCheckUseCaseTests.swift */; };
 		8A32A4EC1D675B990086B49D /* PurchaseCheckUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32A4EB1D675B990086B49D /* PurchaseCheckUseCaseOutputSpy.swift */; };
+		8A32D19A1E8BE7D500903796 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32D1991E8BE7D500903796 /* MusicPlayer.swift */; };
 		8A3865161D369A2100EDA7AB /* FailingStoreFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */; };
 		8A39A1AD1D5BE42100D703AD /* PKCS7Container.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1AC1D5BE42100D703AD /* PKCS7Container.m */; };
 		8A39A1B01D5BE70000D703AD /* ASN1Payload.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1AF1D5BE70000D703AD /* ASN1Payload.m */; };
@@ -223,7 +224,6 @@
 		8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
 		8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748921D6F414E000587DC /* AppleMusicPlayer.m */; };
 		8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */; };
-		8AA748A21D702063000587DC /* MusicPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AA748901D6F40FD000587DC /* MusicPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8AA748A41D70220D000587DC /* ConditionalMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A31D70220D000587DC /* ConditionalMusicPlayer.swift */; };
 		8AA748A71D702221000587DC /* ConditionalMusicPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A51D70221F000587DC /* ConditionalMusicPlayerTests.swift */; };
 		8AA748A91D7022BA000587DC /* MusicPlayerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A81D7022BA000587DC /* MusicPlayerSpy.swift */; };
@@ -776,6 +776,7 @@
 		8A32A4E71D6719730086B49D /* PurchaseCheckUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseCheckUseCase.swift; sourceTree = "<group>"; };
 		8A32A4E91D675A300086B49D /* PurchaseCheckUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseCheckUseCaseTests.swift; path = UseCasesTests/PurchaseCheckUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A32A4EB1D675B990086B49D /* PurchaseCheckUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseCheckUseCaseOutputSpy.swift; sourceTree = "<group>"; };
+		8A32D1991E8BE7D500903796 /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingStoreFake.swift; sourceTree = "<group>"; };
 		8A39A1AB1D5BE42100D703AD /* PKCS7Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKCS7Container.h; sourceTree = "<group>"; };
 		8A39A1AC1D5BE42100D703AD /* PKCS7Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKCS7Container.m; sourceTree = "<group>"; };
@@ -886,7 +887,6 @@
 		8AA748801D6DECAB000587DC /* SettingsAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccounts.swift; sourceTree = "<group>"; };
 		8AA748821D6DEE61000587DC /* SettingsAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccount.swift; sourceTree = "<group>"; };
 		8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsAccountsTests.swift; path = TelephoneTests/SettingsAccountsTests.swift; sourceTree = SOURCE_ROOT; };
-		8AA748901D6F40FD000587DC /* MusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayer.h; sourceTree = "<group>"; };
 		8AA748911D6F414E000587DC /* AppleMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleMusicPlayer.h; sourceTree = "<group>"; };
 		8AA748921D6F414E000587DC /* AppleMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleMusicPlayer.m; sourceTree = "<group>"; };
 		8AA748941D6F6D7C000587DC /* SpotifyMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyMusicPlayer.h; sourceTree = "<group>"; };
@@ -1856,7 +1856,7 @@
 			children = (
 				8AA748A31D70220D000587DC /* ConditionalMusicPlayer.swift */,
 				8AA748A51D70221F000587DC /* ConditionalMusicPlayerTests.swift */,
-				8AA748901D6F40FD000587DC /* MusicPlayer.h */,
+				8A32D1991E8BE7D500903796 /* MusicPlayer.swift */,
 			);
 			name = MusicPlayer;
 			sourceTree = "<group>";
@@ -2480,7 +2480,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA078B2C1BFF80E30013FF8F /* UseCases.h in Headers */,
-				8AA748A21D702063000587DC /* MusicPlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3168,6 +3167,7 @@
 				8A11B3D21DDB6D9A002EDA93 /* CallHistoryCallEventTarget.swift in Sources */,
 				AA7F6D4B1C0387160064DA3A /* PresentationSoundIO.swift in Sources */,
 				8AAACA151CAEC555001930C4 /* SettingsSoundIO.swift in Sources */,
+				8A32D19A1E8BE7D500903796 /* MusicPlayer.swift in Sources */,
 				8ADD31CA1CC112A2008C083C /* NullThrowingUseCase.swift in Sources */,
 				8A61363B1CC23AA000A087A4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */,
 				8A9513E41D2A6CCA0034DF2C /* ReceiptValidatingStoreEventTarget.swift in Sources */,
