@@ -4,6 +4,8 @@
 
 #import <pjsua-lib/pjsua.h>
 
+#import "ReceiptValidation-Bridging-Header.h"
+
 #import "AppController.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
