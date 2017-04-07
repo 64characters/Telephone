@@ -1,5 +1,5 @@
 //
-//  CallHistories.swift
+//  AccountsEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistories {
-    func history(for account: Account) -> CallHistory
-    func remove(withUUID uuid: String)
+public protocol AccountsEventTarget {
+    func didRemoveAccount(withUUID uuid: String)
 }
