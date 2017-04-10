@@ -19,6 +19,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "PreferencesControllerDelegate.h"
+#import "PreferencesControllerNotifications.h"
 #import "SoundIOPreferences.h"
 
 @protocol SoundPreferencesViewEventTarget;
@@ -32,26 +33,6 @@ enum {
     kSoundPreferencesTag    = 2,
     kNetworkPreferencesTag  = 3
 };
-
-extern NSString * const kSourceIndex;
-extern NSString * const kDestinationIndex;
-
-// Notifications.
-//
-// Sent when preferences controller removes an accont.
-// |userInfo| dictionary key: AKAccountIndex.
-extern NSString * const AKPreferencesControllerDidRemoveAccountNotification;
-//
-// Sent when preferences controller enables or disables an account.
-// |userInfo| dictionary key: AKAccountIndex.
-extern NSString * const AKPreferencesControllerDidChangeAccountEnabledNotification;
-//
-// Sent when preferences controller changes account order.
-// |userInfo| dictionary keys: AKSourceIndex, AKDestinationIndex.
-extern NSString * const AKPreferencesControllerDidSwapAccountsNotification;
-//
-// Sent when preferences controller changes network settings.
-extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification;
 
 @class AKSIPUserAgent;
 @class GeneralPreferencesViewController, AccountPreferencesViewController;
