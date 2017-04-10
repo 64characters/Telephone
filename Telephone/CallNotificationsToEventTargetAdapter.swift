@@ -26,19 +26,14 @@ final class CallNotificationsToEventTargetAdapter {
     init(center: NotificationCenter, target: CallEventTarget) {
         self.center = center
         self.target = target
-        center.addObserver(
-            self,
-            selector: #selector(SIPCallDidDisconnect(_:)),
-            name: Notification.Name.AKSIPCallDidDisconnect,
-            object: nil
-        )
+        center.addObserver(self, selector: #selector(didDisconnect), name: .AKSIPCallDidDisconnect, object: nil)
     }
 
     deinit {
-        center.removeObserver(self, name: Notification.Name.AKSIPCallDidDisconnect, object: nil)
+        center.removeObserver(self, name: .AKSIPCallDidDisconnect, object: nil)
     }
 
-    @objc private func SIPCallDidDisconnect(_ notification: Notification) {
+    @objc private func didDisconnect(_ notification: Notification) {
         target.didDisconnect(notification.object as! Call)
     }
 }
