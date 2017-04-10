@@ -19,7 +19,7 @@
 @import Foundation;
 
 // Sent when preferences controller removes an accont.
-// |userInfo| dictionary key: kAccountIndex.
+// |userInfo| dictionary keys: kAccountIndex, kUUID.
 extern NSString * const AKPreferencesControllerDidRemoveAccountNotification;
 
 // Sent when preferences controller enables or disables an account.
