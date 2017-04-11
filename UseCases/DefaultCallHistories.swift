@@ -26,11 +26,11 @@ public final class DefaultCallHistories {
 }
 
 extension DefaultCallHistories: CallHistories {
-    public func history(for account: Account) -> CallHistory {
-        if let history = histories[account.uuid] {
+    public func history(withUUID uuid: String) -> CallHistory {
+        if let history = histories[uuid] {
             return history
         } else {
-            return makeHistory(uuid: account.uuid)
+            return makeHistory(uuid: uuid)
         }
     }
 

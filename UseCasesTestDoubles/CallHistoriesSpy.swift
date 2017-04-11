@@ -26,7 +26,7 @@ public final class CallHistoriesSpy  {
 }
 
 extension CallHistoriesSpy: CallHistories {
-    public func history(for account: Account) -> CallHistory {
+    public func history(withUUID uuid: String) -> CallHistory {
         fatalError("Not implemented")
     }
 

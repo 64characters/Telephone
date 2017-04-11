@@ -17,6 +17,6 @@
 //
 
 public protocol CallHistories {
-    func history(for account: Account) -> CallHistory
+    func history(withUUID uuid: String) -> CallHistory
     func remove(withUUID uuid: String)
 }

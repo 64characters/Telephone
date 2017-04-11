@@ -25,18 +25,18 @@ final class DefaultCallHistoriesTests: XCTestCase {
         let history = TruncatingCallHistory()
         let sut = DefaultCallHistories(factory: CallHistoryFactorySpy(history: history))
 
-        let result = sut.history(for: SimpleAccount(uuid: "any-uuid", domain: "any-domain"))
+        let result = sut.history(withUUID: "any-uuid")
 
         XCTAssertTrue(result === history)
     }
 
-    func testUsesAccountUUIDOnHistoryCreation() {
+    func testUsesExpectedUUIDOnHistoryCreation() {
         let factory = CallHistoryFactorySpy(history: TruncatingCallHistory())
         let sut = DefaultCallHistories(factory: factory)
-        let account = SimpleAccount(uuid: "any-uuid", domain: "any-domain")
+        let uuid = "any-uuid"
 
-        _ = sut.history(for: account)
+        _ = sut.history(withUUID: uuid)
 
-        XCTAssertEqual(factory.invokedUUID, account.uuid)
+        XCTAssertEqual(factory.invokedUUID, uuid)
     }
 }
