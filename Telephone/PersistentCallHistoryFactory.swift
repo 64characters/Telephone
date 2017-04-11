@@ -35,7 +35,7 @@ extension PersistentCallHistoryFactory: CallHistoryFactory {
     func make(uuid: String) -> CallHistory {
         return PersistentCallHistory(
             origin: history.make(),
-            storage: storage.make(url: PropertyListStorageURL(directory: locations.callHistories(), name: uuid))
+            storage: storage.make(url: SimplePropertyListStorageURL(directory: locations.callHistories(), name: uuid))
         )
     }
 }

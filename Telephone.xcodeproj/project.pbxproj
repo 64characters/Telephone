@@ -225,9 +225,9 @@
 		8AA27AE21E97DE7F002A08CD /* AccountsEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE11E97DE7F002A08CD /* AccountsEventTargetSpy.swift */; };
 		8AA27AE61E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE51E97F0FA002A08CD /* PreferencesControllerNotifications.m */; };
 		8AA27AE71E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE51E97F0FA002A08CD /* PreferencesControllerNotifications.m */; };
-		8AA27AF01E9D397B002A08CD /* PropertyListStorageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE81E9D0BF1002A08CD /* PropertyListStorageURL.swift */; };
-		8AA27AF11E9D397B002A08CD /* PropertyListStorageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE81E9D0BF1002A08CD /* PropertyListStorageURL.swift */; };
-		8AA27AF21E9D3982002A08CD /* PropertyListStorageURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AEA1E9D0C1C002A08CD /* PropertyListStorageURLTests.swift */; };
+		8AA27AF01E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE81E9D0BF1002A08CD /* SimplePropertyListStorageURL.swift */; };
+		8AA27AF11E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE81E9D0BF1002A08CD /* SimplePropertyListStorageURL.swift */; };
+		8AA27AF21E9D3982002A08CD /* SimplePropertyListStorageURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AEA1E9D0C1C002A08CD /* SimplePropertyListStorageURLTests.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
 		8AA7487F1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */; };
 		8AA748811D6DECAB000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
@@ -904,8 +904,8 @@
 		8AA27AE11E97DE7F002A08CD /* AccountsEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsEventTargetSpy.swift; sourceTree = "<group>"; };
 		8AA27AE41E97F0FA002A08CD /* PreferencesControllerNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesControllerNotifications.h; sourceTree = "<group>"; };
 		8AA27AE51E97F0FA002A08CD /* PreferencesControllerNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesControllerNotifications.m; sourceTree = "<group>"; };
-		8AA27AE81E9D0BF1002A08CD /* PropertyListStorageURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListStorageURL.swift; sourceTree = "<group>"; };
-		8AA27AEA1E9D0C1C002A08CD /* PropertyListStorageURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PropertyListStorageURLTests.swift; path = TelephoneTests/PropertyListStorageURLTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA27AE81E9D0BF1002A08CD /* SimplePropertyListStorageURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePropertyListStorageURL.swift; sourceTree = "<group>"; };
+		8AA27AEA1E9D0C1C002A08CD /* SimplePropertyListStorageURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimplePropertyListStorageURLTests.swift; path = TelephoneTests/SimplePropertyListStorageURLTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsPurchaseReminderSettings.swift; sourceTree = "<group>"; };
 		8AA748801D6DECAB000587DC /* SettingsAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccounts.swift; sourceTree = "<group>"; };
@@ -1416,6 +1416,7 @@
 				AADAA303107E5AD400789F2D /* Preferences */,
 				AA1019821C490BB900869D01 /* Ringtone */,
 				8ADA10981DC8D1F20038E0A5 /* Settings Migration */,
+				8ACC00281E9D3A7C005B0338 /* SimplePropertyListStorage */,
 				AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */,
 				8A63ECD21CCFBEAB00AEC485 /* Store */,
 				AA1019911C4949C700869D01 /* Timer */,
@@ -1434,13 +1435,9 @@
 				AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */,
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
-				8AA27AE81E9D0BF1002A08CD /* PropertyListStorageURL.swift */,
-				8AA27AEA1E9D0C1C002A08CD /* PropertyListStorageURLTests.swift */,
 				8AA748821D6DEE61000587DC /* SettingsAccount.swift */,
 				8AA748801D6DECAB000587DC /* SettingsAccounts.swift */,
 				8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */,
-				8ACD2ADF1DD200D700E81984 /* SimplePropertyListStorage.swift */,
-				8AD9A0DF1DE34F20000BB2F2 /* SimplePropertyListStorageFactory.swift */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
@@ -1905,6 +1902,17 @@
 				8AA748B21D703F45000587DC /* SimpleMusicPlayerSettingsTests.swift */,
 			);
 			name = MusicPlayerSettings;
+			sourceTree = "<group>";
+		};
+		8ACC00281E9D3A7C005B0338 /* SimplePropertyListStorage */ = {
+			isa = PBXGroup;
+			children = (
+				8ACD2ADF1DD200D700E81984 /* SimplePropertyListStorage.swift */,
+				8AD9A0DF1DE34F20000BB2F2 /* SimplePropertyListStorageFactory.swift */,
+				8AA27AE81E9D0BF1002A08CD /* SimplePropertyListStorageURL.swift */,
+				8AA27AEA1E9D0C1C002A08CD /* SimplePropertyListStorageURLTests.swift */,
+			);
+			name = SimplePropertyListStorage;
 			sourceTree = "<group>";
 		};
 		8AD6597D1D37C95E008A1007 /* StoreViewEventTarget */ = {
@@ -3166,7 +3174,7 @@
 				AA1019951C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
-				8AA27AF01E9D397B002A08CD /* PropertyListStorageURL.swift in Sources */,
+				8AA27AF01E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,
 				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
 				8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */,
@@ -3354,10 +3362,10 @@
 				8ADA10A71DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */,
 				8ABB141C1CEC86B10056CEDC /* StoreViewStateMachine.swift in Sources */,
 				8ADA109D1DC8D3040038E0A5 /* ProgressiveSettingsMigrationTests.swift in Sources */,
-				8AA27AF21E9D3982002A08CD /* PropertyListStorageURLTests.swift in Sources */,
+				8AA27AF21E9D3982002A08CD /* SimplePropertyListStorageURLTests.swift in Sources */,
 				AA1019881C490BF100869D01 /* RepeatingSoundFactory.swift in Sources */,
 				8A41A74D1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift in Sources */,
-				8AA27AF11E9D397B002A08CD /* PropertyListStorageURL.swift in Sources */,
+				8AA27AF11E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
 				8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */,
 				8AA27AE01E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift in Sources */,
 				8ADD6A6B1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,

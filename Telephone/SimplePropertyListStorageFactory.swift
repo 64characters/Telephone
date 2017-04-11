@@ -20,7 +20,7 @@ import Foundation
 import UseCases
 
 final class SimplePropertyListStorageFactory {
-    func make(url: PropertyListStorageURL) -> SimplePropertyListStorage {
+    func make(url: SimplePropertyListStorageURL) -> SimplePropertyListStorage {
         return SimplePropertyListStorage(url: url.url)
     }
 }

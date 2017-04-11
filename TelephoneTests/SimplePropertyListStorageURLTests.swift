@@ -1,5 +1,5 @@
 //
-//  PropertyListStorageURL.swift
+//  SimplePropertyListStorageURLTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -17,11 +17,14 @@
 //
 
 import Foundation
+import XCTest
 
-struct PropertyListStorageURL {
-    let url: URL
+final class SimplePropertyListStorageURLTests: XCTestCase {
+    func testUsesNameAsFileNameAndPlistAsExtension() {
+        let name = "any-name"
 
-    init(directory: URL, name: String) {
-        url = directory.appendingPathComponent("\(name).plist")
+        let sut = SimplePropertyListStorageURL(directory: URL(fileURLWithPath: NSTemporaryDirectory()), name: name)
+
+        XCTAssertEqual(sut.url.lastPathComponent, "\(name).plist")
     }
 }
