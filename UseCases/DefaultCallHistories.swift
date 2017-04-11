@@ -20,6 +20,8 @@ public final class DefaultCallHistories {
     fileprivate var histories: [String: CallHistory] = [:]
     fileprivate let factory: CallHistoryFactory
 
+    var count: Int { return histories.count }
+
     public init(factory: CallHistoryFactory) {
         self.factory = factory
     }
@@ -35,7 +37,7 @@ extension DefaultCallHistories: CallHistories {
     }
 
     public func remove(withUUID uuid: String) {
-        fatalError("Not implemented")
+        histories.removeValue(forKey: uuid)
     }
 
     private func makeHistory(uuid: String) -> CallHistory {
