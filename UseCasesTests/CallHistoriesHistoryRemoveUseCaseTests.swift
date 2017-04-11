@@ -18,10 +18,20 @@ import UseCasesTestDoubles
 import XCTest
 
 final class CallHistoriesHistoryRemoveUseCaseTests: XCTestCase {
-    func testRemovesHistoryOnDidRemoveAccount() {
-        let histories = CallHistoriesSpy()
-        let sut = CallHistoriesHistoryRemoveUseCase(histories: histories)
+    func testCallsRemoveAllOnHistoryOnDidRemoveAccount() {
         let uuid = "any-uuid"
+        let history = CallHistorySpy()
+        let sut = CallHistoriesHistoryRemoveUseCase(histories: CallHistoriesSpy(histories: [uuid: history]))
+
+        sut.didRemoveAccount(withUUID: uuid)
+
+        XCTAssertTrue(history.didCallRemoveAll)
+    }
+
+    func testRemovesHistoryOnDidRemoveAccount() {
+        let uuid = "any-uuid"
+        let histories = CallHistoriesSpy(histories: [uuid: CallHistorySpy()])
+        let sut = CallHistoriesHistoryRemoveUseCase(histories: histories)
 
         sut.didRemoveAccount(withUUID: uuid)
 

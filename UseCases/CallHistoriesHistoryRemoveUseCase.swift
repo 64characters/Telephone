@@ -23,6 +23,7 @@ public final class CallHistoriesHistoryRemoveUseCase {
 
 extension CallHistoriesHistoryRemoveUseCase: AccountsEventTarget {
     public func didRemoveAccount(withUUID uuid: String) {
+        histories.history(withUUID: uuid).removeAll()
         histories.remove(withUUID: uuid)
     }
 }

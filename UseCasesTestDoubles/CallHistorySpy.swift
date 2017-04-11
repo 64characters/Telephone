@@ -1,5 +1,5 @@
 //
-//  CallHistoriesSpy.swift
+//  CallHistorySpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,24 +18,16 @@
 
 import UseCases
 
-public final class CallHistoriesSpy  {
-    public fileprivate(set) var didCallRemove = false
-    public fileprivate(set) var invokedUUID = ""
+public final class CallHistorySpy {
+    public fileprivate(set) var didCallRemoveAll = false
 
-    fileprivate let histories: [String: CallHistory]
-
-    public init(histories: [String: CallHistory]) {
-        self.histories = histories
-    }
+    public init() {}
 }
 
-extension CallHistoriesSpy: CallHistories {
-    public func history(withUUID uuid: String) -> CallHistory {
-        return histories[uuid]!
-    }
-
-    public func remove(withUUID uuid: String) {
-        didCallRemove = true
-        invokedUUID = uuid
-    }
+extension CallHistorySpy: CallHistory {
+    public var allRecords: [CallHistoryRecord] { return [] }
+    public func add(_ record: CallHistoryRecord) {}
+    public func remove(_ record: CallHistoryRecord) {}
+    public func removeAll() { didCallRemoveAll = true }
+    public func updateTarget(_ target: CallHistoryEventTarget) {}
 }
