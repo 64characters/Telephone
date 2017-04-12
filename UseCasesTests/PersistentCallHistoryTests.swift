@@ -62,6 +62,24 @@ final class PersistentCallHistoryTests: XCTestCase {
         XCTAssertEqual(sut.allRecords, [])
     }
 
+    func testCallsDeleteOnRemoveAll() {
+        let storage = PropertyListStorageSpy()
+        let sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
+
+        sut.removeAll()
+
+        XCTAssertTrue(storage.didCallDelete)
+    }
+
+    func testDoesNotCallSaveOnRemoveAll() {
+        let storage = PropertyListStorageSpy()
+        let sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
+
+        sut.removeAll()
+
+        XCTAssertFalse(storage.didCallSave)
+    }
+
     func testDiscardsOriginContentAfterCreation() {
         let origin = TruncatingCallHistory()
         origin.add(makeRecord1())
