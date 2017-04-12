@@ -31,8 +31,14 @@ final class SimplePropertyListStorage {
 
 extension SimplePropertyListStorage: PropertyListStorage {
     func load() throws -> [[String : Any]] {
-        let plist = try PropertyListSerialization.propertyList(from: try Data(contentsOf: url), options: [], format: nil)
-        return plist as? [[String : Any]] ?? []
+        do {
+            let plist = try PropertyListSerialization.propertyList(from: try Data(contentsOf: url), options: [], format: nil)
+            return plist as? [[String : Any]] ?? []
+        } catch CocoaError.fileReadNoSuchFile {
+            return []
+        } catch {
+            throw error
+        }
     }
 
     func save(_ plist: [[String : Any]]) throws {
