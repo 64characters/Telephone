@@ -34,7 +34,7 @@ extension PropertyListStorageSpy: PropertyListStorage {
         didCallSave = true
     }
 
-    public func delete() {
+    public func delete() throws {
         didCallDelete = true
     }
 }

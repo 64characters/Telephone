@@ -21,9 +21,11 @@ import UseCases
 
 final class SimplePropertyListStorage {
     fileprivate let url: URL
+    fileprivate let manager: FileManager
 
-    init(url: URL) {
+    init(url: URL, manager: FileManager) {
         self.url = url
+        self.manager = manager
     }
 }
 
@@ -36,5 +38,9 @@ extension SimplePropertyListStorage: PropertyListStorage {
     func save(_ plist: [[String : Any]]) throws {
         try PropertyListSerialization.data(fromPropertyList: plist, format: .binary, options: 0)
             .write(to: url, options: .atomic)
+    }
+
+    func delete() throws {
+        try manager.removeItem(at: url)
     }
 }

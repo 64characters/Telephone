@@ -53,7 +53,11 @@ extension PersistentCallHistory: CallHistory {
 
     public func removeAll() {
         origin.removeAll()
-        storage.delete()
+        do {
+            try storage.delete()
+        } catch {
+            print("Could not delete call history file: \(error)")
+        }
     }
 
     public func updateTarget(_ target: CallHistoryEventTarget) {

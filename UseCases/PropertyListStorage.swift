@@ -19,5 +19,5 @@
 public protocol PropertyListStorage {
     func load() throws -> [[String: Any]]
     func save(_ plist: [[String: Any]]) throws
-    func delete()
+    func delete() throws
 }

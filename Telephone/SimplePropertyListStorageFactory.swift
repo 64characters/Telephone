@@ -20,7 +20,13 @@ import Foundation
 import UseCases
 
 final class SimplePropertyListStorageFactory {
+    fileprivate let manager: FileManager
+
+    init(manager: FileManager) {
+        self.manager = manager
+    }
+
     func make(url: SimplePropertyListStorageURL) -> SimplePropertyListStorage {
-        return SimplePropertyListStorage(url: url.url)
+        return SimplePropertyListStorage(url: url.url, manager: manager)
     }
 }

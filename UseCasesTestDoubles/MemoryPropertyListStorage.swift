@@ -33,7 +33,7 @@ extension MemoryPropertyListStorage: PropertyListStorage {
         self.plist = plist
     }
 
-    public func delete() {
+    public func delete() throws {
         plist = []
     }
 }
