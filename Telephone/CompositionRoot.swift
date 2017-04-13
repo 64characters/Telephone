@@ -37,6 +37,7 @@ final class CompositionRoot: NSObject {
     private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let accountsNotificationsToEventTargetAdapter: AccountsNotificationsToEventTargetAdapter
     private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
@@ -155,6 +156,10 @@ final class CompositionRoot: NSObject {
                     )
                 )
             )
+        )
+
+        accountsNotificationsToEventTargetAdapter = AccountsNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default, target: CallHistoriesHistoryRemoveUseCase(histories: callHistories)
         )
 
         callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
