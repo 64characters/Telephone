@@ -26,7 +26,7 @@ final class AccountsNotificationsToEventTargetAdapterTests: XCTestCase {
         let uuid = "uuid-123"
         withExtendedLifetime(AccountsNotificationsToEventTargetAdapter(center: center, target: target)) {
 
-            center.post(Notification(name: .AKPreferencesControllerDidRemoveAccount, object: [kUUID: uuid], userInfo: nil))
+            center.post(Notification(name: .AKPreferencesControllerDidRemoveAccount, object: nil, userInfo: [kUUID: uuid]))
 
             XCTAssertTrue(target.didCallDidRemoveAccount)
             XCTAssertEqual(target.invokedUUID, uuid)

@@ -35,6 +35,6 @@ final class AccountsNotificationsToEventTargetAdapter {
     }
 
     @objc private func didRemoveAccount(_ notification: Notification) {
-        target.didRemoveAccount(withUUID: (notification.object as! [String: Any])[kUUID] as! String)
+        target.didRemoveAccount(withUUID: notification.userInfo![kUUID] as! String)
     }
 }
