@@ -47,6 +47,12 @@ extension SimplePropertyListStorage: PropertyListStorage {
     }
 
     func delete() throws {
-        try manager.removeItem(at: url)
+        do {
+            try manager.removeItem(at: url)
+        } catch CocoaError.fileNoSuchFile {
+            // Do nothing.
+        } catch {
+            throw error
+        }
     }
 }
