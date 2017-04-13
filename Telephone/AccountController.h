@@ -32,7 +32,7 @@ extern NSString * const kEmailSIPLabel;
 @protocol MusicPlayer, RingtonePlaybackUseCase;
 
 // A SIP account controller.
-@interface AccountController : NSWindowController <Account, AKSIPAccountDelegate, CallControllerDelegate>
+@interface AccountController : NSWindowController <AKSIPAccountDelegate, CallControllerDelegate>
 
 // A Boolean value indicating whether receiver is enabled.
 @property(nonatomic, assign, getter=isEnabled) BOOL enabled;

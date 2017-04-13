@@ -298,6 +298,7 @@
 		8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
 		8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */; };
 		8AD805801E9E7C6D003089DF /* PropertyListStorageSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD8057F1E9E7C6D003089DF /* PropertyListStorageSpy.swift */; };
+		8AD805861E9FD8F6003089DF /* AccountToAccountControllerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD805851E9FD8F6003089DF /* AccountToAccountControllerAdapter.m */; };
 		8AD9A0D21DDF76DE000BB2F2 /* SimpleApplicationDataLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9A0D11DDF76DE000BB2F2 /* SimpleApplicationDataLocations.swift */; };
 		8AD9A0D41DDF83A2000BB2F2 /* ApplicationDataLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9A0D31DDF83A2000BB2F2 /* ApplicationDataLocations.swift */; };
 		8AD9A0D81DDF8400000BB2F2 /* DirectoryCreatingApplicationDataLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9A0D71DDF8400000BB2F2 /* DirectoryCreatingApplicationDataLocations.swift */; };
@@ -997,6 +998,8 @@
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
 		8AD6597E1D37C987008A1007 /* StoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8AD8057F1E9E7C6D003089DF /* PropertyListStorageSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListStorageSpy.swift; sourceTree = "<group>"; };
+		8AD805841E9FD8F6003089DF /* AccountToAccountControllerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountToAccountControllerAdapter.h; sourceTree = "<group>"; };
+		8AD805851E9FD8F6003089DF /* AccountToAccountControllerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountToAccountControllerAdapter.m; sourceTree = "<group>"; };
 		8AD9A0D11DDF76DE000BB2F2 /* SimpleApplicationDataLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleApplicationDataLocations.swift; sourceTree = "<group>"; };
 		8AD9A0D31DDF83A2000BB2F2 /* ApplicationDataLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDataLocations.swift; sourceTree = "<group>"; };
 		8AD9A0D71DDF8400000BB2F2 /* DirectoryCreatingApplicationDataLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryCreatingApplicationDataLocations.swift; sourceTree = "<group>"; };
@@ -2440,6 +2443,8 @@
 			children = (
 				AA3578B10E40709900021989 /* AccountController.h */,
 				AA3578B20E40709900021989 /* AccountController.m */,
+				8AD805841E9FD8F6003089DF /* AccountToAccountControllerAdapter.h */,
+				8AD805851E9FD8F6003089DF /* AccountToAccountControllerAdapter.m */,
 				AAF633681056FEA600CF6C3B /* ActiveAccountViewController.h */,
 				AAF633691056FEA600CF6C3B /* ActiveAccountViewController.m */,
 			);
@@ -3080,6 +3085,7 @@
 				8AD9A0DE1DE34ECE000BB2F2 /* TruncatingCallHistoryFactory.swift in Sources */,
 				8AA748C11D704B9F000587DC /* AvailableMusicPlayers.swift in Sources */,
 				AACC029E1C15DCB100913D7B /* SoundIOPresenter.swift in Sources */,
+				8AD805861E9FD8F6003089DF /* AccountToAccountControllerAdapter.m in Sources */,
 				AA6989A31C19AF150067BFB1 /* DefaultSoundPreferencesViewEventTarget.swift in Sources */,
 				8AD9A0D41DDF83A2000BB2F2 /* ApplicationDataLocations.swift in Sources */,
 				AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */,
