@@ -870,9 +870,6 @@ NS_ASSUME_NONNULL_END
         [controller setAttemptingToUnregisterAccount:NO];
         [controller setShouldPresentRegistrationError:NO];
         [[controller window] orderOut:nil];
-        
-        // Prevent conflict with setFrameAutosaveName: when re-enabling the account.
-        [controller setWindow:nil];
     }
     
     [self updateCallsShouldDisplayAccountInfo];
@@ -1138,9 +1135,6 @@ NS_ASSUME_NONNULL_END
         [[self accountControllers] addObject:controller];
         
         if (![controller isEnabled]) {
-            // Prevent conflict with |setFrameAutosaveName:| when enabling the account.
-            [controller setWindow:nil];
-            
             continue;
         }
         
