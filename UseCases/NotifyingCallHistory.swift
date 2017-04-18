@@ -18,7 +18,7 @@
 
 public final class NotifyingCallHistory {
     fileprivate let origin: CallHistory
-    fileprivate var target: CallHistoryEventTarget = NullCallHistoryEventTarget()
+    fileprivate weak var target: CallHistoryEventTarget?
 
     public init(origin: CallHistory) {
         self.origin = origin
@@ -32,17 +32,17 @@ extension NotifyingCallHistory: CallHistory {
 
     public func add(_ record: CallHistoryRecord) {
         origin.add(record)
-        target.didUpdate(self)
+        target?.didUpdate(self)
     }
 
     public func remove(_ record: CallHistoryRecord) {
         origin.remove(record)
-        target.didUpdate(self)
+        target?.didUpdate(self)
     }
 
     public func removeAll() {
         origin.removeAll()
-        target.didUpdate(self)
+        target?.didUpdate(self)
     }
 
     public func updateTarget(_ target: CallHistoryEventTarget) {

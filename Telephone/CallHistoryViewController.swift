@@ -28,7 +28,7 @@ final class CallHistoryViewController: NSViewController {
     @IBOutlet private weak var recordsController: NSArrayController!
     @IBOutlet private weak var tableView: NSTableView!
 
-    var target: CallHistoryViewEventTarget?
+    weak var target: CallHistoryViewEventTarget?
 
     init() {
         super.init(nibName: "CallHistoryViewController", bundle: nil)!

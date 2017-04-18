@@ -80,6 +80,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 @property(nonatomic) ActiveAccountViewController *activeAccountViewController;
 @property(nonatomic) CallHistoryViewController *callHistoryViewController;
+@property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
 
 @property(nonatomic, readonly, getter=isAccountAdded) BOOL accountAdded;
 
@@ -598,8 +599,10 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
     self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    self.callHistoryViewController.target = [self.factory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self]
-                                                                     view:self.callHistoryViewController];
+    self.callHistoryViewEventTarget = [self.factory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self]
+                                                               view:self.callHistoryViewController];
+    self.callHistoryViewController.target = self.callHistoryViewEventTarget;
+
     [self.callHistoryView addSubview:self.callHistoryViewController.view];
     [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];
 
