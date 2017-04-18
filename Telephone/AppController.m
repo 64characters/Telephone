@@ -780,7 +780,6 @@ NS_ASSUME_NONNULL_END
                                                                           factory:self.factory];
     
     [controller setAccountDescription:[[controller account] SIPAddress]];
-    [[controller window] setExcludedFromWindowsMenu:YES];
     [controller setEnabled:YES];
     
     [[self accountControllers] addObject:controller];
@@ -840,8 +839,6 @@ NS_ASSUME_NONNULL_END
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                                               factory:self.factory];
-        
-        [[controller window] setExcludedFromWindowsMenu:YES];
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
@@ -1127,8 +1124,6 @@ NS_ASSUME_NONNULL_END
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                                               factory:self.factory];
-        
-        [[controller window] setExcludedFromWindowsMenu:YES];
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {

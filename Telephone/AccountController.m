@@ -213,13 +213,6 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     return self.account.identifier != kAKSIPUserAgentInvalidIdentifier;
 }
 
-- (void)setAccountDescription:(NSString *)accountDescription {
-    if (_accountDescription != accountDescription) {
-        [[self window] setTitle:accountDescription];
-        _accountDescription = accountDescription;
-    }
-}
-
 - (AuthenticationFailureController *)authenticationFailureController {
     if (_authenticationFailureController == nil) {
         _authenticationFailureController
@@ -253,11 +246,10 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     _factory = factory;
     
     _callControllers = [[NSMutableArray alloc] init];
+    _accountDescription = account.SIPAddress;
     _destinationToCall = @"";
 
     [[self account] setDelegate:self];
-    
-    [[self window] setTitle:[[self account] SIPAddress]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(SIPUserAgentDidFinishStarting:)
@@ -288,7 +280,6 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 - (void)awakeFromNib {
     [self setShouldCascadeWindows:NO];
-    [[self window] setFrameAutosaveName:[[self account] SIPAddress]];
 }
 
 - (void)registerAccount {
@@ -594,6 +585,10 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 #pragma mark NSWindow delegate methods
 
 - (void)windowDidLoad {
+    self.window.title = self.accountDescription;
+    self.window.frameAutosaveName = self.account.SIPAddress;
+    self.window.excludedFromWindowsMenu = YES;
+
     self.activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self];
     [self.activeAccountView addSubview:self.activeAccountViewController.view];
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
