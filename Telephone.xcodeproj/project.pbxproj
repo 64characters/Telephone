@@ -323,7 +323,6 @@
 		8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10A81DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift */; };
 		8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */; };
 		8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */; };
-		8ADB73961DE86BDE0032B4C2 /* NullCallHistoryEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB73951DE86BDE0032B4C2 /* NullCallHistoryEventTarget.swift */; };
 		8ADB73981DE86D370032B4C2 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB73971DE86D370032B4C2 /* Account.swift */; };
 		8ADB739A1DE86D540032B4C2 /* SimpleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB73991DE86D540032B4C2 /* SimpleAccount.swift */; };
 		8ADB739C1DE86FEE0032B4C2 /* CallHistoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB739B1DE86FEE0032B4C2 /* CallHistoryFactory.swift */; };
@@ -1021,7 +1020,6 @@
 		8ADA10A81DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSettingsMigrationFactory.swift; sourceTree = "<group>"; };
 		8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtonePlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundConfigurationLoadUseCase.swift; sourceTree = "<group>"; };
-		8ADB73951DE86BDE0032B4C2 /* NullCallHistoryEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullCallHistoryEventTarget.swift; sourceTree = "<group>"; };
 		8ADB73971DE86D370032B4C2 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		8ADB73991DE86D540032B4C2 /* SimpleAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleAccount.swift; sourceTree = "<group>"; };
 		8ADB739B1DE86FEE0032B4C2 /* CallHistoryFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryFactory.swift; sourceTree = "<group>"; };
@@ -2094,7 +2092,6 @@
 			children = (
 				8AEF77A51DCB9DCD00C73BCB /* CallHistory.swift */,
 				8ACD2ADB1DD1FB1800E81984 /* CallHistoryEventTarget.swift */,
-				8ADB73951DE86BDE0032B4C2 /* NullCallHistoryEventTarget.swift */,
 				8ACD2AD71DD1F9FC00E81984 /* NotifyingCallHistory.swift */,
 				8ACD2AD51DD1F9AA00E81984 /* NotifyingCallHistoryTests.swift */,
 				8AEF77AE1DCCC64100C73BCB /* PersistentCallHistory.swift */,
@@ -3307,7 +3304,6 @@
 				8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */,
 				AA39053A1BFFDDE2005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
 				8A645FF21E12C8B300515151 /* ContactAddress.swift in Sources */,
-				8ADB73961DE86BDE0032B4C2 /* NullCallHistoryEventTarget.swift in Sources */,
 				8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
