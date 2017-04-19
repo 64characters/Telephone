@@ -18,7 +18,7 @@
 
 import Foundation
 
-final class SimpleApplicationDataLocations: NSObject {
+final class SimpleApplicationDataLocations {
     fileprivate let manager: FileManager
     fileprivate let bundle: Bundle
 

@@ -26,17 +26,6 @@
 #import "NetworkPreferencesViewController.h"
 #import "SoundPreferencesViewController.h"
 
-
-NSString * const kSourceIndex = @"SourceIndex";
-NSString * const kDestinationIndex = @"DestinationIndex";
-
-NSString * const AKPreferencesControllerDidRemoveAccountNotification = @"AKPreferencesControllerDidRemoveAccount";
-NSString * const AKPreferencesControllerDidChangeAccountEnabledNotification
-    = @"AKPreferencesControllerDidChangeAccountEnabled";
-NSString * const AKPreferencesControllerDidSwapAccountsNotification = @"AKPreferencesControllerDidSwapAccounts";
-NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification
-    = @"AKPreferencesControllerDidChangeNetworkSettings";
-
 @implementation PreferencesController
 
 @synthesize generalPreferencesViewController = _generalPreferencesViewController;

@@ -1,5 +1,5 @@
 //
-//  MemoryPropertyListStorage.swift
+//  CallHistoriesSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,22 +18,24 @@
 
 import UseCases
 
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
+public final class CallHistoriesSpy  {
+    public fileprivate(set) var didCallRemove = false
+    public fileprivate(set) var invokedUUID = ""
 
-    public init() {}
+    fileprivate let histories: [String: CallHistory]
+
+    public init(histories: [String: CallHistory]) {
+        self.histories = histories
+    }
 }
 
-extension MemoryPropertyListStorage: PropertyListStorage {
-    public func load() throws -> [[String : Any]] {
-        return plist
+extension CallHistoriesSpy: CallHistories {
+    public func history(withUUID uuid: String) -> CallHistory {
+        return histories[uuid]!
     }
 
-    public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
-    }
-
-    public func delete() throws {
-        plist = []
+    public func remove(withUUID uuid: String) {
+        didCallRemove = true
+        invokedUUID = uuid
     }
 }

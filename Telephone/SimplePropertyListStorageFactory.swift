@@ -17,9 +17,16 @@
 //
 
 import Foundation
+import UseCases
 
 final class SimplePropertyListStorageFactory {
-    func make(directory: URL, name: String) -> SimplePropertyListStorage {
-        return SimplePropertyListStorage(url: directory.appendingPathComponent("\(name).plist"))
+    fileprivate let manager: FileManager
+
+    init(manager: FileManager) {
+        self.manager = manager
+    }
+
+    func make(url: SimplePropertyListStorageURL) -> SimplePropertyListStorage {
+        return SimplePropertyListStorage(url: url.url, manager: manager)
     }
 }

@@ -17,7 +17,7 @@
 //
 
 import XCTest
-import UseCases
+@testable import UseCases
 import UseCasesTestDoubles
 
 final class DefaultCallHistoriesTests: XCTestCase {
@@ -25,18 +25,32 @@ final class DefaultCallHistoriesTests: XCTestCase {
         let history = TruncatingCallHistory()
         let sut = DefaultCallHistories(factory: CallHistoryFactorySpy(history: history))
 
-        let result = sut.history(for: SimpleAccount(uuid: "any-uuid", domain: "any-domain"))
+        let result = sut.history(withUUID: "any-uuid")
 
+        XCTAssertEqual(sut.count, 1)
         XCTAssertTrue(result === history)
     }
 
-    func testUsesAccountUUIDOnHistoryCreation() {
+    func testUsesExpectedUUIDOnHistoryCreation() {
         let factory = CallHistoryFactorySpy(history: TruncatingCallHistory())
         let sut = DefaultCallHistories(factory: factory)
-        let account = SimpleAccount(uuid: "any-uuid", domain: "any-domain")
+        let uuid = "any-uuid"
 
-        _ = sut.history(for: account)
+        _ = sut.history(withUUID: uuid)
 
-        XCTAssertEqual(factory.invokedUUID, account.uuid)
+        XCTAssertEqual(factory.invokedUUID, uuid)
+    }
+
+    func testRemovesHistoryOnRemove() {
+        let sut = DefaultCallHistories(factory: CallHistoryFactorySpy(history: TruncatingCallHistory()))
+        let uuid1 = "uuid1"
+        let uuid2 = "uuid2"
+        _ = sut.history(withUUID: uuid1)
+        _ = sut.history(withUUID: uuid2)
+
+        sut.remove(withUUID: uuid1)
+        sut.remove(withUUID: uuid2)
+
+        XCTAssertEqual(sut.count, 0)
     }
 }

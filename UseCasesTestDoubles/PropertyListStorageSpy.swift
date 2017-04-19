@@ -1,5 +1,5 @@
 //
-//  MemoryPropertyListStorage.swift
+//  PropertyListStorageSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,22 +18,23 @@
 
 import UseCases
 
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
+public final class PropertyListStorageSpy {
+    public fileprivate(set) var didCallSave = false
+    public fileprivate(set) var didCallDelete = false
 
     public init() {}
 }
 
-extension MemoryPropertyListStorage: PropertyListStorage {
+extension PropertyListStorageSpy: PropertyListStorage {
     public func load() throws -> [[String : Any]] {
-        return plist
+        return []
     }
 
     public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
+        didCallSave = true
     }
 
     public func delete() throws {
-        plist = []
+        didCallDelete = true
     }
 }

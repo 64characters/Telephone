@@ -21,20 +21,38 @@ import UseCases
 
 final class SimplePropertyListStorage {
     fileprivate let url: URL
+    fileprivate let manager: FileManager
 
-    init(url: URL) {
+    init(url: URL, manager: FileManager) {
         self.url = url
+        self.manager = manager
     }
 }
 
 extension SimplePropertyListStorage: PropertyListStorage {
     func load() throws -> [[String : Any]] {
-        let plist = try PropertyListSerialization.propertyList(from: try Data(contentsOf: url), options: [], format: nil)
-        return plist as? [[String : Any]] ?? []
+        do {
+            let plist = try PropertyListSerialization.propertyList(from: try Data(contentsOf: url), options: [], format: nil)
+            return plist as? [[String : Any]] ?? []
+        } catch CocoaError.fileReadNoSuchFile {
+            return []
+        } catch {
+            throw error
+        }
     }
 
     func save(_ plist: [[String : Any]]) throws {
         try PropertyListSerialization.data(fromPropertyList: plist, format: .binary, options: 0)
             .write(to: url, options: .atomic)
+    }
+
+    func delete() throws {
+        do {
+            try manager.removeItem(at: url)
+        } catch CocoaError.fileNoSuchFile {
+            // Do nothing.
+        } catch {
+            throw error
+        }
     }
 }

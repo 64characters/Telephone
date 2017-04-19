@@ -1,5 +1,5 @@
 //
-//  MemoryPropertyListStorage.swift
+//  SimplePropertyListStorageURL.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import Foundation
 
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
+struct SimplePropertyListStorageURL {
+    let url: URL
 
-    public init() {}
-}
-
-extension MemoryPropertyListStorage: PropertyListStorage {
-    public func load() throws -> [[String : Any]] {
-        return plist
-    }
-
-    public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
-    }
-
-    public func delete() throws {
-        plist = []
+    init(directory: URL, name: String) {
+        url = directory.appendingPathComponent("\(name).plist")
     }
 }

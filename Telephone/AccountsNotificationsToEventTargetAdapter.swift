@@ -1,5 +1,5 @@
 //
-//  CallNotificationsToEventTargetAdapter.swift
+//  AccountsNotificationsToEventTargetAdapter.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -17,23 +17,24 @@
 //
 
 import Foundation
-import UseCases
 
-final class CallNotificationsToEventTargetAdapter {
+final class AccountsNotificationsToEventTargetAdapter {
     private let center: NotificationCenter
-    private let target: CallEventTarget
+    private let target: AccountsEventTarget
 
-    init(center: NotificationCenter, target: CallEventTarget) {
+    init(center: NotificationCenter, target: AccountsEventTarget) {
         self.center = center
         self.target = target
-        center.addObserver(self, selector: #selector(didDisconnect), name: .AKSIPCallDidDisconnect, object: nil)
+        center.addObserver(
+            self, selector: #selector(didRemoveAccount), name: .AKPreferencesControllerDidRemoveAccount, object: nil
+        )
     }
 
     deinit {
-        center.removeObserver(self, name: .AKSIPCallDidDisconnect, object: nil)
+        center.removeObserver(self, name: .AKPreferencesControllerDidRemoveAccount, object: nil)
     }
 
-    @objc private func didDisconnect(_ notification: Notification) {
-        target.didDisconnect(notification.object as! Call)
+    @objc private func didRemoveAccount(_ notification: Notification) {
+        target.didRemoveAccount(withUUID: notification.userInfo![kUUID] as! String)
     }
 }

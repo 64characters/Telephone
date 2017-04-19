@@ -4,6 +4,7 @@
 
 #import "AKSIPCallNotifications.h"
 #import "AKSIPUserAgentNotifications.h"
+#import "PreferencesControllerNotifications.h"
 #import "SoundIOPreferences.h"
 #import "SoundIOPresenterOutput.h"
 #import "SoundPreferencesView.h"

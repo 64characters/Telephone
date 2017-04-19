@@ -20,18 +20,24 @@ public final class DefaultCallHistories {
     fileprivate var histories: [String: CallHistory] = [:]
     fileprivate let factory: CallHistoryFactory
 
+    var count: Int { return histories.count }
+
     public init(factory: CallHistoryFactory) {
         self.factory = factory
     }
 }
 
 extension DefaultCallHistories: CallHistories {
-    public func history(for account: Account) -> CallHistory {
-        if let history = histories[account.uuid] {
+    public func history(withUUID uuid: String) -> CallHistory {
+        if let history = histories[uuid] {
             return history
         } else {
-            return makeHistory(uuid: account.uuid)
+            return makeHistory(uuid: uuid)
         }
+    }
+
+    public func remove(withUUID uuid: String) {
+        histories.removeValue(forKey: uuid)
     }
 
     private func makeHistory(uuid: String) -> CallHistory {

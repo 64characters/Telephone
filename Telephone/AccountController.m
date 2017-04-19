@@ -34,6 +34,7 @@
 #import "AKSIPUserAgent.h"
 #import "AKTelephoneNumberFormatter.h"
 
+#import "AccountToAccountControllerAdapter.h"
 #import "ActiveAccountViewController.h"
 #import "ActiveCallViewController.h"
 #import "AppController.h"
@@ -79,6 +80,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 @property(nonatomic) ActiveAccountViewController *activeAccountViewController;
 @property(nonatomic) CallHistoryViewController *callHistoryViewController;
+@property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
 
 @property(nonatomic, readonly, getter=isAccountAdded) BOOL accountAdded;
 
@@ -211,13 +213,6 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     return self.account.identifier != kAKSIPUserAgentInvalidIdentifier;
 }
 
-- (void)setAccountDescription:(NSString *)accountDescription {
-    if (_accountDescription != accountDescription) {
-        [[self window] setTitle:accountDescription];
-        _accountDescription = accountDescription;
-    }
-}
-
 - (AuthenticationFailureController *)authenticationFailureController {
     if (_authenticationFailureController == nil) {
         _authenticationFailureController
@@ -251,11 +246,10 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     _factory = factory;
     
     _callControllers = [[NSMutableArray alloc] init];
+    _accountDescription = account.SIPAddress;
     _destinationToCall = @"";
 
     [[self account] setDelegate:self];
-    
-    [[self window] setTitle:[[self account] SIPAddress]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(SIPUserAgentDidFinishStarting:)
@@ -286,7 +280,6 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 - (void)awakeFromNib {
     [self setShouldCascadeWindows:NO];
-    [[self window] setFrameAutosaveName:[[self account] SIPAddress]];
 }
 
 - (void)registerAccount {
@@ -435,7 +428,9 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 }
 
 - (void)makeCallToURI:(AKSIPURI *)destinationURI phoneLabel:(NSString *)phoneLabel {
-    [self makeCallToURI:destinationURI phoneLabel:phoneLabel callTransferController:nil];
+    if (self.isAccountAdded) {
+        [self makeCallToURI:destinationURI phoneLabel:phoneLabel callTransferController:nil];
+    }
 }
 
 - (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination {
@@ -587,33 +582,22 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 
 #pragma mark -
-#pragma mark Account
-
-- (NSString *)uuid {
-    return self.account.uuid;
-}
-
-- (NSString *)domain {
-    return self.account.domain;
-}
-
-- (void)makeCallTo:(URI *)uri {
-    if (self.isAccountAdded) {
-        [self makeCallToURI:[AKSIPURI SIPURIWithUser:uri.user host:uri.host displayName:@""] phoneLabel:@""];
-    }
-}
-
-
-#pragma mark -
 #pragma mark NSWindow delegate methods
 
 - (void)windowDidLoad {
+    self.window.title = self.accountDescription;
+    self.window.frameAutosaveName = self.account.SIPAddress;
+    self.window.excludedFromWindowsMenu = YES;
+
     self.activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self];
     [self.activeAccountView addSubview:self.activeAccountViewController.view];
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
     self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    self.callHistoryViewController.target = [self.factory makeWithAccount:self view:self.callHistoryViewController];
+    self.callHistoryViewEventTarget = [self.factory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self]
+                                                               view:self.callHistoryViewController];
+    self.callHistoryViewController.target = self.callHistoryViewEventTarget;
+
     [self.callHistoryView addSubview:self.callHistoryViewController.view];
     [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];
 

@@ -1,5 +1,5 @@
 //
-//  MemoryPropertyListStorage.swift
+//  AccountToAccountControllerAdapter.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+@import Foundation;
 
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
+#import "AccountController.h"
 
-    public init() {}
-}
+@interface AccountToAccountControllerAdapter : NSObject <Account>
 
-extension MemoryPropertyListStorage: PropertyListStorage {
-    public func load() throws -> [[String : Any]] {
-        return plist
-    }
+- (instancetype)initWithController:(AccountController *)controller;
 
-    public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
-    }
-
-    public func delete() throws {
-        plist = []
-    }
-}
+@end

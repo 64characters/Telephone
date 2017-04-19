@@ -780,7 +780,6 @@ NS_ASSUME_NONNULL_END
                                                                           factory:self.factory];
     
     [controller setAccountDescription:[[controller account] SIPAddress]];
-    [[controller window] setExcludedFromWindowsMenu:YES];
     [controller setEnabled:YES];
     
     [[self accountControllers] addObject:controller];
@@ -841,8 +840,6 @@ NS_ASSUME_NONNULL_END
                                                                           sleepStatus:self.sleepStatus
                                                                               factory:self.factory];
         
-        [[controller window] setExcludedFromWindowsMenu:YES];
-        
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
             description = account.SIPAddress;
@@ -873,9 +870,6 @@ NS_ASSUME_NONNULL_END
         [controller setAttemptingToUnregisterAccount:NO];
         [controller setShouldPresentRegistrationError:NO];
         [[controller window] orderOut:nil];
-        
-        // Prevent conflict with setFrameAutosaveName: when re-enabling the account.
-        [controller setWindow:nil];
     }
     
     [self updateCallsShouldDisplayAccountInfo];
@@ -1128,8 +1122,6 @@ NS_ASSUME_NONNULL_END
                                                                           sleepStatus:self.sleepStatus
                                                                               factory:self.factory];
         
-        [[controller window] setExcludedFromWindowsMenu:YES];
-        
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
             description = account.SIPAddress;
@@ -1143,9 +1135,6 @@ NS_ASSUME_NONNULL_END
         [[self accountControllers] addObject:controller];
         
         if (![controller isEnabled]) {
-            // Prevent conflict with |setFrameAutosaveName:| when enabling the account.
-            [controller setWindow:nil];
-            
             continue;
         }
         

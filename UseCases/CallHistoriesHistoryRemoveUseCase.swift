@@ -1,9 +1,6 @@
 //
-//  MemoryPropertyListStorage.swift
+//  CallHistoriesHistoryRemoveUseCase.swift
 //  Telephone
-//
-//  Copyright © 2008-2016 Alexey Kuznetsov
-//  Copyright © 2016-2017 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -16,24 +13,17 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class CallHistoriesHistoryRemoveUseCase {
+    fileprivate let histories: CallHistories
 
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
-
-    public init() {}
+    public init(histories: CallHistories) {
+        self.histories = histories
+    }
 }
 
-extension MemoryPropertyListStorage: PropertyListStorage {
-    public func load() throws -> [[String : Any]] {
-        return plist
-    }
-
-    public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
-    }
-
-    public func delete() throws {
-        plist = []
+extension CallHistoriesHistoryRemoveUseCase: AccountsEventTarget {
+    public func didRemoveAccount(withUUID uuid: String) {
+        histories.history(withUUID: uuid).removeAll()
+        histories.remove(withUUID: uuid)
     }
 }

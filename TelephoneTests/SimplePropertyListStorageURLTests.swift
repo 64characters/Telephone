@@ -1,5 +1,5 @@
 //
-//  MemoryPropertyListStorage.swift
+//  SimplePropertyListStorageURLTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,15 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+import Foundation
+import XCTest
 
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
+final class SimplePropertyListStorageURLTests: XCTestCase {
+    func testUsesNameAsFileNameAndPlistAsExtension() {
+        let name = "any-name"
 
-    public init() {}
-}
+        let sut = SimplePropertyListStorageURL(directory: URL(fileURLWithPath: NSTemporaryDirectory()), name: name)
 
-extension MemoryPropertyListStorage: PropertyListStorage {
-    public func load() throws -> [[String : Any]] {
-        return plist
-    }
-
-    public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
-    }
-
-    public func delete() throws {
-        plist = []
+        XCTAssertEqual(sut.url.lastPathComponent, "\(name).plist")
     }
 }

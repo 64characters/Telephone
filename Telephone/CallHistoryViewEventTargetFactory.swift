@@ -30,7 +30,7 @@ final class CallHistoryViewEventTargetFactory: NSObject {
     }
 
     func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
-        let history = histories.history(for: account)
+        let history = histories.history(withUUID: account.uuid)
         let result = CallHistoryViewEventTarget(
             recordsGet: CallHistoryRecordsGetUseCase(
                 history: history,

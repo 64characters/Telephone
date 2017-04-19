@@ -37,6 +37,7 @@ final class CompositionRoot: NSObject {
     private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let accountsNotificationsToEventTargetAdapter: AccountsNotificationsToEventTargetAdapter
     private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
@@ -150,11 +151,15 @@ final class CompositionRoot: NSObject {
                 origin: ReversedCallHistoryFactory(
                     origin: PersistentCallHistoryFactory(
                         history: TruncatingCallHistoryFactory(limit: 1000),
-                        storage: SimplePropertyListStorageFactory(),
+                        storage: SimplePropertyListStorageFactory(manager: FileManager.default),
                         locations: applicationDataLocations
                     )
                 )
             )
+        )
+
+        accountsNotificationsToEventTargetAdapter = AccountsNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default, target: CallHistoriesHistoryRemoveUseCase(histories: callHistories)
         )
 
         callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(

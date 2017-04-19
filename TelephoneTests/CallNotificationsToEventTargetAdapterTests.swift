@@ -34,7 +34,7 @@ class CallNotificationsToEventTargetAdapterTests: XCTestCase {
         )
         withExtendedLifetime(CallNotificationsToEventTargetAdapter(center: center, target: target)) {
 
-            center.post(Notification(name: Notification.Name.AKSIPCallDidDisconnect, object: call, userInfo: nil))
+            center.post(Notification(name: .AKSIPCallDidDisconnect, object: call, userInfo: nil))
 
             XCTAssertTrue(target.didCallDidDisconnect)
         }

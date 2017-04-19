@@ -1,5 +1,5 @@
 //
-//  MemoryPropertyListStorage.swift
+//  AccountsEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
-
-    public init() {}
-}
-
-extension MemoryPropertyListStorage: PropertyListStorage {
-    public func load() throws -> [[String : Any]] {
-        return plist
-    }
-
-    public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
-    }
-
-    public func delete() throws {
-        plist = []
-    }
+public protocol AccountsEventTarget {
+    func didRemoveAccount(withUUID uuid: String)
 }

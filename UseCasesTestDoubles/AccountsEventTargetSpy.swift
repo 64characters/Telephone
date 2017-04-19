@@ -1,5 +1,5 @@
 //
-//  MemoryPropertyListStorage.swift
+//  AccountsEventTargetSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,22 +18,16 @@
 
 import UseCases
 
-public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
+public final class AccountsEventTargetSpy {
+    public fileprivate(set) var didCallDidRemoveAccount = false
+    public fileprivate(set) var invokedUUID = ""
 
     public init() {}
 }
 
-extension MemoryPropertyListStorage: PropertyListStorage {
-    public func load() throws -> [[String : Any]] {
-        return plist
-    }
-
-    public func save(_ plist: [[String : Any]]) throws {
-        self.plist = plist
-    }
-
-    public func delete() throws {
-        plist = []
+extension AccountsEventTargetSpy: AccountsEventTarget {
+    public func didRemoveAccount(withUUID uuid: String) {
+        didCallDidRemoveAccount = true
+        invokedUUID = uuid
     }
 }
