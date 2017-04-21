@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CallHistoryViewController" customModule="Telephone" customModuleProvider="target">
             <connections>
-                <outlet property="recordsController" destination="AID-oa-47f" id="bPd-gg-Kb6"/>
                 <outlet property="tableView" destination="ziE-jX-sRX" id="qO2-Oq-73Y"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -24,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="ziE-jX-sRX">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="ziE-jX-sRX">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="2"/>
@@ -177,8 +176,7 @@
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="didDoubleClick:" target="-2" id="4wo-vb-AIE"/>
-                                    <binding destination="AID-oa-47f" name="content" keyPath="arrangedObjects" id="Zlx-va-MpK"/>
-                                    <binding destination="AID-oa-47f" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Zlx-va-MpK" id="oAI-ah-7AL"/>
+                                    <outlet property="dataSource" destination="-2" id="jb8-ir-2k0"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -195,11 +193,6 @@
             </subviews>
             <point key="canvasLocation" x="97" y="170"/>
         </customView>
-        <arrayController id="AID-oa-47f">
-            <connections>
-                <binding destination="-2" name="contentArray" keyPath="records" id="1De-nC-pRl"/>
-            </connections>
-        </arrayController>
     </objects>
     <resources>
         <image name="outgoing-call-dark" width="10" height="10"/>
