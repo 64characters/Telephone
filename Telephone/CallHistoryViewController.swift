@@ -22,13 +22,9 @@ final class CallHistoryViewController: NSViewController {
     var keyView: NSView {
         return tableView
     }
-
-    @objc fileprivate(set) dynamic var records: [PresentationCallHistoryRecord] = []
-
-    @IBOutlet private weak var recordsController: NSArrayController!
-    @IBOutlet private weak var tableView: NSTableView!
-
     weak var target: CallHistoryViewEventTarget?
+    fileprivate var records: [PresentationCallHistoryRecord] = []
+    @IBOutlet fileprivate weak var tableView: NSTableView!
 
     init() {
         super.init(nibName: "CallHistoryViewController", bundle: nil)!
@@ -63,15 +59,14 @@ final class CallHistoryViewController: NSViewController {
 
     private func pickRecord() {
         guard !records.isEmpty else { return }
-        target?.didPickRecord(at: recordsController.selectionIndex)
+        target?.didPickRecord(at: tableView.selectedRow)
     }
 
     private func deleteRecord() {
         guard !records.isEmpty else { return }
-        let index = recordsController.selectionIndex
+        let index = tableView.selectedRow
         makeAlert(recordName: records[index].date).beginSheetModal(for: view.window!) { response in
             if response == NSAlertFirstButtonReturn {
-                self.recordsController.remove(atArrangedObjectIndex: index)
                 self.target?.shouldRemoveRecord(at: index)
             }
         }
@@ -88,7 +83,57 @@ final class CallHistoryViewController: NSViewController {
 
 extension CallHistoryViewController: CallHistoryView {
     func show(_ records: [PresentationCallHistoryRecord]) {
+        let oldRecords = self.records
+        let oldIndex = tableView.selectedRow
         self.records = records
+        reloadTableView(old: oldRecords, new: records)
+        restoreSelection(oldIndex: oldIndex, old: oldRecords, new: records)
+    }
+
+    private func reloadTableView(old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) {
+        if appended(old: old, new: new) && appendedCount(old: old, new: new) <= 2 {
+            tableView.insertRows(at: IndexSet(integersIn: 0..<appendedCount(old: old, new: new)), withAnimation: .slideDown)
+        } else {
+            tableView.reloadData()
+        }
+    }
+
+    private func restoreSelection(oldIndex: Int, old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) {
+        guard !records.isEmpty else { return }
+        tableView.selectRowIndexes(
+            IndexSet(integer: selectionIndex(oldIndex: oldIndex, old: old, new: new)),
+            byExtendingSelection: false
+        )
+    }
+}
+
+extension CallHistoryViewController: NSTableViewDataSource {
+    func numberOfRows(in view: NSTableView) -> Int {
+        return records.count
+    }
+
+    func tableView(_ view: NSTableView, objectValueFor column: NSTableColumn?, row: Int) -> Any? {
+        return records[row]
+    }
+}
+
+private func appended(old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) -> Bool {
+    return !old.isEmpty && new.count > old.count && new.reversed().starts(with: old.reversed())
+}
+
+private func appendedCount(old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) -> Int {
+    return new.count - old.count
+}
+
+private func selectionIndex(oldIndex: Int, old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) -> Int {
+    if oldIndex == -1 {
+        return 0
+    } else if appended(old: old, new: new) {
+        return oldIndex + appendedCount(old: old, new: new)
+    } else if oldIndex < new.count {
+        return oldIndex
+    } else {
+        return new.count - 1
     }
 }
 
