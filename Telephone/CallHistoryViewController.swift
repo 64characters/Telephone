@@ -101,7 +101,7 @@ extension CallHistoryViewController: CallHistoryView {
     private func restoreSelection(oldIndex: Int, old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) {
         guard !records.isEmpty else { return }
         tableView.selectRowIndexes(
-            IndexSet(integer: selectionIndex(oldIndex: oldIndex, old: old, new: new)),
+            IndexSet(integer: RestoredSelectionIndex(indexBefore: oldIndex, before: old, after: new).value),
             byExtendingSelection: false
         )
     }
@@ -114,18 +114,6 @@ extension CallHistoryViewController: NSTableViewDataSource {
 
     func tableView(_ view: NSTableView, objectValueFor column: NSTableColumn?, row: Int) -> Any? {
         return records[row]
-    }
-}
-
-private func selectionIndex(oldIndex: Int, old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) -> Int {
-    if oldIndex == -1 {
-        return 0
-    } else if case let diff = ArrayDifference(before: old, after: new), diff.isPrepended {
-        return oldIndex + diff.count
-    } else if oldIndex < new.count {
-        return oldIndex
-    } else {
-        return new.count - 1
     }
 }
 
