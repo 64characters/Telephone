@@ -91,8 +91,8 @@ extension CallHistoryViewController: CallHistoryView {
     }
 
     private func reloadTableView(old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) {
-        if prepended(old: old, new: new) && countDifference(old: old, new: new) <= 2 {
-            tableView.insertRows(at: IndexSet(integersIn: 0..<countDifference(old: old, new: new)), withAnimation: .slideDown)
+        if case let diff = ArrayDifference(before: old, after: new), diff.isPrepended, diff.count <= 2 {
+            tableView.insertRows(at: IndexSet(integersIn: 0..<diff.count), withAnimation: .slideDown)
         } else {
             tableView.reloadData()
         }
@@ -117,19 +117,11 @@ extension CallHistoryViewController: NSTableViewDataSource {
     }
 }
 
-private func prepended(old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) -> Bool {
-    return !old.isEmpty && new.count > old.count && new.reversed().starts(with: old.reversed())
-}
-
-private func countDifference(old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) -> Int {
-    return new.count - old.count
-}
-
 private func selectionIndex(oldIndex: Int, old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) -> Int {
     if oldIndex == -1 {
         return 0
-    } else if prepended(old: old, new: new) {
-        return oldIndex + countDifference(old: old, new: new)
+    } else if case let diff = ArrayDifference(before: old, after: new), diff.isPrepended {
+        return oldIndex + diff.count
     } else if oldIndex < new.count {
         return oldIndex
     } else {
