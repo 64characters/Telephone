@@ -291,6 +291,9 @@
 		8ACD2AE01DD200D700E81984 /* SimplePropertyListStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD2ADF1DD200D700E81984 /* SimplePropertyListStorage.swift */; };
 		8ACD2AE21DD2039E00E81984 /* MemoryPropertyListStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD2AE11DD2039E00E81984 /* MemoryPropertyListStorage.swift */; };
 		8ACD2AE41DD243A300E81984 /* CallHistoryRecordAddUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD2AE31DD243A300E81984 /* CallHistoryRecordAddUseCase.swift */; };
+		8AD2C5EA1EADFF32005EED3E /* ArrayDifferenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */; };
+		8AD2C5EC1EADFF7D005EED3E /* ArrayDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */; };
+		8AD2C5ED1EADFF80005EED3E /* ArrayDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */; };
 		8AD397BA1DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD397B91DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift */; };
 		8AD397BC1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD397BB1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift */; };
 		8AD397BD1DC77D5900C6FB62 /* AccountUUIDSettingsMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD397BB1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift */; };
@@ -992,6 +995,8 @@
 		8ACD2ADF1DD200D700E81984 /* SimplePropertyListStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePropertyListStorage.swift; sourceTree = "<group>"; };
 		8ACD2AE11DD2039E00E81984 /* MemoryPropertyListStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryPropertyListStorage.swift; sourceTree = "<group>"; };
 		8ACD2AE31DD243A300E81984 /* CallHistoryRecordAddUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordAddUseCase.swift; sourceTree = "<group>"; };
+		8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDifferenceTests.swift; sourceTree = "<group>"; };
+		8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDifference.swift; sourceTree = "<group>"; };
 		8AD397B91DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUUIDSettingsMigrationTests.swift; sourceTree = "<group>"; };
 		8AD397BB1DC77D0F00C6FB62 /* AccountUUIDSettingsMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUUIDSettingsMigration.swift; sourceTree = "<group>"; };
 		8AD6597B1D36A152008A1007 /* LoggingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingStore.swift; sourceTree = "<group>"; };
@@ -1437,6 +1442,8 @@
 				AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */,
 				AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */,
 				AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */,
+				8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */,
+				8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */,
 				AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */,
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
@@ -3196,6 +3203,7 @@
 				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
 				8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */,
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
+				8AD2C5EC1EADFF7D005EED3E /* ArrayDifference.swift in Sources */,
 				8A9534631D059A5300EE9084 /* LoggingProducts.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
 				8A92B7BC1E784D0000922B1E /* DefaultCallHistoryRecordRemoveUseCaseFactory.swift in Sources */,
@@ -3359,6 +3367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAC0FFBF1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
+				8AD2C5EA1EADFF32005EED3E /* ArrayDifferenceTests.swift in Sources */,
 				8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */,
 				8A5EADB41D35517C00C53415 /* StoreViewPresenterSpy.swift in Sources */,
 				8AD397BD1DC77D5900C6FB62 /* AccountUUIDSettingsMigration.swift in Sources */,
@@ -3413,6 +3422,7 @@
 				8A11B3DF1DDCC092002EDA93 /* CallNotificationsToEventTargetAdapter.swift in Sources */,
 				8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */,
 				8ADA10A01DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
+				8AD2C5ED1EADFF80005EED3E /* ArrayDifference.swift in Sources */,
 				8A9175AE1CABF61200354E26 /* UserAgentError.swift in Sources */,
 				8A42E0C91E168F4F00CE09B8 /* DurationFormatter.swift in Sources */,
 				8ADA109B1DC8D2440038E0A5 /* SettingsMigration.swift in Sources */,
