@@ -75,35 +75,37 @@ extension PersistentCallHistory: CallHistory {
 
 private extension CallHistoryRecord {
     init(dictionary: [String: Any]) {
-        let user = dictionary[userKey] as? String ?? ""
-        let host = dictionary[hostKey] as? String ?? ""
-        let name = dictionary[nameKey] as? String ?? ""
+        let user = dictionary[Keys.user] as? String ?? ""
+        let host = dictionary[Keys.host] as? String ?? ""
+        let name = dictionary[Keys.name] as? String ?? ""
         uri = URI(user: user, host: host, displayName: name)
-        date = dictionary[dateKey] as? Date ?? Date.distantPast
-        duration = dictionary[durationKey] as? Int ?? 0
-        isIncoming = dictionary[incomingKey] as? Bool ?? false
-        isMissed = dictionary[missedKey] as? Bool ?? false
+        date = dictionary[Keys.date] as? Date ?? Date.distantPast
+        duration = dictionary[Keys.duration] as? Int ?? 0
+        isIncoming = dictionary[Keys.incoming] as? Bool ?? false
+        isMissed = dictionary[Keys.missed] as? Bool ?? false
     }
 }
 
 private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] {
     return records.map {
         [
-            userKey: $0.uri.user,
-            hostKey: $0.uri.host,
-            nameKey: $0.uri.displayName,
-            dateKey: $0.date,
-            durationKey: $0.duration,
-            incomingKey: $0.isIncoming,
-            missedKey: $0.isMissed
+            Keys.user: $0.uri.user,
+            Keys.host: $0.uri.host,
+            Keys.name: $0.uri.displayName,
+            Keys.date: $0.date,
+            Keys.duration: $0.duration,
+            Keys.incoming: $0.isIncoming,
+            Keys.missed: $0.isMissed
         ]
     }
 }
 
-private let userKey = "user"
-private let hostKey = "host"
-private let nameKey = "name"
-private let dateKey = "date"
-private let durationKey = "duration"
-private let incomingKey = "incoming"
-private let missedKey = "missed"
+private enum Keys {
+    static let user = "user"
+    static let host = "host"
+    static let name = "name"
+    static let date = "date"
+    static let duration = "duration"
+    static let incoming = "incoming"
+    static let missed = "missed"
+}
