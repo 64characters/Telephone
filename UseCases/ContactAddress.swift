@@ -19,20 +19,18 @@
 public struct ContactAddress {
     public let user: String
     public let host: String
+    public let label: String
 
-    public init(user: String, host: String = "") {
-        assert(user.characters.count > 0)
+    public init(user: String, host: String, label: String) {
+        precondition(user.characters.count > 0)
         self.user = user
         self.host = host
-    }
-
-    public init(_ uri: URI) {
-        self.init(user: uri.user, host: uri.host)
+        self.label = label
     }
 }
 
 extension ContactAddress: Equatable {
     public static func ==(lhs: ContactAddress, rhs: ContactAddress) -> Bool {
-        return lhs.user == rhs.user && lhs.host == rhs.host
+        return lhs.user == rhs.user && lhs.host == rhs.host && lhs.label == rhs.label
     }
 }

@@ -18,9 +18,9 @@
 
 public struct Contact {
     public let name: String
-    public let address: LabeledContactAddress
+    public let address: ContactAddress
 
-    public init(name: String, address: LabeledContactAddress) {
+    public init(name: String, address: ContactAddress) {
         self.name = name
         self.address = address
     }

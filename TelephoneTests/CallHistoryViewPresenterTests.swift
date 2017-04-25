@@ -66,7 +66,8 @@ final class CallHistoryViewPresenterTests: XCTestCase {
 
 private func makeContact(record: CallHistoryRecord, number: Int) -> Contact {
     return Contact(
-        name: "any-name-\(number)", address: LabeledContactAddress(origin: ContactAddress(record.uri), label: "any-label-\(number)")
+        name: "any-name-\(number)",
+        address: ContactAddress(user: record.uri.user, host: record.uri.host, label: "any-label-\(number)")
     )
 }
 
@@ -83,7 +84,7 @@ private func makePresentationContact(contact: Contact, color: NSColor) -> Presen
     return PresentationContact(
         name: contact.name,
         address: PresentationContactAddress(
-            user: contact.address.origin.user, host: contact.address.origin.host, label: contact.address.label
+            user: contact.address.user, host: contact.address.host, label: contact.address.label
         ),
         color: color
     )

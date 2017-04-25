@@ -51,7 +51,7 @@ extension PresentationContact {
         self.init(
             name: contact.name,
             address: PresentationContactAddress(
-                user: contact.address.origin.user, host: contact.address.origin.host, label: contact.address.label
+                user: contact.address.user, host: contact.address.host, label: contact.address.label
             ),
             color: color
         )
