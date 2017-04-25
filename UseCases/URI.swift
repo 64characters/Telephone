@@ -29,10 +29,6 @@ public final class URI: NSObject {
         self.displayName = displayName
     }
 
-    public convenience init(name: String, address: ContactAddress) {
-        self.init(user: address.user, host: address.host, displayName: name)
-    }
-
     public override var description: String {
         if !displayName.isEmpty {
             return "\"\(displayName)\" <sip:\(user)@\(host)>"

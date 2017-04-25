@@ -36,7 +36,7 @@ final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
 }
 
 private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-    return ContactCallHistoryRecord(origin: record, contact: makeContact(address: record.address))
+    return ContactCallHistoryRecord(origin: record, contact: makeContact(address: ContactAddress(record.uri)))
 }
 
 private func makeContact(address: ContactAddress) -> Contact {

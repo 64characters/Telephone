@@ -19,16 +19,14 @@
 import Foundation
 
 public struct CallHistoryRecord {
-    public let name: String
-    public let address: ContactAddress
+    public let uri: URI
     public let date: Date
     public let duration: Int
     public let isIncoming: Bool
     public let isMissed: Bool
 
-    public init(name: String, address: ContactAddress, date: Date, duration: Int, isIncoming: Bool, isMissed: Bool) {
-        self.name = name
-        self.address = address
+    public init(uri: URI, date: Date, duration: Int, isIncoming: Bool, isMissed: Bool) {
+        self.uri = uri
         self.date = date
         self.duration = duration
         self.isIncoming = isIncoming
@@ -37,8 +35,7 @@ public struct CallHistoryRecord {
 
     public func removingHost() -> CallHistoryRecord {
         return CallHistoryRecord(
-            name: name,
-            address: ContactAddress(user: address.user),
+            uri: URI(user: uri.user, host: "", displayName: uri.displayName),
             date: date,
             duration: duration,
             isIncoming: isIncoming,
@@ -50,8 +47,7 @@ public struct CallHistoryRecord {
 extension CallHistoryRecord: Equatable {
     public static func ==(lhs: CallHistoryRecord, rhs: CallHistoryRecord) -> Bool {
         return
-            lhs.name == rhs.name &&
-            lhs.address == rhs.address &&
+            lhs.uri == rhs.uri &&
             lhs.date == rhs.date &&
             lhs.duration == rhs.duration &&
             lhs.isIncoming == rhs.isIncoming &&
@@ -61,8 +57,7 @@ extension CallHistoryRecord: Equatable {
 
 extension CallHistoryRecord {
     public init(call: Call) {
-        name = call.remote.displayName
-        address = ContactAddress(call.remote)
+        uri = call.remote
         date = call.date
         duration = call.duration
         isIncoming = call.isIncoming

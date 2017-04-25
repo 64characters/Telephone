@@ -75,10 +75,10 @@ extension PersistentCallHistory: CallHistory {
 
 private extension CallHistoryRecord {
     init(dictionary: [String: Any]) {
-        name = dictionary[nameKey] as? String ?? ""
         let user = dictionary[userKey] as? String ?? ""
         let host = dictionary[hostKey] as? String ?? ""
-        address = ContactAddress(user: user, host: host)
+        let name = dictionary[nameKey] as? String ?? ""
+        uri = URI(user: user, host: host, displayName: name)
         date = dictionary[dateKey] as? Date ?? Date.distantPast
         duration = dictionary[durationKey] as? Int ?? 0
         isIncoming = dictionary[incomingKey] as? Bool ?? false
@@ -89,9 +89,9 @@ private extension CallHistoryRecord {
 private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] {
     return records.map {
         [
-            nameKey: $0.name,
-            userKey: $0.address.user,
-            hostKey: $0.address.host,
+            userKey: $0.uri.user,
+            hostKey: $0.uri.host,
+            nameKey: $0.uri.displayName,
             dateKey: $0.date,
             durationKey: $0.duration,
             incomingKey: $0.isIncoming,
@@ -100,9 +100,9 @@ private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] 
     }
 }
 
-private let nameKey = "name"
 private let userKey = "user"
 private let hostKey = "host"
+private let nameKey = "name"
 private let dateKey = "date"
 private let durationKey = "duration"
 private let incomingKey = "incoming"

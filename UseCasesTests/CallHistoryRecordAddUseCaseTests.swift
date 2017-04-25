@@ -34,7 +34,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsCopyOfRecordWithEmptyHostWhenHostMatchesDomain() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
-        let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: record.address.host)
+        let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: record.uri.host)
 
         sut.execute()
 
@@ -44,8 +44,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsCopyOfRecordWithEmptyHostWhenUserIsATelephoneNumberLongerThanFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            name: "any-name",
-            address: ContactAddress(user: "12345", host: "any-host"),
+            uri: URI(user: "12345", host: "any-host", displayName: "any-name"),
             date: Date(),
             duration: 60,
             isIncoming: false,
@@ -61,8 +60,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberWithLengthEqualToFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            name: "any-name",
-            address: ContactAddress(user: "1234", host: "any-host"),
+            uri: URI(user: "1234", host: "any-host", displayName: "any-name"),
             date: Date(),
             duration: 60,
             isIncoming: false,
@@ -78,8 +76,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberShorterThanFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            name: "any-name",
-            address: ContactAddress(user: "123", host: "any-host"),
+            uri: URI(user: "123", host: "any-host", displayName: "any-name"),
             date: Date(),
             duration: 60,
             isIncoming: false,
