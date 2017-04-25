@@ -26,7 +26,7 @@ class CallNotificationsToEventTargetAdapterTests: XCTestCase {
         let target = CallEventTargetSpy()
         let call = SimpleCall(
             account: SimpleAccount(uuid: "any-uuid", domain: "any-domain"),
-            remote: URI(user: "any-user", host: "any-host"),
+            remote: URI(user: "any-user", host: "any-host", displayName: "any-name"),
             date: Date(),
             duration: 0,
             isIncoming: false,

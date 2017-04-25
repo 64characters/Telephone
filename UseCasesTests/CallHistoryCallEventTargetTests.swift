@@ -51,7 +51,7 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
 private func makeCall(account: Account) -> Call {
     return SimpleCall(
         account: account,
-        remote: URI(user: "any-user", host: "any-host"),
+        remote: URI(user: "any-user", host: "any-host", displayName: "any-name"),
         date: Date(),
         duration: 60,
         isIncoming: false,

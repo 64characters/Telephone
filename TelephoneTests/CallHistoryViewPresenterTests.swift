@@ -46,6 +46,7 @@ final class CallHistoryViewPresenterTests: XCTestCase {
 
     func testContactColorIsRedForMissedCallRecords() {
         let record = CallHistoryRecord(
+            name: "any-name",
             address: ContactAddress(user: "any-user", host: "any-host"),
             date: Date(),
             duration: 0,

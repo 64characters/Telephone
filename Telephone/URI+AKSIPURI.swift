@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  URI+AKSIPURI.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,12 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
 import UseCases
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
-
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            name: "name-\(number)",
-            address: ContactAddress(user: "user-\(number)", host: "host-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+extension URI {
+    @objc(initWithURI:)
+    convenience init(_ uri: AKSIPURI) {
+        self.init(user: uri.user, host: uri.host, displayName: uri.displayName)
     }
 }

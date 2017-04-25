@@ -23,6 +23,8 @@
 #import "AKSIPURI.h"
 #import "AKSIPUserAgent.h"
 
+#import "Telephone-Swift.h"
+
 #define THIS_FILE "AKSIPCall.m"
 
 
@@ -189,7 +191,7 @@ const NSInteger kAKSIPCallsMax = 8;
     _lastStatusText = [NSString stringWithPJString:call.last_status_text];
     _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.local_info]];
     _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.remote_info]];
-    _remote = [[URI alloc] initWithUser:_remoteURI.user host:_remoteURI.host];
+    _remote = [[URI alloc] initWithURI:_remoteURI];
 
     return self;
 }

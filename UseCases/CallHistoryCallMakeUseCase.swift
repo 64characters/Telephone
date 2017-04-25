@@ -27,6 +27,7 @@ public final class CallHistoryCallMakeUseCase {
 
 extension CallHistoryCallMakeUseCase: UseCase {
     public func execute() {
-        account.makeCall(to: URI(history.allRecords[index].address))
+        let record = history.allRecords[index]
+        account.makeCall(to: URI(name: record.name, address: record.address))
     }
 }

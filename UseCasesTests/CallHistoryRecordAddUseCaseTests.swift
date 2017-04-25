@@ -44,7 +44,12 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsCopyOfRecordWithEmptyHostWhenUserIsATelephoneNumberLongerThanFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            address: ContactAddress(user: "12345", host: "any-host"), date: Date(), duration: 60, isIncoming: false, isMissed: false
+            name: "any-name",
+            address: ContactAddress(user: "12345", host: "any-host"),
+            date: Date(),
+            duration: 60,
+            isIncoming: false,
+            isMissed: false
         )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
@@ -56,7 +61,12 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberWithLengthEqualToFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            address: ContactAddress(user: "1234", host: "any-host"), date: Date(), duration: 60, isIncoming: false, isMissed: false
+            name: "any-name",
+            address: ContactAddress(user: "1234", host: "any-host"),
+            date: Date(),
+            duration: 60,
+            isIncoming: false,
+            isMissed: false
         )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
@@ -68,7 +78,12 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberShorterThanFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            address: ContactAddress(user: "123", host: "any-host"), date: Date(), duration: 60, isIncoming: false, isMissed: false
+            name: "any-name",
+            address: ContactAddress(user: "123", host: "any-host"),
+            date: Date(),
+            duration: 60,
+            isIncoming: false,
+            isMissed: false
         )
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
