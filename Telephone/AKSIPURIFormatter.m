@@ -76,7 +76,7 @@
             atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
             if (atSignRange.location == NSNotFound) {
                 user = destination;
-                host = nil;
+                host = @"";
             } else {
                 user = [destination substringToIndex:atSignRange.location];
                 host = [destination substringFromIndex:(atSignRange.location + 1)];
@@ -105,7 +105,7 @@
             atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
             if (atSignRange.location == NSNotFound) {
                 user = destination;
-                host = nil;
+                host = @"";
             } else {
                 user = [destination substringToIndex:atSignRange.location];
                 host = [destination substringFromIndex:(atSignRange.location + 1)];
@@ -118,13 +118,13 @@
             atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
             if (atSignRange.location == NSNotFound) {
                 user = destination;
-                host = nil;
+                host = @"";
             } else {
                 user = [destination substringToIndex:atSignRange.location];
                 host = [destination substringFromIndex:(atSignRange.location + 1)];
             }
             
-            theURI = [AKSIPURI SIPURIWithUser:user host:host displayName:nil];
+            theURI = [AKSIPURI SIPURIWithUser:user host:host displayName:@""];
         }
     }
     
