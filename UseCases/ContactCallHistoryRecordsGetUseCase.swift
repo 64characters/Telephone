@@ -21,9 +21,11 @@ public protocol ContactCallHistoryRecordsGetUseCaseOutput {
 }
 
 public final class ContactCallHistoryRecordsGetUseCase {
+    fileprivate let matching: ContactMatching
     fileprivate let output: ContactCallHistoryRecordsGetUseCaseOutput
 
-    public init(output: ContactCallHistoryRecordsGetUseCaseOutput) {
+    public init(matching: ContactMatching, output: ContactCallHistoryRecordsGetUseCaseOutput) {
+        self.matching = matching
         self.output = output
     }
 }
@@ -32,14 +34,23 @@ extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutpu
     public func update(records: [CallHistoryRecord]) {
         output.update(records: records.map(makeContactCallHistoryRecord))
     }
-}
 
-private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-    return ContactCallHistoryRecord(origin: record, contact: makeContact(record: record))
-}
+    private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
+        return ContactCallHistoryRecord(origin: record, contact: makeContact(record: record))
+    }
 
-private func makeContact(record: CallHistoryRecord) -> Contact {
-    return Contact(name: record.uri.displayName, address: makeAddress(for: record.uri), label: "unknown")
+    private func makeContact(record: CallHistoryRecord) -> Contact {
+        let (name, label) = nameAndLabel(for: record.uri)
+        return Contact(name: name, address: makeAddress(for: record.uri), label: label)
+    }
+
+    private func nameAndLabel(for uri: URI) -> (name: String, label: String) {
+        if let match = matching.match(for: uri) {
+            return (match.name, match.label)
+        } else {
+            return (uri.displayName, "")
+        }
+    }
 }
 
 private func makeAddress(for uri: URI) -> String {
