@@ -33,6 +33,26 @@ final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
 
         XCTAssertEqual(output.invokedRecords, expected)
     }
+
+    func testAdressIsUserWhenHostIsEmpty() {
+        let output = ContactCallHistoryRecordsGetUseCaseOutputSpy()
+        let sut = ContactCallHistoryRecordsGetUseCase(output: output)
+        let user = "user-123"
+
+        sut.update(
+            records: [
+                CallHistoryRecord(
+                    uri: URI(user: user, host: "", displayName: "any-name"),
+                    date: Date(),
+                    duration: 0,
+                    isIncoming: false,
+                    isMissed: false
+                )
+            ]
+        )
+
+        XCTAssertEqual(output.invokedRecords.first!.contact.address, user)
+    }
 }
 
 private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
@@ -40,8 +60,5 @@ private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactC
 }
 
 private func makeContact(record: CallHistoryRecord) -> Contact {
-    return Contact(
-        name: record.uri.displayName,
-        address: ContactAddress(user: record.uri.user, host: record.uri.host, label: "unknown")
-    )
+    return Contact(name: record.uri.displayName, address: "\(record.uri.user)@\(record.uri.host)", label: "unknown")
 }

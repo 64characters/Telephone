@@ -25,8 +25,8 @@ final class CallHistoryViewPresenterTests: XCTestCase {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
-        let contact1 = makeContact(record: record1, number: 1)
-        let contact2 = makeContact(record: record2, number: 2)
+        let contact1 = makeContact(number: 1)
+        let contact2 = makeContact(number: 2)
         let view = CallHistoryViewSpy()
         let sut = CallHistoryViewPresenter(
             view: view, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
@@ -52,7 +52,7 @@ final class CallHistoryViewPresenterTests: XCTestCase {
             isIncoming: false,
             isMissed: true
         )
-        let contact = makeContact(record: record, number: 1)
+        let contact = makeContact(number: 1)
         let view = CallHistoryViewSpy()
         let sut = CallHistoryViewPresenter(
             view: view, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
@@ -64,10 +64,9 @@ final class CallHistoryViewPresenterTests: XCTestCase {
     }
 }
 
-private func makeContact(record: CallHistoryRecord, number: Int) -> Contact {
+private func makeContact(number: Int) -> Contact {
     return Contact(
-        name: "any-name-\(number)",
-        address: ContactAddress(user: record.uri.user, host: record.uri.host, label: "any-label-\(number)")
+        name: "any-name-\(number)", address: "any-address\(number)", label: "any-label-\(number)"
     )
 }
 
@@ -81,13 +80,7 @@ private func makePresentationCallHistoryRecord(contact: Contact, record: CallHis
 }
 
 private func makePresentationContact(contact: Contact, color: NSColor) -> PresentationContact {
-    return PresentationContact(
-        name: contact.name,
-        address: PresentationContactAddress(
-            user: contact.address.user, host: contact.address.host, label: contact.address.label
-        ),
-        color: color
-    )
+    return PresentationContact(name: contact.name, address: contact.address, label: contact.label, color: color)
 }
 
 private func contactColor(for record: CallHistoryRecord) -> NSColor {

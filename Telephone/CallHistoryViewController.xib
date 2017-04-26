@@ -89,8 +89,8 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address.user" id="EvO-Xe-uh1"/>
                                                             <binding destination="WWY-ZO-bzC" name="textColor" keyPath="objectValue.contact.color" id="gPH-7Y-lSS"/>
+                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address" id="hvr-9C-Le0"/>
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">
@@ -101,7 +101,7 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address.label" id="z5B-7j-9gZ"/>
+                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.label" id="cUz-vY-V4O"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>

@@ -18,16 +18,18 @@
 
 public struct Contact {
     public let name: String
-    public let address: ContactAddress
+    public let address: String
+    public let label: String
 
-    public init(name: String, address: ContactAddress) {
+    public init(name: String, address: String, label: String) {
         self.name = name
         self.address = address
+        self.label = label
     }
 }
 
 extension Contact: Equatable {
     public static func ==(lhs: Contact, rhs: Contact) -> Bool {
-        return lhs.name == rhs.name && lhs.address == rhs.address
+        return lhs.name == rhs.name && lhs.address == rhs.address && lhs.label == rhs.label
     }
 }

@@ -32,15 +32,16 @@ extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutpu
     public func update(records: [CallHistoryRecord]) {
         output.update(records: records.map(makeContactCallHistoryRecord))
     }
+}
 
-    private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-        return ContactCallHistoryRecord(origin: record, contact: makeContact(record: record))
-    }
+private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
+    return ContactCallHistoryRecord(origin: record, contact: makeContact(record: record))
+}
 
-    private func makeContact(record: CallHistoryRecord) -> Contact {
-        return Contact(
-            name: record.uri.displayName,
-            address: ContactAddress(user: record.uri.user, host: record.uri.host, label: "unknown")
-        )
-    }
+private func makeContact(record: CallHistoryRecord) -> Contact {
+    return Contact(name: record.uri.displayName, address: makeAddress(for: record.uri), label: "unknown")
+}
+
+private func makeAddress(for uri: URI) -> String {
+    return uri.host.isEmpty ? uri.user : "\(uri.user)@\(uri.host)"
 }
