@@ -1,5 +1,5 @@
 //
-//  ContactCallHistoryRecord.swift
+//  SimpleContacts.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-public struct ContactCallHistoryRecord {
-    public let origin: CallHistoryRecord
-    public let contact: MatchedContact
+import UseCases
 
-    public init(origin: CallHistoryRecord, contact: MatchedContact) {
-        self.origin = origin
-        self.contact = contact
+public final class SimpleContacts {
+    fileprivate var contacts: [Contact]
+
+    public init(_ contacts: [Contact]) {
+        self.contacts = contacts
+    }
+
+    public func update(_ contacts: [Contact]) {
+        self.contacts = contacts
     }
 }
 
-extension ContactCallHistoryRecord: Equatable {
-    public static func ==(lhs: ContactCallHistoryRecord, rhs: ContactCallHistoryRecord) -> Bool {
-        return lhs.origin == rhs.origin && lhs.contact == rhs.contact
+extension SimpleContacts: Contacts {
+    public func enumerate(_ body: (Contact) -> Void) {
+        contacts.forEach(body)
     }
 }

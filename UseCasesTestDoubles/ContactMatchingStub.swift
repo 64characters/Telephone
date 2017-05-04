@@ -19,15 +19,15 @@
 import UseCases
 
 public final class ContactMatchingStub {
-    let matches: [URI: ContactMatchingResult]
+    let matches: [URI: MatchedContact]
 
-    public init(_ matches: [URI: ContactMatchingResult]) {
+    public init(_ matches: [URI: MatchedContact]) {
         self.matches = matches
     }
 }
 
 extension ContactMatchingStub: ContactMatching {
-    public func match(for uri: URI) -> ContactMatchingResult? {
+    public func match(for uri: URI) -> MatchedContact? {
         return matches[uri]
     }
 }

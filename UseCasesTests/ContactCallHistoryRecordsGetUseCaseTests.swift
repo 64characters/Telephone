@@ -21,7 +21,7 @@ import UseCases
 import UseCasesTestDoubles
 
 final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
-    func testTakesContactNameFromURIDisplayNameAndEmptyLabelWhenContactMatchIsNotFound() {
+    func testContactNameIsURIDisplayNameAndLabelIsEmptyWhenContactMatchIsNotFound() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -30,11 +30,11 @@ final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
         let expected = [
             ContactCallHistoryRecord(
                 origin: record1,
-                contact: Contact(name: record1.uri.displayName, address: makeAddress(uri: record1.uri), label: "")
+                contact: MatchedContact(name: record1.uri.displayName, address: makeEmailAddress(uri: record1.uri, label: ""))
             ),
             ContactCallHistoryRecord(
                 origin: record2,
-                contact: Contact(name: record2.uri.displayName, address: makeAddress(uri: record2.uri), label: "")
+                contact: MatchedContact(name: record2.uri.displayName, address: makeEmailAddress(uri: record2.uri, label: ""))
             )
         ]
 
@@ -43,25 +43,19 @@ final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
         XCTAssertEqual(output.invokedRecords, expected)
     }
 
-    func testTakesContactNameAndLabelFromContactMatchingResultWhenContactMatchIsFound() {
+    func testContactIsMatchedContactWhenContactMatchIsFound() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
-        let match1 = ContactMatchingResult(name: "full-name-1", label: "label-1")
-        let match2 = ContactMatchingResult(name: "full-name-2", label: "label-2")
+        let contact1 = MatchedContact(name: "full-name-1", address: makeEmailAddress(uri: record1.uri, label: "label-1"))
+        let contact2 = MatchedContact(name: "full-name-2", address: makeEmailAddress(uri: record2.uri, label: "label-2"))
         let output = ContactCallHistoryRecordsGetUseCaseOutputSpy()
         let sut = ContactCallHistoryRecordsGetUseCase(
-            matching: ContactMatchingStub([record1.uri: match1, record2.uri: match2]), output: output
+            matching: ContactMatchingStub([record1.uri: contact1, record2.uri: contact2]), output: output
         )
         let expected = [
-            ContactCallHistoryRecord(
-                origin: record1,
-                contact: Contact(name: match1.name, address: makeAddress(uri: record1.uri), label: match1.label)
-            ),
-            ContactCallHistoryRecord(
-                origin: record2,
-                contact: Contact(name: match2.name, address: makeAddress(uri: record2.uri), label: match2.label)
-            )
+            ContactCallHistoryRecord(origin: record1, contact: contact1),
+            ContactCallHistoryRecord(origin: record2, contact: contact2)
         ]
 
         sut.update(records: [record1, record2])
@@ -69,7 +63,7 @@ final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
         XCTAssertEqual(output.invokedRecords, expected)
     }
 
-    func testAdressIsUserWhenHostIsEmpty() {
+    func testAdressIsPhoneTakenFromUserWhenContactMatchIsNotFoundAndHostIsEmpty() {
         let output = ContactCallHistoryRecordsGetUseCaseOutputSpy()
         let sut = ContactCallHistoryRecordsGetUseCase(matching: ContactMatchingStub([:]), output: output)
         let user = "user-123"
@@ -86,10 +80,10 @@ final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
             ]
         )
 
-        XCTAssertEqual(output.invokedRecords.first!.contact.address, user)
+        XCTAssertEqual(output.invokedRecords.first!.contact.address, .phone(number: user, label: ""))
     }
 }
 
-private func makeAddress(uri: URI) -> String {
-    return "\(uri.user)@\(uri.host)"
+private func makeEmailAddress(uri: URI, label: String) -> MatchedContact.Address {
+    return .email(address: "\(uri.user)@\(uri.host)", label: label)
 }

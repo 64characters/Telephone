@@ -17,15 +17,5 @@
 //
 
 public protocol ContactMatching {
-    func match(for uri: URI) -> ContactMatchingResult?
-}
-
-public struct ContactMatchingResult {
-    public let name: String
-    public let label: String
-
-    public init(name: String, label: String) {
-        self.name = name
-        self.label = label
-    }
+    func match(for uri: URI) -> MatchedContact?
 }

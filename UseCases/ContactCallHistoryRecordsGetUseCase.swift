@@ -39,20 +39,15 @@ extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutpu
         return ContactCallHistoryRecord(origin: record, contact: makeContact(record: record))
     }
 
-    private func makeContact(record: CallHistoryRecord) -> Contact {
-        let (name, label) = nameAndLabel(for: record.uri)
-        return Contact(name: name, address: makeAddress(for: record.uri), label: label)
-    }
-
-    private func nameAndLabel(for uri: URI) -> (name: String, label: String) {
-        if let match = matching.match(for: uri) {
-            return (match.name, match.label)
+    private func makeContact(record: CallHistoryRecord) -> MatchedContact {
+        if let match = matching.match(for: record.uri) {
+            return match
         } else {
-            return (uri.displayName, "")
+            return MatchedContact(name: record.uri.displayName, address: makeAddress(for: record.uri))
         }
     }
 }
 
-private func makeAddress(for uri: URI) -> String {
-    return uri.host.isEmpty ? uri.user : "\(uri.user)@\(uri.host)"
+private func makeAddress(for uri: URI) -> MatchedContact.Address {
+    return uri.host.isEmpty ? .phone(number: uri.user, label: "") : .email(address: "\(uri.user)@\(uri.host)", label: "")
 }
