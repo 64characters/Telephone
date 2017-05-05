@@ -21,12 +21,11 @@ import UseCasesTestDoubles
 import XCTest
 
 final class ContactMatchingIndexTests: XCTestCase {
-    func testBuildsIndexOnBuild() {
+    func testFindsContactByPhoneNumberAndEmailAddress() {
         let contact1 = makeContact(number: 1)
         let contact2 = makeContact(number: 2)
-        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]))
 
-        sut.build()
+        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]))
 
         XCTAssertEqual(sut.contact(forAddress: contact1.phones[0].number), makeMatchedContact(contact: contact1, phoneIndex: 0))
         XCTAssertEqual(sut.contact(forAddress: contact1.phones[1].number), makeMatchedContact(contact: contact1, phoneIndex: 1))
@@ -36,36 +35,6 @@ final class ContactMatchingIndexTests: XCTestCase {
         XCTAssertEqual(sut.contact(forAddress: contact2.phones[1].number), makeMatchedContact(contact: contact2, phoneIndex: 1))
         XCTAssertEqual(sut.contact(forAddress: contact2.emails[0].address), makeMatchedContact(contact: contact2, emailIndex: 0))
         XCTAssertEqual(sut.contact(forAddress: contact2.emails[1].address), makeMatchedContact(contact: contact2, emailIndex: 1))
-    }
-
-    func testRebuildsIndexOnSecondBuild() {
-        let contact1 = makeContact(number: 1)
-        let contact2 = makeContact(number: 2)
-        let contacts = SimpleContacts([contact1, contact2])
-        let sut = ContactMatchingIndex(contacts: contacts)
-        sut.build()
-        let contact3 = makeContact(number: 3)
-        let contact4 = makeContact(number: 4)
-        contacts.update([contact3, contact4])
-
-        sut.build()
-
-        XCTAssertNil(sut.contact(forAddress: contact1.phones[0].number))
-        XCTAssertNil(sut.contact(forAddress: contact1.phones[1].number))
-        XCTAssertNil(sut.contact(forAddress: contact1.emails[0].address))
-        XCTAssertNil(sut.contact(forAddress: contact1.emails[1].address))
-        XCTAssertNil(sut.contact(forAddress: contact2.phones[0].number))
-        XCTAssertNil(sut.contact(forAddress: contact2.phones[1].number))
-        XCTAssertNil(sut.contact(forAddress: contact2.emails[0].address))
-        XCTAssertNil(sut.contact(forAddress: contact2.emails[1].address))
-        XCTAssertEqual(sut.contact(forAddress: contact3.phones[0].number), makeMatchedContact(contact: contact3, phoneIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact3.phones[1].number), makeMatchedContact(contact: contact3, phoneIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact3.emails[0].address), makeMatchedContact(contact: contact3, emailIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact3.emails[1].address), makeMatchedContact(contact: contact3, emailIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact4.phones[0].number), makeMatchedContact(contact: contact4, phoneIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact4.phones[1].number), makeMatchedContact(contact: contact4, phoneIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact4.emails[0].address), makeMatchedContact(contact: contact4, emailIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact4.emails[1].address), makeMatchedContact(contact: contact4, emailIndex: 1))
     }
 }
 

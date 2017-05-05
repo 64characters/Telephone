@@ -17,26 +17,26 @@
 //
 
 public final class ContactMatchingIndex {
-    private let contacts: Contacts
-    private var index: [String: MatchedContact] = [:]
+    private let index: [String: MatchedContact]
 
     public init(contacts: Contacts) {
-        self.contacts = contacts
-    }
-
-    public func build() {
-        index.removeAll()
-        contacts.enumerate { contact in
-            contact.phones.forEach {
-                index[$0.number] = MatchedContact(name: contact.name, address: .phone(number: $0.number, label: $0.label))
-            }
-            contact.emails.forEach {
-                index[$0.address] = MatchedContact(name: contact.name, address: .email(address: $0.address, label: $0.label))
-            }
-        }
+        index = makeMap(from: contacts)
     }
 
     public func contact(forAddress address: String) -> MatchedContact? {
         return index[address]
     }
+}
+
+private func makeMap(from contacts: Contacts) -> [String: MatchedContact] {
+    var result: [String: MatchedContact] = [:]
+    contacts.enumerate { contact in
+        contact.phones.forEach {
+            result[$0.number] = MatchedContact(name: contact.name, address: .phone(number: $0.number, label: $0.label))
+        }
+        contact.emails.forEach {
+            result[$0.address] = MatchedContact(name: contact.name, address: .email(address: $0.address, label: $0.label))
+        }
+    }
+    return result
 }
