@@ -1566,6 +1566,19 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		8A0CF7931EC0D2EA0014226A /* Contact Matching */ = {
+			isa = PBXGroup;
+			children = (
+				8A4B65A91EB0CC3900F13654 /* ContactMatching.swift */,
+				8A4B65B81EB21D6900F13654 /* ContactMatchingIndex.swift */,
+				8A4B65B61EB21CDC00F13654 /* ContactMatchingIndexTests.swift */,
+				8A645FEE1E12AA6300515151 /* MatchedContact.swift */,
+				8A5D17521EBCD40300A95FB8 /* NormalizedPhoneNumber.swift */,
+				8A5D17501EBCD32700A95FB8 /* NormalizedPhoneNumberTests.swift */,
+			);
+			name = "Contact Matching";
+			sourceTree = "<group>";
+		};
 		8A11A0C51CCF9D31007BFC7F /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -2119,12 +2132,6 @@
 				8A645FF41E12C98400515151 /* ContactCallHistoryRecord.swift */,
 				8A645FF61E12CB7F00515151 /* ContactCallHistoryRecordsGetUseCase.swift */,
 				8A41A7531E5D8A0900E0C854 /* ContactCallHistoryRecordsGetUseCaseTests.swift */,
-				8A4B65A91EB0CC3900F13654 /* ContactMatching.swift */,
-				8A4B65B81EB21D6900F13654 /* ContactMatchingIndex.swift */,
-				8A4B65B61EB21CDC00F13654 /* ContactMatchingIndexTests.swift */,
-				8A645FEE1E12AA6300515151 /* MatchedContact.swift */,
-				8A5D17521EBCD40300A95FB8 /* NormalizedPhoneNumber.swift */,
-				8A5D17501EBCD32700A95FB8 /* NormalizedPhoneNumberTests.swift */,
 			);
 			name = "Call History";
 			sourceTree = "<group>";
@@ -2153,6 +2160,7 @@
 				AA39055F1C007799005A8AA3 /* Audio Devices */,
 				8A11B3C81DDB443A002EDA93 /* Call */,
 				8AEF77A21DCB9BA300C73BCB /* Call History */,
+				8A0CF7931EC0D2EA0014226A /* Contact Matching */,
 				8A4B65B01EB2186300F13654 /* Contacts */,
 				8AA7489F1D701DEC000587DC /* Music Player */,
 				AA92F89B1C2AF90000C378B6 /* Ringtone */,
