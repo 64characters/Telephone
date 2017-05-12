@@ -49,6 +49,18 @@ final class ContactMatchingIndexTests: XCTestCase {
         XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[0].number, length: length)), makeMatchedContact(contact: contact2, phoneIndex:0))
         XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[1].number, length: length)), makeMatchedContact(contact: contact2, phoneIndex:1))
     }
+
+    func testIgnoresEmptyAddresses() {
+        let contact = Contact(
+            name: "any",
+            phones: [Contact.Phone(number: "", label: "any")],
+            emails: [Contact.Email(address: "", label: "any")]
+        )
+
+        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 10)
+
+        XCTAssertNil(sut.contact(forAddress: ""))
+    }
 }
 
 private func makeContact(number: Int) -> Contact {

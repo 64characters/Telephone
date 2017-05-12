@@ -39,14 +39,19 @@ private func makeMap(from contacts: Contacts, maxPhoneNumberLength: Int) -> [Str
 
 private func update(_ map: inout [String: MatchedContact], withPhonesOf contact: Contact, maxPhoneNumberLength: Int) {
     contact.phones.forEach {
-        map[NormalizedPhoneNumber($0.number, maxLength: maxPhoneNumberLength).value] = MatchedContact(
-            name: contact.name, address: .phone(number: $0.number, label: $0.label)
-        )
+        update(&map, withAddress: NormalizedPhoneNumber($0.number, maxLength: maxPhoneNumberLength).value, of: contact, phone: $0)
     }
 }
 
 private func update(_ map: inout [String: MatchedContact], withEmailsOf contact: Contact) {
     contact.emails.forEach {
-        map[$0.address] = MatchedContact(name: contact.name, address: .email(address: $0.address, label: $0.label))
+        if !$0.address.isEmpty {
+            map[$0.address] = MatchedContact(name: contact.name, address: .email(address: $0.address, label: $0.label))
+        }
     }
+}
+
+private func update(_ map: inout [String: MatchedContact], withAddress address: String, of contact: Contact, phone: Contact.Phone) {
+    guard !address.isEmpty else { return }
+    map[address] = MatchedContact(name: contact.name, address: .phone(number: phone.number, label: phone.label))
 }
