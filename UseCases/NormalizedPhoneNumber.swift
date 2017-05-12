@@ -26,9 +26,9 @@ public struct NormalizedPhoneNumber {
     }
 }
 
-private func substringUpToPauseCharacters(in string: String) -> String {
-    if let range = string.rangeOfCharacter(from: CharacterSet(charactersIn: ",;")) {
-        return string.substring(to: range.lowerBound)
+private func lastCharacters(of string: String, length: Int) -> String {
+    if let index = string.index(string.endIndex, offsetBy: -length, limitedBy: string.startIndex) {
+        return string.substring(from: index)
     } else {
         return string
     }
@@ -38,9 +38,9 @@ private func strippingNonDigitCharacters(from string: String) -> String {
     return string.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
 }
 
-private func lastCharacters(of string: String, length: Int) -> String {
-    if let index = string.index(string.endIndex, offsetBy: -length, limitedBy: string.startIndex) {
-        return string.substring(from: index)
+private func substringUpToPauseCharacters(in string: String) -> String {
+    if let range = string.rangeOfCharacter(from: CharacterSet(charactersIn: ",;")) {
+        return string.substring(to: range.lowerBound)
     } else {
         return string
     }
