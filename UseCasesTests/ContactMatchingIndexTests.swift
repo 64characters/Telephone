@@ -37,7 +37,7 @@ final class ContactMatchingIndexTests: XCTestCase {
         XCTAssertEqual(sut.contact(forAddress: contact2.emails[1].address), makeMatchedContact(contact: contact2, emailIndex: 1))
     }
 
-    func testFindsContactsByLastDigitsOfPhoneNumber() {
+    func testFindsContactsByLastDigitsOfThePhoneNumber() {
         let contact1 = makeContact(number: 1)
         let contact2 = makeContact(number: 2)
         let length = 7
