@@ -333,15 +333,16 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         NSUInteger i;
         
         // Check for the phone number match.
-        // Display completion as 1234567 (Display Name).
+        // Display completion as 1234567 (Display Name - Label).
         for (i = 0; i < [phones count]; ++i) {
             NSString *phoneNumber = [phones valueAtIndex:i];
+            NSString *label = ABLocalizedPropertyOrLabel([phones labelAtIndex:i]);
             
             NSRange range = [phoneNumber rangeOfString:substring];
             if (range.location == 0) {
                 NSString *completionString = nil;
                 if ([[theRecord ak_fullName] length] > 0) {
-                    completionString = [NSString stringWithFormat:@"%@ (%@)", phoneNumber, [theRecord ak_fullName]];
+                    completionString = [NSString stringWithFormat:@"%@ (%@ - %@)", phoneNumber, [theRecord ak_fullName], label];
                 } else {
                     completionString = phoneNumber;
                 }
@@ -431,13 +432,15 @@ NSString * const kPhoneLabel = @"PhoneLabel";
             continue;
         }
         
-        // Add phone numbers. Display completion as Display Name <1234567>.
+        // Add phone numbers. Display completion as Display Name - Label <1234567> .
         for (i = 0; i < [phones count]; ++i) {
             NSString *phoneNumber = [phones valueAtIndex:i];
+            NSString *label = ABLocalizedPropertyOrLabel([phones labelAtIndex:i]);
+            
             NSString *completionString = nil;
             
             if (contactName != nil) {
-                completionString = [NSString stringWithFormat:@"%@ <%@>", contactName, phoneNumber];
+                completionString = [NSString stringWithFormat:@"%@ - %@ <%@>", contactName, label, phoneNumber];
             } else {
                 completionString = phoneNumber;
             }
