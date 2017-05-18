@@ -1,5 +1,5 @@
 //
-//  NormalizedPhoneNumber.swift
+//  ExtractedPhoneNumber.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public struct NormalizedPhoneNumber {
+public struct ExtractedPhoneNumber {
     public let value: String
 
     public init(_ number: String, maxLength length: Int) {

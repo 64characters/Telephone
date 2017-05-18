@@ -82,7 +82,7 @@ private func makeEmails(number: Int) -> [Contact.Email] {
 }
 
 private func lastDigits(of string: String, length: Int) -> String {
-    let result = NormalizedPhoneNumber(string, maxLength: length).value
+    let result = ExtractedPhoneNumber(string, maxLength: length).value
     assert(result.characters.count == length)
     return result
 }

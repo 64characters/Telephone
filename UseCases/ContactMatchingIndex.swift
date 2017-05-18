@@ -39,7 +39,7 @@ private func makeMap(from contacts: Contacts, maxPhoneNumberLength: Int) -> [Str
 
 private func update(_ map: inout [String: MatchedContact], withPhonesOf contact: Contact, maxPhoneNumberLength: Int) {
     contact.phones.forEach {
-        update(&map, withAddress: NormalizedPhoneNumber($0.number, maxLength: maxPhoneNumberLength).value, of: contact, phone: $0)
+        update(&map, withAddress: ExtractedPhoneNumber($0.number, maxLength: maxPhoneNumberLength).value, of: contact, phone: $0)
     }
 }
 

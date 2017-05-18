@@ -39,6 +39,6 @@ extension IndexedContactMatching: ContactMatching {
     }
 
     private func phoneNumberMatch(for uri: URI) -> MatchedContact? {
-        return index.contact(forAddress: NormalizedPhoneNumber(uri.user, maxLength: length).value)
+        return index.contact(forAddress: ExtractedPhoneNumber(uri.user, maxLength: length).value)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  NormalizedPhoneNumberTests.swift
+//  ExtractedPhoneNumberTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,33 +19,33 @@
 import XCTest
 import UseCases
 
-final class NormalizedPhoneNumberTests: XCTestCase {
+final class ExtractedPhoneNumberTests: XCTestCase {
     func testReturnsOriginalNumber() {
-        let sut = NormalizedPhoneNumber("1234567", maxLength: 100)
+        let sut = ExtractedPhoneNumber("1234567", maxLength: 100)
 
         XCTAssertEqual(sut.value, "1234567")
     }
 
     func testReturnsNumberBeforeColon() {
-        let sut = NormalizedPhoneNumber("12345,1234", maxLength: 100)
+        let sut = ExtractedPhoneNumber("12345,1234", maxLength: 100)
 
         XCTAssertEqual(sut.value, "12345")
     }
 
     func testReturnsNumberBeforeSemicolon() {
-        let sut = NormalizedPhoneNumber("12345;1234", maxLength: 100)
+        let sut = ExtractedPhoneNumber("12345;1234", maxLength: 100)
 
         XCTAssertEqual(sut.value, "12345")
     }
 
     func testStripsNonNumericCharacters() {
-        let sut = NormalizedPhoneNumber("xy+1 (234) 567-89;123 abc", maxLength: 100)
+        let sut = ExtractedPhoneNumber("xy+1 (234) 567-89;123 abc", maxLength: 100)
 
         XCTAssertEqual(sut.value, "123456789")
     }
 
     func testReturnsMaxLengthNumberOfDigitsFromTheEnd() {
-        let sut = NormalizedPhoneNumber("98761 23456789012", maxLength: 12)
+        let sut = ExtractedPhoneNumber("98761 23456789012", maxLength: 12)
 
         XCTAssertEqual(sut.value, "123456789012")
     }
