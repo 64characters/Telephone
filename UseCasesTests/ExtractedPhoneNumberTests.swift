@@ -16,8 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+@testable import UseCases
 import XCTest
-import UseCases
 
 final class ExtractedPhoneNumberTests: XCTestCase {
     func testReturnsOriginalNumber() {

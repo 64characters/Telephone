@@ -16,10 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-public struct ExtractedPhoneNumber {
-    public let value: String
+struct ExtractedPhoneNumber {
+    let value: String
 
-    public init(_ number: String, maxLength length: Int) {
+    init(_ number: String, maxLength length: Int) {
         value = lastCharacters(
             of: strippingNonDigitCharacters(from: substringUpToPauseCharacters(in: number)), length: length
         )
