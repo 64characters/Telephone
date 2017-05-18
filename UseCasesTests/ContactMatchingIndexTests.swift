@@ -27,14 +27,14 @@ final class ContactMatchingIndexTests: XCTestCase {
 
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: 20)
 
-        XCTAssertEqual(sut.contact(forAddress: contact1.phones[0].number), makeMatchedContact(contact: contact1, phoneIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact1.phones[1].number), makeMatchedContact(contact: contact1, phoneIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact1.emails[0].address), makeMatchedContact(contact: contact1, emailIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact1.emails[1].address), makeMatchedContact(contact: contact1, emailIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact2.phones[0].number), makeMatchedContact(contact: contact2, phoneIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact2.phones[1].number), makeMatchedContact(contact: contact2, phoneIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact2.emails[0].address), makeMatchedContact(contact: contact2, emailIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact2.emails[1].address), makeMatchedContact(contact: contact2, emailIndex: 1))
+        XCTAssertEqual(sut.contact(forAddress: contact1.phones[0].number), MatchedContact(contact: contact1, phoneIndex: 0))
+        XCTAssertEqual(sut.contact(forAddress: contact1.phones[1].number), MatchedContact(contact: contact1, phoneIndex: 1))
+        XCTAssertEqual(sut.contact(forAddress: contact1.emails[0].address), MatchedContact(contact: contact1, emailIndex: 0))
+        XCTAssertEqual(sut.contact(forAddress: contact1.emails[1].address), MatchedContact(contact: contact1, emailIndex: 1))
+        XCTAssertEqual(sut.contact(forAddress: contact2.phones[0].number), MatchedContact(contact: contact2, phoneIndex: 0))
+        XCTAssertEqual(sut.contact(forAddress: contact2.phones[1].number), MatchedContact(contact: contact2, phoneIndex: 1))
+        XCTAssertEqual(sut.contact(forAddress: contact2.emails[0].address), MatchedContact(contact: contact2, emailIndex: 0))
+        XCTAssertEqual(sut.contact(forAddress: contact2.emails[1].address), MatchedContact(contact: contact2, emailIndex: 1))
     }
 
     func testFindsContactsByLastDigitsOfThePhoneNumber() {
@@ -44,10 +44,10 @@ final class ContactMatchingIndexTests: XCTestCase {
 
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
 
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact1.phones[0].number, length: length)), makeMatchedContact(contact: contact1, phoneIndex:0))
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact1.phones[1].number, length: length)), makeMatchedContact(contact: contact1, phoneIndex:1))
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[0].number, length: length)), makeMatchedContact(contact: contact2, phoneIndex:0))
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[1].number, length: length)), makeMatchedContact(contact: contact2, phoneIndex:1))
+        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact1.phones[0].number, length: length)), MatchedContact(contact: contact1, phoneIndex:0))
+        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact1.phones[1].number, length: length)), MatchedContact(contact: contact1, phoneIndex:1))
+        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[0].number, length: length)), MatchedContact(contact: contact2, phoneIndex:0))
+        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[1].number, length: length)), MatchedContact(contact: contact2, phoneIndex:1))
     }
 
     func testIgnoresEmptyAddresses() {
@@ -79,16 +79,6 @@ private func makeEmails(number: Int) -> [Contact.Email] {
         Contact.Email(address: "foo\(number)@host", label: "label-\(number)"),
         Contact.Email(address: "bar\(number)@host", label: "label-\(number)")
     ]
-}
-
-private func makeMatchedContact(contact: Contact, phoneIndex index: Int) -> MatchedContact {
-    let phone = contact.phones[index]
-    return MatchedContact(name: contact.name, address: .phone(number: phone.number, label: phone.label))
-}
-
-private func makeMatchedContact(contact: Contact, emailIndex index: Int) -> MatchedContact {
-    let email = contact.emails[index]
-    return MatchedContact(name: contact.name, address: .email(address: email.address, label: email.label))
 }
 
 private func lastDigits(of string: String, length: Int) -> String {
