@@ -120,6 +120,18 @@ final class IndexedContactMatchingTests: XCTestCase {
         XCTAssertEqual(result, MatchedContact(contact: contact, phoneIndex: 0))
     }
 
+    func testMatchesContactByEmailWhenContactEmailContainsUppercaseCharacters() {
+        let contact = Contact(name: "Jane", phones: [], emails: [Contact.Email(address: "JohnSmith@Company.com", label: "work")])
+        let sut = IndexedContactMatching(
+            factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])),
+            settings: ContactMatchingSettingsFake(length: 0)
+        )
+
+        let result = sut.match(for: URI(user: "johnsmith", host: "Company.com", displayName: "any"))
+
+        XCTAssertEqual(result, MatchedContact(contact: contact, emailIndex: 0))
+    }
+
     func testReturnsNilWhenNothingIsFound() {
         let sut = IndexedContactMatching(
             factory: DefaultContactMatchingIndexFactory(

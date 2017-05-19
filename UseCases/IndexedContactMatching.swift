@@ -35,7 +35,7 @@ extension IndexedContactMatching: ContactMatching {
     }
 
     private func emailMatch(for uri: URI) -> MatchedContact? {
-        return index.contact(forAddress: "\(uri.user)@\(uri.host)")
+        return index.contact(forAddress: "\(uri.user)@\(uri.host)".lowercased())
     }
 
     private func phoneNumberMatch(for uri: URI) -> MatchedContact? {
