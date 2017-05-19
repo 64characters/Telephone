@@ -46,7 +46,7 @@ private func update(_ map: inout [String: MatchedContact], withPhonesOf contact:
 private func update(_ map: inout [String: MatchedContact], withEmailsOf contact: Contact) {
     contact.emails.forEach {
         if !$0.address.isEmpty {
-            map[$0.address] = MatchedContact(name: contact.name, address: .email(address: $0.address, label: $0.label))
+            map[$0.address.lowercased()] = MatchedContact(name: contact.name, address: .email(address: $0.address, label: $0.label))
         }
     }
 }

@@ -24,7 +24,6 @@ final class ContactMatchingIndexTests: XCTestCase {
     func testFindsContactsByPhoneNumberAndEmailAddress() {
         let contact1 = makeContact(number: 1)
         let contact2 = makeContact(number: 2)
-
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: 20)
 
         XCTAssertEqual(sut.contact(forAddress: contact1.phones[0].number), MatchedContact(contact: contact1, phoneIndex: 0))
@@ -41,7 +40,6 @@ final class ContactMatchingIndexTests: XCTestCase {
         let contact1 = makeContact(number: 1)
         let contact2 = makeContact(number: 2)
         let length = 7
-
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
 
         XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact1.phones[0].number, length: length)), MatchedContact(contact: contact1, phoneIndex:0))
@@ -50,13 +48,23 @@ final class ContactMatchingIndexTests: XCTestCase {
         XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[1].number, length: length)), MatchedContact(contact: contact2, phoneIndex:1))
     }
 
+    func testFindsContactsWithUppercasedEmailAddressesByLowercasedEmailAddresses() {
+        let address1 = "FOO@bar.com"
+        let address2 = "JohnSmith@Company.com"
+        let contact1 = Contact(name: "any", phones: [], emails: [Contact.Email(address: address1, label: "any")])
+        let contact2 = Contact(name: "any", phones: [], emails: [Contact.Email(address: address2, label: "any")])
+        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: 0)
+
+        XCTAssertEqual(sut.contact(forAddress: address1.lowercased()), MatchedContact(contact: contact1, emailIndex: 0))
+        XCTAssertEqual(sut.contact(forAddress: address2.lowercased()), MatchedContact(contact: contact2, emailIndex: 0))
+    }
+
     func testIgnoresEmptyAddresses() {
         let contact = Contact(
             name: "any",
             phones: [Contact.Phone(number: "", label: "any")],
             emails: [Contact.Email(address: "", label: "any")]
         )
-
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 10)
 
         XCTAssertNil(sut.contact(forAddress: ""))
