@@ -73,8 +73,10 @@ extension SettingsFake: KeyValueSettings {
 
     @objc public func register(defaults: [String : Any]) {
         for (key, value) in defaults {
-            registered.updateValue(value, forKey: key)
-            dictionary.updateValue(value, forKey: key)
+            registered[key] = value
+            if dictionary[key] == nil {
+                dictionary[key] = value
+            }
         }
     }
 }
