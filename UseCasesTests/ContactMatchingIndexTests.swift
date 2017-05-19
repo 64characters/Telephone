@@ -24,16 +24,18 @@ final class ContactMatchingIndexTests: XCTestCase {
     func testFindsContactsByPhoneNumberAndEmailAddress() {
         let contact1 = makeContact(number: 1)
         let contact2 = makeContact(number: 2)
-        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: 20)
+        let length = 20
+        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
 
-        XCTAssertEqual(sut.contact(forAddress: contact1.phones[0].number), MatchedContact(contact: contact1, phoneIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact1.phones[1].number), MatchedContact(contact: contact1, phoneIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact1.emails[0].address), MatchedContact(contact: contact1, emailIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact1.emails[1].address), MatchedContact(contact: contact1, emailIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact2.phones[0].number), MatchedContact(contact: contact2, phoneIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact2.phones[1].number), MatchedContact(contact: contact2, phoneIndex: 1))
-        XCTAssertEqual(sut.contact(forAddress: contact2.emails[0].address), MatchedContact(contact: contact2, emailIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: contact2.emails[1].address), MatchedContact(contact: contact2, emailIndex: 1))
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[0].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex: 0))
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[1].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex: 1))
+        XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact1.emails[0].address)), MatchedContact(contact: contact1, emailIndex: 0))
+        XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact1.emails[1].address)), MatchedContact(contact: contact1, emailIndex: 1))
+
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact2.phones[0].number, maxLength: length)), MatchedContact(contact: contact2, phoneIndex: 0))
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact2.phones[1].number, maxLength: length)), MatchedContact(contact: contact2, phoneIndex: 1))
+        XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact2.emails[0].address)), MatchedContact(contact: contact2, emailIndex: 0))
+        XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact2.emails[1].address)), MatchedContact(contact: contact2, emailIndex: 1))
     }
 
     func testFindsContactsByLastDigitsOfThePhoneNumber() {
@@ -42,21 +44,19 @@ final class ContactMatchingIndexTests: XCTestCase {
         let length = 7
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
 
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact1.phones[0].number, length: length)), MatchedContact(contact: contact1, phoneIndex:0))
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact1.phones[1].number, length: length)), MatchedContact(contact: contact1, phoneIndex:1))
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[0].number, length: length)), MatchedContact(contact: contact2, phoneIndex:0))
-        XCTAssertEqual(sut.contact(forAddress: lastDigits(of: contact2.phones[1].number, length: length)), MatchedContact(contact: contact2, phoneIndex:1))
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[0].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex:0))
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[1].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex:1))
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact2.phones[0].number, maxLength: length)), MatchedContact(contact: contact2, phoneIndex:0))
+        XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact2.phones[1].number, maxLength: length)), MatchedContact(contact: contact2, phoneIndex:1))
     }
 
-    func testFindsContactsWithUppercasedEmailAddressesByLowercasedEmailAddresses() {
-        let address1 = "FOO@bar.com"
-        let address2 = "JohnSmith@Company.com"
-        let contact1 = Contact(name: "any", phones: [], emails: [Contact.Email(address: address1, label: "any")])
-        let contact2 = Contact(name: "any", phones: [], emails: [Contact.Email(address: address2, label: "any")])
+    func testFindsContactsWithEmailAddressesContainingUppercaseCharacters() {
+        let contact1 = Contact(name: "any", phones: [], emails: [Contact.Email(address: "FOO@bar.com", label: "any")])
+        let contact2 = Contact(name: "any", phones: [], emails: [Contact.Email(address: "JohnSmith@Company.com", label: "any")])
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: 0)
 
-        XCTAssertEqual(sut.contact(forAddress: address1.lowercased()), MatchedContact(contact: contact1, emailIndex: 0))
-        XCTAssertEqual(sut.contact(forAddress: address2.lowercased()), MatchedContact(contact: contact2, emailIndex: 0))
+        XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact1.emails[0].address)), MatchedContact(contact: contact1, emailIndex: 0))
+        XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact2.emails[0].address)), MatchedContact(contact: contact2, emailIndex: 0))
     }
 
     func testIgnoresEmptyAddresses() {
@@ -67,7 +67,7 @@ final class ContactMatchingIndexTests: XCTestCase {
         )
         let sut = ContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 10)
 
-        XCTAssertNil(sut.contact(forAddress: ""))
+        XCTAssertNil(sut.contact(forEmail: NormalizedLowercasedString("")))
     }
 }
 
@@ -87,10 +87,4 @@ private func makeEmails(number: Int) -> [Contact.Email] {
         Contact.Email(address: "foo\(number)@host", label: "label-\(number)"),
         Contact.Email(address: "bar\(number)@host", label: "label-\(number)")
     ]
-}
-
-private func lastDigits(of string: String, length: Int) -> String {
-    let result = ExtractedPhoneNumber(string, maxLength: length).value
-    assert(result.characters.count == length)
-    return result
 }

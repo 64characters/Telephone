@@ -23,8 +23,12 @@ public final class ContactMatchingIndex {
         index = makeMap(from: contacts, maxPhoneNumberLength: maxPhoneNumberLength)
     }
 
-    public func contact(forAddress address: String) -> MatchedContact? {
-        return index[address]
+    public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
+        return index[phone.value]
+    }
+
+    public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
+        return index[email.value]
     }
 }
 
@@ -45,13 +49,16 @@ private func update(_ map: inout [String: MatchedContact], withPhonesOf contact:
 
 private func update(_ map: inout [String: MatchedContact], withEmailsOf contact: Contact) {
     contact.emails.forEach {
-        if !$0.address.isEmpty {
-            map[$0.address.lowercased()] = MatchedContact(name: contact.name, address: .email(address: $0.address, label: $0.label))
-        }
+        update(&map, withAddress: NormalizedLowercasedString($0.address).value, of: contact, email: $0)
     }
 }
 
 private func update(_ map: inout [String: MatchedContact], withAddress address: String, of contact: Contact, phone: Contact.Phone) {
     guard !address.isEmpty else { return }
     map[address] = MatchedContact(name: contact.name, address: .phone(number: phone.number, label: phone.label))
+}
+
+private func update(_ map: inout [String: MatchedContact], withAddress address: String, of contact: Contact, email: Contact.Email) {
+    guard !address.isEmpty else { return }
+    map[address] = MatchedContact(name: contact.name, address: .email(address: email.address, label: email.label))
 }

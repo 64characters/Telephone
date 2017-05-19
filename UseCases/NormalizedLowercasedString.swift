@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-struct NormalizedLowercasedString {
+public struct NormalizedLowercasedString {
     let value: String
 
     init(_ origin: String) {

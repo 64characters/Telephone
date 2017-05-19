@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-struct ExtractedPhoneNumber {
+public struct ExtractedPhoneNumber {
     let value: String
 
     init(_ number: String, maxLength length: Int) {
