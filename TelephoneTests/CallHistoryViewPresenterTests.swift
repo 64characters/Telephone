@@ -64,13 +64,13 @@ final class CallHistoryViewPresenterTests: XCTestCase {
     }
 }
 
-private func makeContact(number: Int) -> Contact {
-    return Contact(
-        name: "any-name-\(number)", address: "any-address\(number)", label: "any-label-\(number)"
+private func makeContact(number: Int) -> MatchedContact {
+    return MatchedContact(
+        name: "any-name-\(number)", address: .email(address: "any-address\(number)", label: "any-label-\(number)")
     )
 }
 
-private func makePresentationCallHistoryRecord(contact: Contact, record: CallHistoryRecord) -> PresentationCallHistoryRecord {
+private func makePresentationCallHistoryRecord(contact: MatchedContact, record: CallHistoryRecord) -> PresentationCallHistoryRecord {
     return PresentationCallHistoryRecord(
         contact: makePresentationContact(contact: contact, color: contactColor(for: record)),
         date: ShortRelativeDateTimeFormatter().string(from: record.date),
@@ -79,8 +79,13 @@ private func makePresentationCallHistoryRecord(contact: Contact, record: CallHis
     )
 }
 
-private func makePresentationContact(contact: Contact, color: NSColor) -> PresentationContact {
-    return PresentationContact(name: contact.name, address: contact.address, label: contact.label, color: color)
+private func makePresentationContact(contact: MatchedContact, color: NSColor) -> PresentationContact {
+    switch contact.address {
+    case let .phone(number, label):
+        return PresentationContact(name: contact.name, address: number, label: label, color: color)
+    case let .email(address, label):
+        return PresentationContact(name: contact.name, address: address, label: label, color: color)
+    }
 }
 
 private func contactColor(for record: CallHistoryRecord) -> NSColor {

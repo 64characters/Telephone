@@ -49,7 +49,12 @@ extension PresentationContact {
 }
 
 extension PresentationContact {
-    convenience init(contact: Contact, color: NSColor) {
-        self.init(name: contact.name, address: contact.address, label: contact.label, color: color)
+    convenience init(contact: MatchedContact, color: NSColor) {
+        switch contact.address {
+        case let .phone(number, label):
+            self.init(name: contact.name, address: number, label: label, color: color)
+        case let .email(address, label):
+            self.init(name: contact.name, address: address, label: label, color: color)
+        }
     }
 }
