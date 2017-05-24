@@ -31,7 +31,7 @@ public final class SimpleContacts {
 }
 
 extension SimpleContacts: Contacts {
-    public func enumerate(_ body: (Contact) -> Void) {
+    public func enumerate(_ body: @escaping (Contact) -> Void) {
         contacts.forEach(body)
     }
 }

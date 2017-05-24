@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Contacts
 import Foundation
 import StoreKit
 import UseCases
@@ -169,8 +170,21 @@ final class CompositionRoot: NSObject {
             )
         )
 
+        let contacts: Contacts
+        if #available(macOS 10.11, *) {
+            contacts = CNContactStoreToContactsAdapter(store: CNContactStore())
+        } else {
+            fatalError()
+        }
+
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
-            histories: callHistories, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
+            histories: callHistories,
+            matching: IndexedContactMatching(
+                factory: DefaultContactMatchingIndexFactory(contacts: contacts),
+                settings: SimpleContactMatchingSettings(settings: defaults)
+            ),
+            dateFormatter: ShortRelativeDateTimeFormatter(),
+            durationFormatter: DurationFormatter()
         )
 
         super.init()

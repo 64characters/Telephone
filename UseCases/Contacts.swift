@@ -17,5 +17,5 @@
 //
 
 public protocol Contacts {
-    func enumerate(_ body: (Contact) -> Void)
+    func enumerate(_ body: @escaping (Contact) -> Void)
 }
