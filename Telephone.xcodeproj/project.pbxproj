@@ -302,8 +302,6 @@
 		8AC87E891D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */; };
 		8ACB9C811E13F8F50081A0A5 /* PresentationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */; };
 		8ACB9C821E13F8F50081A0A5 /* PresentationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */; };
-		8ACB9C841E13F93C0081A0A5 /* PresentationContactAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C831E13F93C0081A0A5 /* PresentationContactAddress.swift */; };
-		8ACB9C851E13F93C0081A0A5 /* PresentationContactAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C831E13F93C0081A0A5 /* PresentationContactAddress.swift */; };
 		8ACC002A1E9D3C85005B0338 /* CallHistorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC00291E9D3C85005B0338 /* CallHistorySpy.swift */; };
 		8ACD2AD61DD1F9AA00E81984 /* NotifyingCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD2AD51DD1F9AA00E81984 /* NotifyingCallHistoryTests.swift */; };
 		8ACD2AD81DD1F9FC00E81984 /* NotifyingCallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD2AD71DD1F9FC00E81984 /* NotifyingCallHistory.swift */; };
@@ -1034,7 +1032,6 @@
 		8AC24A5C1ED490F60094B01C /* Contact+CNContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CNContact.swift"; sourceTree = "<group>"; };
 		8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReceiptAttributesValidation.swift; sourceTree = "<group>"; };
 		8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationContact.swift; sourceTree = "<group>"; };
-		8ACB9C831E13F93C0081A0A5 /* PresentationContactAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationContactAddress.swift; sourceTree = "<group>"; };
 		8ACC00291E9D3C85005B0338 /* CallHistorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistorySpy.swift; sourceTree = "<group>"; };
 		8ACD2AD51DD1F9AA00E81984 /* NotifyingCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyingCallHistoryTests.swift; path = UseCasesTests/NotifyingCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8ACD2AD71DD1F9FC00E81984 /* NotifyingCallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyingCallHistory.swift; sourceTree = "<group>"; };
@@ -2089,7 +2086,6 @@
 				8AD9A0DB1DE34CC1000BB2F2 /* PersistentCallHistoryFactory.swift */,
 				8A778C051E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift */,
 				8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */,
-				8ACB9C831E13F93C0081A0A5 /* PresentationContactAddress.swift */,
 				8A4236491E79AA0900BF189D /* ReversedCallHistoryFactory.swift */,
 				8A42E0C41E168DB300CE09B8 /* ShortRelativeDateTimeFormatter.swift */,
 				8AD9A0DD1DE34ECE000BB2F2 /* TruncatingCallHistoryFactory.swift */,
@@ -3318,7 +3314,6 @@
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
-				8ACB9C841E13F93C0081A0A5 /* PresentationContactAddress.swift in Sources */,
 				AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */,
 				AAB3F5791C189D5300973BE5 /* SoundPreferencesViewEventTarget.swift in Sources */,
 				8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */,
@@ -3551,7 +3546,6 @@
 				8AD2C5EF1EAE0C58005EED3E /* RestoredSelectionIndexTests.swift in Sources */,
 				8ABB141B1CEC86A90056CEDC /* StoreViewStateMachineTests.swift in Sources */,
 				8AA27AE71E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */,
-				8ACB9C851E13F93C0081A0A5 /* PresentationContactAddress.swift in Sources */,
 				8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */,
 				AA32F7FC1BC52A2A00FAC228 /* UserDefaultsKeys.m in Sources */,
 				AA19CFF91BED149C00991CAA /* DefaultUseCaseFactory.swift in Sources */,
