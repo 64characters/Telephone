@@ -174,7 +174,7 @@ final class CompositionRoot: NSObject {
         if #available(macOS 10.11, *) {
             contacts = CNContactStoreToContactsAdapter(store: CNContactStore())
         } else {
-            fatalError()
+            contacts = ABAddressBookToContactsAdapter()
         }
 
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(

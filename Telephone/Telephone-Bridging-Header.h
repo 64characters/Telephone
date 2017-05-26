@@ -7,6 +7,7 @@
 #import "ReceiptValidation-Bridging-Header.h"
 
 #import "AppController.h"
+#import "AKABRecord+Querying.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
 #import "AKSIPCallNotifications.h"

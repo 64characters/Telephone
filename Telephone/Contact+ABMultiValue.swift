@@ -1,5 +1,5 @@
 //
-//  AKABRecord+Querying.h
+//  Contact+ABMultiValue.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-@import AddressBook;
-@import Foundation;
+import AddressBook
+import UseCases
 
-NS_ASSUME_NONNULL_BEGIN
+extension Contact.Phone {
+    init(phones: ABMultiValue, index: Int) {
+        self.init(number: phones.value(at: index) as! String, label: ABLocalizedPropertyOrLabel(phones.label(at: index)))
+    }
+}
 
-@interface ABRecord (AKRecordQueryingAdditions)
-
-@property(nonatomic, readonly, copy) NSString *ak_fullName;
-
-- (NSString *)ak_fullNameWithNameOrdering:(NSInteger)nameOrdering;
-
-@end
-
-NS_ASSUME_NONNULL_END
+extension Contact.Email {
+    init(emails: ABMultiValue, index: Int) {
+        self.init(address: emails.value(at: index) as! String, label: ABLocalizedPropertyOrLabel(emails.label(at: index)))
+    }
+}

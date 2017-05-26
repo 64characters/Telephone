@@ -292,6 +292,8 @@
 		8ABB141B1CEC86A90056CEDC /* StoreViewStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */; };
 		8ABB141C1CEC86B10056CEDC /* StoreViewStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */; };
 		8ABC9A6F1D522E4D004AC220 /* ReceiptAttributesValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC9A6E1D522E4D004AC220 /* ReceiptAttributesValidation.swift */; };
+		8ABF83241ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */; };
+		8ABF83261ED89017003051E0 /* Contact+ABMultiValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */; };
 		8AC1A43C1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */; };
 		8AC1A4411C67BFA8007778A2 /* SoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */; };
 		8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */; };
@@ -1022,6 +1024,8 @@
 		8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewStateMachine.swift; sourceTree = "<group>"; };
 		8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreViewStateMachineTests.swift; path = TelephoneTests/StoreViewStateMachineTests.swift; sourceTree = SOURCE_ROOT; };
 		8ABC9A6E1D522E4D004AC220 /* ReceiptAttributesValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttributesValidation.swift; sourceTree = "<group>"; };
+		8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABAddressBookToContactsAdapter.swift; sourceTree = "<group>"; };
+		8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+ABMultiValue.swift"; sourceTree = "<group>"; };
 		8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSoundToSoundAdapterFactory.swift; sourceTree = "<group>"; };
 		8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSoundEventTarget.swift; sourceTree = "<group>"; };
 		8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEventTarget.swift; sourceTree = "<group>"; };
@@ -1684,7 +1688,9 @@
 		8A1BCFFA1ED3460900628062 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */,
 				8A1BCFFB1ED3462800628062 /* CNContactStoreToContactsAdapter.swift */,
+				8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */,
 				8AC24A5C1ED490F60094B01C /* Contact+CNContact.swift */,
 			);
 			name = Contacts;
@@ -3187,6 +3193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				8ABF83241ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift in Sources */,
 				8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */,
 				8AD9A0D21DDF76DE000BB2F2 /* SimpleApplicationDataLocations.swift in Sources */,
 				8A63ECD41CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift in Sources */,
@@ -3228,6 +3235,7 @@
 				8A1F2E621E71702D00E3624C /* CallHistoryOutgoingCallCellView.swift in Sources */,
 				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
 				8AC1A43C1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift in Sources */,
+				8ABF83261ED89017003051E0 /* Contact+ABMultiValue.swift in Sources */,
 				8A9175AD1CABF61200354E26 /* UserAgentError.swift in Sources */,
 				8A11B3DC1DDCC028002EDA93 /* CallNotificationsToEventTargetAdapter.swift in Sources */,
 				8AE396CC1D6B2F3800DCFB9E /* ExpectedProducts.swift in Sources */,
