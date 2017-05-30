@@ -1,5 +1,5 @@
 //
-//  LabeledContactAddress.swift
+//  DefaultContactMatchingIndexFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public struct LabeledContactAddress {
-    public let origin: ContactAddress
-    public let label: String
+public final class DefaultContactMatchingIndexFactory {
+    fileprivate let contacts: Contacts
 
-    public init(origin: ContactAddress, label: String) {
-        self.origin = origin
-        self.label = label
+    public init(contacts: Contacts) {
+        self.contacts = contacts
     }
 }
 
-extension LabeledContactAddress: Equatable {
-    public static func ==(lhs: LabeledContactAddress, rhs: LabeledContactAddress) -> Bool {
-        return lhs.origin == rhs.origin && lhs.label == rhs.label
+extension DefaultContactMatchingIndexFactory: ContactMatchingIndexFactory {
+    public func make(maxPhoneNumberLength length: Int) -> ContactMatchingIndex {
+        return ContactMatchingIndex(contacts: contacts, maxPhoneNumberLength: length)
     }
 }

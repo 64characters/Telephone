@@ -21,26 +21,69 @@ import UseCases
 import UseCasesTestDoubles
 
 final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
-    func testUpdatesOutputOnUpdate() {
+    func testContactNameIsURIDisplayNameAndLabelIsEmptyWhenContactMatchIsNotFound() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
         let output = ContactCallHistoryRecordsGetUseCaseOutputSpy()
-        let sut = ContactCallHistoryRecordsGetUseCase(output: output)
-        let expected = [makeContactCallHistoryRecord(record: record1), makeContactCallHistoryRecord(record: record2)]
+        let sut = ContactCallHistoryRecordsGetUseCase(matching: ContactMatchingStub([:]), output: output)
+        let expected = [
+            ContactCallHistoryRecord(
+                origin: record1,
+                contact: MatchedContact(name: record1.uri.displayName, address: makeEmailAddress(uri: record1.uri, label: ""))
+            ),
+            ContactCallHistoryRecord(
+                origin: record2,
+                contact: MatchedContact(name: record2.uri.displayName, address: makeEmailAddress(uri: record2.uri, label: ""))
+            )
+        ]
 
         sut.update(records: [record1, record2])
 
         XCTAssertEqual(output.invokedRecords, expected)
     }
+
+    func testContactIsMatchedContactWhenContactMatchIsFound() {
+        let factory = CallHistoryRecordTestFactory()
+        let record1 = factory.makeRecord(number: 1)
+        let record2 = factory.makeRecord(number: 2)
+        let contact1 = MatchedContact(name: "full-name-1", address: makeEmailAddress(uri: record1.uri, label: "label-1"))
+        let contact2 = MatchedContact(name: "full-name-2", address: makeEmailAddress(uri: record2.uri, label: "label-2"))
+        let output = ContactCallHistoryRecordsGetUseCaseOutputSpy()
+        let sut = ContactCallHistoryRecordsGetUseCase(
+            matching: ContactMatchingStub([record1.uri: contact1, record2.uri: contact2]), output: output
+        )
+        let expected = [
+            ContactCallHistoryRecord(origin: record1, contact: contact1),
+            ContactCallHistoryRecord(origin: record2, contact: contact2)
+        ]
+
+        sut.update(records: [record1, record2])
+
+        XCTAssertEqual(output.invokedRecords, expected)
+    }
+
+    func testAdressIsPhoneTakenFromUserWhenContactMatchIsNotFoundAndHostIsEmpty() {
+        let output = ContactCallHistoryRecordsGetUseCaseOutputSpy()
+        let sut = ContactCallHistoryRecordsGetUseCase(matching: ContactMatchingStub([:]), output: output)
+        let user = "user-123"
+
+        sut.update(
+            records: [
+                CallHistoryRecord(
+                    uri: URI(user: user, host: "", displayName: "any-name"),
+                    date: Date(),
+                    duration: 0,
+                    isIncoming: false,
+                    isMissed: false
+                )
+            ]
+        )
+
+        XCTAssertEqual(output.invokedRecords.first!.contact.address, .phone(number: user, label: ""))
+    }
 }
 
-private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-    return ContactCallHistoryRecord(origin: record, contact: makeContact(address: record.address))
-}
-
-private func makeContact(address: ContactAddress) -> Contact {
-    return Contact(
-        name: "any-name", address: LabeledContactAddress(origin: address, label: "any-label")
-    )
+private func makeEmailAddress(uri: URI, label: String) -> MatchedContact.Address {
+    return .email(address: "\(uri.user)@\(uri.host)", label: label)
 }

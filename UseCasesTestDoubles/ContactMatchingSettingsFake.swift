@@ -1,6 +1,9 @@
 //
-//  CallHistoryCallMakeUseCase.swift
+//  ContactMatchingSettingsFake.swift
 //  Telephone
+//
+//  Copyright © 2008-2016 Alexey Kuznetsov
+//  Copyright © 2016-2017 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -13,20 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryCallMakeUseCase {
-    fileprivate let account: Account
-    fileprivate let history: CallHistory
-    fileprivate let index: Int
+import UseCases
 
-    public init(account: Account, history: CallHistory, index: Int) {
-        self.account = account
-        self.history = history
-        self.index = index
+public final class ContactMatchingSettingsFake {
+    fileprivate let length: Int
+
+    public init(length: Int) {
+        self.length = length
     }
 }
 
-extension CallHistoryCallMakeUseCase: UseCase {
-    public func execute() {
-        account.makeCall(to: history.allRecords[index].uri)
+extension ContactMatchingSettingsFake: ContactMatchingSettings {
+    public var significantPhoneNumberLength: Int {
+        return length
     }
 }

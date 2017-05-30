@@ -33,6 +33,6 @@ final class CallHistoryCallMakeUseCaseTests: XCTestCase {
         sut.execute()
 
         XCTAssertTrue(account.didCallMakeCallTo)
-        XCTAssertEqual(account.invokedURI, URI(record.address))
+        XCTAssertEqual(account.invokedURI, record.uri)
     }
 }

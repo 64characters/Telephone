@@ -18,9 +18,9 @@
 
 public struct ContactCallHistoryRecord {
     public let origin: CallHistoryRecord
-    public let contact: Contact
+    public let contact: MatchedContact
 
-    public init(origin: CallHistoryRecord, contact: Contact) {
+    public init(origin: CallHistoryRecord, contact: MatchedContact) {
         self.origin = origin
         self.contact = contact
     }

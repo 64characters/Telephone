@@ -1,5 +1,5 @@
 //
-//  AKABRecord+Querying.h
+//  SimpleContactMatchingSettings.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-@import AddressBook;
-@import Foundation;
+public final class SimpleContactMatchingSettings {
+    fileprivate let settings: KeyValueSettings
 
-NS_ASSUME_NONNULL_BEGIN
+    public init(settings: KeyValueSettings) {
+        self.settings = settings
+        settings.register(defaults: [key: 9])
+    }
+}
 
-@interface ABRecord (AKRecordQueryingAdditions)
+extension SimpleContactMatchingSettings: ContactMatchingSettings {
+    public var significantPhoneNumberLength: Int {
+        return settings.integer(forKey: key)
+    }
+}
 
-@property(nonatomic, readonly, copy) NSString *ak_fullName;
-
-- (NSString *)ak_fullNameWithNameOrdering:(NSInteger)nameOrdering;
-
-@end
-
-NS_ASSUME_NONNULL_END
+private let key = "SignificantPhoneNumberLength"

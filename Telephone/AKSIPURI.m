@@ -23,7 +23,6 @@
 #import "AKNSString+PJSUA.h"
 #import "AKSIPUserAgent.h"
 
-
 @implementation AKSIPURI
 
 - (NSString *)SIPAddress {
@@ -37,46 +36,47 @@
 
 #pragma mark -
 
-+ (instancetype)SIPURIWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName {
-    return [[self alloc] initWithUser:aUser host:aHost displayName:aDisplayName];
++ (instancetype)SIPURIWithUser:(NSString *)user host:(NSString *)host displayName:(NSString *)displayName {
+    return [[self alloc] initWithUser:user host:host displayName:displayName];
 }
 
-+ (instancetype)SIPURIWithString:(NSString *)SIPURIString {
++ (nullable instancetype)SIPURIWithString:(NSString *)SIPURIString {
     return [[self alloc] initWithString:SIPURIString];
 }
 
-// Designated initializer.
-- (instancetype)initWithUser:(NSString *)aUser host:(NSString *)aHost displayName:(NSString *)aDisplayName {
+- (instancetype)initWithUser:(NSString *)user host:(NSString *)host displayName:(NSString *)displayName port:(NSInteger)port {
+    NSParameterAssert(user);
+    NSParameterAssert(host);
+    NSParameterAssert(displayName);
     self = [super init];
-    if (self == nil) {
-        return nil;
+    if ((self != nil)) {
+        _user = [user copy];
+        _host = [host copy];
+        _displayName = [displayName copy];
     }
-    
-    [self setDisplayName:aDisplayName];
-    [self setUser:aUser];
-    [self setHost:aHost];
-    
     return self;
 }
 
-- (instancetype)init {
-    return [self initWithUser:nil host:nil displayName:nil];
+- (instancetype)initWithUser:(NSString *)user host:(NSString *)host displayName:(NSString *)displayName {
+    return [self initWithUser:user host:host displayName:displayName port:0];
 }
 
-- (instancetype)initWithString:(NSString *)SIPURIString {
-    self = [super init];
-    if (self == nil) {
-        return nil;
-    }
-    
+- (instancetype)init {
+    return [self initWithUser:@"" host:@"" displayName:@""];
+}
+
+- (nullable instancetype)initWithString:(NSString *)SIPURIString {
+    NSString *user = @"";
+    NSString *host = @"";
+    NSString *displayName = @"";
+
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s<sip:(.+@)?.+>'"];
     if ([predicate evaluateWithObject:SIPURIString]) {
         NSRange delimiterRange = [SIPURIString rangeOfString:@" <"];
         
         NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
         [trimmingCharacterSet addCharactersInString:@"\""];
-        [self setDisplayName:[[SIPURIString substringToIndex:delimiterRange.location]
-                              stringByTrimmingCharactersInSet:trimmingCharacterSet]];
+        displayName = [[SIPURIString substringToIndex:delimiterRange.location] stringByTrimmingCharactersInSet:trimmingCharacterSet];
         
         NSRange userAndHostRange = [SIPURIString rangeOfString:@"<sip:" options:NSCaseInsensitiveSearch];
         userAndHostRange.location += 5;
@@ -85,13 +85,13 @@
         
         NSRange atSignRange = [userAndHost rangeOfString:@"@" options:NSBackwardsSearch];
         if (atSignRange.location != NSNotFound) {
-            [self setUser:[userAndHost substringToIndex:atSignRange.location]];
-            [self setHost:[userAndHost substringFromIndex:(atSignRange.location + 1)]];
+            user = [userAndHost substringToIndex:atSignRange.location];
+            host = [userAndHost substringFromIndex:(atSignRange.location + 1)];
         } else {
-            [self setHost:userAndHost];
+            host = userAndHost;
         }
         
-        return self;
+        return [self initWithUser:user host:host displayName:displayName];
     }
     
     if (![[AKSIPUserAgent sharedUserAgent] isStarted]) {
@@ -106,36 +106,30 @@
         return nil;
     }
     
-    [self setDisplayName:[NSString stringWithPJString:nameAddr->display]];
+    displayName = [NSString stringWithPJString:nameAddr->display];
     
     pj_str_t *schemePJString = (pj_str_t *)pjsip_uri_get_scheme(nameAddr);
     NSString *scheme = [NSString stringWithPJString:*schemePJString];
+    NSInteger port = 0;
     
     if ([scheme isEqualToString:@"sip"] || [scheme isEqualToString:@"sips"]) {
         pjsip_sip_uri *uri = (pjsip_sip_uri *)pjsip_uri_get_uri(nameAddr);
         
-        [self setUser:[NSString stringWithPJString:uri->user]];
-        [self setPassword:[NSString stringWithPJString:uri->passwd]];
-        [self setHost:[NSString stringWithPJString:uri->host]];
-        [self setPort:uri->port];
-        [self setUserParameter:[NSString stringWithPJString:uri->user_param]];
-        [self setMethodParameter:[NSString stringWithPJString:uri->method_param]];
-        [self setTransportParameter:[NSString stringWithPJString:uri->transport_param]];
-        [self setTTLParameter:uri->ttl_param];
-        [self setLooseRoutingParameter:uri->lr_param];
-        [self setMaddrParameter:[NSString stringWithPJString:uri->maddr_param]];
-        
+        user = [NSString stringWithPJString:uri->user];
+        host = [NSString stringWithPJString:uri->host];
+        port = uri->port;
+
     } else if ([scheme isEqualToString:@"tel"]) {
         // TODO(eofster): we really must have some kind of AKTelURI here instead.
         pjsip_tel_uri *uri = (pjsip_tel_uri *)pjsip_uri_get_uri(nameAddr);
         
-        [self setUser:[NSString stringWithPJString:uri->number]];
-        
+        user = [NSString stringWithPJString:uri->number];
+
     } else {
         return nil;
     }
     
-    return self;
+    return [self initWithUser:user host:host displayName:displayName port:port];
 }
 
 - (NSString *)description {
@@ -156,18 +150,9 @@
 #pragma mark NSCopying protocol
 
 - (id)copyWithZone:(NSZone *)zone {
-  AKSIPURI *newURI = [[AKSIPURI allocWithZone:zone] initWithUser:[self user]
-                                                            host:[self host]
-                                                     displayName:[self displayName]];
-  [newURI setPassword:[self password]];
+  AKSIPURI *newURI = [[AKSIPURI allocWithZone:zone] initWithUser:[self user] host:[self host] displayName:[self displayName]];
   [newURI setPort:[self port]];
-  [newURI setUserParameter:[self userParameter]];
-  [newURI setMethodParameter:[self methodParameter]];
-  [newURI setTransportParameter:[self transportParameter]];
-  [newURI setTTLParameter:[self TTLParameter]];
-  [newURI setLooseRoutingParameter:[self looseRoutingParameter]];
-  [newURI setMaddrParameter:[self maddrParameter]];
-  
+
   return newURI;
 }
 

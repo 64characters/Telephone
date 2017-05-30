@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -89,8 +89,9 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address.user" id="EvO-Xe-uh1"/>
                                                             <binding destination="WWY-ZO-bzC" name="textColor" keyPath="objectValue.contact.color" id="gPH-7Y-lSS"/>
+                                                            <binding destination="WWY-ZO-bzC" name="toolTip" keyPath="objectValue.contact.tooltip" id="PXL-as-zWg"/>
+                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.title" id="JtA-9q-f2E"/>
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">
@@ -101,7 +102,7 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.address.label" id="z5B-7j-9gZ"/>
+                                                            <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.label" id="cUz-vY-V4O"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>

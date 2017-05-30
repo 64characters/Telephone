@@ -42,6 +42,6 @@ extension CallHistoryRecordAddUseCase: UseCase {
     }
 
     private func shouldRemoveHost(from record: CallHistoryRecord) -> Bool {
-        return record.address.host == domain || record.address.user.isTelephoneNumber && record.address.user.characters.count > 4
+        return record.uri.host == domain || record.uri.user.isTelephoneNumber && record.uri.user.characters.count > 4
     }
 }

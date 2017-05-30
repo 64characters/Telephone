@@ -1,5 +1,5 @@
 //
-//  ContactAddress.swift
+//  Contacts.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public struct ContactAddress {
-    public let user: String
-    public let host: String
-
-    public init(user: String, host: String = "") {
-        assert(user.characters.count > 0)
-        self.user = user
-        self.host = host
-    }
-
-    public init(_ uri: URI) {
-        self.init(user: uri.user, host: uri.host)
-    }
-}
-
-extension ContactAddress: Equatable {
-    public static func ==(lhs: ContactAddress, rhs: ContactAddress) -> Bool {
-        return lhs.user == rhs.user && lhs.host == rhs.host
-    }
+public protocol Contacts {
+    func enumerate(_ body: @escaping (Contact) -> Void)
 }

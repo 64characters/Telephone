@@ -20,11 +20,13 @@ import UseCases
 
 final class CallHistoryViewEventTargetFactory: NSObject {
     private let histories: CallHistories
+    private let matching: ContactMatching
     private let dateFormatter: DateFormatter
     private let durationFormatter: DateComponentsFormatter
 
-    init(histories: CallHistories, dateFormatter: DateFormatter, durationFormatter: DateComponentsFormatter) {
+    init(histories: CallHistories, matching: ContactMatching, dateFormatter: DateFormatter, durationFormatter: DateComponentsFormatter) {
         self.histories = histories
+        self.matching = matching
         self.dateFormatter = dateFormatter
         self.durationFormatter = durationFormatter
     }
@@ -35,6 +37,7 @@ final class CallHistoryViewEventTargetFactory: NSObject {
             recordsGet: CallHistoryRecordsGetUseCase(
                 history: history,
                 output: ContactCallHistoryRecordsGetUseCase(
+                    matching: matching,
                     output: CallHistoryViewPresenter(
                         view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
                     )

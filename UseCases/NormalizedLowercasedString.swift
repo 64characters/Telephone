@@ -1,6 +1,9 @@
 //
-//  CallHistoryCallMakeUseCase.swift
+//  NormalizedLowercasedString.swift
 //  Telephone
+//
+//  Copyright © 2008-2016 Alexey Kuznetsov
+//  Copyright © 2016-2017 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -13,20 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryCallMakeUseCase {
-    fileprivate let account: Account
-    fileprivate let history: CallHistory
-    fileprivate let index: Int
+public struct NormalizedLowercasedString {
+    let value: String
 
-    public init(account: Account, history: CallHistory, index: Int) {
-        self.account = account
-        self.history = history
-        self.index = index
-    }
-}
-
-extension CallHistoryCallMakeUseCase: UseCase {
-    public func execute() {
-        account.makeCall(to: history.allRecords[index].uri)
+    init(_ origin: String) {
+        value = origin.lowercased()
     }
 }

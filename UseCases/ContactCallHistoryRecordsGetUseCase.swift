@@ -21,9 +21,11 @@ public protocol ContactCallHistoryRecordsGetUseCaseOutput {
 }
 
 public final class ContactCallHistoryRecordsGetUseCase {
+    fileprivate let matching: ContactMatching
     fileprivate let output: ContactCallHistoryRecordsGetUseCaseOutput
 
-    public init(output: ContactCallHistoryRecordsGetUseCaseOutput) {
+    public init(matching: ContactMatching, output: ContactCallHistoryRecordsGetUseCaseOutput) {
+        self.matching = matching
         self.output = output
     }
 }
@@ -34,10 +36,18 @@ extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutpu
     }
 
     private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-        return ContactCallHistoryRecord(origin: record, contact: makeContact(address: record.address))
+        return ContactCallHistoryRecord(origin: record, contact: makeContact(record: record))
     }
 
-    private func makeContact(address: ContactAddress) -> Contact {
-        return Contact(name: "any-name", address: LabeledContactAddress(origin: address, label: "any-label"))
+    private func makeContact(record: CallHistoryRecord) -> MatchedContact {
+        if let match = matching.match(for: record.uri) {
+            return match
+        } else {
+            return MatchedContact(name: record.uri.displayName, address: makeAddress(for: record.uri))
+        }
     }
+}
+
+private func makeAddress(for uri: URI) -> MatchedContact.Address {
+    return uri.host.isEmpty ? .phone(number: uri.user, label: "") : .email(address: "\(uri.user)@\(uri.host)", label: "")
 }

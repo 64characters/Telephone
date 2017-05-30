@@ -1,5 +1,5 @@
 //
-//  AKABRecord+Querying.h
+//  MatchedContact+Contact.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-@import AddressBook;
-@import Foundation;
+import UseCases
 
-NS_ASSUME_NONNULL_BEGIN
+extension MatchedContact {
+    init(contact: Contact, phoneIndex index: Int) {
+        let phone = contact.phones[index]
+        name = contact.name
+        address = .phone(number: phone.number, label: phone.label)
+    }
 
-@interface ABRecord (AKRecordQueryingAdditions)
-
-@property(nonatomic, readonly, copy) NSString *ak_fullName;
-
-- (NSString *)ak_fullNameWithNameOrdering:(NSInteger)nameOrdering;
-
-@end
-
-NS_ASSUME_NONNULL_END
+    init(contact: Contact, emailIndex index: Int) {
+        let email = contact.emails[index]
+        name = contact.name
+        address = .email(address: email.address, label: email.label)
+    }
+}

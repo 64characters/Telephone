@@ -20,13 +20,15 @@ import Cocoa
 import Foundation
 
 final class PresentationContact: NSObject {
-    let name: String
-    let address: PresentationContactAddress
+    let title: String
+    let tooltip: String
+    let label: String
     let color: NSColor
 
-    init(name: String, address: PresentationContactAddress, color: NSColor) {
-        self.name = name
-        self.address = address
+    init(title: String, tooltip: String, label: String, color: NSColor) {
+        self.title = title
+        self.tooltip = tooltip
+        self.label = label
         self.color = color
     }
 }
@@ -38,22 +40,29 @@ extension PresentationContact {
     }
 
     override var hash: Int {
-        return name.hash ^ address.hash ^ color.hash
+        return title.hash ^ tooltip.hash ^ label.hash ^ color.hash
     }
 
     private func isEqual(to contact: PresentationContact) -> Bool {
-        return name == contact.name && address == contact.address && color == contact.color
+        return title == contact.title && tooltip == contact.tooltip && label == contact.label && color == contact.color
     }
 }
 
 extension PresentationContact {
-    convenience init(contact: Contact, color: NSColor) {
-        self.init(
-            name: contact.name,
-            address: PresentationContactAddress(
-                user: contact.address.origin.user, host: contact.address.origin.host, label: contact.address.label
-            ),
-            color: color
-        )
+    convenience init(contact: MatchedContact, color: NSColor) {
+        switch contact.address {
+        case let .phone(number, label):
+            if contact.name.isEmpty {
+                self.init(title: number, tooltip: "", label: label, color: color)
+            } else {
+                self.init(title: contact.name, tooltip: number, label: label, color: color)
+            }
+        case let .email(address, label):
+            if contact.name.isEmpty {
+                self.init(title: address, tooltip: "", label: label, color: color)
+            } else {
+                self.init(title: contact.name, tooltip: address, label: label, color: color)
+            }
+        }
     }
 }

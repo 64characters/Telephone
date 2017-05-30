@@ -18,39 +18,41 @@
 
 #import "AKABRecord+Querying.h"
 
-
 @implementation ABRecord (AKRecordQueryingAdditions)
 
-- (NSString *)ak_fullName {
-    NSString *firstName = [self valueForProperty:kABFirstNameProperty];
-    NSString *lastName = [self valueForProperty:kABLastNameProperty];
-    NSString *company = [self valueForProperty:kABOrganizationProperty];
+- (NSString *)ak_fullNameWithNameOrdering:(NSInteger)nameOrdering {
     NSInteger personFlags = [[self valueForProperty:kABPersonFlags] integerValue];
     BOOL isPerson = (personFlags & kABShowAsMask) == kABShowAsPerson;
     BOOL isCompany = (personFlags & kABShowAsMask) == kABShowAsCompany;
     
-    ABAddressBook *AB = [ABAddressBook sharedAddressBook];
-    NSString *theString = nil;
+    NSString *result = @"";
     if (isPerson) {
+        NSString *firstName = [self valueForProperty:kABFirstNameProperty];
+        NSString *lastName = [self valueForProperty:kABLastNameProperty];
         if ([firstName length] > 0 && [lastName length] > 0) {
-            if ([AB defaultNameOrdering] == kABFirstNameFirst) {
-                theString = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+            if (nameOrdering == kABFirstNameFirst) {
+                result = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
             } else {
-                theString = [NSString stringWithFormat:@"%@ %@", lastName, firstName];
+                result = [NSString stringWithFormat:@"%@ %@", lastName, firstName];
             }
         } else if ([firstName length] > 0) {
-            theString = firstName;
+            result = firstName;
         } else if ([lastName length] > 0) {
-            theString = lastName;
+            result = lastName;
         }
         
     } else if (isCompany) {
+        NSString *company = [self valueForProperty:kABOrganizationProperty];
         if ([company length] > 0) {
-            theString = company;
+            result = company;
         }
     }
     
-    return theString;
+    return result;
+}
+
+- (NSString *)ak_fullName {
+    return [self ak_fullNameWithNameOrdering:[ABAddressBook sharedAddressBook].defaultNameOrdering];
 }
 
 @end

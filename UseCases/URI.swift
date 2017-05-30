@@ -21,18 +21,20 @@ import Foundation
 public final class URI: NSObject {
     public let user: String
     public let host: String
+    public let displayName: String
 
-    public init(user: String, host: String) {
+    public init(user: String, host: String, displayName: String) {
         self.user = user
         self.host = host
-    }
-
-    public convenience init(_ address: ContactAddress) {
-        self.init(user: address.user, host: address.host)
+        self.displayName = displayName
     }
 
     public override var description: String {
-        return "\(user)@\(host)"
+        if !displayName.isEmpty {
+            return "\"\(displayName)\" <sip:\(user)@\(host)>"
+        } else {
+            return "<sip:\(user)@\(host)>"
+        }
     }
 }
 
@@ -43,10 +45,10 @@ extension URI {
     }
 
     public override var hash: Int {
-        return user.hash ^ host.hash
+        return user.hash ^ host.hash ^ displayName.hash
     }
 
     private func isEqual(to uri: URI) -> Bool {
-        return user == uri.user && host == uri.host
+        return user == uri.user && host == uri.host && displayName == uri.displayName
     }
 }

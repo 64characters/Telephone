@@ -391,7 +391,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     
     // Clean display-name part of the destination URI to prevent another call
     // party from seeing local Address Book records.
-    [destinationURI setDisplayName:nil];
+    [destinationURI setDisplayName:@""];
     
     if ([[destinationURI host] length] == 0) {
         [destinationURI setHost:[[[self account] registrationURI] host]];

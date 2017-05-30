@@ -22,9 +22,8 @@
 @implementation NSString (AKStringPJSUAAdditions)
 
 + (NSString *)stringWithPJString:(pj_str_t)pjString {
-    return [[NSString alloc] initWithBytes:pjString.ptr
-                                    length:(NSUInteger)pjString.slen
-                                  encoding:NSUTF8StringEncoding];
+    NSString *result = [[NSString alloc] initWithBytes:pjString.ptr length:(NSUInteger)pjString.slen encoding:NSUTF8StringEncoding];
+    return result ?: @"";
 }
 
 - (pj_str_t)pjString {
