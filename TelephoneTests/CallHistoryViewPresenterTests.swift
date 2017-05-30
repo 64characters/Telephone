@@ -62,6 +62,32 @@ final class CallHistoryViewPresenterTests: XCTestCase {
 
         XCTAssertEqual(view.invokedRecords.first!.contact.color, NSColor.red)
     }
+
+    func testTitleIsEmailAddressOrPhoneNumberAndTooltipIsEmptyWhenNameIsEmpty() {
+        let factory = CallHistoryRecordTestFactory()
+        let record1 = factory.makeRecord(number: 1)
+        let record2 = factory.makeRecord(number: 2)
+        let address = "any-address"
+        let number = "any-number"
+        let contact1 = MatchedContact(name: "", address: .email(address: address, label: "any-label-1"))
+        let contact2 = MatchedContact(name: "", address: .phone(number: number, label: "any-label-2"))
+        let view = CallHistoryViewSpy()
+        let sut = CallHistoryViewPresenter(
+            view: view, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
+        )
+
+        sut.update(
+            records: [
+                ContactCallHistoryRecord(origin: record1, contact: contact1),
+                ContactCallHistoryRecord(origin: record2, contact: contact2)
+            ]
+        )
+
+        XCTAssertEqual(view.invokedRecords[0].contact.title, address)
+        XCTAssertTrue(view.invokedRecords[0].contact.tooltip.isEmpty)
+        XCTAssertEqual(view.invokedRecords[1].contact.title, number)
+        XCTAssertTrue(view.invokedRecords[1].contact.tooltip.isEmpty)
+    }
 }
 
 private func makeContact(number: Int) -> MatchedContact {
@@ -82,9 +108,9 @@ private func makePresentationCallHistoryRecord(contact: MatchedContact, record: 
 private func makePresentationContact(contact: MatchedContact, color: NSColor) -> PresentationContact {
     switch contact.address {
     case let .phone(number, label):
-        return PresentationContact(name: contact.name, address: number, label: label, color: color)
+        return PresentationContact(title: contact.name, tooltip: number, label: label, color: color)
     case let .email(address, label):
-        return PresentationContact(name: contact.name, address: address, label: label, color: color)
+        return PresentationContact(title: contact.name, tooltip: address, label: label, color: color)
     }
 }
 
