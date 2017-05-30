@@ -28,7 +28,7 @@ public final class EnqueuingContactCallHistoryRecordsGetUseCaseOutput {
 
 extension EnqueuingContactCallHistoryRecordsGetUseCaseOutput: ContactCallHistoryRecordsGetUseCaseOutput {
     public func update(records: [ContactCallHistoryRecord]) {
-        queue.execute {
+        queue.add {
             self.origin.update(records: records)
         }
     }

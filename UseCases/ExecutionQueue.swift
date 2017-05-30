@@ -17,5 +17,5 @@
 //
 
 public protocol ExecutionQueue {
-    func execute(_ body: () -> Void)
+    func add(_ body: () -> Void)
 }
