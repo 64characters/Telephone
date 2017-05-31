@@ -171,7 +171,6 @@
 		8A7292271EDDD6F600338592 /* ContactCallHistoryRecordsGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292261EDDD6F600338592 /* ContactCallHistoryRecordsGetUseCaseOutput.swift */; };
 		8A72922A1EDDDA0700338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292291EDDDA0700338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutput.swift */; };
 		8A72922C1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72922B1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift */; };
-		8A72922F1EDEE0C700338592 /* EnqueuingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72922E1EDEE0C700338592 /* EnqueuingUseCase.swift */; };
 		8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */; };
 		8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */; };
 		8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
@@ -894,7 +893,6 @@
 		8A7292261EDDD6F600338592 /* ContactCallHistoryRecordsGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecordsGetUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A7292291EDDDA0700338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingCallHistoryRecordsGetUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A72922B1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordsGetUseCaseOutput.swift; sourceTree = "<group>"; };
-		8A72922E1EDEE0C700338592 /* EnqueuingUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingUseCase.swift; sourceTree = "<group>"; };
 		8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseUseCase.swift; sourceTree = "<group>"; };
 		8A7567381CF75DF500D91C04 /* StoreViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewState.swift; sourceTree = "<group>"; };
@@ -1832,15 +1830,6 @@
 			name = CallHistoryRecordsGetUseCaseOutput;
 			sourceTree = "<group>";
 		};
-		8A7292301EDEE13000338592 /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				AA404AC61BFC8E5D00D00A3E /* UseCase.swift */,
-				8A72922E1EDEE0C700338592 /* EnqueuingUseCase.swift */,
-			);
-			name = UseCase;
-			sourceTree = "<group>";
-		};
 		8A7292311EDEE1EF00338592 /* ExecutionQueue */ = {
 			isa = PBXGroup;
 			children = (
@@ -2301,7 +2290,7 @@
 				8A7814231DB150D6005CB612 /* SettingsKeys.swift */,
 				8A859A0F1D2EC93800118A66 /* ThrowingUseCase */,
 				8A11B3CB1DDB4640002EDA93 /* URI.swift */,
-				8A7292301EDEE13000338592 /* UseCase */,
+				AA404AC61BFC8E5D00D00A3E /* UseCase.swift */,
 				AAB32A111BEBA4BA0016C8E6 /* UseCaseFactory.swift */,
 				AA078B2B1BFF80E30013FF8F /* UseCases.h */,
 				8ADD6B6C1C528F720029C3D8 /* UseCasesError.swift */,
@@ -3501,7 +3490,6 @@
 				8AAA5BE51DA695D2005A7BFE /* ReceiptRefreshUseCase.swift in Sources */,
 				8AA748AD1D702459000587DC /* MusicPlayerSettings.swift in Sources */,
 				8AA265DA1ECDFBF100813A91 /* NormalizedLowercasedString.swift in Sources */,
-				8A72922F1EDEE0C700338592 /* EnqueuingUseCase.swift in Sources */,
 				8AEF3B3B1E855D0B00F183A8 /* CallHistoryCallMakeUseCase.swift in Sources */,
 				AA3B6E871C47AD0B0030D410 /* Timer.swift in Sources */,
 				8A92B7BA1E784C6B00922B1E /* CallHistoryRecordRemoveUseCaseFactory.swift in Sources */,
