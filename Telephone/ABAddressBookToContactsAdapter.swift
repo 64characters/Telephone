@@ -20,7 +20,7 @@ import AddressBook
 import UseCases
 
 final class ABAddressBookToContactsAdapter {
-    fileprivate lazy var book: ABAddressBook = ABAddressBook.shared()
+    fileprivate lazy var book: ABAddressBook = ABAddressBook()
     fileprivate lazy var nameOrdering: Int = self.book.defaultNameOrdering()
 }
 
