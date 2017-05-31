@@ -177,7 +177,7 @@ final class CompositionRoot: NSObject {
             contactsBackground = GCDExecutionQueue(queue: queue)
         } else {
             contacts = ABAddressBookToContactsAdapter()
-            contactsBackground = ThreadExecutionQueue(thread: makeThread())
+            contactsBackground = ThreadExecutionQueue(thread: makeAndStartThread())
         }
 
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
@@ -202,7 +202,7 @@ final class CompositionRoot: NSObject {
     }
 }
 
-private func makeThread() -> Thread {
+private func makeAndStartThread() -> Thread {
     let thread = WaitingThread()
     thread.qualityOfService = .userInitiated
     thread.start()
