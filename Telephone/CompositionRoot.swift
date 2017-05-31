@@ -171,10 +171,13 @@ final class CompositionRoot: NSObject {
         )
 
         let contacts: Contacts
+        let contactsBackground: ExecutionQueue
         if #available(macOS 10.11, *) {
             contacts = CNContactStoreToContactsAdapter(store: CNContactStore())
+            contactsBackground = GCDExecutionQueue(queue: queue)
         } else {
             contacts = ABAddressBookToContactsAdapter()
+            contactsBackground = ThreadExecutionQueue(thread: makeThread())
         }
 
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
@@ -185,7 +188,7 @@ final class CompositionRoot: NSObject {
             ),
             dateFormatter: ShortRelativeDateTimeFormatter(),
             durationFormatter: DurationFormatter(),
-            background: GCDExecutionQueue(queue: queue),
+            background: contactsBackground,
             main: GCDExecutionQueue(queue: DispatchQueue.main)
         )
 
@@ -202,4 +205,11 @@ final class CompositionRoot: NSObject {
 private func makeQueue() -> DispatchQueue {
     let label = Bundle.main.bundleIdentifier! + ".background-queue"
     return DispatchQueue(label: label, attributes: [])
+}
+
+private func makeThread() -> Thread {
+    let thread = WaitingThread()
+    thread.qualityOfService = .userInitiated
+    thread.start()
+    return thread
 }
