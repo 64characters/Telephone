@@ -173,6 +173,7 @@
 		8A72922C1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72922B1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift */; };
 		8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */; };
 		8A7292371EDF22A700338592 /* ThreadExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */; };
+		8A7292391EDF2B2100338592 /* WaitingThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292381EDF2B2100338592 /* WaitingThread.swift */; };
 		8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */; };
 		8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
 		8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
@@ -895,6 +896,7 @@
 		8A72922B1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordsGetUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadExecutionQueue.swift; sourceTree = "<group>"; };
+		8A7292381EDF2B2100338592 /* WaitingThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingThread.swift; sourceTree = "<group>"; };
 		8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseUseCase.swift; sourceTree = "<group>"; };
 		8A7567381CF75DF500D91C04 /* StoreViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewState.swift; sourceTree = "<group>"; };
 		8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewController.swift; sourceTree = "<group>"; };
@@ -1519,6 +1521,7 @@
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
+				8A7292381EDF2B2100338592 /* WaitingThread.swift */,
 				8A1DA8121DF07EA700F5BA40 /* WorkspaceSleepStatus.swift */,
 				8A1DA8141DF07EEE00F5BA40 /* WorkspaceSleepStatusTests.swift */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -3365,6 +3368,7 @@
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,
 				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
 				8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */,
+				8A7292391EDF2B2100338592 /* WaitingThread.swift in Sources */,
 				8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */,
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				8AD2C5EC1EADFF7D005EED3E /* ArrayDifference.swift in Sources */,
