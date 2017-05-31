@@ -172,6 +172,7 @@
 		8A72922A1EDDDA0700338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292291EDDDA0700338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutput.swift */; };
 		8A72922C1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72922B1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift */; };
 		8A72922F1EDEE0C700338592 /* EnqueuingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72922E1EDEE0C700338592 /* EnqueuingUseCase.swift */; };
+		8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */; };
 		8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */; };
 		8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
 		8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
@@ -894,6 +895,7 @@
 		8A7292291EDDDA0700338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingCallHistoryRecordsGetUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A72922B1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordsGetUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A72922E1EDEE0C700338592 /* EnqueuingUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingUseCase.swift; sourceTree = "<group>"; };
+		8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseUseCase.swift; sourceTree = "<group>"; };
 		8A7567381CF75DF500D91C04 /* StoreViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewState.swift; sourceTree = "<group>"; };
 		8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewController.swift; sourceTree = "<group>"; };
@@ -1485,6 +1487,7 @@
 				AA86C8B6110339E200EF4E8A /* Call Transfer */,
 				AAECDE8C0E70700B00CEAE7B /* Categories */,
 				8A1BCFFA1ED3460900628062 /* Contacts */,
+				8A7292311EDEE1EF00338592 /* ExecutionQueue */,
 				8AA748881D6F3A76000587DC /* MusicPlayer */,
 				AADAA303107E5AD400789F2D /* Preferences */,
 				AA1019821C490BB900869D01 /* Ringtone */,
@@ -1836,6 +1839,14 @@
 				8A72922E1EDEE0C700338592 /* EnqueuingUseCase.swift */,
 			);
 			name = UseCase;
+			sourceTree = "<group>";
+		};
+		8A7292311EDEE1EF00338592 /* ExecutionQueue */ = {
+			isa = PBXGroup;
+			children = (
+				8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */,
+			);
+			name = ExecutionQueue;
 			sourceTree = "<group>";
 		};
 		8A859A061D2EC66500118A66 /* Products */ = {
@@ -3371,6 +3382,7 @@
 				8AA27AF01E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,
 				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
+				8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */,
 				8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */,
 				AAC0FFBE1BE38B3800A5C7E5 /* UserAgentNotificationsToEventTargetAdapter.swift in Sources */,
 				8AD2C5EC1EADFF7D005EED3E /* ArrayDifference.swift in Sources */,

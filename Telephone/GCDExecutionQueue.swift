@@ -1,5 +1,5 @@
 //
-//  BackgroundQueue.swift
+//  GCDExecutionQueue.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ExecutionQueue {
-    func add(_ block: @escaping () -> Void)
+import Foundation
+import UseCases
+
+final class GCDExecutionQueue {
+    fileprivate let queue: DispatchQueue
+
+    init(queue: DispatchQueue) {
+        self.queue = queue
+    }
+}
+
+extension GCDExecutionQueue: ExecutionQueue {
+    func add(_ block: @escaping () -> Void) {
+        queue.async(execute: block)
+    }
 }
