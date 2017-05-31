@@ -184,7 +184,9 @@ final class CompositionRoot: NSObject {
                 settings: SimpleContactMatchingSettings(settings: defaults)
             ),
             dateFormatter: ShortRelativeDateTimeFormatter(),
-            durationFormatter: DurationFormatter()
+            durationFormatter: DurationFormatter(),
+            background: GCDExecutionQueue(queue: queue),
+            main: GCDExecutionQueue(queue: DispatchQueue.main)
         )
 
         super.init()

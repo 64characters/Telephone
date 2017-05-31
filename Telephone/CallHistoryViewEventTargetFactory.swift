@@ -23,12 +23,23 @@ final class CallHistoryViewEventTargetFactory: NSObject {
     private let matching: ContactMatching
     private let dateFormatter: DateFormatter
     private let durationFormatter: DateComponentsFormatter
+    private let background: ExecutionQueue
+    private let main: ExecutionQueue
 
-    init(histories: CallHistories, matching: ContactMatching, dateFormatter: DateFormatter, durationFormatter: DateComponentsFormatter) {
+    init(
+        histories: CallHistories,
+        matching: ContactMatching,
+        dateFormatter: DateFormatter,
+        durationFormatter: DateComponentsFormatter,
+        background: ExecutionQueue,
+        main: ExecutionQueue
+        ) {
         self.histories = histories
         self.matching = matching
         self.dateFormatter = dateFormatter
         self.durationFormatter = durationFormatter
+        self.background = background
+        self.main = main
     }
 
     func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
@@ -36,11 +47,17 @@ final class CallHistoryViewEventTargetFactory: NSObject {
         let result = CallHistoryViewEventTarget(
             recordsGet: CallHistoryRecordsGetUseCase(
                 history: history,
-                output: ContactCallHistoryRecordsGetUseCase(
-                    matching: matching,
-                    output: CallHistoryViewPresenter(
-                        view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
-                    )
+                output: EnqueuingCallHistoryRecordsGetUseCaseOutput(
+                    origin: ContactCallHistoryRecordsGetUseCase(
+                        matching: matching,
+                        output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
+                            origin: CallHistoryViewPresenter(
+                                view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                            ),
+                            queue: main
+                        )
+                    ),
+                    queue: background
                 )
             ),
             recordRemove: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history),
