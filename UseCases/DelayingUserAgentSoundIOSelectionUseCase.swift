@@ -19,7 +19,7 @@
 public final class DelayingUserAgentSoundIOSelectionUseCase {
     fileprivate let useCase: ThrowingUseCase
     fileprivate let userAgent: UserAgent
-    fileprivate var selection: ThrowingUseCase = NullThrowingUseCase()
+    fileprivate var selection: ThrowingUseCase?
 
     public init(useCase: ThrowingUseCase, userAgent: UserAgent) {
         self.useCase = useCase
@@ -48,8 +48,8 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
     }
 
     private func selectSoundIO() throws {
-        try selection.execute()
-        selection = NullThrowingUseCase()
+        try selection?.execute()
+        selection = nil
     }
 }
 
@@ -59,7 +59,7 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UserAgentEventTarget {
     }
 
     public func didFinishStopping(_ agent: UserAgent) {
-        selection = NullThrowingUseCase()
+        selection = nil
     }
 
     public func didMakeCall(_ agent: UserAgent) {
