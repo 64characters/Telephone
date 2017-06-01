@@ -21,11 +21,7 @@ import UseCases
 
 @available(OSX 10.11, *)
 final class CNContactStoreToContactsAdapter {
-    fileprivate let store: CNContactStore
-
-    init(store: CNContactStore) {
-        self.store = store
-    }
+    fileprivate lazy var store = CNContactStore()
 }
 
 @available(OSX 10.11, *)

@@ -173,7 +173,7 @@ final class CompositionRoot: NSObject {
         let contacts: Contacts
         let contactsBackground: ExecutionQueue
         if #available(macOS 10.11, *) {
-            contacts = CNContactStoreToContactsAdapter(store: CNContactStore())
+            contacts = CNContactStoreToContactsAdapter()
             contactsBackground = GCDExecutionQueue(queue: queue)
         } else {
             contacts = ABAddressBookToContactsAdapter()
