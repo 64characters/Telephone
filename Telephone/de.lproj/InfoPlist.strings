@@ -2,3 +2,4 @@
 
 CFBundleName				= "Telefon";
 CFBundleDisplayName			= "Telefon";
+NSContactsUsageDescription  = "Ihre Kontakte können benutzt werden, um Namen und Etiketten anzuzeigen und Telefonnummern automatisch zu vervollständigen.";
