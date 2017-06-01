@@ -174,6 +174,9 @@
 		8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */; };
 		8A7292371EDF22A700338592 /* ThreadExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */; };
 		8A7292391EDF2B2100338592 /* WaitingThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292381EDF2B2100338592 /* WaitingThread.swift */; };
+		8A72923B1EE01B9800338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72923A1EE01B9800338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift */; };
+		8A72923D1EE01C6800338592 /* ExecutionQueueSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72923C1EE01C6800338592 /* ExecutionQueueSpy.swift */; };
+		8A72923F1EE01F2D00338592 /* SyncExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72923E1EE01F2D00338592 /* SyncExecutionQueue.swift */; };
 		8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */; };
 		8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
 		8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
@@ -897,6 +900,9 @@
 		8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7292381EDF2B2100338592 /* WaitingThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingThread.swift; sourceTree = "<group>"; };
+		8A72923A1EE01B9800338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift; path = UseCasesTests/EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift; sourceTree = SOURCE_ROOT; };
+		8A72923C1EE01C6800338592 /* ExecutionQueueSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionQueueSpy.swift; sourceTree = "<group>"; };
+		8A72923E1EE01F2D00338592 /* SyncExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseUseCase.swift; sourceTree = "<group>"; };
 		8A7567381CF75DF500D91C04 /* StoreViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewState.swift; sourceTree = "<group>"; };
 		8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewController.swift; sourceTree = "<group>"; };
@@ -1829,6 +1835,7 @@
 			children = (
 				8A72922B1EDEDEC100338592 /* CallHistoryRecordsGetUseCaseOutput.swift */,
 				8A7292291EDDDA0700338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutput.swift */,
+				8A72923A1EE01B9800338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift */,
 			);
 			name = CallHistoryRecordsGetUseCaseOutput;
 			sourceTree = "<group>";
@@ -1838,6 +1845,15 @@
 			children = (
 				8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */,
 				8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */,
+			);
+			name = ExecutionQueue;
+			sourceTree = "<group>";
+		};
+		8A7292401EE01F5900338592 /* ExecutionQueue */ = {
+			isa = PBXGroup;
+			children = (
+				8A72923C1EE01C6800338592 /* ExecutionQueueSpy.swift */,
+				8A72923E1EE01F2D00338592 /* SyncExecutionQueue.swift */,
 			);
 			name = ExecutionQueue;
 			sourceTree = "<group>";
@@ -2542,6 +2558,7 @@
 				8A0CF81E1EC235690014226A /* ContactMatchingIndexFactorySpy.swift */,
 				8A9084A31EC6101A002B273A /* ContactMatchingSettingsFake.swift */,
 				8A4B65A71EB0CB7B00F13654 /* ContactMatchingStub.swift */,
+				8A7292401EE01F5900338592 /* ExecutionQueue */,
 				8AA748AA1D7023B5000587DC /* MusicPlayerSettingsFake.swift */,
 				8AA748A81D7022BA000587DC /* MusicPlayerSpy.swift */,
 				8A859A091D2EC71900118A66 /* Products */,
@@ -3546,6 +3563,7 @@
 				8AA265D81ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift in Sources */,
 				8A11B3D01DDB6D41002EDA93 /* CallHistoryCallEventTargetTests.swift in Sources */,
 				8A2C9D221DD5FAC1002367BF /* CallHistoryRecordRemoveAllUseCaseTests.swift in Sources */,
+				8A72923B1EE01B9800338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3701,7 +3719,9 @@
 				AA7F6D321C0217020064DA3A /* SettingsFake.swift in Sources */,
 				8A4B65BB1EB2204D00F13654 /* SimpleContacts.swift in Sources */,
 				8A41A7571E5DB4F500E0C854 /* ContactCallHistoryRecordsGetUseCaseOutputSpy.swift in Sources */,
+				8A72923D1EE01C6800338592 /* ExecutionQueueSpy.swift in Sources */,
 				8AA748A91D7022BA000587DC /* MusicPlayerSpy.swift in Sources */,
+				8A72923F1EE01F2D00338592 /* SyncExecutionQueue.swift in Sources */,
 				AA7F6D311C0217020064DA3A /* UserAgentSpy.swift in Sources */,
 				8AE396F21D6C8ACB00DCFB9E /* EnabledAccountsStub.swift in Sources */,
 				8ADB739E1DE872E20032B4C2 /* CallHistoryFactorySpy.swift in Sources */,
