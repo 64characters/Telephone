@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordsGetUseCase.swift
+//  GCDExecutionQueue.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryRecordsGetUseCase {
-    fileprivate let history: CallHistory
-    fileprivate let output: CallHistoryRecordsGetUseCaseOutput
+import Foundation
+import UseCases
 
-    public init(history: CallHistory, output: CallHistoryRecordsGetUseCaseOutput) {
-        self.history = history
-        self.output = output
+final class GCDExecutionQueue {
+    fileprivate let queue: DispatchQueue
+
+    init(queue: DispatchQueue) {
+        self.queue = queue
     }
 }
 
-extension CallHistoryRecordsGetUseCase: UseCase {
-    public func execute() {
-        output.update(records: history.allRecords)
+extension GCDExecutionQueue: ExecutionQueue {
+    func add(_ block: @escaping () -> Void) {
+        queue.async(execute: block)
     }
 }

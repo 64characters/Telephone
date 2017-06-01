@@ -218,7 +218,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     
     [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
 
-    _thread = [[NSThread alloc] initWithTarget:self selector:@selector(thread_main) object:nil];
+    _thread = [[WaitingThread alloc] init];
     _thread.qualityOfService = NSQualityOfServiceUserInitiated;
     [_thread start];
 
@@ -227,13 +227,6 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 
 - (instancetype)init {
     return [self initWithDelegate:nil];
-}
-
-- (void)thread_main {
-    @autoreleasepool {
-        [[NSRunLoop currentRunLoop] addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
-        [[NSRunLoop currentRunLoop] run];
-    }
 }
 
 - (void)start {

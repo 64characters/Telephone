@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordsGetUseCase.swift
+//  ExecutionQueueSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryRecordsGetUseCase {
-    fileprivate let history: CallHistory
-    fileprivate let output: CallHistoryRecordsGetUseCaseOutput
+import UseCases
 
-    public init(history: CallHistory, output: CallHistoryRecordsGetUseCaseOutput) {
-        self.history = history
-        self.output = output
-    }
+public final class ExecutionQueueSpy {
+    public fileprivate(set) var didCallAdd = false
+
+    public init() {}
 }
 
-extension CallHistoryRecordsGetUseCase: UseCase {
-    public func execute() {
-        output.update(records: history.allRecords)
+extension ExecutionQueueSpy: ExecutionQueue {
+    public func add(_ block: @escaping () -> Void) {
+        didCallAdd = true
     }
 }

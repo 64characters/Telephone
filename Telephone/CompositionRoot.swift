@@ -44,7 +44,7 @@ final class CompositionRoot: NSObject {
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
-        queue = makeQueue()
+        queue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".background-queue", qos: .userInitiated)
 
         let audioDevices = SystemAudioDevices()
         let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, settings: defaults)
@@ -171,10 +171,13 @@ final class CompositionRoot: NSObject {
         )
 
         let contacts: Contacts
+        let contactsBackground: ExecutionQueue
         if #available(macOS 10.11, *) {
-            contacts = CNContactStoreToContactsAdapter(store: CNContactStore())
+            contacts = CNContactStoreToContactsAdapter()
+            contactsBackground = GCDExecutionQueue(queue: queue)
         } else {
             contacts = ABAddressBookToContactsAdapter()
+            contactsBackground = ThreadExecutionQueue(thread: makeAndStartThread())
         }
 
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
@@ -184,7 +187,9 @@ final class CompositionRoot: NSObject {
                 settings: SimpleContactMatchingSettings(settings: defaults)
             ),
             dateFormatter: ShortRelativeDateTimeFormatter(),
-            durationFormatter: DurationFormatter()
+            durationFormatter: DurationFormatter(),
+            background: contactsBackground,
+            main: GCDExecutionQueue(queue: DispatchQueue.main)
         )
 
         super.init()
@@ -197,7 +202,9 @@ final class CompositionRoot: NSObject {
     }
 }
 
-private func makeQueue() -> DispatchQueue {
-    let label = Bundle.main.bundleIdentifier! + ".background-queue"
-    return DispatchQueue(label: label, attributes: [])
+private func makeAndStartThread() -> Thread {
+    let thread = WaitingThread()
+    thread.qualityOfService = .userInitiated
+    thread.start()
+    return thread
 }

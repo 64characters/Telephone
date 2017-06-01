@@ -20,12 +20,13 @@ import AddressBook
 import UseCases
 
 final class ABAddressBookToContactsAdapter {
-    fileprivate lazy var book: ABAddressBook = ABAddressBook.shared()
-    fileprivate lazy var nameOrdering: Int = self.book.defaultNameOrdering()
+    fileprivate lazy var book: ABAddressBook? = ABAddressBook()
+    fileprivate lazy var nameOrdering: Int = self.book?.defaultNameOrdering() ?? Int(kABFirstNameFirst)
 }
 
 extension ABAddressBookToContactsAdapter: Contacts {
     func enumerate(_ body: @escaping (Contact) -> Void) {
+        guard let book = self.book else { return }
         for record in book.people() {
             if let person = record as? ABPerson {
                 body(Contact.init(person, nameOrdering: nameOrdering))

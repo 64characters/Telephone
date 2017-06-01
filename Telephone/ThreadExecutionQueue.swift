@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordsGetUseCase.swift
+//  ThreadExecutionQueue.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,25 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryRecordsGetUseCase {
-    fileprivate let history: CallHistory
-    fileprivate let output: CallHistoryRecordsGetUseCaseOutput
+import Foundation
+import UseCases
 
-    public init(history: CallHistory, output: CallHistoryRecordsGetUseCaseOutput) {
-        self.history = history
-        self.output = output
+final class ThreadExecutionQueue: NSObject {
+    fileprivate let thread: Thread
+
+    init(thread: Thread) {
+        self.thread = thread
     }
 }
 
-extension CallHistoryRecordsGetUseCase: UseCase {
-    public func execute() {
-        output.update(records: history.allRecords)
+extension ThreadExecutionQueue: ExecutionQueue {
+    func add(_ block: @escaping () -> Void) {
+        perform(#selector(run), on: thread, with: block, waitUntilDone: false)
+    }
+
+    @objc private func run(_ block: Any) {  // RunLoop.run() crashes if block type is () -> Void, so had to use Any instead.
+        if let block = block as? () -> Void {
+            block()
+        }
     }
 }

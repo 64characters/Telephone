@@ -1,5 +1,5 @@
 //
-//  NullThrowingUseCase.swift
+//  ContactCallHistoryRecordsGetUseCaseOutput.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public final class NullThrowingUseCase: ThrowingUseCase {
-    public init() {}
-
-    public func execute() throws {}
+public protocol ContactCallHistoryRecordsGetUseCaseOutput {
+    func update(records: [ContactCallHistoryRecord])
 }

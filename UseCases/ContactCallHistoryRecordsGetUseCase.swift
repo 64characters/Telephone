@@ -16,10 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactCallHistoryRecordsGetUseCaseOutput {
-    func update(records: [ContactCallHistoryRecord])
-}
-
 public final class ContactCallHistoryRecordsGetUseCase {
     fileprivate let matching: ContactMatching
     fileprivate let output: ContactCallHistoryRecordsGetUseCaseOutput
