@@ -1,5 +1,5 @@
 //
-//  CallEventTargetSpy.swift
+//  EnqueuingCallEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class EnqueuingCallEventTarget {
+    fileprivate let origin: CallEventTarget
+    fileprivate let queue: ExecutionQueue
 
-public final class CallEventTargetSpy {
-    public fileprivate(set) var didCallDidDisconnect = false
-    public fileprivate(set) var invokedCall: Call?
-
-    public init() {}
+    public init(origin: CallEventTarget, queue: ExecutionQueue) {
+        self.origin = origin
+        self.queue = queue
+    }
 }
 
-extension CallEventTargetSpy: CallEventTarget {
+extension EnqueuingCallEventTarget: CallEventTarget {
     public func didDisconnect(_ call: Call) {
-        didCallDidDisconnect = true
-        invokedCall = call
+        queue.add {
+            self.origin.didDisconnect(call)
+        }
     }
 }

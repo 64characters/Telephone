@@ -1,5 +1,5 @@
 //
-//  CallEventTargetSpy.swift
+//  CallTestFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,16 +18,17 @@
 
 import UseCases
 
-public final class CallEventTargetSpy {
-    public fileprivate(set) var didCallDidDisconnect = false
-    public fileprivate(set) var invokedCall: Call?
-
+public final class CallTestFactory {
     public init() {}
-}
 
-extension CallEventTargetSpy: CallEventTarget {
-    public func didDisconnect(_ call: Call) {
-        didCallDidDisconnect = true
-        invokedCall = call
+    public func make() -> Call {
+        return SimpleCall(
+            account: SimpleAccount(uuid: "any-uuid", domain: "any-domain"),
+            remote: URI(user: "any-user", host: "any-host", displayName: "any-name"),
+            date: Date(),
+            duration: 0,
+            isIncoming: false,
+            isMissed: false
+        )
     }
 }
