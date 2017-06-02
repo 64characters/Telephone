@@ -1,0 +1,42 @@
+//
+//  EnqueuingAccountsEventTargetTests.swift
+//  Telephone
+//
+//  Copyright © 2008-2016 Alexey Kuznetsov
+//  Copyright © 2016-2017 64 Characters
+//
+//  Telephone is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Telephone is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+
+import XCTest
+import UseCases
+import UseCasesTestDoubles
+
+final class EnqueuingAccountsEventTargetTests: XCTestCase {
+    func testAddsBlockToQueueOnDidRemoveAccount() {
+        let queue = ExecutionQueueSpy()
+        let sut = EnqueuingAccountsEventTarget(origin: AccountsEventTargetSpy(), queue: queue)
+
+        sut.didRemoveAccount(withUUID: "any")
+
+        XCTAssertTrue(queue.didCallAdd)
+    }
+
+    func testCallsDidRemoveAccountOnOriginWithTheSameArgumentOnDidRemoveAccount() {
+        let origin = AccountsEventTargetSpy()
+        let sut = EnqueuingAccountsEventTarget(origin: origin, queue: SyncExecutionQueue())
+        let uuid = "foo"
+
+        sut.didRemoveAccount(withUUID: uuid)
+
+        XCTAssertEqual(origin.invokedUUID, uuid)
+    }
+}

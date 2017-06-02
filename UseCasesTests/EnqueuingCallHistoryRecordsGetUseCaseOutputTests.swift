@@ -32,7 +32,7 @@ final class EnqueuingCallHistoryRecordsGetUseCaseOutputTests: XCTestCase {
         XCTAssertTrue(queue.didCallAdd)
     }
 
-    func testUpdateWithTheSameRecordsIsCalledOnOriginOnUpdate() {
+    func testCallsUpdateOnOriginWithTheSameArgumentOnUpdate() {
         let origin = CallHistoryRecordsGetUseCaseOutputSpy()
         let sut = EnqueuingCallHistoryRecordsGetUseCaseOutput(origin: origin, queue: SyncExecutionQueue())
         let factory = CallHistoryRecordTestFactory()
