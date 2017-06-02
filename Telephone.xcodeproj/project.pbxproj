@@ -300,6 +300,8 @@
 		8AAFE61B1EE1A27800BACC62 /* EnqueuingCallEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFE61A1EE1A27800BACC62 /* EnqueuingCallEventTargetTests.swift */; };
 		8AAFE61D1EE1A2BA00BACC62 /* EnqueuingCallEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFE61C1EE1A2BA00BACC62 /* EnqueuingCallEventTarget.swift */; };
 		8AAFE61F1EE1A62400BACC62 /* CallTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFE61E1EE1A62400BACC62 /* CallTestFactory.swift */; };
+		8AAFE6211EE1C7E200BACC62 /* EnqueuingUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFE6201EE1C7E200BACC62 /* EnqueuingUseCaseTests.swift */; };
+		8AAFE6231EE1C85C00BACC62 /* EnqueuingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFE6221EE1C85C00BACC62 /* EnqueuingUseCase.swift */; };
 		8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* DefaultStoreViewPresenter.swift */; };
 		8AB5A0C81D084DD400579CE8 /* DefaultStoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F741CCFCFEE00EC7C1B /* DefaultStoreViewPresenter.swift */; };
 		8AB5A0C91D084DD800579CE8 /* DefaultStoreViewPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F721CCFCFB800EC7C1B /* DefaultStoreViewPresenterTests.swift */; };
@@ -1052,6 +1054,8 @@
 		8AAFE61A1EE1A27800BACC62 /* EnqueuingCallEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingCallEventTargetTests.swift; sourceTree = "<group>"; };
 		8AAFE61C1EE1A2BA00BACC62 /* EnqueuingCallEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingCallEventTarget.swift; sourceTree = "<group>"; };
 		8AAFE61E1EE1A62400BACC62 /* CallTestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallTestFactory.swift; sourceTree = "<group>"; };
+		8AAFE6201EE1C7E200BACC62 /* EnqueuingUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnqueuingUseCaseTests.swift; path = UseCasesTests/EnqueuingUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
+		8AAFE6221EE1C85C00BACC62 /* EnqueuingUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingUseCase.swift; sourceTree = "<group>"; };
 		8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewStateMachine.swift; sourceTree = "<group>"; };
 		8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreViewStateMachineTests.swift; path = TelephoneTests/StoreViewStateMachineTests.swift; sourceTree = SOURCE_ROOT; };
 		8ABC9A6E1D522E4D004AC220 /* ReceiptAttributesValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttributesValidation.swift; sourceTree = "<group>"; };
@@ -2317,6 +2321,8 @@
 				8A11A0C51CCF9D31007BFC7F /* Store */,
 				AA3B6E851C47ACFA0030D410 /* Timer */,
 				AA3905601C0077B7005A8AA3 /* User Agent */,
+				8AAFE6221EE1C85C00BACC62 /* EnqueuingUseCase.swift */,
+				8AAFE6201EE1C7E200BACC62 /* EnqueuingUseCaseTests.swift */,
 				8A7292241EDDCC9600338592 /* ExecutionQueue.swift */,
 				AA32F7FD1BC6908300FAC228 /* KeyValueSettings.swift */,
 				8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */,
@@ -3510,6 +3516,7 @@
 				AAC4FF611C01D0070060B186 /* UserAgent.swift in Sources */,
 				AA39052E1BFFDDDA005A8AA3 /* ThrowingUseCase.swift in Sources */,
 				AA7F6D4D1C0387B70064DA3A /* AudioDevice.swift in Sources */,
+				8AAFE6231EE1C85C00BACC62 /* EnqueuingUseCase.swift in Sources */,
 				8A7292271EDDD6F600338592 /* ContactCallHistoryRecordsGetUseCaseOutput.swift in Sources */,
 				8A4D0B001C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift in Sources */,
 				8A9D922D1D2AC9B900491D59 /* Products.swift in Sources */,
@@ -3595,6 +3602,7 @@
 				8A11B3D01DDB6D41002EDA93 /* CallHistoryCallEventTargetTests.swift in Sources */,
 				8A2C9D221DD5FAC1002367BF /* CallHistoryRecordRemoveAllUseCaseTests.swift in Sources */,
 				8A72923B1EE01B9800338592 /* EnqueuingCallHistoryRecordsGetUseCaseOutputTests.swift in Sources */,
+				8AAFE6211EE1C7E200BACC62 /* EnqueuingUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
