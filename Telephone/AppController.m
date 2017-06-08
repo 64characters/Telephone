@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, readonly) id<ApplicationDataLocations> locations;
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
-@property(nonatomic, readonly) CallHistoryViewEventTargetFactory *factory;
+@property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *factory;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;

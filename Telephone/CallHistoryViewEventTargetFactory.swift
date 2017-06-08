@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class CallHistoryViewEventTargetFactory: NSObject {
+final class CallHistoryViewEventTargetFactory {
     private let histories: CallHistories
     private let matching: ContactMatching
     private let dateFormatter: DateFormatter
