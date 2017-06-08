@@ -63,7 +63,9 @@ final class CallHistoryViewEventTargetFactory {
                 ),
                 queue: background
             ),
-            recordRemove: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history),
+            recordRemove: EnqueueingCallHistoryRecordRemoveUseCaseFactory(
+                origin: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history), queue: background
+            ),
             callMake: DefaultCallHistoryCallMakeUseCaseFactory(account: account, history: history)
         )
         history.updateTarget(result)
