@@ -45,20 +45,23 @@ final class CallHistoryViewEventTargetFactory: NSObject {
     func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
         let history = histories.history(withUUID: account.uuid)
         let result = CallHistoryViewEventTarget(
-            recordsGet: CallHistoryRecordsGetUseCase(
-                history: history,
-                output: EnqueuingCallHistoryRecordsGetUseCaseOutput(
-                    origin: ContactCallHistoryRecordsGetUseCase(
-                        matching: matching,
-                        output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
-                            origin: CallHistoryViewPresenter(
-                                view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
-                            ),
-                            queue: main
-                        )
-                    ),
-                    queue: background
-                )
+            recordsGet: EnqueuingUseCase(
+                origin: CallHistoryRecordsGetUseCase(
+                    history: history,
+                    output: EnqueuingCallHistoryRecordsGetUseCaseOutput(
+                        origin: ContactCallHistoryRecordsGetUseCase(
+                            matching: matching,
+                            output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
+                                origin: CallHistoryViewPresenter(
+                                    view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                                ),
+                                queue: main
+                            )
+                        ),
+                        queue: background
+                    )
+                ),
+                queue: background
             ),
             recordRemove: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history),
             callMake: DefaultCallHistoryCallMakeUseCaseFactory(account: account, history: history)
