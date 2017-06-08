@@ -159,13 +159,6 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
-            center: NotificationCenter.default,
-            target: CallHistoryCallEventTarget(
-                histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
-            )
-        )
-
         let contacts: Contacts
         let contactsBackground: ExecutionQueue
         if #available(macOS 10.11, *) {
@@ -181,6 +174,15 @@ final class CompositionRoot: NSObject {
             target: EnqueuingAccountsEventTarget(
                 origin: CallHistoriesHistoryRemoveUseCase(histories: callHistories), queue: contactsBackground
             )
+        )
+
+        callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default,
+            target: EnqueuingCallEventTarget(
+                origin: CallHistoryCallEventTarget(
+                    histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
+                ),
+                queue: contactsBackground)
         )
 
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
