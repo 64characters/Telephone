@@ -159,10 +159,6 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        accountsNotificationsToEventTargetAdapter = AccountsNotificationsToEventTargetAdapter(
-            center: NotificationCenter.default, target: CallHistoriesHistoryRemoveUseCase(histories: callHistories)
-        )
-
         callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
             center: NotificationCenter.default,
             target: CallHistoryCallEventTarget(
@@ -179,6 +175,13 @@ final class CompositionRoot: NSObject {
             contacts = ABAddressBookToContactsAdapter()
             contactsBackground = ThreadExecutionQueue(thread: makeAndStartThread())
         }
+
+        accountsNotificationsToEventTargetAdapter = AccountsNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default,
+            target: EnqueuingAccountsEventTarget(
+                origin: CallHistoriesHistoryRemoveUseCase(histories: callHistories), queue: contactsBackground
+            )
+        )
 
         callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
             histories: callHistories,
