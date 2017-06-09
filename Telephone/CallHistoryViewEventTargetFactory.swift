@@ -68,7 +68,9 @@ final class CallHistoryViewEventTargetFactory {
             ),
             callMake: DefaultCallHistoryCallMakeUseCaseFactory(account: account, history: history)
         )
-        history.updateTarget(result)
+        history.updateTarget(
+            EnqueuingCallHistoryEventTarget(origin: WeakCallHistoryEventTarget(origin: result), queue: main)
+        )
         return result
     }
 }
