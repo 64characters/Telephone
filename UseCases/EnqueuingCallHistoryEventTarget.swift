@@ -1,5 +1,5 @@
 //
-//  CallHistoryEventTargetSpy.swift
+//  EnqueuingCallHistoryEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class EnqueuingCallHistoryEventTarget {
+    fileprivate let origin: CallHistoryEventTarget
+    fileprivate let queue: ExecutionQueue
 
-public final class CallHistoryEventTargetSpy {
-    public var didUpdateCallCount = 0
-    public var didCallDidUpdate: Bool { return didUpdateCallCount > 0 }
-    public fileprivate(set) var invokedHistory: CallHistory?
-
-    public init() {}
+    public init(origin: CallHistoryEventTarget, queue: ExecutionQueue) {
+        self.origin = origin
+        self.queue = queue
+    }
 }
 
-extension CallHistoryEventTargetSpy: CallHistoryEventTarget {
+extension EnqueuingCallHistoryEventTarget: CallHistoryEventTarget {
     public func didUpdate(_ history: CallHistory) {
-        didUpdateCallCount += 1
-        invokedHistory = history
+        queue.add {
+            self.origin.didUpdate(history)
+        }
     }
 }
