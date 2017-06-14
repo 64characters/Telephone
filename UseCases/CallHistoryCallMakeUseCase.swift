@@ -15,18 +15,14 @@
 
 public final class CallHistoryCallMakeUseCase {
     fileprivate let account: Account
-    fileprivate let history: CallHistory
-    fileprivate let index: Int
 
-    public init(account: Account, history: CallHistory, index: Int) {
+    public init(account: Account) {
         self.account = account
-        self.history = history
-        self.index = index
     }
 }
 
-extension CallHistoryCallMakeUseCase: UseCase {
-    public func execute() {
-        account.makeCall(to: history.allRecords[index].uri)
+extension CallHistoryCallMakeUseCase: CallHistoryRecordGetUseCaseOutput {
+    public func update(record: CallHistoryRecord) {
+        account.makeCall(to: record.uri)
     }
 }

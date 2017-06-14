@@ -30,6 +30,8 @@ final class DefaultCallHistoryCallMakeUseCaseFactory {
 
 extension DefaultCallHistoryCallMakeUseCaseFactory: CallHistoryCallMakeUseCaseFactory {
     func make(index: Int) -> UseCase {
-        return CallHistoryCallMakeUseCase(account: account, history: history, index: index)
+        return CallHistoryRecordGetUseCase(
+            history: history, index: index, output: CallHistoryCallMakeUseCase(account: account)
+        )
     }
 }
