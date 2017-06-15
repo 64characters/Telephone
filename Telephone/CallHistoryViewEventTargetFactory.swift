@@ -48,17 +48,14 @@ final class CallHistoryViewEventTargetFactory {
             recordsGet: EnqueuingUseCase(
                 origin: CallHistoryRecordsGetUseCase(
                     history: history,
-                    output: EnqueuingCallHistoryRecordsGetUseCaseOutput(
-                        origin: ContactCallHistoryRecordsGetUseCase(
-                            matching: matching,
-                            output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
-                                origin: CallHistoryViewPresenter(
-                                    view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
-                                ),
-                                queue: main
-                            )
-                        ),
-                        queue: background
+                    output: ContactCallHistoryRecordsGetUseCase(
+                        matching: matching,
+                        output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
+                            origin: CallHistoryViewPresenter(
+                                view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                            ),
+                            queue: main
+                        )
                     )
                 ),
                 queue: background
