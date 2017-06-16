@@ -79,16 +79,6 @@ final class PersistentCallHistoryTests: XCTestCase {
 
         XCTAssertFalse(storage.didCallSave)
     }
-
-    func testDiscardsOriginContentAfterCreation() {
-        let origin = TruncatingCallHistory()
-        origin.add(makeRecord1())
-        origin.add(makeRecord2())
-
-        let sut = PersistentCallHistory(origin: origin, storage: MemoryPropertyListStorage())
-
-        XCTAssertEqual(sut.allRecords.count, 0)
-    }
 }
 
 private func makeRecord1() -> CallHistoryRecord {

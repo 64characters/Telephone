@@ -21,9 +21,9 @@ public final class PersistentCallHistory {
     fileprivate let storage: PropertyListStorage
 
     public init(origin: CallHistory, storage: PropertyListStorage) {
+        precondition(origin.allRecords.count == 0)
         self.origin = origin
         self.storage = storage
-        origin.removeAll()
         load()
     }
 
