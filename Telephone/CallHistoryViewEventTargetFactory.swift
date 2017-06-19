@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class CallHistoryViewEventTargetFactory: NSObject {
+final class CallHistoryViewEventTargetFactory {
     private let histories: CallHistories
     private let matching: ContactMatching
     private let dateFormatter: DateFormatter
@@ -45,10 +45,10 @@ final class CallHistoryViewEventTargetFactory: NSObject {
     func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
         let history = histories.history(withUUID: account.uuid)
         let result = CallHistoryViewEventTarget(
-            recordsGet: CallHistoryRecordsGetUseCase(
-                history: history,
-                output: EnqueuingCallHistoryRecordsGetUseCaseOutput(
-                    origin: ContactCallHistoryRecordsGetUseCase(
+            recordsGet: EnqueuingUseCase(
+                origin: CallHistoryRecordsGetUseCase(
+                    history: history,
+                    output: ContactCallHistoryRecordsGetUseCase(
                         matching: matching,
                         output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
                             origin: CallHistoryViewPresenter(
@@ -56,14 +56,20 @@ final class CallHistoryViewEventTargetFactory: NSObject {
                             ),
                             queue: main
                         )
-                    ),
-                    queue: background
-                )
+                    )
+                ),
+                queue: background
             ),
-            recordRemove: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history),
-            callMake: DefaultCallHistoryCallMakeUseCaseFactory(account: account, history: history)
+            recordRemove: EnqueueingCallHistoryRecordRemoveUseCaseFactory(
+                origin: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history), queue: background
+            ),
+            callMake: EnqueuingCallHistoryCallMakeUseCaseFactory(
+                account: account, history: history, accountQueue: main, historyQueue: background
+            )
         )
-        history.updateTarget(result)
+        history.updateTarget(
+            EnqueuingCallHistoryEventTarget(origin: WeakCallHistoryEventTarget(origin: result), queue: main)
+        )
         return result
     }
 }

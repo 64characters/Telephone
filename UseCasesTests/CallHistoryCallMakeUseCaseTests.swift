@@ -18,19 +18,12 @@ import UseCasesTestDoubles
 import XCTest
 
 final class CallHistoryCallMakeUseCaseTests: XCTestCase {
-    func testMakesCallWithExpectedURI() {
+    func testMakesCallToRecordURIOnUpdate() {
         let account = AccountSpy()
-        let factory = CallHistoryRecordTestFactory()
-        let record = factory.makeRecord(number: 2)
-        let history = TruncatingCallHistory()
-        history.add(factory.makeRecord(number: 1))
-        history.add(record)
-        history.add(factory.makeRecord(number: 3))
-        let sut = CallHistoryCallMakeUseCase(
-            account: account, history: history, index: history.allRecords.index(of: record)!
-        )
+        let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
+        let sut = CallHistoryCallMakeUseCase(account: account)
 
-        sut.execute()
+        sut.update(record: record)
 
         XCTAssertTrue(account.didCallMakeCallTo)
         XCTAssertEqual(account.invokedURI, record.uri)

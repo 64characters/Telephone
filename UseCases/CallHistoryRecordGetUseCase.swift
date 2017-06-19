@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordsGetUseCase.swift
+//  CallHistoryRecordGetUseCase.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,22 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistoryRecordsGetUseCaseOutput {
-    func update(records: [CallHistoryRecord])
-}
-
-public final class CallHistoryRecordsGetUseCase {
+public final class CallHistoryRecordGetUseCase {
     fileprivate let history: CallHistory
-    fileprivate let output: CallHistoryRecordsGetUseCaseOutput
+    fileprivate let index: Int
+    fileprivate let output: CallHistoryRecordGetUseCaseOutput
 
-    public init(history: CallHistory, output: CallHistoryRecordsGetUseCaseOutput) {
+    public init(history: CallHistory, index: Int, output: CallHistoryRecordGetUseCaseOutput) {
         self.history = history
+        self.index = index
         self.output = output
     }
 }
 
-extension CallHistoryRecordsGetUseCase: UseCase {
+extension CallHistoryRecordGetUseCase: UseCase {
     public func execute() {
-        output.update(records: history.allRecords)
+        output.update(record: history.allRecords[index])
     }
 }

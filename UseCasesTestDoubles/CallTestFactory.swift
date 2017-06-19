@@ -1,6 +1,9 @@
 //
-//  CallHistoryCallMakeUseCase.swift
+//  CallTestFactory.swift
 //  Telephone
+//
+//  Copyright © 2008-2016 Alexey Kuznetsov
+//  Copyright © 2016-2017 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -13,16 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryCallMakeUseCase {
-    fileprivate let account: Account
+import UseCases
 
-    public init(account: Account) {
-        self.account = account
-    }
-}
+public final class CallTestFactory {
+    public init() {}
 
-extension CallHistoryCallMakeUseCase: CallHistoryRecordGetUseCaseOutput {
-    public func update(record: CallHistoryRecord) {
-        account.makeCall(to: record.uri)
+    public func make() -> Call {
+        return SimpleCall(
+            account: SimpleAccount(uuid: "any-uuid", domain: "any-domain"),
+            remote: URI(user: "any-user", host: "any-host", displayName: "any-name"),
+            date: Date(),
+            duration: 0,
+            isIncoming: false,
+            isMissed: false
+        )
     }
 }

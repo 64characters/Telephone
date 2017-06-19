@@ -21,6 +21,7 @@ import UseCases
 public final class CallHistoryEventTargetSpy {
     public var didUpdateCallCount = 0
     public var didCallDidUpdate: Bool { return didUpdateCallCount > 0 }
+    public fileprivate(set) var invokedHistory: CallHistory?
 
     public init() {}
 }
@@ -28,5 +29,6 @@ public final class CallHistoryEventTargetSpy {
 extension CallHistoryEventTargetSpy: CallHistoryEventTarget {
     public func didUpdate(_ history: CallHistory) {
         didUpdateCallCount += 1
+        invokedHistory = history
     }
 }

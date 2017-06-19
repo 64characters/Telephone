@@ -1,5 +1,5 @@
 //
-//  CallNotificationsToEventTargetAdapterTests.swift
+//  EnqueuingCallEventTargetTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,27 @@
 //  GNU General Public License for more details.
 //
 
+import XCTest
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-class CallNotificationsToEventTargetAdapterTests: XCTestCase {
-    func testCallsDidDisconnect() {
-        let center = NotificationCenter.default
-        let target = CallEventTargetSpy()
+final class EnqueuingCallEventTargetTests: XCTestCase {
+    func testAddsBockToQueueOnDidDisconnect() {
+        let queue = ExecutionQueueSpy()
+        let sut = EnqueuingCallEventTarget(origin: CallEventTargetSpy(), queue: queue)
+
+        sut.didDisconnect(CallTestFactory().make())
+
+        XCTAssertTrue(queue.didCallAdd)
+    }
+
+    func testCallsDidDisconnectOnOriginWithTheSameArgumentOnDidDisconnect() {
+        let origin = CallEventTargetSpy()
+        let sut = EnqueuingCallEventTarget(origin: origin, queue: SyncExecutionQueue())
         let call = CallTestFactory().make()
-        withExtendedLifetime(CallNotificationsToEventTargetAdapter(center: center, target: target)) {
 
-            center.post(Notification(name: .AKSIPCallDidDisconnect, object: call, userInfo: nil))
+        sut.didDisconnect(call)
 
-            XCTAssertTrue(target.didCallDidDisconnect)
-            XCTAssertTrue(target.invokedCall === call)
-        }
+        XCTAssertTrue(origin.invokedCall === call)
     }
 }

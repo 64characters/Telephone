@@ -231,7 +231,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                        musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
-                           factory:(CallHistoryViewEventTargetFactory *)factory {
+                           factory:(AsyncCallHistoryViewEventTargetFactory *)factory {
 
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
@@ -594,9 +594,12 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
     self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    self.callHistoryViewEventTarget = [self.factory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self]
-                                                               view:self.callHistoryViewController];
-    self.callHistoryViewController.target = self.callHistoryViewEventTarget;
+    [self.factory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self]
+                             view:self.callHistoryViewController
+                       completion:^(CallHistoryViewEventTarget * _Nonnull target) {
+                           self.callHistoryViewEventTarget = target;
+                           self.callHistoryViewController.target = self.callHistoryViewEventTarget;
+                       }];
 
     [self.callHistoryView addSubview:self.callHistoryViewController.view];
     [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];

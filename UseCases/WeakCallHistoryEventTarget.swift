@@ -1,5 +1,5 @@
 //
-//  DefaultCallHistoryCallMakeUseCaseFactory.swift
+//  WeakCallHistoryEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class WeakCallHistoryEventTarget {
+    fileprivate weak var origin: CallHistoryEventTarget?
 
-final class DefaultCallHistoryCallMakeUseCaseFactory {
-    fileprivate let account: Account
-    fileprivate let history: CallHistory
-
-    init(account: Account, history: CallHistory) {
-        self.account = account
-        self.history = history
+    public init(origin: CallHistoryEventTarget) {
+        self.origin = origin
     }
 }
 
-extension DefaultCallHistoryCallMakeUseCaseFactory: CallHistoryCallMakeUseCaseFactory {
-    func make(index: Int) -> UseCase {
-        return CallHistoryCallMakeUseCase(account: account, history: history, index: index)
+extension WeakCallHistoryEventTarget: CallHistoryEventTarget {
+    public func didUpdate(_ history: CallHistory) {
+        origin?.didUpdate(history)
     }
 }

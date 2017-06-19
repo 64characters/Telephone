@@ -31,9 +31,8 @@ final class CompositionRoot: NSObject {
     let settingsMigration: ProgressiveSettingsMigration
     let applicationDataLocations: ApplicationDataLocations
     let workstationSleepStatus: WorkspaceSleepStatus
-    let callHistoryViewEventTargetFactory: CallHistoryViewEventTargetFactory
+    let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
     private let defaults: UserDefaults
-    private let queue: DispatchQueue
 
     private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
@@ -44,7 +43,6 @@ final class CompositionRoot: NSObject {
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
-        queue = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".background-queue", qos: .userInitiated)
 
         let audioDevices = SystemAudioDevices()
         let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, settings: defaults)
@@ -136,6 +134,9 @@ final class CompositionRoot: NSObject {
             target: userAgentSoundIOSelection,
             agent: userAgent
         )
+
+        let background = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".background-queue", qos: .userInitiated)
+
         devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
             target: SystemAudioDevicesChangeEventTargets(
                 targets: [
@@ -144,7 +145,7 @@ final class CompositionRoot: NSObject {
                     PreferencesSoundIOUpdater(preferences: preferencesController)
                 ]
             ),
-            queue: queue
+            queue: background
         )
 
         let callHistories = DefaultCallHistories(
@@ -159,37 +160,48 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        accountsNotificationsToEventTargetAdapter = AccountsNotificationsToEventTargetAdapter(
-            center: NotificationCenter.default, target: CallHistoriesHistoryRemoveUseCase(histories: callHistories)
-        )
-
-        callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
-            center: NotificationCenter.default,
-            target: CallHistoryCallEventTarget(
-                histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
-            )
-        )
-
         let contacts: Contacts
         let contactsBackground: ExecutionQueue
         if #available(macOS 10.11, *) {
             contacts = CNContactStoreToContactsAdapter()
-            contactsBackground = GCDExecutionQueue(queue: queue)
+            contactsBackground = GCDExecutionQueue(queue: background)
         } else {
             contacts = ABAddressBookToContactsAdapter()
             contactsBackground = ThreadExecutionQueue(thread: makeAndStartThread())
         }
 
-        callHistoryViewEventTargetFactory = CallHistoryViewEventTargetFactory(
-            histories: callHistories,
-            matching: IndexedContactMatching(
-                factory: DefaultContactMatchingIndexFactory(contacts: contacts),
-                settings: SimpleContactMatchingSettings(settings: defaults)
+        accountsNotificationsToEventTargetAdapter = AccountsNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default,
+            target: EnqueuingAccountsEventTarget(
+                origin: CallHistoriesHistoryRemoveUseCase(histories: callHistories), queue: contactsBackground
+            )
+        )
+
+        callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
+            center: NotificationCenter.default,
+            target: EnqueuingCallEventTarget(
+                origin: CallHistoryCallEventTarget(
+                    histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
+                ),
+                queue: contactsBackground)
+        )
+
+        let main = GCDExecutionQueue(queue: DispatchQueue.main)
+
+        callHistoryViewEventTargetFactory = AsyncCallHistoryViewEventTargetFactory(
+            origin: CallHistoryViewEventTargetFactory(
+                histories: callHistories,
+                matching: IndexedContactMatching(
+                    factory: DefaultContactMatchingIndexFactory(contacts: contacts),
+                    settings: SimpleContactMatchingSettings(settings: defaults)
+                ),
+                dateFormatter: ShortRelativeDateTimeFormatter(),
+                durationFormatter: DurationFormatter(),
+                background: contactsBackground,
+                main: main
             ),
-            dateFormatter: ShortRelativeDateTimeFormatter(),
-            durationFormatter: DurationFormatter(),
             background: contactsBackground,
-            main: GCDExecutionQueue(queue: DispatchQueue.main)
+            main: main
         )
 
         super.init()

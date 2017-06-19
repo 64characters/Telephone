@@ -18,7 +18,7 @@
 
 public final class NotifyingCallHistory {
     fileprivate let origin: CallHistory
-    fileprivate weak var target: CallHistoryEventTarget?
+    fileprivate var target: CallHistoryEventTarget?
 
     public init(origin: CallHistory) {
         self.origin = origin

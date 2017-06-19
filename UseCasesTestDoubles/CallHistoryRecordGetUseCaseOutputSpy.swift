@@ -1,6 +1,9 @@
 //
-//  CallHistoryCallMakeUseCase.swift
+//  CallHistoryRecordGetUseCaseOutputSpy.swift
 //  Telephone
+//
+//  Copyright © 2008-2016 Alexey Kuznetsov
+//  Copyright © 2016-2017 64 Characters
 //
 //  Telephone is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -13,16 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryCallMakeUseCase {
-    fileprivate let account: Account
+import UseCases
 
-    public init(account: Account) {
-        self.account = account
-    }
+public final class CallHistoryRecordGetUseCaseOutputSpy {
+    public fileprivate(set) var didCallUpdate = false
+    public fileprivate(set) var invokedRecord: CallHistoryRecord?
+
+    public init() {}
 }
 
-extension CallHistoryCallMakeUseCase: CallHistoryRecordGetUseCaseOutput {
+extension CallHistoryRecordGetUseCaseOutputSpy: CallHistoryRecordGetUseCaseOutput {
     public func update(record: CallHistoryRecord) {
-        account.makeCall(to: record.uri)
+        didCallUpdate = true
+        invokedRecord = record
     }
 }

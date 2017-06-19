@@ -1,5 +1,5 @@
 //
-//  EnqueuingCallHistoryRecordsGetUseCaseOutput.swift
+//  EnqueuingCallHistoryEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public final class EnqueuingCallHistoryRecordsGetUseCaseOutput {
-    fileprivate let origin: CallHistoryRecordsGetUseCaseOutput
+public final class EnqueuingCallHistoryEventTarget {
+    fileprivate let origin: CallHistoryEventTarget
     fileprivate let queue: ExecutionQueue
 
-    public init(origin: CallHistoryRecordsGetUseCaseOutput, queue: ExecutionQueue) {
+    public init(origin: CallHistoryEventTarget, queue: ExecutionQueue) {
         self.origin = origin
         self.queue = queue
     }
 }
 
-extension EnqueuingCallHistoryRecordsGetUseCaseOutput: CallHistoryRecordsGetUseCaseOutput {
-    public func update(records: [CallHistoryRecord]) {
+extension EnqueuingCallHistoryEventTarget: CallHistoryEventTarget {
+    public func didUpdate(_ history: CallHistory) {
         queue.add {
-            self.origin.update(records: records)
+            self.origin.didUpdate(history)
         }
     }
 }

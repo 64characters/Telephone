@@ -22,7 +22,11 @@ final class CallHistoryViewController: NSViewController {
     var keyView: NSView {
         return tableView
     }
-    weak var target: CallHistoryViewEventTarget?
+    weak var target: CallHistoryViewEventTarget? {
+        didSet {
+            target?.shouldReloadData()
+        }
+    }
     fileprivate var records: [PresentationCallHistoryRecord] = []
     @IBOutlet fileprivate weak var tableView: NSTableView!
 
