@@ -75,6 +75,7 @@ extension PersistentCallHistory: CallHistory {
 
 private extension CallHistoryRecord {
     init(dictionary: [String: Any]) {
+        identifier = dictionary[Keys.identifier] as! String
         let user = dictionary[Keys.user] as? String ?? ""
         let host = dictionary[Keys.host] as? String ?? ""
         let name = dictionary[Keys.name] as? String ?? ""
@@ -89,6 +90,7 @@ private extension CallHistoryRecord {
 private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] {
     return records.map {
         [
+            Keys.identifier: $0.identifier,
             Keys.user: $0.uri.user,
             Keys.host: $0.uri.host,
             Keys.name: $0.uri.displayName,
@@ -101,6 +103,7 @@ private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] 
 }
 
 private enum Keys {
+    static let identifier = "identifier"
     static let user = "user"
     static let host = "host"
     static let name = "name"

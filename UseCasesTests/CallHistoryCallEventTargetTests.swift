@@ -32,7 +32,7 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
         sut.didDisconnect(call)
 
         XCTAssertTrue(factory.invokedHistory === history)
-        XCTAssertEqual(factory.invokedRecord, CallHistoryRecord(call: call))
+        XCTAssertEqual(factory.invokedRecord, CallHistoryRecord(identifier: "any-identifier", call: call))
         XCTAssertEqual(factory.invokedDomain, account.domain)
     }
 

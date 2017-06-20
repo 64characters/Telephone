@@ -71,6 +71,7 @@ final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
         sut.update(
             records: [
                 CallHistoryRecord(
+                    identifier: "any-identifier",
                     uri: URI(user: user, host: "", displayName: "any-name"),
                     date: Date(),
                     duration: 0,
