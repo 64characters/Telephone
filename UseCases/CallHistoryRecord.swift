@@ -62,11 +62,13 @@ extension CallHistoryRecord: Equatable {
 
 extension CallHistoryRecord {
     public init(identifier: String, call: Call) {
-        self.identifier = identifier
-        uri = call.remote
-        date = call.date
-        duration = call.duration
-        isIncoming = call.isIncoming
-        isMissed = call.isMissed
+        self.init(
+            identifier: identifier,
+            uri: call.remote,
+            date: call.date,
+            duration: call.duration,
+            isIncoming: call.isIncoming,
+            isMissed: call.isMissed
+        )
     }
 }
