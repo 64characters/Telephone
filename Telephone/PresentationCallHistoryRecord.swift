@@ -20,12 +20,14 @@ import Cocoa
 import UseCases
 
 final class PresentationCallHistoryRecord: NSObject {
+    let identifier: String
     let contact: PresentationContact
     let date: String
     let duration: String
     let isIncoming: Bool
 
-    init(contact: PresentationContact, date: String, duration: String, isIncoming: Bool) {
+    init(identifier: String, contact: PresentationContact, date: String, duration: String, isIncoming: Bool) {
+        self.identifier = identifier
         self.contact = contact
         self.date = date
         self.duration = duration
@@ -40,11 +42,13 @@ extension PresentationCallHistoryRecord {
     }
 
     override var hash: Int {
-        return contact.hash ^ date.hash ^ duration.hash ^ (isIncoming ? 1231 : 1237)
+        return identifier.hash ^ contact.hash ^ date.hash ^ duration.hash ^ (isIncoming ? 1231 : 1237)
     }
 
     private func isEqual(to record: PresentationCallHistoryRecord) -> Bool {
-        return contact == record.contact &&
+        return
+            identifier == record.identifier &&
+            contact == record.contact &&
             date == record.date &&
             duration == record.duration &&
             isIncoming == record.isIncoming
