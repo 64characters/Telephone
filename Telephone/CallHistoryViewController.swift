@@ -71,7 +71,7 @@ final class CallHistoryViewController: NSViewController {
         let index = tableView.selectedRow
         makeAlert(recordName: records[index].date).beginSheetModal(for: view.window!) { response in
             if response == NSAlertFirstButtonReturn {
-                self.target?.shouldRemoveRecord(at: index)
+                self.target?.shouldRemoveRecord(withIdentifier: self.records[index].identifier)
             }
         }
     }

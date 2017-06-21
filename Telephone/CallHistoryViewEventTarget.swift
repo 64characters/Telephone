@@ -37,8 +37,8 @@ final class CallHistoryViewEventTarget: NSObject {
         callMake.make(index: index).execute()
     }
 
-    func shouldRemoveRecord(at index: Int) {
-        recordRemove.make(index: index).execute()
+    func shouldRemoveRecord(withIdentifier identifier: String) {
+        recordRemove.make(identifier: identifier).execute()
     }
 }
 

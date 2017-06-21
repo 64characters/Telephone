@@ -23,3 +23,9 @@ public protocol CallHistory: class {
     func removeAll()
     func updateTarget(_ target: CallHistoryEventTarget)
 }
+
+public extension CallHistory {
+    func record(withIdentifier identifier: String) -> CallHistoryRecord? {
+        return self.allRecords.first { $0.identifier == identifier }
+    }
+}

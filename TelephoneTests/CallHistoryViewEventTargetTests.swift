@@ -79,10 +79,11 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
             recordRemove: factory,
             callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
         )
+        let identifier = "any"
 
-        sut.shouldRemoveRecord(at: 2)
+        sut.shouldRemoveRecord(withIdentifier: identifier)
 
-        XCTAssertEqual(factory.invokedIndex, 2)
+        XCTAssertEqual(factory.invokedIdentifier, identifier)
     }
 
     func testExecutesCallHistoryRecordRemoveUseCaseOnShouldRemoveRecord() {
@@ -93,7 +94,7 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
             callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
         )
 
-        sut.shouldRemoveRecord(at: 0)
+        sut.shouldRemoveRecord(withIdentifier: "any")
 
         XCTAssertTrue(remove.didCallExecute)
     }

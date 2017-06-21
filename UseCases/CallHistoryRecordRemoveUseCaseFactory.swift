@@ -17,5 +17,5 @@
 //
 
 public protocol CallHistoryRecordRemoveUseCaseFactory {
-    func make(index: Int) -> UseCase
+    func make(identifier: String) -> UseCase
 }

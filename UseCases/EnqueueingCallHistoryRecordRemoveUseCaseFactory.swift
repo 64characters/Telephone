@@ -27,7 +27,7 @@ public final class EnqueueingCallHistoryRecordRemoveUseCaseFactory {
 }
 
 extension EnqueueingCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
-    public func make(index: Int) -> UseCase {
-        return EnqueuingUseCase(origin: origin.make(index: index), queue: queue)
+    public func make(identifier: String) -> UseCase {
+        return EnqueuingUseCase(origin: origin.make(identifier: identifier), queue: queue)
     }
 }
