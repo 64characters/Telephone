@@ -29,7 +29,7 @@ final class CallHistoryRecordRemoveUseCaseTests: XCTestCase {
         history.add(record1)
         history.add(record2)
         history.add(record3)
-        let sut = CallHistoryRecordRemoveUseCase(history: history, identifier: record1.identifier)
+        let sut = CallHistoryRecordRemoveUseCase(identifier: record1.identifier, history: history)
 
         sut.execute()
 

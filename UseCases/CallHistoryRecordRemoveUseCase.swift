@@ -17,12 +17,12 @@
 //
 
 public final class CallHistoryRecordRemoveUseCase {
-    fileprivate let history: CallHistory
     fileprivate let identifier: String
+    fileprivate let history: CallHistory
 
-    public init(history: CallHistory, identifier: String) {
-        self.history = history
+    public init(identifier: String, history: CallHistory) {
         self.identifier = identifier
+        self.history = history
     }
 }
 
