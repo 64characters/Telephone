@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordTestFactory.swift
+//  IdentifierGeneratorStub.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,17 +18,16 @@
 
 import UseCases
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+public final class IdentifierGeneratorStub {
+    fileprivate let identifier: String
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            identifier: "identifier-\(number)",
-            uri: URI(user: "user-\(number)", host: "host-\(number)", displayName: "name-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
-            isMissed: false
-        )
+    public init(identifier: String) {
+        self.identifier = identifier
+    }
+}
+
+extension IdentifierGeneratorStub: IdentifierGenerator {
+    public func generate() -> String {
+        return identifier
     }
 }

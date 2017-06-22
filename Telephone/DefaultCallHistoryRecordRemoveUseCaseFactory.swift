@@ -27,7 +27,7 @@ final class DefaultCallHistoryRecordRemoveUseCaseFactory {
 }
 
 extension DefaultCallHistoryRecordRemoveUseCaseFactory: CallHistoryRecordRemoveUseCaseFactory {
-    public func make(index: Int) -> UseCase {
-        return CallHistoryRecordRemoveUseCase(history: history, index: index)
+    public func make(identifier: String) -> UseCase {
+        return CallHistoryRecordRemoveUseCase(identifier: identifier, history: history)
     }
 }

@@ -181,7 +181,9 @@ final class CompositionRoot: NSObject {
             center: NotificationCenter.default,
             target: EnqueuingCallEventTarget(
                 origin: CallHistoryCallEventTarget(
-                    histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
+                    histories: callHistories,
+                    generator: UUIDIdentifierGenerator(),
+                    factory: DefaultCallHistoryRecordAddUseCaseFactory()
                 ),
                 queue: contactsBackground)
         )

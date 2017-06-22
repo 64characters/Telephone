@@ -22,13 +22,14 @@ import XCTest
 
 final class CallHistoryRecordRemoveUseCaseTests: XCTestCase {
     func testRemovesRecord() {
+        let record1 = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let record2 = CallHistoryRecordTestFactory().makeRecord(number: 2)
         let record3 = CallHistoryRecordTestFactory().makeRecord(number: 3)
         let history = TruncatingCallHistory()
-        history.add(CallHistoryRecordTestFactory().makeRecord(number: 1))
+        history.add(record1)
         history.add(record2)
         history.add(record3)
-        let sut = CallHistoryRecordRemoveUseCase(history: history, index: 0)
+        let sut = CallHistoryRecordRemoveUseCase(identifier: record1.identifier, history: history)
 
         sut.execute()
 

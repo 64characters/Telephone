@@ -19,13 +19,16 @@
 import Foundation
 
 public struct CallHistoryRecord {
+    public let identifier: String
     public let uri: URI
     public let date: Date
     public let duration: Int
     public let isIncoming: Bool
     public let isMissed: Bool
 
-    public init(uri: URI, date: Date, duration: Int, isIncoming: Bool, isMissed: Bool) {
+    public init(identifier: String, uri: URI, date: Date, duration: Int, isIncoming: Bool, isMissed: Bool) {
+        precondition(!identifier.isEmpty)
+        self.identifier = identifier
         self.uri = uri
         self.date = date
         self.duration = duration
@@ -35,6 +38,7 @@ public struct CallHistoryRecord {
 
     public func removingHost() -> CallHistoryRecord {
         return CallHistoryRecord(
+            identifier: identifier,
             uri: URI(user: uri.user, host: "", displayName: uri.displayName),
             date: date,
             duration: duration,
@@ -47,6 +51,7 @@ public struct CallHistoryRecord {
 extension CallHistoryRecord: Equatable {
     public static func ==(lhs: CallHistoryRecord, rhs: CallHistoryRecord) -> Bool {
         return
+            lhs.identifier == rhs.identifier &&
             lhs.uri == rhs.uri &&
             lhs.date == rhs.date &&
             lhs.duration == rhs.duration &&
@@ -56,11 +61,14 @@ extension CallHistoryRecord: Equatable {
 }
 
 extension CallHistoryRecord {
-    public init(call: Call) {
-        uri = call.remote
-        date = call.date
-        duration = call.duration
-        isIncoming = call.isIncoming
-        isMissed = call.isMissed
+    public init(identifier: String, call: Call) {
+        self.init(
+            identifier: identifier,
+            uri: call.remote,
+            date: call.date,
+            duration: call.duration,
+            isIncoming: call.isIncoming,
+            isMissed: call.isMissed
+        )
     }
 }

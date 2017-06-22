@@ -19,7 +19,7 @@
 import UseCases
 
 public final class CallHistoryRecordRemoveUseCaseFactorySpy {
-    public fileprivate(set) var invokedIndex = -1
+    public fileprivate(set) var invokedIdentifier: String?
 
     fileprivate let remove: UseCase
 
@@ -29,8 +29,8 @@ public final class CallHistoryRecordRemoveUseCaseFactorySpy {
 }
 
 extension CallHistoryRecordRemoveUseCaseFactorySpy: CallHistoryRecordRemoveUseCaseFactory {
-    public func make(index: Int) -> UseCase {
-        invokedIndex = index
+    public func make(identifier: String) -> UseCase {
+        invokedIdentifier = identifier
         return remove
     }
 }

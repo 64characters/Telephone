@@ -75,37 +75,33 @@ extension PersistentCallHistory: CallHistory {
 
 private extension CallHistoryRecord {
     init(dictionary: [String: Any]) {
-        let user = dictionary[Keys.user] as? String ?? ""
-        let host = dictionary[Keys.host] as? String ?? ""
-        let name = dictionary[Keys.name] as? String ?? ""
+        identifier = dictionary[Keys.identifier.rawValue] as! String
+        let user = dictionary[Keys.user.rawValue] as? String ?? ""
+        let host = dictionary[Keys.host.rawValue] as? String ?? ""
+        let name = dictionary[Keys.name.rawValue] as? String ?? ""
         uri = URI(user: user, host: host, displayName: name)
-        date = dictionary[Keys.date] as? Date ?? Date.distantPast
-        duration = dictionary[Keys.duration] as? Int ?? 0
-        isIncoming = dictionary[Keys.incoming] as? Bool ?? false
-        isMissed = dictionary[Keys.missed] as? Bool ?? false
+        date = dictionary[Keys.date.rawValue] as? Date ?? Date.distantPast
+        duration = dictionary[Keys.duration.rawValue] as? Int ?? 0
+        isIncoming = dictionary[Keys.incoming.rawValue] as? Bool ?? false
+        isMissed = dictionary[Keys.missed.rawValue] as? Bool ?? false
     }
 }
 
 private func dictionaries(from records: [CallHistoryRecord]) -> [[String: Any]] {
     return records.map {
         [
-            Keys.user: $0.uri.user,
-            Keys.host: $0.uri.host,
-            Keys.name: $0.uri.displayName,
-            Keys.date: $0.date,
-            Keys.duration: $0.duration,
-            Keys.incoming: $0.isIncoming,
-            Keys.missed: $0.isMissed
+            Keys.identifier.rawValue: $0.identifier,
+            Keys.user.rawValue: $0.uri.user,
+            Keys.host.rawValue: $0.uri.host,
+            Keys.name.rawValue: $0.uri.displayName,
+            Keys.date.rawValue: $0.date,
+            Keys.duration.rawValue: $0.duration,
+            Keys.incoming.rawValue: $0.isIncoming,
+            Keys.missed.rawValue: $0.isMissed
         ]
     }
 }
 
-private enum Keys {
-    static let user = "user"
-    static let host = "host"
-    static let name = "name"
-    static let date = "date"
-    static let duration = "duration"
-    static let incoming = "incoming"
-    static let missed = "missed"
+private enum Keys: String {
+    case identifier, user, host, name, date, duration, incoming, missed
 }
