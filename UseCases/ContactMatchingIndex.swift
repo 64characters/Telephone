@@ -16,49 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public final class ContactMatchingIndex {
-    private let index: [String: MatchedContact]
-
-    public init(contacts: Contacts, maxPhoneNumberLength: Int) {
-        index = makeMap(from: contacts, maxPhoneNumberLength: maxPhoneNumberLength)
-    }
-
-    public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
-        return index[phone.value]
-    }
-
-    public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
-        return index[email.value]
-    }
-}
-
-private func makeMap(from contacts: Contacts, maxPhoneNumberLength: Int) -> [String: MatchedContact] {
-    var result: [String: MatchedContact] = [:]
-    contacts.enumerate { contact in
-        update(&result, withPhonesOf: contact, maxPhoneNumberLength: maxPhoneNumberLength)
-        update(&result, withEmailsOf: contact)
-    }
-    return result
-}
-
-private func update(_ map: inout [String: MatchedContact], withPhonesOf contact: Contact, maxPhoneNumberLength: Int) {
-    contact.phones.forEach {
-        update(&map, withAddress: ExtractedPhoneNumber($0.number, maxLength: maxPhoneNumberLength).value, of: contact, phone: $0)
-    }
-}
-
-private func update(_ map: inout [String: MatchedContact], withEmailsOf contact: Contact) {
-    contact.emails.forEach {
-        update(&map, withAddress: NormalizedLowercasedString($0.address).value, of: contact, email: $0)
-    }
-}
-
-private func update(_ map: inout [String: MatchedContact], withAddress address: String, of contact: Contact, phone: Contact.Phone) {
-    guard !address.isEmpty else { return }
-    map[address] = MatchedContact(name: contact.name, address: .phone(number: phone.number, label: phone.label))
-}
-
-private func update(_ map: inout [String: MatchedContact], withAddress address: String, of contact: Contact, email: Contact.Email) {
-    guard !address.isEmpty else { return }
-    map[address] = MatchedContact(name: contact.name, address: .email(address: email.address, label: email.label))
+public protocol ContactMatchingIndex {
+    func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact?
+    func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact?
 }

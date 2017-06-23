@@ -26,6 +26,6 @@ public final class DefaultContactMatchingIndexFactory {
 
 extension DefaultContactMatchingIndexFactory: ContactMatchingIndexFactory {
     public func make(maxPhoneNumberLength length: Int) -> ContactMatchingIndex {
-        return ContactMatchingIndex(contacts: contacts, maxPhoneNumberLength: length)
+        return SimpleContactMatchingIndex(contacts: contacts, maxPhoneNumberLength: length)
     }
 }

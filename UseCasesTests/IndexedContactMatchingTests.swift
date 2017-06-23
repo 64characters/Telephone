@@ -22,7 +22,7 @@ import UseCasesTestDoubles
 
 final class IndexedContactMatchingTests: XCTestCase {
     func testDoesNotCreateIndexOnInit() {
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
+        let factory = ContactMatchingIndexFactorySpy(index: SimpleContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
 
         _ = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0), domain: "")
 
@@ -30,7 +30,7 @@ final class IndexedContactMatchingTests: XCTestCase {
     }
 
     func testCreatesIndexOnFirstSearch() {
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
+        let factory = ContactMatchingIndexFactorySpy(index: SimpleContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
         let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0), domain: "")
 
         _ = sut.match(for: URI(user: "any", host: "any", displayName: "any"))
@@ -39,7 +39,7 @@ final class IndexedContactMatchingTests: XCTestCase {
     }
 
     func testCreatesIndexOnce() {
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
+        let factory = ContactMatchingIndexFactorySpy(index: SimpleContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
         let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0), domain: "")
 
         _ = sut.match(for: URI(user: "any", host: "any", displayName: "any"))
@@ -50,7 +50,7 @@ final class IndexedContactMatchingTests: XCTestCase {
 
     func testCreatesIndexWithSignificantPhoneNumberLengthFromSettingsAsMaxPhoneNumberLength() {
         let length = 99
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
+        let factory = ContactMatchingIndexFactorySpy(index: SimpleContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
         let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: length), domain: "")
 
         _ = sut.match(for: URI(user: "any", host: "any", displayName: "any"))
