@@ -22,10 +22,12 @@ public final class IndexedContactMatching {
 
     private let factory: ContactMatchingIndexFactory
     private let settings: ContactMatchingSettings
+    fileprivate let domain: String
 
-    public init(factory: ContactMatchingIndexFactory, settings: ContactMatchingSettings) {
+    public init(factory: ContactMatchingIndexFactory, settings: ContactMatchingSettings, domain: String) {
         self.factory = factory
         self.settings = settings
+        self.domain = domain
     }
 }
 
@@ -35,10 +37,14 @@ extension IndexedContactMatching: ContactMatching {
     }
 
     private func emailMatch(for uri: URI) -> MatchedContact? {
-        return index.contact(forEmail: NormalizedLowercasedString("\(uri.user)@\(uri.host)"))
+        return index.contact(forEmail: NormalizedLowercasedString(email(for: uri)))
     }
 
     private func phoneNumberMatch(for uri: URI) -> MatchedContact? {
         return index.contact(forPhone: ExtractedPhoneNumber(uri.user, maxLength: length))
+    }
+
+    private func email(for uri: URI) -> String {
+        return uri.host.isEmpty ? "\(uri.user)@\(domain)" : "\(uri.user)@\(uri.host)"
     }
 }

@@ -24,14 +24,14 @@ final class IndexedContactMatchingTests: XCTestCase {
     func testDoesNotCreateIndexOnInit() {
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
 
-        _ = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0))
+        _ = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0), domain: "")
 
         XCTAssertFalse(factory.didCallMake)
     }
 
     func testCreatesIndexOnFirstSearch() {
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
-        let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0))
+        let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0), domain: "")
 
         _ = sut.match(for: URI(user: "any", host: "any", displayName: "any"))
 
@@ -40,7 +40,7 @@ final class IndexedContactMatchingTests: XCTestCase {
 
     func testCreatesIndexOnce() {
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
-        let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0))
+        let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: 0), domain: "")
 
         _ = sut.match(for: URI(user: "any", host: "any", displayName: "any"))
         _ = sut.match(for: URI(user: "any", host: "any", displayName: "any"))
@@ -51,7 +51,7 @@ final class IndexedContactMatchingTests: XCTestCase {
     func testCreatesIndexWithSignificantPhoneNumberLengthFromSettingsAsMaxPhoneNumberLength() {
         let length = 99
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndex(contacts: SimpleContacts([]), maxPhoneNumberLength: 0))
-        let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: length))
+        let sut = IndexedContactMatching(factory: factory, settings: ContactMatchingSettingsFake(length: length), domain: "")
 
         _ = sut.match(for: URI(user: "any", host: "any", displayName: "any"))
 
@@ -63,7 +63,8 @@ final class IndexedContactMatchingTests: XCTestCase {
         let contact = Contact(name: "John Smith", phones: [], emails: [Contact.Email(address: "user@company.com", label: "work")])
         let sut = IndexedContactMatching(
             factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])),
-            settings: ContactMatchingSettingsFake(length: 10)
+            settings: ContactMatchingSettingsFake(length: 10),
+            domain: ""
         )
 
         let result = sut.match(for: URI(user: "user", host: "company.com", displayName: "any-name"))
@@ -75,7 +76,8 @@ final class IndexedContactMatchingTests: XCTestCase {
         let contact = Contact(name: "John Smith", phones: [Contact.Phone(number: "0123456789", label: "home")], emails: [])
         let sut = IndexedContactMatching(
             factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])),
-            settings: ContactMatchingSettingsFake(length: 10)
+            settings: ContactMatchingSettingsFake(length: 10),
+            domain: ""
         )
 
         let result = sut.match(for: URI(user: contact.phones[0].number, host: "any-host", displayName: "any-name"))
@@ -87,7 +89,7 @@ final class IndexedContactMatchingTests: XCTestCase {
         let contact = Contact(name: "John Smith", phones: [Contact.Phone(number: "0123456789", label: "home")], emails: [])
         let settings = ContactMatchingSettingsFake(length: 7)
         let sut = IndexedContactMatching(
-            factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])), settings: settings
+            factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])), settings: settings, domain: ""
         )
 
         let result = sut.match(for: URI(user: "3456789", host: "any-host", displayName: "any-name"))
@@ -100,7 +102,8 @@ final class IndexedContactMatchingTests: XCTestCase {
         let contact2 = Contact(name: "Jane Doe", phones: [Contact.Phone(number: "0123456789", label: "home")], emails: [])
         let sut = IndexedContactMatching(
             factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact1, contact2])),
-            settings: ContactMatchingSettingsFake(length: 10)
+            settings: ContactMatchingSettingsFake(length: 10),
+            domain: ""
         )
 
         let result = sut.match(for: URI(user: "0123456789", host: "company.com", displayName: "any"))
@@ -112,7 +115,8 @@ final class IndexedContactMatchingTests: XCTestCase {
         let contact = Contact(name: "John Smith", phones: [Contact.Phone(number: "(012) 345-6789", label: "home")], emails: [])
         let sut = IndexedContactMatching(
             factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])),
-            settings: ContactMatchingSettingsFake(length: 10)
+            settings: ContactMatchingSettingsFake(length: 10),
+            domain: ""
         )
 
         let result = sut.match(for: URI(user: "0123456789", host: "any-host", displayName: "any-name"))
@@ -124,10 +128,24 @@ final class IndexedContactMatchingTests: XCTestCase {
         let contact = Contact(name: "Jane", phones: [], emails: [Contact.Email(address: "JohnSmith@Company.com", label: "work")])
         let sut = IndexedContactMatching(
             factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])),
-            settings: ContactMatchingSettingsFake(length: 0)
+            settings: ContactMatchingSettingsFake(length: 0),
+            domain: ""
         )
 
         let result = sut.match(for: URI(user: "johnsmith", host: "Company.com", displayName: "any"))
+
+        XCTAssertEqual(result, MatchedContact(contact: contact, emailIndex: 0))
+    }
+
+    func testMatchesContactByEmailComposedOfURIUserAndDefaultDomainWhenURIHostIsEmpty() {
+        let contact = Contact(name: "Foo", phones: [], emails: [Contact.Email(address: "foo@bar.com", label: "work")])
+        let sut = IndexedContactMatching(
+            factory: DefaultContactMatchingIndexFactory(contacts: SimpleContacts([contact])),
+            settings: ContactMatchingSettingsFake(length: 0),
+            domain: "bar.com"
+        )
+
+        let result = sut.match(for: URI(user: "foo", host: "", displayName: "any"))
 
         XCTAssertEqual(result, MatchedContact(contact: contact, emailIndex: 0))
     }
@@ -145,7 +163,8 @@ final class IndexedContactMatchingTests: XCTestCase {
                     ]
                 )
             ),
-            settings: ContactMatchingSettingsFake(length: 0)
+            settings: ContactMatchingSettingsFake(length: 0),
+            domain: ""
         )
 
         let result = sut.match(for: URI(user: "foo", host: "bar", displayName: ""))
