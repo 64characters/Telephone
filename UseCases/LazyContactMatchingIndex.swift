@@ -17,10 +17,10 @@
 //
 
 public final class LazyContactMatchingIndex {
-    fileprivate var origin: ContactMatchingIndex?
+    fileprivate lazy var origin: ContactMatchingIndex = { return self.factory.make(maxPhoneNumberLength: self.length) }()
 
-    fileprivate let factory: ContactMatchingIndexFactory
-    fileprivate let length: Int
+    private let factory: ContactMatchingIndexFactory
+    private let length: Int
 
     public init(factory: ContactMatchingIndexFactory, maxPhoneNumberLength length: Int) {
         self.factory = factory
@@ -30,18 +30,10 @@ public final class LazyContactMatchingIndex {
 
 extension LazyContactMatchingIndex: ContactMatchingIndex {
     public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
-        createOriginIfNeeded()
-        return origin!.contact(forPhone: phone)
+        return origin.contact(forPhone: phone)
     }
 
     public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
-        createOriginIfNeeded()
-        return origin!.contact(forEmail: email)
-    }
-
-    private func createOriginIfNeeded() {
-        if origin == nil {
-            origin = factory.make(maxPhoneNumberLength: length)
-        }
+        return origin.contact(forEmail: email)
     }
 }
