@@ -17,15 +17,14 @@
 //
 
 public final class IndexedContactMatching {
-    fileprivate lazy var index: ContactMatchingIndex = { return self.factory.make(maxPhoneNumberLength: self.length) }()
     fileprivate lazy var length: Int = { return self.settings.significantPhoneNumberLength }()
 
-    private let factory: ContactMatchingIndexFactory
+    fileprivate let index: ContactMatchingIndex
     private let settings: ContactMatchingSettings
     fileprivate let domain: String
 
-    public init(factory: ContactMatchingIndexFactory, settings: ContactMatchingSettings, domain: String) {
-        self.factory = factory
+    public init(index: ContactMatchingIndex, settings: ContactMatchingSettings, domain: String) {
+        self.index = index
         self.settings = settings
         self.domain = domain
     }
