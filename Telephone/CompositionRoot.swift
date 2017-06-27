@@ -193,7 +193,7 @@ final class CompositionRoot: NSObject {
         callHistoryViewEventTargetFactory = AsyncCallHistoryViewEventTargetFactory(
             origin: CallHistoryViewEventTargetFactory(
                 histories: callHistories,
-                factory: DefaultContactMatchingIndexFactory(contacts: contacts),
+                factory: SimpleContactMatchingIndexFactory(contacts: contacts),
                 settings: SimpleContactMatchingSettings(settings: defaults),
                 dateFormatter: ShortRelativeDateTimeFormatter(),
                 durationFormatter: DurationFormatter(),
