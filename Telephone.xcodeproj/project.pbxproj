@@ -437,6 +437,8 @@
 		8AEF77A61DCB9DCD00C73BCB /* CallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77A51DCB9DCD00C73BCB /* CallHistory.swift */; };
 		8AEF77AF1DCCC64100C73BCB /* PersistentCallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77AE1DCCC64100C73BCB /* PersistentCallHistory.swift */; };
 		8AEF77B11DCCC70300C73BCB /* PersistentCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */; };
+		8AF52BE11F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */; };
+		8AF52BE31F028ACF001F7784 /* ContactsChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */; };
 		8AFC630E1D8C6F490022470D /* Array+Creating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC630D1D8C6F490022470D /* Array+Creating.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -1194,6 +1196,8 @@
 		8AEF77A51DCB9DCD00C73BCB /* CallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistory.swift; sourceTree = "<group>"; };
 		8AEF77AE1DCCC64100C73BCB /* PersistentCallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentCallHistory.swift; sourceTree = "<group>"; };
 		8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistentCallHistoryTests.swift; path = UseCasesTests/PersistentCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
+		8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift; sourceTree = "<group>"; };
+		8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsChangeEventTarget.swift; sourceTree = "<group>"; };
 		8AFC630C1D8C24670022470D /* Spotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
 		8AFC630D1D8C6F490022470D /* Array+Creating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Creating.swift"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1771,6 +1775,7 @@
 		8A1BCFFA1ED3460900628062 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */,
 				8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */,
 				8A1BCFFB1ED3462800628062 /* CNContactStoreToContactsAdapter.swift */,
 				8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */,
@@ -1854,6 +1859,7 @@
 			children = (
 				8A4B65BE1EB23B6300F13654 /* Contact.swift */,
 				8A4B65BC1EB220FE00F13654 /* Contacts.swift */,
+				8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -3381,6 +3387,7 @@
 				AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */,
 				8A42E0C81E168F4F00CE09B8 /* DurationFormatter.swift in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */,
+				8AF52BE11F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift in Sources */,
 				8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
 				8A91759F1CA59F1100354E26 /* PJSUAOnCallMediaState.m in Sources */,
 				8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */,
@@ -3592,6 +3599,7 @@
 				8A5D17531EBCD40300A95FB8 /* ExtractedPhoneNumber.swift in Sources */,
 				8A0CF81D1EC1F5400014226A /* IndexedContactMatching.swift in Sources */,
 				AA3905441BFFDE75005A8AA3 /* UserAgentEventTargets.swift in Sources */,
+				8AF52BE31F028ACF001F7784 /* ContactsChangeEventTarget.swift in Sources */,
 				8AD9A0E61DE46B9A000BB2F2 /* DefaultCallHistories.swift in Sources */,
 				8ACD2ADE1DD1FEF800E81984 /* PropertyListStorage.swift in Sources */,
 				AA7F6D471C0381C00064DA3A /* SettingsSoundIOLoadUseCase.swift in Sources */,
