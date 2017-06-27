@@ -1,5 +1,5 @@
 //
-//  SimpleContactMatchingIndexFactory.swift
+//  SimpleContactMatchingIndexFactoryTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-public final class SimpleContactMatchingIndexFactory {
-    fileprivate let contacts: Contacts
-    fileprivate let settings: ContactMatchingSettings
+import UseCases
+import XCTest
+import UseCasesTestDoubles
 
-    public init(contacts: Contacts, settings: ContactMatchingSettings) {
-        self.contacts = contacts
-        self.settings = settings
-    }
-}
+final class SimpleContactMatchingIndexFactoryTests: XCTestCase {
+    func testGetsSignificantPhoneNumberLengthFromSettingsOnMake() {
+        let settings = ContactMatchingSettingsSpy()
+        let sut = SimpleContactMatchingIndexFactory(contacts: SimpleContacts([]), settings: settings)
 
-extension SimpleContactMatchingIndexFactory: ContactMatchingIndexFactory {
-    public func make() -> ContactMatchingIndex {
-        return SimpleContactMatchingIndex(
-            contacts: contacts, maxPhoneNumberLength: settings.significantPhoneNumberLength
-        )
+        _ = sut.make()
+
+        XCTAssertTrue(settings.didCallSignificantPhoneNumberLength)
     }
 }

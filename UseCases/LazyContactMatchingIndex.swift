@@ -17,16 +17,12 @@
 //
 
 public final class LazyContactMatchingIndex {
-    fileprivate lazy var origin: ContactMatchingIndex = {
-        return self.factory.make(maxPhoneNumberLength: self.settings.significantPhoneNumberLength)
-    }()
+    fileprivate lazy var origin: ContactMatchingIndex = { return self.factory.make() }()
 
     private let factory: ContactMatchingIndexFactory
-    private let settings: ContactMatchingSettings
 
-    public init(factory: ContactMatchingIndexFactory, settings: ContactMatchingSettings) {
+    public init(factory: ContactMatchingIndexFactory) {
         self.factory = factory
-        self.settings = settings
     }
 }
 

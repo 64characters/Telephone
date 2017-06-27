@@ -195,7 +195,7 @@ final class CompositionRoot: NSObject {
             origin: CallHistoryViewEventTargetFactory(
                 histories: callHistories,
                 index: LazyContactMatchingIndex(
-                    factory: SimpleContactMatchingIndexFactory(contacts: contacts), settings: contactMatchingSettings
+                    factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
                 ),
                 settings: contactMatchingSettings,
                 dateFormatter: ShortRelativeDateTimeFormatter(),

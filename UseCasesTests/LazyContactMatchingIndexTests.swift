@@ -24,47 +24,32 @@ final class LazyContactMatchingIndexTests: XCTestCase {
     func testDoesNotCreateOriginOnCreation() {
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
 
-        _ = LazyContactMatchingIndex(factory: factory, settings: ContactMatchingSettingsFake(length: 0))
+        _ = LazyContactMatchingIndex(factory: factory)
 
         XCTAssertFalse(factory.didCallMake)
     }
 
-    func testDoesNotGetSignificantPhoneNumberLengthFromSettingsOnCreation() {
-        let settings = ContactMatchingSettingsSpy()
-
-        _ = LazyContactMatchingIndex(
-            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy()), settings: settings
-        )
-
-        XCTAssertFalse(settings.didCallSignificantPhoneNumberLength)
-    }
-
-    func testCreatesOriginWithSignificantPhoneNumberLengthFromSettingsOnFirstSearchByPhone() {
+    func testCreatesOriginOnFirstSearchByPhone() {
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
-        let length = 10
-        let settings = ContactMatchingSettingsFake(length: length)
-        let sut = LazyContactMatchingIndex(factory: factory, settings: settings)
+        let sut = LazyContactMatchingIndex(factory: factory)
 
         _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
 
         XCTAssertTrue(factory.didCallMake)
-        XCTAssertEqual(factory.invokedMaxPhoneNumberLength, length)
     }
 
-    func testCreatesOriginWithSignificantPhoneNumberLengthFromSettingsOnFirsthSearchByEmail() {
+    func testCreatesOriginOnFirsthSearchByEmail() {
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
-        let length = 10
-        let sut = LazyContactMatchingIndex(factory: factory, settings: ContactMatchingSettingsFake(length: length))
+        let sut = LazyContactMatchingIndex(factory: factory)
 
         _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
 
         XCTAssertTrue(factory.didCallMake)
-        XCTAssertEqual(factory.invokedMaxPhoneNumberLength, length)
     }
 
     func testCreatesOriginOnce() {
         let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
-        let sut = LazyContactMatchingIndex(factory: factory, settings: ContactMatchingSettingsFake(length: 0))
+        let sut = LazyContactMatchingIndex(factory: factory)
 
         _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
         _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
@@ -74,23 +59,10 @@ final class LazyContactMatchingIndexTests: XCTestCase {
         XCTAssertEqual(factory.makeCallCount, 1)
     }
 
-    func testGetsSignificantPhoneNumberLengthFromSettingsOnce() {
-        let settings = ContactMatchingSettingsSpy()
-        let sut = LazyContactMatchingIndex(
-            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy()), settings: settings
-        )
-
-        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
-        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
-
-        XCTAssertEqual(settings.significantPhoneNumberLengthCallCount, 1)
-    }
-
     func testReturnsMatchFromOriginOnSearchByPhone() {
         let contact = MatchedContact(name: "any-name", address: .phone(number: "any-number", label: "any-label"))
         let sut = LazyContactMatchingIndex(
-            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexStub(contact: contact)),
-            settings: ContactMatchingSettingsFake(length: 0)
+            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexStub(contact: contact))
         )
 
         let result = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
@@ -101,8 +73,7 @@ final class LazyContactMatchingIndexTests: XCTestCase {
     func testReturnsMatchFromOriginOnSearchByEmail() {
         let contact = MatchedContact(name: "any-name", address: .email(address: "any-address", label: "any-label"))
         let sut = LazyContactMatchingIndex(
-            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexStub(contact: contact)),
-            settings: ContactMatchingSettingsFake(length: 0)
+            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexStub(contact: contact))
         )
 
         let result = sut.contact(forEmail: NormalizedLowercasedString("any"))

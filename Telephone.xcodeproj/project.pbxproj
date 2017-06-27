@@ -440,6 +440,7 @@
 		8AF52BE11F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */; };
 		8AF52BE31F028ACF001F7784 /* ContactsChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */; };
 		8AF52BE51F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE41F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift */; };
+		8AF52BEB1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BEA1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift */; };
 		8AFC630E1D8C6F490022470D /* Array+Creating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC630D1D8C6F490022470D /* Array+Creating.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -1200,6 +1201,7 @@
 		8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift; sourceTree = "<group>"; };
 		8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsChangeEventTarget.swift; sourceTree = "<group>"; };
 		8AF52BE41F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift; sourceTree = "<group>"; };
+		8AF52BEA1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleContactMatchingIndexFactoryTests.swift; path = UseCasesTests/SimpleContactMatchingIndexFactoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8AFC630C1D8C24670022470D /* Spotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
 		8AFC630D1D8C6F490022470D /* Array+Creating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Creating.swift"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2090,6 +2092,7 @@
 			children = (
 				8A0CF8201EC235D40014226A /* ContactMatchingIndexFactory.swift */,
 				8A9084A71EC61665002B273A /* SimpleContactMatchingIndexFactory.swift */,
+				8AF52BEA1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift */,
 			);
 			name = ContactMatchingIndexFactory;
 			sourceTree = "<group>";
@@ -3674,6 +3677,7 @@
 				AA3905461BFFDE7C005A8AA3 /* UserAgentEventTargetsTests.swift in Sources */,
 				8A4D0AFE1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift in Sources */,
 				8A9513CF1D1D7F0E0034DF2C /* ProductPurchaseUseCaseTests.swift in Sources */,
+				8AF52BEB1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift in Sources */,
 				8A4B65B71EB21CDC00F13654 /* SimpleContactMatchingIndexTests.swift in Sources */,
 				8AA748A71D702221000587DC /* ConditionalMusicPlayerTests.swift in Sources */,
 				AA7F6D451C0381650064DA3A /* SettingsSoundIOLoadUseCaseTests.swift in Sources */,
