@@ -189,8 +189,8 @@ final class CompositionRoot: NSObject {
         )
 
         let main = GCDExecutionQueue(queue: DispatchQueue.main)
-
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
+
         callHistoryViewEventTargetFactory = AsyncCallHistoryViewEventTargetFactory(
             origin: CallHistoryViewEventTargetFactory(
                 histories: callHistories,
