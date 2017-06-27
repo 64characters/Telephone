@@ -439,6 +439,7 @@
 		8AEF77B11DCCC70300C73BCB /* PersistentCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */; };
 		8AF52BE11F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */; };
 		8AF52BE31F028ACF001F7784 /* ContactsChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */; };
+		8AF52BE51F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE41F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift */; };
 		8AFC630E1D8C6F490022470D /* Array+Creating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC630D1D8C6F490022470D /* Array+Creating.swift */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -1198,6 +1199,7 @@
 		8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistentCallHistoryTests.swift; path = UseCasesTests/PersistentCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift; sourceTree = "<group>"; };
 		8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsChangeEventTarget.swift; sourceTree = "<group>"; };
+		8AF52BE41F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift; sourceTree = "<group>"; };
 		8AFC630C1D8C24670022470D /* Spotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
 		8AFC630D1D8C6F490022470D /* Array+Creating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Creating.swift"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1777,6 +1779,7 @@
 			children = (
 				8AF52BE01F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift */,
 				8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */,
+				8AF52BE41F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift */,
 				8A1BCFFB1ED3462800628062 /* CNContactStoreToContactsAdapter.swift */,
 				8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */,
 				8AC24A5C1ED490F60094B01C /* Contact+CNContact.swift */,
@@ -3463,6 +3466,7 @@
 				8AA27AE61E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */,
 				8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */,
 				8A91759C1CA59E2700354E26 /* PJSUAOnCallState.m in Sources */,
+				8AF52BE51F028ECC001F7784 /* CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift in Sources */,
 				8A41A7521E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift in Sources */,
 				AA34AF3E1073B7C700FA38F7 /* AccountPreferencesViewController.m in Sources */,
 				8A778C061E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift in Sources */,
