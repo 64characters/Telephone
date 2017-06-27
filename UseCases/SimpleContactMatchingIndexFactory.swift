@@ -1,5 +1,5 @@
 //
-//  ContactMatchingIndex.swift
+//  SimpleContactMatchingIndexFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactMatchingIndex {
-    func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact?
-    func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact?
+public final class SimpleContactMatchingIndexFactory {
+    fileprivate let contacts: Contacts
+
+    public init(contacts: Contacts) {
+        self.contacts = contacts
+    }
+}
+
+extension SimpleContactMatchingIndexFactory: ContactMatchingIndexFactory {
+    public func make(maxPhoneNumberLength length: Int) -> ContactMatchingIndex {
+        return SimpleContactMatchingIndex(contacts: contacts, maxPhoneNumberLength: length)
+    }
 }

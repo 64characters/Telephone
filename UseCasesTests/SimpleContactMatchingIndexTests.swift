@@ -1,5 +1,5 @@
 //
-//  ContactMatchingIndexTests.swift
+//  SimpleContactMatchingIndexTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,12 +20,12 @@
 import UseCasesTestDoubles
 import XCTest
 
-final class ContactMatchingIndexTests: XCTestCase {
+final class SimpleContactMatchingIndexTests: XCTestCase {
     func testFindsContactsByPhoneNumberAndEmailAddress() {
         let contact1 = makeContact(number: 1)
         let contact2 = makeContact(number: 2)
         let length = 20
-        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
+        let sut = SimpleContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
 
         XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[0].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex: 0))
         XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[1].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex: 1))
@@ -42,7 +42,7 @@ final class ContactMatchingIndexTests: XCTestCase {
         let contact1 = makeContact(number: 1)
         let contact2 = makeContact(number: 2)
         let length = 7
-        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
+        let sut = SimpleContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: length)
 
         XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[0].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex:0))
         XCTAssertEqual(sut.contact(forPhone: ExtractedPhoneNumber(contact1.phones[1].number, maxLength: length)), MatchedContact(contact: contact1, phoneIndex:1))
@@ -53,7 +53,7 @@ final class ContactMatchingIndexTests: XCTestCase {
     func testFindsContactsWithEmailAddressesContainingUppercaseCharacters() {
         let contact1 = Contact(name: "any", phones: [], emails: [Contact.Email(address: "FOO@bar.com", label: "any")])
         let contact2 = Contact(name: "any", phones: [], emails: [Contact.Email(address: "JohnSmith@Company.com", label: "any")])
-        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: 0)
+        let sut = SimpleContactMatchingIndex(contacts: SimpleContacts([contact1, contact2]), maxPhoneNumberLength: 0)
 
         XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact1.emails[0].address)), MatchedContact(contact: contact1, emailIndex: 0))
         XCTAssertEqual(sut.contact(forEmail: NormalizedLowercasedString(contact2.emails[0].address)), MatchedContact(contact: contact2, emailIndex: 0))
@@ -65,7 +65,7 @@ final class ContactMatchingIndexTests: XCTestCase {
             phones: [Contact.Phone(number: "", label: "any")],
             emails: [Contact.Email(address: "", label: "any")]
         )
-        let sut = ContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 10)
+        let sut = SimpleContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 10)
 
         XCTAssertNil(sut.contact(forEmail: NormalizedLowercasedString("")))
     }

@@ -1,5 +1,5 @@
 //
-//  ContactMatchingIndex.swift
+//  ContactMatchingIndexDummy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactMatchingIndex {
-    func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact?
-    func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact?
+import UseCases
+
+public final class ContactMatchingIndexDummy {
+    public init() {}
+}
+
+extension ContactMatchingIndexDummy: ContactMatchingIndex {
+    public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
+        return nil
+    }
+
+    public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
+        return nil
+    }
 }

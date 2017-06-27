@@ -1,5 +1,5 @@
 //
-//  ContactMatchingIndex.swift
+//  ContactMatchingIndexStub.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactMatchingIndex {
-    func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact?
-    func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact?
+import UseCases
+
+public final class ContactMatchingIndexStub {
+    fileprivate let contact: MatchedContact
+
+    public init(contact: MatchedContact) {
+        self.contact = contact
+    }
+}
+
+extension ContactMatchingIndexStub: ContactMatchingIndex {
+    public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
+        return contact
+    }
+
+    public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
+        return contact
+    }
 }

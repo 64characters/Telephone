@@ -20,7 +20,7 @@ import UseCases
 
 final class CallHistoryViewEventTargetFactory {
     private let histories: CallHistories
-    private let factory: ContactMatchingIndexFactory
+    private let index: ContactMatchingIndex
     private let settings: ContactMatchingSettings
     private let dateFormatter: DateFormatter
     private let durationFormatter: DateComponentsFormatter
@@ -29,7 +29,7 @@ final class CallHistoryViewEventTargetFactory {
 
     init(
         histories: CallHistories,
-        factory: ContactMatchingIndexFactory,
+        index: ContactMatchingIndex,
         settings: ContactMatchingSettings,
         dateFormatter: DateFormatter,
         durationFormatter: DateComponentsFormatter,
@@ -37,7 +37,7 @@ final class CallHistoryViewEventTargetFactory {
         main: ExecutionQueue
         ) {
         self.histories = histories
-        self.factory = factory
+        self.index = index
         self.settings = settings
         self.dateFormatter = dateFormatter
         self.durationFormatter = durationFormatter
@@ -52,7 +52,7 @@ final class CallHistoryViewEventTargetFactory {
                 origin: CallHistoryRecordsGetUseCase(
                     history: history,
                     output: ContactCallHistoryRecordsGetUseCase(
-                        matching: IndexedContactMatching(factory: factory, settings: settings, domain: account.domain),
+                        matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain),
                         output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
                             origin: CallHistoryViewPresenter(
                                 view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter

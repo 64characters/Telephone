@@ -189,12 +189,15 @@ final class CompositionRoot: NSObject {
         )
 
         let main = GCDExecutionQueue(queue: DispatchQueue.main)
+        let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
 
         callHistoryViewEventTargetFactory = AsyncCallHistoryViewEventTargetFactory(
             origin: CallHistoryViewEventTargetFactory(
                 histories: callHistories,
-                factory: DefaultContactMatchingIndexFactory(contacts: contacts),
-                settings: SimpleContactMatchingSettings(settings: defaults),
+                index: LazyContactMatchingIndex(
+                    factory: SimpleContactMatchingIndexFactory(contacts: contacts), settings: contactMatchingSettings
+                ),
+                settings: contactMatchingSettings,
                 dateFormatter: ShortRelativeDateTimeFormatter(),
                 durationFormatter: DurationFormatter(),
                 background: contactsBackground,
