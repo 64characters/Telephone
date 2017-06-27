@@ -22,7 +22,7 @@ import UseCasesTestDoubles
 
 final class LazyContactMatchingIndexTests: XCTestCase {
     func testDoesNotCreateOriginOnCreation() {
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
+        let factory = ContactMatchingIndexFactorySpy()
 
         _ = LazyContactMatchingIndex(factory: factory)
 
@@ -30,7 +30,7 @@ final class LazyContactMatchingIndexTests: XCTestCase {
     }
 
     func testCreatesOriginOnFirstSearchByPhone() {
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
+        let factory = ContactMatchingIndexFactorySpy()
         let sut = LazyContactMatchingIndex(factory: factory)
 
         _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
@@ -39,7 +39,7 @@ final class LazyContactMatchingIndexTests: XCTestCase {
     }
 
     func testCreatesOriginOnFirsthSearchByEmail() {
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
+        let factory = ContactMatchingIndexFactorySpy()
         let sut = LazyContactMatchingIndex(factory: factory)
 
         _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
@@ -48,7 +48,7 @@ final class LazyContactMatchingIndexTests: XCTestCase {
     }
 
     func testCreatesOriginOnce() {
-        let factory = ContactMatchingIndexFactorySpy(index: ContactMatchingIndexDummy())
+        let factory = ContactMatchingIndexFactorySpy()
         let sut = LazyContactMatchingIndex(factory: factory)
 
         _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
@@ -62,7 +62,7 @@ final class LazyContactMatchingIndexTests: XCTestCase {
     func testReturnsMatchFromOriginOnSearchByPhone() {
         let contact = MatchedContact(name: "any-name", address: .phone(number: "any-number", label: "any-label"))
         let sut = LazyContactMatchingIndex(
-            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexStub(contact: contact))
+            factory: ContactMatchingIndexFactoryStub(indexes: [ContactMatchingIndexStub(contact: contact)])
         )
 
         let result = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
@@ -73,7 +73,7 @@ final class LazyContactMatchingIndexTests: XCTestCase {
     func testReturnsMatchFromOriginOnSearchByEmail() {
         let contact = MatchedContact(name: "any-name", address: .email(address: "any-address", label: "any-label"))
         let sut = LazyContactMatchingIndex(
-            factory: ContactMatchingIndexFactorySpy(index: ContactMatchingIndexStub(contact: contact))
+            factory: ContactMatchingIndexFactoryStub(indexes: [ContactMatchingIndexStub(contact: contact)])
         )
 
         let result = sut.contact(forEmail: NormalizedLowercasedString("any"))

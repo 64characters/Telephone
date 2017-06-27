@@ -1,5 +1,5 @@
 //
-//  ContactMatchingIndexFactorySpy.swift
+//  ContactMatchingIndexFactoryStub.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,16 +18,19 @@
 
 import UseCases
 
-public final class ContactMatchingIndexFactorySpy {
-    public var didCallMake: Bool { return makeCallCount > 0 }
-    public fileprivate(set) var makeCallCount = 0
+public final class ContactMatchingIndexFactoryStub {
+    fileprivate let indexes: [ContactMatchingIndex]
+    fileprivate var callCount = 0
 
-    public init() {}
+    public init(indexes: [ContactMatchingIndex]) {
+        self.indexes = indexes
+    }
 }
 
-extension ContactMatchingIndexFactorySpy: ContactMatchingIndexFactory {
+extension ContactMatchingIndexFactoryStub: ContactMatchingIndexFactory {
     public func make() -> ContactMatchingIndex {
-        makeCallCount += 1
-        return ContactMatchingIndexDummy()
+        let result = indexes[callCount]
+        callCount += 1
+        return result
     }
 }
