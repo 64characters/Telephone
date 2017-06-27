@@ -20,6 +20,7 @@ import UseCases
 
 public final class ContactMatchingSettingsSpy {
     public fileprivate(set) var significantPhoneNumberLengthCallCount = 0
+    public var didCallSignificantPhoneNumberLength: Bool { return significantPhoneNumberLengthCallCount > 0 }
 
     public init() {}
 }

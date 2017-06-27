@@ -72,7 +72,7 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        XCTAssertEqual(settings.significantPhoneNumberLengthCallCount, 0)
+        XCTAssertFalse(settings.didCallSignificantPhoneNumberLength)
     }
 
     func testGetsSignificantPhoneNumberLengthFromSettingsOnce() {
