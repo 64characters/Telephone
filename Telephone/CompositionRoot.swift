@@ -39,6 +39,7 @@ final class CompositionRoot: NSObject {
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
     private let accountsNotificationsToEventTargetAdapter: AccountsNotificationsToEventTargetAdapter
     private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
+    private let contactStoreNotificationsToContactsChangeEventTargetAdapter: Any
 
     init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
@@ -188,15 +189,29 @@ final class CompositionRoot: NSObject {
                 queue: contactsBackground)
         )
 
-        let main = GCDExecutionQueue(queue: DispatchQueue.main)
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
+        let contactMatchingIndex = DiscardingContactMatchingIndex(
+            factory: LazyContactMatchingIndexFactory(
+                factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
+            )
+        )
+
+        if #available(macOS 10.11, *) {
+            contactStoreNotificationsToContactsChangeEventTargetAdapter = CNContactStoreNotificationsToContactsChangeEventTargetAdapter(
+                center: NotificationCenter.default, target: contactMatchingIndex
+            )
+        } else {
+            contactStoreNotificationsToContactsChangeEventTargetAdapter = ABAddressBookNotificationsToContactsChangeEventTargetAdapter(
+                center: NotificationCenter.default, target: contactMatchingIndex
+            )
+        }
+
+        let main = GCDExecutionQueue(queue: DispatchQueue.main)
 
         callHistoryViewEventTargetFactory = AsyncCallHistoryViewEventTargetFactory(
             origin: CallHistoryViewEventTargetFactory(
                 histories: callHistories,
-                index: LazyContactMatchingIndex(
-                    factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
-                ),
+                index: contactMatchingIndex,
                 settings: contactMatchingSettings,
                 dateFormatter: ShortRelativeDateTimeFormatter(),
                 durationFormatter: DurationFormatter(),
