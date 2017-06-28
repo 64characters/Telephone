@@ -195,14 +195,15 @@ final class CompositionRoot: NSObject {
                 factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
             )
         )
+        let contactsChangeEventTarget = EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
 
         if #available(macOS 10.11, *) {
             contactStoreNotificationsToContactsChangeEventTargetAdapter = CNContactStoreNotificationsToContactsChangeEventTargetAdapter(
-                center: NotificationCenter.default, target: contactMatchingIndex
+                center: NotificationCenter.default, target: contactsChangeEventTarget
             )
         } else {
             contactStoreNotificationsToContactsChangeEventTargetAdapter = ABAddressBookNotificationsToContactsChangeEventTargetAdapter(
-                center: NotificationCenter.default, target: contactMatchingIndex
+                center: NotificationCenter.default, target: contactsChangeEventTarget
             )
         }
 
