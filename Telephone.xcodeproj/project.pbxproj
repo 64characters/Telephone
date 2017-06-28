@@ -30,8 +30,6 @@
 		8A0ABBC31EF96CD00062D3CC /* IdentifierGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0ABBC21EF96CD00062D3CC /* IdentifierGenerator.swift */; };
 		8A0ABBC61EF9775F0062D3CC /* UUIDIdentifierGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0ABBC41EF970AE0062D3CC /* UUIDIdentifierGenerator.swift */; };
 		8A0ABBCA1EFD70D10062D3CC /* ContactMatchingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0ABBC91EFD70D10062D3CC /* ContactMatchingIndex.swift */; };
-		8A0ABBCD1EFD72D10062D3CC /* LazyContactMatchingIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0ABBCC1EFD72D10062D3CC /* LazyContactMatchingIndexTests.swift */; };
-		8A0ABBCF1EFD73100062D3CC /* LazyContactMatchingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0ABBCE1EFD73100062D3CC /* LazyContactMatchingIndex.swift */; };
 		8A0ABBD11EFD77200062D3CC /* ContactMatchingIndexDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0ABBD01EFD77200062D3CC /* ContactMatchingIndexDummy.swift */; };
 		8A0CF81B1EC1F10B0014226A /* IndexedContactMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CF81A1EC1F10B0014226A /* IndexedContactMatchingTests.swift */; };
 		8A0CF81D1EC1F5400014226A /* IndexedContactMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CF81C1EC1F5400014226A /* IndexedContactMatching.swift */; };
@@ -66,7 +64,6 @@
 		8A1563961D89B7DD00E007BA /* UseCases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA078B291BFF80E20013FF8F /* UseCases.framework */; };
 		8A1796211E8E841300BEE2C9 /* CallHistoriesSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1796201E8E841300BEE2C9 /* CallHistoriesSpy.swift */; };
 		8A1796231E8E852100BEE2C9 /* AccountsEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1796221E8E852100BEE2C9 /* AccountsEventTarget.swift */; };
-		8A1AF2591F02ACBB00B9999D /* LazyContactMatchingIndexFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AF2581F02ACBB00B9999D /* LazyContactMatchingIndexFactory.swift */; };
 		8A1AF25B1F02AEC200B9999D /* LazyDiscardingContactMatchingIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AF25A1F02AEC100B9999D /* LazyDiscardingContactMatchingIndexTests.swift */; };
 		8A1AF25D1F02AF0500B9999D /* LazyDiscardingContactMatchingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AF25C1F02AF0500B9999D /* LazyDiscardingContactMatchingIndex.swift */; };
 		8A1AF25F1F02B30300B9999D /* ContactMatchingIndexFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AF25E1F02B30300B9999D /* ContactMatchingIndexFactoryStub.swift */; };
@@ -772,8 +769,6 @@
 		8A0ABBC21EF96CD00062D3CC /* IdentifierGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifierGenerator.swift; sourceTree = "<group>"; };
 		8A0ABBC41EF970AE0062D3CC /* UUIDIdentifierGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDIdentifierGenerator.swift; sourceTree = "<group>"; };
 		8A0ABBC91EFD70D10062D3CC /* ContactMatchingIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingIndex.swift; sourceTree = "<group>"; };
-		8A0ABBCC1EFD72D10062D3CC /* LazyContactMatchingIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LazyContactMatchingIndexTests.swift; path = UseCasesTests/LazyContactMatchingIndexTests.swift; sourceTree = SOURCE_ROOT; };
-		8A0ABBCE1EFD73100062D3CC /* LazyContactMatchingIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyContactMatchingIndex.swift; sourceTree = "<group>"; };
 		8A0ABBD01EFD77200062D3CC /* ContactMatchingIndexDummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingIndexDummy.swift; sourceTree = "<group>"; };
 		8A0CF81A1EC1F10B0014226A /* IndexedContactMatchingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexedContactMatchingTests.swift; path = UseCasesTests/IndexedContactMatchingTests.swift; sourceTree = SOURCE_ROOT; };
 		8A0CF81C1EC1F5400014226A /* IndexedContactMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexedContactMatching.swift; sourceTree = "<group>"; };
@@ -806,7 +801,6 @@
 		8A143C861DD0D40C00B1CD23 /* CallHistoryRecordTestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordTestFactory.swift; sourceTree = "<group>"; };
 		8A1796201E8E841300BEE2C9 /* CallHistoriesSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoriesSpy.swift; sourceTree = "<group>"; };
 		8A1796221E8E852100BEE2C9 /* AccountsEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsEventTarget.swift; sourceTree = "<group>"; };
-		8A1AF2581F02ACBB00B9999D /* LazyContactMatchingIndexFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyContactMatchingIndexFactory.swift; sourceTree = "<group>"; };
 		8A1AF25A1F02AEC100B9999D /* LazyDiscardingContactMatchingIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LazyDiscardingContactMatchingIndexTests.swift; path = UseCasesTests/LazyDiscardingContactMatchingIndexTests.swift; sourceTree = SOURCE_ROOT; };
 		8A1AF25C1F02AF0500B9999D /* LazyDiscardingContactMatchingIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyDiscardingContactMatchingIndex.swift; sourceTree = "<group>"; };
 		8A1AF25E1F02B30300B9999D /* ContactMatchingIndexFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingIndexFactoryStub.swift; sourceTree = "<group>"; };
@@ -1697,8 +1691,6 @@
 				8A0ABBC91EFD70D10062D3CC /* ContactMatchingIndex.swift */,
 				8A1AF25C1F02AF0500B9999D /* LazyDiscardingContactMatchingIndex.swift */,
 				8A1AF25A1F02AEC100B9999D /* LazyDiscardingContactMatchingIndexTests.swift */,
-				8A0ABBCE1EFD73100062D3CC /* LazyContactMatchingIndex.swift */,
-				8A0ABBCC1EFD72D10062D3CC /* LazyContactMatchingIndexTests.swift */,
 				8A4B65B81EB21D6900F13654 /* SimpleContactMatchingIndex.swift */,
 				8A4B65B61EB21CDC00F13654 /* SimpleContactMatchingIndexTests.swift */,
 			);
@@ -2135,7 +2127,6 @@
 			isa = PBXGroup;
 			children = (
 				8A0CF8201EC235D40014226A /* ContactMatchingIndexFactory.swift */,
-				8A1AF2581F02ACBB00B9999D /* LazyContactMatchingIndexFactory.swift */,
 				8A9084A71EC61665002B273A /* SimpleContactMatchingIndexFactory.swift */,
 				8AF52BEA1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift */,
 			);
@@ -3602,7 +3593,6 @@
 				8ADD31CD1CC165C3008C083C /* DelayingUserAgentSoundIOSelectionUseCase.swift in Sources */,
 				8A61363C1CC23AB900A087A4 /* SystemAudioDevicesChangeEventTargets.swift in Sources */,
 				AA1019771C48071700869D01 /* RingtoneFactory.swift in Sources */,
-				8A0ABBCF1EFD73100062D3CC /* LazyContactMatchingIndex.swift in Sources */,
 				AA3905321BFFDDDA005A8AA3 /* UserAgentAudioDeviceUpdateUseCase.swift in Sources */,
 				8A32A4E81D6719730086B49D /* PurchaseCheckUseCase.swift in Sources */,
 				8AE396F91D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift in Sources */,
@@ -3611,7 +3601,6 @@
 				8A7814241DB150D6005CB612 /* SettingsKeys.swift in Sources */,
 				8A11B3CE1DDB46B8002EDA93 /* CallEventTarget.swift in Sources */,
 				AA92F8A41C2B02E700C378B6 /* Ringtone.swift in Sources */,
-				8A1AF2591F02ACBB00B9999D /* LazyContactMatchingIndexFactory.swift in Sources */,
 				8A4B65BD1EB220FE00F13654 /* Contacts.swift in Sources */,
 				AA10197D1C4821C400869D01 /* SoundFactory.swift in Sources */,
 				AA3166371C4FAF9C00E7ECA5 /* SoundConfiguration.swift in Sources */,
@@ -3737,7 +3726,6 @@
 				8ACF85191EE966CC006E88FB /* EnqueuingCallHistoryEventTargetTests.swift in Sources */,
 				8A32D19E1E8E816500903796 /* CallHistoriesHistoryRemoveUseCaseTests.swift in Sources */,
 				8A46FDBB1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift in Sources */,
-				8A0ABBCD1EFD72D10062D3CC /* LazyContactMatchingIndexTests.swift in Sources */,
 				8A7874F01C5A25D0002494ED /* ConditionalRingtonePlaybackUseCaseTests.swift in Sources */,
 				8AD9A0F71DE71689000BB2F2 /* CallHistoryRecordsGetUseCaseTests.swift in Sources */,
 				8AEF77B11DCCC70300C73BCB /* PersistentCallHistoryTests.swift in Sources */,

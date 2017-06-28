@@ -191,9 +191,7 @@ final class CompositionRoot: NSObject {
 
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
         let contactMatchingIndex = LazyDiscardingContactMatchingIndex(
-            factory: LazyContactMatchingIndexFactory(
-                factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
-            )
+            factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
         )
         let contactsChangeEventTarget = EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
 
