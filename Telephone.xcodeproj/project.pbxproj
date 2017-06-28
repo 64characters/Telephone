@@ -1811,6 +1811,15 @@
 			name = ContactsChangeEventTarget;
 			sourceTree = "<group>";
 		};
+		8A1AF2681F03D6C500B9999D /* ContactMatchingSettings */ = {
+			isa = PBXGroup;
+			children = (
+				8A9084A31EC6101A002B273A /* ContactMatchingSettingsFake.swift */,
+				8A25C2791F00F83A00C91D55 /* ContactMatchingSettingsSpy.swift */,
+			);
+			name = ContactMatchingSettings;
+			sourceTree = "<group>";
+		};
 		8A1BCFFA1ED3460900628062 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
@@ -2725,8 +2734,7 @@
 				8A41A7561E5DB4F500E0C854 /* ContactCallHistoryRecordsGetUseCaseOutputSpy.swift */,
 				8ADED1E21EFD7FC4009558E0 /* ContactMatchingIndex */,
 				8A1AF2601F02B71500B9999D /* ContactMatchingIndexFactory */,
-				8A9084A31EC6101A002B273A /* ContactMatchingSettingsFake.swift */,
-				8A25C2791F00F83A00C91D55 /* ContactMatchingSettingsSpy.swift */,
+				8A1AF2681F03D6C500B9999D /* ContactMatchingSettings */,
 				8A4B65A71EB0CB7B00F13654 /* ContactMatchingStub.swift */,
 				8A1AF2651F03D56500B9999D /* ContactsChangeEventTargetSpy.swift */,
 				8A7292401EE01F5900338592 /* ExecutionQueue */,
