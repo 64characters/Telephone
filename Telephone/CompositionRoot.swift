@@ -190,7 +190,7 @@ final class CompositionRoot: NSObject {
         )
 
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
-        let contactMatchingIndex = DiscardingContactMatchingIndex(
+        let contactMatchingIndex = LazyDiscardingContactMatchingIndex(
             factory: LazyContactMatchingIndexFactory(
                 factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
             )

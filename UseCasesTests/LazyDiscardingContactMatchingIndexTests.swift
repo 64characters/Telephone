@@ -1,5 +1,5 @@
 //
-//  DiscardingContactMatchingIndexTests.swift
+//  LazyDiscardingContactMatchingIndexTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,10 +20,48 @@
 import UseCasesTestDoubles
 import XCTest
 
-final class DiscardingContactMatchingIndexTests: XCTestCase {
+final class LazyDiscardingContactMatchingIndexTests: XCTestCase {
+    func testDoesNotCreateOriginOnCreation() {
+        let factory = ContactMatchingIndexFactorySpy()
+
+        _ = LazyDiscardingContactMatchingIndex(factory: factory)
+
+        XCTAssertFalse(factory.didCallMake)
+    }
+
+    func testCreatesOriginOnFirstSearchByPhone() {
+        let factory = ContactMatchingIndexFactorySpy()
+        let sut = LazyDiscardingContactMatchingIndex(factory: factory)
+
+        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
+
+        XCTAssertTrue(factory.didCallMake)
+    }
+
+    func testCreatesOriginOnFirsthSearchByEmail() {
+        let factory = ContactMatchingIndexFactorySpy()
+        let sut = LazyDiscardingContactMatchingIndex(factory: factory)
+
+        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
+
+        XCTAssertTrue(factory.didCallMake)
+    }
+
+    func testCreatesOriginOnce() {
+        let factory = ContactMatchingIndexFactorySpy()
+        let sut = LazyDiscardingContactMatchingIndex(factory: factory)
+
+        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
+        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
+        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
+        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
+
+        XCTAssertEqual(factory.makeCallCount, 1)
+    }
+
     func testReturnsMatchFromOriginOnSearchByPhone() {
         let contact = MatchedContact(name: "any-name", address: .phone(number: "any-number", label: "any-label"))
-        let sut = DiscardingContactMatchingIndex(
+        let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(indexes: [ContactMatchingIndexStub(contact: contact)])
         )
 
@@ -34,7 +72,7 @@ final class DiscardingContactMatchingIndexTests: XCTestCase {
 
     func testReturnsMatchFromOriginOnSearchByEmail() {
         let contact = MatchedContact(name: "any-name", address: .email(address: "any-address", label: "any-label"))
-        let sut = DiscardingContactMatchingIndex(
+        let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(indexes: [ContactMatchingIndexStub(contact: contact)])
         )
 
@@ -43,9 +81,18 @@ final class DiscardingContactMatchingIndexTests: XCTestCase {
         XCTAssertEqual(result, contact)
     }
 
+    func testDoesNotCreateOriginOnContactsDidChange() {
+        let factory = ContactMatchingIndexFactorySpy()
+        let sut = LazyDiscardingContactMatchingIndex(factory: factory)
+
+        sut.contactsDidChange()
+
+        XCTAssertFalse(factory.didCallMake)
+    }
+
     func testReturnsMatchFromRecreatedOriginAfterContactsChangeEventOnSearchByPhone() {
         let contact = MatchedContact(name: "any-name-2", address: .phone(number: "any-number-2", label: "any-label-2"))
-        let sut = DiscardingContactMatchingIndex(
+        let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(
                 indexes: [
                     ContactMatchingIndexStub(
@@ -58,6 +105,7 @@ final class DiscardingContactMatchingIndexTests: XCTestCase {
             )
         )
 
+        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
         sut.contactsDidChange()
         let result = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
 
@@ -66,7 +114,7 @@ final class DiscardingContactMatchingIndexTests: XCTestCase {
 
     func testReturnsMatchFromRecreatedOriginAfterContactsChangeEventOnSearchByEmail() {
         let contact = MatchedContact(name: "any-name-2", address: .email(address: "any-address-2", label: "any-label-2"))
-        let sut = DiscardingContactMatchingIndex(
+        let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(
                 indexes: [
                     ContactMatchingIndexStub(
@@ -79,6 +127,7 @@ final class DiscardingContactMatchingIndexTests: XCTestCase {
             )
         )
 
+        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
         sut.contactsDidChange()
         let result = sut.contact(forEmail: NormalizedLowercasedString("any"))
 

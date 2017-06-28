@@ -1,5 +1,5 @@
 //
-//  DiscardingContactMatchingIndex.swift
+//  LazyDiscardingContactMatchingIndex.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-public final class DiscardingContactMatchingIndex {
-    fileprivate var origin: ContactMatchingIndex
+public final class LazyDiscardingContactMatchingIndex {
+    fileprivate lazy var origin: ContactMatchingIndex! = { return self.factory.make() }()
 
     fileprivate let factory: ContactMatchingIndexFactory
 
     public init(factory: ContactMatchingIndexFactory) {
         self.factory = factory
-        origin = factory.make()
     }
 }
 
-extension DiscardingContactMatchingIndex: ContactMatchingIndex {
+extension LazyDiscardingContactMatchingIndex: ContactMatchingIndex {
     public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
         return origin.contact(forPhone: phone)
     }
@@ -37,8 +36,8 @@ extension DiscardingContactMatchingIndex: ContactMatchingIndex {
     }
 }
 
-extension DiscardingContactMatchingIndex: ContactsChangeEventTarget {
+extension LazyDiscardingContactMatchingIndex: ContactsChangeEventTarget {
     public func contactsDidChange() {
-        origin = factory.make()
+        origin = nil
     }
 }
