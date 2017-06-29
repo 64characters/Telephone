@@ -1,5 +1,5 @@
 //
-//  SimpleContactMatchingIndexFactory.swift
+//  ContactMatchingIndexFactoryStub.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,21 @@
 //  GNU General Public License for more details.
 //
 
-public final class SimpleContactMatchingIndexFactory {
-    fileprivate let contacts: Contacts
-    fileprivate let settings: ContactMatchingSettings
+import UseCases
 
-    public init(contacts: Contacts, settings: ContactMatchingSettings) {
-        self.contacts = contacts
-        self.settings = settings
+public final class ContactMatchingIndexFactoryStub {
+    fileprivate let indexes: [ContactMatchingIndex]
+    fileprivate var callCount = 0
+
+    public init(indexes: [ContactMatchingIndex]) {
+        self.indexes = indexes
     }
 }
 
-extension SimpleContactMatchingIndexFactory: ContactMatchingIndexFactory {
+extension ContactMatchingIndexFactoryStub: ContactMatchingIndexFactory {
     public func make() -> ContactMatchingIndex {
-        return SimpleContactMatchingIndex(
-            contacts: contacts, maxPhoneNumberLength: settings.significantPhoneNumberLength
-        )
+        let result = indexes[callCount]
+        callCount += 1
+        return result
     }
 }

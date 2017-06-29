@@ -1,5 +1,5 @@
 //
-//  SimpleContactMatchingIndexFactory.swift
+//  EnqueuingContactsChangeEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public final class SimpleContactMatchingIndexFactory {
-    fileprivate let contacts: Contacts
-    fileprivate let settings: ContactMatchingSettings
+public final class EnqueuingContactsChangeEventTarget {
+    fileprivate let origin: ContactsChangeEventTarget
+    fileprivate let queue: ExecutionQueue
 
-    public init(contacts: Contacts, settings: ContactMatchingSettings) {
-        self.contacts = contacts
-        self.settings = settings
+    public init(origin: ContactsChangeEventTarget, queue: ExecutionQueue) {
+        self.origin = origin
+        self.queue = queue
     }
 }
 
-extension SimpleContactMatchingIndexFactory: ContactMatchingIndexFactory {
-    public func make() -> ContactMatchingIndex {
-        return SimpleContactMatchingIndex(
-            contacts: contacts, maxPhoneNumberLength: settings.significantPhoneNumberLength
-        )
+extension EnqueuingContactsChangeEventTarget: ContactsChangeEventTarget {
+    public func contactsDidChange() {
+        queue.add {
+            self.origin.contactsDidChange()
+        }
     }
 }

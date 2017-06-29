@@ -1,5 +1,5 @@
 //
-//  SimpleContactMatchingIndexFactory.swift
+//  ContactsChangeEventTargetSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,15 @@
 //  GNU General Public License for more details.
 //
 
-public final class SimpleContactMatchingIndexFactory {
-    fileprivate let contacts: Contacts
-    fileprivate let settings: ContactMatchingSettings
+import UseCases
 
-    public init(contacts: Contacts, settings: ContactMatchingSettings) {
-        self.contacts = contacts
-        self.settings = settings
-    }
+public final class ContactsChangeEventTargetSpy {
+    public fileprivate(set) var didCallContactsDidChange = false
+    public init() {}
 }
 
-extension SimpleContactMatchingIndexFactory: ContactMatchingIndexFactory {
-    public func make() -> ContactMatchingIndex {
-        return SimpleContactMatchingIndex(
-            contacts: contacts, maxPhoneNumberLength: settings.significantPhoneNumberLength
-        )
+extension ContactsChangeEventTargetSpy: ContactsChangeEventTarget {
+    public func contactsDidChange() {
+        didCallContactsDidChange = true
     }
 }
