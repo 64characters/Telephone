@@ -42,5 +42,5 @@ public enum ReceiptValidationResult {
 }
 
 private func bundle() -> Bundle {
-    return Bundle(identifier: "com.tlphn.Telephone.UseCases")!
+    return Bundle(identifier: "eu.4mk.Telephone.UseCases")!
 }
