@@ -19,14 +19,15 @@
 import AddressBook
 import UseCases
 
-final class ABAddressBookToContactsAdapter {
-    fileprivate lazy var book: ABAddressBook? = ABAddressBook()
-    fileprivate lazy var nameOrdering: Int = self.book?.defaultNameOrdering() ?? Int(kABFirstNameFirst)
-}
+final class ABAddressBookToContactsAdapter {}
 
 extension ABAddressBookToContactsAdapter: Contacts {
     func enumerate(_ body: @escaping (Contact) -> Void) {
-        guard let book = self.book else { return }
+        guard let book = ABAddressBook() as ABAddressBook? else { return }
+        enumerateRecords(in: book, nameOrdering: book.defaultNameOrdering(), body: body)
+    }
+
+    private func enumerateRecords(in book: ABAddressBook, nameOrdering: Int, body: @escaping (Contact) -> Void) {
         for record in book.people() {
             if let person = record as? ABPerson {
                 body(Contact.init(person, nameOrdering: nameOrdering))
