@@ -28,10 +28,12 @@ final class ABAddressBookNotificationsToContactsChangeEventTargetAdapter {
         self.center = center
         self.target = target
         center.addObserver(self, selector: #selector(contactsDidChange), name: .abDatabaseChanged, object: nil)
+        center.addObserver(self, selector: #selector(contactsDidChange), name: .abDatabaseChangedExternally, object: nil)
     }
 
     deinit {
         center.removeObserver(self, name: .abDatabaseChanged, object: nil)
+        center.removeObserver(self, name: .abDatabaseChangedExternally, object: nil)
     }
 
     @objc private func contactsDidChange(_ notification: Notification) {
