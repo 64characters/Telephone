@@ -32,18 +32,18 @@ extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutpu
     }
 
     private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-        return ContactCallHistoryRecord(origin: record, contact: makeContact(record: record))
+        return ContactCallHistoryRecord(origin: record, contact: makeContact(uri: record.uri))
     }
 
-    private func makeContact(record: CallHistoryRecord) -> MatchedContact {
-        if let match = matching.match(for: record.uri) {
+    private func makeContact(uri: URI) -> MatchedContact {
+        if let match = matching.match(for: uri) {
             return match
         } else {
-            return MatchedContact(name: record.uri.displayName, address: makeAddress(for: record.uri))
+            return MatchedContact(name: uri.displayName, address: makeAddress(uri: uri))
         }
     }
 }
 
-private func makeAddress(for uri: URI) -> MatchedContact.Address {
+private func makeAddress(uri: URI) -> MatchedContact.Address {
     return uri.host.isEmpty ? .phone(number: uri.user, label: "") : .email(address: "\(uri.user)@\(uri.host)", label: "")
 }
