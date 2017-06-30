@@ -39,11 +39,7 @@ extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutpu
         if let match = matching.match(for: uri) {
             return match
         } else {
-            return MatchedContact(name: uri.displayName, address: makeAddress(uri: uri))
+            return MatchedContact(uri: uri)
         }
     }
-}
-
-private func makeAddress(uri: URI) -> MatchedContact.Address {
-    return uri.host.isEmpty ? .phone(number: uri.user, label: "") : .email(address: "\(uri.user)@\(uri.host)", label: "")
 }
