@@ -21,20 +21,29 @@ import UseCases
 import UseCasesTestDoubles
 
 final class CallHistoryRecordGetUseCaseTests: XCTestCase {
-    func testCallsUpdateWithRecordAtIndexFromHistoryOnExecute() {
+    func testCallsUpdateWithRecordWithIdentifierFromHistoryOnExecute() {
         let factory = CallHistoryRecordTestFactory()
         let history = TruncatingCallHistory()
         history.add(factory.makeRecord(number: 1))
         history.add(factory.makeRecord(number: 2))
         history.add(factory.makeRecord(number: 3))
         history.add(factory.makeRecord(number: 4))
-        let index = 2
+        let result = history.allRecords[2]
         let output = CallHistoryRecordGetUseCaseOutputSpy()
-        let sut = CallHistoryRecordGetUseCase(history: history, index: index, output: output)
+        let sut = CallHistoryRecordGetUseCase(identifier: result.identifier, history: history, output: output)
 
         sut.execute()
 
         XCTAssertTrue(output.didCallUpdate)
-        XCTAssertEqual(output.invokedRecord, history.allRecords[index])
+        XCTAssertEqual(output.invokedRecord, result)
+    }
+
+    func testDoesNotCallUpdateWhenRecordWithGivenIdentifierIsNotFoundOnExecute() {
+        let output = CallHistoryRecordGetUseCaseOutputSpy()
+        let sut = CallHistoryRecordGetUseCase(identifier: "nonexistent", history: TruncatingCallHistory(), output: output)
+
+        sut.execute()
+
+        XCTAssertFalse(output.didCallUpdate)
     }
 }

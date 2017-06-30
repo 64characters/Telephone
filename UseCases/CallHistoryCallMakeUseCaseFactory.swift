@@ -14,5 +14,5 @@
 //
 
 public protocol CallHistoryCallMakeUseCaseFactory {
-    func make(index: Int) -> UseCase
+    func make(identifier: String) -> UseCase
 }
