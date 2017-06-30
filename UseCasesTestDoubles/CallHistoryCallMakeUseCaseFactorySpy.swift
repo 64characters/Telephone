@@ -19,7 +19,7 @@
 import UseCases
 
 public final class CallHistoryCallMakeUseCaseFactorySpy {
-    public fileprivate(set) var invokedIndex = -1
+    public fileprivate(set) var invokedIdentifier: String?
     fileprivate let callMake: UseCase
 
     public init(callMake: UseCase) {
@@ -28,8 +28,8 @@ public final class CallHistoryCallMakeUseCaseFactorySpy {
 }
 
 extension CallHistoryCallMakeUseCaseFactorySpy: CallHistoryCallMakeUseCaseFactory {
-    public func make(index: Int) -> UseCase {
-        invokedIndex = index
+    public func make(identifier: String) -> UseCase {
+        invokedIdentifier = identifier
         return callMake
     }
 }
