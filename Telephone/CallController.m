@@ -133,16 +133,32 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         _ringtonePlayback = ringtonePlayback;
         _musicPlayer = musicPlayer;
         _delegate = delegate;
+        
+        [[NSUserDefaults standardUserDefaults] addObserver:self
+                                                forKeyPath:kKeepCallWindowOnTop
+                                                   options:NSKeyValueObservingOptionNew
+                                                   context:NULL];
     }
     return self;
 }
 
 - (void)dealloc {
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:kKeepCallWindowOnTop];
+    
     [self setCall:nil];
 }
 
 - (NSString *)description {
     return [[self call] description];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:kKeepCallWindowOnTop]) {
+        [self setCallWindowOnTop:[[change objectForKey:@"new"] boolValue]];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)awakeFromNib {
@@ -156,6 +172,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     NSView *emptyCallInfoView = [[NSView alloc] initWithFrame:frame];
     [self.window.contentView addSubview:emptyCallInfoView];
     self.callInfoView = emptyCallInfoView;
+    
+    BOOL keepCallWindowOnTop = [[NSUserDefaults standardUserDefaults] boolForKey:kKeepCallWindowOnTop];
+    [self setCallWindowOnTop:keepCallWindowOnTop];
 }
 
 - (void)setCallInfoViewResizingWindow:(NSView *)newView {
@@ -384,6 +403,13 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return ![self.callInfoView isEqual:viewController.view];
 }
 
+- (void)setCallWindowOnTop:(BOOL)keepCallWindowOnTop {
+    if (keepCallWindowOnTop) {
+        self.window.level = NSFloatingWindowLevel;
+    } else {
+        self.window.level = NSNormalWindowLevel;
+    }
+}
 
 #pragma mark -
 #pragma mark NSWindow delegate methods
