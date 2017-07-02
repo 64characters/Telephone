@@ -37,6 +37,7 @@ NSString * const kUseDNSSRV = @"UseDNSSRV";
 NSString * const kSignificantPhoneNumberLength = @"SignificantPhoneNumberLength";
 NSString * const kAutoCloseCallWindow = @"AutoCloseCallWindow";
 NSString * const kAutoCloseMissedCallWindow = @"AutoCloseMissedCallWindow";
+NSString * const kKeepCallWindowOnTop = @"KeepCallWindowOnTop";
 NSString * const kCallWaiting = @"CallWaiting";
 NSString * const kUseG711Only = @"UseG711Only";
 NSString * const kSettingsVersion = @"SettingsVersion";
