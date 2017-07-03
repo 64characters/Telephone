@@ -33,11 +33,11 @@ final class EnqueuingCallHistoryCallMakeUseCaseFactory {
 }
 
 extension EnqueuingCallHistoryCallMakeUseCaseFactory: CallHistoryCallMakeUseCaseFactory {
-    func make(index: Int) -> UseCase {
+    func make(identifier: String) -> UseCase {
         return EnqueuingUseCase(
             origin: CallHistoryRecordGetUseCase(
+                identifier: identifier,
                 history: history,
-                index: index,
                 output: EnqueuingCallHistoryRecordGetUseCaseOutput(
                     origin: CallHistoryCallMakeUseCase(account: account), queue: accountQueue
                 )

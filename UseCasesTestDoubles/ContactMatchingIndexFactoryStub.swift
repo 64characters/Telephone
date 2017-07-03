@@ -1,5 +1,5 @@
 //
-//  CallHistoryCallMakeUseCaseFactorySpy.swift
+//  ContactMatchingIndexFactoryStub.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,18 +18,19 @@
 
 import UseCases
 
-public final class CallHistoryCallMakeUseCaseFactorySpy {
-    public fileprivate(set) var invokedIdentifier: String?
-    fileprivate let callMake: UseCase
+public final class ContactMatchingIndexFactoryStub {
+    fileprivate let indexes: [ContactMatchingIndex]
+    fileprivate var callCount = 0
 
-    public init(callMake: UseCase) {
-        self.callMake = callMake
+    public init(indexes: [ContactMatchingIndex]) {
+        self.indexes = indexes
     }
 }
 
-extension CallHistoryCallMakeUseCaseFactorySpy: CallHistoryCallMakeUseCaseFactory {
-    public func make(identifier: String) -> UseCase {
-        invokedIdentifier = identifier
-        return callMake
+extension ContactMatchingIndexFactoryStub: ContactMatchingIndexFactory {
+    public func make() -> ContactMatchingIndex {
+        let result = indexes[callCount]
+        callCount += 1
+        return result
     }
 }

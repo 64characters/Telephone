@@ -1,5 +1,5 @@
 //
-//  CallHistoryCallMakeUseCaseFactorySpy.swift
+//  SimpleContactMatchingIndexFactoryTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -17,19 +17,16 @@
 //
 
 import UseCases
+import XCTest
+import UseCasesTestDoubles
 
-public final class CallHistoryCallMakeUseCaseFactorySpy {
-    public fileprivate(set) var invokedIdentifier: String?
-    fileprivate let callMake: UseCase
+final class SimpleContactMatchingIndexFactoryTests: XCTestCase {
+    func testGetsSignificantPhoneNumberLengthFromSettingsOnMake() {
+        let settings = ContactMatchingSettingsSpy()
+        let sut = SimpleContactMatchingIndexFactory(contacts: SimpleContacts([]), settings: settings)
 
-    public init(callMake: UseCase) {
-        self.callMake = callMake
-    }
-}
+        _ = sut.make()
 
-extension CallHistoryCallMakeUseCaseFactorySpy: CallHistoryCallMakeUseCaseFactory {
-    public func make(identifier: String) -> UseCase {
-        invokedIdentifier = identifier
-        return callMake
+        XCTAssertTrue(settings.didCallSignificantPhoneNumberLength)
     }
 }
