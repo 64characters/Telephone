@@ -17,19 +17,21 @@
 //
 
 public final class CallHistoryRecordGetUseCase {
+    fileprivate let identifier: String
     fileprivate let history: CallHistory
-    fileprivate let index: Int
     fileprivate let output: CallHistoryRecordGetUseCaseOutput
 
-    public init(history: CallHistory, index: Int, output: CallHistoryRecordGetUseCaseOutput) {
+    public init(identifier: String, history: CallHistory, output: CallHistoryRecordGetUseCaseOutput) {
+        self.identifier = identifier
         self.history = history
-        self.index = index
         self.output = output
     }
 }
 
 extension CallHistoryRecordGetUseCase: UseCase {
     public func execute() {
-        output.update(record: history.allRecords[index])
+        if let record = history.record(withIdentifier: identifier) {
+            output.update(record: record)
+        }
     }
 }

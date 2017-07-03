@@ -1,5 +1,5 @@
 //
-//  CallHistoryCallMakeUseCaseFactorySpy.swift
+//  ContactsChangeEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class CallHistoryCallMakeUseCaseFactorySpy {
-    public fileprivate(set) var invokedIdentifier: String?
-    fileprivate let callMake: UseCase
-
-    public init(callMake: UseCase) {
-        self.callMake = callMake
-    }
-}
-
-extension CallHistoryCallMakeUseCaseFactorySpy: CallHistoryCallMakeUseCaseFactory {
-    public func make(identifier: String) -> UseCase {
-        invokedIdentifier = identifier
-        return callMake
-    }
+public protocol ContactsChangeEventTarget {
+    func contactsDidChange()
 }

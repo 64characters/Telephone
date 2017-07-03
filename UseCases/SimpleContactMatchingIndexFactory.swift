@@ -18,14 +18,18 @@
 
 public final class SimpleContactMatchingIndexFactory {
     fileprivate let contacts: Contacts
+    fileprivate let settings: ContactMatchingSettings
 
-    public init(contacts: Contacts) {
+    public init(contacts: Contacts, settings: ContactMatchingSettings) {
         self.contacts = contacts
+        self.settings = settings
     }
 }
 
 extension SimpleContactMatchingIndexFactory: ContactMatchingIndexFactory {
-    public func make(maxPhoneNumberLength length: Int) -> ContactMatchingIndex {
-        return SimpleContactMatchingIndex(contacts: contacts, maxPhoneNumberLength: length)
+    public func make() -> ContactMatchingIndex {
+        return SimpleContactMatchingIndex(
+            contacts: contacts, maxPhoneNumberLength: settings.significantPhoneNumberLength
+        )
     }
 }

@@ -17,5 +17,5 @@
 //
 
 public protocol ContactMatchingIndexFactory {
-    func make(maxPhoneNumberLength length: Int) -> ContactMatchingIndex
+    func make() -> ContactMatchingIndex
 }

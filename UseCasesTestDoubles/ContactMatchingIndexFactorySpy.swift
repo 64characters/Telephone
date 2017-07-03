@@ -21,19 +21,13 @@ import UseCases
 public final class ContactMatchingIndexFactorySpy {
     public var didCallMake: Bool { return makeCallCount > 0 }
     public fileprivate(set) var makeCallCount = 0
-    public fileprivate(set) var invokedMaxPhoneNumberLength: Int?
 
-    fileprivate let index: ContactMatchingIndex
-
-    public init(index: ContactMatchingIndex) {
-        self.index = index
-    }
+    public init() {}
 }
 
 extension ContactMatchingIndexFactorySpy: ContactMatchingIndexFactory {
-    public func make(maxPhoneNumberLength length: Int) -> ContactMatchingIndex {
+    public func make() -> ContactMatchingIndex {
         makeCallCount += 1
-        invokedMaxPhoneNumberLength = length
-        return index
+        return ContactMatchingIndexDummy()
     }
 }

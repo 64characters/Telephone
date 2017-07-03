@@ -1,5 +1,5 @@
 //
-//  LazyContactMatchingIndex.swift
+//  LazyDiscardingContactMatchingIndex.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,26 +16,28 @@
 //  GNU General Public License for more details.
 //
 
-public final class LazyContactMatchingIndex {
-    fileprivate lazy var origin: ContactMatchingIndex = {
-        return self.factory.make(maxPhoneNumberLength: self.settings.significantPhoneNumberLength)
-    }()
+public final class LazyDiscardingContactMatchingIndex {
+    fileprivate lazy var origin: ContactMatchingIndex! = { return self.factory.make() }()
 
-    private let factory: ContactMatchingIndexFactory
-    private let settings: ContactMatchingSettings
+    fileprivate let factory: ContactMatchingIndexFactory
 
-    public init(factory: ContactMatchingIndexFactory, settings: ContactMatchingSettings) {
+    public init(factory: ContactMatchingIndexFactory) {
         self.factory = factory
-        self.settings = settings
     }
 }
 
-extension LazyContactMatchingIndex: ContactMatchingIndex {
+extension LazyDiscardingContactMatchingIndex: ContactMatchingIndex {
     public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
         return origin.contact(forPhone: phone)
     }
 
     public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
         return origin.contact(forEmail: email)
+    }
+}
+
+extension LazyDiscardingContactMatchingIndex: ContactsChangeEventTarget {
+    public func contactsDidChange() {
+        origin = nil
     }
 }
