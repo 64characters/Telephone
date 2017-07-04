@@ -30,7 +30,7 @@
                         </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="415">
                             <rect key="frame" x="-2" y="38" width="257" height="18"/>
-                            <buttonCell key="cell" type="check" title="Bei Anruf iTunes und Spotify pausieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="416">
+                            <buttonCell key="cell" type="check" title="Bei Anruf iTunes/Spotify/Deezer pausieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="416">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>

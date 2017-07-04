@@ -614,6 +614,7 @@
 		AAFC002A1074D0B50018C7DA /* SoundPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAFC00291074D0B50018C7DA /* SoundPreferencesView.xib */; };
 		AAFC002C1074D0B50018C7DA /* GeneralPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAFC002B1074D0B50018C7DA /* GeneralPreferencesView.xib */; };
 		AAFCFFBD1074BFCA0018C7DA /* AccountSetupController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */; };
+		D4D298901DF7152C00432567 /* DeezerMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D2988F1DF7152C00432567 /* DeezerMusicPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1460,6 +1461,9 @@
 		AAFC003B1074D19A0018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/NetworkPreferencesView.xib; sourceTree = "<group>"; };
 		AAFCFFBB1074BFCA0018C7DA /* AccountSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AccountSetupController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSetupController.m; sourceTree = "<group>"; tabWidth = 4; };
+		D4D2988D1DF7152C00432567 /* Deezer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deezer.h; sourceTree = "<group>"; };
+		D4D2988E1DF7152C00432567 /* DeezerMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeezerMusicPlayer.h; sourceTree = "<group>"; };
+		D4D2988F1DF7152C00432567 /* DeezerMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeezerMusicPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1647,6 +1651,7 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				AA19171B0F8EA627002BA093 /* iTunes.h */,
 				8AFC630C1D8C24670022470D /* Spotify.h */,
+				D4D2988D1DF7152C00432567 /* Deezer.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -2146,6 +2151,8 @@
 		8AA748881D6F3A76000587DC /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				D4D2988E1DF7152C00432567 /* DeezerMusicPlayer.h */,
+				D4D2988F1DF7152C00432567 /* DeezerMusicPlayer.m */,
 				8AA748911D6F414E000587DC /* AppleMusicPlayer.h */,
 				8AA748921D6F414E000587DC /* AppleMusicPlayer.m */,
 				8AA748C01D704B9F000587DC /* AvailableMusicPlayers.swift */,
@@ -3475,6 +3482,7 @@
 				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,
 				AA19CFF51BED148A00991CAA /* DefaultUseCaseFactory.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
+				D4D298901DF7152C00432567 /* DeezerMusicPlayer.m in Sources */,
 				AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */,
 				8A57AEA61CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
 				8ADA10A61DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */,
