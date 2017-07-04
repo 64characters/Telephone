@@ -52,7 +52,9 @@ final class CallHistoryViewEventTargetFactory {
                 origin: CallHistoryRecordsGetUseCase(
                     history: history,
                     output: ContactCallHistoryRecordsGetUseCase(
-                        matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain),
+                        factory: FallingBackMatchedContactFactory(
+                            matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain)
+                        ),
                         output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
                             origin: CallHistoryViewPresenter(
                                 view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter

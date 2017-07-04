@@ -17,11 +17,11 @@
 //
 
 public final class ContactCallHistoryRecordsGetUseCase {
-    fileprivate let matching: ContactMatching
+    fileprivate let factory: FallingBackMatchedContactFactory
     fileprivate let output: ContactCallHistoryRecordsGetUseCaseOutput
 
-    public init(matching: ContactMatching, output: ContactCallHistoryRecordsGetUseCaseOutput) {
-        self.matching = matching
+    public init(factory: FallingBackMatchedContactFactory, output: ContactCallHistoryRecordsGetUseCaseOutput) {
+        self.factory = factory
         self.output = output
     }
 }
@@ -32,14 +32,6 @@ extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutpu
     }
 
     private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-        return ContactCallHistoryRecord(origin: record, contact: makeContact(uri: record.uri))
-    }
-
-    private func makeContact(uri: URI) -> MatchedContact {
-        if let match = matching.match(for: uri) {
-            return match
-        } else {
-            return MatchedContact(uri: uri)
-        }
+        return ContactCallHistoryRecord(origin: record, contact: factory.make(uri: record.uri))
     }
 }
