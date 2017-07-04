@@ -1,5 +1,5 @@
 //
-//  ContactCallHistoryRecordsGetUseCase.swift
+//  ContactCallHistoryRecordGetAllUseCase.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-public final class ContactCallHistoryRecordsGetUseCase {
+public final class ContactCallHistoryRecordGetAllUseCase {
     fileprivate let factory: FallingBackMatchedContactFactory
-    fileprivate let output: ContactCallHistoryRecordsGetUseCaseOutput
+    fileprivate let output: ContactCallHistoryRecordGetAllUseCaseOutput
 
-    public init(factory: FallingBackMatchedContactFactory, output: ContactCallHistoryRecordsGetUseCaseOutput) {
+    public init(factory: FallingBackMatchedContactFactory, output: ContactCallHistoryRecordGetAllUseCaseOutput) {
         self.factory = factory
         self.output = output
     }
 }
 
-extension ContactCallHistoryRecordsGetUseCase: CallHistoryRecordsGetUseCaseOutput {
+extension ContactCallHistoryRecordGetAllUseCase: CallHistoryRecordGetAllUseCaseOutput {
     public func update(records: [CallHistoryRecord]) {
         output.update(records: records.map(makeContactCallHistoryRecord))
     }

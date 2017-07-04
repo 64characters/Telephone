@@ -49,13 +49,13 @@ final class CallHistoryViewEventTargetFactory {
         let history = histories.history(withUUID: account.uuid)
         let result = CallHistoryViewEventTarget(
             recordsGet: EnqueuingUseCase(
-                origin: CallHistoryRecordsGetUseCase(
+                origin: CallHistoryRecordGetAllUseCase(
                     history: history,
-                    output: ContactCallHistoryRecordsGetUseCase(
+                    output: ContactCallHistoryRecordGetAllUseCase(
                         factory: FallingBackMatchedContactFactory(
                             matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain)
                         ),
-                        output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
+                        output: EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(
                             origin: CallHistoryViewPresenter(
                                 view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
                             ),

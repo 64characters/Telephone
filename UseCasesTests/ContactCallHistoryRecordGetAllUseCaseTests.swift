@@ -1,5 +1,5 @@
 //
-//  ContactCallHistoryRecordsGetUseCaseTests.swift
+//  ContactCallHistoryRecordGetAllUseCaseTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,14 +20,14 @@ import XCTest
 import UseCases
 import UseCasesTestDoubles
 
-final class ContactCallHistoryRecordsGetUseCaseTests: XCTestCase {
+final class ContactCallHistoryRecordGetAllUseCaseTests: XCTestCase {
     func testCallsUpdateOnOutputWithRecordsConvertedUsingMatchedContactFactoryOnUpdate() {
         let record1 = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let record2 = CallHistoryRecordTestFactory().makeRecord(number: 2)
         let contact1 = MatchedContact(uri: record1.uri)
         let contact2 = MatchedContact(uri: record2.uri)
-        let output = ContactCallHistoryRecordsGetUseCaseOutputSpy()
-        let sut = ContactCallHistoryRecordsGetUseCase(
+        let output = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
+        let sut = ContactCallHistoryRecordGetAllUseCase(
             factory: FallingBackMatchedContactFactory(
                 matching: ContactMatchingStub([record1.uri: contact1, record2.uri: contact2])
             ),
