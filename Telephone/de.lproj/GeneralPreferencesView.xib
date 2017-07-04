@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesViewController">
@@ -13,13 +14,13 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="201"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="150" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="134"/>
             <subviews>
                 <stackView orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Sgq-KJ-Jcb">
-                    <rect key="frame" x="85" y="20" width="272" height="74"/>
+                    <rect key="frame" x="85" y="20" width="272" height="94"/>
                     <beginningViews>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="255">
-                            <rect key="frame" x="-2" y="58" width="276" height="18"/>
+                            <rect key="frame" x="-2" y="78" width="276" height="18"/>
                             <buttonCell key="cell" type="check" title="Telefonnummern automatisch formatieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="256">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -29,7 +30,7 @@
                             </connections>
                         </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="415">
-                            <rect key="frame" x="-2" y="38" width="257" height="18"/>
+                            <rect key="frame" x="-2" y="58" width="257" height="18"/>
                             <buttonCell key="cell" type="check" title="Bei Anruf iTunes und Spotify pausieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="416">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -39,13 +40,23 @@
                             </connections>
                         </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="419">
-                            <rect key="frame" x="-2" y="18" width="238" height="18"/>
+                            <rect key="frame" x="-2" y="38" width="238" height="18"/>
                             <buttonCell key="cell" type="check" title="Anruffenster automatisch schließen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="420">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
                                 <binding destination="201" name="value" keyPath="values.AutoCloseCallWindow" id="422"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ng8-0u-xIT">
+                            <rect key="frame" x="-2" y="18" width="234" height="18"/>
+                            <buttonCell key="cell" type="check" title="Anruffenster bleibt im Vordergrund" bezelStyle="regularSquare" imagePosition="left" inset="2" id="vhe-2F-Fac">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="201" name="value" keyPath="values.KeepCallWindowOnTop" id="czi-cX-8M9"/>
                             </connections>
                         </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="424">
@@ -64,8 +75,10 @@
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
+                        <integer value="1000"/>
                     </visibilityPriorities>
                     <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
@@ -76,6 +89,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Sgq-KJ-Jcb" secondAttribute="bottom" constant="20" symbolic="YES" id="NtM-l6-GcV"/>
                 <constraint firstItem="Sgq-KJ-Jcb" firstAttribute="leading" secondItem="150" secondAttribute="leading" constant="85" id="tbb-kg-sSn"/>
+                <constraint firstItem="Sgq-KJ-Jcb" firstAttribute="top" secondItem="150" secondAttribute="top" constant="20" symbolic="YES" id="yMA-Cr-jJd"/>
             </constraints>
             <point key="canvasLocation" x="496" y="463"/>
         </customView>
