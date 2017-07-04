@@ -60,3 +60,8 @@ Build and install (remove `--with-opus` option if you don’t need Opus):
 
     
 Build Telephone.
+
+## Contribution
+
+For the legal reasons, pull requests are not accepted. Please feel
+free to share your thoughts and ideas by commenting on the issues.
