@@ -13,7 +13,7 @@
 //  GNU General Public License for more details.
 //
 
-@testable import UseCases
+import UseCases
 import UseCasesTestDoubles
 import XCTest
 

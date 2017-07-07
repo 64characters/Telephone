@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-extension URI {
+public extension URI {
     convenience init(record: ContactCallHistoryRecord) {
         self.init(
             user: record.origin.uri.user,
