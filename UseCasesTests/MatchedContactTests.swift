@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-@testable import UseCases
+import UseCases
 import XCTest
 
 final class MatchedContactTests: XCTestCase {

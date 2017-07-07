@@ -51,7 +51,7 @@ extension MatchedContact.Address: Equatable {
 }
 
 extension MatchedContact {
-    init(uri: URI) {
+    public init(uri: URI) {
         self.init(name: uri.displayName, address: Address(uri: uri))
     }
 }

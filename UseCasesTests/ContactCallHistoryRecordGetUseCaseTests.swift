@@ -17,7 +17,7 @@
 //
 
 import XCTest
-@testable import UseCases
+import UseCases
 import UseCasesTestDoubles
 
 final class ContactCallHistoryRecordGetUseCaseTests: XCTestCase {
