@@ -49,3 +49,19 @@ extension MatchedContact.Address: Equatable {
         }
     }
 }
+
+extension MatchedContact {
+    public init(uri: URI) {
+        self.init(name: uri.displayName, address: Address(uri: uri))
+    }
+}
+
+extension MatchedContact.Address {
+    init(uri: URI) {
+        if uri.host.isEmpty {
+            self = .phone(number: uri.user, label: "")
+        } else {
+            self = .email(address: "\(uri.user)@\(uri.host)", label: "")
+        }
+    }
+}

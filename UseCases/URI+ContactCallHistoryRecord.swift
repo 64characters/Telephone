@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordGetUseCaseOutput.swift
+//  URI+ContactCallHistoryRecord.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistoryRecordGetUseCaseOutput {
-    func update(record: CallHistoryRecord)
+public extension URI {
+    convenience init(record: ContactCallHistoryRecord) {
+        self.init(
+            user: record.origin.uri.user,
+            host: record.origin.uri.host,
+            displayName: record.contact.name.isEmpty ? record.origin.uri.displayName : record.contact.name
+        )
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  ContactCallHistoryRecordsGetUseCaseOutput.swift
+//  ContactCallHistoryRecordGetAllUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactCallHistoryRecordsGetUseCaseOutput {
-    func update(records: [ContactCallHistoryRecord])
+import UseCases
+
+public final class ContactCallHistoryRecordGetAllUseCaseOutputSpy {
+    public fileprivate(set) var invokedRecords: [ContactCallHistoryRecord] = []
+
+    public init() {}
+}
+
+extension ContactCallHistoryRecordGetAllUseCaseOutputSpy: ContactCallHistoryRecordGetAllUseCaseOutput {
+    public func update(records: [ContactCallHistoryRecord]) {
+        invokedRecords = records
+    }
 }

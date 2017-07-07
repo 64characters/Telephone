@@ -1,5 +1,5 @@
 //
-//  AccountSpy.swift
+//  ContactCallHistoryRecordGetAllUseCaseOutput.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class AccountSpy {
-    public let uuid = ""
-    public let domain = ""
-
-    public fileprivate(set) var didCallMakeCall = false
-    public fileprivate(set) var invokedURI: URI?
-    public fileprivate(set) var invokedLabel: String?
-
-    public init() {}
-}
-
-extension AccountSpy: Account {
-    public func makeCall(to uri: URI, label: String) {
-        didCallMakeCall = true
-        invokedURI = uri
-        invokedLabel = label
-    }
+public protocol ContactCallHistoryRecordGetAllUseCaseOutput {
+    func update(records: [ContactCallHistoryRecord])
 }

@@ -1,5 +1,5 @@
 //
-//  EnqueuingCallHistoryRecordGetUseCaseOutputTests.swift
+//  EnqueuingContactCallHistoryRecordGetUseCaseOutputTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,24 +20,31 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class EnqueuingCallHistoryRecordGetUseCaseOutputTests: XCTestCase {
+final class EnqueuingContactCallHistoryRecordGetUseCaseOutputTests: XCTestCase {
     func testAddsBlockToQueueOnUpdate() {
         let queue = ExecutionQueueSpy()
-        let sut = EnqueuingCallHistoryRecordGetUseCaseOutput(origin: CallHistoryRecordGetUseCaseOutputSpy(), queue: queue)
+        let sut = EnqueuingContactCallHistoryRecordGetUseCaseOutput(
+            origin: ContactCallHistoryRecordGetUseCaseOutputSpy(), queue: queue
+        )
 
-        sut.update(record: CallHistoryRecordTestFactory().makeRecord(number: 1))
+        sut.update(record: ContactCallHistoryRecord(
+            origin: CallHistoryRecordTestFactory().makeRecord(number: 1),
+            contact: MatchedContact(name: "any", address: .email(address: "any", label: "any"))
+        ))
 
         XCTAssertTrue(queue.didCallAdd)
     }
 
     func testCallsUpdateOnOriginWithTheSameArgumentOnUpdate() {
-        let origin = CallHistoryRecordGetUseCaseOutputSpy()
-        let sut = EnqueuingCallHistoryRecordGetUseCaseOutput(origin: origin, queue: SyncExecutionQueue())
-        let record = CallHistoryRecordTestFactory().makeRecord(number: 2)
+        let origin = ContactCallHistoryRecordGetUseCaseOutputSpy()
+        let sut = EnqueuingContactCallHistoryRecordGetUseCaseOutput(origin: origin, queue: SyncExecutionQueue())
+        let record = ContactCallHistoryRecord(
+            origin: CallHistoryRecordTestFactory().makeRecord(number: 2),
+            contact: MatchedContact(name: "any", address: .email(address: "any", label: "any"))
+        )
 
         sut.update(record: record)
 
-        XCTAssertTrue(origin.didCallUpdate)
         XCTAssertEqual(origin.invokedRecord, record)
     }
 }

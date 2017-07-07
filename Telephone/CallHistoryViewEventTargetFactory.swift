@@ -47,13 +47,16 @@ final class CallHistoryViewEventTargetFactory {
 
     func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
         let history = histories.history(withUUID: account.uuid)
+        let factory = FallingBackMatchedContactFactory(
+            matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain)
+        )
         let result = CallHistoryViewEventTarget(
             recordsGet: EnqueuingUseCase(
-                origin: CallHistoryRecordsGetUseCase(
+                origin: CallHistoryRecordGetAllUseCase(
                     history: history,
-                    output: ContactCallHistoryRecordsGetUseCase(
-                        matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain),
-                        output: EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
+                    output: ContactCallHistoryRecordGetAllUseCase(
+                        factory: factory,
+                        output: EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(
                             origin: CallHistoryViewPresenter(
                                 view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
                             ),
@@ -67,7 +70,7 @@ final class CallHistoryViewEventTargetFactory {
                 origin: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history), queue: background
             ),
             callMake: EnqueuingCallHistoryCallMakeUseCaseFactory(
-                account: account, history: history, accountQueue: main, historyQueue: background
+                account: account, history: history, factory: factory, accountQueue: main, historyQueue: background
             )
         )
         history.updateTarget(

@@ -16,6 +16,10 @@
 //  GNU General Public License for more details.
 //
 
+public protocol CallHistoryRecordGetUseCaseOutput {
+    func update(record: CallHistoryRecord)
+}
+
 public final class CallHistoryRecordGetUseCase {
     fileprivate let identifier: String
     fileprivate let history: CallHistory

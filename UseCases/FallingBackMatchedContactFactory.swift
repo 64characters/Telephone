@@ -1,5 +1,5 @@
 //
-//  AccountSpy.swift
+//  FallingBackMatchedContactFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class FallingBackMatchedContactFactory {
+    private let matching: ContactMatching
 
-public final class AccountSpy {
-    public let uuid = ""
-    public let domain = ""
+    public init(matching: ContactMatching) {
+        self.matching = matching
+    }
 
-    public fileprivate(set) var didCallMakeCall = false
-    public fileprivate(set) var invokedURI: URI?
-    public fileprivate(set) var invokedLabel: String?
-
-    public init() {}
-}
-
-extension AccountSpy: Account {
-    public func makeCall(to uri: URI, label: String) {
-        didCallMakeCall = true
-        invokedURI = uri
-        invokedLabel = label
+    public func make(uri: URI) -> MatchedContact {
+        return matching.match(for: uri) ?? MatchedContact(uri: uri)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  EnqueuingContactCallHistoryRecordsGetUseCaseOutputTests.swift
+//  EnqueuingContactCallHistoryRecordGetAllUseCaseOutputTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,11 +20,11 @@ import XCTest
 import UseCases
 import UseCasesTestDoubles
 
-final class EnqueuingContactCallHistoryRecordsGetUseCaseOutputTests: XCTestCase {
+final class EnqueuingContactCallHistoryRecordGetAllUseCaseOutputTests: XCTestCase {
     func testAddsBlockToQueueOnUpdate() {
         let queue = ExecutionQueueSpy()
-        let sut = EnqueuingContactCallHistoryRecordsGetUseCaseOutput(
-            origin: ContactCallHistoryRecordsGetUseCaseOutputSpy(), queue: queue
+        let sut = EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(
+            origin: ContactCallHistoryRecordGetAllUseCaseOutputSpy(), queue: queue
         )
 
         sut.update(records: [])
@@ -33,8 +33,8 @@ final class EnqueuingContactCallHistoryRecordsGetUseCaseOutputTests: XCTestCase 
     }
 
     func testCallsUpdateOnOriginWithTheSameArgumentOnUpdate() {
-        let origin = ContactCallHistoryRecordsGetUseCaseOutputSpy()
-        let sut = EnqueuingContactCallHistoryRecordsGetUseCaseOutput(origin: origin, queue: SyncExecutionQueue())
+        let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
+        let sut = EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, queue: SyncExecutionQueue())
         let records = [makeRecord(number: 1), makeRecord(number: 2), makeRecord(number: 3)]
 
         sut.update(records: records)

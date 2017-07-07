@@ -29,5 +29,5 @@ public final class SimpleAccount {
 }
 
 extension SimpleAccount: Account {
-    public func makeCall(to uri: URI) {}
+    public func makeCall(to uri: URI, label: String) {}
 }

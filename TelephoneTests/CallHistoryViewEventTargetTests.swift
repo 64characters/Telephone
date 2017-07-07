@@ -20,7 +20,7 @@ import XCTest
 import UseCasesTestDoubles
 
 final class CallHistoryViewEventTargetTests: XCTestCase {
-    func testExecutesCallHistoryRecordsGetUseCaseOnShouldReloadData() {
+    func testExecutesCallHistoryRecordGetAllUseCaseOnShouldReloadData() {
         let get = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
             recordsGet: get,
@@ -33,7 +33,7 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertTrue(get.didCallExecute)
     }
 
-    func testExecutesCallHistoryRecordsGetUseCaseOnDidUpdateHistory() {
+    func testExecutesCallHistoryRecordGetAllUseCaseOnDidUpdateHistory() {
         let get = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
             recordsGet: get,

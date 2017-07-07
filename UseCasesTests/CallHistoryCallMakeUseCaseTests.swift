@@ -18,14 +18,32 @@ import UseCasesTestDoubles
 import XCTest
 
 final class CallHistoryCallMakeUseCaseTests: XCTestCase {
-    func testMakesCallToRecordURIOnUpdate() {
+    func testMakesCallToURICreatedFromRecordOnUpdate() {
+        let record = ContactCallHistoryRecord(
+            origin: CallHistoryRecordTestFactory().makeRecord(number: 1),
+            contact: MatchedContact(name: "any", address: .email(address: "any", label: "any"))
+        )
         let account = AccountSpy()
-        let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let sut = CallHistoryCallMakeUseCase(account: account)
 
         sut.update(record: record)
 
-        XCTAssertTrue(account.didCallMakeCallTo)
-        XCTAssertEqual(account.invokedURI, record.uri)
+        XCTAssertTrue(account.didCallMakeCall)
+        XCTAssertEqual(account.invokedURI, URI(record: record))
+    }
+
+    func testMakesCallWithLabelFromContactAddressOnUpdate() {
+        let label = "any-label"
+        let record = ContactCallHistoryRecord(
+            origin: CallHistoryRecordTestFactory().makeRecord(number: 1),
+            contact: MatchedContact(name: "any", address: .email(address: "any", label: label))
+        )
+        let account = AccountSpy()
+        let sut = CallHistoryCallMakeUseCase(account: account)
+
+        sut.update(record: record)
+
+        XCTAssertTrue(account.didCallMakeCall)
+        XCTAssertEqual(account.invokedLabel, label)
     }
 }

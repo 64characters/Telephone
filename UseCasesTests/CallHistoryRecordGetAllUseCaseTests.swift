@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordsGetUseCaseTests.swift
+//  CallHistoryRecordGetAllUseCaseTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,14 +20,14 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class CallHistoryRecordsGetUseCaseTests: XCTestCase {
+final class CallHistoryRecordGetAllUseCaseTests: XCTestCase {
     func testCallsUpdateWithRecordsFromHistoryOnExecute() {
         let factory = CallHistoryRecordTestFactory()
         let history = TruncatingCallHistory()
         history.add(factory.makeRecord(number: 1))
         history.add(factory.makeRecord(number: 2))
-        let output = CallHistoryRecordsGetUseCaseOutputSpy()
-        let sut = CallHistoryRecordsGetUseCase(history: history, output: output)
+        let output = CallHistoryRecordGetAllUseCaseOutputSpy()
+        let sut = CallHistoryRecordGetAllUseCase(history: history, output: output)
 
         sut.execute()
 

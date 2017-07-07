@@ -31,7 +31,7 @@ final class CallHistoryViewPresenter {
     }
 }
 
-extension CallHistoryViewPresenter: ContactCallHistoryRecordsGetUseCaseOutput {
+extension CallHistoryViewPresenter: ContactCallHistoryRecordGetAllUseCaseOutput {
     func update(records: [ContactCallHistoryRecord]) {
         view.show(records.map(makeRecord))
     }
