@@ -20,5 +20,5 @@
     var uuid: String { get }
     var domain: String { get }
 
-    func makeCall(to uri: URI)
+    func makeCall(to uri: URI, label: String)
 }

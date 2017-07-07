@@ -259,7 +259,7 @@ NS_ASSUME_NONNULL_END
     self.identifier = identifier;
 }
 
-- (void)makeCallTo:(URI *)uri {
+- (void)makeCallTo:(URI *)uri label:(NSString *)label {
     NSLog(@"Not calling %@", uri);
 }
 

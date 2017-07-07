@@ -22,15 +22,17 @@ public final class AccountSpy {
     public let uuid = ""
     public let domain = ""
 
-    public fileprivate(set) var didCallMakeCallTo = false
+    public fileprivate(set) var didCallMakeCall = false
     public fileprivate(set) var invokedURI: URI?
+    public fileprivate(set) var invokedLabel: String?
 
     public init() {}
 }
 
 extension AccountSpy: Account {
-    public func makeCall(to uri: URI) {
-        didCallMakeCallTo = true
+    public func makeCall(to uri: URI, label: String) {
+        didCallMakeCall = true
         invokedURI = uri
+        invokedLabel = label
     }
 }
