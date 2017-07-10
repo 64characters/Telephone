@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,7 +47,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-zC-WCA">
-                                                        <rect key="frame" x="8" y="17" width="10" height="10"/>
+                                                        <rect key="frame" x="8" y="25" width="10" height="10"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call-dark" id="7Bf-tN-avV"/>
                                                         <connections>
                                                             <binding destination="GQL-B4-dJ7" name="hidden" keyPath="objectValue.isIncoming" id="tOK-kH-icO"/>
@@ -55,8 +55,8 @@
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="cdt-zC-WCA" firstAttribute="top" secondItem="GQL-B4-dJ7" secondAttribute="top" constant="9" id="EDn-ph-8EJ"/>
                                                     <constraint firstItem="cdt-zC-WCA" firstAttribute="leading" secondItem="GQL-B4-dJ7" secondAttribute="leading" constant="8" id="SMW-Jo-2mY"/>
-                                                    <constraint firstItem="cdt-zC-WCA" firstAttribute="centerY" secondItem="GQL-B4-dJ7" secondAttribute="centerY" id="XCG-nN-VcS"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="outgoingCallView" destination="cdt-zC-WCA" id="ye4-fE-mSS"/>
@@ -90,8 +90,8 @@
                                                         </textFieldCell>
                                                         <connections>
                                                             <binding destination="WWY-ZO-bzC" name="textColor" keyPath="objectValue.contact.color" id="gPH-7Y-lSS"/>
-                                                            <binding destination="WWY-ZO-bzC" name="toolTip" keyPath="objectValue.contact.tooltip" id="PXL-as-zWg"/>
                                                             <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.title" id="JtA-9q-f2E"/>
+                                                            <binding destination="WWY-ZO-bzC" name="toolTip" keyPath="objectValue.contact.tooltip" id="PXL-as-zWg"/>
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">
