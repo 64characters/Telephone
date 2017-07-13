@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="ziE-jX-sRX">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="ziE-jX-sRX">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="2"/>
@@ -118,6 +118,10 @@
                                                     <outlet property="textField" destination="qIw-Ai-26d" id="ind-Ur-qcM"/>
                                                 </connections>
                                             </tableCellView>
+                                            <customView identifier="NSTableViewRowViewKey" id="Pf7-AS-KlV" customClass="CallHistoryTableRowView" customModule="Telephone" customModuleProvider="target">
+                                                <rect key="frame" x="25" y="47" width="152" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
                                     <tableColumn identifier="" width="120" minWidth="120" maxWidth="150" id="SdP-Nc-fYr">
@@ -178,6 +182,7 @@
                                 <connections>
                                     <action trigger="doubleAction" selector="didDoubleClick:" target="-2" id="4wo-vb-AIE"/>
                                     <outlet property="dataSource" destination="-2" id="jb8-ir-2k0"/>
+                                    <outlet property="delegate" destination="-2" id="ArD-xd-1PW"/>
                                 </connections>
                             </tableView>
                         </subviews>

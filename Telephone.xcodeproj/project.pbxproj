@@ -89,6 +89,7 @@
 		8A2758741EF1855C002E93D8 /* EnqueuingContactCallHistoryRecordGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2758731EF1855C002E93D8 /* EnqueuingContactCallHistoryRecordGetUseCaseOutput.swift */; };
 		8A2BAAE01F06C1E700A1801E /* FallingBackMatchedContactFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BAADF1F06C1E700A1801E /* FallingBackMatchedContactFactoryTests.swift */; };
 		8A2BAAE21F06C97800A1801E /* FallingBackMatchedContactFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BAAE11F06C97800A1801E /* FallingBackMatchedContactFactory.swift */; };
+		8A2C042C1F16A44700C46693 /* CallHistoryTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C042B1F16A44700C46693 /* CallHistoryTableRowView.swift */; };
 		8A2C9D1E1DD5F73F002367BF /* CallHistoryRecordRemoveUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C9D1D1DD5F73F002367BF /* CallHistoryRecordRemoveUseCaseTests.swift */; };
 		8A2C9D201DD5F846002367BF /* CallHistoryRecordRemoveUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C9D1F1DD5F846002367BF /* CallHistoryRecordRemoveUseCase.swift */; };
 		8A2C9D221DD5FAC1002367BF /* CallHistoryRecordRemoveAllUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C9D211DD5FAC1002367BF /* CallHistoryRecordRemoveAllUseCaseTests.swift */; };
@@ -833,6 +834,7 @@
 		8A2758731EF1855C002E93D8 /* EnqueuingContactCallHistoryRecordGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnqueuingContactCallHistoryRecordGetUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A2BAADF1F06C1E700A1801E /* FallingBackMatchedContactFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FallingBackMatchedContactFactoryTests.swift; path = UseCasesTests/FallingBackMatchedContactFactoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8A2BAAE11F06C97800A1801E /* FallingBackMatchedContactFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallingBackMatchedContactFactory.swift; sourceTree = "<group>"; };
+		8A2C042B1F16A44700C46693 /* CallHistoryTableRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryTableRowView.swift; sourceTree = "<group>"; };
 		8A2C9D1D1DD5F73F002367BF /* CallHistoryRecordRemoveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordRemoveUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordRemoveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A2C9D1F1DD5F846002367BF /* CallHistoryRecordRemoveUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordRemoveUseCase.swift; sourceTree = "<group>"; };
 		8A2C9D211DD5FAC1002367BF /* CallHistoryRecordRemoveAllUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordRemoveAllUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordRemoveAllUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -2281,6 +2283,7 @@
 			isa = PBXGroup;
 			children = (
 				8A1F2E611E71702D00E3624C /* CallHistoryOutgoingCallCellView.swift */,
+				8A2C042B1F16A44700C46693 /* CallHistoryTableRowView.swift */,
 				8A778C0F1E0C13C5004B00B8 /* CallHistoryView.swift */,
 				8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */,
 				8A778C021E095B5D004B00B8 /* CallHistoryViewController.xib */,
@@ -3470,6 +3473,7 @@
 				AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */,
 				AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */,
 				8AD9A0E01DE34F20000BB2F2 /* SimplePropertyListStorageFactory.swift in Sources */,
+				8A2C042C1F16A44700C46693 /* CallHistoryTableRowView.swift in Sources */,
 				AA3FABA71BBC0A0D0064B2C3 /* SystemAudioDevicesChangeEventSource.swift in Sources */,
 				AAC0FFC21BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				8A7292371EDF22A700338592 /* ThreadExecutionQueue.swift in Sources */,
