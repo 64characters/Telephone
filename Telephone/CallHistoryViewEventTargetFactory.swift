@@ -22,6 +22,7 @@ final class CallHistoryViewEventTargetFactory {
     private let histories: CallHistories
     private let index: ContactMatchingIndex
     private let settings: ContactMatchingSettings
+    private let receipt: Receipt
     private let dateFormatter: DateFormatter
     private let durationFormatter: DateComponentsFormatter
     private let background: ExecutionQueue
@@ -31,6 +32,7 @@ final class CallHistoryViewEventTargetFactory {
         histories: CallHistories,
         index: ContactMatchingIndex,
         settings: ContactMatchingSettings,
+        receipt: Receipt,
         dateFormatter: DateFormatter,
         durationFormatter: DateComponentsFormatter,
         background: ExecutionQueue,
@@ -39,6 +41,7 @@ final class CallHistoryViewEventTargetFactory {
         self.histories = histories
         self.index = index
         self.settings = settings
+        self.receipt = receipt
         self.dateFormatter = dateFormatter
         self.durationFormatter = durationFormatter
         self.background = background
@@ -57,8 +60,11 @@ final class CallHistoryViewEventTargetFactory {
                     output: ContactCallHistoryRecordGetAllUseCase(
                         factory: factory,
                         output: EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(
-                            origin: CallHistoryViewPresenter(
-                                view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                            origin: ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(
+                                origin: CallHistoryViewPresenter(
+                                    view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                                ),
+                                receipt: receipt
                             ),
                             queue: main
                         )
