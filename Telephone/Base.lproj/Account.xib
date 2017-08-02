@@ -29,25 +29,27 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="579" width="300" height="184"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-            <value key="minSize" type="size" width="300" height="184"/>
             <view key="contentView" wantsLayer="YES" id="4">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="184"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="BJB-cW-pU5">
-                        <rect key="frame" x="0.0" y="123" width="300" height="61"/>
+                        <rect key="frame" x="0.0" y="139" width="300" height="61"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="61" id="aEF-BK-RYg"/>
                         </constraints>
                     </customView>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="6zb-TV-5Ys">
-                        <rect key="frame" x="0.0" y="120" width="300" height="5"/>
+                        <rect key="frame" x="0.0" y="136" width="300" height="5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="aVi-wz-AWN"/>
                         </constraints>
                     </box>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="P1D-w1-bLn">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="122"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="138"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="138" id="Kx5-E5-uDf"/>
+                        </constraints>
                     </customView>
                 </subviews>
                 <constraints>
