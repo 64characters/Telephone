@@ -92,6 +92,11 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 @property(nonatomic, weak) IBOutlet NSView *activeAccountView;
 @property(nonatomic, weak) IBOutlet NSView *callHistoryView;
 
+@property(nonatomic, weak) IBOutlet NSLayoutConstraint *activeAccountViewHeightConstraint;
+@property(nonatomic, weak) IBOutlet NSLayoutConstraint *horizontalLineHeightConstraint;
+@property(nonatomic) CGFloat originalActiveAccountViewHeight;
+@property(nonatomic) CGFloat originalHorizontalLineHeight;
+
 @property(nonatomic, weak) IBOutlet NSToolbarItem *accountStateToolbarItem;
 @property(nonatomic, weak) IBOutlet NSImageView *accountStateImageView;
 @property(nonatomic, weak) IBOutlet NSPopUpButton *accountStatePopUp;
@@ -515,7 +520,12 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [[self availableStateItem] setState:NSOnState];
     [[self unavailableStateItem] setState:NSOffState];
 
-    [self.activeAccountViewController allowCallDestinationInput];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+        self.activeAccountViewHeightConstraint.animator.constant = self.originalActiveAccountViewHeight;
+        self.horizontalLineHeightConstraint.animator.constant = self.originalHorizontalLineHeight;
+    } completionHandler:^{
+        [self.activeAccountViewController allowCallDestinationInput];
+    }];
 }
 
 - (void)showUnavailableState {
@@ -536,10 +546,15 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [[self availableStateItem] setState:NSOffState];
     [[self unavailableStateItem] setState:NSOnState];
 
-    [self.activeAccountViewController allowCallDestinationInput];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+        self.activeAccountViewHeightConstraint.animator.constant = self.originalActiveAccountViewHeight;
+        self.horizontalLineHeightConstraint.animator.constant = self.originalHorizontalLineHeight;
+    } completionHandler:^{
+        [self.activeAccountViewController allowCallDestinationInput];
+    }];
 }
 
-- (void)showOfflineState {
+- (void)showOfflineStateAnimated:(BOOL)animated {
     NSSize size = [[self accountStateToolbarItem] maxSize];
     NSString *localization = [[NSBundle mainBundle] preferredLocalizations][0];
     if ([localization isEqualToString:kEnglish]) {
@@ -558,6 +573,18 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [[self unavailableStateItem] setState:NSOffState];
 
     [self.activeAccountViewController disallowCallDestinationInput];
+
+    if (animated) {
+        self.activeAccountViewHeightConstraint.animator.constant = 0;
+        self.horizontalLineHeightConstraint.animator.constant = 0;
+    } else {
+        self.activeAccountViewHeightConstraint.constant = 0;
+        self.horizontalLineHeightConstraint.constant = 0;
+    }
+}
+
+- (void)showOfflineState {
+    [self showOfflineStateAnimated:YES];
 }
 
 - (void)showConnectingState {
@@ -589,6 +616,9 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     self.window.frameAutosaveName = self.account.SIPAddress;
     self.window.excludedFromWindowsMenu = YES;
 
+    self.originalActiveAccountViewHeight = self.activeAccountViewHeightConstraint.constant;
+    self.originalHorizontalLineHeight = self.horizontalLineHeightConstraint.constant;
+
     self.activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self];
     [self.activeAccountView addSubview:self.activeAccountViewController.view];
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
@@ -607,7 +637,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountViewController updateNextKeyView:self.callHistoryViewController.keyView];
     [self.callHistoryViewController updateNextKeyView:self.activeAccountViewController.keyView];
 
-    [self showOfflineState];
+    [self showOfflineStateAnimated:NO];
 }
 
 - (BOOL)windowShouldClose:(id)sender {

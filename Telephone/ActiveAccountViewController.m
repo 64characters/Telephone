@@ -107,10 +107,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 }
 
 - (void)allowCallDestinationInput {
-    self.callDestinationField.hidden = NO;
-    if (self.callDestinationField.acceptsFirstResponder) {
-        [self.view.window makeFirstResponder:self.callDestinationField];
-    }
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+        self.callDestinationField.animator.hidden = NO;
+    } completionHandler:^{
+        if (self.callDestinationField.acceptsFirstResponder) {
+            [self.view.window makeFirstResponder:self.callDestinationField];
+        }
+    }];
 }
 
 - (void)disallowCallDestinationInput {
