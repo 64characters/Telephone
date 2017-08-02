@@ -121,6 +121,22 @@ extension CallHistoryViewController: NSTableViewDataSource {
     }
 }
 
+extension CallHistoryViewController: NSTableViewDelegate {
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        updateSeparators()
+    }
+
+    func tableViewSelectionIsChanging(_ notification: Notification) {
+        updateSeparators()
+    }
+
+    private func updateSeparators() {
+        tableView.enumerateAvailableRowViews { (view, _) in
+            view.needsDisplay = true
+        }
+    }
+}
+
 private func makeAlert(recordName name: String) -> NSAlert {
     let a = NSAlert()
     a.messageText = String(

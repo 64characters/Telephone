@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,8 +12,10 @@
                 <outlet property="accountStatePopUp" destination="8kv-8M-WnO" id="QTV-ZO-Tni"/>
                 <outlet property="accountStateToolbarItem" destination="q93-R7-UiB" id="24v-BY-jYW"/>
                 <outlet property="activeAccountView" destination="BJB-cW-pU5" id="0xB-Sg-Ivn"/>
+                <outlet property="activeAccountViewHeightConstraint" destination="aEF-BK-RYg" id="svw-Dq-6hy"/>
                 <outlet property="availableStateItem" destination="45b-yq-Hu2" id="8c6-x7-khg"/>
                 <outlet property="callHistoryView" destination="P1D-w1-bLn" id="lRj-W1-edc"/>
+                <outlet property="horizontalLineHeightConstraint" destination="aVi-wz-AWN" id="oGz-ar-H5h"/>
                 <outlet property="offlineStateItem" destination="aEv-gV-BF6" id="aI9-oe-thS"/>
                 <outlet property="unavailableStateItem" destination="tBT-83-toA" id="y3d-XB-qX1"/>
                 <outlet property="window" destination="3" id="21"/>
@@ -40,6 +42,9 @@
                     </customView>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="6zb-TV-5Ys">
                         <rect key="frame" x="0.0" y="120" width="300" height="5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="aVi-wz-AWN"/>
+                        </constraints>
                     </box>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="P1D-w1-bLn">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="122"/>

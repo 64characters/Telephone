@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="ziE-jX-sRX">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="ziE-jX-sRX">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="2"/>
@@ -47,7 +47,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-zC-WCA">
-                                                        <rect key="frame" x="8" y="17" width="10" height="10"/>
+                                                        <rect key="frame" x="8" y="25" width="10" height="10"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call-dark" id="7Bf-tN-avV"/>
                                                         <connections>
                                                             <binding destination="GQL-B4-dJ7" name="hidden" keyPath="objectValue.isIncoming" id="tOK-kH-icO"/>
@@ -55,8 +55,8 @@
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="cdt-zC-WCA" firstAttribute="top" secondItem="GQL-B4-dJ7" secondAttribute="top" constant="9" id="EDn-ph-8EJ"/>
                                                     <constraint firstItem="cdt-zC-WCA" firstAttribute="leading" secondItem="GQL-B4-dJ7" secondAttribute="leading" constant="8" id="SMW-Jo-2mY"/>
-                                                    <constraint firstItem="cdt-zC-WCA" firstAttribute="centerY" secondItem="GQL-B4-dJ7" secondAttribute="centerY" id="XCG-nN-VcS"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="outgoingCallView" destination="cdt-zC-WCA" id="ye4-fE-mSS"/>
@@ -90,8 +90,8 @@
                                                         </textFieldCell>
                                                         <connections>
                                                             <binding destination="WWY-ZO-bzC" name="textColor" keyPath="objectValue.contact.color" id="gPH-7Y-lSS"/>
-                                                            <binding destination="WWY-ZO-bzC" name="toolTip" keyPath="objectValue.contact.tooltip" id="PXL-as-zWg"/>
                                                             <binding destination="WWY-ZO-bzC" name="value" keyPath="objectValue.contact.title" id="JtA-9q-f2E"/>
+                                                            <binding destination="WWY-ZO-bzC" name="toolTip" keyPath="objectValue.contact.tooltip" id="PXL-as-zWg"/>
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">
@@ -118,6 +118,10 @@
                                                     <outlet property="textField" destination="qIw-Ai-26d" id="ind-Ur-qcM"/>
                                                 </connections>
                                             </tableCellView>
+                                            <customView identifier="NSTableViewRowViewKey" id="Pf7-AS-KlV" customClass="CallHistoryTableRowView" customModule="Telephone" customModuleProvider="target">
+                                                <rect key="frame" x="25" y="47" width="152" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
                                     <tableColumn identifier="" width="120" minWidth="120" maxWidth="150" id="SdP-Nc-fYr">
@@ -178,6 +182,7 @@
                                 <connections>
                                     <action trigger="doubleAction" selector="didDoubleClick:" target="-2" id="4wo-vb-AIE"/>
                                     <outlet property="dataSource" destination="-2" id="jb8-ir-2k0"/>
+                                    <outlet property="delegate" destination="-2" id="ArD-xd-1PW"/>
                                 </connections>
                             </tableView>
                         </subviews>
