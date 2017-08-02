@@ -44,10 +44,5 @@ final class EnqueuingContactCallHistoryRecordGetAllUseCaseOutputTests: XCTestCas
 }
 
 private func makeRecord(number: Int) -> ContactCallHistoryRecord {
-    return ContactCallHistoryRecord(
-        origin: CallHistoryRecordTestFactory().makeRecord(number: number),
-        contact: MatchedContact(
-            name: "any-name-\(number)", address: .email(address: "any-address\(number)", label: "any-label-\(number)")
-        )
-    )
+    return ContactCallHistoryRecordTestFactory(factory: CallHistoryRecordTestFactory()).makeRecord(number: number)
 }
