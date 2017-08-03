@@ -48,6 +48,7 @@
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="P1D-w1-bLn">
                         <rect key="frame" x="0.0" y="32" width="300" height="158"/>
                         <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="7ig-ai-E7t"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="158" id="Kx5-E5-uDf"/>
                         </constraints>
                     </customView>
