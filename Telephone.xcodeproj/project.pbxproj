@@ -182,6 +182,7 @@
 		8A645FF11E12C8AD00515151 /* MatchedContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A645FEE1E12AA6300515151 /* MatchedContact.swift */; };
 		8A645FF51E12C98400515151 /* ContactCallHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A645FF41E12C98400515151 /* ContactCallHistoryRecord.swift */; };
 		8A645FF71E12CB7F00515151 /* ContactCallHistoryRecordGetAllUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A645FF61E12CB7F00515151 /* ContactCallHistoryRecordGetAllUseCase.swift */; };
+		8A6BFB501F34D38700BA3CB2 /* ObjCPurchaseCheckUseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BFB4F1F34D38700BA3CB2 /* ObjCPurchaseCheckUseCaseFactory.swift */; };
 		8A6D96EE1D01DDA900D9C15B /* StoreViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96ED1D01DDA900D9C15B /* StoreViewSpy.swift */; };
 		8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */; };
 		8A70C46D1DAE832E002E8754 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8A70C46C1DAE832E002E8754 /* Credits.rtf */; };
@@ -955,6 +956,7 @@
 		8A645FEE1E12AA6300515151 /* MatchedContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchedContact.swift; sourceTree = "<group>"; };
 		8A645FF41E12C98400515151 /* ContactCallHistoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecord.swift; sourceTree = "<group>"; };
 		8A645FF61E12CB7F00515151 /* ContactCallHistoryRecordGetAllUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecordGetAllUseCase.swift; sourceTree = "<group>"; };
+		8A6BFB4F1F34D38700BA3CB2 /* ObjCPurchaseCheckUseCaseFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCPurchaseCheckUseCaseFactory.swift; sourceTree = "<group>"; };
 		8A6D96ED1D01DDA900D9C15B /* StoreViewSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewSpy.swift; sourceTree = "<group>"; };
 		8A6D96EF1D05937900D9C15B /* NullStoreViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullStoreViewEventTarget.swift; sourceTree = "<group>"; };
 		8A70C46C1DAE832E002E8754 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -1943,6 +1945,7 @@
 			children = (
 				8ADD6A4C1CDCF805001EDBBA /* DefaultStoreUseCaseFactory.swift */,
 				8AE396CB1D6B2F3800DCFB9E /* ExpectedProducts.swift */,
+				8A6BFB4F1F34D38700BA3CB2 /* ObjCPurchaseCheckUseCaseFactory.swift */,
 				8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */,
 				8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */,
 				8A859A061D2EC66500118A66 /* Products */,
@@ -3515,6 +3518,7 @@
 				8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */,
 				8A9175A21CA5A02500354E26 /* PJSUAOnCallTransferStatus.m in Sources */,
 				8A0ABBC61EF9775F0062D3CC /* UUIDIdentifierGenerator.swift in Sources */,
+				8A6BFB501F34D38700BA3CB2 /* ObjCPurchaseCheckUseCaseFactory.swift in Sources */,
 				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,
 				AA19CFF51BED148A00991CAA /* DefaultUseCaseFactory.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
