@@ -151,6 +151,8 @@
 		8A42E0C91E168F4F00CE09B8 /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */; };
 		8A46FDBB1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */; };
 		8A46FDBD1DD4A8100022A822 /* NSString+Analyzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */; };
+		8A478C801F34C46400FB3B33 /* ObjCPurchaseCheckUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A478C7F1F34C46400FB3B33 /* ObjCPurchaseCheckUseCase.swift */; };
+		8A478C821F34C53800FB3B33 /* ObjCPurchaseCheckUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A478C811F34C53800FB3B33 /* ObjCPurchaseCheckUseCaseTests.swift */; };
 		8A4B65A61EAF9F8900F13654 /* URI+AKSIPURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B65A51EAF9F8900F13654 /* URI+AKSIPURI.swift */; };
 		8A4B65A81EB0CB7B00F13654 /* ContactMatchingStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B65A71EB0CB7B00F13654 /* ContactMatchingStub.swift */; };
 		8A4B65AA1EB0CC3900F13654 /* ContactMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B65A91EB0CC3900F13654 /* ContactMatching.swift */; };
@@ -926,6 +928,8 @@
 		8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationFormatter.swift; sourceTree = "<group>"; };
 		8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordAddUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordAddUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Analyzing.swift"; sourceTree = "<group>"; };
+		8A478C7F1F34C46400FB3B33 /* ObjCPurchaseCheckUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCPurchaseCheckUseCase.swift; sourceTree = "<group>"; };
+		8A478C811F34C53800FB3B33 /* ObjCPurchaseCheckUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCPurchaseCheckUseCaseTests.swift; sourceTree = "<group>"; };
 		8A4B65A51EAF9F8900F13654 /* URI+AKSIPURI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URI+AKSIPURI.swift"; sourceTree = "<group>"; };
 		8A4B65A71EB0CB7B00F13654 /* ContactMatchingStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingStub.swift; sourceTree = "<group>"; };
 		8A4B65A91EB0CC3900F13654 /* ContactMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatching.swift; sourceTree = "<group>"; };
@@ -1754,6 +1758,8 @@
 				8A11A0C61CCF9D68007BFC7F /* ProductsFetchUseCaseTests.swift */,
 				8A32A4E71D6719730086B49D /* PurchaseCheckUseCase.swift */,
 				8A32A4E91D675A300086B49D /* PurchaseCheckUseCaseTests.swift */,
+				8A478C7F1F34C46400FB3B33 /* ObjCPurchaseCheckUseCase.swift */,
+				8A478C811F34C53800FB3B33 /* ObjCPurchaseCheckUseCaseTests.swift */,
 				8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift */,
 				8AE396ED1D6C873300DCFB9E /* PurchaseReminderUseCase.swift */,
 				8AE396EB1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift */,
@@ -3739,6 +3745,7 @@
 				8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */,
 				AA39053A1BFFDDE2005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
 				8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */,
+				8A478C801F34C46400FB3B33 /* ObjCPurchaseCheckUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3786,6 +3793,7 @@
 				8A4E38301C5BB20100816F38 /* SettingsRingtoneSoundNameSaveUseCaseTests.swift in Sources */,
 				8ADEDBF51ECF49AA00987B77 /* SimpleContactMatchingSettingsTests.swift in Sources */,
 				8A09E0F81E79A2560027A25E /* ReversedCallHistoryTests.swift in Sources */,
+				8A478C821F34C53800FB3B33 /* ObjCPurchaseCheckUseCaseTests.swift in Sources */,
 				8A7292441EE19DBE00338592 /* EnqueuingAccountsEventTargetTests.swift in Sources */,
 				8A0CF81B1EC1F10B0014226A /* IndexedContactMatchingTests.swift in Sources */,
 				8A41A7551E5DAEC800E0C854 /* ContactCallHistoryRecordGetAllUseCaseTests.swift in Sources */,
