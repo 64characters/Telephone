@@ -28,7 +28,7 @@ extern NSString * const kEmailSIPLabel;
 
 @class AKSIPURI, AKNetworkReachability;
 @class AsyncCallHistoryViewEventTargetFactory, AuthenticationFailureController;
-@class CallTransferController, WorkspaceSleepStatus;
+@class CallTransferController, ObjCPurchaseCheckUseCaseFactory, WorkspaceSleepStatus;
 @protocol MusicPlayer, RingtonePlaybackUseCase;
 
 // A SIP account controller.
@@ -42,7 +42,6 @@ extern NSString * const kEmailSIPLabel;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
-@property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *factory;
 
 // A Boolean value indicating whether account is registered.
 @property(nonatomic, readonly, getter=isAccountRegistered) BOOL accountRegistered;
@@ -90,7 +89,8 @@ extern NSString * const kEmailSIPLabel;
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                        musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
-                           factory:(AsyncCallHistoryViewEventTargetFactory *)factory;
+ callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
+       purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory;
 
 // Registers the account adding it to the user agent, if needed. The user agent will be started, if it hasn't been yet.
 - (void)registerAccount;

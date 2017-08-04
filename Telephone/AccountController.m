@@ -78,6 +78,9 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 @interface AccountController ()
 
+@property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
+@property(nonatomic, readonly) ObjCPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
+
 @property(nonatomic) ActiveAccountViewController *activeAccountViewController;
 @property(nonatomic) CallHistoryViewController *callHistoryViewController;
 @property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
@@ -236,7 +239,8 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                        musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
-                           factory:(AsyncCallHistoryViewEventTargetFactory *)factory {
+ callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
+       purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory {
 
     self = [super initWithWindowNibName:@"Account"];
     if (self == nil) {
@@ -248,7 +252,8 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     _ringtonePlayback = ringtonePlayback;
     _musicPlayer = musicPlayer;
     _sleepStatus = sleepStatus;
-    _factory = factory;
+    _callHistoryViewEventTargetFactory = callHistoryViewEventTargetFactory;
+    _purchaseCheckUseCaseFactory = purchaseCheckUseCaseFactory;
     
     _callControllers = [[NSMutableArray alloc] init];
     _accountDescription = account.SIPAddress;
@@ -624,12 +629,12 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
     self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    [self.factory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self]
-                             view:self.callHistoryViewController
-                       completion:^(CallHistoryViewEventTarget * _Nonnull target) {
-                           self.callHistoryViewEventTarget = target;
-                           self.callHistoryViewController.target = self.callHistoryViewEventTarget;
-                       }];
+    [self.callHistoryViewEventTargetFactory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self]
+                                                       view:self.callHistoryViewController
+                                                 completion:^(CallHistoryViewEventTarget * _Nonnull target) {
+                                                     self.callHistoryViewEventTarget = target;
+                                                     self.callHistoryViewController.target = self.callHistoryViewEventTarget;
+                                                 }];
 
     [self.callHistoryView addSubview:self.callHistoryViewController.view];
     [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];

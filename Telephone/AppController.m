@@ -76,7 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, readonly) id<ApplicationDataLocations> locations;
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
-@property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *factory;
+@property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
+@property(nonatomic, readonly) ObjCPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
@@ -225,7 +226,8 @@ NS_ASSUME_NONNULL_END
     _musicPlayer = _compositionRoot.musicPlayer;
     _locations = _compositionRoot.applicationDataLocations;
     _sleepStatus = _compositionRoot.workstationSleepStatus;
-    _factory = _compositionRoot.callHistoryViewEventTargetFactory;
+    _callHistoryViewEventTargetFactory = _compositionRoot.callHistoryViewEventTargetFactory;
+    _purchaseCheckUseCaseFactory = _compositionRoot.purchaseCheckUseCaseFactory;
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = [[NSMutableArray alloc] init];
@@ -777,7 +779,8 @@ NS_ASSUME_NONNULL_END
                                                                  ringtonePlayback:self.ringtonePlayback
                                                                       musicPlayer:self.musicPlayer
                                                                       sleepStatus:self.sleepStatus
-                                                                          factory:self.factory];
+                                                callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
+                                                      purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
     
     [controller setAccountDescription:[[controller account] SIPAddress]];
     [controller setEnabled:YES];
@@ -838,7 +841,8 @@ NS_ASSUME_NONNULL_END
                                                                      ringtonePlayback:self.ringtonePlayback
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
-                                                                              factory:self.factory];
+                                                    callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
+                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
@@ -1120,7 +1124,8 @@ NS_ASSUME_NONNULL_END
                                                                      ringtonePlayback:self.ringtonePlayback
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
-                                                                              factory:self.factory];
+                                                    callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
+                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
         
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {

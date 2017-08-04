@@ -27,6 +27,7 @@ final class CompositionRoot: NSObject {
     let ringtonePlayback: RingtonePlaybackUseCase
     let storeWindowController: StoreWindowController
     let purchaseReminder: PurchaseReminderUseCase
+    let purchaseCheckUseCaseFactory: ObjCPurchaseCheckUseCaseFactory
     let musicPlayer: MusicPlayer
     let settingsMigration: ProgressiveSettingsMigration
     let applicationDataLocations: ApplicationDataLocations
@@ -71,13 +72,14 @@ final class CompositionRoot: NSObject {
         let products = SKProductsRequestToProductsAdapter(expected: ExpectedProducts(), target: productsEventTargets)
         let store = SKPaymentQueueToStoreAdapter(queue: SKPaymentQueue.default(), products: products)
         let receipt = BundleReceipt(bundle: Bundle.main, gateway: ReceiptXPCGateway())
+        let storeUseCaseFactory = DefaultStoreUseCaseFactory(
+            products: products,
+            store: store,
+            receipt: receipt,
+            targets: productsEventTargets
+        )
         let storeViewEventTarget = DefaultStoreViewEventTarget(
-            factory: DefaultStoreUseCaseFactory(
-                products: products,
-                store: store,
-                receipt: receipt,
-                targets: productsEventTargets
-            ),
+            factory: storeUseCaseFactory,
             purchaseRestoration: PurchaseRestorationUseCase(store: store),
             receiptRefresh: ReceiptRefreshUseCase(),
             presenter: DefaultStoreViewPresenter(output: storeViewController)
@@ -94,6 +96,8 @@ final class CompositionRoot: NSObject {
             version: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,
             output: storeWindowController
         )
+
+        purchaseCheckUseCaseFactory = ObjCPurchaseCheckUseCaseFactory(factory: storeUseCaseFactory)
 
         storeEventSource = StoreEventSource(
             queue: SKPaymentQueue.default(),
