@@ -76,7 +76,7 @@ NSString * const kGerman = @"de";
 static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 
-@interface AccountController ()
+@interface AccountController () <ObjCPurchaseCheckUseCaseOutput>
 
 @property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
 @property(nonatomic, readonly) ObjCPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
@@ -99,6 +99,9 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 @property(nonatomic, weak) IBOutlet NSLayoutConstraint *horizontalLineHeightConstraint;
 @property(nonatomic) CGFloat originalActiveAccountViewHeight;
 @property(nonatomic) CGFloat originalHorizontalLineHeight;
+
+@property(nonatomic, weak) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
+@property(nonatomic) CGFloat originalBottomViewHeight;
 
 @property(nonatomic, weak) IBOutlet NSToolbarItem *accountStateToolbarItem;
 @property(nonatomic, weak) IBOutlet NSImageView *accountStateImageView;
@@ -642,6 +645,10 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountViewController updateNextKeyView:self.callHistoryViewController.keyView];
     [self.callHistoryViewController updateNextKeyView:self.activeAccountViewController.keyView];
 
+    self.originalBottomViewHeight = self.bottomViewHeightConstraint.constant;
+    self.bottomViewHeightConstraint.constant = 0;
+    [[self.purchaseCheckUseCaseFactory makeWithOutput:self] execute];
+
     [self showOfflineStateAnimated:NO];
 }
 
@@ -1083,6 +1090,16 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     if (!self.sleepStatus.isSleeping && !self.isAccountUnavailable && !self.isAccountRegistered) {
         [self registerAccount];
     }
+}
+
+#pragma mark - ObjCPurchaseCheckUseCaseOutput
+
+- (void)didCheckPurchaseWithExpiration:(NSDate * _Nonnull)expiration {
+    self.bottomViewHeightConstraint.animator.constant = 0;
+}
+
+- (void)didFailCheckingPurchase {
+    self.bottomViewHeightConstraint.animator.constant = self.originalBottomViewHeight;
 }
 
 @end

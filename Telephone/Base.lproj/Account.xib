@@ -14,6 +14,7 @@
                 <outlet property="activeAccountView" destination="BJB-cW-pU5" id="0xB-Sg-Ivn"/>
                 <outlet property="activeAccountViewHeightConstraint" destination="aEF-BK-RYg" id="svw-Dq-6hy"/>
                 <outlet property="availableStateItem" destination="45b-yq-Hu2" id="8c6-x7-khg"/>
+                <outlet property="bottomViewHeightConstraint" destination="eC6-mW-Jza" id="cYD-Or-UNL"/>
                 <outlet property="callHistoryView" destination="P1D-w1-bLn" id="lRj-W1-edc"/>
                 <outlet property="horizontalLineHeightConstraint" destination="aVi-wz-AWN" id="oGz-ar-H5h"/>
                 <outlet property="offlineStateItem" destination="aEv-gV-BF6" id="aI9-oe-thS"/>
