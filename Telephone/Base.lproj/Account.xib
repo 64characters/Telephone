@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="AccountController">
+        <customObject id="-2" userLabel="File's Owner" customClass="AccountWindowController">
             <connections>
                 <outlet property="accountStateImageView" destination="XTB-Ca-zvW" id="NKe-lx-Xs1"/>
                 <outlet property="accountStatePopUp" destination="8kv-8M-WnO" id="QTV-ZO-Tni"/>

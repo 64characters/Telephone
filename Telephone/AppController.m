@@ -440,11 +440,11 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)toggleAccountWindow:(id)sender {
-    AccountController *accountController = [sender representedObject];
-    if ([[accountController window] isKeyWindow]) {
-        [[accountController window] performClose:self];
+    AccountController *controller = [sender representedObject];
+    if (controller.isWindowKey) {
+        [controller hideWindow];
     } else {
-        [[accountController window] makeKeyAndOrderFront:self];
+        [controller showWindow];
     }
 }
 
@@ -764,7 +764,7 @@ NS_ASSUME_NONNULL_END
 #pragma mark AccountSetupController delegate
 
 - (void)accountSetupControllerDidAddAccount:(NSNotification *)notification {
-    NSDictionary *dict = [notification userInfo];
+    NSDictionary *dict = notification.userInfo;
     
     AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:dict[kUUID]
                                                       fullName:dict[kFullName]
@@ -775,21 +775,20 @@ NS_ASSUME_NONNULL_END
                                                         domain:dict[kDomain]];
     
     AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                               accountDescription:account.SIPAddress
                                                                         userAgent:self.userAgent
                                                                  ringtonePlayback:self.ringtonePlayback
                                                                       musicPlayer:self.musicPlayer
                                                                       sleepStatus:self.sleepStatus
                                                 callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
                                                       purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
+    controller.enabled = YES;
     
-    [controller setAccountDescription:[[controller account] SIPAddress]];
-    [controller setEnabled:YES];
-    
-    [[self accountControllers] addObject:controller];
+    [self.accountControllers addObject:controller];
     [self updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
     
-    [[controller window] orderFront:self];
+    [controller showWindowWithoutMakingKey];
 
     [self registerAccountIfManualRegistrationRequired:controller];
 }
@@ -835,21 +834,20 @@ NS_ASSUME_NONNULL_END
         }
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
+
+        NSString *description = accountDict[kDescription];
+        if ([description length] == 0) {
+            description = account.SIPAddress;
+        }
         
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                   accountDescription:description
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                     callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
                                                           purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
-        
-        NSString *description = accountDict[kDescription];
-        if ([description length] == 0) {
-            description = account.SIPAddress;
-        }
-        [controller setAccountDescription:description];
-        
         [controller setAccountUnavailable:NO];
         [controller setEnabled:YES];
         [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
@@ -857,7 +855,7 @@ NS_ASSUME_NONNULL_END
         
         [self accountControllers][index] = controller;
         
-        [[controller window] orderFront:nil];
+        [controller showWindowWithoutMakingKey];
 
         [self registerAccountIfManualRegistrationRequired:controller];
         
@@ -873,7 +871,7 @@ NS_ASSUME_NONNULL_END
         [controller setAttemptingToRegisterAccount:NO];
         [controller setAttemptingToUnregisterAccount:NO];
         [controller setShouldPresentRegistrationError:NO];
-        [[controller window] orderOut:nil];
+        [controller hideWindow];
     }
     
     [self updateCallsShouldDisplayAccountInfo];
@@ -1118,21 +1116,21 @@ NS_ASSUME_NONNULL_END
         }
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
+
+        NSString *description = accountDict[kDescription];
+        if ([description length] == 0) {
+            description = account.SIPAddress;
+        }
         
         AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                                   accountDescription:description
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                     callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
                                                           purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
-        
-        NSString *description = accountDict[kDescription];
-        if ([description length] == 0) {
-            description = account.SIPAddress;
-        }
-        [controller setAccountDescription:description];
-        
+
         [controller setEnabled:[accountDict[kAccountEnabled] boolValue]];
         [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
         [controller setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
@@ -1144,12 +1142,10 @@ NS_ASSUME_NONNULL_END
         }
         
         if (i == 0) {
-            [[controller window] makeKeyAndOrderFront:self];
-            
+            [controller showWindow];
         } else {
-            NSWindow *previousAccountWindow = [[self accountControllers][(i - 1)] window];
-            
-            [[controller window] orderWindow:NSWindowBelow relativeTo:[previousAccountWindow windowNumber]];
+            AccountController *previous = self.accountControllers[i - 1];
+            [controller orderWindow:NSWindowBelow relativeTo:previous.windowNumber];
         }
     }
     
@@ -1197,7 +1193,7 @@ NS_ASSUME_NONNULL_END
     } else {
         // Show window of first enalbed account.
         if ([NSApp keyWindow] == nil && [[self enabledAccountControllers] count] > 0) {
-            [[self enabledAccountControllers][0] showWindow:self];
+            [[self enabledAccountControllers][0] showWindow];
         }
     }
     
