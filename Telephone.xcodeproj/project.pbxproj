@@ -64,6 +64,8 @@
 		8A1563961D89B7DD00E007BA /* UseCases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA078B291BFF80E20013FF8F /* UseCases.framework */; };
 		8A1796211E8E841300BEE2C9 /* CallHistoriesSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1796201E8E841300BEE2C9 /* CallHistoriesSpy.swift */; };
 		8A1796231E8E852100BEE2C9 /* AccountsEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1796221E8E852100BEE2C9 /* AccountsEventTarget.swift */; };
+		8A1AA7D21F4737C800804280 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A1AA7D01F4737C800804280 /* AccountView.xib */; };
+		8A1AA7D51F473DC800804280 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AA7D41F473DC800804280 /* AccountViewController.m */; };
 		8A1AF25B1F02AEC200B9999D /* LazyDiscardingContactMatchingIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AF25A1F02AEC100B9999D /* LazyDiscardingContactMatchingIndexTests.swift */; };
 		8A1AF25D1F02AF0500B9999D /* LazyDiscardingContactMatchingIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AF25C1F02AF0500B9999D /* LazyDiscardingContactMatchingIndex.swift */; };
 		8A1AF25F1F02B30300B9999D /* ContactMatchingIndexFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1AF25E1F02B30300B9999D /* ContactMatchingIndexFactoryStub.swift */; };
@@ -817,6 +819,9 @@
 		8A143C861DD0D40C00B1CD23 /* CallHistoryRecordTestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordTestFactory.swift; sourceTree = "<group>"; };
 		8A1796201E8E841300BEE2C9 /* CallHistoriesSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoriesSpy.swift; sourceTree = "<group>"; };
 		8A1796221E8E852100BEE2C9 /* AccountsEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsEventTarget.swift; sourceTree = "<group>"; };
+		8A1AA7D01F4737C800804280 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
+		8A1AA7D31F473DC800804280 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		8A1AA7D41F473DC800804280 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
 		8A1AF25A1F02AEC100B9999D /* LazyDiscardingContactMatchingIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LazyDiscardingContactMatchingIndexTests.swift; path = UseCasesTests/LazyDiscardingContactMatchingIndexTests.swift; sourceTree = SOURCE_ROOT; };
 		8A1AF25C1F02AF0500B9999D /* LazyDiscardingContactMatchingIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyDiscardingContactMatchingIndex.swift; sourceTree = "<group>"; };
 		8A1AF25E1F02B30300B9999D /* ContactMatchingIndexFactoryStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingIndexFactoryStub.swift; sourceTree = "<group>"; };
@@ -1695,6 +1700,7 @@
 				AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				AA2ED99B0F05B362004A13C6 /* Account.xib */,
+				8A1AA7D01F4737C800804280 /* AccountView.xib */,
 				AA34ACC2106E229A00FA38F7 /* ActiveAccountView.xib */,
 				AA2ED99F0F05B3B5004A13C6 /* Call.xib */,
 				AADAA2C2107E569200789F2D /* IncomingCallView.xib */,
@@ -2842,6 +2848,8 @@
 			children = (
 				AA3578B10E40709900021989 /* AccountController.h */,
 				AA3578B20E40709900021989 /* AccountController.m */,
+				8A1AA7D31F473DC800804280 /* AccountViewController.h */,
+				8A1AA7D41F473DC800804280 /* AccountViewController.m */,
 				8A6BA7A91F3CB110001EB8C1 /* AccountWindowController.h */,
 				8A6BA7AA1F3CB110001EB8C1 /* AccountWindowController.m */,
 				8AD805841E9FD8F6003089DF /* AccountToAccountControllerAdapter.h */,
@@ -3327,6 +3335,7 @@
 				AAFC002A1074D0B50018C7DA /* SoundPreferencesView.xib in Resources */,
 				AAFC00261074D0B50018C7DA /* NetworkPreferencesView.xib in Resources */,
 				AADAA2C3107E569200789F2D /* IncomingCallView.xib in Resources */,
+				8A1AA7D21F4737C800804280 /* AccountView.xib in Resources */,
 				8A70C46D1DAE832E002E8754 /* Credits.rtf in Resources */,
 				AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */,
 				AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */,
@@ -3513,6 +3522,7 @@
 				8A9175AD1CABF61200354E26 /* UserAgentError.swift in Sources */,
 				8A11B3DC1DDCC028002EDA93 /* CallNotificationsToEventTargetAdapter.swift in Sources */,
 				8AE396CC1D6B2F3800DCFB9E /* ExpectedProducts.swift in Sources */,
+				8A1AA7D51F473DC800804280 /* AccountViewController.m in Sources */,
 				AACD92D00ED434DD00AF8D17 /* AKActiveCallView.m in Sources */,
 				8AD9A0DC1DE34CC1000BB2F2 /* PersistentCallHistoryFactory.swift in Sources */,
 				AA2C03F51BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift in Sources */,

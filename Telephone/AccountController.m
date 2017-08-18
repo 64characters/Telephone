@@ -28,6 +28,7 @@
 #import "AKSIPURIFormatter.h"
 #import "AKTelephoneNumberFormatter.h"
 
+#import "AccountViewController.h"
 #import "AccountWindowController.h"
 #import "AuthenticationFailureController.h"
 #import "CallTransferController.h"
@@ -196,11 +197,13 @@ static NSString * const kRussian = @"ru";
     _accountDescription = [accountDescription copy];
     _destinationToCall = @"";
 
+    AccountViewController *accountViewController
+    = [[AccountViewController alloc] initWithCallHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
+                                                   purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
+                                                             accountController:self];
     _windowController = [[AccountWindowController alloc] initWithAccountDescription:_accountDescription
                                                                          SIPAddress:_account.SIPAddress
-                                                  callHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
-                                                        purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
-                                                                  accountController:self
+                                                              accountViewController:accountViewController
                                                                            delegate:self];
 
     self.account.delegate = self;

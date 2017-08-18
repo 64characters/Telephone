@@ -18,8 +18,7 @@
 
 #import "AccountWindowController.h"
 
-#import "AccountToAccountControllerAdapter.h"
-#import "ActiveAccountViewController.h"
+#import "AccountViewController.h"
 
 #import "Telephone-Swift.h"
 
@@ -47,31 +46,12 @@ static NSString * const kEnglish = @"en";
 static NSString * const kRussian = @"ru";
 static NSString * const kGerman = @"de";
 
-static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
-
-@interface AccountWindowController () <ObjCPurchaseCheckUseCaseOutput>
+@interface AccountWindowController ()
 
 @property(nonatomic, readonly) NSString *accountDescription;
 @property(nonatomic, readonly) NSString *SIPAddress;
-@property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
-@property(nonatomic, readonly) ObjCPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
-@property(nonatomic, readonly, weak) AccountController *accountController;
+@property(nonatomic, readonly) AccountViewController *accountViewController;
 @property(nonatomic, readonly, weak) id<AccountWindowControllerDelegate> delegate;
-
-@property(nonatomic) ActiveAccountViewController *activeAccountViewController;
-@property(nonatomic) CallHistoryViewController *callHistoryViewController;
-@property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
-
-@property(nonatomic, weak) IBOutlet NSView *activeAccountView;
-@property(nonatomic, weak) IBOutlet NSView *callHistoryView;
-
-@property(nonatomic, weak) IBOutlet NSLayoutConstraint *activeAccountViewHeightConstraint;
-@property(nonatomic, weak) IBOutlet NSLayoutConstraint *horizontalLineHeightConstraint;
-@property(nonatomic) CGFloat originalActiveAccountViewHeight;
-@property(nonatomic) CGFloat originalHorizontalLineHeight;
-
-@property(nonatomic, weak) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
-@property(nonatomic) CGFloat originalBottomViewHeight;
 
 @property(nonatomic, weak) IBOutlet NSToolbarItem *accountStateToolbarItem;
 @property(nonatomic, weak) IBOutlet NSImageView *accountStateImageView;
@@ -85,28 +65,22 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 @implementation AccountWindowController
 
 - (BOOL)allowsCallDestinationInput {
-    return self.activeAccountViewController.allowsCallDestinationInput;
+    return self.accountViewController.allowsCallDestinationInput;
 }
 
 - (instancetype)initWithAccountDescription:(NSString *)accountDescription
                                 SIPAddress:(NSString *)SIPAddress
-         callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-               purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                         accountController:(AccountController *)accountController
+                     accountViewController:(AccountViewController *)accountViewController
                                   delegate:(id<AccountWindowControllerDelegate>)delegate {
 
     NSParameterAssert(accountDescription);
     NSParameterAssert(SIPAddress);
-    NSParameterAssert(callHistoryViewEventTargetFactory);
-    NSParameterAssert(purchaseCheckUseCaseFactory);
-    NSParameterAssert(accountController);
+    NSParameterAssert(accountViewController);
     NSParameterAssert(delegate);
     if ((self = [super initWithWindowNibName:@"Account"])) {
         _accountDescription = [accountDescription copy];
         _SIPAddress = [SIPAddress copy];
-        _callHistoryViewEventTargetFactory = callHistoryViewEventTargetFactory;
-        _purchaseCheckUseCaseFactory = purchaseCheckUseCaseFactory;
-        _accountController = accountController;
+        _accountViewController = accountViewController;
         _delegate = delegate;
     }
     return self;
@@ -121,32 +95,13 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     self.window.frameAutosaveName = self.SIPAddress;
     self.window.excludedFromWindowsMenu = YES;
 
-    self.originalActiveAccountViewHeight = self.activeAccountViewHeightConstraint.constant;
-    self.originalHorizontalLineHeight = self.horizontalLineHeightConstraint.constant;
+    [self.window.contentView addSubview:self.accountViewController.view];
+    self.accountViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    NSDictionary *views = @{@"view": self.accountViewController.view};
+    [self.window.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views]];
+    [self.window.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:views]];
 
-    self.activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self.accountController];
-    [self.activeAccountView addSubview:self.activeAccountViewController.view];
-    [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
-
-    self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    [self.callHistoryViewEventTargetFactory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self.accountController]
-                                                       view:self.callHistoryViewController
-                                                 completion:^(CallHistoryViewEventTarget * _Nonnull target) {
-                                                     self.callHistoryViewEventTarget = target;
-                                                     self.callHistoryViewController.target = self.callHistoryViewEventTarget;
-                                                 }];
-
-    [self.callHistoryView addSubview:self.callHistoryViewController.view];
-    [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];
-
-    [self.activeAccountViewController updateNextKeyView:self.callHistoryViewController.keyView];
-    [self.callHistoryViewController updateNextKeyView:self.activeAccountViewController.keyView];
-
-    self.originalBottomViewHeight = self.bottomViewHeightConstraint.constant;
-    self.bottomViewHeightConstraint.constant = 0;
-    [[self.purchaseCheckUseCaseFactory makeWithOutput:self] execute];
-
-    [self showOfflineStateAnimated:NO];
+    [self showOfflineState];
 }
 
 #pragma mark -
@@ -169,12 +124,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     self.availableStateItem.state = NSOnState;
     self.unavailableStateItem.state = NSOffState;
 
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-        self.activeAccountViewHeightConstraint.animator.constant = self.originalActiveAccountViewHeight;
-        self.horizontalLineHeightConstraint.animator.constant = self.originalHorizontalLineHeight;
-    } completionHandler:^{
-        [self.activeAccountViewController allowCallDestinationInput];
-    }];
+    [self.accountViewController showActiveState];
 }
 
 - (void)showUnavailableState {
@@ -195,12 +145,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     self.availableStateItem.state = NSOffState;
     self.unavailableStateItem.state = NSOnState;
 
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-        self.activeAccountViewHeightConstraint.animator.constant = self.originalActiveAccountViewHeight;
-        self.horizontalLineHeightConstraint.animator.constant = self.originalHorizontalLineHeight;
-    } completionHandler:^{
-        [self.activeAccountViewController allowCallDestinationInput];
-    }];
+    [self.accountViewController showActiveState];
 }
 
 - (void)showOfflineStateAnimated:(BOOL)animated {
@@ -221,15 +166,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     self.availableStateItem.state = NSOffState;
     self.unavailableStateItem.state = NSOffState;
 
-    [self.activeAccountViewController disallowCallDestinationInput];
-
-    if (animated) {
-        self.activeAccountViewHeightConstraint.animator.constant = 0;
-        self.horizontalLineHeightConstraint.animator.constant = 0;
-    } else {
-        self.activeAccountViewHeightConstraint.constant = 0;
-        self.horizontalLineHeightConstraint.constant = 0;
-    }
+    [self.accountViewController showInactiveStateAnimated:animated];
 }
 
 - (void)showOfflineState {
@@ -253,9 +190,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 }
 
 - (void)makeCallToDestination:(NSString *)destination {
-    self.activeAccountViewController.callDestinationField.tokenStyle = NSTokenStyleRounded;
-    self.activeAccountViewController.callDestinationField.stringValue = destination;
-    [self.activeAccountViewController makeCall:self];
+    [self.accountViewController makeCallToDestination:destination];
 }
 
 - (IBAction)changeAccountState:(NSPopUpButton *)sender {
@@ -303,22 +238,4 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     return NO;
 }
 
-#pragma mark - ObjCPurchaseCheckUseCaseOutput
-
-- (void)didCheckPurchaseWithExpiration:(NSDate * _Nonnull)expiration {
-    self.bottomViewHeightConstraint.animator.constant = 0;
-}
-
-- (void)didFailCheckingPurchase {
-    self.bottomViewHeightConstraint.animator.constant = self.originalBottomViewHeight;
-}
-
 @end
-
-static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view) {
-    NSMutableArray<NSLayoutConstraint *> *result = [NSMutableArray array];
-    NSDictionary *views = @{@"view": view};
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views]];
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:views]];
-    return result;
-}

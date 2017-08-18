@@ -11,12 +11,7 @@
                 <outlet property="accountStateImageView" destination="XTB-Ca-zvW" id="NKe-lx-Xs1"/>
                 <outlet property="accountStatePopUp" destination="8kv-8M-WnO" id="QTV-ZO-Tni"/>
                 <outlet property="accountStateToolbarItem" destination="q93-R7-UiB" id="24v-BY-jYW"/>
-                <outlet property="activeAccountView" destination="BJB-cW-pU5" id="0xB-Sg-Ivn"/>
-                <outlet property="activeAccountViewHeightConstraint" destination="aEF-BK-RYg" id="svw-Dq-6hy"/>
                 <outlet property="availableStateItem" destination="45b-yq-Hu2" id="8c6-x7-khg"/>
-                <outlet property="bottomViewHeightConstraint" destination="eC6-mW-Jza" id="cYD-Or-UNL"/>
-                <outlet property="callHistoryView" destination="P1D-w1-bLn" id="lRj-W1-edc"/>
-                <outlet property="horizontalLineHeightConstraint" destination="aVi-wz-AWN" id="oGz-ar-H5h"/>
                 <outlet property="offlineStateItem" destination="aEv-gV-BF6" id="aI9-oe-thS"/>
                 <outlet property="unavailableStateItem" destination="tBT-83-toA" id="y3d-XB-qX1"/>
                 <outlet property="window" destination="3" id="21"/>
@@ -33,59 +28,6 @@
             <view key="contentView" wantsLayer="YES" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="300" height="252"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="BJB-cW-pU5">
-                        <rect key="frame" x="0.0" y="191" width="300" height="61"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="61" id="aEF-BK-RYg"/>
-                        </constraints>
-                    </customView>
-                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="6zb-TV-5Ys">
-                        <rect key="frame" x="0.0" y="188" width="300" height="5"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="aVi-wz-AWN"/>
-                        </constraints>
-                    </box>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="P1D-w1-bLn">
-                        <rect key="frame" x="0.0" y="32" width="300" height="158"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="7ig-ai-E7t"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="158" id="Kx5-E5-uDf"/>
-                        </constraints>
-                    </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="5yE-Ar-ivX">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
-                        <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mhf-wH-H7A">
-                                <rect key="frame" x="110" y="6" width="80" height="19"/>
-                                <buttonCell key="cell" type="roundTextured" title="Show More…" bezelStyle="texturedRounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lS7-7L-ccB">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
-                                </buttonCell>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="32" id="eC6-mW-Jza"/>
-                            <constraint firstItem="Mhf-wH-H7A" firstAttribute="centerX" secondItem="5yE-Ar-ivX" secondAttribute="centerX" id="t1w-c3-u47"/>
-                            <constraint firstItem="Mhf-wH-H7A" firstAttribute="centerY" secondItem="5yE-Ar-ivX" secondAttribute="centerY" id="tp3-Go-gVv"/>
-                        </constraints>
-                    </customView>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="BJB-cW-pU5" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="7IW-bQ-F8P"/>
-                    <constraint firstAttribute="trailing" secondItem="5yE-Ar-ivX" secondAttribute="trailing" id="971-jC-2vN"/>
-                    <constraint firstAttribute="bottom" secondItem="5yE-Ar-ivX" secondAttribute="bottom" id="Are-hY-Ufx"/>
-                    <constraint firstItem="BJB-cW-pU5" firstAttribute="top" secondItem="4" secondAttribute="top" id="BvC-xa-pKI"/>
-                    <constraint firstItem="5yE-Ar-ivX" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="JKS-8R-aUN"/>
-                    <constraint firstItem="5yE-Ar-ivX" firstAttribute="top" secondItem="P1D-w1-bLn" secondAttribute="bottom" id="SYR-oo-7Ou"/>
-                    <constraint firstItem="6zb-TV-5Ys" firstAttribute="top" secondItem="BJB-cW-pU5" secondAttribute="bottom" id="cXm-zG-2QO"/>
-                    <constraint firstItem="6zb-TV-5Ys" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="qxv-wg-S8T"/>
-                    <constraint firstAttribute="trailing" secondItem="6zb-TV-5Ys" secondAttribute="trailing" id="tIt-dX-KXF"/>
-                    <constraint firstItem="P1D-w1-bLn" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="vwo-SN-3Zf"/>
-                    <constraint firstAttribute="trailing" secondItem="P1D-w1-bLn" secondAttribute="trailing" id="w4w-Xs-YvD"/>
-                    <constraint firstItem="P1D-w1-bLn" firstAttribute="top" secondItem="6zb-TV-5Ys" secondAttribute="bottom" id="wX8-EH-lol"/>
-                    <constraint firstAttribute="trailing" secondItem="BJB-cW-pU5" secondAttribute="trailing" id="wc2-x7-3sh"/>
-                </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="2C054331-BFAD-476A-99A4-B2A04C36B553" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="57">
                 <allowedToolbarItems>
@@ -151,7 +93,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="23"/>
             </connections>
-            <point key="canvasLocation" x="139" y="147.5"/>
+            <point key="canvasLocation" x="139" y="147"/>
         </window>
     </objects>
     <resources>

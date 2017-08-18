@@ -18,10 +18,10 @@
 
 @import Cocoa;
 
-NS_ASSUME_NONNULL_BEGIN
-
+@class AccountViewController;
 @protocol AccountWindowControllerDelegate;
-@class AccountController, AsyncCallHistoryViewEventTargetFactory, ObjCPurchaseCheckUseCaseFactory;
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, AccountWindowControllerAccountState) {
     AccountWindowControllerAccountStateOffline,
@@ -35,9 +35,7 @@ typedef NS_ENUM(NSInteger, AccountWindowControllerAccountState) {
 
 - (instancetype)initWithAccountDescription:(NSString *)accountDescription
                                 SIPAddress:(NSString *)SIPAddress
-         callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-               purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                         accountController:(AccountController *)accountController
+                     accountViewController:(AccountViewController *)accountViewController
                                   delegate:(id<AccountWindowControllerDelegate>)delegate;
 
 - (void)showAvailableState;
