@@ -33,12 +33,12 @@ typedef NS_ENUM(NSInteger, AccountWindowControllerAccountState) {
 
 @property(nonatomic, readonly) BOOL allowsCallDestinationInput;
 
-- (instancetype)initAccountDescription:(NSString *)accountDescription
-                            SIPAddress:(NSString *)SIPAddress
-     callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-           purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                     accountController:(AccountController *)accountController
-                              delegate:(id<AccountWindowControllerDelegate>)delegate;
+- (instancetype)initWithAccountDescription:(NSString *)accountDescription
+                                SIPAddress:(NSString *)SIPAddress
+         callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
+               purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+                         accountController:(AccountController *)accountController
+                                  delegate:(id<AccountWindowControllerDelegate>)delegate;
 
 - (void)showAvailableState;
 - (void)showUnavailableState;

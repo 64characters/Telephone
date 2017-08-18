@@ -88,12 +88,12 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     return self.activeAccountViewController.allowsCallDestinationInput;
 }
 
-- (instancetype)initAccountDescription:(NSString *)accountDescription
-                            SIPAddress:(NSString *)SIPAddress
-     callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-           purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                     accountController:(AccountController *)accountController
-                              delegate:(id<AccountWindowControllerDelegate>)delegate {
+- (instancetype)initWithAccountDescription:(NSString *)accountDescription
+                                SIPAddress:(NSString *)SIPAddress
+         callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
+               purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+                         accountController:(AccountController *)accountController
+                                  delegate:(id<AccountWindowControllerDelegate>)delegate {
 
     NSParameterAssert(accountDescription);
     NSParameterAssert(SIPAddress);

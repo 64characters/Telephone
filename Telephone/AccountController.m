@@ -196,12 +196,12 @@ static NSString * const kRussian = @"ru";
     _accountDescription = [accountDescription copy];
     _destinationToCall = @"";
 
-    _windowController = [[AccountWindowController alloc] initAccountDescription:_accountDescription
-                                                                     SIPAddress:_account.SIPAddress
-                                              callHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
-                                                    purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
-                                                              accountController:self
-                                                                       delegate:self];
+    _windowController = [[AccountWindowController alloc] initWithAccountDescription:_accountDescription
+                                                                         SIPAddress:_account.SIPAddress
+                                                  callHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
+                                                        purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
+                                                                  accountController:self
+                                                                           delegate:self];
 
     self.account.delegate = self;
     
