@@ -101,7 +101,7 @@ static NSString * const kGerman = @"de";
     [self.window.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views]];
     [self.window.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:views]];
 
-    [self showOfflineState];
+    [self showOfflineStateAnimated:NO];
 }
 
 #pragma mark -
