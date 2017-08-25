@@ -25,7 +25,7 @@ public final class ObjCPurchaseCheckUseCase: NSObject {
     fileprivate lazy var origin: UseCase = { return self.factory.makePurchaseCheckUseCase(output: self) }()
 
     private let factory: StoreUseCaseFactory
-    fileprivate let output: ObjCPurchaseCheckUseCaseOutput
+    fileprivate weak var output: ObjCPurchaseCheckUseCaseOutput?
 
     public init(factory: StoreUseCaseFactory, output: ObjCPurchaseCheckUseCaseOutput) {
         self.factory = factory
@@ -41,10 +41,10 @@ extension ObjCPurchaseCheckUseCase: UseCase {
 
 extension ObjCPurchaseCheckUseCase: PurchaseCheckUseCaseOutput {
     public func didCheckPurchase(expiration: Date) {
-        output.didCheckPurchase(expiration: expiration)
+        output?.didCheckPurchase(expiration: expiration)
     }
 
     public func didFailCheckingPurchase() {
-        output.didFailCheckingPurchase()
+        output?.didFailCheckingPurchase()
     }
 }
