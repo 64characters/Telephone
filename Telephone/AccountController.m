@@ -193,6 +193,7 @@ static NSString * const kRussian = @"ru";
     }
 
     _account = account;
+    _account.delegate = self;
     _userAgent = userAgent;
     _ringtonePlayback = ringtonePlayback;
     _musicPlayer = musicPlayer;
@@ -212,9 +213,6 @@ static NSString * const kRussian = @"ru";
                                                                          SIPAddress:_account.SIPAddress
                                                               accountViewController:_accountViewController
                                                                            delegate:self];
-
-    self.account.delegate = self;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(SIPUserAgentDidFinishStarting:)
                                                  name:AKSIPUserAgentDidFinishStartingNotification
