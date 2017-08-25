@@ -28,8 +28,10 @@
 #import "AKSIPURIFormatter.h"
 #import "AKTelephoneNumberFormatter.h"
 
+#import "AccountToAccountControllerAdapter.h"
 #import "AccountViewController.h"
 #import "AccountWindowController.h"
+#import "ActiveAccountViewController.h"
 #import "AuthenticationFailureController.h"
 #import "CallTransferController.h"
 
@@ -46,7 +48,10 @@ static NSString * const kRussian = @"ru";
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
 
 @property(nonatomic, readonly) AuthenticationFailureController *authenticationFailureController;
+
+@property(nonatomic, readonly) AccountViewController *accountViewController;
 @property(nonatomic, readonly) AccountWindowController *windowController;
+@property(nonatomic, readonly) ObjCPurchaseCheckUseCase *purchaseCheck;
 
 @property(nonatomic, readonly, getter=isAccountAdded) BOOL accountAdded;
 @property(nonatomic, strong) NSTimer *reRegistrationTimer;
@@ -197,13 +202,15 @@ static NSString * const kRussian = @"ru";
     _accountDescription = [accountDescription copy];
     _destinationToCall = @"";
 
-    AccountViewController *accountViewController
-    = [[AccountViewController alloc] initWithCallHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
-                                                   purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
-                                                             accountController:self];
+    _accountViewController
+    = [[AccountViewController alloc] initWithActiveAccountViewController:[[ActiveAccountViewController alloc] initWithAccountController:self]
+                                               callHistoryViewController:[[CallHistoryViewController alloc] init]
+                                       callHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
+                                             purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
+                                                                 account:[[AccountToAccountControllerAdapter alloc] initWithController:self]];
     _windowController = [[AccountWindowController alloc] initWithAccountDescription:_accountDescription
                                                                          SIPAddress:_account.SIPAddress
-                                                              accountViewController:accountViewController
+                                                              accountViewController:_accountViewController
                                                                            delegate:self];
 
     self.account.delegate = self;

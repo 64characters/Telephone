@@ -18,8 +18,6 @@
 
 #import "AccountViewController.h"
 
-#import "AccountController.h"
-#import "AccountToAccountControllerAdapter.h"
 #import "ActiveAccountViewController.h"
 
 #import "Telephone-Swift.h"
@@ -28,12 +26,12 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 @interface AccountViewController () <ObjCPurchaseCheckUseCaseOutput>
 
+@property(nonatomic, readonly) ActiveAccountViewController *activeAccountViewController;
+@property(nonatomic, readonly) CallHistoryViewController *callHistoryViewController;
 @property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
 @property(nonatomic, readonly) ObjCPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
-@property(nonatomic, readonly, weak) AccountController *accountController;
+@property(nonatomic, readonly) id<Account> account;
 
-@property(nonatomic) ActiveAccountViewController *activeAccountViewController;
-@property(nonatomic) CallHistoryViewController *callHistoryViewController;
 @property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
 
 @property(nonatomic, weak) IBOutlet NSView *activeAccountView;
@@ -55,16 +53,22 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     return self.activeAccountViewController.allowsCallDestinationInput;
 }
 
-- (instancetype)initWithCallHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-                              purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                                        accountController:(AccountController *)accountController {
+- (instancetype)initWithActiveAccountViewController:(ActiveAccountViewController *)activeAccountViewController
+                          callHistoryViewController:(CallHistoryViewController *)callHistoryViewController
+                  callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
+                        purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+                                            account:(id<Account>)account {
+    NSParameterAssert(activeAccountViewController);
+    NSParameterAssert(callHistoryViewController);
     NSParameterAssert(callHistoryViewEventTargetFactory);
     NSParameterAssert(purchaseCheckUseCaseFactory);
-    NSParameterAssert(accountController);
+    NSParameterAssert(account);
     if ((self = [super initWithNibName:@"AccountView" bundle:nil])) {
+        _activeAccountViewController = activeAccountViewController;
+        _callHistoryViewController = callHistoryViewController;
         _callHistoryViewEventTargetFactory = callHistoryViewEventTargetFactory;
         _purchaseCheckUseCaseFactory = purchaseCheckUseCaseFactory;
-        _accountController = accountController;
+        _account = account;
     }
     return self;
 }
@@ -75,12 +79,10 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     self.originalActiveAccountViewHeight = self.activeAccountViewHeightConstraint.constant;
     self.originalHorizontalLineHeight = self.horizontalLineHeightConstraint.constant;
 
-    self.activeAccountViewController = [[ActiveAccountViewController alloc] initWithAccountController:self.accountController];
     [self.activeAccountView addSubview:self.activeAccountViewController.view];
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
-    self.callHistoryViewController = [[CallHistoryViewController alloc] init];
-    [self.callHistoryViewEventTargetFactory makeWithAccount:[[AccountToAccountControllerAdapter alloc] initWithController:self.accountController]
+    [self.callHistoryViewEventTargetFactory makeWithAccount:self.account
                                                        view:self.callHistoryViewController
                                                  completion:^(CallHistoryViewEventTarget * _Nonnull target) {
                                                      self.callHistoryViewEventTarget = target;

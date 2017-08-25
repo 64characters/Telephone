@@ -18,7 +18,9 @@
 
 @import Cocoa;
 
-@class AccountController, AsyncCallHistoryViewEventTargetFactory, ObjCPurchaseCheckUseCaseFactory;
+@class ActiveAccountViewController, CallHistoryViewController;
+@class AsyncCallHistoryViewEventTargetFactory, ObjCPurchaseCheckUseCaseFactory;
+@protocol Account;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,9 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) BOOL allowsCallDestinationInput;
 
-- (instancetype)initWithCallHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-                              purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                                        accountController:(AccountController *)accountController;
+- (instancetype)initWithActiveAccountViewController:(ActiveAccountViewController *)activeAccountViewController
+                          callHistoryViewController:(CallHistoryViewController *)callHistoryViewController
+                  callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
+                        purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+                                            account:(id<Account>)account;
 
 - (void)showActiveState;
 - (void)showInactiveStateAnimated:(BOOL)animated;
