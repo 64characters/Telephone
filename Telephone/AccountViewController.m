@@ -24,15 +24,16 @@
 
 static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
-@interface AccountViewController () <ObjCPurchaseCheckUseCaseOutput>
+@interface AccountViewController () <RecordCountingPurchaseCheckUseCaseOutput>
 
 @property(nonatomic, readonly) ActiveAccountViewController *activeAccountViewController;
 @property(nonatomic, readonly) CallHistoryViewController *callHistoryViewController;
 @property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
-@property(nonatomic, readonly) ObjCPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
+@property(nonatomic, readonly) AsyncCallHistoryPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
 @property(nonatomic, readonly) id<Account> account;
 
 @property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
+@property(nonatomic) id<UseCase> purchaseCheck;
 
 @property(nonatomic, weak) IBOutlet NSView *activeAccountView;
 @property(nonatomic, weak) IBOutlet NSView *callHistoryView;
@@ -56,7 +57,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 - (instancetype)initWithActiveAccountViewController:(ActiveAccountViewController *)activeAccountViewController
                           callHistoryViewController:(CallHistoryViewController *)callHistoryViewController
                   callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-                        purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+                        purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
                                             account:(id<Account>)account {
     NSParameterAssert(activeAccountViewController);
     NSParameterAssert(callHistoryViewController);
@@ -97,7 +98,11 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
     self.originalBottomViewHeight = self.bottomViewHeightConstraint.constant;
     self.bottomViewHeightConstraint.constant = 0;
-    [[self.purchaseCheckUseCaseFactory makeWithOutput:self] execute];
+
+    [self.purchaseCheckUseCaseFactory makeWithAccount:self.account output:self completion:^(id<UseCase> _Nonnull useCase) {
+        self.purchaseCheck = useCase;
+        [self.purchaseCheck execute];
+    }];
 }
 
 #pragma mark -
@@ -128,9 +133,9 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountViewController makeCall:self];
 }
 
-#pragma mark - ObjCPurchaseCheckUseCaseOutput
+#pragma mark - RecordCountingPurchaseCheckUseCaseOutput
 
-- (void)didCheckPurchaseWithExpiration:(NSDate * _Nonnull)expiration {
+- (void)didCheckPurchaseWithRecordCount:(NSInteger)count {
     self.bottomViewHeightConstraint.animator.constant = 0;
 }
 

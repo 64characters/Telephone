@@ -19,7 +19,7 @@
 @import Cocoa;
 
 @class ActiveAccountViewController, CallHistoryViewController;
-@class AsyncCallHistoryViewEventTargetFactory, ObjCPurchaseCheckUseCaseFactory;
+@class AsyncCallHistoryPurchaseCheckUseCaseFactory, AsyncCallHistoryViewEventTargetFactory;
 @protocol Account;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithActiveAccountViewController:(ActiveAccountViewController *)activeAccountViewController
                           callHistoryViewController:(CallHistoryViewController *)callHistoryViewController
                   callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-                        purchaseCheckUseCaseFactory:(ObjCPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+                        purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
                                             account:(id<Account>)account;
 
 - (void)showActiveState;
