@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordGetAllUseCase.swift
+//  CallHistoryRecordGetAllUseCaseOutput.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryRecordGetAllUseCase {
-    fileprivate let history: CallHistory
-    fileprivate let output: CallHistoryRecordGetAllUseCaseOutput
-
-    public init(history: CallHistory, output: CallHistoryRecordGetAllUseCaseOutput) {
-        self.history = history
-        self.output = output
-    }
-}
-
-extension CallHistoryRecordGetAllUseCase: UseCase {
-    public func execute() {
-        output.update(records: history.allRecords)
-    }
+public protocol CallHistoryRecordGetAllUseCaseOutput {
+    func update(records: [CallHistoryRecord])
 }
