@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
+
 final class AsyncCallHistoryPurchaseCheckUseCaseFactory: NSObject {
     private let origin: CallHistoryPurchaseCheckUseCaseFactory
     private let background: ExecutionQueue
