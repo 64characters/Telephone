@@ -33,6 +33,7 @@ final class CompositionRoot: NSObject {
     let applicationDataLocations: ApplicationDataLocations
     let workstationSleepStatus: WorkspaceSleepStatus
     let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
+    let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
     private let defaults: UserDefaults
 
     private let storeEventSource: StoreEventSource
@@ -222,6 +223,12 @@ final class CompositionRoot: NSObject {
                 background: contactsBackground,
                 main: main
             ),
+            background: contactsBackground,
+            main: main
+        )
+
+        callHistoryPurchaseCheckUseCaseFactory = AsyncCallHistoryPurchaseCheckUseCaseFactory(
+            origin: CallHistoryPurchaseCheckUseCaseFactory(histories: callHistories, receipt: receipt),
             background: contactsBackground,
             main: main
         )
