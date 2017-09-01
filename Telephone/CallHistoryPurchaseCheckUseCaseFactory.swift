@@ -1,5 +1,5 @@
 //
-//  CallHistoryRecordCountingPurchaseCheckUseCaseFactory.swift
+//  CallHistoryPurchaseCheckUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class CallHistoryRecordCountingPurchaseCheckUseCaseFactory {
+final class CallHistoryPurchaseCheckUseCaseFactory {
     private let histories: CallHistories
     private let receipt: Receipt
 
