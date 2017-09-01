@@ -135,11 +135,11 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 #pragma mark - RecordCountingPurchaseCheckUseCaseOutput
 
-- (void)didCheckPurchaseWithRecordCount:(NSInteger)count {
+- (void)didCheckPurchase {
     self.bottomViewHeightConstraint.animator.constant = 0;
 }
 
-- (void)didFailCheckingPurchase {
+- (void)didFailCheckingPurchaseWithRecordCount:(NSInteger)count {
     self.bottomViewHeightConstraint.animator.constant = self.originalBottomViewHeight;
 }
 

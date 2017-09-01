@@ -17,8 +17,8 @@
 //
 
 @objc public protocol RecordCountingPurchaseCheckUseCaseOutput {
-    func didCheckPurchase(recordCount count: Int)
-    func didFailCheckingPurchase()
+    func didCheckPurchase()
+    func didFailCheckingPurchase(recordCount count: Int)
 }
 
 public final class RecordCountingPurchaseCheckUseCase {
@@ -43,10 +43,10 @@ extension RecordCountingPurchaseCheckUseCase: CallHistoryRecordGetAllUseCaseOutp
 
 extension RecordCountingPurchaseCheckUseCase: PurchaseCheckUseCaseOutput {
     public func didCheckPurchase(expiration: Date) {
-        output.didCheckPurchase(recordCount: count)
+        output.didCheckPurchase()
     }
 
     public func didFailCheckingPurchase() {
-        output.didFailCheckingPurchase()
+        output.didFailCheckingPurchase(recordCount: count)
     }
 }

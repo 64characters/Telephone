@@ -20,19 +20,19 @@ import UseCases
 
 public final class RecordCountingPurchaseCheckUseCaseOutputSpy {
     public fileprivate(set) var didCallDidCheckPurchase = false
-    public fileprivate(set) var invokedCount: Int?
     public fileprivate(set) var didCallDidFailCheckingPurchase = false
+    public fileprivate(set) var invokedCount: Int?
 
     public init() {}
 }
 
 extension RecordCountingPurchaseCheckUseCaseOutputSpy: RecordCountingPurchaseCheckUseCaseOutput {
-    public func didCheckPurchase(recordCount count: Int) {
+    public func didCheckPurchase() {
         didCallDidCheckPurchase = true
-        invokedCount = count
     }
 
-    public func didFailCheckingPurchase() {
+    public func didFailCheckingPurchase(recordCount count: Int) {
         didCallDidFailCheckingPurchase = true
+        invokedCount = count
     }
 }

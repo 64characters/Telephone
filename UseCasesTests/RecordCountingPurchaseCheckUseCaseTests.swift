@@ -21,39 +21,49 @@ import UseCasesTestDoubles
 import XCTest
 
 final class RecordCountingPurchaseCheckUseCaseTests: XCTestCase {
-    func testCallsDidCheckPurchaseWithRecordCountWhenReceiptIsValidOnUpdate() {
-        let factory = CallHistoryRecordTestFactory()
-        let records = [factory.makeRecord(number: 1), factory.makeRecord(number: 2), factory.makeRecord(number: 3)]
+    func testCallsDidCheckPurchaseWhenReceiptIsValidOnUpdate() {
         let output = RecordCountingPurchaseCheckUseCaseOutputSpy()
         let sut = RecordCountingPurchaseCheckUseCase(
             factory: PurchaseCheckUseCaseFactory(receipt: ValidReceipt()), output: output
         )
 
-        sut.update(records: records)
+        sut.update(records: [])
 
         XCTAssertTrue(output.didCallDidCheckPurchase)
-        XCTAssertEqual(output.invokedCount, records.count)
     }
 
-    func testCallsDidFailCheckingPurchaseWhenReceiptIsInvalidOnUpdate() {
+    func testCallsDidFailCheckingPurchaseWithRecordCountWhenReceiptIsInvalidOnUpdate() {
+        let records = makeRecords(count: 5)
         let output = RecordCountingPurchaseCheckUseCaseOutputSpy()
         let sut = RecordCountingPurchaseCheckUseCase(
             factory: PurchaseCheckUseCaseFactory(receipt: InvalidReceipt()), output: output
         )
 
-        sut.update(records: [])
+        sut.update(records: records)
 
         XCTAssertTrue(output.didCallDidFailCheckingPurchase)
+        XCTAssertEqual(output.invokedCount, records.count)
     }
 
-    func testCallsDidFailCheckingPurchaseWhenReceiptDoesNotHaveActivePurchasesOnUpdate() {
+    func testCallsDidFailCheckingPurchaseWithRecordCountWhenReceiptDoesNotHaveActivePurchasesOnUpdate() {
+        let records = makeRecords(count: 6)
         let output = RecordCountingPurchaseCheckUseCaseOutputSpy()
         let sut = RecordCountingPurchaseCheckUseCase(
             factory: PurchaseCheckUseCaseFactory(receipt: NoActivePurchasesReceipt()), output: output
         )
 
-        sut.update(records: [])
+        sut.update(records: records)
 
         XCTAssertTrue(output.didCallDidFailCheckingPurchase)
+        XCTAssertEqual(output.invokedCount, records.count)
     }
+}
+
+private func makeRecords(count: Int) -> [CallHistoryRecord] {
+    var result: [CallHistoryRecord] = []
+    let factory = CallHistoryRecordTestFactory()
+    for n in 0..<count {
+        result.append(factory.makeRecord(number: n))
+    }
+    return result
 }
