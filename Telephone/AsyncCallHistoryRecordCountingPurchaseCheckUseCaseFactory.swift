@@ -1,5 +1,5 @@
 //
-//  AsyncRecordCountingPurchaseCheckUseCaseFactory.swift
+//  AsyncCallHistoryRecordCountingPurchaseCheckUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,12 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-final class AsyncRecordCountingPurchaseCheckUseCaseFactory: NSObject {
-    private let origin: RecordCountingPurchaseCheckUseCaseFactory
+final class AsyncCallHistoryRecordCountingPurchaseCheckUseCaseFactory: NSObject {
+    private let origin: CallHistoryRecordCountingPurchaseCheckUseCaseFactory
     private let background: ExecutionQueue
     private let main: ExecutionQueue
 
-    init(origin: RecordCountingPurchaseCheckUseCaseFactory, background: ExecutionQueue, main: ExecutionQueue) {
+    init(origin: CallHistoryRecordCountingPurchaseCheckUseCaseFactory, background: ExecutionQueue, main: ExecutionQueue) {
         self.origin = origin
         self.background = background
         self.main = main
