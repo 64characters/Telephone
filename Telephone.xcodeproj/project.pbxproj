@@ -1825,6 +1825,15 @@
 			name = CallEventTarget;
 			sourceTree = "<group>";
 		};
+		8A125F7E1F5988C400148C99 /* CallHistoryPurchaseCheckUseCaseFactory */ = {
+			isa = PBXGroup;
+			children = (
+				8A125F7C1F59821D00148C99 /* AsyncCallHistoryPurchaseCheckUseCaseFactory.swift */,
+				8A125F7A1F597E2D00148C99 /* CallHistoryPurchaseCheckUseCaseFactory.swift */,
+			);
+			name = CallHistoryPurchaseCheckUseCaseFactory;
+			sourceTree = "<group>";
+		};
 		8A1A79301D4E25750031A0DD /* ReceiptValidation */ = {
 			isa = PBXGroup;
 			children = (
@@ -2341,8 +2350,7 @@
 			isa = PBXGroup;
 			children = (
 				8A1F2E611E71702D00E3624C /* CallHistoryOutgoingCallCellView.swift */,
-				8A125F7C1F59821D00148C99 /* AsyncCallHistoryPurchaseCheckUseCaseFactory.swift */,
-				8A125F7A1F597E2D00148C99 /* CallHistoryPurchaseCheckUseCaseFactory.swift */,
+				8A125F7E1F5988C400148C99 /* CallHistoryPurchaseCheckUseCaseFactory */,
 				8A2C042B1F16A44700C46693 /* CallHistoryTableRowView.swift */,
 				8A778C0F1E0C13C5004B00B8 /* CallHistoryView.swift */,
 				8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */,
