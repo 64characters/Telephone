@@ -37,5 +37,3 @@ extension PurchaseCheckUseCaseOutputSpy: PurchaseCheckUseCaseOutput {
         didCallDidFailCheckingPurchase = true
     }
 }
-
-extension PurchaseCheckUseCaseOutputSpy: ObjCPurchaseCheckUseCaseOutput {}

@@ -51,7 +51,6 @@ static NSString * const kRussian = @"ru";
 
 @property(nonatomic, readonly) AccountViewController *accountViewController;
 @property(nonatomic, readonly) AccountWindowController *windowController;
-@property(nonatomic, readonly) ObjCPurchaseCheckUseCase *purchaseCheck;
 
 @property(nonatomic, readonly, getter=isAccountAdded) BOOL accountAdded;
 @property(nonatomic, strong) NSTimer *reRegistrationTimer;
