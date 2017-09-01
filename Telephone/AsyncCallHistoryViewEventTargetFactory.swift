@@ -29,7 +29,7 @@ final class AsyncCallHistoryViewEventTargetFactory: NSObject {
         self.main = main
     }
 
-    func make(account: Account, view: CallHistoryView, completion: @escaping (CallHistoryViewEventTarget) -> ()) {
+    func make(account: Account, view: CallHistoryView, completion: @escaping (CallHistoryViewEventTarget) -> Void) {
         background.add {
             let result = self.origin.make(account: account, view: view)
             self.main.add {
