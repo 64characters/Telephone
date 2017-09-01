@@ -224,7 +224,9 @@ final class CompositionRoot: NSObject {
         )
 
         callHistoryPurchaseCheckUseCaseFactory = AsyncCallHistoryPurchaseCheckUseCaseFactory(
-            origin: CallHistoryPurchaseCheckUseCaseFactory(histories: callHistories, receipt: receipt),
+            origin: CallHistoryPurchaseCheckUseCaseFactory(
+                histories: callHistories, receipt: receipt, background: contactsBackground, main: main
+            ),
             background: contactsBackground,
             main: main
         )

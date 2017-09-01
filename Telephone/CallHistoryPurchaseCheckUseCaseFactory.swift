@@ -21,18 +21,28 @@ import UseCases
 final class CallHistoryPurchaseCheckUseCaseFactory {
     private let histories: CallHistories
     private let receipt: Receipt
+    private let background: ExecutionQueue
+    private let main: ExecutionQueue
 
-    init(histories: CallHistories, receipt: Receipt) {
+    init(histories: CallHistories, receipt: Receipt, background: ExecutionQueue, main: ExecutionQueue) {
         self.histories = histories
         self.receipt = receipt
+        self.background = background
+        self.main = main
     }
 
     func make(account: Account, output: RecordCountingPurchaseCheckUseCaseOutput) -> UseCase {
-        return CallHistoryRecordGetAllUseCase(
-            history: histories.history(withUUID: account.uuid),
-            output: RecordCountingPurchaseCheckUseCase(
-                factory: PurchaseCheckUseCaseFactory(receipt: receipt), output: output
-            )
+        return EnqueuingUseCase(
+            origin: CallHistoryRecordGetAllUseCase(
+                history: histories.history(withUUID: account.uuid),
+                output: EnqueuingCallHistoryRecordGetAllUseCaseOutput(
+                    origin: RecordCountingPurchaseCheckUseCase(
+                        factory: PurchaseCheckUseCaseFactory(receipt: receipt), output: output
+                    ),
+                    queue: main
+                )
+            ),
+            queue: background
         )
     }
 }
