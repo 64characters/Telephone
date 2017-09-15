@@ -16,11 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-@objc public protocol RecordCountingPurchaseCheckUseCaseOutput {
-    func didCheckPurchase()
-    func didFailCheckingPurchase(recordCount count: Int)
-}
-
 public final class RecordCountingPurchaseCheckUseCase {
     fileprivate lazy var origin: UseCase = { return self.factory.make(output: self) }()
     fileprivate var count = 0

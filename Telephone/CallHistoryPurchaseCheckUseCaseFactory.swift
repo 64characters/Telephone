@@ -37,7 +37,8 @@ final class CallHistoryPurchaseCheckUseCaseFactory {
                 history: histories.history(withUUID: account.uuid),
                 output: EnqueuingCallHistoryRecordGetAllUseCaseOutput(
                     origin: RecordCountingPurchaseCheckUseCase(
-                        factory: PurchaseCheckUseCaseFactory(receipt: receipt), output: output
+                        factory: PurchaseCheckUseCaseFactory(receipt: receipt),
+                        output: WeakRecordCountingPurchaseCheckUseCaseOutput(origin: output)
                     ),
                     queue: main
                 )
