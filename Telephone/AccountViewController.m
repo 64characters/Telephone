@@ -34,7 +34,6 @@ static NSString *ShowMoreButtonTitleWithCounts(NSInteger total, NSInteger curren
 @property(nonatomic, readonly) id<Account> account;
 
 @property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
-@property(nonatomic) id<UseCase> purchaseCheck;
 
 @property(nonatomic, weak) IBOutlet NSView *activeAccountView;
 @property(nonatomic, weak) IBOutlet NSView *callHistoryView;
@@ -85,13 +84,6 @@ static NSString *ShowMoreButtonTitleWithCounts(NSInteger total, NSInteger curren
     [self.activeAccountView addSubview:self.activeAccountViewController.view];
     [self.activeAccountView addConstraints:FullSizeConstraintsForView(self.activeAccountViewController.view)];
 
-    [self.callHistoryViewEventTargetFactory makeWithAccount:self.account
-                                                       view:self.callHistoryViewController
-                                                 completion:^(CallHistoryViewEventTarget * _Nonnull target) {
-                                                     self.callHistoryViewEventTarget = target;
-                                                     self.callHistoryViewController.target = self.callHistoryViewEventTarget;
-                                                 }];
-
     [self.callHistoryView addSubview:self.callHistoryViewController.view];
     [self.callHistoryView addConstraints:FullSizeConstraintsForView(self.callHistoryViewController.view)];
 
@@ -102,8 +94,13 @@ static NSString *ShowMoreButtonTitleWithCounts(NSInteger total, NSInteger curren
     self.bottomViewHeightConstraint.constant = 0;
 
     [self.purchaseCheckUseCaseFactory makeWithAccount:self.account output:self completion:^(id<UseCase> _Nonnull useCase) {
-        self.purchaseCheck = useCase;
-        [self.purchaseCheck execute];
+        [self.callHistoryViewEventTargetFactory makeWithAccount:self.account
+                                                           view:self.callHistoryViewController
+                                                  purchaseCheck:useCase
+                                                     completion:^(CallHistoryViewEventTarget * _Nonnull target) {
+                                                         self.callHistoryViewEventTarget = target;
+                                                         self.callHistoryViewController.target = self.callHistoryViewEventTarget;
+                                                     }];
     }];
 }
 
