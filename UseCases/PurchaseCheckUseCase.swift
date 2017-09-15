@@ -18,11 +18,6 @@
 
 import Foundation
 
-public protocol PurchaseCheckUseCaseOutput {
-    func didCheckPurchase(expiration: Date)
-    func didFailCheckingPurchase()
-}
-
 public final class PurchaseCheckUseCase {
     fileprivate let receipt: Receipt
     fileprivate let output: PurchaseCheckUseCaseOutput

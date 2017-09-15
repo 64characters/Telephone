@@ -244,6 +244,8 @@
 		8A8BC7CA1F6C2ED0001BBECD /* WeakRecordCountingPurchaseCheckUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8BC7C91F6C2ED0001BBECD /* WeakRecordCountingPurchaseCheckUseCaseOutput.swift */; };
 		8A8BC7CC1F6C3127001BBECD /* RecordCountingPurchaseCheckUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8BC7CB1F6C3127001BBECD /* RecordCountingPurchaseCheckUseCaseOutput.swift */; };
 		8A8BC7CF1F6C3F00001BBECD /* AccountViewBottomViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8BC7CE1F6C3F00001BBECD /* AccountViewBottomViewPresenter.swift */; };
+		8A8BC7D11F6C8B68001BBECD /* WeakPurchaseCheckUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8BC7D01F6C8B68001BBECD /* WeakPurchaseCheckUseCaseOutput.swift */; };
+		8A8BC7D31F6C8D29001BBECD /* PurchaseCheckUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8BC7D21F6C8D29001BBECD /* PurchaseCheckUseCaseOutput.swift */; };
 		8A9084A41EC6101A002B273A /* ContactMatchingSettingsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9084A31EC6101A002B273A /* ContactMatchingSettingsFake.swift */; };
 		8A9084A61EC6108D002B273A /* ContactMatchingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9084A51EC6108D002B273A /* ContactMatchingSettings.swift */; };
 		8A9084A81EC61665002B273A /* SimpleContactMatchingIndexFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9084A71EC61665002B273A /* SimpleContactMatchingIndexFactory.swift */; };
@@ -1026,6 +1028,8 @@
 		8A8BC7C91F6C2ED0001BBECD /* WeakRecordCountingPurchaseCheckUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakRecordCountingPurchaseCheckUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A8BC7CB1F6C3127001BBECD /* RecordCountingPurchaseCheckUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordCountingPurchaseCheckUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A8BC7CE1F6C3F00001BBECD /* AccountViewBottomViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewBottomViewPresenter.swift; sourceTree = "<group>"; };
+		8A8BC7D01F6C8B68001BBECD /* WeakPurchaseCheckUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakPurchaseCheckUseCaseOutput.swift; sourceTree = "<group>"; };
+		8A8BC7D21F6C8D29001BBECD /* PurchaseCheckUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseCheckUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A9084A31EC6101A002B273A /* ContactMatchingSettingsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingSettingsFake.swift; sourceTree = "<group>"; };
 		8A9084A51EC6108D002B273A /* ContactMatchingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingSettings.swift; sourceTree = "<group>"; };
 		8A9084A71EC61665002B273A /* SimpleContactMatchingIndexFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleContactMatchingIndexFactory.swift; sourceTree = "<group>"; };
@@ -1896,6 +1900,7 @@
 			children = (
 				8A32A4E71D6719730086B49D /* PurchaseCheckUseCase.swift */,
 				8A32A4E91D675A300086B49D /* PurchaseCheckUseCaseTests.swift */,
+				8A8BC7D41F6C8D45001BBECD /* PurchaseCheckUseCaseOutput */,
 				8A1B27D01F509BE2001B55A7 /* RecordCountingPurchaseCheckUseCase.swift */,
 				8A1B27CE1F509B83001B55A7 /* RecordCountingPurchaseCheckUseCaseTests.swift */,
 				8A8BC7CD1F6C3143001BBECD /* RecordCountingPurchaseCheckUseCaseOutput */,
@@ -2212,6 +2217,15 @@
 				8A8BC7C91F6C2ED0001BBECD /* WeakRecordCountingPurchaseCheckUseCaseOutput.swift */,
 			);
 			name = RecordCountingPurchaseCheckUseCaseOutput;
+			sourceTree = "<group>";
+		};
+		8A8BC7D41F6C8D45001BBECD /* PurchaseCheckUseCaseOutput */ = {
+			isa = PBXGroup;
+			children = (
+				8A8BC7D21F6C8D29001BBECD /* PurchaseCheckUseCaseOutput.swift */,
+				8A8BC7D01F6C8B68001BBECD /* WeakPurchaseCheckUseCaseOutput.swift */,
+			);
+			name = PurchaseCheckUseCaseOutput;
 			sourceTree = "<group>";
 		};
 		8A9084A91EC6167C002B273A /* ContactMatching */ = {
@@ -3757,6 +3771,7 @@
 				AA39052C1BFFDDC4005A8AA3 /* UseCase.swift in Sources */,
 				8ADD6B6D1C528F720029C3D8 /* UseCasesError.swift in Sources */,
 				8A11B3D41DDB6F3A002EDA93 /* SimpleCall.swift in Sources */,
+				8A8BC7D11F6C8B68001BBECD /* WeakPurchaseCheckUseCaseOutput.swift in Sources */,
 				8AEA57631DFB0729008888EB /* ProductsEventTarget.swift in Sources */,
 				8A11A0C91CCF9DDD007BFC7F /* ProductsFetchUseCase.swift in Sources */,
 				8A9513EC1D2A735F0034DF2C /* Receipt.swift in Sources */,
@@ -3773,6 +3788,7 @@
 				8A143C851DD0D26500B1CD23 /* TruncatingCallHistory.swift in Sources */,
 				8AA748B51D70460B000587DC /* SimpleMusicPlayerSettings.swift in Sources */,
 				AA3905471BFFDE9A005A8AA3 /* KeyValueSettings.swift in Sources */,
+				8A8BC7D31F6C8D29001BBECD /* PurchaseCheckUseCaseOutput.swift in Sources */,
 				8A46FDBD1DD4A8100022A822 /* NSString+Analyzing.swift in Sources */,
 				8A5D17531EBCD40300A95FB8 /* ExtractedPhoneNumber.swift in Sources */,
 				8A0CF81D1EC1F5400014226A /* IndexedContactMatching.swift in Sources */,
