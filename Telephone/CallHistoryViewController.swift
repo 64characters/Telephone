@@ -27,6 +27,9 @@ final class CallHistoryViewController: NSViewController {
             target?.shouldReloadData()
         }
     }
+    var recordCount: Int {
+        return records.count
+    }
     fileprivate var records: [PresentationCallHistoryRecord] = []
     @IBOutlet fileprivate weak var tableView: NSTableView!
 

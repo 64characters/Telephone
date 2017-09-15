@@ -12,6 +12,7 @@
                 <outlet property="bottomViewHeightConstraint" destination="e6d-Sh-eHB" id="DTC-Lt-Wpb"/>
                 <outlet property="callHistoryView" destination="7nM-cL-fbj" id="uhG-kU-XO6"/>
                 <outlet property="horizontalLineHeightConstraint" destination="UCN-R6-LKd" id="z1H-U4-baS"/>
+                <outlet property="showMoreButton" destination="IEB-N5-OMW" id="gmc-1q-3Jn"/>
                 <outlet property="view" destination="i5H-OU-nn6" id="0dd-XI-zhC"/>
             </connections>
         </customObject>

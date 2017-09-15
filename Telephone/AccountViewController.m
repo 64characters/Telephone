@@ -23,6 +23,7 @@
 #import "Telephone-Swift.h"
 
 static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
+static NSString *ShowMoreButtonTitleWithCounts(NSInteger total, NSInteger current);
 
 @interface AccountViewController () <RecordCountingPurchaseCheckUseCaseOutput>
 
@@ -37,6 +38,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 
 @property(nonatomic, weak) IBOutlet NSView *activeAccountView;
 @property(nonatomic, weak) IBOutlet NSView *callHistoryView;
+@property(nonatomic, weak) IBOutlet NSButton *showMoreButton;
 
 @property(nonatomic, weak) IBOutlet NSLayoutConstraint *activeAccountViewHeightConstraint;
 @property(nonatomic, weak) IBOutlet NSLayoutConstraint *horizontalLineHeightConstraint;
@@ -133,14 +135,27 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     [self.activeAccountViewController makeCall:self];
 }
 
-#pragma mark - RecordCountingPurchaseCheckUseCaseOutput
+- (void)showBottomView {
+    self.bottomViewHeightConstraint.animator.constant = self.originalBottomViewHeight;
+}
 
-- (void)didCheckPurchase {
+- (void)hideBottomView {
     self.bottomViewHeightConstraint.animator.constant = 0;
 }
 
+#pragma mark - RecordCountingPurchaseCheckUseCaseOutput
+
+- (void)didCheckPurchase {
+    [self hideBottomView];
+}
+
 - (void)didFailCheckingPurchaseWithRecordCount:(NSInteger)count {
-    self.bottomViewHeightConstraint.animator.constant = self.originalBottomViewHeight;
+    if (count > self.callHistoryViewController.recordCount) {
+        self.showMoreButton.title = ShowMoreButtonTitleWithCounts(count, self.callHistoryViewController.recordCount);
+        [self showBottomView];
+    } else {
+        [self hideBottomView];
+    }
 }
 
 @end
@@ -151,4 +166,8 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view) {
     [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views]];
     [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:views]];
     return result;
+}
+
+static NSString *ShowMoreButtonTitleWithCounts(NSInteger total, NSInteger current) {
+    return [NSString stringWithFormat:NSLocalizedString(@"Show %ld more…", "Show more call history records button."), total - current];
 }
