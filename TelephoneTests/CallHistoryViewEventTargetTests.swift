@@ -76,6 +76,34 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertTrue(purchaseCheck.didCallExecute)
     }
 
+    func testExecutesPurchaseCheckUseCaseOnDidPurchase() {
+        let purchaseCheck = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: UseCaseSpy(),
+            purchaseCheck: purchaseCheck,
+            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
+            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
+        )
+
+        sut.didPurchase()
+
+        XCTAssertTrue(purchaseCheck.didCallExecute)
+    }
+
+    func testExecutesPurchaseCheckUseCaseOnDidRestorePurchases() {
+        let purchaseCheck = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: UseCaseSpy(),
+            purchaseCheck: purchaseCheck,
+            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
+            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
+        )
+
+        sut.didRestorePurchases()
+
+        XCTAssertTrue(purchaseCheck.didCallExecute)
+    }
+
     func testCreatesCallHistoryCallMakeUseCaseWithExpectedIdentifierOnDidPickRecord() {
         let factory = CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
         let sut = CallHistoryViewEventTarget(

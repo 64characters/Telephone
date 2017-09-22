@@ -51,3 +51,19 @@ extension CallHistoryViewEventTarget: CallHistoryEventTarget {
         purchaseCheck.execute()
     }
 }
+
+extension CallHistoryViewEventTarget: StoreEventTarget {
+    func didPurchase() {
+        purchaseCheck.execute()
+    }
+
+    func didRestorePurchases() {
+        purchaseCheck.execute()
+    }
+
+    func didStartPurchasingProduct(withIdentifier identifier: String) {}
+    func didFailPurchasing(error: String) {}
+    func didCancelPurchasing() {}
+    func didFailRestoringPurchases(error: String) {}
+    func didCancelRestoringPurchases() {}
+}
