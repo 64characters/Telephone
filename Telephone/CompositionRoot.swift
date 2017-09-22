@@ -25,7 +25,7 @@ final class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     let preferencesController: PreferencesController
     let ringtonePlayback: RingtonePlaybackUseCase
-    let storeWindowController: StoreWindowController
+    let storeWindowPresenter: StoreWindowPresenter
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
     let settingsMigration: ProgressiveSettingsMigration
@@ -85,7 +85,7 @@ final class CompositionRoot: NSObject {
         )
         storeViewController.updateTarget(storeViewEventTarget)
 
-        storeWindowController = StoreWindowController(contentViewController: storeViewController)
+        storeWindowPresenter = StoreWindowPresenter(controller: StoreWindowController(contentViewController: storeViewController))
 
         purchaseReminder = PurchaseReminderUseCase(
             accounts: SettingsAccounts(settings: defaults),
@@ -93,7 +93,7 @@ final class CompositionRoot: NSObject {
             settings: UserDefaultsPurchaseReminderSettings(defaults: defaults),
             now: Date(),
             version: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,
-            output: storeWindowController
+            output: storeWindowPresenter
         )
 
         storeEventSource = StoreEventSource(

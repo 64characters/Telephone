@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
+@property(nonatomic, readonly) StoreWindowPresenter *storeWindowPresenter;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, readonly) id<ApplicationDataLocations> locations;
@@ -222,6 +223,7 @@ NS_ASSUME_NONNULL_END
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];
     _preferencesController = _compositionRoot.preferencesController;
+    _storeWindowPresenter = _compositionRoot.storeWindowPresenter;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
     _musicPlayer = _compositionRoot.musicPlayer;
     _locations = _compositionRoot.applicationDataLocations;
@@ -333,7 +335,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)showStoreWindow:(id)sender {
-    [self.compositionRoot.storeWindowController showWindowCentered];
+    [self.storeWindowPresenter present];
 }
 
 - (IBAction)showPreferencePanel:(id)sender {
@@ -781,7 +783,8 @@ NS_ASSUME_NONNULL_END
                                                                       musicPlayer:self.musicPlayer
                                                                       sleepStatus:self.sleepStatus
                                                 callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
-                                                      purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
+                                                      purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
+                                                             storeWindowPresenter:self.storeWindowPresenter];
     controller.enabled = YES;
     
     [self.accountControllers addObject:controller];
@@ -847,7 +850,8 @@ NS_ASSUME_NONNULL_END
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                     callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
-                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
+                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
+                                                                 storeWindowPresenter:self.storeWindowPresenter];
         [controller setAccountUnavailable:NO];
         [controller setEnabled:YES];
         [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
@@ -1129,7 +1133,8 @@ NS_ASSUME_NONNULL_END
                                                                           musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                     callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
-                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory];
+                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
+                                                                 storeWindowPresenter:self.storeWindowPresenter];
 
         [controller setEnabled:[accountDict[kAccountEnabled] boolValue]];
         [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];

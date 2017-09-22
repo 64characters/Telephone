@@ -184,7 +184,8 @@ static NSString * const kRussian = @"ru";
                        musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
  callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-       purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory {
+       purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+              storeWindowPresenter:(StoreWindowPresenter *)storeWindowPresenter{
 
     self = [super init];
     if (self == nil) {
@@ -207,7 +208,8 @@ static NSString * const kRussian = @"ru";
                                                callHistoryViewController:[[CallHistoryViewController alloc] init]
                                        callHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
                                              purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
-                                                                 account:[[AccountToAccountControllerAdapter alloc] initWithController:self]];
+                                                                 account:[[AccountToAccountControllerAdapter alloc] initWithController:self]
+                                                    storeWindowPresenter:storeWindowPresenter];
     _windowController = [[AccountWindowController alloc] initWithAccountDescription:_accountDescription
                                                                          SIPAddress:_account.SIPAddress
                                                               accountViewController:_accountViewController

@@ -1,5 +1,5 @@
 //
-//  StoreWindowController.swift
+//  StoreWindowPresenter.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import Cocoa
-import UseCases
+final class StoreWindowPresenter: NSObject {
+    private let controller: StoreWindowController
 
-final class StoreWindowController: NSWindowController {
-    convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: "StoreWindowController")
-        contentViewController = controller
+    init(controller: StoreWindowController) {
+        self.controller = controller
     }
 
-    func showWindowCentered() {
-        window?.center()
-        showWindow(self)
+    func present() {
+        controller.showWindowCentered()
+    }
+}
+
+extension StoreWindowPresenter: PurchaseReminderUseCaseOutput {
+    func remindAboutPurchasing() {
+        present()
     }
 }

@@ -31,6 +31,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 @property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
 @property(nonatomic, readonly) AsyncCallHistoryPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
 @property(nonatomic, readonly) id<Account> account;
+@property(nonatomic, readonly) StoreWindowPresenter *storeWindowPresenter;
 
 @property(nonatomic) CallHistoryViewEventTarget *callHistoryViewEventTarget;
 @property(nonatomic) AccountViewBottomViewPresenter *bottomViewPresenter;
@@ -57,18 +58,21 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
                           callHistoryViewController:(CallHistoryViewController *)callHistoryViewController
                   callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
                         purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                                            account:(id<Account>)account {
+                                            account:(id<Account>)account
+                               storeWindowPresenter:(StoreWindowPresenter *)storeWindowPresenter {
     NSParameterAssert(activeAccountViewController);
     NSParameterAssert(callHistoryViewController);
     NSParameterAssert(callHistoryViewEventTargetFactory);
     NSParameterAssert(purchaseCheckUseCaseFactory);
     NSParameterAssert(account);
+    NSParameterAssert(storeWindowPresenter);
     if ((self = [super initWithNibName:@"AccountView" bundle:nil])) {
         _activeAccountViewController = activeAccountViewController;
         _callHistoryViewController = callHistoryViewController;
         _callHistoryViewEventTargetFactory = callHistoryViewEventTargetFactory;
         _purchaseCheckUseCaseFactory = purchaseCheckUseCaseFactory;
         _account = account;
+        _storeWindowPresenter = storeWindowPresenter;
     }
     return self;
 }
@@ -132,6 +136,10 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
     self.activeAccountViewController.callDestinationField.tokenStyle = NSTokenStyleRounded;
     self.activeAccountViewController.callDestinationField.stringValue = destination;
     [self.activeAccountViewController makeCall:self];
+}
+
+- (IBAction)showStoreWindow:(id)sender {
+    [self.storeWindowPresenter present];
 }
 
 @end

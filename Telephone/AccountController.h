@@ -27,7 +27,7 @@ extern NSString * const kEmailSIPLabel;
 
 @class AKSIPURI, AKNetworkReachability;
 @class AsyncCallHistoryPurchaseCheckUseCaseFactory, AsyncCallHistoryViewEventTargetFactory;
-@class CallTransferController, WorkspaceSleepStatus;
+@class CallTransferController, StoreWindowPresenter, WorkspaceSleepStatus;
 @protocol MusicPlayer, RingtonePlaybackUseCase;
 
 @interface AccountController : NSObject <AKSIPAccountDelegate, CallControllerDelegate>
@@ -58,7 +58,8 @@ extern NSString * const kEmailSIPLabel;
                        musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
  callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
-       purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory;
+       purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+              storeWindowPresenter:(StoreWindowPresenter *)storeWindowPresenter;
 
 - (void)registerAccount;
 - (void)unregisterAccount;

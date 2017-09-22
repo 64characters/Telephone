@@ -18,7 +18,7 @@
 
 @import Cocoa;
 
-@class ActiveAccountViewController, CallHistoryViewController;
+@class ActiveAccountViewController, CallHistoryViewController, StoreWindowPresenter;
 @class AsyncCallHistoryPurchaseCheckUseCaseFactory, AsyncCallHistoryViewEventTargetFactory;
 @protocol Account;
 
@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
                           callHistoryViewController:(CallHistoryViewController *)callHistoryViewController
                   callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
                         purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
-                                            account:(id<Account>)account;
+                                            account:(id<Account>)account
+                               storeWindowPresenter:(StoreWindowPresenter *)storeWindowPresenter;
 
 - (void)showActiveState;
 - (void)showInactiveStateAnimated:(BOOL)animated;
