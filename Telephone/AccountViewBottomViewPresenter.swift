@@ -61,6 +61,6 @@ extension AccountViewBottomViewPresenter: RecordCountingPurchaseCheckUseCaseOutp
 
 private func makeButtionTitleWithCounts(total: Int, current: Int) -> String {
     return String(
-        format: NSLocalizedString("Show %ld more…", comment: "Show more call history records button."), total - current
+        format: NSLocalizedString("Show %d more…", comment: "Show more call history records button."), total - current
     )
 }

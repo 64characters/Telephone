@@ -154,7 +154,7 @@
 "Save changes to the network settings?" = "Сохранить сетевые настройки?";
 
 /* Show more call history records button. */
-"Show %ld more…" = "Показать еще %ld…";
+"Show %d more…" = "Показать еще %d…";
 
 /* Sound preferences window title. */
 "Sound" = "Звук";

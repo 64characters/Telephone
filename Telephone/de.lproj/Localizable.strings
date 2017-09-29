@@ -154,7 +154,7 @@
 "Save changes to the network settings?" = "Änderungen an den Netzwerkeinstellungen sichern?";
 
 /* Show more call history records button. */
-"Show %ld more…" = "%ld mehr anzeigen …";
+"Show %d more…" = "%d mehr anzeigen …";
 
 /* Sound preferences window title. */
 "Sound" = "Ton";
