@@ -124,7 +124,7 @@
 		8A2E1C091D50CDBB0085A5EF /* per_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE51D50CDBB0085A5EF /* per_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0A1D50CDBB0085A5EF /* per_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE71D50CDBB0085A5EF /* per_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0B1D50CDBB0085A5EF /* per_opentype.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE91D50CDBB0085A5EF /* per_opentype.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-unreachable-code"; }; };
-		8A2E1C0C1D50CDBB0085A5EF /* per_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEB1D50CDBB0085A5EF /* per_support.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C0C1D50CDBB0085A5EF /* per_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEB1D50CDBB0085A5EF /* per_support.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-comma"; }; };
 		8A2E1C0D1D50CDBB0085A5EF /* ReceiptAttribute.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BED1D50CDBB0085A5EF /* ReceiptAttribute.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0E1D50CDBB0085A5EF /* xer_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEF1D50CDBB0085A5EF /* xer_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0F1D50CDBB0085A5EF /* xer_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BF11D50CDBB0085A5EF /* xer_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
