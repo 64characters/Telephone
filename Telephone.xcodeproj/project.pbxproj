@@ -119,7 +119,7 @@
 		8A2E1C041D50CDBB0085A5EF /* INTEGER.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BDB1D50CDBB0085A5EF /* INTEGER.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-conditional-uninitialized"; }; };
 		8A2E1C051D50CDBB0085A5EF /* NativeEnumerated.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BDD1D50CDBB0085A5EF /* NativeEnumerated.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C061D50CDBB0085A5EF /* NativeInteger.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BDF1D50CDBB0085A5EF /* NativeInteger.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
-		8A2E1C071D50CDBB0085A5EF /* OCTET_STRING.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE11D50CDBB0085A5EF /* OCTET_STRING.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C071D50CDBB0085A5EF /* OCTET_STRING.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE11D50CDBB0085A5EF /* OCTET_STRING.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-comma"; }; };
 		8A2E1C081D50CDBB0085A5EF /* Payload.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE31D50CDBB0085A5EF /* Payload.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C091D50CDBB0085A5EF /* per_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE51D50CDBB0085A5EF /* per_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0A1D50CDBB0085A5EF /* per_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE71D50CDBB0085A5EF /* per_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
