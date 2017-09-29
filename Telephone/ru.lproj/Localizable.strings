@@ -153,6 +153,9 @@
 /* Network settings change confirmation. */
 "Save changes to the network settings?" = "Сохранить сетевые настройки?";
 
+/* Show more call history records button. */
+"Show %ld more…" = "Показать еще %ld…";
+
 /* Sound preferences window title. */
 "Sound" = "Звук";
 
