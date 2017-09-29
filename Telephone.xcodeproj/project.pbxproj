@@ -124,7 +124,7 @@
 		8A2E1C091D50CDBB0085A5EF /* per_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE51D50CDBB0085A5EF /* per_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0A1D50CDBB0085A5EF /* per_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE71D50CDBB0085A5EF /* per_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0B1D50CDBB0085A5EF /* per_opentype.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BE91D50CDBB0085A5EF /* per_opentype.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-unreachable-code"; }; };
-		8A2E1C0C1D50CDBB0085A5EF /* per_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEB1D50CDBB0085A5EF /* per_support.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2E1C0C1D50CDBB0085A5EF /* per_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEB1D50CDBB0085A5EF /* per_support.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-comma"; }; };
 		8A2E1C0D1D50CDBB0085A5EF /* ReceiptAttribute.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BED1D50CDBB0085A5EF /* ReceiptAttribute.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0E1D50CDBB0085A5EF /* xer_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEF1D50CDBB0085A5EF /* xer_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0F1D50CDBB0085A5EF /* xer_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BF11D50CDBB0085A5EF /* xer_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
@@ -3287,7 +3287,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					8AE706221D491C210060FF4F = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -5002,14 +5002,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -5046,14 +5052,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
