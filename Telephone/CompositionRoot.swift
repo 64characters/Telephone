@@ -96,9 +96,12 @@ final class CompositionRoot: NSObject {
             output: storeWindowPresenter
         )
 
+        let storeEventTargets = StoreEventTargets()
+        storeEventTargets.add(storeViewEventTarget)
+
         storeEventSource = StoreEventSource(
             queue: SKPaymentQueue.default(),
-            target: ReceiptValidatingStoreEventTarget(origin: storeViewEventTarget, receipt: receipt)
+            target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt)
         )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
@@ -216,6 +219,7 @@ final class CompositionRoot: NSObject {
                 receipt: receipt,
                 dateFormatter: ShortRelativeDateTimeFormatter(),
                 durationFormatter: DurationFormatter(),
+                storeEventTargets: storeEventTargets,
                 background: contactsBackground,
                 main: main
             ),
