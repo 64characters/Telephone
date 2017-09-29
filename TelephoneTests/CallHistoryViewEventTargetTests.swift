@@ -34,20 +34,6 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertTrue(get.didCallExecute)
     }
 
-    func testExecutesCallHistoryRecordGetAllUseCaseOnDidUpdateHistory() {
-        let get = UseCaseSpy()
-        let sut = CallHistoryViewEventTarget(
-            recordsGet: get,
-            purchaseCheck: UseCaseSpy(),
-            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
-            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
-        )
-
-        sut.didUpdate(TruncatingCallHistory())
-
-        XCTAssertTrue(get.didCallExecute)
-    }
-
     func testExecutesPurchaseCheckUseCaseOnShouldReloadData() {
         let purchaseCheck = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
@@ -60,6 +46,20 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         sut.shouldReloadData()
 
         XCTAssertTrue(purchaseCheck.didCallExecute)
+    }
+
+    func testExecutesCallHistoryRecordGetAllUseCaseOnDidUpdateHistory() {
+        let get = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: get,
+            purchaseCheck: UseCaseSpy(),
+            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
+            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
+        )
+
+        sut.didUpdate(TruncatingCallHistory())
+
+        XCTAssertTrue(get.didCallExecute)
     }
 
     func testExecutesPurchaseCheckUseCaseOnDidUpdateHistory() {
