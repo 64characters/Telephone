@@ -54,10 +54,12 @@ extension CallHistoryViewEventTarget: CallHistoryEventTarget {
 
 extension CallHistoryViewEventTarget: StoreEventTarget {
     func didPurchase() {
+        recordsGet.execute()
         purchaseCheck.execute()
     }
 
     func didRestorePurchases() {
+        recordsGet.execute()
         purchaseCheck.execute()
     }
 
