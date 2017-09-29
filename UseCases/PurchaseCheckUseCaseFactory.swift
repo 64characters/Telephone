@@ -1,5 +1,5 @@
 //
-//  StoreEventTarget.swift
+//  PurchaseCheckUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreEventTarget: class {
-    func didStartPurchasingProduct(withIdentifier identifier: String)
+public final class PurchaseCheckUseCaseFactory {
+    private let receipt: Receipt
 
-    func didPurchase()
-    func didFailPurchasing(error: String)
-    func didCancelPurchasing()
+    public init(receipt: Receipt) {
+        self.receipt = receipt
+    }
 
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error: String)
-    func didCancelRestoringPurchases()
+    public func make(output: PurchaseCheckUseCaseOutput) -> PurchaseCheckUseCase {
+        return PurchaseCheckUseCase(receipt: receipt, output: output)
+    }
 }

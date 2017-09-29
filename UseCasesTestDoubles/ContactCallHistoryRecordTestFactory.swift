@@ -1,5 +1,5 @@
 //
-//  StoreWindowController.swift
+//  ContactCallHistoryRecordTestFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-import Cocoa
 import UseCases
 
-final class StoreWindowController: NSWindowController {
-    convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: "StoreWindowController")
-        contentViewController = controller
+public final class ContactCallHistoryRecordTestFactory {
+    private let factory: CallHistoryRecordTestFactory
+
+    public init(factory: CallHistoryRecordTestFactory) {
+        self.factory = factory
     }
 
-    func showWindowCentered() {
-        window?.center()
-        showWindow(self)
+    public func makeRecord(number: Int) -> ContactCallHistoryRecord {
+        return ContactCallHistoryRecord(
+            origin: factory.makeRecord(number: number),
+            contact: MatchedContact(
+                name: "any-name-\(number)",
+                address: .email(address: "any-address\(number)", label: "any-label-\(number)")
+            )
+        )
     }
 }

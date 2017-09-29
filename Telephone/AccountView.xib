@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AccountViewController" customModule="Telephone" customModuleProvider="target">
+            <connections>
+                <outlet property="activeAccountView" destination="k68-pB-xZN" id="W7a-aU-GZ9"/>
+                <outlet property="activeAccountViewHeightConstraint" destination="S1a-XW-ddH" id="AIf-vA-Owe"/>
+                <outlet property="bottomViewHeightConstraint" destination="e6d-Sh-eHB" id="DTC-Lt-Wpb"/>
+                <outlet property="callHistoryView" destination="7nM-cL-fbj" id="uhG-kU-XO6"/>
+                <outlet property="horizontalLineHeightConstraint" destination="UCN-R6-LKd" id="z1H-U4-baS"/>
+                <outlet property="showMoreButton" destination="IEB-N5-OMW" id="gmc-1q-3Jn"/>
+                <outlet property="view" destination="i5H-OU-nn6" id="0dd-XI-zhC"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view wantsLayer="YES" id="i5H-OU-nn6">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="252"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="k68-pB-xZN">
+                    <rect key="frame" x="0.0" y="191" width="300" height="61"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="61" id="S1a-XW-ddH"/>
+                    </constraints>
+                </customView>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="LjS-xT-L8h">
+                    <rect key="frame" x="0.0" y="188" width="300" height="5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="UCN-R6-LKd"/>
+                    </constraints>
+                </box>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="7nM-cL-fbj">
+                    <rect key="frame" x="0.0" y="32" width="300" height="158"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="AvG-2b-kim"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="158" id="g9U-Wu-GgM"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ySH-iF-rRW">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IEB-N5-OMW">
+                            <rect key="frame" x="110" y="6" width="80" height="19"/>
+                            <buttonCell key="cell" type="roundTextured" title="Show More…" bezelStyle="texturedRounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KI9-M1-VTF">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystem"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showStoreWindow:" target="-2" id="MFv-nZ-yjg"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="e6d-Sh-eHB"/>
+                        <constraint firstItem="IEB-N5-OMW" firstAttribute="centerY" secondItem="ySH-iF-rRW" secondAttribute="centerY" id="thS-D0-sD1"/>
+                        <constraint firstItem="IEB-N5-OMW" firstAttribute="centerX" secondItem="ySH-iF-rRW" secondAttribute="centerX" id="zsq-0t-dK2"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="7nM-cL-fbj" secondAttribute="trailing" id="0w3-hd-ysg"/>
+                <constraint firstAttribute="bottom" secondItem="ySH-iF-rRW" secondAttribute="bottom" id="6d3-VQ-Pqd"/>
+                <constraint firstItem="LjS-xT-L8h" firstAttribute="leading" secondItem="i5H-OU-nn6" secondAttribute="leading" id="7gq-T7-Sav"/>
+                <constraint firstAttribute="trailing" secondItem="LjS-xT-L8h" secondAttribute="trailing" id="ARc-nv-KbB"/>
+                <constraint firstItem="7nM-cL-fbj" firstAttribute="leading" secondItem="i5H-OU-nn6" secondAttribute="leading" id="Amw-Ee-rOl"/>
+                <constraint firstItem="7nM-cL-fbj" firstAttribute="top" secondItem="LjS-xT-L8h" secondAttribute="bottom" id="BhU-cq-61g"/>
+                <constraint firstAttribute="trailing" secondItem="k68-pB-xZN" secondAttribute="trailing" id="Hke-8d-HCX"/>
+                <constraint firstItem="k68-pB-xZN" firstAttribute="top" secondItem="i5H-OU-nn6" secondAttribute="top" id="Mf4-qj-tn7"/>
+                <constraint firstItem="LjS-xT-L8h" firstAttribute="top" secondItem="k68-pB-xZN" secondAttribute="bottom" id="ZAf-ti-0jq"/>
+                <constraint firstItem="ySH-iF-rRW" firstAttribute="leading" secondItem="i5H-OU-nn6" secondAttribute="leading" id="cFN-qv-WEi"/>
+                <constraint firstItem="k68-pB-xZN" firstAttribute="leading" secondItem="i5H-OU-nn6" secondAttribute="leading" id="fgv-IK-2K9"/>
+                <constraint firstAttribute="trailing" secondItem="ySH-iF-rRW" secondAttribute="trailing" id="fiM-FQ-l1w"/>
+                <constraint firstItem="ySH-iF-rRW" firstAttribute="top" secondItem="7nM-cL-fbj" secondAttribute="bottom" id="wru-76-U0l"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

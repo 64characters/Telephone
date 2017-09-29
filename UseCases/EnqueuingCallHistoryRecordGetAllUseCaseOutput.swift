@@ -1,5 +1,5 @@
 //
-//  StoreEventTarget.swift
+//  EnqueuingCallHistoryRecordGetAllUseCaseOutput.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreEventTarget: class {
-    func didStartPurchasingProduct(withIdentifier identifier: String)
+public final class EnqueuingCallHistoryRecordGetAllUseCaseOutput {
+    fileprivate let origin: CallHistoryRecordGetAllUseCaseOutput
+    fileprivate let queue: ExecutionQueue
 
-    func didPurchase()
-    func didFailPurchasing(error: String)
-    func didCancelPurchasing()
+    public init(origin: CallHistoryRecordGetAllUseCaseOutput, queue: ExecutionQueue) {
+        self.origin = origin
+        self.queue = queue
+    }
+}
 
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error: String)
-    func didCancelRestoringPurchases()
+extension EnqueuingCallHistoryRecordGetAllUseCaseOutput: CallHistoryRecordGetAllUseCaseOutput {
+    public func update(records: [CallHistoryRecord]) {
+        queue.add {
+            self.origin.update(records: records)
+        }
+    }
 }

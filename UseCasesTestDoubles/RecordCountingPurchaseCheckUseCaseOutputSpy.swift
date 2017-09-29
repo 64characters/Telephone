@@ -1,5 +1,5 @@
 //
-//  StoreWindowController.swift
+//  RecordCountingPurchaseCheckUseCaseOutputSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,23 @@
 //  GNU General Public License for more details.
 //
 
-import Cocoa
 import UseCases
 
-final class StoreWindowController: NSWindowController {
-    convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: "StoreWindowController")
-        contentViewController = controller
+public final class RecordCountingPurchaseCheckUseCaseOutputSpy {
+    public fileprivate(set) var didCallDidCheckPurchase = false
+    public fileprivate(set) var didCallDidFailCheckingPurchase = false
+    public fileprivate(set) var invokedCount: Int?
+
+    public init() {}
+}
+
+extension RecordCountingPurchaseCheckUseCaseOutputSpy: RecordCountingPurchaseCheckUseCaseOutput {
+    public func didCheckPurchase() {
+        didCallDidCheckPurchase = true
     }
 
-    func showWindowCentered() {
-        window?.center()
-        showWindow(self)
+    public func didFailCheckingPurchase(recordCount count: Int) {
+        didCallDidFailCheckingPurchase = true
+        invokedCount = count
     }
 }

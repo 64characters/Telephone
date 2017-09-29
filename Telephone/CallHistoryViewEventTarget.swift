@@ -20,17 +20,20 @@ import UseCases
 
 final class CallHistoryViewEventTarget: NSObject {
     fileprivate let recordsGet: UseCase
+    fileprivate let purchaseCheck: UseCase
     private let recordRemove: CallHistoryRecordRemoveUseCaseFactory
     private let callMake: CallHistoryCallMakeUseCaseFactory
 
-    init(recordsGet: UseCase, recordRemove: CallHistoryRecordRemoveUseCaseFactory, callMake: CallHistoryCallMakeUseCaseFactory) {
+    init(recordsGet: UseCase, purchaseCheck: UseCase, recordRemove: CallHistoryRecordRemoveUseCaseFactory, callMake: CallHistoryCallMakeUseCaseFactory) {
         self.recordsGet = recordsGet
+        self.purchaseCheck = purchaseCheck
         self.recordRemove = recordRemove
         self.callMake = callMake
     }
 
     func shouldReloadData() {
         recordsGet.execute()
+        purchaseCheck.execute()
     }
 
     func didPickRecord(withIdentifier identifier: String) {
@@ -45,5 +48,24 @@ final class CallHistoryViewEventTarget: NSObject {
 extension CallHistoryViewEventTarget: CallHistoryEventTarget {
     func didUpdate(_ history: CallHistory) {
         recordsGet.execute()
+        purchaseCheck.execute()
     }
+}
+
+extension CallHistoryViewEventTarget: StoreEventTarget {
+    func didPurchase() {
+        recordsGet.execute()
+        purchaseCheck.execute()
+    }
+
+    func didRestorePurchases() {
+        recordsGet.execute()
+        purchaseCheck.execute()
+    }
+
+    func didStartPurchasingProduct(withIdentifier identifier: String) {}
+    func didFailPurchasing(error: String) {}
+    func didCancelPurchasing() {}
+    func didFailRestoringPurchases(error: String) {}
+    func didCancelRestoringPurchases() {}
 }

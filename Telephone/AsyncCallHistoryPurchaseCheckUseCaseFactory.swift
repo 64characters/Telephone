@@ -1,5 +1,5 @@
 //
-//  AsyncCallHistoryViewEventTargetFactory.swift
+//  AsyncCallHistoryPurchaseCheckUseCaseFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,20 +18,20 @@
 
 import UseCases
 
-final class AsyncCallHistoryViewEventTargetFactory: NSObject {
-    private let origin: CallHistoryViewEventTargetFactory
+final class AsyncCallHistoryPurchaseCheckUseCaseFactory: NSObject {
+    private let origin: CallHistoryPurchaseCheckUseCaseFactory
     private let background: ExecutionQueue
     private let main: ExecutionQueue
 
-    init(origin: CallHistoryViewEventTargetFactory, background: ExecutionQueue, main: ExecutionQueue) {
+    init(origin: CallHistoryPurchaseCheckUseCaseFactory, background: ExecutionQueue, main: ExecutionQueue) {
         self.origin = origin
         self.background = background
         self.main = main
     }
 
-    func make(account: Account, view: CallHistoryView, purchaseCheck: UseCase, completion: @escaping (CallHistoryViewEventTarget) -> Void) {
+    func make(account: Account, output: RecordCountingPurchaseCheckUseCaseOutput, completion: @escaping (UseCase) -> Void) {
         background.add {
-            let result = self.origin.make(account: account, view: view, purchaseCheck: purchaseCheck)
+            let result = self.origin.make(account: account, output: output)
             self.main.add {
                 completion(result)
             }

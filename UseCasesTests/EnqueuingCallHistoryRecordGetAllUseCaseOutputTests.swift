@@ -1,5 +1,5 @@
 //
-//  EnqueuingContactCallHistoryRecordGetAllUseCaseOutputTests.swift
+//  EnqueuingCallHistoryRecordGetAllUseCaseOutputTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,11 +20,11 @@ import XCTest
 import UseCases
 import UseCasesTestDoubles
 
-final class EnqueuingContactCallHistoryRecordGetAllUseCaseOutputTests: XCTestCase {
+final class EnqueuingCallHistoryRecordGetAllUseCaseOutputTests: XCTestCase {
     func testAddsBlockToQueueOnUpdate() {
         let queue = ExecutionQueueSpy()
-        let sut = EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(
-            origin: ContactCallHistoryRecordGetAllUseCaseOutputSpy(), queue: queue
+        let sut = EnqueuingCallHistoryRecordGetAllUseCaseOutput(
+            origin: CallHistoryRecordGetAllUseCaseOutputSpy(), queue: queue
         )
 
         sut.update(records: [])
@@ -32,17 +32,14 @@ final class EnqueuingContactCallHistoryRecordGetAllUseCaseOutputTests: XCTestCas
         XCTAssertTrue(queue.didCallAdd)
     }
 
-    func testCallsUpdateOnOriginWithTheSameArgumentOnUpdate() {
-        let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
-        let sut = EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, queue: SyncExecutionQueue())
-        let records = [makeRecord(number: 1), makeRecord(number: 2), makeRecord(number: 3)]
+    func testUpdateWithTheSameRecordsIsCalledOnOriginOnUpdate() {
+        let origin = CallHistoryRecordGetAllUseCaseOutputSpy()
+        let sut = EnqueuingCallHistoryRecordGetAllUseCaseOutput(origin: origin, queue: SyncExecutionQueue())
+        let factory = CallHistoryRecordTestFactory()
+        let records = [factory.makeRecord(number: 1), factory.makeRecord(number: 2), factory.makeRecord(number: 3)]
 
         sut.update(records: records)
 
         XCTAssertEqual(origin.invokedRecords, records)
     }
-}
-
-private func makeRecord(number: Int) -> ContactCallHistoryRecord {
-    return ContactCallHistoryRecordTestFactory(factory: CallHistoryRecordTestFactory()).makeRecord(number: number)
 }

@@ -1,5 +1,5 @@
 //
-//  StoreEventTarget.swift
+//  StoreWindowPresenter.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreEventTarget: class {
-    func didStartPurchasingProduct(withIdentifier identifier: String)
+final class StoreWindowPresenter: NSObject {
+    private let controller: StoreWindowController
 
-    func didPurchase()
-    func didFailPurchasing(error: String)
-    func didCancelPurchasing()
+    init(controller: StoreWindowController) {
+        self.controller = controller
+    }
 
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error: String)
-    func didCancelRestoringPurchases()
+    func present() {
+        controller.showWindowCentered()
+    }
+}
+
+extension StoreWindowPresenter: PurchaseReminderUseCaseOutput {
+    func remindAboutPurchasing() {
+        present()
+    }
 }

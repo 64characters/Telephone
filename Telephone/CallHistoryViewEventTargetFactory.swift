@@ -22,8 +22,10 @@ final class CallHistoryViewEventTargetFactory {
     private let histories: CallHistories
     private let index: ContactMatchingIndex
     private let settings: ContactMatchingSettings
+    private let receipt: Receipt
     private let dateFormatter: DateFormatter
     private let durationFormatter: DateComponentsFormatter
+    private let storeEventTargets: StoreEventTargets
     private let background: ExecutionQueue
     private let main: ExecutionQueue
 
@@ -31,21 +33,25 @@ final class CallHistoryViewEventTargetFactory {
         histories: CallHistories,
         index: ContactMatchingIndex,
         settings: ContactMatchingSettings,
+        receipt: Receipt,
         dateFormatter: DateFormatter,
         durationFormatter: DateComponentsFormatter,
+        storeEventTargets: StoreEventTargets,
         background: ExecutionQueue,
         main: ExecutionQueue
         ) {
         self.histories = histories
         self.index = index
         self.settings = settings
+        self.receipt = receipt
         self.dateFormatter = dateFormatter
         self.durationFormatter = durationFormatter
+        self.storeEventTargets = storeEventTargets
         self.background = background
         self.main = main
     }
 
-    func make(account: Account, view: CallHistoryView) -> CallHistoryViewEventTarget {
+    func make(account: Account, view: CallHistoryView, purchaseCheck: UseCase) -> CallHistoryViewEventTarget {
         let history = histories.history(withUUID: account.uuid)
         let factory = FallingBackMatchedContactFactory(
             matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain)
@@ -57,8 +63,11 @@ final class CallHistoryViewEventTargetFactory {
                     output: ContactCallHistoryRecordGetAllUseCase(
                         factory: factory,
                         output: EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(
-                            origin: CallHistoryViewPresenter(
-                                view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                            origin: ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(
+                                origin: CallHistoryViewPresenter(
+                                    view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                                ),
+                                receipt: receipt
                             ),
                             queue: main
                         )
@@ -66,6 +75,7 @@ final class CallHistoryViewEventTargetFactory {
                 ),
                 queue: background
             ),
+            purchaseCheck: purchaseCheck,
             recordRemove: EnqueueingCallHistoryRecordRemoveUseCaseFactory(
                 origin: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history), queue: background
             ),
@@ -76,6 +86,7 @@ final class CallHistoryViewEventTargetFactory {
         history.updateTarget(
             EnqueuingCallHistoryEventTarget(origin: WeakCallHistoryEventTarget(origin: result), queue: main)
         )
+        storeEventTargets.add(WeakStoreEventTarget(origin: result))
         return result
     }
 }

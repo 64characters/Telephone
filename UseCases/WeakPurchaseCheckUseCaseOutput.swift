@@ -1,5 +1,5 @@
 //
-//  StoreEventTarget.swift
+//  WeakPurchaseCheckUseCaseOutput.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreEventTarget: class {
-    func didStartPurchasingProduct(withIdentifier identifier: String)
+final class WeakPurchaseCheckUseCaseOutput {
+    fileprivate weak var origin: PurchaseCheckUseCaseOutput?
 
-    func didPurchase()
-    func didFailPurchasing(error: String)
-    func didCancelPurchasing()
+    init(origin: PurchaseCheckUseCaseOutput) {
+        self.origin = origin
+    }
+}
 
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error: String)
-    func didCancelRestoringPurchases()
+extension WeakPurchaseCheckUseCaseOutput: PurchaseCheckUseCaseOutput {
+    func didCheckPurchase(expiration: Date) {
+        origin?.didCheckPurchase(expiration: expiration)
+    }
+
+    func didFailCheckingPurchase() {
+        origin?.didFailCheckingPurchase()
+    }
 }

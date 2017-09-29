@@ -25,13 +25,14 @@ final class CompositionRoot: NSObject {
     let userAgent: AKSIPUserAgent
     let preferencesController: PreferencesController
     let ringtonePlayback: RingtonePlaybackUseCase
-    let storeWindowController: StoreWindowController
+    let storeWindowPresenter: StoreWindowPresenter
     let purchaseReminder: PurchaseReminderUseCase
     let musicPlayer: MusicPlayer
     let settingsMigration: ProgressiveSettingsMigration
     let applicationDataLocations: ApplicationDataLocations
     let workstationSleepStatus: WorkspaceSleepStatus
     let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
+    let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
     private let defaults: UserDefaults
 
     private let storeEventSource: StoreEventSource
@@ -84,7 +85,7 @@ final class CompositionRoot: NSObject {
         )
         storeViewController.updateTarget(storeViewEventTarget)
 
-        storeWindowController = StoreWindowController(contentViewController: storeViewController)
+        storeWindowPresenter = StoreWindowPresenter(controller: StoreWindowController(contentViewController: storeViewController))
 
         purchaseReminder = PurchaseReminderUseCase(
             accounts: SettingsAccounts(settings: defaults),
@@ -92,12 +93,15 @@ final class CompositionRoot: NSObject {
             settings: UserDefaultsPurchaseReminderSettings(defaults: defaults),
             now: Date(),
             version: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,
-            output: storeWindowController
+            output: storeWindowPresenter
         )
+
+        let storeEventTargets = StoreEventTargets()
+        storeEventTargets.add(storeViewEventTarget)
 
         storeEventSource = StoreEventSource(
             queue: SKPaymentQueue.default(),
-            target: ReceiptValidatingStoreEventTarget(origin: storeViewEventTarget, receipt: receipt)
+            target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt)
         )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
@@ -212,10 +216,20 @@ final class CompositionRoot: NSObject {
                 histories: callHistories,
                 index: contactMatchingIndex,
                 settings: contactMatchingSettings,
+                receipt: receipt,
                 dateFormatter: ShortRelativeDateTimeFormatter(),
                 durationFormatter: DurationFormatter(),
+                storeEventTargets: storeEventTargets,
                 background: contactsBackground,
                 main: main
+            ),
+            background: contactsBackground,
+            main: main
+        )
+
+        callHistoryPurchaseCheckUseCaseFactory = AsyncCallHistoryPurchaseCheckUseCaseFactory(
+            origin: CallHistoryPurchaseCheckUseCaseFactory(
+                histories: callHistories, receipt: receipt, background: contactsBackground, main: main
             ),
             background: contactsBackground,
             main: main

@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UseCase {
+@objc public protocol UseCase {
     func execute()
 }

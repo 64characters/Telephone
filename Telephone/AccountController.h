@@ -16,87 +16,54 @@
 //  GNU General Public License for more details.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 #import "AKSIPAccount.h"
 
 #import "CallController.h"
 
-
 // Address Book label for SIP address in the email field.
 extern NSString * const kEmailSIPLabel;
 
 @class AKSIPURI, AKNetworkReachability;
-@class AsyncCallHistoryViewEventTargetFactory, AuthenticationFailureController;
-@class CallTransferController, WorkspaceSleepStatus;
+@class AsyncCallHistoryPurchaseCheckUseCaseFactory, AsyncCallHistoryViewEventTargetFactory;
+@class CallTransferController, StoreWindowPresenter, WorkspaceSleepStatus;
 @protocol MusicPlayer, RingtonePlaybackUseCase;
 
-// A SIP account controller.
-@interface AccountController : NSWindowController <AKSIPAccountDelegate, CallControllerDelegate>
-
-// A Boolean value indicating whether receiver is enabled.
-@property(nonatomic, assign, getter=isEnabled) BOOL enabled;
+@interface AccountController : NSObject <AKSIPAccountDelegate, CallControllerDelegate>
 
 @property(nonatomic, readonly) AKSIPAccount *account;
-@property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 @property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
-@property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
-@property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *factory;
 
-// A Boolean value indicating whether account is registered.
+@property(nonatomic, getter=isEnabled) BOOL enabled;
 @property(nonatomic, readonly, getter=isAccountRegistered) BOOL accountRegistered;
-
-// An array of call controllers managed by the receiver.
-@property(nonatomic, strong) NSMutableArray *callControllers;
-
-// Account description.
-@property(nonatomic, copy) NSString *accountDescription;
-
-// A Boolean value indicating whether a user is attempting to register an account.
-@property(nonatomic, assign) BOOL attemptingToRegisterAccount;
-
-// A Boolean value indicating whether a user is attempting to unregister an account.
-@property(nonatomic, assign) BOOL attemptingToUnregisterAccount;
-
-// A Boolean value indicting whether the receiver should present account registration error to the user.
-@property(nonatomic, assign) BOOL shouldPresentRegistrationError;
-
-// A Boolean value indicating whether account is unavailable. When it is, we reply with |480 Temporarily Unavailable|
-// to all incoming calls.
-@property(nonatomic, assign, getter=isAccountUnavailable) BOOL accountUnavailable;
-
-// Registrar network reachability. When registrar becomes reachable, we try to register the receiver's account.
-@property(nonatomic, strong) AKNetworkReachability *registrarReachability;
-
-// A Boolean value indicating whether a plus character at the beginning of the phone number to be dialed should be
-// replaced.
-@property(nonatomic, assign) BOOL substitutesPlusCharacter;
-
-// A replacement for the plus character in the phone number.
+@property(nonatomic, readonly) NSMutableArray *callControllers;
+@property(nonatomic, readonly) NSString *accountDescription;
+@property(nonatomic) BOOL attemptingToRegisterAccount;
+@property(nonatomic) BOOL attemptingToUnregisterAccount;
+@property(nonatomic) BOOL shouldPresentRegistrationError;
+@property(nonatomic, getter=isAccountUnavailable) BOOL accountUnavailable;
+@property(nonatomic, readonly) AKNetworkReachability *registrarReachability;
+@property(nonatomic) BOOL substitutesPlusCharacter;
 @property(nonatomic, copy) NSString *plusCharacterSubstitution;
-
-// An authentication failure controller.
-@property(nonatomic, readonly) AuthenticationFailureController *authenticationFailureController;
-
-// A Boolean value indicating if call windows should display account name.
-@property(nonatomic, assign) BOOL callsShouldDisplayAccountInfo;
-
+@property(nonatomic) BOOL callsShouldDisplayAccountInfo;
 @property(nonatomic, readonly) BOOL canMakeCalls;
 
 
 - (instancetype)initWithSIPAccount:(AKSIPAccount *)account
+                accountDescription:(NSString *)accountDescription
                          userAgent:(AKSIPUserAgent *)userAgent
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                        musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
-                           factory:(AsyncCallHistoryViewEventTargetFactory *)factory;
+ callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
+       purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
+              storeWindowPresenter:(StoreWindowPresenter *)storeWindowPresenter;
 
-// Registers the account adding it to the user agent, if needed. The user agent will be started, if it hasn't been yet.
 - (void)registerAccount;
 - (void)unregisterAccount;
 
-// Removes account from the user agent.
 - (void)removeAccountFromUserAgent;
 
 // Makes a call to a given destination URI with a given phone label.
@@ -107,27 +74,20 @@ extern NSString * const kEmailSIPLabel;
         phoneLabel:(NSString *)phoneLabel
         callTransferController:(CallTransferController *)callTransferController;
 
-// Calls makeCallToURI:phoneLabel:callTransferController: with |callTransferController| set to nil.
 - (void)makeCallToURI:(AKSIPURI *)destinationURI phoneLabel:(NSString *)phoneLabel;
 
 - (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination;
 
-// Changes account state.
-- (IBAction)changeAccountState:(id)sender;
+- (void)showWindow;
+- (void)showWindowWithoutMakingKey;
+- (void)hideWindow;
+- (BOOL)isWindowKey;
+- (void)orderWindow:(NSWindowOrderingMode)place relativeTo:(NSInteger)otherWindow;
+- (NSInteger)windowNumber;
 
-// Shows alert saying that connection to the registrar failed.
 - (void)showRegistrarConnectionErrorSheetWithError:(NSString *)error;
 
-// Switches account window to the available state.
-- (void)showAvailableState;
-
-// Switches account window to the unavailable state.
 - (void)showUnavailableState;
-
-// Switches account window to the offline state.
-- (void)showOfflineState;
-
-// Switches account window to the connecting state.
 - (void)showConnectingState;
 
 @end

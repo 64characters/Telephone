@@ -1,5 +1,5 @@
 //
-//  StoreEventTarget.swift
+//  PurchaseCheckUseCaseOutput.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreEventTarget: class {
-    func didStartPurchasingProduct(withIdentifier identifier: String)
-
-    func didPurchase()
-    func didFailPurchasing(error: String)
-    func didCancelPurchasing()
-
-    func didRestorePurchases()
-    func didFailRestoringPurchases(error: String)
-    func didCancelRestoringPurchases()
+public protocol PurchaseCheckUseCaseOutput: class {
+    func didCheckPurchase(expiration: Date)
+    func didFailCheckingPurchase()
 }
