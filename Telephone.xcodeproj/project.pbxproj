@@ -137,6 +137,7 @@
 		8A32D1A01E8E81E700903796 /* CallHistoriesHistoryRemoveUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32D19F1E8E81E700903796 /* CallHistoriesHistoryRemoveUseCase.swift */; };
 		8A3865161D369A2100EDA7AB /* FailingStoreFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */; };
 		8A3961E91F7EA28B00209266 /* WeakStoreEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3961E81F7EA28B00209266 /* WeakStoreEventTarget.swift */; };
+		8A3961EC1F7EEE7500209266 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 8A3961EE1F7EEE7500209266 /* Localizable.stringsdict */; };
 		8A39A1AD1D5BE42100D703AD /* PKCS7Container.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1AC1D5BE42100D703AD /* PKCS7Container.m */; };
 		8A39A1B01D5BE70000D703AD /* ASN1Payload.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1AF1D5BE70000D703AD /* ASN1Payload.m */; };
 		8A39A1B51D5C7C2700D703AD /* ASN1PayloadAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1B41D5C7C2700D703AD /* ASN1PayloadAttribute.swift */; };
@@ -934,6 +935,7 @@
 		8A32D19F1E8E81E700903796 /* CallHistoriesHistoryRemoveUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoriesHistoryRemoveUseCase.swift; sourceTree = "<group>"; };
 		8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingStoreFake.swift; sourceTree = "<group>"; };
 		8A3961E81F7EA28B00209266 /* WeakStoreEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakStoreEventTarget.swift; sourceTree = "<group>"; };
+		8A3961ED1F7EEE7500209266 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		8A39A1AB1D5BE42100D703AD /* PKCS7Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKCS7Container.h; sourceTree = "<group>"; };
 		8A39A1AC1D5BE42100D703AD /* PKCS7Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKCS7Container.m; sourceTree = "<group>"; };
 		8A39A1AE1D5BE70000D703AD /* ASN1Payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASN1Payload.h; path = ReceiptValidation/ASN1Payload.h; sourceTree = SOURCE_ROOT; };
@@ -1722,6 +1724,7 @@
 				AAA7CFFC1825BE1900D53FB9 /* Telephone.entitlements */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				AA584A680F06CFD2003C4992 /* Localizable.strings */,
+				8A3961EE1F7EEE7500209266 /* Localizable.stringsdict */,
 				AA167A1C0F07BF9E00AF8B71 /* SIPResponses.strings */,
 				AA3A153E0F30A49C00C45739 /* AddressBookLabels.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -3419,6 +3422,7 @@
 				AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */,
 				AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */,
 				8A778C041E095B5D004B00B8 /* CallHistoryViewController.xib in Resources */,
+				8A3961EC1F7EEE7500209266 /* Localizable.stringsdict in Resources */,
 				AA7CB51F11442249004D79DA /* ActiveAccountTransferView.xib in Resources */,
 				AA7CB51D11442241004D79DA /* CallTransfer.xib in Resources */,
 				AA7CB528114423A4004D79DA /* ActiveCallTransferView.xib in Resources */,
@@ -4258,6 +4262,14 @@
 				8AA749301D75E5E7000587DC /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		8A3961EE1F7EEE7500209266 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A3961ED1F7EEE7500209266 /* de */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 		8AA748F91D74986A000587DC /* Localizable.strings */ = {
