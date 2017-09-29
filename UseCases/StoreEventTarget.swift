@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol StoreEventTarget {
+public protocol StoreEventTarget: class {
     func didStartPurchasingProduct(withIdentifier identifier: String)
 
     func didPurchase()
