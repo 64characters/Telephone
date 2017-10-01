@@ -19,7 +19,7 @@
 import AppKit
 
 final class WorkspaceSleepStatus: NSObject {
-    private(set) var isSleeping = false
+    @objc private(set) var isSleeping = false
 
     private let workspace: NSWorkspace
 

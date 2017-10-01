@@ -22,17 +22,17 @@ import StoreKit
 import UseCases
 
 final class CompositionRoot: NSObject {
-    let userAgent: AKSIPUserAgent
-    let preferencesController: PreferencesController
-    let ringtonePlayback: RingtonePlaybackUseCase
-    let storeWindowPresenter: StoreWindowPresenter
-    let purchaseReminder: PurchaseReminderUseCase
-    let musicPlayer: MusicPlayer
-    let settingsMigration: ProgressiveSettingsMigration
-    let applicationDataLocations: ApplicationDataLocations
-    let workstationSleepStatus: WorkspaceSleepStatus
-    let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
-    let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
+    @objc let userAgent: AKSIPUserAgent
+    @objc let preferencesController: PreferencesController
+    @objc let ringtonePlayback: RingtonePlaybackUseCase
+    @objc let storeWindowPresenter: StoreWindowPresenter
+    @objc let purchaseReminder: PurchaseReminderUseCase
+    @objc let musicPlayer: MusicPlayer
+    @objc let settingsMigration: ProgressiveSettingsMigration
+    @objc let applicationDataLocations: ApplicationDataLocations
+    @objc let workstationSleepStatus: WorkspaceSleepStatus
+    @objc let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
+    @objc let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
     private let defaults: UserDefaults
 
     private let storeEventSource: StoreEventSource
@@ -42,7 +42,7 @@ final class CompositionRoot: NSObject {
     private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
     private let contactStoreNotificationsToContactsChangeEventTargetAdapter: Any
 
-    init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
+    @objc init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 

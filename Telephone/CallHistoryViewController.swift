@@ -19,10 +19,10 @@
 import Cocoa
 
 final class CallHistoryViewController: NSViewController {
-    var keyView: NSView {
+    @objc var keyView: NSView {
         return tableView
     }
-    weak var target: CallHistoryViewEventTarget? {
+    @objc weak var target: CallHistoryViewEventTarget? {
         didSet {
             target?.shouldReloadData()
         }
@@ -55,7 +55,7 @@ final class CallHistoryViewController: NSViewController {
         }
     }
 
-    func updateNextKeyView(_ view: NSView) {
+    @objc func updateNextKeyView(_ view: NSView) {
         keyView.nextKeyView = view
     }
 
