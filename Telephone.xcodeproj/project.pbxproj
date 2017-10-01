@@ -3302,7 +3302,7 @@
 					};
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = B5WSA37RY8;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
@@ -3324,7 +3324,7 @@
 					};
 					AA3FAB841BBAAE630064B2C3 = {
 						CreatedOnToolsVersion = 7.0.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 					AA9D08021BFF7E6F0000F618 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -4654,7 +4654,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -4668,7 +4669,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -4946,7 +4948,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -4988,7 +4991,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -51,7 +51,7 @@ final class CallHistoryTableRowView: NSTableRowView {
 
 private func fillRectIfNotEmpty(_ rect: NSRect) {
     if !NSIsEmptyRect(rect) {
-        NSRectFill(rect)
+        rect.fill()
     }
 }
 

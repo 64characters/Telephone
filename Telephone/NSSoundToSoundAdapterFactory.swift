@@ -18,7 +18,7 @@
 
 final class NSSoundToSoundAdapterFactory {
     func makeSound(configuration: SoundConfiguration, target: SoundEventTarget) throws -> Sound {
-        if let sound = NSSound(named: configuration.name) {
+        if let sound = NSSound(named: NSSound.Name(rawValue: configuration.name)) {
             update(sound, withDeviceID: configuration.deviceUID)
             return NSSoundToSoundAdapter(sound: sound, target: target)
         } else {
@@ -29,6 +29,6 @@ final class NSSoundToSoundAdapterFactory {
 
 private func update(_ sound: NSSound, withDeviceID deviceID: String) {
     if !deviceID.isEmpty {
-        sound.playbackDeviceIdentifier = deviceID
+        sound.playbackDeviceIdentifier = NSSound.PlaybackDeviceIdentifier(rawValue: deviceID)
     }
 }

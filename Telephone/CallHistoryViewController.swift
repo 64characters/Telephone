@@ -34,7 +34,7 @@ final class CallHistoryViewController: NSViewController {
     @IBOutlet fileprivate weak var tableView: NSTableView!
 
     init() {
-        super.init(nibName: "CallHistoryViewController", bundle: nil)!
+        super.init(nibName: NSNib.Name(rawValue: "CallHistoryViewController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -73,7 +73,7 @@ final class CallHistoryViewController: NSViewController {
         guard !records.isEmpty else { return }
         let record = records[tableView.selectedRow]
         makeAlert(recordName: record.date).beginSheetModal(for: view.window!) { response in
-            if response == NSAlertFirstButtonReturn {
+            if response == .alertFirstButtonReturn {
                 self.target?.shouldRemoveRecord(withIdentifier: record.identifier)
             }
         }

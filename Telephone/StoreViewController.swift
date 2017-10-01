@@ -22,7 +22,7 @@ import UseCases
 final class StoreViewController: NSViewController {
     private var target: StoreViewEventTarget
     private var workspace: NSWorkspace
-    fileprivate dynamic var products: [PresentationProduct] = []
+    @objc fileprivate dynamic var products: [PresentationProduct] = []
     fileprivate let formatter: DateFormatter = {
         let f = DateFormatter()
         f.dateStyle = .short
@@ -46,7 +46,7 @@ final class StoreViewController: NSViewController {
     init(target: StoreViewEventTarget, workspace: NSWorkspace) {
         self.target = target
         self.workspace = workspace
-        super.init(nibName: "StoreViewController", bundle: nil)!
+        super.init(nibName: NSNib.Name(rawValue: "StoreViewController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -76,7 +76,7 @@ final class StoreViewController: NSViewController {
 
     @IBAction func refreshReceipt(_ sender: NSButton) {
         makeReceiptRefreshAlert().beginSheetModal(for: view.window!) { response in
-            if response == NSAlertFirstButtonReturn {
+            if response == .alertFirstButtonReturn {
                 self.target.didStartReceiptRefresh()
             }
         }

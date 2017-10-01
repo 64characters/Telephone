@@ -67,7 +67,7 @@ final class CompositionRoot: NSObject {
         let productsEventTargets = ProductsEventTargets()
 
         let storeViewController = StoreViewController(
-            target: NullStoreViewEventTarget(), workspace: NSWorkspace.shared()
+            target: NullStoreViewEventTarget(), workspace: NSWorkspace.shared
         )
         let products = SKProductsRequestToProductsAdapter(expected: ExpectedProducts(), target: productsEventTargets)
         let store = SKPaymentQueueToStoreAdapter(queue: SKPaymentQueue.default(), products: products)
@@ -133,7 +133,7 @@ final class CompositionRoot: NSObject {
             manager: FileManager.default
         )
 
-        workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared())
+        workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared)
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
             target: userAgentSoundIOSelection,
