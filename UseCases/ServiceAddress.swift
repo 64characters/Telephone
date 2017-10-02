@@ -22,8 +22,8 @@ public final class ServiceAddress: NSObject {
 
     public init(string: String) {
         if let range = string.range(of: ":", options: .backwards) {
-            host = string.substring(to: range.lowerBound)
-            port = string.substring(from: range.upperBound)
+            host = String(string[..<range.lowerBound])
+            port = String(string[range.upperBound...])
         } else {
             host = string
             port = ""
