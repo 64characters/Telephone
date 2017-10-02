@@ -1038,6 +1038,10 @@ NS_ASSUME_NONNULL_END
 #pragma mark -
 #pragma mark NSApplication delegate methods
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSFullScreenMenuItemEverywhere"];
+}
+
 // Application control starts here.
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSBundle *mainBundle = [NSBundle mainBundle];
