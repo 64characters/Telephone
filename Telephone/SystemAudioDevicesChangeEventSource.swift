@@ -50,7 +50,7 @@ final class SystemAudioDevicesChangeEventSource {
     }
 
     private func notifyTarget() {
-        assert(Thread.isMainThread)
+        precondition(Thread.isMainThread)
         target.systemAudioDevicesDidUpdate()
     }
 }

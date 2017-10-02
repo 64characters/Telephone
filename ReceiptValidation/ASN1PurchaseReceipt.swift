@@ -24,7 +24,7 @@ struct ASN1PurchaseReceipt {
     let isCancelled: Bool
 
     init(attribute: ASN1PayloadAttribute) {
-        assert(attribute.type == purchaseReceiptType)
+        precondition(attribute.type == purchaseReceiptType)
         var identifier: String?
         var expiration: Date?
         var isCancelled: Bool?
