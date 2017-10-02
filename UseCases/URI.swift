@@ -19,9 +19,9 @@
 import Foundation
 
 public final class URI: NSObject {
-    public let user: String
-    public let host: String
-    public let displayName: String
+    @objc public let user: String
+    @objc public let host: String
+    @objc public let displayName: String
 
     public init(user: String, host: String, displayName: String) {
         self.user = user

@@ -17,10 +17,10 @@
 //
 
 public final class ServiceAddress: NSObject {
-    public let host: String
+    @objc public let host: String
     public let port: String
 
-    public init(string: String) {
+    @objc public init(string: String) {
         if let range = string.range(of: ":", options: .backwards) {
             host = String(string[..<range.lowerBound])
             port = String(string[range.upperBound...])
