@@ -23,7 +23,7 @@ import XCTest
 final class StoreViewStateMachineTests: XCTestCase, StoreViewStateMachine {
     private var sut: StoreViewStateMachine!
     var state: StoreViewState = StoreViewStateNoProducts()
-    fileprivate var actions: String!
+    private var actions: String!
 
     override func setUp() {
         super.setUp()

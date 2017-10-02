@@ -21,9 +21,9 @@ public protocol CallHistoryRecordGetUseCaseOutput {
 }
 
 public final class CallHistoryRecordGetUseCase {
-    fileprivate let identifier: String
-    fileprivate let history: CallHistory
-    fileprivate let output: CallHistoryRecordGetUseCaseOutput
+    private let identifier: String
+    private let history: CallHistory
+    private let output: CallHistoryRecordGetUseCaseOutput
 
     public init(identifier: String, history: CallHistory, output: CallHistoryRecordGetUseCaseOutput) {
         self.identifier = identifier

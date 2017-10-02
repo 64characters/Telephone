@@ -19,8 +19,8 @@
 import Foundation
 
 final class DirectoryCreatingApplicationDataLocations {
-    fileprivate let origin: ApplicationDataLocations
-    fileprivate let manager: FileManager
+    private let origin: ApplicationDataLocations
+    private let manager: FileManager
 
     init(origin: ApplicationDataLocations, manager: FileManager) {
         self.origin = origin

@@ -17,7 +17,7 @@
 //
 
 public struct SimpleContactMatchingIndex {
-    fileprivate let index: [String: MatchedContact]
+    private let index: [String: MatchedContact]
 
     public init(contacts: Contacts, maxPhoneNumberLength: Int) {
         index = makeMap(from: contacts, maxPhoneNumberLength: maxPhoneNumberLength)

@@ -19,9 +19,9 @@
 import UseCases
 
 public final class CallHistoryFactorySpy {
-    public fileprivate(set) var invokedUUID = ""
+    public private(set) var invokedUUID = ""
 
-    fileprivate let history: CallHistory
+    private let history: CallHistory
 
     public init(history: CallHistory) {
         self.history = history

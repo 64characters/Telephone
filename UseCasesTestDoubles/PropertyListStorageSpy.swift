@@ -19,8 +19,8 @@
 import UseCases
 
 public final class PropertyListStorageSpy {
-    public fileprivate(set) var didCallSave = false
-    public fileprivate(set) var didCallDelete = false
+    public private(set) var didCallSave = false
+    public private(set) var didCallDelete = false
 
     public init() {}
 }

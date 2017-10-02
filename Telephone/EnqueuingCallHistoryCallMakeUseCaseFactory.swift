@@ -19,11 +19,11 @@
 import UseCases
 
 final class EnqueuingCallHistoryCallMakeUseCaseFactory {
-    fileprivate let account: Account
-    fileprivate let history: CallHistory
-    fileprivate let factory: FallingBackMatchedContactFactory
-    fileprivate let accountQueue: ExecutionQueue
-    fileprivate let historyQueue: ExecutionQueue
+    private let account: Account
+    private let history: CallHistory
+    private let factory: FallingBackMatchedContactFactory
+    private let accountQueue: ExecutionQueue
+    private let historyQueue: ExecutionQueue
 
     init(account: Account, history: CallHistory, factory: FallingBackMatchedContactFactory, accountQueue: ExecutionQueue, historyQueue: ExecutionQueue) {
         self.account = account

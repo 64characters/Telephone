@@ -20,7 +20,7 @@ import Foundation
 import UseCases
 
 final class GCDExecutionQueue {
-    fileprivate let queue: DispatchQueue
+    private let queue: DispatchQueue
 
     init(queue: DispatchQueue) {
         self.queue = queue

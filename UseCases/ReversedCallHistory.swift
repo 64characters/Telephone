@@ -17,7 +17,7 @@
 //
 
 public final class ReversedCallHistory {
-    fileprivate let origin: CallHistory
+    private let origin: CallHistory
 
     public init(origin: CallHistory) {
         self.origin = origin

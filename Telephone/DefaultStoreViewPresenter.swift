@@ -19,7 +19,7 @@
 import UseCases
 
 final class DefaultStoreViewPresenter {
-    fileprivate let output: StoreViewPresenterOutput
+    private let output: StoreViewPresenterOutput
 
     init(output: StoreViewPresenterOutput) {
         self.output = output

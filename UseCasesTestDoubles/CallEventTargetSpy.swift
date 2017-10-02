@@ -19,8 +19,8 @@
 import UseCases
 
 public final class CallEventTargetSpy {
-    public fileprivate(set) var didCallDidDisconnect = false
-    public fileprivate(set) var invokedCall: Call?
+    public private(set) var didCallDidDisconnect = false
+    public private(set) var invokedCall: Call?
 
     public init() {}
 }

@@ -19,8 +19,8 @@
 import UseCases
 
 final class ProgressiveSettingsMigration: NSObject {
-    fileprivate let settings: KeyValueSettings
-    fileprivate let factory: SettingsMigrationFactory
+    private let settings: KeyValueSettings
+    private let factory: SettingsMigrationFactory
 
     init(settings: KeyValueSettings, factory: SettingsMigrationFactory) {
         self.settings = settings
@@ -29,7 +29,7 @@ final class ProgressiveSettingsMigration: NSObject {
 }
 
 extension ProgressiveSettingsMigration: SettingsMigration {
-    func execute() {
+    @objc func execute() {
         if settings.integer(forKey: kSettingsVersion) < 1 {
             factory.makeAccountUUIDMigration(settings: settings).execute()
             settings.set(1, forKey: kSettingsVersion)

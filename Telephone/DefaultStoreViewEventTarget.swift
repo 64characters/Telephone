@@ -19,14 +19,14 @@
 import Foundation
 
 final class DefaultStoreViewEventTarget {
-    fileprivate(set) var state: StoreViewState = StoreViewStateNoProducts()
-    fileprivate var products: [Product] = []
-    fileprivate var fetchError = ""
+    private(set) var state: StoreViewState = StoreViewStateNoProducts()
+    private var products: [Product] = []
+    private var fetchError = ""
 
-    fileprivate let factory: StoreUseCaseFactory
-    fileprivate let restoration: UseCase
-    fileprivate let refresh: UseCase
-    fileprivate let presenter: StoreViewPresenter
+    private let factory: StoreUseCaseFactory
+    private let restoration: UseCase
+    private let refresh: UseCase
+    private let presenter: StoreViewPresenter
 
     init(factory: StoreUseCaseFactory, purchaseRestoration: UseCase, receiptRefresh: UseCase, presenter: StoreViewPresenter) {
         self.factory = factory

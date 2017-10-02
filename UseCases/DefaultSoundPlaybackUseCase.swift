@@ -17,9 +17,9 @@
 //
 
 public final class DefaultSoundPlaybackUseCase {
-    public fileprivate(set) var sound: Sound?
+    public private(set) var sound: Sound?
 
-    fileprivate let factory: SoundFactory
+    private let factory: SoundFactory
 
     public init(factory: SoundFactory) {
         self.factory = factory

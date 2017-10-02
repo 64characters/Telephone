@@ -17,8 +17,8 @@
 //
 
 public final class ContactCallHistoryRecordGetUseCase {
-    fileprivate let factory: FallingBackMatchedContactFactory
-    fileprivate let output: ContactCallHistoryRecordGetUseCaseOutput
+    private let factory: FallingBackMatchedContactFactory
+    private let output: ContactCallHistoryRecordGetUseCaseOutput
 
     public init(factory: FallingBackMatchedContactFactory, output: ContactCallHistoryRecordGetUseCaseOutput) {
         self.factory = factory

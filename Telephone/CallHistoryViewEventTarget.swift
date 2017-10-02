@@ -19,8 +19,8 @@
 import UseCases
 
 final class CallHistoryViewEventTarget: NSObject {
-    fileprivate let recordsGet: UseCase
-    fileprivate let purchaseCheck: UseCase
+    private let recordsGet: UseCase
+    private let purchaseCheck: UseCase
     private let recordRemove: CallHistoryRecordRemoveUseCaseFactory
     private let callMake: CallHistoryCallMakeUseCaseFactory
 

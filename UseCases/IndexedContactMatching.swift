@@ -17,11 +17,11 @@
 //
 
 public final class IndexedContactMatching {
-    fileprivate lazy var length: Int = { return self.settings.significantPhoneNumberLength }()
+    private lazy var length: Int = { return self.settings.significantPhoneNumberLength }()
 
-    fileprivate let index: ContactMatchingIndex
+    private let index: ContactMatchingIndex
     private let settings: ContactMatchingSettings
-    fileprivate let domain: String
+    private let domain: String
 
     public init(index: ContactMatchingIndex, settings: ContactMatchingSettings, domain: String) {
         self.index = index

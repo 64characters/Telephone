@@ -19,7 +19,7 @@
 import UseCases
 
 public final class ContactMatchingIndexStub {
-    fileprivate let contact: MatchedContact
+    private let contact: MatchedContact
 
     public init(contact: MatchedContact) {
         self.contact = contact

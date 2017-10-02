@@ -19,7 +19,7 @@
 import UseCases
 
 public final class ContactsChangeEventTargetSpy {
-    public fileprivate(set) var didCallContactsDidChange = false
+    public private(set) var didCallContactsDidChange = false
     public init() {}
 }
 

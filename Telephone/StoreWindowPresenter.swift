@@ -23,7 +23,7 @@ final class StoreWindowPresenter: NSObject {
         self.controller = controller
     }
 
-    func present() {
+    @objc func present() {
         controller.showWindowCentered()
     }
 }

@@ -19,8 +19,8 @@
 import UseCases
 
 public final class ProductsFetchUseCaseOutputSpy {
-    public fileprivate(set) var invokedProducts: [Product] = []
-    public fileprivate(set) var invokedError = ""
+    public private(set) var invokedProducts: [Product] = []
+    public private(set) var invokedError = ""
 
     public init() {}
 }

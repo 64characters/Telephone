@@ -17,8 +17,8 @@
 //
 
 public final class EnqueuingContactCallHistoryRecordGetUseCaseOutput {
-    fileprivate let origin: ContactCallHistoryRecordGetUseCaseOutput
-    fileprivate let queue: ExecutionQueue
+    private let origin: ContactCallHistoryRecordGetUseCaseOutput
+    private let queue: ExecutionQueue
 
     public init(origin: ContactCallHistoryRecordGetUseCaseOutput, queue: ExecutionQueue) {
         self.origin = origin

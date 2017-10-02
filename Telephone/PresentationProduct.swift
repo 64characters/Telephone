@@ -18,8 +18,8 @@
 
 final class PresentationProduct: NSObject {
     let identifier: String
-    let name: String
-    let price: String
+    @objc let name: String
+    @objc let price: String
 
     init(identifier: String, name: String, price: String) {
         self.identifier = identifier

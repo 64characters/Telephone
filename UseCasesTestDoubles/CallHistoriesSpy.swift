@@ -19,10 +19,10 @@
 import UseCases
 
 public final class CallHistoriesSpy  {
-    public fileprivate(set) var didCallRemove = false
-    public fileprivate(set) var invokedUUID = ""
+    public private(set) var didCallRemove = false
+    public private(set) var invokedUUID = ""
 
-    fileprivate let histories: [String: CallHistory]
+    private let histories: [String: CallHistory]
 
     public init(histories: [String: CallHistory]) {
         self.histories = histories

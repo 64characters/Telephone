@@ -19,7 +19,7 @@
 import Foundation
 
 struct ReceiptChecksum {
-    fileprivate let sha1: Data
+    private let sha1: Data
 
     init(sha1: Data) {
         self.sha1 = sha1

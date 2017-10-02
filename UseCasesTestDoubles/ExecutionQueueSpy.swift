@@ -19,7 +19,7 @@
 import UseCases
 
 public final class ExecutionQueueSpy {
-    public fileprivate(set) var didCallAdd = false
+    public private(set) var didCallAdd = false
 
     public init() {}
 }

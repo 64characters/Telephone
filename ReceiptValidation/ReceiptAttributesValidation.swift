@@ -19,8 +19,8 @@
 import Foundation
 
 final class ReceiptAttributesValidation: NSObject {
-    fileprivate let origin: ReceiptValidation
-    fileprivate let attributes: ReceiptAttributes
+    private let origin: ReceiptValidation
+    private let attributes: ReceiptAttributes
 
     init(origin: ReceiptValidation, attributes: ReceiptAttributes) {
         self.origin = origin

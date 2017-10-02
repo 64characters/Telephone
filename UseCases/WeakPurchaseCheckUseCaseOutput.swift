@@ -17,7 +17,7 @@
 //
 
 final class WeakPurchaseCheckUseCaseOutput {
-    fileprivate weak var origin: PurchaseCheckUseCaseOutput?
+    private weak var origin: PurchaseCheckUseCaseOutput?
 
     init(origin: PurchaseCheckUseCaseOutput) {
         self.origin = origin

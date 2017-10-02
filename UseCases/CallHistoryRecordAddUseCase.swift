@@ -17,9 +17,9 @@
 //
 
 public final class CallHistoryRecordAddUseCase {
-    fileprivate let history: CallHistory
-    fileprivate let record: CallHistoryRecord
-    fileprivate let domain: String
+    private let history: CallHistory
+    private let record: CallHistoryRecord
+    private let domain: String
 
     public init(history: CallHistory, record: CallHistoryRecord, domain: String) {
         self.history = history
@@ -42,6 +42,6 @@ extension CallHistoryRecordAddUseCase: UseCase {
     }
 
     private func shouldRemoveHost(from record: CallHistoryRecord) -> Bool {
-        return record.uri.host == domain || record.uri.user.isTelephoneNumber && record.uri.user.characters.count > 4
+        return record.uri.host == domain || record.uri.user.isTelephoneNumber && record.uri.user.count > 4
     }
 }

@@ -17,12 +17,12 @@
 //
 
 final class SoundPreferencesViewSpy: NSObject {
-    fileprivate(set) var invokedInputDevices: [String] = []
-    fileprivate(set) var invokedOutputDevices: [String] = []
-    fileprivate(set) var invokedRingtoneDevices: [String] = []
-    fileprivate(set) var invokedInputDevice = ""
-    fileprivate(set) var invokedOutputDevice = ""
-    fileprivate(set) var invokedRingtoneDevice = ""
+    private(set) var invokedInputDevices: [String] = []
+    private(set) var invokedOutputDevices: [String] = []
+    private(set) var invokedRingtoneDevices: [String] = []
+    private(set) var invokedInputDevice = ""
+    private(set) var invokedOutputDevice = ""
+    private(set) var invokedRingtoneDevice = ""
 }
 
 extension SoundPreferencesViewSpy: SoundPreferencesView {

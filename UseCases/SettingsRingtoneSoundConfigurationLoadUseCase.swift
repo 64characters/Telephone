@@ -19,8 +19,8 @@
 import Domain
 
 public final class SettingsRingtoneSoundConfigurationLoadUseCase {
-    fileprivate let settings: KeyValueSettings
-    fileprivate let repository: SystemAudioDeviceRepository
+    private let settings: KeyValueSettings
+    private let repository: SystemAudioDeviceRepository
 
     public init(settings: KeyValueSettings, repository: SystemAudioDeviceRepository) {
         self.settings = settings

@@ -17,7 +17,7 @@
 //
 
 public final class PurchaseRestorationUseCase {
-    fileprivate let store: Store
+    private let store: Store
 
     public init(store: Store) {
         self.store = store

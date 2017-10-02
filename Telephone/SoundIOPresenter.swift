@@ -19,7 +19,7 @@
 import UseCases
 
 final class SoundIOPresenter {
-    fileprivate let output: SoundIOPresenterOutput
+    private let output: SoundIOPresenterOutput
 
     init(output: SoundIOPresenterOutput) {
         self.output = output

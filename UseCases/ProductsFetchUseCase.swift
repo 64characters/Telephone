@@ -22,9 +22,9 @@ public protocol ProductsFetchUseCaseOutput: class {
 }
 
 public final class ProductsFetchUseCase {
-    fileprivate let products: Products
-    fileprivate let targets: ProductsEventTargets
-    fileprivate let output: ProductsFetchUseCaseOutput
+    private let products: Products
+    private let targets: ProductsEventTargets
+    private let output: ProductsFetchUseCaseOutput
 
     public init(products: Products, targets: ProductsEventTargets, output: ProductsFetchUseCaseOutput) {
         self.products = products

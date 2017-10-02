@@ -21,10 +21,10 @@ import UseCases
 
 final class PresentationCallHistoryRecord: NSObject {
     let identifier: String
-    let contact: PresentationContact
-    let date: String
-    let duration: String
-    let isIncoming: Bool
+    @objc let contact: PresentationContact
+    @objc let date: String
+    @objc let duration: String
+    @objc let isIncoming: Bool
 
     init(identifier: String, contact: PresentationContact, date: String, duration: String, isIncoming: Bool) {
         self.identifier = identifier

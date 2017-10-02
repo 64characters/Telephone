@@ -17,8 +17,8 @@
 //
 
 final class BundleReceipt {
-    fileprivate let bundle: Bundle
-    fileprivate let gateway: ReceiptXPCGateway
+    private let bundle: Bundle
+    private let gateway: ReceiptXPCGateway
 
     init(bundle: Bundle, gateway: ReceiptXPCGateway) {
         self.bundle = bundle

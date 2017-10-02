@@ -19,11 +19,11 @@
 import UseCases
 
 public final class TimerFactorySpy {
-    public fileprivate(set) var didCallCreateRepeatingTimer = false
-    public fileprivate(set) var makeRepeatingTimerCallCount = 0
-    public fileprivate(set) var invokedInterval: Double = 0
+    public private(set) var didCallCreateRepeatingTimer = false
+    public private(set) var makeRepeatingTimerCallCount = 0
+    public private(set) var invokedInterval: Double = 0
 
-    fileprivate var timer: Timer!
+    private var timer: Timer!
 
     public init() {}
 

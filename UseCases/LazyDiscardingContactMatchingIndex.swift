@@ -17,21 +17,29 @@
 //
 
 public final class LazyDiscardingContactMatchingIndex {
-    fileprivate lazy var origin: ContactMatchingIndex! = { return self.factory.make() }()
+    private var origin: ContactMatchingIndex!
 
-    fileprivate let factory: ContactMatchingIndexFactory
+    private let factory: ContactMatchingIndexFactory
 
     public init(factory: ContactMatchingIndexFactory) {
         self.factory = factory
+    }
+
+    private func createOriginIfNeeded() {
+        if origin == nil {
+            origin = factory.make()
+        }
     }
 }
 
 extension LazyDiscardingContactMatchingIndex: ContactMatchingIndex {
     public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
+        createOriginIfNeeded()
         return origin.contact(forPhone: phone)
     }
 
     public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
+        createOriginIfNeeded()
         return origin.contact(forEmail: email)
     }
 }

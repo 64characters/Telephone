@@ -14,7 +14,7 @@
 //
 
 public final class CallHistoriesHistoryRemoveUseCase {
-    fileprivate let histories: CallHistories
+    private let histories: CallHistories
 
     public init(histories: CallHistories) {
         self.histories = histories

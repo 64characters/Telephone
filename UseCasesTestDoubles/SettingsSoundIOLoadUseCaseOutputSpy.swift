@@ -19,8 +19,8 @@
 import UseCases
 
 public final class SettingsSoundIOLoadUseCaseOutputSpy {
-    public fileprivate(set) var invokedDevices: AudioDevices?
-    public fileprivate(set) var invokedSoundIO: PresentationSoundIO?
+    public private(set) var invokedDevices: AudioDevices?
+    public private(set) var invokedSoundIO: PresentationSoundIO?
 
     public init() {}
 }

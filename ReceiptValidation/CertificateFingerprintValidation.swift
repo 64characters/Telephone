@@ -19,8 +19,8 @@
 import Foundation
 
 final class CertificateFingerprintValidation: NSObject {
-    fileprivate let origin: ReceiptValidation
-    fileprivate let certificate: Data
+    private let origin: ReceiptValidation
+    private let certificate: Data
 
     init(origin: ReceiptValidation, certificate: Data) {
         self.origin = origin

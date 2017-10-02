@@ -21,25 +21,25 @@ import Foundation
 final class AccountViewBottomViewPresenter: NSObject {
     private let constraint: NSLayoutConstraint
     private let height: CGFloat
-    fileprivate let button: NSButton
-    fileprivate let controller: CallHistoryViewController
+    private let button: NSButton
+    private let controller: CallHistoryViewController
 
-    init(constraint: NSLayoutConstraint, height: CGFloat, button: NSButton, controller: CallHistoryViewController) {
+    @objc init(constraint: NSLayoutConstraint, height: CGFloat, button: NSButton, controller: CallHistoryViewController) {
         self.constraint = constraint
         self.height = height
         self.button = button
         self.controller = controller
     }
 
-    func hideWithoutAnimation() {
+    @objc func hideWithoutAnimation() {
         constraint.constant = 0
     }
 
-    fileprivate func show() {
+    private func show() {
         constraint.animator().constant = height
     }
 
-    fileprivate func hide() {
+    private func hide() {
         constraint.animator().constant = 0
     }
 }

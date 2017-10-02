@@ -27,7 +27,7 @@ public final class ProductsEventTargets {
         }
     }
 
-    fileprivate var targets: [ProductsEventTarget] = []
+    private var targets: [ProductsEventTarget] = []
 
     public init() {}
 

@@ -19,7 +19,7 @@
 import UseCases
 
 final class SettingsAccounts {
-    fileprivate let settings: KeyValueSettings
+    private let settings: KeyValueSettings
 
     init(settings: KeyValueSettings) {
         self.settings = settings
@@ -31,7 +31,7 @@ extension SettingsAccounts: Accounts {
         return accounts().map({ SettingsAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
     }
 
-    fileprivate func accounts() -> [[String: Any]] {
+    private func accounts() -> [[String: Any]] {
         return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
     }
 }

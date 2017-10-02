@@ -19,10 +19,10 @@
 import Cocoa
 
 final class CallHistoryViewController: NSViewController {
-    var keyView: NSView {
+    @objc var keyView: NSView {
         return tableView
     }
-    weak var target: CallHistoryViewEventTarget? {
+    @objc weak var target: CallHistoryViewEventTarget? {
         didSet {
             target?.shouldReloadData()
         }
@@ -30,11 +30,11 @@ final class CallHistoryViewController: NSViewController {
     var recordCount: Int {
         return records.count
     }
-    fileprivate var records: [PresentationCallHistoryRecord] = []
-    @IBOutlet fileprivate weak var tableView: NSTableView!
+    private var records: [PresentationCallHistoryRecord] = []
+    @IBOutlet private weak var tableView: NSTableView!
 
     init() {
-        super.init(nibName: "CallHistoryViewController", bundle: nil)!
+        super.init(nibName: NSNib.Name(rawValue: "CallHistoryViewController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -55,7 +55,7 @@ final class CallHistoryViewController: NSViewController {
         }
     }
 
-    func updateNextKeyView(_ view: NSView) {
+    @objc func updateNextKeyView(_ view: NSView) {
         keyView.nextKeyView = view
     }
 
@@ -73,7 +73,7 @@ final class CallHistoryViewController: NSViewController {
         guard !records.isEmpty else { return }
         let record = records[tableView.selectedRow]
         makeAlert(recordName: record.date).beginSheetModal(for: view.window!) { response in
-            if response == NSAlertFirstButtonReturn {
+            if response == .alertFirstButtonReturn {
                 self.target?.shouldRemoveRecord(withIdentifier: record.identifier)
             }
         }

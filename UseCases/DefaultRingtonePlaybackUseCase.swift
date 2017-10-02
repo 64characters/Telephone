@@ -21,8 +21,8 @@ public final class DefaultRingtonePlaybackUseCase: NSObject {
     
     public var isPlaying: Bool { return ringtone != nil }
 
-    fileprivate let factory: RingtoneFactory
-    fileprivate var ringtone: Ringtone?
+    private let factory: RingtoneFactory
+    private var ringtone: Ringtone?
 
     public init(factory: RingtoneFactory) {
         self.factory = factory

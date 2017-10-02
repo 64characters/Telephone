@@ -20,10 +20,10 @@ import Cocoa
 import Foundation
 
 final class PresentationContact: NSObject {
-    let title: String
-    let tooltip: String
-    let label: String
-    let color: NSColor
+    @objc let title: String
+    @objc let tooltip: String
+    @objc let label: String
+    @objc let color: NSColor
 
     init(title: String, tooltip: String, label: String, color: NSColor) {
         self.title = title

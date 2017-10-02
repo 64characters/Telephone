@@ -17,9 +17,9 @@
 //
 
 public final class CallHistoryCallEventTarget {
-    fileprivate let histories: CallHistories
-    fileprivate let generator: IdentifierGenerator
-    fileprivate let factory: CallHistoryRecordAddUseCaseFactory
+    private let histories: CallHistories
+    private let generator: IdentifierGenerator
+    private let factory: CallHistoryRecordAddUseCaseFactory
 
     public init(histories: CallHistories, generator: IdentifierGenerator, factory: CallHistoryRecordAddUseCaseFactory) {
         self.histories = histories

@@ -19,7 +19,7 @@
 import UseCases
 
 public final class ContactMatchingSettingsFake {
-    fileprivate let length: Int
+    private let length: Int
 
     public init(length: Int) {
         self.length = length

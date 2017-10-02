@@ -17,9 +17,9 @@
 //
 
 public final class TruncatingCallHistory {
-    fileprivate var records = [CallHistoryRecord]()
+    private var records = [CallHistoryRecord]()
 
-    fileprivate let limit: Int
+    private let limit: Int
 
     public init(limit: Int = 100) {
         self.limit = limit

@@ -19,8 +19,8 @@
 import UseCases
 
 public final class CallHistoryCallMakeUseCaseFactorySpy {
-    public fileprivate(set) var invokedIdentifier: String?
-    fileprivate let callMake: UseCase
+    public private(set) var invokedIdentifier: String?
+    private let callMake: UseCase
 
     public init(callMake: UseCase) {
         self.callMake = callMake

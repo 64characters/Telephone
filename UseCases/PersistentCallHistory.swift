@@ -17,8 +17,8 @@
 //
 
 public final class PersistentCallHistory {
-    fileprivate let origin: CallHistory
-    fileprivate let storage: PropertyListStorage
+    private let origin: CallHistory
+    private let storage: PropertyListStorage
 
     public init(origin: CallHistory, storage: PropertyListStorage) {
         precondition(origin.allRecords.count == 0)

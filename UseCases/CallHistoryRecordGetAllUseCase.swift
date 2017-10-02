@@ -17,8 +17,8 @@
 //
 
 public final class CallHistoryRecordGetAllUseCase {
-    fileprivate let history: CallHistory
-    fileprivate let output: CallHistoryRecordGetAllUseCaseOutput
+    private let history: CallHistory
+    private let output: CallHistoryRecordGetAllUseCaseOutput
 
     public init(history: CallHistory, output: CallHistoryRecordGetAllUseCaseOutput) {
         self.history = history

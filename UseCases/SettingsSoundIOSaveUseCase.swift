@@ -17,8 +17,8 @@
 //
 
 public final class SettingsSoundIOSaveUseCase {
-    fileprivate let soundIO: PresentationSoundIO
-    fileprivate let settings: KeyValueSettings
+    private let soundIO: PresentationSoundIO
+    private let settings: KeyValueSettings
 
     public init(soundIO: PresentationSoundIO, settings: KeyValueSettings) {
         self.soundIO = soundIO

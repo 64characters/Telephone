@@ -19,10 +19,10 @@
 import UseCases
 
 final class DefaultStoreUseCaseFactory {
-    fileprivate let products: Products
-    fileprivate let store: Store
-    fileprivate let receipt: Receipt
-    fileprivate let targets: ProductsEventTargets
+    private let products: Products
+    private let store: Store
+    private let receipt: Receipt
+    private let targets: ProductsEventTargets
 
     init(products: Products, store: Store, receipt: Receipt, targets: ProductsEventTargets) {
         self.products = products

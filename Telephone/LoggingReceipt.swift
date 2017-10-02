@@ -17,7 +17,7 @@
 //
 
 final class LoggingReceipt {
-    fileprivate let origin: Receipt
+    private let origin: Receipt
 
     init(origin: Receipt) {
         self.origin = origin

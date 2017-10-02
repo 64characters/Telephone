@@ -19,7 +19,7 @@
 import UseCases
 
 final class MusicPlayers {
-    fileprivate let players: [MusicPlayer]
+    private let players: [MusicPlayer]
 
     init(players: [MusicPlayer]) {
         self.players = players

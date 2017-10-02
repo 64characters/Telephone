@@ -19,8 +19,8 @@
 import UseCases
 
 public final class AccountsEventTargetSpy {
-    public fileprivate(set) var didCallDidRemoveAccount = false
-    public fileprivate(set) var invokedUUID = ""
+    public private(set) var didCallDidRemoveAccount = false
+    public private(set) var invokedUUID = ""
 
     public init() {}
 }

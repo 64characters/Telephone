@@ -19,7 +19,7 @@
 import UseCases
 
 final class DefaultCallHistoryRecordRemoveUseCaseFactory {
-    fileprivate let history: CallHistory
+    private let history: CallHistory
 
     init(history: CallHistory) {
         self.history = history

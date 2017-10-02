@@ -19,8 +19,8 @@
 import Foundation
 
 final class SimpleApplicationDataLocations {
-    fileprivate let manager: FileManager
-    fileprivate let bundle: Bundle
+    private let manager: FileManager
+    private let bundle: Bundle
 
     init(manager: FileManager, bundle: Bundle) {
         self.manager = manager

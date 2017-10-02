@@ -18,7 +18,7 @@
 
 final class AsyncFailingProductsFake {
     let all: [Product] = []
-    fileprivate let target: ProductsEventTarget
+    private let target: ProductsEventTarget
 
     init(target: ProductsEventTarget) {
         self.target = target

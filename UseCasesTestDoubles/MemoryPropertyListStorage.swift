@@ -19,7 +19,7 @@
 import UseCases
 
 public final class MemoryPropertyListStorage {
-    fileprivate var plist: [[String: Any]] = []
+    private var plist: [[String: Any]] = []
 
     public init() {}
 }

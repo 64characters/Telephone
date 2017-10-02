@@ -19,7 +19,7 @@
 import Domain
 
 struct PreferredSoundIO {
-    fileprivate let soundIO: SoundIO
+    private let soundIO: SoundIO
 
     init(devices: SystemAudioDevices, settings: KeyValueSettings) {
         soundIO = FallingBackSoundIO(

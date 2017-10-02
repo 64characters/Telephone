@@ -17,7 +17,7 @@
 //
 
 public final class StoreEventTargets {
-    fileprivate var targets: [StoreEventTarget] = []
+    private var targets: [StoreEventTarget] = []
 
     public init() {}
 

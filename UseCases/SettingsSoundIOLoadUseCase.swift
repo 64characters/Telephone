@@ -23,9 +23,9 @@ public protocol SettingsSoundIOLoadUseCaseOutput: class {
 }
 
 public final class SettingsSoundIOLoadUseCase {
-    fileprivate let repository: SystemAudioDeviceRepository
-    fileprivate let settings: KeyValueSettings
-    fileprivate let output: SettingsSoundIOLoadUseCaseOutput
+    private let repository: SystemAudioDeviceRepository
+    private let settings: KeyValueSettings
+    private let output: SettingsSoundIOLoadUseCaseOutput
 
     public init(repository: SystemAudioDeviceRepository, settings: KeyValueSettings, output: SettingsSoundIOLoadUseCaseOutput) {
         self.repository = repository

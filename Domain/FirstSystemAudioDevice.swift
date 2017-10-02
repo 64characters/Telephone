@@ -17,7 +17,7 @@
 //
 
 struct FirstSystemAudioDevice {
-    fileprivate let device: SystemAudioDevice
+    private let device: SystemAudioDevice
 
     init(devices: [SystemAudioDevice], predicate: (SystemAudioDevice) -> Bool) {
         device = first(of: devices, predicate: predicate)

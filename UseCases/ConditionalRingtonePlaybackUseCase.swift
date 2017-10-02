@@ -17,8 +17,8 @@
 //
 
 public final class ConditionalRingtonePlaybackUseCase: NSObject {
-    fileprivate let origin: RingtonePlaybackUseCase
-    fileprivate let delegate: ConditionalRingtonePlaybackUseCaseDelegate
+    private let origin: RingtonePlaybackUseCase
+    private let delegate: ConditionalRingtonePlaybackUseCaseDelegate
 
     public var isPlaying: Bool { return origin.isPlaying }
 

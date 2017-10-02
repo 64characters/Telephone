@@ -28,7 +28,7 @@ public struct ExtractedPhoneNumber {
 
 private func lastCharacters(of string: String, length: Int) -> String {
     if let index = string.index(string.endIndex, offsetBy: -length, limitedBy: string.startIndex) {
-        return string.substring(from: index)
+        return String(string[index...])
     } else {
         return string
     }
@@ -40,7 +40,7 @@ private func strippingNonDigitCharacters(from string: String) -> String {
 
 private func substringUpToPauseCharacters(in string: String) -> String {
     if let range = string.rangeOfCharacter(from: CharacterSet(charactersIn: ",;")) {
-        return string.substring(to: range.lowerBound)
+        return String(string[..<range.lowerBound])
     } else {
         return string
     }

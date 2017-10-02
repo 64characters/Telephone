@@ -19,7 +19,7 @@
 import AppKit
 
 final class WorkspaceSleepStatus: NSObject {
-    private(set) var isSleeping = false
+    @objc private(set) var isSleeping = false
 
     private let workspace: NSWorkspace
 
@@ -27,13 +27,13 @@ final class WorkspaceSleepStatus: NSObject {
         self.workspace = workspace
         super.init()
         let nc = workspace.notificationCenter
-        nc.addObserver(self, selector: #selector(willSleep), name: .NSWorkspaceWillSleep, object: workspace)
-        nc.addObserver(self, selector: #selector(didWake), name: .NSWorkspaceDidWake, object: workspace)
+        nc.addObserver(self, selector: #selector(willSleep), name: NSWorkspace.willSleepNotification, object: workspace)
+        nc.addObserver(self, selector: #selector(didWake), name: NSWorkspace.didWakeNotification, object: workspace)
     }
 
     deinit {
-        workspace.notificationCenter.removeObserver(self, name: .NSWorkspaceWillSleep, object: workspace)
-        workspace.notificationCenter.removeObserver(self, name: .NSWorkspaceDidWake, object: workspace)
+        workspace.notificationCenter.removeObserver(self, name: NSWorkspace.willSleepNotification, object: workspace)
+        workspace.notificationCenter.removeObserver(self, name: NSWorkspace.didWakeNotification, object: workspace)
     }
 
     @objc private func willSleep(notification: Notification) {

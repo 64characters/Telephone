@@ -20,26 +20,26 @@ import XCTest
 
 final class WorkspaceSleepStatusTests: XCTestCase {
     func testIsNotSleepingAfterCreation() {
-        let sut = WorkspaceSleepStatus(workspace: NSWorkspace.shared())
+        let sut = WorkspaceSleepStatus(workspace: NSWorkspace.shared)
 
         XCTAssertFalse(sut.isSleeping)
     }
 
     func testIsSleepingAfterWillSleepNotification() {
-        let sut = WorkspaceSleepStatus(workspace: NSWorkspace.shared())
-        let nc = NSWorkspace.shared().notificationCenter
+        let sut = WorkspaceSleepStatus(workspace: NSWorkspace.shared)
+        let nc = NSWorkspace.shared.notificationCenter
 
-        nc.post(name: .NSWorkspaceWillSleep, object: NSWorkspace.shared())
+        nc.post(name: NSWorkspace.willSleepNotification, object: NSWorkspace.shared)
 
         XCTAssertTrue(sut.isSleeping)
     }
 
     func testIsNotSleepingAfterDidWakeNotification() {
-        let sut = WorkspaceSleepStatus(workspace: NSWorkspace.shared())
-        let nc = NSWorkspace.shared().notificationCenter
+        let sut = WorkspaceSleepStatus(workspace: NSWorkspace.shared)
+        let nc = NSWorkspace.shared.notificationCenter
 
-        nc.post(name: .NSWorkspaceWillSleep, object: NSWorkspace.shared())
-        nc.post(name: .NSWorkspaceDidWake, object: NSWorkspace.shared())
+        nc.post(name: NSWorkspace.willSleepNotification, object: NSWorkspace.shared)
+        nc.post(name: NSWorkspace.didWakeNotification, object: NSWorkspace.shared)
 
         XCTAssertFalse(sut.isSleeping)
     }

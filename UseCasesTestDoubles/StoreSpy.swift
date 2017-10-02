@@ -19,8 +19,8 @@
 import UseCases
 
 public final class StoreSpy {
-    public fileprivate(set) var invokedProduct: Product
-    public fileprivate(set) var didCallRestorePurchases = false
+    public private(set) var invokedProduct: Product
+    public private(set) var didCallRestorePurchases = false
 
     public init() {
         invokedProduct = Product(identifier: "", name: "", price: 0, localizedPrice: "$0")

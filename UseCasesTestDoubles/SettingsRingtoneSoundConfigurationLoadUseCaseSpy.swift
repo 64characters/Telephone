@@ -19,7 +19,7 @@
 import UseCases
 
 public final class SettingsRingtoneSoundConfigurationLoadUseCaseSpy {
-    public fileprivate(set) var didCallExecute = false
+    public private(set) var didCallExecute = false
 
     public init() {}
 }

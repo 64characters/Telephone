@@ -19,12 +19,12 @@
 import UseCases
 
 public final class UserAgentEventTargetSpy {
-    public fileprivate(set) var didCallDidFinishStarting = false
-    public fileprivate(set) var didCallDidFinishStopping = false
-    public fileprivate(set) var didCallDidDetectNAT = false
-    public fileprivate(set) var didCallDidMakeCall = false
-    public fileprivate(set) var didCallDidReceiveCall = false
-    public fileprivate(set) var lastPassedAgent: UserAgent?
+    public private(set) var didCallDidFinishStarting = false
+    public private(set) var didCallDidFinishStopping = false
+    public private(set) var didCallDidDetectNAT = false
+    public private(set) var didCallDidMakeCall = false
+    public private(set) var didCallDidReceiveCall = false
+    public private(set) var lastPassedAgent: UserAgent?
 
     public init() {}
 }

@@ -29,7 +29,7 @@ final class AsyncCallHistoryPurchaseCheckUseCaseFactory: NSObject {
         self.main = main
     }
 
-    func make(account: Account, output: RecordCountingPurchaseCheckUseCaseOutput, completion: @escaping (UseCase) -> Void) {
+    @objc func make(account: Account, output: RecordCountingPurchaseCheckUseCaseOutput, completion: @escaping (UseCase) -> Void) {
         background.add {
             let result = self.origin.make(account: account, output: output)
             self.main.add {

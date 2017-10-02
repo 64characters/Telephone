@@ -19,7 +19,7 @@
 import UseCases
 
 public struct SimpleProductsFake {
-    fileprivate let products: [String: Product] = [
+    private let products: [String: Product] = [
         "123": Product(identifier: "123", name: "product1", price: 100, localizedPrice: "$100"),
         "456": Product(identifier: "456", name: "product2", price: 200, localizedPrice: "$200")
     ]

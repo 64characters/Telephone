@@ -19,8 +19,8 @@
 import StoreKit
 
 final class SKPaymentQueueToStoreAdapter {
-    fileprivate let queue: SKPaymentQueue
-    fileprivate let products: StoreKitProducts
+    private let queue: SKPaymentQueue
+    private let products: StoreKitProducts
 
     init(queue: SKPaymentQueue, products: StoreKitProducts) {
         self.queue = queue

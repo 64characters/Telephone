@@ -19,8 +19,8 @@
 import UseCases
 
 final class DefaultUseCaseFactory {
-    fileprivate let repository: SystemAudioDeviceRepository
-    fileprivate let settings: KeyValueSettings
+    private let repository: SystemAudioDeviceRepository
+    private let settings: KeyValueSettings
 
     init(repository: SystemAudioDeviceRepository, settings: KeyValueSettings) {
         self.repository = repository

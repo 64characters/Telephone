@@ -19,8 +19,8 @@
 import UseCases
 
 final class FailingStoreFake {
-    fileprivate var attempts = 0
-    fileprivate var target: StoreEventTarget
+    private var attempts = 0
+    private var target: StoreEventTarget
 
     init(target: StoreEventTarget) {
         self.target = target

@@ -19,12 +19,12 @@
 import UseCases
 
 public final class UseCaseFactorySpy {
-    public fileprivate(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
-    public fileprivate(set) var invokedRingtoneSoundName = ""
+    public private(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
+    public private(set) var invokedRingtoneSoundName = ""
 
-    fileprivate var soundIOLoad: ThrowingUseCase!
-    fileprivate var soundIOSave: UseCase!
-    fileprivate var ringtoneSoundNameSave: UseCase!
+    private var soundIOLoad: ThrowingUseCase!
+    private var soundIOSave: UseCase!
+    private var ringtoneSoundNameSave: UseCase!
 
     public init() {}
 

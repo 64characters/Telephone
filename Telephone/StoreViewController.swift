@@ -22,31 +22,31 @@ import UseCases
 final class StoreViewController: NSViewController {
     private var target: StoreViewEventTarget
     private var workspace: NSWorkspace
-    fileprivate dynamic var products: [PresentationProduct] = []
-    fileprivate let formatter: DateFormatter = {
+    @objc private dynamic var products: [PresentationProduct] = []
+    private let formatter: DateFormatter = {
         let f = DateFormatter()
         f.dateStyle = .short
         return f
     }()
 
     @IBOutlet private var productsTableView: NSTableView!
-    @IBOutlet fileprivate var productsListView: NSView!
-    @IBOutlet fileprivate var productsFetchErrorView: NSView!
-    @IBOutlet fileprivate var progressView: NSView!
-    @IBOutlet fileprivate var purchasedView: NSView!
-    @IBOutlet fileprivate var restorePurchasesButton: NSButton!
-    @IBOutlet fileprivate var refreshReceiptButton: NSButton!
-    @IBOutlet fileprivate var subscriptionsButton: NSButton!
+    @IBOutlet private var productsListView: NSView!
+    @IBOutlet private var productsFetchErrorView: NSView!
+    @IBOutlet private var progressView: NSView!
+    @IBOutlet private var purchasedView: NSView!
+    @IBOutlet private var restorePurchasesButton: NSButton!
+    @IBOutlet private var refreshReceiptButton: NSButton!
+    @IBOutlet private var subscriptionsButton: NSButton!
 
-    @IBOutlet fileprivate weak var productsContentView: NSView!
-    @IBOutlet fileprivate weak var productsFetchErrorField: NSTextField!
-    @IBOutlet fileprivate weak var progressIndicator: NSProgressIndicator!
-    @IBOutlet fileprivate weak var expirationField: NSTextField!
+    @IBOutlet private weak var productsContentView: NSView!
+    @IBOutlet private weak var productsFetchErrorField: NSTextField!
+    @IBOutlet private weak var progressIndicator: NSProgressIndicator!
+    @IBOutlet private weak var expirationField: NSTextField!
 
     init(target: StoreViewEventTarget, workspace: NSWorkspace) {
         self.target = target
         self.workspace = workspace
-        super.init(nibName: "StoreViewController", bundle: nil)!
+        super.init(nibName: NSNib.Name(rawValue: "StoreViewController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -76,7 +76,7 @@ final class StoreViewController: NSViewController {
 
     @IBAction func refreshReceipt(_ sender: NSButton) {
         makeReceiptRefreshAlert().beginSheetModal(for: view.window!) { response in
-            if response == NSAlertFirstButtonReturn {
+            if response == .alertFirstButtonReturn {
                 self.target.didStartReceiptRefresh()
             }
         }
