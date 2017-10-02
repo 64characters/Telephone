@@ -17,8 +17,8 @@
 //
 
 public final class ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput {
-    fileprivate let origin: ContactCallHistoryRecordGetAllUseCaseOutput
-    fileprivate let receipt: Receipt
+    private let origin: ContactCallHistoryRecordGetAllUseCaseOutput
+    private let receipt: Receipt
 
     public init(origin: ContactCallHistoryRecordGetAllUseCaseOutput, receipt: Receipt) {
         self.origin = origin

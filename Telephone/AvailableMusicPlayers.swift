@@ -17,7 +17,7 @@
 //
 
 final class AvailableMusicPlayers {
-    fileprivate let players: MusicPlayers
+    private let players: MusicPlayers
 
     init(factory: MusicPlayerFactory) {
         var players = [MusicPlayer]()

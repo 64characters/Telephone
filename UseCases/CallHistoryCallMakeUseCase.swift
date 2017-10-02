@@ -14,7 +14,7 @@
 //
 
 public final class CallHistoryCallMakeUseCase {
-    fileprivate let account: Account
+    private let account: Account
 
     public init(account: Account) {
         self.account = account

@@ -17,7 +17,7 @@
 //
 
 public final class WeakCallHistoryEventTarget {
-    fileprivate weak var origin: CallHistoryEventTarget?
+    private weak var origin: CallHistoryEventTarget?
 
     public init(origin: CallHistoryEventTarget) {
         self.origin = origin

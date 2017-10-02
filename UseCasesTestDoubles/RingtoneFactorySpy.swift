@@ -19,10 +19,10 @@
 import UseCases
 
 public final class RingtoneFactorySpy {
-    public fileprivate(set) var makeRingtoneCallCount = 0
-    public fileprivate(set) var invokedInterval: Double = 0
+    public private(set) var makeRingtoneCallCount = 0
+    public private(set) var invokedInterval: Double = 0
     
-    fileprivate var ringtone: Ringtone!
+    private var ringtone: Ringtone!
 
     public init() {}
 

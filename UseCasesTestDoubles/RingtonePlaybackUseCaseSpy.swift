@@ -19,9 +19,9 @@
 import UseCases
 
 public final class RingtonePlaybackUseCaseSpy: NSObject {
-    public fileprivate(set) var isPlaying = false
-    public fileprivate(set) var didCallStart = false
-    public fileprivate(set) var didCallStop = false
+    public private(set) var isPlaying = false
+    public private(set) var didCallStart = false
+    public private(set) var didCallStop = false
 }
 
 extension RingtonePlaybackUseCaseSpy: RingtonePlaybackUseCase {

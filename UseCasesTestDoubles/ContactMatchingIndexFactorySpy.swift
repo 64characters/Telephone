@@ -20,7 +20,7 @@ import UseCases
 
 public final class ContactMatchingIndexFactorySpy {
     public var didCallMake: Bool { return makeCallCount > 0 }
-    public fileprivate(set) var makeCallCount = 0
+    public private(set) var makeCallCount = 0
 
     public init() {}
 }

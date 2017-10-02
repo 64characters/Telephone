@@ -17,7 +17,7 @@
 //
 
 public final class CallHistoryRecordRemoveAllUseCase {
-    fileprivate let history: CallHistory
+    private let history: CallHistory
 
     public init(history: CallHistory) {
         self.history = history

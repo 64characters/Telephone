@@ -19,11 +19,11 @@
 import UseCases
 
 public final class CallHistoryRecordAddUseCaseFactorySpy {
-    public fileprivate(set) var invokedHistory: CallHistory!
-    public fileprivate(set) var invokedRecord: CallHistoryRecord!
-    public fileprivate(set) var invokedDomain = ""
+    public private(set) var invokedHistory: CallHistory!
+    public private(set) var invokedRecord: CallHistoryRecord!
+    public private(set) var invokedDomain = ""
 
-    fileprivate let add: UseCase
+    private let add: UseCase
 
     public init(add: UseCase) {
         self.add = add

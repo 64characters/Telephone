@@ -19,7 +19,7 @@
 import UseCases
 
 public final class PurchaseReminderUseCaseOutputSpy {
-    public fileprivate(set) var didCallRemind = false
+    public private(set) var didCallRemind = false
 
     public init() {}
 }

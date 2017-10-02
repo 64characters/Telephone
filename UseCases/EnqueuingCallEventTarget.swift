@@ -17,8 +17,8 @@
 //
 
 public final class EnqueuingCallEventTarget {
-    fileprivate let origin: CallEventTarget
-    fileprivate let queue: ExecutionQueue
+    private let origin: CallEventTarget
+    private let queue: ExecutionQueue
 
     public init(origin: CallEventTarget, queue: ExecutionQueue) {
         self.origin = origin

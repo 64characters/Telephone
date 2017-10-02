@@ -20,7 +20,7 @@ import Foundation
 import UseCases
 
 final class UserDefaultsPurchaseReminderSettings {
-    fileprivate let defaults: UserDefaults
+    private let defaults: UserDefaults
 
     init(defaults: UserDefaults) {
         self.defaults = defaults

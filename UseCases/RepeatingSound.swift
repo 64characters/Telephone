@@ -17,10 +17,10 @@
 //
 
 public final class RepeatingSound {
-    fileprivate let sound: Sound
+    private let sound: Sound
     public let interval: Double
-    fileprivate let factory: TimerFactory
-    fileprivate var timer: Timer?
+    private let factory: TimerFactory
+    private var timer: Timer?
 
     public init(sound: Sound, interval: Double, factory: TimerFactory) {
         self.sound = sound

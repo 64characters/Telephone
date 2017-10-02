@@ -19,9 +19,9 @@
 import UseCases
 
 final class AsyncProductsFake {
-    fileprivate let products: [String: Product]
-    fileprivate let target: ProductsEventTarget
-    fileprivate var attempts = 0
+    private let products: [String: Product]
+    private let target: ProductsEventTarget
+    private var attempts = 0
 
     init(target: ProductsEventTarget) {
         products = [

@@ -20,8 +20,8 @@ import Foundation
 import UseCases
 
 final class SimplePropertyListStorage {
-    fileprivate let url: URL
-    fileprivate let manager: FileManager
+    private let url: URL
+    private let manager: FileManager
 
     init(url: URL, manager: FileManager) {
         self.url = url

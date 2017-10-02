@@ -20,8 +20,8 @@ import StoreKit
 import UseCases
 
 final class StoreEventSource: NSObject {
-    fileprivate let queue: SKPaymentQueue
-    fileprivate let target: StoreEventTarget
+    private let queue: SKPaymentQueue
+    private let target: StoreEventTarget
 
     init(queue: SKPaymentQueue, target: StoreEventTarget) {
         self.queue = queue

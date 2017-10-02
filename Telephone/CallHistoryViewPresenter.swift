@@ -20,9 +20,9 @@ import Cocoa
 import UseCases
 
 final class CallHistoryViewPresenter {
-    fileprivate let view: CallHistoryView
-    fileprivate let dateFormatter: DateFormatter
-    fileprivate let durationFormatter: DateComponentsFormatter
+    private let view: CallHistoryView
+    private let dateFormatter: DateFormatter
+    private let durationFormatter: DateComponentsFormatter
 
     init(view: CallHistoryView, dateFormatter: DateFormatter, durationFormatter: DateComponentsFormatter) {
         self.view = view

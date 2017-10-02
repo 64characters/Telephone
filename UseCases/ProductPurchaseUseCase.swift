@@ -17,9 +17,9 @@
 //
 
 public final class ProductPurchaseUseCase {
-    fileprivate let identifier: String
-    fileprivate let products: Products
-    fileprivate let store: Store
+    private let identifier: String
+    private let products: Products
+    private let store: Store
 
     public init(identifier: String, products: Products, store: Store) {
         self.identifier = identifier

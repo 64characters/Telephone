@@ -19,8 +19,8 @@
 import UseCases
 
 final class RepeatingSoundFactory {
-    fileprivate let soundFactory: SoundFactory
-    fileprivate let timerFactory: TimerFactory
+    private let soundFactory: SoundFactory
+    private let timerFactory: TimerFactory
 
     init(soundFactory: SoundFactory, timerFactory: TimerFactory) {
         self.soundFactory = soundFactory

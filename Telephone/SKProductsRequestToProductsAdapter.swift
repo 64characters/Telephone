@@ -20,12 +20,12 @@ import StoreKit
 import UseCases
 
 final class SKProductsRequestToProductsAdapter: NSObject {
-    fileprivate var products: [String: Product] = [:]
-    fileprivate var storeKitProducts: [Product: SKProduct] = [:]
-    fileprivate var request: SKProductsRequest?
+    private var products: [String: Product] = [:]
+    private var storeKitProducts: [Product: SKProduct] = [:]
+    private var request: SKProductsRequest?
 
-    fileprivate let expected: ExpectedProducts
-    fileprivate let target: ProductsEventTarget
+    private let expected: ExpectedProducts
+    private let target: ProductsEventTarget
 
     init(expected: ExpectedProducts, target: ProductsEventTarget) {
         self.expected = expected

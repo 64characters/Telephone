@@ -17,23 +17,23 @@
 //
 
 final class StoreViewPresenterSpy {
-    fileprivate(set) var didCallShowPurchaseCheckProgress = false
+    private(set) var didCallShowPurchaseCheckProgress = false
 
-    fileprivate(set) var showProductsCallCount = 0
-    fileprivate(set) var invokedProducts: [Product] = []
+    private(set) var showProductsCallCount = 0
+    private(set) var invokedProducts: [Product] = []
 
-    fileprivate(set) var showProductsFetchErrorCallCount = 0
-    fileprivate(set) var invokedProductsFetchError = ""
-    fileprivate(set) var didCallShowProductsFetchProgress = false
+    private(set) var showProductsFetchErrorCallCount = 0
+    private(set) var invokedProductsFetchError = ""
+    private(set) var didCallShowProductsFetchProgress = false
 
-    fileprivate(set) var didCallShowPurchaseProgress = false
-    fileprivate(set) var invokedPurchaseError = ""
+    private(set) var didCallShowPurchaseProgress = false
+    private(set) var invokedPurchaseError = ""
 
-    fileprivate(set) var didCallShowPurchaseRestorationProgress = false
-    fileprivate(set) var invokedPurchaseRestorationError = ""
+    private(set) var didCallShowPurchaseRestorationProgress = false
+    private(set) var invokedPurchaseRestorationError = ""
 
-    fileprivate(set) var didCallShowPurchased = false
-    fileprivate(set) var invokedDate = Date.distantPast
+    private(set) var didCallShowPurchased = false
+    private(set) var invokedDate = Date.distantPast
 }
 
 extension StoreViewPresenterSpy: StoreViewPresenter {

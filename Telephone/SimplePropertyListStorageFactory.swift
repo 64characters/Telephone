@@ -20,7 +20,7 @@ import Foundation
 import UseCases
 
 final class SimplePropertyListStorageFactory {
-    fileprivate let manager: FileManager
+    private let manager: FileManager
 
     init(manager: FileManager) {
         self.manager = manager

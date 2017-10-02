@@ -30,8 +30,8 @@ final class CallHistoryViewController: NSViewController {
     var recordCount: Int {
         return records.count
     }
-    fileprivate var records: [PresentationCallHistoryRecord] = []
-    @IBOutlet fileprivate weak var tableView: NSTableView!
+    private var records: [PresentationCallHistoryRecord] = []
+    @IBOutlet private weak var tableView: NSTableView!
 
     init() {
         super.init(nibName: NSNib.Name(rawValue: "CallHistoryViewController"), bundle: nil)

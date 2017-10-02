@@ -19,7 +19,7 @@
 import UseCases
 
 final class LoggingStore {
-    fileprivate let origin: Store
+    private let origin: Store
 
     init(origin: Store) {
         self.origin = origin

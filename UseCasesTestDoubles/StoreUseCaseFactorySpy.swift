@@ -19,11 +19,11 @@
 import UseCases
 
 public final class StoreUseCaseFactorySpy {
-    fileprivate var check: UseCase!
-    fileprivate var fetch: UseCase!
-    fileprivate var purchase: ThrowingUseCase!
+    private var check: UseCase!
+    private var fetch: UseCase!
+    private var purchase: ThrowingUseCase!
 
-    public fileprivate(set) var invokedIdentifier = ""
+    public private(set) var invokedIdentifier = ""
 
     public init() {}
 

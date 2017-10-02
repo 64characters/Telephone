@@ -17,7 +17,7 @@
 //
 
 final class PurchaseReceiptAttributesValidation: NSObject {
-    fileprivate let identifiers: Set<String>
+    private let identifiers: Set<String>
 
     init(identifiers: Set<String>) {
         self.identifiers = identifiers

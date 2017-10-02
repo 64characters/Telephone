@@ -21,7 +21,7 @@ import ReceiptValidation
 import UseCases
 
 final class ReceiptXPCGateway {
-    fileprivate let connection: NSXPCConnection
+    private let connection: NSXPCConnection
 
     init() {
         connection = NSXPCConnection(serviceName: "com.tlphn.Telephone.ReceiptValidation")

@@ -17,8 +17,8 @@
 //
 
 public final class SimpleContactMatchingIndexFactory {
-    fileprivate let contacts: Contacts
-    fileprivate let settings: ContactMatchingSettings
+    private let contacts: Contacts
+    private let settings: ContactMatchingSettings
 
     public init(contacts: Contacts, settings: ContactMatchingSettings) {
         self.contacts = contacts

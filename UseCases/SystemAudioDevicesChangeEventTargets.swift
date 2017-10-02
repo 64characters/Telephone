@@ -17,7 +17,7 @@
 //
 
 public final class SystemAudioDevicesChangeEventTargets {
-    fileprivate let targets: [SystemAudioDevicesChangeEventTarget]
+    private let targets: [SystemAudioDevicesChangeEventTarget]
 
     public init(targets: [SystemAudioDevicesChangeEventTarget]) {
         self.targets = targets

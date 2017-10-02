@@ -19,7 +19,7 @@
 import UseCases
 
 final class CallHistoryViewSpy {
-    fileprivate(set) var invokedRecords: [PresentationCallHistoryRecord] = []
+    private(set) var invokedRecords: [PresentationCallHistoryRecord] = []
 }
 
 extension CallHistoryViewSpy: CallHistoryView {

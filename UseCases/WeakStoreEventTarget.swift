@@ -17,7 +17,7 @@
 //
 
 public final class WeakStoreEventTarget {
-    fileprivate weak var origin: StoreEventTarget?
+    private weak var origin: StoreEventTarget?
 
     public init(origin: StoreEventTarget) {
         self.origin = origin

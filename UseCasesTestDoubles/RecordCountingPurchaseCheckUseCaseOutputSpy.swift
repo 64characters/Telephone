@@ -19,9 +19,9 @@
 import UseCases
 
 public final class RecordCountingPurchaseCheckUseCaseOutputSpy {
-    public fileprivate(set) var didCallDidCheckPurchase = false
-    public fileprivate(set) var didCallDidFailCheckingPurchase = false
-    public fileprivate(set) var invokedCount: Int?
+    public private(set) var didCallDidCheckPurchase = false
+    public private(set) var didCallDidFailCheckingPurchase = false
+    public private(set) var invokedCount: Int?
 
     public init() {}
 }

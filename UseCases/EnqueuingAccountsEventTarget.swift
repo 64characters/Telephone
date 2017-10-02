@@ -17,8 +17,8 @@
 //
 
 public final class EnqueuingAccountsEventTarget {
-    fileprivate let origin: AccountsEventTarget
-    fileprivate let queue: ExecutionQueue
+    private let origin: AccountsEventTarget
+    private let queue: ExecutionQueue
 
     public init(origin: AccountsEventTarget, queue: ExecutionQueue) {
         self.origin = origin

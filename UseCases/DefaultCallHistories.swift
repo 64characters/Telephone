@@ -17,8 +17,8 @@
 //
 
 public final class DefaultCallHistories {
-    fileprivate var histories: [String: CallHistory] = [:]
-    fileprivate let factory: CallHistoryFactory
+    private var histories: [String: CallHistory] = [:]
+    private let factory: CallHistoryFactory
 
     var count: Int { return histories.count }
 

@@ -17,7 +17,7 @@
 //
 
 public final class UserAgentEventTargets {
-    fileprivate let targets: [UserAgentEventTarget]
+    private let targets: [UserAgentEventTarget]
 
     public init(targets: [UserAgentEventTarget]) {
         self.targets = targets

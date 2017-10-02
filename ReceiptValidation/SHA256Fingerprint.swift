@@ -19,7 +19,7 @@
 import Foundation
 
 struct SHA256Fingerprint {
-    fileprivate let sha256: Data
+    private let sha256: Data
 
     init(sha256: Data) {
         self.sha256 = sha256

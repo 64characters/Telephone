@@ -19,9 +19,9 @@
 import UseCases
 
 public final class CallHistoryRecordRemoveUseCaseFactorySpy {
-    public fileprivate(set) var invokedIdentifier: String?
+    public private(set) var invokedIdentifier: String?
 
-    fileprivate let remove: UseCase
+    private let remove: UseCase
 
     public init(remove: UseCase) {
         self.remove = remove

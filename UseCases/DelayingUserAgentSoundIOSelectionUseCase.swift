@@ -17,9 +17,9 @@
 //
 
 public final class DelayingUserAgentSoundIOSelectionUseCase {
-    fileprivate let useCase: ThrowingUseCase
-    fileprivate let userAgent: UserAgent
-    fileprivate var selection: ThrowingUseCase?
+    private let useCase: ThrowingUseCase
+    private let userAgent: UserAgent
+    private var selection: ThrowingUseCase?
 
     public init(useCase: ThrowingUseCase, userAgent: UserAgent) {
         self.useCase = useCase
@@ -39,7 +39,7 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
         }
     }
 
-    fileprivate func selectSoundIOOrLogError() {
+    private func selectSoundIOOrLogError() {
         do {
             try selectSoundIO()
         } catch {

@@ -19,8 +19,8 @@
 import UseCases
 
 final class SimpleSoundFactory {
-    fileprivate let load: SoundConfigurationLoadUseCase
-    fileprivate let factory: NSSoundToSoundAdapterFactory
+    private let load: SoundConfigurationLoadUseCase
+    private let factory: NSSoundToSoundAdapterFactory
 
     init(load: SoundConfigurationLoadUseCase, factory: NSSoundToSoundAdapterFactory) {
         self.load = load

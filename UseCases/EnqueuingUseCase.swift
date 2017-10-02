@@ -17,8 +17,8 @@
 //
 
 public final class EnqueuingUseCase {
-    fileprivate let origin: UseCase
-    fileprivate let queue: ExecutionQueue
+    private let origin: UseCase
+    private let queue: ExecutionQueue
 
     public init(origin: UseCase, queue: ExecutionQueue) {
         self.origin = origin

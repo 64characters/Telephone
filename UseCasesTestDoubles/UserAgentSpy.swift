@@ -21,17 +21,17 @@ import UseCases
 
 public final class UserAgentSpy: NSObject {
     public var isStarted = false
-    public fileprivate(set) var hasActiveCalls = false
+    public private(set) var hasActiveCalls = false
 
-    public fileprivate(set) var didCallAudioDevices = false
+    public private(set) var didCallAudioDevices = false
     public var audioDevicesResult = [UserAgentAudioDevice]()
 
-    public fileprivate(set) var didCallUpdateAudioDevices = false
-    public fileprivate(set) var soundIOSelectionCallCount = 0
+    public private(set) var didCallUpdateAudioDevices = false
+    public private(set) var soundIOSelectionCallCount = 0
     public var didSelectSoundIO: Bool { return soundIOSelectionCallCount > 0 }
 
-    public fileprivate(set) var invokedInputDeviceID: Int?
-    public fileprivate(set) var invokedOutputDeviceID: Int?
+    public private(set) var invokedInputDeviceID: Int?
+    public private(set) var invokedOutputDeviceID: Int?
 
     public func simulateActiveCalls() {
         hasActiveCalls = true

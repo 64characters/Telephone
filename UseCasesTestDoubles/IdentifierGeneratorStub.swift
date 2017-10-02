@@ -19,7 +19,7 @@
 import UseCases
 
 public final class IdentifierGeneratorStub {
-    fileprivate let identifier: String
+    private let identifier: String
 
     public init(identifier: String) {
         self.identifier = identifier

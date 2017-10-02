@@ -17,8 +17,8 @@
 //
 
 public final class SettingsRingtoneSoundNameSaveUseCase {
-    fileprivate let name: String
-    fileprivate let settings: KeyValueSettings
+    private let name: String
+    private let settings: KeyValueSettings
 
     public init(name: String, settings: KeyValueSettings) {
         self.name = name

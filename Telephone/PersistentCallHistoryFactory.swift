@@ -20,9 +20,9 @@ import Foundation
 import UseCases
 
 final class PersistentCallHistoryFactory {
-    fileprivate let history: TruncatingCallHistoryFactory
-    fileprivate let storage: SimplePropertyListStorageFactory
-    fileprivate let locations: ApplicationDataLocations
+    private let history: TruncatingCallHistoryFactory
+    private let storage: SimplePropertyListStorageFactory
+    private let locations: ApplicationDataLocations
 
     init(history: TruncatingCallHistoryFactory, storage: SimplePropertyListStorageFactory, locations: ApplicationDataLocations) {
         self.history = history

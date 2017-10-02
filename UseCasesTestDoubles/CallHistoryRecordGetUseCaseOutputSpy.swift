@@ -19,8 +19,8 @@
 import UseCases
 
 public final class CallHistoryRecordGetUseCaseOutputSpy {
-    public fileprivate(set) var didCallUpdate = false
-    public fileprivate(set) var invokedRecord: CallHistoryRecord?
+    public private(set) var didCallUpdate = false
+    public private(set) var invokedRecord: CallHistoryRecord?
 
     public init() {}
 }

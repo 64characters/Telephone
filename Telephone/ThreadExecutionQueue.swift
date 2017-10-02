@@ -20,7 +20,7 @@ import Foundation
 import UseCases
 
 final class ThreadExecutionQueue: NSObject {
-    fileprivate let thread: Thread
+    private let thread: Thread
 
     init(thread: Thread) {
         self.thread = thread

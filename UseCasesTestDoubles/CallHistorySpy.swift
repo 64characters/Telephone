@@ -19,7 +19,7 @@
 import UseCases
 
 public final class CallHistorySpy {
-    public fileprivate(set) var didCallRemoveAll = false
+    public private(set) var didCallRemoveAll = false
 
     public init() {}
 }

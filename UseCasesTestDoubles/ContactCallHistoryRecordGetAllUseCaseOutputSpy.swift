@@ -19,7 +19,7 @@
 import UseCases
 
 public final class ContactCallHistoryRecordGetAllUseCaseOutputSpy {
-    public fileprivate(set) var invokedRecords: [ContactCallHistoryRecord] = []
+    public private(set) var invokedRecords: [ContactCallHistoryRecord] = []
 
     public init() {}
 }

@@ -19,7 +19,7 @@
 import UseCases
 
 final class AccountUUIDSettingsMigration {
-    fileprivate let settings: KeyValueSettings
+    private let settings: KeyValueSettings
 
     init(settings: KeyValueSettings) {
         self.settings = settings

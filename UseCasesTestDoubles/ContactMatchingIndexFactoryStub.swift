@@ -19,8 +19,8 @@
 import UseCases
 
 public final class ContactMatchingIndexFactoryStub {
-    fileprivate let indexes: [ContactMatchingIndex]
-    fileprivate var callCount = 0
+    private let indexes: [ContactMatchingIndex]
+    private var callCount = 0
 
     public init(indexes: [ContactMatchingIndex]) {
         self.indexes = indexes

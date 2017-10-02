@@ -19,7 +19,7 @@
 import UseCases
 
 public final class UserAgentSoundIOSelectionUseCaseFake {
-    fileprivate let userAgent: UserAgent
+    private let userAgent: UserAgent
 
     public init(userAgent: UserAgent) {
         self.userAgent = userAgent

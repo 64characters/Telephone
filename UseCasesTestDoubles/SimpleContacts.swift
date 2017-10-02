@@ -19,7 +19,7 @@
 import UseCases
 
 public final class SimpleContacts {
-    fileprivate var contacts: [Contact]
+    private var contacts: [Contact]
 
     public init(_ contacts: [Contact]) {
         self.contacts = contacts

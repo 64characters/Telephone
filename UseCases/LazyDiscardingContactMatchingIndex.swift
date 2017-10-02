@@ -17,9 +17,9 @@
 //
 
 public final class LazyDiscardingContactMatchingIndex {
-    fileprivate var origin: ContactMatchingIndex!
+    private var origin: ContactMatchingIndex!
 
-    fileprivate let factory: ContactMatchingIndexFactory
+    private let factory: ContactMatchingIndexFactory
 
     public init(factory: ContactMatchingIndexFactory) {
         self.factory = factory

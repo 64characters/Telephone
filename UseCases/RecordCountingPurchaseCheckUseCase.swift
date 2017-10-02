@@ -22,13 +22,13 @@
 }
 
 public final class RecordCountingPurchaseCheckUseCase {
-    fileprivate lazy var origin: UseCase = {
+    private lazy var origin: UseCase = {
         return self.factory.make(output: WeakPurchaseCheckUseCaseOutput(origin: self))
     }()
-    fileprivate var count = 0
+    private var count = 0
 
     private let factory: PurchaseCheckUseCaseFactory
-    fileprivate let output: RecordCountingPurchaseCheckUseCaseOutput
+    private let output: RecordCountingPurchaseCheckUseCaseOutput
 
     public init(factory: PurchaseCheckUseCaseFactory, output: RecordCountingPurchaseCheckUseCaseOutput) {
         self.factory = factory

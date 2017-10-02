@@ -17,8 +17,8 @@
 //
 
 public final class EnqueuingContactsChangeEventTarget {
-    fileprivate let origin: ContactsChangeEventTarget
-    fileprivate let queue: ExecutionQueue
+    private let origin: ContactsChangeEventTarget
+    private let queue: ExecutionQueue
 
     public init(origin: ContactsChangeEventTarget, queue: ExecutionQueue) {
         self.origin = origin

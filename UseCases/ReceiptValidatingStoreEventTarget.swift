@@ -17,8 +17,8 @@
 //
 
 public final class ReceiptValidatingStoreEventTarget {
-    fileprivate let origin: StoreEventTarget
-    fileprivate let receipt: Receipt
+    private let origin: StoreEventTarget
+    private let receipt: Receipt
 
     public init(origin: StoreEventTarget, receipt: Receipt) {
         self.origin = origin

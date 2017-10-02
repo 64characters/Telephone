@@ -19,7 +19,7 @@
 import Foundation
 
 final class PKCS7ContainerValidation: NSObject {
-    fileprivate let origin: ReceiptValidation
+    private let origin: ReceiptValidation
 
     init(origin: ReceiptValidation) {
         self.origin = origin

@@ -27,8 +27,8 @@ public final class SettingsFake {
         return registered
     }
 
-    fileprivate var dictionary: [String: Any] = [:]
-    fileprivate var registered: [String: Any] = [:]
+    private var dictionary: [String: Any] = [:]
+    private var registered: [String: Any] = [:]
 
     public init() {}
 }

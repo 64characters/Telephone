@@ -20,7 +20,7 @@ import Foundation
 import UseCases
 
 public struct ValidReceipt {
-    fileprivate let expiration: Date
+    private let expiration: Date
 
     public init(expiration: Date) {
         self.expiration = expiration

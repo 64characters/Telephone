@@ -17,7 +17,7 @@
 //
 
 public final class SimpleContactMatchingSettings {
-    fileprivate let settings: KeyValueSettings
+    private let settings: KeyValueSettings
 
     public init(settings: KeyValueSettings) {
         self.settings = settings

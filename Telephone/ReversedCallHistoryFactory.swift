@@ -19,7 +19,7 @@
 import UseCases
 
 final class ReversedCallHistoryFactory {
-    fileprivate let origin: CallHistoryFactory
+    private let origin: CallHistoryFactory
 
     init(origin: CallHistoryFactory) {
         self.origin = origin

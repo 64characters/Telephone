@@ -21,9 +21,9 @@ import Domain
 struct SettingsSoundIO {
     private let devices: SystemAudioDevices
     private let settings: KeyValueSettings
-    fileprivate var optionalInput: SystemAudioDevice!
-    fileprivate var optionalOutput: SystemAudioDevice!
-    fileprivate var optionalRingtoneOutput: SystemAudioDevice!
+    private var optionalInput: SystemAudioDevice!
+    private var optionalOutput: SystemAudioDevice!
+    private var optionalRingtoneOutput: SystemAudioDevice!
 
     init(devices: SystemAudioDevices, settings: KeyValueSettings) {
         self.devices = devices

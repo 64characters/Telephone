@@ -64,11 +64,11 @@ final class UserAgentNotificationsToEventTargetAdapterTests: XCTestCase {
         XCTAssertTrue(target.didCallDidReceiveCall)
     }
 
-    fileprivate func makeUserAgentNotification(name: String) -> Notification {
+    private func makeUserAgentNotification(name: String) -> Notification {
         return Notification(name: Notification.Name(rawValue: name), object: userAgent)
     }
 
-    fileprivate func makeCallNotification(name: String) -> Notification {
+    private func makeCallNotification(name: String) -> Notification {
         return Notification(name: Notification.Name(rawValue: name), object: nil)
     }
 }

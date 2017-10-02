@@ -17,7 +17,7 @@
 //
 
 public final class RingtoneOutputUpdateUseCase {
-    fileprivate let playback: RingtonePlaybackUseCase
+    private let playback: RingtonePlaybackUseCase
 
     public init(playback: RingtonePlaybackUseCase) {
         self.playback = playback
