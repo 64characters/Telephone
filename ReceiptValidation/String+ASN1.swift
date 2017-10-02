@@ -32,7 +32,7 @@ extension String {
         data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
             guard bytes[typeIndex] == type else { return }
             let count = data.count - contentIndex
-            assert(count == Int(bytes[lengthIndex]))
+            precondition(count == Int(bytes[lengthIndex]))
             result = String(data: Data(bytes: bytes.advanced(by: contentIndex), count: count), encoding: encoding)
         }
         self = result ?? ""
