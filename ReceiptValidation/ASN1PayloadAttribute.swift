@@ -22,7 +22,7 @@ final class ASN1PayloadAttribute: NSObject {
     let type: Int
     let value: Data
 
-    init(type: Int, value: Data) {
+    @objc init(type: Int, value: Data) {
         self.type = type
         self.value = value
     }
