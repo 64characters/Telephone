@@ -387,12 +387,12 @@ static NSString * const kRussian = @"ru";
     }
 }
 
-- (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination {
+- (void)makeCallToDestinationRegisteringAccountIfNeeded:(SanitizedCallDestination *)destination {
     if (![self isAccountAdded]) {
-        [self setDestinationToCall:destination];
+        [self setDestinationToCall:destination.value];
         [self registerAccount];
     } else {
-        [self makeCallToDestination:destination];
+        [self makeCallToDestination:destination.value];
     }
 }
 
