@@ -320,6 +320,9 @@
 		8AA749031D749E4D000587DC /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA749051D749E4D000587DC /* StoreViewController.xib */; };
 		8AA749321D75FF18000587DC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA749311D75FF18000587DC /* StoreKit.framework */; };
 		8AA791FC1CE245940082E4FC /* AsyncProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */; };
+		8AA891DC1F83F69F0064B2EA /* SanitizedCallDestinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA891DB1F83F69F0064B2EA /* SanitizedCallDestinationTests.swift */; };
+		8AA891DE1F83F6EA0064B2EA /* SanitizedCallDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA891DD1F83F6EA0064B2EA /* SanitizedCallDestination.swift */; };
+		8AA891DF1F83F7100064B2EA /* SanitizedCallDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA891DD1F83F6EA0064B2EA /* SanitizedCallDestination.swift */; };
 		8AAA5BE51DA695D2005A7BFE /* ReceiptRefreshUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA5BE41DA695D2005A7BFE /* ReceiptRefreshUseCase.swift */; };
 		8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA001CAE9EE5001930C4 /* SoundIO.swift */; };
 		8AAACA031CAE9F36001930C4 /* SimpleSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */; };
@@ -1133,6 +1136,8 @@
 		8AA749301D75E5E7000587DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		8AA749311D75FF18000587DC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8AA791FB1CE245940082E4FC /* AsyncProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncProductsFake.swift; sourceTree = "<group>"; };
+		8AA891DB1F83F69F0064B2EA /* SanitizedCallDestinationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SanitizedCallDestinationTests.swift; path = TelephoneTests/SanitizedCallDestinationTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA891DD1F83F6EA0064B2EA /* SanitizedCallDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanitizedCallDestination.swift; sourceTree = "<group>"; };
 		8AAA5BE41DA695D2005A7BFE /* ReceiptRefreshUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRefreshUseCase.swift; sourceTree = "<group>"; };
 		8AAACA001CAE9EE5001930C4 /* SoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundIO.swift; sourceTree = "<group>"; };
 		8AAACA021CAE9F36001930C4 /* SimpleSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSoundIO.swift; sourceTree = "<group>"; };
@@ -1653,6 +1658,8 @@
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
 				8AD2C5F01EAE0C94005EED3E /* RestoredSelectionIndex.swift */,
 				8AD2C5EE1EAE0C58005EED3E /* RestoredSelectionIndexTests.swift */,
+				8AA891DD1F83F6EA0064B2EA /* SanitizedCallDestination.swift */,
+				8AA891DB1F83F69F0064B2EA /* SanitizedCallDestinationTests.swift */,
 				8AA748821D6DEE61000587DC /* SettingsAccount.swift */,
 				8AA748801D6DECAB000587DC /* SettingsAccounts.swift */,
 				8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */,
@@ -3571,6 +3578,7 @@
 				AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */,
 				8A42E0C81E168F4F00CE09B8 /* DurationFormatter.swift in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */,
+				8AA891DE1F83F6EA0064B2EA /* SanitizedCallDestination.swift in Sources */,
 				8AF52BE11F028A50001F7784 /* ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift in Sources */,
 				8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
 				8A91759F1CA59F1100354E26 /* PJSUAOnCallMediaState.m in Sources */,
@@ -3954,12 +3962,14 @@
 				8ADD6A5D1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift in Sources */,
 				8A1DA8161DF07EF300F5BA40 /* WorkspaceSleepStatus.swift in Sources */,
 				8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
+				8AA891DC1F83F69F0064B2EA /* SanitizedCallDestinationTests.swift in Sources */,
 				8ADA10A71DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */,
 				8ABB141C1CEC86B10056CEDC /* StoreViewStateMachine.swift in Sources */,
 				8ADA109D1DC8D3040038E0A5 /* ProgressiveSettingsMigrationTests.swift in Sources */,
 				8AD2C5F21EAE0C94005EED3E /* RestoredSelectionIndex.swift in Sources */,
 				8AA27AF21E9D3982002A08CD /* SimplePropertyListStorageURLTests.swift in Sources */,
 				AA1019881C490BF100869D01 /* RepeatingSoundFactory.swift in Sources */,
+				8AA891DF1F83F7100064B2EA /* SanitizedCallDestination.swift in Sources */,
 				8A41A74D1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift in Sources */,
 				8AA27AF11E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
 				8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */,
