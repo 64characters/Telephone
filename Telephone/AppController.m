@@ -1432,7 +1432,8 @@ NS_ASSUME_NONNULL_END
 
 - (void)makeCallTo:(NSString *)destination {
     if ([self canMakeCall]) {
-        [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:destination];
+        [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:
+         [[SanitizedCallDestination alloc] initWithString:destination].value];
     }
 }
 

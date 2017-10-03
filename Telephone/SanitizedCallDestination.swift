@@ -19,8 +19,9 @@
 import Foundation
 
 final class SanitizedCallDestination: NSObject {
-    let value: String
+    @objc let value: String
 
+    @objc(initWithString:)
     init(_ string: String) {
         value = strippingSlashes(from: strippingHeaders(from: string))
     }
