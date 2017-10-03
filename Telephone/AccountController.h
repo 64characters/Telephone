@@ -27,7 +27,7 @@ extern NSString * const kEmailSIPLabel;
 
 @class AKSIPURI, AKNetworkReachability;
 @class AsyncCallHistoryPurchaseCheckUseCaseFactory, AsyncCallHistoryViewEventTargetFactory;
-@class CallTransferController, StoreWindowPresenter, WorkspaceSleepStatus;
+@class CallTransferController, SanitizedCallDestination, StoreWindowPresenter, WorkspaceSleepStatus;
 @protocol MusicPlayer, RingtonePlaybackUseCase;
 
 @interface AccountController : NSObject <AKSIPAccountDelegate, CallControllerDelegate>
@@ -76,7 +76,7 @@ extern NSString * const kEmailSIPLabel;
 
 - (void)makeCallToURI:(AKSIPURI *)destinationURI phoneLabel:(NSString *)phoneLabel;
 
-- (void)makeCallToDestinationRegisteringAccountIfNeeded:(NSString *)destination;
+- (void)makeCallToDestinationRegisteringAccountIfNeeded:(SanitizedCallDestination *)destination;
 
 - (void)showWindow;
 - (void)showWindowWithoutMakingKey;
