@@ -98,8 +98,8 @@ extension CallHistoryViewController: CallHistoryView {
     }
 
     private func reloadTableView(old: [PresentationCallHistoryRecord], new: [PresentationCallHistoryRecord]) {
-        if case let diff = ArrayDifference(before: old, after: new), diff.isPrepended, diff.count <= 2 {
-            tableView.insertRows(at: IndexSet(integersIn: 0..<diff.count), withAnimation: .slideDown)
+        if case .prepended(count: let count) = ArrayDifference(before: old, after: new), count <= 2 {
+            tableView.insertRows(at: IndexSet(integersIn: 0..<count), withAnimation: .slideDown)
         } else {
             tableView.reloadData()
         }

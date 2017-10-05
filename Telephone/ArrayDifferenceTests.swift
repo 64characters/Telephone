@@ -20,47 +20,47 @@ import XCTest
 
 final class ArrayDifferenceTests: XCTestCase {
     func testIsPrependedWhenAfterEndsWithBefore() {
-        let sut = ArrayDifference(before: Array(3...10), after: Array(1...10))
-
-        XCTAssertTrue(sut.isPrepended)
+        if case .prepended(count: _) = ArrayDifference(before: Array(3...10), after: Array(1...10)) {
+        } else {
+            XCTFail()
+        }
     }
 
-    func testIsNotPrependedWhenAfterDoesNotEndWithBefore() {
-        let sut = ArrayDifference(before: Array(3...5), after: Array(1...4))
+    func testIsPrependedAndCountIsDifferenceBetweenAfterAndBeforeCount() {
+        let before = Array(5...10)
+        let after = Array(1...10)
 
-        XCTAssertFalse(sut.isPrepended)
-    }
-
-    func testIsNotPrependedWhenBeforeIsEmpty() {
-        let sut = ArrayDifference(before: Array(), after: Array(1...5))
-
-        XCTAssertFalse(sut.isPrepended)
+        if case .prepended(count: let count) = ArrayDifference(before: before, after: after), count == after.count - before.count {
+        } else {
+            XCTFail()
+        }
     }
 
     func testIsShiftedByOneWhenAfterIsBeforePlusOneItemInTheBeginningAndOneItemRemovedFromTheEnd() {
-        let sut = ArrayDifference(before: Array(2...10), after: Array(1...9))
-
-        XCTAssertTrue(sut.isShiftedByOne)
+        if case .shiftedByOne = ArrayDifference(before: Array(2...10), after: Array(1...9)) {
+        } else {
+            XCTFail()
+        }
     }
 
-    func testIsNotShiftedByOneWhenAfterIsBeforePlusTwoItemsInTheBeginningAndTwoItemsRemovedFromTheEnd() {
-        let sut = ArrayDifference(before: Array(2...10), after: Array(0...8))
-
-        XCTAssertFalse(sut.isShiftedByOne)
+    func testIsOtherWhenBeforeIsEmpty() {
+        if case .other = ArrayDifference(before: Array(), after: Array(1...5)) {
+        } else {
+            XCTFail()
+        }
     }
 
-    func testIsNotShiftedByOneWhenBeforeIsEmpty() {
-        let sut = ArrayDifference(before: Array(), after: Array(1...5))
-
-        XCTAssertFalse(sut.isShiftedByOne)
+    func testIsOtherWhenAfterDoesNotEndWithBefore() {
+        if case .other = ArrayDifference(before: Array(3...5), after: Array(1...4)) {
+        } else {
+            XCTFail()
+        }
     }
 
-    func testCountIsDifferenceBetweenAfterAndBeforeCount() {
-        let before = Array(1...5)
-        let after = Array(1...10)
-
-        let sut = ArrayDifference(before: before, after: after)
-
-        XCTAssertEqual(sut.count, after.count - before.count)
+    func testIsOtherWhenAfterIsBeforePlusTwoItemsInTheBeginningAndTwoItemsRemovedFromTheEnd() {
+        if case .other = ArrayDifference(before: Array(2...10), after: Array(0...8)) {
+        } else {
+            XCTFail()
+        }
     }
 }
