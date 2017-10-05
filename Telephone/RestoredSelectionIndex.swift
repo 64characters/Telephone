@@ -22,8 +22,8 @@ struct RestoredSelectionIndex<T> where T: Equatable {
     init(indexBefore: Int, before: Array<T>, after: Array<T>) {
         if indexBefore == -1 || after.isEmpty {
             value = 0
-        } else if case let diff = ArrayDifference(before: before, after: after), diff.isPrepended {
-            value = indexBefore + diff.count
+        } else if case .prepended(count: let count) = ArrayDifference(before: before, after: after) {
+            value = indexBefore + count
         } else if indexBefore < after.endIndex {
             value = indexBefore
         } else {
