@@ -50,6 +50,13 @@ final class ArrayDifferenceTests: XCTestCase {
         }
     }
 
+    func testIsOtherWhenAfterIsEmpty() {
+        if case .other = ArrayDifference(before: Array(1...10), after: Array()) {
+        } else {
+            XCTFail()
+        }
+    }
+
     func testIsOtherWhenAfterDoesNotEndWithBefore() {
         if case .other = ArrayDifference(before: Array(3...5), after: Array(1...4)) {
         } else {

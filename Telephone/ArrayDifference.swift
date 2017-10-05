@@ -22,7 +22,7 @@ enum ArrayDifference<T> where T: Equatable {
     case other
 
     init(before: Array<T>, after: Array<T>) {
-        if before.isEmpty {
+        if before.isEmpty || after.isEmpty {
             self = .other
         } else if after.reversed().starts(with: before.reversed()) {
             self = .prepended(count: after.count - before.count)
