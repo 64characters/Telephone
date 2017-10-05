@@ -36,7 +36,7 @@ final class ArrayDifferenceTests: XCTestCase {
         }
     }
 
-    func testIsShiftedByOneWhenAfterIsBeforePlusOneItemInTheBeginningAndOneItemRemovedFromTheEnd() {
+    func testIsShiftedByOneWhenAfterIsBeforePlusOneItemInTheBeginningAndMinusOneItemInTheEnd() {
         if case .shiftedByOne = ArrayDifference(before: Array(2...10), after: Array(1...9)) {
         } else {
             XCTFail()
