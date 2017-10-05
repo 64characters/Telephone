@@ -37,6 +37,24 @@ final class ArrayDifferenceTests: XCTestCase {
         XCTAssertFalse(sut.isPrepended)
     }
 
+    func testIsShiftedByOneWhenAfterIsBeforePlusOneItemInTheBeginningAndOneItemRemovedFromTheEnd() {
+        let sut = ArrayDifference(before: Array(2...10), after: Array(1...9))
+
+        XCTAssertTrue(sut.isShiftedByOne)
+    }
+
+    func testIsNotShiftedByOneWhenAfterIsBeforePlusTwoItemsInTheBeginningAndTwoItemsRemovedFromTheEnd() {
+        let sut = ArrayDifference(before: Array(2...10), after: Array(0...8))
+
+        XCTAssertFalse(sut.isShiftedByOne)
+    }
+
+    func testIsNotShiftedByOneWhenBeforeIsEmpty() {
+        let sut = ArrayDifference(before: Array(), after: Array(1...5))
+
+        XCTAssertFalse(sut.isShiftedByOne)
+    }
+
     func testCountIsDifferenceBetweenAfterAndBeforeCount() {
         let before = Array(1...5)
         let after = Array(1...10)

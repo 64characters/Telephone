@@ -19,9 +19,13 @@
 struct ArrayDifference<T> where T: Equatable {
     let isPrepended: Bool
     let count: Int
+    let isShiftedByOne: Bool
 
     init(before: Array<T>, after: Array<T>) {
         isPrepended = !before.isEmpty && after.reversed().starts(with: before.reversed())
         count = after.count - before.count
+        isShiftedByOne =
+            !before.isEmpty &&
+            before[..<before.index(before: before.endIndex)] == after[after.index(after: after.startIndex)...]
     }
 }
