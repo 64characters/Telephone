@@ -536,7 +536,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
     }
     
-    if (![NSApp isActive]) {
+    if (![NSApp isActive] && ![self isCallUnhandled]) {
         NSUserNotification *userNotification = [[NSUserNotification alloc] init];
         userNotification.title = notificationTitle;
         userNotification.informativeText = self.status;
