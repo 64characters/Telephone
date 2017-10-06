@@ -384,6 +384,33 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return ![self.callInfoView isEqual:viewController.view];
 }
 
+- (void)showUserNotification {
+    NSString *notificationTitle;
+    if ([[self nameFromAddressBook] length] > 0) {
+        notificationTitle = [self nameFromAddressBook];
+    } else if ([[self enteredCallDestination] length] > 0) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
+        if ([[self enteredCallDestination] ak_isTelephoneNumber] && [defaults boolForKey:kFormatTelephoneNumbers]) {
+            notificationTitle = [telephoneNumberFormatter stringForObjectValue:[self enteredCallDestination]];
+        } else {
+            notificationTitle = [self enteredCallDestination];
+        }
+    } else {
+        AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
+        [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
+         [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+        notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
+    }
+    NSUserNotification *userNotification = [[NSUserNotification alloc] init];
+    userNotification.title = notificationTitle;
+    userNotification.informativeText = self.status;
+    userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: self.identifier};
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
+}
+
 
 #pragma mark -
 #pragma mark NSWindow delegate methods
@@ -511,37 +538,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     
     [self.musicPlayer resume];
     
-    // Show user notification.
-    
-    NSString *notificationTitle;
-    
-    if ([[self nameFromAddressBook] length] > 0) {
-        notificationTitle = [self nameFromAddressBook];
-        
-    } else if ([[self enteredCallDestination] length] > 0) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
-        
-        if ([[self enteredCallDestination] ak_isTelephoneNumber] && [defaults boolForKey:kFormatTelephoneNumbers]) {
-            notificationTitle = [telephoneNumberFormatter stringForObjectValue:[self enteredCallDestination]];
-        } else {
-            notificationTitle = [self enteredCallDestination];
-        }
-    } else {
-        AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
-        [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
-         [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
-        notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
-    }
-    
     if (![NSApp isActive] && ![self isCallUnhandled]) {
-        NSUserNotification *userNotification = [[NSUserNotification alloc] init];
-        userNotification.title = notificationTitle;
-        userNotification.informativeText = self.status;
-        userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: self.identifier};
-        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
+        [self showUserNotification];
     }
     
     // Optionally close disconnected call window.
