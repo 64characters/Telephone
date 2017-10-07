@@ -1215,6 +1215,7 @@ NS_ASSUME_NONNULL_END
         [[self userAttentionTimer] invalidate];
         [self setUserAttentionTimer:nil];
     }
+    [NSUserNotificationCenter.defaultUserNotificationCenter removeAllDeliveredNotifications];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
