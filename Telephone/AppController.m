@@ -383,10 +383,16 @@ NS_ASSUME_NONNULL_END
                                                                 repeats:YES]];
 }
 
+- (void)stopUserAttentionTimer {
+    if (self.userAttentionTimer != nil) {
+        [self.userAttentionTimer invalidate];
+        self.userAttentionTimer = nil;
+    }
+}
+
 - (void)stopUserAttentionTimerIfNeeded {
-    if (![self hasIncomingCallControllers] && [self userAttentionTimer] != nil) {
-        [[self userAttentionTimer] invalidate];
-        [self setUserAttentionTimer:nil];
+    if (![self hasIncomingCallControllers]) {
+        [self stopUserAttentionTimer];
     }
 }
 
@@ -1210,11 +1216,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
-    // Invalidate application's Dock icon bouncing timer.
-    if ([self userAttentionTimer] != nil) {
-        [[self userAttentionTimer] invalidate];
-        [self setUserAttentionTimer:nil];
-    }
+    [self stopUserAttentionTimer];
     [NSUserNotificationCenter.defaultUserNotificationCenter removeAllDeliveredNotifications];
 }
 
