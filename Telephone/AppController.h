@@ -20,8 +20,6 @@
 
 #import "AKSIPUserAgent.h"
 
-extern NSString * const kUserNotificationCallControllerIdentifierKey;
-
 @interface AppController : NSObject <AKSIPUserAgentDelegate>
 
 - (BOOL)canStopPlayingRingtone;

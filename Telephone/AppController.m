@@ -40,8 +40,6 @@
 #import "Telephone-Swift.h"
 
 
-NSString * const kUserNotificationCallControllerIdentifierKey = @"UserNotificationCallControllerIdentifier";
-
 // Bouncing icon in the Dock time interval.
 static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 
@@ -383,10 +381,16 @@ NS_ASSUME_NONNULL_END
                                                                 repeats:YES]];
 }
 
+- (void)stopUserAttentionTimer {
+    if (self.userAttentionTimer != nil) {
+        [self.userAttentionTimer invalidate];
+        self.userAttentionTimer = nil;
+    }
+}
+
 - (void)stopUserAttentionTimerIfNeeded {
-    if (![self hasIncomingCallControllers] && [self userAttentionTimer] != nil) {
-        [[self userAttentionTimer] invalidate];
-        [self setUserAttentionTimer:nil];
+    if (![self hasIncomingCallControllers]) {
+        [self stopUserAttentionTimer];
     }
 }
 
@@ -1210,11 +1214,8 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
-    // Invalidate application's Dock icon bouncing timer.
-    if ([self userAttentionTimer] != nil) {
-        [[self userAttentionTimer] invalidate];
-        [self setUserAttentionTimer:nil];
-    }
+    [self stopUserAttentionTimer];
+    [NSUserNotificationCenter.defaultUserNotificationCenter removeAllDeliveredNotifications];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
@@ -1310,8 +1311,7 @@ NS_ASSUME_NONNULL_END
 #pragma mark - NSUserNotificationCenterDelegate
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    NSString *identifier = notification.userInfo[kUserNotificationCallControllerIdentifierKey];
-    CallController *controller = [self callControllerByIdentifier:identifier];
+    CallController *controller = [self callControllerByIdentifier:notification.identifier];
     switch (notification.activationType) {
         case NSUserNotificationActivationTypeContentsClicked:
             [controller showWindow:self];

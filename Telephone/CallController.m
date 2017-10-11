@@ -384,6 +384,26 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return ![self.callInfoView isEqual:viewController.view];
 }
 
+- (void)removeOrShowUserNotificationIfNeeded {
+    if (![NSApp isActive]) {
+        if (self.isCallUnhandled) {
+            [self removeUserNotification];
+        } else {
+            [self showUserNotification];
+        }
+    }
+}
+
+- (void)removeUserNotification {
+    NSUserNotificationCenter *center = NSUserNotificationCenter.defaultUserNotificationCenter;
+    for (NSUserNotification *notification in center.deliveredNotifications) {
+        if ([notification.identifier isEqualToString:self.identifier]) {
+            [center removeDeliveredNotification:notification];
+            break;
+        }
+    }
+}
+
 - (void)showUserNotification {
     NSString *notificationTitle;
     if ([[self nameFromAddressBook] length] > 0) {
@@ -405,9 +425,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
     }
     NSUserNotification *userNotification = [[NSUserNotification alloc] init];
+    userNotification.identifier = self.identifier;
     userNotification.title = notificationTitle;
     userNotification.informativeText = self.status;
-    userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: self.identifier};
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
 }
 
@@ -537,10 +557,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                     repeats:NO];
     
     [self.musicPlayer resume];
-    
-    if (![NSApp isActive] && ![self isCallUnhandled]) {
-        [self showUserNotification];
-    }
+
+    [self removeOrShowUserNotificationIfNeeded];
     
     // Optionally close disconnected call window.
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
