@@ -384,6 +384,12 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return ![self.callInfoView isEqual:viewController.view];
 }
 
+- (void)showUserNotificationIfNeeded {
+    if (![NSApp isActive] && ![self isCallUnhandled]) {
+        [self showUserNotification];
+    }
+}
+
 - (void)showUserNotification {
     NSString *notificationTitle;
     if ([[self nameFromAddressBook] length] > 0) {
@@ -537,10 +543,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                     repeats:NO];
     
     [self.musicPlayer resume];
-    
-    if (![NSApp isActive] && ![self isCallUnhandled]) {
-        [self showUserNotification];
-    }
+
+    [self showUserNotificationIfNeeded];
     
     // Optionally close disconnected call window.
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
