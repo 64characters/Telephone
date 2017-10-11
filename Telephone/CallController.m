@@ -405,9 +405,9 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
     }
     NSUserNotification *userNotification = [[NSUserNotification alloc] init];
+    userNotification.identifier = self.identifier;
     userNotification.title = notificationTitle;
     userNotification.informativeText = self.status;
-    userNotification.userInfo = @{kUserNotificationCallControllerIdentifierKey: self.identifier};
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
 }
 
