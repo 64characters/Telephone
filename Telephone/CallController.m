@@ -567,9 +567,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     BOOL missed = [self isCallUnhandled];
     
     if (![self isKindOfClass:[CallTransferController class]]) {
-        if ((!missed && shouldCloseWindow) ||
-            (missed && shouldCloseWindow && shouldCloseMissedWindow)) {
-            
+        if ((!missed && shouldCloseWindow) || (missed && shouldCloseMissedWindow)) {
             [self performSelector:@selector(closeCallWindow) withObject:nil afterDelay:kCallWindowAutoCloseTime];
         }
     }
