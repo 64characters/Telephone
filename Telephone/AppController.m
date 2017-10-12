@@ -183,8 +183,8 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kTransportPublicHost] = @"";
         defaultsDict[kRingingSound] = @"Purr";
         defaultsDict[kSignificantPhoneNumberLength] = @9;
-        defaultsDict[kAutoCloseCallWindow] = @NO;
-        defaultsDict[kAutoCloseMissedCallWindow] = @NO;
+        defaultsDict[kAutoCloseCallWindow] = @YES;
+        defaultsDict[kAutoCloseMissedCallWindow] = @YES;
         defaultsDict[kCallWaiting] = @YES;
         defaultsDict[kUseG711Only] = @NO;
 
