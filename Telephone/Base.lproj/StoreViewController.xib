@@ -83,6 +83,7 @@ The subscription renews automatically and can be cancelled almost any time based
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="kYi-DK-7xw" secondAttribute="bottom" constant="20" id="1lt-2L-79e"/>
+                <constraint firstItem="Bmy-eH-1mE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="8ht-j2-vuI"/>
                 <constraint firstItem="kYi-DK-7xw" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="9Dq-Wz-zpm"/>
                 <constraint firstAttribute="bottom" secondItem="tFh-9Q-oFf" secondAttribute="bottom" constant="20" id="Aru-GB-p66"/>
                 <constraint firstAttribute="bottom" secondItem="Bmy-eH-1mE" secondAttribute="bottom" constant="20" id="Dqn-1J-Yva"/>
@@ -93,6 +94,7 @@ The subscription renews automatically and can be cancelled almost any time based
                 <constraint firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" constant="20" id="bEn-jV-5FB"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="fGU-oJ-mCd"/>
                 <constraint firstItem="Bmy-eH-1mE" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="nk3-5U-Xuq"/>
+                <constraint firstItem="kYi-DK-7xw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="pao-qI-QVN"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="pwt-F8-K6J"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="tng-Qk-CjW"/>
             </constraints>
@@ -158,6 +160,7 @@ The subscription renews automatically and can be cancelled almost any time based
                                             </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="eH9-SG-F1U" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="zF3-9y-xfi" secondAttribute="leading" constant="8" symbolic="YES" id="Be1-JE-weK"/>
                                             <constraint firstItem="eH9-SG-F1U" firstAttribute="centerY" secondItem="cBD-EV-Yai" secondAttribute="centerY" id="ZKC-2B-Kfy"/>
                                             <constraint firstAttribute="trailing" secondItem="zF3-9y-xfi" secondAttribute="trailing" constant="8" id="tGl-Ah-Zq3"/>
                                             <constraint firstItem="zF3-9y-xfi" firstAttribute="centerY" secondItem="cBD-EV-Yai" secondAttribute="centerY" id="uQN-q7-P5m"/>
