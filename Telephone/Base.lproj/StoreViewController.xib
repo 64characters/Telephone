@@ -272,7 +272,7 @@ The subscription renews automatically and can be cancelled almost any time based
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8X-aQ-cAN">
-                        <rect key="frame" x="99" y="18" width="240" height="17"/>
+                        <rect key="frame" x="99" y="18" width="241" height="17"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Am-ER-Ei9">
                                 <rect key="frame" x="-2" y="0.0" width="166" height="17"/>
@@ -294,7 +294,7 @@ The subscription renews automatically and can be cancelled almost any time based
                         <constraints>
                             <constraint firstItem="9Am-ER-Ei9" firstAttribute="centerY" secondItem="e8X-aQ-cAN" secondAttribute="centerY" id="GAn-6V-zmF"/>
                             <constraint firstItem="byH-Ua-KY8" firstAttribute="leading" secondItem="9Am-ER-Ei9" secondAttribute="trailing" id="L1t-51-YvW"/>
-                            <constraint firstAttribute="trailing" secondItem="byH-Ua-KY8" secondAttribute="trailing" constant="-1" id="Oss-2s-BSV"/>
+                            <constraint firstAttribute="trailing" secondItem="byH-Ua-KY8" secondAttribute="trailing" id="Oss-2s-BSV"/>
                             <constraint firstItem="9Am-ER-Ei9" firstAttribute="leading" secondItem="e8X-aQ-cAN" secondAttribute="leading" id="Xdt-yu-TQj"/>
                             <constraint firstItem="byH-Ua-KY8" firstAttribute="baseline" secondItem="9Am-ER-Ei9" secondAttribute="baseline" id="aGp-AW-hfQ"/>
                         </constraints>
