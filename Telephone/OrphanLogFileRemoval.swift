@@ -1,5 +1,5 @@
 //
-//  ApplicationDataLocations.swift
+//  OrphanLogFileRemoval.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,8 +18,22 @@
 
 import Foundation
 
-@objc protocol ApplicationDataLocations {
-    func root() -> URL
-    func logs() -> URL
-    func callHistories() -> URL
+final class OrphanLogFileRemoval: NSObject {
+    private let locations: ApplicationDataLocations
+    private let manager: FileManager
+
+    init(locations: ApplicationDataLocations, manager: FileManager) {
+        self.locations = locations
+        self.manager = manager
+    }
+
+    @objc func execute() {
+        do {
+            try manager.removeItem(at: locations.root().appendingPathComponent("Telephone.log"))
+        } catch CocoaError.fileNoSuchFile {
+            // Do nothing.
+        } catch {
+            NSLog("Could not remove orphan log file: \(error)")
+        }
+    }
 }

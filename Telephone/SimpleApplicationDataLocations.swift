@@ -29,16 +29,16 @@ final class SimpleApplicationDataLocations {
 }
 
 extension SimpleApplicationDataLocations: ApplicationDataLocations {
+    func root() -> URL {
+        return applicationSupport().appendingPathComponent(bundle.bundleIdentifier!, isDirectory: true)
+    }
+
     func logs() -> URL {
-        return root()
+        return root().appendingPathComponent("Logs", isDirectory: true)
     }
 
     func callHistories() -> URL {
         return root().appendingPathComponent("CallHistories", isDirectory: true)
-    }
-
-    private func root() -> URL {
-        return applicationSupport().appendingPathComponent(bundle.bundleIdentifier!, isDirectory: true)
     }
 
     private func applicationSupport() -> URL {
