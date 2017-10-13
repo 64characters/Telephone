@@ -19,6 +19,7 @@
 import Foundation
 
 @objc protocol ApplicationDataLocations {
+    func root() -> URL
     func logs() -> URL
     func callHistories() -> URL
 }

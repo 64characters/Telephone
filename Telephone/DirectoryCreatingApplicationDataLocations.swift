@@ -29,6 +29,10 @@ final class DirectoryCreatingApplicationDataLocations {
 }
 
 extension DirectoryCreatingApplicationDataLocations: ApplicationDataLocations {
+    func root() -> URL {
+        return createDirectory(at: origin.root())
+    }
+
     func logs() -> URL {
         return createDirectory(at: origin.logs())
     }
