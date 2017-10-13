@@ -1183,6 +1183,8 @@ NS_ASSUME_NONNULL_END
 
     [self makeCallAfterLaunchIfNeeded];
 
+    [self.compositionRoot.orphanLogFileRemoval performSelector:@selector(execute) withObject:nil afterDelay:0];
+
     [self setFinishedLaunching:YES];
 }
 

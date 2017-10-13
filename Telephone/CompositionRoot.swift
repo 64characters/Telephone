@@ -30,6 +30,7 @@ final class CompositionRoot: NSObject {
     @objc let musicPlayer: MusicPlayer
     @objc let settingsMigration: ProgressiveSettingsMigration
     @objc let applicationDataLocations: ApplicationDataLocations
+    @objc let orphanLogFileRemoval: OrphanLogFileRemoval
     @objc let workstationSleepStatus: WorkspaceSleepStatus
     @objc let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
     @objc let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
@@ -132,6 +133,8 @@ final class CompositionRoot: NSObject {
             origin: SimpleApplicationDataLocations(manager: FileManager.default, bundle: Bundle.main),
             manager: FileManager.default
         )
+
+        orphanLogFileRemoval = OrphanLogFileRemoval(locations: applicationDataLocations, manager: FileManager.default)
 
         workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared)
 
