@@ -30,7 +30,7 @@ final class SimpleApplicationDataLocations {
 
 extension SimpleApplicationDataLocations: ApplicationDataLocations {
     func logs() -> URL {
-        return root()
+        return root().appendingPathComponent("Logs", isDirectory: true)
     }
 
     func callHistories() -> URL {
