@@ -19,8 +19,8 @@
                 <outlet property="progressIndicator" destination="XSd-At-01E" id="vdk-e6-EDz"/>
                 <outlet property="progressView" destination="mA2-JV-Xxq" id="HMO-kP-wdU"/>
                 <outlet property="purchasedView" destination="fpC-LB-IbC" id="sIS-w1-Vd9"/>
-                <outlet property="refreshReceiptButton" destination="tFh-9Q-oFf" id="2DK-RO-xtZ"/>
-                <outlet property="restorePurchasesButton" destination="kYi-DK-7xw" id="7dh-0j-3bH"/>
+                <outlet property="refreshReceiptButton" destination="kYi-DK-7xw" id="mnj-3Z-C9e"/>
+                <outlet property="restorePurchasesButton" destination="tFh-9Q-oFf" id="Iq3-Cc-mfZ"/>
                 <outlet property="subscriptionsButton" destination="Bmy-eH-1mE" id="k6J-dJ-KZZ"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -65,7 +65,7 @@ The subscription renews automatically and can be cancelled almost any time based
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="restorePurchases:" target="-2" id="oYA-dC-C2E"/>
+                        <action selector="refreshReceipt:" target="-2" id="fS3-Yx-WhE"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-9Q-oFf">
@@ -77,7 +77,7 @@ The subscription renews automatically and can be cancelled almost any time based
                         <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                     </buttonCell>
                     <connections>
-                        <action selector="refreshReceipt:" target="-2" id="06t-0w-qG1"/>
+                        <action selector="restorePurchases:" target="-2" id="5aV-l1-OGY"/>
                     </connections>
                 </button>
             </subviews>
