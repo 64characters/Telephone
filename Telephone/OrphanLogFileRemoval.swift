@@ -1,5 +1,5 @@
 //
-//  OrphanLogRemoval.swift
+//  OrphanLogFileRemoval.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import Foundation
 
-final class OrphanFileRemoval: NSObject {
+final class OrphanLogFileRemoval: NSObject {
     private let locations: ApplicationDataLocations
     private let manager: FileManager
     private let filename: String
