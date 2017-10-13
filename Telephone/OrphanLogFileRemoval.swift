@@ -21,17 +21,15 @@ import Foundation
 final class OrphanLogFileRemoval: NSObject {
     private let locations: ApplicationDataLocations
     private let manager: FileManager
-    private let filename: String
 
-    init(locations: ApplicationDataLocations, manager: FileManager, filename: String) {
+    init(locations: ApplicationDataLocations, manager: FileManager) {
         self.locations = locations
         self.manager = manager
-        self.filename = filename
     }
 
     @objc func execute() {
         do {
-            try manager.removeItem(at: locations.root().appendingPathComponent(filename))
+            try manager.removeItem(at: locations.root().appendingPathComponent("Telephone.log"))
         } catch CocoaError.fileNoSuchFile {
             // Do nothing.
         } catch {
