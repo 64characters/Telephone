@@ -1,6 +1,6 @@
 
-/* Class = "NSButtonCell"; title = "Restore Purchases"; ObjectID = "7Au-Xg-Hs2"; */
-"7Au-Xg-Hs2.title" = "Restore Purchases";
+/* Class = "NSButtonCell"; title = "Restore Purchases…"; ObjectID = "7Au-Xg-Hs2"; */
+"7Au-Xg-Hs2.title" = "Restore Purchases…";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "CFV-wm-kqZ"; */
 "CFV-wm-kqZ.title" = "Text Cell";

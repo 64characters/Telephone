@@ -59,8 +59,8 @@ The subscription renews automatically and can be cancelled almost any time based
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kYi-DK-7xw">
-                    <rect key="frame" x="312" y="13" width="154" height="32"/>
-                    <buttonCell key="cell" type="push" title="Restore Purchases" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Au-Xg-Hs2">
+                    <rect key="frame" x="302" y="13" width="164" height="32"/>
+                    <buttonCell key="cell" type="push" title="Restore Purchases…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Au-Xg-Hs2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
