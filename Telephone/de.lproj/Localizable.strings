@@ -166,7 +166,7 @@
 "Telephone was unable to login to %@. Change user name or password and try again." = "Telefon konnte sich nicht in %@ anmelden. Ändern Sie Benutzername oder Passwort und versuchen Sie es erneut.";
 
 /* Receipt refresh alert informative text. */
-"Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials." = "Telefon wird beendet und das System versucht, das App-Receipt zu aktualisieren. Danach wird Telefon wieder gestartet. Sie können nach den App-Store-Anmeldedaten gefragt werden.";
+"Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials." = "Telefon wird beendet und es wird versucht, das App-Receipt zu aktualisieren. Danach wird Telefon wieder gestartet. Während dieser Zeit können Sie nach den App-Store-Anmeldedaten gefragt werden.";
 
 /* Error description. */
 "The error was: “%d %@”." = "Fehlerbeschreibung: „%1$d %2$@“.";

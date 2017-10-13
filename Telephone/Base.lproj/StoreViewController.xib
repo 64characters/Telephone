@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StoreViewController" customModule="Telephone" customModuleProvider="target">
@@ -17,8 +19,8 @@
                 <outlet property="progressIndicator" destination="XSd-At-01E" id="vdk-e6-EDz"/>
                 <outlet property="progressView" destination="mA2-JV-Xxq" id="HMO-kP-wdU"/>
                 <outlet property="purchasedView" destination="fpC-LB-IbC" id="sIS-w1-Vd9"/>
-                <outlet property="refreshReceiptButton" destination="tFh-9Q-oFf" id="2DK-RO-xtZ"/>
-                <outlet property="restorePurchasesButton" destination="kYi-DK-7xw" id="7dh-0j-3bH"/>
+                <outlet property="refreshReceiptButton" destination="kYi-DK-7xw" id="mnj-3Z-C9e"/>
+                <outlet property="restorePurchasesButton" destination="tFh-9Q-oFf" id="Iq3-Cc-mfZ"/>
                 <outlet property="subscriptionsButton" destination="Bmy-eH-1mE" id="k6J-dJ-KZZ"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -57,13 +59,13 @@ The subscription renews automatically and can be cancelled almost any time based
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kYi-DK-7xw">
-                    <rect key="frame" x="312" y="13" width="154" height="32"/>
-                    <buttonCell key="cell" type="push" title="Restore Purchases" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Au-Xg-Hs2">
+                    <rect key="frame" x="302" y="13" width="164" height="32"/>
+                    <buttonCell key="cell" type="push" title="Restore Purchases…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Au-Xg-Hs2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="restorePurchases:" target="-2" id="oYA-dC-C2E"/>
+                        <action selector="refreshReceipt:" target="-2" id="fS3-Yx-WhE"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-9Q-oFf">
@@ -75,12 +77,13 @@ The subscription renews automatically and can be cancelled almost any time based
                         <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                     </buttonCell>
                     <connections>
-                        <action selector="refreshReceipt:" target="-2" id="06t-0w-qG1"/>
+                        <action selector="restorePurchases:" target="-2" id="5aV-l1-OGY"/>
                     </connections>
                 </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="kYi-DK-7xw" secondAttribute="bottom" constant="20" id="1lt-2L-79e"/>
+                <constraint firstItem="Bmy-eH-1mE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="8ht-j2-vuI"/>
                 <constraint firstItem="kYi-DK-7xw" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="9Dq-Wz-zpm"/>
                 <constraint firstAttribute="bottom" secondItem="tFh-9Q-oFf" secondAttribute="bottom" constant="20" id="Aru-GB-p66"/>
                 <constraint firstAttribute="bottom" secondItem="Bmy-eH-1mE" secondAttribute="bottom" constant="20" id="Dqn-1J-Yva"/>
@@ -91,6 +94,7 @@ The subscription renews automatically and can be cancelled almost any time based
                 <constraint firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" constant="20" id="bEn-jV-5FB"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="fGU-oJ-mCd"/>
                 <constraint firstItem="Bmy-eH-1mE" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="nk3-5U-Xuq"/>
+                <constraint firstItem="kYi-DK-7xw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="pao-qI-QVN"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="pwt-F8-K6J"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="tng-Qk-CjW"/>
             </constraints>
@@ -106,7 +110,7 @@ The subscription renews automatically and can be cancelled almost any time based
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <clipView key="contentView" id="JHp-da-W11">
                 <rect key="frame" x="1" y="1" width="438" height="84"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="eYD-l4-AFn">
                         <rect key="frame" x="0.0" y="0.0" width="438" height="84"/>
@@ -115,7 +119,7 @@ The subscription renews automatically and can be cancelled almost any time based
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <tableColumns>
-                            <tableColumn width="435" minWidth="40" maxWidth="1000" id="uMu-fo-Etu">
+                            <tableColumn identifier="" width="435" minWidth="40" maxWidth="1000" id="uMu-fo-Etu">
                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -133,7 +137,7 @@ The subscription renews automatically and can be cancelled almost any time based
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="eH9-SG-F1U">
-                                                <rect key="frame" x="6" y="12" width="97" height="17"/>
+                                                <rect key="frame" x="6" y="12" width="96" height="17"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="NEN-L8-9I9">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -156,6 +160,7 @@ The subscription renews automatically and can be cancelled almost any time based
                                             </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="eH9-SG-F1U" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="zF3-9y-xfi" secondAttribute="leading" constant="8" symbolic="YES" id="Be1-JE-weK"/>
                                             <constraint firstItem="eH9-SG-F1U" firstAttribute="centerY" secondItem="cBD-EV-Yai" secondAttribute="centerY" id="ZKC-2B-Kfy"/>
                                             <constraint firstAttribute="trailing" secondItem="zF3-9y-xfi" secondAttribute="trailing" constant="8" id="tGl-Ah-Zq3"/>
                                             <constraint firstItem="zF3-9y-xfi" firstAttribute="centerY" secondItem="cBD-EV-Yai" secondAttribute="centerY" id="uQN-q7-P5m"/>
@@ -270,7 +275,7 @@ The subscription renews automatically and can be cancelled almost any time based
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8X-aQ-cAN">
-                        <rect key="frame" x="99" y="18" width="240" height="17"/>
+                        <rect key="frame" x="99" y="18" width="241" height="17"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Am-ER-Ei9">
                                 <rect key="frame" x="-2" y="0.0" width="166" height="17"/>
@@ -292,13 +297,13 @@ The subscription renews automatically and can be cancelled almost any time based
                         <constraints>
                             <constraint firstItem="9Am-ER-Ei9" firstAttribute="centerY" secondItem="e8X-aQ-cAN" secondAttribute="centerY" id="GAn-6V-zmF"/>
                             <constraint firstItem="byH-Ua-KY8" firstAttribute="leading" secondItem="9Am-ER-Ei9" secondAttribute="trailing" id="L1t-51-YvW"/>
-                            <constraint firstAttribute="trailing" secondItem="byH-Ua-KY8" secondAttribute="trailing" constant="-1" id="Oss-2s-BSV"/>
+                            <constraint firstAttribute="trailing" secondItem="byH-Ua-KY8" secondAttribute="trailing" id="Oss-2s-BSV"/>
                             <constraint firstItem="9Am-ER-Ei9" firstAttribute="leading" secondItem="e8X-aQ-cAN" secondAttribute="leading" id="Xdt-yu-TQj"/>
                             <constraint firstItem="byH-Ua-KY8" firstAttribute="baseline" secondItem="9Am-ER-Ei9" secondAttribute="baseline" id="aGp-AW-hfQ"/>
                         </constraints>
                     </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j2j-Ih-N2I">
-                        <rect key="frame" x="167" y="43" width="104" height="24"/>
+                        <rect key="frame" x="169" y="43" width="101" height="24"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Thank you!" id="L2v-xq-Wr7">
                             <font key="font" metaFont="system" size="20"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
