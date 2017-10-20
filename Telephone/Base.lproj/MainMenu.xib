@@ -221,7 +221,6 @@ DQ
                 </menuItem>
             </items>
         </menu>
-        <customObject id="420" customClass="NSFontManager"/>
         <customObject id="450" customClass="AppController">
             <connections>
                 <outlet property="preferencesMenuItem" destination="129" id="491"/>
