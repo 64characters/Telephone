@@ -187,6 +187,7 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kAutoCloseMissedCallWindow] = @YES;
         defaultsDict[kCallWaiting] = @YES;
         defaultsDict[kUseG711Only] = @NO;
+        defaultsDict[kLockCodec] = @YES;
 
         NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
         
@@ -1080,6 +1081,7 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
     [[self userAgent] setTransportPublicHost:[defaults stringForKey:kTransportPublicHost]];
     [[self userAgent] setUsesG711Only:[defaults boolForKey:kUseG711Only]];
+    [[self userAgent] setLocksCodec:[defaults boolForKey:kLockCodec]];
 
     NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
     

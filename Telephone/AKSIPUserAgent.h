@@ -141,6 +141,15 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 /// A Boolean value indicating if only G.711 codec is used.
 @property(nonatomic, assign) BOOL usesG711Only;
 
+/// A Boolean value indicating if a codec should be locked.
+///
+/// If remote sends SDP answer containing more than one format or codec in
+/// the media line, send re-INVITE or UPDATE with just one codec to lock
+/// which codec to use.
+///
+/// Default: YES.
+@property(nonatomic, assign) BOOL locksCodec;
+
 
 // Returns the shared SIP user agent object.
 + (AKSIPUserAgent *)sharedUserAgent;
