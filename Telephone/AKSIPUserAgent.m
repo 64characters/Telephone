@@ -52,6 +52,7 @@ static const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
 static const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
 static const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;
 static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
+static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 
 
 @interface AKSIPUserAgent ()
@@ -215,6 +216,7 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     [self setUsesICE:kAKSIPUserAgentDefaultUsesICE];
     [self setTransportPort:kAKSIPUserAgentDefaultTransportPort];
     [self setUsesG711Only:kAKSIPUserAgentDefaultUsesG711Only];
+    [self setLocksCodec:kAKSIPUserAgentDefaultLocksCodec];
     
     [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
 
@@ -532,6 +534,8 @@ static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
     
     accountConfig.allow_contact_rewrite = anAccount.updatesContactHeader ? PJ_TRUE : PJ_FALSE;
     accountConfig.allow_via_rewrite = anAccount.updatesViaHeader ? PJ_TRUE : PJ_FALSE;
+
+    accountConfig.lock_codec = self.locksCodec ? PJ_TRUE : PJ_FALSE;
     
     pjsua_acc_id accountIdentifier;
     pj_status_t status = pjsua_acc_add(&accountConfig, PJ_FALSE,

@@ -61,3 +61,4 @@ extern NSString * const kProxyHost;
 extern NSString * const kProxyPort;
 extern NSString * const kUpdateContactHeader;
 extern NSString * const kUpdateViaHeader;
+extern NSString * const kLockCodec;
