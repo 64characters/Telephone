@@ -49,11 +49,11 @@ Build and install (remove `--with-opus` option if you don’t need Opus):
 
 ### LibreSSL
 
-    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.6.3.tar.gz
-    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.6.3.tar.gz.asc
-    $ gpg --verify libressl-2.6.3.tar.gz.asc
-    $ tar xzvf libressl-2.6.3.tar.gz
-    $ cd libressl-2.6.3
+    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.6.4.tar.gz
+    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.6.4.tar.gz.asc
+    $ gpg --verify libressl-2.6.4.tar.gz.asc
+    $ tar xzvf libressl-2.6.4.tar.gz
+    $ cd libressl-2.6.4
     $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-mmacosx-version-min=10.10'
     $ make
     $ make install
