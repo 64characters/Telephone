@@ -19,7 +19,7 @@
 import Foundation
 
 final class HelpMenuActionRedirect: NSObject {
-    var target: HelpMenuActionTarget?
+    @objc var target: HelpMenuActionTarget?
 
     @IBAction func showLogFile(_ sender: NSMenuItem) {
         target?.showLogFile()

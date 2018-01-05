@@ -1056,6 +1056,8 @@ NS_ASSUME_NONNULL_END
     [self optOutOfAutomaticWindowTabbing];
 
     [self.compositionRoot.settingsMigration execute];
+
+    self.helpMenuActionRedirect.target = self.compositionRoot.helpMenuActionTarget;
     
     // Read main settings from defaults.
     if ([defaults boolForKey:kUseDNSSRV]) {

@@ -18,7 +18,7 @@
 
 import Foundation
 
-final class HelpMenuActionTarget {
+final class HelpMenuActionTarget: NSObject {
     private let logFileURL: LogFileURL
     private let homepageURL: URL
     private let faqURL: URL

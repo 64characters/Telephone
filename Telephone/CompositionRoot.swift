@@ -34,6 +34,7 @@ final class CompositionRoot: NSObject {
     @objc let workstationSleepStatus: WorkspaceSleepStatus
     @objc let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
     @objc let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
+    @objc let helpMenuActionTarget: HelpMenuActionTarget
     private let defaults: UserDefaults
 
     private let storeEventSource: StoreEventSource
@@ -236,6 +237,14 @@ final class CompositionRoot: NSObject {
             ),
             background: contactsBackground,
             main: main
+        )
+
+        helpMenuActionTarget = HelpMenuActionTarget(
+            logFileURL: LogFileURL(locations: applicationDataLocations, filename: "Telephone.log"),
+            homepageURL: URL(string: "https://www.64characters.com/telephone/")!,
+            faqURL: URL(string: "https://www.64characters.com/telephone/faq/")!,
+            fileBrowser: NSWorkspace.shared,
+            webBrowser: NSWorkspace.shared
         )
 
         super.init()
