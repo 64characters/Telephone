@@ -18,7 +18,7 @@
 
 import Foundation
 
-@objc final class LogFileURL: NSObject {
+final class LogFileURL: NSObject {
     @objc let urlValue: URL
     @objc var pathValue: String { return urlValue.path }
 

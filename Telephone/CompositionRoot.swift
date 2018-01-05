@@ -29,11 +29,11 @@ final class CompositionRoot: NSObject {
     @objc let purchaseReminder: PurchaseReminderUseCase
     @objc let musicPlayer: MusicPlayer
     @objc let settingsMigration: ProgressiveSettingsMigration
-    @objc let applicationDataLocations: ApplicationDataLocations
     @objc let orphanLogFileRemoval: OrphanLogFileRemoval
     @objc let workstationSleepStatus: WorkspaceSleepStatus
     @objc let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
     @objc let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
+    @objc let logFileURL: LogFileURL
     @objc let helpMenuActionTarget: HelpMenuActionTarget
     private let defaults: UserDefaults
 
@@ -130,7 +130,7 @@ final class CompositionRoot: NSObject {
 
         settingsMigration = ProgressiveSettingsMigration(settings: defaults, factory: DefaultSettingsMigrationFactory())
 
-        applicationDataLocations = DirectoryCreatingApplicationDataLocations(
+        let applicationDataLocations = DirectoryCreatingApplicationDataLocations(
             origin: SimpleApplicationDataLocations(manager: FileManager.default, bundle: Bundle.main),
             manager: FileManager.default
         )
@@ -239,8 +239,10 @@ final class CompositionRoot: NSObject {
             main: main
         )
 
+        logFileURL = LogFileURL(locations: applicationDataLocations, filename: "Telephone.log")
+
         helpMenuActionTarget = HelpMenuActionTarget(
-            logFileURL: LogFileURL(locations: applicationDataLocations, filename: "Telephone.log"),
+            logFileURL: logFileURL,
             homepageURL: URL(string: "https://www.64characters.com/telephone/")!,
             faqURL: URL(string: "https://www.64characters.com/telephone/faq/")!,
             fileBrowser: NSWorkspace.shared,
