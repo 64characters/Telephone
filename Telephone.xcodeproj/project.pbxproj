@@ -310,6 +310,7 @@
 		8AA27AF11E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE81E9D0BF1002A08CD /* SimplePropertyListStorageURL.swift */; };
 		8AA27AF21E9D3982002A08CD /* SimplePropertyListStorageURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AEA1E9D0C1C002A08CD /* SimplePropertyListStorageURLTests.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
+		8AA689941FFFD7F700BA369B /* HelpMenuActionRedirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA689931FFFD7F700BA369B /* HelpMenuActionRedirect.swift */; };
 		8AA7487F1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */; };
 		8AA748811D6DECAB000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
 		8AA748831D6DEE61000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
@@ -1108,6 +1109,7 @@
 		8AA27AE81E9D0BF1002A08CD /* SimplePropertyListStorageURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePropertyListStorageURL.swift; sourceTree = "<group>"; };
 		8AA27AEA1E9D0C1C002A08CD /* SimplePropertyListStorageURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimplePropertyListStorageURLTests.swift; path = TelephoneTests/SimplePropertyListStorageURLTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
+		8AA689931FFFD7F700BA369B /* HelpMenuActionRedirect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpMenuActionRedirect.swift; sourceTree = "<group>"; };
 		8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsPurchaseReminderSettings.swift; sourceTree = "<group>"; };
 		8AA748801D6DECAB000587DC /* SettingsAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccounts.swift; sourceTree = "<group>"; };
 		8AA748821D6DEE61000587DC /* SettingsAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccount.swift; sourceTree = "<group>"; };
@@ -1680,6 +1682,7 @@
 				8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */,
 				AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */,
 				8A68C9561FFE8DAE005125AF /* FileBrowser.swift */,
+				8AA689931FFFD7F700BA369B /* HelpMenuActionRedirect.swift */,
 				8A95338F1F9A4B2300483940 /* HelpMenuActionTarget.swift */,
 				8A68C9531FFE86FA005125AF /* HelpMenuActionTargetTests.swift */,
 				8A68C94D1FFE6452005125AF /* LogFileURL.swift */,
@@ -3738,6 +3741,7 @@
 				8AA748831D6DEE61000587DC /* SettingsAccount.swift in Sources */,
 				AA3FABAB1BBC183B0064B2C3 /* SystemAudioDevices.swift in Sources */,
 				8A9175991CA59D5C00354E26 /* PJSUAOnIncomingCall.m in Sources */,
+				8AA689941FFFD7F700BA369B /* HelpMenuActionRedirect.swift in Sources */,
 				AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */,
 				AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */,
 				AAB3F5791C189D5300973BE5 /* SoundPreferencesViewEventTarget.swift in Sources */,

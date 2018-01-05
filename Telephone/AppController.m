@@ -67,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) NSArray *accountsMenuItems;
 @property(nonatomic, weak) IBOutlet NSMenu *windowMenu;
 @property(nonatomic, weak) IBOutlet NSMenuItem *preferencesMenuItem;
+@property(nonatomic, weak) IBOutlet HelpMenuActionRedirect *helpMenuActionRedirect;
 
 @property(nonatomic, readonly) CompositionRoot *compositionRoot;
 @property(nonatomic, readonly) PreferencesController *preferencesController;
