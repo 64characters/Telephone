@@ -1,5 +1,5 @@
 //
-//  WebBrowser.swift
+//  NSWorkspace+WebBrowser.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import AppKit
 
-protocol WebBrowser {
-    func showPage(at url: URL)
+extension NSWorkspace: WebBrowser {
+    func showPage(at url: URL) {
+        if !open(url) {
+            print("Could not open URL: \(url)")
+        }
+    }
 }

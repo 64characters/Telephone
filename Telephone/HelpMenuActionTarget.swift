@@ -38,10 +38,10 @@ final class HelpMenuActionTarget {
     }
 
     func openHomepage() {
-        webBrowser.open(homepageURL)
+        webBrowser.showPage(at: homepageURL)
     }
 
     func openFAQ() {
-        webBrowser.open(faqURL)
+        webBrowser.showPage(at: faqURL)
     }
 }

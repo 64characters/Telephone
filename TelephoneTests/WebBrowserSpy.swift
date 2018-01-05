@@ -23,7 +23,7 @@ final class WebBrowserSpy {
 }
 
 extension WebBrowserSpy: WebBrowser {
-    func open(_ url: URL) {
+    func showPage(at url: URL) {
         invokedURL = url
     }
 }

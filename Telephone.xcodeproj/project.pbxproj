@@ -311,6 +311,8 @@
 		8AA27AF21E9D3982002A08CD /* SimplePropertyListStorageURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AEA1E9D0C1C002A08CD /* SimplePropertyListStorageURLTests.swift */; };
 		8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */; };
 		8AA689941FFFD7F700BA369B /* HelpMenuActionRedirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA689931FFFD7F700BA369B /* HelpMenuActionRedirect.swift */; };
+		8AA689961FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA689951FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift */; };
+		8AA689981FFFEDA000BA369B /* NSWorkspace+WebBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA689971FFFEDA000BA369B /* NSWorkspace+WebBrowser.swift */; };
 		8AA7487F1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */; };
 		8AA748811D6DECAB000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
 		8AA748831D6DEE61000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
@@ -1110,6 +1112,8 @@
 		8AA27AEA1E9D0C1C002A08CD /* SimplePropertyListStorageURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimplePropertyListStorageURLTests.swift; path = TelephoneTests/SimplePropertyListStorageURLTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA31F031C987B4700ABC4FB /* SoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AA689931FFFD7F700BA369B /* HelpMenuActionRedirect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpMenuActionRedirect.swift; sourceTree = "<group>"; };
+		8AA689951FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWorkspace+FileBrowser.swift"; sourceTree = "<group>"; };
+		8AA689971FFFEDA000BA369B /* NSWorkspace+WebBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWorkspace+WebBrowser.swift"; sourceTree = "<group>"; };
 		8AA7487E1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsPurchaseReminderSettings.swift; sourceTree = "<group>"; };
 		8AA748801D6DECAB000587DC /* SettingsAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccounts.swift; sourceTree = "<group>"; };
 		8AA748821D6DEE61000587DC /* SettingsAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccount.swift; sourceTree = "<group>"; };
@@ -1688,6 +1692,8 @@
 				8A68C94D1FFE6452005125AF /* LogFileURL.swift */,
 				8A68C94B1FFE640B005125AF /* LogFileURLTests.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */,
+				8AA689951FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift */,
+				8AA689971FFFEDA000BA369B /* NSWorkspace+WebBrowser.swift */,
 				8AC443BE1F90E21E00ECE463 /* OrphanLogFileRemoval.swift */,
 				8ADD6A691CE0C8CF001EDBBA /* PresenterFactory.swift */,
 				8AD2C5F01EAE0C94005EED3E /* RestoredSelectionIndex.swift */,
@@ -3646,6 +3652,7 @@
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
 				8AD2C5F11EAE0C94005EED3E /* RestoredSelectionIndex.swift in Sources */,
 				8A9533901F9A4B2300483940 /* HelpMenuActionTarget.swift in Sources */,
+				8AA689981FFFEDA000BA369B /* NSWorkspace+WebBrowser.swift in Sources */,
 				8A1DA8131DF07EA700F5BA40 /* WorkspaceSleepStatus.swift in Sources */,
 				8A1F2E621E71702D00E3624C /* CallHistoryOutgoingCallCellView.swift in Sources */,
 				AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */,
@@ -3755,6 +3762,7 @@
 				8A1DA8111DEF2CAE00F5BA40 /* DefaultCallHistoryRecordAddUseCaseFactory.swift in Sources */,
 				AA1019951C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
+				8AA689961FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				8AA27AF01E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,

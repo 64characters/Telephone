@@ -1,5 +1,5 @@
 //
-//  WebBrowser.swift
+//  NSWorkspace+FileBrowser.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import AppKit
 
-protocol WebBrowser {
-    func showPage(at url: URL)
+extension NSWorkspace: FileBrowser {
+    func showFile(at url: URL) {
+        activateFileViewerSelecting([url])
+    }
 }
