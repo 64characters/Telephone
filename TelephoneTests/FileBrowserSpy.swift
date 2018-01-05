@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 final class FileBrowserSpy {
     private(set) var invokedURL: URL?
 }

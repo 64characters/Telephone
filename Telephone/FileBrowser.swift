@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 protocol FileBrowser {
     func showFile(at url: URL)
 }
