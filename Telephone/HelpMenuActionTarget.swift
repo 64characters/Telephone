@@ -21,12 +21,14 @@ import Foundation
 final class HelpMenuActionTarget {
     private let logFileURL: LogFileURL
     private let homepageURL: URL
+    private let faqURL: URL
     private let fileBrowser: FileBrowser
     private let webBrowser: WebBrowser
 
-    init(logFileURL: LogFileURL, homepageURL: URL, fileBrowser: FileBrowser, webBrowser: WebBrowser) {
+    init(logFileURL: LogFileURL, homepageURL: URL, faqURL: URL, fileBrowser: FileBrowser, webBrowser: WebBrowser) {
         self.logFileURL = logFileURL
         self.homepageURL = homepageURL
+        self.faqURL = faqURL
         self.fileBrowser = fileBrowser
         self.webBrowser = webBrowser
     }
@@ -37,5 +39,9 @@ final class HelpMenuActionTarget {
 
     func openHomepage() {
         webBrowser.open(homepageURL)
+    }
+
+    func openFAQ() {
+        webBrowser.open(faqURL)
     }
 }

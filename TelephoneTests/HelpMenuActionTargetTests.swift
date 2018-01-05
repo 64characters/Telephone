@@ -25,7 +25,8 @@ final class HelpMenuActionTargetTests: XCTestCase {
         let browser = FileBrowserSpy()
         let sut = HelpMenuActionTarget(
             logFileURL: url,
-            homepageURL: URL(string: "http://example.com")!,
+            homepageURL: URL(string: "http://homepage.local")!,
+            faqURL: URL(string: "http://faq.local")!,
             fileBrowser: browser,
             webBrowser: WebBrowserSpy()
         )
@@ -36,16 +37,33 @@ final class HelpMenuActionTargetTests: XCTestCase {
     }
 
     func testOpensHomepageInWebBrowserOnOpenHomepage() {
-        let url = URL(string: "http://example.com")!
+        let url = URL(string: "http://homepage.local")!
         let browser = WebBrowserSpy()
         let sut = HelpMenuActionTarget(
             logFileURL: LogFileURL(locations: ApplicationDataLocationsFake(), filename: "any"),
             homepageURL: url,
+            faqURL: URL(string: "http://faq.local")!,
             fileBrowser: FileBrowserSpy(),
             webBrowser: browser
         )
 
         sut.openHomepage()
+
+        XCTAssertEqual(browser.invokedURL, url)
+    }
+
+    func testOpensFAQInWebBrowserOnOpenFAQ() {
+        let url = URL(string: "http://faq.local")!
+        let browser = WebBrowserSpy()
+        let sut = HelpMenuActionTarget(
+            logFileURL: LogFileURL(locations: ApplicationDataLocationsFake(), filename: "any"),
+            homepageURL: URL(string: "http://homepage.local")!,
+            faqURL: url,
+            fileBrowser: FileBrowserSpy(),
+            webBrowser: browser
+        )
+
+        sut.openFAQ()
 
         XCTAssertEqual(browser.invokedURL, url)
     }
