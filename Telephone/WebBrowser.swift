@@ -1,5 +1,5 @@
 //
-//  HelpMenuActionTarget.swift
+//  WebBrowser.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,24 +18,6 @@
 
 import Foundation
 
-final class HelpMenuActionTarget {
-    private let logFileURL: LogFileURL
-    private let homepageURL: URL
-    private let fileBrowser: FileBrowser
-    private let webBrowser: WebBrowser
-
-    init(logFileURL: LogFileURL, homepageURL: URL, fileBrowser: FileBrowser, webBrowser: WebBrowser) {
-        self.logFileURL = logFileURL
-        self.homepageURL = homepageURL
-        self.fileBrowser = fileBrowser
-        self.webBrowser = webBrowser
-    }
-
-    func showLogFile() {
-        fileBrowser.showFile(at: logFileURL.urlValue)
-    }
-
-    func openHomepage() {
-        webBrowser.open(homepageURL)
-    }
+protocol WebBrowser {
+    func open(_ url: URL)
 }

@@ -23,10 +23,30 @@ final class HelpMenuActionTargetTests: XCTestCase {
     func testShowsLogFileInFileBrowserOnShowLogFile() {
         let url = LogFileURL(locations: ApplicationDataLocationsFake(), filename: "any")
         let browser = FileBrowserSpy()
-        let sut = HelpMenuActionTarget(url: url, browser: browser)
+        let sut = HelpMenuActionTarget(
+            logFileURL: url,
+            homepageURL: URL(string: "http://example.com")!,
+            fileBrowser: browser,
+            webBrowser: WebBrowserSpy()
+        )
 
         sut.showLogFile()
 
         XCTAssertEqual(browser.invokedURL, url.urlValue)
+    }
+
+    func testOpensHomepageInWebBrowserOnOpenHomepage() {
+        let url = URL(string: "http://example.com")!
+        let browser = WebBrowserSpy()
+        let sut = HelpMenuActionTarget(
+            logFileURL: LogFileURL(locations: ApplicationDataLocationsFake(), filename: "any"),
+            homepageURL: url,
+            fileBrowser: FileBrowserSpy(),
+            webBrowser: browser
+        )
+
+        sut.openHomepage()
+
+        XCTAssertEqual(browser.invokedURL, url)
     }
 }
