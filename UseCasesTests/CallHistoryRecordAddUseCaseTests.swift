@@ -44,7 +44,6 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsCopyOfRecordWithEmptyHostWhenUserIsATelephoneNumberLongerThanFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            identifier: "any-identifier",
             uri: URI(user: "12345", host: "any-host", displayName: "any-name"),
             date: Date(),
             duration: 60,
@@ -61,7 +60,6 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberWithLengthEqualToFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            identifier: "any-identifier",
             uri: URI(user: "1234", host: "any-host", displayName: "any-name"),
             date: Date(),
             duration: 60,
@@ -78,7 +76,6 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
     func testAddsOriginalRecordWhenUserIsATelephoneNumberShorterThanFourCharacters() {
         let history = TruncatingCallHistory()
         let record = CallHistoryRecord(
-            identifier: "any-identifier",
             uri: URI(user: "123", host: "any-host", displayName: "any-name"),
             date: Date(),
             duration: 60,
