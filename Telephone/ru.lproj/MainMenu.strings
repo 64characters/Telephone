@@ -134,5 +134,5 @@
 /* Class = "NSMenuItem"; title = "Open FAQ…"; ObjectID = "OPj-AU-bQh"; */
 "OPj-AU-bQh.title" = "Открыть FAQ…";
 
-/* Class = "NSMenuItem"; title = "Support Telephone…"; ObjectID = "rMu-ch-wsu"; */
-"rMu-ch-wsu.title" = "Поддержать проект…";
+/* Class = "NSMenuItem"; title = "Telephone Pro…"; ObjectID = "rMu-ch-wsu"; */
+"rMu-ch-wsu.title" = "Расширенные возможности…";
