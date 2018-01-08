@@ -125,5 +125,14 @@
 /* Class = "NSMenuItem"; title = "Answer"; ObjectID = "513"; */
 "513.title" = "Answer";
 
+/* Class = "NSMenuItem"; title = "Open Homepage…"; ObjectID = "Dc3-RZ-9ZI"; */
+"Dc3-RZ-9ZI.title" = "Open Homepage…";
+
+/* Class = "NSMenuItem"; title = "Show Log File in Finder"; ObjectID = "EZi-VO-4yb"; */
+"EZi-VO-4yb.title" = "Show Log File in Finder";
+
+/* Class = "NSMenuItem"; title = "Open FAQ…"; ObjectID = "OPj-AU-bQh"; */
+"OPj-AU-bQh.title" = "Open FAQ…";
+
 /* Class = "NSMenuItem"; title = "Support Telephone…"; ObjectID = "rMu-ch-wsu"; */
 "rMu-ch-wsu.title" = "Support Telephone…";

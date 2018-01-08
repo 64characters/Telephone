@@ -1,5 +1,5 @@
 //
-//  ApplicationDataLocations.swift
+//  NSWorkspace+FileBrowser.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,10 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import AppKit
 
-protocol ApplicationDataLocations {
-    func root() -> URL
-    func logs() -> URL
-    func callHistories() -> URL
+extension NSWorkspace: FileBrowser {
+    func showFile(at url: URL) {
+        activateFileViewerSelecting([url])
+    }
 }

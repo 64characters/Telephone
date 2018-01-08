@@ -1,6 +1,6 @@
 //
-//  ApplicationDataLocations.swift
-//  Telephone
+//  WebBrowserSpy.swift
+//  TelephoneTests
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
 //  Copyright © 2016-2017 64 Characters
@@ -18,8 +18,12 @@
 
 import Foundation
 
-protocol ApplicationDataLocations {
-    func root() -> URL
-    func logs() -> URL
-    func callHistories() -> URL
+final class WebBrowserSpy {
+    private(set) var invokedURL: URL?
+}
+
+extension WebBrowserSpy: WebBrowser {
+    func showPage(at url: URL) {
+        invokedURL = url
+    }
 }

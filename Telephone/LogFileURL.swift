@@ -1,5 +1,5 @@
 //
-//  ApplicationDataLocations.swift
+//  LogFileURL.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,8 +18,11 @@
 
 import Foundation
 
-protocol ApplicationDataLocations {
-    func root() -> URL
-    func logs() -> URL
-    func callHistories() -> URL
+final class LogFileURL: NSObject {
+    @objc let urlValue: URL
+    @objc var pathValue: String { return urlValue.path }
+
+    init(locations: ApplicationDataLocations, filename: String) {
+        urlValue = locations.logs().appendingPathComponent(filename)
+    }
 }

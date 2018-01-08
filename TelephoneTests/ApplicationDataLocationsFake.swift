@@ -1,6 +1,6 @@
 //
-//  ApplicationDataLocations.swift
-//  Telephone
+//  ApplicationDataLocationsFake.swift
+//  TelephoneTests
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
 //  Copyright © 2016-2017 64 Characters
@@ -16,10 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+final class ApplicationDataLocationsFake: ApplicationDataLocations {
+    private let base = URL(string: NSTemporaryDirectory())!.appendingPathComponent("locations-fake")
 
-protocol ApplicationDataLocations {
-    func root() -> URL
-    func logs() -> URL
-    func callHistories() -> URL
+    func root() -> URL {
+        return base
+    }
+
+    func logs() -> URL {
+        return base.appendingPathComponent("logs")
+    }
+
+    func callHistories() -> URL {
+        return base.appendingPathComponent("histories")
+    }
 }

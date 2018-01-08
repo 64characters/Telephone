@@ -1,5 +1,5 @@
 //
-//  ApplicationDataLocations.swift
+//  WebBrowser.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,8 +18,6 @@
 
 import Foundation
 
-protocol ApplicationDataLocations {
-    func root() -> URL
-    func logs() -> URL
-    func callHistories() -> URL
+protocol WebBrowser {
+    func showPage(at url: URL)
 }

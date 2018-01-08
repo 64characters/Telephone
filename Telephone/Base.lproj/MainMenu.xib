@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -31,7 +32,7 @@
                             <menuItem isSeparatorItem="YES" id="236">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Preferences…" keyEquivalent="," id="129" userLabel="121">
+                            <menuItem title="Preferences…" keyEquivalent="," id="129" userLabel="Preferences">
                                 <connections>
                                     <action selector="showPreferencePanel:" target="450" id="475"/>
                                 </connections>
@@ -64,7 +65,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit Telephone" keyEquivalent="q" id="136" userLabel="1111">
+                            <menuItem title="Quit Telephone" keyEquivalent="q" id="136">
                                 <connections>
                                     <action selector="terminate:" target="-3" id="449"/>
                                 </connections>
@@ -75,7 +76,7 @@
                 <menuItem title="File" id="83">
                     <menu key="submenu" title="File" id="81">
                         <items>
-                            <menuItem title="Close Window" keyEquivalent="w" id="73" userLabel="1">
+                            <menuItem title="Close Window" keyEquivalent="w" id="73">
                                 <connections>
                                     <action selector="performClose:" target="-1" id="193"/>
                                 </connections>
@@ -215,17 +216,40 @@ DQ
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Help" id="103" userLabel="1">
-                    <menu key="submenu" title="Help" id="106" userLabel="2"/>
+                <menuItem title="Help" id="103">
+                    <menu key="submenu" title="Help" id="106">
+                        <items>
+                            <menuItem title="Show Log File in Finder" id="EZi-VO-4yb">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showLogFile:" target="C3A-nH-yvt" id="IJh-0s-BZj"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="gwo-gg-xCu"/>
+                            <menuItem title="Open Homepage…" id="Dc3-RZ-9ZI">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openHomepage:" target="C3A-nH-yvt" id="DHf-0p-Y5X"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open FAQ…" id="OPj-AU-bQh">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openFAQ:" target="C3A-nH-yvt" id="gDJ-CI-yER"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
             </items>
         </menu>
-        <customObject id="420" customClass="NSFontManager"/>
         <customObject id="450" customClass="AppController">
             <connections>
+                <outlet property="helpMenuActionRedirect" destination="C3A-nH-yvt" id="rn4-r7-Adp"/>
                 <outlet property="preferencesMenuItem" destination="129" id="491"/>
                 <outlet property="windowMenu" destination="24" id="515"/>
             </connections>
         </customObject>
+        <customObject id="C3A-nH-yvt" customClass="HelpMenuActionRedirect" customModule="Telephone" customModuleProvider="target"/>
     </objects>
 </document>

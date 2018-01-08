@@ -1,5 +1,5 @@
 //
-//  ApplicationDataLocations.swift
+//  HelpMenuActionRedirect.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,8 +18,18 @@
 
 import Foundation
 
-protocol ApplicationDataLocations {
-    func root() -> URL
-    func logs() -> URL
-    func callHistories() -> URL
+final class HelpMenuActionRedirect: NSObject {
+    @objc var target: HelpMenuActionTarget?
+
+    @IBAction func showLogFile(_ sender: NSMenuItem) {
+        target?.showLogFile()
+    }
+
+    @IBAction func openHomepage(_ sender: NSMenuItem) {
+        target?.openHomepage()
+    }
+
+    @IBAction func openFAQ(_ sender: NSMenuItem) {
+        target?.openFAQ()
+    }
 }
