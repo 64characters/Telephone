@@ -1,6 +1,6 @@
 //
-//  CallHistoryRecordTestFactory.swift
-//  Telephone
+//  CallHistoryRecordTests.swift
+//  UseCasesTests
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
 //  Copyright © 2016-2017 64 Characters
@@ -17,17 +17,26 @@
 //
 
 import UseCases
+import XCTest
 
-public final class CallHistoryRecordTestFactory {
-    public init() {}
+final class CallHistoryRecordTests: XCTestCase {
+    func testIdentifierContainsUserHostDateDurationIncomingFlag() {
+        let user = "any-user"
+        let host = "any-host"
+        let date = Date()
+        let duration = 10
 
-    public func makeRecord(number: Int) -> CallHistoryRecord {
-        return CallHistoryRecord(
-            uri: URI(user: "user-\(number)", host: "host-\(number)", displayName: "name-\(number)"),
-            date: Date(),
-            duration: 615,
-            isIncoming: false,
+        let sut = CallHistoryRecord(
+            uri: URI(user: user, host: host, displayName: ""),
+            date: date,
+            duration: duration,
+            isIncoming: true,
             isMissed: false
+        )
+
+        XCTAssertEqual(
+            sut.identifier,
+            "\(user)@\(host)|\(date.timeIntervalSinceReferenceDate)|\(duration)|\(sut.isIncoming ? 1 : 0)"
         )
     }
 }

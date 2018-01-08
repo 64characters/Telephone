@@ -18,12 +18,10 @@
 
 public final class CallHistoryCallEventTarget {
     private let histories: CallHistories
-    private let generator: IdentifierGenerator
     private let factory: CallHistoryRecordAddUseCaseFactory
 
-    public init(histories: CallHistories, generator: IdentifierGenerator, factory: CallHistoryRecordAddUseCaseFactory) {
+    public init(histories: CallHistories, factory: CallHistoryRecordAddUseCaseFactory) {
         self.histories = histories
-        self.generator = generator
         self.factory = factory
     }
 }
@@ -32,7 +30,7 @@ extension CallHistoryCallEventTarget: CallEventTarget {
     public func didDisconnect(_ call: Call) {
         factory.make(
             history: histories.history(withUUID: call.account.uuid),
-            record: CallHistoryRecord(identifier: generator.generate(), call: call),
+            record: CallHistoryRecord(call: call),
             domain: call.account.domain
         ).execute()
     }
