@@ -1,4 +1,4 @@
-﻿/* Accounts preferences window title. */
+/* Accounts preferences window title. */
 "Accounts" = "Accounts";
 
 /* Address not found. */
@@ -103,7 +103,7 @@
 "mic unmuted" = "mic unmuted";
 
 /* Product name. */
-"Monthly optional patronage" = "Monthly optional patronage";
+"Monthly" = "Monthly";
 
 /* Mute. Call menu item. */
 "Mute" = "Mute";
@@ -196,5 +196,5 @@
 "Unmute" = "Unmute";
 
 /* Product name. */
-"Yearly optional patronage" = "Yearly optional patronage";
+"Yearly" = "Yearly";
 

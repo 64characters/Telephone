@@ -1,4 +1,4 @@
-﻿/* Accounts preferences window title. */
+/* Accounts preferences window title. */
 "Accounts" = "Аккаунты";
 
 /* Address not found. */
@@ -103,7 +103,7 @@
 "mic unmuted" = "микрофон работает";
 
 /* Product name. */
-"Monthly optional patronage" = "Ежемесячная добровольная поддержка";
+"Monthly" = "Ежемесячно";
 
 /* Mute. Call menu item. */
 "Mute" = "Выключить микрофон";
@@ -196,4 +196,4 @@
 "Unmute" = "Включить микрофон";
 
 /* Product name. */
-"Yearly optional patronage" = "Ежегодная добровольная поддержка";
+"Yearly" = "Ежегодно";

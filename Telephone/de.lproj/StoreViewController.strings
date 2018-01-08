@@ -11,8 +11,8 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "NEN-L8-9I9"; */
 "NEN-L8-9I9.title" = "Table View Cell";
 
-/* Class = "NSTextFieldCell"; title = "Telephone is a free and open source app that is supported only by its users. Please consider becoming a patron to make ongoing development possible.\n\nThe subscription renews automatically and can be cancelled almost any time based on Mac App Store subscription rules."; ObjectID = "W5b-g9-V4l"; */
-"W5b-g9-V4l.title" = "Telefon ist eine freie und quelloffene App, die ausschließlich von ihren Benutzern unterstützt wird. Bitte überlegen Sie sich, das Projekt zu unterstützen, um ständige Weiterentwicklung zu ermöglichen.\n\nDas Abo verlängert sich automatisch und kann fast jederzeit gemäß App-Store-Bedingungen gekündigt werden.";
+/* Class = "NSTextFieldCell"; title = "Telephone Pro is a subscription to take advantage of the full call history and to support ongoing development.\n\nThe subscription renews automatically and can be canceled from the App Store at any time."; ObjectID = "W5b-g9-V4l"; */
+"W5b-g9-V4l.title" = "Telefon Pro ist ein Abo, das die unbeschränkte Anrufliste freischaltet und die ständige Weiterentwicklung ermöglicht.\n\nDas Abo verlängert sich automatisch und kann jederzeit im App Store gekündigt werden.";
 
 /* Class = "NSTextFieldCell"; title = "Your subscription ends on "; ObjectID = "Z9K-5X-9uS"; */
 "Z9K-5X-9uS.title" = "Ihr Abonnement endet am ";
