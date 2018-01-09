@@ -189,7 +189,7 @@
 #pragma mark AKActiveCallViewDelegate protocol
 
 - (void)activeCallView:(AKActiveCallView *)sender didReceiveText:(NSString *)aString {
-    NSCharacterSet *DTMFCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#abcdABCD"];
+    NSCharacterSet *DTMFCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#abcdrABCDR"];
     
     BOOL isDTMFValid = YES;
     for (NSUInteger i = 0; i < [aString length]; ++i) {
