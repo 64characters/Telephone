@@ -26,7 +26,7 @@
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    NSCharacterSet *DTMFCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#abcdABCD"];
+    NSCharacterSet *DTMFCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789*#abcdrABCDR"];
     NSCharacterSet *commandsCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"mh"];
     
     unichar firstCharacter = [[theEvent characters] characterAtIndex:0];
