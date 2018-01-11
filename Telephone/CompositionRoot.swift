@@ -140,7 +140,11 @@ final class CompositionRoot: NSObject {
         workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared)
 
         userAgentNotificationsToEventTargetAdapter = UserAgentNotificationsToEventTargetAdapter(
-            target: userAgentSoundIOSelection,
+            target: UserAgentEventTargets(
+                targets: [
+                    userAgentSoundIOSelection, BackgroundActivityUserAgentEventTarget(process: ProcessInfo.processInfo)
+                ]
+            ),
             agent: userAgent
         )
 
