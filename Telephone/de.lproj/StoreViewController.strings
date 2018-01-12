@@ -11,8 +11,8 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "NEN-L8-9I9"; */
 "NEN-L8-9I9.title" = "Table View Cell";
 
-/* Class = "NSTextFieldCell"; title = "Telephone Pro is a subscription to take advantage of the full call history and to support ongoing development.\n\nThe subscription renews automatically and can be canceled from the App Store at any time."; ObjectID = "W5b-g9-V4l"; */
-"W5b-g9-V4l.title" = "Telefon Pro ist ein Abo, das die unbeschränkte Anrufliste freischaltet und die ständige Weiterentwicklung ermöglicht.\n\nDas Abo verlängert sich automatisch und kann jederzeit im App Store gekündigt werden.";
+/* Class = "NSTextFieldCell"; title = "Telephone Pro is a subscription to unlock the full call history and to support ongoing app development.\n\nPayment will be charged to your iTunes account and auto-renews unless disabled in your iTunes account settings at least 24 hours before the end of the current period. The subscription can be managed in your iTunes account settings."; ObjectID = "W5b-g9-V4l"; */
+"W5b-g9-V4l.title" = "Telefon Pro ist ein Abo, das die unbeschränkte Anrufliste freischaltet und die ständige Weiterentwicklung ermöglicht.\n\nDie Zahlung erfolgt zu Lasten des iTunes-Kontos. Das Abo wird automatisch verlängert, es sei denn, die automatische Verlängerung wird spätestens 24 Stunden vor dem Ende des laufenden Zeitraums ausgeschaltet. Das Abo kann in iTunes-Kontoeinstellungen verwaltet werden.";
 
 /* Class = "NSTextFieldCell"; title = "Your subscription ends on "; ObjectID = "Z9K-5X-9uS"; */
 "Z9K-5X-9uS.title" = "Ihr Abonnement endet am ";
