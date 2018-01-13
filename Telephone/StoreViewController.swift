@@ -34,6 +34,8 @@ final class StoreViewController: NSViewController {
     @IBOutlet private var productsFetchErrorView: NSView!
     @IBOutlet private var progressView: NSView!
     @IBOutlet private var purchasedView: NSView!
+    @IBOutlet private var termsOfUseField: NSTextField!
+    @IBOutlet private var privacyPolicyField: NSTextField!
     @IBOutlet private var restorePurchasesButton: NSButton!
     @IBOutlet private var refreshReceiptButton: NSButton!
     @IBOutlet private var subscriptionsButton: NSButton!
@@ -51,6 +53,11 @@ final class StoreViewController: NSViewController {
 
     required init?(coder: NSCoder) {
         fatalError()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        makeHyperlinks()
     }
 
     override func viewDidAppear() {
@@ -84,6 +91,11 @@ final class StoreViewController: NSViewController {
 
     @IBAction func manageSubscriptions(_ sender: NSButton) {
         workspace.open(URL(string: "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions")!)
+    }
+
+    private func makeHyperlinks() {
+        makeHyperlink(from: termsOfUseField, url: URL(string: "https://www.64characters.com/terms-and-conditions/")!)
+        makeHyperlink(from: privacyPolicyField, url: URL(string: "https://www.64characters.com/privacy/")!)
     }
 }
 
@@ -186,5 +198,15 @@ private func makeReceiptRefreshAlert() -> NSAlert {
     result.addButton(withTitle: NSLocalizedString("Quit and Refresh", comment: "Receipt refresh alert button."))
     result.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel button."))
     result.buttons[1].keyEquivalent = "\u{1b}"
+    return result
+}
+
+private func makeHyperlink(from field: NSTextField, url: URL) {
+    field.attributedStringValue = makeHyperlink(from: field.attributedStringValue, url: url)
+}
+
+private func makeHyperlink(from string: NSAttributedString, url: URL) -> NSAttributedString {
+    let result = NSMutableAttributedString(attributedString: string)
+    result.addAttribute(.link, value: url, range: NSRange(location: 0, length: result.length))
     return result
 }

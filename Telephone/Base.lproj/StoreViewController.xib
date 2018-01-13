@@ -11,6 +11,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="StoreViewController" customModule="Telephone" customModuleProvider="target">
             <connections>
                 <outlet property="expirationField" destination="byH-Ua-KY8" id="4gG-n6-6Tb"/>
+                <outlet property="privacyPolicyField" destination="LIi-vu-7b3" id="Nm7-ox-H7M"/>
                 <outlet property="productsContentView" destination="ooq-CL-lGR" id="tbC-4S-pA1"/>
                 <outlet property="productsFetchErrorField" destination="ZAt-yQ-UK9" id="8cn-Gp-9hw"/>
                 <outlet property="productsFetchErrorView" destination="M3a-G9-Uvd" id="TDy-JW-qyZ"/>
@@ -22,6 +23,7 @@
                 <outlet property="refreshReceiptButton" destination="kYi-DK-7xw" id="mnj-3Z-C9e"/>
                 <outlet property="restorePurchasesButton" destination="tFh-9Q-oFf" id="Iq3-Cc-mfZ"/>
                 <outlet property="subscriptionsButton" destination="Bmy-eH-1mE" id="k6J-dJ-KZZ"/>
+                <outlet property="termsOfUseField" destination="EAX-wJ-Ga8" id="Wer-mo-L4v"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -69,7 +71,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-9Q-oFf">
-                    <rect key="frame" x="14" y="13" width="47" height="32"/>
+                    <rect key="frame" x="439" y="278" width="47" height="32"/>
                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="Azz-yr-SIz">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -80,22 +82,44 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                         <action selector="restorePurchases:" target="-2" id="5aV-l1-OGY"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EAX-wJ-Ga8">
+                    <rect key="frame" x="18" y="39" width="74" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Terms of Use" allowsEditingTextAttributes="YES" id="iih-o0-zci">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LIi-vu-7b3">
+                    <rect key="frame" x="18" y="20" width="77" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Privacy Policy" allowsEditingTextAttributes="YES" id="DU9-Ky-gjo">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="EAX-wJ-Ga8" firstAttribute="top" secondItem="ooq-CL-lGR" secondAttribute="bottom" constant="8" id="1PO-tU-xvH"/>
                 <constraint firstAttribute="bottom" secondItem="kYi-DK-7xw" secondAttribute="bottom" constant="20" id="1lt-2L-79e"/>
+                <constraint firstItem="tFh-9Q-oFf" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="2Ev-WZ-LiZ"/>
+                <constraint firstItem="LIi-vu-7b3" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="3Hf-rU-ZIs"/>
                 <constraint firstItem="Bmy-eH-1mE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="8ht-j2-vuI"/>
                 <constraint firstItem="kYi-DK-7xw" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="9Dq-Wz-zpm"/>
-                <constraint firstAttribute="bottom" secondItem="tFh-9Q-oFf" secondAttribute="bottom" constant="20" id="Aru-GB-p66"/>
                 <constraint firstAttribute="bottom" secondItem="Bmy-eH-1mE" secondAttribute="bottom" constant="20" id="Dqn-1J-Yva"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="top" secondItem="Kzb-yF-WhX" secondAttribute="bottom" constant="20" id="O8i-Pw-klR"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="T7R-O6-V69"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="VBJ-Zx-sII"/>
-                <constraint firstItem="tFh-9Q-oFf" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="VdK-6j-VJ6"/>
+                <constraint firstItem="LIi-vu-7b3" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="WhF-QC-jUw"/>
+                <constraint firstItem="EAX-wJ-Ga8" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="XeK-2A-At1"/>
+                <constraint firstAttribute="trailing" secondItem="tFh-9Q-oFf" secondAttribute="trailing" id="Xv6-1n-D7d"/>
                 <constraint firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" constant="20" id="bEn-jV-5FB"/>
                 <constraint firstItem="ooq-CL-lGR" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="fGU-oJ-mCd"/>
+                <constraint firstItem="LIi-vu-7b3" firstAttribute="top" secondItem="EAX-wJ-Ga8" secondAttribute="bottom" constant="5" id="mmN-yD-WmH"/>
                 <constraint firstItem="Bmy-eH-1mE" firstAttribute="trailing" secondItem="Kzb-yF-WhX" secondAttribute="trailing" id="nk3-5U-Xuq"/>
                 <constraint firstItem="kYi-DK-7xw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="pao-qI-QVN"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="pwt-F8-K6J"/>
+                <constraint firstItem="EAX-wJ-Ga8" firstAttribute="leading" secondItem="Kzb-yF-WhX" secondAttribute="leading" id="str-wg-DSW"/>
                 <constraint firstItem="Kzb-yF-WhX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="tng-Qk-CjW"/>
                 <constraint firstItem="kYi-DK-7xw" firstAttribute="top" secondItem="ooq-CL-lGR" secondAttribute="bottom" constant="20" id="zWF-PL-4nb"/>
             </constraints>

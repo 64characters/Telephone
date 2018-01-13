@@ -5,6 +5,9 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "CFV-wm-kqZ"; */
 "CFV-wm-kqZ.title" = "Text Cell";
 
+/* Class = "NSTextFieldCell"; title = "Privacy Policy"; ObjectID = "DU9-Ky-gjo"; */
+"DU9-Ky-gjo.title" = "Privacy Policy";
+
 /* Class = "NSTextFieldCell"; title = "Thank you!"; ObjectID = "L2v-xq-Wr7"; */
 "L2v-xq-Wr7.title" = "Thank you!";
 
@@ -19,6 +22,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Dec 31, 2016"; ObjectID = "efh-fd-jws"; */
 "efh-fd-jws.title" = "Dec 31, 2016";
+
+/* Class = "NSTextFieldCell"; title = "Terms of Use"; ObjectID = "iih-o0-zci"; */
+"iih-o0-zci.title" = "Terms of Use";
 
 /* Class = "NSButtonCell"; title = "Manage Subscriptions…"; ObjectID = "lhf-s5-m1W"; */
 "lhf-s5-m1W.title" = "Manage Subscriptions…";
