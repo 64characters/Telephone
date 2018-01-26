@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, AKSIPCallState) {
 @property(nonatomic, readonly, getter=isOnLocalHold) BOOL onLocalHold;
 @property(nonatomic, readonly, getter=isOnRemoteHold) BOOL onRemoteHold;
 
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier;
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account info:(pjsua_call_info)info;
 
 - (void)answer;
 - (void)hangUp;
