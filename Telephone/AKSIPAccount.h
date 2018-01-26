@@ -124,7 +124,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Makes a call to a given destination URI.
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^)(AKSIPCall *))completion;
 
-- (AKSIPCall *)addCallWithIdentifier:(NSInteger)identifier;
+- (AKSIPCall *)addCallWithInfo:(pjsua_call_info)info;
 - (nullable AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
 - (void)removeCall:(AKSIPCall *)call;
 - (void)removeAllCalls;

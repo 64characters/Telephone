@@ -169,28 +169,25 @@ const NSInteger kAKSIPCallsMax = 8;
 
 #pragma mark -
 
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)account identifier:(NSInteger)identifier {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account info:(pjsua_call_info)info {
     self = [super init];
     if (self == nil) {
         return nil;
     }
 
     _account = account;
-    _identifier = identifier;
+    _identifier = info.id;
 
     _date = [NSDate date];
 
-    pjsua_call_info call;
-    pj_status_t status = pjsua_call_get_info((pjsua_call_id)identifier, &call);
-    assert(status == PJ_SUCCESS);
-    _incoming = call.role == PJSIP_ROLE_UAS;
+    _incoming = info.role == PJSIP_ROLE_UAS;
     _missed = _incoming;
-    _state = (AKSIPCallState)call.state;
-    _stateText = [NSString stringWithPJString:call.state_text];
-    _lastStatus = call.last_status;
-    _lastStatusText = [NSString stringWithPJString:call.last_status_text];
-    _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.local_info]];
-    _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:call.remote_info]];
+    _state = (AKSIPCallState)info.state;
+    _stateText = [NSString stringWithPJString:info.state_text];
+    _lastStatus = info.last_status;
+    _lastStatusText = [NSString stringWithPJString:info.last_status_text];
+    _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:info.local_info]];
+    _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:info.remote_info]];
     _remote = [[URI alloc] initWithURI:_remoteURI];
 
     return self;

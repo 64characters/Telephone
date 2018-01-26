@@ -28,22 +28,22 @@
 static void LogCallDump(int call_id);
 
 void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
-    pjsua_call_info callInfo;
-    pjsua_call_get_info(callID, &callInfo);
+    pjsua_call_info info;
+    pjsua_call_get_info(callID, &info);
 
     BOOL mustStartRingback = NO;
     NSNumber *SIPEventCode = nil;
     NSString *SIPEventReason = nil;
 
-    if (callInfo.state == PJSIP_INV_STATE_DISCONNECTED) {
+    if (info.state == PJSIP_INV_STATE_DISCONNECTED) {
         PJ_LOG(3, (THIS_FILE, "Call %d is DISCONNECTED [reason = %d (%s)]",
                    callID,
-                   callInfo.last_status,
-                   callInfo.last_status_text.ptr));
+                   info.last_status,
+                   info.last_status_text.ptr));
         PJ_LOG(5, (THIS_FILE, "Dumping media stats for call %d", callID));
         LogCallDump(callID);
 
-    } else if (callInfo.state == PJSIP_INV_STATE_EARLY) {
+    } else if (info.state == PJSIP_INV_STATE_EARLY) {
         // pj_str_t is a struct with NOT null-terminated string.
         pj_str_t reason;
         pjsip_msg *msg;
@@ -65,26 +65,26 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
         SIPEventReason = [NSString stringWithPJString:reason];
 
         // Start ringback for 180 for UAC unless there's SDP in 180.
-        if (callInfo.role == PJSIP_ROLE_UAC &&
+        if (info.role == PJSIP_ROLE_UAC &&
             code == 180 &&
             msg->body == NULL &&
-            callInfo.media_status == PJSUA_CALL_MEDIA_NONE) {
+            info.media_status == PJSUA_CALL_MEDIA_NONE) {
             mustStartRingback = YES;
         }
 
         PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s (%d %.*s)",
-                   callID, callInfo.state_text.ptr,
+                   callID, info.state_text.ptr,
                    code, (int)reason.slen, reason.ptr));
     } else {
-        PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s", callID, callInfo.state_text.ptr));
+        PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s", callID, info.state_text.ptr));
     }
 
-    AKSIPCallState state = (AKSIPCallState)callInfo.state;
-    NSInteger accountIdentifier = callInfo.acc_id;
-    NSString *stateText = [NSString stringWithPJString:callInfo.state_text];
-    NSInteger lastStatus = callInfo.last_status;
-    NSString *lastStatusText = [NSString stringWithPJString:callInfo.last_status_text];
-    NSInteger duration = callInfo.connect_duration.sec;
+    AKSIPCallState state = (AKSIPCallState)info.state;
+    NSInteger accountIdentifier = info.acc_id;
+    NSString *stateText = [NSString stringWithPJString:info.state_text];
+    NSInteger lastStatus = info.last_status;
+    NSString *lastStatusText = [NSString stringWithPJString:info.last_status_text];
+    NSInteger duration = info.connect_duration.sec;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
@@ -93,7 +93,7 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
             if (state == kAKSIPCallCallingState) {
                 AKSIPAccount *account = [userAgent accountWithIdentifier:accountIdentifier];
                 if (account != nil) {
-                    call = [account addCallWithIdentifier:callID];
+                    call = [account addCallWithInfo:info];
                 } else {
                     PJ_LOG(3, (THIS_FILE,
                                "Did not create AKSIPCall for call %d during call state change. Could not find account",
