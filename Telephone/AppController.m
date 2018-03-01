@@ -337,11 +337,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)showPreferencePanel:(id)sender {
-    if (![[[self preferencesController] window] isVisible]) {
-        [[[self preferencesController] window] center];
-    }
-    
-    [[self preferencesController] showWindow:nil];
+    [self.preferencesController showWindowCentered];
 }
 
 - (IBAction)addAccountOnFirstLaunch:(id)sender {

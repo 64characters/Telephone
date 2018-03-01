@@ -72,6 +72,7 @@ enum {
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;
 
+- (void)showWindowCentered;
 - (void)showAccounts;
 
 @end
