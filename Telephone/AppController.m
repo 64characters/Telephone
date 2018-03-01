@@ -501,7 +501,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)showAccountPreferencesIfNeeded {
     if ([self enabledAccountControllers].count == 0)  {
-        [self showPreferencePanel:nil];
+        [self.preferencesController showWindowCentered];
         [self.preferencesController showAccounts];
     }
 }
