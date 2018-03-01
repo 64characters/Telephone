@@ -42,7 +42,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.utilities</string>
+	<string>public.app-category.business</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>LSMinimumSystemVersion</key>
