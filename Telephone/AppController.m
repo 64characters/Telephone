@@ -503,6 +503,13 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- (void)showAccountPreferencesIfNeeded {
+    if ([self enabledAccountControllers].count == 0)  {
+        [self showPreferencePanel:nil];
+        [self.preferencesController showAccounts];
+    }
+}
+
 - (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode {
     NSString *localizedString = nil;
     
@@ -1187,6 +1194,8 @@ NS_ASSUME_NONNULL_END
     [self makeCallAfterLaunchIfNeeded];
 
     [self.compositionRoot.orphanLogFileRemoval performSelector:@selector(execute) withObject:nil afterDelay:0];
+
+    [self showAccountPreferencesIfNeeded];
 
     [self setFinishedLaunching:YES];
 }
