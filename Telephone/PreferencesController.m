@@ -183,6 +183,18 @@
     }
 }
 
+- (void)showWindowCentered {
+    if (!self.window.isVisible) {
+        [self.window center];
+    }
+    [self showWindow:self];
+}
+
+- (void)showAccounts {
+    self.toolbar.selectedItemIdentifier = self.accountsToolbarItem.itemIdentifier;
+    [self changeView:self.accountsToolbarItem];
+}
+
 - (BOOL)isNetworkPreferencesViewCurrent {
     return self.networkPreferencesViewController.isViewLoaded &&
     [self.window.contentView isEqual:self.networkPreferencesViewController.view];

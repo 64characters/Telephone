@@ -72,6 +72,9 @@ enum {
 // Changes window's content view.
 - (IBAction)changeView:(id)sender;
 
+- (void)showWindowCentered;
+- (void)showAccounts;
+
 @end
 
 NS_ASSUME_NONNULL_END

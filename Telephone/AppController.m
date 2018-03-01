@@ -337,11 +337,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)showPreferencePanel:(id)sender {
-    if (![[[self preferencesController] window] isVisible]) {
-        [[[self preferencesController] window] center];
-    }
-    
-    [[self preferencesController] showWindow:nil];
+    [self.preferencesController showWindowCentered];
 }
 
 - (IBAction)addAccountOnFirstLaunch:(id)sender {
@@ -500,6 +496,13 @@ NS_ASSUME_NONNULL_END
 - (void)optOutOfAutomaticWindowTabbing {
     if ([NSWindow respondsToSelector:@selector(allowsAutomaticWindowTabbing)]) {
         NSWindow.allowsAutomaticWindowTabbing = NO;
+    }
+}
+
+- (void)showAccountPreferencesIfNeeded {
+    if ([self enabledAccountControllers].count == 0)  {
+        [self.preferencesController showWindowCentered];
+        [self.preferencesController showAccounts];
     }
 }
 
@@ -1187,6 +1190,8 @@ NS_ASSUME_NONNULL_END
     [self makeCallAfterLaunchIfNeeded];
 
     [self.compositionRoot.orphanLogFileRemoval performSelector:@selector(execute) withObject:nil afterDelay:0];
+
+    [self showAccountPreferencesIfNeeded];
 
     [self setFinishedLaunching:YES];
 }
