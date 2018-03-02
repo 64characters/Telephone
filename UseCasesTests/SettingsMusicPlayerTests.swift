@@ -1,5 +1,5 @@
 //
-//  ConditionalMusicPlayerTests.swift
+//  SettingsMusicPlayerTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,12 +20,12 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class ConditionalMusicPlayerTests: XCTestCase {
+final class SettingsMusicPlayerTests: XCTestCase {
     func testPausesAndResumesWhenEnabledInSettings() {
         let origin = MusicPlayerSpy()
         let settings = MusicPlayerSettingsFake()
         settings.shouldPause = true
-        let sut = ConditionalMusicPlayer(origin: origin, settings: settings)
+        let sut = SettingsMusicPlayer(origin: origin, settings: settings)
 
         sut.pause()
         sut.resume()
@@ -38,7 +38,7 @@ final class ConditionalMusicPlayerTests: XCTestCase {
         let origin = MusicPlayerSpy()
         let settings = MusicPlayerSettingsFake()
         settings.shouldPause = false
-        let sut = ConditionalMusicPlayer(origin: origin, settings: settings)
+        let sut = SettingsMusicPlayer(origin: origin, settings: settings)
 
         sut.pause()
         sut.resume()

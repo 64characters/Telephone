@@ -123,7 +123,7 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        musicPlayer = ConditionalMusicPlayer(
+        musicPlayer = SettingsMusicPlayer(
             origin: AvailableMusicPlayers(factory: MusicPlayerFactory()),
             settings: SimpleMusicPlayerSettings(settings: defaults)
         )

@@ -320,8 +320,8 @@
 		8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
 		8AA748931D6F414E000587DC /* AppleMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748921D6F414E000587DC /* AppleMusicPlayer.m */; };
 		8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */; };
-		8AA748A41D70220D000587DC /* ConditionalMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A31D70220D000587DC /* ConditionalMusicPlayer.swift */; };
-		8AA748A71D702221000587DC /* ConditionalMusicPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A51D70221F000587DC /* ConditionalMusicPlayerTests.swift */; };
+		8AA748A41D70220D000587DC /* SettingsMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A31D70220D000587DC /* SettingsMusicPlayer.swift */; };
+		8AA748A71D702221000587DC /* SettingsMusicPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A51D70221F000587DC /* SettingsMusicPlayerTests.swift */; };
 		8AA748A91D7022BA000587DC /* MusicPlayerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A81D7022BA000587DC /* MusicPlayerSpy.swift */; };
 		8AA748AB1D7023B5000587DC /* MusicPlayerSettingsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748AA1D7023B5000587DC /* MusicPlayerSettingsFake.swift */; };
 		8AA748AD1D702459000587DC /* MusicPlayerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748AC1D702459000587DC /* MusicPlayerSettings.swift */; };
@@ -1120,8 +1120,8 @@
 		8AA748921D6F414E000587DC /* AppleMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleMusicPlayer.m; sourceTree = "<group>"; };
 		8AA748941D6F6D7C000587DC /* SpotifyMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyMusicPlayer.h; sourceTree = "<group>"; };
 		8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyMusicPlayer.m; sourceTree = "<group>"; };
-		8AA748A31D70220D000587DC /* ConditionalMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalMusicPlayer.swift; sourceTree = "<group>"; };
-		8AA748A51D70221F000587DC /* ConditionalMusicPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConditionalMusicPlayerTests.swift; path = UseCasesTests/ConditionalMusicPlayerTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA748A31D70220D000587DC /* SettingsMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMusicPlayer.swift; sourceTree = "<group>"; };
+		8AA748A51D70221F000587DC /* SettingsMusicPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsMusicPlayerTests.swift; path = UseCasesTests/SettingsMusicPlayerTests.swift; sourceTree = SOURCE_ROOT; };
 		8AA748A81D7022BA000587DC /* MusicPlayerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerSpy.swift; sourceTree = "<group>"; };
 		8AA748AA1D7023B5000587DC /* MusicPlayerSettingsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerSettingsFake.swift; sourceTree = "<group>"; };
 		8AA748AC1D702459000587DC /* MusicPlayerSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerSettings.swift; sourceTree = "<group>"; };
@@ -2333,9 +2333,9 @@
 		8AA748B71D70472E000587DC /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				8AA748A31D70220D000587DC /* ConditionalMusicPlayer.swift */,
-				8AA748A51D70221F000587DC /* ConditionalMusicPlayerTests.swift */,
 				8A32D1991E8BE7D500903796 /* MusicPlayer.swift */,
+				8AA748A31D70220D000587DC /* SettingsMusicPlayer.swift */,
+				8AA748A51D70221F000587DC /* SettingsMusicPlayerTests.swift */,
 			);
 			name = MusicPlayer;
 			sourceTree = "<group>";
@@ -3787,7 +3787,7 @@
 				8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */,
 				8A645FF51E12C98400515151 /* ContactCallHistoryRecord.swift in Sources */,
 				8A7874F21C5A2612002494ED /* ConditionalRingtonePlaybackUseCase.swift in Sources */,
-				8AA748A41D70220D000587DC /* ConditionalMusicPlayer.swift in Sources */,
+				8AA748A41D70220D000587DC /* SettingsMusicPlayer.swift in Sources */,
 				8AEF77A61DCB9DCD00C73BCB /* CallHistory.swift in Sources */,
 				AA3B6E801C46B40C0030D410 /* Sound.swift in Sources */,
 				8A1AF2641F039C4800B9999D /* EnqueuingContactsChangeEventTarget.swift in Sources */,
@@ -3936,7 +3936,7 @@
 				8AF52BEB1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift in Sources */,
 				8A1AF2621F039BE800B9999D /* EnqueuingContactsChangeEventTargetTests.swift in Sources */,
 				8A4B65B71EB21CDC00F13654 /* SimpleContactMatchingIndexTests.swift in Sources */,
-				8AA748A71D702221000587DC /* ConditionalMusicPlayerTests.swift in Sources */,
+				8AA748A71D702221000587DC /* SettingsMusicPlayerTests.swift in Sources */,
 				AA7F6D451C0381650064DA3A /* SettingsSoundIOLoadUseCaseTests.swift in Sources */,
 				AA39053D1BFFDDED005A8AA3 /* UserAgentSoundIOSelectionUseCaseTests.swift in Sources */,
 				8ADD6A711CE0DECC001EDBBA /* ProductsEventTargetsTests.swift in Sources */,

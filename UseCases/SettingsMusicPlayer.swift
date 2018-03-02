@@ -1,5 +1,5 @@
 //
-//  ConditionalMusicPlayer.swift
+//  SettingsMusicPlayer.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public final class ConditionalMusicPlayer {
+public final class SettingsMusicPlayer {
     private let origin: MusicPlayer
     private let settings: MusicPlayerSettings
 
@@ -26,7 +26,7 @@ public final class ConditionalMusicPlayer {
     }
 }
 
-extension ConditionalMusicPlayer: MusicPlayer {
+extension SettingsMusicPlayer: MusicPlayer {
     @objc public func pause() {
         if settings.shouldPause {
             origin.pause()
