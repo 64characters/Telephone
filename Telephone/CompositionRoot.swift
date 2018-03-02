@@ -197,7 +197,8 @@ final class CompositionRoot: NSObject {
                 origin: CallHistoryCallEventTarget(
                     histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
                 ),
-                queue: contactsBackground)
+                queue: contactsBackground
+            )
         )
 
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
