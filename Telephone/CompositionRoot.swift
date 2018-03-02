@@ -125,7 +125,7 @@ final class CompositionRoot: NSObject {
         )
 
         musicPlayer = SettingsMusicPlayer(
-            origin: AvailableMusicPlayers(factory: MusicPlayerFactory()),
+            origin: CallsMusicPlayer(origin: AvailableMusicPlayers(factory: MusicPlayerFactory()), calls: userAgent),
             settings: SimpleMusicPlayerSettings(settings: defaults)
         )
 
