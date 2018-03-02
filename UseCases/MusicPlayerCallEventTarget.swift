@@ -1,5 +1,5 @@
 //
-//  CallEventTargetSpy.swift
+//  MusicPlayerCallEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,30 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class MusicPlayerCallEventTarget {
+    private let player: MusicPlayer
 
-public final class CallEventTargetSpy {
-    public private(set) var didCallDidMake = false
-    public private(set) var didCallDidReceive = false
-    public private(set) var didCallDidDisconnect = false
-    public private(set) var invokedCall: Call?
-
-    public init() {}
+    public init(player: MusicPlayer) {
+        self.player = player
+    }
 }
 
-extension CallEventTargetSpy: CallEventTarget {
+extension MusicPlayerCallEventTarget: CallEventTarget {
     public func didMake(_ call: Call) {
-        didCallDidMake = true
-        invokedCall = call
+        player.pause()
     }
 
     public func didReceive(_ call: Call) {
-        didCallDidReceive = true
-        invokedCall = call
+        player.pause()
     }
 
     public func didDisconnect(_ call: Call) {
-        didCallDidDisconnect = true
-        invokedCall = call
+        player.resume()
     }
 }

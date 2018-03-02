@@ -27,6 +27,18 @@ public final class EnqueuingCallEventTarget {
 }
 
 extension EnqueuingCallEventTarget: CallEventTarget {
+    public func didMake(_ call: Call) {
+        queue.add {
+            self.origin.didMake(call)
+        }
+    }
+
+    public func didReceive(_ call: Call) {
+        queue.add {
+            self.origin.didReceive(call)
+        }
+    }
+
     public func didDisconnect(_ call: Call) {
         queue.add {
             self.origin.didDisconnect(call)
