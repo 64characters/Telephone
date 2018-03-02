@@ -1,5 +1,5 @@
 //
-//  AKSIPUserAgent+UserAgent.swift
+//  AKSIPUserAgent+Calls.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,19 +18,8 @@
 
 import UseCases
 
-extension AKSIPUserAgent: UserAgent {
-    public func audioDevices() throws -> [UserAgentAudioDevice] {
-        if isStarted {
-            return try UserAgentAudioDevices().all
-        } else {
-            throw UserAgentError.userAgentNotStarted
-        }
-    }
-
-    public func selectSoundIODeviceIDs(input: Int, output: Int) throws {
-        let success = self.setSoundInputDevice(input, soundOutputDevice: output)
-        if !success {
-            throw UserAgentError.soundIOSelectionError
-        }
+extension AKSIPUserAgent: Calls {
+    public var haveActive: Bool {
+        return isStarted && activeCallsCount > 0
     }
 }

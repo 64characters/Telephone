@@ -252,6 +252,7 @@
 		8A850B402049B8970072E197 /* ActiveCallsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B3F2049B8970072E197 /* ActiveCallsStub.swift */; };
 		8A850B422049B94C0072E197 /* Calls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B412049B94C0072E197 /* Calls.swift */; };
 		8A850B452049BC410072E197 /* NoActiveCallsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B442049BC410072E197 /* NoActiveCallsStub.swift */; };
+		8A850B472049C64B0072E197 /* AKSIPUserAgent+Calls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */; };
 		8A859A011D2D2BCF00118A66 /* StoreEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A859A001D2D2BCF00118A66 /* StoreEventSource.swift */; };
 		8A88B4E71D4A64BF0083958C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE706341D4A2E180060FF4F /* main.swift */; };
 		8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */; };
@@ -1063,6 +1064,7 @@
 		8A850B3F2049B8970072E197 /* ActiveCallsStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCallsStub.swift; sourceTree = "<group>"; };
 		8A850B412049B94C0072E197 /* Calls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calls.swift; sourceTree = "<group>"; };
 		8A850B442049BC410072E197 /* NoActiveCallsStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoActiveCallsStub.swift; sourceTree = "<group>"; };
+		8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKSIPUserAgent+Calls.swift"; sourceTree = "<group>"; };
 		8A859A001D2D2BCF00118A66 /* StoreEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreEventSource.swift; sourceTree = "<group>"; };
 		8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ReceiptValidation.entitlements; sourceTree = "<group>"; };
 		8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleReceipt.swift; sourceTree = "<group>"; };
@@ -3077,6 +3079,7 @@
 				AAE33B0F1BA7217C00C6E48B /* AKSIPUserAgentDelegate.h */,
 				AAC0FFC01BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.h */,
 				AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */,
+				8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */,
 				AA2C03F41BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift */,
 				AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */,
 				AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */,
@@ -3726,6 +3729,7 @@
 				8A42E0C51E168DB300CE09B8 /* ShortRelativeDateTimeFormatter.swift in Sources */,
 				8AD6597F1D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
 				AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */,
+				8A850B472049C64B0072E197 /* AKSIPUserAgent+Calls.swift in Sources */,
 				AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */,
 				8AA27AE61E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */,
 				8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */,
