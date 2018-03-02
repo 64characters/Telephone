@@ -28,7 +28,7 @@
 #import "AKSIPURIFormatter.h"
 #import "AKTelephoneNumberFormatter.h"
 
-#import "AccountToAccountControllerAdapter.h"
+#import "AccountControllerToAccountAdapter.h"
 #import "AccountViewController.h"
 #import "AccountWindowController.h"
 #import "ActiveAccountViewController.h"
@@ -208,7 +208,7 @@ static NSString * const kRussian = @"ru";
                                                callHistoryViewController:[[CallHistoryViewController alloc] init]
                                        callHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
                                              purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
-                                                                 account:[[AccountToAccountControllerAdapter alloc] initWithController:self]
+                                                                 account:[[AccountControllerToAccountAdapter alloc] initWithController:self]
                                                     storeWindowPresenter:storeWindowPresenter];
     _windowController = [[AccountWindowController alloc] initWithAccountDescription:_accountDescription
                                                                          SIPAddress:_account.SIPAddress

@@ -1,5 +1,5 @@
 //
-//  AccountToAccountControllerAdapter.m
+//  AccountControllerToAccountAdapter.m
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,17 +16,17 @@
 //  GNU General Public License for more details.
 //
 
-#import "AccountToAccountControllerAdapter.h"
+#import "AccountControllerToAccountAdapter.h"
 
 #import "AKSIPURI.h"
 
-@interface AccountToAccountControllerAdapter ()
+@interface AccountControllerToAccountAdapter ()
 
 @property(nonatomic, nullable, weak, readonly) AccountController *controller;
 
 @end
 
-@implementation AccountToAccountControllerAdapter
+@implementation AccountControllerToAccountAdapter
 
 - (instancetype)initWithController:(AccountController *)controller {
     if ((self = [super init])) {

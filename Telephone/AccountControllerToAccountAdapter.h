@@ -1,5 +1,5 @@
 //
-//  AccountToAccountControllerAdapter.h
+//  AccountControllerToAccountAdapter.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,7 +20,7 @@
 
 #import "AccountController.h"
 
-@interface AccountToAccountControllerAdapter : NSObject <Account>
+@interface AccountControllerToAccountAdapter : NSObject <Account>
 
 - (instancetype)initWithController:(AccountController *)controller;
 
