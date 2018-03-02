@@ -718,8 +718,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
                        @"opus/48000/2":  @(127),
                        @"iLBC/8000/1":   @(126),
                        @"GSM/8000/1":    @(125),
-                       @"PCMU/8000/1":   @(124),
-                       @"PCMA/8000/1":   @(123),
+                       @"PCMA/8000/1":   @(124),
+                       @"PCMU/8000/1":   @(123),
                        @"G722/16000/1":  @(122)
                        };
     });
