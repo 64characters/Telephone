@@ -27,13 +27,13 @@ public final class SettingsMusicPlayer {
 }
 
 extension SettingsMusicPlayer: MusicPlayer {
-    @objc public func pause() {
+    public func pause() {
         if settings.shouldPause {
             origin.pause()
         }
     }
 
-    @objc public func resume() {
+    public func resume() {
         if settings.shouldPause {
             origin.resume()
         }
