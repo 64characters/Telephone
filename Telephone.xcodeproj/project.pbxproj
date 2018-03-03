@@ -175,6 +175,8 @@
 		8A4D0B001C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */; };
 		8A4E38301C5BB20100816F38 /* SettingsRingtoneSoundNameSaveUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E382F1C5BB20100816F38 /* SettingsRingtoneSoundNameSaveUseCaseTests.swift */; };
 		8A4E38321C5BB25F00816F38 /* SettingsRingtoneSoundNameSaveUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E38311C5BB25F00816F38 /* SettingsRingtoneSoundNameSaveUseCase.swift */; };
+		8A506B3B204B380800EE3F25 /* CallEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A506B3A204B380800EE3F25 /* CallEventTargetsTests.swift */; };
+		8A506B3D204B387A00EE3F25 /* CallEventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A506B3C204B387A00EE3F25 /* CallEventTargets.swift */; };
 		8A57AEA61CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
 		8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
 		8A5D17511EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */; };
@@ -999,6 +1001,8 @@
 		8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneOutputUpdateUseCase.swift; sourceTree = "<group>"; };
 		8A4E382F1C5BB20100816F38 /* SettingsRingtoneSoundNameSaveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsRingtoneSoundNameSaveUseCaseTests.swift; path = UseCasesTests/SettingsRingtoneSoundNameSaveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4E38311C5BB25F00816F38 /* SettingsRingtoneSoundNameSaveUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRingtoneSoundNameSaveUseCase.swift; sourceTree = "<group>"; };
+		8A506B3A204B380800EE3F25 /* CallEventTargetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CallEventTargetsTests.swift; path = UseCasesTests/CallEventTargetsTests.swift; sourceTree = SOURCE_ROOT; };
+		8A506B3C204B387A00EE3F25 /* CallEventTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEventTargets.swift; sourceTree = "<group>"; };
 		8A57AEA41CBEAF1200A36200 /* AKSIPCallNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCallNotifications.h; sourceTree = "<group>"; };
 		8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCallNotifications.m; sourceTree = "<group>"; };
 		8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtractedPhoneNumberTests.swift; path = UseCasesTests/ExtractedPhoneNumberTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1897,6 +1901,8 @@
 			isa = PBXGroup;
 			children = (
 				8A11B3CD1DDB46B8002EDA93 /* CallEventTarget.swift */,
+				8A506B3C204B387A00EE3F25 /* CallEventTargets.swift */,
+				8A506B3A204B380800EE3F25 /* CallEventTargetsTests.swift */,
 				8A11B3D11DDB6D9A002EDA93 /* CallHistoryCallEventTarget.swift */,
 				8A11B3CF1DDB6D41002EDA93 /* CallHistoryCallEventTargetTests.swift */,
 				8AAFE61C1EE1A2BA00BACC62 /* EnqueuingCallEventTarget.swift */,
@@ -3859,6 +3865,7 @@
 				8A61363B1CC23AA000A087A4 /* SystemAudioDevicesChangeEventTarget.swift in Sources */,
 				8A9513E41D2A6CCA0034DF2C /* ReceiptValidatingStoreEventTarget.swift in Sources */,
 				8A9513D71D22CD8A0034DF2C /* StoreEventTarget.swift in Sources */,
+				8A506B3D204B387A00EE3F25 /* CallEventTargets.swift in Sources */,
 				8A4B65B91EB21D6900F13654 /* SimpleContactMatchingIndex.swift in Sources */,
 				8ADEDBF71ECF49FA00987B77 /* SimpleContactMatchingSettings.swift in Sources */,
 				AA39052C1BFFDDC4005A8AA3 /* UseCase.swift in Sources */,
@@ -3961,6 +3968,7 @@
 				8AB677F11F0AABBA001A47A2 /* MatchedContactTests.swift in Sources */,
 				8ADD31CC1CC165B5008C083C /* DelayingUserAgentSoundIOSelectionUseCaseTests.swift in Sources */,
 				8AA748B61D704657000587DC /* SimpleMusicPlayerSettingsTests.swift in Sources */,
+				8A506B3B204B380800EE3F25 /* CallEventTargetsTests.swift in Sources */,
 				8A32A4EA1D675A300086B49D /* PurchaseCheckUseCaseTests.swift in Sources */,
 				8A2BAAE01F06C1E700A1801E /* FallingBackMatchedContactFactoryTests.swift in Sources */,
 				8AE396EC1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift in Sources */,
