@@ -32,11 +32,11 @@ final class AvailableMusicPlayers {
 }
 
 extension AvailableMusicPlayers: MusicPlayer {
-    @objc func pause() {
+    func pause() {
         players.pause()
     }
 
-    @objc func resume() {
+    func resume() {
         players.resume()
     }
 }

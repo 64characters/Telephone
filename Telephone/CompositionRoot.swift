@@ -27,7 +27,6 @@ final class CompositionRoot: NSObject {
     @objc let ringtonePlayback: RingtonePlaybackUseCase
     @objc let storeWindowPresenter: StoreWindowPresenter
     @objc let purchaseReminder: PurchaseReminderUseCase
-    @objc let musicPlayer: MusicPlayer
     @objc let settingsMigration: ProgressiveSettingsMigration
     @objc let orphanLogFileRemoval: OrphanLogFileRemoval
     @objc let workstationSleepStatus: WorkspaceSleepStatus
@@ -108,7 +107,8 @@ final class CompositionRoot: NSObject {
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, settings: defaults),
-            userAgent: userAgent
+            agent: userAgent,
+            calls: userAgent
         )
 
         preferencesController = PreferencesController(
@@ -121,11 +121,6 @@ final class CompositionRoot: NSObject {
                 ringtoneOutputUpdate: RingtoneOutputUpdateUseCase(playback: ringtonePlayback),
                 ringtoneSoundPlayback: DefaultSoundPlaybackUseCase(factory: soundFactory)
             )
-        )
-
-        musicPlayer = ConditionalMusicPlayer(
-            origin: AvailableMusicPlayers(factory: MusicPlayerFactory()),
-            settings: SimpleMusicPlayerSettings(settings: defaults)
         )
 
         settingsMigration = ProgressiveSettingsMigration(settings: defaults, factory: DefaultSettingsMigrationFactory())
@@ -192,11 +187,24 @@ final class CompositionRoot: NSObject {
 
         callNotificationsToEventTargetAdapter = CallNotificationsToEventTargetAdapter(
             center: NotificationCenter.default,
-            target: EnqueuingCallEventTarget(
-                origin: CallHistoryCallEventTarget(
-                    histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
-                ),
-                queue: contactsBackground)
+            target: CallEventTargets(
+                targets: [
+                    EnqueuingCallEventTarget(
+                        origin: CallHistoryCallEventTarget(
+                            histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
+                        ),
+                        queue: contactsBackground
+                    ),
+                    MusicPlayerCallEventTarget(
+                        player: SettingsMusicPlayer(
+                            origin: CallsMusicPlayer(
+                                origin: AvailableMusicPlayers(factory: MusicPlayerFactory()), calls: userAgent
+                            ),
+                            settings: SimpleMusicPlayerSettings(settings: defaults)
+                        )
+                    )
+                ]
+            )
         )
 
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)

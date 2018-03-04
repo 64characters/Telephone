@@ -19,10 +19,6 @@
 import UseCases
 
 extension AKSIPUserAgent: UserAgent {
-    public var hasActiveCalls: Bool {
-        return isStarted && activeCallsCount > 0
-    }
-
     public func audioDevices() throws -> [UserAgentAudioDevice] {
         if isStarted {
             return try UserAgentAudioDevices().all

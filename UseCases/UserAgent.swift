@@ -20,7 +20,6 @@ import Foundation
 
 @objc public protocol UserAgent {
     var isStarted: Bool { get }
-    var hasActiveCalls: Bool { get }
     func audioDevices() throws -> [UserAgentAudioDevice]
     func updateAudioDevices()
     func selectSoundIODeviceIDs(input: Int, output: Int) throws

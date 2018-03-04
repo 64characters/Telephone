@@ -34,4 +34,7 @@ extension CallHistoryCallEventTarget: CallEventTarget {
             domain: call.account.domain
         ).execute()
     }
+
+    public func didMake(_ call: Call) {}
+    public func didReceive(_ call: Call) {}
 }

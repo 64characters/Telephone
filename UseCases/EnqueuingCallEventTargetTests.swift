@@ -21,6 +21,24 @@ import UseCases
 import UseCasesTestDoubles
 
 final class EnqueuingCallEventTargetTests: XCTestCase {
+    func testAddsBlockToQueueOnDidMake() {
+        let queue = ExecutionQueueSpy()
+        let sut = EnqueuingCallEventTarget(origin: CallEventTargetSpy(), queue: queue)
+
+        sut.didMake(CallTestFactory().make())
+
+        XCTAssertTrue(queue.didCallAdd)
+    }
+
+    func testAddsBockToQueueOnDidReceive() {
+        let queue = ExecutionQueueSpy()
+        let sut = EnqueuingCallEventTarget(origin: CallEventTargetSpy(), queue: queue)
+
+        sut.didReceive(CallTestFactory().make())
+
+        XCTAssertTrue(queue.didCallAdd)
+    }
+
     func testAddsBockToQueueOnDidDisconnect() {
         let queue = ExecutionQueueSpy()
         let sut = EnqueuingCallEventTarget(origin: CallEventTargetSpy(), queue: queue)
@@ -30,6 +48,28 @@ final class EnqueuingCallEventTargetTests: XCTestCase {
         XCTAssertTrue(queue.didCallAdd)
     }
 
+    func testCallsDidMakeOnOriginWithTheSameArgumentOnDidMake() {
+        let origin = CallEventTargetSpy()
+        let sut = EnqueuingCallEventTarget(origin: origin, queue: SyncExecutionQueue())
+        let call = CallTestFactory().make()
+
+        sut.didMake(call)
+
+        XCTAssertTrue(origin.didCallDidMake)
+        XCTAssertTrue(origin.invokedCall === call)
+    }
+
+    func testCallsDidMakeOnOriginWithTheSameArgumentOnDidReceive() {
+        let origin = CallEventTargetSpy()
+        let sut = EnqueuingCallEventTarget(origin: origin, queue: SyncExecutionQueue())
+        let call = CallTestFactory().make()
+
+        sut.didReceive(call)
+
+        XCTAssertTrue(origin.didCallDidReceive)
+        XCTAssertTrue(origin.invokedCall === call)
+    }
+
     func testCallsDidDisconnectOnOriginWithTheSameArgumentOnDidDisconnect() {
         let origin = CallEventTargetSpy()
         let sut = EnqueuingCallEventTarget(origin: origin, queue: SyncExecutionQueue())
@@ -37,6 +77,7 @@ final class EnqueuingCallEventTargetTests: XCTestCase {
 
         sut.didDisconnect(call)
 
+        XCTAssertTrue(origin.didCallDidDisconnect)
         XCTAssertTrue(origin.invokedCall === call)
     }
 }

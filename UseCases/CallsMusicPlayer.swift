@@ -1,5 +1,5 @@
 //
-//  AccountToAccountControllerAdapter.h
+//  CallsMusicPlayer.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,12 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-@import Foundation;
+public final class CallsMusicPlayer {
+    private let origin: MusicPlayer
+    private let calls: Calls
 
-#import "AccountController.h"
+    public init(origin: MusicPlayer, calls: Calls) {
+        self.origin = origin
+        self.calls = calls
+    }
+}
 
-@interface AccountToAccountControllerAdapter : NSObject <Account>
+extension CallsMusicPlayer: MusicPlayer {
+    public func pause() {
+        origin.pause()
+    }
 
-- (instancetype)initWithController:(AccountController *)controller;
-
-@end
+    public func resume() {
+        if !calls.haveActive {
+            origin.resume()
+        }
+    }
+}

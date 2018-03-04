@@ -17,13 +17,16 @@
 //
 
 public final class DelayingUserAgentSoundIOSelectionUseCase {
-    private let useCase: ThrowingUseCase
-    private let userAgent: UserAgent
     private var selection: ThrowingUseCase?
 
-    public init(useCase: ThrowingUseCase, userAgent: UserAgent) {
+    private let useCase: ThrowingUseCase
+    private let agent: UserAgent
+    private let calls: Calls
+
+    public init(useCase: ThrowingUseCase, agent: UserAgent, calls: Calls) {
         self.useCase = useCase
-        self.userAgent = userAgent
+        self.agent = agent
+        self.calls = calls
     }
 }
 
@@ -34,7 +37,7 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
     }
 
     private func selectSoundIOOrLogErrorIfNeeded() {
-        if userAgent.hasActiveCalls {
+        if calls.haveActive {
             selectSoundIOOrLogError()
         }
     }

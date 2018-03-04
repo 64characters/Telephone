@@ -1,5 +1,5 @@
 //
-//  ConditionalMusicPlayer.swift
+//  Calls.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,26 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public final class ConditionalMusicPlayer {
-    private let origin: MusicPlayer
-    private let settings: MusicPlayerSettings
-
-    public init(origin: MusicPlayer, settings: MusicPlayerSettings) {
-        self.origin = origin
-        self.settings = settings
-    }
-}
-
-extension ConditionalMusicPlayer: MusicPlayer {
-    @objc public func pause() {
-        if settings.shouldPause {
-            origin.pause()
-        }
-    }
-
-    @objc public func resume() {
-        if settings.shouldPause {
-            origin.resume()
-        }
-    }
+public protocol Calls {
+    var haveActive: Bool { get }
 }

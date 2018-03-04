@@ -1,5 +1,5 @@
 //
-//  MusicPlayers.swift
+//  AccountControllerToAccountAdapter.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,22 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+@import Foundation;
 
-final class MusicPlayers {
-    private let players: [MusicPlayer]
+#import "AccountController.h"
 
-    init(players: [MusicPlayer]) {
-        self.players = players
-    }
-}
+@interface AccountControllerToAccountAdapter : NSObject <Account>
 
-extension MusicPlayers: MusicPlayer {
-    func pause() {
-        players.forEach { $0.pause() }
-    }
+- (instancetype)initWithController:(AccountController *)controller;
 
-    func resume() {
-        players.forEach { $0.resume() }
-    }
-}
+@end

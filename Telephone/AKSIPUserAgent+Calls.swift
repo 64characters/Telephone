@@ -1,5 +1,5 @@
 //
-//  MusicPlayers.swift
+//  AKSIPUserAgent+Calls.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,20 +18,8 @@
 
 import UseCases
 
-final class MusicPlayers {
-    private let players: [MusicPlayer]
-
-    init(players: [MusicPlayer]) {
-        self.players = players
-    }
-}
-
-extension MusicPlayers: MusicPlayer {
-    func pause() {
-        players.forEach { $0.pause() }
-    }
-
-    func resume() {
-        players.forEach { $0.resume() }
+extension AKSIPUserAgent: Calls {
+    public var haveActive: Bool {
+        return isStarted && activeCallsCount > 0
     }
 }

@@ -28,13 +28,12 @@ extern NSString * const kEmailSIPLabel;
 @class AKSIPURI, AKNetworkReachability;
 @class AsyncCallHistoryPurchaseCheckUseCaseFactory, AsyncCallHistoryViewEventTargetFactory;
 @class CallTransferController, SanitizedCallDestination, StoreWindowPresenter, WorkspaceSleepStatus;
-@protocol MusicPlayer, RingtonePlaybackUseCase;
+@protocol RingtonePlaybackUseCase;
 
 @interface AccountController : NSObject <AKSIPAccountDelegate, CallControllerDelegate>
 
 @property(nonatomic, readonly) AKSIPAccount *account;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
-@property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 
 @property(nonatomic, getter=isEnabled) BOOL enabled;
 @property(nonatomic, readonly, getter=isAccountRegistered) BOOL accountRegistered;
@@ -55,7 +54,6 @@ extern NSString * const kEmailSIPLabel;
                 accountDescription:(NSString *)accountDescription
                          userAgent:(AKSIPUserAgent *)userAgent
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
-                       musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
  callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
        purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory

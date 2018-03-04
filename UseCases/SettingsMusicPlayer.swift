@@ -1,5 +1,5 @@
 //
-//  MusicPlayers.swift
+//  SettingsMusicPlayer.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,22 +16,26 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class SettingsMusicPlayer {
+    private let origin: MusicPlayer
+    private let settings: MusicPlayerSettings
 
-final class MusicPlayers {
-    private let players: [MusicPlayer]
-
-    init(players: [MusicPlayer]) {
-        self.players = players
+    public init(origin: MusicPlayer, settings: MusicPlayerSettings) {
+        self.origin = origin
+        self.settings = settings
     }
 }
 
-extension MusicPlayers: MusicPlayer {
-    func pause() {
-        players.forEach { $0.pause() }
+extension SettingsMusicPlayer: MusicPlayer {
+    public func pause() {
+        if settings.shouldPause {
+            origin.pause()
+        }
     }
 
-    func resume() {
-        players.forEach { $0.resume() }
+    public func resume() {
+        if settings.shouldPause {
+            origin.resume()
+        }
     }
 }

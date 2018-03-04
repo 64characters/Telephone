@@ -21,7 +21,6 @@ import UseCases
 
 public final class UserAgentSpy: NSObject {
     public var isStarted = false
-    public private(set) var hasActiveCalls = false
 
     public private(set) var didCallAudioDevices = false
     public var audioDevicesResult = [UserAgentAudioDevice]()
@@ -32,10 +31,6 @@ public final class UserAgentSpy: NSObject {
 
     public private(set) var invokedInputDeviceID: Int?
     public private(set) var invokedOutputDeviceID: Int?
-
-    public func simulateActiveCalls() {
-        hasActiveCalls = true
-    }
 }
 
 extension UserAgentSpy: UserAgent {

@@ -1,5 +1,5 @@
 //
-//  MusicPlayers.swift
+//  CallEventTargets.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,22 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+public final class CallEventTargets {
+    private let targets: [CallEventTarget]
 
-final class MusicPlayers {
-    private let players: [MusicPlayer]
-
-    init(players: [MusicPlayer]) {
-        self.players = players
+    public init(targets: [CallEventTarget]) {
+        self.targets = targets
     }
 }
 
-extension MusicPlayers: MusicPlayer {
-    func pause() {
-        players.forEach { $0.pause() }
+extension CallEventTargets: CallEventTarget {
+    public func didMake(_ call: Call) {
+        targets.forEach { $0.didMake(call) }
     }
 
-    func resume() {
-        players.forEach { $0.resume() }
+    public func didReceive(_ call: Call) {
+        targets.forEach { $0.didReceive(call) }
+    }
+
+    public func didDisconnect(_ call: Call) {
+        targets.forEach { $0.didDisconnect(call) }
     }
 }

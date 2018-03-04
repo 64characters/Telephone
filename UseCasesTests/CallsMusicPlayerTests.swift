@@ -1,5 +1,5 @@
 //
-//  ConditionalMusicPlayerTests.swift
+//  CallsMusicPlayerTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,30 +20,40 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class ConditionalMusicPlayerTests: XCTestCase {
-    func testPausesAndResumesWhenEnabledInSettings() {
+final class CallsMusicPlayerTests: XCTestCase {
+    func testResumesWhenThereAreNoActiveCalls() {
         let origin = MusicPlayerSpy()
-        let settings = MusicPlayerSettingsFake()
-        settings.shouldPause = true
-        let sut = ConditionalMusicPlayer(origin: origin, settings: settings)
+        let sut = CallsMusicPlayer(origin: origin, calls: NoActiveCallsStub())
 
-        sut.pause()
         sut.resume()
 
-        XCTAssertTrue(origin.didCallPause)
         XCTAssertTrue(origin.didCallResume)
     }
 
-    func testDoesNotPauseAndResumeWhenDisabledInSettings() {
+    func testDoesNotResumeWhenThereAreActiveCalls() {
         let origin = MusicPlayerSpy()
-        let settings = MusicPlayerSettingsFake()
-        settings.shouldPause = false
-        let sut = ConditionalMusicPlayer(origin: origin, settings: settings)
+        let sut = CallsMusicPlayer(origin: origin, calls: ActiveCallsStub())
 
-        sut.pause()
         sut.resume()
 
-        XCTAssertFalse(origin.didCallPause)
         XCTAssertFalse(origin.didCallResume)
+    }
+
+    func testPausesWhenThereAreNoActiveCalls() {
+        let origin = MusicPlayerSpy()
+        let sut = CallsMusicPlayer(origin: origin, calls: NoActiveCallsStub())
+
+        sut.pause()
+
+        XCTAssertTrue(origin.didCallPause)
+    }
+
+    func testPausesWhenThereAreActiveCalls() {
+        let origin = MusicPlayerSpy()
+        let sut = CallsMusicPlayer(origin: origin, calls: ActiveCallsStub())
+
+        sut.pause()
+
+        XCTAssertTrue(origin.didCallPause)
     }
 }
