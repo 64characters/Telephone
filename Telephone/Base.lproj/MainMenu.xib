@@ -243,6 +243,7 @@ DQ
                 </menuItem>
             </items>
         </menu>
+        <customObject id="420" customClass="NSFontManager"/>
         <customObject id="450" customClass="AppController">
             <connections>
                 <outlet property="helpMenuActionRedirect" destination="C3A-nH-yvt" id="rn4-r7-Adp"/>
