@@ -27,11 +27,11 @@ final class MusicPlayers {
 }
 
 extension MusicPlayers: MusicPlayer {
-    @objc func pause() {
+    func pause() {
         players.forEach { $0.pause() }
     }
 
-    @objc func resume() {
+    func resume() {
         players.forEach { $0.resume() }
     }
 }

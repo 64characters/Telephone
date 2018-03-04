@@ -26,11 +26,11 @@ public final class MusicPlayerSpy {
 }
 
 extension MusicPlayerSpy: MusicPlayer {
-    @objc public func pause() {
+    public func pause() {
         didCallPause = true
     }
 
-    @objc public func resume() {
+    public func resume() {
         didCallResume = true
     }
 }
