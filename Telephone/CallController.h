@@ -26,7 +26,7 @@
 @class AccountController, AKSIPCall, AKSIPURI, AKSIPUserAgent;
 @class IncomingCallViewController, ActiveCallViewController;
 @class EndedCallViewController, CallTransferController;
-@protocol MusicPlayer, RingtonePlaybackUseCase;
+@protocol RingtonePlaybackUseCase;
 
 // A call controller.
 @interface CallController : NSWindowController <AKSIPCallDelegate> {
@@ -99,7 +99,6 @@
                     accountController:(AccountController *)accountController
                             userAgent:(AKSIPUserAgent *)userAgent
                      ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
-                          musicPlayer:(id<MusicPlayer>)musicPlayer
                              delegate:(id<CallControllerDelegate>)delegate;
 
 // Accepts an incoming call.

@@ -181,7 +181,6 @@ static NSString * const kRussian = @"ru";
                 accountDescription:(NSString *)accountDescription
                          userAgent:(AKSIPUserAgent *)userAgent
                   ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
-                       musicPlayer:(id<MusicPlayer>)musicPlayer
                        sleepStatus:(WorkspaceSleepStatus *)sleepStatus
  callHistoryViewEventTargetFactory:(AsyncCallHistoryViewEventTargetFactory *)callHistoryViewEventTargetFactory
        purchaseCheckUseCaseFactory:(AsyncCallHistoryPurchaseCheckUseCaseFactory *)purchaseCheckUseCaseFactory
@@ -196,7 +195,6 @@ static NSString * const kRussian = @"ru";
     _account.delegate = self;
     _userAgent = userAgent;
     _ringtonePlayback = ringtonePlayback;
-    _musicPlayer = musicPlayer;
     _sleepStatus = sleepStatus;
 
     _callControllers = [[NSMutableArray alloc] init];
@@ -296,7 +294,6 @@ static NSString * const kRussian = @"ru";
                                                       accountController:self
                                                               userAgent:self.userAgent
                                                        ringtonePlayback:self.ringtonePlayback
-                                                            musicPlayer:self.musicPlayer
                                                                delegate:self];
     } else {
         aCallController = callTransferController;
@@ -626,13 +623,10 @@ static NSString * const kRussian = @"ru";
         }
     }
     
-    [self.musicPlayer pause];
-    
     CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                                   accountController:self
                                                                           userAgent:self.userAgent
                                                                    ringtonePlayback:self.ringtonePlayback
-                                                                        musicPlayer:self.musicPlayer
                                                                            delegate:self];
     
     [aCallController setCall:aCall];

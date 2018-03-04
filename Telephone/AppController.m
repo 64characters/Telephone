@@ -73,7 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) PreferencesController *preferencesController;
 @property(nonatomic, readonly) StoreWindowPresenter *storeWindowPresenter;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
-@property(nonatomic, readonly) id<MusicPlayer> musicPlayer;
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
 @property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
 @property(nonatomic, readonly) AsyncCallHistoryPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
@@ -224,7 +223,6 @@ NS_ASSUME_NONNULL_END
     _preferencesController = _compositionRoot.preferencesController;
     _storeWindowPresenter = _compositionRoot.storeWindowPresenter;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
-    _musicPlayer = _compositionRoot.musicPlayer;
     _sleepStatus = _compositionRoot.workstationSleepStatus;
     _callHistoryViewEventTargetFactory = _compositionRoot.callHistoryViewEventTargetFactory;
     _purchaseCheckUseCaseFactory = _compositionRoot.callHistoryPurchaseCheckUseCaseFactory;
@@ -787,7 +785,6 @@ NS_ASSUME_NONNULL_END
                                                                accountDescription:account.SIPAddress
                                                                         userAgent:self.userAgent
                                                                  ringtonePlayback:self.ringtonePlayback
-                                                                      musicPlayer:self.musicPlayer
                                                                       sleepStatus:self.sleepStatus
                                                 callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
                                                       purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
@@ -854,7 +851,6 @@ NS_ASSUME_NONNULL_END
                                                                    accountDescription:description
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
-                                                                          musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                     callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
                                                           purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
@@ -1144,7 +1140,6 @@ NS_ASSUME_NONNULL_END
                                                                    accountDescription:description
                                                                             userAgent:self.userAgent
                                                                      ringtonePlayback:self.ringtonePlayback
-                                                                          musicPlayer:self.musicPlayer
                                                                           sleepStatus:self.sleepStatus
                                                     callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
                                                           purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
