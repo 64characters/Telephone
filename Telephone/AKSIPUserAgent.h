@@ -80,7 +80,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 @property(nonatomic, assign) AKNATType detectedNATType;
 
 // The number of acitve calls controlled by the receiver.
-@property(nonatomic, readonly, assign) NSUInteger activeCallsCount;
+@property(nonatomic, readonly, assign) NSInteger activeCallsCount;
 
 // Receiver's call data.
 @property(nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;

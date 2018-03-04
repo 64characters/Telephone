@@ -128,6 +128,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 - (nullable AKSIPCall *)callWithIdentifier:(NSInteger)identifier;
 - (void)removeCall:(AKSIPCall *)call;
 - (void)removeAllCalls;
+- (NSInteger)activeCallsCount;
 
 @end
 

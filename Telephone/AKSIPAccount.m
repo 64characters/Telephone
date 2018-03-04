@@ -314,6 +314,16 @@ NS_ASSUME_NONNULL_END
     [self.calls removeAllObjects];
 }
 
+- (NSInteger)activeCallsCount {
+    NSInteger count = 0;
+    for (AKSIPCall *call in self.calls) {
+        if (call.isActive) {
+            count++;
+        }
+    }
+    return count;
+}
+
 @end
 
 @implementation AKSIPCallParameters

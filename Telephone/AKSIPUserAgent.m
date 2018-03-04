@@ -122,8 +122,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     return self.state == AKSIPUserAgentStateStarted;
 }
 
-- (NSUInteger)activeCallsCount {
-    return pjsua_call_get_count();
+- (NSInteger)activeCallsCount {
+    NSInteger count = 0;
+    for (AKSIPAccount *account in self.accounts) {
+        count += [account activeCallsCount];
+    }
+    return count;
 }
 
 - (AKSIPUserAgentCallData *)callData {
