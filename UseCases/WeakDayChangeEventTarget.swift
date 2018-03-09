@@ -1,5 +1,5 @@
 //
-//  DayChangeEventTarget.swift
+//  WeakDayChangeEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-public protocol DayChangeEventTarget: class {
-    func dayDidChange()
+public final class WeakDayChangeEventTarget {
+    private weak var origin: DayChangeEventTarget?
+
+    public init(origin: DayChangeEventTarget)  {
+        self.origin = origin
+    }
+}
+
+extension WeakDayChangeEventTarget: DayChangeEventTarget {
+    public func dayDidChange() {
+        origin?.dayDidChange()
+    }
 }
