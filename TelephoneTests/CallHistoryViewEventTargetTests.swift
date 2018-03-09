@@ -20,6 +20,9 @@ import XCTest
 import UseCasesTestDoubles
 
 final class CallHistoryViewEventTargetTests: XCTestCase {
+
+    // MARK: - Should reload data
+
     func testExecutesCallHistoryRecordGetAllUseCaseOnShouldReloadData() {
         let get = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
@@ -47,6 +50,8 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
 
         XCTAssertTrue(purchaseCheck.didCallExecute)
     }
+
+    // MARK: - Did update history
 
     func testExecutesCallHistoryRecordGetAllUseCaseOnDidUpdateHistory() {
         let get = UseCaseSpy()
@@ -76,6 +81,8 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertTrue(purchaseCheck.didCallExecute)
     }
 
+    // MARK: - Did purchase
+
     func testExecutesCallHistoryRecordGetAllUseCaseOnDidPurchase() {
         let get = UseCaseSpy()
         let sut = CallHistoryViewEventTarget(
@@ -103,6 +110,8 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
 
         XCTAssertTrue(purchaseCheck.didCallExecute)
     }
+
+    // MARK: - Did restore purchases
 
     func testExecutesCallHistoryRecordGetAllUseCaseOnDidRestorePurchases() {
         let get = UseCaseSpy()
@@ -132,6 +141,38 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         XCTAssertTrue(purchaseCheck.didCallExecute)
     }
 
+    // MARK: - Day did change
+
+    func testExecutesCallHistoryRecordGetAllUseCaseOnDayDidChange() {
+        let get = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: get,
+            purchaseCheck: UseCaseSpy(),
+            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
+            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
+        )
+
+        sut.dayDidChange()
+
+        XCTAssertTrue(get.didCallExecute)
+    }
+
+    func testExecutesPurchaseCheckUseCaseOnDayDidChange() {
+        let purchaseCheck = UseCaseSpy()
+        let sut = CallHistoryViewEventTarget(
+            recordsGet: UseCaseSpy(),
+            purchaseCheck: purchaseCheck,
+            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
+            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
+        )
+
+        sut.dayDidChange()
+
+        XCTAssertTrue(purchaseCheck.didCallExecute)
+    }
+
+    // MARK: - Did pick record
+
     func testCreatesCallHistoryCallMakeUseCaseWithExpectedIdentifierOnDidPickRecord() {
         let factory = CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
         let sut = CallHistoryViewEventTarget(
@@ -160,6 +201,8 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
 
         XCTAssertTrue(callMake.didCallExecute)
     }
+
+    // MARK: - Should remove record
 
     func testCreatesCallHistoryRecordRemoveUseCaseWithExpectedIdentifierOnShouldRemoveRecord() {
         let factory = CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy())

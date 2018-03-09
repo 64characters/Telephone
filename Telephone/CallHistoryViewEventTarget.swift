@@ -70,3 +70,9 @@ extension CallHistoryViewEventTarget: StoreEventTarget {
     func didFailRestoringPurchases(error: String) {}
     func didCancelRestoringPurchases() {}
 }
+
+extension CallHistoryViewEventTarget: DayChangeEventTarget {
+    func dayDidChange() {
+        executeRecordGetAndPurchaseCheck()
+    }
+}
