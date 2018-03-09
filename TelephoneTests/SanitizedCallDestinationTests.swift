@@ -42,4 +42,12 @@ final class SanitizedCallDestinationTests: XCTestCase {
     func testRemovesHeadersFromTelURI() {
         XCTAssertEqual(SanitizedCallDestination("tel:123?headers").value, "tel:123")
     }
+
+    func testRemovesEscapedSpaces() {
+        XCTAssertEqual(SanitizedCallDestination("tel:+1%20234%2056789").value, "tel:+123456789")
+    }
+
+    func testRemovesSlashesRemovesHeadersRemovesEscapedSpaces() {
+        XCTAssertEqual(SanitizedCallDestination("tel://+1%20234%2056789?header=value").value, "tel:+123456789")
+    }
 }
