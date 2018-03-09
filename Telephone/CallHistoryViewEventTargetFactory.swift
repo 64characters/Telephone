@@ -26,6 +26,7 @@ final class CallHistoryViewEventTargetFactory {
     private let dateFormatter: DateFormatter
     private let durationFormatter: DateComponentsFormatter
     private let storeEventTargets: StoreEventTargets
+    private let dayChangeEventTargets: DayChangeEventTargets
     private let background: ExecutionQueue
     private let main: ExecutionQueue
 
@@ -37,6 +38,7 @@ final class CallHistoryViewEventTargetFactory {
         dateFormatter: DateFormatter,
         durationFormatter: DateComponentsFormatter,
         storeEventTargets: StoreEventTargets,
+        dayChangeEventTargets: DayChangeEventTargets,
         background: ExecutionQueue,
         main: ExecutionQueue
         ) {
@@ -47,6 +49,7 @@ final class CallHistoryViewEventTargetFactory {
         self.dateFormatter = dateFormatter
         self.durationFormatter = durationFormatter
         self.storeEventTargets = storeEventTargets
+        self.dayChangeEventTargets = dayChangeEventTargets
         self.background = background
         self.main = main
     }
@@ -87,6 +90,7 @@ final class CallHistoryViewEventTargetFactory {
             EnqueuingCallHistoryEventTarget(origin: WeakCallHistoryEventTarget(origin: result), queue: main)
         )
         storeEventTargets.add(WeakStoreEventTarget(origin: result))
+        dayChangeEventTargets.add(WeakDayChangeEventTarget(origin: result))
         return result
     }
 }
