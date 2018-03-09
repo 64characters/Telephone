@@ -33,11 +33,11 @@ const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 
 @property(nonatomic, readonly) AKSIPURI *destination;
 @property(nonatomic, readonly) pjsua_acc_id account;
-@property(nonatomic, readonly) void (^ _Nonnull completion)(BOOL, pjsua_call_info);
+@property(nonatomic, readonly) void (^ _Nonnull completion)(BOOL, pjsua_call_info *);
 
 - (instancetype)initWithDestination:(AKSIPURI *)destination
                             account:(pjsua_acc_id)account
-                         completion:(void (^ _Nonnull)(BOOL, pjsua_call_info))completion;
+                         completion:(void (^ _Nonnull)(BOOL, pjsua_call_info *))completion;
 
 @end
 
@@ -264,9 +264,9 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {
-    void (^onCallMakeCompletion)(BOOL, pjsua_call_info) = ^(BOOL success, pjsua_call_info call) {
+    void (^onCallMakeCompletion)(BOOL, pjsua_call_info *) = ^(BOOL success, pjsua_call_info *call) {
         if (success) {
-            completion([self addCallWithInfo:call]);
+            completion([self addCallWithInfo:*call]);
         } else {
             NSLog(@"Error making call to %@ via account %@", destination, self);
             completion(nil);
@@ -283,9 +283,17 @@ NS_ASSUME_NONNULL_END
     pj_str_t uri = parameters.destination.description.pjString;
     pjsua_call_id callID = PJSUA_INVALID_ID;
     BOOL success = pjsua_call_make_call(parameters.account, &uri, 0, NULL, NULL, &callID) == PJ_SUCCESS;
-    pjsua_call_info call;
-    pjsua_call_get_info(callID, &call);
-    dispatch_async(dispatch_get_main_queue(), ^{ parameters.completion(success, call); });
+    pjsua_call_info *call = NULL;
+    if (success) {
+        call = malloc(sizeof(pjsua_call_info));
+        success = pjsua_call_get_info(callID, call) == PJ_SUCCESS;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        parameters.completion(success, call);
+        if (call) {
+            free(call);
+        }
+    });
 }
 
 - (AKSIPCall *)addCallWithInfo:(pjsua_call_info)info {
@@ -330,7 +338,7 @@ NS_ASSUME_NONNULL_END
 
 - (instancetype)initWithDestination:(AKSIPURI *)destination
                             account:(pjsua_acc_id)account
-                         completion:(void (^ _Nonnull)(BOOL, pjsua_call_info))completion {
+                         completion:(void (^ _Nonnull)(BOOL, pjsua_call_info *))completion {
     if ((self = [super init])) {
         _destination = destination;
         _account = account;
