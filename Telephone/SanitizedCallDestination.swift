@@ -23,7 +23,7 @@ final class SanitizedCallDestination: NSObject {
 
     @objc(initWithString:)
     init(_ string: String) {
-        value = strippingSlashes(from: strippingHeaders(from: string))
+        value = strippingEscapedSpaces(from: strippingSlashes(from: strippingHeaders(from: string)))
     }
 }
 
@@ -43,4 +43,8 @@ private func strippingHeaders(from string: String) -> String {
     } else {
         return string
     }
+}
+
+private func strippingEscapedSpaces(from string: String) -> String {
+    return string.replacingOccurrences(of: "%20", with: "")
 }
