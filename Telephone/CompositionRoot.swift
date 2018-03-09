@@ -42,6 +42,7 @@ final class CompositionRoot: NSObject {
     private let accountsNotificationsToEventTargetAdapter: AccountsNotificationsToEventTargetAdapter
     private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
     private let contactStoreNotificationsToContactsChangeEventTargetAdapter: Any
+    private let dayChangeEventSource: DayChangeEventSource
 
     @objc init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
@@ -223,6 +224,9 @@ final class CompositionRoot: NSObject {
             )
         }
 
+        let dayChangeEventTargets = DayChangeEventTargets()
+        dayChangeEventSource = DayChangeEventSource(center: NotificationCenter.default, target: dayChangeEventTargets)
+
         let main = GCDExecutionQueue(queue: DispatchQueue.main)
 
         callHistoryViewEventTargetFactory = AsyncCallHistoryViewEventTargetFactory(
@@ -234,6 +238,7 @@ final class CompositionRoot: NSObject {
                 dateFormatter: ShortRelativeDateTimeFormatter(),
                 durationFormatter: DurationFormatter(),
                 storeEventTargets: storeEventTargets,
+                dayChangeEventTargets: dayChangeEventTargets,
                 background: contactsBackground,
                 main: main
             ),
