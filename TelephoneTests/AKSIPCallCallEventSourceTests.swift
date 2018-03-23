@@ -1,5 +1,5 @@
 //
-//  CallNotificationsToEventTargetAdapterTests.swift
+//  AKSIPCallCallEventSourceTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,12 +20,12 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class CallNotificationsToEventTargetAdapterTests: XCTestCase {
+class AKSIPCallCallEventSourceTests: XCTestCase {
     func testCallsDidDisconnect() {
         let center = NotificationCenter.default
         let target = CallEventTargetSpy()
         let call = CallTestFactory().make()
-        withExtendedLifetime(CallNotificationsToEventTargetAdapter(center: center, target: target)) {
+        withExtendedLifetime(AKSIPCallCallEventSource(center: center, target: target)) {
 
             center.post(Notification(name: .AKSIPCallDidDisconnect, object: call, userInfo: nil))
 
