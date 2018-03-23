@@ -1,5 +1,5 @@
 //
-//  DayChangeEventSource.swift
+//  NSCalendarDayChangeEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-final class DayChangeEventSource {
+final class NSCalendarDayChangeEventSource {
     private let center: NotificationCenter
     private let target: DayChangeEventTarget
 

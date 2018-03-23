@@ -33,7 +33,7 @@
 		8A0CBBC22052F8D500FC0633 /* DayChangeEventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CBBC12052F8D500FC0633 /* DayChangeEventTargets.swift */; };
 		8A0CBBC42052F9D500FC0633 /* DayChangeEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CBBC32052F9D500FC0633 /* DayChangeEventTargetSpy.swift */; };
 		8A0CBBC72053036700FC0633 /* WeakDayChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CBBC62053036700FC0633 /* WeakDayChangeEventTarget.swift */; };
-		8A0CBBC9205304C000FC0633 /* DayChangeEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CBBC8205304C000FC0633 /* DayChangeEventSource.swift */; };
+		8A0CBBC9205304C000FC0633 /* NSCalendarDayChangeEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CBBC8205304C000FC0633 /* NSCalendarDayChangeEventSource.swift */; };
 		8A0CF81B1EC1F10B0014226A /* IndexedContactMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CF81A1EC1F10B0014226A /* IndexedContactMatchingTests.swift */; };
 		8A0CF81D1EC1F5400014226A /* IndexedContactMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CF81C1EC1F5400014226A /* IndexedContactMatching.swift */; };
 		8A0CF81F1EC235690014226A /* ContactMatchingIndexFactorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0CF81E1EC235690014226A /* ContactMatchingIndexFactorySpy.swift */; };
@@ -840,7 +840,7 @@
 		8A0CBBC12052F8D500FC0633 /* DayChangeEventTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayChangeEventTargets.swift; sourceTree = "<group>"; };
 		8A0CBBC32052F9D500FC0633 /* DayChangeEventTargetSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayChangeEventTargetSpy.swift; sourceTree = "<group>"; };
 		8A0CBBC62053036700FC0633 /* WeakDayChangeEventTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakDayChangeEventTarget.swift; sourceTree = "<group>"; };
-		8A0CBBC8205304C000FC0633 /* DayChangeEventSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayChangeEventSource.swift; sourceTree = "<group>"; };
+		8A0CBBC8205304C000FC0633 /* NSCalendarDayChangeEventSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCalendarDayChangeEventSource.swift; sourceTree = "<group>"; };
 		8A0CF81A1EC1F10B0014226A /* IndexedContactMatchingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexedContactMatchingTests.swift; path = UseCasesTests/IndexedContactMatchingTests.swift; sourceTree = SOURCE_ROOT; };
 		8A0CF81C1EC1F5400014226A /* IndexedContactMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexedContactMatching.swift; sourceTree = "<group>"; };
 		8A0CF81E1EC235690014226A /* ContactMatchingIndexFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingIndexFactorySpy.swift; sourceTree = "<group>"; };
@@ -1715,7 +1715,6 @@
 				8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */,
 				8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */,
 				8A9D5FC92007DCEF005AAF9D /* BackgroundActivityUserAgentEventTarget.swift */,
-				8A0CBBC8205304C000FC0633 /* DayChangeEventSource.swift */,
 				AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */,
 				8A68C9561FFE8DAE005125AF /* FileBrowser.swift */,
 				8AA689931FFFD7F700BA369B /* HelpMenuActionRedirect.swift */,
@@ -1723,6 +1722,7 @@
 				8A68C9531FFE86FA005125AF /* HelpMenuActionTargetTests.swift */,
 				8A68C94D1FFE6452005125AF /* LogFileURL.swift */,
 				8A68C94B1FFE640B005125AF /* LogFileURLTests.swift */,
+				8A0CBBC8205304C000FC0633 /* NSCalendarDayChangeEventSource.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */,
 				8AA689951FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift */,
 				8AA689971FFFEDA000BA369B /* NSWorkspace+WebBrowser.swift */,
@@ -3746,7 +3746,7 @@
 				8ADA109F1DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
 				8ACD2AE01DD200D700E81984 /* SimplePropertyListStorage.swift in Sources */,
 				8ADD6A5A1CDCFE7C001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
-				8A0CBBC9205304C000FC0633 /* DayChangeEventSource.swift in Sources */,
+				8A0CBBC9205304C000FC0633 /* NSCalendarDayChangeEventSource.swift in Sources */,
 				8A9175A51CA5A10800354E26 /* PJSUAOnCallReplaced.m in Sources */,
 				8AC443BF1F90E21E00ECE463 /* OrphanLogFileRemoval.swift in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,

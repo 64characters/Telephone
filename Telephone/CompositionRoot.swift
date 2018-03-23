@@ -42,7 +42,7 @@ final class CompositionRoot: NSObject {
     private let accountsEventSource: PreferencesControllerAccountsEventSource
     private let callEventSource: AKSIPCallCallEventSource
     private let contactsChangeEventSource: Any
-    private let dayChangeEventSource: DayChangeEventSource
+    private let dayChangeEventSource: NSCalendarDayChangeEventSource
 
     @objc init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
         userAgent = AKSIPUserAgent.shared()
@@ -225,7 +225,7 @@ final class CompositionRoot: NSObject {
         }
 
         let dayChangeEventTargets = DayChangeEventTargets()
-        dayChangeEventSource = DayChangeEventSource(center: NotificationCenter.default, target: dayChangeEventTargets)
+        dayChangeEventSource = NSCalendarDayChangeEventSource(center: NotificationCenter.default, target: dayChangeEventTargets)
 
         let main = GCDExecutionQueue(queue: DispatchQueue.main)
 
