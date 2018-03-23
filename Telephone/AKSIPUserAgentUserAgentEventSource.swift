@@ -1,5 +1,5 @@
 //
-//  UserAgentNotificationsToEventTargetAdapter.swift
+//  AKSIPUserAgentUserAgentEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class UserAgentNotificationsToEventTargetAdapter {
+final class AKSIPUserAgentUserAgentEventSource {
     private let target: UserAgentEventTarget
     private let agent: UserAgent
 
