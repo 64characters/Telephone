@@ -1,5 +1,5 @@
 //
-//  DayChangeEventSource.swift
+//  CNContactStoreContactsChangeEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,26 @@
 //  GNU General Public License for more details.
 //
 
+import Contacts
 import Foundation
 import UseCases
 
-final class DayChangeEventSource {
+@available(OSX 10.11, *)
+final class CNContactStoreContactsChangeEventSource {
     private let center: NotificationCenter
-    private let target: DayChangeEventTarget
+    private let target: ContactsChangeEventTarget
 
-    init(center: NotificationCenter, target: DayChangeEventTarget) {
+    init(center: NotificationCenter, target: ContactsChangeEventTarget) {
         self.center = center
         self.target = target
-        center.addObserver(self, selector: #selector(dayDidChange), name: .NSCalendarDayChanged, object: nil)
+        center.addObserver(self, selector: #selector(contactsDidChange), name: .CNContactStoreDidChange, object: nil)
     }
 
     deinit {
-        center.removeObserver(self)
+        center.removeObserver(self, name: .CNContactStoreDidChange, object: nil)
     }
 
-    @objc private func dayDidChange(_ notification: Notification) {
-        target.dayDidChange()
+    @objc private func contactsDidChange(_ notification: Notification) {
+        target.contactsDidChange()
     }
 }

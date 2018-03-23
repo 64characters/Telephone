@@ -1,5 +1,5 @@
 //
-//  CallNotificationsToEventTargetAdapterTests.swift
+//  PreferencesControllerAccountsEventSourceTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-class CallNotificationsToEventTargetAdapterTests: XCTestCase {
-    func testCallsDidDisconnect() {
+final class PreferencesControllerAccountsEventSourceTests: XCTestCase {
+    func testCallDidRemoveAccountWithExpectedUUIDOnNotification() {
         let center = NotificationCenter.default
-        let target = CallEventTargetSpy()
-        let call = CallTestFactory().make()
-        withExtendedLifetime(CallNotificationsToEventTargetAdapter(center: center, target: target)) {
+        let target = AccountsEventTargetSpy()
+        let uuid = "uuid-123"
+        withExtendedLifetime(PreferencesControllerAccountsEventSource(center: center, target: target)) {
 
-            center.post(Notification(name: .AKSIPCallDidDisconnect, object: call, userInfo: nil))
+            center.post(Notification(name: .AKPreferencesControllerDidRemoveAccount, object: nil, userInfo: [kUUID: uuid]))
 
-            XCTAssertTrue(target.didCallDidDisconnect)
-            XCTAssertTrue(target.invokedCall === call)
+            XCTAssertTrue(target.didCallDidRemoveAccount)
+            XCTAssertEqual(target.invokedUUID, uuid)
         }
     }
 }

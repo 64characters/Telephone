@@ -1,5 +1,5 @@
 //
-//  StoreEventSource.swift
+//  SKPaymentQueueStoreEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,7 +19,7 @@
 import StoreKit
 import UseCases
 
-final class StoreEventSource: NSObject {
+final class SKPaymentQueueStoreEventSource: NSObject {
     private let queue: SKPaymentQueue
     private let target: StoreEventTarget
 
@@ -35,7 +35,7 @@ final class StoreEventSource: NSObject {
     }
 }
 
-extension StoreEventSource: SKPaymentTransactionObserver {
+extension SKPaymentQueueStoreEventSource: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         DispatchQueue.main.async {
             self.handleStateChange(of: transactions)

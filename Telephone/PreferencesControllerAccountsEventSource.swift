@@ -1,5 +1,5 @@
 //
-//  CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift
+//  PreferencesControllerAccountsEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,26 +16,25 @@
 //  GNU General Public License for more details.
 //
 
-import Contacts
 import Foundation
-import UseCases
 
-@available(OSX 10.11, *)
-final class CNContactStoreNotificationsToContactsChangeEventTargetAdapter {
+final class PreferencesControllerAccountsEventSource {
     private let center: NotificationCenter
-    private let target: ContactsChangeEventTarget
+    private let target: AccountsEventTarget
 
-    init(center: NotificationCenter, target: ContactsChangeEventTarget) {
+    init(center: NotificationCenter, target: AccountsEventTarget) {
         self.center = center
         self.target = target
-        center.addObserver(self, selector: #selector(contactsDidChange), name: .CNContactStoreDidChange, object: nil)
+        center.addObserver(
+            self, selector: #selector(didRemoveAccount), name: .AKPreferencesControllerDidRemoveAccount, object: nil
+        )
     }
 
     deinit {
-        center.removeObserver(self, name: .CNContactStoreDidChange, object: nil)
+        center.removeObserver(self, name: .AKPreferencesControllerDidRemoveAccount, object: nil)
     }
 
-    @objc private func contactsDidChange(_ notification: Notification) {
-        target.contactsDidChange()
+    @objc private func didRemoveAccount(_ notification: Notification) {
+        target.didRemoveAccount(withUUID: notification.userInfo![kUUID] as! String)
     }
 }

@@ -28,7 +28,11 @@ final class SystemAudioDevicesChangeEventSource {
         self.target = target
         self.queue = queue
         objectID = AudioObjectID(kAudioObjectSystemObject)
-        objectPropertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
+        objectPropertyAddress = AudioObjectPropertyAddress(
+            mSelector: kAudioHardwarePropertyDevices,
+            mScope: kAudioObjectPropertyScopeGlobal,
+            mElement: kAudioObjectPropertyElementMaster
+        )
     }
 
     func start() {
