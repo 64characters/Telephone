@@ -1,5 +1,5 @@
 //
-//  ABAddressBookNotificationsToContactsChangeEventTargetAdapter.swift
+//  ABAddressBookContactsChangeEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,7 +20,7 @@ import AddressBook
 import Foundation
 import UseCases
 
-final class ABAddressBookNotificationsToContactsChangeEventTargetAdapter {
+final class ABAddressBookContactsChangeEventSource {
     private let center: NotificationCenter
     private let target: ContactsChangeEventTarget
 

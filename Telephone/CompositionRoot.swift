@@ -219,7 +219,7 @@ final class CompositionRoot: NSObject {
                 center: NotificationCenter.default, target: contactsChangeEventTarget
             )
         } else {
-            contactStoreNotificationsToContactsChangeEventTargetAdapter = ABAddressBookNotificationsToContactsChangeEventTargetAdapter(
+            contactStoreNotificationsToContactsChangeEventTargetAdapter = ABAddressBookContactsChangeEventSource(
                 center: NotificationCenter.default, target: contactsChangeEventTarget
             )
         }
