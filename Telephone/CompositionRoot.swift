@@ -36,7 +36,7 @@ final class CompositionRoot: NSObject {
     @objc let helpMenuActionTarget: HelpMenuActionTarget
     private let defaults: UserDefaults
 
-    private let storeEventSource: StoreEventSource
+    private let storeEventSource: SKPaymentQueueStoreEventSource
     private let userAgentEventSource: AKSIPUserAgentUserAgentEventSource
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
     private let accountsEventSource: PreferencesControllerAccountsEventSource
@@ -101,7 +101,7 @@ final class CompositionRoot: NSObject {
         let storeEventTargets = StoreEventTargets()
         storeEventTargets.add(storeViewEventTarget)
 
-        storeEventSource = StoreEventSource(
+        storeEventSource = SKPaymentQueueStoreEventSource(
             queue: SKPaymentQueue.default(),
             target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt)
         )
