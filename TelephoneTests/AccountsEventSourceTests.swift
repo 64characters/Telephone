@@ -1,5 +1,5 @@
 //
-//  AccountsNotificationsToEventTargetAdapterTests.swift
+//  AccountsEventSourceTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,12 +19,12 @@
 import UseCasesTestDoubles
 import XCTest
 
-final class AccountsNotificationsToEventTargetAdapterTests: XCTestCase {
+final class AccountsEventSourceTests: XCTestCase {
     func testCallDidRemoveAccountWithExpectedUUIDOnNotification() {
         let center = NotificationCenter.default
         let target = AccountsEventTargetSpy()
         let uuid = "uuid-123"
-        withExtendedLifetime(AccountsNotificationsToEventTargetAdapter(center: center, target: target)) {
+        withExtendedLifetime(AccountsEventSource(center: center, target: target)) {
 
             center.post(Notification(name: .AKPreferencesControllerDidRemoveAccount, object: nil, userInfo: [kUUID: uuid]))
 

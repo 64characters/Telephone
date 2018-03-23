@@ -1,5 +1,5 @@
 //
-//  AccountsNotificationsToEventTargetAdapter.swift
+//  AccountsEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import Foundation
 
-final class AccountsNotificationsToEventTargetAdapter {
+final class AccountsEventSource {
     private let center: NotificationCenter
     private let target: AccountsEventTarget
 

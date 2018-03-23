@@ -314,9 +314,9 @@
 		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
 		8AA265D81ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA265D71ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift */; };
 		8AA265DA1ECDFBF100813A91 /* NormalizedLowercasedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA265D91ECDFBF100813A91 /* NormalizedLowercasedString.swift */; };
-		8AA27ADD1E97CB2D002A08CD /* AccountsNotificationsToEventTargetAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27ADC1E97CB2D002A08CD /* AccountsNotificationsToEventTargetAdapterTests.swift */; };
-		8AA27ADF1E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27ADE1E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift */; };
-		8AA27AE01E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27ADE1E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift */; };
+		8AA27ADD1E97CB2D002A08CD /* AccountsEventSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27ADC1E97CB2D002A08CD /* AccountsEventSourceTests.swift */; };
+		8AA27ADF1E97CBDA002A08CD /* AccountsEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27ADE1E97CBDA002A08CD /* AccountsEventSource.swift */; };
+		8AA27AE01E97CBDA002A08CD /* AccountsEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27ADE1E97CBDA002A08CD /* AccountsEventSource.swift */; };
 		8AA27AE21E97DE7F002A08CD /* AccountsEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE11E97DE7F002A08CD /* AccountsEventTargetSpy.swift */; };
 		8AA27AE61E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE51E97F0FA002A08CD /* PreferencesControllerNotifications.m */; };
 		8AA27AE71E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA27AE51E97F0FA002A08CD /* PreferencesControllerNotifications.m */; };
@@ -1132,8 +1132,8 @@
 		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
 		8AA265D71ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedLowercasedStringTests.swift; sourceTree = "<group>"; };
 		8AA265D91ECDFBF100813A91 /* NormalizedLowercasedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedLowercasedString.swift; sourceTree = "<group>"; };
-		8AA27ADC1E97CB2D002A08CD /* AccountsNotificationsToEventTargetAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountsNotificationsToEventTargetAdapterTests.swift; path = TelephoneTests/AccountsNotificationsToEventTargetAdapterTests.swift; sourceTree = SOURCE_ROOT; };
-		8AA27ADE1E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsNotificationsToEventTargetAdapter.swift; sourceTree = "<group>"; };
+		8AA27ADC1E97CB2D002A08CD /* AccountsEventSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountsEventSourceTests.swift; path = TelephoneTests/AccountsEventSourceTests.swift; sourceTree = SOURCE_ROOT; };
+		8AA27ADE1E97CBDA002A08CD /* AccountsEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsEventSource.swift; sourceTree = "<group>"; };
 		8AA27AE11E97DE7F002A08CD /* AccountsEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsEventTargetSpy.swift; sourceTree = "<group>"; };
 		8AA27AE41E97F0FA002A08CD /* PreferencesControllerNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesControllerNotifications.h; sourceTree = "<group>"; };
 		8AA27AE51E97F0FA002A08CD /* PreferencesControllerNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesControllerNotifications.m; sourceTree = "<group>"; };
@@ -3057,8 +3057,8 @@
 			isa = PBXGroup;
 			children = (
 				AA7381331C05CE0C008ABC72 /* Sound */,
-				8AA27ADE1E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift */,
-				8AA27ADC1E97CB2D002A08CD /* AccountsNotificationsToEventTargetAdapterTests.swift */,
+				8AA27ADE1E97CBDA002A08CD /* AccountsEventSource.swift */,
+				8AA27ADC1E97CB2D002A08CD /* AccountsEventSourceTests.swift */,
 				AABAD7EB0E0C171A00CB5930 /* PreferencesController.h */,
 				AABAD7EC0E0C171A00CB5930 /* PreferencesController.m */,
 				AAE33B0E1BA7205A00C6E48B /* PreferencesControllerDelegate.h */,
@@ -3689,7 +3689,7 @@
 				8A91759F1CA59F1100354E26 /* PJSUAOnCallMediaState.m in Sources */,
 				8A68C95E1FFE9BBD005125AF /* WebBrowser.swift in Sources */,
 				8A779F8E1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift in Sources */,
-				8AA27ADF1E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift in Sources */,
+				8AA27ADF1E97CBDA002A08CD /* AccountsEventSource.swift in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
 				8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
@@ -4103,7 +4103,7 @@
 				8A41A74D1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift in Sources */,
 				8AA27AF11E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
 				8AA748BE1D704A40000587DC /* MusicPlayersTests.swift in Sources */,
-				8AA27AE01E97CBDA002A08CD /* AccountsNotificationsToEventTargetAdapter.swift in Sources */,
+				8AA27AE01E97CBDA002A08CD /* AccountsEventSource.swift in Sources */,
 				8ADD6A6B1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
 				8AD397BA1DC77C7700C6FB62 /* AccountUUIDSettingsMigrationTests.swift in Sources */,
@@ -4124,7 +4124,7 @@
 				8AA748861D6F10B6000587DC /* SettingsAccounts.swift in Sources */,
 				AAC0FFBC1BE38ADE00A5C7E5 /* UserAgentNotificationsToEventTargetAdapterTests.swift in Sources */,
 				8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */,
-				8AA27ADD1E97CB2D002A08CD /* AccountsNotificationsToEventTargetAdapterTests.swift in Sources */,
+				8AA27ADD1E97CB2D002A08CD /* AccountsEventSourceTests.swift in Sources */,
 				8ADA10A41DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift in Sources */,
 				8A0FD63D1C9B13B100AB3640 /* PreferencesSoundIOUpdater.swift in Sources */,
 				8AB5A0C81D084DD400579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
