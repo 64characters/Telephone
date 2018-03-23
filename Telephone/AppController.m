@@ -186,7 +186,7 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kAutoCloseMissedCallWindow] = @YES;
         defaultsDict[kCallWaiting] = @YES;
         defaultsDict[kUseG711Only] = @NO;
-        defaultsDict[kLockCodec] = @YES;
+        defaultsDict[kLockCodec] = @NO;
 
         NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
         
