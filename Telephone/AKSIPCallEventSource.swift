@@ -1,5 +1,5 @@
 //
-//  AKSIPCallCallEventSource.swift
+//  AKSIPCallEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-final class AKSIPCallCallEventSource {
+final class AKSIPCallEventSource {
     private let center: NotificationCenter
     private let target: CallEventTarget
 

@@ -40,7 +40,7 @@ final class CompositionRoot: NSObject {
     private let userAgentEventSource: AKSIPUserAgentUserAgentEventSource
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
     private let accountsEventSource: PreferencesControllerAccountsEventSource
-    private let callEventSource: AKSIPCallCallEventSource
+    private let callEventSource: AKSIPCallEventSource
     private let contactsChangeEventSource: Any
     private let dayChangeEventSource: NSCalendarDayChangeEventSource
 
@@ -186,7 +186,7 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        callEventSource = AKSIPCallCallEventSource(
+        callEventSource = AKSIPCallEventSource(
             center: NotificationCenter.default,
             target: CallEventTargets(
                 targets: [
