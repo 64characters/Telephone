@@ -648,9 +648,9 @@
 		AAB5AAC20F2E7A7D00A57531 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AABA3A740F8A2B93009E1005 /* AKSIPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */; };
 		AABAD7ED0E0C171A00CB5930 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAD7EC0E0C171A00CB5930 /* PreferencesController.m */; };
-		AAC0FFBC1BE38ADE00A5C7E5 /* AKSIPUserAgentUserAgentEventSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBB1BE38ADE00A5C7E5 /* AKSIPUserAgentUserAgentEventSourceTests.swift */; };
-		AAC0FFBE1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift */; };
-		AAC0FFBF1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift */; };
+		AAC0FFBC1BE38ADE00A5C7E5 /* AKSIPUserAgentEventSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBB1BE38ADE00A5C7E5 /* AKSIPUserAgentEventSourceTests.swift */; };
+		AAC0FFBE1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift */; };
+		AAC0FFBF1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift */; };
 		AAC0FFC21BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */; };
 		AAC0FFC31BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */; };
 		AAC4FF611C01D0070060B186 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2BB31BCD815100066CFC /* UserAgent.swift */; };
@@ -1523,8 +1523,8 @@
 		AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemAudioDevicesChangeEventTargetsTests.swift; path = UseCasesTests/SystemAudioDevicesChangeEventTargetsTests.swift; sourceTree = SOURCE_ROOT; };
 		AAC0FFB61BE28CAD00A5C7E5 /* SystemAudioDevicesChangeEventTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesChangeEventTargets.swift; sourceTree = "<group>"; };
 		AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesChangeEventTargetSpy.swift; sourceTree = "<group>"; };
-		AAC0FFBB1BE38ADE00A5C7E5 /* AKSIPUserAgentUserAgentEventSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSIPUserAgentUserAgentEventSourceTests.swift; path = TelephoneTests/AKSIPUserAgentUserAgentEventSourceTests.swift; sourceTree = SOURCE_ROOT; };
-		AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSIPUserAgentUserAgentEventSource.swift; sourceTree = "<group>"; };
+		AAC0FFBB1BE38ADE00A5C7E5 /* AKSIPUserAgentEventSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSIPUserAgentEventSourceTests.swift; path = TelephoneTests/AKSIPUserAgentEventSourceTests.swift; sourceTree = SOURCE_ROOT; };
+		AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSIPUserAgentEventSource.swift; sourceTree = "<group>"; };
 		AAC0FFC01BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgentNotifications.h; sourceTree = "<group>"; };
 		AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPUserAgentNotifications.m; sourceTree = "<group>"; };
 		AAC4FF811C0214110060B186 /* DomainTestDoubles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainTestDoubles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3115,10 +3115,10 @@
 				AA4BD4C60E07C28E005A71B2 /* AKSIPUserAgent.h */,
 				AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */,
 				AAE33B0F1BA7217C00C6E48B /* AKSIPUserAgentDelegate.h */,
+				AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift */,
+				AAC0FFBB1BE38ADE00A5C7E5 /* AKSIPUserAgentEventSourceTests.swift */,
 				AAC0FFC01BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.h */,
 				AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */,
-				AAC0FFBD1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift */,
-				AAC0FFBB1BE38ADE00A5C7E5 /* AKSIPUserAgentUserAgentEventSourceTests.swift */,
 				8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */,
 				AA2C03F41BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift */,
 				AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */,
@@ -3834,7 +3834,7 @@
 				8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */,
 				8A7292391EDF2B2100338592 /* WaitingThread.swift in Sources */,
 				8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */,
-				AAC0FFBE1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift in Sources */,
+				AAC0FFBE1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift in Sources */,
 				8AD2C5EC1EADFF7D005EED3E /* ArrayDifference.swift in Sources */,
 				8A9534631D059A5300EE9084 /* LoggingProducts.swift in Sources */,
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
@@ -4070,7 +4070,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC0FFBF1BE38B3800A5C7E5 /* AKSIPUserAgentUserAgentEventSource.swift in Sources */,
+				AAC0FFBF1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift in Sources */,
 				8A68C9521FFE6A8C005125AF /* ApplicationDataLocationsFake.swift in Sources */,
 				8AD2C5EA1EADFF32005EED3E /* ArrayDifferenceTests.swift in Sources */,
 				8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */,
@@ -4122,7 +4122,7 @@
 				8A778C0E1E0C136C004B00B8 /* CallHistoryViewSpy.swift in Sources */,
 				8A778C0A1E0AE9C7004B00B8 /* CallHistoryViewPresenterTests.swift in Sources */,
 				8AA748861D6F10B6000587DC /* SettingsAccounts.swift in Sources */,
-				AAC0FFBC1BE38ADE00A5C7E5 /* AKSIPUserAgentUserAgentEventSourceTests.swift in Sources */,
+				AAC0FFBC1BE38ADE00A5C7E5 /* AKSIPUserAgentEventSourceTests.swift in Sources */,
 				8ADD6A661CE0C5E9001EDBBA /* StoreView.swift in Sources */,
 				8AA27ADD1E97CB2D002A08CD /* PreferencesControllerAccountsEventSourceTests.swift in Sources */,
 				8ADA10A41DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift in Sources */,

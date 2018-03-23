@@ -37,7 +37,7 @@ final class CompositionRoot: NSObject {
     private let defaults: UserDefaults
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
-    private let userAgentEventSource: AKSIPUserAgentUserAgentEventSource
+    private let userAgentEventSource: AKSIPUserAgentEventSource
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
     private let accountsEventSource: PreferencesControllerAccountsEventSource
     private let callEventSource: AKSIPCallEventSource
@@ -135,7 +135,7 @@ final class CompositionRoot: NSObject {
 
         workstationSleepStatus = WorkspaceSleepStatus(workspace: NSWorkspace.shared)
 
-        userAgentEventSource = AKSIPUserAgentUserAgentEventSource(
+        userAgentEventSource = AKSIPUserAgentEventSource(
             target: UserAgentEventTargets(
                 targets: [
                     userAgentSoundIOSelection, BackgroundActivityUserAgentEventTarget(process: ProcessInfo.processInfo)

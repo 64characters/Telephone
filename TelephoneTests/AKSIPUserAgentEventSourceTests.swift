@@ -20,9 +20,9 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class AKSIPUserAgentUserAgentEventSourceTests: XCTestCase {
+final class AKSIPUserAgentEventSourceTests: XCTestCase {
     private var target: UserAgentEventTargetSpy!
-    private var sut: AKSIPUserAgentUserAgentEventSource!
+    private var sut: AKSIPUserAgentEventSource!
     private var userAgent: UserAgent!
     private var center: NotificationCenter!
 
@@ -30,7 +30,7 @@ final class AKSIPUserAgentUserAgentEventSourceTests: XCTestCase {
         super.setUp()
         target = UserAgentEventTargetSpy()
         userAgent = UserAgentSpy()
-        sut = AKSIPUserAgentUserAgentEventSource(target: target, agent: userAgent)
+        sut = AKSIPUserAgentEventSource(target: target, agent: userAgent)
         center = NotificationCenter.default
     }
 

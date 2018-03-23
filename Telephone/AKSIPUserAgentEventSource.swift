@@ -1,5 +1,5 @@
 //
-//  AKSIPUserAgentUserAgentEventSource.swift
+//  AKSIPUserAgentEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class AKSIPUserAgentUserAgentEventSource {
+final class AKSIPUserAgentEventSource {
     private let target: UserAgentEventTarget
     private let agent: UserAgent
 
