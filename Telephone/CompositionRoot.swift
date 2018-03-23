@@ -39,7 +39,7 @@ final class CompositionRoot: NSObject {
     private let storeEventSource: StoreEventSource
     private let userAgentNotificationsToEventTargetAdapter: UserAgentNotificationsToEventTargetAdapter
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
-    private let accountsEventSource: AccountsEventSource
+    private let accountsEventSource: PreferencesControllerAccountsEventSource
     private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
     private let contactsChangeEventSource: Any
     private let dayChangeEventSource: DayChangeEventSource
@@ -179,7 +179,7 @@ final class CompositionRoot: NSObject {
             contactsBackground = ThreadExecutionQueue(thread: makeAndStartThread())
         }
 
-        accountsEventSource = AccountsEventSource(
+        accountsEventSource = PreferencesControllerAccountsEventSource(
             center: NotificationCenter.default,
             target: EnqueuingAccountsEventTarget(
                 origin: CallHistoriesHistoryRemoveUseCase(histories: callHistories), queue: contactsBackground

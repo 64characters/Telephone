@@ -1,5 +1,5 @@
 //
-//  AccountsEventSource.swift
+//  PreferencesControllerAccountsEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import Foundation
 
-final class AccountsEventSource {
+final class PreferencesControllerAccountsEventSource {
     private let center: NotificationCenter
     private let target: AccountsEventTarget
 
