@@ -1,5 +1,5 @@
 //
-//  CNContactStoreNotificationsToContactsChangeEventTargetAdapter.swift
+//  CNContactStoreContactsChangeEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -21,7 +21,7 @@ import Foundation
 import UseCases
 
 @available(OSX 10.11, *)
-final class CNContactStoreNotificationsToContactsChangeEventTargetAdapter {
+final class CNContactStoreContactsChangeEventSource {
     private let center: NotificationCenter
     private let target: ContactsChangeEventTarget
 

@@ -41,7 +41,7 @@ final class CompositionRoot: NSObject {
     private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
     private let accountsNotificationsToEventTargetAdapter: AccountsNotificationsToEventTargetAdapter
     private let callNotificationsToEventTargetAdapter: CallNotificationsToEventTargetAdapter
-    private let contactStoreNotificationsToContactsChangeEventTargetAdapter: Any
+    private let contactsChangeEventSource: Any
     private let dayChangeEventSource: DayChangeEventSource
 
     @objc init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
@@ -215,11 +215,11 @@ final class CompositionRoot: NSObject {
         let contactsChangeEventTarget = EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
 
         if #available(macOS 10.11, *) {
-            contactStoreNotificationsToContactsChangeEventTargetAdapter = CNContactStoreNotificationsToContactsChangeEventTargetAdapter(
+            contactsChangeEventSource = CNContactStoreContactsChangeEventSource(
                 center: NotificationCenter.default, target: contactsChangeEventTarget
             )
         } else {
-            contactStoreNotificationsToContactsChangeEventTargetAdapter = ABAddressBookContactsChangeEventSource(
+            contactsChangeEventSource = ABAddressBookContactsChangeEventSource(
                 center: NotificationCenter.default, target: contactsChangeEventTarget
             )
         }
