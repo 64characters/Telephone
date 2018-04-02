@@ -18,19 +18,13 @@
 
 import Domain
 
-public struct AudioDevices {
+public struct AudioDevices: Equatable {
     public let input: [AudioDevice]
     public let output: [AudioDevice]
 
     public init(input: [AudioDevice], output: [AudioDevice]) {
         self.input = input
         self.output = output
-    }
-}
-
-extension AudioDevices: Equatable {
-    public static func ==(lhs: AudioDevices, rhs: AudioDevices) -> Bool {
-        return lhs.input == rhs.input && lhs.output == rhs.output
     }
 }
 

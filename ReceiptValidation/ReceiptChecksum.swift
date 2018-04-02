@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct ReceiptChecksum {
+struct ReceiptChecksum: Equatable {
     private let sha1: Data
 
     init(sha1: Data) {
@@ -31,18 +31,6 @@ struct ReceiptChecksum {
         source.append(opaque)
         source.append(identifier)
         self.init(sha1: digest(of: source))
-    }
-}
-
-extension ReceiptChecksum: Hashable {
-    var hashValue: Int {
-        return sha1.hashValue
-    }
-}
-
-extension ReceiptChecksum: Equatable {
-    static func ==(lhs: ReceiptChecksum, rhs: ReceiptChecksum) -> Bool {
-        return lhs.sha1 == rhs.sha1
     }
 }
 
