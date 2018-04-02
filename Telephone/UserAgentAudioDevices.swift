@@ -31,7 +31,7 @@ private func makeDevices() throws -> [UserAgentAudioDevice] {
     var count = UInt32(bufferSize)
     try copyDevicesBytes(to: bytes, count: &count)
     let result = devices(with: bytes, count: Int(count))
-    bytes.deallocate(capacity: bufferSize)
+    bytes.deallocate()
     return result
 }
 

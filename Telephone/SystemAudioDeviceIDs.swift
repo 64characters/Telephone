@@ -33,9 +33,8 @@ final class SystemAudioDeviceIDs {
     }
 
     private func makeDeviceIDs(with length: UInt32) throws -> [Int] {
-        let count = audioObjectIDCount(with: length)
-        let bytes = UnsafeMutablePointer<AudioObjectID>.allocate(capacity: count)
-        defer { bytes.deallocate(capacity: count) }
+        let bytes = UnsafeMutablePointer<AudioObjectID>.allocate(capacity: audioObjectIDCount(with: length))
+        defer { bytes.deallocate() }
         var usedLength = length
         try copyDeviceIDsBytes(to: bytes, length: &usedLength)
         return deviceIDs(bytes: bytes, length: usedLength)
