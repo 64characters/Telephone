@@ -21,13 +21,11 @@ import UseCases
 extension MatchedContact {
     init(contact: Contact, phoneIndex index: Int) {
         let phone = contact.phones[index]
-        name = contact.name
-        address = .phone(number: phone.number, label: phone.label)
+        self.init(name: contact.name, address: .phone(number: phone.number, label: phone.label))
     }
 
     init(contact: Contact, emailIndex index: Int) {
         let email = contact.emails[index]
-        name = contact.name
-        address = .email(address: email.address, label: email.label)
+        self.init(name: contact.name, address: .email(address: email.address, label: email.label))
     }
 }
