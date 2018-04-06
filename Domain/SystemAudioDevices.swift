@@ -26,8 +26,8 @@ public struct SystemAudioDevices {
 
     public init(devices: [SystemAudioDevice]) {
         self.all = devices
-        input = devices.filter({ $0.hasInputs })
-        output = devices.filter({ $0.hasOutputs })
+        input = devices.filter { $0.hasInputs }
+        output = devices.filter { $0.hasOutputs }
         deviceNameToInputDevice = deviceNameToDeviceMap(from: input)
         deviceNameToOutputDevice = deviceNameToDeviceMap(from: output)
     }
@@ -42,9 +42,5 @@ public struct SystemAudioDevices {
 }
 
 private func deviceNameToDeviceMap(from devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
-    var result = [String: SystemAudioDevice]()
-    for device in devices {
-        result[device.name] = device
-    }
-    return result
+    return devices.reduce(into: [:]) { $0[$1.name] = $1 }
 }

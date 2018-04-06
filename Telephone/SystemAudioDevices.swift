@@ -94,9 +94,5 @@ private func audioBufferListCount(with length: UInt32) -> Int {
 }
 
 private func channelCount(pointer: UnsafeMutableAudioBufferListPointer) -> Int {
-    var channelCount: UInt32 = 0
-    for buffer in pointer {
-        channelCount += buffer.mNumberChannels
-    }
-    return Int(channelCount)
+    return pointer.reduce(0) { $0 + Int($1.mNumberChannels) }
 }
