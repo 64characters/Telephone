@@ -2296,7 +2296,6 @@
 				AA30D84F1BF60E76002F343A /* FirstSystemAudioDevice.swift */,
 				AA30D84A1BF60DDB002F343A /* FirstSystemAudioDeviceTests.swift */,
 				AA3FAB9C1BBAB50B0064B2C3 /* SimpleSystemAudioDevice.swift */,
-				8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */,
 				8A9175AF1CABFCA700354E26 /* SystemAudioDevice.swift */,
 			);
 			name = SystemAudioDevice;
@@ -2458,6 +2457,15 @@
 				8ACF851D1EEA89DC006E88FB /* WeakCallHistoryEventTarget.swift */,
 			);
 			name = CallHistoryEventTarget;
+			sourceTree = "<group>";
+		};
+		8AD6541520BF0596005C0C70 /* UserAgentAudioDevice */ = {
+			isa = PBXGroup;
+			children = (
+				8A1CC6201CAD4F5E00901BE9 /* SimpleUserAgentAudioDevice.swift */,
+				AA3905221BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift */,
+			);
+			name = UserAgentAudioDevice;
 			sourceTree = "<group>";
 		};
 		8AD6597D1D37C95E008A1007 /* StoreViewEventTarget */ = {
@@ -2916,7 +2924,7 @@
 				8A859A121D2ECA0000118A66 /* SystemSoundIO */,
 				AA3FAB961BBAB4480064B2C3 /* SystemToUserAgentAudioDeviceMap.swift */,
 				AA3FAB941BBAB3990064B2C3 /* SystemToUserAgentAudioDeviceMapTests.swift */,
-				AA3905221BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift */,
+				8AD6541520BF0596005C0C70 /* UserAgentAudioDevice */,
 				8A91758E1CA1CBD600354E26 /* UserAgentAudioDeviceNameToDeviceMap.swift */,
 				AA9D08051BFF7E6F0000F618 /* Domain.h */,
 				AA9D08071BFF7E6F0000F618 /* Info.plist */,
