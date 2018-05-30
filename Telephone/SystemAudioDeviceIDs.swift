@@ -28,8 +28,7 @@ final class SystemAudioDeviceIDs {
     }
 
     func all() throws -> [Int] {
-        let length = try audioObject.propertyDataLength()
-        return try makeDeviceIDs(with: length)
+        return try makeDeviceIDs(with: try audioObject.propertyDataLength())
     }
 
     private func makeDeviceIDs(with length: UInt32) throws -> [Int] {

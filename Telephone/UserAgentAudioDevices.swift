@@ -36,15 +36,13 @@ private func makeDevices() throws -> [UserAgentAudioDevice] {
 }
 
 private func copyDevicesBytes(to bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: inout UInt32) throws {
-    let status = pjsua_enum_aud_devs(bytes, &count)
-    if status != 0 {
+    if pjsua_enum_aud_devs(bytes, &count) != 0 {
         throw UserAgentError.audioDeviceEnumerationError
     }
 }
 
 private func devices(with bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: Int) -> [UserAgentAudioDevice] {
-    let buffer = UnsafeBufferPointer<pjmedia_aud_dev_info>(start: bytes, count: count)
-    return devices(with: buffer)
+    return devices(with: UnsafeBufferPointer<pjmedia_aud_dev_info>(start: bytes, count: count))
 }
 
 private func devices(with pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
