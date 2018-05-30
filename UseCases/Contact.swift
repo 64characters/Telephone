@@ -47,21 +47,3 @@ public struct Contact {
         }
     }
 }
-
-extension Contact: Equatable {
-    public static func ==(lhs: Contact, rhs: Contact) -> Bool {
-        return lhs.name == rhs.name && lhs.phones == rhs.phones && lhs.emails == rhs.emails
-    }
-}
-
-extension Contact.Phone: Equatable {
-    public static func ==(lhs: Contact.Phone, rhs: Contact.Phone) -> Bool {
-        return lhs.number == rhs.number && lhs.label == rhs.label
-    }
-}
-
-extension Contact.Email: Equatable {
-    public static func ==(lhs: Contact.Email, rhs: Contact.Email) -> Bool {
-        return lhs.address == rhs.address && lhs.label == rhs.label
-    }
-}

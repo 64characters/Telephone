@@ -66,7 +66,7 @@ private func stringPropertyValue(forDeviceWithID deviceID: Int, selector: AudioO
 private func propertyValue<T>(forDeviceWithID deviceID: Int, selector: AudioObjectPropertySelector) throws -> T {
     var length = UInt32(MemoryLayout<T>.stride)
     var result = UnsafeMutablePointer<T>.allocate(capacity: 1)
-    defer { result.deallocate(capacity: 1) }
+    defer { result.deallocate() }
     let audioObject = SystemAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddress(selector: selector))
     try audioObject.copyPropertyValueBytes(to: result, length: &length)
     return result.move()
@@ -75,9 +75,8 @@ private func propertyValue<T>(forDeviceWithID deviceID: Int, selector: AudioObje
 private func channelCount(with objectID: AudioObjectID, scope: AudioObjectPropertyScope) throws -> Int {
     var audioObject = SystemAudioObject(objectID: objectID, propertyAddress: audioBufferListAddress(scope: scope))
     var length = try audioObject.propertyDataLength()
-    let count = audioBufferListCount(with: length)
-    let bytes = UnsafeMutablePointer<AudioBufferList>.allocate(capacity: count)
-    defer { bytes.deallocate(capacity: count) }
+    let bytes = UnsafeMutablePointer<AudioBufferList>.allocate(capacity: audioBufferListCount(with: length))
+    defer { bytes.deallocate() }
     try audioObject.copyPropertyValueBytes(to: bytes, length: &length)
     return channelCount(pointer: UnsafeMutableAudioBufferListPointer(bytes))
 }
@@ -95,9 +94,5 @@ private func audioBufferListCount(with length: UInt32) -> Int {
 }
 
 private func channelCount(pointer: UnsafeMutableAudioBufferListPointer) -> Int {
-    var channelCount: UInt32 = 0
-    for buffer in pointer {
-        channelCount += buffer.mNumberChannels
-    }
-    return Int(channelCount)
+    return pointer.reduce(0) { $0 + Int($1.mNumberChannels) }
 }

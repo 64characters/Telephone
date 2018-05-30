@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct SHA256Fingerprint {
+struct SHA256Fingerprint: Equatable {
     private let sha256: Data
 
     init(sha256: Data) {
@@ -27,18 +27,6 @@ struct SHA256Fingerprint {
 
     init(source: Data) {
         self.init(sha256: digest(of: source))
-    }
-}
-
-extension SHA256Fingerprint: Hashable {
-    var hashValue: Int {
-        return sha256.hashValue
-    }
-}
-
-extension SHA256Fingerprint: Equatable {
-    static func ==(lhs: SHA256Fingerprint, rhs: SHA256Fingerprint) -> Bool {
-        return lhs.sha256 == rhs.sha256
     }
 }
 

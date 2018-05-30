@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public struct MatchedContact {
+public struct MatchedContact: Equatable {
     public let name: String
     public let address: Address
 
@@ -25,28 +25,9 @@ public struct MatchedContact {
         self.address = address
     }
 
-    public enum Address {
+    public enum Address: Equatable {
         case phone(number: String, label: String)
         case email(address: String, label: String)
-    }
-}
-
-extension MatchedContact: Equatable {
-    public static func ==(lhs: MatchedContact, rhs: MatchedContact) -> Bool {
-        return lhs.name == rhs.name && lhs.address == rhs.address
-    }
-}
-
-extension MatchedContact.Address: Equatable {
-    public static func ==(lhs: MatchedContact.Address, rhs: MatchedContact.Address) -> Bool {
-        switch (lhs, rhs) {
-        case let (.phone(number1, label1), .phone(number2, label2)):
-            return number1 == number2 && label1 == label2
-        case let (.email(address1, label1), .email(address2, label2)):
-            return address1 == address2 && label1 == label2
-        case (.phone, _), (.email, _):
-            return false
-        }
     }
 }
 

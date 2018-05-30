@@ -18,7 +18,7 @@
 
 import Domain
 
-public struct PresentationSoundIO {
+public struct PresentationSoundIO: Equatable {
     public let input: AudioDevice
     public let output: AudioDevice
     public let ringtoneOutput: AudioDevice
@@ -27,12 +27,6 @@ public struct PresentationSoundIO {
         self.input = input
         self.output = output
         self.ringtoneOutput = ringtoneOutput
-    }
-}
-
-extension PresentationSoundIO: Equatable {
-    public static func ==(lhs: PresentationSoundIO, rhs: PresentationSoundIO) -> Bool {
-        return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
     }
 }
 

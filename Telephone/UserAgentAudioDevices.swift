@@ -31,29 +31,22 @@ private func makeDevices() throws -> [UserAgentAudioDevice] {
     var count = UInt32(bufferSize)
     try copyDevicesBytes(to: bytes, count: &count)
     let result = devices(with: bytes, count: Int(count))
-    bytes.deallocate(capacity: bufferSize)
+    bytes.deallocate()
     return result
 }
 
 private func copyDevicesBytes(to bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: inout UInt32) throws {
-    let status = pjsua_enum_aud_devs(bytes, &count)
-    if status != 0 {
+    if pjsua_enum_aud_devs(bytes, &count) != 0 {
         throw UserAgentError.audioDeviceEnumerationError
     }
 }
 
 private func devices(with bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, count: Int) -> [UserAgentAudioDevice] {
-    let buffer = UnsafeBufferPointer<pjmedia_aud_dev_info>(start: bytes, count: count)
-    return devices(with: buffer)
+    return devices(with: UnsafeBufferPointer<pjmedia_aud_dev_info>(start: bytes, count: count))
 }
 
 private func devices(with pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
-    var index = 0
-    return pointer.map { device -> UserAgentAudioDevice in
-        let result = UserAgentAudioDevice(device: device, identifier: index)
-        index += 1
-        return result
-    }
+    return pointer.enumerated().map { UserAgentAudioDevice(device: $0.element, identifier: $0.offset) }
 }
 
 private let bufferSize = 32
