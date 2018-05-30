@@ -46,12 +46,7 @@ private func devices(with bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, cou
 }
 
 private func devices(with pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
-    var index = 0
-    return pointer.map { device -> UserAgentAudioDevice in
-        let result = UserAgentAudioDevice(device: device, identifier: index)
-        index += 1
-        return result
-    }
+    return pointer.enumerated().map { UserAgentAudioDevice(device: $0.element, identifier: $0.offset) }
 }
 
 private let bufferSize = 32
