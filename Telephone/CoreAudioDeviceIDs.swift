@@ -19,16 +19,21 @@
 import CoreAudio
 
 final class CoreAudioDeviceIDs {
-    private var audioObject: SystemAudioObject
+    private var object: SystemAudioObject
 
     init() {
-        let objectID = AudioObjectID(kAudioObjectSystemObject)
-        let propertyAddress = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDevices, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
-        audioObject = SystemAudioObject(objectID: objectID, propertyAddress: propertyAddress)
+        object = SystemAudioObject(
+            objectID: AudioObjectID(kAudioObjectSystemObject),
+            propertyAddress: AudioObjectPropertyAddress(
+                mSelector: kAudioHardwarePropertyDevices,
+                mScope: kAudioObjectPropertyScopeGlobal,
+                mElement: kAudioObjectPropertyElementMaster
+            )
+        )
     }
 
     func all() throws -> [Int] {
-        return try makeDeviceIDs(with: try audioObject.propertyDataLength())
+        return try makeDeviceIDs(with: try object.propertyDataLength())
     }
 
     private func makeDeviceIDs(with length: UInt32) throws -> [Int] {
@@ -40,7 +45,7 @@ final class CoreAudioDeviceIDs {
     }
 
     private func copyDeviceIDsBytes(to bytes: UnsafeMutablePointer<AudioObjectID>, length: inout UInt32) throws {
-        return try audioObject.copyPropertyValueBytes(to: bytes, length: &length)
+        return try object.copyPropertyValueBytes(to: bytes, length: &length)
     }
 }
 
