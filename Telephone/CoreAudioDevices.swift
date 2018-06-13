@@ -22,38 +22,40 @@ import UseCases
 
 final class CoreAudioDevices: SystemAudioDeviceRepository {
     func allDevices() throws -> [SystemAudioDevice] {
-        return try CoreAudioDeviceIDs().all().map(device)
+        return try CoreAudioDeviceIDs().all().map(SimpleSystemAudioDevice.init)
     }
 }
 
-private func device(withID deviceID: Int) throws -> SystemAudioDevice {
-    return SimpleSystemAudioDevice(
-        identifier: deviceID,
-        uniqueIdentifier: try uniqueIdentifier(forDeviceWithID: deviceID),
-        name: try name(forDeviceWithID: deviceID),
-        inputs: try inputCount(forDeviceWithID: deviceID),
-        outputs: try outputCount(forDeviceWithID: deviceID),
-        isBuiltIn: try isBuiltIn(forDeviceWithID: deviceID)
-    )
+private extension SimpleSystemAudioDevice {
+    init(deviceID: Int) throws {
+        self.init(
+            identifier: deviceID,
+            uniqueIdentifier: try makeUniqueIdentifier(deviceID: deviceID),
+            name: try makeName(deviceID: deviceID),
+            inputs: try makeInputCount(deviceID: deviceID),
+            outputs: try makeOutputCount(deviceID: deviceID),
+            isBuiltIn: try makeIsBuiltIn(deviceID: deviceID)
+        )
+    }
 }
 
-private func uniqueIdentifier(forDeviceWithID deviceID: Int) throws -> String {
+private func makeUniqueIdentifier(deviceID: Int) throws -> String {
     return try stringPropertyValue(forDeviceWithID: deviceID, selector: kAudioDevicePropertyDeviceUID)
 }
 
-private func name(forDeviceWithID deviceID: Int) throws -> String {
+private func makeName(deviceID: Int) throws -> String {
     return try stringPropertyValue(forDeviceWithID: deviceID, selector: kAudioObjectPropertyName)
 }
 
-private func inputCount(forDeviceWithID deviceID: Int) throws -> Int {
+private func makeInputCount(deviceID: Int) throws -> Int {
     return try channelCount(with: AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeInput)
 }
 
-private func outputCount(forDeviceWithID deviceID: Int) throws -> Int {
+private func makeOutputCount(deviceID: Int) throws -> Int {
     return try channelCount(with: AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeOutput)
 }
 
-private func isBuiltIn(forDeviceWithID deviceID: Int) throws -> Bool {
+private func makeIsBuiltIn(deviceID: Int) throws -> Bool {
     let transportType: UInt32 = try propertyValue(forDeviceWithID: deviceID, selector: kAudioDevicePropertyTransportType)
     return transportType == kAudioDeviceTransportTypeBuiltIn
 }
