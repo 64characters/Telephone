@@ -48,7 +48,7 @@ final class CompositionRoot: NSObject {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 
-        let audioDevices = SystemAudioDevices()
+        let audioDevices = CoreAudioDevices()
         let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, settings: defaults)
 
         let soundFactory = SimpleSoundFactory(

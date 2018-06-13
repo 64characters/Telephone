@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceIDs.swift
+//  CoreAudioDeviceIDs.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import CoreAudio
 
-final class SystemAudioDeviceIDs {
+final class CoreAudioDeviceIDs {
     private var audioObject: SystemAudioObject
 
     init() {
