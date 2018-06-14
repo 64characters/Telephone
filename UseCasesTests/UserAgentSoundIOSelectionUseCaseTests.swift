@@ -25,7 +25,7 @@ import XCTest
 final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
     func testSelectsMappedAudioDevices() {
         let factory = SystemAudioDeviceTestFactory()
-        let systemDevices = SystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
+        let systemDevices = SimpleSystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
         let repository = SystemAudioDeviceRepositoryStub()
         repository.allDevicesResult = systemDevices.all
         let userAgentDevices = [

@@ -16,31 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-public struct SystemAudioDevices {
-    public let all: [SystemAudioDevice]
-    public let input: [SystemAudioDevice]
-    public let output: [SystemAudioDevice]
-
-    private let deviceNameToInputDevice: [String: SystemAudioDevice]
-    private let deviceNameToOutputDevice: [String: SystemAudioDevice]
-
-    public init(devices: [SystemAudioDevice]) {
-        self.all = devices
-        input = devices.filter { $0.hasInputs }
-        output = devices.filter { $0.hasOutputs }
-        deviceNameToInputDevice = deviceNameToDeviceMap(from: input)
-        deviceNameToOutputDevice = deviceNameToDeviceMap(from: output)
-    }
-
-    public func inputDevice(named name: String) -> SystemAudioDevice {
-        return deviceNameToInputDevice[name] ?? NullSystemAudioDevice()
-    }
-
-    public func outputDevice(named name: String) -> SystemAudioDevice {
-        return deviceNameToOutputDevice[name] ?? NullSystemAudioDevice()
-    }
-}
-
-private func deviceNameToDeviceMap(from devices: [SystemAudioDevice]) -> [String: SystemAudioDevice] {
-    return devices.reduce(into: [:]) { $0[$1.name] = $1 }
+public protocol SystemAudioDevices {
+    var all: [SystemAudioDevice] { get }
+    var input: [SystemAudioDevice] { get }
+    var output: [SystemAudioDevice] { get }
+    func inputDevice(named name: String) -> SystemAudioDevice
+    func outputDevice(named name: String) -> SystemAudioDevice
 }

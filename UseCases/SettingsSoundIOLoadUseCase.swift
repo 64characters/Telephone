@@ -36,7 +36,7 @@ public final class SettingsSoundIOLoadUseCase {
 
 extension SettingsSoundIOLoadUseCase: ThrowingUseCase {
     public func execute() throws {
-        let devices = SystemAudioDevices(devices: try repository.allDevices())
+        let devices = SimpleSystemAudioDevices(devices: try repository.allDevices())
         output.update(
             devices: AudioDevices(devices: devices),
             soundIO: PresentationSoundIO(soundIO: PreferredSoundIO(devices: devices, settings: settings))

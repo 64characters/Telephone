@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesTests.swift
+//  SimpleSystemAudioDevicesTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,14 +20,14 @@
 import DomainTestDoubles
 import XCTest
 
-final class SystemAudioDevicesTests: XCTestCase {
+final class SimpleSystemAudioDevicesTests: XCTestCase {
     private var factory: SystemAudioDeviceTestFactory!
     private var sut: SystemAudioDevices!
 
     override func setUp() {
         super.setUp()
         factory = SystemAudioDeviceTestFactory()
-        sut = SystemAudioDevices(devices: factory.all)
+        sut = SimpleSystemAudioDevices(devices: factory.all)
     }
 
     func testCanGetInputDeviceByName() {

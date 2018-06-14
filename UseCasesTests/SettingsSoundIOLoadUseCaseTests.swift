@@ -32,7 +32,7 @@ final class SettingsSoundIOLoadUseCaseTests: XCTestCase {
     override func setUp() {
         super.setUp()
         factory = SystemAudioDeviceTestFactory()
-        devices = SystemAudioDevices(devices: factory.all)
+        devices = SimpleSystemAudioDevices(devices: factory.all)
         repository = SystemAudioDeviceRepositoryStub()
         repository.allDevicesResult = factory.all
         settings = SettingsFake()
