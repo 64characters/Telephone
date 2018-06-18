@@ -23,42 +23,19 @@ import UseCasesTestDoubles
 import XCTest
 
 final class SettingsSoundIOLoadUseCaseTests: XCTestCase {
-    private var factory: SystemAudioDeviceTestFactory!
-    private var devices: SystemAudioDevices!
-    private var repository: SystemAudioDeviceRepositoryStub!
-    private var settings: SettingsFake!
-    private var output: SettingsSoundIOLoadUseCaseOutputSpy!
+    func testCallsOutputWithAllAudioDevicesAndPreferredSoundIO() throws {
+        let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
+        let output = SettingsSoundIOLoadUseCaseOutputSpy()
+        let sut = SettingsSoundIOLoadUseCase(factory: factory, settings: SettingsFake(), output: output)
 
-    override func setUp() {
-        super.setUp()
-        factory = SystemAudioDeviceTestFactory()
-        devices = SimpleSystemAudioDevices(devices: factory.all)
-        repository = SystemAudioDeviceRepositoryStub()
-        repository.allDevicesResult = factory.all
-        settings = SettingsFake()
-        output = SettingsSoundIOLoadUseCaseOutputSpy()
-    }
+        try sut.execute()
 
-    func testCallsOutputWithExpectedAudioDevicesAndSoundIO() {
-        let sut = SettingsSoundIOLoadUseCase(
-            repository: repository, settings: settings, output: output
+        XCTAssertEqual(
+            output.invokedDevices, AudioDevices(devices: try factory.make())
         )
-
-        try! sut.execute()
-
-        XCTAssertEqual(output.invokedDevices, expectedAudioDevices())
-        XCTAssertEqual(output.invokedSoundIO, expectedSoundIO())
-    }
-
-    private func expectedSoundIO() -> PresentationSoundIO {
-        return PresentationSoundIO(
-            input: AudioDevice(device: factory.firstBuiltInInput),
-            output: AudioDevice(device: factory.firstBuiltInOutput),
-            ringtoneOutput: AudioDevice(device: factory.firstBuiltInOutput)
+        XCTAssertEqual(
+            output.invokedSoundIO,
+            PresentationSoundIO(soundIO: PreferredSoundIO(devices: try factory.make(), settings: SettingsFake()))
         )
-    }
-
-    private func expectedAudioDevices() -> AudioDevices {
-        return AudioDevices(devices: devices)
     }
 }
