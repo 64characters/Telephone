@@ -49,7 +49,9 @@ final class CompositionRoot: NSObject {
         defaults = UserDefaults.standard
 
         let audioDevices = CoreAudioDevices()
-        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, settings: defaults)
+        let useCaseFactory = DefaultUseCaseFactory(
+            factory: CoreAudioSystemAudioDevicesFactory(devices: audioDevices), settings: defaults
+        )
 
         let soundFactory = SimpleSoundFactory(
             load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, repository: audioDevices),

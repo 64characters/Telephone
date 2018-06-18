@@ -19,18 +19,18 @@
 import UseCases
 
 final class DefaultUseCaseFactory {
-    private let repository: SystemAudioDeviceRepository
+    private let factory: SystemAudioDevicesFactory
     private let settings: KeyValueSettings
 
-    init(repository: SystemAudioDeviceRepository, settings: KeyValueSettings) {
-        self.repository = repository
+    init(factory: SystemAudioDevicesFactory, settings: KeyValueSettings) {
+        self.factory = factory
         self.settings = settings
     }
 }
 
 extension DefaultUseCaseFactory: UseCaseFactory {
     func makeSettingsSoundIOLoadUseCase(output: SettingsSoundIOLoadUseCaseOutput) -> ThrowingUseCase {
-        return SettingsSoundIOLoadUseCase(repository: repository, settings: settings, output: output)
+        return SettingsSoundIOLoadUseCase(factory: factory, settings: settings, output: output)
     }
 
     func makeSettingsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
