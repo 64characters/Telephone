@@ -27,7 +27,7 @@ final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         let factory = SystemAudioDeviceTestFactory()
         let systemDevices = SimpleSystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
         let repository = SystemAudioDeviceRepositoryStub()
-        repository.allDevicesResult = systemDevices.all
+        repository.allResult = systemDevices.all
         let userAgentDevices = [
             UserAgentAudioDevice(device: factory.firstBuiltInOutput),
             UserAgentAudioDevice(device: factory.firstBuiltInInput)

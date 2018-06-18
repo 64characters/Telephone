@@ -20,13 +20,13 @@ import Domain
 import UseCases
 
 public final class SystemAudioDeviceRepositoryStub {
-    public var allDevicesResult = [SystemAudioDevice]()
+    public var allResult = [SystemAudioDevice]()
 
     public init() {}
 }
 
 extension SystemAudioDeviceRepositoryStub: SystemAudioDeviceRepository {
-    public func allDevices() throws -> [SystemAudioDevice] {
-        return allDevicesResult
+    public func all() throws -> [SystemAudioDevice] {
+        return allResult
     }
 }

@@ -43,7 +43,7 @@ extension SettingsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationLoadU
 
     private func ringtoneAudioDeviceUID() throws -> String {
         let soundIO = PreferredSoundIO(
-            devices: SimpleSystemAudioDevices(devices: try repository.allDevices()), settings: settings
+            devices: SimpleSystemAudioDevices(devices: try repository.all()), settings: settings
         )
         return soundIO.ringtoneOutput.uniqueIdentifier
     }

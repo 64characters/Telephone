@@ -39,7 +39,7 @@ final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
         let outputDevice = factory.someOutput
         settings[SettingsKeys.ringtoneOutput] = outputDevice.name
         settings[SettingsKeys.ringingSound] = "sound-name"
-        repository.allDevicesResult = factory.all
+        repository.allResult = factory.all
 
         let result = try! sut.execute()
 
@@ -48,7 +48,7 @@ final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
     }
 
     func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInSettings() {
-        repository.allDevicesResult = factory.all
+        repository.allResult = factory.all
         var result = false
 
         do {

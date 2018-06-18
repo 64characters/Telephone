@@ -42,7 +42,7 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
     }
 
     private func updateDevices() throws {
-        devices = SimpleSystemAudioDevices(devices: try repository.allDevices())
+        devices = SimpleSystemAudioDevices(devices: try repository.all())
     }
 
     private func updateDeviceMap() throws {

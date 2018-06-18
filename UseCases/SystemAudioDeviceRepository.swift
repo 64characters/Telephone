@@ -19,5 +19,5 @@
 import Domain
 
 public protocol SystemAudioDeviceRepository: class {
-    func allDevices() throws -> [SystemAudioDevice]
+    func all() throws -> [SystemAudioDevice]
 }

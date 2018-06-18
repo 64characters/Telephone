@@ -21,7 +21,7 @@ import CoreAudio
 import UseCases
 
 final class CoreAudioDevices: SystemAudioDeviceRepository {
-    func allDevices() throws -> [SystemAudioDevice] {
+    func all() throws -> [SystemAudioDevice] {
         return try CoreAudioDeviceIDs().all().map(SimpleSystemAudioDevice.init)
     }
 }

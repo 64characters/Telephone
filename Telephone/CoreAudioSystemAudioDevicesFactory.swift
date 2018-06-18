@@ -29,6 +29,6 @@ final class CoreAudioSystemAudioDevicesFactory {
 
 extension CoreAudioSystemAudioDevicesFactory: SystemAudioDevicesFactory {
     func make() throws -> SystemAudioDevices {
-        return SimpleSystemAudioDevices(devices: try devices.allDevices())
+        return SimpleSystemAudioDevices(devices: try devices.all())
     }
 }
