@@ -40,14 +40,9 @@ final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
         let sut = SettingsRingtoneSoundConfigurationLoadUseCase(
             settings: SettingsFake(), factory: SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
         )
-        var result = false
 
-        do {
-            try _ = sut.execute()
-        } catch UseCasesError.ringtoneSoundNameNotFoundError {
-            result = true
-        } catch {}
-
-        XCTAssertTrue(result)
+        XCTAssertThrowsError(try sut.execute()) { (error) in
+            XCTAssertEqual(error as? UseCasesError, .ringtoneSoundNameNotFoundError)
+        }
     }
 }
