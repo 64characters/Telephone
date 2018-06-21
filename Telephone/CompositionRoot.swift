@@ -48,12 +48,12 @@ final class CompositionRoot: NSObject {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 
-        let audioDevices = CoreAudioDevices()
-        let systemAudioDevicesFactory = CoreAudioSystemAudioDevicesFactory(devices: audioDevices)
+        let systemAudioDevicesFactory = CoreAudioSystemAudioDevicesFactory(devices: CoreAudioDevices())
+
         let useCaseFactory = DefaultUseCaseFactory(factory: systemAudioDevicesFactory, settings: defaults)
 
         let soundFactory = SimpleSoundFactory(
-            load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, repository: audioDevices),
+            load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, factory: systemAudioDevicesFactory),
             factory: NSSoundToSoundAdapterFactory()
         )
 
