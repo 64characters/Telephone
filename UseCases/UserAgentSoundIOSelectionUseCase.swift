@@ -24,12 +24,12 @@ public final class UserAgentSoundIOSelectionUseCase {
     private var soundIO: SoundIO!
 
     private let factory: SystemAudioDevicesFactory
-    private let userAgent: UserAgent
+    private let agent: UserAgent
     private let settings: KeyValueSettings
 
-    public init(factory: SystemAudioDevicesFactory, userAgent: UserAgent, settings: KeyValueSettings) {
+    public init(factory: SystemAudioDevicesFactory, agent: UserAgent, settings: KeyValueSettings) {
         self.factory = factory
-        self.userAgent = userAgent
+        self.agent = agent
         self.settings = settings
     }
 }
@@ -49,7 +49,7 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
     private func updateDeviceMap() throws {
         deviceMap = SystemToUserAgentAudioDeviceMap(
             systemDevices: devices.all,
-            userAgentDevices: try userAgent.audioDevices().map(domainAudioDevice)
+            userAgentDevices: try agent.audioDevices().map(domainAudioDevice)
         )
     }
 
@@ -58,7 +58,7 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
     }
 
     private func selectUserAgentSoundIO() throws {
-        try userAgent.selectSoundIODeviceIDs(
+        try agent.selectSoundIODeviceIDs(
             input: deviceMap.userAgentDevice(for: soundIO.input).identifier,
             output: deviceMap.userAgentDevice(for: soundIO.output).identifier
         )

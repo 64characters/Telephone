@@ -31,7 +31,7 @@ final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
             UserAgentAudioDevice(device: SystemAudioDeviceTestFactory().firstBuiltInInput)
         ]
         let settings = SettingsFake()
-        let sut = UserAgentSoundIOSelectionUseCase(factory: factory, userAgent: agent, settings: settings)
+        let sut = UserAgentSoundIOSelectionUseCase(factory: factory, agent: agent, settings: settings)
 
         try sut.execute()
 

@@ -109,7 +109,7 @@ final class CompositionRoot: NSObject {
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCase(
-                factory: systemAudioDevicesFactory, userAgent: userAgent, settings: defaults
+                factory: systemAudioDevicesFactory, agent: userAgent, settings: defaults
             ),
             agent: userAgent,
             calls: userAgent
