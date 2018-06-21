@@ -22,33 +22,24 @@ import UseCasesTestDoubles
 import XCTest
 
 final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
-    private var factory: SystemAudioDeviceTestFactory!
-    private var settings: SettingsFake!
-    private var repository: SystemAudioDeviceRepositoryStub!
-    private var sut: SoundConfigurationLoadUseCase!
+    func testResultNameIsRingingSoundFromSettingsAndDeviceUIDIsUniqueIdentifierOfRingtoneOutputFromPreferredSoundIO() throws {
+        let settings = SettingsFake()
+        settings[SettingsKeys.ringtoneOutput] = SystemAudioDeviceTestFactory().someOutput.name
+        settings[SettingsKeys.ringingSound] = "any-sound"
+        let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
+        let sut = SettingsRingtoneSoundConfigurationLoadUseCase(settings: settings, factory: factory)
+        let soundIO = PreferredSoundIO(devices: try factory.make(), settings: settings)
 
-    override func setUp() {
-        super.setUp()
-        factory = SystemAudioDeviceTestFactory()
-        settings = SettingsFake()
-        repository = SystemAudioDeviceRepositoryStub()
-        sut = SettingsRingtoneSoundConfigurationLoadUseCase(settings: settings, repository: repository)
-    }
+        let result = try sut.execute()
 
-    func testReturnsRingtoneSoundConfigurationFromSettings() {
-        let outputDevice = factory.someOutput
-        settings[SettingsKeys.ringtoneOutput] = outputDevice.name
-        settings[SettingsKeys.ringingSound] = "sound-name"
-        repository.allResult = factory.all
-
-        let result = try! sut.execute()
-
-        XCTAssertEqual(result.name, "sound-name")
-        XCTAssertEqual(result.deviceUID, outputDevice.uniqueIdentifier)
+        XCTAssertEqual(result.name, "any-sound")
+        XCTAssertEqual(result.deviceUID, soundIO.ringtoneOutput.uniqueIdentifier)
     }
 
     func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInSettings() {
-        repository.allResult = factory.all
+        let sut = SettingsRingtoneSoundConfigurationLoadUseCase(
+            settings: SettingsFake(), factory: SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
+        )
         var result = false
 
         do {
