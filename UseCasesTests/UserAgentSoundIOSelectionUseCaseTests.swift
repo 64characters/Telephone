@@ -18,29 +18,30 @@
 
 import Domain
 import DomainTestDoubles
-import UseCases
+@testable import UseCases
 import UseCasesTestDoubles
 import XCTest
 
 final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
-    func testSelectsMappedAudioDevices() {
-        let factory = SystemAudioDeviceTestFactory()
-        let systemDevices = SimpleSystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
-        let repository = SystemAudioDeviceRepositoryStub()
-        repository.allResult = systemDevices.all
-        let userAgentDevices = [
-            UserAgentAudioDevice(device: factory.firstBuiltInOutput),
-            UserAgentAudioDevice(device: factory.firstBuiltInInput)
+    func testSelectsPreferredMappedAudioDevices() throws {
+        let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
+        let agent = UserAgentSpy()
+        agent.audioDevicesResult = [
+            UserAgentAudioDevice(device: SystemAudioDeviceTestFactory().firstBuiltInOutput),
+            UserAgentAudioDevice(device: SystemAudioDeviceTestFactory().firstBuiltInInput)
         ]
-        let userAgent = UserAgentSpy()
-        userAgent.audioDevicesResult = userAgentDevices
-        let sut = UserAgentSoundIOSelectionUseCase(
-            repository: repository, userAgent: userAgent, settings: SettingsFake()
+        let settings = SettingsFake()
+        let sut = UserAgentSoundIOSelectionUseCase(factory: factory, userAgent: agent, settings: settings)
+
+        try sut.execute()
+
+        XCTAssertEqual(
+            agent.invokedInputDeviceID,
+            PreferredSoundIO(devices: try factory.make(), settings: settings).input.identifier
         )
-
-        try! sut.execute()
-
-        XCTAssertEqual(userAgent.invokedInputDeviceID, userAgentDevices[1].identifier)
-        XCTAssertEqual(userAgent.invokedOutputDeviceID, userAgentDevices[0].identifier)
+        XCTAssertEqual(
+            agent.invokedOutputDeviceID,
+            PreferredSoundIO(devices: try factory.make(), settings: settings).output.identifier
+        )
     }
 }

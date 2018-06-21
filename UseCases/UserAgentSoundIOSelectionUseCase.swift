@@ -19,15 +19,16 @@
 import Domain
 
 public final class UserAgentSoundIOSelectionUseCase {
-    private let repository: SystemAudioDeviceRepository
-    private let userAgent: UserAgent
-    private let settings: KeyValueSettings
     private var devices: SystemAudioDevices!
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
     private var soundIO: SoundIO!
 
-    public init(repository: SystemAudioDeviceRepository, userAgent: UserAgent, settings: KeyValueSettings) {
-        self.repository = repository
+    private let factory: SystemAudioDevicesFactory
+    private let userAgent: UserAgent
+    private let settings: KeyValueSettings
+
+    public init(factory: SystemAudioDevicesFactory, userAgent: UserAgent, settings: KeyValueSettings) {
+        self.factory = factory
         self.userAgent = userAgent
         self.settings = settings
     }
@@ -42,7 +43,7 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
     }
 
     private func updateDevices() throws {
-        devices = SimpleSystemAudioDevices(devices: try repository.all())
+        devices = try factory.make()
     }
 
     private func updateDeviceMap() throws {
