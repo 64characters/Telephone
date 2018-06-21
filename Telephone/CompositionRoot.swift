@@ -49,9 +49,8 @@ final class CompositionRoot: NSObject {
         defaults = UserDefaults.standard
 
         let audioDevices = CoreAudioDevices()
-        let useCaseFactory = DefaultUseCaseFactory(
-            factory: CoreAudioSystemAudioDevicesFactory(devices: audioDevices), settings: defaults
-        )
+        let systemAudioDevicesFactory = CoreAudioSystemAudioDevicesFactory(devices: audioDevices)
+        let useCaseFactory = DefaultUseCaseFactory(factory: systemAudioDevicesFactory, settings: defaults)
 
         let soundFactory = SimpleSoundFactory(
             load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, repository: audioDevices),
@@ -109,7 +108,9 @@ final class CompositionRoot: NSObject {
         )
 
         let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, settings: defaults),
+            useCase: UserAgentSoundIOSelectionUseCase(
+                factory: systemAudioDevicesFactory, userAgent: userAgent, settings: defaults
+            ),
             agent: userAgent,
             calls: userAgent
         )
