@@ -20,7 +20,7 @@ import Domain
 import CoreAudio
 import UseCases
 
-final class CoreAudioDevices: SystemAudioDeviceRepository {
+final class CoreAudioDevices {
     func all() throws -> [SystemAudioDevice] {
         return try CoreAudioDeviceIDs().all().map(SimpleSystemAudioDevice.init)
     }
