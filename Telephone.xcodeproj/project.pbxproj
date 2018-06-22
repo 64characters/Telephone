@@ -601,7 +601,7 @@
 		AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */; };
 		AA4BD4C80E07C28E005A71B2 /* AKSIPUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4C70E07C28E005A71B2 /* AKSIPUserAgent.m */; };
 		AA4BD4D80E07C305005A71B2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4BD4D70E07C305005A71B2 /* AppController.m */; };
-		AA4C2E791BBFEEAB00C3D096 /* SystemAudioObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4C2E781BBFEEAB00C3D096 /* SystemAudioObject.swift */; };
+		AA4C2E791BBFEEAB00C3D096 /* CoreAudioObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4C2E781BBFEEAB00C3D096 /* CoreAudioObject.swift */; };
 		AA4D49071BB99DBF004D1D4B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D49061BB99DBF004D1D4B /* AudioToolbox.framework */; };
 		AA4D49091BB99DCC004D1D4B /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */; };
 		AA53434712ADBAD200B47767 /* Sound.tiff in Resources */ = {isa = PBXBuildFile; fileRef = AA53434612ADBAD200B47767 /* Sound.tiff */; };
@@ -1468,7 +1468,7 @@
 		AA4BD4D70E07C305005A71B2 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPAccount.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPAccount.m; sourceTree = "<group>"; tabWidth = 4; };
-		AA4C2E781BBFEEAB00C3D096 /* SystemAudioObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemAudioObject.swift; sourceTree = "<group>"; };
+		AA4C2E781BBFEEAB00C3D096 /* CoreAudioObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreAudioObject.swift; sourceTree = "<group>"; };
 		AA4D49061BB99DBF004D1D4B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		AA5100010F1FE302003CE94C /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2841,9 +2841,9 @@
 			children = (
 				AA3FABAD1BBC19C10064B2C3 /* CoreAudioDeviceIDs.swift */,
 				AA3FABAA1BBC183B0064B2C3 /* CoreAudioDevices.swift */,
+				AA4C2E781BBFEEAB00C3D096 /* CoreAudioObject.swift */,
 				8A62B08A20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift */,
 				AA3FABA61BBC0A0D0064B2C3 /* SystemAudioDevicesChangeEventSource.swift */,
-				AA4C2E781BBFEEAB00C3D096 /* SystemAudioObject.swift */,
 				8A779F8D1CA080F900D90391 /* UserAgentAudioDevice+PJSIP.swift */,
 				AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */,
 			);
@@ -3802,7 +3802,7 @@
 				8A778C061E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift in Sources */,
 				AA34AF481073B81500FA38F7 /* SoundPreferencesViewController.m in Sources */,
 				AA1019931C4949E600869D01 /* FoundationToUseCasesTimerAdapter.swift in Sources */,
-				AA4C2E791BBFEEAB00C3D096 /* SystemAudioObject.swift in Sources */,
+				AA4C2E791BBFEEAB00C3D096 /* CoreAudioObject.swift in Sources */,
 				AA34AF4B1073B84700FA38F7 /* NetworkPreferencesViewController.m in Sources */,
 				8AD9A0D81DDF8400000BB2F2 /* DirectoryCreatingApplicationDataLocations.swift in Sources */,
 				8AD9A0DA1DE34B83000BB2F2 /* NotifyingCallHistoryFactory.swift in Sources */,

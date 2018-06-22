@@ -19,10 +19,10 @@
 import CoreAudio
 
 final class CoreAudioDeviceIDs {
-    private var object: SystemAudioObject
+    private var object: CoreAudioObject
 
     init() {
-        object = SystemAudioObject(
+        object = CoreAudioObject(
             objectID: AudioObjectID(kAudioObjectSystemObject),
             propertyAddress: AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDevices,

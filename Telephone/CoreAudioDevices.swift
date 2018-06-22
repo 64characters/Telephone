@@ -69,13 +69,13 @@ private func propertyValue<T>(forDeviceWithID deviceID: Int, selector: AudioObje
     var length = UInt32(MemoryLayout<T>.stride)
     var result = UnsafeMutablePointer<T>.allocate(capacity: 1)
     defer { result.deallocate() }
-    let audioObject = SystemAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddress(selector: selector))
+    let audioObject = CoreAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddress(selector: selector))
     try audioObject.copyPropertyValueBytes(to: result, length: &length)
     return result.move()
 }
 
 private func channelCount(with objectID: AudioObjectID, scope: AudioObjectPropertyScope) throws -> Int {
-    var audioObject = SystemAudioObject(objectID: objectID, propertyAddress: audioBufferListAddress(scope: scope))
+    var audioObject = CoreAudioObject(objectID: objectID, propertyAddress: audioBufferListAddress(scope: scope))
     var length = try audioObject.propertyDataLength()
     let bytes = UnsafeMutablePointer<AudioBufferList>.allocate(capacity: audioBufferListCount(with: length))
     defer { bytes.deallocate() }
