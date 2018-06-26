@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-protocol SystemSoundIO {
+public protocol SystemSoundIO {
     var input: SystemAudioDevice { get }
     var output: SystemAudioDevice { get }
 }
