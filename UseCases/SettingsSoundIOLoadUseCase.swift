@@ -39,7 +39,9 @@ extension SettingsSoundIOLoadUseCase: ThrowingUseCase {
         let devices = try factory.make()
         output.update(
             devices: AudioDevices(devices: devices),
-            soundIO: PresentationSoundIO(soundIO: PreferredSoundIO(devices: devices, settings: settings))
+            soundIO: PresentationSoundIO(
+                soundIO: PreferredSoundIO(devices: devices, settings: settings, defaultIO: NullSystemSoundIO())
+            )
         )
     }
 }

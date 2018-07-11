@@ -54,7 +54,7 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
     }
 
     private func updateSoundIO() {
-        soundIO = PreferredSoundIO(devices: devices, settings: settings)
+        soundIO = PreferredSoundIO(devices: devices, settings: settings, defaultIO: NullSystemSoundIO())
     }
 
     private func selectUserAgentSoundIO() throws {

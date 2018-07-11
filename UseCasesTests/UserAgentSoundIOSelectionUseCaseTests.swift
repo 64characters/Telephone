@@ -37,11 +37,11 @@ final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
 
         XCTAssertEqual(
             agent.invokedInputDeviceID,
-            PreferredSoundIO(devices: try factory.make(), settings: settings).input.identifier
+            PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO()).input.identifier
         )
         XCTAssertEqual(
             agent.invokedOutputDeviceID,
-            PreferredSoundIO(devices: try factory.make(), settings: settings).output.identifier
+            PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO()).output.identifier
         )
     }
 }

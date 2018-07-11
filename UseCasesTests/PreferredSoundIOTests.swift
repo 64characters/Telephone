@@ -43,13 +43,30 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.input == someDevice)
     }
 
-    func testInputIsBuiltInInputWhenThereIsNoSoundInputInSettings() {
+    func testInputIsDefaultInputWhenThereIsNoSoundInputInSettings() {
+        let defaultIO = SimpleSystemSoundIO(input: factory.someInput, output: NullSystemAudioDevice())
+
+        let sut = makeSoundIO(devices: factory.all, settings: settings, defaultIO: defaultIO)
+
+        XCTAssertTrue(sut.input == defaultIO.input)
+    }
+
+    func testInputIsDefaultInputWhenSoundInputFromSettingsCanNotBeFoundInSystemDevices() {
+        settings[SettingsKeys.soundInput] = kNonexistentDeviceName
+        let defaultIO = SimpleSystemSoundIO(input: factory.someInput, output: NullSystemAudioDevice())
+
+        let sut = makeSoundIO(devices: factory.all, settings: settings, defaultIO: defaultIO)
+
+        XCTAssertTrue(sut.input == defaultIO.input)
+    }
+
+    func testInputIsBuiltInInputWhenThereIsNoSoundInputInSettingsAndThereIsNoDefaultInput() {
         let sut = makeSoundIO()
 
         XCTAssertTrue(sut.input == factory.firstBuiltInInput)
     }
 
-    func testInputIsBuiltInInputWhenSoundInputFromSettingsCanNotBeFoundInSystemDevices() {
+    func testInputIsBuiltInInputWhenSoundInputFromSettingsCanNotBeFoundInSystemDevicesAndThereIsNoDefaultInput() {
         settings[SettingsKeys.soundInput] = kNonexistentDeviceName
 
         let sut = makeSoundIO()
@@ -57,7 +74,7 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.input == factory.firstBuiltInInput)
     }
 
-    func testInputIsBuiltInInputWhenAudioDeviceMatchedByNameFromSettingsDoesNotHaveInputChannels() {
+    func testInputIsBuiltInInputWhenAudioDeviceMatchedByNameFromSettingsDoesNotHaveInputChannelsAndThereIsNoDefaultInput() {
         settings[SettingsKeys.soundInput] = factory.outputOnly.name
 
         let sut = makeSoundIO()
@@ -65,8 +82,8 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.input == factory.firstBuiltInInput)
     }
 
-    func testInputIsFirstInputWhenNotFoundInSettingsAndThereIsNoBuiltInInput() {
-        let sut = makeSoundIO(devices: [factory.firstInput, factory.someOutput])
+    func testInputIsFirstInputWhenNotFoundInSettingsAndThereIsNoDefaultInputAndThereIsNoBuiltInInput() {
+        let sut = makeSoundIO(devices: [factory.firstInput, factory.someInput, factory.someOutput])
 
         XCTAssertTrue(sut.input == factory.firstInput)
     }
@@ -82,13 +99,30 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.output == someDevice)
     }
 
-    func testOutputIsBuiltInOutputWhenThereIsNoSoundOutputInSettings() {
+    func testOutputIsDefaultOutputWhenThereIsNoSoundOutputInSettings() {
+        let defaultIO = SimpleSystemSoundIO(input: NullSystemAudioDevice(), output: factory.someOutput)
+
+        let sut = makeSoundIO(devices: factory.all, settings: settings, defaultIO: defaultIO)
+
+        XCTAssertTrue(sut.output == defaultIO.output)
+    }
+
+    func testOutputIsDefaultOutputWhenSoundOutputFromSettingsCanNotBeFoundInSystemDevices() {
+        settings[SettingsKeys.soundOutput] = kNonexistentDeviceName
+        let defaultIO = SimpleSystemSoundIO(input: NullSystemAudioDevice(), output: factory.someOutput)
+
+        let sut = makeSoundIO(devices: factory.all, settings: settings, defaultIO: defaultIO)
+
+        XCTAssertTrue(sut.output == defaultIO.output)
+    }
+
+    func testOutputIsBuiltInOutputWhenThereIsNoSoundOutputInSettingsAndThereIsNoDefaultOutput() {
         let sut = makeSoundIO()
 
         XCTAssertTrue(sut.output == factory.firstBuiltInOutput)
     }
 
-    func testOutputIsBuiltInOutputWhenSoundOutputFromSettingsCanNotBeFoundInSystemDevices() {
+    func testOutputIsBuiltInOutputWhenSoundOutputFromSettingsCanNotBeFoundInSystemDevicesAndThereIsNoDefaultOutput() {
         settings[SettingsKeys.soundOutput] = kNonexistentDeviceName
 
         let sut = makeSoundIO()
@@ -96,7 +130,7 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.output == factory.firstBuiltInOutput)
     }
 
-    func testOutputIsBuiltInOutputWhenAudioDeviceMatchedByNameFromSettingsDoesNotHaveOutputChannels() {
+    func testOutputIsBuiltInOutputWhenAudioDeviceMatchedByNameFromSettingsDoesNotHaveOutputChannelsAndThereIsNoDefaultOutput() {
         settings[SettingsKeys.soundOutput] = factory.inputOnly.name
 
         let sut = makeSoundIO()
@@ -104,8 +138,8 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.output == factory.firstBuiltInOutput)
     }
 
-    func testOutputIsFirstOutputWhenNotFoundInSettingsAndThereIsNoBuiltInOutput() {
-        let sut = makeSoundIO(devices: [factory.someInput, factory.firstOutput])
+    func testOutputIsFirstOutputWhenNotFoundInSettingsAndThereIsNoDefaultOutputAndThereIsNoBuiltInOutput() {
+        let sut = makeSoundIO(devices: [factory.someInput, factory.firstOutput, factory.someOutput])
 
         XCTAssertTrue(sut.output == factory.firstOutput)
     }
@@ -121,21 +155,38 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.ringtoneOutput == someDevice)
     }
 
-    func testRingtoneOutputIsBuiltInOutputWhenThereIsNoRingtoneOutputInSettings() {
+    func testRingtoneOutputIsDefaultOutputWhenThereIsNoRingtoneOutputInSettings() {
+        let defaultIO = SimpleSystemSoundIO(input: NullSystemAudioDevice(), output: factory.someOutput)
+
+        let sut = makeSoundIO(devices: factory.all, settings: settings, defaultIO: defaultIO)
+
+        XCTAssertTrue(sut.ringtoneOutput == defaultIO.output)
+    }
+
+    func testRingtoneOutputIsDefaultOutputWhenRingtoneOutputFromSettingsCanNotBeFoundInSystemDevices() {
+        settings[SettingsKeys.ringtoneOutput] = kNonexistentDeviceName
+        let defaultIO = SimpleSystemSoundIO(input: NullSystemAudioDevice(), output: factory.someOutput)
+
+        let sut = makeSoundIO(devices: factory.all, settings: settings, defaultIO: defaultIO)
+
+        XCTAssertTrue(sut.ringtoneOutput == defaultIO.output)
+    }
+
+    func testRingtoneOutputIsBuiltInOutputWhenThereIsNoRingtoneOutputInSettingsAndThereIsNoDefaultOutput() {
         let sut = makeSoundIO()
 
         XCTAssertTrue(sut.ringtoneOutput == factory.firstBuiltInOutput)
     }
 
-    func testRingtoneOutputIsBuiltInOutputWhenRingtoneOutputFromSettingsCanNotBeFoundInSystemDevices() {
-        let sut = makeSoundIO()
-
+    func testRingtoneOutputIsBuiltInOutputWhenRingtoneOutputFromSettingsCanNotBeFoundInSystemDevicesAndThereIsNoDefaultOutput() {
         settings[SettingsKeys.ringtoneOutput] = kNonexistentDeviceName
 
+        let sut = makeSoundIO()
+
         XCTAssertTrue(sut.ringtoneOutput == factory.firstBuiltInOutput)
     }
 
-    func testRingtoneOutputIsBuiltInOutputWhenAudioDeviceMatchedByNameFromSettingsDoesNotHaveOutputChannels() {
+    func testRingtoneOutputIsBuiltInOutputWhenAudioDeviceMatchedByNameFromSettingsDoesNotHaveOutputChannelsAndThereIsNoDefaultOutput() {
         settings[SettingsKeys.ringtoneOutput] = factory.inputOnly.name
 
         let sut = makeSoundIO()
@@ -143,20 +194,26 @@ final class PreferredSoundIOTests: XCTestCase {
         XCTAssertTrue(sut.ringtoneOutput == factory.firstBuiltInOutput)
     }
 
-    func testRingtoneOutputIsFirstOutputWhenNotFoundInSettingsAndThereIsNoBuiltInOutput() {
-        let sut = makeSoundIO(devices: [factory.someInput, factory.firstOutput])
+    func testRingtoneOutputIsFirstOutputWhenNotFoundInSettingsAndThereIsNoDefaultOutputAndThereIsNoBuiltInOutput() {
+        let sut = makeSoundIO(devices: [factory.someInput, factory.firstOutput, factory.someOutput])
 
         XCTAssertTrue(sut.ringtoneOutput == factory.firstOutput)
     }
+}
 
-    // MARK: - Helper
-
-    private func makeSoundIO() -> UseCases.PreferredSoundIO {
-        return makeSoundIO(devices: factory.all)
+private extension PreferredSoundIOTests {
+    func makeSoundIO(devices: [SystemAudioDevice], settings: KeyValueSettings, defaultIO: SystemSoundIO = NullSystemSoundIO()) -> UseCases.PreferredSoundIO {
+        return PreferredSoundIO(
+            devices: SimpleSystemAudioDevices(devices: devices), settings: settings, defaultIO: defaultIO
+        )
     }
 
-    private func makeSoundIO(devices: [SystemAudioDevice]) -> UseCases.PreferredSoundIO {
-        return PreferredSoundIO(devices: SimpleSystemAudioDevices(devices: devices), settings: settings)
+    func makeSoundIO(devices: [SystemAudioDevice]) -> UseCases.PreferredSoundIO {
+        return makeSoundIO(devices: devices, settings: settings)
+    }
+
+    func makeSoundIO() -> UseCases.PreferredSoundIO {
+        return makeSoundIO(devices: factory.all)
     }
 }
 

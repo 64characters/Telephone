@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import DomainTestDoubles
 @testable import UseCases
 import UseCasesTestDoubles
@@ -28,7 +29,7 @@ final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
         settings[SettingsKeys.ringingSound] = "any-sound"
         let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
         let sut = SettingsRingtoneSoundConfigurationLoadUseCase(settings: settings, factory: factory)
-        let soundIO = PreferredSoundIO(devices: try factory.make(), settings: settings)
+        let soundIO = PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO())
 
         let result = try sut.execute()
 

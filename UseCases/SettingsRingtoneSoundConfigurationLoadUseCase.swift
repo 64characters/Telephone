@@ -42,6 +42,6 @@ extension SettingsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationLoadU
     }
 
     private func ringtoneAudioDeviceUID() throws -> String {
-        return PreferredSoundIO(devices: try factory.make(), settings: settings).ringtoneOutput.uniqueIdentifier
+        return PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO()).ringtoneOutput.uniqueIdentifier
     }
 }

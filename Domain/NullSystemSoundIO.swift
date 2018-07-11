@@ -1,5 +1,5 @@
 //
-//  SimpleSystemSoundIO.swift
+//  NullSystemSoundIO.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-import Domain
-
-public struct SimpleSystemSoundIO: SystemSoundIO {
+public struct NullSystemSoundIO: SystemSoundIO {
     public let input: SystemAudioDevice
     public let output: SystemAudioDevice
 
-    public init(input: SystemAudioDevice, output: SystemAudioDevice) {
-        self.input = input
-        self.output = output
+    public init() {
+        input = NullSystemAudioDevice()
+        output = NullSystemAudioDevice()
     }
 }

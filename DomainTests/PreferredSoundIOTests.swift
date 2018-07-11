@@ -49,7 +49,7 @@ final class PreferredSoundIOTests: XCTestCase {
         let factory = SystemAudioDeviceTestFactory()
 
         let sut = PreferredSoundIO(
-            devices: [factory.firstInput, factory.firstOutput],
+            devices: [factory.firstInput, factory.someInput, factory.firstOutput, factory.someOutput],
             defaultIO: SimpleSystemSoundIO(input: NullSystemAudioDevice(), output: NullSystemAudioDevice())
         )
 
