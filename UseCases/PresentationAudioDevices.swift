@@ -31,8 +31,8 @@ public struct PresentationAudioDevices: Equatable {
 extension PresentationAudioDevices {
     init(devices: SystemAudioDevices) {
         self.init(
-            input: devices.input.map({ PresentationAudioDevice(device: $0) }),
-            output: devices.output.map({ PresentationAudioDevice(device: $0) })
+            input: devices.input.map(PresentationAudioDevice.init),
+            output: devices.output.map(PresentationAudioDevice.init)
         )
     }
 }
