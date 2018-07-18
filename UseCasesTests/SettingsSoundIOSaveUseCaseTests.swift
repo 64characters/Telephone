@@ -16,31 +16,37 @@
 //  GNU General Public License for more details.
 //
 
+@testable import Domain
+import DomainTestDoubles
 @testable import UseCases
 import UseCasesTestDoubles
 import XCTest
 
 final class SettingsSoundIOSaveUseCaseTests: XCTestCase {
     func testUpdatesSettings() {
-        let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
+        let factory = SystemAudioDeviceTestFactory()
+        let soundIO = SimpleSoundIO(input: factory.someInput, output: factory.firstOutput, ringtoneOutput: factory.someOutput)
         let settings = SettingsFake()
         let sut = SettingsSoundIOSaveUseCase(soundIO: soundIO, settings: settings)
 
         sut.execute()
 
-        XCTAssertEqual(settings[SettingsKeys.soundInput], soundIO.input)
-        XCTAssertEqual(settings[SettingsKeys.soundOutput], soundIO.output)
-        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], soundIO.ringtoneOutput)
+        XCTAssertEqual(settings[SettingsKeys.soundInput], soundIO.input.name)
+        XCTAssertEqual(settings[SettingsKeys.soundOutput], soundIO.output.name)
+        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], soundIO.ringtoneOutput.name)
     }
 
-    func testDoesNotUpadteSettingsWithEmptyValues() {
+    func testDoesNotUpadteSettingsWithNilValues() {
         let settings = SettingsFake()
         let anyValue = "any-value"
         settings[SettingsKeys.soundInput] = anyValue
         settings[SettingsKeys.soundOutput] = anyValue
         settings[SettingsKeys.ringtoneOutput] = anyValue
         let sut = SettingsSoundIOSaveUseCase(
-            soundIO: PresentationSoundIO(input: "", output: "", ringtoneOutput: ""), settings: settings
+            soundIO: SimpleSoundIO(
+                input: NullSystemAudioDevice(), output: NullSystemAudioDevice(), ringtoneOutput: NullSystemAudioDevice()
+            ),
+            settings: settings
         )
 
         sut.execute()

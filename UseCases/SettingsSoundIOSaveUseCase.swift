@@ -16,11 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
+
 public final class SettingsSoundIOSaveUseCase {
-    private let soundIO: PresentationSoundIO
+    private let soundIO: SoundIO
     private let settings: KeyValueSettings
 
-    public init(soundIO: PresentationSoundIO, settings: KeyValueSettings) {
+    public init(soundIO: SoundIO, settings: KeyValueSettings) {
         self.soundIO = soundIO
         self.settings = settings
     }
@@ -34,20 +36,20 @@ extension SettingsSoundIOSaveUseCase: UseCase {
     }
 
     private func saveInputIfNeeded() {
-        if !soundIO.input.isEmpty {
-            settings[SettingsKeys.soundInput] = soundIO.input
+        if !soundIO.input.isNil {
+            settings[SettingsKeys.soundInput] = soundIO.input.name
         }
     }
 
     private func saveOutputIfNeeded() {
-        if !soundIO.output.isEmpty {
-            settings[SettingsKeys.soundOutput] = soundIO.output
+        if !soundIO.output.isNil {
+            settings[SettingsKeys.soundOutput] = soundIO.output.name
         }
     }
 
     private func saveRingtoneOutputIfNeeded() {
-        if !soundIO.ringtoneOutput.isEmpty {
-            settings[SettingsKeys.ringtoneOutput] = soundIO.ringtoneOutput
+        if !soundIO.ringtoneOutput.isNil {
+            settings[SettingsKeys.ringtoneOutput] = soundIO.ringtoneOutput.name
         }
     }
 }

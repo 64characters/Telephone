@@ -16,11 +16,12 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 public final class UseCaseFactorySpy {
-    public private(set) var invokedSoundIO = PresentationSoundIO(input: "", output: "", ringtoneOutput: "")
-    public private(set) var invokedRingtoneSoundName = ""
+    public private(set) var invokedSoundIO: SoundIO?
+    public private(set) var invokedRingtoneSoundName: String?
 
     private var soundIOLoad: ThrowingUseCase!
     private var soundIOSave: UseCase!
@@ -46,7 +47,7 @@ extension UseCaseFactorySpy: UseCaseFactory {
         return soundIOLoad
     }
 
-    public func makeSettingsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
+    public func makeSettingsSoundIOSaveUseCase(soundIO: SoundIO) -> UseCase {
         invokedSoundIO = soundIO
         return soundIOSave
     }

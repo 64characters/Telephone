@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 public final class UseCaseFactoryFake {
@@ -27,7 +28,7 @@ extension UseCaseFactoryFake: UseCaseFactory {
         return ThrowingUseCaseSpy()
     }
 
-    public func makeSettingsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
+    public func makeSettingsSoundIOSaveUseCase(soundIO: SoundIO) -> UseCase {
         return UseCaseSpy()
     }
 
