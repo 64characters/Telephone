@@ -1,5 +1,5 @@
 //
-//  SettingsSoundIOLoadUseCaseOutputSpy.swift
+//  SystemAudioDevices+Equatable.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -17,18 +17,9 @@
 //
 
 import Domain
-import UseCases
 
-public final class SettingsSoundIOLoadUseCaseOutputSpy {
-    public private(set) var invokedDevices: SystemAudioDevices?
-    public private(set) var invokedSoundIO: PresentationSoundIO?
-
-    public init() {}
-}
-
-extension SettingsSoundIOLoadUseCaseOutputSpy: SettingsSoundIOLoadUseCaseOutput {
-    public func update(devices: SystemAudioDevices, soundIO: PresentationSoundIO) {
-        self.invokedDevices = devices
-        self.invokedSoundIO = soundIO
+extension SystemAudioDevices: Equatable {
+    public static func ==(lhs: SystemAudioDevices, rhs: SystemAudioDevices) -> Bool {
+        return lhs.all == rhs.all && lhs.input == rhs.input && lhs.output == rhs.output
     }
 }
