@@ -31,10 +31,9 @@ final class SettingsSoundIOLoadUseCaseTests: XCTestCase {
         try sut.execute()
 
         XCTAssertEqual(output.invokedDevices, try factory.make())
-        XCTAssertEqual(
-            output.invokedSoundIO,
-            PresentationSoundIO(soundIO: PreferredSoundIO(
-                devices: try factory.make(), settings: SettingsFake(), defaultIO: NullSystemSoundIO())
+        XCTAssertTrue(
+            output.invokedSoundIO! == PreferredSoundIO(
+                devices: try factory.make(), settings: SettingsFake(), defaultIO: NullSystemSoundIO()
             )
         )
     }

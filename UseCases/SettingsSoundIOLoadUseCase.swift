@@ -19,7 +19,7 @@
 import Domain
 
 public protocol SettingsSoundIOLoadUseCaseOutput: class {
-    func update(devices: SystemAudioDevices, soundIO: PresentationSoundIO)
+    func update(devices: SystemAudioDevices, soundIO: SoundIO)
 }
 
 public final class SettingsSoundIOLoadUseCase {
@@ -39,9 +39,7 @@ extension SettingsSoundIOLoadUseCase: ThrowingUseCase {
         let devices = try factory.make()
         output.update(
             devices: devices,
-            soundIO: PresentationSoundIO(
-                soundIO: PreferredSoundIO(devices: devices, settings: settings, defaultIO: NullSystemSoundIO())
-            )
+            soundIO: PreferredSoundIO(devices: devices, settings: settings, defaultIO: NullSystemSoundIO())
         )
     }
 }
