@@ -23,7 +23,7 @@ import UseCasesTestDoubles
 import XCTest
 
 final class SettingsSoundIOLoadUseCaseTests: XCTestCase {
-    func testCallsOutputWithAllAudioDevicesAndPreferredSoundIO() throws {
+    func testCallsOutputWithPreferredSoundIOAndAllAudioDevices() throws {
         let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
         let output = SettingsSoundIOLoadUseCaseOutputSpy()
         let sut = SettingsSoundIOLoadUseCase(factory: factory, settings: SettingsFake(), output: output)

@@ -20,15 +20,15 @@ import Domain
 import UseCases
 
 public final class SettingsSoundIOLoadUseCaseOutputSpy {
-    public private(set) var invokedDevices: SystemAudioDevices?
     public private(set) var invokedSoundIO: SoundIO?
+    public private(set) var invokedDevices: SystemAudioDevices?
 
     public init() {}
 }
 
 extension SettingsSoundIOLoadUseCaseOutputSpy: SettingsSoundIOLoadUseCaseOutput {
-    public func update(devices: SystemAudioDevices, soundIO: SoundIO) {
-        self.invokedDevices = devices
+    public func update(soundIO: SoundIO, devices: SystemAudioDevices) {
         self.invokedSoundIO = soundIO
+        self.invokedDevices = devices
     }
 }
