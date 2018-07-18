@@ -204,7 +204,7 @@ final class PreferredSoundIOTests: XCTestCase {
 private extension PreferredSoundIOTests {
     func makeSoundIO(devices: [SystemAudioDevice], settings: KeyValueSettings, defaultIO: SystemSoundIO = NullSystemSoundIO()) -> UseCases.PreferredSoundIO {
         return PreferredSoundIO(
-            devices: SimpleSystemAudioDevices(devices: devices), settings: settings, defaultIO: defaultIO
+            devices: SystemAudioDevices(devices: devices), settings: settings, defaultIO: defaultIO
         )
     }
 

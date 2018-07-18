@@ -30,6 +30,6 @@ public final class SystemAudioDevicesTestFactory {
 
 extension SystemAudioDevicesTestFactory: SystemAudioDevicesFactory {
     public func make() throws -> SystemAudioDevices {
-        return SimpleSystemAudioDevices(devices: factory.all)
+        return SystemAudioDevices(devices: factory.all)
     }
 }
