@@ -639,10 +639,10 @@
 		AA7F6D471C0381C00064DA3A /* SettingsSoundIOLoadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D461C0381C00064DA3A /* SettingsSoundIOLoadUseCase.swift */; };
 		AA7F6D491C0382550064DA3A /* SettingsSoundIOLoadUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D481C0382550064DA3A /* SettingsSoundIOLoadUseCaseOutputSpy.swift */; };
 		AA7F6D4B1C0387160064DA3A /* PresentationSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D4A1C0387160064DA3A /* PresentationSoundIO.swift */; };
-		AA7F6D4D1C0387B70064DA3A /* AudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D4C1C0387B70064DA3A /* AudioDevice.swift */; };
+		AA7F6D4D1C0387B70064DA3A /* PresentationAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F6D4C1C0387B70064DA3A /* PresentationAudioDevice.swift */; };
 		AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */; };
 		AA8A5D2C0E91262500DB43C8 /* AKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */; };
-		AA8BA7F61C04D843008839F2 /* AudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA7F51C04D843008839F2 /* AudioDevices.swift */; };
+		AA8BA7F61C04D843008839F2 /* PresentationAudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA7F51C04D843008839F2 /* PresentationAudioDevices.swift */; };
 		AA92F8A41C2B02E700C378B6 /* Ringtone.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92F8A31C2B02E700C378B6 /* Ringtone.swift */; };
 		AA97B47610D3A2CA00FC65DA /* CallTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA97B47510D3A2CA00FC65DA /* CallTransferController.m */; };
 		AA9D081A1BFF7F700000F618 /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9D08051BFF7E6F0000F618 /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1498,12 +1498,12 @@
 		AA7F6D461C0381C00064DA3A /* SettingsSoundIOLoadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSoundIOLoadUseCase.swift; sourceTree = "<group>"; };
 		AA7F6D481C0382550064DA3A /* SettingsSoundIOLoadUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSoundIOLoadUseCaseOutputSpy.swift; sourceTree = "<group>"; };
 		AA7F6D4A1C0387160064DA3A /* PresentationSoundIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationSoundIO.swift; sourceTree = "<group>"; };
-		AA7F6D4C1C0387B70064DA3A /* AudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
+		AA7F6D4C1C0387B70064DA3A /* PresentationAudioDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationAudioDevice.swift; sourceTree = "<group>"; };
 		AA86C85F10FF928D00EF4E8A /* ActiveCallTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ActiveCallTransferViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA86C86010FF928D00EF4E8A /* ActiveCallTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveCallTransferViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AA8A5D2A0E91262500DB43C8 /* AKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKKeychain.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA8A5D2B0E91262500DB43C8 /* AKKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKKeychain.m; sourceTree = "<group>"; tabWidth = 4; };
-		AA8BA7F51C04D843008839F2 /* AudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDevices.swift; sourceTree = "<group>"; };
+		AA8BA7F51C04D843008839F2 /* PresentationAudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationAudioDevices.swift; sourceTree = "<group>"; };
 		AA92F8A31C2B02E700C378B6 /* Ringtone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ringtone.swift; sourceTree = "<group>"; };
 		AA97B47410D3A2CA00FC65DA /* CallTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = CallTransferController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA97B47510D3A2CA00FC65DA /* CallTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = CallTransferController.m; sourceTree = "<group>"; tabWidth = 4; };
@@ -2768,11 +2768,11 @@
 		AA39055F1C007799005A8AA3 /* Audio Devices */ = {
 			isa = PBXGroup;
 			children = (
-				AA7F6D4C1C0387B70064DA3A /* AudioDevice.swift */,
-				AA8BA7F51C04D843008839F2 /* AudioDevices.swift */,
 				AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */,
 				AA32F7EF1BC4400900FAC228 /* PreferredSoundIO.swift */,
 				AA32F7ED1BC43FB100FAC228 /* PreferredSoundIOTests.swift */,
+				AA7F6D4C1C0387B70064DA3A /* PresentationAudioDevice.swift */,
+				AA8BA7F51C04D843008839F2 /* PresentationAudioDevices.swift */,
 				AA7F6D4A1C0387160064DA3A /* PresentationSoundIO.swift */,
 				8AAACA141CAEC555001930C4 /* SettingsSoundIO.swift */,
 				AA7F6D461C0381C00064DA3A /* SettingsSoundIOLoadUseCase.swift */,
@@ -3962,12 +3962,12 @@
 				8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */,
 				8A9084A61EC6108D002B273A /* ContactMatchingSettings.swift in Sources */,
 				AA39054A1BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift in Sources */,
-				AA8BA7F61C04D843008839F2 /* AudioDevices.swift in Sources */,
+				AA8BA7F61C04D843008839F2 /* PresentationAudioDevices.swift in Sources */,
 				8AA31F041C987B4700ABC4FB /* SoundPlaybackUseCase.swift in Sources */,
 				8AAEC4851F31C4A4007E453B /* ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput.swift in Sources */,
 				AAC4FF611C01D0070060B186 /* UserAgent.swift in Sources */,
 				AA39052E1BFFDDDA005A8AA3 /* ThrowingUseCase.swift in Sources */,
-				AA7F6D4D1C0387B70064DA3A /* AudioDevice.swift in Sources */,
+				AA7F6D4D1C0387B70064DA3A /* PresentationAudioDevice.swift in Sources */,
 				8A125F881F59B9B100148C99 /* CallHistoryRecordGetAllUseCaseOutput.swift in Sources */,
 				8AAFE6231EE1C85C00BACC62 /* EnqueuingUseCase.swift in Sources */,
 				8A7292271EDDD6F600338592 /* ContactCallHistoryRecordGetAllUseCaseOutput.swift in Sources */,

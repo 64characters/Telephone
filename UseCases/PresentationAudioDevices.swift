@@ -1,5 +1,5 @@
 //
-//  AudioDevices.swift
+//  PresentationAudioDevices.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,21 +18,21 @@
 
 import Domain
 
-public struct AudioDevices: Equatable {
-    public let input: [AudioDevice]
-    public let output: [AudioDevice]
+public struct PresentationAudioDevices: Equatable {
+    public let input: [PresentationAudioDevice]
+    public let output: [PresentationAudioDevice]
 
-    public init(input: [AudioDevice], output: [AudioDevice]) {
+    public init(input: [PresentationAudioDevice], output: [PresentationAudioDevice]) {
         self.input = input
         self.output = output
     }
 }
 
-extension AudioDevices {
+extension PresentationAudioDevices {
     init(devices: SystemAudioDevices) {
         self.init(
-            input: devices.input.map({ AudioDevice(device: $0) }),
-            output: devices.output.map({ AudioDevice(device: $0) })
+            input: devices.input.map({ PresentationAudioDevice(device: $0) }),
+            output: devices.output.map({ PresentationAudioDevice(device: $0) })
         )
     }
 }

@@ -19,11 +19,11 @@
 import Domain
 
 public struct PresentationSoundIO: Equatable {
-    public let input: AudioDevice
-    public let output: AudioDevice
-    public let ringtoneOutput: AudioDevice
+    public let input: PresentationAudioDevice
+    public let output: PresentationAudioDevice
+    public let ringtoneOutput: PresentationAudioDevice
 
-    public init(input: AudioDevice, output: AudioDevice, ringtoneOutput: AudioDevice) {
+    public init(input: PresentationAudioDevice, output: PresentationAudioDevice, ringtoneOutput: PresentationAudioDevice) {
         self.input = input
         self.output = output
         self.ringtoneOutput = ringtoneOutput
@@ -33,9 +33,9 @@ public struct PresentationSoundIO: Equatable {
 extension PresentationSoundIO {
     init(soundIO: SoundIO) {
         self.init(
-            input: AudioDevice(device: soundIO.input),
-            output: AudioDevice(device: soundIO.output),
-            ringtoneOutput: AudioDevice(device: soundIO.ringtoneOutput)
+            input: PresentationAudioDevice(device: soundIO.input),
+            output: PresentationAudioDevice(device: soundIO.output),
+            ringtoneOutput: PresentationAudioDevice(device: soundIO.ringtoneOutput)
         )
     }
 }

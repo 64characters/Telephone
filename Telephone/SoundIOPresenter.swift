@@ -27,7 +27,7 @@ final class SoundIOPresenter {
 }
 
 extension SoundIOPresenter: SettingsSoundIOLoadUseCaseOutput {
-    func update(devices: AudioDevices, soundIO: PresentationSoundIO) {
+    func update(devices: PresentationAudioDevices, soundIO: PresentationSoundIO) {
         output.setInputDevices(devices.input)
         output.setOutputDevices(devices.output)
         output.setRingtoneDevices(devices.output)

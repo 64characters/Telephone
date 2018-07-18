@@ -1,5 +1,5 @@
 //
-//  AudioDevice.swift
+//  PresentationAudioDevice.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,9 +18,9 @@
 
 import Domain
 
-public typealias AudioDevice = String
+public typealias PresentationAudioDevice = String
 
-extension AudioDevice {
+extension PresentationAudioDevice {
     init(device: SystemAudioDevice) {
         self = device.name
     }

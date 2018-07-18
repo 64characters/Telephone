@@ -25,7 +25,7 @@ final class SoundIOPresenterTests: XCTestCase {
         let sut = SoundIOPresenter(output: output)
         let inputDevices = ["input1", "input2"]
         let outputDevices = ["output1", "output2"]
-        let devices = AudioDevices(input: inputDevices, output: outputDevices)
+        let devices = PresentationAudioDevices(input: inputDevices, output: outputDevices)
         let soundIO = PresentationSoundIO(input: "input2", output: "output2", ringtoneOutput: "output1")
 
         sut.update(devices: devices, soundIO: soundIO)
