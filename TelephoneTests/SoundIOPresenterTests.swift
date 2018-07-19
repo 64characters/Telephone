@@ -16,25 +16,28 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
+import DomainTestDoubles
 import UseCases
 import XCTest
 
 final class SoundIOPresenterTests: XCTestCase {
-    func testUpdatesViewWithExpectedData() {
+    func testUpdatesOutputWithPresentationSoundIOAndAudioDevices() {
         let output = SoundPreferencesViewSpy()
         let sut = SoundIOPresenter(output: output)
-        let inputDevices = ["input1", "input2"]
-        let outputDevices = ["output1", "output2"]
-        let devices = PresentationAudioDevices(input: inputDevices, output: outputDevices)
-        let soundIO = PresentationSoundIO(input: "input2", output: "output2", ringtoneOutput: "output1")
+        let factory = SystemAudioDeviceTestFactory()
+        let soundIO = SimpleSoundIO(input: factory.someInput, output: factory.firstOutput, ringtoneOutput: factory.someOutput)
+        let devices = SystemAudioDevices(devices: factory.all)
+        let presentationIO = PresentationSoundIO(soundIO: soundIO)
+        let presentationDevices = PresentationAudioDevices(devices: devices)
 
-        sut.update(devices: devices, soundIO: soundIO)
+        sut.update(soundIO: soundIO, devices: devices)
 
-        XCTAssertEqual(output.invokedInputDevices, inputDevices)
-        XCTAssertEqual(output.invokedOutputDevices, outputDevices)
-        XCTAssertEqual(output.invokedRingtoneDevices, outputDevices)
-        XCTAssertEqual(output.invokedInputDevice, "input2")
-        XCTAssertEqual(output.invokedOutputDevice, "output2")
-        XCTAssertEqual(output.invokedRingtoneDevice, "output1")
+        XCTAssertEqual(output.invokedInputDevice, presentationIO.input)
+        XCTAssertEqual(output.invokedOutputDevice,  presentationIO.output)
+        XCTAssertEqual(output.invokedRingtoneDevice, presentationIO.ringtoneOutput)
+        XCTAssertEqual(output.invokedInputDevices, presentationDevices.input)
+        XCTAssertEqual(output.invokedOutputDevices, presentationDevices.output)
+        XCTAssertEqual(output.invokedRingtoneDevices, presentationDevices.output)
     }
 }

@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 final class SoundIOPresenter {
@@ -27,7 +28,13 @@ final class SoundIOPresenter {
 }
 
 extension SoundIOPresenter: SettingsSoundIOLoadUseCaseOutput {
-    func update(devices: PresentationAudioDevices, soundIO: PresentationSoundIO) {
+    func update(soundIO: SoundIO, devices: SystemAudioDevices) {
+        updateOutput(
+            soundIO: PresentationSoundIO(soundIO: soundIO), devices: PresentationAudioDevices(devices: devices)
+        )
+    }
+
+    private func updateOutput(soundIO: PresentationSoundIO, devices: PresentationAudioDevices) {
         output.setInputDevices(devices.input)
         output.setOutputDevices(devices.output)
         output.setRingtoneDevices(devices.output)

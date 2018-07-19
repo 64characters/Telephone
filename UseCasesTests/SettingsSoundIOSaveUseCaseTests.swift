@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-@testable import Domain
+import Domain
 import DomainTestDoubles
 @testable import UseCases
 import UseCasesTestDoubles
