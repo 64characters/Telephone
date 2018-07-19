@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 final class DefaultUseCaseFactory {
@@ -33,8 +34,10 @@ extension DefaultUseCaseFactory: UseCaseFactory {
         return SettingsSoundIOLoadUseCase(factory: factory, settings: settings, output: output)
     }
 
-    func makeSettingsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase {
-        return SettingsSoundIOSaveUseCase(soundIO: soundIO, settings: settings)
+    func makeSettingsSoundIOSaveUseCase(inputName: String, outputName: String, ringtoneOutputName: String) -> UseCase {
+        return SettingsSoundIOSaveUseCase(
+            inputName: inputName, outputName: outputName, ringtoneOutputName: ringtoneOutputName, settings: settings
+        )
     }
 
     func makeSettingsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {

@@ -28,7 +28,7 @@ extension UseCaseFactoryFake: UseCaseFactory {
         return ThrowingUseCaseSpy()
     }
 
-    public func makeSettingsSoundIOSaveUseCase(soundIO: SoundIO) -> UseCase {
+    public func makeSettingsSoundIOSaveUseCase(inputName: String, outputName: String, ringtoneOutputName: String) -> UseCase {
         return UseCaseSpy()
     }
 

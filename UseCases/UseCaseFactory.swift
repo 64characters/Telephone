@@ -20,6 +20,6 @@ import Domain
 
 public protocol UseCaseFactory {
     func makeSettingsSoundIOLoadUseCase(output: SettingsSoundIOLoadUseCaseOutput) -> ThrowingUseCase
-    func makeSettingsSoundIOSaveUseCase(soundIO: SoundIO) -> UseCase
+    func makeSettingsSoundIOSaveUseCase(inputName: String, outputName: String, ringtoneOutputName: String) -> UseCase
     func makeSettingsRingtoneSoundNameSaveUseCase(name: String) -> UseCase
 }

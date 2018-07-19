@@ -62,13 +62,15 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     func testExecutesSettingsSoundIOSaveUseCaseWithExpectedArgumentsOnSoundIOChange() {
         let useCase = UseCaseSpy()
         factory.stub(withSettingsSoundIOSave: useCase)
-        let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
+        let input = "any-input"
+        let output = "any-output"
+        let ringtoneOutput = "other-output"
 
-        sut.didChangeSoundIO(
-            input: soundIO.input, output: soundIO.output, ringtoneOutput: soundIO.ringtoneOutput
-        )
+        sut.didChangeSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
 
-        XCTAssertEqual(factory.invokedSoundIO, soundIO)
+        XCTAssertEqual(factory.invokedInputName, input)
+        XCTAssertEqual(factory.invokedOutputName, output)
+        XCTAssertEqual(factory.invokedRingtoneOutputName, ringtoneOutput)
         XCTAssertTrue(useCase.didCallExecute)
     }
 
