@@ -19,11 +19,15 @@
 import Domain
 
 public final class SettingsSoundIOSaveUseCase {
-    private let soundIO: SoundIO
+    private let inputName: String
+    private let outputName: String
+    private let ringtoneOutputName: String
     private let settings: KeyValueSettings
 
-    public init(soundIO: SoundIO, settings: KeyValueSettings) {
-        self.soundIO = soundIO
+    public init(inputName: String, outputName: String, ringtoneOutputName: String, settings: KeyValueSettings) {
+        self.inputName = inputName
+        self.outputName = outputName
+        self.ringtoneOutputName = ringtoneOutputName
         self.settings = settings
     }
 }
@@ -36,20 +40,20 @@ extension SettingsSoundIOSaveUseCase: UseCase {
     }
 
     private func saveInputIfNeeded() {
-        if !soundIO.input.isNil {
-            settings[SettingsKeys.soundInput] = soundIO.input.name
+        if !inputName.isEmpty {
+            settings[SettingsKeys.soundInput] = inputName
         }
     }
 
     private func saveOutputIfNeeded() {
-        if !soundIO.output.isNil {
-            settings[SettingsKeys.soundOutput] = soundIO.output.name
+        if !outputName.isEmpty {
+            settings[SettingsKeys.soundOutput] = outputName
         }
     }
 
     private func saveRingtoneOutputIfNeeded() {
-        if !soundIO.ringtoneOutput.isNil {
-            settings[SettingsKeys.ringtoneOutput] = soundIO.ringtoneOutput.name
+        if !ringtoneOutputName.isEmpty {
+            settings[SettingsKeys.ringtoneOutput] = ringtoneOutputName
         }
     }
 }

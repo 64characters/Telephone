@@ -23,31 +23,30 @@ import UseCasesTestDoubles
 import XCTest
 
 final class SettingsSoundIOSaveUseCaseTests: XCTestCase {
-    func testUpdatesSettings() {
+    func testUpdatesSettingsWithDeviceNames() {
         let factory = SystemAudioDeviceTestFactory()
-        let soundIO = SimpleSoundIO(input: factory.someInput, output: factory.firstOutput, ringtoneOutput: factory.someOutput)
+        let inputName = factory.someInput.name
+        let outputName = factory.firstOutput.name
+        let ringtoneOutputName = factory.someOutput.name
         let settings = SettingsFake()
-        let sut = SettingsSoundIOSaveUseCase(soundIO: soundIO, settings: settings)
+        let sut = SettingsSoundIOSaveUseCase(
+            inputName: inputName, outputName: outputName, ringtoneOutputName: ringtoneOutputName, settings: settings
+        )
 
         sut.execute()
 
-        XCTAssertEqual(settings[SettingsKeys.soundInput], soundIO.input.name)
-        XCTAssertEqual(settings[SettingsKeys.soundOutput], soundIO.output.name)
-        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], soundIO.ringtoneOutput.name)
+        XCTAssertEqual(settings[SettingsKeys.soundInput], inputName)
+        XCTAssertEqual(settings[SettingsKeys.soundOutput], outputName)
+        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], ringtoneOutputName)
     }
 
-    func testDoesNotUpadteSettingsWithNilValues() {
+    func testDoesNotUpadteSettingsWithEmptyDeviceNames() {
         let settings = SettingsFake()
         let anyValue = "any-value"
         settings[SettingsKeys.soundInput] = anyValue
         settings[SettingsKeys.soundOutput] = anyValue
         settings[SettingsKeys.ringtoneOutput] = anyValue
-        let sut = SettingsSoundIOSaveUseCase(
-            soundIO: SimpleSoundIO(
-                input: NullSystemAudioDevice(), output: NullSystemAudioDevice(), ringtoneOutput: NullSystemAudioDevice()
-            ),
-            settings: settings
-        )
+        let sut = SettingsSoundIOSaveUseCase(inputName: "", outputName: "", ringtoneOutputName: "", settings: settings)
 
         sut.execute()
 
