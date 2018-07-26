@@ -1,5 +1,5 @@
 //
-//  NullSystemSoundIO.swift
+//  SystemDefaultSoundIO.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,25 @@
 //  GNU General Public License for more details.
 //
 
-public struct NullSystemSoundIO: SystemSoundIO {
-    public let input: SystemAudioDevice = NullSystemAudioDevice()
-    public let output: SystemAudioDevice = NullSystemAudioDevice()
+import Domain
 
-    public init() {}
+public struct SystemDefaultSoundIO {
+    public let input: Item
+    public let output: Item
+    public let ringtoneOutput: Item
+
+    public init(_ soundIO: SoundIO) {
+        input = Item(soundIO.input)
+        output = Item(soundIO.output)
+        ringtoneOutput = Item(soundIO.ringtoneOutput)
+    }
+
+    public enum Item {
+        case systemDefault
+        case device(SystemAudioDevice)
+
+        init(_ device: SystemAudioDevice) {
+            self = device.isNil ? .systemDefault : .device(device)
+        }
+    }
 }

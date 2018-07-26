@@ -1,5 +1,5 @@
 //
-//  NullSystemSoundIO.swift
+//  DefaultSettingsSoundIOSoundIOItem+Equatable.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-public struct NullSystemSoundIO: SystemSoundIO {
-    public let input: SystemAudioDevice = NullSystemAudioDevice()
-    public let output: SystemAudioDevice = NullSystemAudioDevice()
+import DomainTestDoubles
+import UseCases
 
-    public init() {}
+extension SystemDefaultSoundIO.Item: Equatable {
+    public static func ==(lhs: SystemDefaultSoundIO.Item, rhs: SystemDefaultSoundIO.Item) -> Bool {
+        switch (lhs, rhs) {
+        case (.systemDefault, .systemDefault):
+            return true
+        case let (.device(l), .device(r)):
+            return l == r
+        case (.systemDefault, _),
+             (.device, _):
+            return false
+        }
+    }
 }

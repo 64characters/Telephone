@@ -35,10 +35,7 @@ final class PreferredSoundIOTests: XCTestCase {
     func testFallsBackToFirstBuiltInDevicesAfterDefaultIO() {
         let factory = SystemAudioDeviceTestFactory()
 
-        let sut = PreferredSoundIO(
-            devices: factory.all,
-            defaultIO: SimpleSystemSoundIO(input: NullSystemAudioDevice(), output: NullSystemAudioDevice())
-        )
+        let sut = PreferredSoundIO(devices: factory.all, defaultIO: NullSystemSoundIO())
 
         XCTAssertTrue(sut.input == factory.firstBuiltInInput)
         XCTAssertTrue(sut.output == factory.firstBuiltInOutput)
@@ -50,7 +47,7 @@ final class PreferredSoundIOTests: XCTestCase {
 
         let sut = PreferredSoundIO(
             devices: [factory.firstInput, factory.someInput, factory.firstOutput, factory.someOutput],
-            defaultIO: SimpleSystemSoundIO(input: NullSystemAudioDevice(), output: NullSystemAudioDevice())
+            defaultIO: NullSystemSoundIO()
         )
 
         XCTAssertTrue(sut.input == factory.firstInput)

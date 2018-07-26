@@ -1,5 +1,5 @@
 //
-//  NullSystemSoundIO.swift
+//  NullSoundIO.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-public struct NullSystemSoundIO: SystemSoundIO {
+import Domain
+
+public struct NullSoundIO: SoundIO {
     public let input: SystemAudioDevice = NullSystemAudioDevice()
     public let output: SystemAudioDevice = NullSystemAudioDevice()
+    public let ringtoneOutput: SystemAudioDevice = NullSystemAudioDevice()
 
     public init() {}
 }
