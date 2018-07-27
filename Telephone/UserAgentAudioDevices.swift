@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 struct UserAgentAudioDevices {
@@ -46,7 +47,7 @@ private func devices(with bytes: UnsafeMutablePointer<pjmedia_aud_dev_info>, cou
 }
 
 private func devices(with pointer: UnsafeBufferPointer<pjmedia_aud_dev_info>) -> [UserAgentAudioDevice] {
-    return pointer.enumerated().map { UserAgentAudioDevice(device: $0.element, identifier: $0.offset) }
+    return pointer.enumerated().map { SimpleUserAgentAudioDevice(device: $0.element, identifier: $0.offset) }
 }
 
 private let bufferSize = 32

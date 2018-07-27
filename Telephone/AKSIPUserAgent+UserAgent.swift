@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 extension AKSIPUserAgent: UserAgent {

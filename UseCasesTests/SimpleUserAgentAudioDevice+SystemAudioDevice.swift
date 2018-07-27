@@ -17,10 +17,9 @@
 //
 
 import Domain
-import UseCases
 
-extension UseCases.UserAgentAudioDevice {
-    convenience init(device: SystemAudioDevice) {
+extension SimpleUserAgentAudioDevice {
+    init(device: SystemAudioDevice) {
         self.init(
             identifier: device.identifier,
             name: device.name,

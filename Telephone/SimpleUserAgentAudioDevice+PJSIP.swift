@@ -16,10 +16,11 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
-extension UserAgentAudioDevice {
-    convenience init(device: pjmedia_aud_dev_info, identifier: Int) {
+extension SimpleUserAgentAudioDevice {
+    init(device: pjmedia_aud_dev_info, identifier: Int) {
         self.init(
             identifier: identifier,
             name: nameOf(device),
