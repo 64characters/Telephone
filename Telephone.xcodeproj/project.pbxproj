@@ -27,7 +27,7 @@
 		8A01163920D2E99B00DA68A5 /* SystemAudioDevicesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01163820D2E99B00DA68A5 /* SystemAudioDevicesFactory.swift */; };
 		8A042ADE2109F9AF00306472 /* SystemDefaultSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A042ADD2109F9AF00306472 /* SystemDefaultSoundIOTests.swift */; };
 		8A042AE02109FA2C00306472 /* SystemDefaultSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A042ADF2109FA2C00306472 /* SystemDefaultSoundIO.swift */; };
-		8A042AE2210A1FF800306472 /* SystemDefaultSoundIOItem+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A042AE1210A1FF800306472 /* SystemDefaultSoundIOItem+Equatable.swift */; };
+		8A042AE2210A1FF800306472 /* SystemDefaultSoundIO+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A042AE1210A1FF800306472 /* SystemDefaultSoundIO+Equatable.swift */; };
 		8A042AE6210A26B600306472 /* NullSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A042AE5210A26B600306472 /* NullSoundIO.swift */; };
 		8A0451E61C93308000A08012 /* SoundPlaybackUseCaseSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0451E51C93308000A08012 /* SoundPlaybackUseCaseSpy.swift */; };
 		8A09E0F81E79A2560027A25E /* ReversedCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A09E0F71E79A2560027A25E /* ReversedCallHistoryTests.swift */; };
@@ -843,7 +843,7 @@
 		8A01912B1DAC472C00B35A8E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Account.strings; sourceTree = "<group>"; };
 		8A042ADD2109F9AF00306472 /* SystemDefaultSoundIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemDefaultSoundIOTests.swift; path = UseCasesTests/SystemDefaultSoundIOTests.swift; sourceTree = SOURCE_ROOT; };
 		8A042ADF2109FA2C00306472 /* SystemDefaultSoundIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDefaultSoundIO.swift; sourceTree = "<group>"; };
-		8A042AE1210A1FF800306472 /* SystemDefaultSoundIOItem+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SystemDefaultSoundIOItem+Equatable.swift"; sourceTree = "<group>"; };
+		8A042AE1210A1FF800306472 /* SystemDefaultSoundIO+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SystemDefaultSoundIO+Equatable.swift"; sourceTree = "<group>"; };
 		8A042AE5210A26B600306472 /* NullSoundIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullSoundIO.swift; sourceTree = "<group>"; };
 		8A0451E51C93308000A08012 /* SoundPlaybackUseCaseSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlaybackUseCaseSpy.swift; sourceTree = "<group>"; };
 		8A073BA11DAC445700301E58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Account.strings; sourceTree = "<group>"; };
@@ -3032,7 +3032,7 @@
 				8ADD6A5E1CDCFFC4001EDBBA /* StoreUseCaseFactorySpy.swift */,
 				AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */,
 				8AA270D720D8236C00C703CD /* SystemAudioDevicesTestFactory.swift */,
-				8A042AE1210A1FF800306472 /* SystemDefaultSoundIOItem+Equatable.swift */,
+				8A042AE1210A1FF800306472 /* SystemDefaultSoundIO+Equatable.swift */,
 				AA277A5C1BD3F63B0030ECE4 /* ThrowingUseCaseSpy.swift */,
 				AA3B6E8E1C47C3C00030D410 /* TimerFactorySpy.swift */,
 				AA3B6E901C47C6590030D410 /* TimerSpy.swift */,
@@ -4324,7 +4324,7 @@
 				8ACD2ADA1DD1FAAF00E81984 /* CallHistoryEventTargetSpy.swift in Sources */,
 				8A9084A41EC6101A002B273A /* ContactMatchingSettingsFake.swift in Sources */,
 				AA3B6E911C47C6590030D410 /* TimerSpy.swift in Sources */,
-				8A042AE2210A1FF800306472 /* SystemDefaultSoundIOItem+Equatable.swift in Sources */,
+				8A042AE2210A1FF800306472 /* SystemDefaultSoundIO+Equatable.swift in Sources */,
 				8A9513F01D2A77AD0034DF2C /* InvalidReceipt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

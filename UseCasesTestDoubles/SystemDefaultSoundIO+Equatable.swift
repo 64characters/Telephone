@@ -19,6 +19,12 @@
 import DomainTestDoubles
 import UseCases
 
+extension SystemDefaultSoundIO: Equatable {
+    public static func == (lhs: SystemDefaultSoundIO, rhs: SystemDefaultSoundIO) -> Bool {
+        return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
+    }
+}
+
 extension SystemDefaultSoundIO.Item: Equatable {
     public static func ==(lhs: SystemDefaultSoundIO.Item, rhs: SystemDefaultSoundIO.Item) -> Bool {
         switch (lhs, rhs) {
