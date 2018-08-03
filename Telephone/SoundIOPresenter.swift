@@ -34,7 +34,8 @@ extension SoundIOPresenter: SettingsSoundIOLoadUseCaseOutput {
             soundIO: PresentationSoundIO(soundIO: soundIO, systemDefaultDeviceName: systemDefaultDeviceName),
             devices: PresentationAudioDevices(
                 input: [systemDefault] + devices.input.map(PresentationAudioDevice.init),
-                output: [systemDefault] + devices.output.map(PresentationAudioDevice.init))
+                output: [systemDefault] + devices.output.map(PresentationAudioDevice.init)
+            )
         )
     }
 }
