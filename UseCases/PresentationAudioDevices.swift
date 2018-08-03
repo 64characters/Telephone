@@ -20,8 +20,9 @@ import Domain
 import Foundation
 
 final class PresentationAudioDevices: NSObject {
-    let input: [PresentationAudioDevice]
-    let output: [PresentationAudioDevice]
+    @objc let input: [PresentationAudioDevice]
+    @objc let output: [PresentationAudioDevice]
+    @objc var ringtoneOutput: [PresentationAudioDevice] { return output }
 
     init(input: [PresentationAudioDevice], output: [PresentationAudioDevice]) {
         self.input = input

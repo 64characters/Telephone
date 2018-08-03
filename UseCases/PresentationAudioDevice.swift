@@ -20,8 +20,8 @@ import Domain
 import Foundation
 
 final class PresentationAudioDevice: NSObject {
-    var isSystemDefault: Bool
-    var name: String
+    @objc var isSystemDefault: Bool
+    @objc var name: String
 
     init(isSystemDefault: Bool, name: String) {
         self.isSystemDefault = isSystemDefault
