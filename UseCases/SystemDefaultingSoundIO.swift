@@ -1,5 +1,5 @@
 //
-//  SystemDefaultSoundIO.swift
+//  SystemDefaultingSoundIO.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import Domain
 
-public struct SystemDefaultSoundIO {
+public struct SystemDefaultingSoundIO {
     public let input: Item
     public let output: Item
     public let ringtoneOutput: Item

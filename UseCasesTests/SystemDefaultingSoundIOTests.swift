@@ -22,14 +22,14 @@ import DomainTestDoubles
 import UseCasesTestDoubles
 import XCTest
 
-final class SystemDefaultSoundIOTests: XCTestCase {
+final class SystemDefaultingSoundIOTests: XCTestCase {
     func testSoundIOIsDevicesWhenDevicesAreNotNil() {
         let factory = SystemAudioDeviceTestFactory()
         let input = factory.someInput
         let output = factory.firstOutput
         let ringtoneOutput = factory.someOutput
 
-        let sut = SystemDefaultSoundIO(SimpleSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput))
+        let sut = SystemDefaultingSoundIO(SimpleSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput))
 
         XCTAssertEqual(sut.input, .device(input))
         XCTAssertEqual(sut.output, .device(output))
@@ -37,7 +37,7 @@ final class SystemDefaultSoundIOTests: XCTestCase {
     }
 
     func testSoundIOIsSystemDefaultsWhenDevicesAreNil() {
-        let sut = SystemDefaultSoundIO(NullSoundIO())
+        let sut = SystemDefaultingSoundIO(NullSoundIO())
 
         XCTAssertEqual(sut.input, .systemDefault)
         XCTAssertEqual(sut.output, .systemDefault)

@@ -25,7 +25,7 @@ final class SoundIOPresenterTests: XCTestCase {
     func testUpdatesOutputWithPresentationSoundIOAndAudioDevices() {
         let output = SoundPreferencesViewSpy()
         let factory = SystemAudioDeviceTestFactory()
-        let soundIO = SystemDefaultSoundIO(
+        let soundIO = SystemDefaultingSoundIO(
             SimpleSoundIO(input: factory.someInput, output: factory.firstOutput, ringtoneOutput: factory.someOutput)
         )
         let devices = SystemAudioDevices(devices: factory.all)
@@ -53,7 +53,7 @@ final class SoundIOPresenterTests: XCTestCase {
         let systemDefault = PresentationAudioDevice(isSystemDefault: true, name: systemDefaultDeviceName)
 
         sut.update(
-            soundIO: SystemDefaultSoundIO(NullSoundIO()),
+            soundIO: SystemDefaultingSoundIO(NullSoundIO()),
             devices: SystemAudioDevices(devices: SystemAudioDeviceTestFactory().all)
         )
 

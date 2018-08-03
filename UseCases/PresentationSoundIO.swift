@@ -32,7 +32,7 @@ final class PresentationSoundIO: NSObject {
 }
 
 extension PresentationSoundIO {
-    convenience init(soundIO: SystemDefaultSoundIO, systemDefaultDeviceName name: String) {
+    convenience init(soundIO: SystemDefaultingSoundIO, systemDefaultDeviceName name: String) {
         self.init(
             input: PresentationAudioDevice(item: soundIO.input, systemDefaultDeviceName: name),
             output: PresentationAudioDevice(item: soundIO.output, systemDefaultDeviceName: name),

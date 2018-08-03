@@ -19,14 +19,14 @@
 import DomainTestDoubles
 import UseCases
 
-extension SystemDefaultSoundIO: Equatable {
-    public static func == (lhs: SystemDefaultSoundIO, rhs: SystemDefaultSoundIO) -> Bool {
+extension SystemDefaultingSoundIO: Equatable {
+    public static func == (lhs: SystemDefaultingSoundIO, rhs: SystemDefaultingSoundIO) -> Bool {
         return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
     }
 }
 
-extension SystemDefaultSoundIO.Item: Equatable {
-    public static func ==(lhs: SystemDefaultSoundIO.Item, rhs: SystemDefaultSoundIO.Item) -> Bool {
+extension SystemDefaultingSoundIO.Item: Equatable {
+    public static func ==(lhs: SystemDefaultingSoundIO.Item, rhs: SystemDefaultingSoundIO.Item) -> Bool {
         switch (lhs, rhs) {
         case (.systemDefault, .systemDefault):
             return true

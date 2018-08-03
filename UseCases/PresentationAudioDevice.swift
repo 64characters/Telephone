@@ -36,7 +36,7 @@ extension PresentationAudioDevice {
 }
 
 extension PresentationAudioDevice {
-    convenience init(item: SystemDefaultSoundIO.Item, systemDefaultDeviceName: String) {
+    convenience init(item: SystemDefaultingSoundIO.Item, systemDefaultDeviceName: String) {
         switch item {
         case .systemDefault:
             self.init(isSystemDefault: true, name: systemDefaultDeviceName)

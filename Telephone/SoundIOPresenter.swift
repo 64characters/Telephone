@@ -28,7 +28,7 @@ final class SoundIOPresenter {
 }
 
 extension SoundIOPresenter: SettingsSoundIOLoadUseCaseOutput {
-    func update(soundIO: SystemDefaultSoundIO, devices: SystemAudioDevices) {
+    func update(soundIO: SystemDefaultingSoundIO, devices: SystemAudioDevices) {
         let systemDefault = PresentationAudioDevice(isSystemDefault: true, name: systemDefaultDeviceName)
         output.update(
             soundIO: PresentationSoundIO(soundIO: soundIO, systemDefaultDeviceName: systemDefaultDeviceName),
