@@ -28,18 +28,15 @@ final class SoundIOPresenter {
 }
 
 extension SoundIOPresenter: SettingsSoundIOLoadUseCaseOutput {
-    func update(soundIO: SoundIO, devices: SystemAudioDevices) {
-        updateOutput(
-            soundIO: PresentationSoundIO(soundIO: soundIO), devices: PresentationAudioDevices(devices: devices)
+    func update(soundIO: SystemDefaultSoundIO, devices: SystemAudioDevices) {
+        let systemDefault = PresentationAudioDevice(isSystemDefault: true, name: systemDefaultDeviceName)
+        output.update(
+            soundIO: PresentationSoundIO(soundIO: soundIO, systemDefaultDeviceName: systemDefaultDeviceName),
+            devices: PresentationAudioDevices(
+                input: [systemDefault] + devices.input.map(PresentationAudioDevice.init),
+                output: [systemDefault] + devices.output.map(PresentationAudioDevice.init))
         )
     }
-
-    private func updateOutput(soundIO: PresentationSoundIO, devices: PresentationAudioDevices) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
-    }
 }
+
+private let systemDefaultDeviceName = "Use System Setting"

@@ -17,11 +17,46 @@
 //
 
 import Domain
+import Foundation
 
-public typealias PresentationAudioDevice = String
+final class PresentationAudioDevice: NSObject {
+    var isSystemDefault: Bool
+    var name: String
+
+    init(isSystemDefault: Bool, name: String) {
+        self.isSystemDefault = isSystemDefault
+        self.name = name
+    }
+}
 
 extension PresentationAudioDevice {
-    init(device: SystemAudioDevice) {
-        self = device.name
+    convenience init(device: SystemAudioDevice) {
+        self.init(isSystemDefault: false, name: device.name)
+    }
+}
+
+extension PresentationAudioDevice {
+    convenience init(item: SystemDefaultSoundIO.Item, systemDefaultDeviceName: String) {
+        switch item {
+        case .systemDefault:
+            self.init(isSystemDefault: true, name: systemDefaultDeviceName)
+        case .device(let device):
+            self.init(isSystemDefault: false, name: device.name)
+        }
+    }
+}
+
+extension PresentationAudioDevice {
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let device = object as? PresentationAudioDevice else { return false }
+        return isEqual(to: device)
+    }
+
+    override var hash: Int {
+        return (isSystemDefault ? 1231 : 1237) ^ name.hash
+    }
+
+    private func isEqual(to device: PresentationAudioDevice) -> Bool {
+        return isSystemDefault == device.isSystemDefault && name == device.name
     }
 }

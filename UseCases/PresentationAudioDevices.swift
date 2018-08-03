@@ -17,22 +17,29 @@
 //
 
 import Domain
+import Foundation
 
-public struct PresentationAudioDevices: Equatable {
-    public let input: [PresentationAudioDevice]
-    public let output: [PresentationAudioDevice]
+final class PresentationAudioDevices: NSObject {
+    let input: [PresentationAudioDevice]
+    let output: [PresentationAudioDevice]
 
-    public init(input: [PresentationAudioDevice], output: [PresentationAudioDevice]) {
+    init(input: [PresentationAudioDevice], output: [PresentationAudioDevice]) {
         self.input = input
         self.output = output
     }
 }
 
 extension PresentationAudioDevices {
-    init(devices: SystemAudioDevices) {
-        self.init(
-            input: devices.input.map(PresentationAudioDevice.init),
-            output: devices.output.map(PresentationAudioDevice.init)
-        )
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let devices = object as? PresentationAudioDevices else { return false }
+        return isEqual(to: devices)
+    }
+
+    override var hash: Int {
+        return NSArray(array: input).hash ^ NSArray(array: output).hash
+    }
+
+    private func isEqual(to devices: PresentationAudioDevices) -> Bool {
+        return input == devices.input && output == devices.output
     }
 }

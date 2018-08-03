@@ -17,13 +17,14 @@
 //
 
 import Domain
+import Foundation
 
-public struct PresentationSoundIO: Equatable {
-    public let input: PresentationAudioDevice
-    public let output: PresentationAudioDevice
-    public let ringtoneOutput: PresentationAudioDevice
+final class PresentationSoundIO: NSObject {
+    let input: PresentationAudioDevice
+    let output: PresentationAudioDevice
+    let ringtoneOutput: PresentationAudioDevice
 
-    public init(input: PresentationAudioDevice, output: PresentationAudioDevice, ringtoneOutput: PresentationAudioDevice) {
+    init(input: PresentationAudioDevice, output: PresentationAudioDevice, ringtoneOutput: PresentationAudioDevice) {
         self.input = input
         self.output = output
         self.ringtoneOutput = ringtoneOutput
@@ -31,11 +32,26 @@ public struct PresentationSoundIO: Equatable {
 }
 
 extension PresentationSoundIO {
-    init(soundIO: SoundIO) {
+    convenience init(soundIO: SystemDefaultSoundIO, systemDefaultDeviceName name: String) {
         self.init(
-            input: PresentationAudioDevice(device: soundIO.input),
-            output: PresentationAudioDevice(device: soundIO.output),
-            ringtoneOutput: PresentationAudioDevice(device: soundIO.ringtoneOutput)
+            input: PresentationAudioDevice(item: soundIO.input, systemDefaultDeviceName: name),
+            output: PresentationAudioDevice(item: soundIO.output, systemDefaultDeviceName: name),
+            ringtoneOutput: PresentationAudioDevice(item: soundIO.ringtoneOutput, systemDefaultDeviceName: name)
         )
+    }
+}
+
+extension PresentationSoundIO {
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let soundIO = object as? PresentationSoundIO else { return false }
+        return isEqual(to: soundIO)
+    }
+
+    override var hash: Int {
+        return input.hash ^ output.hash ^ ringtoneOutput.hash
+    }
+
+    private func isEqual(to soundIO: PresentationSoundIO) -> Bool {
+        return input == soundIO.input && output == soundIO.output && ringtoneOutput == soundIO.ringtoneOutput
     }
 }
