@@ -59,25 +59,21 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
         XCTAssertTrue(useCase.didCallExecute)
     }
 
-    func testExecutesSettingsSoundIOSaveUseCaseWithExpectedArgumentsOnSoundIOChange() {
+    func testExecutesSettingsSoundIOSaveUseCaseWithExpectedArgumentOnSoundIOChange() {
         let useCase = UseCaseSpy()
         factory.stub(withSettingsSoundIOSave: useCase)
-        let input = "any-input"
-        let output = "any-output"
-        let ringtoneOutput = "other-output"
+        let soundIO = makePresentationSoundIO()
 
-        sut.didChangeSoundIO(input: input, output: output, ringtoneOutput: ringtoneOutput)
+        sut.didChangeSoundIO(soundIO)
 
-        XCTAssertEqual(factory.invokedInputName, input)
-        XCTAssertEqual(factory.invokedOutputName, output)
-        XCTAssertEqual(factory.invokedRingtoneOutputName, ringtoneOutput)
+        XCTAssertEqual(factory.invokedSoundIO, SystemDefaultingSoundIO(soundIO))
         XCTAssertTrue(useCase.didCallExecute)
     }
 
     func testExecutesUserAgentSoundIOSelectionUseCaseOnSoundIOChange() {
         factory.stub(withSettingsSoundIOSave: UseCaseSpy())
 
-        sut.didChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
+        sut.didChangeSoundIO(makePresentationSoundIO())
 
         XCTAssertTrue(userAgentSoundIOSelection.didCallExecute)
     }
@@ -85,7 +81,7 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     func testExecutesRingtoneOutputUpdateUseCaseOnSoundIOChange() {
         factory.stub(withSettingsSoundIOSave: UseCaseSpy())
 
-        sut.didChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
+        sut.didChangeSoundIO(makePresentationSoundIO())
 
         XCTAssertTrue(ringtoneOutputUpdate.didCallExecute)
     }
@@ -113,4 +109,12 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
 
         XCTAssertTrue(soundPlayback.didCallStop)
     }
+}
+
+private func makePresentationSoundIO() -> PresentationSoundIO {
+    return PresentationSoundIO(
+        input: PresentationAudioDevice(isSystemDefault: false, name: "any-input"),
+        output: PresentationAudioDevice(isSystemDefault: false, name: "any-output"),
+        ringtoneOutput: PresentationAudioDevice(isSystemDefault: false, name: "other-output")
+    )
 }

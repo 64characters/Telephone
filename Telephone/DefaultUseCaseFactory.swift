@@ -34,10 +34,8 @@ extension DefaultUseCaseFactory: UseCaseFactory {
         return SettingsSoundIOLoadUseCase(factory: factory, settings: settings, output: output)
     }
 
-    func makeSettingsSoundIOSaveUseCase(inputName: String, outputName: String, ringtoneOutputName: String) -> UseCase {
-        return SettingsSoundIOSaveUseCase(
-            inputName: inputName, outputName: outputName, ringtoneOutputName: ringtoneOutputName, settings: settings
-        )
+    func makeSettingsSoundIOSaveUseCase(soundIO: SystemDefaultingSoundIO) -> UseCase {
+        fatalError()
     }
 
     func makeSettingsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {

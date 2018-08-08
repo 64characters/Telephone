@@ -1,5 +1,5 @@
 //
-//  SoundPreferencesViewEventTarget.swift
+//  SystemDefaultingSoundIO+PresentationSoundIO.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-@objc protocol SoundPreferencesViewEventTarget {
-    @objc(viewShouldReloadData:)
-    func shouldReloadData(in view: SoundPreferencesView)
+import UseCases
 
-    @objc(viewShouldReloadSoundIO:)
-    func shouldReloadSoundIO(in view: SoundPreferencesView)
+extension SystemDefaultingSoundIO {
+    init(_ soundIO: PresentationSoundIO) {
+        self.init(
+            input: Item(soundIO.input), output: Item(soundIO.output), ringtoneOutput: Item(soundIO.ringtoneOutput)
+        )
+    }
+}
 
-    @objc(viewDidChangeSoundIO:)
-    func didChangeSoundIO(_ soundIO: PresentationSoundIO)
-
-    @objc(viewDidChangeRingtoneName:)
-    func didChangeRingtoneName(_ name: String)
-
-    @objc(viewWillDisappear:)
-    func willDisappear(_ view: SoundPreferencesView)
+extension SystemDefaultingSoundIO.Item {
+    init(_ device: PresentationAudioDevice) {
+        self = device.isSystemDefault ? .systemDefault : .device(name: device.name)
+    }
 }

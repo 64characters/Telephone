@@ -20,9 +20,7 @@ import Domain
 import UseCases
 
 public final class UseCaseFactorySpy {
-    public private(set) var invokedInputName: String?
-    public private(set) var invokedOutputName: String?
-    public private(set) var invokedRingtoneOutputName: String?
+    public private(set) var invokedSoundIO: SystemDefaultingSoundIO?
     public private(set) var invokedRingtoneSoundName: String?
 
     private var soundIOLoad: ThrowingUseCase!
@@ -49,10 +47,8 @@ extension UseCaseFactorySpy: UseCaseFactory {
         return soundIOLoad
     }
 
-    public func makeSettingsSoundIOSaveUseCase(inputName: String, outputName: String, ringtoneOutputName: String) -> UseCase {
-        invokedInputName = inputName
-        invokedOutputName = outputName
-        invokedRingtoneOutputName = ringtoneOutputName
+    public func makeSettingsSoundIOSaveUseCase(soundIO: SystemDefaultingSoundIO) -> UseCase {
+        invokedSoundIO = soundIO
         return soundIOSave
     }
 

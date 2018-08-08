@@ -40,8 +40,8 @@ extension PresentationAudioDevice {
         switch item {
         case .systemDefault:
             self.init(isSystemDefault: true, name: systemDefaultDeviceName)
-        case .device(let device):
-            self.init(isSystemDefault: false, name: device.name)
+        case .device(let name):
+            self.init(isSystemDefault: false, name: name)
         }
     }
 }

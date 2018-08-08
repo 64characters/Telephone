@@ -81,9 +81,10 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeSoundIO:(id)sender {
-    [self.eventTarget viewDidChangeSoundIOWithInput:self.soundInputPopUp.titleOfSelectedItem
-                                             output:self.soundOutputPopUp.titleOfSelectedItem
-                                     ringtoneOutput:self.ringtoneOutputPopUp.titleOfSelectedItem];
+    [self.eventTarget viewDidChangeSoundIO:
+     [[PresentationSoundIO alloc] initWithInput:self.soundInputPopUp.selectedItem.representedObject
+                                         output:self.soundOutputPopUp.selectedItem.representedObject
+                                 ringtoneOutput:self.ringtoneOutputPopUp.selectedItem.representedObject]];
 }
 
 - (IBAction)changeUseG711Only:(id)sender {
@@ -184,5 +185,6 @@ static NSMenu *MenuForDevices(NSArray<PresentationAudioDevice *> *devices) {
 static NSMenuItem *MenuItemForDevice(PresentationAudioDevice *device) {
     NSMenuItem *item = [[NSMenuItem alloc] init];
     item.title = device.name;
+    item.representedObject = device;
     return item;
 }

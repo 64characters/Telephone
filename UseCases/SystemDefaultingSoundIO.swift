@@ -23,6 +23,12 @@ public struct SystemDefaultingSoundIO {
     public let output: Item
     public let ringtoneOutput: Item
 
+    public init(input: Item, output: Item, ringtoneOutput: Item) {
+        self.input = input
+        self.output = output
+        self.ringtoneOutput = ringtoneOutput
+    }
+
     public init(_ soundIO: SoundIO) {
         input = Item(soundIO.input)
         output = Item(soundIO.output)

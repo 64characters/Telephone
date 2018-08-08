@@ -24,7 +24,7 @@ final class PresentationSoundIO: NSObject {
     @objc let output: PresentationAudioDevice
     @objc let ringtoneOutput: PresentationAudioDevice
 
-    init(input: PresentationAudioDevice, output: PresentationAudioDevice, ringtoneOutput: PresentationAudioDevice) {
+    @objc init(input: PresentationAudioDevice, output: PresentationAudioDevice, ringtoneOutput: PresentationAudioDevice) {
         self.input = input
         self.output = output
         self.ringtoneOutput = ringtoneOutput

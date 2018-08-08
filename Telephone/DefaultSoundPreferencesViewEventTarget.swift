@@ -47,8 +47,8 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         loadSettingsSoundIOInViewOrLogError(view: view)
     }
 
-    func didChangeSoundIO(input: String, output: String, ringtoneOutput: String) {
-        updateSettings(input: input, output: output, ringtoneOutput: ringtoneOutput)
+    func didChangeSoundIO(_ soundIO: PresentationSoundIO) {
+        updateSettings(withSoundIO: soundIO)
         userAgentSoundIOSelection.execute()
         updateRingtoneOutputOrLogError()
     }
@@ -70,8 +70,8 @@ extension DefaultSoundPreferencesViewEventTarget: SoundPreferencesViewEventTarge
         }
     }
 
-    private func updateSettings(input: String, output: String, ringtoneOutput: String) {
-        useCaseFactory.makeSettingsSoundIOSaveUseCase(inputName: input, outputName: output, ringtoneOutputName: ringtoneOutput).execute()
+    private func updateSettings(withSoundIO soundIO: PresentationSoundIO) {
+        useCaseFactory.makeSettingsSoundIOSaveUseCase(soundIO: SystemDefaultingSoundIO(soundIO)).execute()
     }
 
     private func updateRingtoneOutputOrLogError() {
