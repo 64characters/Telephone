@@ -21,14 +21,13 @@
 #import "SoundIOPreferences.h"
 #import "SoundPreferencesView.h"
 
-@class AKSIPUserAgent;
-@protocol SoundPreferencesViewEventTarget;
+@class AKSIPUserAgent, SoundPreferencesViewEventTarget;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SoundPreferencesViewController : NSViewController <SoundIOPreferences, SoundPreferencesView>
 
-- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget userAgent:(AKSIPUserAgent *)userAgent;
+- (instancetype)initWithEventTarget:(SoundPreferencesViewEventTarget *)eventTarget userAgent:(AKSIPUserAgent *)userAgent;
 
 @end
 

@@ -1,5 +1,5 @@
 //
-//  DefaultSoundPreferencesViewEventTargetTests.swift
+//  SoundPreferencesViewEventTargetTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,12 +19,12 @@
 import UseCasesTestDoubles
 import XCTest
 
-final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
+final class SoundPreferencesViewEventTargetTests: XCTestCase {
     private var factory: UseCaseFactorySpy!
     private var userAgentSoundIOSelection: UseCaseSpy!
     private var ringtoneOutputUpdate: ThrowingUseCaseSpy!
     private var soundPlayback: SoundPlaybackUseCaseSpy!
-    private var sut: DefaultSoundPreferencesViewEventTarget!
+    private var sut: SoundPreferencesViewEventTarget!
 
     override func setUp() {
         super.setUp()
@@ -32,7 +32,7 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
         userAgentSoundIOSelection = UseCaseSpy()
         ringtoneOutputUpdate = ThrowingUseCaseSpy()
         soundPlayback = SoundPlaybackUseCaseSpy()
-        sut = DefaultSoundPreferencesViewEventTarget(
+        sut = SoundPreferencesViewEventTarget(
             useCaseFactory: factory,
             presenterFactory: PresenterFactory(),
             userAgentSoundIOSelection: userAgentSoundIOSelection,

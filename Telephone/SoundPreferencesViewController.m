@@ -31,7 +31,7 @@ static NSMenuItem *MenuItemForDevice(PresentationAudioDevice *device);
 
 @interface SoundPreferencesViewController ()
 
-@property(nonatomic, readonly) id<SoundPreferencesViewEventTarget> eventTarget;
+@property(nonatomic, readonly) SoundPreferencesViewEventTarget *eventTarget;
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
 @property(nonatomic, weak) IBOutlet NSPopUpButton *soundInputPopUp;
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation SoundPreferencesViewController
 
-- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget userAgent:(AKSIPUserAgent *)userAgent {
+- (instancetype)initWithEventTarget:(SoundPreferencesViewEventTarget *)eventTarget userAgent:(AKSIPUserAgent *)userAgent {
     if ((self = [super initWithNibName:@"SoundPreferencesView" bundle:nil])) {
         _eventTarget = eventTarget;
         _userAgent = userAgent;
