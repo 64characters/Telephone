@@ -19,41 +19,30 @@
 import Domain
 
 public final class SettingsSoundIOSaveUseCase {
-    private let inputName: String
-    private let outputName: String
-    private let ringtoneOutputName: String
+    private let soundIO: SystemDefaultingSoundIO
     private let settings: KeyValueSettings
 
-    public init(inputName: String, outputName: String, ringtoneOutputName: String, settings: KeyValueSettings) {
-        self.inputName = inputName
-        self.outputName = outputName
-        self.ringtoneOutputName = ringtoneOutputName
+    public init(soundIO: SystemDefaultingSoundIO, settings: KeyValueSettings) {
+        self.soundIO = soundIO
         self.settings = settings
     }
 }
 
 extension SettingsSoundIOSaveUseCase: UseCase {
     public func execute() {
-        saveInputIfNeeded()
-        saveOutputIfNeeded()
-        saveRingtoneOutputIfNeeded()
+        settings[SettingsKeys.soundInput] = soundIO.input.name
+        settings[SettingsKeys.soundOutput] = soundIO.output.name
+        settings[SettingsKeys.ringtoneOutput] = soundIO.ringtoneOutput.name
     }
+}
 
-    private func saveInputIfNeeded() {
-        if !inputName.isEmpty {
-            settings[SettingsKeys.soundInput] = inputName
-        }
-    }
-
-    private func saveOutputIfNeeded() {
-        if !outputName.isEmpty {
-            settings[SettingsKeys.soundOutput] = outputName
-        }
-    }
-
-    private func saveRingtoneOutputIfNeeded() {
-        if !ringtoneOutputName.isEmpty {
-            settings[SettingsKeys.ringtoneOutput] = ringtoneOutputName
+private extension SystemDefaultingSoundIO.Item {
+    var name: String? {
+        switch self {
+        case .systemDefault:
+            return nil
+        case .device(name: let name):
+            return name
         }
     }
 }

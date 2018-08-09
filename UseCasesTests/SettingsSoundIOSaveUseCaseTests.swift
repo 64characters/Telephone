@@ -23,35 +23,43 @@ import UseCasesTestDoubles
 import XCTest
 
 final class SettingsSoundIOSaveUseCaseTests: XCTestCase {
-    func testUpdatesSettingsWithDeviceNames() {
-        let factory = SystemAudioDeviceTestFactory()
-        let inputName = factory.someInput.name
-        let outputName = factory.firstOutput.name
-        let ringtoneOutputName = factory.someOutput.name
+    func testSavesDeviceNamesInSettingsWhenSoundIOIsNormalDevices() {
+        let input = "any-input"
+        let output = "any-output"
+        let ringtoneOutput = "other-output"
         let settings = SettingsFake()
         let sut = SettingsSoundIOSaveUseCase(
-            inputName: inputName, outputName: outputName, ringtoneOutputName: ringtoneOutputName, settings: settings
+            soundIO: SystemDefaultingSoundIO(
+                input: .device(name: input),
+                output: .device(name: output),
+                ringtoneOutput: .device(name: ringtoneOutput)
+            ),
+            settings: settings
         )
 
         sut.execute()
 
-        XCTAssertEqual(settings[SettingsKeys.soundInput], inputName)
-        XCTAssertEqual(settings[SettingsKeys.soundOutput], outputName)
-        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], ringtoneOutputName)
+        XCTAssertEqual(settings[SettingsKeys.soundInput], input)
+        XCTAssertEqual(settings[SettingsKeys.soundOutput], output)
+        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], ringtoneOutput)
     }
 
-    func testDoesNotUpadteSettingsWithEmptyDeviceNames() {
+    func testDeletesDeviceNamesFromSettingsWhenSoundIOIsSystemDefaultDevices() {
         let settings = SettingsFake()
-        let anyValue = "any-value"
-        settings[SettingsKeys.soundInput] = anyValue
-        settings[SettingsKeys.soundOutput] = anyValue
-        settings[SettingsKeys.ringtoneOutput] = anyValue
-        let sut = SettingsSoundIOSaveUseCase(inputName: "", outputName: "", ringtoneOutputName: "", settings: settings)
+        settings[SettingsKeys.soundInput] = "any-value"
+        settings[SettingsKeys.soundOutput] = "any-value"
+        settings[SettingsKeys.ringtoneOutput] = "any-value"
+        let sut = SettingsSoundIOSaveUseCase(
+            soundIO: SystemDefaultingSoundIO(
+                input: .systemDefault, output: .systemDefault, ringtoneOutput: .systemDefault
+            ),
+            settings: settings
+        )
 
         sut.execute()
 
-        XCTAssertEqual(settings[SettingsKeys.soundInput], anyValue)
-        XCTAssertEqual(settings[SettingsKeys.soundOutput], anyValue)
-        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], anyValue)
+        XCTAssertNil(settings[SettingsKeys.soundInput])
+        XCTAssertNil(settings[SettingsKeys.soundOutput])
+        XCTAssertNil(settings[SettingsKeys.ringtoneOutput])
     }
 }

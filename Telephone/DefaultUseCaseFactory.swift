@@ -35,7 +35,7 @@ extension DefaultUseCaseFactory: UseCaseFactory {
     }
 
     func makeSettingsSoundIOSaveUseCase(soundIO: SystemDefaultingSoundIO) -> UseCase {
-        fatalError()
+        return SettingsSoundIOSaveUseCase(soundIO: soundIO, settings: settings)
     }
 
     func makeSettingsRingtoneSoundNameSaveUseCase(name: String) -> UseCase {
