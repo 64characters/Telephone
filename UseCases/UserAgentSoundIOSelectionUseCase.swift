@@ -23,14 +23,14 @@ public final class UserAgentSoundIOSelectionUseCase {
     private var deviceMap: SystemToUserAgentAudioDeviceMap!
     private var soundIO: SoundIO!
 
-    private let factory: SystemAudioDevicesFactory
+    private let devicesFactory: SystemAudioDevicesFactory
+    private let soundIOFactory: SoundIOFactory
     private let agent: UserAgent
-    private let settings: KeyValueSettings
 
-    public init(factory: SystemAudioDevicesFactory, agent: UserAgent, settings: KeyValueSettings) {
-        self.factory = factory
+    public init(devicesFactory: SystemAudioDevicesFactory, soundIOFactory: SoundIOFactory, agent: UserAgent) {
+        self.devicesFactory = devicesFactory
+        self.soundIOFactory = soundIOFactory
         self.agent = agent
-        self.settings = settings
     }
 }
 
@@ -38,23 +38,22 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
     public func execute() throws {
         try updateDevices()
         try updateDeviceMap()
-        updateSoundIO()
+        try updateSoundIO()
         try selectUserAgentSoundIO()
     }
 
     private func updateDevices() throws {
-        devices = try factory.make()
+        devices = try devicesFactory.make()
     }
 
     private func updateDeviceMap() throws {
         deviceMap = SystemToUserAgentAudioDeviceMap(
-            systemDevices: devices.all,
-            userAgentDevices: try agent.audioDevices().map(domainAudioDevice)
+            systemDevices: devices.all, userAgentDevices: try agent.audioDevices().map(SimpleUserAgentAudioDevice.init)
         )
     }
 
-    private func updateSoundIO() {
-        soundIO = PreferredSoundIO(devices: devices, settings: settings, defaultIO: NullSystemSoundIO())
+    private func updateSoundIO() throws {
+        soundIO = try soundIOFactory.make()
     }
 
     private func selectUserAgentSoundIO() throws {
@@ -62,9 +61,5 @@ extension UserAgentSoundIOSelectionUseCase: ThrowingUseCase {
             input: deviceMap.userAgentDevice(for: soundIO.input).identifier,
             output: deviceMap.userAgentDevice(for: soundIO.output).identifier
         )
-    }
-
-    private func domainAudioDevice(with device: UserAgentAudioDevice) -> Domain.UserAgentAudioDevice {
-        return Domain.SimpleUserAgentAudioDevice(device: device)
     }
 }

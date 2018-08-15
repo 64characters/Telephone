@@ -23,25 +23,23 @@ import UseCasesTestDoubles
 import XCTest
 
 final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
-    func testSelectsPreferredMappedAudioDevices() throws {
-        let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
+    func testSelectsDeviceIdentifiersOfSoundIO() throws {
+        let input = SystemAudioDeviceTestFactory().someInput
+        let output = SystemAudioDeviceTestFactory().someOutput
         let agent = UserAgentSpy()
         agent.audioDevicesResult = [
-            SimpleUserAgentAudioDevice(device: SystemAudioDeviceTestFactory().firstBuiltInOutput),
-            SimpleUserAgentAudioDevice(device: SystemAudioDeviceTestFactory().firstBuiltInInput)
+            SimpleUserAgentAudioDevice(device: output), SimpleUserAgentAudioDevice(device: input)
         ]
-        let settings = SettingsFake()
-        let sut = UserAgentSoundIOSelectionUseCase(factory: factory, agent: agent, settings: settings)
+        let soundIO = SimpleSoundIO(input: input, output: output, ringtoneOutput: NullSystemAudioDevice())
+        let sut = UserAgentSoundIOSelectionUseCase(
+            devicesFactory: SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory()),
+            soundIOFactory: SoundIOFactoryStub(soundIO: soundIO),
+            agent: agent
+        )
 
         try sut.execute()
 
-        XCTAssertEqual(
-            agent.invokedInputDeviceID,
-            PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO()).input.identifier
-        )
-        XCTAssertEqual(
-            agent.invokedOutputDeviceID,
-            PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO()).output.identifier
-        )
+        XCTAssertEqual(agent.invokedInputDeviceID, soundIO.input.identifier)
+        XCTAssertEqual(agent.invokedOutputDeviceID, soundIO.output.identifier)
     }
 }
