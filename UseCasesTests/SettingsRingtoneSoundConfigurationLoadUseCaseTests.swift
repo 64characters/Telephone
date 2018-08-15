@@ -23,23 +23,30 @@ import UseCasesTestDoubles
 import XCTest
 
 final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
-    func testResultNameIsRingingSoundFromSettingsAndDeviceUIDIsUniqueIdentifierOfRingtoneOutputFromPreferredSoundIO() throws {
+    func testResultNameIsRingingSoundFromSettingsAndDeviceUIDIsUniqueIdentifierOfRingtoneOutputFromSoundIO() throws {
+        let sound = "any-sound"
+        let output = SystemAudioDeviceTestFactory().someOutput
         let settings = SettingsFake()
-        settings[SettingsKeys.ringtoneOutput] = SystemAudioDeviceTestFactory().someOutput.name
-        settings[SettingsKeys.ringingSound] = "any-sound"
-        let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
-        let sut = SettingsRingtoneSoundConfigurationLoadUseCase(settings: settings, factory: factory)
-        let soundIO = PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO())
+        settings[SettingsKeys.ringingSound] = sound
+        settings[SettingsKeys.ringtoneOutput] = output.name
+        let sut = SettingsRingtoneSoundConfigurationLoadUseCase(
+            settings: settings,
+            factory: SoundIOFactoryStub(
+                soundIO: SimpleSoundIO(
+                    input: NullSystemAudioDevice(), output: NullSystemAudioDevice(), ringtoneOutput: output
+                )
+            )
+        )
 
         let result = try sut.execute()
 
-        XCTAssertEqual(result.name, "any-sound")
-        XCTAssertEqual(result.deviceUID, soundIO.ringtoneOutput.uniqueIdentifier)
+        XCTAssertEqual(result.name, sound)
+        XCTAssertEqual(result.deviceUID, output.uniqueIdentifier)
     }
 
     func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInSettings() {
         let sut = SettingsRingtoneSoundConfigurationLoadUseCase(
-            settings: SettingsFake(), factory: SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
+            settings: SettingsFake(), factory: SoundIOFactoryStub(soundIO: NullSoundIO())
         )
 
         XCTAssertThrowsError(try sut.execute()) { (error) in

@@ -20,9 +20,9 @@ import Domain
 
 public final class SettingsRingtoneSoundConfigurationLoadUseCase {
     private let settings: KeyValueSettings
-    private let factory: SystemAudioDevicesFactory
+    private let factory: SoundIOFactory
 
-    public init(settings: KeyValueSettings, factory: SystemAudioDevicesFactory) {
+    public init(settings: KeyValueSettings, factory: SoundIOFactory) {
         self.settings = settings
         self.factory = factory
     }
@@ -42,6 +42,6 @@ extension SettingsRingtoneSoundConfigurationLoadUseCase: SoundConfigurationLoadU
     }
 
     private func ringtoneAudioDeviceUID() throws -> String {
-        return PreferredSoundIO(devices: try factory.make(), settings: settings, defaultIO: NullSystemSoundIO()).ringtoneOutput.uniqueIdentifier
+        return try factory.make().ringtoneOutput.uniqueIdentifier
     }
 }

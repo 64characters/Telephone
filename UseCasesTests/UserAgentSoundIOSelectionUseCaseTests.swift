@@ -30,16 +30,17 @@ final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         agent.audioDevicesResult = [
             SimpleUserAgentAudioDevice(device: output), SimpleUserAgentAudioDevice(device: input)
         ]
-        let soundIO = SimpleSoundIO(input: input, output: output, ringtoneOutput: NullSystemAudioDevice())
         let sut = UserAgentSoundIOSelectionUseCase(
             devicesFactory: SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory()),
-            soundIOFactory: SoundIOFactoryStub(soundIO: soundIO),
+            soundIOFactory: SoundIOFactoryStub(
+                soundIO: SimpleSoundIO(input: input, output: output, ringtoneOutput: NullSystemAudioDevice())
+            ),
             agent: agent
         )
 
         try sut.execute()
 
-        XCTAssertEqual(agent.invokedInputDeviceID, soundIO.input.identifier)
-        XCTAssertEqual(agent.invokedOutputDeviceID, soundIO.output.identifier)
+        XCTAssertEqual(agent.invokedInputDeviceID, input.identifier)
+        XCTAssertEqual(agent.invokedOutputDeviceID, output.identifier)
     }
 }
