@@ -21,8 +21,14 @@ import CoreAudio
 import UseCases
 
 final class CoreAudioDevices {
+    private let objectIDs: CoreAudioDevicesAudioObjectIDs
+
+    init(objectIDs: CoreAudioDevicesAudioObjectIDs) {
+        self.objectIDs = objectIDs
+    }
+
     func all() throws -> [SystemAudioDevice] {
-        return try CoreAudioDevicesAudioObjectIDs().all().map(SimpleSystemAudioDevice.init)
+        return try objectIDs.all().map(SimpleSystemAudioDevice.init)
     }
 }
 

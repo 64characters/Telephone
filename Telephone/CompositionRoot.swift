@@ -48,7 +48,9 @@ final class CompositionRoot: NSObject {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 
-        let systemAudioDevicesFactory = CoreAudioSystemAudioDevicesFactory(devices: CoreAudioDevices())
+        let systemAudioDevicesFactory = CoreAudioSystemAudioDevicesFactory(
+            devices: CoreAudioDevices(objectIDs: CoreAudioDevicesAudioObjectIDs())
+        )
 
         let useCaseFactory = DefaultUseCaseFactory(factory: systemAudioDevicesFactory, settings: defaults)
 
