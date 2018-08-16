@@ -19,7 +19,7 @@
 import CoreAudio
 
 final class CoreAudioDevicesAudioObjectIDs {
-    private var object: CoreAudioObject
+    private let object: CoreAudioObject
 
     init() {
         object = CoreAudioObject(
