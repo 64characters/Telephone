@@ -20,15 +20,15 @@ import Domain
 import UseCases
 
 final class CoreAudioSystemAudioDevicesFactory {
-    private let devices: CoreAudioDevices
+    private let objectIDs: CoreAudioDevicesAudioObjectIDs
 
-    init(devices: CoreAudioDevices) {
-        self.devices = devices
+    init(objectIDs: CoreAudioDevicesAudioObjectIDs) {
+        self.objectIDs = objectIDs
     }
 }
 
 extension CoreAudioSystemAudioDevicesFactory: SystemAudioDevicesFactory {
     func make() throws -> SystemAudioDevices {
-        return SystemAudioDevices(devices: try devices.all())
+        return SystemAudioDevices(devices: try objectIDs.all().map(SimpleSystemAudioDevice.init))
     }
 }
