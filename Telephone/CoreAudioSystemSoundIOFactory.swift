@@ -1,5 +1,5 @@
 //
-//  NullSystemSoundIOFactory.swift
+//  CoreAudioSystemSoundIOFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,23 @@
 //  GNU General Public License for more details.
 //
 
+import CoreAudio
 import Domain
+import UseCases
 
-public final class NullSystemSoundIOFactory {
-    public init() {}
+final class CoreAudioSystemSoundIOFactory {
+    private let defaultIO: CoreAudioDefaultIO
+
+    init(defaultIO: CoreAudioDefaultIO) {
+        self.defaultIO = defaultIO
+    }
 }
 
-extension NullSystemSoundIOFactory: SystemSoundIOFactory {
-    public func make() throws -> SystemSoundIO {
-        return NullSystemSoundIO()
+extension CoreAudioSystemSoundIOFactory: SystemSoundIOFactory {
+    func make() throws -> SystemSoundIO {
+        return SimpleSystemSoundIO(
+            input: try SimpleSystemAudioDevice(deviceID: try defaultIO.inputID()),
+            output: try SimpleSystemAudioDevice(deviceID: try defaultIO.outputID())
+        )
     }
 }

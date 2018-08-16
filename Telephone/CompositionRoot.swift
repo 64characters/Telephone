@@ -53,7 +53,9 @@ final class CompositionRoot: NSObject {
         let useCaseFactory = DefaultUseCaseFactory(factory: systemAudioDevicesFactory, settings: defaults)
 
         let soundIOFactory = PreferredSoundIOFactory(
-            devicesFactory: systemAudioDevicesFactory, defaultIOFactory: NullSystemSoundIOFactory(), settings: defaults
+            devicesFactory: systemAudioDevicesFactory,
+            defaultIOFactory: CoreAudioSystemSoundIOFactory(defaultIO: CoreAudioDefaultIO()),
+            settings: defaults
         )
 
         let soundFactory = SimpleSoundFactory(

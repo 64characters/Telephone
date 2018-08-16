@@ -16,8 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import Domain
-
 public struct SimpleSystemSoundIO: SystemSoundIO {
     public let input: SystemAudioDevice
     public let output: SystemAudioDevice
