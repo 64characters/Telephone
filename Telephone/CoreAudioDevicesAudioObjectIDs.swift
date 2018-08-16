@@ -33,11 +33,11 @@ final class CoreAudioDevicesAudioObjectIDs {
     }
 
     func all() throws -> [AudioObjectID] {
-        return try makeDeviceIDs(with: try object.propertyDataLength())
+        return try makeDeviceIDs(length: try object.propertyDataLength())
     }
 
-    private func makeDeviceIDs(with length: UInt32) throws -> [AudioObjectID] {
-        let bytes = UnsafeMutablePointer<AudioObjectID>.allocate(capacity: audioObjectIDCount(with: length))
+    private func makeDeviceIDs(length: UInt32) throws -> [AudioObjectID] {
+        let bytes = UnsafeMutablePointer<AudioObjectID>.allocate(capacity: audioObjectIDCount(length: length))
         defer { bytes.deallocate() }
         var usedLength = length
         try copyDeviceIDsBytes(to: bytes, length: &usedLength)
@@ -50,9 +50,9 @@ final class CoreAudioDevicesAudioObjectIDs {
 }
 
 private func audioObjectIDs(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [AudioObjectID] {
-    return [AudioObjectID](UnsafeMutableBufferPointer<AudioObjectID>(start: bytes, count: audioObjectIDCount(with: length)))
+    return [AudioObjectID](UnsafeMutableBufferPointer<AudioObjectID>(start: bytes, count: audioObjectIDCount(length: length)))
 }
 
-private func audioObjectIDCount(with length: UInt32) -> Int {
+private func audioObjectIDCount(length: UInt32) -> Int {
     return objectCount(ofType: AudioObjectID.self, inMemoryLength: Int(length))
 }
