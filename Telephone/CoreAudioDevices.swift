@@ -22,14 +22,14 @@ import UseCases
 
 final class CoreAudioDevices {
     func all() throws -> [SystemAudioDevice] {
-        return try CoreAudioDeviceIDs().all().map(SimpleSystemAudioDevice.init)
+        return try CoreAudioDevicesAudioObjectIDs().all().map(SimpleSystemAudioDevice.init)
     }
 }
 
 private extension SimpleSystemAudioDevice {
-    init(deviceID: Int) throws {
+    init(deviceID: AudioObjectID) throws {
         self.init(
-            identifier: deviceID,
+            identifier: Int(deviceID),
             uniqueIdentifier: try makeUniqueIdentifier(deviceID: deviceID),
             name: try makeName(deviceID: deviceID),
             inputs: try makeInputCount(deviceID: deviceID),
@@ -39,37 +39,37 @@ private extension SimpleSystemAudioDevice {
     }
 }
 
-private func makeUniqueIdentifier(deviceID: Int) throws -> String {
+private func makeUniqueIdentifier(deviceID: AudioObjectID) throws -> String {
     return try stringPropertyValue(forDeviceWithID: deviceID, selector: kAudioDevicePropertyDeviceUID)
 }
 
-private func makeName(deviceID: Int) throws -> String {
+private func makeName(deviceID: AudioObjectID) throws -> String {
     return try stringPropertyValue(forDeviceWithID: deviceID, selector: kAudioObjectPropertyName)
 }
 
-private func makeInputCount(deviceID: Int) throws -> Int {
+private func makeInputCount(deviceID: AudioObjectID) throws -> Int {
     return try channelCount(with: AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeInput)
 }
 
-private func makeOutputCount(deviceID: Int) throws -> Int {
+private func makeOutputCount(deviceID: AudioObjectID) throws -> Int {
     return try channelCount(with: AudioObjectID(deviceID), scope: kAudioObjectPropertyScopeOutput)
 }
 
-private func makeIsBuiltIn(deviceID: Int) throws -> Bool {
+private func makeIsBuiltIn(deviceID: AudioObjectID) throws -> Bool {
     let transportType: UInt32 = try propertyValue(forDeviceWithID: deviceID, selector: kAudioDevicePropertyTransportType)
     return transportType == kAudioDeviceTransportTypeBuiltIn
 }
 
-private func stringPropertyValue(forDeviceWithID deviceID: Int, selector: AudioObjectPropertySelector) throws -> String {
+private func stringPropertyValue(forDeviceWithID deviceID: AudioObjectID, selector: AudioObjectPropertySelector) throws -> String {
     let stringRef: CFString = try propertyValue(forDeviceWithID: deviceID, selector: selector)
     return stringRef as String
 }
 
-private func propertyValue<T>(forDeviceWithID deviceID: Int, selector: AudioObjectPropertySelector) throws -> T {
+private func propertyValue<T>(forDeviceWithID deviceID: AudioObjectID, selector: AudioObjectPropertySelector) throws -> T {
     var length = UInt32(MemoryLayout<T>.stride)
     var result = UnsafeMutablePointer<T>.allocate(capacity: 1)
     defer { result.deallocate() }
-    let audioObject = CoreAudioObject(objectID: AudioObjectID(deviceID), propertyAddress: propertyAddress(selector: selector))
+    let audioObject = CoreAudioObject(objectID: deviceID, propertyAddress: propertyAddress(selector: selector))
     try audioObject.copyPropertyValueBytes(to: result, length: &length)
     return result.move()
 }

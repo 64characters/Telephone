@@ -18,7 +18,7 @@
 
 import CoreAudio
 
-final class CoreAudioDeviceIDs {
+final class CoreAudioDevicesAudioObjectIDs {
     private var object: CoreAudioObject
 
     init() {
@@ -32,25 +32,21 @@ final class CoreAudioDeviceIDs {
         )
     }
 
-    func all() throws -> [Int] {
+    func all() throws -> [AudioObjectID] {
         return try makeDeviceIDs(with: try object.propertyDataLength())
     }
 
-    private func makeDeviceIDs(with length: UInt32) throws -> [Int] {
+    private func makeDeviceIDs(with length: UInt32) throws -> [AudioObjectID] {
         let bytes = UnsafeMutablePointer<AudioObjectID>.allocate(capacity: audioObjectIDCount(with: length))
         defer { bytes.deallocate() }
         var usedLength = length
         try copyDeviceIDsBytes(to: bytes, length: &usedLength)
-        return deviceIDs(bytes: bytes, length: usedLength)
+        return audioObjectIDs(bytes: bytes, length: usedLength)
     }
 
     private func copyDeviceIDsBytes(to bytes: UnsafeMutablePointer<AudioObjectID>, length: inout UInt32) throws {
         return try object.copyPropertyValueBytes(to: bytes, length: &length)
     }
-}
-
-private func deviceIDs(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [Int] {
-    return audioObjectIDs(bytes: bytes, length: length).map { Int($0) }
 }
 
 private func audioObjectIDs(bytes: UnsafeMutablePointer<AudioObjectID>, length: UInt32) -> [AudioObjectID] {
