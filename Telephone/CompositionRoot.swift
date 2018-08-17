@@ -38,7 +38,7 @@ final class CompositionRoot: NSObject {
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
     private let userAgentEventSource: AKSIPUserAgentEventSource
-    private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource
+    private let devicesChangeEventSource: CoreAudioSystemAudioDevicesChangeEventSource
     private let accountsEventSource: PreferencesControllerAccountsEventSource
     private let callEventSource: AKSIPCallEventSource
     private let contactsChangeEventSource: Any
@@ -155,7 +155,7 @@ final class CompositionRoot: NSObject {
 
         let background = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".background-queue", qos: .userInitiated)
 
-        devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
+        devicesChangeEventSource = CoreAudioSystemAudioDevicesChangeEventSource(
             target: SystemAudioDevicesChangeEventTargets(
                 targets: [
                     UserAgentAudioDeviceUpdateUseCase(userAgent: userAgent),

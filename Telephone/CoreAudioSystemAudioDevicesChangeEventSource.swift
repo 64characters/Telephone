@@ -1,5 +1,5 @@
 //
-//  SystemAudioDevicesChangeEventSource.swift
+//  CoreAudioSystemAudioDevicesChangeEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import CoreAudio
 
-final class SystemAudioDevicesChangeEventSource {
+final class CoreAudioSystemAudioDevicesChangeEventSource {
     private let source: CoreAudioChangeEventSource
 
     init(target: SystemAudioDevicesChangeEventTarget, queue: DispatchQueue) {
