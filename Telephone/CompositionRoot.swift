@@ -113,7 +113,7 @@ final class CompositionRoot: NSObject {
             target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt)
         )
 
-        let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
+        let userAgentSoundIOSelection = UserAgentEventsUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCase(
                 devicesFactory: systemAudioDevicesFactory, soundIOFactory: soundIOFactory, agent: userAgent
             ),

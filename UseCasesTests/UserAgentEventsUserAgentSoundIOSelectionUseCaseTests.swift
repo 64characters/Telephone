@@ -1,5 +1,5 @@
 //
-//  DelayingUserAgentSoundIOSelectionUseCaseTests.swift
+//  UserAgentEventsUserAgentSoundIOSelectionUseCaseTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,14 +20,14 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
+final class UserAgentEventsUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
     private var agent: UserAgentSpy!
-    private var sut: DelayingUserAgentSoundIOSelectionUseCase!
+    private var sut: UserAgentEventsUserAgentSoundIOSelectionUseCase!
 
     override func setUp() {
         super.setUp()
         agent = UserAgentSpy()
-        sut = DelayingUserAgentSoundIOSelectionUseCase(
+        sut = UserAgentEventsUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: NoActiveCallsStub()
         )
     }
@@ -125,7 +125,7 @@ final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
 
     func testSelectsIOOnSystemAudioDevicesUpdateWhenThereAreActiveCalls() {
         let agent = UserAgentSpy()
-        let sut = DelayingUserAgentSoundIOSelectionUseCase(
+        let sut = UserAgentEventsUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: ActiveCallsStub()
         )
         sut.didFinishStarting(agent)
