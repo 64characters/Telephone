@@ -441,6 +441,9 @@
 		8ACF85201EEACBB0006E88FB /* CallHistoryRecordGetUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF851F1EEACBB0006E88FB /* CallHistoryRecordGetUseCaseTests.swift */; };
 		8ACF85221EEACC07006E88FB /* CallHistoryRecordGetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF85211EEACC07006E88FB /* CallHistoryRecordGetUseCase.swift */; };
 		8ACF85241EEACC9A006E88FB /* CallHistoryRecordGetUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF85231EEACC9A006E88FB /* CallHistoryRecordGetUseCaseOutputSpy.swift */; };
+		8AD012AD2126F46A00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD012AC2126F46A00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCaseTests.swift */; };
+		8AD012AF2126F4CD00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD012AE2126F4CD00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift */; };
+		8AD012B12126F81500619781 /* DefaultSystemSoundIOChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD012B02126F81500619781 /* DefaultSystemSoundIOChangeEventTarget.swift */; };
 		8AD2C5EA1EADFF32005EED3E /* ArrayDifferenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */; };
 		8AD2C5EC1EADFF7D005EED3E /* ArrayDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */; };
 		8AD2C5ED1EADFF80005EED3E /* ArrayDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */; };
@@ -1290,6 +1293,9 @@
 		8ACF851F1EEACBB0006E88FB /* CallHistoryRecordGetUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordGetUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordGetUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8ACF85211EEACC07006E88FB /* CallHistoryRecordGetUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordGetUseCase.swift; sourceTree = "<group>"; };
 		8ACF85231EEACC9A006E88FB /* CallHistoryRecordGetUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryRecordGetUseCaseOutputSpy.swift; sourceTree = "<group>"; };
+		8AD012AC2126F46A00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioDevicesEventsUserAgentSoundIOSelectionUseCaseTests.swift; path = UseCasesTests/AudioDevicesEventsUserAgentSoundIOSelectionUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
+		8AD012AE2126F4CD00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift; sourceTree = "<group>"; };
+		8AD012B02126F81500619781 /* DefaultSystemSoundIOChangeEventTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSystemSoundIOChangeEventTarget.swift; sourceTree = "<group>"; };
 		8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDifferenceTests.swift; sourceTree = "<group>"; };
 		8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDifference.swift; sourceTree = "<group>"; };
 		8AD2C5EE1EAE0C58005EED3E /* RestoredSelectionIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoredSelectionIndexTests.swift; sourceTree = "<group>"; };
@@ -2262,6 +2268,8 @@
 		8A859A0A1D2EC82B00118A66 /* UserAgentSoundIOSelectionUseCase */ = {
 			isa = PBXGroup;
 			children = (
+				8AD012AE2126F4CD00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift */,
+				8AD012AC2126F46A00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCaseTests.swift */,
 				AA277A521BD174D60030ECE4 /* UserAgentEventsUserAgentSoundIOSelectionUseCase.swift */,
 				AA277A541BD3F2A90030ECE4 /* UserAgentEventsUserAgentSoundIOSelectionUseCaseTests.swift */,
 				AAFA2BAC1BCD812C00066CFC /* UserAgentSoundIOSelectionUseCase.swift */,
@@ -2801,6 +2809,7 @@
 		AA39055F1C007799005A8AA3 /* Audio Devices */ = {
 			isa = PBXGroup;
 			children = (
+				8AD012B02126F81500619781 /* DefaultSystemSoundIOChangeEventTarget.swift */,
 				AA3905491BFFE125005A8AA3 /* DomainUserAgentAudioDeviceExtension.swift */,
 				AA32F7EF1BC4400900FAC228 /* PreferredSoundIO.swift */,
 				AA32F7ED1BC43FB100FAC228 /* PreferredSoundIOTests.swift */,
@@ -3914,6 +3923,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD012B12126F81500619781 /* DefaultSystemSoundIOChangeEventTarget.swift in Sources */,
 				8A09E0FA1E79A29D0027A25E /* ReversedCallHistory.swift in Sources */,
 				AA1019731C48046D00869D01 /* DefaultRingtonePlaybackUseCase.swift in Sources */,
 				8A7831C01D636EDA006D0D94 /* PurchaseRestorationUseCase.swift in Sources */,
@@ -4024,6 +4034,7 @@
 				8A850B3E2049B3740072E197 /* CallsMusicPlayer.swift in Sources */,
 				8A2BAAE21F06C97800A1801E /* FallingBackMatchedContactFactory.swift in Sources */,
 				8A9D922D1D2AC9B900491D59 /* Products.swift in Sources */,
+				8AD012AF2126F4CD00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift in Sources */,
 				AA39052F1BFFDDDA005A8AA3 /* PreferredSoundIO.swift in Sources */,
 				8AF188A11F0FC12A003CAE8C /* ContactCallHistoryRecordGetUseCaseOutput.swift in Sources */,
 				8A11A0CF1CCFA74F007BFC7F /* Product.swift in Sources */,
@@ -4122,6 +4133,7 @@
 				8A2758721EF1850E002E93D8 /* EnqueuingContactCallHistoryRecordGetUseCaseOutputTests.swift in Sources */,
 				8A1AF25B1F02AEC200B9999D /* LazyDiscardingContactMatchingIndexTests.swift in Sources */,
 				8AC1A4431C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift in Sources */,
+				8AD012AD2126F46A00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCaseTests.swift in Sources */,
 				8A7E21521CC3F6A5000D02C3 /* ServiceAddressTests.swift in Sources */,
 				8A7292421EE041AA00338592 /* EnqueuingContactCallHistoryRecordGetAllUseCaseOutputTests.swift in Sources */,
 				8A7E212D1CC23F6B000D02C3 /* UserAgentAudioDeviceUpdateUseCaseTests.swift in Sources */,

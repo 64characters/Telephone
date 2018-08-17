@@ -103,27 +103,17 @@ final class UserAgentEventsUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOOnDidMakeCallAfterSystemAudioDevicesUpdate() {
+    func testSelectsIOOnDidReceiveCallAfterExecuteIsCalled() {
         sut.didFinishStarting(agent)
         sut.didMakeCall(agent)
 
-        sut.systemAudioDevicesDidUpdate()
-        sut.didMakeCall(agent)
-
-        XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
-    }
-
-    func testSelectsIOOnDidReceiveCallAfterSystemAudioDevicesUpdate() {
-        sut.didFinishStarting(agent)
-        sut.didMakeCall(agent)
-
-        sut.systemAudioDevicesDidUpdate()
+        sut.execute()
         sut.didReceiveCall(agent)
 
         XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOOnSystemAudioDevicesUpdateWhenThereAreActiveCalls() {
+    func testSelectsIOOnExecuteWhenThereAreActiveCalls() {
         let agent = UserAgentSpy()
         let sut = UserAgentEventsUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: ActiveCallsStub()
@@ -131,7 +121,7 @@ final class UserAgentEventsUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         sut.didFinishStarting(agent)
         sut.didMakeCall(agent)
 
-        sut.systemAudioDevicesDidUpdate()
+        sut.execute()
 
         XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }

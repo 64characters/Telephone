@@ -75,9 +75,3 @@ extension UserAgentEventsUserAgentSoundIOSelectionUseCase: UserAgentEventTarget 
 
     public func didDetectNAT(_ agent: UserAgent) {}
 }
-
-extension UserAgentEventsUserAgentSoundIOSelectionUseCase: SystemAudioDevicesChangeEventTarget {
-    public func systemAudioDevicesDidUpdate() {
-        execute()
-    }
-}
