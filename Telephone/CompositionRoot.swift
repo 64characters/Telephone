@@ -38,7 +38,7 @@ final class CompositionRoot: NSObject {
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
     private let userAgentEventSource: AKSIPUserAgentEventSource
-    private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource
     private let accountsEventSource: PreferencesControllerAccountsEventSource
     private let callEventSource: AKSIPCallEventSource
     private let contactsChangeEventSource: Any
@@ -272,14 +272,6 @@ final class CompositionRoot: NSObject {
             fileBrowser: NSWorkspace.shared,
             webBrowser: NSWorkspace.shared
         )
-
-        super.init()
-
-        devicesChangeEventSource.start()
-    }
-
-    deinit {
-        devicesChangeEventSource.stop()
     }
 }
 

@@ -19,42 +19,19 @@
 import CoreAudio
 
 final class SystemAudioDevicesChangeEventSource {
-    private let target: SystemAudioDevicesChangeEventTarget
-    private let queue: DispatchQueue
-    private let objectID:AudioObjectID
-    private var objectPropertyAddress: AudioObjectPropertyAddress
+    private let source: CoreAudioChangeEventSource
 
     init(target: SystemAudioDevicesChangeEventTarget, queue: DispatchQueue) {
-        self.target = target
-        self.queue = queue
-        objectID = AudioObjectID(kAudioObjectSystemObject)
-        objectPropertyAddress = AudioObjectPropertyAddress(
-            mSelector: kAudioHardwarePropertyDevices,
-            mScope: kAudioObjectPropertyScopeGlobal,
-            mElement: kAudioObjectPropertyElementMaster
-        )
-    }
-
-    func start() {
-        let status = AudioObjectAddPropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not add audio devices change listener: \(status)")
+        source = CoreAudioChangeEventSource(
+            objectID: AudioObjectID(kAudioObjectSystemObject),
+            address: AudioObjectPropertyAddress(
+                mSelector: kAudioHardwarePropertyDevices,
+                mScope: kAudioObjectPropertyScopeGlobal,
+                mElement: kAudioObjectPropertyElementMaster
+            ),
+            queue: queue
+        ) { (_, _) in
+            DispatchQueue.main.async(execute: target.systemAudioDevicesDidUpdate)
         }
-    }
-
-    func stop() {
-        let status = AudioObjectRemovePropertyListenerBlock(objectID, &objectPropertyAddress, queue, propertyListenerCallback)
-        if status != noErr {
-            print("Could not remove audio devices change listener: \(status)")
-        }
-    }
-
-    private func propertyListenerCallback(_: UInt32, _: UnsafePointer<AudioObjectPropertyAddress>) -> Void {
-        DispatchQueue.main.async(execute: notifyTarget)
-    }
-
-    private func notifyTarget() {
-        precondition(Thread.isMainThread)
-        target.systemAudioDevicesDidUpdate()
     }
 }
