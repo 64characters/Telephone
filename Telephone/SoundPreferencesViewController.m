@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSMenu *MenuForSoundsAtPaths(NSArray<NSString *> *paths);
 static NSMenu *MenuForDevices(NSArray<PresentationAudioDevice *> *devices);
+static NSArray<NSMenuItem *> *MenuItemsForDevices(NSArray<PresentationAudioDevice *> *devices);
 static NSMenuItem *MenuItemForDevice(PresentationAudioDevice *device);
 
 @interface SoundPreferencesViewController ()
@@ -173,13 +174,21 @@ static NSMenu *MenuForSoundsAtPaths(NSArray<NSString *> *paths) {
 
 static NSMenu *MenuForDevices(NSArray<PresentationAudioDevice *> *devices) {
     NSMenu *menu = [[NSMenu alloc] init];
-    for (PresentationAudioDevice *device in devices) {
-        if (![device isEqual:devices.firstObject] && devices.firstObject.isSystemDefault) {
-            [menu addItem:[NSMenuItem separatorItem]];
-        }
-        [menu addItem:MenuItemForDevice(device)];
+    for (NSMenuItem *item in MenuItemsForDevices(devices)) {
+        [menu addItem:item];
     }
     return menu;
+}
+
+static NSArray<NSMenuItem *> *MenuItemsForDevices(NSArray<PresentationAudioDevice *> *devices) {
+    NSMutableArray<NSMenuItem *> *items = [[NSMutableArray alloc] init];
+    for (PresentationAudioDevice *device in devices) {
+        [items addObject:MenuItemForDevice(device)];
+    }
+    if (devices.count > 1 && devices.firstObject.isSystemDefault) {
+        [items insertObject:[NSMenuItem separatorItem] atIndex:1];
+    }
+    return [items copy];
 }
 
 static NSMenuItem *MenuItemForDevice(PresentationAudioDevice *device) {
