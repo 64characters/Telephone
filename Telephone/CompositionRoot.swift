@@ -39,6 +39,7 @@ final class CompositionRoot: NSObject {
     private let storeEventSource: SKPaymentQueueStoreEventSource
     private let userAgentEventSource: AKSIPUserAgentEventSource
     private let devicesChangeEventSource: CoreAudioSystemAudioDevicesChangeEventSource
+    private let soundIOChangeEventSource: CoreAudioDefaultSystemSoundIOChangeEventSource
     private let accountsEventSource: PreferencesControllerAccountsEventSource
     private let callEventSource: AKSIPCallEventSource
     private let contactsChangeEventSource: Any
@@ -169,6 +170,10 @@ final class CompositionRoot: NSObject {
                 ]
             ),
             queue: background
+        )
+
+        soundIOChangeEventSource = CoreAudioDefaultSystemSoundIOChangeEventSource(
+            target: userAgentSoundIOSelection, queue: background
         )
 
         let callHistories = DefaultCallHistories(
