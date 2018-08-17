@@ -28,7 +28,7 @@ final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         super.setUp()
         agent = UserAgentSpy()
         sut = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCaseFake(userAgent: agent), agent: agent, calls: NoActiveCallsStub()
+            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: NoActiveCallsStub()
         )
     }
 
@@ -126,7 +126,7 @@ final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
     func testSelectsIOOnSystemAudioDevicesUpdateWhenThereAreActiveCalls() {
         let agent = UserAgentSpy()
         let sut = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCaseFake(userAgent: agent), agent: agent, calls: ActiveCallsStub()
+            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: ActiveCallsStub()
         )
         sut.didFinishStarting(agent)
         sut.didMakeCall(agent)

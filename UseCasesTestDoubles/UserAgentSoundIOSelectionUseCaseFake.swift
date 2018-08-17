@@ -19,15 +19,15 @@
 import UseCases
 
 public final class UserAgentSoundIOSelectionUseCaseFake {
-    private let userAgent: UserAgent
+    private let agent: UserAgent
 
-    public init(userAgent: UserAgent) {
-        self.userAgent = userAgent
+    public init(agent: UserAgent) {
+        self.agent = agent
     }
 }
 
 extension UserAgentSoundIOSelectionUseCaseFake: ThrowingUseCase {
     public func execute() throws {
-        try userAgent.selectSoundIODeviceIDs(input: 0, output: 0)
+        try agent.selectSoundIODeviceIDs(input: 0, output: 0)
     }
 }
