@@ -158,7 +158,7 @@ final class CompositionRoot: NSObject {
         devicesChangeEventSource = CoreAudioSystemAudioDevicesChangeEventSource(
             target: SystemAudioDevicesChangeEventTargets(
                 targets: [
-                    UserAgentAudioDeviceUpdateUseCase(userAgent: userAgent),
+                    UserAgentAudioDeviceUpdateUseCase(agent: userAgent),
                     userAgentSoundIOSelection,
                     PreferencesSoundIOUpdater(preferences: preferencesController)
                 ]

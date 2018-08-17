@@ -17,16 +17,16 @@
 //
 
 public final class UserAgentAudioDeviceUpdateUseCase {
-    private let userAgent: UserAgent
+    private let agent: UserAgent
 
-    public init(userAgent: UserAgent) {
-        self.userAgent = userAgent
+    public init(agent: UserAgent) {
+        self.agent = agent
     }
 }
 
 extension UserAgentAudioDeviceUpdateUseCase: UseCase {
    public func execute() {
-        userAgent.updateAudioDevices()
+        agent.updateAudioDevices()
     }
 }
 
