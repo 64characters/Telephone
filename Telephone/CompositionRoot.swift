@@ -113,12 +113,16 @@ final class CompositionRoot: NSObject {
             target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt)
         )
 
-        let userAgentSoundIOSelection = UserAgentEventsUserAgentSoundIOSelectionUseCase(
+        let userAgentEventsUserAgentSoundIOSelection = UserAgentEventsUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCase(
                 devicesFactory: systemAudioDevicesFactory, soundIOFactory: soundIOFactory, agent: userAgent
             ),
             agent: userAgent,
             calls: userAgent
+        )
+
+        let userAgentSoundIOSelection = AudioDevicesEventsUserAgentSoundIOSelectionUseCase(
+            origin: userAgentEventsUserAgentSoundIOSelection
         )
 
         preferencesController = PreferencesController(
@@ -147,7 +151,8 @@ final class CompositionRoot: NSObject {
         userAgentEventSource = AKSIPUserAgentEventSource(
             target: UserAgentEventTargets(
                 targets: [
-                    userAgentSoundIOSelection, BackgroundActivityUserAgentEventTarget(process: ProcessInfo.processInfo)
+                    userAgentEventsUserAgentSoundIOSelection,
+                    BackgroundActivityUserAgentEventTarget(process: ProcessInfo.processInfo)
                 ]
             ),
             agent: userAgent
