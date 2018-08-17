@@ -268,7 +268,7 @@
 		8A78F333212460FC00B64867 /* SoundIOFactoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A78F332212460FC00B64867 /* SoundIOFactoryStub.swift */; };
 		8A78F3372125980000B64867 /* SimpleSystemAudioDevice+CoreAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A78F3362125980000B64867 /* SimpleSystemAudioDevice+CoreAudio.swift */; };
 		8A78F33921259AB200B64867 /* CoreAudioDefaultIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A78F33821259AB200B64867 /* CoreAudioDefaultIO.swift */; };
-		8A78F33B2125A56700B64867 /* CoreAudioSystemSoundIOFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A78F33A2125A56700B64867 /* CoreAudioSystemSoundIOFactory.swift */; };
+		8A78F33B2125A56700B64867 /* CoreAudioDefaultSystemSoundIOFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A78F33A2125A56700B64867 /* CoreAudioDefaultSystemSoundIOFactory.swift */; };
 		8A78F33C2125A67500B64867 /* SimpleSystemSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAACA081CAEA047001930C4 /* SimpleSystemSoundIO.swift */; };
 		8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */; };
 		8A7E212D1CC23F6B000D02C3 /* UserAgentAudioDeviceUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0C1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateUseCaseTests.swift */; };
@@ -1105,7 +1105,7 @@
 		8A78F332212460FC00B64867 /* SoundIOFactoryStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundIOFactoryStub.swift; sourceTree = "<group>"; };
 		8A78F3362125980000B64867 /* SimpleSystemAudioDevice+CoreAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimpleSystemAudioDevice+CoreAudio.swift"; sourceTree = "<group>"; };
 		8A78F33821259AB200B64867 /* CoreAudioDefaultIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioDefaultIO.swift; sourceTree = "<group>"; };
-		8A78F33A2125A56700B64867 /* CoreAudioSystemSoundIOFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioSystemSoundIOFactory.swift; sourceTree = "<group>"; };
+		8A78F33A2125A56700B64867 /* CoreAudioDefaultSystemSoundIOFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioDefaultSystemSoundIOFactory.swift; sourceTree = "<group>"; };
 		8A7C4F701CCFC69F00EC7C1B /* Product+SKProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Product+SKProduct.swift"; sourceTree = "<group>"; };
 		8A7C4F721CCFCFB800EC7C1B /* DefaultStoreViewPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultStoreViewPresenterTests.swift; path = TelephoneTests/DefaultStoreViewPresenterTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7C4F741CCFCFEE00EC7C1B /* DefaultStoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStoreViewPresenter.swift; sourceTree = "<group>"; };
@@ -2869,11 +2869,11 @@
 			children = (
 				8A4B60092125DA3300B67357 /* CoreAudioChangeEventSource.swift */,
 				8A78F33821259AB200B64867 /* CoreAudioDefaultIO.swift */,
+				8A78F33A2125A56700B64867 /* CoreAudioDefaultSystemSoundIOFactory.swift */,
 				AA3FABAD1BBC19C10064B2C3 /* CoreAudioDevicesAudioObjectIDs.swift */,
 				AA4C2E781BBFEEAB00C3D096 /* CoreAudioObject.swift */,
 				AA3FABA61BBC0A0D0064B2C3 /* CoreAudioSystemAudioDevicesChangeEventSource.swift */,
 				8A62B08A20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift */,
-				8A78F33A2125A56700B64867 /* CoreAudioSystemSoundIOFactory.swift */,
 				8A78F3362125980000B64867 /* SimpleSystemAudioDevice+CoreAudio.swift */,
 				8A779F8D1CA080F900D90391 /* SimpleUserAgentAudioDevice+PJSIP.swift */,
 				AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */,
@@ -3774,7 +3774,7 @@
 				8A69821A1F753A5800B20AFD /* StoreWindowPresenter.swift in Sources */,
 				8AA7487F1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift in Sources */,
 				8A78F33921259AB200B64867 /* CoreAudioDefaultIO.swift in Sources */,
-				8A78F33B2125A56700B64867 /* CoreAudioSystemSoundIOFactory.swift in Sources */,
+				8A78F33B2125A56700B64867 /* CoreAudioDefaultSystemSoundIOFactory.swift in Sources */,
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
 				8AD2C5F11EAE0C94005EED3E /* RestoredSelectionIndex.swift in Sources */,
 				8A9533901F9A4B2300483940 /* HelpMenuActionTarget.swift in Sources */,

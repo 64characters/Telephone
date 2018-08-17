@@ -1,5 +1,5 @@
 //
-//  CoreAudioSystemSoundIOFactory.swift
+//  CoreAudioDefaultSystemSoundIOFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,7 +20,7 @@ import CoreAudio
 import Domain
 import UseCases
 
-final class CoreAudioSystemSoundIOFactory {
+final class CoreAudioDefaultSystemSoundIOFactory {
     private let defaultIO: CoreAudioDefaultIO
 
     init(defaultIO: CoreAudioDefaultIO) {
@@ -28,7 +28,7 @@ final class CoreAudioSystemSoundIOFactory {
     }
 }
 
-extension CoreAudioSystemSoundIOFactory: SystemSoundIOFactory {
+extension CoreAudioDefaultSystemSoundIOFactory: SystemSoundIOFactory {
     func make() throws -> SystemSoundIO {
         return SimpleSystemSoundIO(
             input: try SimpleSystemAudioDevice(deviceID: try defaultIO.inputID()),

@@ -54,7 +54,7 @@ final class CompositionRoot: NSObject {
 
         let soundIOFactory = PreferredSoundIOFactory(
             devicesFactory: systemAudioDevicesFactory,
-            defaultIOFactory: CoreAudioSystemSoundIOFactory(defaultIO: CoreAudioDefaultIO()),
+            defaultIOFactory: CoreAudioDefaultSystemSoundIOFactory(defaultIO: CoreAudioDefaultIO()),
             settings: defaults
         )
 
