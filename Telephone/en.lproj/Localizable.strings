@@ -195,6 +195,9 @@
 /* Unmute. Call menu item. */
 "Unmute" = "Unmute";
 
+/* Audio device menu item. */
+"Use System Setting" = "Use System Setting";
+
 /* Product name. */
 "Yearly" = "Yearly";
 

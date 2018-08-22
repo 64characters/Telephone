@@ -195,5 +195,8 @@
 /* Unmute. Call menu item. */
 "Unmute" = "Mikrofon an";
 
+/* Audio device menu item. */
+"Use System Setting" = "Systemeinstellung verwenden";
+
 /* Product name. */
 "Yearly" = "Jährlich";

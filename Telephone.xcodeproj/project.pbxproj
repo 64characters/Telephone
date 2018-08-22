@@ -1001,6 +1001,9 @@
 		8A32D1991E8BE7D500903796 /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		8A32D19D1E8E816500903796 /* CallHistoriesHistoryRemoveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoriesHistoryRemoveUseCaseTests.swift; path = UseCasesTests/CallHistoriesHistoryRemoveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A32D19F1E8E81E700903796 /* CallHistoriesHistoryRemoveUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoriesHistoryRemoveUseCase.swift; sourceTree = "<group>"; };
+		8A3829C2212D9B870006C09C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SoundPreferencesView.strings; sourceTree = "<group>"; };
+		8A3829C3212D9BA30006C09C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SoundPreferencesView.strings; sourceTree = "<group>"; };
+		8A3829C4212D9BB80006C09C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SoundPreferencesView.strings; sourceTree = "<group>"; };
 		8A3865151D369A2100EDA7AB /* FailingStoreFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailingStoreFake.swift; sourceTree = "<group>"; };
 		8A3961E81F7EA28B00209266 /* WeakStoreEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakStoreEventTarget.swift; sourceTree = "<group>"; };
 		8A3961ED1F7EEE7500209266 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -1625,8 +1628,6 @@
 		AAFC00351074D1700018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		AAFC00361074D17F0018C7DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AccountPreferencesView.xib; sourceTree = "<group>"; };
 		AAFC00371074D1820018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AccountPreferencesView.xib; sourceTree = "<group>"; };
-		AAFC00381074D18C0018C7DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/SoundPreferencesView.xib; sourceTree = "<group>"; };
-		AAFC00391074D18F0018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SoundPreferencesView.xib; sourceTree = "<group>"; };
 		AAFC003A1074D1980018C7DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/NetworkPreferencesView.xib; sourceTree = "<group>"; };
 		AAFC003B1074D19A0018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/NetworkPreferencesView.xib; sourceTree = "<group>"; };
 		AAFCFFBB1074BFCA0018C7DA /* AccountSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AccountSetupController.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -4735,9 +4736,10 @@
 		AAFC00291074D0B50018C7DA /* SoundPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AAFC00381074D18C0018C7DA /* ru */,
-				AAFC00391074D18F0018C7DA /* de */,
 				8AA748D01D744FAB000587DC /* Base */,
+				8A3829C2212D9B870006C09C /* en */,
+				8A3829C3212D9BA30006C09C /* de */,
+				8A3829C4212D9BB80006C09C /* ru */,
 			);
 			name = SoundPreferencesView.xib;
 			sourceTree = "<group>";

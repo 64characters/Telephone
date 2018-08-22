@@ -40,4 +40,4 @@ extension SoundIOPresenter: SettingsSoundIOLoadUseCaseOutput {
     }
 }
 
-private let systemDefaultDeviceName = "Use System Setting"
+private let systemDefaultDeviceName = NSLocalizedString("Use System Setting", comment: "Audio device menu item.")
