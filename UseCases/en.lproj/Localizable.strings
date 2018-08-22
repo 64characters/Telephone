@@ -1,4 +1,4 @@
-﻿/* No active purchase error. */
+/* No active purchase error. */
 "Receipt doesn’t contain active purchases." = "Receipt doesn’t contain active purchases.";
 
 /* Receipt validation error. */
