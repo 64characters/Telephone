@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
+
 public struct NullSystemSoundIO: SystemSoundIO {
     public let input: SystemAudioDevice = NullSystemAudioDevice()
     public let output: SystemAudioDevice = NullSystemAudioDevice()

@@ -162,7 +162,6 @@
 		8A39A1D21D5E315600D703AD /* CertificateFingerprintValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */; };
 		8A39A1D41D5E36FA00D703AD /* ReceiptValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
-		8A40028E20F6391B00FF7CF5 /* NullSystemSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45ABF420E2866800099031 /* NullSystemSoundIO.swift */; };
 		8A41A74D1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */; };
 		8A41A74F1E5B593800E0C854 /* CallHistoryViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */; };
 		8A41A7501E5B593800E0C854 /* CallHistoryViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */; };
@@ -174,6 +173,7 @@
 		8A42E0C61E168DB300CE09B8 /* ShortRelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C41E168DB300CE09B8 /* ShortRelativeDateTimeFormatter.swift */; };
 		8A42E0C81E168F4F00CE09B8 /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */; };
 		8A42E0C91E168F4F00CE09B8 /* DurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42E0C71E168F4F00CE09B8 /* DurationFormatter.swift */; };
+		8A456E8B212ED1C4006F86DE /* NullSystemSoundIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45ABF420E2866800099031 /* NullSystemSoundIO.swift */; };
 		8A46FDBB1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */; };
 		8A46FDBD1DD4A8100022A822 /* NSString+Analyzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */; };
 		8A4B600A2125DA3300B67357 /* CoreAudioChangeEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B60092125DA3300B67357 /* CoreAudioChangeEventSource.swift */; };
@@ -2359,7 +2359,6 @@
 				AAC6738D1BF5053C006F43A2 /* FirstBuiltInSystemSoundIOTests.swift */,
 				AA30D8471BF606C1002F343A /* FirstSystemSoundIO.swift */,
 				AA30D8451BF60672002F343A /* FirstSystemSoundIOTests.swift */,
-				8A45ABF420E2866800099031 /* NullSystemSoundIO.swift */,
 				8AAACA081CAEA047001930C4 /* SimpleSystemSoundIO.swift */,
 				8AAACA041CAE9F81001930C4 /* SystemSoundIO.swift */,
 			);
@@ -3011,6 +3010,7 @@
 				8A1CC61E1CAD43DB00901BE9 /* SystemAudioDevice+Equality.swift */,
 				8A9705FD20FF728E00984D39 /* SystemAudioDevices+Equatable.swift */,
 				AA32F7F71BC51A0500FAC228 /* SystemAudioDeviceTestFactory.swift */,
+				8A45ABF420E2866800099031 /* NullSystemSoundIO.swift */,
 				8A1CC6221CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift */,
 				AAC4FF831C0214120060B186 /* DomainTestDoubles.h */,
 				AAC4FF851C0214120060B186 /* Info.plist */,
@@ -4258,7 +4258,6 @@
 				8AAACA0D1CAEA717001930C4 /* FallingBackSoundIO.swift in Sources */,
 				AA76E01B1BFF86E600CC5C07 /* FirstSystemAudioDevice.swift in Sources */,
 				AA76E0211BFF86FE00CC5C07 /* FirstSystemSoundIO.swift in Sources */,
-				8A40028E20F6391B00FF7CF5 /* NullSystemSoundIO.swift in Sources */,
 				8AAACA011CAE9EE5001930C4 /* SoundIO.swift in Sources */,
 				8A1CC6251CAD52CD00901BE9 /* NullUserAgentAudioDevice.swift in Sources */,
 				AA3905231BFFA1C8005A8AA3 /* UserAgentAudioDevice.swift in Sources */,
@@ -4297,6 +4296,7 @@
 				8A1CC6231CAD500900901BE9 /* UserAgentAudioDevice+Equality.swift in Sources */,
 				8A9705FE20FF728E00984D39 /* SystemAudioDevices+Equatable.swift in Sources */,
 				AAC4FF8B1C0214540060B186 /* SystemAudioDeviceTestFactory.swift in Sources */,
+				8A456E8B212ED1C4006F86DE /* NullSystemSoundIO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
