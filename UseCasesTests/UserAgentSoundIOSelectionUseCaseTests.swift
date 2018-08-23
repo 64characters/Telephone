@@ -18,29 +18,29 @@
 
 import Domain
 import DomainTestDoubles
-import UseCases
+@testable import UseCases
 import UseCasesTestDoubles
 import XCTest
 
 final class UserAgentSoundIOSelectionUseCaseTests: XCTestCase {
-    func testSelectsMappedAudioDevices() {
-        let factory = SystemAudioDeviceTestFactory()
-        let systemDevices = SystemAudioDevices(devices: [factory.firstBuiltInInput, factory.firstBuiltInOutput])
-        let repository = SystemAudioDeviceRepositoryStub()
-        repository.allDevicesResult = systemDevices.all
-        let userAgentDevices = [
-            UserAgentAudioDevice(device: factory.firstBuiltInOutput),
-            UserAgentAudioDevice(device: factory.firstBuiltInInput)
+    func testSelectsDeviceIdentifiersOfSoundIO() throws {
+        let input = SystemAudioDeviceTestFactory().someInput
+        let output = SystemAudioDeviceTestFactory().someOutput
+        let agent = UserAgentSpy()
+        agent.audioDevicesResult = [
+            SimpleUserAgentAudioDevice(device: output), SimpleUserAgentAudioDevice(device: input)
         ]
-        let userAgent = UserAgentSpy()
-        userAgent.audioDevicesResult = userAgentDevices
         let sut = UserAgentSoundIOSelectionUseCase(
-            repository: repository, userAgent: userAgent, settings: SettingsFake()
+            devicesFactory: SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory()),
+            soundIOFactory: SoundIOFactoryStub(
+                soundIO: SimpleSoundIO(input: input, output: output, ringtoneOutput: NullSystemAudioDevice())
+            ),
+            agent: agent
         )
 
-        try! sut.execute()
+        try sut.execute()
 
-        XCTAssertEqual(userAgent.invokedInputDeviceID, userAgentDevices[1].identifier)
-        XCTAssertEqual(userAgent.invokedOutputDeviceID, userAgentDevices[0].identifier)
+        XCTAssertEqual(agent.invokedInputDeviceID, input.identifier)
+        XCTAssertEqual(agent.invokedOutputDeviceID, output.identifier)
     }
 }

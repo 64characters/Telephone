@@ -1,5 +1,5 @@
 //
-//  DefaultSoundPreferencesViewEventTargetTests.swift
+//  SoundPreferencesViewEventTargetTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,12 +19,12 @@
 import UseCasesTestDoubles
 import XCTest
 
-final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
+final class SoundPreferencesViewEventTargetTests: XCTestCase {
     private var factory: UseCaseFactorySpy!
     private var userAgentSoundIOSelection: UseCaseSpy!
     private var ringtoneOutputUpdate: ThrowingUseCaseSpy!
     private var soundPlayback: SoundPlaybackUseCaseSpy!
-    private var sut: DefaultSoundPreferencesViewEventTarget!
+    private var sut: SoundPreferencesViewEventTarget!
 
     override func setUp() {
         super.setUp()
@@ -32,7 +32,7 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
         userAgentSoundIOSelection = UseCaseSpy()
         ringtoneOutputUpdate = ThrowingUseCaseSpy()
         soundPlayback = SoundPlaybackUseCaseSpy()
-        sut = DefaultSoundPreferencesViewEventTarget(
+        sut = SoundPreferencesViewEventTarget(
             useCaseFactory: factory,
             presenterFactory: PresenterFactory(),
             userAgentSoundIOSelection: userAgentSoundIOSelection,
@@ -59,23 +59,21 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
         XCTAssertTrue(useCase.didCallExecute)
     }
 
-    func testExecutesSettingsSoundIOSaveUseCaseWithExpectedArgumentsOnSoundIOChange() {
+    func testExecutesSettingsSoundIOSaveUseCaseWithExpectedArgumentOnSoundIOChange() {
         let useCase = UseCaseSpy()
         factory.stub(withSettingsSoundIOSave: useCase)
-        let soundIO = PresentationSoundIO(input: "input", output: "output1", ringtoneOutput: "output2")
+        let soundIO = makePresentationSoundIO()
 
-        sut.didChangeSoundIO(
-            input: soundIO.input, output: soundIO.output, ringtoneOutput: soundIO.ringtoneOutput
-        )
+        sut.didChangeSoundIO(soundIO)
 
-        XCTAssertEqual(factory.invokedSoundIO, soundIO)
+        XCTAssertEqual(factory.invokedSoundIO, SystemDefaultingSoundIO(soundIO))
         XCTAssertTrue(useCase.didCallExecute)
     }
 
     func testExecutesUserAgentSoundIOSelectionUseCaseOnSoundIOChange() {
         factory.stub(withSettingsSoundIOSave: UseCaseSpy())
 
-        sut.didChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
+        sut.didChangeSoundIO(makePresentationSoundIO())
 
         XCTAssertTrue(userAgentSoundIOSelection.didCallExecute)
     }
@@ -83,7 +81,7 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
     func testExecutesRingtoneOutputUpdateUseCaseOnSoundIOChange() {
         factory.stub(withSettingsSoundIOSave: UseCaseSpy())
 
-        sut.didChangeSoundIO(input: "any-input", output: "any-output", ringtoneOutput: "any-output")
+        sut.didChangeSoundIO(makePresentationSoundIO())
 
         XCTAssertTrue(ringtoneOutputUpdate.didCallExecute)
     }
@@ -111,4 +109,12 @@ final class DefaultSoundPreferencesViewEventTargetTests: XCTestCase {
 
         XCTAssertTrue(soundPlayback.didCallStop)
     }
+}
+
+private func makePresentationSoundIO() -> PresentationSoundIO {
+    return PresentationSoundIO(
+        input: PresentationAudioDevice(isSystemDefault: false, name: "any-input"),
+        output: PresentationAudioDevice(isSystemDefault: false, name: "any-output"),
+        ringtoneOutput: PresentationAudioDevice(isSystemDefault: false, name: "other-output")
+    )
 }

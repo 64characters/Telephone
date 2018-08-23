@@ -26,12 +26,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSMenu *MenuForSoundsAtPaths(NSArray<NSString *> *paths);
-static NSMenu *MenuForDevices(NSArray<NSString *> *devices);
-static NSMenuItem *MenuItemForDevice(NSString *device);
+static NSMenu *MenuForDevices(NSArray<PresentationAudioDevice *> *devices);
+static NSArray<NSMenuItem *> *MenuItemsForDevices(NSArray<PresentationAudioDevice *> *devices);
+static NSMenuItem *MenuItemForDevice(PresentationAudioDevice *device);
 
 @interface SoundPreferencesViewController ()
 
-@property(nonatomic, readonly) id<SoundPreferencesViewEventTarget> eventTarget;
+@property(nonatomic, readonly) SoundPreferencesViewEventTarget *eventTarget;
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
 @property(nonatomic, weak) IBOutlet NSPopUpButton *soundInputPopUp;
@@ -46,7 +47,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation SoundPreferencesViewController
 
-- (instancetype)initWithEventTarget:(id<SoundPreferencesViewEventTarget>)eventTarget userAgent:(AKSIPUserAgent *)userAgent {
+- (instancetype)initWithEventTarget:(SoundPreferencesViewEventTarget *)eventTarget userAgent:(AKSIPUserAgent *)userAgent {
     if ((self = [super initWithNibName:@"SoundPreferencesView" bundle:nil])) {
         _eventTarget = eventTarget;
         _userAgent = userAgent;
@@ -81,9 +82,10 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeSoundIO:(id)sender {
-    [self.eventTarget viewDidChangeSoundIOWithInput:self.soundInputPopUp.titleOfSelectedItem
-                                             output:self.soundOutputPopUp.titleOfSelectedItem
-                                     ringtoneOutput:self.ringtoneOutputPopUp.titleOfSelectedItem];
+    [self.eventTarget viewDidChangeSoundIO:
+     [[PresentationSoundIO alloc] initWithInput:self.soundInputPopUp.selectedItem.representedObject
+                                         output:self.soundOutputPopUp.selectedItem.representedObject
+                                 ringtoneOutput:self.ringtoneOutputPopUp.selectedItem.representedObject]];
 }
 
 - (IBAction)changeUseG711Only:(id)sender {
@@ -116,30 +118,14 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - SoundPreferencesView
 
-- (void)setInputDevices:(NSArray<NSString *> *)devices {
-    self.soundInputPopUp.menu = MenuForDevices(devices);
+- (void)updateWithSoundIO:(PresentationSoundIO *)soundIO devices:(PresentationAudioDevices *)devices {
+    self.soundInputPopUp.menu = MenuForDevices(devices.input);
+    self.soundOutputPopUp.menu = MenuForDevices(devices.output);
+    self.ringtoneOutputPopUp.menu = MenuForDevices(devices.ringtoneOutput);
+    [self.soundInputPopUp selectItemWithTitle:soundIO.input.name];
+    [self.soundOutputPopUp selectItemWithTitle:soundIO.output.name];
+    [self.ringtoneOutputPopUp selectItemWithTitle:soundIO.ringtoneOutput.name];
 }
-
-- (void)setOutputDevices:(NSArray<NSString *> *)devices {
-    self.soundOutputPopUp.menu = MenuForDevices(devices);
-}
-
-- (void)setRingtoneDevices:(NSArray<NSString *> *)devices {
-    self.ringtoneOutputPopUp.menu = MenuForDevices(devices);
-}
-
-- (void)setInputDevice:(NSString *)device {
-    [self.soundInputPopUp selectItemWithTitle:device];
-}
-
-- (void)setOutputDevice:(NSString *)device {
-    [self.soundOutputPopUp selectItemWithTitle:device];
-}
-
-- (void)setRingtoneDevice:(NSString *)device {
-    [self.ringtoneOutputPopUp selectItemWithTitle:device];
-}
-
 
 #pragma mark -
 #pragma mark NSPopUpButton notification
@@ -186,16 +172,28 @@ static NSMenu *MenuForSoundsAtPaths(NSArray<NSString *> *paths) {
     return menu;
 }
 
-static NSMenu *MenuForDevices(NSArray<NSString *> *devices) {
+static NSMenu *MenuForDevices(NSArray<PresentationAudioDevice *> *devices) {
     NSMenu *menu = [[NSMenu alloc] init];
-    for (NSString *device in devices) {
-        [menu addItem:MenuItemForDevice(device)];
+    for (NSMenuItem *item in MenuItemsForDevices(devices)) {
+        [menu addItem:item];
     }
     return menu;
 }
 
-static NSMenuItem *MenuItemForDevice(NSString *device) {
+static NSArray<NSMenuItem *> *MenuItemsForDevices(NSArray<PresentationAudioDevice *> *devices) {
+    NSMutableArray<NSMenuItem *> *items = [[NSMutableArray alloc] init];
+    for (PresentationAudioDevice *device in devices) {
+        [items addObject:MenuItemForDevice(device)];
+    }
+    if (devices.count > 1 && devices.firstObject.isSystemDefault) {
+        [items insertObject:[NSMenuItem separatorItem] atIndex:1];
+    }
+    return [items copy];
+}
+
+static NSMenuItem *MenuItemForDevice(PresentationAudioDevice *device) {
     NSMenuItem *item = [[NSMenuItem alloc] init];
-    item.title = device;
+    item.title = device.name;
+    item.representedObject = device;
     return item;
 }

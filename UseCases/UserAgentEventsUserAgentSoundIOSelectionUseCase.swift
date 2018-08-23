@@ -1,5 +1,5 @@
 //
-//  DelayingUserAgentSoundIOSelectionUseCase.swift
+//  UserAgentEventsUserAgentSoundIOSelectionUseCase.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public final class DelayingUserAgentSoundIOSelectionUseCase {
+public final class UserAgentEventsUserAgentSoundIOSelectionUseCase {
     private var selection: ThrowingUseCase?
 
     private let useCase: ThrowingUseCase
@@ -30,7 +30,7 @@ public final class DelayingUserAgentSoundIOSelectionUseCase {
     }
 }
 
-extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
+extension UserAgentEventsUserAgentSoundIOSelectionUseCase: UseCase {
     public func execute() {
         selection = useCase
         selectSoundIOOrLogErrorIfNeeded()
@@ -56,7 +56,7 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UseCase {
     }
 }
 
-extension DelayingUserAgentSoundIOSelectionUseCase: UserAgentEventTarget {
+extension UserAgentEventsUserAgentSoundIOSelectionUseCase: UserAgentEventTarget {
     public func didFinishStarting(_ agent: UserAgent) {
         execute()
     }
@@ -74,10 +74,4 @@ extension DelayingUserAgentSoundIOSelectionUseCase: UserAgentEventTarget {
     }
 
     public func didDetectNAT(_ agent: UserAgent) {}
-}
-
-extension DelayingUserAgentSoundIOSelectionUseCase: SystemAudioDevicesChangeEventTarget {
-    public func systemAudioDevicesDidUpdate() {
-        execute()
-    }
 }

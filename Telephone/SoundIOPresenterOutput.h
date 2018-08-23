@@ -18,14 +18,14 @@
 
 @import Foundation;
 
+@class PresentationAudioDevices, PresentationSoundIO;
+
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol SoundIOPresenterOutput <NSObject>
 
-- (void)setInputDevices:(NSArray<NSString *> *)devices;
-- (void)setOutputDevices:(NSArray<NSString *> *)devices;
-- (void)setRingtoneDevices:(NSArray<NSString *> *)devices;
-
-- (void)setInputDevice:(NSString *)device;
-- (void)setOutputDevice:(NSString *)device;
-- (void)setRingtoneDevice:(NSString *)device;
+- (void)updateWithSoundIO:(PresentationSoundIO *)soundIO devices:(PresentationAudioDevices *)devices NS_SWIFT_NAME(update(soundIO:devices:));
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevice+SystemAudioDevice.swift
+//  CoreAudioSystemAudioDevicesFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,13 +19,16 @@
 import Domain
 import UseCases
 
-extension UseCases.UserAgentAudioDevice {
-    convenience init(device: SystemAudioDevice) {
-        self.init(
-            identifier: device.identifier,
-            name: device.name,
-            inputs: device.inputs,
-            outputs: device.outputs
-        )
+final class CoreAudioSystemAudioDevicesFactory {
+    private let objectIDs: CoreAudioDevicesAudioObjectIDs
+
+    init(objectIDs: CoreAudioDevicesAudioObjectIDs) {
+        self.objectIDs = objectIDs
+    }
+}
+
+extension CoreAudioSystemAudioDevicesFactory: SystemAudioDevicesFactory {
+    func make() throws -> SystemAudioDevices {
+        return SystemAudioDevices(devices: try objectIDs.all().map(SimpleSystemAudioDevice.init))
     }
 }

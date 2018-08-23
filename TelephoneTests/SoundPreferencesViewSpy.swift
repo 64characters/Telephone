@@ -17,36 +17,13 @@
 //
 
 final class SoundPreferencesViewSpy: NSObject {
-    private(set) var invokedInputDevices: [String] = []
-    private(set) var invokedOutputDevices: [String] = []
-    private(set) var invokedRingtoneDevices: [String] = []
-    private(set) var invokedInputDevice = ""
-    private(set) var invokedOutputDevice = ""
-    private(set) var invokedRingtoneDevice = ""
+    private(set) var invokedSoundIO: PresentationSoundIO?
+    private(set) var invokedDevices: PresentationAudioDevices?
 }
 
 extension SoundPreferencesViewSpy: SoundPreferencesView {
-    func setInputDevices(_ devices: [String]) {
-        invokedInputDevices = devices
-    }
-
-    func setOutputDevices(_ devices: [String]) {
-        invokedOutputDevices = devices
-    }
-
-    func setRingtoneDevices(_ devices: [String]!) {
-        invokedRingtoneDevices = devices
-    }
-
-    func setInputDevice(_ device: String) {
-        invokedInputDevice = device
-    }
-
-    func setOutputDevice(_ device: String) {
-        invokedOutputDevice = device
-    }
-
-    func setRingtoneDevice(_ device: String) {
-        invokedRingtoneDevice = device
+    func update(soundIO: PresentationSoundIO, devices: PresentationAudioDevices) {
+        invokedSoundIO = soundIO
+        invokedDevices = devices
     }
 }

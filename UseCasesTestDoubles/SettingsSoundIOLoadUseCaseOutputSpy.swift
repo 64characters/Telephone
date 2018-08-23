@@ -16,18 +16,19 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 public final class SettingsSoundIOLoadUseCaseOutputSpy {
-    public private(set) var invokedDevices: AudioDevices?
-    public private(set) var invokedSoundIO: PresentationSoundIO?
+    public private(set) var invokedSoundIO: SystemDefaultingSoundIO?
+    public private(set) var invokedDevices: SystemAudioDevices?
 
     public init() {}
 }
 
 extension SettingsSoundIOLoadUseCaseOutputSpy: SettingsSoundIOLoadUseCaseOutput {
-    public func update(devices: AudioDevices, soundIO: PresentationSoundIO) {
-        self.invokedDevices = devices
+    public func update(soundIO: SystemDefaultingSoundIO, devices: SystemAudioDevices) {
         self.invokedSoundIO = soundIO
+        self.invokedDevices = devices
     }
 }

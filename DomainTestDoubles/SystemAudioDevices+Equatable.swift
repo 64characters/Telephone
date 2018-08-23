@@ -1,5 +1,5 @@
 //
-//  SimpleSystemSoundIO.swift
+//  SystemAudioDevices+Equatable.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-@testable import Domain
+import Domain
 
-public struct SimpleSystemSoundIO: SystemSoundIO {
-    public let input: SystemAudioDevice
-    public let output: SystemAudioDevice
-
-    public init(input: SystemAudioDevice, output: SystemAudioDevice) {
-        self.input = input
-        self.output = output
+extension SystemAudioDevices: Equatable {
+    public static func ==(lhs: SystemAudioDevices, rhs: SystemAudioDevices) -> Bool {
+        return lhs.all == rhs.all && lhs.input == rhs.input && lhs.output == rhs.output
     }
 }

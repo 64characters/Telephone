@@ -16,8 +16,10 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
+
 public protocol UseCaseFactory {
     func makeSettingsSoundIOLoadUseCase(output: SettingsSoundIOLoadUseCaseOutput) -> ThrowingUseCase
-    func makeSettingsSoundIOSaveUseCase(soundIO: PresentationSoundIO) -> UseCase
+    func makeSettingsSoundIOSaveUseCase(soundIO: SystemDefaultingSoundIO) -> UseCase
     func makeSettingsRingtoneSoundNameSaveUseCase(name: String) -> UseCase
 }

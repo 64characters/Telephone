@@ -16,9 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import Domain
 
-@objc public protocol UserAgent {
+public protocol UserAgent: class {
     var isStarted: Bool { get }
     func audioDevices() throws -> [UserAgentAudioDevice]
     func updateAudioDevices()

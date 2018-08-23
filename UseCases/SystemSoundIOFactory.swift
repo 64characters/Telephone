@@ -1,5 +1,5 @@
 //
-//  AudioDevice.swift
+//  SystemSoundIOFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,10 +18,6 @@
 
 import Domain
 
-public typealias AudioDevice = String
-
-extension AudioDevice {
-    init(device: SystemAudioDevice) {
-        self = device.name
-    }
+public protocol SystemSoundIOFactory {
+    func make() throws -> SystemSoundIO
 }

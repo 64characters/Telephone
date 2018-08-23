@@ -19,10 +19,13 @@
 public struct PreferredSoundIO {
     private let soundIO: SoundIO
 
-    public init(devices: [SystemAudioDevice]) {
+    public init(devices: [SystemAudioDevice], defaultIO: SystemSoundIO) {
         soundIO = FallingBackSoundIO(
-            origin: SimpleSoundIO(soundIO: FirstBuiltInSystemSoundIO(devices: devices)),
-            fallback: SimpleSoundIO(soundIO: FirstSystemSoundIO(devices: devices))
+            origin: SimpleSoundIO(soundIO: defaultIO),
+            fallback: FallingBackSoundIO(
+                origin: SimpleSoundIO(soundIO: FirstBuiltInSystemSoundIO(devices: devices)),
+                fallback: SimpleSoundIO(soundIO: FirstSystemSoundIO(devices: devices))
+            )
         )
     }
 }

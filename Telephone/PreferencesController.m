@@ -114,7 +114,7 @@
 
 - (instancetype)initWithDelegate:(id<PreferencesControllerDelegate>)delegate
                        userAgent:(AKSIPUserAgent *)userAgent
- soundPreferencesViewEventTarget:(id<SoundPreferencesViewEventTarget>)soundPreferencesViewEventTarget {
+ soundPreferencesViewEventTarget:(SoundPreferencesViewEventTarget *)soundPreferencesViewEventTarget {
     if ((self = [super initWithWindowNibName:@"Preferences"])) {
         self.delegate = delegate;
         _userAgent = userAgent;

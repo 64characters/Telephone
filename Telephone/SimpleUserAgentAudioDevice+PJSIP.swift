@@ -1,5 +1,5 @@
 //
-//  AudioDevices.swift
+//  UserAgentAudioDevice+PJSIP.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -17,22 +17,23 @@
 //
 
 import Domain
+import UseCases
 
-public struct AudioDevices: Equatable {
-    public let input: [AudioDevice]
-    public let output: [AudioDevice]
-
-    public init(input: [AudioDevice], output: [AudioDevice]) {
-        self.input = input
-        self.output = output
+extension SimpleUserAgentAudioDevice {
+    init(device: pjmedia_aud_dev_info, identifier: Int) {
+        self.init(
+            identifier: identifier,
+            name: nameOf(device),
+            inputs: Int(device.input_count),
+            outputs: Int(device.output_count)
+        )
     }
 }
 
-extension AudioDevices {
-    init(devices: SystemAudioDevices) {
-        self.init(
-            input: devices.input.map({ AudioDevice(device: $0) }),
-            output: devices.output.map({ AudioDevice(device: $0) })
-        )
+private func nameOf(_ device: pjmedia_aud_dev_info) -> String {
+    if let name = String(utf8String: [CChar](tuple: device.name)), !name.isEmpty {
+        return name
+    } else {
+        return NSLocalizedString("Unknown device", comment: "Audio device name is unknown.")
     }
 }

@@ -16,19 +16,92 @@
 //  GNU General Public License for more details.
 //
 
-@objc protocol SoundPreferencesViewEventTarget {
+import UseCases
+
+final class SoundPreferencesViewEventTarget: NSObject {
+    private let useCaseFactory: UseCaseFactory
+    private let presenterFactory: PresenterFactory
+    private let userAgentSoundIOSelection: UseCase
+    private let ringtoneOutputUpdate: ThrowingUseCase
+    private let ringtoneSoundPlayback: SoundPlaybackUseCase
+
+    init(useCaseFactory: UseCaseFactory,
+         presenterFactory: PresenterFactory,
+         userAgentSoundIOSelection: UseCase,
+         ringtoneOutputUpdate: ThrowingUseCase,
+         ringtoneSoundPlayback: SoundPlaybackUseCase) {
+        self.useCaseFactory = useCaseFactory
+        self.presenterFactory = presenterFactory
+        self.userAgentSoundIOSelection = userAgentSoundIOSelection
+        self.ringtoneOutputUpdate = ringtoneOutputUpdate
+        self.ringtoneSoundPlayback = ringtoneSoundPlayback
+    }
+
     @objc(viewShouldReloadData:)
-    func shouldReloadData(in view: SoundPreferencesView)
+    func shouldReloadData(in view: SoundPreferencesView) {
+        loadSettingsSoundIOInViewOrLogError(view: view)
+    }
 
     @objc(viewShouldReloadSoundIO:)
-    func shouldReloadSoundIO(in view: SoundPreferencesView)
+    func shouldReloadSoundIO(in view: SoundPreferencesView) {
+        loadSettingsSoundIOInViewOrLogError(view: view)
+    }
 
-    @objc(viewDidChangeSoundIOWithInput:output:ringtoneOutput:)
-    func didChangeSoundIO(input: String, output: String, ringtoneOutput: String)
+    @objc(viewDidChangeSoundIO:)
+    func didChangeSoundIO(_ soundIO: PresentationSoundIO) {
+        updateSettings(withSoundIO: soundIO)
+        userAgentSoundIOSelection.execute()
+        updateRingtoneOutputOrLogError()
+    }
 
     @objc(viewDidChangeRingtoneName:)
-    func didChangeRingtoneName(_ name: String)
+    func didChangeRingtoneName(_ name: String) {
+        updateSettings(withRingtoneSoundName: name)
+        playRingtoneSoundOrLogError()
+    }
 
     @objc(viewWillDisappear:)
-    func willDisappear(_ view: SoundPreferencesView)
+    func willDisappear(_ view: SoundPreferencesView) {
+        ringtoneSoundPlayback.stop()
+    }
+}
+
+private extension SoundPreferencesViewEventTarget {
+    func loadSettingsSoundIOInViewOrLogError(view: SoundPreferencesView) {
+        do {
+            try makeSettingsSoundIOLoadUseCase(view: view).execute()
+        } catch {
+            print("Could not load Sound IO view data")
+        }
+    }
+
+    func updateSettings(withSoundIO soundIO: PresentationSoundIO) {
+        useCaseFactory.makeSettingsSoundIOSaveUseCase(soundIO: SystemDefaultingSoundIO(soundIO)).execute()
+    }
+
+    func updateRingtoneOutputOrLogError() {
+        do {
+            try ringtoneOutputUpdate.execute()
+        } catch {
+            print("Could not update ringtone output: \(error)")
+        }
+    }
+
+    func updateSettings(withRingtoneSoundName name: String) {
+        useCaseFactory.makeSettingsRingtoneSoundNameSaveUseCase(name: name).execute()
+    }
+
+    func playRingtoneSoundOrLogError() {
+        do {
+            try ringtoneSoundPlayback.play()
+        } catch {
+            print("Could not play ringtone sound: \(error)")
+        }
+    }
+
+    func makeSettingsSoundIOLoadUseCase(view: SoundPreferencesView) -> ThrowingUseCase {
+        return useCaseFactory.makeSettingsSoundIOLoadUseCase(
+            output: presenterFactory.makeSoundIOPresenter(output: view)
+        )
+    }
 }

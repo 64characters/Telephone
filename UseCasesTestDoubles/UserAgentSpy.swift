@@ -16,10 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+import Domain
 import UseCases
 
-public final class UserAgentSpy: NSObject {
+public final class UserAgentSpy {
     public var isStarted = false
 
     public private(set) var didCallAudioDevices = false
@@ -31,6 +31,8 @@ public final class UserAgentSpy: NSObject {
 
     public private(set) var invokedInputDeviceID: Int?
     public private(set) var invokedOutputDeviceID: Int?
+
+    public init() {}
 }
 
 extension UserAgentSpy: UserAgent {

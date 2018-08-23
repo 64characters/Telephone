@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceRepository.swift
+//  NullSystemSoundIO.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,6 +18,9 @@
 
 import Domain
 
-public protocol SystemAudioDeviceRepository: class {
-    func allDevices() throws -> [SystemAudioDevice]
+public struct NullSystemSoundIO: SystemSoundIO {
+    public let input: SystemAudioDevice = NullSystemAudioDevice()
+    public let output: SystemAudioDevice = NullSystemAudioDevice()
+
+    public init() {}
 }

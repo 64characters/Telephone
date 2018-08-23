@@ -1,5 +1,5 @@
 //
-//  DelayingUserAgentSoundIOSelectionUseCaseTests.swift
+//  UserAgentEventsUserAgentSoundIOSelectionUseCaseTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -20,15 +20,15 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
-final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
+final class UserAgentEventsUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
     private var agent: UserAgentSpy!
-    private var sut: DelayingUserAgentSoundIOSelectionUseCase!
+    private var sut: UserAgentEventsUserAgentSoundIOSelectionUseCase!
 
     override func setUp() {
         super.setUp()
         agent = UserAgentSpy()
-        sut = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCaseFake(userAgent: agent), agent: agent, calls: NoActiveCallsStub()
+        sut = UserAgentEventsUserAgentSoundIOSelectionUseCase(
+            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: NoActiveCallsStub()
         )
     }
 
@@ -103,35 +103,25 @@ final class DelayingUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOOnDidMakeCallAfterSystemAudioDevicesUpdate() {
+    func testSelectsIOOnDidReceiveCallAfterExecuteIsCalled() {
         sut.didFinishStarting(agent)
         sut.didMakeCall(agent)
 
-        sut.systemAudioDevicesDidUpdate()
-        sut.didMakeCall(agent)
-
-        XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
-    }
-
-    func testSelectsIOOnDidReceiveCallAfterSystemAudioDevicesUpdate() {
-        sut.didFinishStarting(agent)
-        sut.didMakeCall(agent)
-
-        sut.systemAudioDevicesDidUpdate()
+        sut.execute()
         sut.didReceiveCall(agent)
 
         XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }
 
-    func testSelectsIOOnSystemAudioDevicesUpdateWhenThereAreActiveCalls() {
+    func testSelectsIOOnExecuteWhenThereAreActiveCalls() {
         let agent = UserAgentSpy()
-        let sut = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCaseFake(userAgent: agent), agent: agent, calls: ActiveCallsStub()
+        let sut = UserAgentEventsUserAgentSoundIOSelectionUseCase(
+            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: ActiveCallsStub()
         )
         sut.didFinishStarting(agent)
         sut.didMakeCall(agent)
 
-        sut.systemAudioDevicesDidUpdate()
+        sut.execute()
 
         XCTAssertEqual(agent.soundIOSelectionCallCount, 2)
     }

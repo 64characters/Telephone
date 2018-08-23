@@ -1,5 +1,5 @@
 //
-//  PresentationSoundIO.swift
+//  SystemDefaultingSoundIO.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,24 +18,29 @@
 
 import Domain
 
-public struct PresentationSoundIO: Equatable {
-    public let input: AudioDevice
-    public let output: AudioDevice
-    public let ringtoneOutput: AudioDevice
+public struct SystemDefaultingSoundIO {
+    public let input: Item
+    public let output: Item
+    public let ringtoneOutput: Item
 
-    public init(input: AudioDevice, output: AudioDevice, ringtoneOutput: AudioDevice) {
+    public init(input: Item, output: Item, ringtoneOutput: Item) {
         self.input = input
         self.output = output
         self.ringtoneOutput = ringtoneOutput
     }
-}
 
-extension PresentationSoundIO {
-    init(soundIO: SoundIO) {
-        self.init(
-            input: AudioDevice(device: soundIO.input),
-            output: AudioDevice(device: soundIO.output),
-            ringtoneOutput: AudioDevice(device: soundIO.ringtoneOutput)
-        )
+    public init(_ soundIO: SoundIO) {
+        input = Item(soundIO.input)
+        output = Item(soundIO.output)
+        ringtoneOutput = Item(soundIO.ringtoneOutput)
+    }
+
+    public enum Item {
+        case systemDefault
+        case device(name: String)
+
+        init(_ device: SystemAudioDevice) {
+            self = device.isNil ? .systemDefault : .device(name: device.name)
+        }
     }
 }

@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
 import UseCases
 
 final class SoundIOPresenter {
@@ -27,12 +28,16 @@ final class SoundIOPresenter {
 }
 
 extension SoundIOPresenter: SettingsSoundIOLoadUseCaseOutput {
-    func update(devices: AudioDevices, soundIO: PresentationSoundIO) {
-        output.setInputDevices(devices.input)
-        output.setOutputDevices(devices.output)
-        output.setRingtoneDevices(devices.output)
-        output.setInputDevice(soundIO.input)
-        output.setOutputDevice(soundIO.output)
-        output.setRingtoneDevice(soundIO.ringtoneOutput)
+    func update(soundIO: SystemDefaultingSoundIO, devices: SystemAudioDevices) {
+        let systemDefault = PresentationAudioDevice(isSystemDefault: true, name: systemDefaultDeviceName)
+        output.update(
+            soundIO: PresentationSoundIO(soundIO: soundIO, systemDefaultDeviceName: systemDefaultDeviceName),
+            devices: PresentationAudioDevices(
+                input: [systemDefault] + devices.input.map(PresentationAudioDevice.init),
+                output: [systemDefault] + devices.output.map(PresentationAudioDevice.init)
+            )
+        )
     }
 }
+
+private let systemDefaultDeviceName = NSLocalizedString("Use System Setting", comment: "Audio device menu item.")

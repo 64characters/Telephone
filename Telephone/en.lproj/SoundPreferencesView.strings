@@ -1,0 +1,30 @@
+
+/* Class = "NSTextFieldCell"; title = "Sound Input:"; ObjectID = "211"; */
+"211.title" = "Sound Input:";
+
+/* Class = "NSTextFieldCell"; title = "Sound Output:"; ObjectID = "213"; */
+"213.title" = "Sound Output:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "216"; */
+"216.title" = "OtherViews";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "222"; */
+"222.title" = "OtherViews";
+
+/* Class = "NSTextFieldCell"; title = "Ringtone:"; ObjectID = "276"; */
+"276.title" = "Ringtone:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "279"; */
+"279.title" = "OtherViews";
+
+/* Class = "NSTextFieldCell"; title = "Place ringtones in ~/Library/Sounds"; ObjectID = "346"; */
+"346.title" = "Place ringtones in ~/Library/Sounds";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "476"; */
+"476.title" = "OtherViews";
+
+/* Class = "NSTextFieldCell"; title = "Ringtone Output:"; ObjectID = "477"; */
+"477.title" = "Ringtone Output:";
+
+/* Class = "NSButtonCell"; title = "Use only G.711 codec"; ObjectID = "2bR-wc-3xa"; */
+"2bR-wc-3xa.title" = "Use only G.711 codec";

@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevice+PJSIP.swift
+//  SystemAudioDevicesTestFactory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,23 +16,20 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
+import DomainTestDoubles
 import UseCases
 
-extension UserAgentAudioDevice {
-    convenience init(device: pjmedia_aud_dev_info, identifier: Int) {
-        self.init(
-            identifier: identifier,
-            name: nameOf(device),
-            inputs: Int(device.input_count),
-            outputs: Int(device.output_count)
-        )
+public final class SystemAudioDevicesTestFactory {
+    private let factory: SystemAudioDeviceTestFactory
+
+    public init(factory: SystemAudioDeviceTestFactory) {
+        self.factory = factory
     }
 }
 
-private func nameOf(_ device: pjmedia_aud_dev_info) -> String {
-    if let name = String(utf8String: [CChar](tuple: device.name)), !name.isEmpty {
-        return name
-    } else {
-        return NSLocalizedString("Unknown device", comment: "Audio device name is unknown.")
+extension SystemAudioDevicesTestFactory: SystemAudioDevicesFactory {
+    public func make() throws -> SystemAudioDevices {
+        return SystemAudioDevices(devices: factory.all)
     }
 }

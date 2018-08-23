@@ -1,5 +1,5 @@
 //
-//  SystemAudioDeviceRepositoryStub.swift
+//  SoundIO+Equality.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -17,16 +17,7 @@
 //
 
 import Domain
-import UseCases
 
-public final class SystemAudioDeviceRepositoryStub {
-    public var allDevicesResult = [SystemAudioDevice]()
-
-    public init() {}
-}
-
-extension SystemAudioDeviceRepositoryStub: SystemAudioDeviceRepository {
-    public func allDevices() throws -> [SystemAudioDevice] {
-        return allDevicesResult
-    }
+public func ==(lhs: SoundIO, rhs: SoundIO) -> Bool {
+    return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
 }

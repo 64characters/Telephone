@@ -38,7 +38,8 @@ final class CompositionRoot: NSObject {
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
     private let userAgentEventSource: AKSIPUserAgentEventSource
-    private let devicesChangeEventSource: SystemAudioDevicesChangeEventSource!
+    private let devicesChangeEventSource: CoreAudioSystemAudioDevicesChangeEventSource
+    private let soundIOChangeEventSource: CoreAudioDefaultSystemSoundIOChangeEventSource
     private let accountsEventSource: PreferencesControllerAccountsEventSource
     private let callEventSource: AKSIPCallEventSource
     private let contactsChangeEventSource: Any
@@ -48,11 +49,18 @@ final class CompositionRoot: NSObject {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 
-        let audioDevices = SystemAudioDevices()
-        let useCaseFactory = DefaultUseCaseFactory(repository: audioDevices, settings: defaults)
+        let systemAudioDevicesFactory = CoreAudioSystemAudioDevicesFactory(objectIDs: CoreAudioDevicesAudioObjectIDs())
+
+        let useCaseFactory = DefaultUseCaseFactory(factory: systemAudioDevicesFactory, settings: defaults)
+
+        let soundIOFactory = PreferredSoundIOFactory(
+            devicesFactory: systemAudioDevicesFactory,
+            defaultIOFactory: CoreAudioDefaultSystemSoundIOFactory(defaultIO: CoreAudioDefaultIO()),
+            settings: defaults
+        )
 
         let soundFactory = SimpleSoundFactory(
-            load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, repository: audioDevices),
+            load: SettingsRingtoneSoundConfigurationLoadUseCase(settings: defaults, factory: soundIOFactory),
             factory: NSSoundToSoundAdapterFactory()
         )
 
@@ -106,16 +114,22 @@ final class CompositionRoot: NSObject {
             target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt)
         )
 
-        let userAgentSoundIOSelection = DelayingUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCase(repository: audioDevices, userAgent: userAgent, settings: defaults),
+        let userAgentEventsUserAgentSoundIOSelection = UserAgentEventsUserAgentSoundIOSelectionUseCase(
+            useCase: UserAgentSoundIOSelectionUseCase(
+                devicesFactory: systemAudioDevicesFactory, soundIOFactory: soundIOFactory, agent: userAgent
+            ),
             agent: userAgent,
             calls: userAgent
+        )
+
+        let userAgentSoundIOSelection = AudioDevicesEventsUserAgentSoundIOSelectionUseCase(
+            origin: userAgentEventsUserAgentSoundIOSelection
         )
 
         preferencesController = PreferencesController(
             delegate: preferencesControllerDelegate,
             userAgent: userAgent,
-            soundPreferencesViewEventTarget: DefaultSoundPreferencesViewEventTarget(
+            soundPreferencesViewEventTarget: SoundPreferencesViewEventTarget(
                 useCaseFactory: useCaseFactory,
                 presenterFactory: PresenterFactory(),
                 userAgentSoundIOSelection: userAgentSoundIOSelection,
@@ -138,7 +152,8 @@ final class CompositionRoot: NSObject {
         userAgentEventSource = AKSIPUserAgentEventSource(
             target: UserAgentEventTargets(
                 targets: [
-                    userAgentSoundIOSelection, BackgroundActivityUserAgentEventTarget(process: ProcessInfo.processInfo)
+                    userAgentEventsUserAgentSoundIOSelection,
+                    BackgroundActivityUserAgentEventTarget(process: ProcessInfo.processInfo)
                 ]
             ),
             agent: userAgent
@@ -146,15 +161,19 @@ final class CompositionRoot: NSObject {
 
         let background = DispatchQueue(label: Bundle.main.bundleIdentifier! + ".background-queue", qos: .userInitiated)
 
-        devicesChangeEventSource = SystemAudioDevicesChangeEventSource(
+        devicesChangeEventSource = CoreAudioSystemAudioDevicesChangeEventSource(
             target: SystemAudioDevicesChangeEventTargets(
                 targets: [
-                    UserAgentAudioDeviceUpdateUseCase(userAgent: userAgent),
+                    UserAgentAudioDeviceUpdateUseCase(agent: userAgent),
                     userAgentSoundIOSelection,
                     PreferencesSoundIOUpdater(preferences: preferencesController)
                 ]
             ),
             queue: background
+        )
+
+        soundIOChangeEventSource = CoreAudioDefaultSystemSoundIOChangeEventSource(
+            target: userAgentSoundIOSelection, queue: background
         )
 
         let callHistories = DefaultCallHistories(
@@ -263,14 +282,6 @@ final class CompositionRoot: NSObject {
             fileBrowser: NSWorkspace.shared,
             webBrowser: NSWorkspace.shared
         )
-
-        super.init()
-
-        devicesChangeEventSource.start()
-    }
-
-    deinit {
-        devicesChangeEventSource.stop()
     }
 }
 

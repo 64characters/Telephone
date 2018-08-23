@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevice.swift
+//  DefaultSystemSoundIOChangeEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
-
-public final class UserAgentAudioDevice: NSObject {
-    public let identifier: Int
-    public let name: String
-    public let inputs: Int
-    public let outputs: Int
-
-    public init(identifier: Int, name: String, inputs: Int, outputs: Int) {
-        self.identifier = identifier
-        self.name = name
-        self.inputs = inputs
-        self.outputs = outputs
-    }
+public protocol DefaultSystemSoundIOChangeEventTarget {
+    func defaultSystemSoundIODidUpdate()
 }

@@ -16,25 +16,52 @@
 //  GNU General Public License for more details.
 //
 
+import Domain
+import DomainTestDoubles
 import UseCases
 import XCTest
 
 final class SoundIOPresenterTests: XCTestCase {
-    func testUpdatesViewWithExpectedData() {
+    func testUpdatesOutputWithPresentationSoundIOAndAudioDevices() {
+        let output = SoundPreferencesViewSpy()
+        let factory = SystemAudioDeviceTestFactory()
+        let soundIO = SystemDefaultingSoundIO(
+            SimpleSoundIO(input: factory.someInput, output: factory.firstOutput, ringtoneOutput: factory.someOutput)
+        )
+        let devices = SystemAudioDevices(devices: factory.all)
+        let sut = SoundIOPresenter(output: output)
+        let systemDefault = PresentationAudioDevice(isSystemDefault: true, name: systemDefaultDeviceName)
+
+        sut.update(soundIO: soundIO, devices: devices)
+
+        XCTAssertEqual(
+            output.invokedSoundIO,
+            PresentationSoundIO(soundIO: soundIO, systemDefaultDeviceName: systemDefaultDeviceName)
+        )
+        XCTAssertEqual(
+            output.invokedDevices,
+            PresentationAudioDevices(
+                input: [systemDefault] + devices.input.map(PresentationAudioDevice.init),
+                output: [systemDefault] + devices.output.map(PresentationAudioDevice.init)
+            )
+        )
+    }
+
+    func testUpdatesOutputWithSystemDefaultSoundIOWhenSoundIODevicesAreNil() {
         let output = SoundPreferencesViewSpy()
         let sut = SoundIOPresenter(output: output)
-        let inputDevices = ["input1", "input2"]
-        let outputDevices = ["output1", "output2"]
-        let devices = AudioDevices(input: inputDevices, output: outputDevices)
-        let soundIO = PresentationSoundIO(input: "input2", output: "output2", ringtoneOutput: "output1")
+        let systemDefault = PresentationAudioDevice(isSystemDefault: true, name: systemDefaultDeviceName)
 
-        sut.update(devices: devices, soundIO: soundIO)
+        sut.update(
+            soundIO: SystemDefaultingSoundIO(NullSoundIO()),
+            devices: SystemAudioDevices(devices: SystemAudioDeviceTestFactory().all)
+        )
 
-        XCTAssertEqual(output.invokedInputDevices, inputDevices)
-        XCTAssertEqual(output.invokedOutputDevices, outputDevices)
-        XCTAssertEqual(output.invokedRingtoneDevices, outputDevices)
-        XCTAssertEqual(output.invokedInputDevice, "input2")
-        XCTAssertEqual(output.invokedOutputDevice, "output2")
-        XCTAssertEqual(output.invokedRingtoneDevice, "output1")
+        XCTAssertEqual(
+            output.invokedSoundIO,
+            PresentationSoundIO(input: systemDefault, output: systemDefault, ringtoneOutput: systemDefault)
+        )
     }
 }
+
+private let systemDefaultDeviceName = "Use System Setting"

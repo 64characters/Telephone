@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesViewController">
@@ -13,7 +15,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="201"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="150" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="539" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="108"/>
             <subviews>
                 <stackView orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="V8L-Bv-Lvu">
                     <rect key="frame" x="85" y="20" width="374" height="74"/>
@@ -39,7 +41,7 @@
                             </connections>
                         </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="422">
-                            <rect key="frame" x="-2" y="18" width="269" height="18"/>
+                            <rect key="frame" x="-2" y="18" width="270" height="18"/>
                             <buttonCell key="cell" type="check" title="Автоматически закрывать окно звонка" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="423">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
