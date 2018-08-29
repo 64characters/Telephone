@@ -47,11 +47,10 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 // Delay for restarting user agent when DNS servers change.
 static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
 
-// Dynamic store key to the global DNS settings.
 static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
-
-// Dynamic store callback for DNS changes.
-static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
+static NSArray *CurrentNameservers(void);
+static void InstallNameserversChangesCallback(void);
+static void NameserversDidChange(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -95,27 +94,6 @@ NS_ASSUME_NONNULL_END
         _accountSetupController = [[AccountSetupController alloc] init];
     }
     return _accountSetupController;
-}
-
-- (NSArray *)currentNameservers {
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    NSString *bundleName = [mainBundle infoDictionary][@"CFBundleName"];
-    
-    SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(NULL, (__bridge CFStringRef)bundleName, NULL, NULL);
-    
-    CFPropertyListRef DNSSettings = SCDynamicStoreCopyValue(dynamicStore,
-                                                            (__bridge CFStringRef)kDynamicStoreDNSSettings);
-    
-    NSArray *nameservers = nil;
-    if (DNSSettings != NULL) {
-        nameservers = ((__bridge NSDictionary *)DNSSettings)[@"ServerAddresses"];
-        
-        CFRelease(DNSSettings);
-    }
-    
-    CFRelease(dynamicStore);
-    
-    return nameservers;
 }
 
 + (void)initialize {
@@ -302,7 +280,7 @@ NS_ASSUME_NONNULL_END
         [[[self accountSetupController] otherButton] setAction:@selector(closeSheet:)];
         
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-        [self installDNSChangesCallback];
+        InstallNameserversChangesCallback();
     }
 }
 
@@ -392,23 +370,6 @@ NS_ASSUME_NONNULL_END
     }
     
     [[NSApp dockTile] setBadgeLabel:badgeString];
-}
-
-- (void)installDNSChangesCallback {
-    NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"];
-    SCDynamicStoreRef dynamicStore = SCDynamicStoreCreate(kCFAllocatorDefault,
-                                                          (__bridge CFStringRef)bundleName,
-                                                          &NameserversChanged,
-                                                          NULL);
-    
-    NSArray *keys = @[kDynamicStoreDNSSettings];
-    SCDynamicStoreSetNotificationKeys(dynamicStore, (__bridge CFArrayRef)keys, NULL);
-    
-    CFRunLoopSourceRef runLoopSource = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynamicStore, 0);
-    
-    CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, kCFRunLoopDefaultMode);
-    CFRelease(runLoopSource);
-    CFRelease(dynamicStore);
 }
 
 - (void)remindAboutPurchasingAfterDelay {
@@ -803,7 +764,7 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setOutboundProxyPort:[defaults integerForKey:kOutboundProxyPort]];
     
     if ([defaults boolForKey:kUseDNSSRV]) {
-        [[self userAgent] setNameservers:[self currentNameservers]];
+        [[self userAgent] setNameservers:CurrentNameservers()];
     } else {
         [[self userAgent] setNameservers:nil];
     }
@@ -946,7 +907,7 @@ NS_ASSUME_NONNULL_END
     
     // Read main settings from defaults.
     if ([defaults boolForKey:kUseDNSSRV]) {
-        [[self userAgent] setNameservers:[self currentNameservers]];
+        [[self userAgent] setNameservers:CurrentNameservers()];
     }
     
     [[self userAgent] setOutboundProxyHost:[defaults stringForKey:kOutboundProxyHost]];
@@ -1057,7 +1018,7 @@ NS_ASSUME_NONNULL_END
     [self updateAccountsMenuItems];
     
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-    [self installDNSChangesCallback];
+    InstallNameserversChangesCallback();
     
     [self setShouldPresentUserAgentLaunchError:YES];
     
@@ -1313,9 +1274,38 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark -
 
-static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info) {
+static NSArray *CurrentNameservers() {
+    SCDynamicStoreRef store
+    = SCDynamicStoreCreate(NULL,
+                           (__bridge CFStringRef)[[NSBundle mainBundle] infoDictionary][@"CFBundleName"],
+                           NULL,
+                           NULL);
+    CFPropertyListRef settings = SCDynamicStoreCopyValue(store, (__bridge CFStringRef)kDynamicStoreDNSSettings);
+    NSArray *result = nil;
+    if (settings != NULL) {
+        result = ((__bridge NSDictionary *)settings)[@"ServerAddresses"];
+        CFRelease(settings);
+    }
+    CFRelease(store);
+    return result;
+}
+
+static void InstallNameserversChangesCallback() {
+    SCDynamicStoreRef store
+    = SCDynamicStoreCreate(kCFAllocatorDefault,
+                           (__bridge CFStringRef)[[NSBundle mainBundle] infoDictionary][@"CFBundleName"],
+                           &NameserversDidChange,
+                           NULL);
+    SCDynamicStoreSetNotificationKeys(store, (__bridge CFArrayRef)@[kDynamicStoreDNSSettings], NULL);
+    CFRunLoopSourceRef source = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, store, 0);
+    CFRunLoopAddSource(CFRunLoopGetMain(), source, kCFRunLoopDefaultMode);
+    CFRelease(source);
+    CFRelease(store);
+}
+
+static void NameserversDidChange(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info) {
     id appDelegate = [NSApp delegate];
-    NSArray *nameservers = [appDelegate currentNameservers];
+    NSArray *nameservers = CurrentNameservers();
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if ([defaults boolForKey:kUseDNSSRV] &&
