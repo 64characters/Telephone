@@ -337,6 +337,7 @@
 		8A9D92331D2BF9D000491D59 /* SimpleProductsFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */; };
 		8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */; };
 		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
+		8AA044E82136C3A500736EAA /* SIPResponseLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA044E72136C3A500736EAA /* SIPResponseLocalization.m */; };
 		8AA265D81ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA265D71ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift */; };
 		8AA265DA1ECDFBF100813A91 /* NormalizedLowercasedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA265D91ECDFBF100813A91 /* NormalizedLowercasedString.swift */; };
 		8AA270D920D823CF00C703CD /* SystemAudioDevicesTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA270D720D8236C00C703CD /* SystemAudioDevicesTestFactory.swift */; };
@@ -1175,6 +1176,8 @@
 		8A9D92321D2BF9D000491D59 /* SimpleProductsFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleProductsFake.swift; sourceTree = "<group>"; };
 		8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKPaymentQueueToStoreAdapter.swift; sourceTree = "<group>"; };
 		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
+		8AA044E62136C3A500736EAA /* SIPResponseLocalization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIPResponseLocalization.h; sourceTree = "<group>"; };
+		8AA044E72136C3A500736EAA /* SIPResponseLocalization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIPResponseLocalization.m; sourceTree = "<group>"; };
 		8AA265D71ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedLowercasedStringTests.swift; sourceTree = "<group>"; };
 		8AA265D91ECDFBF100813A91 /* NormalizedLowercasedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedLowercasedString.swift; sourceTree = "<group>"; };
 		8AA270D720D8236C00C703CD /* SystemAudioDevicesTestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesTestFactory.swift; sourceTree = "<group>"; };
@@ -1780,6 +1783,8 @@
 				8AA748821D6DEE61000587DC /* SettingsAccount.swift */,
 				8AA748801D6DECAB000587DC /* SettingsAccounts.swift */,
 				8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */,
+				8AA044E62136C3A500736EAA /* SIPResponseLocalization.h */,
+				8AA044E72136C3A500736EAA /* SIPResponseLocalization.m */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
@@ -3914,6 +3919,7 @@
 				AA1019951C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
 				8AA689961FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift in Sources */,
+				8AA044E82136C3A500736EAA /* SIPResponseLocalization.m in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				8AA27AF01E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,

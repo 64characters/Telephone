@@ -23,6 +23,7 @@
 
 #import "AccountController.h"
 #import "AppController.h"
+#import "SIPResponseLocalization.h"
 
 
 NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNotification
@@ -83,8 +84,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
             NSString *statusText;
             NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
             if ([preferredLocalization isEqualToString:@"ru"]) {
-                statusText = [(AppController *)[NSApp delegate] localizedStringForSIPResponseCode:
-                              [[[self accountController] account] registrationStatus]];
+                statusText = LocalizedStringForSIPResponseCode([[[self accountController] account] registrationStatus]);
             } else {
                 statusText = [[[self accountController] account] registrationStatusText];
             }

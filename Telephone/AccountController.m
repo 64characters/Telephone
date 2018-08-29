@@ -34,6 +34,7 @@
 #import "ActiveAccountViewController.h"
 #import "AuthenticationFailureController.h"
 #import "CallTransferController.h"
+#import "SIPResponseLocalization.h"
 
 #import "Telephone-Swift.h"
 
@@ -134,8 +135,7 @@ static NSString * const kRussian = @"ru";
                 NSString *statusText;
                 NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
                 if ([preferredLocalization isEqualToString:kRussian]) {
-                    statusText = [(AppController *)[NSApp delegate] localizedStringForSIPResponseCode:
-                                  [[self account] registrationStatus]];
+                    statusText = LocalizedStringForSIPResponseCode([[self account] registrationStatus]);
                 } else {
                     statusText = [[self account] registrationStatusText];
                 }
@@ -560,8 +560,7 @@ static NSString * const kRussian = @"ru";
                     NSString *statusText;
                     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
                     if ([preferredLocalization isEqualToString:kRussian]) {
-                        statusText = [(AppController *)[NSApp delegate] localizedStringForSIPResponseCode:
-                                      [[self account] registrationStatus]];
+                        statusText = LocalizedStringForSIPResponseCode([[self account] registrationStatus]);
                     } else {
                         statusText = [[self account] registrationStatusText];
                     }

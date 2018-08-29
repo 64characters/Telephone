@@ -1,5 +1,5 @@
 //
-//  AppController.h
+//  SIPResponseLocalization.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-@import Cocoa;
+@import Foundation;
 
-#import "AKSIPUserAgent.h"
-
-@interface AppController : NSObject <AKSIPUserAgentDelegate>
-
-- (BOOL)canStopPlayingRingtone;
-
-- (void)updateDockTileBadgeLabel;
-
-@end
+NSString *LocalizedStringForSIPResponseCode(NSInteger code);

@@ -34,6 +34,7 @@
 #import "CallTransferController.h"
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
+#import "SIPResponseLocalization.h"
 #import "UserDefaultsKeys.h"
 
 
@@ -517,12 +518,12 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             
         default:
             if ([preferredLocalization isEqualToString:@"ru"]) {
-                NSString *statusText = [(AppController *)[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]];
+                NSString *statusText = LocalizedStringForSIPResponseCode([[self call] lastStatus]);
                 if (statusText == nil) {
                     [self setStatus:[NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."),
                                      [[self call] lastStatus]]];
                 } else {
-                    [self setStatus:[(AppController *)[NSApp delegate] localizedStringForSIPResponseCode:[[self call] lastStatus]]];
+                    [self setStatus:statusText];
                 }
             } else {
                 [self setStatus:[[self call] lastStatusText]];
