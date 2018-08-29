@@ -29,6 +29,7 @@
 #import "AKSIPCall.h"
 
 #import "AccountController.h"
+#import "AccountControllers.h"
 #import "AccountPreferencesViewController.h"
 #import "AccountSetupController.h"
 #import "ActiveAccountViewController.h"
@@ -57,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, PreferencesControllerDelegate>
 
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
-@property(nonatomic, readonly) NSMutableArray *accountControllers;
+@property(nonatomic, readonly) AccountControllers *accountControllers;
 @property(nonatomic, readonly) AccountSetupController *accountSetupController;
 @property(nonatomic) BOOL shouldRegisterAllAccounts;
 @property(nonatomic) BOOL shouldRestartUserAgentASAP;
@@ -89,43 +90,11 @@ NS_ASSUME_NONNULL_END
 
 @synthesize accountSetupController = _accountSetupController;
 
-- (NSArray *)enabledAccountControllers {
-    return [[self accountControllers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"enabled == YES"]];
-}
-
 - (AccountSetupController *)accountSetupController {
     if (_accountSetupController == nil) {
         _accountSetupController = [[AccountSetupController alloc] init];
     }
     return _accountSetupController;
-}
-
-- (BOOL)hasIncomingCallControllers {
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        for (CallController *callController in [accountController callControllers]) {
-            if ([[callController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
-                [[callController call] isIncoming] &&
-                [callController isCallActive] &&
-                ([[callController call] state] == kAKSIPCallIncomingState ||
-                 [[callController call] state] == kAKSIPCallEarlyState)) {
-                    return YES;
-                }
-        }
-    }
-    
-    return NO;
-}
-
-- (BOOL)hasActiveCallControllers {
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        for (CallController *callController in [accountController callControllers]) {
-            if ([callController isCallActive]) {
-                return YES;
-            }
-        }
-    }
-    
-    return NO;
 }
 
 - (NSArray *)currentNameservers {
@@ -147,19 +116,6 @@ NS_ASSUME_NONNULL_END
     CFRelease(dynamicStore);
     
     return nameservers;
-}
-
-- (NSUInteger)unhandledIncomingCallsCount {
-    NSUInteger count = 0;
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        for (CallController *callController in [accountController callControllers]) {
-            if ([[callController call] isIncoming] && [callController isCallUnhandled]) {
-                ++count;
-            }
-        }
-    }
-    
-    return count;
 }
 
 + (void)initialize {
@@ -228,7 +184,7 @@ NS_ASSUME_NONNULL_END
     _purchaseCheckUseCaseFactory = _compositionRoot.callHistoryPurchaseCheckUseCaseFactory;
     _destinationToCall = @"";
     _userSessionActive = YES;
-    _accountControllers = [[NSMutableArray alloc] init];
+    _accountControllers = [[AccountControllers alloc] init];
     _accountsMenuItems = @[];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -305,22 +261,13 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)stopUserAgent {
-    [self hangUpCallsAndRemoveAccountsFromUserAgent];
+    [self.accountControllers hangUpCallsAndRemoveAccountsFromUserAgent];
     [self.userAgent stop];
 }
 
 - (void)stopUserAgentAndWait {
-    [self hangUpCallsAndRemoveAccountsFromUserAgent];
+    [self.accountControllers hangUpCallsAndRemoveAccountsFromUserAgent];
     [self.userAgent stopAndWait];
-}
-
-- (void)hangUpCallsAndRemoveAccountsFromUserAgent {
-    for (AccountController *accountController in self.enabledAccountControllers) {
-        for (CallController *callController in accountController.callControllers) {
-            [callController hangUpCall];
-        }
-        [accountController removeAccountFromUserAgent];
-    }
 }
 
 - (void)restartUserAgent {
@@ -360,7 +307,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)canStopPlayingRingtone {
-    return ![self hasIncomingCallControllers];
+    return !self.accountControllers.haveIncomingCallControllers;
 }
 
 - (void)startUserAttentionTimer {
@@ -383,7 +330,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)stopUserAttentionTimerIfNeeded {
-    if (![self hasIncomingCallControllers]) {
+    if (!self.accountControllers.haveIncomingCallControllers) {
         [self stopUserAttentionTimer];
     }
 }
@@ -392,29 +339,16 @@ NS_ASSUME_NONNULL_END
     [NSApp requestUserAttention:NSInformationalRequest];
 }
 
-- (CallController *)callControllerByIdentifier:(NSString *)identifier {
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        for (CallController *callController in [accountController callControllers]) {
-            if ([[callController identifier] isEqualToString:identifier]) {
-                return callController;
-            }
-        }
-    }
-    
-    return nil;
-}
-
 - (void)updateAccountsMenuItems {
     // Remove old menu items.
-    for (NSMenuItem *menuItem in [self accountsMenuItems]) {
-        [[self windowMenu] removeItem:menuItem];
+    for (NSMenuItem *item in [self accountsMenuItems]) {
+        [[self windowMenu] removeItem:item];
     }
     
     // Create new menu items.
-    NSArray *enabledControllers = [self enabledAccountControllers];
-    NSMutableArray *itemsArray = [NSMutableArray arrayWithCapacity:[enabledControllers count]];
+    NSMutableArray *items = [[NSMutableArray alloc] init];
     NSUInteger accountNumber = 1;
-    for (AccountController *accountController in enabledControllers) {
+    for (AccountController *accountController in self.accountControllers.enabled) {
         NSMenuItem *menuItem = [[NSMenuItem alloc] init];
         [menuItem setRepresentedObject:accountController];
         [menuItem setAction:@selector(toggleAccountWindow:)];
@@ -423,19 +357,19 @@ NS_ASSUME_NONNULL_END
             // Only add key equivalents for Command-[1..9].
             [menuItem setKeyEquivalent:[NSString stringWithFormat:@"%lu", accountNumber]];
         }
-        [itemsArray addObject:menuItem];
+        [items addObject:menuItem];
         accountNumber++;
     }
-    if ([itemsArray count] > 0) {
-        [itemsArray insertObject:[NSMenuItem separatorItem] atIndex:0];
+    if (items.count > 0) {
+        [items insertObject:[NSMenuItem separatorItem] atIndex:0];
     }
-    [self setAccountsMenuItems:itemsArray];
+    [self setAccountsMenuItems:items];
     
     // Add menu items to the Window menu.
-    NSUInteger itemTag = 4;
-    for (NSMenuItem *menuItem in itemsArray) {
-        [[self windowMenu] insertItem:menuItem atIndex:itemTag];
-        itemTag++;
+    NSUInteger tag = 4;
+    for (NSMenuItem *item in items) {
+        [[self windowMenu] insertItem:item atIndex:tag];
+        tag++;
     }
 }
 
@@ -450,11 +384,11 @@ NS_ASSUME_NONNULL_END
 
 - (void)updateDockTileBadgeLabel {
     NSString *badgeString;
-    NSUInteger badgeNumber = [self unhandledIncomingCallsCount];
+    NSInteger badgeNumber = self.accountControllers.unhandledIncomingCallsCount;
     if (badgeNumber == 0) {
         badgeString = @"";
     } else {
-        badgeString = [NSString stringWithFormat:@"%lu", badgeNumber];
+        badgeString = [NSString stringWithFormat:@"%ld", badgeNumber];
     }
     
     [[NSApp dockTile] setBadgeLabel:badgeString];
@@ -477,14 +411,6 @@ NS_ASSUME_NONNULL_END
     CFRelease(dynamicStore);
 }
 
-- (void)updateCallsShouldDisplayAccountInfo {
-    NSUInteger enabledCount = [self.enabledAccountControllers count];
-    BOOL shouldDisplay = enabledCount > 1;
-    for (AccountController *accountController in self.accountControllers) {
-        accountController.callsShouldDisplayAccountInfo = shouldDisplay;
-    }
-}
-
 - (void)remindAboutPurchasingAfterDelay {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.compositionRoot.purchaseReminder execute];
@@ -498,7 +424,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)showAccountPreferencesIfNeeded {
-    if ([self enabledAccountControllers].count == 0)  {
+    if (self.accountControllers.enabled.count == 0)  {
         [self.preferencesController showWindowCentered];
         [self.preferencesController showAccounts];
     }
@@ -729,44 +655,6 @@ NS_ASSUME_NONNULL_END
 }
 
 
-#pragma mark - Account registration
-
-- (void)registerAllAccounts {
-    for (AccountController *controller in [self enabledAccountControllers]) {
-        [controller registerAccount];
-    }
-}
-
-- (void)registerReachableAccounts {
-    for (AccountController *controller in [self enabledAccountControllers]) {
-        if ([[controller registrarReachability] isReachable]) {
-            [controller registerAccount];
-        }
-    }
-}
-
-- (void)registerAllAccountsWhereManualRegistrationRequired {
-    for (AccountController *accountController in [self enabledAccountControllers]) {
-        [self registerAccountIfManualRegistrationRequired:accountController];
-    }
-}
-
-- (void)registerAccountIfManualRegistrationRequired:(AccountController *)controller {
-    ServiceAddress *registrar = [[ServiceAddress alloc] initWithString:controller.account.registrar];
-    if (registrar.host.ak_isIPAddress && [controller.registrarReachability isReachable]) {
-        [controller registerAccount];
-    }
-}
-
-- (void)unregisterAllAccounts {
-    for (AccountController *controller in [self enabledAccountControllers]) {
-        if ([controller isAccountRegistered]) {
-            [controller unregisterAccount];
-        }
-    }
-}
-
-
 #pragma mark -
 #pragma mark AccountSetupController delegate
 
@@ -791,13 +679,13 @@ NS_ASSUME_NONNULL_END
                                                              storeWindowPresenter:self.storeWindowPresenter];
     controller.enabled = YES;
     
-    [self.accountControllers addObject:controller];
-    [self updateCallsShouldDisplayAccountInfo];
+    [self.accountControllers addController:controller];
+    [self.accountControllers updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
     
     [controller showWindowWithoutMakingKey];
 
-    [self registerAccountIfManualRegistrationRequired:controller];
+    [self.accountControllers registerAccountIfManualRegistrationRequired:controller];
 }
 
 
@@ -805,15 +693,15 @@ NS_ASSUME_NONNULL_END
 #pragma mark PreferencesController delegate
 
 - (void)preferencesControllerDidRemoveAccount:(NSNotification *)notification {
-    NSInteger index = [[notification userInfo][kAccountIndex] integerValue];
-    AccountController *controller = [self accountControllers][index];
+    NSInteger index = [notification.userInfo[kAccountIndex] integerValue];
+    AccountController *controller = self.accountControllers[index];
     
     if ([controller isEnabled]) {
         [controller removeAccountFromUserAgent];
     }
     
-    [[self accountControllers] removeObjectAtIndex:index];
-    [self updateCallsShouldDisplayAccountInfo];
+    [self.accountControllers removeControllerAtIndex:index];
+    [self.accountControllers updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
 }
 
@@ -860,14 +748,14 @@ NS_ASSUME_NONNULL_END
         [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
         [controller setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
         
-        [self accountControllers][index] = controller;
+        self.accountControllers[index] = controller;
         
         [controller showWindowWithoutMakingKey];
 
-        [self registerAccountIfManualRegistrationRequired:controller];
+        [self.accountControllers registerAccountIfManualRegistrationRequired:controller];
         
     } else {
-        AccountController *controller = [self accountControllers][index];
+        AccountController *controller = self.accountControllers[index];
         
         // Close all call windows hanging up all calls.
         [[controller callControllers] makeObjectsPerformSelector:@selector(close)];
@@ -881,7 +769,7 @@ NS_ASSUME_NONNULL_END
         [controller hideWindow];
     }
     
-    [self updateCallsShouldDisplayAccountInfo];
+    [self.accountControllers updateCallsShouldDisplayAccountInfo];
     [self updateAccountsMenuItems];
 }
 
@@ -894,11 +782,11 @@ NS_ASSUME_NONNULL_END
         return;
     }
     
-    [[self accountControllers] insertObject:[self accountControllers][sourceIndex] atIndex:destinationIndex];
+    [self.accountControllers insertController:self.accountControllers[sourceIndex] atIndex:destinationIndex];
     if (sourceIndex < destinationIndex) {
-        [[self accountControllers] removeObjectAtIndex:sourceIndex];
+        [self.accountControllers removeControllerAtIndex:sourceIndex];
     } else if (sourceIndex > destinationIndex) {
-        [[self accountControllers] removeObjectAtIndex:(sourceIndex + 1)];
+        [self.accountControllers removeControllerAtIndex:(sourceIndex + 1)];
     }
     
     [self updateAccountsMenuItems];
@@ -945,7 +833,7 @@ NS_ASSUME_NONNULL_END
 - (void)SIPUserAgentDidFinishStarting:(NSNotification *)notification {
     if ([[self userAgent] isStarted]) {
         if ([self shouldRegisterAllAccounts]) {
-            [self registerAllAccounts];
+            [self.accountControllers registerAllAccounts];
         }
         
         [self setShouldRegisterAllAccounts:NO];
@@ -962,12 +850,12 @@ NS_ASSUME_NONNULL_END
         if (![self shouldPresentUserAgentLaunchError]) {
             // Check whether any AccountController is trying to register or unregister
             // an acount. If so, we should present SIP user agent launch error.
-            for (AccountController *accountController in [self enabledAccountControllers]) {
-                if ([accountController shouldPresentRegistrationError]) {
+            for (AccountController *controller in self.accountControllers.enabled) {
+                if ([controller shouldPresentRegistrationError]) {
                     [self setShouldPresentUserAgentLaunchError:YES];
-                    [accountController setAttemptingToRegisterAccount:NO];
-                    [accountController setAttemptingToUnregisterAccount:NO];
-                    [accountController setShouldPresentRegistrationError:NO];
+                    [controller setAttemptingToRegisterAccount:NO];
+                    [controller setAttemptingToUnregisterAccount:NO];
+                    [controller setShouldPresentRegistrationError:NO];
                 }
             }
         }
@@ -993,7 +881,7 @@ NS_ASSUME_NONNULL_END
         [NSApp replyToApplicationShouldTerminate:YES];
         
     } else if ([self shouldRegisterAllAccounts]) {
-        if ([[self enabledAccountControllers] count] > 0) {
+        if (self.accountControllers.enabled.count > 0) {
             [[self userAgent] start];
         } else {
             [self setShouldRegisterAllAccounts:NO];
@@ -1086,7 +974,7 @@ NS_ASSUME_NONNULL_END
     NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
     
     // Setup an account on first launch.
-    if ([savedAccounts count] == 0) {
+    if (savedAccounts.count == 0) {
         // There are no saved accounts, prompt user to add one.
         
         // Disable Preferences during the first account prompt.
@@ -1112,7 +1000,7 @@ NS_ASSUME_NONNULL_END
     }
     
     // There are saved accounts, open account windows.
-    for (NSUInteger i = 0; i < [savedAccounts count]; ++i) {
+    for (NSUInteger i = 0; i < savedAccounts.count; ++i) {
         NSDictionary *accountDict = savedAccounts[i];
 
         AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:accountDict[kUUID]
@@ -1149,7 +1037,7 @@ NS_ASSUME_NONNULL_END
         [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
         [controller setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
         
-        [[self accountControllers] addObject:controller];
+        [self.accountControllers addController:controller];
         
         if (![controller isEnabled]) {
             continue;
@@ -1163,8 +1051,7 @@ NS_ASSUME_NONNULL_END
         }
     }
     
-    // Update callsShouldDisplayAccountInfo on account controllers.
-    [self updateCallsShouldDisplayAccountInfo];
+    [self.accountControllers updateCallsShouldDisplayAccountInfo];
     
     // Update account menu items.
     [self updateAccountsMenuItems];
@@ -1180,7 +1067,7 @@ NS_ASSUME_NONNULL_END
 
     [self remindAboutPurchasingAfterDelay];
     
-    [self registerAllAccountsWhereManualRegistrationRequired];
+    [self.accountControllers registerAllAccountsWhereManualRegistrationRequired];
 
     [self makeCallAfterLaunchIfNeeded];
 
@@ -1191,30 +1078,12 @@ NS_ASSUME_NONNULL_END
     [self setFinishedLaunching:YES];
 }
 
-// Reopen all account windows when the user clicks the dock icon.
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
-    
-    // Show incoming call window, if any.
-    if ([self hasIncomingCallControllers]) {
-        for (AccountController *accountController in [self enabledAccountControllers]) {
-            for (CallController *callController in [accountController callControllers]) {
-                if ([[callController call] identifier] != kAKSIPUserAgentInvalidIdentifier &&
-                    [[callController call] state] == kAKSIPCallIncomingState) {
-                    
-                    [callController showWindow:nil];
-                    
-                    // Return early, beause we can't break from two for loops.
-                    return YES;
-                }
-            }
-        }
-    } else {
-        // Show window of first enalbed account.
-        if ([NSApp keyWindow] == nil && [[self enabledAccountControllers] count] > 0) {
-            [[self enabledAccountControllers][0] showWindow];
-        }
+    if (self.accountControllers.haveIncomingCallControllers) {
+        [self.accountControllers showIncomingCallWindows];
+    } else if ([NSApp keyWindow] == nil && self.accountControllers.enabled.count > 0) {
+        [self.accountControllers.enabled.firstObject showWindow];
     }
-    
     return YES;
 }
 
@@ -1224,7 +1093,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-    if ([self hasActiveCallControllers]) {
+    if (self.accountControllers.haveActiveCallControllers) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
@@ -1278,7 +1147,7 @@ NS_ASSUME_NONNULL_END
     if ([[notification object] isIncoming]) {
         [self stopUserAttentionTimerIfNeeded];
     }
-    if ([self shouldRestartUserAgentASAP] && ![self hasActiveCallControllers]) {
+    if (self.shouldRestartUserAgentASAP && !self.accountControllers.haveActiveCallControllers) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
         [self setShouldRestartUserAgentASAP:NO];
         [self restartUserAgent];
@@ -1290,25 +1159,18 @@ NS_ASSUME_NONNULL_END
 #pragma mark AuthenticationFailureController notifications
 
 - (void)authenticationFailureControllerDidChangeUsernameAndPassword:(NSNotification *)notification {
-    AccountController *accountController = [[notification object] accountController];
-    NSUInteger index = [[self accountControllers] indexOfObject:accountController];
-    
+    AccountController *controller = [[notification object] accountController];
+    NSInteger index = [self.accountControllers indexOfController:controller];
     if (index != NSNotFound) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
         NSMutableArray *accounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
-        
-        NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:accounts[index]];
-        
-        accountDict[kUsername] = [[accountController account] username];
-        
-        accounts[index] = accountDict;
+        NSMutableDictionary *account = [NSMutableDictionary dictionaryWithDictionary:accounts[index]];
+        account[kUsername] = controller.account.username;
+        accounts[index] = account;
         [defaults setObject:accounts forKey:kAccounts];
-        
-        AccountPreferencesViewController *accountPreferencesViewController
-            = [[self preferencesController] accountPreferencesViewController];
-        if ([[accountPreferencesViewController accountsTable] selectedRow] == index) {
-            [accountPreferencesViewController populateFieldsForAccountAtIndex:index];
+        AccountPreferencesViewController *viewController = self.preferencesController.accountPreferencesViewController;
+        if (viewController.accountsTable.selectedRow == index) {
+            [viewController populateFieldsForAccountAtIndex:index];
         }
     }
 }
@@ -1316,7 +1178,7 @@ NS_ASSUME_NONNULL_END
 #pragma mark - NSUserNotificationCenterDelegate
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    CallController *controller = [self callControllerByIdentifier:notification.identifier];
+    CallController *controller = [self.accountControllers callControllerByIdentifier:notification.identifier];
     switch (notification.activationType) {
         case NSUserNotificationActivationTypeContentsClicked:
             [controller showWindow:self];
@@ -1345,18 +1207,18 @@ NS_ASSUME_NONNULL_END
 
 - (void)workspaceDidWake:(NSNotification *)notification {
     if (self.isUserSessionActive) {
-        [self registerReachableAccounts];
+        [self.accountControllers registerReachableAccounts];
     }
 }
 
 - (void)workspaceSessionDidResignActive:(NSNotification *)notification {
     self.userSessionActive = NO;
-    [self unregisterAllAccounts];
+    [self.accountControllers unregisterAllAccounts];
 }
 
 - (void)workspaceSessionDidBecomeActive:(NSNotification *)notification {
     self.userSessionActive = YES;
-    [self registerAllAccounts];
+    [self.accountControllers registerAllAccounts];
 }
 
 
@@ -1437,13 +1299,13 @@ NS_ASSUME_NONNULL_END
 
 - (void)makeCallTo:(NSString *)destination {
     if ([self canMakeCall]) {
-        [self.enabledAccountControllers[0] makeCallToDestinationRegisteringAccountIfNeeded:
+        [self.accountControllers.enabled.firstObject makeCallToDestinationRegisteringAccountIfNeeded:
          [[SanitizedCallDestination alloc] initWithString:destination]];
     }
 }
 
 - (BOOL)canMakeCall {
-    return NSApp.modalWindow == nil && self.enabledAccountControllers.count > 0;
+    return NSApp.modalWindow == nil && self.accountControllers.enabled.count > 0;
 }
 
 @end
@@ -1457,12 +1319,12 @@ static void NameserversChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if ([defaults boolForKey:kUseDNSSRV] &&
-        [nameservers count] > 0 &&
+        nameservers.count > 0 &&
         ![[[appDelegate userAgent] nameservers] isEqualToArray:nameservers]) {
         
         [[appDelegate userAgent] setNameservers:nameservers];
         
-        if (![appDelegate hasActiveCallControllers]) {
+        if (![[appDelegate accountControllers] haveActiveCallControllers]) {
             [NSObject cancelPreviousPerformRequestsWithTarget:appDelegate
                                                      selector:@selector(restartUserAgent)
                                                        object:nil];
