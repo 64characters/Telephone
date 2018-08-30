@@ -536,9 +536,9 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setOutboundProxyPort:[defaults integerForKey:kOutboundProxyPort]];
     
     if ([defaults boolForKey:kUseDNSSRV]) {
-        [[self userAgent] setNameservers:self.nameServers.all];
+        [[self userAgent] setNameServers:self.nameServers.all];
     } else {
-        [[self userAgent] setNameservers:nil];
+        [[self userAgent] setNameServers:nil];
     }
     
     // Restart SIP user agent.
@@ -679,7 +679,7 @@ NS_ASSUME_NONNULL_END
     
     // Read main settings from defaults.
     if ([defaults boolForKey:kUseDNSSRV]) {
-        [[self userAgent] setNameservers:self.nameServers.all];
+        [[self userAgent] setNameServers:self.nameServers.all];
     }
     
     [[self userAgent] setOutboundProxyHost:[defaults stringForKey:kOutboundProxyHost]];
@@ -1046,9 +1046,9 @@ NS_ASSUME_NONNULL_END
     NSArray *servers = nameServers.all;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseDNSSRV] &&
         servers.count > 0 &&
-        ![self.userAgent.nameservers isEqualToArray:servers]) {
+        ![self.userAgent.nameServers isEqualToArray:servers]) {
 
-        self.userAgent.nameservers = servers;
+        self.userAgent.nameServers = servers;
         if (!self.accountControllers.haveActiveCallControllers) {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
             [self performSelector:@selector(restartUserAgent) withObject:nil afterDelay:kUserAgentRestartDelayAfterDNSChange];

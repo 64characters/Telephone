@@ -40,8 +40,8 @@ enum {
 
 const NSInteger kAKSIPUserAgentInvalidIdentifier = PJSUA_INVALID_ID;
 
-// Maximum number of nameservers to take into account.
-static const NSInteger kAKSIPUserAgentNameserversMax = 4;
+// Maximum number of name servers to take into account.
+static const NSInteger kAKSIPUserAgentNameServersMax = 4;
 
 // User agent defaults.
 static const NSInteger kAKSIPUserAgentDefaultOutboundProxyPort = 5060;
@@ -134,13 +134,13 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     return _callData;
 }
 
-- (void)setNameservers:(NSArray *)newNameservers {
-    if (_nameservers != newNameservers) {
+- (void)setNameServers:(NSArray *)newNameServers {
+    if (_nameServers != newNameServers) {
         
-        if ([newNameservers count] > kAKSIPUserAgentNameserversMax) {
-            _nameservers = [newNameservers subarrayWithRange:NSMakeRange(0, kAKSIPUserAgentNameserversMax)];
+        if ([newNameServers count] > kAKSIPUserAgentNameServersMax) {
+            _nameServers = [newNameServers subarrayWithRange:NSMakeRange(0, kAKSIPUserAgentNameServersMax)];
         } else {
-            _nameservers = [newNameservers copy];
+            _nameServers = [newNameServers copy];
         }
     }
 }
@@ -293,10 +293,10 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     userAgentConfig.max_calls = (unsigned)kAKSIPCallsMax;
     userAgentConfig.use_timer = PJSUA_SIP_TIMER_INACTIVE;
 
-    if ([[self nameservers] count] > 0) {
-        userAgentConfig.nameserver_count = (unsigned)[[self nameservers] count];
-        for (NSUInteger i = 0; i < [[self nameservers] count]; ++i) {
-            userAgentConfig.nameserver[i] = [[self nameservers][i] pjString];
+    if ([[self nameServers] count] > 0) {
+        userAgentConfig.nameserver_count = (unsigned)[[self nameServers] count];
+        for (NSUInteger i = 0; i < [[self nameServers] count]; ++i) {
+            userAgentConfig.nameserver[i] = [[self nameServers][i] pjString];
         }
     }
 

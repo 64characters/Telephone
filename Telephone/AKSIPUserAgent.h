@@ -89,8 +89,8 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 @property(readonly, assign) pj_pool_t *pool;
 
 // An array of DNS servers to use by the receiver. If set, DNS SRV will be
-// enabled. Only first kAKSIPUserAgentNameserversMax are used.
-@property(nonatomic, copy) NSArray *nameservers;
+// enabled. Only first kAKSIPUserAgentNameServersMax are used.
+@property(nonatomic, copy) NSArray *nameServers;
 
 // SIP proxy host to visit for all outgoing requests. Will be used for all
 // accounts. The final route set for outgoing requests consists of this proxy
