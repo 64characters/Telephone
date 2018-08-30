@@ -338,6 +338,7 @@
 		8A9D92371D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92361D2D0BD300491D59 /* SKPaymentQueueToStoreAdapter.swift */; };
 		8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */; };
 		8AA044E82136C3A500736EAA /* SIPResponseLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA044E72136C3A500736EAA /* SIPResponseLocalization.m */; };
+		8AA044EB2136CAF000736EAA /* NameServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA044EA2136CAF000736EAA /* NameServers.m */; };
 		8AA265D81ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA265D71ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift */; };
 		8AA265DA1ECDFBF100813A91 /* NormalizedLowercasedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA265D91ECDFBF100813A91 /* NormalizedLowercasedString.swift */; };
 		8AA270D920D823CF00C703CD /* SystemAudioDevicesTestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA270D720D8236C00C703CD /* SystemAudioDevicesTestFactory.swift */; };
@@ -1178,6 +1179,8 @@
 		8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreKitProducts.swift; sourceTree = "<group>"; };
 		8AA044E62136C3A500736EAA /* SIPResponseLocalization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIPResponseLocalization.h; sourceTree = "<group>"; };
 		8AA044E72136C3A500736EAA /* SIPResponseLocalization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIPResponseLocalization.m; sourceTree = "<group>"; };
+		8AA044E92136CAF000736EAA /* NameServers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NameServers.h; sourceTree = "<group>"; };
+		8AA044EA2136CAF000736EAA /* NameServers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NameServers.m; sourceTree = "<group>"; };
 		8AA265D71ECDFB6C00813A91 /* NormalizedLowercasedStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedLowercasedStringTests.swift; sourceTree = "<group>"; };
 		8AA265D91ECDFBF100813A91 /* NormalizedLowercasedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedLowercasedString.swift; sourceTree = "<group>"; };
 		8AA270D720D8236C00C703CD /* SystemAudioDevicesTestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesTestFactory.swift; sourceTree = "<group>"; };
@@ -1770,6 +1773,8 @@
 				8A68C9531FFE86FA005125AF /* HelpMenuActionTargetTests.swift */,
 				8A68C94D1FFE6452005125AF /* LogFileURL.swift */,
 				8A68C94B1FFE640B005125AF /* LogFileURLTests.swift */,
+				8AA044E92136CAF000736EAA /* NameServers.h */,
+				8AA044EA2136CAF000736EAA /* NameServers.m */,
 				8A0CBBC8205304C000FC0633 /* NSCalendarDayChangeEventSource.swift */,
 				AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */,
 				8AA689951FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift */,
@@ -3779,6 +3784,7 @@
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
 				8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
+				8AA044EB2136CAF000736EAA /* NameServers.m in Sources */,
 				8AD9A0DE1DE34ECE000BB2F2 /* TruncatingCallHistoryFactory.swift in Sources */,
 				8AA748C11D704B9F000587DC /* AvailableMusicPlayers.swift in Sources */,
 				AACC029E1C15DCB100913D7B /* SoundIOPresenter.swift in Sources */,

@@ -18,7 +18,6 @@
 
 #import "AppController.h"
 
-@import SystemConfiguration;
 @import UseCases;
 
 #import "AKAddressBookPhonePlugIn.h"
@@ -35,6 +34,7 @@
 #import "ActiveAccountViewController.h"
 #import "AuthenticationFailureController.h"
 #import "CallController.h"
+#import "NameServers.h"
 #import "PreferencesController.h"
 #import "UserDefaultsKeys.h"
 
@@ -47,14 +47,9 @@ static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
 // Delay for restarting user agent when DNS servers change.
 static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
 
-static NSString * const kDynamicStoreDNSSettings = @"State:/Network/Global/DNS";
-static NSArray *CurrentNameservers(void);
-static void InstallNameserversChangesCallback(void);
-static void NameserversDidChange(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info);
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, PreferencesControllerDelegate>
+@interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, NameServersChangeEventTarget, PreferencesControllerDelegate>
 
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 @property(nonatomic, readonly) AccountControllers *accountControllers;
@@ -79,6 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, getter=isFinishedLaunching) BOOL finishedLaunching;
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
+@property(nonatomic, readonly) NameServers *nameServers;
 
 @end
 
@@ -164,6 +160,7 @@ NS_ASSUME_NONNULL_END
     _userSessionActive = YES;
     _accountControllers = [[AccountControllers alloc] init];
     _accountsMenuItems = @[];
+    _nameServers = [[NameServers alloc] initWithBundle:NSBundle.mainBundle target:self];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
@@ -280,7 +277,6 @@ NS_ASSUME_NONNULL_END
         [[[self accountSetupController] otherButton] setAction:@selector(closeSheet:)];
         
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-        InstallNameserversChangesCallback();
     }
 }
 
@@ -540,7 +536,7 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setOutboundProxyPort:[defaults integerForKey:kOutboundProxyPort]];
     
     if ([defaults boolForKey:kUseDNSSRV]) {
-        [[self userAgent] setNameservers:CurrentNameservers()];
+        [[self userAgent] setNameservers:self.nameServers.all];
     } else {
         [[self userAgent] setNameservers:nil];
     }
@@ -683,7 +679,7 @@ NS_ASSUME_NONNULL_END
     
     // Read main settings from defaults.
     if ([defaults boolForKey:kUseDNSSRV]) {
-        [[self userAgent] setNameservers:CurrentNameservers()];
+        [[self userAgent] setNameservers:self.nameServers.all];
     }
     
     [[self userAgent] setOutboundProxyHost:[defaults stringForKey:kOutboundProxyHost]];
@@ -794,8 +790,7 @@ NS_ASSUME_NONNULL_END
     [self updateAccountsMenuItems];
     
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-    InstallNameserversChangesCallback();
-    
+
     [self setShouldPresentUserAgentLaunchError:YES];
     
     // Register as service provider to allow making calls from the Services
@@ -1045,63 +1040,22 @@ NS_ASSUME_NONNULL_END
     return NSApp.modalWindow == nil && self.accountControllers.enabled.count > 0;
 }
 
-@end
+#pragma mark - NameServersChangeEventTarget
 
+- (void)nameServersDidChange:(NameServers *)nameServers {
+    NSArray *servers = nameServers.all;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseDNSSRV] &&
+        servers.count > 0 &&
+        ![self.userAgent.nameservers isEqualToArray:servers]) {
 
-#pragma mark -
-
-static NSArray *CurrentNameservers() {
-    SCDynamicStoreRef store
-    = SCDynamicStoreCreate(NULL,
-                           (__bridge CFStringRef)[[NSBundle mainBundle] infoDictionary][@"CFBundleName"],
-                           NULL,
-                           NULL);
-    CFPropertyListRef settings = SCDynamicStoreCopyValue(store, (__bridge CFStringRef)kDynamicStoreDNSSettings);
-    NSArray *result = nil;
-    if (settings != NULL) {
-        result = ((__bridge NSDictionary *)settings)[@"ServerAddresses"];
-        CFRelease(settings);
-    }
-    CFRelease(store);
-    return result;
-}
-
-static void InstallNameserversChangesCallback() {
-    SCDynamicStoreRef store
-    = SCDynamicStoreCreate(kCFAllocatorDefault,
-                           (__bridge CFStringRef)[[NSBundle mainBundle] infoDictionary][@"CFBundleName"],
-                           &NameserversDidChange,
-                           NULL);
-    SCDynamicStoreSetNotificationKeys(store, (__bridge CFArrayRef)@[kDynamicStoreDNSSettings], NULL);
-    CFRunLoopSourceRef source = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, store, 0);
-    CFRunLoopAddSource(CFRunLoopGetMain(), source, kCFRunLoopDefaultMode);
-    CFRelease(source);
-    CFRelease(store);
-}
-
-static void NameserversDidChange(SCDynamicStoreRef store, CFArrayRef changedKeys, void *info) {
-    id appDelegate = [NSApp delegate];
-    NSArray *nameservers = CurrentNameservers();
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if ([defaults boolForKey:kUseDNSSRV] &&
-        nameservers.count > 0 &&
-        ![[[appDelegate userAgent] nameservers] isEqualToArray:nameservers]) {
-        
-        [[appDelegate userAgent] setNameservers:nameservers];
-        
-        if (![[appDelegate accountControllers] haveActiveCallControllers]) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:appDelegate
-                                                     selector:@selector(restartUserAgent)
-                                                       object:nil];
-            
-            // Schedule user agent restart in several seconds to coalesce several
-            // nameserver changes during a short time period.
-            [appDelegate performSelector:@selector(restartUserAgent)
-                              withObject:nil
-                              afterDelay:kUserAgentRestartDelayAfterDNSChange];
+        self.userAgent.nameservers = servers;
+        if (!self.accountControllers.haveActiveCallControllers) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
+            [self performSelector:@selector(restartUserAgent) withObject:nil afterDelay:kUserAgentRestartDelayAfterDNSChange];
         } else {
-            [appDelegate setShouldRestartUserAgentASAP:YES];
+            self.shouldRestartUserAgentASAP = YES;
         }
     }
 }
+
+@end
