@@ -340,10 +340,10 @@ NS_ASSUME_NONNULL_END
     [self setAccountsMenuItems:items];
     
     // Add menu items to the Window menu.
-    NSUInteger tag = 4;
+    NSUInteger index = 4;
     for (NSMenuItem *item in items) {
-        [[self windowMenu] insertItem:item atIndex:tag];
-        tag++;
+        [[self windowMenu] insertItem:item atIndex:index];
+        index++;
     }
 }
 
