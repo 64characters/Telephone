@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, getter=isTerminating) BOOL terminating;
 @property(nonatomic) BOOL shouldPresentUserAgentLaunchError;
 @property(nonatomic, nullable) NSTimer *userAttentionTimer;
-@property(nonatomic) NSArray *accountsMenuItems;
+@property(nonatomic) AccountsMenuItems *accountsMenuItems;
 @property(nonatomic, weak) IBOutlet NSMenu *windowMenu;
 @property(nonatomic, weak) IBOutlet NSMenuItem *preferencesMenuItem;
 @property(nonatomic, weak) IBOutlet HelpMenuActionRedirect *helpMenuActionRedirect;
@@ -159,7 +159,6 @@ NS_ASSUME_NONNULL_END
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = [[AccountControllers alloc] init];
-    _accountsMenuItems = @[];
     _nameServers = [[NameServers alloc] initWithBundle:NSBundle.mainBundle target:self];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -313,49 +312,6 @@ NS_ASSUME_NONNULL_END
     [NSApp requestUserAttention:NSInformationalRequest];
 }
 
-- (void)updateAccountsMenuItems {
-    // Remove old menu items.
-    for (NSMenuItem *item in [self accountsMenuItems]) {
-        [[self windowMenu] removeItem:item];
-    }
-    
-    // Create new menu items.
-    NSMutableArray *items = [[NSMutableArray alloc] init];
-    NSUInteger accountNumber = 1;
-    for (AccountController *accountController in self.accountControllers.enabled) {
-        NSMenuItem *menuItem = [[NSMenuItem alloc] init];
-        [menuItem setRepresentedObject:accountController];
-        [menuItem setAction:@selector(toggleAccountWindow:)];
-        [menuItem setTitle:[accountController accountDescription]];
-        if (accountNumber < 10) {
-            // Only add key equivalents for Command-[1..9].
-            [menuItem setKeyEquivalent:[NSString stringWithFormat:@"%lu", accountNumber]];
-        }
-        [items addObject:menuItem];
-        accountNumber++;
-    }
-    if (items.count > 0) {
-        [items insertObject:[NSMenuItem separatorItem] atIndex:0];
-    }
-    [self setAccountsMenuItems:items];
-    
-    // Add menu items to the Window menu.
-    NSUInteger index = 4;
-    for (NSMenuItem *item in items) {
-        [[self windowMenu] insertItem:item atIndex:index];
-        index++;
-    }
-}
-
-- (IBAction)toggleAccountWindow:(id)sender {
-    AccountController *controller = [sender representedObject];
-    if (controller.isWindowKey) {
-        [controller hideWindow];
-    } else {
-        [controller showWindow];
-    }
-}
-
 - (void)updateDockTileBadgeLabel {
     NSString *badgeString;
     NSInteger badgeNumber = self.accountControllers.unhandledIncomingCallsCount;
@@ -414,7 +370,7 @@ NS_ASSUME_NONNULL_END
     
     [self.accountControllers addController:controller];
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
-    [self updateAccountsMenuItems];
+    [self.accountsMenuItems update];
     
     [controller showWindowWithoutMakingKey];
 
@@ -435,7 +391,7 @@ NS_ASSUME_NONNULL_END
     
     [self.accountControllers removeControllerAtIndex:index];
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
-    [self updateAccountsMenuItems];
+    [self.accountsMenuItems update];
 }
 
 - (void)preferencesControllerDidChangeAccountEnabled:(NSNotification *)notification {
@@ -503,7 +459,7 @@ NS_ASSUME_NONNULL_END
     }
     
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
-    [self updateAccountsMenuItems];
+    [self.accountsMenuItems update];
 }
 
 - (void)preferencesControllerDidSwapAccounts:(NSNotification *)notification {
@@ -522,7 +478,7 @@ NS_ASSUME_NONNULL_END
         [self.accountControllers removeControllerAtIndex:(sourceIndex + 1)];
     }
     
-    [self updateAccountsMenuItems];
+    [self.accountsMenuItems update];
 }
 
 - (void)preferencesControllerDidChangeNetworkSettings:(NSNotification *)notification {
@@ -786,8 +742,7 @@ NS_ASSUME_NONNULL_END
     
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
     
-    // Update account menu items.
-    [self updateAccountsMenuItems];
+    self.accountsMenuItems = [[AccountsMenuItems alloc] initWithMenu:self.windowMenu controllers:self.accountControllers];
     
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
 
