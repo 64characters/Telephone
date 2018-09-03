@@ -720,6 +720,13 @@
 			remoteGlobalIDString = 8AE706221D491C210060FF4F;
 			remoteInfo = ReceiptValidation;
 		};
+		8AEECCCE213D9D0D00BB5370 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC4FF801C0214110060B186;
+			remoteInfo = DomainTestDoubles;
+		};
 		AA078B341BFF80E30013FF8F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -4449,6 +4456,11 @@
 			isa = PBXTargetDependency;
 			target = 8AE706221D491C210060FF4F /* ReceiptValidation */;
 			targetProxy = 8AE7062C1D491C220060FF4F /* PBXContainerItemProxy */;
+		};
+		8AEECCCF213D9D0D00BB5370 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAC4FF801C0214110060B186 /* DomainTestDoubles */;
+			targetProxy = 8AEECCCE213D9D0D00BB5370 /* PBXContainerItemProxy */;
 		};
 		AA078B351BFF80E30013FF8F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
