@@ -488,6 +488,9 @@
 		8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA10A81DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift */; };
 		8ADA26F21C984E1D0066B224 /* RingtonePlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */; };
 		8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */; };
+		8ADAFCAC213D84F40033C338 /* ApplicationUserAttentionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADAFCAB213D84F40033C338 /* ApplicationUserAttentionRequest.swift */; };
+		8ADAFCAE213D959D0033C338 /* ConditionalUserAttentionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADAFCAD213D959D0033C338 /* ConditionalUserAttentionRequest.swift */; };
+		8ADAFCB0213D962A0033C338 /* UserAttentionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADAFCAF213D962A0033C338 /* UserAttentionRequest.swift */; };
 		8ADB73981DE86D370032B4C2 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB73971DE86D370032B4C2 /* Account.swift */; };
 		8ADB739A1DE86D540032B4C2 /* SimpleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB73991DE86D540032B4C2 /* SimpleAccount.swift */; };
 		8ADB739C1DE86FEE0032B4C2 /* CallHistoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB739B1DE86FEE0032B4C2 /* CallHistoryFactory.swift */; };
@@ -1344,6 +1347,9 @@
 		8ADA10A81DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSettingsMigrationFactory.swift; sourceTree = "<group>"; };
 		8ADA26F11C984E1D0066B224 /* RingtonePlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtonePlaybackUseCase.swift; sourceTree = "<group>"; };
 		8ADA26F31C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundConfigurationLoadUseCase.swift; sourceTree = "<group>"; };
+		8ADAFCAB213D84F40033C338 /* ApplicationUserAttentionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationUserAttentionRequest.swift; sourceTree = "<group>"; };
+		8ADAFCAD213D959D0033C338 /* ConditionalUserAttentionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalUserAttentionRequest.swift; sourceTree = "<group>"; };
+		8ADAFCAF213D962A0033C338 /* UserAttentionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttentionRequest.swift; sourceTree = "<group>"; };
 		8ADB73971DE86D370032B4C2 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		8ADB73991DE86D540032B4C2 /* SimpleAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleAccount.swift; sourceTree = "<group>"; };
 		8ADB739B1DE86FEE0032B4C2 /* CallHistoryFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryFactory.swift; sourceTree = "<group>"; };
@@ -1794,6 +1800,7 @@
 				8AA044E62136C3A500736EAA /* SIPResponseLocalization.h */,
 				8AA044E72136C3A500736EAA /* SIPResponseLocalization.m */,
 				AA3FABAF1BBC1CCE0064B2C3 /* TelephoneError.swift */,
+				8ADAFCB1213D965A0033C338 /* UserAttentionRequest */,
 				AA32F7F91BC52A2A00FAC228 /* UserDefaultsKeys.h */,
 				AA32F7FA1BC52A2A00FAC228 /* UserDefaultsKeys.m */,
 				8A7292381EDF2B2100338592 /* WaitingThread.swift */,
@@ -2635,6 +2642,16 @@
 				8ADA10A51DC8D6E90038E0A5 /* SettingsMigrationFactory.swift */,
 			);
 			name = SettingsMigrationFactory;
+			sourceTree = "<group>";
+		};
+		8ADAFCB1213D965A0033C338 /* UserAttentionRequest */ = {
+			isa = PBXGroup;
+			children = (
+				8ADAFCAB213D84F40033C338 /* ApplicationUserAttentionRequest.swift */,
+				8ADAFCAD213D959D0033C338 /* ConditionalUserAttentionRequest.swift */,
+				8ADAFCAF213D962A0033C338 /* UserAttentionRequest.swift */,
+			);
+			name = UserAttentionRequest;
 			sourceTree = "<group>";
 		};
 		8ADED1E21EFD7FC4009558E0 /* ContactMatchingIndex */ = {
@@ -3785,6 +3802,7 @@
 				8A779F8E1CA080F900D90391 /* SimpleUserAgentAudioDevice+PJSIP.swift in Sources */,
 				8AA27ADF1E97CBDA002A08CD /* PreferencesControllerAccountsEventSource.swift in Sources */,
 				AA3578B30E40709900021989 /* AccountController.m in Sources */,
+				8ADAFCAE213D959D0033C338 /* ConditionalUserAttentionRequest.swift in Sources */,
 				8ADD6A6A1CE0C8CF001EDBBA /* PresenterFactory.swift in Sources */,
 				AA3578B60E4070AD00021989 /* CallController.m in Sources */,
 				8AA044EB2136CAF000736EAA /* NameServers.m in Sources */,
@@ -3833,6 +3851,7 @@
 				8AE7063D1D4A4D370060FF4F /* ReceiptXPCGateway.swift in Sources */,
 				8A6D96F01D05937900D9C15B /* NullStoreViewEventTarget.swift in Sources */,
 				8A9175A21CA5A02500354E26 /* PJSUAOnCallTransferStatus.m in Sources */,
+				8ADAFCB0213D962A0033C338 /* UserAttentionRequest.swift in Sources */,
 				AA1019841C490BD300869D01 /* RepeatingSoundFactory.swift in Sources */,
 				AA19CFF51BED148A00991CAA /* DefaultUseCaseFactory.swift in Sources */,
 				AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */,
@@ -3934,6 +3953,7 @@
 				8A9175A81CA5A53E00354E26 /* PJSUAOnAccountRegistrationState.m in Sources */,
 				8A68C94E1FFE6453005125AF /* LogFileURL.swift in Sources */,
 				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
+				8ADAFCAC213D84F40033C338 /* ApplicationUserAttentionRequest.swift in Sources */,
 				8AE5ECE42139AD6900EA7E62 /* AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift in Sources */,
 				8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */,
 				8A7292391EDF2B2100338592 /* WaitingThread.swift in Sources */,

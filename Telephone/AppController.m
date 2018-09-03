@@ -41,9 +41,6 @@
 #import "Telephone-Swift.h"
 
 
-// Bouncing icon in the Dock time interval.
-static const NSTimeInterval kUserAttentionRequestInterval = 8.0;
-
 // Delay for restarting user agent when DNS servers change.
 static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
 
@@ -58,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) BOOL shouldRestartUserAgentASAP;
 @property(nonatomic, getter=isTerminating) BOOL terminating;
 @property(nonatomic) BOOL shouldPresentUserAgentLaunchError;
-@property(nonatomic, nullable) NSTimer *userAttentionTimer;
 @property(nonatomic) AccountsMenuItems *accountsMenuItems;
 @property(nonatomic, weak) IBOutlet NSMenu *windowMenu;
 @property(nonatomic, weak) IBOutlet NSMenuItem *preferencesMenuItem;
@@ -75,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
 @property(nonatomic, readonly) NameServers *nameServers;
+@property(nonatomic, readonly) id <UserAttentionRequest> userAttentionRequest;
 
 @end
 
@@ -160,9 +157,9 @@ NS_ASSUME_NONNULL_END
     _userSessionActive = YES;
     _accountControllers = _compositionRoot.accountControllers;
     _nameServers = [[NameServers alloc] initWithBundle:NSBundle.mainBundle target:self];
-
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
+    _userAttentionRequest = _compositionRoot.userAttentionRequest;
+
     [notificationCenter addObserver:self
                            selector:@selector(accountSetupControllerDidAddAccount:)
                                name:AKAccountSetupControllerDidAddAccountNotification
@@ -277,35 +274,6 @@ NS_ASSUME_NONNULL_END
         
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
     }
-}
-
-- (void)startUserAttentionTimer {
-    if ([self userAttentionTimer] != nil) {
-        [[self userAttentionTimer] invalidate];
-    }
-    
-    [self setUserAttentionTimer:[NSTimer scheduledTimerWithTimeInterval:kUserAttentionRequestInterval
-                                                                 target:self
-                                                               selector:@selector(requestUserAttentionTick:)
-                                                               userInfo:nil
-                                                                repeats:YES]];
-}
-
-- (void)stopUserAttentionTimer {
-    if (self.userAttentionTimer != nil) {
-        [self.userAttentionTimer invalidate];
-        self.userAttentionTimer = nil;
-    }
-}
-
-- (void)stopUserAttentionTimerIfNeeded {
-    if (!self.accountControllers.haveIncomingCallControllers) {
-        [self stopUserAttentionTimer];
-    }
-}
-
-- (void)requestUserAttentionTick:(NSTimer *)theTimer {
-    [NSApp requestUserAttention:NSInformationalRequest];
 }
 
 - (void)updateDockTileBadgeLabel {
@@ -771,7 +739,6 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
-    [self stopUserAttentionTimer];
     [NSUserNotificationCenter.defaultUserNotificationCenter removeAllDeliveredNotifications];
 }
 
@@ -815,10 +782,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)SIPCallIncoming:(NSNotification *)notification {
     [self updateDockTileBadgeLabel];
-    if (![NSApp isActive]) {
-        [NSApp requestUserAttention:NSInformationalRequest];
-        [self startUserAttentionTimer];
-    }
+    [self.userAttentionRequest start];
 }
 
 - (void)SIPCallConnecting:(NSNotification *)notification {
@@ -828,7 +792,7 @@ NS_ASSUME_NONNULL_END
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
     [self updateDockTileBadgeLabel];
     if ([[notification object] isIncoming]) {
-        [self stopUserAttentionTimerIfNeeded];
+        [self.userAttentionRequest stop];
     }
     if (self.shouldRestartUserAgentASAP && !self.accountControllers.haveActiveCallControllers) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
