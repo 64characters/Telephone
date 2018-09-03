@@ -40,10 +40,6 @@
 
 #import "Telephone-Swift.h"
 
-
-// Delay for restarting user agent when DNS servers change.
-static const NSTimeInterval kUserAgentRestartDelayAfterDNSChange = 3.0;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, NameServersChangeEventTarget, PreferencesControllerDelegate>
@@ -966,7 +962,7 @@ NS_ASSUME_NONNULL_END
         self.userAgent.nameServers = servers;
         if (!self.accountControllers.haveActiveCallControllers) {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
-            [self performSelector:@selector(restartUserAgent) withObject:nil afterDelay:kUserAgentRestartDelayAfterDNSChange];
+            [self performSelector:@selector(restartUserAgent) withObject:nil afterDelay:3.0];
         } else {
             self.shouldRestartUserAgentASAP = YES;
         }
