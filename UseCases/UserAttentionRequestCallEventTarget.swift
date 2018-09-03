@@ -1,5 +1,5 @@
 //
-//  UserAttentionRequest.swift
+//  UserAttentionRequestCallEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-@objc protocol UserAttentionRequest {
-    func start()
-    func stop()
+public final class UserAttentionRequestCallEventTarget {
+    private let request: UserAttentionRequest
+
+    public init(request: UserAttentionRequest) {
+        self.request = request
+    }
+}
+
+extension UserAttentionRequestCallEventTarget: CallEventTarget {
+    public func didReceive(_ call: Call) {
+        request.start()
+    }
+
+    public func didDisconnect(_ call: Call) {
+        request.stop()
+    }
+
+    public func didMake(_ call: Call) {}
 }
