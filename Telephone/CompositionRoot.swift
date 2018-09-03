@@ -34,6 +34,7 @@ final class CompositionRoot: NSObject {
     @objc let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
     @objc let logFileURL: LogFileURL
     @objc let helpMenuActionTarget: HelpMenuActionTarget
+    @objc let accountControllers: AccountControllers
     private let defaults: UserDefaults
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
@@ -45,7 +46,7 @@ final class CompositionRoot: NSObject {
     private let contactsChangeEventSource: Any
     private let dayChangeEventSource: NSCalendarDayChangeEventSource
 
-    @objc init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
+    @objc init(preferencesControllerDelegate: PreferencesControllerDelegate) {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 
@@ -64,6 +65,8 @@ final class CompositionRoot: NSObject {
             factory: NSSoundToSoundAdapterFactory()
         )
 
+        accountControllers = AccountControllers()
+
         ringtonePlayback = ConditionalRingtonePlaybackUseCase(
             origin: DefaultRingtonePlaybackUseCase(
                 factory: RepeatingSoundFactory(
@@ -71,7 +74,7 @@ final class CompositionRoot: NSObject {
                     timerFactory: FoundationToUseCasesTimerAdapterFactory()
                 )
             ),
-            delegate: conditionalRingtonePlaybackUseCaseDelegate
+            delegate: accountControllers
         )
 
         let productsEventTargets = ProductsEventTargets()

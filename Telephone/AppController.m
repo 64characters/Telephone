@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_END
         return nil;
     }
 
-    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self conditionalRingtonePlaybackUseCaseDelegate:self];
+    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self];
     
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];
@@ -158,7 +158,7 @@ NS_ASSUME_NONNULL_END
     _purchaseCheckUseCaseFactory = _compositionRoot.callHistoryPurchaseCheckUseCaseFactory;
     _destinationToCall = @"";
     _userSessionActive = YES;
-    _accountControllers = [[AccountControllers alloc] init];
+    _accountControllers = _compositionRoot.accountControllers;
     _nameServers = [[NameServers alloc] initWithBundle:NSBundle.mainBundle target:self];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -277,10 +277,6 @@ NS_ASSUME_NONNULL_END
         
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
     }
-}
-
-- (BOOL)canStopPlayingRingtone {
-    return !self.accountControllers.haveIncomingCallControllers;
 }
 
 - (void)startUserAttentionTimer {

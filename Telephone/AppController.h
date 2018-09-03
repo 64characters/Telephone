@@ -22,8 +22,6 @@
 
 @interface AppController : NSObject <AKSIPUserAgentDelegate>
 
-- (BOOL)canStopPlayingRingtone;
-
 - (void)updateDockTileBadgeLabel;
 
 @end

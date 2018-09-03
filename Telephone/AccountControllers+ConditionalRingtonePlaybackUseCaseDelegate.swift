@@ -1,5 +1,5 @@
 //
-//  AppController+ConditionalRingtonePlaybackUseCaseDelegate.swift
+//  AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-extension AppController: ConditionalRingtonePlaybackUseCaseDelegate {
+extension AccountControllers: ConditionalRingtonePlaybackUseCaseDelegate {
     public func playbackCanStop(_ playback: ConditionalRingtonePlaybackUseCase) -> Bool {
-        return self.canStopPlayingRingtone()
+        return !haveIncomingCallControllers()
     }
 }
