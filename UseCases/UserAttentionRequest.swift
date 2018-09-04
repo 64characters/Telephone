@@ -1,5 +1,5 @@
 //
-//  NoActiveCallsStub.swift
+//  UserAttentionRequest.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class NoActiveCallsStub: Calls {
-    public var haveActive = false
-    public init() {}
+public protocol UserAttentionRequest {
+    func start()
+    func stop()
 }

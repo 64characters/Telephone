@@ -22,10 +22,6 @@
 
 @interface AppController : NSObject <AKSIPUserAgentDelegate>
 
-- (BOOL)canStopPlayingRingtone;
-
 - (void)updateDockTileBadgeLabel;
-
-- (NSString *)localizedStringForSIPResponseCode:(NSInteger)responseCode;
 
 @end

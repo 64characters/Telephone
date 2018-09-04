@@ -6,6 +6,8 @@
 
 #import "ReceiptValidation-Bridging-Header.h"
 
+#import "AccountController.h"
+#import "AccountControllers.h"
 #import "AppController.h"
 #import "AKABRecord+Querying.h"
 #import "AKSIPAccount.h"

@@ -1,5 +1,5 @@
 //
-//  ActiveCallsStub.swift
+//  NameServers.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,9 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
+@import Foundation;
 
-public final class ActiveCallsStub: Calls {
-    public var haveActive = true
-    public init() {}
-}
+NS_ASSUME_NONNULL_BEGIN
+
+@class NameServers;
+
+@protocol NameServersChangeEventTarget
+
+- (void)nameServersDidChange:(NameServers *)nameServers;
+
+@end
+
+@interface NameServers : NSObject
+
+@property(nonatomic, readonly) NSArray<NSString *> *all;
+
+- (instancetype)initWithBundle:(NSBundle *)bundle target:(id <NameServersChangeEventTarget>)target;
+
+@end
+
+NS_ASSUME_NONNULL_END

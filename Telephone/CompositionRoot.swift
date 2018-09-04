@@ -34,6 +34,7 @@ final class CompositionRoot: NSObject {
     @objc let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
     @objc let logFileURL: LogFileURL
     @objc let helpMenuActionTarget: HelpMenuActionTarget
+    @objc let accountControllers: AccountControllers
     private let defaults: UserDefaults
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
@@ -45,7 +46,7 @@ final class CompositionRoot: NSObject {
     private let contactsChangeEventSource: Any
     private let dayChangeEventSource: NSCalendarDayChangeEventSource
 
-    @objc init(preferencesControllerDelegate: PreferencesControllerDelegate, conditionalRingtonePlaybackUseCaseDelegate: ConditionalRingtonePlaybackUseCaseDelegate) {
+    @objc init(preferencesControllerDelegate: PreferencesControllerDelegate) {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 
@@ -71,7 +72,7 @@ final class CompositionRoot: NSObject {
                     timerFactory: FoundationToUseCasesTimerAdapterFactory()
                 )
             ),
-            delegate: conditionalRingtonePlaybackUseCaseDelegate
+            delegate: userAgent
         )
 
         let productsEventTargets = ProductsEventTargets()
@@ -222,6 +223,14 @@ final class CompositionRoot: NSObject {
                             ),
                             settings: SimpleMusicPlayerSettings(settings: defaults)
                         )
+                    ),
+                    UserAttentionRequestCallEventTarget(
+                        request: CallsUserAttentionRequest(
+                            origin: ApplicationUserAttentionRequest(
+                                application: NSApp, center: NotificationCenter.default
+                            ),
+                            calls: userAgent
+                        )
                     )
                 ]
             )
@@ -282,6 +291,8 @@ final class CompositionRoot: NSObject {
             fileBrowser: NSWorkspace.shared,
             webBrowser: NSWorkspace.shared
         )
+
+        accountControllers = AccountControllers()
     }
 }
 

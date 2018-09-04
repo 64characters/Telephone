@@ -1,5 +1,5 @@
 //
-//  Calls.swift
+//  SIPResponseLocalization.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Calls {
-    var haveActive: Bool { get }
-    var haveUnansweredIncoming: Bool { get }
-}
+@import Foundation;
+
+NSString *LocalizedStringForSIPResponseCode(NSInteger code);

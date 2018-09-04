@@ -1,5 +1,5 @@
 //
-//  Calls.swift
+//  CallsStub.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Calls {
-    var haveActive: Bool { get }
-    var haveUnansweredIncoming: Bool { get }
+import UseCases
+
+public struct CallsStub: Calls {
+    public var haveActive = false
+    public var haveUnansweredIncoming = false
+
+    public init() {}
+
+    public init(haveActive: Bool) {
+        self.haveActive = haveActive
+    }
+
+    public init(haveUnansweredIncoming: Bool) {
+        self.haveUnansweredIncoming = haveUnansweredIncoming
+    }
 }

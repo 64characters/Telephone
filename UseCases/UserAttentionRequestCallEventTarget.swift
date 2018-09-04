@@ -1,5 +1,5 @@
 //
-//  AppController+ConditionalRingtonePlaybackUseCaseDelegate.swift
+//  UserAttentionRequestCallEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,22 @@
 //  GNU General Public License for more details.
 //
 
-extension AppController: ConditionalRingtonePlaybackUseCaseDelegate {
-    public func playbackCanStop(_ playback: ConditionalRingtonePlaybackUseCase) -> Bool {
-        return self.canStopPlayingRingtone()
+public final class UserAttentionRequestCallEventTarget {
+    private let request: UserAttentionRequest
+
+    public init(request: UserAttentionRequest) {
+        self.request = request
     }
+}
+
+extension UserAttentionRequestCallEventTarget: CallEventTarget {
+    public func didReceive(_ call: Call) {
+        request.start()
+    }
+
+    public func didDisconnect(_ call: Call) {
+        request.stop()
+    }
+
+    public func didMake(_ call: Call) {}
 }

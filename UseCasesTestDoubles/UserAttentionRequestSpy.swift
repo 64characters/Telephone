@@ -1,5 +1,5 @@
 //
-//  Calls.swift
+//  UserAttentionRequestSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,21 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Calls {
-    var haveActive: Bool { get }
-    var haveUnansweredIncoming: Bool { get }
+import UseCases
+
+public final class UserAttentionRequestSpy {
+    public private(set) var didStart = false
+    public private(set) var didStop = false
+
+    public init() {}
+}
+
+extension UserAttentionRequestSpy: UserAttentionRequest {
+    public func start() {
+        didStart = true
+    }
+
+    public func stop() {
+        didStop = true
+    }
 }

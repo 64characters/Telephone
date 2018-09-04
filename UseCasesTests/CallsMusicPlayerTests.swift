@@ -23,7 +23,7 @@ import XCTest
 final class CallsMusicPlayerTests: XCTestCase {
     func testResumesWhenThereAreNoActiveCalls() {
         let origin = MusicPlayerSpy()
-        let sut = CallsMusicPlayer(origin: origin, calls: NoActiveCallsStub())
+        let sut = CallsMusicPlayer(origin: origin, calls: CallsStub(haveActive: false))
 
         sut.resume()
 
@@ -32,7 +32,7 @@ final class CallsMusicPlayerTests: XCTestCase {
 
     func testDoesNotResumeWhenThereAreActiveCalls() {
         let origin = MusicPlayerSpy()
-        let sut = CallsMusicPlayer(origin: origin, calls: ActiveCallsStub())
+        let sut = CallsMusicPlayer(origin: origin, calls: CallsStub(haveActive: true))
 
         sut.resume()
 
@@ -41,7 +41,7 @@ final class CallsMusicPlayerTests: XCTestCase {
 
     func testPausesWhenThereAreNoActiveCalls() {
         let origin = MusicPlayerSpy()
-        let sut = CallsMusicPlayer(origin: origin, calls: NoActiveCallsStub())
+        let sut = CallsMusicPlayer(origin: origin, calls: CallsStub(haveActive: false))
 
         sut.pause()
 
@@ -50,7 +50,7 @@ final class CallsMusicPlayerTests: XCTestCase {
 
     func testPausesWhenThereAreActiveCalls() {
         let origin = MusicPlayerSpy()
-        let sut = CallsMusicPlayer(origin: origin, calls: ActiveCallsStub())
+        let sut = CallsMusicPlayer(origin: origin, calls: CallsStub(haveActive: true))
 
         sut.pause()
 
