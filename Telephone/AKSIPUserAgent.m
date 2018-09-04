@@ -61,6 +61,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 @property(nonatomic) AKSIPUserAgentState state;
 @property(nonatomic) pj_pool_t *pool;
 
+@property(nonatomic, readonly) NSMutableArray *accounts;
+
 // Ringback slot.
 @property(nonatomic, assign) pjsua_conf_port_id ringbackSlot;
 

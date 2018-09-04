@@ -67,9 +67,6 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // The receiver's delegate.
 @property(nonatomic, weak) id <AKSIPUserAgentDelegate> delegate;
 
-// Accounts added to the receiver.
-@property(nonatomic, readonly, strong) NSMutableArray *accounts;
-
 // A Boolean value indicating whether the receiver has been started.
 @property(nonatomic, readonly, assign, getter=isStarted) BOOL started;
 
