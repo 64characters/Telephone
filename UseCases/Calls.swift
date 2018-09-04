@@ -18,5 +18,5 @@
 
 public protocol Calls {
     var haveActive: Bool { get }
-    var haveIncoming: Bool { get }
+    var haveUnansweredIncoming: Bool { get }
 }

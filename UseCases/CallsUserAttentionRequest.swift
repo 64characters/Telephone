@@ -32,7 +32,7 @@ extension CallsUserAttentionRequest: UserAttentionRequest {
     }
 
     public func stop() {
-        if !calls.haveIncoming {
+        if !calls.haveUnansweredIncoming {
             origin.stop()
         }
     }

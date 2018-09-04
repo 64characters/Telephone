@@ -20,7 +20,7 @@ import UseCases
 
 public struct CallsStub: Calls {
     public var haveActive = false
-    public var haveIncoming = false
+    public var haveUnansweredIncoming = false
 
     public init() {}
 
@@ -28,7 +28,7 @@ public struct CallsStub: Calls {
         self.haveActive = haveActive
     }
 
-    public init(haveIncoming: Bool) {
-        self.haveIncoming = haveIncoming
+    public init(haveUnansweredIncoming: Bool) {
+        self.haveUnansweredIncoming = haveUnansweredIncoming
     }
 }

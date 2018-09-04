@@ -30,18 +30,18 @@ final class CallsUserAttentionRequestTests: XCTestCase {
         XCTAssertTrue(origin.didStart)
     }
 
-    func testCallsStopOnOriginOnStopWhenThereAreNoIncomingCalls() {
+    func testCallsStopOnOriginOnStopWhenThereAreNoUnansweredIncomingCalls() {
         let origin = UserAttentionRequestSpy()
-        let sut = CallsUserAttentionRequest(origin: origin, calls: CallsStub(haveIncoming: false))
+        let sut = CallsUserAttentionRequest(origin: origin, calls: CallsStub(haveUnansweredIncoming: false))
 
         sut.stop()
 
         XCTAssertTrue(origin.didStop)
     }
 
-    func testDoesNotCallStopOnOriginOnStopWhenThereAreIncomingCalls() {
+    func testDoesNotCallStopOnOriginOnStopWhenThereAreUnansweredIncomingCalls() {
         let origin = UserAttentionRequestSpy()
-        let sut = CallsUserAttentionRequest(origin: origin, calls: CallsStub(haveIncoming: true))
+        let sut = CallsUserAttentionRequest(origin: origin, calls: CallsStub(haveUnansweredIncoming: true))
 
         sut.stop()
 
