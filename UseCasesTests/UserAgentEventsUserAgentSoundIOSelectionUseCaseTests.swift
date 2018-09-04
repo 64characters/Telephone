@@ -28,7 +28,9 @@ final class UserAgentEventsUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
         super.setUp()
         agent = UserAgentSpy()
         sut = UserAgentEventsUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: NoActiveCallsStub()
+            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent),
+            agent: agent,
+            calls: CallsStub(haveActive: false)
         )
     }
 
@@ -116,7 +118,9 @@ final class UserAgentEventsUserAgentSoundIOSelectionUseCaseTests: XCTestCase {
     func testSelectsIOOnExecuteWhenThereAreActiveCalls() {
         let agent = UserAgentSpy()
         let sut = UserAgentEventsUserAgentSoundIOSelectionUseCase(
-            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent), agent: agent, calls: ActiveCallsStub()
+            useCase: UserAgentSoundIOSelectionUseCaseFake(agent: agent),
+            agent: agent,
+            calls: CallsStub(haveActive: true)
         )
         sut.didFinishStarting(agent)
         sut.didMakeCall(agent)

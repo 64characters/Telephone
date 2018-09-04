@@ -1,5 +1,5 @@
 //
-//  NoIncomingCallsStub.swift
+//  CallsStub.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -23,6 +23,10 @@ public struct CallsStub: Calls {
     public var haveIncoming = false
 
     public init() {}
+
+    public init(haveActive: Bool) {
+        self.haveActive = haveActive
+    }
 
     public init(haveIncoming: Bool) {
         self.haveIncoming = haveIncoming
