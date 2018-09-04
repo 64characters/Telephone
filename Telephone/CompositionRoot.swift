@@ -65,8 +65,6 @@ final class CompositionRoot: NSObject {
             factory: NSSoundToSoundAdapterFactory()
         )
 
-        accountControllers = AccountControllers()
-
         ringtonePlayback = ConditionalRingtonePlaybackUseCase(
             origin: DefaultRingtonePlaybackUseCase(
                 factory: RepeatingSoundFactory(
@@ -74,7 +72,7 @@ final class CompositionRoot: NSObject {
                     timerFactory: FoundationToUseCasesTimerAdapterFactory()
                 )
             ),
-            delegate: accountControllers
+            delegate: userAgent
         )
 
         let productsEventTargets = ProductsEventTargets()
@@ -293,6 +291,8 @@ final class CompositionRoot: NSObject {
             fileBrowser: NSWorkspace.shared,
             webBrowser: NSWorkspace.shared
         )
+
+        accountControllers = AccountControllers()
     }
 }
 

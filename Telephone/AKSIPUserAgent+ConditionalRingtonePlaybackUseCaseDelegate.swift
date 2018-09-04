@@ -1,5 +1,5 @@
 //
-//  AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift
+//  AKSIPUserAgent+ConditionalRingtonePlaybackUseCaseDelegate.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-extension AccountControllers: ConditionalRingtonePlaybackUseCaseDelegate {
+extension AKSIPUserAgent: ConditionalRingtonePlaybackUseCaseDelegate {
     public func playbackCanStop(_ playback: ConditionalRingtonePlaybackUseCase) -> Bool {
-        return !haveIncomingCallControllers()
+        return !hasUnansweredIncomingCalls
     }
 }

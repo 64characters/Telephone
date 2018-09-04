@@ -532,7 +532,7 @@
 		8AE396F71D6C8C2600DCFB9E /* DisabledAccountsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */; };
 		8AE396F91D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift */; };
 		8AE4E95C1DABBBF90003F063 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE4E95B1DABBBF90003F063 /* Images.xcassets */; };
-		8AE5ECE42139AD6900EA7E62 /* AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE5ECE32139AD6900EA7E62 /* AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift */; };
+		8AE5ECE42139AD6900EA7E62 /* AKSIPUserAgent+ConditionalRingtonePlaybackUseCaseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE5ECE32139AD6900EA7E62 /* AKSIPUserAgent+ConditionalRingtonePlaybackUseCaseDelegate.swift */; };
 		8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 8AE706231D491C220060FF4F /* ReceiptValidation.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8AE7063D1D4A4D370060FF4F /* ReceiptXPCGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063C1D4A4D370060FF4F /* ReceiptXPCGateway.swift */; };
 		8AEA57631DFB0729008888EB /* ProductsEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA57621DFB0729008888EB /* ProductsEventTarget.swift */; };
@@ -1396,7 +1396,7 @@
 		8AE396F61D6C8C2600DCFB9E /* DisabledAccountsStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisabledAccountsStub.swift; sourceTree = "<group>"; };
 		8AE396F81D6DAFFA00DCFB9E /* PurchaseReminderSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReminderSettings.swift; sourceTree = "<group>"; };
 		8AE4E95B1DABBBF90003F063 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8AE5ECE32139AD6900EA7E62 /* AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift"; sourceTree = "<group>"; };
+		8AE5ECE32139AD6900EA7E62 /* AKSIPUserAgent+ConditionalRingtonePlaybackUseCaseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKSIPUserAgent+ConditionalRingtonePlaybackUseCaseDelegate.swift"; sourceTree = "<group>"; };
 		8AE706231D491C220060FF4F /* ReceiptValidation.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReceiptValidation.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE7062B1D491C220060FF4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AE706331D4A2E180060FF4F /* ReceiptValidation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReceiptValidation-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1773,7 +1773,6 @@
 				AA2C03F21BD7BE36001D25F9 /* CompositionRoot.swift */,
 				8A4C2760213058E700ABE34B /* AccountControllers.h */,
 				8A4C2761213058E700ABE34B /* AccountControllers.m */,
-				8AE5ECE32139AD6900EA7E62 /* AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift */,
 				8A8EB25C21396DB000288C77 /* AccountsMenuItems.swift */,
 				AA4BD4D60E07C305005A71B2 /* AppController.h */,
 				AA4BD4D70E07C305005A71B2 /* AppController.m */,
@@ -3237,6 +3236,7 @@
 				AAC0FFC01BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.h */,
 				AAC0FFC11BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m */,
 				8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */,
+				8AE5ECE32139AD6900EA7E62 /* AKSIPUserAgent+ConditionalRingtonePlaybackUseCaseDelegate.swift */,
 				AA2C03F41BD7D827001D25F9 /* AKSIPUserAgent+UserAgent.swift */,
 				AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */,
 				AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */,
@@ -3961,7 +3961,7 @@
 				8A68C94E1FFE6453005125AF /* LogFileURL.swift in Sources */,
 				8A88B4F21D4ABCCB0083958C /* NoActivePurchasesReceipt.swift in Sources */,
 				8ADAFCAC213D84F40033C338 /* ApplicationUserAttentionRequest.swift in Sources */,
-				8AE5ECE42139AD6900EA7E62 /* AccountControllers+ConditionalRingtonePlaybackUseCaseDelegate.swift in Sources */,
+				8AE5ECE42139AD6900EA7E62 /* AKSIPUserAgent+ConditionalRingtonePlaybackUseCaseDelegate.swift in Sources */,
 				8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */,
 				8A7292391EDF2B2100338592 /* WaitingThread.swift in Sources */,
 				8ADA10A91DC8DA890038E0A5 /* DefaultSettingsMigrationFactory.swift in Sources */,
