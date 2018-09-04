@@ -67,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString *destinationToCall;
 @property(nonatomic, getter=isUserSessionActive) BOOL userSessionActive;
 @property(nonatomic, readonly) NameServers *nameServers;
-@property(nonatomic, readonly) id <UserAttentionRequest> userAttentionRequest;
 
 @end
 
@@ -154,7 +153,6 @@ NS_ASSUME_NONNULL_END
     _accountControllers = _compositionRoot.accountControllers;
     _nameServers = [[NameServers alloc] initWithBundle:NSBundle.mainBundle target:self];
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    _userAttentionRequest = _compositionRoot.userAttentionRequest;
 
     [notificationCenter addObserver:self
                            selector:@selector(accountSetupControllerDidAddAccount:)
@@ -778,7 +776,6 @@ NS_ASSUME_NONNULL_END
 
 - (void)SIPCallIncoming:(NSNotification *)notification {
     [self updateDockTileBadgeLabel];
-    [self.userAttentionRequest start];
 }
 
 - (void)SIPCallConnecting:(NSNotification *)notification {
@@ -787,9 +784,6 @@ NS_ASSUME_NONNULL_END
 
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
     [self updateDockTileBadgeLabel];
-    if ([[notification object] isIncoming]) {
-        [self.userAttentionRequest stop];
-    }
     if (self.shouldRestartUserAgentASAP && !self.accountControllers.haveActiveCallControllers) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
         [self setShouldRestartUserAgentASAP:NO];

@@ -35,7 +35,6 @@ final class CompositionRoot: NSObject {
     @objc let logFileURL: LogFileURL
     @objc let helpMenuActionTarget: HelpMenuActionTarget
     @objc let accountControllers: AccountControllers
-    @objc let userAttentionRequest: UserAttentionRequest
     private let defaults: UserDefaults
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
@@ -226,6 +225,14 @@ final class CompositionRoot: NSObject {
                             ),
                             settings: SimpleMusicPlayerSettings(settings: defaults)
                         )
+                    ),
+                    UserAttentionRequestCallEventTarget(
+                        request: CallsUserAttentionRequest(
+                            origin: ApplicationUserAttentionRequest(
+                                application: NSApp, center: NotificationCenter.default
+                            ),
+                            calls: userAgent
+                        )
                     )
                 ]
             )
@@ -285,11 +292,6 @@ final class CompositionRoot: NSObject {
             faqURL: URL(string: "https://www.64characters.com/telephone/faq/")!,
             fileBrowser: NSWorkspace.shared,
             webBrowser: NSWorkspace.shared
-        )
-
-        userAttentionRequest = ConditionalUserAttentionRequest(
-            origin: ApplicationUserAttentionRequest(application: NSApp, center: NotificationCenter.default),
-            controllers: accountControllers
         )
     }
 }
