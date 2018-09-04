@@ -84,21 +84,6 @@
     return nil;
 }
 
-- (BOOL)haveIncomingCallControllers {
-    for (AccountController *accountController in self.enabled) {
-        for (CallController *callController in accountController.callControllers) {
-            if (callController.call.identifier != kAKSIPUserAgentInvalidIdentifier &&
-                callController.call.isIncoming &&
-                callController.isCallActive &&
-                (callController.call.state == kAKSIPCallIncomingState ||
-                 callController.call.state == kAKSIPCallEarlyState)) {
-                    return YES;
-                }
-        }
-    }
-    return NO;
-}
-
 - (BOOL)haveActiveCallControllers {
     for (AccountController *accountController in self.enabled) {
         for (CallController *callController in accountController.callControllers) {

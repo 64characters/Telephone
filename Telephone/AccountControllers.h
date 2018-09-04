@@ -36,7 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)insertController:(AccountController *)controller atIndex:(NSInteger)index;
 
 - (nullable CallController *)callControllerByIdentifier:(NSString *)identifier;
-- (BOOL)haveIncomingCallControllers NS_SWIFT_NAME(haveIncomingCallControllers());
 - (BOOL)haveActiveCallControllers;
 - (NSInteger)unhandledIncomingCallsCount;
 - (void)showIncomingCallWindows;
