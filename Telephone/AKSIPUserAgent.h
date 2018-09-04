@@ -79,6 +79,8 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // The number of acitve calls controlled by the receiver.
 @property(nonatomic, readonly, assign) NSInteger activeCallsCount;
 
+@property(nonatomic, readonly) BOOL hasUnansweredIncomingCalls;
+
 // Receiver's call data.
 @property(nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;
 

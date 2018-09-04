@@ -108,6 +108,8 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Presence online status text.
 @property(nonatomic, readonly) NSString *onlineStatusText;
 
+@property(nonatomic, readonly) BOOL hasUnansweredIncomingCalls;
+
 @property(nonatomic) NSThread *thread;
 
 - (instancetype)initWithUUID:(NSString *)uuid

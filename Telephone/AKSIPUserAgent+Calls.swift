@@ -22,4 +22,8 @@ extension AKSIPUserAgent: Calls {
     public var haveActive: Bool {
         return isStarted && activeCallsCount > 0
     }
+
+    public var haveUnansweredIncoming: Bool {
+        return isStarted && hasUnansweredIncomingCalls
+    }
 }

@@ -132,6 +132,15 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     return count;
 }
 
+- (BOOL)hasUnansweredIncomingCalls {
+    for (AKSIPAccount *account in self.accounts) {
+        if (account.hasUnansweredIncomingCalls) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (AKSIPUserAgentCallData *)callData {
     return _callData;
 }

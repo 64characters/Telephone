@@ -208,6 +208,17 @@ NS_ASSUME_NONNULL_END
     return [NSString stringWithPJString:accountInfo.online_status_text];
 }
 
+- (BOOL)hasUnansweredIncomingCalls {
+    for (AKSIPCall *call in self.calls) {
+        if (call.isActive &&
+            call.isIncoming &&
+            (call.state == kAKSIPCallIncomingState || call.state == kAKSIPCallEarlyState)) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (instancetype)initWithUUID:(NSString *)uuid
                     fullName:(NSString *)fullName
                   SIPAddress:(nullable NSString *)SIPAddress
