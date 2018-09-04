@@ -724,7 +724,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
-    if (self.accountControllers.haveIncomingCallControllers) {
+    if (self.userAgent.hasUnansweredIncomingCalls) {
         [self.accountControllers showIncomingCallWindows];
     } else if ([NSApp keyWindow] == nil && self.accountControllers.enabled.count > 0) {
         [self.accountControllers.enabled.firstObject showWindow];
