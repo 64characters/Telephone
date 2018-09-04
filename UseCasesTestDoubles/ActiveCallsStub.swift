@@ -20,5 +20,6 @@ import UseCases
 
 public final class ActiveCallsStub: Calls {
     public var haveActive = true
+    public var haveIncoming = false
     public init() {}
 }

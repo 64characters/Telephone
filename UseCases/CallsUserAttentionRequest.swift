@@ -1,5 +1,5 @@
 //
-//  Calls.swift
+//  CallsUserAttentionRequest.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,7 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Calls {
-    var haveActive: Bool { get }
-    var haveIncoming: Bool { get }
+public final class CallsUserAttentionRequest {
+    private let origin: UserAttentionRequest
+    private let calls: Calls
+
+    public init(origin: UserAttentionRequest, calls: Calls) {
+        self.origin = origin
+        self.calls = calls
+    }
+}
+
+extension CallsUserAttentionRequest: UserAttentionRequest {
+    public func start() {
+        origin.start()
+    }
+
+    public func stop() {
+        if !calls.haveIncoming {
+            origin.stop()
+        }
+    }
 }
