@@ -1324,6 +1324,7 @@
 		8AD012AE2126F4CD00619781 /* AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevicesEventsUserAgentSoundIOSelectionUseCase.swift; sourceTree = "<group>"; };
 		8AD012B02126F81500619781 /* DefaultSystemSoundIOChangeEventTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSystemSoundIOChangeEventTarget.swift; sourceTree = "<group>"; };
 		8AD012B221271FAA00619781 /* CoreAudioDefaultSystemSoundIOChangeEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreAudioDefaultSystemSoundIOChangeEventSource.swift; sourceTree = "<group>"; };
+		8AD151C4215EDB4300585770 /* ReceiptValidationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptValidationResult.h; sourceTree = "<group>"; };
 		8AD2C5E91EADFF32005EED3E /* ArrayDifferenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDifferenceTests.swift; sourceTree = "<group>"; };
 		8AD2C5EB1EADFF7D005EED3E /* ArrayDifference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDifference.swift; sourceTree = "<group>"; };
 		8AD2C5EE1EAE0C58005EED3E /* RestoredSelectionIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoredSelectionIndexTests.swift; sourceTree = "<group>"; };
@@ -2044,6 +2045,7 @@
 				8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */,
 				8ABC9A6E1D522E4D004AC220 /* ReceiptAttributesValidation.swift */,
 				8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */,
+				8AD151C4215EDB4300585770 /* ReceiptValidationResult.h */,
 			);
 			name = ReceiptValidation;
 			sourceTree = "<group>";

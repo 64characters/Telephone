@@ -1,5 +1,5 @@
 //
-//  ReceiptValidation.swift
+//  ReceiptValidationResult.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-import Foundation
+@import Foundation;
 
-@objc public protocol ReceiptValidation {
-    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void)
-}
+typedef NS_ENUM(NSInteger, Result) {
+    ResultReceiptIsValid,
+    ResultReceiptIsInvalid,
+    ResultNoActivePurchases,
+};
