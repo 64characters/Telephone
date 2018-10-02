@@ -3524,7 +3524,7 @@
 					8AE706221D491C210060FF4F = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = B5WSA37RY8;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -3534,7 +3534,7 @@
 					};
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = B5WSA37RY8;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
@@ -3556,7 +3556,7 @@
 					};
 					AA3FAB841BBAAE630064B2C3 = {
 						CreatedOnToolsVersion = 7.0.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 					};
 					AA9D08021BFF7E6F0000F618 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -4852,7 +4852,7 @@
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OBJC_BRIDGING_HEADER = "ReceiptValidation/ReceiptValidation-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -4884,7 +4884,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ReceiptValidation/ReceiptValidation-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -4990,7 +4990,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -5008,7 +5008,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -5321,7 +5321,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -5366,7 +5366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

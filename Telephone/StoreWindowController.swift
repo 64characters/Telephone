@@ -21,7 +21,7 @@ import UseCases
 
 final class StoreWindowController: NSWindowController {
     convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: NSNib.Name(rawValue: "StoreWindowController"))
+        self.init(windowNibName: "StoreWindowController")
         contentViewController = controller
     }
 
