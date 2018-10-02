@@ -3560,17 +3560,17 @@
 					};
 					AA9D08021BFF7E6F0000F618 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Manual;
 					};
 					AA9D080B1BFF7E6F0000F618 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					AAC4FF801C0214110060B186 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Manual;
 					};
 					AAC4FF941C0215B90060B186 = {
@@ -5032,7 +5032,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.Domain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5057,7 +5057,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.Domain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5074,7 +5074,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -5090,7 +5090,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -5114,7 +5114,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5140,7 +5140,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
