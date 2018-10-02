@@ -45,7 +45,11 @@ extension URI {
     }
 
     public override var hash: Int {
-        return user.hash ^ host.hash ^ displayName.hash
+        var hasher = Hasher()
+        hasher.combine(user)
+        hasher.combine(host)
+        hasher.combine(displayName)
+        return hasher.finalize()
     }
 
     private func isEqual(to uri: URI) -> Bool {

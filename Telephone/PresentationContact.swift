@@ -40,7 +40,12 @@ extension PresentationContact {
     }
 
     override var hash: Int {
-        return title.hash ^ tooltip.hash ^ label.hash ^ color.hash
+        var hasher = Hasher()
+        hasher.combine(title)
+        hasher.combine(tooltip)
+        hasher.combine(label)
+        hasher.combine(color)
+        return hasher.finalize()
     }
 
     private func isEqual(to contact: PresentationContact) -> Bool {

@@ -48,7 +48,11 @@ extension PresentationSoundIO {
     }
 
     override var hash: Int {
-        return input.hash ^ output.hash ^ ringtoneOutput.hash
+        var hasher = Hasher()
+        hasher.combine(input)
+        hasher.combine(output)
+        hasher.combine(ringtoneOutput)
+        return hasher.finalize()
     }
 
     private func isEqual(to soundIO: PresentationSoundIO) -> Bool {
