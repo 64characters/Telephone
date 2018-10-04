@@ -3,3 +3,4 @@
 CFBundleName				= "Telephone";
 CFBundleDisplayName			= "Telephone";
 NSContactsUsageDescription  = "Details from your contacts can be used for displaying names and phone labels and for phone number autocomplete.";
+NSMicrophoneUsageDescription = "The microphone is used for phone calls.";
