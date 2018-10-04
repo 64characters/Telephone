@@ -21,7 +21,7 @@ import Foundation
 final class WaitingThread: Thread {
     override func main() {
         autoreleasepool {
-            RunLoop.current.add(Port(), forMode: .defaultRunLoopMode)
+            RunLoop.current.add(Port(), forMode: .default)
             RunLoop.current.run()
         }
     }

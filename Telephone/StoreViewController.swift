@@ -48,7 +48,7 @@ final class StoreViewController: NSViewController {
     init(target: StoreViewEventTarget, workspace: NSWorkspace) {
         self.target = target
         self.workspace = workspace
-        super.init(nibName: NSNib.Name(rawValue: "StoreViewController"), bundle: nil)
+        super.init(nibName: "StoreViewController", bundle: nil)
     }
 
     required init?(coder: NSCoder) {

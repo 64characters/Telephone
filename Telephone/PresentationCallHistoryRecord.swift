@@ -42,7 +42,13 @@ extension PresentationCallHistoryRecord {
     }
 
     override var hash: Int {
-        return identifier.hash ^ contact.hash ^ date.hash ^ duration.hash ^ (isIncoming ? 1231 : 1237)
+        var hasher = Hasher()
+        hasher.combine(identifier)
+        hasher.combine(contact)
+        hasher.combine(date)
+        hasher.combine(duration)
+        hasher.combine(isIncoming)
+        return hasher.finalize()
     }
 
     private func isEqual(to record: PresentationCallHistoryRecord) -> Bool {

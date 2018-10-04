@@ -35,7 +35,11 @@ extension PresentationProduct {
     }
 
     override var hash: Int {
-        return identifier.hash ^ name.hash ^ price.hash
+        var hasher = Hasher()
+        hasher.combine(identifier)
+        hasher.combine(name)
+        hasher.combine(price)
+        return hasher.finalize()
     }
 
     func isEqual(toProduct product: PresentationProduct) -> Bool {

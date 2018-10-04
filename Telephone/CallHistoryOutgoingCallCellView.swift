@@ -23,7 +23,7 @@ final class CallHistoryOutgoingCallCellView: NSTableCellView {
 
     override var backgroundStyle: NSView.BackgroundStyle {
         didSet {
-            outgoingCallView.image = NSImage(named: NSImage.Name(rawValue: name(for: backgroundStyle)))
+            outgoingCallView.image = NSImage(named: name(for: backgroundStyle))
         }
     }
 }

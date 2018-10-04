@@ -34,7 +34,7 @@ final class CallHistoryViewController: NSViewController {
     @IBOutlet private weak var tableView: NSTableView!
 
     init() {
-        super.init(nibName: NSNib.Name(rawValue: "CallHistoryViewController"), bundle: nil)
+        super.init(nibName: "CallHistoryViewController", bundle: nil)
     }
 
     required init?(coder: NSCoder) {

@@ -53,7 +53,10 @@ extension PresentationAudioDevice {
     }
 
     override var hash: Int {
-        return (isSystemDefault ? 1231 : 1237) ^ name.hash
+        var hasher = Hasher()
+        hasher.combine(isSystemDefault)
+        hasher.combine(name)
+        return hasher.finalize()
     }
 
     private func isEqual(to device: PresentationAudioDevice) -> Bool {

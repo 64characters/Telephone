@@ -37,7 +37,10 @@ extension PresentationAudioDevices {
     }
 
     override var hash: Int {
-        return NSArray(array: input).hash ^ NSArray(array: output).hash
+        var hasher = Hasher()
+        hasher.combine(input)
+        hasher.combine(output)
+        return hasher.finalize()
     }
 
     private func isEqual(to devices: PresentationAudioDevices) -> Bool {
