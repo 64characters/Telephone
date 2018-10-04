@@ -2,5 +2,6 @@
 
 CFBundleName				= "Telephone";
 CFBundleDisplayName			= "Telephone";
+NSAppleEventsUsageDescription = "This can be used to pause music playback during phone calls.";
 NSContactsUsageDescription  = "Details from your contacts can be used for displaying names and phone labels and for phone number autocomplete.";
 NSMicrophoneUsageDescription = "The microphone is used for phone calls.";
