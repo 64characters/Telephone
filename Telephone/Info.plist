@@ -47,8 +47,12 @@
 	<true/>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>This can be used to pause music playback during phone calls.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Details from your contacts can be used for displaying names and phone labels and for phone number autocomplete.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The microphone is used for phone calls.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2016–2018 64 Characters</string>
 	<key>NSMainNibFile</key>
