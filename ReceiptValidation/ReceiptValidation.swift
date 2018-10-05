@@ -19,5 +19,5 @@
 import Foundation
 
 @objc public protocol ReceiptValidation {
-    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void)
+    func validateReceipt(_ receipt: Data, completion: @escaping (_ result: Result, _ expiration: Date) -> Void)
 }

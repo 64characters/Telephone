@@ -29,7 +29,7 @@ final class ReceiptAttributesValidation: NSObject {
 }
 
 extension ReceiptAttributesValidation: ReceiptValidation {
-    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void) {
+    func validateReceipt(_ receipt: Data, completion: @escaping (_ result: Result, _ expiration: Date) -> Void) {
         if let p = ASN1ReceiptPayload(container: PKCS7Container(data: receipt)!), isReceiptValid(ASN1Receipt(payload: p)) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
