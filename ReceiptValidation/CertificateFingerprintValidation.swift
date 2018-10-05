@@ -29,7 +29,7 @@ final class CertificateFingerprintValidation: NSObject {
 }
 
 extension CertificateFingerprintValidation: ReceiptValidation {
-    func validateReceipt(_ receipt: Data, completion: (_ result: Result, _ expiration: Date) -> Void) {
+    func validateReceipt(_ receipt: Data, completion: @escaping (_ result: Result, _ expiration: Date) -> Void) {
         if SHA256Fingerprint(source: certificate) == SHA256Fingerprint(sha256: expected) {
             origin.validateReceipt(receipt, completion: completion)
         } else {
