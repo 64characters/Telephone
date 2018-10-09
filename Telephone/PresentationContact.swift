@@ -24,12 +24,14 @@ final class PresentationContact: NSObject {
     @objc let tooltip: String
     @objc let label: String
     @objc let color: NSColor
+    let address: String
 
-    init(title: String, tooltip: String, label: String, color: NSColor) {
+    init(title: String, tooltip: String, label: String, color: NSColor, address: String) {
         self.title = title
         self.tooltip = tooltip
         self.label = label
         self.color = color
+        self.address = address
     }
 }
 
@@ -45,11 +47,16 @@ extension PresentationContact {
         hasher.combine(tooltip)
         hasher.combine(label)
         hasher.combine(color)
+        hasher.combine(address)
         return hasher.finalize()
     }
 
     private func isEqual(to contact: PresentationContact) -> Bool {
-        return title == contact.title && tooltip == contact.tooltip && label == contact.label && color == contact.color
+        return title == contact.title &&
+            tooltip == contact.tooltip &&
+            label == contact.label &&
+            color == contact.color &&
+            address == contact.address
     }
 }
 
@@ -58,15 +65,15 @@ extension PresentationContact {
         switch contact.address {
         case let .phone(number, label):
             if contact.name.isEmpty {
-                self.init(title: number, tooltip: "", label: label, color: color)
+                self.init(title: number, tooltip: "", label: label, color: color, address: number)
             } else {
-                self.init(title: contact.name, tooltip: number, label: label, color: color)
+                self.init(title: contact.name, tooltip: number, label: label, color: color, address: number)
             }
         case let .email(address, label):
             if contact.name.isEmpty {
-                self.init(title: address, tooltip: "", label: label, color: color)
+                self.init(title: address, tooltip: "", label: label, color: color, address: address)
             } else {
-                self.init(title: contact.name, tooltip: address, label: label, color: color)
+                self.init(title: contact.name, tooltip: address, label: label, color: color, address: address)
             }
         }
     }
