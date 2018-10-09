@@ -21,6 +21,45 @@ import UseCasesTestDoubles
 import XCTest
 
 class AKSIPCallEventSourceTests: XCTestCase {
+    func testCallsDidMake() {
+        let center = NotificationCenter.default
+        let target = CallEventTargetSpy()
+        let call = CallTestFactory().make()
+        withExtendedLifetime(AKSIPCallEventSource(center: center, target: target)) {
+
+            center.post(Notification(name: .AKSIPCallCalling, object: call, userInfo: nil))
+
+            XCTAssertTrue(target.didCallDidMake)
+            XCTAssertTrue(target.invokedCall === call)
+        }
+    }
+
+    func testCallsDidReceive() {
+        let center = NotificationCenter.default
+        let target = CallEventTargetSpy()
+        let call = CallTestFactory().make()
+        withExtendedLifetime(AKSIPCallEventSource(center: center, target: target)) {
+
+            center.post(Notification(name: .AKSIPCallIncoming, object: call, userInfo: nil))
+
+            XCTAssertTrue(target.didCallDidReceive)
+            XCTAssertTrue(target.invokedCall === call)
+        }
+    }
+
+    func testCallsIsConnecting() {
+        let center = NotificationCenter.default
+        let target = CallEventTargetSpy()
+        let call = CallTestFactory().make()
+        withExtendedLifetime(AKSIPCallEventSource(center: center, target: target)) {
+
+            center.post(Notification(name: .AKSIPCallConnecting, object: call, userInfo: nil))
+
+            XCTAssertTrue(target.didCallIsConnecting)
+            XCTAssertTrue(target.invokedCall === call)
+        }
+    }
+
     func testCallsDidDisconnect() {
         let center = NotificationCenter.default
         let target = CallEventTargetSpy()

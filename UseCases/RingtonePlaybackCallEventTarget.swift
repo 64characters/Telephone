@@ -1,5 +1,5 @@
 //
-//  EnqueuingCallEventTarget.swift
+//  RingtonePlaybackCallEventTarget.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,38 +16,23 @@
 //  GNU General Public License for more details.
 //
 
-public final class EnqueuingCallEventTarget {
-    private let origin: CallEventTarget
-    private let queue: ExecutionQueue
+public final class RingtonePlaybackCallEventTarget {
+    private let playback: RingtonePlaybackUseCase
 
-    public init(origin: CallEventTarget, queue: ExecutionQueue) {
-        self.origin = origin
-        self.queue = queue
+    public init(playback: RingtonePlaybackUseCase) {
+        self.playback = playback
     }
 }
 
-extension EnqueuingCallEventTarget: CallEventTarget {
-    public func didMake(_ call: Call) {
-        queue.add {
-            self.origin.didMake(call)
-        }
-    }
-
-    public func didReceive(_ call: Call) {
-        queue.add {
-            self.origin.didReceive(call)
-        }
-    }
-
+extension RingtonePlaybackCallEventTarget: CallEventTarget {
     public func isConnecting(_ call: Call) {
-        queue.add {
-            self.origin.isConnecting(call)
-        }
+        playback.stop()
     }
 
     public func didDisconnect(_ call: Call) {
-        queue.add {
-            self.origin.didDisconnect(call)
-        }
+        playback.stop()
     }
+
+    public func didMake(_ call: Call) {}
+    public func didReceive(_ call: Call) {}
 }

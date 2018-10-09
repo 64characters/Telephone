@@ -34,4 +34,5 @@ extension UserAttentionRequestCallEventTarget: CallEventTarget {
     }
 
     public func didMake(_ call: Call) {}
+    public func isConnecting(_ call: Call) {}
 }

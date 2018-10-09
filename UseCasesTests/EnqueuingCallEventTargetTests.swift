@@ -39,6 +39,15 @@ final class EnqueuingCallEventTargetTests: XCTestCase {
         XCTAssertTrue(queue.didCallAdd)
     }
 
+    func testAddsBlockToQueueOnIsConnecting() {
+        let queue = ExecutionQueueSpy()
+        let sut = EnqueuingCallEventTarget(origin: CallEventTargetSpy(), queue: queue)
+
+        sut.isConnecting(CallTestFactory().make())
+
+        XCTAssertTrue(queue.didCallAdd)
+    }
+
     func testAddsBockToQueueOnDidDisconnect() {
         let queue = ExecutionQueueSpy()
         let sut = EnqueuingCallEventTarget(origin: CallEventTargetSpy(), queue: queue)
@@ -67,6 +76,17 @@ final class EnqueuingCallEventTargetTests: XCTestCase {
         sut.didReceive(call)
 
         XCTAssertTrue(origin.didCallDidReceive)
+        XCTAssertTrue(origin.invokedCall === call)
+    }
+
+    func testCallsIsConnectingOnOriginWithTheSameArgumentOnIsConnecting() {
+        let origin = CallEventTargetSpy()
+        let sut = EnqueuingCallEventTarget(origin: origin, queue: SyncExecutionQueue())
+        let call = CallTestFactory().make()
+
+        sut.isConnecting(call)
+
+        XCTAssertTrue(origin.didCallIsConnecting)
         XCTAssertTrue(origin.invokedCall === call)
     }
 
