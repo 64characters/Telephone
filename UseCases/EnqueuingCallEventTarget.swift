@@ -39,6 +39,12 @@ extension EnqueuingCallEventTarget: CallEventTarget {
         }
     }
 
+    public func isConnecting(_ call: Call) {
+        queue.add {
+            self.origin.isConnecting(call)
+        }
+    }
+
     public func didDisconnect(_ call: Call) {
         queue.add {
             self.origin.didDisconnect(call)

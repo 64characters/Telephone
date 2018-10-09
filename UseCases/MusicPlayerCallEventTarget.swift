@@ -36,4 +36,6 @@ extension MusicPlayerCallEventTarget: CallEventTarget {
     public func didDisconnect(_ call: Call) {
         player.resume()
     }
+
+    public func isConnecting(_ call: Call) {}
 }

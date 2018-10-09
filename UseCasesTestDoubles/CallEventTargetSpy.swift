@@ -21,6 +21,7 @@ import UseCases
 public final class CallEventTargetSpy {
     public private(set) var didCallDidMake = false
     public private(set) var didCallDidReceive = false
+    public private(set) var didCallIsConnecting = false
     public private(set) var didCallDidDisconnect = false
     public private(set) var invokedCall: Call?
 
@@ -35,6 +36,11 @@ extension CallEventTargetSpy: CallEventTarget {
 
     public func didReceive(_ call: Call) {
         didCallDidReceive = true
+        invokedCall = call
+    }
+
+    public func isConnecting(_ call: Call) {
+        didCallIsConnecting = true
         invokedCall = call
     }
 
