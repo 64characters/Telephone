@@ -152,7 +152,7 @@ const NSInteger kAKSIPCallsMax = 8;
     pjsua_call_info callInfo;
     pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
-    return (callInfo.media_status == PJSUA_CALL_MEDIA_LOCAL_HOLD) ? YES : NO;
+    return (callInfo.media[0].status == PJSUA_CALL_MEDIA_LOCAL_HOLD) ? YES : NO;
 }
 
 - (BOOL)isOnRemoteHold {
@@ -163,7 +163,7 @@ const NSInteger kAKSIPCallsMax = 8;
     pjsua_call_info callInfo;
     pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
-    return (callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) ? YES : NO;
+    return (callInfo.media[0].status == PJSUA_CALL_MEDIA_REMOTE_HOLD) ? YES : NO;
 }
 
 
@@ -291,7 +291,7 @@ const NSInteger kAKSIPCallsMax = 8;
     pjsua_call_info callInfo;
     pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
-    pj_status_t status = pjsua_conf_disconnect(0, callInfo.conf_slot);
+    pj_status_t status = pjsua_conf_disconnect(0, callInfo.media[0].stream.aud.conf_slot);
     if (status == PJ_SUCCESS) {
         [self setMicrophoneMuted:YES];
     } else {
@@ -307,7 +307,7 @@ const NSInteger kAKSIPCallsMax = 8;
     pjsua_call_info callInfo;
     pjsua_call_get_info((pjsua_call_id)[self identifier], &callInfo);
     
-    pj_status_t status = pjsua_conf_connect(0, callInfo.conf_slot);
+    pj_status_t status = pjsua_conf_connect(0, callInfo.media[0].stream.aud.conf_slot);
     if (status == PJ_SUCCESS) {
         [self setMicrophoneMuted:NO];
     } else {
