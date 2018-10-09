@@ -109,9 +109,9 @@ private func makePresentationCallHistoryRecord(contact: MatchedContact, record: 
 private func makePresentationContact(contact: MatchedContact, color: NSColor) -> PresentationContact {
     switch contact.address {
     case let .phone(number, label):
-        return PresentationContact(title: contact.name, tooltip: number, label: label, color: color)
+        return PresentationContact(title: contact.name, tooltip: number, label: label, color: color, address: number)
     case let .email(address, label):
-        return PresentationContact(title: contact.name, tooltip: address, label: label, color: color)
+        return PresentationContact(title: contact.name, tooltip: address, label: label, color: color, address: address)
     }
 }
 

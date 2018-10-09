@@ -60,3 +60,13 @@ extension PresentationCallHistoryRecord {
             isIncoming == record.isIncoming
     }
 }
+
+extension PresentationCallHistoryRecord: NSPasteboardWriting {
+    func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        return [.string]
+    }
+
+    func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
+        return contact.address
+    }
+}

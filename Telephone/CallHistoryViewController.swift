@@ -31,6 +31,7 @@ final class CallHistoryViewController: NSViewController {
         return records.count
     }
     private var records: [PresentationCallHistoryRecord] = []
+    private let pasteboard = NSPasteboard.general
     @IBOutlet private weak var tableView: NSTableView!
 
     init() {
@@ -143,6 +144,14 @@ extension CallHistoryViewController: NSTableViewDelegate {
         tableView.enumerateAvailableRowViews { (view, _) in
             view.needsDisplay = true
         }
+    }
+}
+
+extension CallHistoryViewController {
+    @IBAction func copy(_ sender: Any) {
+        guard !records.isEmpty else { return }
+        pasteboard.clearContents()
+        pasteboard.writeObjects([records[tableView.selectedRow]])
     }
 }
 
