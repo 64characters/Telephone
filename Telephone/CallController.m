@@ -47,7 +47,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 @interface CallController ()
 
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
-@property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
 
 // Account description field.
 @property(nonatomic, weak) IBOutlet NSTextField *accountDescriptionField;
@@ -122,14 +121,12 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (instancetype)initWithWindowNibName:(NSString *)windowNibName
                     accountController:(AccountController *)accountController
                             userAgent:(AKSIPUserAgent *)userAgent
-                     ringtonePlayback:(id<RingtonePlaybackUseCase>)ringtonePlayback
                              delegate:(id<CallControllerDelegate>)delegate {
 
     if ((self = [self initWithWindowNibName:windowNibName])) {
         _identifier = [NSUUID UUID].UUIDString;
         _accountController = accountController;
         _userAgent = userAgent;
-        _ringtonePlayback = ringtonePlayback;
         _delegate = delegate;
     }
     return self;

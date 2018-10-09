@@ -293,7 +293,6 @@ static NSString * const kRussian = @"ru";
         aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                       accountController:self
                                                               userAgent:self.userAgent
-                                                       ringtonePlayback:self.ringtonePlayback
                                                                delegate:self];
     } else {
         aCallController = callTransferController;
@@ -625,7 +624,6 @@ static NSString * const kRussian = @"ru";
     CallController *aCallController = [[CallController alloc] initWithWindowNibName:@"Call"
                                                                   accountController:self
                                                                           userAgent:self.userAgent
-                                                                   ringtonePlayback:self.ringtonePlayback
                                                                            delegate:self];
     
     [aCallController setCall:aCall];

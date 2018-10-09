@@ -73,7 +73,6 @@
     if ((self = [self initWithWindowNibName:@"CallTransfer"
                           accountController:accountController
                                   userAgent:userAgent
-                           ringtonePlayback:accountController.ringtonePlayback
                                    delegate:accountController])) {
         [self setSourceCallController:callController];
         _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController];
