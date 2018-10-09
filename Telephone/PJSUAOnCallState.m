@@ -68,7 +68,7 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
         if (info.role == PJSIP_ROLE_UAC &&
             code == 180 &&
             msg->body == NULL &&
-            info.media_status == PJSUA_CALL_MEDIA_NONE) {
+            info.media[0].status == PJSUA_CALL_MEDIA_NONE) {
             mustStartRingback = YES;
         }
 

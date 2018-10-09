@@ -55,7 +55,7 @@ static void CallMediaStateChanged(pjsua_call_info callInfo) {
     }
     ConnectCallToSoundDevice(call, &callInfo);
     [userAgent stopRingbackForCall:call];
-    PostMediaStateChangeNotification(call, callInfo.media_status);
+    PostMediaStateChangeNotification(call, callInfo.media[0].status);
 }
 
 static const char *MediaStatusTextWithStatus(pjsua_call_media_status status) {
@@ -64,11 +64,11 @@ static const char *MediaStatusTextWithStatus(pjsua_call_media_status status) {
 }
 
 static void ConnectCallToSoundDevice(AKSIPCall *call, const pjsua_call_info *callInfo) {
-    if (callInfo->media_status == PJSUA_CALL_MEDIA_ACTIVE ||
-        callInfo->media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
-        pjsua_conf_connect(callInfo->conf_slot, 0);
+    if (callInfo->media[0].status == PJSUA_CALL_MEDIA_ACTIVE ||
+        callInfo->media[0].status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+        pjsua_conf_connect(callInfo->media[0].stream.aud.conf_slot, 0);
         if (!call.isMicrophoneMuted) {
-            pjsua_conf_connect(0, callInfo->conf_slot);
+            pjsua_conf_connect(0, callInfo->media[0].stream.aud.conf_slot);
         }
     }
 }
