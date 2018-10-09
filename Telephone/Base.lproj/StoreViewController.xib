@@ -69,7 +69,11 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-9Q-oFf">
-                    <rect key="frame" x="450" y="278" width="36" height="32"/>
+                    <rect key="frame" x="453" y="278" width="33" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="21" id="LOg-xM-wis"/>
+                        <constraint firstAttribute="height" constant="21" id="tbJ-E4-j0O"/>
+                    </constraints>
                     <buttonCell key="cell" type="push" bezelStyle="rounded" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="Azz-yr-SIz">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
