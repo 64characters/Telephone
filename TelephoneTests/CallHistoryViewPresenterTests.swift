@@ -44,7 +44,7 @@ final class CallHistoryViewPresenterTests: XCTestCase {
         XCTAssertEqual(view.invokedRecords, [expected1, expected2])
     }
 
-    func testContactColorIsRedForMissedCallRecords() {
+    func testContactColorIsSystemRedForMissedCallRecords() {
         let record = CallHistoryRecord(
             uri: URI(user: "any-user", host: "any-host", displayName: "any-name"),
             date: Date(),
@@ -60,7 +60,7 @@ final class CallHistoryViewPresenterTests: XCTestCase {
 
         sut.update(records: [ContactCallHistoryRecord(origin: record, contact: contact)])
 
-        XCTAssertEqual(view.invokedRecords.first!.contact.color, NSColor.red)
+        XCTAssertEqual(view.invokedRecords.first!.contact.color, NSColor.systemRed)
     }
 
     func testTitleIsEmailAddressOrPhoneNumberAndTooltipIsEmptyWhenNameIsEmpty() {
@@ -116,5 +116,5 @@ private func makePresentationContact(contact: MatchedContact, color: NSColor) ->
 }
 
 private func contactColor(for record: CallHistoryRecord) -> NSColor {
-    return record.isMissed ? NSColor.red : NSColor.controlTextColor
+    return record.isMissed ? NSColor.systemRed : NSColor.controlTextColor
 }

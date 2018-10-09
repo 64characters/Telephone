@@ -48,5 +48,5 @@ extension CallHistoryViewPresenter: ContactCallHistoryRecordGetAllUseCaseOutput 
 }
 
 private func contactColor(for record: ContactCallHistoryRecord) -> NSColor {
-    return record.origin.isMissed ? NSColor.red : NSColor.controlTextColor
+    return record.origin.isMissed ? NSColor.systemRed : NSColor.controlTextColor
 }
