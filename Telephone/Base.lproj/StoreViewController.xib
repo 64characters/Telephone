@@ -133,7 +133,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <clipView key="contentView" id="JHp-da-W11">
                 <rect key="frame" x="1" y="1" width="438" height="84"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="eYD-l4-AFn">
                         <rect key="frame" x="0.0" y="0.0" width="438" height="84"/>
@@ -266,8 +266,8 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     <constraint firstItem="f1z-Cv-lBp" firstAttribute="centerY" secondItem="rEE-iq-dnt" secondAttribute="centerY" id="zbu-Vg-2UG"/>
                 </constraints>
             </view>
-            <color key="borderColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
-            <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+            <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+            <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
             <point key="canvasLocation" x="347" y="861"/>
         </box>
         <box boxType="custom" borderType="line" titlePosition="noTitle" id="mA2-JV-Xxq">
@@ -286,8 +286,8 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     <constraint firstItem="XSd-At-01E" firstAttribute="centerX" secondItem="xO5-Py-Tec" secondAttribute="centerX" id="zcO-uN-cgi"/>
                 </constraints>
             </view>
-            <color key="borderColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-            <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+            <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+            <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
             <point key="canvasLocation" x="347" y="1011"/>
         </box>
         <box boxType="custom" borderType="line" titlePosition="noTitle" id="fpC-LB-IbC">
@@ -342,8 +342,8 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     <constraint firstItem="j2j-Ih-N2I" firstAttribute="centerX" secondItem="yyu-OU-iXv" secondAttribute="centerX" id="KLk-tN-8UD"/>
                 </constraints>
             </view>
-            <color key="borderColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-            <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="borderColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+            <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
             <point key="canvasLocation" x="347" y="1164"/>
         </box>
     </objects>
