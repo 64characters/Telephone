@@ -224,6 +224,7 @@ final class CompositionRoot: NSObject {
                             settings: SimpleMusicPlayerSettings(settings: defaults)
                         )
                     ),
+                    RingtonePlaybackCallEventTarget(playback: ringtonePlayback),
                     UserAttentionRequestCallEventTarget(
                         request: CallsUserAttentionRequest(
                             origin: ApplicationUserAttentionRequest(
