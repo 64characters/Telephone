@@ -194,9 +194,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)acceptCall {
-    if ([[self call] isIncoming]) {
-        [self.ringtonePlayback stop];
-    }
     [[self call] answer];
 }
 
@@ -205,10 +202,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
     if (_activeCallViewController != nil) {
         [[self activeCallViewController] stopCallTimer];
-    }
-    
-    if ([[self call] isIncoming]) {
-        [self.ringtonePlayback stop];
     }
     
     // If remote party hasn't sent back any replies, call hang-up will not happen immediately. Unsubscribe from any
@@ -436,10 +429,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         [self setCallActive:NO];
         [[self activeCallViewController] stopCallTimer];
         
-        if ([[self call] isIncoming]) {
-            [self.ringtonePlayback stop];
-        }
-        
         if ([[[self call] delegate] isEqual:self]) {
             [[self call] setDelegate:nil];
         }
@@ -471,10 +460,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (void)SIPCallDidConfirm:(NSNotification *)notification {
     [self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
 
-    if ([[notification object] isIncoming]) {
-        [self.ringtonePlayback stop];
-    }
-
     [self.activeCallViewController showHangUp];
 
     [self setStatus:@"00:00"];
@@ -487,10 +472,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {
     [self setCallActive:NO];
     [[self activeCallViewController] stopCallTimer];
-    
-    if ([[notification object] isIncoming]) {
-        [self.ringtonePlayback stop];
-    }
     
     NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
     
