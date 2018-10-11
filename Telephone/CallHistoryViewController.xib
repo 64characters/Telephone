@@ -49,7 +49,7 @@
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-zC-WCA">
                                                         <rect key="frame" x="8" y="25" width="10" height="10"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call-dark" id="7Bf-tN-avV"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call" id="7Bf-tN-avV"/>
                                                         <connections>
                                                             <binding destination="GQL-B4-dJ7" name="hidden" keyPath="objectValue.isIncoming" id="tOK-kH-icO"/>
                                                         </connections>
@@ -202,6 +202,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="outgoing-call-dark" width="10" height="10"/>
+        <image name="outgoing-call" width="10" height="10"/>
     </resources>
 </document>

@@ -2,17 +2,20 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "outgoing-call-dark.png",
+      "filename" : "outgoing-call.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
-      "filename" : "outgoing-call-dark@2x.png",
+      "filename" : "outgoing-call@2x.png",
       "scale" : "2x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }
