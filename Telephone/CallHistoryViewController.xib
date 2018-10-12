@@ -78,7 +78,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="WWY-ZO-bzC">
+                                            <tableCellView id="WWY-ZO-bzC" customClass="CallHistoryContactCellView" customModule="Telephone" customModuleProvider="target">
                                                 <rect key="frame" x="25" y="1" width="152" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -116,6 +116,7 @@
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lK4-pF-OnF" secondAttribute="trailing" id="xmY-i3-UWV"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="labelField" destination="lK4-pF-OnF" id="EFt-oN-hGQ"/>
                                                     <outlet property="textField" destination="qIw-Ai-26d" id="ind-Ur-qcM"/>
                                                 </connections>
                                             </tableCellView>
