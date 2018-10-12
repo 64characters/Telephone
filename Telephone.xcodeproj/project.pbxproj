@@ -142,6 +142,7 @@
 		8A2E1C0E1D50CDBB0085A5EF /* xer_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BEF1D50CDBB0085A5EF /* xer_decoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C0F1D50CDBB0085A5EF /* xer_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BF11D50CDBB0085A5EF /* xer_encoder.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		8A2E1C101D50CDBB0085A5EF /* xer_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A2E1BF31D50CDBB0085A5EF /* xer_support.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		8A2FA6FC216FCB0F00C95799 /* CallHistoryDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2FA6FB216FCB0F00C95799 /* CallHistoryDateCellView.swift */; };
 		8A32A4E81D6719730086B49D /* PurchaseCheckUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32A4E71D6719730086B49D /* PurchaseCheckUseCase.swift */; };
 		8A32A4EA1D675A300086B49D /* PurchaseCheckUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32A4E91D675A300086B49D /* PurchaseCheckUseCaseTests.swift */; };
 		8A32A4EC1D675B990086B49D /* PurchaseCheckUseCaseOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A32A4EB1D675B990086B49D /* PurchaseCheckUseCaseOutputSpy.swift */; };
@@ -1016,6 +1017,7 @@
 		8A2E1BF21D50CDBB0085A5EF /* xer_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xer_encoder.h; sourceTree = "<group>"; };
 		8A2E1BF31D50CDBB0085A5EF /* xer_support.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xer_support.c; sourceTree = "<group>"; };
 		8A2E1BF41D50CDBB0085A5EF /* xer_support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xer_support.h; sourceTree = "<group>"; };
+		8A2FA6FB216FCB0F00C95799 /* CallHistoryDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHistoryDateCellView.swift; sourceTree = "<group>"; };
 		8A32A4E71D6719730086B49D /* PurchaseCheckUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseCheckUseCase.swift; sourceTree = "<group>"; };
 		8A32A4E91D675A300086B49D /* PurchaseCheckUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseCheckUseCaseTests.swift; path = UseCasesTests/PurchaseCheckUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A32A4EB1D675B990086B49D /* PurchaseCheckUseCaseOutputSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseCheckUseCaseOutputSpy.swift; sourceTree = "<group>"; };
@@ -2601,6 +2603,7 @@
 		8AD9A0E21DE46229000BB2F2 /* Call History */ = {
 			isa = PBXGroup;
 			children = (
+				8A2FA6FB216FCB0F00C95799 /* CallHistoryDateCellView.swift */,
 				8A1F2E611E71702D00E3624C /* CallHistoryOutgoingCallCellView.swift */,
 				8A125F7E1F5988C400148C99 /* CallHistoryPurchaseCheckUseCaseFactory */,
 				8A2C042B1F16A44700C46693 /* CallHistoryTableRowView.swift */,
@@ -3860,6 +3863,7 @@
 				8A11B3DC1DDCC028002EDA93 /* AKSIPCallEventSource.swift in Sources */,
 				8AE396CC1D6B2F3800DCFB9E /* ExpectedProducts.swift in Sources */,
 				8A9D5FCA2007DCEF005AAF9D /* BackgroundActivityUserAgentEventTarget.swift in Sources */,
+				8A2FA6FC216FCB0F00C95799 /* CallHistoryDateCellView.swift in Sources */,
 				8A68C9571FFE8DAE005125AF /* FileBrowser.swift in Sources */,
 				8A97060220FFAD2500984D39 /* PresentationAudioDevices.swift in Sources */,
 				8A1AA7D51F473DC800804280 /* AccountViewController.m in Sources */,

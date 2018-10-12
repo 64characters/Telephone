@@ -138,7 +138,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="0ms-m8-Hi7">
+                                            <tableCellView id="0ms-m8-Hi7" customClass="CallHistoryDateCellView" customModule="Telephone" customModuleProvider="target">
                                                 <rect key="frame" x="179" y="1" width="120" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -174,6 +174,8 @@
                                                     <constraint firstItem="ybc-FK-BWx" firstAttribute="top" secondItem="0ms-m8-Hi7" secondAttribute="top" constant="4" id="yPu-ia-dOZ"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="dateField" destination="ybc-FK-BWx" id="o1l-NX-YbW"/>
+                                                    <outlet property="durationField" destination="0oC-9Q-fGf" id="VMc-4M-1KP"/>
                                                     <outlet property="textField" destination="ybc-FK-BWx" id="gYI-UJ-DVI"/>
                                                 </connections>
                                             </tableCellView>
