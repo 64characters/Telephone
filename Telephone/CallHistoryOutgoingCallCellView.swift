@@ -22,6 +22,7 @@ final class CallHistoryOutgoingCallCellView: NSTableCellView {
     @IBOutlet private weak var outgoingCallView: NSImageView!
 
     override func awakeFromNib() {
+        super.awakeFromNib()
         if #available(macOS 10.14, *) {
             outgoingCallView.contentTintColor = NSColor.secondaryLabelColor
         }
