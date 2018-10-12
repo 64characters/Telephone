@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CallController">
             <connections>
-                <outlet property="accountDescriptionField" destination="t3e-Me-Oz6" id="kE4-fi-uDx"/>
                 <outlet property="window" destination="1" id="14"/>
             </connections>
         </customObject>

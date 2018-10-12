@@ -22,6 +22,13 @@
 #import "CallController.h"
 
 
+@interface IncomingCallViewController ()
+
+@property(nonatomic, weak) IBOutlet NSTextField *displayedNameField;
+@property(nonatomic, weak) IBOutlet NSTextField *statusField;
+
+@end
+
 @implementation IncomingCallViewController
 
 @synthesize callController = callController_;
@@ -44,11 +51,6 @@
 - (void)removeObservations {
     [[self displayedNameField] unbind:NSValueBinding];
     [[self statusField] unbind:NSValueBinding];
-}
-
-- (void)awakeFromNib {
-    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
 }
 
 - (IBAction)acceptCall:(id)sender {

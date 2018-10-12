@@ -26,12 +26,6 @@
 // Call controller the receiver belongs to.
 @property(nonatomic, weak) CallController *callController;
 
-// Display Name field outlet.
-@property(nonatomic, weak) IBOutlet NSTextField *displayedNameField;
-
-// Status field outlet.
-@property(nonatomic, weak) IBOutlet NSTextField *statusField;
-
 // Accept Call button outlet.
 @property(nonatomic, weak) IBOutlet NSButton *acceptCallButton;
 
