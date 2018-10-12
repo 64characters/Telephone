@@ -43,11 +43,6 @@
     [[self statusField] unbind:NSValueBinding];
 }
 
-- (void)awakeFromNib {
-    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-}
-
 - (IBAction)redial:(id)sender {
     [[self callController] redial];
 }

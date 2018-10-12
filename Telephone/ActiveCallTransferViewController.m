@@ -39,13 +39,6 @@
     self.waitingForHold = NO;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleLight];
-    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleLight];
-}
-
 - (IBAction)transferCall:(id)sender {
     if (self.callController.isCallOnHold) {
         [(CallTransferController *)self.callController transferCall];

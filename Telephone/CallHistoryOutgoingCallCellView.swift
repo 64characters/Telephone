@@ -21,13 +21,10 @@ import Cocoa
 final class CallHistoryOutgoingCallCellView: NSTableCellView {
     @IBOutlet private weak var outgoingCallView: NSImageView!
 
-    override var backgroundStyle: NSView.BackgroundStyle {
-        didSet {
-            outgoingCallView.image = NSImage(named: name(for: backgroundStyle))
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if #available(macOS 10.14, *) {
+            outgoingCallView.contentTintColor = NSColor.secondaryLabelColor
         }
     }
-}
-
-private func name(for style: NSView.BackgroundStyle) -> String {
-    return style == .dark ? "outgoing-call-light" : "outgoing-call-dark"
 }

@@ -48,9 +48,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
-// Account description field.
-@property(nonatomic, weak) IBOutlet NSTextField *accountDescriptionField;
-
 // Call info view.
 @property(nonatomic, strong) NSView *callInfoView;
 
@@ -141,8 +138,6 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)awakeFromNib {
-    [[[self accountDescriptionField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-    
     NSRect frame = [[[self window] contentView] frame];
     frame.origin.x = 0.0;
     CGFloat minYBorderThickness = [[self window] contentBorderThicknessForEdge:NSMinYEdge];

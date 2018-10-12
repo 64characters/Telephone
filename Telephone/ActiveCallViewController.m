@@ -31,6 +31,9 @@
 @property(nonatomic, getter=isShowingProgress) BOOL showingProgress;
 @property(nonatomic) NSTrackingArea *trackingArea;
 
+@property(nonatomic, weak) IBOutlet NSTextField *displayedNameField;
+@property(nonatomic, weak) IBOutlet NSTextField *statusField;
+
 @property(nonatomic) IBOutlet NSProgressIndicator *callProgressIndicator;
 @property(nonatomic) IBOutlet NSButton *hangUpButton;
 
@@ -60,8 +63,6 @@
  }
 
 - (void)awakeFromNib {
-    [[[self displayedNameField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
-    [[[self statusField] cell] setBackgroundStyle:NSBackgroundStyleRaised];
     self.hangUpButton.frame = self.callProgressIndicator.frame;
 }
 

@@ -35,13 +35,6 @@
 @property(nonatomic, strong) NSMutableString *enteredDTMF;
 
 
-// Display Name field outlet.
-@property(nonatomic, weak) IBOutlet NSTextField *displayedNameField;
-
-// Status field outlet.
-@property(nonatomic, weak) IBOutlet NSTextField *statusField;
-
-
 // Designated initializer.
 // Initializes an ActiveCallViewController object with a given nib file and call controller.
 - (instancetype)initWithNibName:(NSString *)nibName callController:(CallController *)callController;

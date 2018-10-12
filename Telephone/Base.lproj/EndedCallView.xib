@@ -32,9 +32,9 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="81">
-                    <rect key="frame" x="17" y="22" width="266" height="14"/>
+                    <rect key="frame" x="17" y="8" width="266" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Status" id="82">
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Status" id="82">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -49,7 +49,7 @@
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-zC-WCA">
                                                         <rect key="frame" x="8" y="25" width="10" height="10"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call-dark" id="7Bf-tN-avV"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call" id="7Bf-tN-avV"/>
                                                         <connections>
                                                             <binding destination="GQL-B4-dJ7" name="hidden" keyPath="objectValue.isIncoming" id="tOK-kH-icO"/>
                                                         </connections>
@@ -78,7 +78,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="WWY-ZO-bzC">
+                                            <tableCellView id="WWY-ZO-bzC" customClass="CallHistoryContactCellView" customModule="Telephone" customModuleProvider="target">
                                                 <rect key="frame" x="25" y="1" width="152" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -86,7 +86,7 @@
                                                         <rect key="frame" x="0.0" y="23" width="128" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="0049 123 45678901" id="nL2-fI-0xh">
                                                             <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
@@ -99,7 +99,7 @@
                                                         <rect key="frame" x="0.0" y="6" width="35" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Home" id="fDT-3a-1hx">
                                                             <font key="font" metaFont="smallSystem"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
@@ -116,6 +116,8 @@
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lK4-pF-OnF" secondAttribute="trailing" id="xmY-i3-UWV"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="contactField" destination="qIw-Ai-26d" id="975-lW-1p0"/>
+                                                    <outlet property="labelField" destination="lK4-pF-OnF" id="EFt-oN-hGQ"/>
                                                     <outlet property="textField" destination="qIw-Ai-26d" id="ind-Ur-qcM"/>
                                                 </connections>
                                             </tableCellView>
@@ -125,7 +127,7 @@
                                             </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="" width="120" minWidth="120" maxWidth="150" id="SdP-Nc-fYr">
+                                    <tableColumn width="120" minWidth="120" maxWidth="150" id="SdP-Nc-fYr">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -138,7 +140,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="0ms-m8-Hi7">
+                                            <tableCellView id="0ms-m8-Hi7" customClass="CallHistoryDateCellView" customModule="Telephone" customModuleProvider="target">
                                                 <rect key="frame" x="179" y="1" width="120" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -146,7 +148,7 @@
                                                         <rect key="frame" x="0.0" y="23" width="107" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Yesterday, 23:59" id="UdU-YW-Y1W">
                                                             <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
@@ -157,7 +159,7 @@
                                                         <rect key="frame" x="0.0" y="6" width="85" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10 min, 15 secs" id="K9r-bz-3Ts">
                                                             <font key="font" metaFont="smallSystem"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
@@ -174,6 +176,8 @@
                                                     <constraint firstItem="ybc-FK-BWx" firstAttribute="top" secondItem="0ms-m8-Hi7" secondAttribute="top" constant="4" id="yPu-ia-dOZ"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="dateField" destination="ybc-FK-BWx" id="o1l-NX-YbW"/>
+                                                    <outlet property="durationField" destination="0oC-9Q-fGf" id="VMc-4M-1KP"/>
                                                     <outlet property="textField" destination="ybc-FK-BWx" id="gYI-UJ-DVI"/>
                                                 </connections>
                                             </tableCellView>
@@ -188,11 +192,11 @@
                             </tableView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="YEJ-yh-TD1">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="YEJ-yh-TD1">
                         <rect key="frame" x="0.0" y="-16" width="0.0" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="OKe-ob-fK8">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="OKe-ob-fK8">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -202,6 +206,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="outgoing-call-dark" width="10" height="10"/>
+        <image name="outgoing-call" width="10" height="10"/>
     </resources>
 </document>
