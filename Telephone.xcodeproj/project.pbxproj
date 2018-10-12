@@ -1628,8 +1628,6 @@
 		AAD92138107A608B00F142A4 /* EndedCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = EndedCallViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AADAA2C4107E569900789F2D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/IncomingCallView.xib; sourceTree = "<group>"; };
 		AADAA2C5107E569C00789F2D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/IncomingCallView.xib; sourceTree = "<group>"; };
-		AADAA2D2107E572800789F2D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/EndedCallView.xib; sourceTree = "<group>"; };
-		AADAA2D3107E572B00789F2D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/EndedCallView.xib; sourceTree = "<group>"; };
 		AAE33B0B1BA71E6900C6E48B /* Telephone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Telephone-Bridging-Header.h"; sourceTree = "<group>"; };
 		AAE33B0E1BA7205A00C6E48B /* PreferencesControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesControllerDelegate.h; sourceTree = "<group>"; };
 		AAE33B0F1BA7217C00C6E48B /* AKSIPUserAgentDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgentDelegate.h; sourceTree = "<group>"; };
@@ -4781,8 +4779,6 @@
 		AADAA2D0107E572300789F2D /* EndedCallView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AADAA2D2107E572800789F2D /* ru */,
-				AADAA2D3107E572B00789F2D /* de */,
 				8AA748C81D744FAA000587DC /* Base */,
 			);
 			name = EndedCallView.xib;
