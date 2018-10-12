@@ -116,6 +116,7 @@
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lK4-pF-OnF" secondAttribute="trailing" id="xmY-i3-UWV"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="contactField" destination="qIw-Ai-26d" id="975-lW-1p0"/>
                                                     <outlet property="labelField" destination="lK4-pF-OnF" id="EFt-oN-hGQ"/>
                                                     <outlet property="textField" destination="qIw-Ai-26d" id="ind-Ur-qcM"/>
                                                 </connections>

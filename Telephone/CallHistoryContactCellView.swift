@@ -19,7 +19,15 @@
 import Cocoa
 
 final class CallHistoryContactCellView: NSTableCellView {
+    @IBOutlet private weak var contactField: NSTextField!
     @IBOutlet private weak var labelField: NSTextField!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if #available(OSX 10.11, *) {
+            contactField.font = .systemFont(ofSize: 13, weight: .medium)
+        }
+    }
 
     override var backgroundStyle: NSView.BackgroundStyle {
         didSet {
