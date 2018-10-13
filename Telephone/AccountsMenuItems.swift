@@ -46,8 +46,8 @@ private extension AccountsMenuItems {
     }
 
     func updateItems() {
-        items = zip(controllers.enabled, controllers.enabled.indices).map {
-            NSMenuItem(controller: $0, target: self, selector: #selector(toggleAccountWindow), count: $1 + 1)
+        items = zip(controllers.enabled, 1...).map {
+            NSMenuItem(controller: $0, target: self, selector: #selector(toggleAccountWindow), count: $1)
         }
         if !items.isEmpty {
             items.append(NSMenuItem.separator())
