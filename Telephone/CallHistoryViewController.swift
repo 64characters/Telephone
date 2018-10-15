@@ -50,7 +50,7 @@ final class CallHistoryViewController: NSViewController {
         if isReturnKey(event) {
             pickRecord()
         } else if isDeleteKey(event) {
-            deleteRecord()
+            removeRecord()
         } else {
             super.keyDown(with: event)
         }
@@ -64,28 +64,37 @@ final class CallHistoryViewController: NSViewController {
         guard sender.clickedRow != -1 else { return }
         pickRecord()
     }
+}
 
-    private func pickRecord() {
+private extension CallHistoryViewController {
+    func pickRecord() {
         guard !records.isEmpty else { return }
         target?.didPickRecord(withIdentifier: records[tableView.selectedRow].identifier)
     }
 
-    private func deleteRecord() {
+    func removeRecord() {
         guard !records.isEmpty else { return }
-        let record = records[tableView.selectedRow]
-        makeAlert(recordName: record.date).beginSheetModal(for: view.window!) { response in
-            if response == .alertFirstButtonReturn {
-                self.target?.shouldRemoveRecord(withIdentifier: record.identifier)
+        let row = tableView.selectedRow
+        let record = records[row]
+        makeAlert(recordName: record.date).beginSheetModal(for: view.window!) {
+            if $0 == .alertFirstButtonReturn {
+                self.removeTableViewRow(row, andRecordWithIdentifier: record.identifier)
             }
         }
     }
 
-    private func isReturnKey(_ event: NSEvent) -> Bool {
+    func isReturnKey(_ event: NSEvent) -> Bool {
         return event.keyCode == 0x24
     }
 
-    private func isDeleteKey(_ event: NSEvent) -> Bool {
+    func isDeleteKey(_ event: NSEvent) -> Bool {
         return event.keyCode == 0x33 || event.keyCode == 0x75
+    }
+
+    func removeTableViewRow(_ row: Int, andRecordWithIdentifier identifier: String) {
+        tableView.removeRows(at: IndexSet(integer: row), withAnimation: .slideUp)
+        records.remove(at: row)
+        target?.shouldRemoveRecord(withIdentifier: identifier)
     }
 }
 
@@ -140,10 +149,38 @@ extension CallHistoryViewController: NSTableViewDelegate {
         updateSeparators()
     }
 
+    @available(OSX 10.11, *)
+    func tableView(_ tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
+        switch edge {
+        case .trailing:
+            return [makeDeleteAction()]
+        case .leading:
+            return []
+        }
+    }
+
     private func updateSeparators() {
         tableView.enumerateAvailableRowViews { (view, _) in
             view.needsDisplay = true
         }
+    }
+
+    @available(OSX 10.11, *)
+    private func makeDeleteAction() -> NSTableViewRowAction {
+        let a = NSTableViewRowAction(
+            style: .destructive,
+            title: NSLocalizedString("Delete", comment: "Delete button."),
+            handler: removeRowAndRecord
+        )
+        if #available(OSX 10.12.2, *) {
+            a.image = NSImage(named: NSImage.touchBarDeleteTemplateName)
+        }
+        return a
+    }
+
+    @available(OSX 10.11, *)
+    private func removeRowAndRecord(action: NSTableViewRowAction, row: Int) {
+        removeTableViewRow(row, andRecordWithIdentifier: records[row].identifier)
     }
 }
 
