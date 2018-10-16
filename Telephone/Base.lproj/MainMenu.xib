@@ -189,6 +189,13 @@ DQ
                                     <action selector="hangUpCall:" target="-1" id="507"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="QEs-34-UT6"/>
+                            <menuItem title="Keep on Top" id="vyI-5q-SG2">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <binding destination="dEG-r1-9SZ" name="value" keyPath="values.KeepCallWindowOnTop" id="tSr-9U-nuW"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -252,5 +259,6 @@ DQ
             </connections>
         </customObject>
         <customObject id="C3A-nH-yvt" customClass="HelpMenuActionRedirect" customModule="Telephone" customModuleProvider="target"/>
+        <userDefaultsController representsSharedInstance="YES" id="dEG-r1-9SZ"/>
     </objects>
 </document>

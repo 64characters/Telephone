@@ -58,6 +58,7 @@
 // Ended call view controller.
 @property(nonatomic, readonly, strong) EndedCallViewController *endedCallViewController;
 
+@property(nonatomic, copy) NSString *title;
 
 // Remote party dislpay name.
 @property(nonatomic, copy) NSString *displayedName;

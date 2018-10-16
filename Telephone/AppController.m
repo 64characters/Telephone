@@ -106,6 +106,7 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kSignificantPhoneNumberLength] = @9;
         defaultsDict[kAutoCloseCallWindow] = @YES;
         defaultsDict[kAutoCloseMissedCallWindow] = @YES;
+        defaultsDict[kKeepCallWindowOnTop] = @YES;
         defaultsDict[kCallWaiting] = @YES;
         defaultsDict[kUseG711Only] = @NO;
         defaultsDict[kLockCodec] = @NO;
