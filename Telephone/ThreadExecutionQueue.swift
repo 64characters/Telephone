@@ -34,7 +34,7 @@ extension ThreadExecutionQueue: ExecutionQueue {
 
     @objc private func run(_ block: Any) {  // RunLoop.run() crashes if block type is () -> Void, so had to use Any instead.
         if let block = block as? () -> Void {
-            block()
+            autoreleasepool(invoking: block)
         }
     }
 }

@@ -263,6 +263,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)thread_startWithCompletion:(void (^ _Nonnull)(BOOL didStart))completion {
+    @autoreleasepool {
+        [self thread_startInAutoreleasePoolWithCompletion:completion];
+    }
+}
+
+- (void)thread_startInAutoreleasePoolWithCompletion:(void (^ _Nonnull)(BOOL didStart))completion {
     pj_status_t status;
 
     if (!pj_thread_is_registered()) {
@@ -478,7 +484,9 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)thread_stopWithCompletion:(void (^ _Nonnull)(void))completion {
-    [self thread_stop];
+    @autoreleasepool {
+        [self thread_stop];
+    }
     dispatch_async(dispatch_get_main_queue(), completion);
 }
 
