@@ -48,6 +48,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 
+@property(nonatomic, readonly) NSUserDefaults *defaults;
+
 // Call info view.
 @property(nonatomic, strong) NSView *callInfoView;
 
@@ -125,12 +127,14 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         _accountController = accountController;
         _userAgent = userAgent;
         _delegate = delegate;
+        _defaults = NSUserDefaults.standardUserDefaults;
     }
     return self;
 }
 
 - (void)dealloc {
     [self setCall:nil];
+    [self unsubscribeFromWindowFloatingChanges];
 }
 
 - (NSString *)description {
@@ -138,6 +142,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)awakeFromNib {
+    [self updateWindowFloating];
+    [self subscribeToWindowFloatingChanges];
     NSRect frame = [[[self window] contentView] frame];
     frame.origin.x = 0.0;
     CGFloat minYBorderThickness = [[self window] contentBorderThicknessForEdge:NSMinYEdge];
@@ -563,6 +569,28 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if (isFinal && [[self call] transferStatus] == PJSIP_SC_OK) {
         [self hangUpCall];
         [self setStatus:NSLocalizedString(@"call transferred", @"Call transferred.")];
+    }
+}
+
+#pragma mark - Window floating
+
+- (void)updateWindowFloating {
+    self.window.level = [self.defaults boolForKey:kKeepCallWindowOnTop] ? NSFloatingWindowLevel : NSNormalWindowLevel;
+}
+
+- (void)subscribeToWindowFloatingChanges {
+    [self.defaults addObserver:self forKeyPath:kKeepCallWindowOnTop options:0 context:NULL];
+}
+
+- (void)unsubscribeFromWindowFloatingChanges {
+    [self.defaults removeObserver:self forKeyPath:kKeepCallWindowOnTop];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object == self.defaults && [keyPath isEqualToString:kKeepCallWindowOnTop]) {
+        [self updateWindowFloating];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

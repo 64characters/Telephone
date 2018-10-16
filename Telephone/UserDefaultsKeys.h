@@ -38,6 +38,7 @@ extern NSString * const kUseDNSSRV;
 extern NSString * const kSignificantPhoneNumberLength;
 extern NSString * const kAutoCloseCallWindow;
 extern NSString * const kAutoCloseMissedCallWindow;
+extern NSString * const kKeepCallWindowOnTop;
 extern NSString * const kCallWaiting;
 extern NSString * const kUseG711Only;
 extern NSString * const kSettingsVersion;
