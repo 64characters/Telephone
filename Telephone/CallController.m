@@ -221,12 +221,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[[self incomingCallViewController] declineCallButton] setEnabled:NO];
     
     // Optionally close call window.
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kAutoCloseCallWindow] &&
-        ![self isKindOfClass:[CallTransferController class]]) {
-        
-        [self performSelector:@selector(closeCallWindow)
-                   withObject:nil
-                   afterDelay:kCallWindowAutoCloseTime];
+    if ([self.defaults boolForKey:kAutoCloseCallWindow] && ![self isKindOfClass:[CallTransferController class]]) {
+        [self performSelector:@selector(closeCallWindow) withObject:nil afterDelay:kCallWindowAutoCloseTime];
     }
 }
 
@@ -396,19 +392,17 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if ([[self nameFromAddressBook] length] > 0) {
         notificationTitle = [self nameFromAddressBook];
     } else if ([[self enteredCallDestination] length] > 0) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
-        if ([[self enteredCallDestination] ak_isTelephoneNumber] && [defaults boolForKey:kFormatTelephoneNumbers]) {
+        if ([[self enteredCallDestination] ak_isTelephoneNumber] && [self.defaults boolForKey:kFormatTelephoneNumbers]) {
             notificationTitle = [telephoneNumberFormatter stringForObjectValue:[self enteredCallDestination]];
         } else {
             notificationTitle = [self enteredCallDestination];
         }
     } else {
         AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
+        [SIPURIFormatter setFormatsTelephoneNumbers:[self.defaults boolForKey:kFormatTelephoneNumbers]];
         [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
-         [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+         [self.defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
         notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
     }
     NSUserNotification *userNotification = [[NSUserNotification alloc] init];
@@ -530,9 +524,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [self removeOrShowUserNotificationIfNeeded];
     
     // Optionally close disconnected call window.
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL shouldCloseWindow = [defaults boolForKey:kAutoCloseCallWindow];
-    BOOL shouldCloseMissedWindow = [defaults boolForKey:kAutoCloseMissedCallWindow];
+    BOOL shouldCloseWindow = [self.defaults boolForKey:kAutoCloseCallWindow];
+    BOOL shouldCloseMissedWindow = [self.defaults boolForKey:kAutoCloseMissedCallWindow];
     BOOL missed = [self isCallUnhandled];
     
     if (![self isKindOfClass:[CallTransferController class]]) {
