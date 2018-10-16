@@ -113,6 +113,15 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return _endedCallViewController;
 }
 
+- (void)setTitle:(NSString *)title {
+    if (![_title isEqualToString:title]) {
+        _title = [title copy];
+        if (self.isWindowLoaded) {
+            self.window.title = title;
+        }
+    }
+}
+
 - (BOOL)isCallUnhandled {
     return self.call.isMissed;
 }
@@ -144,6 +153,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (void)awakeFromNib {
     [self updateWindowFloating];
     [self subscribeToWindowFloatingChanges];
+    self.window.title = self.title;
     NSRect frame = [[[self window] contentView] frame];
     frame.origin.x = 0.0;
     CGFloat minYBorderThickness = [[self window] contentBorderThicknessForEdge:NSMinYEdge];

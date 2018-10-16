@@ -305,19 +305,18 @@ static NSString * const kRussian = @"ru";
     
     // Set title.
     if ([[destinationURI host] length] > 0) {
-        [[aCallController window] setTitle:[destinationURI SIPAddress]];
+        [aCallController setTitle:[destinationURI SIPAddress]];
         
     } else if (![enteredCallDestinationString ak_hasLetters]) {
         if ([enteredCallDestinationString ak_isTelephoneNumber] && [defaults boolForKey:kFormatTelephoneNumbers]) {
-            [[aCallController window] setTitle:
-             [telephoneNumberFormatter stringForObjectValue:enteredCallDestinationString]];
+            [aCallController setTitle:[telephoneNumberFormatter stringForObjectValue:enteredCallDestinationString]];
         } else {
-            [[aCallController window] setTitle:enteredCallDestinationString];
+            [aCallController setTitle:enteredCallDestinationString];
         }
     } else {
         NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@",
                                 [destinationURI user], [[[self account] registrationURI] host]];
-        [[aCallController window] setTitle:SIPAddress];
+        [aCallController setTitle:SIPAddress];
     }
     
     // Set displayed name.
@@ -799,7 +798,7 @@ static NSString * const kRussian = @"ru";
     
     // Address Book search ends here.
     
-    [[aCallController window] setTitle:([[aCall remoteURI] SIPAddress] ?: @"")];
+    [aCallController setTitle:([[aCall remoteURI] SIPAddress] ?: @"")];
     [aCallController setDisplayedName:finalDisplayedName];
     [aCallController setStatus:finalStatus];
     [aCallController setRedialURI:[aCall remoteURI]];
