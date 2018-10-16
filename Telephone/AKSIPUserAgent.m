@@ -484,13 +484,17 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)thread_stopWithCompletion:(void (^ _Nonnull)(void))completion {
-    @autoreleasepool {
-        [self thread_stop];
-    }
+    [self thread_stop];
     dispatch_async(dispatch_get_main_queue(), completion);
 }
 
 - (void)thread_stop {
+    @autoreleasepool {
+        [self thread_stopInAutoreleasePool];
+    }
+}
+
+- (void)thread_stopInAutoreleasePool {
     if (self.ringbackPort && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
         pjsua_conf_remove_port(self.ringbackSlot);
         self.ringbackSlot = kAKSIPUserAgentInvalidIdentifier;
