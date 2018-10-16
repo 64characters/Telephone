@@ -263,6 +263,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)thread_startWithCompletion:(void (^ _Nonnull)(BOOL didStart))completion {
+    @autoreleasepool {
+        [self thread_startInAutoreleasePoolWithCompletion:completion];
+    }
+}
+
+- (void)thread_startInAutoreleasePoolWithCompletion:(void (^ _Nonnull)(BOOL didStart))completion {
     pj_status_t status;
 
     if (!pj_thread_is_registered()) {
@@ -483,6 +489,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)thread_stop {
+    @autoreleasepool {
+        [self thread_stopInAutoreleasePool];
+    }
+}
+
+- (void)thread_stopInAutoreleasePool {
     if (self.ringbackPort && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
         pjsua_conf_remove_port(self.ringbackSlot);
         self.ringbackSlot = kAKSIPUserAgentInvalidIdentifier;
