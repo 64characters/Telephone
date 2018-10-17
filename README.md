@@ -26,9 +26,9 @@ Build and install:
 
 Download:
 
-    $ curl -O http://www.pjsip.org/release/2.7.1/pjproject-2.7.1.tar.bz2
-    $ tar xzvf pjproject-2.7.1.tar.bz2
-    $ cd pjproject-2.7.1
+    $ curl -O https://www.pjsip.org/release/2.7.2/pjproject-2.7.2.tar.bz2
+    $ tar xzvf pjproject-2.7.2.tar.bz2
+    $ cd pjproject-2.7.2
 
 Create `pjlib/include/pj/config_site.h`:
 
@@ -43,7 +43,7 @@ Create `pjlib/include/pj/config_site.h`:
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --disable-libyuv --disable-libwebrtc --host=x86_64-apple-darwin CFLAGS='-mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --disable-video --disable-libyuv --disable-libwebrtc --host=x86_64-apple-darwin CFLAGS='-mmacosx-version-min=10.10'
     $ make lib
     $ make install
 
