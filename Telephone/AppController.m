@@ -98,6 +98,7 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kSTUNServerPort] = @0;
         defaultsDict[kVoiceActivityDetection] = @NO;
         defaultsDict[kUseICE] = @NO;
+        defaultsDict[kUseQoS] = @YES;
         defaultsDict[kLogLevel] = @3;
         defaultsDict[kConsoleLogLevel] = @0;
         defaultsDict[kTransportPort] = @0;
@@ -614,6 +615,7 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setConsoleLogLevel:[defaults integerForKey:kConsoleLogLevel]];
     [[self userAgent] setDetectsVoiceActivity:[defaults boolForKey:kVoiceActivityDetection]];
     [[self userAgent] setUsesICE:[defaults boolForKey:kUseICE]];
+    [[self userAgent] setUsesQoS:[defaults boolForKey:kUseQoS]];
     [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
     [[self userAgent] setTransportPublicHost:[defaults stringForKey:kTransportPublicHost]];
     [[self userAgent] setUsesG711Only:[defaults boolForKey:kUseG711Only]];

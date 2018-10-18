@@ -130,6 +130,10 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // Default: NO.
 @property(nonatomic, assign) BOOL usesICE;
 
+/// A Boolean value indicating if QoS is used.
+/// Default: YES.
+@property(nonatomic, assign) BOOL usesQoS;
+
 // Network port to use for SIP transport. Set 0 for any available port.
 // Default: 0.
 @property(nonatomic, assign) NSUInteger transportPort;
