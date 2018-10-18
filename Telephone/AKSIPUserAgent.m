@@ -50,6 +50,7 @@ static const NSInteger kAKSIPUserAgentDefaultLogLevel = 3;
 static const NSInteger kAKSIPUserAgentDefaultConsoleLogLevel = 0;
 static const BOOL kAKSIPUserAgentDefaultDetectsVoiceActivity = YES;
 static const BOOL kAKSIPUserAgentDefaultUsesICE = NO;
+static const BOOL kAKSIPUserAgentDefaultUsesQoS = YES;
 static const NSInteger kAKSIPUserAgentDefaultTransportPort = 0;
 static const BOOL kAKSIPUserAgentDefaultUsesG711Only = NO;
 static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
@@ -229,6 +230,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self setConsoleLogLevel:kAKSIPUserAgentDefaultConsoleLogLevel];
     [self setDetectsVoiceActivity:kAKSIPUserAgentDefaultDetectsVoiceActivity];
     [self setUsesICE:kAKSIPUserAgentDefaultUsesICE];
+    [self setUsesQoS:kAKSIPUserAgentDefaultUsesQoS];
     [self setTransportPort:kAKSIPUserAgentDefaultTransportPort];
     [self setUsesG711Only:kAKSIPUserAgentDefaultUsesG711Only];
     [self setLocksCodec:kAKSIPUserAgentDefaultLocksCodec];
@@ -346,6 +348,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     mediaConfig.no_vad = ![self detectsVoiceActivity];
     mediaConfig.enable_ice = [self usesICE];
     mediaConfig.snd_auto_close_time = 1;
+
+    if (self.usesQoS) {
+        transportConfig.qos_params.flags = PJ_QOS_PARAM_HAS_DSCP;
+        transportConfig.qos_params.dscp_val = 24;
+    }
+
     transportConfig.port = (unsigned)[self transportPort];
 
     if ([[self transportPublicHost] length] > 0) {
@@ -545,6 +553,10 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     accountConfig.cred_info[0].data = [aPassword pjString];
     
     accountConfig.rtp_cfg.port = 4000;
+
+    if (self.usesQoS) {
+        accountConfig.rtp_cfg.qos_type = PJ_QOS_TYPE_VOICE;
+    }
     
     if ([[anAccount proxyHost] length] > 0) {
         accountConfig.proxy_cnt = 1;

@@ -35,6 +35,7 @@ extern NSString * const kOutboundProxyHost;
 extern NSString * const kOutboundProxyPort;
 extern NSString * const kUseICE;
 extern NSString * const kUseDNSSRV;
+extern NSString * const kUseQoS;
 extern NSString * const kSignificantPhoneNumberLength;
 extern NSString * const kAutoCloseCallWindow;
 extern NSString * const kAutoCloseMissedCallWindow;
