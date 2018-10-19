@@ -21,6 +21,9 @@ import UseCases
 
 public final class UserAgentSpy {
     public var isStarted = false
+    public var maxCalls = 0
+
+    public var didCallStart = false
 
     public private(set) var didCallAudioDevices = false
     public var audioDevicesResult = [UserAgentAudioDevice]()
@@ -36,6 +39,10 @@ public final class UserAgentSpy {
 }
 
 extension UserAgentSpy: UserAgent {
+    public func start() {
+        didCallStart = true
+    }
+
     public func audioDevices() throws -> [UserAgentAudioDevice] {
         didCallAudioDevices = true
         return audioDevicesResult

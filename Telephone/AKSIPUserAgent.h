@@ -87,6 +87,8 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // A pool used by the underlying PJSUA library of the receiver.
 @property(readonly, assign) pj_pool_t *pool;
 
+@property(nonatomic, assign) NSInteger maxCalls;
+
 // An array of DNS servers to use by the receiver. If set, DNS SRV will be
 // enabled. Only first kAKSIPUserAgentNameServersMax are used.
 @property(nonatomic, copy) NSArray *nameServers;
