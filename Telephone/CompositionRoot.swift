@@ -27,6 +27,7 @@ final class CompositionRoot: NSObject {
     @objc let ringtonePlayback: RingtonePlaybackUseCase
     @objc let storeWindowPresenter: StoreWindowPresenter
     @objc let purchaseReminder: PurchaseReminderUseCase
+    @objc let userAgentStart: UseCase
     @objc let settingsMigration: ProgressiveSettingsMigration
     @objc let orphanLogFileRemoval: OrphanLogFileRemoval
     @objc let workstationSleepStatus: WorkspaceSleepStatus
@@ -106,6 +107,8 @@ final class CompositionRoot: NSObject {
             version: Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,
             output: storeWindowPresenter
         )
+
+        userAgentStart = UserAgentStartUseCase(agent: userAgent, factory: PurchaseCheckUseCaseFactory(receipt: receipt))
 
         let storeEventTargets = StoreEventTargets()
         storeEventTargets.add(storeViewEventTarget)
