@@ -555,7 +555,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     accountConfig.rtp_cfg.port = 4000;
 
     if (self.usesQoS) {
-        accountConfig.rtp_cfg.qos_type = PJ_QOS_TYPE_VOICE;
+        accountConfig.rtp_cfg.qos_params.flags = PJ_QOS_PARAM_HAS_DSCP;
+        accountConfig.rtp_cfg.qos_params.dscp_val = 46;
     }
     
     if ([[anAccount proxyHost] length] > 0) {
