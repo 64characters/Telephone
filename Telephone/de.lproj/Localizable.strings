@@ -22,6 +22,9 @@
 /* Busy. */
 "busy" = "Besetzt";
 
+/* Window title. */
+"Call" = "Anruf";
+
 /* Call declined. */
 "call declined" = "Anruf abgelehnt";
 
