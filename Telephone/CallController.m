@@ -117,7 +117,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     if (![_title isEqualToString:title]) {
         _title = [title copy];
         if (self.isWindowLoaded) {
-            self.window.title = title;
+            [self updateWindowTitle];
         }
     }
 }
@@ -153,7 +153,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 - (void)awakeFromNib {
     [self updateWindowFloating];
     [self subscribeToWindowFloatingChanges];
-    self.window.title = self.title;
+    [self updateWindowTitle];
     NSRect frame = [[[self window] contentView] frame];
     frame.origin.x = 0.0;
     CGFloat minYBorderThickness = [[self window] contentBorderThicknessForEdge:NSMinYEdge];
@@ -420,6 +420,10 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     userNotification.title = notificationTitle;
     userNotification.informativeText = self.status;
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:userNotification];
+}
+
+- (void)updateWindowTitle {
+    self.window.title = self.title.length > 0 ? self.title : NSLocalizedString(@"Call", @"Window title.");
 }
 
 

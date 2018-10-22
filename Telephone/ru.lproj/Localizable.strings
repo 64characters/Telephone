@@ -22,6 +22,9 @@
 /* Busy. */
 "busy" = "занято";
 
+/* Window title. */
+"Call" = "Звонок";
+
 /* Call declined. */
 "call declined" = "звонок отклонен";
 
