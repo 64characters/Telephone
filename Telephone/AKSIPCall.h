@@ -27,8 +27,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern const NSInteger kAKSIPCallsMax;
-
 typedef NS_ENUM(NSUInteger, AKSIPCallState) {
     // Before INVITE is sent or received.
     kAKSIPCallNullState =         PJSIP_INV_STATE_NULL,

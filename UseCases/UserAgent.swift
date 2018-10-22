@@ -20,6 +20,8 @@ import Domain
 
 public protocol UserAgent: class {
     var isStarted: Bool { get }
+    var maxCalls: Int { get set }
+    func start()
     func audioDevices() throws -> [UserAgentAudioDevice]
     func updateAudioDevices()
     func selectSoundIODeviceIDs(input: Int, output: Int) throws

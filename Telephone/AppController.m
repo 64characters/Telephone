@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) PreferencesController *preferencesController;
 @property(nonatomic, readonly) StoreWindowPresenter *storeWindowPresenter;
 @property(nonatomic, readonly) id<RingtonePlaybackUseCase> ringtonePlayback;
+@property(nonatomic, readonly) id<UseCase> userAgentStart;
 @property(nonatomic, readonly) WorkspaceSleepStatus *sleepStatus;
 @property(nonatomic, readonly) AsyncCallHistoryViewEventTargetFactory *callHistoryViewEventTargetFactory;
 @property(nonatomic, readonly) AsyncCallHistoryPurchaseCheckUseCaseFactory *purchaseCheckUseCaseFactory;
@@ -147,6 +148,7 @@ NS_ASSUME_NONNULL_END
     _preferencesController = _compositionRoot.preferencesController;
     _storeWindowPresenter = _compositionRoot.storeWindowPresenter;
     _ringtonePlayback = _compositionRoot.ringtonePlayback;
+    _userAgentStart = _compositionRoot.userAgentStart;
     _sleepStatus = _compositionRoot.workstationSleepStatus;
     _callHistoryViewEventTargetFactory = _compositionRoot.callHistoryViewEventTargetFactory;
     _purchaseCheckUseCaseFactory = _compositionRoot.callHistoryPurchaseCheckUseCaseFactory;
@@ -473,7 +475,7 @@ NS_ASSUME_NONNULL_END
         return YES;
     } else {
         if (self.userAgent.state == AKSIPUserAgentStateStopped) {
-            [self.userAgent start];
+            [self.userAgentStart execute];
         }
         return NO;
     }
@@ -531,7 +533,7 @@ NS_ASSUME_NONNULL_END
         
     } else if ([self shouldRegisterAllAccounts]) {
         if (self.accountControllers.enabled.count > 0) {
-            [[self userAgent] start];
+            [[self userAgentStart] execute];
         } else {
             [self setShouldRegisterAllAccounts:NO];
         }

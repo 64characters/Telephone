@@ -28,8 +28,6 @@
 #define THIS_FILE "AKSIPCall.m"
 
 
-const NSInteger kAKSIPCallsMax = 8;
-
 @interface AKSIPCall () {
     URI *_remote;
     BOOL _incoming;

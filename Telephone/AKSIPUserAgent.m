@@ -309,7 +309,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     pjsua_media_config_default(&mediaConfig);
     pjsua_transport_config_default(&transportConfig);
 
-    userAgentConfig.max_calls = (unsigned)kAKSIPCallsMax;
+    userAgentConfig.max_calls = (unsigned)self.maxCalls;
     userAgentConfig.use_timer = PJSUA_SIP_TIMER_INACTIVE;
 
     if ([[self nameServers] count] > 0) {
