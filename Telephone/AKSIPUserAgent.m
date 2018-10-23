@@ -58,9 +58,11 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 
 @interface AKSIPUserAgent ()
 
-// Read-write redeclarations.
+// Read-write redeclaration.
 @property(nonatomic) AKSIPUserAgentState state;
+
 @property(nonatomic) pj_pool_t *pool;
+@property(nonatomic) pj_pool_t *poolPrivate;
 
 @property(nonatomic, readonly) NSMutableArray *accounts;
 
@@ -290,9 +292,16 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         return;
     }
 
-    // Create pool for PJSUA.
-    self.pool = pjsua_pool_create("AKSIPUserAgent-pjsua", 1000, 1000);
+    self.pool = pjsua_pool_create("AKSIPUserAgent-public", 4000, 1000);
     if (!self.pool) {
+        NSLog(@"Could not create memory pool");
+        [self thread_stop];
+        [self thread_callOnMain:completion withFlag:NO];
+        return;
+    }
+
+    self.poolPrivate = pjsua_pool_create("AKSIPUserAgent-private", 4000, 1000);
+    if (!self.poolPrivate) {
         NSLog(@"Could not create memory pool");
         [self thread_stop];
         [self thread_callOnMain:completion withFlag:NO];
@@ -386,7 +395,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 
     name = pj_str("ringback");
     pjmedia_port *aRingbackPort;
-    status = pjmedia_tonegen_create2([self pool],
+    status = pjmedia_tonegen_create2(self.poolPrivate,
                                      &name,
                                      mediaConfig.clock_rate,
                                      mediaConfig.channel_count,
@@ -415,7 +424,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     pjmedia_tonegen_play([self ringbackPort], kAKRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
 
     pjsua_conf_port_id aRingbackSlot;
-    status = pjsua_conf_add_port([self pool], [self ringbackPort], &aRingbackSlot);
+    status = pjsua_conf_add_port(self.poolPrivate, [self ringbackPort], &aRingbackSlot);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error adding media port for ringback tones");
         [self thread_stop];
@@ -513,6 +522,10 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         pj_pool_release(self.pool);
         self.pool = NULL;
     }
+    if (self.poolPrivate) {
+        pj_pool_release(self.poolPrivate);
+        self.poolPrivate = NULL;
+    }
     if (pjsua_destroy() != PJ_SUCCESS) {
         NSLog(@"Error stopping SIP user agent");
     }
@@ -523,6 +536,13 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self.accounts removeAllObjects];
     self.state = AKSIPUserAgentStateStopped;
     [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPUserAgentDidFinishStoppingNotification object:self];
+}
+
+- (pj_pool_t *)poolResettingIfNeeded {
+    if (pj_pool_get_used_size(self.pool) > 4000) {
+        pj_pool_reset(self.pool);
+    }
+    return self.pool;
 }
 
 - (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword {
