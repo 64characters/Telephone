@@ -449,6 +449,11 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [_endedCallViewController removeObservations];
 }
 
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+    rect.origin.y = [self.window contentRectForFrameRect:self.window.frame].size.height;
+    return rect;
+}
+
 
 #pragma mark -
 #pragma mark AKSIPCallDelegate
