@@ -84,9 +84,6 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // Receiver's call data.
 @property(nonatomic, readonly, assign) AKSIPUserAgentCallData *callData;
 
-// A pool used by the underlying PJSUA library of the receiver.
-@property(readonly, assign) pj_pool_t *pool;
-
 @property(nonatomic, assign) NSInteger maxCalls;
 
 // An array of DNS servers to use by the receiver. If set, DNS SRV will be
@@ -168,6 +165,8 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // Stops user agent.
 - (void)stop;
 - (void)stopAndWait;
+
+- (pj_pool_t *)poolResettingIfNeeded;
 
 // Adds an account to the user agent.
 - (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword;
