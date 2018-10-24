@@ -24,17 +24,20 @@
 #define THIS_FILE "PJSUAOnCallMediaState.m"
 
 static void LogCallMedia(const pjsua_call_info *callInfo);
-static void CallMediaStateChanged(pjsua_call_info callInfo);
+static void CallMediaStateChanged(pjsua_call_id identifier, pjsua_call_media_status status, pjsua_conf_port_id port);
 static const char *MediaStatusTextWithStatus(pjsua_call_media_status status);
-static void ConnectCallToSoundDevice(AKSIPCall *call, const pjsua_call_info *callInfo);
+static void ConnectCallToSoundDevice(AKSIPCall *call, pjsua_call_media_status status, pjsua_conf_port_id port);
 static void PostMediaStateChangeNotification(AKSIPCall *call, pjsua_call_media_status status);
 
 void PJSUAOnCallMediaState(pjsua_call_id callID) {
-    pjsua_call_info callInfo;
-    pjsua_call_get_info(callID, &callInfo);
-    LogCallMedia(&callInfo);
+    pjsua_call_info info;
+    pjsua_call_get_info(callID, &info);
+    LogCallMedia(&info);
+    pjsua_call_id identifier = info.id;
+    pjsua_call_media_status status = info.media[0].status;
+    pjsua_conf_port_id port = info.media[0].stream.aud.conf_slot;
     dispatch_async(dispatch_get_main_queue(), ^{
-        CallMediaStateChanged(callInfo);
+        CallMediaStateChanged(identifier, status, port);
     });
 }
 
@@ -46,16 +49,16 @@ static void LogCallMedia(const pjsua_call_info *callInfo) {
     }
 }
 
-static void CallMediaStateChanged(pjsua_call_info callInfo) {
+static void CallMediaStateChanged(pjsua_call_id identifier, pjsua_call_media_status status, pjsua_conf_port_id port) {
     AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-    AKSIPCall *call = [userAgent callWithIdentifier:callInfo.id];
+    AKSIPCall *call = [userAgent callWithIdentifier:identifier];
     if (call == nil) {
-        PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", callInfo.id));
+        PJ_LOG(3, (THIS_FILE, "Could not find AKSIPCall for call %d during media state change", identifier));
         return;
     }
-    ConnectCallToSoundDevice(call, &callInfo);
+    ConnectCallToSoundDevice(call, status, port);
     [userAgent stopRingbackForCall:call];
-    PostMediaStateChangeNotification(call, callInfo.media[0].status);
+    PostMediaStateChangeNotification(call, status);
 }
 
 static const char *MediaStatusTextWithStatus(pjsua_call_media_status status) {
@@ -63,12 +66,11 @@ static const char *MediaStatusTextWithStatus(pjsua_call_media_status status) {
     return texts[status];
 }
 
-static void ConnectCallToSoundDevice(AKSIPCall *call, const pjsua_call_info *callInfo) {
-    if (callInfo->media[0].status == PJSUA_CALL_MEDIA_ACTIVE ||
-        callInfo->media[0].status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
-        pjsua_conf_connect(callInfo->media[0].stream.aud.conf_slot, 0);
+static void ConnectCallToSoundDevice(AKSIPCall *call, pjsua_call_media_status status, pjsua_conf_port_id port) {
+    if (status == PJSUA_CALL_MEDIA_ACTIVE || status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+        pjsua_conf_connect(port, 0);
         if (!call.isMicrophoneMuted) {
-            pjsua_conf_connect(0, callInfo->media[0].stream.aud.conf_slot);
+            pjsua_conf_connect(0, port);
         }
     }
 }

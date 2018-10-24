@@ -21,6 +21,7 @@
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
 #import "AKSIPUserAgent.h"
+#import "PJSUACallInfo.h"
 
 #define THIS_FILE "PJSUAOnCallReplaced.m"
 
@@ -33,11 +34,12 @@ void PJSUAOnCallReplaced(pjsua_call_id oldID, pjsua_call_id newID) {
                oldID, (int)oldInfo.remote_info.slen, oldInfo.remote_info.ptr,
                newID, (int)newInfo.remote_info.slen, newInfo.remote_info.ptr));
 
-    NSInteger accountIdentifier = newInfo.acc_id;
+    PJSUACallInfo *newInfoWrapper = [[PJSUACallInfo alloc] initWithInfo:newInfo];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d from replaced callback", newID));
         AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-        AKSIPAccount *account = [userAgent accountWithIdentifier:accountIdentifier];
-        [account addCallWithInfo:newInfo];
+        AKSIPAccount *account = [userAgent accountWithIdentifier:newInfoWrapper.accountIdentifier];
+        [account addCallWithInfo:newInfoWrapper];
     });
 }
