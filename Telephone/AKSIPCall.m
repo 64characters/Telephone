@@ -22,6 +22,7 @@
 #import "AKSIPAccount.h"
 #import "AKSIPURI.h"
 #import "AKSIPUserAgent.h"
+#import "PJSUACallInfo.h"
 
 #import "Telephone-Swift.h"
 
@@ -167,25 +168,25 @@
 
 #pragma mark -
 
-- (instancetype)initWithSIPAccount:(AKSIPAccount *)account info:(pjsua_call_info)info {
+- (instancetype)initWithSIPAccount:(AKSIPAccount *)account info:(PJSUACallInfo *)info {
     self = [super init];
     if (self == nil) {
         return nil;
     }
 
     _account = account;
-    _identifier = info.id;
+    _identifier = info.identifier;
 
     _date = [NSDate date];
 
-    _incoming = info.role == PJSIP_ROLE_UAS;
+    _incoming = info.isIncoming;
     _missed = _incoming;
-    _state = (AKSIPCallState)info.state;
-    _stateText = [NSString stringWithPJString:info.state_text];
-    _lastStatus = info.last_status;
-    _lastStatusText = [NSString stringWithPJString:info.last_status_text];
-    _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:info.local_info]];
-    _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:info.remote_info]];
+    _state = info.state;
+    _stateText = info.stateText;
+    _lastStatus = info.lastStatus;
+    _lastStatusText = info.lastStatusText;
+    _localURI = info.localURI;
+    _remoteURI = info.remoteURI;
     _remote = [[URI alloc] initWithURI:_remoteURI];
 
     return self;
