@@ -239,6 +239,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     
     [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
 
+    _poolQueue = dispatch_queue_create("com.tlphn.Telephone.AKSIPUserAgent.PJSIP.pool", DISPATCH_QUEUE_SERIAL);
+
     _thread = [[WaitingThread alloc] init];
     _thread.qualityOfService = NSQualityOfServiceUserInitiated;
     [_thread start];

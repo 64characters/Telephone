@@ -21,6 +21,7 @@
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
 #import "AKSIPUserAgent.h"
+#import "PJSUACallInfo.h"
 
 #define THIS_FILE "PJSUAOnIncomingCall.m"
 
@@ -28,9 +29,10 @@ void PJSUAOnIncomingCall(pjsua_acc_id accountID, pjsua_call_id callID, pjsip_rx_
     PJ_LOG(3, (THIS_FILE, "Incoming call for account %d", accountID));
     pjsua_call_info info;
     pjsua_call_get_info(callID, &info);
+    PJSUACallInfo *infoWrapper = [[PJSUACallInfo alloc] initWithInfo:info];
     dispatch_async(dispatch_get_main_queue(), ^{
         AKSIPAccount *account = [[AKSIPUserAgent sharedUserAgent] accountWithIdentifier:accountID];
-        AKSIPCall *call = [account addCallWithInfo:info];
+        AKSIPCall *call = [account addCallWithInfo:infoWrapper];
         [account.delegate SIPAccount:account didReceiveCall:call];
         [[NSNotificationCenter defaultCenter] postNotificationName:AKSIPCallIncomingNotification object:call];
     });

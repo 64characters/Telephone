@@ -214,6 +214,7 @@
 		8A645FF11E12C8AD00515151 /* MatchedContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A645FEE1E12AA6300515151 /* MatchedContact.swift */; };
 		8A645FF51E12C98400515151 /* ContactCallHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A645FF41E12C98400515151 /* ContactCallHistoryRecord.swift */; };
 		8A645FF71E12CB7F00515151 /* ContactCallHistoryRecordGetAllUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A645FF61E12CB7F00515151 /* ContactCallHistoryRecordGetAllUseCase.swift */; };
+		8A6568912180641400DAF0F6 /* PJSUACallInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6568902180641400DAF0F6 /* PJSUACallInfo.m */; };
 		8A68C94C1FFE640B005125AF /* LogFileURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68C94B1FFE640B005125AF /* LogFileURLTests.swift */; };
 		8A68C94E1FFE6453005125AF /* LogFileURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68C94D1FFE6452005125AF /* LogFileURL.swift */; };
 		8A68C94F1FFE6453005125AF /* LogFileURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68C94D1FFE6452005125AF /* LogFileURL.swift */; };
@@ -1090,6 +1091,8 @@
 		8A645FEE1E12AA6300515151 /* MatchedContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchedContact.swift; sourceTree = "<group>"; };
 		8A645FF41E12C98400515151 /* ContactCallHistoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecord.swift; sourceTree = "<group>"; };
 		8A645FF61E12CB7F00515151 /* ContactCallHistoryRecordGetAllUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecordGetAllUseCase.swift; sourceTree = "<group>"; };
+		8A65688F2180641400DAF0F6 /* PJSUACallInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PJSUACallInfo.h; sourceTree = "<group>"; };
+		8A6568902180641400DAF0F6 /* PJSUACallInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PJSUACallInfo.m; sourceTree = "<group>"; };
 		8A68C94B1FFE640B005125AF /* LogFileURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogFileURLTests.swift; path = TelephoneTests/LogFileURLTests.swift; sourceTree = SOURCE_ROOT; };
 		8A68C94D1FFE6452005125AF /* LogFileURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileURL.swift; sourceTree = "<group>"; };
 		8A68C9511FFE6A8C005125AF /* ApplicationDataLocationsFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDataLocationsFake.swift; sourceTree = "<group>"; };
@@ -3265,6 +3268,8 @@
 				AA0302F00EB9F347000738F7 /* AKSIPURI.h */,
 				AA0302F10EB9F347000738F7 /* AKSIPURI.m */,
 				8A9175941CA4841F00354E26 /* PJSUACallbacks.h */,
+				8A65688F2180641400DAF0F6 /* PJSUACallInfo.h */,
+				8A6568902180641400DAF0F6 /* PJSUACallInfo.m */,
 				8A9175981CA59D5C00354E26 /* PJSUAOnIncomingCall.m */,
 				8A91759B1CA59E2700354E26 /* PJSUAOnCallState.m */,
 				8A91759E1CA59F1100354E26 /* PJSUAOnCallMediaState.m */,
@@ -3942,6 +3947,7 @@
 				8A9175AB1CA5A92500354E26 /* PJSUAOnNATDetect.m in Sources */,
 				AAFCFFBD1074BFCA0018C7DA /* AccountSetupController.m in Sources */,
 				8AFC630E1D8C6F490022470D /* Array+Creating.swift in Sources */,
+				8A6568912180641400DAF0F6 /* PJSUACallInfo.m in Sources */,
 				AAD92132107A5E9F00F142A4 /* ActiveCallViewController.m in Sources */,
 				8AA748BC1D704962000587DC /* MusicPlayers.swift in Sources */,
 				8AB5A0C71D084DD300579CE8 /* DefaultStoreViewPresenter.swift in Sources */,
