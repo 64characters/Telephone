@@ -98,10 +98,12 @@
         return nil;
     }
     
-    pjsip_name_addr *nameAddr;
-    nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKSIPUserAgent sharedUserAgent] poolResettingIfNeeded],
-                                                  (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
-                                                  [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
+    pjsip_name_addr * __block nameAddr;
+    dispatch_sync(AKSIPUserAgent.sharedUserAgent.poolQueue, ^{
+        nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKSIPUserAgent sharedUserAgent] poolResettingIfNeeded],
+                                                      (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
+                                                      [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
+    });
     if (nameAddr == NULL) {
         return nil;
     }

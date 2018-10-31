@@ -152,6 +152,7 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 /// Default: YES.
 @property(nonatomic, assign) BOOL locksCodec;
 
+@property(nonatomic, readonly) dispatch_queue_t poolQueue;
 
 // Returns the shared SIP user agent object.
 + (AKSIPUserAgent *)sharedUserAgent;
