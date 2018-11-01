@@ -21,18 +21,28 @@ import UseCases
 final class CallHistoryViewEventTarget: NSObject {
     private let recordsGet: UseCase
     private let purchaseCheck: UseCase
+    private let recordRemoveAll: UseCase
     private let recordRemove: CallHistoryRecordRemoveUseCaseFactory
     private let callMake: CallHistoryCallMakeUseCaseFactory
 
-    init(recordsGet: UseCase, purchaseCheck: UseCase, recordRemove: CallHistoryRecordRemoveUseCaseFactory, callMake: CallHistoryCallMakeUseCaseFactory) {
+    init(recordsGet: UseCase,
+         purchaseCheck: UseCase,
+         recordRemoveAll: UseCase,
+         recordRemove: CallHistoryRecordRemoveUseCaseFactory,
+         callMake: CallHistoryCallMakeUseCaseFactory) {
         self.recordsGet = recordsGet
         self.purchaseCheck = purchaseCheck
+        self.recordRemoveAll = recordRemoveAll
         self.recordRemove = recordRemove
         self.callMake = callMake
     }
 
     func shouldReloadData() {
         executeRecordGetAndPurchaseCheck()
+    }
+
+    func shouldRemoveAllRecords() {
+        recordRemoveAll.execute()
     }
 
     func didPickRecord(withIdentifier identifier: String) {
