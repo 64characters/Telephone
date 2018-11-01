@@ -200,6 +200,7 @@
 		8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
 		8A5D17511EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */; };
 		8A5D17531EBCD40300A95FB8 /* ExtractedPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17521EBCD40300A95FB8 /* ExtractedPhoneNumber.swift */; };
+		8A5DE3E3218B73F9002A4213 /* CallHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A5DE3E5218B73F9002A4213 /* CallHistoryViewController.xib */; };
 		8A5EADB01D35508100C53415 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */; };
 		8A5EADB11D35508D00C53415 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */; };
 		8A5EADB41D35517C00C53415 /* StoreViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */; };
@@ -250,7 +251,6 @@
 		8A7567391CF75DF500D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
 		8A75673A1CF75F8000D91C04 /* StoreViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7567381CF75DF500D91C04 /* StoreViewState.swift */; };
 		8A778C031E095B5D004B00B8 /* CallHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */; };
-		8A778C041E095B5D004B00B8 /* CallHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A778C021E095B5D004B00B8 /* CallHistoryViewController.xib */; };
 		8A778C061E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A778C051E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift */; };
 		8A778C081E0AE98F004B00B8 /* CallHistoryViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A778C071E0AE98F004B00B8 /* CallHistoryViewPresenter.swift */; };
 		8A778C0A1E0AE9C7004B00B8 /* CallHistoryViewPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A778C091E0AE9C7004B00B8 /* CallHistoryViewPresenterTests.swift */; };
@@ -1081,6 +1081,10 @@
 		8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCallNotifications.m; sourceTree = "<group>"; };
 		8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtractedPhoneNumberTests.swift; path = UseCasesTests/ExtractedPhoneNumberTests.swift; sourceTree = SOURCE_ROOT; };
 		8A5D17521EBCD40300A95FB8 /* ExtractedPhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractedPhoneNumber.swift; sourceTree = "<group>"; };
+		8A5DE3E4218B73F9002A4213 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CallHistoryViewController.xib; sourceTree = "<group>"; };
+		8A5DE3E7218B7403002A4213 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CallHistoryViewController.strings; sourceTree = "<group>"; };
+		8A5DE3E9218B7409002A4213 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/CallHistoryViewController.strings; sourceTree = "<group>"; };
+		8A5DE3EB218B740E002A4213 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/CallHistoryViewController.strings; sourceTree = "<group>"; };
 		8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenter.swift; sourceTree = "<group>"; };
 		8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenterSpy.swift; sourceTree = "<group>"; };
 		8A6185361EC65E0500EAA8E2 /* MatchedContact+Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MatchedContact+Contact.swift"; sourceTree = "<group>"; };
@@ -1123,7 +1127,6 @@
 		8A7567341CF7220400D91C04 /* ProductPurchaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPurchaseUseCase.swift; sourceTree = "<group>"; };
 		8A7567381CF75DF500D91C04 /* StoreViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewState.swift; sourceTree = "<group>"; };
 		8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewController.swift; sourceTree = "<group>"; };
-		8A778C021E095B5D004B00B8 /* CallHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallHistoryViewController.xib; sourceTree = "<group>"; };
 		8A778C051E0AE5C3004B00B8 /* PresentationCallHistoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationCallHistoryRecord.swift; sourceTree = "<group>"; };
 		8A778C071E0AE98F004B00B8 /* CallHistoryViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewPresenter.swift; sourceTree = "<group>"; };
 		8A778C091E0AE9C7004B00B8 /* CallHistoryViewPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryViewPresenterTests.swift; path = TelephoneTests/CallHistoryViewPresenterTests.swift; sourceTree = SOURCE_ROOT; };
@@ -2613,7 +2616,7 @@
 				8A2C042B1F16A44700C46693 /* CallHistoryTableRowView.swift */,
 				8A778C0F1E0C13C5004B00B8 /* CallHistoryView.swift */,
 				8A778C011E095B5D004B00B8 /* CallHistoryViewController.swift */,
-				8A778C021E095B5D004B00B8 /* CallHistoryViewController.xib */,
+				8A5DE3E5218B73F9002A4213 /* CallHistoryViewController.xib */,
 				8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */,
 				8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */,
 				8ABD6EAB1EE94C9100D01435 /* CallHistoryViewEventTargetFactory */,
@@ -3676,7 +3679,7 @@
 				8A70C46D1DAE832E002E8754 /* Credits.rtf in Resources */,
 				AADAA2CD107E56FD00789F2D /* ActiveCallView.xib in Resources */,
 				AADAA2D1107E572300789F2D /* EndedCallView.xib in Resources */,
-				8A778C041E095B5D004B00B8 /* CallHistoryViewController.xib in Resources */,
+				8A5DE3E3218B73F9002A4213 /* CallHistoryViewController.xib in Resources */,
 				8A3961EC1F7EEE7500209266 /* Localizable.stringsdict in Resources */,
 				AA7CB51F11442249004D79DA /* ActiveAccountTransferView.xib in Resources */,
 				AA7CB51D11442241004D79DA /* CallTransfer.xib in Resources */,
@@ -4604,6 +4607,17 @@
 				8A3961ED1F7EEE7500209266 /* de */,
 			);
 			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		8A5DE3E5218B73F9002A4213 /* CallHistoryViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A5DE3E4218B73F9002A4213 /* Base */,
+				8A5DE3E7218B7403002A4213 /* en */,
+				8A5DE3E9218B7409002A4213 /* de */,
+				8A5DE3EB218B740E002A4213 /* ru */,
+			);
+			name = CallHistoryViewController.xib;
 			sourceTree = "<group>";
 		};
 		8AA748F91D74986A000587DC /* Localizable.strings */ = {

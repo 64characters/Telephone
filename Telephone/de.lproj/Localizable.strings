@@ -10,6 +10,9 @@
 /* Call answer button. */
 "Answer" = "Annehmen";
 
+/* Call history all records removal alert. */
+"Are you sure you want to delete all records?" = "Wollen Sie alle Datensätze wirklich löschen?";
+
 /* Call history record removal alert. */
 "Are you sure you want to delete the record “%@”?" = "Wollen Sie den Datensatz „%@“ wirklich löschen?";
 
