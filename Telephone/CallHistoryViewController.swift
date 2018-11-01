@@ -48,9 +48,9 @@ final class CallHistoryViewController: NSViewController {
 
     override func keyDown(with event: NSEvent) {
         if isReturnKey(event) {
-            pickRecord()
+            pickRecord(at: tableView.selectedRow)
         } else if isDeleteKey(event) {
-            removeRecord()
+            removeRecord(at: tableView.selectedRow)
         } else {
             super.keyDown(with: event)
         }
@@ -62,23 +62,32 @@ final class CallHistoryViewController: NSViewController {
 
     @IBAction func didDoubleClick(_ sender: NSTableView) {
         guard sender.clickedRow != -1 else { return }
-        pickRecord()
+        pickRecord(at: sender.clickedRow)
+    }
+
+    @IBAction func makeCall(_ sender: Any) {
+        guard clickedOrSelectedRow() != -1 else { return }
+        pickRecord(at: clickedOrSelectedRow())
+    }
+
+    @IBAction func delete(_ sender: Any) {
+        guard clickedOrSelectedRow() != -1 else { return }
+        removeRecord(at: clickedOrSelectedRow())
     }
 }
 
 private extension CallHistoryViewController {
-    func pickRecord() {
+    func pickRecord(at index: Int) {
         guard !records.isEmpty else { return }
-        target?.didPickRecord(withIdentifier: records[tableView.selectedRow].identifier)
+        target?.didPickRecord(withIdentifier: records[index].identifier)
     }
 
-    func removeRecord() {
+    func removeRecord(at index: Int) {
         guard !records.isEmpty else { return }
-        let row = tableView.selectedRow
-        let record = records[row]
-        makeAlert(recordName: record.date).beginSheetModal(for: view.window!) {
+        let record = records[index]
+        makeDeleteRecordAlert(recordName: record.date).beginSheetModal(for: view.window!) {
             if $0 == .alertFirstButtonReturn {
-                self.removeTableViewRow(row, andRecordWithIdentifier: record.identifier)
+                self.removeTableViewRow(index, andRecordWithIdentifier: record.identifier)
             }
         }
     }
@@ -95,6 +104,10 @@ private extension CallHistoryViewController {
         tableView.removeRows(at: IndexSet(integer: row), withAnimation: .slideUp)
         records.remove(at: row)
         target?.shouldRemoveRecord(withIdentifier: identifier)
+    }
+
+    func clickedOrSelectedRow() -> Int {
+        return tableView.clickedRow != -1 ? tableView.clickedRow : tableView.selectedRow
     }
 }
 
@@ -190,15 +203,37 @@ extension CallHistoryViewController {
         pasteboard.clearContents()
         pasteboard.writeObjects([records[tableView.selectedRow]])
     }
+
+    @IBAction func deleteAll(_ sender: Any) {
+        makeDeleteAllAlert().beginSheetModal(for: view.window!) {
+            if $0 == .alertFirstButtonReturn {
+                self.target?.shouldRemoveAllRecords()
+            }
+        }
+    }
 }
 
-private func makeAlert(recordName name: String) -> NSAlert {
-    let a = NSAlert()
-    a.messageText = String(
-        format: NSLocalizedString(
-            "Are you sure you want to delete the record “%@”?", comment: "Call history record removal alert."
-        ), name
+private func makeDeleteRecordAlert(recordName name: String) -> NSAlert {
+    return makeDeletionAlert(
+        messageText: String(
+            format: NSLocalizedString(
+                "Are you sure you want to delete the record “%@”?", comment: "Call history record removal alert."
+            ), name
+        )
     )
+}
+
+private func makeDeleteAllAlert() -> NSAlert {
+    return makeDeletionAlert(
+        messageText: NSLocalizedString(
+            "Are you sure you want to delete all records?", comment: "Call history all records removal alert."
+        )
+    )
+}
+
+private func makeDeletionAlert(messageText text: String) -> NSAlert {
+    let a = NSAlert()
+    a.messageText = text
     a.informativeText = NSLocalizedString(
         "This action cannot be undone.", comment: "Call history record removal alert informative text."
     )

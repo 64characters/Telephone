@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -188,6 +188,7 @@
                                     <action trigger="doubleAction" selector="didDoubleClick:" target="-2" id="4wo-vb-AIE"/>
                                     <outlet property="dataSource" destination="-2" id="jb8-ir-2k0"/>
                                     <outlet property="delegate" destination="-2" id="ArD-xd-1PW"/>
+                                    <outlet property="menu" destination="0Cd-NE-dbz" id="HUb-lP-pfK"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -204,6 +205,30 @@
             </subviews>
             <point key="canvasLocation" x="97" y="170"/>
         </customView>
+        <menu id="0Cd-NE-dbz">
+            <items>
+                <menuItem title="Call" id="XBc-PD-rnT">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="makeCall:" target="-2" id="XVT-4A-9ng"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Delete" id="dNr-cO-2VN">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-2" id="gvX-Tc-wqs"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="3J9-q8-EmO"/>
+                <menuItem title="Delete All…" id="hyi-9B-WJ1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="deleteAll:" target="-2" id="I8N-l3-IOk"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="98" y="324"/>
+        </menu>
     </objects>
     <resources>
         <image name="outgoing-call" width="10" height="10"/>
