@@ -10,6 +10,9 @@
 /* Call answer button. */
 "Answer" = "Ответить";
 
+/* Call history all records removal alert. */
+"Are you sure you want to delete all records?" = "Вы действительно хотите удалить все записи?";
+
 /* Call history record removal alert. */
 "Are you sure you want to delete the record “%@”?" = "Вы действительно хотите удалить запись «%@»?";
 
@@ -175,7 +178,7 @@
 "The error was: “%d %@”." = "%2$@, ошибка %1$d.";
 
 /* Call history record removal alert informative text. */
-"This action cannot be undone." = "Удаленная запись не может быть восстановлена.";
+"This action cannot be undone." = "Результат этого действия нельзя отменить.";
 
 /* Account removal confirmation informative text. */
 "This will delete your currently set up account “%@”." = "Настроенный аккаунт «%@» будет удален.";

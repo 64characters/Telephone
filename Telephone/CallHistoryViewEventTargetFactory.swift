@@ -79,6 +79,9 @@ final class CallHistoryViewEventTargetFactory {
                 queue: background
             ),
             purchaseCheck: purchaseCheck,
+            recordRemoveAll: EnqueuingUseCase(
+                origin: CallHistoryRecordRemoveAllUseCase(history: history), queue: background
+            ),
             recordRemove: EnqueueingCallHistoryRecordRemoveUseCaseFactory(
                 origin: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history), queue: background
             ),

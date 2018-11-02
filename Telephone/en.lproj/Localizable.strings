@@ -10,6 +10,9 @@
 /* Call answer button. */
 "Answer" = "Answer";
 
+/* Call history all records removal alert. */
+"Are you sure you want to delete all records?" = "Are you sure you want to delete all records?";
+
 /* Call history record removal alert. */
 "Are you sure you want to delete the record “%@”?" = "Are you sure you want to delete the record “%@”?";
 
