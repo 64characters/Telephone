@@ -14,8 +14,8 @@
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "NEN-L8-9I9"; */
 "NEN-L8-9I9.title" = "Table View Cell";
 
-/* Class = "NSTextFieldCell"; title = "Telephone Pro is a subscription to take advantage of the full call history and to support ongoing development.\n\nThe subscription renews automatically and can be canceled from the App Store at any time."; ObjectID = "W5b-g9-V4l"; */
-"W5b-g9-V4l.title" = "Расширенные возможности — это подписка, открывающая доступ к полному списку звонков и поддерживающая дальнейшее развитие приложения.\n\nПлатеж происходит через аккаунт в Айтюнсе. Подписка продлевается автоматически, если она не была отключена в настройках Айтюнс-аккаунта минимум за 24 часа до истечения текущего периода. Управление подпиской происходит в настройках Айтюнс-аккаунта.";
+/* Class = "NSTextFieldCell"; title = "Telephone Pro is a subscription that unlocks the full call history, allows 30 simultaneous calls, and supports ongoing app development.\n\nThe subscription renews automatically and can be canceled from the App Store at any time."; ObjectID = "W5b-g9-V4l"; */
+"W5b-g9-V4l.title" = "Расширенные возможности — это подписка, открывающая полную историю звонков, позволяющая совершать 30 одновременных разговоров и поддерживающая дальнейшее развитие приложения.\n\nПлатеж происходит через аккаунт в Айтюнсе. Подписка продлевается автоматически, если она не была отключена в настройках Айтюнс-аккаунта минимум за 24 часа до истечения текущего периода. Управление подпиской происходит в настройках Айтюнс-аккаунта.";
 
 /* Class = "NSTextFieldCell"; title = "Your subscription ends on "; ObjectID = "Z9K-5X-9uS"; */
 "Z9K-5X-9uS.title" = "Ваша подписка истекает ";
