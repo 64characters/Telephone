@@ -42,7 +42,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, NameServersChangeEventTarget, PreferencesControllerDelegate>
+@interface AppController () <AKSIPUserAgentDelegate, NSUserNotificationCenterDelegate, NameServersChangeEventTarget, PreferencesControllerDelegate, ObjCStoreEventTarget>
 
 @property(nonatomic, readonly) AKSIPUserAgent *userAgent;
 @property(nonatomic, readonly) AccountControllers *accountControllers;
@@ -141,7 +141,9 @@ NS_ASSUME_NONNULL_END
         return nil;
     }
 
-    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self nameServersChangeEventTarget:self];
+    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self
+                                                         nameServersChangeEventTarget:self
+                                                                     storeEventTarget:self];
     
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];
@@ -243,6 +245,15 @@ NS_ASSUME_NONNULL_END
     if ([[self userAgent] isStarted]) {
         [self setShouldRegisterAllAccounts:YES];
         [self stopUserAgent];
+    }
+}
+
+- (void)restartUserAgentAfterDelayOrMarkForRestart {
+    if (!self.accountControllers.haveActiveCallControllers) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
+        [self performSelector:@selector(restartUserAgent) withObject:nil afterDelay:3.0];
+    } else {
+        self.shouldRestartUserAgentASAP = YES;
     }
 }
 
@@ -959,13 +970,14 @@ NS_ASSUME_NONNULL_END
         ![self.userAgent.nameServers isEqualToArray:servers]) {
 
         self.userAgent.nameServers = servers;
-        if (!self.accountControllers.haveActiveCallControllers) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(restartUserAgent) object:nil];
-            [self performSelector:@selector(restartUserAgent) withObject:nil afterDelay:3.0];
-        } else {
-            self.shouldRestartUserAgentASAP = YES;
-        }
+        [self restartUserAgentAfterDelayOrMarkForRestart];
     }
+}
+
+#pragma mark - ObjCStoreEventTarget
+
+- (void)didPurchase {
+    [self restartUserAgentAfterDelayOrMarkForRestart];
 }
 
 @end
