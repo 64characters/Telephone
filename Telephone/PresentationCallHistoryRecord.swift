@@ -70,3 +70,9 @@ extension PresentationCallHistoryRecord: NSPasteboardWriting {
         return contact.address
     }
 }
+
+extension PresentationCallHistoryRecord {
+    var name: String {
+        return contact.title.isEmpty ? date : "\(contact.title), \(date)"
+    }
+}
