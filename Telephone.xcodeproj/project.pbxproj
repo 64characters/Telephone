@@ -201,6 +201,12 @@
 		8A5D17511EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */; };
 		8A5D17531EBCD40300A95FB8 /* ExtractedPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17521EBCD40300A95FB8 /* ExtractedPhoneNumber.swift */; };
 		8A5DE3E3218B73F9002A4213 /* CallHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A5DE3E5218B73F9002A4213 /* CallHistoryViewController.xib */; };
+		8A5EAAB62191F81D00426B7C /* ObjCStoreEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EAAB52191F81D00426B7C /* ObjCStoreEventTarget.swift */; };
+		8A5EAAB92191F90200426B7C /* ObjCStoreEventTargetAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EAAB82191F90100426B7C /* ObjCStoreEventTargetAdapterTests.swift */; };
+		8A5EAABB2191F94F00426B7C /* ObjCStoreEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EAABA2191F94F00426B7C /* ObjCStoreEventTargetAdapter.swift */; };
+		8A5EAABC2191F98600426B7C /* ObjCStoreEventTargetAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EAABA2191F94F00426B7C /* ObjCStoreEventTargetAdapter.swift */; };
+		8A5EAABD2191FA7200426B7C /* ObjCStoreEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EAAB52191F81D00426B7C /* ObjCStoreEventTarget.swift */; };
+		8A5EAABF2191FB1700426B7C /* ObjCStoreEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EAABE2191FB1700426B7C /* ObjCStoreEventTargetSpy.swift */; };
 		8A5EADB01D35508100C53415 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */; };
 		8A5EADB11D35508D00C53415 /* StoreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */; };
 		8A5EADB41D35517C00C53415 /* StoreViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */; };
@@ -1085,6 +1091,10 @@
 		8A5DE3E7218B7403002A4213 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CallHistoryViewController.strings; sourceTree = "<group>"; };
 		8A5DE3E9218B7409002A4213 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/CallHistoryViewController.strings; sourceTree = "<group>"; };
 		8A5DE3EB218B740E002A4213 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/CallHistoryViewController.strings; sourceTree = "<group>"; };
+		8A5EAAB52191F81D00426B7C /* ObjCStoreEventTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCStoreEventTarget.swift; sourceTree = "<group>"; };
+		8A5EAAB82191F90100426B7C /* ObjCStoreEventTargetAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjCStoreEventTargetAdapterTests.swift; path = TelephoneTests/ObjCStoreEventTargetAdapterTests.swift; sourceTree = SOURCE_ROOT; };
+		8A5EAABA2191F94F00426B7C /* ObjCStoreEventTargetAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCStoreEventTargetAdapter.swift; sourceTree = "<group>"; };
+		8A5EAABE2191FB1700426B7C /* ObjCStoreEventTargetSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjCStoreEventTargetSpy.swift; sourceTree = "<group>"; };
 		8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenter.swift; sourceTree = "<group>"; };
 		8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenterSpy.swift; sourceTree = "<group>"; };
 		8A6185361EC65E0500EAA8E2 /* MatchedContact+Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MatchedContact+Contact.swift"; sourceTree = "<group>"; };
@@ -2196,6 +2206,16 @@
 			name = Contacts;
 			sourceTree = "<group>";
 		};
+		8A5EAAB72191F8D500426B7C /* StoreEventTarget */ = {
+			isa = PBXGroup;
+			children = (
+				8A5EAAB52191F81D00426B7C /* ObjCStoreEventTarget.swift */,
+				8A5EAABA2191F94F00426B7C /* ObjCStoreEventTargetAdapter.swift */,
+				8A5EAAB82191F90100426B7C /* ObjCStoreEventTargetAdapterTests.swift */,
+			);
+			name = StoreEventTarget;
+			sourceTree = "<group>";
+		};
 		8A5EADB21D3550B500C53415 /* StoreViewPresenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2217,6 +2237,7 @@
 				8A88B4EE1D4A8D310083958C /* Receipt */,
 				8A859A001D2D2BCF00118A66 /* SKPaymentQueueStoreEventSource.swift */,
 				8A859A071D2EC69200118A66 /* Store */,
+				8A5EAAB72191F8D500426B7C /* StoreEventTarget */,
 				8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */,
 				8ADD6A631CE0C591001EDBBA /* StoreView.swift */,
 				8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */,
@@ -2922,6 +2943,7 @@
 				8A68C9511FFE6A8C005125AF /* ApplicationDataLocationsFake.swift */,
 				8A778C0D1E0C136C004B00B8 /* CallHistoryViewSpy.swift */,
 				8A68C9591FFE8EB0005125AF /* FileBrowserSpy.swift */,
+				8A5EAABE2191FB1700426B7C /* ObjCStoreEventTargetSpy.swift */,
 				8ADA10A31DC8D5E10038E0A5 /* SettingsMigrationFactoryStub.swift */,
 				8ADA10A11DC8D4F30038E0A5 /* SettingsMigrationSpy.swift */,
 				8A0FD63E1C9B168400AB3640 /* SoundIOPreferencesSpy.swift */,
@@ -3862,6 +3884,7 @@
 				8AA7487F1D6DD775000587DC /* UserDefaultsPurchaseReminderSettings.swift in Sources */,
 				8A78F33921259AB200B64867 /* CoreAudioDefaultIO.swift in Sources */,
 				8A78F33B2125A56700B64867 /* CoreAudioDefaultSystemSoundIOFactory.swift in Sources */,
+				8A5EAAB62191F81D00426B7C /* ObjCStoreEventTarget.swift in Sources */,
 				AA0302F20EB9F347000738F7 /* AKSIPURI.m in Sources */,
 				8AD2C5F11EAE0C94005EED3E /* RestoredSelectionIndex.swift in Sources */,
 				8A9533901F9A4B2300483940 /* HelpMenuActionTarget.swift in Sources */,
@@ -3979,6 +4002,7 @@
 				8ADD6A641CE0C591001EDBBA /* StoreView.swift in Sources */,
 				8AD64E8B211B44AB006F4AE3 /* SystemDefaultingSoundIO+PresentationSoundIO.swift in Sources */,
 				8A3865161D369A2100EDA7AB /* FailingStoreFake.swift in Sources */,
+				8A5EAABB2191F94F00426B7C /* ObjCStoreEventTargetAdapter.swift in Sources */,
 				8A5EADB01D35508100C53415 /* StoreViewPresenter.swift in Sources */,
 				8A778C101E0C13C5004B00B8 /* CallHistoryView.swift in Sources */,
 				8A1DA8111DEF2CAE00F5BA40 /* DefaultCallHistoryRecordAddUseCaseFactory.swift in Sources */,
@@ -4259,6 +4283,7 @@
 				8AB5A0CC1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
 				8ADD6A501CDCF828001EDBBA /* DefaultStoreUseCaseFactory.swift in Sources */,
 				8AD659801D37C987008A1007 /* StoreViewEventTarget.swift in Sources */,
+				8A5EAABF2191FB1700426B7C /* ObjCStoreEventTargetSpy.swift in Sources */,
 				8A42E0C61E168DB300CE09B8 /* ShortRelativeDateTimeFormatter.swift in Sources */,
 				8A97060420FFAE3200984D39 /* PresentationAudioDevice.swift in Sources */,
 				8A778C0C1E0C116F004B00B8 /* PresentationCallHistoryRecord.swift in Sources */,
@@ -4288,6 +4313,7 @@
 				8A778C111E0C1403004B00B8 /* CallHistoryView.swift in Sources */,
 				8AD2C5EF1EAE0C58005EED3E /* RestoredSelectionIndexTests.swift in Sources */,
 				8ABB141B1CEC86A90056CEDC /* StoreViewStateMachineTests.swift in Sources */,
+				8A5EAABC2191F98600426B7C /* ObjCStoreEventTargetAdapter.swift in Sources */,
 				8AA27AE71E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */,
 				8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */,
 				8A68C95C1FFE9B71005125AF /* WebBrowserSpy.swift in Sources */,
@@ -4308,6 +4334,7 @@
 				AA277A4A1BCFDD030030ECE4 /* TelephoneError.swift in Sources */,
 				AACC029F1C15DCE300913D7B /* SoundIOPresenter.swift in Sources */,
 				8A0FD63A1C9B133200AB3640 /* PreferencesSoundIOUpdaterTests.swift in Sources */,
+				8A5EAAB92191F90200426B7C /* ObjCStoreEventTargetAdapterTests.swift in Sources */,
 				8A11B3DF1DDCC092002EDA93 /* AKSIPCallEventSource.swift in Sources */,
 				8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */,
 				8ADA10A01DC8D3460038E0A5 /* ProgressiveSettingsMigration.swift in Sources */,
@@ -4322,6 +4349,7 @@
 				8A68C94F1FFE6453005125AF /* LogFileURL.swift in Sources */,
 				8A68C95A1FFE8EB0005125AF /* FileBrowserSpy.swift in Sources */,
 				8ADD6A5B1CDCFEB9001EDBBA /* DefaultStoreViewEventTarget.swift in Sources */,
+				8A5EAABD2191FA7200426B7C /* ObjCStoreEventTarget.swift in Sources */,
 				8AD64E8C211B44AB006F4AE3 /* SystemDefaultingSoundIO+PresentationSoundIO.swift in Sources */,
 				8A68C94C1FFE640B005125AF /* LogFileURLTests.swift in Sources */,
 				8ADA10A21DC8D4F30038E0A5 /* SettingsMigrationSpy.swift in Sources */,

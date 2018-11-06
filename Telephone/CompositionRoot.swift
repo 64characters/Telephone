@@ -36,6 +36,7 @@ final class CompositionRoot: NSObject {
     @objc let logFileURL: LogFileURL
     @objc let helpMenuActionTarget: HelpMenuActionTarget
     @objc let accountControllers: AccountControllers
+    @objc let nameServers: NameServers
     private let defaults: UserDefaults
 
     private let storeEventSource: SKPaymentQueueStoreEventSource
@@ -47,7 +48,7 @@ final class CompositionRoot: NSObject {
     private let contactsChangeEventSource: Any
     private let dayChangeEventSource: NSCalendarDayChangeEventSource
 
-    @objc init(preferencesControllerDelegate: PreferencesControllerDelegate) {
+    @objc init(preferencesControllerDelegate: PreferencesControllerDelegate, nameServersChangeEventTarget: NameServersChangeEventTarget, storeEventTarget: ObjCStoreEventTarget) {
         userAgent = AKSIPUserAgent.shared()
         defaults = UserDefaults.standard
 
@@ -112,6 +113,7 @@ final class CompositionRoot: NSObject {
 
         let storeEventTargets = StoreEventTargets()
         storeEventTargets.add(storeViewEventTarget)
+        storeEventTargets.add(ObjCStoreEventTargetAdapter(target: storeEventTarget))
 
         storeEventSource = SKPaymentQueueStoreEventSource(
             queue: SKPaymentQueue.default(),
@@ -297,6 +299,8 @@ final class CompositionRoot: NSObject {
         )
 
         accountControllers = AccountControllers()
+
+        nameServers = NameServers(bundle: Bundle.main, target: nameServersChangeEventTarget)
     }
 }
 
