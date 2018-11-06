@@ -85,7 +85,7 @@ private extension CallHistoryViewController {
     func removeRecord(at index: Int) {
         guard !records.isEmpty else { return }
         let record = records[index]
-        makeDeleteRecordAlert(recordName: record.date).beginSheetModal(for: view.window!) {
+        makeDeleteRecordAlert(recordName: record.name).beginSheetModal(for: view.window!) {
             if $0 == .alertFirstButtonReturn {
                 self.removeTableViewRow(index, andRecordWithIdentifier: record.identifier)
             }
