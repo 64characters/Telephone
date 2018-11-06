@@ -16,6 +16,7 @@
 #import "AKSIPURI.h"
 #import "AKSIPUserAgent.h"
 #import "MusicPlayerFactory.h"
+#import "NameServers.h"
 #import "PreferencesController.h"
 #import "SoundIOPreferences.h"
 #import "SoundIOPresenterOutput.h"

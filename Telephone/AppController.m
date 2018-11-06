@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_END
         return nil;
     }
 
-    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self];
+    _compositionRoot = [[CompositionRoot alloc] initWithPreferencesControllerDelegate:self nameServersChangeEventTarget:self];
     
     _userAgent = _compositionRoot.userAgent;
     [[self userAgent] setDelegate:self];
@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_END
     _destinationToCall = @"";
     _userSessionActive = YES;
     _accountControllers = _compositionRoot.accountControllers;
-    _nameServers = [[NameServers alloc] initWithBundle:NSBundle.mainBundle target:self];
+    _nameServers = _compositionRoot.nameServers;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 
     [notificationCenter addObserver:self
