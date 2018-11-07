@@ -1,0 +1,13 @@
+Index: pjlib/src/pj/sock_qos_darwin.c
+===================================================================
+--- pjlib/src/pj/sock_qos_darwin.c	(revision 5900)
++++ pjlib/src/pj/sock_qos_darwin.c	(working copy)
+@@ -30,6 +30,8 @@
+ 
+ #include <sys/socket.h>
+ 
++#undef SO_NET_SERVICE_TYPE
++
+ #ifdef SO_NET_SERVICE_TYPE
+ static pj_status_t sock_set_net_service_type(pj_sock_t sock, int val)
+ {
