@@ -216,7 +216,7 @@ extension CallHistoryViewController {
 extension CallHistoryViewController: NSMenuItemValidation {
     func validateMenuItem(_ item: NSMenuItem) -> Bool {
         switch item.action {
-        case #selector(makeCall), #selector(delete), #selector(deleteAll):
+        case #selector(copy(_:)), #selector(makeCall), #selector(delete), #selector(deleteAll):
             return !records.isEmpty
         default:
             return false
