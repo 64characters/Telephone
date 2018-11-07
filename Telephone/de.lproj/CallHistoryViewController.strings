@@ -23,6 +23,9 @@
 /* Class = "NSMenuItem"; title = "Delete All…"; ObjectID = "hyi-9B-WJ1"; */
 "hyi-9B-WJ1.title" = "Alle löschen …";
 
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "kns-jm-dHu"; */
+"kns-jm-dHu.title" = "Kopieren";
+
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "mm7-AZ-heF"; */
 "mm7-AZ-heF.title" = "Text Cell";
 
