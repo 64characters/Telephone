@@ -8,4 +8,5 @@ build/
 
 ThirdParty/Opus
 ThirdParty/LibreSSL
-ThirdParty/PJSIP
+ThirdParty/PJSIP/*
+!ThirdParty/PJSIP/patches
