@@ -23,8 +23,8 @@
 /* Class = "NSMenuItem"; title = "Delete All…"; ObjectID = "hyi-9B-WJ1"; */
 "hyi-9B-WJ1.title" = "Удалить все…";
 
-/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "kns-jm-dHu"; */
-"kns-jm-dHu.title" = "Копировать";
+/* Class = "NSMenuItem"; title = "Copy Number"; ObjectID = "kns-jm-dHu"; */
+"kns-jm-dHu.title" = "Скопировать номер";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "mm7-AZ-heF"; */
 "mm7-AZ-heF.title" = "Text Cell";
