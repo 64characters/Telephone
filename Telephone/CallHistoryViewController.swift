@@ -70,9 +70,23 @@ final class CallHistoryViewController: NSViewController {
         pickRecord(at: clickedOrSelectedRow())
     }
 
+    @IBAction func copy(_ sender: Any) {
+        guard clickedOrSelectedRow() != -1 else { return }
+        pasteboard.clearContents()
+        pasteboard.writeObjects([records[clickedOrSelectedRow()]])
+    }
+
     @IBAction func delete(_ sender: Any) {
         guard clickedOrSelectedRow() != -1 else { return }
         removeRecord(at: clickedOrSelectedRow())
+    }
+
+    @IBAction func deleteAll(_ sender: Any) {
+        makeDeleteAllAlert().beginSheetModal(for: view.window!) {
+            if $0 == .alertFirstButtonReturn {
+                self.target?.shouldRemoveAllRecords()
+            }
+        }
     }
 }
 
@@ -194,22 +208,6 @@ extension CallHistoryViewController: NSTableViewDelegate {
     @available(OSX 10.11, *)
     private func removeRowAndRecord(action: NSTableViewRowAction, row: Int) {
         removeTableViewRow(row, andRecordWithIdentifier: records[row].identifier)
-    }
-}
-
-extension CallHistoryViewController {
-    @IBAction func copy(_ sender: Any) {
-        guard clickedOrSelectedRow() != -1 else { return }
-        pasteboard.clearContents()
-        pasteboard.writeObjects([records[clickedOrSelectedRow()]])
-    }
-
-    @IBAction func deleteAll(_ sender: Any) {
-        makeDeleteAllAlert().beginSheetModal(for: view.window!) {
-            if $0 == .alertFirstButtonReturn {
-                self.target?.shouldRemoveAllRecords()
-            }
-        }
     }
 }
 
