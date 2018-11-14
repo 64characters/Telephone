@@ -199,9 +199,9 @@ extension CallHistoryViewController: NSTableViewDelegate {
 
 extension CallHistoryViewController {
     @IBAction func copy(_ sender: Any) {
-        guard !records.isEmpty else { return }
+        guard clickedOrSelectedRow() != -1 else { return }
         pasteboard.clearContents()
-        pasteboard.writeObjects([records[tableView.selectedRow]])
+        pasteboard.writeObjects([records[clickedOrSelectedRow()]])
     }
 
     @IBAction func deleteAll(_ sender: Any) {
