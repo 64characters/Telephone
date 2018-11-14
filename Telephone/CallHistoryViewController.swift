@@ -229,7 +229,8 @@ private func makeDeleteRecordAlert(recordName name: String) -> NSAlert {
         messageText: String(
             format: NSLocalizedString(
                 "Are you sure you want to delete the record “%@”?", comment: "Call history record removal alert."
-            ), name
+            ),
+            name
         )
     )
 }
