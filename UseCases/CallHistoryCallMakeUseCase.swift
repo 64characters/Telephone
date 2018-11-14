@@ -29,9 +29,7 @@ extension CallHistoryCallMakeUseCase: ContactCallHistoryRecordGetUseCaseOutput {
 
 private func label(for address: MatchedContact.Address) -> String {
     switch address {
-    case let .phone(_, label):
-        return label
-    case let .email(_, label):
+    case let .phone(_, label), let .email(_, label):
         return label
     }
 }
