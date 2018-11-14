@@ -213,13 +213,13 @@
                         <action selector="makeCall:" target="-2" id="XVT-4A-9ng"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Copy" id="kns-jm-dHu">
+                <menuItem title="Copy Number" id="kns-jm-dHu">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="copy:" target="-2" id="bgz-CL-e9Y"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Delete" id="dNr-cO-2VN">
+                <menuItem title="Delete…" id="dNr-cO-2VN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="delete:" target="-2" id="gvX-Tc-wqs"/>

@@ -14,8 +14,8 @@
 /* Class = "NSMenuItem"; title = "Call"; ObjectID = "XBc-PD-rnT"; */
 "XBc-PD-rnT.title" = "Anrufen";
 
-/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "dNr-cO-2VN"; */
-"dNr-cO-2VN.title" = "Löschen";
+/* Class = "NSMenuItem"; title = "Delete…"; ObjectID = "dNr-cO-2VN"; */
+"dNr-cO-2VN.title" = "Löschen …";
 
 /* Class = "NSTextFieldCell"; title = "Home"; ObjectID = "fDT-3a-1hx"; */
 "fDT-3a-1hx.title" = "Home";
@@ -23,8 +23,8 @@
 /* Class = "NSMenuItem"; title = "Delete All…"; ObjectID = "hyi-9B-WJ1"; */
 "hyi-9B-WJ1.title" = "Alle löschen …";
 
-/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "kns-jm-dHu"; */
-"kns-jm-dHu.title" = "Kopieren";
+/* Class = "NSMenuItem"; title = "Copy Number"; ObjectID = "kns-jm-dHu"; */
+"kns-jm-dHu.title" = "Nummer kopieren";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "mm7-AZ-heF"; */
 "mm7-AZ-heF.title" = "Text Cell";
