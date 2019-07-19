@@ -39,7 +39,7 @@ extension TruncatingCallHistory: CallHistory {
     }
 
     public func remove(_ record: CallHistoryRecord) {
-        if let index = records.index(of: record) {
+        if let index = records.firstIndex(of: record) {
             records.remove(at: index)
         }
     }
