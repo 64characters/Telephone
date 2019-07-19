@@ -37,6 +37,8 @@ final class CallHistoryDateCellView: NSTableCellView {
                     dateField.textColor = .white
                     durationField.textColor = .lightGray
                 }
+            @unknown default:
+                break
             }
         }
     }
