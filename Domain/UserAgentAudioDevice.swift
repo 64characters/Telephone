@@ -25,11 +25,11 @@ public protocol UserAgentAudioDevice {
 }
 
 public extension UserAgentAudioDevice {
-    public var hasInputs: Bool {
+    var hasInputs: Bool {
         return inputs > 0
     }
 
-    public var hasOutputs: Bool {
+    var hasOutputs: Bool {
         return outputs > 0
     }
 }

@@ -27,19 +27,19 @@ public protocol SystemAudioDevice {
 }
 
 public extension SystemAudioDevice {
-    public var hasInputs: Bool {
+    var hasInputs: Bool {
         return inputs > 0
     }
 
-    public var hasOutputs: Bool {
+    var hasOutputs: Bool {
         return outputs > 0
     }
 
-    public var isBuiltInInput: Bool {
+    var isBuiltInInput: Bool {
         return isBuiltIn && hasInputs
     }
 
-    public var isBuiltInOutput: Bool {
+    var isBuiltInOutput: Bool {
         return isBuiltIn && hasOutputs
     }
 }
