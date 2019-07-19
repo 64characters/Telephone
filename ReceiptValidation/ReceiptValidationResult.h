@@ -18,7 +18,7 @@
 
 @import Foundation;
 
-typedef NS_ENUM(NSInteger, Result) {
+typedef NS_CLOSED_ENUM(NSInteger, Result) {
     ResultReceiptIsValid,
     ResultReceiptIsInvalid,
     ResultNoActivePurchases,
