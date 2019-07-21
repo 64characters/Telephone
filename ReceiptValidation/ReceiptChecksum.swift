@@ -39,5 +39,5 @@ private func digest(of source: Data) -> Data {
     source.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in
         CC_SHA1(ptr, CC_LONG(source.count), &result)
     }
-    return Data(bytes: result)
+    return Data(result)
 }
