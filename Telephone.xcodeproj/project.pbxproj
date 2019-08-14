@@ -290,7 +290,8 @@
 		8A850B422049B94C0072E197 /* Calls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B412049B94C0072E197 /* Calls.swift */; };
 		8A850B472049C64B0072E197 /* AKSIPUserAgent+Calls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */; };
 		8A859A011D2D2BCF00118A66 /* SKPaymentQueueStoreEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A859A001D2D2BCF00118A66 /* SKPaymentQueueStoreEventSource.swift */; };
-		8A8838FF23048B9700FB5CF0 /* ReceiptValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8838FE23048B9700FB5CF0 /* ReceiptValidationTests.swift */; };
+		8A8839052304940300FB5CF0 /* String+ASN1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8839042304940300FB5CF0 /* String+ASN1Tests.swift */; };
+		8A88390A2304982000FB5CF0 /* String+ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1BB1D5C894500D703AD /* String+ASN1.swift */; };
 		8A88B4E71D4A64BF0083958C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE706341D4A2E180060FF4F /* main.swift */; };
 		8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */; };
 		8A88B4F01D4A8D470083958C /* BundleReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */; };
@@ -1170,8 +1171,8 @@
 		8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKSIPUserAgent+Calls.swift"; sourceTree = "<group>"; };
 		8A859A001D2D2BCF00118A66 /* SKPaymentQueueStoreEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKPaymentQueueStoreEventSource.swift; sourceTree = "<group>"; };
 		8A8838FC23048B9700FB5CF0 /* ReceiptValidationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReceiptValidationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A8838FE23048B9700FB5CF0 /* ReceiptValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptValidationTests.swift; sourceTree = "<group>"; };
 		8A88390023048B9700FB5CF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A8839042304940300FB5CF0 /* String+ASN1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+ASN1Tests.swift"; path = "ReceiptValidationTests/String+ASN1Tests.swift"; sourceTree = SOURCE_ROOT; };
 		8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ReceiptValidation.entitlements; sourceTree = "<group>"; };
 		8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleReceipt.swift; sourceTree = "<group>"; };
 		8A88B4F41D4ABE380083958C /* LoggingReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingReceipt.swift; sourceTree = "<group>"; };
@@ -2448,7 +2449,6 @@
 		8A8838FD23048B9700FB5CF0 /* ReceiptValidationTests */ = {
 			isa = PBXGroup;
 			children = (
-				8A8838FE23048B9700FB5CF0 /* ReceiptValidationTests.swift */,
 				8A88390023048B9700FB5CF0 /* Info.plist */,
 			);
 			path = ReceiptValidationTests;
@@ -2767,6 +2767,7 @@
 				8A1A79301D4E25750031A0DD /* ReceiptValidation */,
 				8ADE59921D61D6A200B41275 /* SHA256Fingerprint.swift */,
 				8A39A1BB1D5C894500D703AD /* String+ASN1.swift */,
+				8A8839042304940300FB5CF0 /* String+ASN1Tests.swift */,
 				8AE706341D4A2E180060FF4F /* main.swift */,
 				8AE7062B1D491C220060FF4F /* Info.plist */,
 				8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */,
@@ -3836,7 +3837,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A8838FF23048B9700FB5CF0 /* ReceiptValidationTests.swift in Sources */,
+				8A8839052304940300FB5CF0 /* String+ASN1Tests.swift in Sources */,
+				8A88390A2304982000FB5CF0 /* String+ASN1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
