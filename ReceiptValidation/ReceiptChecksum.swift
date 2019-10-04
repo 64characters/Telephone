@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import CommonCrypto
 import Foundation
 
 struct ReceiptChecksum: Equatable {
