@@ -165,6 +165,8 @@
 		8A39A1CA1D5E176900D703AD /* PKCS7SignatureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */; };
 		8A39A1D21D5E315600D703AD /* CertificateFingerprintValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */; };
 		8A39A1D41D5E36FA00D703AD /* ReceiptValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */; };
+		8A3AF42A23479F5B000019C6 /* SHA256FingerprintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3AF42923479F5B000019C6 /* SHA256FingerprintTests.swift */; };
+		8A3AF42B23479FB0000019C6 /* SHA256Fingerprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADE59921D61D6A200B41275 /* SHA256Fingerprint.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
 		8A41A74D1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */; };
 		8A41A74F1E5B593800E0C854 /* CallHistoryViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */; };
@@ -1057,6 +1059,7 @@
 		8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7SignatureValidation.swift; sourceTree = "<group>"; };
 		8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateFingerprintValidation.swift; sourceTree = "<group>"; };
 		8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptValidation.swift; sourceTree = "<group>"; };
+		8A3AF42923479F5B000019C6 /* SHA256FingerprintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SHA256FingerprintTests.swift; path = ReceiptValidationTests/SHA256FingerprintTests.swift; sourceTree = SOURCE_ROOT; };
 		8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryViewEventTargetTests.swift; path = TelephoneTests/CallHistoryViewEventTargetTests.swift; sourceTree = SOURCE_ROOT; };
 		8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewEventTarget.swift; sourceTree = "<group>"; };
 		8A41A7511E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewEventTargetFactory.swift; sourceTree = "<group>"; };
@@ -2766,6 +2769,7 @@
 				8ADE59901D61D0F000B41275 /* ReceiptChecksum.swift */,
 				8A1A79301D4E25750031A0DD /* ReceiptValidation */,
 				8ADE59921D61D6A200B41275 /* SHA256Fingerprint.swift */,
+				8A3AF42923479F5B000019C6 /* SHA256FingerprintTests.swift */,
 				8A39A1BB1D5C894500D703AD /* String+ASN1.swift */,
 				8A8839042304940300FB5CF0 /* String+ASN1Tests.swift */,
 				8AE706341D4A2E180060FF4F /* main.swift */,
@@ -3838,7 +3842,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A8839052304940300FB5CF0 /* String+ASN1Tests.swift in Sources */,
+				8A3AF42A23479F5B000019C6 /* SHA256FingerprintTests.swift in Sources */,
 				8A88390A2304982000FB5CF0 /* String+ASN1.swift in Sources */,
+				8A3AF42B23479FB0000019C6 /* SHA256Fingerprint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
