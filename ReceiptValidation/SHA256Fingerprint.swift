@@ -33,8 +33,8 @@ struct SHA256Fingerprint: Equatable {
 
 private func digest(of source: Data) -> Data {
     var result = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
-    source.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in
-        CC_SHA256(ptr, CC_LONG(source.count), &result)
+    source.withUnsafeBytes { ptr in
+        _ = CC_SHA256(ptr.baseAddress, CC_LONG(source.count), &result)
     }
     return Data(result)
 }
