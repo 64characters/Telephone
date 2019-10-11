@@ -183,6 +183,8 @@ extension CallHistoryViewController: NSTableViewDelegate {
             return [makeDeleteAction()]
         case .leading:
             return []
+        @unknown default:
+            return []
         }
     }
 

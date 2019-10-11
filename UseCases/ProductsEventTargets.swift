@@ -36,7 +36,7 @@ public final class ProductsEventTargets {
     }
 
     public func remove(_ target: ProductsEventTarget) {
-        if let index = targets.index(where: { $0 === target }) {
+        if let index = targets.firstIndex(where: { $0 === target }) {
             targets.remove(at: index)
         }
     }

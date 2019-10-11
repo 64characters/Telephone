@@ -28,14 +28,12 @@ extension String {
     }
 
     private init(ASN1String data: Data, ASN1StringType type: UInt8, encoding: String.Encoding) {
-        var result: String?
-        data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
-            guard bytes[typeIndex] == type else { return }
+        self = data.withUnsafeBytes { bytes in
+            guard bytes[typeIndex] == type, let base = bytes.baseAddress else { return "" }
             let count = data.count - contentIndex
             precondition(count == Int(bytes[lengthIndex]))
-            result = String(data: Data(bytes: bytes.advanced(by: contentIndex), count: count), encoding: encoding)
+            return String(data: Data(bytes: base.advanced(by: contentIndex), count: count), encoding: encoding) ?? ""
         }
-        self = result ?? ""
     }
 }
 

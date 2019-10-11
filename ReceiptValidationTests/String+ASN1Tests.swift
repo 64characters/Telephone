@@ -1,5 +1,5 @@
 //
-//  UserAgentAudioDevice.swift
+//  String+ASN1Tests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,20 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UserAgentAudioDevice {
-    var identifier: Int { get }
-    var name: String  { get }
-    var inputs: Int { get }
-    var outputs: Int { get }
-    var isNil: Bool { get }
-}
+import XCTest
 
-public extension UserAgentAudioDevice {
-    var hasInputs: Bool {
-        return inputs > 0
+final class String_ASN1Tests: XCTestCase {
+    func testCanDecodeASN1UTF8String() {
+        XCTAssertEqual(String(ASN1UTF8String: Data([0x0c, 0x07, 0x74, 0x65, 0x73, 0x74, 0x31, 0x32, 0x33])), "test123")
     }
 
-    var hasOutputs: Bool {
-        return outputs > 0
+    func testCanDecodeASN1IA5String() {
+        XCTAssertEqual(String(ASN1IA5String: Data([0x16, 0x07, 0x74, 0x65, 0x73, 0x74, 0x31, 0x32, 0x33])), "test123")
     }
 }

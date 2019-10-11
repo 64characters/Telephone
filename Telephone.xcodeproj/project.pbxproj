@@ -165,6 +165,10 @@
 		8A39A1CA1D5E176900D703AD /* PKCS7SignatureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */; };
 		8A39A1D21D5E315600D703AD /* CertificateFingerprintValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */; };
 		8A39A1D41D5E36FA00D703AD /* ReceiptValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */; };
+		8A3AF42A23479F5B000019C6 /* SHA256FingerprintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3AF42923479F5B000019C6 /* SHA256FingerprintTests.swift */; };
+		8A3AF42B23479FB0000019C6 /* SHA256Fingerprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADE59921D61D6A200B41275 /* SHA256Fingerprint.swift */; };
+		8A3AF42D2347AD58000019C6 /* ReceiptChecksumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3AF42C2347AD58000019C6 /* ReceiptChecksumTests.swift */; };
+		8A3AF42E2347AE17000019C6 /* ReceiptChecksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADE59901D61D0F000B41275 /* ReceiptChecksum.swift */; };
 		8A3D60671C734A8900D7F54C /* NullSoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */; };
 		8A41A74D1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */; };
 		8A41A74F1E5B593800E0C854 /* CallHistoryViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */; };
@@ -290,6 +294,8 @@
 		8A850B422049B94C0072E197 /* Calls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B412049B94C0072E197 /* Calls.swift */; };
 		8A850B472049C64B0072E197 /* AKSIPUserAgent+Calls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */; };
 		8A859A011D2D2BCF00118A66 /* SKPaymentQueueStoreEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A859A001D2D2BCF00118A66 /* SKPaymentQueueStoreEventSource.swift */; };
+		8A8839052304940300FB5CF0 /* String+ASN1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8839042304940300FB5CF0 /* String+ASN1Tests.swift */; };
+		8A88390A2304982000FB5CF0 /* String+ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A39A1BB1D5C894500D703AD /* String+ASN1.swift */; };
 		8A88B4E71D4A64BF0083958C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE706341D4A2E180060FF4F /* main.swift */; };
 		8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7063A1D4A2F360060FF4F /* DefaultNSXPCListenerDelegate.swift */; };
 		8A88B4F01D4A8D470083958C /* BundleReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */; };
@@ -1055,6 +1061,8 @@
 		8A39A1C91D5E176900D703AD /* PKCS7SignatureValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7SignatureValidation.swift; sourceTree = "<group>"; };
 		8A39A1D11D5E315600D703AD /* CertificateFingerprintValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateFingerprintValidation.swift; sourceTree = "<group>"; };
 		8A39A1D31D5E36FA00D703AD /* ReceiptValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptValidation.swift; sourceTree = "<group>"; };
+		8A3AF42923479F5B000019C6 /* SHA256FingerprintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SHA256FingerprintTests.swift; path = ReceiptValidationTests/SHA256FingerprintTests.swift; sourceTree = SOURCE_ROOT; };
+		8A3AF42C2347AD58000019C6 /* ReceiptChecksumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReceiptChecksumTests.swift; path = ReceiptValidationTests/ReceiptChecksumTests.swift; sourceTree = SOURCE_ROOT; };
 		8A41A74C1E5B4F3400E0C854 /* CallHistoryViewEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryViewEventTargetTests.swift; path = TelephoneTests/CallHistoryViewEventTargetTests.swift; sourceTree = SOURCE_ROOT; };
 		8A41A74E1E5B593800E0C854 /* CallHistoryViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewEventTarget.swift; sourceTree = "<group>"; };
 		8A41A7511E5CAF9300E0C854 /* CallHistoryViewEventTargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewEventTargetFactory.swift; sourceTree = "<group>"; };
@@ -1168,6 +1176,9 @@
 		8A850B412049B94C0072E197 /* Calls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calls.swift; sourceTree = "<group>"; };
 		8A850B462049C64B0072E197 /* AKSIPUserAgent+Calls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKSIPUserAgent+Calls.swift"; sourceTree = "<group>"; };
 		8A859A001D2D2BCF00118A66 /* SKPaymentQueueStoreEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKPaymentQueueStoreEventSource.swift; sourceTree = "<group>"; };
+		8A8838FC23048B9700FB5CF0 /* ReceiptValidationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReceiptValidationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A88390023048B9700FB5CF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A8839042304940300FB5CF0 /* String+ASN1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+ASN1Tests.swift"; path = "ReceiptValidationTests/String+ASN1Tests.swift"; sourceTree = SOURCE_ROOT; };
 		8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ReceiptValidation.entitlements; sourceTree = "<group>"; };
 		8A88B4EF1D4A8D470083958C /* BundleReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleReceipt.swift; sourceTree = "<group>"; };
 		8A88B4F41D4ABE380083958C /* LoggingReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingReceipt.swift; sourceTree = "<group>"; };
@@ -1688,6 +1699,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A8838F923048B9700FB5CF0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE706201D491C210060FF4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1863,6 +1881,7 @@
 				AAC4FF811C0214110060B186 /* DomainTestDoubles.framework */,
 				AAC4FF951C0215B90060B186 /* UseCasesTestDoubles.framework */,
 				8AE706231D491C220060FF4F /* ReceiptValidation.xpc */,
+				8A8838FC23048B9700FB5CF0 /* ReceiptValidationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1880,6 +1899,7 @@
 				AAC4FF821C0214120060B186 /* DomainTestDoubles */,
 				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
 				8AE706241D491C220060FF4F /* ReceiptValidation */,
+				8A8838FD23048B9700FB5CF0 /* ReceiptValidationTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = Telephone;
@@ -2432,6 +2452,14 @@
 			name = SystemSoundIO;
 			sourceTree = "<group>";
 		};
+		8A8838FD23048B9700FB5CF0 /* ReceiptValidationTests */ = {
+			isa = PBXGroup;
+			children = (
+				8A88390023048B9700FB5CF0 /* Info.plist */,
+			);
+			path = ReceiptValidationTests;
+			sourceTree = "<group>";
+		};
 		8A88B4EE1D4A8D310083958C /* Receipt */ = {
 			isa = PBXGroup;
 			children = (
@@ -2742,9 +2770,12 @@
 				8A39A1AB1D5BE42100D703AD /* PKCS7Container.h */,
 				8A39A1AC1D5BE42100D703AD /* PKCS7Container.m */,
 				8ADE59901D61D0F000B41275 /* ReceiptChecksum.swift */,
+				8A3AF42C2347AD58000019C6 /* ReceiptChecksumTests.swift */,
 				8A1A79301D4E25750031A0DD /* ReceiptValidation */,
 				8ADE59921D61D6A200B41275 /* SHA256Fingerprint.swift */,
+				8A3AF42923479F5B000019C6 /* SHA256FingerprintTests.swift */,
 				8A39A1BB1D5C894500D703AD /* String+ASN1.swift */,
+				8A8839042304940300FB5CF0 /* String+ASN1Tests.swift */,
 				8AE706341D4A2E180060FF4F /* main.swift */,
 				8AE7062B1D491C220060FF4F /* Info.plist */,
 				8A88B4E21D4A5F7C0083958C /* ReceiptValidation.entitlements */,
@@ -3345,6 +3376,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8A8838FB23048B9700FB5CF0 /* ReceiptValidationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A88390323048B9700FB5CF0 /* Build configuration list for PBXNativeTarget "ReceiptValidationTests" */;
+			buildPhases = (
+				8A8838F823048B9700FB5CF0 /* Sources */,
+				8A8838F923048B9700FB5CF0 /* Frameworks */,
+				8A8838FA23048B9700FB5CF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReceiptValidationTests;
+			productName = ReceiptValidationTests;
+			productReference = 8A8838FC23048B9700FB5CF0 /* ReceiptValidationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8AE706221D491C210060FF4F /* ReceiptValidation */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AE706301D491C220060FF4F /* Build configuration list for PBXNativeTarget "ReceiptValidation" */;
@@ -3560,13 +3608,16 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 0930;
 				TargetAttributes = {
+					8A8838FB23048B9700FB5CF0 = {
+						CreatedOnToolsVersion = 10.3;
+					};
 					8AE706221D491C210060FF4F = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = B5WSA37RY8;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
@@ -3579,7 +3630,7 @@
 					};
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = B5WSA37RY8;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
@@ -3595,35 +3646,35 @@
 					};
 					AA078B281BFF80E20013FF8F = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					AA078B311BFF80E30013FF8F = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 					};
 					AA3FAB841BBAAE630064B2C3 = {
 						CreatedOnToolsVersion = 7.0.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					AA9D08021BFF7E6F0000F618 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					AA9D080B1BFF7E6F0000F618 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					AAC4FF801C0214110060B186 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					AAC4FF941C0215B90060B186 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					AAF2990F0F575044007B5036 = {
@@ -3641,6 +3692,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
+				English,
 				en,
 				de,
 				ru,
@@ -3662,11 +3714,19 @@
 				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
 				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
 				8AE706221D491C210060FF4F /* ReceiptValidation */,
+				8A8838FB23048B9700FB5CF0 /* ReceiptValidationTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8A8838FA23048B9700FB5CF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE706211D491C210060FF4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3781,6 +3841,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8A8838F823048B9700FB5CF0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A8839052304940300FB5CF0 /* String+ASN1Tests.swift in Sources */,
+				8A3AF42E2347AE17000019C6 /* ReceiptChecksum.swift in Sources */,
+				8A3AF42A23479F5B000019C6 /* SHA256FingerprintTests.swift in Sources */,
+				8A3AF42D2347AD58000019C6 /* ReceiptChecksumTests.swift in Sources */,
+				8A88390A2304982000FB5CF0 /* String+ASN1.swift in Sources */,
+				8A3AF42B23479FB0000019C6 /* SHA256Fingerprint.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE7061F1D491C210060FF4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4884,6 +4957,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8A88390123048B9700FB5CF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ReceiptValidationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.ReceiptValidationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8A88390223048B9700FB5CF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ReceiptValidationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.ReceiptValidationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		8AE706311D491C220060FF4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4919,7 +5044,7 @@
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OBJC_BRIDGING_HEADER = "ReceiptValidation/ReceiptValidation-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -4952,7 +5077,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ReceiptValidation/ReceiptValidation-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -4977,7 +5102,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCases;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5004,7 +5129,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCases;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5023,7 +5148,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -5040,7 +5165,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -5058,7 +5183,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -5076,7 +5201,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TelephoneTests/TelephoneTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -5100,7 +5225,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.Domain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5125,7 +5250,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.Domain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5142,7 +5267,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -5158,7 +5283,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -5182,7 +5307,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5208,7 +5333,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5234,7 +5359,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5260,7 +5385,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTestDoubles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5390,7 +5515,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -5436,7 +5561,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
 				PRODUCT_NAME = Telephone;
 				SWIFT_OBJC_BRIDGING_HEADER = "Telephone/Telephone-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -5546,6 +5671,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A88390323048B9700FB5CF0 /* Build configuration list for PBXNativeTarget "ReceiptValidationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A88390123048B9700FB5CF0 /* Debug */,
+				8A88390223048B9700FB5CF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8AE706301D491C220060FF4F /* Build configuration list for PBXNativeTarget "ReceiptValidation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

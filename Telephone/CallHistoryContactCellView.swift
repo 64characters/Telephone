@@ -40,6 +40,8 @@ final class CallHistoryContactCellView: NSTableCellView {
                 if #available(macOS 10.14, *) {} else {
                     labelField.textColor = .lightGray
                 }
+            @unknown default:
+                break
             }
         }
     }

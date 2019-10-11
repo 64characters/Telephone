@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import CommonCrypto
 import Foundation
 
 struct ReceiptChecksum: Equatable {
@@ -36,8 +37,8 @@ struct ReceiptChecksum: Equatable {
 
 private func digest(of source: Data) -> Data {
     var result = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
-    source.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in
-        CC_SHA1(ptr, CC_LONG(source.count), &result)
+    source.withUnsafeBytes { ptr in
+        _ = CC_SHA1(ptr.baseAddress, CC_LONG(source.count), &result)
     }
-    return Data(bytes: result)
+    return Data(result)
 }
