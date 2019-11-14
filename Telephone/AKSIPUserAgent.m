@@ -596,6 +596,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     
     accountConfig.allow_contact_rewrite = anAccount.updatesContactHeader ? PJ_TRUE : PJ_FALSE;
     accountConfig.allow_via_rewrite = anAccount.updatesViaHeader ? PJ_TRUE : PJ_FALSE;
+    accountConfig.allow_sdp_nat_rewrite = anAccount.updatesSDP ? PJ_TRUE : PJ_FALSE;
 
     accountConfig.lock_codec = self.locksCodec ? PJ_TRUE : PJ_FALSE;
     

@@ -84,6 +84,11 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 /// address as the one in the REGISTER request.
 @property(nonatomic) BOOL updatesViaHeader;
 
+/// A Boolean value indicating if IP address in SDP should be automatically updated.
+///
+/// When YES, and when STUN and ICE are disabled, then the IP address found in registration response will be used.
+@property(nonatomic) BOOL updatesSDP;
+
 // The receiver's identifier at the user agent.
 @property(nonatomic, readonly) NSInteger identifier;
 

@@ -61,4 +61,5 @@ NSString * const kProxyHost = @"ProxyHost";
 NSString * const kProxyPort = @"ProxyPort";
 NSString * const kUpdateContactHeader = @"UpdateContactHeader";
 NSString * const kUpdateViaHeader = @"UpdateViaHeader";
+NSString * const kUpdateSDP = @"UpdateSDP";
 NSString * const kLockCodec = @"LockCodec";

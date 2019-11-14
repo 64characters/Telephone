@@ -317,9 +317,14 @@ static const NSUInteger kAccountsMax = 32;
         }
         
         // Update headers checkbox.
-        if ([accountDict[kUpdateContactHeader] boolValue] && [accountDict[kUpdateViaHeader] boolValue]) {
+        if ([accountDict[kUpdateContactHeader] boolValue] && [accountDict[kUpdateViaHeader] boolValue] && [accountDict[kUpdateSDP] boolValue]) {
+            [[self updateHeadersCheckBox] setAllowsMixedState:NO];
             [[self updateHeadersCheckBox] setState:NSOnState];
+        } else if ([accountDict[kUpdateContactHeader] boolValue] || [accountDict[kUpdateViaHeader] boolValue] || [accountDict[kUpdateSDP] boolValue]) {
+            [[self updateHeadersCheckBox] setAllowsMixedState:YES];
+            [[self updateHeadersCheckBox] setState:NSMixedState];
         } else {
+            [[self updateHeadersCheckBox] setAllowsMixedState:NO];
             [[self updateHeadersCheckBox] setState:NSOffState];
         }
         
@@ -444,9 +449,15 @@ static const NSUInteger kAccountsMax = 32;
         if (self.updateHeadersCheckBox.state == NSOnState) {
             accountDict[kUpdateContactHeader] = @YES;
             accountDict[kUpdateViaHeader] = @YES;
+            accountDict[kUpdateSDP] = @YES;
+        } else if (self.updateHeadersCheckBox.state == NSMixedState) {
+            accountDict[kUpdateContactHeader] = @YES;
+            accountDict[kUpdateViaHeader] = @YES;
+            accountDict[kUpdateSDP] = @NO;
         } else {
             accountDict[kUpdateContactHeader] = @NO;
             accountDict[kUpdateViaHeader] = @NO;
+            accountDict[kUpdateSDP] = @NO;
         }
         
         // Set placeholders.
