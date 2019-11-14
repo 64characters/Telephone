@@ -188,7 +188,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:NO];
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
-            [[self updateHeadersCheckBox] setEnabled:NO];
+            [[self updateIPAddressCheckBox] setEnabled:NO];
             
         } else {
             [[self accountEnabledCheckBox] setState:NSOffState];
@@ -220,7 +220,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:YES];
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
-            [[self updateHeadersCheckBox] setEnabled:YES];
+            [[self updateIPAddressCheckBox] setEnabled:YES];
         }
         
         // Populate fields.
@@ -318,14 +318,14 @@ static const NSUInteger kAccountsMax = 32;
         
         // Update headers checkbox.
         if ([accountDict[kUpdateContactHeader] boolValue] && [accountDict[kUpdateViaHeader] boolValue] && [accountDict[kUpdateSDP] boolValue]) {
-            [[self updateHeadersCheckBox] setAllowsMixedState:NO];
-            [[self updateHeadersCheckBox] setState:NSOnState];
+            [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
+            [[self updateIPAddressCheckBox] setState:NSOnState];
         } else if ([accountDict[kUpdateContactHeader] boolValue] || [accountDict[kUpdateViaHeader] boolValue] || [accountDict[kUpdateSDP] boolValue]) {
-            [[self updateHeadersCheckBox] setAllowsMixedState:YES];
-            [[self updateHeadersCheckBox] setState:NSMixedState];
+            [[self updateIPAddressCheckBox] setAllowsMixedState:YES];
+            [[self updateIPAddressCheckBox] setState:NSMixedState];
         } else {
-            [[self updateHeadersCheckBox] setAllowsMixedState:NO];
-            [[self updateHeadersCheckBox] setState:NSOffState];
+            [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
+            [[self updateIPAddressCheckBox] setState:NSOffState];
         }
         
     } else {  // if (index >= 0)
@@ -344,7 +344,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self proxyPortField] setStringValue:@""];
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
-        [[self updateHeadersCheckBox] setState:NSOffState];
+        [[self updateIPAddressCheckBox] setState:NSOffState];
         
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];
@@ -363,7 +363,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
-        [[self updateHeadersCheckBox] setEnabled:NO];
+        [[self updateIPAddressCheckBox] setEnabled:NO];
     }
 }
 
@@ -446,11 +446,11 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[kRegistrar] = registrar;
         
-        if (self.updateHeadersCheckBox.state == NSOnState) {
+        if (self.updateIPAddressCheckBox.state == NSOnState) {
             accountDict[kUpdateContactHeader] = @YES;
             accountDict[kUpdateViaHeader] = @YES;
             accountDict[kUpdateSDP] = @YES;
-        } else if (self.updateHeadersCheckBox.state == NSMixedState) {
+        } else if (self.updateIPAddressCheckBox.state == NSMixedState) {
             accountDict[kUpdateContactHeader] = @YES;
             accountDict[kUpdateViaHeader] = @YES;
             accountDict[kUpdateSDP] = @NO;
@@ -496,7 +496,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:NO];
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
-        [[self updateHeadersCheckBox] setEnabled:NO];
+        [[self updateIPAddressCheckBox] setEnabled:NO];
         
         // Mark accounts table as needing redisplay.
         [[self accountsTable] reloadData];
@@ -526,7 +526,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:YES];
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
-        [[self updateHeadersCheckBox] setEnabled:YES];
+        [[self updateIPAddressCheckBox] setEnabled:YES];
     }
     
     savedAccounts[index] = accountDict;

@@ -23,7 +23,7 @@
                 <outlet property="registrarField" destination="97" id="408"/>
                 <outlet property="reregistrationTimeField" destination="394" id="411"/>
                 <outlet property="substitutePlusCharacterCheckBox" destination="338" id="364"/>
-                <outlet property="updateHeadersCheckBox" destination="Hn9-I1-jbC" id="U9v-7J-ucO"/>
+                <outlet property="updateIPAddressCheckBox" destination="Hn9-I1-jbC" id="U9v-7J-ucO"/>
                 <outlet property="useProxyCheckBox" destination="341" id="365"/>
                 <outlet property="usernameField" destination="98" id="409"/>
                 <outlet property="view" destination="148" id="441"/>
