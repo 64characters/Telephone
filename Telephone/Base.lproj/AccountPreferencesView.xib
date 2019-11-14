@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -408,8 +408,8 @@
                                         </textFieldCell>
                                     </textField>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="Dxg-la-6Uh">
-                                        <rect key="frame" x="32" y="14" width="193" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Update Contact and Via headers" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="cPc-9z-FgQ">
+                                        <rect key="frame" x="32" y="14" width="119" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Update IP address" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="cPc-9z-FgQ">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
@@ -514,6 +514,7 @@
                 <constraint firstItem="79" firstAttribute="leading" secondItem="118" secondAttribute="leading" id="qfr-Kc-7Ks"/>
                 <constraint firstItem="120" firstAttribute="leading" secondItem="118" secondAttribute="trailing" constant="-1" id="yfC-lf-5RA"/>
             </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
         </customView>
     </objects>
     <resources>
