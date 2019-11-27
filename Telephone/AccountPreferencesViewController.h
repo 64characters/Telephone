@@ -42,13 +42,14 @@
 @property(nonatomic, weak) IBOutlet NSTextField *reregistrationTimeField;
 @property(nonatomic, weak) IBOutlet NSButton *substitutePlusCharacterCheckBox;
 @property(nonatomic, weak) IBOutlet NSTextField *plusCharacterSubstitutionField;
+@property(nonatomic, weak) IBOutlet NSTextField *plusCharacterSubstitutionLabel;
 @property(nonatomic, weak) IBOutlet NSButton *useProxyCheckBox;
 @property(nonatomic, weak) IBOutlet NSTextField *proxyHostField;
 @property(nonatomic, weak) IBOutlet NSTextField *proxyPortField;
 @property(nonatomic, weak) IBOutlet NSTextField *SIPAddressField;
 @property(nonatomic, weak) IBOutlet NSTextField *registrarField;
 @property(nonatomic, weak) IBOutlet NSTextField *cantEditAccountLabel;
-@property(nonatomic, weak) IBOutlet NSButton *updateHeadersCheckBox;
+@property(nonatomic, weak) IBOutlet NSButton *updateIPAddressCheckBox;
 
 // Raises |Add Account| sheet.
 - (IBAction)showAddAccountSheet:(id)sender;

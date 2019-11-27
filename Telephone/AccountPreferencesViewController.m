@@ -181,6 +181,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self substitutePlusCharacterCheckBox] setEnabled:NO];
             [[self substitutePlusCharacterCheckBox] setState:[accountDict[kSubstitutePlusCharacter] integerValue]];
             [[self plusCharacterSubstitutionField] setEnabled:NO];
+            [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor disabledControlTextColor]];
             [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
             [[self useProxyCheckBox] setEnabled:NO];
             [[self proxyHostField] setEnabled:NO];
@@ -188,7 +189,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:NO];
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
-            [[self updateHeadersCheckBox] setEnabled:NO];
+            [[self updateIPAddressCheckBox] setEnabled:NO];
             
         } else {
             [[self accountEnabledCheckBox] setState:NSOffState];
@@ -206,6 +207,7 @@ static const NSUInteger kAccountsMax = 32;
             } else {
                 [[self plusCharacterSubstitutionField] setEnabled:NO];
             }
+            [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor controlTextColor]];
             
             [[self useProxyCheckBox] setEnabled:YES];
             [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
@@ -220,7 +222,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:YES];
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
-            [[self updateHeadersCheckBox] setEnabled:YES];
+            [[self updateIPAddressCheckBox] setEnabled:YES];
         }
         
         // Populate fields.
@@ -317,10 +319,15 @@ static const NSUInteger kAccountsMax = 32;
         }
         
         // Update headers checkbox.
-        if ([accountDict[kUpdateContactHeader] boolValue] && [accountDict[kUpdateViaHeader] boolValue]) {
-            [[self updateHeadersCheckBox] setState:NSOnState];
+        if ([accountDict[kUpdateContactHeader] boolValue] && [accountDict[kUpdateViaHeader] boolValue] && [accountDict[kUpdateSDP] boolValue]) {
+            [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
+            [[self updateIPAddressCheckBox] setState:NSOnState];
+        } else if ([accountDict[kUpdateContactHeader] boolValue] || [accountDict[kUpdateViaHeader] boolValue] || [accountDict[kUpdateSDP] boolValue]) {
+            [[self updateIPAddressCheckBox] setAllowsMixedState:YES];
+            [[self updateIPAddressCheckBox] setState:NSMixedState];
         } else {
-            [[self updateHeadersCheckBox] setState:NSOffState];
+            [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
+            [[self updateIPAddressCheckBox] setState:NSOffState];
         }
         
     } else {  // if (index >= 0)
@@ -339,7 +346,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self proxyPortField] setStringValue:@""];
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
-        [[self updateHeadersCheckBox] setState:NSOffState];
+        [[self updateIPAddressCheckBox] setState:NSOffState];
         
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];
@@ -350,6 +357,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self reregistrationTimeField] setEnabled:NO];
         [[self substitutePlusCharacterCheckBox] setEnabled:NO];
         [[self plusCharacterSubstitutionField] setEnabled:NO];
+        [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor disabledControlTextColor]];
         [[self useProxyCheckBox] setEnabled:NO];
         [[self proxyHostField] setEnabled:NO];
         [[self proxyPortField] setEnabled:NO];
@@ -358,7 +366,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
-        [[self updateHeadersCheckBox] setEnabled:NO];
+        [[self updateIPAddressCheckBox] setEnabled:NO];
     }
 }
 
@@ -441,12 +449,18 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[kRegistrar] = registrar;
         
-        if (self.updateHeadersCheckBox.state == NSOnState) {
+        if (self.updateIPAddressCheckBox.state == NSOnState) {
             accountDict[kUpdateContactHeader] = @YES;
             accountDict[kUpdateViaHeader] = @YES;
+            accountDict[kUpdateSDP] = @YES;
+        } else if (self.updateIPAddressCheckBox.state == NSMixedState) {
+            accountDict[kUpdateContactHeader] = @YES;
+            accountDict[kUpdateViaHeader] = @YES;
+            accountDict[kUpdateSDP] = @NO;
         } else {
             accountDict[kUpdateContactHeader] = @NO;
             accountDict[kUpdateViaHeader] = @NO;
+            accountDict[kUpdateSDP] = @NO;
         }
         
         // Set placeholders.
@@ -479,13 +493,14 @@ static const NSUInteger kAccountsMax = 32;
         [[self reregistrationTimeField] setEnabled:NO];
         [[self substitutePlusCharacterCheckBox] setEnabled:NO];
         [[self plusCharacterSubstitutionField] setEnabled:NO];
+        [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor disabledControlTextColor]];
         [[self useProxyCheckBox] setEnabled:NO];
         [[self proxyHostField] setEnabled:NO];
         [[self proxyPortField] setEnabled:NO];
         [[self SIPAddressField] setEnabled:NO];
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
-        [[self updateHeadersCheckBox] setEnabled:NO];
+        [[self updateIPAddressCheckBox] setEnabled:NO];
         
         // Mark accounts table as needing redisplay.
         [[self accountsTable] reloadData];
@@ -504,6 +519,7 @@ static const NSUInteger kAccountsMax = 32;
         if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
             [[self plusCharacterSubstitutionField] setEnabled:YES];
         }
+        [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor controlTextColor]];
         
         [[self useProxyCheckBox] setEnabled:YES];
         [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
@@ -515,7 +531,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:YES];
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
-        [[self updateHeadersCheckBox] setEnabled:YES];
+        [[self updateIPAddressCheckBox] setEnabled:YES];
     }
     
     savedAccounts[index] = accountDict;

@@ -391,6 +391,7 @@ NS_ASSUME_NONNULL_END
         }
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
+        account.updatesSDP = [accountDict[kUpdateSDP] boolValue];
 
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
@@ -681,6 +682,7 @@ NS_ASSUME_NONNULL_END
         }
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
+        account.updatesSDP = [accountDict[kUpdateSDP] boolValue];
 
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
