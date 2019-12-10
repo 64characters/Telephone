@@ -24,6 +24,9 @@ final class AvailableMusicPlayers {
         if let p = factory.makeiTunesMusicPlayer() {
             players.append(p)
         }
+        if let p = factory.makeMusicAppMusicPlayer() {
+            players.append(p)
+        }
         if let p = factory.makeSpotifyMusicPlayer() {
             players.append(p)
         }
