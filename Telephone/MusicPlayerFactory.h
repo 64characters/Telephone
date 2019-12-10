@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MusicPlayerFactory : NSObject
 
-- (nullable id<MusicPlayer>)makeAppleMusicPlayer;
+- (nullable id<MusicPlayer>)makeiTunesMusicPlayer;
 - (nullable id<MusicPlayer>)makeSpotifyMusicPlayer;
 
 @end

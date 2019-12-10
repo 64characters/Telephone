@@ -1,5 +1,5 @@
 //
-//  AppleMusicPlayer.m
+//  iTunesMusicPlayer.m
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,13 +16,13 @@
 //  GNU General Public License for more details.
 //
 
-#import "AppleMusicPlayer.h"
+#import "iTunesMusicPlayer.h"
 
 #import "iTunes.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppleMusicPlayer ()
+@interface iTunesMusicPlayer ()
 
 @property(nonatomic, readonly) iTunesApplication *application;
 @property(nonatomic) BOOL didPause;
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-@implementation AppleMusicPlayer
+@implementation iTunesMusicPlayer
 
 - (instancetype)initWithApplication:(iTunesApplication *)application {
     if ((self = [super init])) {
