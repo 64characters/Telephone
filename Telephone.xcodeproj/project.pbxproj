@@ -444,6 +444,7 @@
 		8AC1A4451C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */; };
 		8AC24A5D1ED490F70094B01C /* Contact+CNContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC24A5C1ED490F60094B01C /* Contact+CNContact.swift */; };
 		8AC443BF1F90E21E00ECE463 /* OrphanLogFileRemoval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC443BE1F90E21E00ECE463 /* OrphanLogFileRemoval.swift */; };
+		8AC66C9623A0166100FB64BA /* MusicAppMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC66C9523A0166100FB64BA /* MusicAppMusicPlayer.m */; };
 		8AC87E891D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */; };
 		8ACB9C811E13F8F50081A0A5 /* PresentationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */; };
 		8ACB9C821E13F8F50081A0A5 /* PresentationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */; };
@@ -1341,6 +1342,9 @@
 		8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPlaybackUseCase.swift; sourceTree = "<group>"; };
 		8AC24A5C1ED490F60094B01C /* Contact+CNContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CNContact.swift"; sourceTree = "<group>"; };
 		8AC443BE1F90E21E00ECE463 /* OrphanLogFileRemoval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrphanLogFileRemoval.swift; sourceTree = "<group>"; };
+		8AC66C9323A0159400FB64BA /* MusicApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicApp.h; sourceTree = "<group>"; };
+		8AC66C9423A0166100FB64BA /* MusicAppMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicAppMusicPlayer.h; sourceTree = "<group>"; };
+		8AC66C9523A0166100FB64BA /* MusicAppMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicAppMusicPlayer.m; sourceTree = "<group>"; };
 		8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReceiptAttributesValidation.swift; sourceTree = "<group>"; };
 		8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationContact.swift; sourceTree = "<group>"; };
 		8ACC00291E9D3C85005B0338 /* CallHistorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistorySpy.swift; sourceTree = "<group>"; };
@@ -1911,6 +1915,7 @@
 				AAE33B0B1BA71E6900C6E48B /* Telephone-Bridging-Header.h */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				AA19171B0F8EA627002BA093 /* iTunes.h */,
+				8AC66C9323A0159400FB64BA /* MusicApp.h */,
 				8AFC630C1D8C24670022470D /* Spotify.h */,
 			);
 			name = "Other Sources";
@@ -2525,6 +2530,8 @@
 				8AA748C01D704B9F000587DC /* AvailableMusicPlayers.swift */,
 				8AA748911D6F414E000587DC /* iTunesMusicPlayer.h */,
 				8AA748921D6F414E000587DC /* iTunesMusicPlayer.m */,
+				8AC66C9423A0166100FB64BA /* MusicAppMusicPlayer.h */,
+				8AC66C9523A0166100FB64BA /* MusicAppMusicPlayer.m */,
 				8A635DD61D8C211300E2DBD0 /* MusicPlayerFactory.h */,
 				8A635DD71D8C211300E2DBD0 /* MusicPlayerFactory.m */,
 				8AA748BB1D704962000587DC /* MusicPlayers.swift */,
@@ -4022,6 +4029,7 @@
 				AA3F656A1072C926000511E8 /* AuthenticationFailureController.m in Sources */,
 				8AA27AE61E97F0FA002A08CD /* PreferencesControllerNotifications.m in Sources */,
 				8A7C4F711CCFC69F00EC7C1B /* Product+SKProduct.swift in Sources */,
+				8AC66C9623A0166100FB64BA /* MusicAppMusicPlayer.m in Sources */,
 				8A91759C1CA59E2700354E26 /* PJSUAOnCallState.m in Sources */,
 				8AF52BE51F028ECC001F7784 /* CNContactStoreContactsChangeEventSource.swift in Sources */,
 				8AD012B321271FAB00619781 /* CoreAudioDefaultSystemSoundIOChangeEventSource.swift in Sources */,
