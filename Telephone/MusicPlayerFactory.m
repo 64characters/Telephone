@@ -18,17 +18,28 @@
 
 #import "MusicPlayerFactory.h"
 
-#import "AppleMusicPlayer.h"
 #import "iTunes.h"
+#import "iTunesMusicPlayer.h"
+#import "MusicApp.h"
+#import "MusicAppMusicPlayer.h"
 #import "Spotify.h"
 #import "SpotifyMusicPlayer.h"
 
 @implementation MusicPlayerFactory
 
-- (nullable id<MusicPlayer>)makeAppleMusicPlayer {
+- (nullable id<MusicPlayer>)makeiTunesMusicPlayer {
     SBApplication *application = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
     if (application) {
-        return [[AppleMusicPlayer alloc] initWithApplication:(iTunesApplication *)application];
+        return [[iTunesMusicPlayer alloc] initWithApplication:(iTunesApplication *)application];
+    } else {
+        return nil;
+    }
+}
+
+- (nullable id<MusicPlayer>)makeMusicAppMusicPlayer {
+    SBApplication *application = [SBApplication applicationWithBundleIdentifier:@"com.apple.Music"];
+    if (application) {
+        return [[MusicAppMusicPlayer alloc] initWithApplication:(MusicAppApplication *)application];
     } else {
         return nil;
     }

@@ -1,5 +1,5 @@
 //
-//  AppleMusicPlayer.m
+//  MusicAppMusicPlayer.m
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,24 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-#import "AppleMusicPlayer.h"
+#import "MusicAppMusicPlayer.h"
 
-#import "iTunes.h"
+#import "MusicApp.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppleMusicPlayer ()
+@interface MusicAppMusicPlayer ()
 
-@property(nonatomic, readonly) iTunesApplication *application;
+@property(nonatomic, readonly) MusicAppApplication *application;
 @property(nonatomic) BOOL didPause;
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-@implementation AppleMusicPlayer
+@implementation MusicAppMusicPlayer
 
-- (instancetype)initWithApplication:(iTunesApplication *)application {
+- (instancetype)initWithApplication:(MusicAppApplication *)application {
     if ((self = [super init])) {
         _application = application;
     }
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_END
 #pragma mark - MusicPlayer
 
 - (void)pause {
-    if (!self.application.isRunning || self.application.playerState != iTunesEPlSPlaying) {
+    if (!self.application.isRunning || self.application.playerState != MusicAppEPlSPlaying) {
         return;
     }
     [self.application pause];
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_END
     if (!self.application.isRunning || !self.didPause) {
         return;
     }
-    if (self.application.playerState == iTunesEPlSPaused) {
+    if (self.application.playerState == MusicAppEPlSPaused) {
         [self.application playOnce:NO];
     }
     self.didPause = NO;

@@ -1,5 +1,5 @@
 //
-//  AppleMusicPlayer.h
+//  MusicAppMusicPlayer.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,13 +19,13 @@
 @import Foundation;
 @import UseCases;
 
-@class iTunesApplication;
+@class MusicAppApplication;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppleMusicPlayer : NSObject <MusicPlayer>
+@interface MusicAppMusicPlayer : NSObject <MusicPlayer>
 
-- (instancetype)initWithApplication:(iTunesApplication *)application NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithApplication:(MusicAppApplication *)application NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 
 @end
