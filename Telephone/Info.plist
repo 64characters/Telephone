@@ -52,7 +52,7 @@
 	<key>NSContactsUsageDescription</key>
 	<string>Details from your contacts can be used for displaying names and phone labels and for phone number autocomplete.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2016–2018 64 Characters</string>
+	<string>© 2016–2020 64 Characters</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSMicrophoneUsageDescription</key>
