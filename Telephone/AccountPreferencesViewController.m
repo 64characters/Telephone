@@ -190,6 +190,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
             [[self updateIPAddressCheckBox] setEnabled:NO];
+            [[self useIPv6CheckBox] setEnabled:NO];
             
         } else {
             [[self accountEnabledCheckBox] setState:NSOffState];
@@ -223,6 +224,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
             [[self updateIPAddressCheckBox] setEnabled:YES];
+            [[self useIPv6CheckBox] setEnabled:YES];
         }
         
         // Populate fields.
@@ -329,6 +331,9 @@ static const NSUInteger kAccountsMax = 32;
             [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
             [[self updateIPAddressCheckBox] setState:NSOffState];
         }
+
+        // Use IPv6 checkbox.
+        [[self useIPv6CheckBox] setState:[accountDict[kUseIPv6] integerValue]];
         
     } else {  // if (index >= 0)
         [[self accountEnabledCheckBox] setState:NSOffState];
@@ -347,6 +352,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
         [[self updateIPAddressCheckBox] setState:NSOffState];
+        [[self useIPv6CheckBox] setState:NSOffState];
         
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];
@@ -367,6 +373,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
         [[self updateIPAddressCheckBox] setEnabled:NO];
+        [[self useIPv6CheckBox] setEnabled:NO];
     }
 }
 
@@ -386,7 +393,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:savedAccounts[index]];
     
-    BOOL isChecked = ([[self accountEnabledCheckBox] state] == NSOnState) ? YES : NO;
+    BOOL isChecked = [[self accountEnabledCheckBox] state] == NSOnState;
     accountDict[kAccountEnabled] = @(isChecked);
     
     if (isChecked) {
@@ -426,20 +433,10 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[kReregistrationTime] = @([[self reregistrationTimeField] integerValue]);
         
-        if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
-            accountDict[kSubstitutePlusCharacter] = @YES;
-        } else {
-            accountDict[kSubstitutePlusCharacter] = @NO;
-        }
-        
+        accountDict[kSubstitutePlusCharacter] = @([[self substitutePlusCharacterCheckBox] state] == NSOnState);
         accountDict[kPlusCharacterSubstitutionString] = [[self plusCharacterSubstitutionField] stringValue];
         
-        if ([[self useProxyCheckBox] state] == NSOnState) {
-            accountDict[kUseProxy] = @YES;
-        } else {
-            accountDict[kUseProxy] = @NO;
-        }
-        
+        accountDict[kUseProxy] = @([[self useProxyCheckBox] state] == NSOnState);
         NSString *proxyHost = [[[self proxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         accountDict[kProxyHost] = proxyHost;
         accountDict[kProxyPort] = @([[self proxyPortField] integerValue]);
@@ -462,6 +459,8 @@ static const NSUInteger kAccountsMax = 32;
             accountDict[kUpdateViaHeader] = @NO;
             accountDict[kUpdateSDP] = @NO;
         }
+
+        accountDict[kUseIPv6] = @(self.useIPv6CheckBox.state == NSOnState);
         
         // Set placeholders.
         
@@ -501,6 +500,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
+        [[self useIPv6CheckBox] setEnabled:NO];
         
         // Mark accounts table as needing redisplay.
         [[self accountsTable] reloadData];
@@ -532,6 +532,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
         [[self updateIPAddressCheckBox] setEnabled:YES];
+        [[self useIPv6CheckBox] setEnabled:YES];
     }
     
     savedAccounts[index] = accountDict;
@@ -549,7 +550,7 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (IBAction)changeUseProxy:(id)sender {
-    BOOL isChecked = ([[self useProxyCheckBox] state] == NSOnState) ? YES : NO;
+    BOOL isChecked = [[self useProxyCheckBox] state] == NSOnState;
     [[self proxyHostField] setEnabled:isChecked];
     [[self proxyPortField] setEnabled:isChecked];
 }
