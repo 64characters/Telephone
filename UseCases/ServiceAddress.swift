@@ -21,12 +21,21 @@ public final class ServiceAddress: NSObject {
     public let port: String
 
     @objc public init(string: String) {
-        if let range = string.range(of: ":", options: .backwards) {
-            host = String(string[..<range.lowerBound])
-            port = String(string[range.upperBound...])
+        let address = beforeSemicolon(string)
+        if let range = address.range(of: ":") {
+            host = String(address[..<range.lowerBound])
+            port = String(address[range.upperBound...])
         } else {
-            host = string
+            host = address
             port = ""
         }
+    }
+}
+
+private func beforeSemicolon(_ string: String) -> String {
+    if let index = string.firstIndex(of: ";") {
+        return String(string[..<index])
+    } else {
+        return string
     }
 }

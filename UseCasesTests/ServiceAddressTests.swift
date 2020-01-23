@@ -20,7 +20,7 @@ import UseCases
 import XCTest
 
 final class ServiceAddressTests: XCTestCase {
-    func testHostIsFullSourceStringWhenNoPortIsSpecified() {
+    func testHostIsCompleteInputStringWhenNoPortIsSpecified() {
         let sut = ServiceAddress(string: "any")
 
         XCTAssertEqual(sut.host, "any")
@@ -38,9 +38,22 @@ final class ServiceAddressTests: XCTestCase {
         XCTAssertEqual(sut.port, "123")
     }
 
-    func testPortIsEmptyStringWhenSourceStringEndsWithColon() {
+    func testPortIsEmptyStringWhenInputStringEndsWithColon() {
         let sut = ServiceAddress(string: "any:")
 
         XCTAssertEqual(sut.port, "")
+    }
+
+    func testSubstringAfterSemicolonIsIgnoredWhenNoPortIsSpecified() {
+        let sut = ServiceAddress(string: "any;params")
+
+        XCTAssertEqual(sut.host, "any")
+    }
+
+    func testSubstringAfterSemicolonIsIgnoredWhenPortIsSpecified() {
+        let sut = ServiceAddress(string: "any:123;params")
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.port, "123")
     }
 }
