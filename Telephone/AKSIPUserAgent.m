@@ -612,7 +612,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     accountConfig.allow_via_rewrite = anAccount.updatesViaHeader ? PJ_TRUE : PJ_FALSE;
     accountConfig.allow_sdp_nat_rewrite = anAccount.updatesSDP ? PJ_TRUE : PJ_FALSE;
 
-    if (anAccount.usesIPv6) {
+    if (anAccount.usesIPv6Only) {
         accountConfig.transport_id = self.UDP6TransportIdentifier;
         accountConfig.ipv6_media_use = PJSUA_IPV6_ENABLED;
     }

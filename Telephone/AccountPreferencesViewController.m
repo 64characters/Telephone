@@ -190,7 +190,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
             [[self updateIPAddressCheckBox] setEnabled:NO];
-            [[self useIPv6CheckBox] setEnabled:NO];
+            [[self useIPv6OnlyCheckBox] setEnabled:NO];
             
         } else {
             [[self accountEnabledCheckBox] setState:NSOffState];
@@ -224,7 +224,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
             [[self updateIPAddressCheckBox] setEnabled:YES];
-            [[self useIPv6CheckBox] setEnabled:YES];
+            [[self useIPv6OnlyCheckBox] setEnabled:YES];
         }
         
         // Populate fields.
@@ -332,8 +332,8 @@ static const NSUInteger kAccountsMax = 32;
             [[self updateIPAddressCheckBox] setState:NSOffState];
         }
 
-        // Use IPv6 checkbox.
-        [[self useIPv6CheckBox] setState:[accountDict[kUseIPv6] integerValue]];
+        // Use IPv6 Only checkbox.
+        [[self useIPv6OnlyCheckBox] setState:[accountDict[kUseIPv6Only] integerValue]];
         
     } else {  // if (index >= 0)
         [[self accountEnabledCheckBox] setState:NSOffState];
@@ -352,7 +352,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
         [[self updateIPAddressCheckBox] setState:NSOffState];
-        [[self useIPv6CheckBox] setState:NSOffState];
+        [[self useIPv6OnlyCheckBox] setState:NSOffState];
         
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];
@@ -373,7 +373,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
         [[self updateIPAddressCheckBox] setEnabled:NO];
-        [[self useIPv6CheckBox] setEnabled:NO];
+        [[self useIPv6OnlyCheckBox] setEnabled:NO];
     }
 }
 
@@ -460,7 +460,7 @@ static const NSUInteger kAccountsMax = 32;
             accountDict[kUpdateSDP] = @NO;
         }
 
-        accountDict[kUseIPv6] = @(self.useIPv6CheckBox.state == NSOnState);
+        accountDict[kUseIPv6Only] = @(self.useIPv6OnlyCheckBox.state == NSOnState);
         
         // Set placeholders.
         
@@ -500,7 +500,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
-        [[self useIPv6CheckBox] setEnabled:NO];
+        [[self useIPv6OnlyCheckBox] setEnabled:NO];
         
         // Mark accounts table as needing redisplay.
         [[self accountsTable] reloadData];
@@ -532,7 +532,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
         [[self updateIPAddressCheckBox] setEnabled:YES];
-        [[self useIPv6CheckBox] setEnabled:YES];
+        [[self useIPv6OnlyCheckBox] setEnabled:YES];
     }
     
     savedAccounts[index] = accountDict;
