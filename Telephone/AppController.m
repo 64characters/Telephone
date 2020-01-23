@@ -392,6 +392,7 @@ NS_ASSUME_NONNULL_END
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         account.updatesSDP = [accountDict[kUpdateSDP] boolValue];
+        account.usesIPv6 = [accountDict[kUseIPv6] boolValue];
 
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
@@ -683,6 +684,7 @@ NS_ASSUME_NONNULL_END
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         account.updatesSDP = [accountDict[kUpdateSDP] boolValue];
+        account.usesIPv6 = [accountDict[kUseIPv6] boolValue];
 
         NSString *description = accountDict[kDescription];
         if ([description length] == 0) {
