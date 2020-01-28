@@ -23,9 +23,12 @@
 @interface NSString (AKStringScanningAdditions)
 
 // A Boolean value indicating whether the receiver consists only of a-z or A-Z.
-@property(nonatomic, readonly, assign) BOOL ak_hasLetters;
+@property(nonatomic, readonly) BOOL ak_hasLetters;
 
 // A Boolean value indicating whether the receiver is an IP address.
-@property(nonatomic, readonly, assign) BOOL ak_isIPAddress;
+@property(nonatomic, readonly) BOOL ak_isIPAddress;
+
+// A Boolean value indicating whether the receiver is an IPv6 address.
+@property(nonatomic, readonly) BOOL ak_isIP6Address;
 
 @end
