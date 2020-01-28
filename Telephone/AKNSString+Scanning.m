@@ -18,7 +18,11 @@
 
 #import "AKNSString+Scanning.h"
 
-static NSString * const kIP4Regex = @"((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])";
+static NSString * const kIP4Regex
+  = @"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
+     "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
+     "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
+     "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
 @implementation NSString (AKStringScanningAdditions)
 
@@ -27,11 +31,9 @@ static NSString * const kIP4Regex = @"((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\
 }
 
 - (BOOL)ak_isIPAddress {
-    return [[NSPredicate predicateWithFormat:@"SELF MATCHES "
-             "'(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'"] evaluateWithObject:self];
+    return [[NSPredicate predicateWithFormat:
+             [@[@"SELF MATCHES '", kIP4Regex, @"'"] componentsJoinedByString:@""]]
+            evaluateWithObject:self];
 }
 
 - (BOOL)ak_isIP6Address {
