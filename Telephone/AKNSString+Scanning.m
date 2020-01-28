@@ -31,6 +31,10 @@ static NSString * const kIP4Regex
 }
 
 - (BOOL)ak_isIPAddress {
+    return [self ak_isIP4Address];
+}
+
+- (BOOL)ak_isIP4Address {
     return [[NSPredicate predicateWithFormat:
              [@[@"SELF MATCHES '", kIP4Regex, @"'"] componentsJoinedByString:@""]]
             evaluateWithObject:self];

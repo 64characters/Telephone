@@ -31,22 +31,22 @@ final class AKNSString_ScanningTests: XCTestCase {
         XCTAssertFalse("12345@_.,;#&".ak_hasLetters)
     }
 
-    func testIsIPAddressIsTrueIfStringIsAnIPAddress() {
-        XCTAssertTrue("192.168.0.1".ak_isIPAddress)
-        XCTAssertTrue("192.168.000.001".ak_isIPAddress)
-        XCTAssertTrue("0.0.0.0".ak_isIPAddress)
+    func testIsIP4AddressIsTrueIfStringIsAnIPv4Address() {
+        XCTAssertTrue("192.168.0.1".ak_isIP4Address)
+        XCTAssertTrue("192.168.000.001".ak_isIP4Address)
+        XCTAssertTrue("0.0.0.0".ak_isIP4Address)
     }
 
-    func testIsIPAddressIsFalseIfStringIsNotAnIPAddress() {
-        XCTAssertFalse("any".ak_isIPAddress)
-        XCTAssertFalse("a.b.c.d".ak_isIPAddress)
-        XCTAssertFalse("1.1.1.1.1".ak_isIPAddress)
-        XCTAssertFalse("1.1.1.a".ak_isIPAddress)
-        XCTAssertFalse("1.1.1.1a".ak_isIPAddress)
-        XCTAssertFalse("@1.1.1.1".ak_isIPAddress)
-        XCTAssertFalse(" 1.1.1.1".ak_isIPAddress)
-        XCTAssertFalse("1.1.1.1 ".ak_isIPAddress)
-        XCTAssertFalse("1:2:3:4:5:6:7:8".ak_isIPAddress)
+    func testIsIP4AddressIsFalseIfStringIsNotAnIPv4Address() {
+        XCTAssertFalse("any".ak_isIP4Address)
+        XCTAssertFalse("a.b.c.d".ak_isIP4Address)
+        XCTAssertFalse("1.1.1.1.1".ak_isIP4Address)
+        XCTAssertFalse("1.1.1.a".ak_isIP4Address)
+        XCTAssertFalse("1.1.1.1a".ak_isIP4Address)
+        XCTAssertFalse("@1.1.1.1".ak_isIP4Address)
+        XCTAssertFalse(" 1.1.1.1".ak_isIP4Address)
+        XCTAssertFalse("1.1.1.1 ".ak_isIP4Address)
+        XCTAssertFalse("1:2:3:4:5:6:7:8".ak_isIP4Address)
     }
 
     func testIsIP6AddressIsTrueIfStringIsAnIPv6Address() {
