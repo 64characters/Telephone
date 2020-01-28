@@ -22,20 +22,15 @@
 @implementation NSString (AKStringScanningAdditions)
 
 - (BOOL)ak_hasLetters {
-    NSPredicate *containsLettersPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"];
-    
-    return ([containsLettersPredicate evaluateWithObject:self]) ? YES : NO;
+    return [[NSPredicate predicateWithFormat:@"SELF MATCHES '.*[a-zA-Z].*'"] evaluateWithObject:self];
 }
 
 - (BOOL)ak_isIPAddress {
-    NSPredicate *IPAddressPredicate
-        = [NSPredicate predicateWithFormat:@"SELF MATCHES "
-           "'\\\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-           "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-           "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
-           "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\b'"];
-    
-    return ([IPAddressPredicate evaluateWithObject:self]) ? YES : NO;
+    return [[NSPredicate predicateWithFormat:@"SELF MATCHES "
+             "'\\\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
+             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
+             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\."
+             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\b'"] evaluateWithObject:self];
 }
 
 @end
