@@ -47,6 +47,8 @@ final class AKNSString_ScanningTests: XCTestCase {
         XCTAssertFalse(" 1.1.1.1".ak_isIP4Address)
         XCTAssertFalse("1.1.1.1 ".ak_isIP4Address)
         XCTAssertFalse("1:2:3:4:5:6:7:8".ak_isIP4Address)
+        XCTAssertFalse("::255.255.255.255".ak_isIP4Address)
+        XCTAssertFalse("2001:db8:3:4::192.0.2.33".ak_isIP4Address)
     }
 
     func testIsIP6AddressIsTrueIfStringIsAnIPv6Address() {
