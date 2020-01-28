@@ -56,4 +56,17 @@ final class ServiceAddressTests: XCTestCase {
         XCTAssertEqual(sut.host, "any")
         XCTAssertEqual(sut.port, "123")
     }
+
+    func testSquareBracketsAreIgnoredWhenPortIsNotSpecified() {
+        let sut = ServiceAddress(string: "[any]")
+
+        XCTAssertEqual(sut.host, "any")
+    }
+
+    func testSquareBracketsAreIgnoredWhenPortIsSpecified() {
+        let sut = ServiceAddress(string: "[any]:123")
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.port, "123")
+    }
 }

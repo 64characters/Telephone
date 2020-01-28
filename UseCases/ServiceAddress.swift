@@ -23,10 +23,10 @@ public final class ServiceAddress: NSObject {
     @objc public init(string: String) {
         let address = beforeSemicolon(string)
         if let range = address.range(of: ":") {
-            host = String(address[..<range.lowerBound])
+            host = trimmingSquareBrackets(String(address[..<range.lowerBound]))
             port = String(address[range.upperBound...])
         } else {
-            host = address
+            host = trimmingSquareBrackets(address)
             port = ""
         }
     }
@@ -38,4 +38,8 @@ private func beforeSemicolon(_ string: String) -> String {
     } else {
         return string
     }
+}
+
+private func trimmingSquareBrackets(_ string: String) -> String {
+    return string.trimmingCharacters(in: CharacterSet(charactersIn: "[]"))
 }
