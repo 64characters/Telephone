@@ -31,6 +31,17 @@ final class AKNSString_ScanningTests: XCTestCase {
         XCTAssertFalse("12345@_.,;#&".ak_hasLetters)
     }
 
+    func testIsIPAddressIsTrueIfStringIsEitherAnIPv4OrIPv6Address() {
+        XCTAssertTrue("192.168.0.1".ak_isIPAddress)
+        XCTAssertTrue("1:2:3:4:5:6:7:8".ak_isIPAddress)
+    }
+
+    func testIsIPAddressIsFalseIfStringIsNeitherAnIPv4NorIPv6Address() {
+        XCTAssertFalse("1.1.1.1.1".ak_isIPAddress)
+        XCTAssertFalse("1:2:3:4:5:6:7:8:9".ak_isIPAddress)
+        XCTAssertFalse("foo".ak_isIPAddress)
+    }
+
     func testIsIP4AddressIsTrueIfStringIsAnIPv4Address() {
         XCTAssertTrue("192.168.0.1".ak_isIP4Address)
         XCTAssertTrue("192.168.000.001".ak_isIP4Address)

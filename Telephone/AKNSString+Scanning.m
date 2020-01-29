@@ -31,7 +31,7 @@ static NSString * const kIP4Regex
 }
 
 - (BOOL)ak_isIPAddress {
-    return [self ak_isIP4Address];
+    return [self ak_isIP4Address] || [self ak_isIP6Address];
 }
 
 - (BOOL)ak_isIP4Address {
