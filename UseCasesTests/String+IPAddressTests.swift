@@ -33,7 +33,6 @@ final class String_IPAddressTests: XCTestCase {
 
     func testIsIP4AddressIsTrueIfStringIsAnIPv4Address() {
         XCTAssertTrue("192.168.0.1".isIP4Address)
-        XCTAssertTrue("192.168.000.001".isIP4Address)
         XCTAssertTrue("0.0.0.0".isIP4Address)
     }
 
@@ -46,6 +45,7 @@ final class String_IPAddressTests: XCTestCase {
         XCTAssertFalse("@1.1.1.1".isIP4Address)
         XCTAssertFalse(" 1.1.1.1".isIP4Address)
         XCTAssertFalse("1.1.1.1 ".isIP4Address)
+        XCTAssertFalse("192.168.000.001".isIP4Address)
         XCTAssertFalse("1:2:3:4:5:6:7:8".isIP4Address)
         XCTAssertFalse("::255.255.255.255".isIP4Address)
         XCTAssertFalse("2001:db8:3:4::192.0.2.33".isIP4Address)
