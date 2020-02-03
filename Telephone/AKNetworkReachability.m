@@ -21,7 +21,7 @@
 #import <netinet/in.h>
 #import <arpa/inet.h>
 
-#import "AKNSString+Scanning.h"
+@import UseCases;
 
 
 NSString * const AKNetworkReachabilityDidBecomeReachableNotification = @"AKNetworkReachabilityDidBecomeReachable";

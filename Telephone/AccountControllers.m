@@ -19,12 +19,13 @@
 #import "AccountControllers.h"
 
 #import "AKNetworkReachability.h"
-#import "AKNSString+Scanning.h"
 #import "AKSIPUserAgent.h"
 
 #import "AccountController.h"
 
 #import "Telephone-Swift.h"
+
+@import UseCases;
 
 @interface AccountControllers ()
 

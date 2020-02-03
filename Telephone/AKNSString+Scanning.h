@@ -25,13 +25,4 @@
 // A Boolean value indicating whether the receiver consists only of a-z or A-Z.
 @property(nonatomic, readonly) BOOL ak_hasLetters;
 
-// A Boolean value indicating whether the receiver is an IP address.
-@property(nonatomic, readonly) BOOL ak_isIPAddress;
-
-// A Boolean value indicating whether the receiver is an IPv4 address.
-@property(nonatomic, readonly) BOOL ak_isIP4Address;
-
-// A Boolean value indicating whether the receiver is an IPv6 address.
-@property(nonatomic, readonly) BOOL ak_isIP6Address;
-
 @end
