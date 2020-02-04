@@ -70,10 +70,22 @@ final class ServiceAddressTests: XCTestCase {
         XCTAssertEqual(sut.port, "123")
     }
 
-    func testSquareBracketsAreIgnoredWhenHostIsIPv6AddressAndPortIsSpecified() {
+    func testSquareBracketsAreIgnoredWhenHostIsAnIPv6AddressAndPortIsSpecified() {
         let sut = ServiceAddress(string: "[1:2:3:4:5:6:7:8]:123")
 
         XCTAssertEqual(sut.host, "1:2:3:4:5:6:7:8")
         XCTAssertEqual(sut.port, "123")
+    }
+
+    func testHostIsCompleteInputStringWhenInputStringIsAnIPv6Address() {
+        let sut = ServiceAddress(string: "1:2:3:4:5:6:7:8")
+
+        XCTAssertEqual(sut.host, "1:2:3:4:5:6:7:8")
+    }
+
+    func testHostIsSubstringInsideSquareBracketsWhenItContainsColonsAndPortIsNotSpecified() {
+        let sut = ServiceAddress(string: "[1:2:3:4:5:6:7:8]")
+
+        XCTAssertEqual(sut.host, "1:2:3:4:5:6:7:8")
     }
 }

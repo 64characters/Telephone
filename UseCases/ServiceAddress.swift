@@ -22,7 +22,10 @@ public final class ServiceAddress: NSObject {
 
     @objc public init(string: String) {
         let address = beforeSemicolon(string)
-        if let range = address.range(of: ":", options: .backwards) {
+        if trimmingSquareBrackets(address).isIP6Address {
+            host = trimmingSquareBrackets(address)
+            port = ""
+        } else if let range = address.range(of: ":", options: .backwards) {
             host = trimmingSquareBrackets(String(address[..<range.lowerBound]))
             port = String(address[range.upperBound...])
         } else {
