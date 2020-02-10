@@ -18,20 +18,49 @@
 
 public final class ServiceAddress: NSObject {
     @objc public let host: String
-    public let port: String
+    @objc public let port: String
 
-    @objc public init(string: String) {
+    @objc public var stringValue: String {
+        let h = host.isIP6Address ? "[\(host)]" : host
+        return port.isEmpty ? h : "\(h):\(port)"
+    }
+
+    @objc public init(host: String, port: String) {
+        self.host = trimmingSquareBrackets(host)
+        self.port = port
+    }
+
+    @objc public convenience init(host: String) {
+        self.init(host: host, port: "")
+    }
+
+    @objc public convenience init(string: String) {
         let address = beforeSemicolon(string)
         if trimmingSquareBrackets(address).isIP6Address {
-            host = trimmingSquareBrackets(address)
-            port = ""
+            self.init(host: address)
         } else if let range = address.range(of: ":", options: .backwards) {
-            host = trimmingSquareBrackets(String(address[..<range.lowerBound]))
-            port = String(address[range.upperBound...])
+            self.init(host: String(address[..<range.lowerBound]), port: String(address[range.upperBound...]))
         } else {
-            host = trimmingSquareBrackets(address)
-            port = ""
+            self.init(host: address)
         }
+    }
+}
+
+extension ServiceAddress {
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let address = object as? ServiceAddress else { return false }
+        return isEqual(to: address)
+    }
+
+    public override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(host)
+        hasher.combine(port)
+        return hasher.finalize()
+    }
+
+    private func isEqual(to address: ServiceAddress) -> Bool {
+        return host == address.host && port == address.port
     }
 }
 
