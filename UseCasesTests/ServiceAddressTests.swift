@@ -21,33 +21,23 @@ import XCTest
 
 final class ServiceAddressTests: XCTestCase {
     func testHostIsCompleteInputStringWhenNoPortIsSpecified() {
-        let sut = ServiceAddress("any")
-
-        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(ServiceAddress("any").host, "any")
     }
 
     func testHostIsSubstringBeforeColon() {
-        let sut = ServiceAddress("any:123")
-
-        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(ServiceAddress("any:123").host, "any")
     }
 
     func testPortIsSubstringAfterColon() {
-        let sut = ServiceAddress("any:123")
-
-        XCTAssertEqual(sut.port, "123")
+        XCTAssertEqual(ServiceAddress("any:123").port, "123")
     }
 
     func testPortIsEmptyStringWhenInputStringEndsWithColon() {
-        let sut = ServiceAddress("any:")
-
-        XCTAssertEqual(sut.port, "")
+        XCTAssertEqual(ServiceAddress("any:").port, "")
     }
 
     func testSubstringAfterSemicolonIsIgnoredWhenNoPortIsSpecified() {
-        let sut = ServiceAddress("any;params")
-
-        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(ServiceAddress("any;params").host, "any")
     }
 
     func testSubstringAfterSemicolonIsIgnoredWhenPortIsSpecified() {
@@ -58,9 +48,7 @@ final class ServiceAddressTests: XCTestCase {
     }
 
     func testSquareBracketsAreIgnoredWhenPortIsNotSpecified() {
-        let sut = ServiceAddress("[any]")
-
-        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(ServiceAddress("[any]").host, "any")
     }
 
     func testSquareBracketsAreIgnoredWhenPortIsSpecified() {
@@ -78,15 +66,11 @@ final class ServiceAddressTests: XCTestCase {
     }
 
     func testHostIsCompleteInputStringWhenInputStringIsAnIPv6Address() {
-        let sut = ServiceAddress("1:2:3:4:5:6:7:8")
-
-        XCTAssertEqual(sut.host, "1:2:3:4:5:6:7:8")
+        XCTAssertEqual(ServiceAddress("1:2:3:4:5:6:7:8").host, "1:2:3:4:5:6:7:8")
     }
 
     func testHostIsSubstringInsideSquareBracketsWhenItContainsColonsAndPortIsNotSpecified() {
-        let sut = ServiceAddress("[1:2:3:4:5:6:7:8]")
-
-        XCTAssertEqual(sut.host, "1:2:3:4:5:6:7:8")
+        XCTAssertEqual(ServiceAddress("[1:2:3:4:5:6:7:8]").host, "1:2:3:4:5:6:7:8")
     }
 
     func testCanCreateWithHostAndPort() {
