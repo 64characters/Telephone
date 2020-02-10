@@ -52,7 +52,7 @@ final class URITests: XCTestCase {
     }
 
     func testCanCreateWithServiceAddress() {
-        let sut = URI(address: ServiceAddress(string: "any:123"))
+        let sut = URI(address: ServiceAddress("any:123"))
 
         XCTAssertEqual(sut.host, "any")
         XCTAssertEqual(sut.port, "123")

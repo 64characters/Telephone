@@ -34,7 +34,7 @@ public final class ServiceAddress: NSObject {
         self.init(host: host, port: "")
     }
 
-    @objc public convenience init(string: String) {
+    @objc(initWithString:) public convenience init(_ string: String) {
         let address = beforeSemicolon(string)
         if trimmingSquareBrackets(address).isIP6Address {
             self.init(host: address)
