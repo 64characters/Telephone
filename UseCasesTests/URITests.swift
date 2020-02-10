@@ -20,23 +20,57 @@ import UseCases
 import XCTest
 
 final class URITests: XCTestCase {
-    func testTwoURIsWithTheSamePropertiesAreEqual() {
+    func testEquality() {
         XCTAssertEqual(
             URI(user: "any-user", host: "any-host", displayName: "any-name"),
             URI(user: "any-user", host: "any-host", displayName: "any-name")
         )
     }
 
-    func testTextualRepresentationWithoutDisplayName() {
+    func testStringValueWhenDisplayNameAndPortAreNotSpecified() {
         XCTAssertEqual(
-            String(describing: URI(user: "john", host: "example.com", displayName: "")), "<sip:john@example.com>"
+            URI(user: "john", host: "example.com", displayName: "").stringValue, "<sip:john@example.com>"
         )
     }
 
-    func testTextualRepresentationWithDisplayName() {
+    func testStringValueWhenDisplayNameIsSpecifiedAndPortIsNotSpecified() {
         XCTAssertEqual(
-            String(describing: URI(user: "john", host: "example.com", displayName: "John Doe")),
+            URI(user: "john", host: "example.com", displayName: "John Doe").stringValue,
             "\"John Doe\" <sip:john@example.com>"
         )
+    }
+
+    func testStringValueWhenPortIsSpecifiedAndDisplayNameIsNotSpecified() {
+        XCTAssertEqual(URI(address: ServiceAddress(host: "any", port: "123")).stringValue, "<sip:any:123>")
+    }
+
+    func testStringValueWhenDisplayNameAndPortAreSpecified() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host", port: "123"), displayName: "Name").stringValue,
+            "\"Name\" <sip:user@host:123>"
+        )
+    }
+
+    func testCanCreateWithServiceAddress() {
+        let sut = URI(address: ServiceAddress(string: "any:123"))
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.port, "123")
+    }
+
+    func testCanCreateWithUserAndServiceAddressAndDisplayName() {
+        let address = ServiceAddress(host: "host", port: "123")
+        let sut = URI(user: "user", address: address, displayName: "Name")
+
+        XCTAssertEqual(sut.user, "user")
+        XCTAssertEqual(sut.address, address)
+        XCTAssertEqual(sut.displayName, "Name")
+    }
+
+    func testHostAndPortAreHostAndPortFromAddress() {
+        let sut = URI(address: ServiceAddress(host: "any", port: "1234"))
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.port, "1234")
     }
 }

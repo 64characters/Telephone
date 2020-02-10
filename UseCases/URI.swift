@@ -20,21 +20,29 @@ import Foundation
 
 public final class URI: NSObject {
     @objc public let user: String
-    @objc public let host: String
+    @objc public let address: ServiceAddress
     @objc public let displayName: String
 
-    public init(user: String, host: String, displayName: String) {
+    @objc public var host: String { return address.host }
+    @objc public var port: String { return address.port }
+
+    @objc public var stringValue: String {
+        let a = user.isEmpty ? address.stringValue : "\(user)@\(address.stringValue)"
+        return displayName.isEmpty ? "<sip:\(a)>" : "\"\(displayName)\" <sip:\(a)>"
+    }
+
+    @objc public init(user: String, address: ServiceAddress, displayName: String) {
         self.user = user
-        self.host = host
+        self.address = address
         self.displayName = displayName
     }
 
-    public override var description: String {
-        if !displayName.isEmpty {
-            return "\"\(displayName)\" <sip:\(user)@\(host)>"
-        } else {
-            return "<sip:\(user)@\(host)>"
-        }
+    @objc public convenience init(user: String, host: String, displayName: String) {
+        self.init(user: user, address: ServiceAddress(host: host), displayName: displayName)
+    }
+
+    @objc public convenience init(address: ServiceAddress) {
+        self.init(user: "", address: address, displayName: "")
     }
 }
 
@@ -47,12 +55,12 @@ extension URI {
     public override var hash: Int {
         var hasher = Hasher()
         hasher.combine(user)
-        hasher.combine(host)
+        hasher.combine(address)
         hasher.combine(displayName)
         return hasher.finalize()
     }
 
     private func isEqual(to uri: URI) -> Bool {
-        return user == uri.user && host == uri.host && displayName == uri.displayName
+        return user == uri.user && address == uri.address && displayName == uri.displayName
     }
 }
