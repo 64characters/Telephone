@@ -29,7 +29,7 @@ final class URITests: XCTestCase {
 
     func testStringValueWhenDisplayNameAndPortAreNotSpecified() {
         XCTAssertEqual(
-            URI(user: "john", host: "example.com", displayName: "").stringValue, "<sip:john@example.com>"
+            URI(user: "john", host: "example.com", displayName: "").stringValue, "sip:john@example.com"
         )
     }
 
@@ -41,7 +41,7 @@ final class URITests: XCTestCase {
     }
 
     func testStringValueWhenPortIsSpecifiedAndDisplayNameIsNotSpecified() {
-        XCTAssertEqual(URI(address: ServiceAddress(host: "any", port: "123")).stringValue, "<sip:any:123>")
+        XCTAssertEqual(URI(address: ServiceAddress(host: "any", port: "123")).stringValue, "sip:any:123")
     }
 
     func testStringValueWhenDisplayNameAndPortAreSpecified() {
