@@ -25,6 +25,8 @@ public final class ServiceAddress: NSObject {
         return port.isEmpty ? h : "\(h):\(port)"
     }
 
+    public override var description: String { return stringValue }
+
     @objc public init(host: String, port: String) {
         self.host = trimmingSquareBrackets(host)
         self.port = port

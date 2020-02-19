@@ -103,4 +103,10 @@ final class ServiceAddressTests: XCTestCase {
     func testEquality() {
         XCTAssertEqual(ServiceAddress(host: "any", port: "123"), ServiceAddress(host: "any", port: "123"))
     }
+
+    func testTextualRepresentationIsSameAsStringValue() {
+        let sut = ServiceAddress(host: "host", port: "1337")
+
+        XCTAssertEqual(String(describing: sut), sut.stringValue)
+    }
 }

@@ -27,7 +27,7 @@ public final class URI: NSObject {
     @objc public var port: String { return address.port }
 
     @objc public var stringValue: String {
-        let a = user.isEmpty ? address.stringValue : "\(user)@\(address.stringValue)"
+        let a = user.isEmpty ? "\(address)" : "\(user)@\(address)"
         return displayName.isEmpty ? "sip:\(a)" : "\"\(displayName)\" <sip:\(a)>"
     }
 
