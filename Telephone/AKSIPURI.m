@@ -18,6 +18,8 @@
 
 #import "AKSIPURI.h"
 
+@import UseCases;
+
 #import <pjsua-lib/pjsua.h>
 
 #import "AKNSString+PJSUA.h"
@@ -26,11 +28,7 @@
 @implementation AKSIPURI
 
 - (NSString *)SIPAddress {
-    if ([[self user] length] > 0) {
-        return [NSString stringWithFormat:@"%@@%@", [self user], [self host]];
-    } else {
-        return [self host];
-    }
+    return [[SIPAddress alloc] initWithUser:self.user host:self.host].stringValue;
 }
 
 
