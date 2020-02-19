@@ -152,10 +152,10 @@
 #pragma mark NSCopying protocol
 
 - (id)copyWithZone:(NSZone *)zone {
-  AKSIPURI *newURI = [[AKSIPURI allocWithZone:zone] initWithUser:[self user] host:[self host] displayName:[self displayName]];
-  [newURI setPort:[self port]];
-
-  return newURI;
+    return [[AKSIPURI allocWithZone:zone] initWithUser:self.user
+                                                  host:self.host
+                                           displayName:self.displayName
+                                                  port:self.port];
 }
 
 @end
