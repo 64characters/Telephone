@@ -23,6 +23,8 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		8A00076523F733AB00963069 /* SIPAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A00076423F733AB00963069 /* SIPAddressTests.swift */; };
+		8A00076723F733EC00963069 /* SIPAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A00076623F733EC00963069 /* SIPAddress.swift */; };
 		8A01163620D2A8B500DA68A5 /* SystemAudioDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01163520D2A8B500DA68A5 /* SystemAudioDevices.swift */; };
 		8A01163920D2E99B00DA68A5 /* SystemAudioDevicesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01163820D2E99B00DA68A5 /* SystemAudioDevicesFactory.swift */; };
 		8A042ADE2109F9AF00306472 /* SystemDefaultingSoundIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A042ADD2109F9AF00306472 /* SystemDefaultingSoundIOTests.swift */; };
@@ -890,6 +892,8 @@
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8A00076423F733AB00963069 /* SIPAddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIPAddressTests.swift; path = UseCasesTests/SIPAddressTests.swift; sourceTree = SOURCE_ROOT; };
+		8A00076623F733EC00963069 /* SIPAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIPAddress.swift; sourceTree = "<group>"; };
 		8A01163520D2A8B500DA68A5 /* SystemAudioDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioDevices.swift; sourceTree = "<group>"; };
 		8A01163820D2E99B00DA68A5 /* SystemAudioDevicesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioDevicesFactory.swift; sourceTree = "<group>"; };
 		8A0191291DAC472B00B35A8E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Account.strings; sourceTree = "<group>"; };
@@ -2890,6 +2894,8 @@
 				8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */,
 				8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */,
 				8A7814231DB150D6005CB612 /* SettingsKeys.swift */,
+				8A00076623F733EC00963069 /* SIPAddress.swift */,
+				8A00076423F733AB00963069 /* SIPAddressTests.swift */,
 				8A0E8A8523E2111400FC7BC3 /* String+IPAddress.swift */,
 				8A0E8A8723E4A88100FC7BC3 /* String+IPAddressTests.swift */,
 				AA404AC91BFC8E8900D00A3E /* ThrowingUseCase.swift */,
@@ -4141,6 +4147,7 @@
 				8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */,
 				8AB78263217A426F002E4DFB /* UserAgentStartUseCase.swift in Sources */,
 				8A11B3CC1DDB4640002EDA93 /* URI.swift in Sources */,
+				8A00076723F733EC00963069 /* SIPAddress.swift in Sources */,
 				8A7E21541CC411F3000D02C3 /* ServiceAddress.swift in Sources */,
 				8A645FF11E12C8AD00515151 /* MatchedContact.swift in Sources */,
 				8AB677FC1F0D1B3C001A47A2 /* URI+ContactCallHistoryRecord.swift in Sources */,
@@ -4290,6 +4297,7 @@
 				8A2C9F33216D00D900063404 /* RingtonePlaybackCallEventTargetTests.swift in Sources */,
 				8A32A4EA1D675A300086B49D /* PurchaseCheckUseCaseTests.swift in Sources */,
 				8A2BAAE01F06C1E700A1801E /* FallingBackMatchedContactFactoryTests.swift in Sources */,
+				8A00076523F733AB00963069 /* SIPAddressTests.swift in Sources */,
 				8AE396EC1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift in Sources */,
 				8AD9A0E41DE46B4C000BB2F2 /* DefaultCallHistoriesTests.swift in Sources */,
 				AA39053C1BFFDDED005A8AA3 /* PreferredSoundIOTests.swift in Sources */,
