@@ -574,8 +574,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     NSString *fullSIPURL = [NSString stringWithFormat:@"%@ <sip:%@>", [anAccount fullName], [anAccount SIPAddress]];
     accountConfig.id = [fullSIPURL pjString];
     
-    NSString *registerURI = [NSString stringWithFormat:@"sip:%@", [anAccount registrar]];
-    accountConfig.reg_uri = [registerURI pjString];
+    accountConfig.reg_uri = [[URI alloc] initWithAddress:anAccount.registrar].stringValue.pjString;
     
     accountConfig.cred_count = 1;
     if ([[anAccount realm] length] > 0) {

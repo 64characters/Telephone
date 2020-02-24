@@ -69,9 +69,8 @@ static NSString * const kRussian = @"ru";
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     if (flag) {
-        ServiceAddress *address = [[ServiceAddress alloc] initWithString:self.account.registrar];
         AKNetworkReachability *reachability
-            = [AKNetworkReachability networkReachabilityWithHost:address.host];
+            = [AKNetworkReachability networkReachabilityWithHost:self.account.registrar.host];
         [self setRegistrarReachability:reachability];
         
         if (reachability != nil) {

@@ -18,6 +18,8 @@
 
 #import "AKSIPAccount.h"
 
+@import UseCases;
+
 #import "AKNSString+PJSUA.h"
 #import "AKSIPURI.h"
 #import "AKSIPUserAgent.h"
@@ -245,7 +247,7 @@ NS_ASSUME_NONNULL_END
     _uuid = [uuid copy];
     _fullName = [fullName copy];
     _SIPAddress = [finalSIPAddress copy];
-    _registrar = [registrar.length > 0 ? registrar : domain copy];
+    _registrar = [[ServiceAddress alloc] initWithString:(registrar.length > 0 ? registrar : domain)];
     _realm = [realm copy];
     _username = [username copy];
     _domain = [domain copy];

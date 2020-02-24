@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
-@class AKSIPCall, AKSIPURI;
+@class AKSIPCall, AKSIPURI, ServiceAddress;
 
 // A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
 // class to make and receive calls.
@@ -52,7 +52,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 @property(nonatomic, readonly) NSString *SIPAddress;
 
 // Registrar.
-@property(nonatomic, readonly) NSString *registrar;
+@property(nonatomic, readonly) ServiceAddress *registrar;
 
 // Realm. Pass empty string to make a credential that can be used to authenticate against any challenges.
 @property(nonatomic, readonly) NSString *realm;
