@@ -31,6 +31,8 @@ public final class URI: NSObject {
         return displayName.isEmpty ? "sip:\(a)" : "\"\(displayName)\" <sip:\(a)>"
     }
 
+    public override var description: String { return stringValue }
+
     @objc public init(user: String, address: ServiceAddress, displayName: String) {
         self.user = user
         self.address = address
@@ -43,6 +45,22 @@ public final class URI: NSObject {
 
     @objc public convenience init(address: ServiceAddress) {
         self.init(user: "", address: address, displayName: "")
+    }
+
+    @objc public convenience init(host: String, port: String) {
+        self.init(address: ServiceAddress(host: host, port: port))
+    }
+
+    @objc public convenience init(host: String) {
+        self.init(address: ServiceAddress(host: host))
+    }
+
+    @objc(URIWithHost:port:) public class func uri(host: String, port: String) -> URI {
+        return URI(host: host, port: port)
+    }
+
+    @objc(URIWithHost:) public class func uri(host: String) -> URI {
+        return URI(host: host)
     }
 }
 
