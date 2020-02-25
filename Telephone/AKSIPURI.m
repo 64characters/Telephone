@@ -133,16 +133,10 @@
 }
 
 - (NSString *)description {
-    NSString *SIPAddressWithPort = [self SIPAddress];
-    if ([self port] > 0) {
-        SIPAddressWithPort = [SIPAddressWithPort stringByAppendingFormat:@":%ld", [self port]];
-    }
-    
-    if ([[self displayName] length] > 0) {
-        return [NSString stringWithFormat:@"\"%@\" <sip:%@>", [self displayName], SIPAddressWithPort];
-    } else {
-        return [NSString stringWithFormat:@"<sip:%@>", SIPAddressWithPort];
-    }
+    NSString *port = self.port > 0 ? @(self.port).stringValue : @"";
+    return [[URI alloc] initWithUser:self.user
+                             address:[[ServiceAddress alloc] initWithHost:self.host port:port]
+                         displayName:self.displayName].stringValue;
 }
 
 
