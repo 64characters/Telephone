@@ -223,7 +223,7 @@ NS_ASSUME_NONNULL_END
 
 - (instancetype)initWithUUID:(NSString *)uuid
                     fullName:(NSString *)fullName
-                  SIPAddress:(nullable NSString *)SIPAddress
+                  SIPAddress:(nullable NSString *)sipAddress
                    registrar:(nullable NSString *)registrar
                        realm:(NSString *)realm
                     username:(NSString *)username
@@ -240,7 +240,7 @@ NS_ASSUME_NONNULL_END
         return nil;
     }
 
-    NSString *finalSIPAddress = SIPAddress.length > 0 ? SIPAddress : [NSString stringWithFormat:@"%@@%@", username, domain];
+    NSString *finalSIPAddress = sipAddress.length > 0 ? sipAddress : [[SIPAddress alloc] initWithUser:username host:domain].stringValue;
 
     _registrationURI = [AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", fullName, finalSIPAddress]];
 

@@ -313,9 +313,7 @@ static NSString * const kRussian = @"ru";
             [aCallController setTitle:enteredCallDestinationString];
         }
     } else {
-        NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@",
-                                [destinationURI user], [[[self account] registrationURI] host]];
-        [aCallController setTitle:SIPAddress];
+        [aCallController setTitle:[[SIPAddress alloc] initWithUser:destinationURI.user host:self.account.registrationURI.host].stringValue];
     }
     
     // Set displayed name.

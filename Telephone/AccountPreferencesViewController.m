@@ -18,6 +18,8 @@
 
 #import "AccountPreferencesViewController.h"
 
+@import UseCases;
+
 #import "AKKeychain.h"
 
 #import "AccountSetupController.h"
@@ -241,8 +243,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self accountDescriptionField] setPlaceholderString:accountDict[kSIPAddress]];
         } else {
             [[self accountDescriptionField] setPlaceholderString:
-             [NSString stringWithFormat:@"%@@%@",
-              accountDict[kUsername], accountDict[kDomain]]];
+             [[SIPAddress alloc] initWithUser:accountDict[kUsername] host:accountDict[kDomain]].stringValue];
         }
         
         // Full Name.
@@ -313,7 +314,7 @@ static const NSUInteger kAccountsMax = 32;
         
         // SIP Address and Registry Server placeholder strings.
         if ([accountDict[kDomain] length] > 0) {
-            [[self SIPAddressField] setPlaceholderString:[NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]]];
+            [[self SIPAddressField] setPlaceholderString:[[SIPAddress alloc] initWithUser:accountDict[kUsername] host:accountDict[kDomain]].stringValue];
             [[self registrarField] setPlaceholderString:accountDict[kDomain]];
         } else {
             [[self SIPAddressField] setPlaceholderString:nil];
@@ -441,8 +442,8 @@ static const NSUInteger kAccountsMax = 32;
         accountDict[kProxyHost] = proxyHost;
         accountDict[kProxyPort] = @([[self proxyPortField] integerValue]);
         
-        NSString *SIPAddress = [[[self SIPAddressField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
-        accountDict[kSIPAddress] = SIPAddress;
+        NSString *sipAddress = [[[self SIPAddressField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
+        accountDict[kSIPAddress] = sipAddress;
         
         accountDict[kRegistrar] = registrar;
         
@@ -464,17 +465,16 @@ static const NSUInteger kAccountsMax = 32;
         
         // Set placeholders.
         
-        if ([SIPAddress length] > 0) {
-            [[self accountDescriptionField] setPlaceholderString:SIPAddress];
+        if ([sipAddress length] > 0) {
+            [[self accountDescriptionField] setPlaceholderString:sipAddress];
         } else {
             [[self accountDescriptionField] setPlaceholderString:
-             [NSString stringWithFormat:@"%@@%@", username, domain]];
+             [[SIPAddress alloc] initWithUser:username host:domain].stringValue];
         }
         
         if ([domain length] > 0) {
-            [[self SIPAddressField] setPlaceholderString:
-             [NSString stringWithFormat:@"%@@%@", username, domain]];
-            
+            [[self SIPAddressField] setPlaceholderString:[[SIPAddress alloc] initWithUser:username host:domain].stringValue];
+
             [[self registrarField] setPlaceholderString:domain];
             
         } else {
@@ -578,14 +578,14 @@ static const NSUInteger kAccountsMax = 32;
         returnValue = accountDescription;
         
     } else {
-        NSString *SIPAddress;
+        NSString *sipAddress;
         if ([accountDict[kSIPAddress] length] > 0) {
-            SIPAddress = accountDict[kSIPAddress];
+            sipAddress = accountDict[kSIPAddress];
         } else {
-            SIPAddress = [NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]];
+            sipAddress = [[SIPAddress alloc] initWithUser:accountDict[kUsername] host:accountDict[kDomain]].stringValue;
         }
         
-        returnValue = SIPAddress;
+        returnValue = sipAddress;
     }
     
     return returnValue;

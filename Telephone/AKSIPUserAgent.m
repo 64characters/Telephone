@@ -338,19 +338,22 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         userAgentConfig.outbound_proxy_cnt = 1;
         
         if ([self outboundProxyPort] == kAKSIPUserAgentDefaultOutboundProxyPort) {
-            userAgentConfig.outbound_proxy[0] = [[NSString stringWithFormat:@"sip:%@",
-                                                  [self outboundProxyHost]] pjString];
+            userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost].stringValue.pjString;
         } else {
-            userAgentConfig.outbound_proxy[0]
-                = [[NSString stringWithFormat:@"sip:%@:%lu",
-                    [self outboundProxyHost], [self outboundProxyPort]] pjString];
+            userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost
+                                                            port:@(self.outboundProxyPort).stringValue].stringValue.pjString;
         }
     }
 
     if ([[self STUNServerHost] length] > 0) {
-        userAgentConfig.stun_srv[0] = [[NSString stringWithFormat:@"%@:%lu",
-                                        [self STUNServerHost], [self STUNServerPort]] pjString];
         userAgentConfig.stun_srv_cnt = 1;
+
+        if ([self STUNServerPort] == kAKSIPUserAgentDefaultSTUNServerPort) {
+            userAgentConfig.stun_srv[0] = [[ServiceAddress alloc] initWithHost:self.STUNServerHost].stringValue.pjString;
+        } else {
+            userAgentConfig.stun_srv[0] = [[ServiceAddress alloc] initWithHost:self.STUNServerHost
+                                                                          port:@(self.STUNServerPort).stringValue].stringValue.pjString;
+        }
     }
     userAgentConfig.stun_try_ipv6 = PJ_TRUE;
 
@@ -571,9 +574,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     pjsua_acc_config accountConfig;
     pjsua_acc_config_default(&accountConfig);
     
-    NSString *fullSIPURL = [NSString stringWithFormat:@"%@ <sip:%@>", [anAccount fullName], [anAccount SIPAddress]];
-    accountConfig.id = [fullSIPURL pjString];
-    
+    accountConfig.id = [NSString stringWithFormat:@"%@ <sip:%@>", anAccount.fullName, anAccount.SIPAddress].pjString;
+
     accountConfig.reg_uri = [[URI alloc] initWithAddress:anAccount.registrar].stringValue.pjString;
     
     accountConfig.cred_count = 1;
@@ -598,10 +600,9 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         accountConfig.proxy_cnt = 1;
         
         if ([anAccount proxyPort] == kAKSIPAccountDefaultSIPProxyPort) {
-            accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@", [anAccount proxyHost]] pjString];
+            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost].stringValue.pjString;
         } else {
-            accountConfig.proxy[0] = [[NSString stringWithFormat:@"sip:%@:%lu",
-                                       [anAccount proxyHost], [anAccount proxyPort]] pjString];
+            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost port:@(anAccount.proxyPort).stringValue].stringValue.pjString;
         }
     }
     
