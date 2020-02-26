@@ -34,6 +34,14 @@ public final class SIPAddress: NSObject {
         self.host = host
     }
 
+    @objc(initWithString:) public convenience init(_ string: String) {
+        if let range = string.range(of: "@") {
+            self.init(user: String(string[..<range.lowerBound]), host: String(string[range.upperBound...]))
+        } else {
+            self.init(user: "", host: string)
+        }
+    }
+
     @objc(SIPAddressWithUser:host:) public class func address(user: String, host: String) -> SIPAddress {
         return SIPAddress(user: user, host: host)
     }

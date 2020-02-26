@@ -34,6 +34,20 @@ final class SIPAddressTests: XCTestCase {
         XCTAssertEqual(sut.host, "any-host")
     }
 
+    func testUserIsSubstringBeforeAtCharacterAndHostIsSubstringAfterAtCharacterWhenCreatedWithString() {
+        let sut = SIPAddress("user@host")
+
+        XCTAssertEqual(sut.user, "user")
+        XCTAssertEqual(sut.host, "host")
+    }
+
+    func testUserIsEmptyAndHostIsInputStringWhenInputStringDoesNotHaveAtCharacter() {
+        let sut = SIPAddress("any")
+
+        XCTAssertTrue(sut.user.isEmpty)
+        XCTAssertEqual(sut.host, "any")
+    }
+
     func testHostDoesNotContainSquareBracketsWhenHostIsAnIPv6Address() {
         XCTAssertEqual(SIPAddress(user: "any", host: "1:2:3:4:5:6:7:8").host, "1:2:3:4:5:6:7:8")
     }
