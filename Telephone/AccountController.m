@@ -313,7 +313,7 @@ static NSString * const kRussian = @"ru";
             [aCallController setTitle:enteredCallDestinationString];
         }
     } else {
-        [aCallController setTitle:[[SIPAddress alloc] initWithUser:destinationURI.user host:self.account.registrationURI.host].stringValue];
+        [aCallController setTitle:[[SIPAddress alloc] initWithUser:destinationURI.user host:self.account.uri.host].stringValue];
     }
     
     // Set displayed name.
@@ -340,7 +340,7 @@ static NSString * const kRussian = @"ru";
     [destinationURI setDisplayName:@""];
     
     if ([[destinationURI host] length] == 0) {
-        [destinationURI setHost:[[[self account] registrationURI] host]];
+        [destinationURI setHost:[[[self account] uri] host]];
     }
     
     // Set URI for redial.

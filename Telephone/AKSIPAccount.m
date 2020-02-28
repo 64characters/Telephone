@@ -240,13 +240,18 @@ NS_ASSUME_NONNULL_END
         return nil;
     }
 
-    NSString *finalSIPAddress = sipAddress.length > 0 ? sipAddress : [[SIPAddress alloc] initWithUser:username host:domain].stringValue;
+    SIPAddress *address = nil;
+    if (sipAddress.length > 0) {
+        address = [[SIPAddress alloc] initWithString:sipAddress];
+    } else {
+        address = [[SIPAddress alloc] initWithUser:username host:domain];
+    }
 
-    _registrationURI = [AKSIPURI SIPURIWithString:[NSString stringWithFormat:@"\"%@\" <sip:%@>", fullName, finalSIPAddress]];
+    _uri = [[URI alloc] initWithUser:address.user host:address.host displayName:fullName];
 
     _uuid = [uuid copy];
     _fullName = [fullName copy];
-    _SIPAddress = [finalSIPAddress copy];
+    _SIPAddress = address.stringValue;
     _registrar = [[ServiceAddress alloc] initWithString:(registrar.length > 0 ? registrar : domain)];
     _realm = [realm copy];
     _username = [username copy];

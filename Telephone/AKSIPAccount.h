@@ -40,10 +40,9 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // The receiver's delegate.
 @property(nonatomic, weak) id <AKSIPAccountDelegate> delegate;
 
-// The URI for SIP registration.
+// Full SIP URI for the account.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>
-// TODO(eofster): strange property. Do we need this?
-@property(nonatomic, readonly) AKSIPURI *registrationURI;
+@property(nonatomic, readonly) URI *uri;
 
 // Full name of the registration URI.
 @property(nonatomic, readonly) NSString *fullName;

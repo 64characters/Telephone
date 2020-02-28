@@ -574,7 +574,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     pjsua_acc_config accountConfig;
     pjsua_acc_config_default(&accountConfig);
     
-    accountConfig.id = [NSString stringWithFormat:@"%@ <sip:%@>", anAccount.fullName, anAccount.SIPAddress].pjString;
+    accountConfig.id = anAccount.uri.stringValue.pjString;
 
     accountConfig.reg_uri = [[URI alloc] initWithAddress:anAccount.registrar].stringValue.pjString;
     
