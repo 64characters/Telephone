@@ -240,8 +240,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self setUsesG711Only:kAKSIPUserAgentDefaultUsesG711Only];
     [self setLocksCodec:kAKSIPUserAgentDefaultLocksCodec];
     
-    [self setRingbackSlot:kAKSIPUserAgentInvalidIdentifier];
-    [self setUDP6TransportIdentifier:kAKSIPUserAgentInvalidIdentifier];
+    [self setRingbackSlot:PJSUA_INVALID_ID];
+    [self setUDP6TransportIdentifier:PJSUA_INVALID_ID];
 
     _poolQueue = dispatch_queue_create("com.tlphn.Telephone.AKSIPUserAgent.PJSIP.pool", DISPATCH_QUEUE_SERIAL);
 
@@ -531,9 +531,9 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)thread_stopInAutoreleasePool {
-    if (self.ringbackPort && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
+    if (self.ringbackPort && self.ringbackSlot != PJSUA_INVALID_ID) {
         pjsua_conf_remove_port(self.ringbackSlot);
-        self.ringbackSlot = kAKSIPUserAgentInvalidIdentifier;
+        self.ringbackSlot = PJSUA_INVALID_ID;
         pjmedia_port_destroy(self.ringbackPort);
         self.ringbackPort = NULL;
     }
@@ -691,7 +691,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     self.callData[call.identifier].ringbackOn = PJ_TRUE;
     
     self.ringbackCount = self.ringbackCount + 1;
-    if (self.ringbackCount == 1 && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
+    if (self.ringbackCount == 1 && self.ringbackSlot != PJSUA_INVALID_ID) {
         pjsua_conf_connect(self.ringbackSlot, 0);
     }
 }
@@ -703,7 +703,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         pj_assert(self.ringbackCount > 0);
         
         self.ringbackCount = self.ringbackCount - 1;
-        if (self.ringbackCount == 0 && self.ringbackSlot != kAKSIPUserAgentInvalidIdentifier) {
+        if (self.ringbackCount == 0 && self.ringbackSlot != PJSUA_INVALID_ID) {
             pjsua_conf_disconnect(self.ringbackSlot, 0);
             pjmedia_tonegen_rewind(self.ringbackPort);
         }
