@@ -537,6 +537,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         pjmedia_port_destroy(self.ringbackPort);
         self.ringbackPort = NULL;
     }
+    self.UDP6TransportIdentifier = PJSUA_INVALID_ID;
     if (self.pool) {
         pj_pool_release(self.pool);
         self.pool = NULL;
