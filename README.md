@@ -40,6 +40,7 @@ Create `pjlib/include/pj/config_site.h`:
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
     #define PJ_GETHOSTIP_DISABLE_LOCAL_RESOLUTION 1
+    #define PJ_HAS_IPV6 1
 
 Patch `pjlib/src/pj/sock_qos_darwin.c`:
 
