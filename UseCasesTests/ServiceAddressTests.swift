@@ -20,27 +20,93 @@ import UseCases
 import XCTest
 
 final class ServiceAddressTests: XCTestCase {
-    func testHostIsFullSourceStringWhenNoPortIsSpecified() {
-        let sut = ServiceAddress(string: "any")
-
-        XCTAssertEqual(sut.host, "any")
+    func testHostIsCompleteInputStringWhenNoPortIsSpecified() {
+        XCTAssertEqual(ServiceAddress("any").host, "any")
     }
 
     func testHostIsSubstringBeforeColon() {
-        let sut = ServiceAddress(string: "any:123")
-
-        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(ServiceAddress("any:123").host, "any")
     }
 
     func testPortIsSubstringAfterColon() {
-        let sut = ServiceAddress(string: "any:123")
+        XCTAssertEqual(ServiceAddress("any:123").port, "123")
+    }
 
+    func testPortIsEmptyStringWhenInputStringEndsWithColon() {
+        XCTAssertEqual(ServiceAddress("any:").port, "")
+    }
+
+    func testSubstringAfterSemicolonIsIgnoredWhenNoPortIsSpecified() {
+        XCTAssertEqual(ServiceAddress("any;params").host, "any")
+    }
+
+    func testSubstringAfterSemicolonIsIgnoredWhenPortIsSpecified() {
+        let sut = ServiceAddress("any:123;params")
+
+        XCTAssertEqual(sut.host, "any")
         XCTAssertEqual(sut.port, "123")
     }
 
-    func testPortIsEmptyStringWhenSourceStringEndsWithColon() {
-        let sut = ServiceAddress(string: "any:")
+    func testSquareBracketsAreIgnoredWhenPortIsNotSpecified() {
+        XCTAssertEqual(ServiceAddress("[any]").host, "any")
+    }
 
-        XCTAssertEqual(sut.port, "")
+    func testSquareBracketsAreIgnoredWhenPortIsSpecified() {
+        let sut = ServiceAddress("[any]:123")
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.port, "123")
+    }
+
+    func testSquareBracketsAreIgnoredWhenHostIsAnIPv6AddressAndPortIsSpecified() {
+        let sut = ServiceAddress("[1:2:3:4:5:6:7:8]:123")
+
+        XCTAssertEqual(sut.host, "1:2:3:4:5:6:7:8")
+        XCTAssertEqual(sut.port, "123")
+    }
+
+    func testHostIsCompleteInputStringWhenInputStringIsAnIPv6Address() {
+        XCTAssertEqual(ServiceAddress("1:2:3:4:5:6:7:8").host, "1:2:3:4:5:6:7:8")
+    }
+
+    func testHostIsSubstringInsideSquareBracketsWhenItContainsColonsAndPortIsNotSpecified() {
+        XCTAssertEqual(ServiceAddress("[1:2:3:4:5:6:7:8]").host, "1:2:3:4:5:6:7:8")
+    }
+
+    func testCanCreateWithHostAndPort() {
+        let sut = ServiceAddress(host: "any", port: "123")
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.port, "123")
+    }
+
+    func testSquareBracketsAreIgnoredWhenCreatedWithHost() {
+        XCTAssertEqual(ServiceAddress(host: "[any]", port: "").host, "any")
+    }
+
+    func testStringValueWhenHostIsSpecifiedAndPortIsNotSpecified() {
+        XCTAssertEqual(ServiceAddress(host: "any").stringValue, "any")
+    }
+
+    func testStringValueWhenHostAndPortAreSpecified() {
+        XCTAssertEqual(ServiceAddress(host: "any", port: "123").stringValue, "any:123")
+    }
+
+    func testStringValueWhenHostIsAnIPv6AddressAndPortIsNotSpecified() {
+        XCTAssertEqual(ServiceAddress(host: "1:2:3:4:5:6:7:8").stringValue, "[1:2:3:4:5:6:7:8]")
+    }
+
+    func testStringValueWhenHostIsAnIPv6AddressAndPortIsSpecified() {
+        XCTAssertEqual(ServiceAddress(host: "1:2:3:4:5:6:7:8", port: "123").stringValue, "[1:2:3:4:5:6:7:8]:123")
+    }
+
+    func testEquality() {
+        XCTAssertEqual(ServiceAddress(host: "any", port: "123"), ServiceAddress(host: "any", port: "123"))
+    }
+
+    func testTextualRepresentationIsSameAsStringValue() {
+        let sut = ServiceAddress(host: "host", port: "1337")
+
+        XCTAssertEqual(String(describing: sut), sut.stringValue)
     }
 }

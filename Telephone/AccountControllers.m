@@ -19,12 +19,13 @@
 #import "AccountControllers.h"
 
 #import "AKNetworkReachability.h"
-#import "AKNSString+Scanning.h"
 #import "AKSIPUserAgent.h"
 
 #import "AccountController.h"
 
 #import "Telephone-Swift.h"
+
+@import UseCases;
 
 @interface AccountControllers ()
 
@@ -155,8 +156,7 @@
 }
 
 - (void)registerAccountIfManualRegistrationRequired:(AccountController *)controller {
-    ServiceAddress *registrar = [[ServiceAddress alloc] initWithString:controller.account.registrar];
-    if (registrar.host.ak_isIPAddress && controller.registrarReachability.isReachable) {
+    if (controller.account.registrar.host.ak_isIPAddress && controller.registrarReachability.isReachable) {
         [controller registerAccount];
     }
 }

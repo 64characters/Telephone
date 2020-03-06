@@ -1,5 +1,5 @@
 //
-//  AKNSString+Scanning.h
+//  AKNSString+ScanningTests.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,13 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-#import <Foundation/Foundation.h>
+import XCTest
 
+final class AKNSString_ScanningTests: XCTestCase {
+    func testHasLettersIsTrueIfStringContainsAtLeastOneLetter() {
+        XCTAssertTrue("a".ak_hasLetters)
+        XCTAssertTrue("123b".ak_hasLetters)
+        XCTAssertTrue("c456".ak_hasLetters)
+        XCTAssertTrue("100d100".ak_hasLetters)
+    }
 
-// A category for scanning strings.
-@interface NSString (AKStringScanningAdditions)
-
-// A Boolean value indicating whether the receiver consists only of a-z or A-Z.
-@property(nonatomic, readonly) BOOL ak_hasLetters;
-
-@end
+    func testHasLettersIsFalseIfStringDoesNotContainAtLeastOneLetter() {
+        XCTAssertFalse("1".ak_hasLetters)
+        XCTAssertFalse("12345@_.,;#&".ak_hasLetters)
+    }
+}

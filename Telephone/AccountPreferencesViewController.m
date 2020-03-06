@@ -18,6 +18,8 @@
 
 #import "AccountPreferencesViewController.h"
 
+@import UseCases;
+
 #import "AKKeychain.h"
 
 #import "AccountSetupController.h"
@@ -190,6 +192,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
             [[self updateIPAddressCheckBox] setEnabled:NO];
+            [[self useIPv6OnlyCheckBox] setEnabled:NO];
             
         } else {
             [[self accountEnabledCheckBox] setState:NSOffState];
@@ -223,6 +226,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
             [[self updateIPAddressCheckBox] setEnabled:YES];
+            [[self useIPv6OnlyCheckBox] setEnabled:YES];
         }
         
         // Populate fields.
@@ -239,8 +243,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self accountDescriptionField] setPlaceholderString:accountDict[kSIPAddress]];
         } else {
             [[self accountDescriptionField] setPlaceholderString:
-             [NSString stringWithFormat:@"%@@%@",
-              accountDict[kUsername], accountDict[kDomain]]];
+             [[SIPAddress alloc] initWithUser:accountDict[kUsername] host:accountDict[kDomain]].stringValue];
         }
         
         // Full Name.
@@ -311,7 +314,7 @@ static const NSUInteger kAccountsMax = 32;
         
         // SIP Address and Registry Server placeholder strings.
         if ([accountDict[kDomain] length] > 0) {
-            [[self SIPAddressField] setPlaceholderString:[NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]]];
+            [[self SIPAddressField] setPlaceholderString:[[SIPAddress alloc] initWithUser:accountDict[kUsername] host:accountDict[kDomain]].stringValue];
             [[self registrarField] setPlaceholderString:accountDict[kDomain]];
         } else {
             [[self SIPAddressField] setPlaceholderString:nil];
@@ -329,6 +332,9 @@ static const NSUInteger kAccountsMax = 32;
             [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
             [[self updateIPAddressCheckBox] setState:NSOffState];
         }
+
+        // Use IPv6 Only checkbox.
+        [[self useIPv6OnlyCheckBox] setState:[accountDict[kUseIPv6Only] integerValue]];
         
     } else {  // if (index >= 0)
         [[self accountEnabledCheckBox] setState:NSOffState];
@@ -347,6 +353,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
         [[self updateIPAddressCheckBox] setState:NSOffState];
+        [[self useIPv6OnlyCheckBox] setState:NSOffState];
         
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];
@@ -367,6 +374,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
         [[self updateIPAddressCheckBox] setEnabled:NO];
+        [[self useIPv6OnlyCheckBox] setEnabled:NO];
     }
 }
 
@@ -386,7 +394,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:savedAccounts[index]];
     
-    BOOL isChecked = ([[self accountEnabledCheckBox] state] == NSOnState) ? YES : NO;
+    BOOL isChecked = [[self accountEnabledCheckBox] state] == NSOnState;
     accountDict[kAccountEnabled] = @(isChecked);
     
     if (isChecked) {
@@ -426,26 +434,16 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[kReregistrationTime] = @([[self reregistrationTimeField] integerValue]);
         
-        if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
-            accountDict[kSubstitutePlusCharacter] = @YES;
-        } else {
-            accountDict[kSubstitutePlusCharacter] = @NO;
-        }
-        
+        accountDict[kSubstitutePlusCharacter] = @([[self substitutePlusCharacterCheckBox] state] == NSOnState);
         accountDict[kPlusCharacterSubstitutionString] = [[self plusCharacterSubstitutionField] stringValue];
         
-        if ([[self useProxyCheckBox] state] == NSOnState) {
-            accountDict[kUseProxy] = @YES;
-        } else {
-            accountDict[kUseProxy] = @NO;
-        }
-        
+        accountDict[kUseProxy] = @([[self useProxyCheckBox] state] == NSOnState);
         NSString *proxyHost = [[[self proxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         accountDict[kProxyHost] = proxyHost;
         accountDict[kProxyPort] = @([[self proxyPortField] integerValue]);
         
-        NSString *SIPAddress = [[[self SIPAddressField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
-        accountDict[kSIPAddress] = SIPAddress;
+        NSString *sipAddress = [[[self SIPAddressField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
+        accountDict[kSIPAddress] = sipAddress;
         
         accountDict[kRegistrar] = registrar;
         
@@ -462,20 +460,21 @@ static const NSUInteger kAccountsMax = 32;
             accountDict[kUpdateViaHeader] = @NO;
             accountDict[kUpdateSDP] = @NO;
         }
+
+        accountDict[kUseIPv6Only] = @(self.useIPv6OnlyCheckBox.state == NSOnState);
         
         // Set placeholders.
         
-        if ([SIPAddress length] > 0) {
-            [[self accountDescriptionField] setPlaceholderString:SIPAddress];
+        if ([sipAddress length] > 0) {
+            [[self accountDescriptionField] setPlaceholderString:sipAddress];
         } else {
             [[self accountDescriptionField] setPlaceholderString:
-             [NSString stringWithFormat:@"%@@%@", username, domain]];
+             [[SIPAddress alloc] initWithUser:username host:domain].stringValue];
         }
         
         if ([domain length] > 0) {
-            [[self SIPAddressField] setPlaceholderString:
-             [NSString stringWithFormat:@"%@@%@", username, domain]];
-            
+            [[self SIPAddressField] setPlaceholderString:[[SIPAddress alloc] initWithUser:username host:domain].stringValue];
+
             [[self registrarField] setPlaceholderString:domain];
             
         } else {
@@ -501,6 +500,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
+        [[self useIPv6OnlyCheckBox] setEnabled:NO];
         
         // Mark accounts table as needing redisplay.
         [[self accountsTable] reloadData];
@@ -532,6 +532,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
         [[self updateIPAddressCheckBox] setEnabled:YES];
+        [[self useIPv6OnlyCheckBox] setEnabled:YES];
     }
     
     savedAccounts[index] = accountDict;
@@ -549,7 +550,7 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (IBAction)changeUseProxy:(id)sender {
-    BOOL isChecked = ([[self useProxyCheckBox] state] == NSOnState) ? YES : NO;
+    BOOL isChecked = [[self useProxyCheckBox] state] == NSOnState;
     [[self proxyHostField] setEnabled:isChecked];
     [[self proxyPortField] setEnabled:isChecked];
 }
@@ -577,14 +578,14 @@ static const NSUInteger kAccountsMax = 32;
         returnValue = accountDescription;
         
     } else {
-        NSString *SIPAddress;
+        NSString *sipAddress;
         if ([accountDict[kSIPAddress] length] > 0) {
-            SIPAddress = accountDict[kSIPAddress];
+            sipAddress = accountDict[kSIPAddress];
         } else {
-            SIPAddress = [NSString stringWithFormat:@"%@@%@", accountDict[kUsername], accountDict[kDomain]];
+            sipAddress = [[SIPAddress alloc] initWithUser:accountDict[kUsername] host:accountDict[kDomain]].stringValue;
         }
         
-        returnValue = SIPAddress;
+        returnValue = sipAddress;
     }
     
     return returnValue;

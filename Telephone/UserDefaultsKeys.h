@@ -64,4 +64,5 @@ extern NSString * const kProxyPort;
 extern NSString * const kUpdateContactHeader;
 extern NSString * const kUpdateViaHeader;
 extern NSString * const kUpdateSDP;
+extern NSString * const kUseIPv6Only;
 extern NSString * const kLockCodec;

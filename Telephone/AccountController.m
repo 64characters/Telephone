@@ -69,9 +69,8 @@ static NSString * const kRussian = @"ru";
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     if (flag) {
-        ServiceAddress *address = [[ServiceAddress alloc] initWithString:self.account.registrar];
         AKNetworkReachability *reachability
-            = [AKNetworkReachability networkReachabilityWithHost:address.host];
+            = [AKNetworkReachability networkReachabilityWithHost:self.account.registrar.host];
         [self setRegistrarReachability:reachability];
         
         if (reachability != nil) {
@@ -314,9 +313,7 @@ static NSString * const kRussian = @"ru";
             [aCallController setTitle:enteredCallDestinationString];
         }
     } else {
-        NSString *SIPAddress = [NSString stringWithFormat:@"%@@%@",
-                                [destinationURI user], [[[self account] registrationURI] host]];
-        [aCallController setTitle:SIPAddress];
+        [aCallController setTitle:[[SIPAddress alloc] initWithUser:destinationURI.user host:self.account.uri.host].stringValue];
     }
     
     // Set displayed name.
@@ -343,7 +340,7 @@ static NSString * const kRussian = @"ru";
     [destinationURI setDisplayName:@""];
     
     if ([[destinationURI host] length] == 0) {
-        [destinationURI setHost:[[[self account] registrationURI] host]];
+        [destinationURI setHost:[[[self account] uri] host]];
     }
     
     // Set URI for redial.

@@ -18,6 +18,8 @@
 
 #import "AKSIPURI.h"
 
+@import UseCases;
+
 #import <pjsua-lib/pjsua.h>
 
 #import "AKNSString+PJSUA.h"
@@ -26,11 +28,7 @@
 @implementation AKSIPURI
 
 - (NSString *)SIPAddress {
-    if ([[self user] length] > 0) {
-        return [NSString stringWithFormat:@"%@@%@", [self user], [self host]];
-    } else {
-        return [self host];
-    }
+    return [[SIPAddress alloc] initWithUser:self.user host:self.host].stringValue;
 }
 
 
@@ -135,16 +133,10 @@
 }
 
 - (NSString *)description {
-    NSString *SIPAddressWithPort = [self SIPAddress];
-    if ([self port] > 0) {
-        SIPAddressWithPort = [SIPAddressWithPort stringByAppendingFormat:@":%ld", [self port]];
-    }
-    
-    if ([[self displayName] length] > 0) {
-        return [NSString stringWithFormat:@"\"%@\" <sip:%@>", [self displayName], SIPAddressWithPort];
-    } else {
-        return [NSString stringWithFormat:@"<sip:%@>", SIPAddressWithPort];
-    }
+    NSString *port = self.port > 0 ? @(self.port).stringValue : @"";
+    return [[URI alloc] initWithUser:self.user
+                             address:[[ServiceAddress alloc] initWithHost:self.host port:port]
+                         displayName:self.displayName].stringValue;
 }
 
 
@@ -152,10 +144,10 @@
 #pragma mark NSCopying protocol
 
 - (id)copyWithZone:(NSZone *)zone {
-  AKSIPURI *newURI = [[AKSIPURI allocWithZone:zone] initWithUser:[self user] host:[self host] displayName:[self displayName]];
-  [newURI setPort:[self port]];
-
-  return newURI;
+    return [[AKSIPURI allocWithZone:zone] initWithUser:self.user
+                                                  host:self.host
+                                           displayName:self.displayName
+                                                  port:self.port];
 }
 
 @end

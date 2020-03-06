@@ -67,7 +67,7 @@ extern NSString * const kEmailSIPLabel;
 // Makes a call to a given destination URI with a given phone label.
 // When |callTransferController| is not nil, no new window will be created, existing |callTransferController| will be
 // used instead. Host part of the |destinationURI| can be empty, in which case host part from the account's
-// |registrationURI| will be taken.
+// |uri| will be taken.
 - (void)makeCallToURI:(AKSIPURI *)destinationURI
         phoneLabel:(NSString *)phoneLabel
         callTransferController:(CallTransferController *)callTransferController;

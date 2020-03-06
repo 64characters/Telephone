@@ -50,6 +50,7 @@
 @property(nonatomic, weak) IBOutlet NSTextField *registrarField;
 @property(nonatomic, weak) IBOutlet NSTextField *cantEditAccountLabel;
 @property(nonatomic, weak) IBOutlet NSButton *updateIPAddressCheckBox;
+@property(nonatomic, weak) IBOutlet NSButton *useIPv6OnlyCheckBox;
 
 // Raises |Add Account| sheet.
 - (IBAction)showAddAccountSheet:(id)sender;

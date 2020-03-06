@@ -40,10 +40,9 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // The receiver's delegate.
 @property(nonatomic, weak) id <AKSIPAccountDelegate> delegate;
 
-// The URI for SIP registration.
+// Full SIP URI for the account.
 // It is composed of |fullName| and |SIPAddress|, e.g. "John Smith" <john@company.com>
-// TODO(eofster): strange property. Do we need this?
-@property(nonatomic, readonly) AKSIPURI *registrationURI;
+@property(nonatomic, readonly) URI *uri;
 
 // Full name of the registration URI.
 @property(nonatomic, readonly) NSString *fullName;
@@ -52,7 +51,7 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 @property(nonatomic, readonly) NSString *SIPAddress;
 
 // Registrar.
-@property(nonatomic, readonly) NSString *registrar;
+@property(nonatomic, readonly) ServiceAddress *registrar;
 
 // Realm. Pass empty string to make a credential that can be used to authenticate against any challenges.
 @property(nonatomic, readonly) NSString *realm;
@@ -88,6 +87,9 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 ///
 /// When YES, and when STUN and ICE are disabled, then the IP address found in registration response will be used.
 @property(nonatomic) BOOL updatesSDP;
+
+/// A Boolean value indicating if only IPv6 should be used.
+@property(nonatomic) BOOL usesIPv6Only;
 
 // The receiver's identifier at the user agent.
 @property(nonatomic, readonly) NSInteger identifier;

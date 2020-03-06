@@ -21,7 +21,7 @@
 #import <netinet/in.h>
 #import <arpa/inet.h>
 
-#import "AKNSString+Scanning.h"
+@import UseCases;
 
 
 NSString * const AKNetworkReachabilityDidBecomeReachableNotification = @"AKNetworkReachabilityDidBecomeReachable";
@@ -61,12 +61,19 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
         return nil;
     }
     
-    if ([nameOrAddress ak_isIPAddress]) {
+    if ([nameOrAddress ak_isIP4Address]) {
         struct sockaddr_in sin;
         bzero(&sin, sizeof(sin));
         sin.sin_len = sizeof(sin);
         sin.sin_family = AF_INET;
-        inet_aton([nameOrAddress UTF8String], &sin.sin_addr);
+        inet_pton(AF_INET, [nameOrAddress UTF8String], &sin.sin_addr);
+        _reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (struct sockaddr *)&sin);
+    } else if ([nameOrAddress ak_isIP6Address]) {
+        struct sockaddr_in6 sin;
+        bzero(&sin, sizeof(sin));
+        sin.sin6_len = sizeof(sin);
+        sin.sin6_family = AF_INET6;
+        inet_pton(AF_INET6, [nameOrAddress UTF8String], &sin.sin6_addr);
         _reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (struct sockaddr *)&sin);
     } else {
         _reachability = SCNetworkReachabilityCreateWithName(kCFAllocatorDefault, [nameOrAddress UTF8String]);
@@ -75,6 +82,9 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
     _context.info = (__bridge void *)(self);
     Boolean callbackSet = SCNetworkReachabilitySetCallback(_reachability, &AKReachabilityChanged, &_context);
     if (!callbackSet) {
+        if (_reachability) {
+            CFRelease(_reachability);
+        }
         return nil;
     }
     
@@ -82,6 +92,9 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
                                                                  CFRunLoopGetMain(),
                                                                  kCFRunLoopDefaultMode);
     if (!scheduled) {
+        if (_reachability) {
+            CFRelease(_reachability);
+        }
         return nil;
     }
     
@@ -92,7 +105,7 @@ static void AKReachabilityChanged(SCNetworkReachabilityRef target, SCNetworkConn
 
 - (void)dealloc {
     SCNetworkReachabilityUnscheduleFromRunLoop(_reachability, CFRunLoopGetMain(), kCFRunLoopDefaultMode);
-    if (_reachability != NULL) {
+    if (_reachability) {
         CFRelease(_reachability);
     }
 }
