@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 
-@class AKSIPCall, AKSIPURI, ServiceAddress;
+@class AKSIPCall, AKSIPURI;
 
 // A class representing a SIP account. It contains a list of calls and maintains SIP registration. You can use this
 // class to make and receive calls.

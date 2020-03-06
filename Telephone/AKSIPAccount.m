@@ -18,8 +18,6 @@
 
 #import "AKSIPAccount.h"
 
-@import UseCases;
-
 #import "AKNSString+PJSUA.h"
 #import "AKSIPURI.h"
 #import "AKSIPUserAgent.h"
