@@ -5511,6 +5511,7 @@
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 132;
 				DEVELOPMENT_TEAM = B5WSA37RY8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5527,6 +5528,7 @@
 					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
 					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
 				);
+				MARKETING_VERSION = 1.4;
 				OTHER_LDFLAGS = (
 					"-lpjsua-x86_64-apple-darwin",
 					"-lpjsip-ua-x86_64-apple-darwin",
@@ -5560,6 +5562,7 @@
 				CODE_SIGN_ENTITLEMENTS = Telephone/Telephone.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 132;
 				DEVELOPMENT_TEAM = B5WSA37RY8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "PJ_AUTOCONF=1";
@@ -5573,6 +5576,7 @@
 					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
 					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
 				);
+				MARKETING_VERSION = 1.4;
 				OTHER_LDFLAGS = (
 					"-lpjsua-x86_64-apple-darwin",
 					"-lpjsip-ua-x86_64-apple-darwin",
