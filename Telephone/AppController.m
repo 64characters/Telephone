@@ -103,7 +103,6 @@ NS_ASSUME_NONNULL_END
         defaultsDict[kLogLevel] = @3;
         defaultsDict[kConsoleLogLevel] = @0;
         defaultsDict[kTransportPort] = @0;
-        defaultsDict[kTransportPublicHost] = @"";
         defaultsDict[kRingingSound] = @"Purr";
         defaultsDict[kSignificantPhoneNumberLength] = @9;
         defaultsDict[kAutoCloseCallWindow] = @YES;
@@ -632,7 +631,6 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setUsesICE:[defaults boolForKey:kUseICE]];
     [[self userAgent] setUsesQoS:[defaults boolForKey:kUseQoS]];
     [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
-    [[self userAgent] setTransportPublicHost:[defaults stringForKey:kTransportPublicHost]];
     [[self userAgent] setUsesG711Only:[defaults boolForKey:kUseG711Only]];
     [[self userAgent] setLocksCodec:[defaults boolForKey:kLockCodec]];
 

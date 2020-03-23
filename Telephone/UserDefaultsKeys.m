@@ -26,7 +26,6 @@ NSString * const kLogLevel = @"LogLevel";
 NSString * const kConsoleLogLevel = @"ConsoleLogLevel";
 NSString * const kVoiceActivityDetection = @"VoiceActivityDetection";
 NSString * const kTransportPort = @"TransportPort";
-NSString * const kTransportPublicHost = @"TransportPublicHost";
 NSString * const kRingingSound = @"RingingSound";
 NSString * const kFormatTelephoneNumbers = @"FormatTelephoneNumbers";
 NSString * const kTelephoneNumberFormatterSplitsLastFourDigits = @"TelephoneNumberFormatterSplitsLastFourDigits";

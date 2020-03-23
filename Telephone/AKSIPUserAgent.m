@@ -376,10 +376,6 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 
     transportConfig.port = (unsigned)[self transportPort];
 
-    if ([[self transportPublicHost] length] > 0) {
-        transportConfig.public_addr = [[self transportPublicHost] pjString];
-    }
-
     userAgentConfig.cb.on_incoming_call = &PJSUAOnIncomingCall;
     userAgentConfig.cb.on_call_state = &PJSUAOnCallState;
     userAgentConfig.cb.on_call_media_state = &PJSUAOnCallMediaState;

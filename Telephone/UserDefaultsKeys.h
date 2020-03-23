@@ -27,7 +27,6 @@ extern NSString * const kLogLevel;
 extern NSString * const kConsoleLogLevel;
 extern NSString * const kVoiceActivityDetection;
 extern NSString * const kTransportPort;
-extern NSString * const kTransportPublicHost;
 extern NSString * const kRingingSound;
 extern NSString * const kFormatTelephoneNumbers;
 extern NSString * const kTelephoneNumberFormatterSplitsLastFourDigits;
