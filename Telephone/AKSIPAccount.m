@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
+const AKSIPTransport kAKSIPAccountDefaultTransport = AKSIPTransportUDP;
 
 @interface AKSIPCallParameters : NSObject
 
@@ -256,6 +257,7 @@ NS_ASSUME_NONNULL_END
     _domain = [domain copy];
     self.proxyPort = kAKSIPAccountDefaultSIPProxyPort;
     self.reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
+    _transport = kAKSIPAccountDefaultTransport;
     _identifier = kAKSIPUserAgentInvalidIdentifier;
     
     _calls = [[NSMutableArray alloc] init];

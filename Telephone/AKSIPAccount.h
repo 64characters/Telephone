@@ -27,9 +27,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// SIP transports.
+typedef NS_ENUM(NSInteger, AKSIPTransport) {
+    AKSIPTransportUDP,
+    AKSIPTransportTCP
+};
+
 // SIP account defaults.
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
+extern const AKSIPTransport kAKSIPAccountDefaultTransport;
 
 @class AKSIPCall, AKSIPURI;
 
@@ -71,6 +78,9 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // SIP re-registration time.
 // Default: 300 (sec).
 @property(nonatomic) NSUInteger reregistrationTime;
+
+// SIP transport.
+@property(nonatomic) AKSIPTransport transport;
 
 /// A Boolean value indicating if Contact header should be automatically updated.
 ///

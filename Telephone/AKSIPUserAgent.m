@@ -75,8 +75,11 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 // Ringback count.
 @property(nonatomic, assign) NSInteger ringbackCount;
 
-// UDP6 transport identifier.
+// Transport identifiers.
+@property(nonatomic) pjsua_transport_id UDP4TransportIdentifier;
 @property(nonatomic) pjsua_transport_id UDP6TransportIdentifier;
+@property(nonatomic) pjsua_transport_id TCP4TransportIdentifier;
+@property(nonatomic) pjsua_transport_id TCP6TransportIdentifier;
 
 @property(nonatomic, readonly) NSThread *thread;
 
@@ -241,7 +244,10 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self setLocksCodec:kAKSIPUserAgentDefaultLocksCodec];
     
     [self setRingbackSlot:PJSUA_INVALID_ID];
+    [self setUDP4TransportIdentifier:PJSUA_INVALID_ID];
     [self setUDP6TransportIdentifier:PJSUA_INVALID_ID];
+    [self setTCP4TransportIdentifier:PJSUA_INVALID_ID];
+    [self setTCP6TransportIdentifier:PJSUA_INVALID_ID];
 
     _poolQueue = dispatch_queue_create("com.tlphn.Telephone.AKSIPUserAgent.PJSIP.pool", DISPATCH_QUEUE_SERIAL);
 
@@ -442,19 +448,20 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self setRingbackSlot:aRingbackSlot];
 
     // Add UDP4 transport.
-    pjsua_transport_id transportIdentifier = PJSUA_INVALID_ID;
-    status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, &transportIdentifier);
+    pjsua_transport_id UDP4TransportIdentifier = PJSUA_INVALID_ID;
+    status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &transportConfig, &UDP4TransportIdentifier);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error creating UDP4 transport");
         [self thread_stop];
         [self thread_callOnMain:completion withFlag:NO];
         return;
     }
+    self.UDP4TransportIdentifier = UDP4TransportIdentifier;
 
     // Get UDP4 transport port chosen by PJSUA.
     if ([self transportPort] == 0) {
         pjsua_transport_info transportInfo;
-        status = pjsua_transport_get_info(transportIdentifier, &transportInfo);
+        status = pjsua_transport_get_info(UDP4TransportIdentifier, &transportInfo);
         if (status != PJ_SUCCESS) {
             NSLog(@"Error getting UDP4 transport info");
         }
@@ -471,13 +478,23 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     if (status != PJ_SUCCESS) {
         NSLog(@"Error creating UDP6 transport");
     }
-    [self setUDP6TransportIdentifier:UDP6TransportIdentifier];
+    self.UDP6TransportIdentifier = UDP6TransportIdentifier;
 
     // Add TCP4 transport.
-    status = pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, NULL);
+    pjsua_transport_id TCP4TransportIdentifier = PJSUA_INVALID_ID;
+    status = pjsua_transport_create(PJSIP_TRANSPORT_TCP, &transportConfig, &TCP4TransportIdentifier);
     if (status != PJ_SUCCESS) {
-        NSLog(@"Error creating TCP transport");
+        NSLog(@"Error creating TCP4 transport");
     }
+    self.TCP4TransportIdentifier = TCP4TransportIdentifier;
+
+    // Add TCP6 transport.
+    pjsua_transport_id TCP6TransportIdentifier = PJSUA_INVALID_ID;
+    status = pjsua_transport_create(PJSIP_TRANSPORT_TCP6, &transportConfig, &TCP6TransportIdentifier);
+    if (status != PJ_SUCCESS) {
+        NSLog(@"Error creating TCP6 transport");
+    }
+    self.TCP6TransportIdentifier = TCP6TransportIdentifier;
 
     // Update codecs.
     [self updateCodecs];
@@ -533,7 +550,10 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         pjmedia_port_destroy(self.ringbackPort);
         self.ringbackPort = NULL;
     }
+    self.UDP4TransportIdentifier = PJSUA_INVALID_ID;
     self.UDP6TransportIdentifier = PJSUA_INVALID_ID;
+    self.TCP4TransportIdentifier = PJSUA_INVALID_ID;
+    self.TCP6TransportIdentifier = PJSUA_INVALID_ID;
     if (self.pool) {
         pj_pool_release(self.pool);
         self.pool = NULL;
@@ -605,20 +625,26 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     
     accountConfig.reg_timeout = (unsigned)[anAccount reregistrationTime];
     
+    switch (anAccount.transport) {
+        case AKSIPTransportUDP:
+            accountConfig.transport_id = anAccount.usesIPv6Only ? self.UDP6TransportIdentifier : self.UDP4TransportIdentifier;
+            break;
+        case AKSIPTransportTCP:
+            accountConfig.transport_id = anAccount.usesIPv6Only ? self.TCP6TransportIdentifier : self.TCP4TransportIdentifier;
+        default:
+            break;
+    }
+
+    accountConfig.ipv6_media_use = anAccount.usesIPv6Only ? PJSUA_IPV6_ENABLED : PJSUA_IPV6_DISABLED;
+
     accountConfig.allow_contact_rewrite = anAccount.updatesContactHeader ? PJ_TRUE : PJ_FALSE;
     accountConfig.allow_via_rewrite = anAccount.updatesViaHeader ? PJ_TRUE : PJ_FALSE;
     accountConfig.allow_sdp_nat_rewrite = anAccount.updatesSDP ? PJ_TRUE : PJ_FALSE;
 
-    if (anAccount.usesIPv6Only) {
-        accountConfig.transport_id = self.UDP6TransportIdentifier;
-        accountConfig.ipv6_media_use = PJSUA_IPV6_ENABLED;
-    }
-
     accountConfig.lock_codec = self.locksCodec ? PJ_TRUE : PJ_FALSE;
     
     pjsua_acc_id accountIdentifier;
-    pj_status_t status = pjsua_acc_add(&accountConfig, PJ_FALSE,
-                                       &accountIdentifier);
+    pj_status_t status = pjsua_acc_add(&accountConfig, PJ_FALSE, &accountIdentifier);
     if (status != PJ_SUCCESS) {
         NSLog(@"Error adding account %@ with status %d", anAccount, status);
         return NO;
