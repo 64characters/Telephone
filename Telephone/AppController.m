@@ -388,6 +388,7 @@ NS_ASSUME_NONNULL_END
             account.proxyHost = accountDict[kProxyHost];
             account.proxyPort = [accountDict[kProxyPort] integerValue];
         }
+        account.transport = [accountDict[kTransport] isEqualToString:kTransportTCP] ? AKSIPTransportTCP : AKSIPTransportUDP;
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         account.updatesSDP = [accountDict[kUpdateSDP] boolValue];
@@ -679,6 +680,7 @@ NS_ASSUME_NONNULL_END
             account.proxyHost = accountDict[kProxyHost];
             account.proxyPort = [accountDict[kProxyPort] integerValue];
         }
+        account.transport = [accountDict[kTransport] isEqualToString:kTransportTCP] ? AKSIPTransportTCP : AKSIPTransportUDP;
         account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
         account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
         account.updatesSDP = [accountDict[kUpdateSDP] boolValue];

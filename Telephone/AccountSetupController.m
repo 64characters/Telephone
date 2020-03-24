@@ -92,6 +92,7 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
     accountDict[kUseProxy] = @NO;
     accountDict[kProxyHost] = @"";
     accountDict[kProxyPort] = @0;
+    accountDict[kTransport] = kTransportUDP;
     accountDict[kUpdateContactHeader] = @YES;
     accountDict[kUpdateViaHeader] = @YES;
     accountDict[kUpdateSDP] = @YES;
