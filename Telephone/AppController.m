@@ -315,6 +315,53 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- (AccountController *)accountControllerWithDictionary:(NSDictionary *)dict {
+    AKSIPAccount *account = [self accountWithDictionary:dict];
+
+    NSString *description = dict[kDescription];
+    if ([description length] == 0) {
+        description = account.SIPAddress;
+    }
+
+    AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
+                                                               accountDescription:description
+                                                                        userAgent:self.userAgent
+                                                                 ringtonePlayback:self.ringtonePlayback
+                                                                      sleepStatus:self.sleepStatus
+                                                callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
+                                                      purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
+                                                             storeWindowPresenter:self.storeWindowPresenter];
+
+    [controller setEnabled:[dict[kAccountEnabled] boolValue]];
+    [controller setSubstitutesPlusCharacter:[dict[kSubstitutePlusCharacter] boolValue]];
+    [controller setPlusCharacterSubstitution:dict[kPlusCharacterSubstitutionString]];
+
+    return controller;
+}
+
+- (AKSIPAccount *)accountWithDictionary:(NSDictionary *)dict {
+    AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:dict[kUUID]
+                                                      fullName:dict[kFullName]
+                                                    SIPAddress:dict[kSIPAddress]
+                                                     registrar:dict[kRegistrar]
+                                                         realm:dict[kRealm]
+                                                      username:dict[kUsername]
+                                                        domain:dict[kDomain]];
+
+    account.reregistrationTime = [dict[kReregistrationTime] integerValue];
+    if ([dict[kUseProxy] boolValue]) {
+        account.proxyHost = dict[kProxyHost];
+        account.proxyPort = [dict[kProxyPort] integerValue];
+    }
+    account.transport = [dict[kTransport] isEqualToString:kTransportTCP] ? AKSIPTransportTCP : AKSIPTransportUDP;
+    account.updatesContactHeader = [dict[kUpdateContactHeader] boolValue];
+    account.updatesViaHeader = [dict[kUpdateViaHeader] boolValue];
+    account.updatesSDP = [dict[kUpdateSDP] boolValue];
+    account.usesIPv6Only = [dict[kUseIPv6Only] boolValue];
+
+    return account;
+}
+
 
 #pragma mark -
 #pragma mark AccountSetupController delegate
@@ -369,49 +416,12 @@ NS_ASSUME_NONNULL_END
 - (void)preferencesControllerDidChangeAccountEnabled:(NSNotification *)notification {
     NSUInteger index = [[notification userInfo][kAccountIndex] integerValue];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
-    NSDictionary *accountDict = savedAccounts[index];
-    
-    BOOL isEnabled = [accountDict[kAccountEnabled] boolValue];
-    if (isEnabled) {
-        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:accountDict[kUUID]
-                                                          fullName:accountDict[kFullName]
-                                                        SIPAddress:accountDict[kSIPAddress]
-                                                         registrar:accountDict[kRegistrar]
-                                                             realm:accountDict[kRealm]
-                                                          username:accountDict[kUsername]
-                                                            domain:accountDict[kDomain]];
+    NSDictionary *account = [NSUserDefaults.standardUserDefaults arrayForKey:kAccounts][index];
 
-        account.reregistrationTime = [accountDict[kReregistrationTime] integerValue];
-        if ([accountDict[kUseProxy] boolValue]) {
-            account.proxyHost = accountDict[kProxyHost];
-            account.proxyPort = [accountDict[kProxyPort] integerValue];
-        }
-        account.transport = [accountDict[kTransport] isEqualToString:kTransportTCP] ? AKSIPTransportTCP : AKSIPTransportUDP;
-        account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
-        account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
-        account.updatesSDP = [accountDict[kUpdateSDP] boolValue];
-        account.usesIPv6Only = [accountDict[kUseIPv6Only] boolValue];
-
-        NSString *description = accountDict[kDescription];
-        if ([description length] == 0) {
-            description = account.SIPAddress;
-        }
-        
-        AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
-                                                                   accountDescription:description
-                                                                            userAgent:self.userAgent
-                                                                     ringtonePlayback:self.ringtonePlayback
-                                                                          sleepStatus:self.sleepStatus
-                                                    callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
-                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
-                                                                 storeWindowPresenter:self.storeWindowPresenter];
+    if ([account[kAccountEnabled] boolValue]) {
+        AccountController *controller = [self accountControllerWithDictionary:account];
         [controller setAccountUnavailable:NO];
-        [controller setEnabled:YES];
-        [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
-        [controller setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
-        
+
         self.accountControllers[index] = controller;
         
         [controller showWindowWithoutMakingKey];
@@ -635,10 +645,10 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setUsesG711Only:[defaults boolForKey:kUseG711Only]];
     [[self userAgent] setLocksCodec:[defaults boolForKey:kLockCodec]];
 
-    NSArray *savedAccounts = [defaults arrayForKey:kAccounts];
+    NSArray *accounts = [defaults arrayForKey:kAccounts];
     
     // Setup an account on first launch.
-    if (savedAccounts.count == 0) {
+    if (accounts.count == 0) {
         // There are no saved accounts, prompt user to add one.
         
         // Disable Preferences during the first account prompt.
@@ -664,46 +674,9 @@ NS_ASSUME_NONNULL_END
     }
     
     // There are saved accounts, open account windows.
-    for (NSUInteger i = 0; i < savedAccounts.count; ++i) {
-        NSDictionary *accountDict = savedAccounts[i];
+    for (NSUInteger i = 0; i < accounts.count; ++i) {
+        AccountController *controller = [self accountControllerWithDictionary:accounts[i]];
 
-        AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:accountDict[kUUID]
-                                                          fullName:accountDict[kFullName]
-                                                        SIPAddress:accountDict[kSIPAddress]
-                                                         registrar:accountDict[kRegistrar]
-                                                             realm:accountDict[kRealm]
-                                                          username:accountDict[kUsername]
-                                                            domain:accountDict[kDomain]];
-
-        account.reregistrationTime = [accountDict[kReregistrationTime] integerValue];
-        if ([accountDict[kUseProxy] boolValue]) {
-            account.proxyHost = accountDict[kProxyHost];
-            account.proxyPort = [accountDict[kProxyPort] integerValue];
-        }
-        account.transport = [accountDict[kTransport] isEqualToString:kTransportTCP] ? AKSIPTransportTCP : AKSIPTransportUDP;
-        account.updatesContactHeader = [accountDict[kUpdateContactHeader] boolValue];
-        account.updatesViaHeader = [accountDict[kUpdateViaHeader] boolValue];
-        account.updatesSDP = [accountDict[kUpdateSDP] boolValue];
-        account.usesIPv6Only = [accountDict[kUseIPv6Only] boolValue];
-
-        NSString *description = accountDict[kDescription];
-        if ([description length] == 0) {
-            description = account.SIPAddress;
-        }
-        
-        AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
-                                                                   accountDescription:description
-                                                                            userAgent:self.userAgent
-                                                                     ringtonePlayback:self.ringtonePlayback
-                                                                          sleepStatus:self.sleepStatus
-                                                    callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
-                                                          purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
-                                                                 storeWindowPresenter:self.storeWindowPresenter];
-
-        [controller setEnabled:[accountDict[kAccountEnabled] boolValue]];
-        [controller setSubstitutesPlusCharacter:[accountDict[kSubstitutePlusCharacter] boolValue]];
-        [controller setPlusCharacterSubstitution:accountDict[kPlusCharacterSubstitutionString]];
-        
         [self.accountControllers addController:controller];
         
         if (![controller isEnabled]) {
