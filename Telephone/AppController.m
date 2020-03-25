@@ -367,25 +367,7 @@ NS_ASSUME_NONNULL_END
 #pragma mark AccountSetupController delegate
 
 - (void)accountSetupControllerDidAddAccount:(NSNotification *)notification {
-    NSDictionary *dict = notification.userInfo;
-    
-    AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:dict[kUUID]
-                                                      fullName:dict[kFullName]
-                                                    SIPAddress:dict[kSIPAddress]
-                                                     registrar:dict[kDomain]
-                                                         realm:dict[kRealm]
-                                                      username:dict[kUsername]
-                                                        domain:dict[kDomain]];
-    
-    AccountController *controller = [[AccountController alloc] initWithSIPAccount:account
-                                                               accountDescription:account.SIPAddress
-                                                                        userAgent:self.userAgent
-                                                                 ringtonePlayback:self.ringtonePlayback
-                                                                      sleepStatus:self.sleepStatus
-                                                callHistoryViewEventTargetFactory:self.callHistoryViewEventTargetFactory
-                                                      purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
-                                                             storeWindowPresenter:self.storeWindowPresenter];
-    controller.enabled = YES;
+    AccountController *controller = [self accountControllerWithDictionary:notification.userInfo];
     
     [self.accountControllers addController:controller];
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
