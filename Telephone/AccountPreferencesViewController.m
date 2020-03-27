@@ -191,6 +191,8 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:NO];
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
+            [[self UDPTransportButton] setEnabled:NO];
+            [[self TCPTransportButton] setEnabled:NO];
             [[self updateIPAddressCheckBox] setEnabled:NO];
             [[self useIPv6OnlyCheckBox] setEnabled:NO];
             
@@ -225,6 +227,8 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:YES];
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
+            [[self UDPTransportButton] setEnabled:YES];
+            [[self TCPTransportButton] setEnabled:YES];
             [[self updateIPAddressCheckBox] setEnabled:YES];
             [[self useIPv6OnlyCheckBox] setEnabled:YES];
         }
@@ -320,6 +324,13 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setPlaceholderString:nil];
             [[self registrarField] setPlaceholderString:nil];
         }
+
+        // Update SIP Transport.
+        if ([accountDict[kTransport] isEqualToString:kTransportTCP]) {
+            [[self TCPTransportButton] setState:NSOnState];
+        } else {
+            [[self UDPTransportButton] setState:NSOnState];
+        }
         
         // Update headers checkbox.
         if ([accountDict[kUpdateContactHeader] boolValue] && [accountDict[kUpdateViaHeader] boolValue] && [accountDict[kUpdateSDP] boolValue]) {
@@ -352,6 +363,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self proxyPortField] setStringValue:@""];
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
+        [[self UDPTransportButton] setState:NSOffState];
+        [[self TCPTransportButton] setState:NSOffState];
         [[self updateIPAddressCheckBox] setState:NSOffState];
         [[self useIPv6OnlyCheckBox] setState:NSOffState];
         
@@ -373,6 +386,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
+        [[self UDPTransportButton] setEnabled:NO];
+        [[self TCPTransportButton] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
         [[self useIPv6OnlyCheckBox] setEnabled:NO];
     }
@@ -446,7 +461,9 @@ static const NSUInteger kAccountsMax = 32;
         accountDict[kSIPAddress] = sipAddress;
         
         accountDict[kRegistrar] = registrar;
-        
+
+        accountDict[kTransport] = self.TCPTransportButton.state == NSOnState ? kTransportTCP : kTransportUDP;
+
         if (self.updateIPAddressCheckBox.state == NSOnState) {
             accountDict[kUpdateContactHeader] = @YES;
             accountDict[kUpdateViaHeader] = @YES;
@@ -499,6 +516,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:NO];
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
+        [[self UDPTransportButton] setEnabled:NO];
+        [[self TCPTransportButton] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
         [[self useIPv6OnlyCheckBox] setEnabled:NO];
         
@@ -531,6 +550,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:YES];
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
+        [[self UDPTransportButton] setEnabled:YES];
+        [[self TCPTransportButton] setEnabled:YES];
         [[self updateIPAddressCheckBox] setEnabled:YES];
         [[self useIPv6OnlyCheckBox] setEnabled:YES];
     }
@@ -553,6 +574,10 @@ static const NSUInteger kAccountsMax = 32;
     BOOL isChecked = [[self useProxyCheckBox] state] == NSOnState;
     [[self proxyHostField] setEnabled:isChecked];
     [[self proxyPortField] setEnabled:isChecked];
+}
+
+- (IBAction)changeTransport:(id)sender {
+    // Group radio buttons by providing them the same action.
 }
 
 

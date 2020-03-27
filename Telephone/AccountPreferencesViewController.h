@@ -49,6 +49,8 @@
 @property(nonatomic, weak) IBOutlet NSTextField *SIPAddressField;
 @property(nonatomic, weak) IBOutlet NSTextField *registrarField;
 @property(nonatomic, weak) IBOutlet NSTextField *cantEditAccountLabel;
+@property(nonatomic, weak) IBOutlet NSButton *UDPTransportButton;
+@property(nonatomic, weak) IBOutlet NSButton *TCPTransportButton;
 @property(nonatomic, weak) IBOutlet NSButton *updateIPAddressCheckBox;
 @property(nonatomic, weak) IBOutlet NSButton *useIPv6OnlyCheckBox;
 
@@ -72,5 +74,8 @@
 
 // Enables or disables proxy usage for an account.
 - (IBAction)changeUseProxy:(id)sender;
+
+// Used only for grouping SIP Transport radio buttons.
+- (IBAction)changeTransport:(id)sender;
 
 @end
