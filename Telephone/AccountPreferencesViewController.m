@@ -191,8 +191,8 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:NO];
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
-            [[self UDPTransportButton] setEnabled:NO];
-            [[self TCPTransportButton] setEnabled:NO];
+            [[self UDPButton] setEnabled:NO];
+            [[self TCPButton] setEnabled:NO];
             [[self IPv4Button] setEnabled:NO];
             [[self IPv6Button] setEnabled:NO];
             [[self updateIPAddressCheckBox] setEnabled:NO];
@@ -228,8 +228,8 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:YES];
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
-            [[self UDPTransportButton] setEnabled:YES];
-            [[self TCPTransportButton] setEnabled:YES];
+            [[self UDPButton] setEnabled:YES];
+            [[self TCPButton] setEnabled:YES];
             [[self IPv4Button] setEnabled:YES];
             [[self IPv6Button] setEnabled:YES];
             [[self updateIPAddressCheckBox] setEnabled:YES];
@@ -329,9 +329,9 @@ static const NSUInteger kAccountsMax = 32;
 
         // Update SIP Transport.
         if ([accountDict[kTransport] isEqualToString:kTransportTCP]) {
-            [[self TCPTransportButton] setState:NSOnState];
+            [[self TCPButton] setState:NSOnState];
         } else {
-            [[self UDPTransportButton] setState:NSOnState];
+            [[self UDPButton] setState:NSOnState];
         }
 
         // Update IP Version.
@@ -369,8 +369,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self proxyPortField] setStringValue:@""];
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
-        [[self UDPTransportButton] setState:NSOffState];
-        [[self TCPTransportButton] setState:NSOffState];
+        [[self UDPButton] setState:NSOffState];
+        [[self TCPButton] setState:NSOffState];
         [[self IPv4Button] setState:NSOffState];
         [[self IPv6Button] setState:NSOffState];
         [[self updateIPAddressCheckBox] setState:NSOffState];
@@ -393,8 +393,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
-        [[self UDPTransportButton] setEnabled:NO];
-        [[self TCPTransportButton] setEnabled:NO];
+        [[self UDPButton] setEnabled:NO];
+        [[self TCPButton] setEnabled:NO];
         [[self IPv4Button] setEnabled:NO];
         [[self IPv6Button] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
@@ -470,7 +470,7 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[kRegistrar] = registrar;
 
-        accountDict[kTransport] = self.TCPTransportButton.state == NSOnState ? kTransportTCP : kTransportUDP;
+        accountDict[kTransport] = self.TCPButton.state == NSOnState ? kTransportTCP : kTransportUDP;
 
         accountDict[kUseIPv6Only] = @(self.IPv6Button.state == NSOnState);
 
@@ -524,8 +524,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:NO];
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
-        [[self UDPTransportButton] setEnabled:NO];
-        [[self TCPTransportButton] setEnabled:NO];
+        [[self UDPButton] setEnabled:NO];
+        [[self TCPButton] setEnabled:NO];
         [[self IPv4Button] setEnabled:NO];
         [[self IPv6Button] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
@@ -559,8 +559,8 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:YES];
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
-        [[self UDPTransportButton] setEnabled:YES];
-        [[self TCPTransportButton] setEnabled:YES];
+        [[self UDPButton] setEnabled:YES];
+        [[self TCPButton] setEnabled:YES];
         [[self IPv4Button] setEnabled:YES];
         [[self IPv6Button] setEnabled:YES];
         [[self updateIPAddressCheckBox] setEnabled:YES];

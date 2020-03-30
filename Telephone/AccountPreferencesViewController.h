@@ -49,8 +49,8 @@
 @property(nonatomic, weak) IBOutlet NSTextField *SIPAddressField;
 @property(nonatomic, weak) IBOutlet NSTextField *registrarField;
 @property(nonatomic, weak) IBOutlet NSTextField *cantEditAccountLabel;
-@property(nonatomic, weak) IBOutlet NSButton *UDPTransportButton;
-@property(nonatomic, weak) IBOutlet NSButton *TCPTransportButton;
+@property(nonatomic, weak) IBOutlet NSButton *UDPButton;
+@property(nonatomic, weak) IBOutlet NSButton *TCPButton;
 @property(nonatomic, weak) IBOutlet NSButton *IPv4Button;
 @property(nonatomic, weak) IBOutlet NSButton *IPv6Button;
 @property(nonatomic, weak) IBOutlet NSButton *updateIPAddressCheckBox;

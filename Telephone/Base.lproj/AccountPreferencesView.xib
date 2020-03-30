@@ -11,8 +11,8 @@
                 <outlet property="IPv4Button" destination="xf9-ce-jif" id="LnC-49-nHE"/>
                 <outlet property="IPv6Button" destination="INe-5P-bRu" id="7hZ-dh-2uF"/>
                 <outlet property="SIPAddressField" destination="96" id="512"/>
-                <outlet property="TCPTransportButton" destination="Ify-XP-VVA" id="I0A-Eq-ORq"/>
-                <outlet property="UDPTransportButton" destination="iBU-Gy-PuJ" id="TA8-f7-zo3"/>
+                <outlet property="TCPButton" destination="Ify-XP-VVA" id="I0A-Eq-ORq"/>
+                <outlet property="UDPButton" destination="iBU-Gy-PuJ" id="TA8-f7-zo3"/>
                 <outlet property="accountDescriptionField" destination="534" id="542"/>
                 <outlet property="accountEnabledCheckBox" destination="93" id="188"/>
                 <outlet property="accountsTable" destination="82" id="124"/>
