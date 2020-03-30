@@ -51,8 +51,9 @@
 @property(nonatomic, weak) IBOutlet NSTextField *cantEditAccountLabel;
 @property(nonatomic, weak) IBOutlet NSButton *UDPTransportButton;
 @property(nonatomic, weak) IBOutlet NSButton *TCPTransportButton;
+@property(nonatomic, weak) IBOutlet NSButton *IPv4Button;
+@property(nonatomic, weak) IBOutlet NSButton *IPv6Button;
 @property(nonatomic, weak) IBOutlet NSButton *updateIPAddressCheckBox;
-@property(nonatomic, weak) IBOutlet NSButton *useIPv6OnlyCheckBox;
 
 // Raises |Add Account| sheet.
 - (IBAction)showAddAccountSheet:(id)sender;
@@ -75,7 +76,8 @@
 // Enables or disables proxy usage for an account.
 - (IBAction)changeUseProxy:(id)sender;
 
-// Used only for grouping SIP Transport radio buttons.
+// Used only for grouping radio buttons.
 - (IBAction)changeTransport:(id)sender;
+- (IBAction)changeIPVersion:(id)sender;
 
 @end
