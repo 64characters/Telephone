@@ -335,7 +335,7 @@ static const NSUInteger kAccountsMax = 32;
         }
 
         // Update IP Version.
-        if ([accountDict[kUseIPv6Only] boolValue]) {
+        if ([accountDict[kIPVersion] isEqualToString:kIPVersion6]) {
             [[self IPv6Button] setState:NSOnState];
         } else {
             [[self IPv4Button] setState:NSOnState];
@@ -472,7 +472,7 @@ static const NSUInteger kAccountsMax = 32;
 
         accountDict[kTransport] = self.TCPButton.state == NSOnState ? kTransportTCP : kTransportUDP;
 
-        accountDict[kUseIPv6Only] = @(self.IPv6Button.state == NSOnState);
+        accountDict[kIPVersion] = self.IPv6Button.state == NSOnState ? kIPVersion6 : kIPVersion4;
 
         if (self.updateIPAddressCheckBox.state == NSOnState) {
             accountDict[kUpdateContactHeader] = @YES;

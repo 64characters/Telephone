@@ -627,15 +627,15 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     
     switch (anAccount.transport) {
         case AKSIPTransportUDP:
-            accountConfig.transport_id = anAccount.usesIPv6Only ? self.UDP6TransportIdentifier : self.UDP4TransportIdentifier;
+            accountConfig.transport_id = anAccount.usesIPv6 ? self.UDP6TransportIdentifier : self.UDP4TransportIdentifier;
             break;
         case AKSIPTransportTCP:
-            accountConfig.transport_id = anAccount.usesIPv6Only ? self.TCP6TransportIdentifier : self.TCP4TransportIdentifier;
+            accountConfig.transport_id = anAccount.usesIPv6 ? self.TCP6TransportIdentifier : self.TCP4TransportIdentifier;
         default:
             break;
     }
 
-    accountConfig.ipv6_media_use = anAccount.usesIPv6Only ? PJSUA_IPV6_ENABLED : PJSUA_IPV6_DISABLED;
+    accountConfig.ipv6_media_use = anAccount.usesIPv6 ? PJSUA_IPV6_ENABLED : PJSUA_IPV6_DISABLED;
 
     accountConfig.allow_contact_rewrite = anAccount.updatesContactHeader ? PJ_TRUE : PJ_FALSE;
     accountConfig.allow_via_rewrite = anAccount.updatesViaHeader ? PJ_TRUE : PJ_FALSE;
