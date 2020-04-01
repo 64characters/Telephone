@@ -34,7 +34,7 @@ extension IPVersionSettingsMigration: SettingsMigration {
 
 private func addingIPVersionIfNeeded(to dict: [String: Any]) -> [String: Any] {
     if shouldAddIPVersion(to: dict) {
-        return addingIPVersion(to: dict)
+        return removingUseIPv6Only(from: addingIPVersion(to: dict))
     } else {
         return dict
     }
@@ -55,5 +55,11 @@ private func addingIPVersion(to dict: [String: Any]) -> [String: Any] {
     } else {
         result[kIPVersion] = kIPVersion4
     }
+    return result
+}
+
+private func removingUseIPv6Only(from dict: [String: Any]) -> [String: Any] {
+    var result = dict
+    result[kUseIPv6Only] = nil
     return result
 }

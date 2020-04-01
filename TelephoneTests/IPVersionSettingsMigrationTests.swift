@@ -65,4 +65,16 @@ final class IPVersionSettingsMigrationTests: XCTestCase {
         let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
         XCTAssertEqual(accounts[0][kIPVersion] as! String, kIPVersion4)
     }
+
+    func testRemovesUseIPv6OnlyKey() {
+        let settings = SettingsFake()
+        settings.set([[kUseIPv6Only: false], [kUseIPv6Only: true]], forKey: kAccounts)
+        let sut = IPVersionSettingsMigration(settings: settings)
+
+        sut.execute()
+
+        let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
+        XCTAssertNil(accounts[0][kUseIPv6Only])
+        XCTAssertNil(accounts[1][kUseIPv6Only])
+    }
 }
