@@ -1,5 +1,5 @@
 //
-//  AccountUUIDSettingsMigration.swift
+//  IPVersionSettingsMigration.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class AccountUUIDSettingsMigration {
+final class IPVersionSettingsMigration {
     private let settings: KeyValueSettings
 
     init(settings: KeyValueSettings) {
@@ -26,30 +26,34 @@ final class AccountUUIDSettingsMigration {
     }
 }
 
-extension AccountUUIDSettingsMigration: SettingsMigration {
+extension IPVersionSettingsMigration: SettingsMigration {
     func execute() {
-        settings.save(accounts: settings.loadAccounts().map(addingUUIDIfNeeded))
+        settings.save(accounts: settings.loadAccounts().map(addingIPVersionIfNeeded))
     }
 }
 
-private func addingUUIDIfNeeded(to dict: [String: Any]) -> [String: Any] {
-    if shouldAddUUID(to: dict) {
-        return addingUUID(to: dict)
+private func addingIPVersionIfNeeded(to dict: [String: Any]) -> [String: Any] {
+    if shouldAddIPVersion(to: dict) {
+        return addingIPVersion(to: dict)
     } else {
         return dict
     }
 }
 
-private func shouldAddUUID(to dict: [String: Any]) -> Bool {
-    if let uuid = dict[kUUID] as? String, !uuid.isEmpty {
+private func shouldAddIPVersion(to dict: [String: Any]) -> Bool {
+    if let version = dict[kIPVersion] as? String, !version.isEmpty {
         return false
     } else {
         return true
     }
 }
 
-private func addingUUID(to dict: [String: Any]) -> [String: Any] {
+private func addingIPVersion(to dict: [String: Any]) -> [String: Any] {
     var result = dict
-    result[kUUID] = UUID().uuidString
+    if let useIPv6 = result[kUseIPv6Only] as? Bool {
+        result[kIPVersion] = useIPv6 ? kIPVersion6 : kIPVersion4
+    } else {
+        result[kIPVersion] = kIPVersion4
+    }
     return result
 }

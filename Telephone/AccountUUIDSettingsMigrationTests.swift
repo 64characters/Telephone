@@ -20,7 +20,7 @@ import UseCasesTestDoubles
 import XCTest
 
 final class AccountUUIDSettingsMigrationTests: XCTestCase {
-    func testAddsUUIDs() {
+    func testAddsUUID() {
         let settings = SettingsFake()
         settings.set([[kAccountEnabled: true], [kAccountEnabled: false]], forKey: kAccounts)
         let sut = AccountUUIDSettingsMigration(settings: settings)
@@ -32,7 +32,7 @@ final class AccountUUIDSettingsMigrationTests: XCTestCase {
         XCTAssertNotNil(UUID(uuidString: (accounts[1][kUUID] as! String)))
     }
 
-    func testDoesNotUpdateUUIDs() {
+    func testDoesNotChangeExistingUUID() {
         let settings = SettingsFake()
         settings.set(
             [[kAccountEnabled: true, kUUID: "foo"], [kAccountEnabled: false, kUUID: "bar"]],
@@ -45,5 +45,16 @@ final class AccountUUIDSettingsMigrationTests: XCTestCase {
         let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
         XCTAssertEqual((accounts[0][kUUID] as! String), "foo")
         XCTAssertEqual((accounts[1][kUUID] as! String), "bar")
+    }
+
+    func testChangesExistingUUIDIfItIsEmpty() {
+        let settings = SettingsFake()
+        settings.set([[kAccountEnabled: true, kUUID: ""]], forKey: kAccounts)
+        let sut = AccountUUIDSettingsMigration(settings: settings)
+
+        sut.execute()
+
+        let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
+        XCTAssertNotNil(UUID(uuidString: (accounts[0][kUUID] as! String)))
     }
 }
