@@ -19,6 +19,7 @@
 final class SettingsMigrationFactoryStub {
     var accountUUID: SettingsMigration = NullSettingsMigration()
     var ipVersion: SettingsMigration = NullSettingsMigration()
+    var tcpTransport: SettingsMigration = NullSettingsMigration()
 
     func stub(withAccountUUIDMigration migration: SettingsMigration) {
         accountUUID = migration
@@ -26,6 +27,10 @@ final class SettingsMigrationFactoryStub {
 
     func stub(withIPVersionMigration migration: SettingsMigration) {
         ipVersion = migration
+    }
+
+    func stub(withTCPTransportMigration migration: SettingsMigration) {
+        tcpTransport = migration
     }
 }
 
@@ -36,6 +41,10 @@ extension SettingsMigrationFactoryStub: SettingsMigrationFactory {
 
     func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration {
         return ipVersion
+    }
+
+    func makeTCPTransportMigration(settings: KeyValueSettings) -> SettingsMigration {
+        return tcpTransport
     }
 }
 

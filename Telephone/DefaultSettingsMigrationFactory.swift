@@ -26,4 +26,8 @@ extension DefaultSettingsMigrationFactory: SettingsMigrationFactory {
     func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration {
         return IPVersionSettingsMigration(settings: settings)
     }
+
+    func makeTCPTransportMigration(settings: KeyValueSettings) -> SettingsMigration {
+        return TCPTransportSettingsMigration(settings: settings)
+    }
 }

@@ -101,6 +101,47 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         XCTAssertFalse(migration.didCallExecute)
     }
 
+    // MARK: - TCPTransportSettingsMigration
+
+    func testExecutesTCPTransportMigrationWhenSettingsVersionIsEqualToOne() {
+        let migration = SettingsMigrationSpy()
+        let factory = SettingsMigrationFactoryStub()
+        factory.stub(withTCPTransportMigration: migration)
+        let settings = SettingsFake()
+        settings.set(1, forKey: kSettingsVersion)
+        let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
+
+        sut.execute()
+
+        XCTAssertTrue(migration.didCallExecute)
+    }
+
+    func testDoesNotExecuteTCPTransportMigrationWhenSettingsVersionIsEqualToTwo() {
+        let migration = SettingsMigrationSpy()
+        let factory = SettingsMigrationFactoryStub()
+        factory.stub(withTCPTransportMigration: migration)
+        let settings = SettingsFake()
+        settings.set(2, forKey: kSettingsVersion)
+        let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
+
+        sut.execute()
+
+        XCTAssertFalse(migration.didCallExecute)
+    }
+
+    func testDoesNotExecuteTCPTransportMigrationWhenSettingsVersionIsGreaterThanTwo() {
+        let migration = SettingsMigrationSpy()
+        let factory = SettingsMigrationFactoryStub()
+        factory.stub(withTCPTransportMigration: migration)
+        let settings = SettingsFake()
+        settings.set(3, forKey: kSettingsVersion)
+        let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
+
+        sut.execute()
+
+        XCTAssertFalse(migration.didCallExecute)
+    }
+
     // MARK: - Versioning
 
     func testSetsSettingsVersionSequentiallyToOneAndTwo() {

@@ -36,6 +36,7 @@ extension ProgressiveSettingsMigration: SettingsMigration {
         }
         if settings.integer(forKey: kSettingsVersion) == 1 {
             factory.makeIPVersionMigration(settings: settings).execute()
+            factory.makeTCPTransportMigration(settings: settings).execute()
             settings.set(2, forKey: kSettingsVersion)
         }
     }
