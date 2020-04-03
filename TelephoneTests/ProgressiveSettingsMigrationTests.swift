@@ -20,6 +20,14 @@ import UseCasesTestDoubles
 import XCTest
 
 final class ProgressiveSettingsMigrationTests: XCTestCase {
+    private var settings: SettingsFake!
+    private var actions: String!
+
+    override func setUp() {
+        super.setUp()
+        settings = SettingsFake()
+        actions = ""
+    }
 
     // MARK: - AccountUUIDSettingsMigration
 
@@ -142,14 +150,46 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         XCTAssertFalse(migration.didCallExecute)
     }
 
-    // MARK: - Versioning
+    // MARK: - Migration sequence
 
-    func testSetsSettingsVersionSequentiallyToOneAndTwo() {
-        let settings = SettingsFake()
-        let sut = ProgressiveSettingsMigration(settings: settings, factory: SettingsMigrationFactoryStub())
+    func testMigrationSequence() {
+        ProgressiveSettingsMigration(settings: self, factory: self).execute()
 
-        sut.execute()
+        XCTAssertEqual(actions, "MauSv1MivMttSv2")
+    }
+}
 
-        XCTAssertEqual(settings.changelog as! [[String: Int]], [[kSettingsVersion: 1], [kSettingsVersion: 2]])
+extension ProgressiveSettingsMigrationTests: KeyValueSettings {
+    subscript(key: String) -> String? {
+        get { settings[key] }
+        set(newValue) { settings[key] = newValue }
+    }
+    func string(forKey key: String) -> String? { settings.string(forKey: key) }
+    func set(_ value: Bool, forKey key: String) { settings.set(value, forKey: key) }
+    func bool(forKey key: String) -> Bool { settings.bool(forKey: key) }
+    func set(_ value: Int, forKey key: String) {
+        actions.append("Sv\(value)")
+        settings.set(value, forKey: key)
+    }
+    func integer(forKey key: String) -> Int { settings.integer(forKey: key) }
+    func set(_ array: [Any], forKey key: String) { settings.set(array, forKey: key) }
+    func array(forKey key: String) -> [Any]? { settings.array(forKey: key) }
+    func register(defaults: [String : Any]) { settings.register(defaults: defaults) }
+}
+
+extension ProgressiveSettingsMigrationTests: SettingsMigrationFactory {
+    func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
+        actions.append("Mau")
+        return NullSettingsMigration()
+    }
+
+    func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration {
+        actions.append("Miv")
+        return NullSettingsMigration()
+    }
+
+    func makeTCPTransportMigration(settings: KeyValueSettings) -> SettingsMigration {
+        actions.append("Mtt")
+        return NullSettingsMigration()
     }
 }

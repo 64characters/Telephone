@@ -24,11 +24,9 @@ public final class SettingsFake {
     public var version = ""
 
     public var registeredDefaults: [String: Any] { return registered }
-    public var changelog: [[String: Any]] { return history }
 
     private var dictionary: [String: Any] = [:]
     private var registered: [String: Any] = [:]
-    private var history: [[String: Any]] = []
 
     public init() {}
 }
@@ -40,7 +38,6 @@ extension SettingsFake: KeyValueSettings {
         }
         set {
             dictionary[key] = newValue as Any?
-            history.append(dictionary)
         }
     }
 
@@ -50,7 +47,6 @@ extension SettingsFake: KeyValueSettings {
 
     @objc public func set(_ value: Bool, forKey key: String) {
         dictionary[key] = value
-        history.append(dictionary)
     }
 
     @objc public func bool(forKey key: String) -> Bool {
@@ -59,7 +55,6 @@ extension SettingsFake: KeyValueSettings {
 
     @objc public func set(_ value: Int, forKey key: String) {
         dictionary[key] = value
-        history.append(dictionary)
     }
 
     @objc public func integer(forKey key: String) -> Int {
@@ -68,7 +63,6 @@ extension SettingsFake: KeyValueSettings {
 
     @objc public func set(_ array: [Any], forKey key: String) {
         dictionary[key] = array
-        history.append(dictionary)
     }
 
     @objc public func array(forKey key: String) -> [Any]? {
@@ -81,9 +75,6 @@ extension SettingsFake: KeyValueSettings {
             if dictionary[key] == nil {
                 dictionary[key] = value
             }
-        }
-        if !defaults.isEmpty {
-            history.append(dictionary)
         }
     }
 }

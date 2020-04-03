@@ -47,7 +47,3 @@ extension SettingsMigrationFactoryStub: SettingsMigrationFactory {
         return tcpTransport
     }
 }
-
-private final class NullSettingsMigration: SettingsMigration {
-    func execute() {}
-}
