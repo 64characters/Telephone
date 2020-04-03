@@ -17,10 +17,15 @@
 //
 
 final class SettingsMigrationFactoryStub {
-    var accountUUID: SettingsMigration!
+    var accountUUID: SettingsMigration = NullSettingsMigration()
+    var ipVersion: SettingsMigration = NullSettingsMigration()
 
-    func stub(withAccountUUIDMigration accountUUID: SettingsMigration) {
-        self.accountUUID = accountUUID
+    func stub(withAccountUUIDMigration migration: SettingsMigration) {
+        accountUUID = migration
+    }
+
+    func stub(withIPVersionMigration migration: SettingsMigration) {
+        ipVersion = migration
     }
 }
 
@@ -28,4 +33,12 @@ extension SettingsMigrationFactoryStub: SettingsMigrationFactory {
     func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
         return accountUUID
     }
+
+    func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration {
+        return ipVersion
+    }
+}
+
+private final class NullSettingsMigration: SettingsMigration {
+    func execute() {}
 }

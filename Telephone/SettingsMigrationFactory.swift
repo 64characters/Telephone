@@ -18,4 +18,5 @@
 
 protocol SettingsMigrationFactory {
     func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration
+    func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration
 }

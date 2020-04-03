@@ -20,6 +20,9 @@ import UseCasesTestDoubles
 import XCTest
 
 final class ProgressiveSettingsMigrationTests: XCTestCase {
+
+    // MARK: - AccountUUIDSettingsMigration
+
     func testExecutesAccountsUUIDMigrationWhenSettingsDoNotHaveVersion() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
@@ -29,17 +32,6 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         sut.execute()
 
         XCTAssertTrue(migration.didCallExecute)
-    }
-
-    func testSetsSettingsVersionToOneAfterAccountUUIDMigration() {
-        let factory = SettingsMigrationFactoryStub()
-        factory.stub(withAccountUUIDMigration: SettingsMigrationSpy())
-        let settings = SettingsFake()
-        let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
-
-        sut.execute()
-
-        XCTAssertEqual(settings.integer(forKey: kSettingsVersion), 1)
     }
 
     func testDoesNotExecuteAccountUUIDMigrationWhenSettingsVersionIsEqualToOne() {
@@ -66,5 +58,57 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         sut.execute()
 
         XCTAssertFalse(migration.didCallExecute)
+    }
+
+    // MARK: - IPVersionSettingsMigration
+
+    func testExecutesIPVersionMigrationWhenSettingsVersionIsEqualToOne() {
+        let migration = SettingsMigrationSpy()
+        let factory = SettingsMigrationFactoryStub()
+        factory.stub(withIPVersionMigration: migration)
+        let settings = SettingsFake()
+        settings.set(1, forKey: kSettingsVersion)
+        let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
+
+        sut.execute()
+
+        XCTAssertTrue(migration.didCallExecute)
+    }
+
+    func testDoesNotExecuteIPVersionMigrationWhenSettingsVersionIsEqualToTwo() {
+        let migration = SettingsMigrationSpy()
+        let factory = SettingsMigrationFactoryStub()
+        factory.stub(withIPVersionMigration: migration)
+        let settings = SettingsFake()
+        settings.set(2, forKey: kSettingsVersion)
+        let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
+
+        sut.execute()
+
+        XCTAssertFalse(migration.didCallExecute)
+    }
+
+    func testDoesNotExecuteIPVersionMigrationWhenSettingsVersionIsGreaterThanTwo() {
+        let migration = SettingsMigrationSpy()
+        let factory = SettingsMigrationFactoryStub()
+        factory.stub(withIPVersionMigration: migration)
+        let settings = SettingsFake()
+        settings.set(3, forKey: kSettingsVersion)
+        let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
+
+        sut.execute()
+
+        XCTAssertFalse(migration.didCallExecute)
+    }
+
+    // MARK: - Versioning
+
+    func testSetsSettingsVersionSequentiallyToOneAndTwo() {
+        let settings = SettingsFake()
+        let sut = ProgressiveSettingsMigration(settings: settings, factory: SettingsMigrationFactoryStub())
+
+        sut.execute()
+
+        XCTAssertEqual(settings.changelog as! [[String: Int]], [[kSettingsVersion: 1], [kSettingsVersion: 2]])
     }
 }

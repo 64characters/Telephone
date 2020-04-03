@@ -22,4 +22,8 @@ extension DefaultSettingsMigrationFactory: SettingsMigrationFactory {
     func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
         return AccountUUIDSettingsMigration(settings: settings)
     }
+
+    func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration {
+        return IPVersionSettingsMigration(settings: settings)
+    }
 }
