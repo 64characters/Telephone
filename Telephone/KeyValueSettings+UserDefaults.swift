@@ -1,5 +1,5 @@
 //
-//  SettingsMigrationFactory.swift
+//  KeyValueSettings+UserDefaults.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,14 @@
 //  GNU General Public License for more details.
 //
 
-protocol SettingsMigrationFactory {
-    func makeAccountUUIDMigration() -> SettingsMigration
-    func makeIPVersionMigration() -> SettingsMigration
-    func makeTCPTransportMigration() -> SettingsMigration
+import UseCases
+
+extension KeyValueSettings {
+    func loadAccounts() -> [[String: Any]] {
+        return self.array(forKey: kAccounts) as? [[String: Any]] ?? []
+    }
+
+    func save(accounts: [[String: Any]]) {
+        self.set(accounts, forKey: kAccounts)
+    }
 }

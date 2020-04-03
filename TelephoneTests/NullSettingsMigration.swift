@@ -1,5 +1,5 @@
 //
-//  SettingsMigrationFactory.swift
+//  NullSettingsMigration.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,8 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-protocol SettingsMigrationFactory {
-    func makeAccountUUIDMigration() -> SettingsMigration
-    func makeIPVersionMigration() -> SettingsMigration
-    func makeTCPTransportMigration() -> SettingsMigration
+final class NullSettingsMigration: SettingsMigration {
+    func execute() {}
 }

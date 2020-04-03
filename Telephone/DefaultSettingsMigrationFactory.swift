@@ -16,10 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-final class DefaultSettingsMigrationFactory {}
+final class DefaultSettingsMigrationFactory {
+    private let settings: KeyValueSettings
+
+    init(settings: KeyValueSettings) {
+        self.settings = settings
+    }
+}
 
 extension DefaultSettingsMigrationFactory: SettingsMigrationFactory {
-    func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
+    func makeAccountUUIDMigration() -> SettingsMigration {
         return AccountUUIDSettingsMigration(settings: settings)
+    }
+
+    func makeIPVersionMigration() -> SettingsMigration {
+        return IPVersionSettingsMigration(settings: settings)
+    }
+
+    func makeTCPTransportMigration() -> SettingsMigration {
+        return TCPTransportSettingsMigration(settings: settings)
     }
 }

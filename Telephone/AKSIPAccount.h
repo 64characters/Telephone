@@ -27,9 +27,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// SIP transports.
+typedef NS_ENUM(NSInteger, AKSIPTransport) {
+    AKSIPTransportUDP,
+    AKSIPTransportTCP
+};
+
 // SIP account defaults.
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
+extern const AKSIPTransport kAKSIPAccountDefaultTransport;
 
 @class AKSIPCall, AKSIPURI;
 
@@ -72,6 +79,12 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 // Default: 300 (sec).
 @property(nonatomic) NSUInteger reregistrationTime;
 
+// SIP transport.
+@property(nonatomic) AKSIPTransport transport;
+
+/// A Boolean value indicating if IPv6 should be used.
+@property(nonatomic) BOOL usesIPv6;
+
 /// A Boolean value indicating if Contact header should be automatically updated.
 ///
 /// When YES, the library will keep track of the public IP address from the response of the REGISTER request.
@@ -87,9 +100,6 @@ extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 ///
 /// When YES, and when STUN and ICE are disabled, then the IP address found in registration response will be used.
 @property(nonatomic) BOOL updatesSDP;
-
-/// A Boolean value indicating if only IPv6 should be used.
-@property(nonatomic) BOOL usesIPv6Only;
 
 // The receiver's identifier at the user agent.
 @property(nonatomic, readonly) NSInteger identifier;

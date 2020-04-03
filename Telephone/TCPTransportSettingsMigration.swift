@@ -1,5 +1,5 @@
 //
-//  AccountUUIDSettingsMigration.swift
+//  TCPTransportSettingsMigration.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,7 +18,7 @@
 
 import UseCases
 
-final class AccountUUIDSettingsMigration {
+final class TCPTransportSettingsMigration {
     private let settings: KeyValueSettings
 
     init(settings: KeyValueSettings) {
@@ -26,30 +26,18 @@ final class AccountUUIDSettingsMigration {
     }
 }
 
-extension AccountUUIDSettingsMigration: SettingsMigration {
+extension TCPTransportSettingsMigration: SettingsMigration {
     func execute() {
-        settings.save(accounts: settings.loadAccounts().map(addingUUIDIfNeeded))
+        settings.save(accounts: settings.loadAccounts().map(settingTransportToTCPAndRemovingProxyParameterIfNeeded))
     }
 }
 
-private func addingUUIDIfNeeded(to dict: [String: Any]) -> [String: Any] {
-    if shouldAddUUID(to: dict) {
-        return addingUUID(to: dict)
-    } else {
-        return dict
-    }
-}
-
-private func shouldAddUUID(to dict: [String: Any]) -> Bool {
-    if let uuid = dict[kUUID] as? String, !uuid.isEmpty {
-        return false
-    } else {
-        return true
-    }
-}
-
-private func addingUUID(to dict: [String: Any]) -> [String: Any] {
+private func settingTransportToTCPAndRemovingProxyParameterIfNeeded(in dict: [String: Any]) -> [String: Any] {
+    guard let proxy = dict[kProxyHost] as? String, proxy.contains(tcpTransportParameter) else { return dict }
     var result = dict
-    result[kUUID] = UUID().uuidString
+    result[kTransport] = kTransportTCP
+    result[kProxyHost] = proxy.replacingOccurrences(of: tcpTransportParameter, with: "")
     return result
 }
+
+private let tcpTransportParameter = ";transport=tcp"

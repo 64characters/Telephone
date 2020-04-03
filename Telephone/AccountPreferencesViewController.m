@@ -191,9 +191,12 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:NO];
             [[self registrarField] setEnabled:NO];
             [[self cantEditAccountLabel] setHidden:NO];
+            [[self UDPButton] setEnabled:NO];
+            [[self TCPButton] setEnabled:NO];
+            [[self IPv4Button] setEnabled:NO];
+            [[self IPv6Button] setEnabled:NO];
             [[self updateIPAddressCheckBox] setEnabled:NO];
-            [[self useIPv6OnlyCheckBox] setEnabled:NO];
-            
+
         } else {
             [[self accountEnabledCheckBox] setState:NSOffState];
             [[self accountDescriptionField] setEnabled:YES];
@@ -225,8 +228,11 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setEnabled:YES];
             [[self registrarField] setEnabled:YES];
             [[self cantEditAccountLabel] setHidden:YES];
+            [[self UDPButton] setEnabled:YES];
+            [[self TCPButton] setEnabled:YES];
+            [[self IPv4Button] setEnabled:YES];
+            [[self IPv6Button] setEnabled:YES];
             [[self updateIPAddressCheckBox] setEnabled:YES];
-            [[self useIPv6OnlyCheckBox] setEnabled:YES];
         }
         
         // Populate fields.
@@ -320,6 +326,20 @@ static const NSUInteger kAccountsMax = 32;
             [[self SIPAddressField] setPlaceholderString:nil];
             [[self registrarField] setPlaceholderString:nil];
         }
+
+        // Update SIP Transport.
+        if ([accountDict[kTransport] isEqualToString:kTransportTCP]) {
+            [[self TCPButton] setState:NSOnState];
+        } else {
+            [[self UDPButton] setState:NSOnState];
+        }
+
+        // Update IP Version.
+        if ([accountDict[kIPVersion] isEqualToString:kIPVersion6]) {
+            [[self IPv6Button] setState:NSOnState];
+        } else {
+            [[self IPv4Button] setState:NSOnState];
+        }
         
         // Update headers checkbox.
         if ([accountDict[kUpdateContactHeader] boolValue] && [accountDict[kUpdateViaHeader] boolValue] && [accountDict[kUpdateSDP] boolValue]) {
@@ -333,9 +353,6 @@ static const NSUInteger kAccountsMax = 32;
             [[self updateIPAddressCheckBox] setState:NSOffState];
         }
 
-        // Use IPv6 Only checkbox.
-        [[self useIPv6OnlyCheckBox] setState:[accountDict[kUseIPv6Only] integerValue]];
-        
     } else {  // if (index >= 0)
         [[self accountEnabledCheckBox] setState:NSOffState];
         [[self accountDescriptionField] setStringValue:@""];
@@ -352,9 +369,12 @@ static const NSUInteger kAccountsMax = 32;
         [[self proxyPortField] setStringValue:@""];
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
+        [[self UDPButton] setState:NSOffState];
+        [[self TCPButton] setState:NSOffState];
+        [[self IPv4Button] setState:NSOffState];
+        [[self IPv6Button] setState:NSOffState];
         [[self updateIPAddressCheckBox] setState:NSOffState];
-        [[self useIPv6OnlyCheckBox] setState:NSOffState];
-        
+
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];
         [[self fullNameField] setEnabled:NO];
@@ -373,8 +393,11 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setEnabled:NO];
         [[self registrarField] setPlaceholderString:nil];
         [[self cantEditAccountLabel] setHidden:YES];
+        [[self UDPButton] setEnabled:NO];
+        [[self TCPButton] setEnabled:NO];
+        [[self IPv4Button] setEnabled:NO];
+        [[self IPv6Button] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
-        [[self useIPv6OnlyCheckBox] setEnabled:NO];
     }
 }
 
@@ -446,7 +469,11 @@ static const NSUInteger kAccountsMax = 32;
         accountDict[kSIPAddress] = sipAddress;
         
         accountDict[kRegistrar] = registrar;
-        
+
+        accountDict[kTransport] = self.TCPButton.state == NSOnState ? kTransportTCP : kTransportUDP;
+
+        accountDict[kIPVersion] = self.IPv6Button.state == NSOnState ? kIPVersion6 : kIPVersion4;
+
         if (self.updateIPAddressCheckBox.state == NSOnState) {
             accountDict[kUpdateContactHeader] = @YES;
             accountDict[kUpdateViaHeader] = @YES;
@@ -461,8 +488,6 @@ static const NSUInteger kAccountsMax = 32;
             accountDict[kUpdateSDP] = @NO;
         }
 
-        accountDict[kUseIPv6Only] = @(self.useIPv6OnlyCheckBox.state == NSOnState);
-        
         // Set placeholders.
         
         if ([sipAddress length] > 0) {
@@ -499,9 +524,12 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:NO];
         [[self registrarField] setEnabled:NO];
         [[self cantEditAccountLabel] setHidden:NO];
+        [[self UDPButton] setEnabled:NO];
+        [[self TCPButton] setEnabled:NO];
+        [[self IPv4Button] setEnabled:NO];
+        [[self IPv6Button] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
-        [[self useIPv6OnlyCheckBox] setEnabled:NO];
-        
+
         // Mark accounts table as needing redisplay.
         [[self accountsTable] reloadData];
         
@@ -531,8 +559,11 @@ static const NSUInteger kAccountsMax = 32;
         [[self SIPAddressField] setEnabled:YES];
         [[self registrarField] setEnabled:YES];
         [[self cantEditAccountLabel] setHidden:YES];
+        [[self UDPButton] setEnabled:YES];
+        [[self TCPButton] setEnabled:YES];
+        [[self IPv4Button] setEnabled:YES];
+        [[self IPv6Button] setEnabled:YES];
         [[self updateIPAddressCheckBox] setEnabled:YES];
-        [[self useIPv6OnlyCheckBox] setEnabled:YES];
     }
     
     savedAccounts[index] = accountDict;
@@ -554,6 +585,10 @@ static const NSUInteger kAccountsMax = 32;
     [[self proxyHostField] setEnabled:isChecked];
     [[self proxyPortField] setEnabled:isChecked];
 }
+
+// Group radio buttons by providing them the same action.
+- (IBAction)changeTransport:(id)sender {}
+- (IBAction)changeIPVersion:(id)sender {}
 
 
 #pragma mark -
