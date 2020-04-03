@@ -144,7 +144,9 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        settingsMigration = ProgressiveSettingsMigration(settings: defaults, factory: DefaultSettingsMigrationFactory())
+        settingsMigration = ProgressiveSettingsMigration(
+            settings: defaults, factory: DefaultSettingsMigrationFactory(settings: defaults)
+        )
 
         let applicationDataLocations = DirectoryCreatingApplicationDataLocations(
             origin: SimpleApplicationDataLocations(manager: FileManager.default, bundle: Bundle.main),

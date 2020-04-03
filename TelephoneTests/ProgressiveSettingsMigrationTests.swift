@@ -178,17 +178,17 @@ extension ProgressiveSettingsMigrationTests: KeyValueSettings {
 }
 
 extension ProgressiveSettingsMigrationTests: SettingsMigrationFactory {
-    func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
+    func makeAccountUUIDMigration() -> SettingsMigration {
         actions.append("Mau")
         return NullSettingsMigration()
     }
 
-    func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration {
+    func makeIPVersionMigration() -> SettingsMigration {
         actions.append("Miv")
         return NullSettingsMigration()
     }
 
-    func makeTCPTransportMigration(settings: KeyValueSettings) -> SettingsMigration {
+    func makeTCPTransportMigration() -> SettingsMigration {
         actions.append("Mtt")
         return NullSettingsMigration()
     }

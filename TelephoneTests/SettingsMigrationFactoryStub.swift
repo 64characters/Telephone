@@ -35,15 +35,15 @@ final class SettingsMigrationFactoryStub {
 }
 
 extension SettingsMigrationFactoryStub: SettingsMigrationFactory {
-    func makeAccountUUIDMigration(settings: KeyValueSettings) -> SettingsMigration {
+    func makeAccountUUIDMigration() -> SettingsMigration {
         return accountUUID
     }
 
-    func makeIPVersionMigration(settings: KeyValueSettings) -> SettingsMigration {
+    func makeIPVersionMigration() -> SettingsMigration {
         return ipVersion
     }
 
-    func makeTCPTransportMigration(settings: KeyValueSettings) -> SettingsMigration {
+    func makeTCPTransportMigration() -> SettingsMigration {
         return tcpTransport
     }
 }
