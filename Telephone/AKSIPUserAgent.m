@@ -374,6 +374,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     mediaConfig.no_vad = ![self detectsVoiceActivity];
     mediaConfig.enable_ice = [self usesICE];
     mediaConfig.snd_auto_close_time = 1;
+    mediaConfig.ec_options = PJMEDIA_ECHO_USE_SW_ECHO;
 
     if (self.usesQoS) {
         transportConfig.qos_params.flags = PJ_QOS_PARAM_HAS_DSCP;
