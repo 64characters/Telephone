@@ -68,7 +68,7 @@ private func propertyValue<T>(forDeviceWithID deviceID: AudioObjectID, selector:
 }
 
 private func channelCount(with objectID: AudioObjectID, scope: AudioObjectPropertyScope) throws -> Int {
-    var audioObject = CoreAudioObject(objectID: objectID, propertyAddress: audioBufferListAddress(scope: scope))
+    let audioObject = CoreAudioObject(objectID: objectID, propertyAddress: audioBufferListAddress(scope: scope))
     var length = try audioObject.propertyDataLength()
     let bytes = UnsafeMutablePointer<AudioBufferList>.allocate(capacity: audioBufferListCount(with: length))
     defer { bytes.deallocate() }
