@@ -26,9 +26,9 @@ Build and install:
 
 Download:
 
-    $ curl -O https://www.pjsip.org/release/2.7.2/pjproject-2.7.2.tar.bz2
-    $ tar xzvf pjproject-2.7.2.tar.bz2
-    $ cd pjproject-2.7.2
+    $ curl -o pjproject-2.10.tar.gz https://codeload.github.com/pjsip/pjproject/tar.gz/2.10
+    $ tar xzvf pjproject-2.10.tar.gz
+    $ cd pjproject-2.10
 
 Create `pjlib/include/pj/config_site.h`:
 
@@ -43,6 +43,7 @@ Create `pjlib/include/pj/config_site.h`:
 Patch `pjlib/src/pj/sock_qos_darwin.c`:
 
     $ patch -p0 -i /path/to/Telephone/ThirdParty/PJSIP/patches/sock_qos_darwin.patch
+    $ patch -p0 -i /path/to/Telephone/ThirdParty/PJSIP/patches/os_core_unix.patch
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
