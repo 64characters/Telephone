@@ -26,25 +26,24 @@ Build and install:
 
 Download:
 
-    $ curl -O https://www.pjsip.org/release/2.7.2/pjproject-2.7.2.tar.bz2
-    $ tar xzvf pjproject-2.7.2.tar.bz2
-    $ cd pjproject-2.7.2
+    $ curl -o pjproject-2.10.tar.gz https://codeload.github.com/pjsip/pjproject/tar.gz/2.10
+    $ tar xzvf pjproject-2.10.tar.gz
+    $ cd pjproject-2.10
 
 Create `pjlib/include/pj/config_site.h`:
 
     #define PJSIP_DONT_SWITCH_TO_TCP 1
     #define PJSUA_MAX_ACC 32
     #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS 101
-    #define PJMEDIA_RTP_PT_TELEPHONE_EVENTS_STR "101"
     #define PJ_DNS_MAX_IP_IN_A_REC 32
     #define PJ_DNS_SRV_MAX_ADDR 32
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
-    #define PJ_GETHOSTIP_DISABLE_LOCAL_RESOLUTION 1
     #define PJ_HAS_IPV6 1
 
 Patch `pjlib/src/pj/sock_qos_darwin.c`:
 
     $ patch -p0 -i /path/to/Telephone/ThirdParty/PJSIP/patches/sock_qos_darwin.patch
+    $ patch -p0 -i /path/to/Telephone/ThirdParty/PJSIP/patches/os_core_unix.patch
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
