@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)isRegistered {
-    return ([self registrationStatus] / 100 == 2) && ([self registrationExpireTime] > 0);
+    return [self registrationStatus] / 100 == 2 && [self registrationExpireTime] != PJSIP_EXPIRES_NOT_SPECIFIED;
 }
 
 - (void)setRegistered:(BOOL)value {
