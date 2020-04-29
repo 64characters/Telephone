@@ -818,13 +818,13 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         priorities = @{
-                       @"speex/16000/1": @(130),
-                       @"speex/8000/1":  @(129),
-                       @"opus/48000/2":  @(128),
-                       @"G722/16000/1":  @(127),
-                       @"PCMA/8000/1":   @(126),
-                       @"PCMU/8000/1":   @(125),
+                       @"opus/48000/2":  @(130),
+                       @"G722/16000/1":  @(129),
+                       @"PCMA/8000/1":   @(128),
+                       @"PCMU/8000/1":   @(127),
                        @"speex/32000/1": @(0),
+                       @"speex/16000/1": @(0),
+                       @"speex/8000/1":  @(0),
                        @"iLBC/8000/1":   @(0),
                        @"GSM/8000/1":    @(0)
                        };
