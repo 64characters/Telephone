@@ -18,7 +18,7 @@ Download:
 
 Build and install:
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/Opus --disable-shared CFLAGS='-O2 -mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/Opus --disable-shared CFLAGS='-Os -mmacosx-version-min=10.10'
     $ make
     $ make install
 
@@ -47,7 +47,7 @@ Patch `pjlib/src/pj/sock_qos_darwin.c`:
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --disable-video --disable-libyuv --disable-libwebrtc --host=x86_64-apple-darwin CFLAGS='-mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --disable-video --disable-libyuv --disable-libwebrtc --host=x86_64-apple-darwin CFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.10' CXXFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.10'
     $ make lib
     $ make install
 
@@ -58,7 +58,7 @@ Build and install (remove `--with-opus` option if you don’t need Opus):
     $ gpg --verify libressl-2.6.5.tar.gz.asc
     $ tar xzvf libressl-2.6.5.tar.gz
     $ cd libressl-2.6.5
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-Os -mmacosx-version-min=10.10'
     $ make
     $ make install
 
