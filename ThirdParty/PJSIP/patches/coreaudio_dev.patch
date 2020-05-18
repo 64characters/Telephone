@@ -1,0 +1,28 @@
+diff --git pjmedia/src/pjmedia-audiodev/coreaudio_dev.m pjmedia/src/pjmedia-audiodev/coreaudio_dev.m
+index d27d54dd4..0d856314e 100644
+--- pjmedia/src/pjmedia-audiodev/coreaudio_dev.m
++++ pjmedia/src/pjmedia-audiodev/coreaudio_dev.m
+@@ -630,11 +630,6 @@ static pj_status_t ca_factory_refresh(pjmedia_aud_dev_factory *f)
+ 	}
+ 	if (cdi->info.output_count > 0) {
+ 	    cdi->info.caps |= PJMEDIA_AUD_DEV_CAP_OUTPUT_LATENCY;
+-	    addr.mSelector = kAudioDevicePropertyVolumeScalar;
+-	    addr.mScope = kAudioDevicePropertyScopeOutput;
+-	    if (AudioObjectHasProperty(cdi->dev_id, &addr)) {
+-		cdi->info.caps |= PJMEDIA_AUD_DEV_CAP_OUTPUT_VOLUME_SETTING;
+-	    }
+ 	}
+ 	if (cf->has_vpio) {
+ 	    cdi->info.caps |= PJMEDIA_AUD_DEV_CAP_EC;
+@@ -1803,11 +1798,6 @@ static pj_status_t ca_stream_get_param(pjmedia_aud_stream *s,
+     {
+ 	pi->flags |= PJMEDIA_AUD_DEV_CAP_OUTPUT_LATENCY;
+     }
+-    if (ca_stream_get_cap(s, PJMEDIA_AUD_DEV_CAP_OUTPUT_VOLUME_SETTING,
+-			  &pi->output_vol) == PJ_SUCCESS)
+-    {
+-        pi->flags |= PJMEDIA_AUD_DEV_CAP_OUTPUT_VOLUME_SETTING;
+-    }
+     if (ca_stream_get_cap(s, PJMEDIA_AUD_DEV_CAP_INPUT_ROUTE,
+ 			  &pi->input_route) == PJ_SUCCESS)
+     {
