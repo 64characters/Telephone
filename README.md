@@ -40,10 +40,11 @@ Create `pjlib/include/pj/config_site.h`:
     #define PJSIP_MAX_RESOLVED_ADDRESSES 32
     #define PJ_HAS_IPV6 1
 
-Patch `pjlib/src/pj/sock_qos_darwin.c`:
+Patch:
 
     $ patch -p0 -i /path/to/Telephone/ThirdParty/PJSIP/patches/sock_qos_darwin.patch
     $ patch -p0 -i /path/to/Telephone/ThirdParty/PJSIP/patches/os_core_unix.patch
+    $ patch -p0 -i /path/to/Telephone/ThirdParty/PJSIP/patches/coreaudio_dev.patch
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
