@@ -80,6 +80,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 @property(nonatomic) pjsua_transport_id UDP6TransportIdentifier;
 @property(nonatomic) pjsua_transport_id TCP4TransportIdentifier;
 @property(nonatomic) pjsua_transport_id TCP6TransportIdentifier;
+@property(nonatomic) pjsua_transport_id TLS4TransportIdentifier;
+@property(nonatomic) pjsua_transport_id TLS6TransportIdentifier;
 
 @property(nonatomic, readonly) NSThread *thread;
 
@@ -248,6 +250,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self setUDP6TransportIdentifier:PJSUA_INVALID_ID];
     [self setTCP4TransportIdentifier:PJSUA_INVALID_ID];
     [self setTCP6TransportIdentifier:PJSUA_INVALID_ID];
+    [self setTLS4TransportIdentifier:PJSUA_INVALID_ID];
+    [self setTLS6TransportIdentifier:PJSUA_INVALID_ID];
 
     _poolQueue = dispatch_queue_create("com.tlphn.Telephone.AKSIPUserAgent.PJSIP.pool", DISPATCH_QUEUE_SERIAL);
 
@@ -497,6 +501,26 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     }
     self.TCP6TransportIdentifier = TCP6TransportIdentifier;
 
+    // Add TLS transport.
+    transportConfig.tls_setting.verify_server = PJ_TRUE;
+    NSURL *cert = [NSBundle.mainBundle URLForResource:@"PublicCAs" withExtension:@"pem"];
+    transportConfig.tls_setting.ca_list_file = cert.path.pjString;
+    transportConfig.port++;
+    pjsua_transport_id TLS4TransportIdentifier = PJSUA_INVALID_ID;
+    status = pjsua_transport_create(PJSIP_TRANSPORT_TLS, &transportConfig, &TLS4TransportIdentifier);
+    if (status != PJ_SUCCESS) {
+        NSLog(@"Error creating TLS4 transport");
+    }
+    self.TLS4TransportIdentifier = TLS4TransportIdentifier;
+
+    // Add TLS6 transport.
+    pjsua_transport_id TLS6TransportIdentifier = PJSUA_INVALID_ID;
+    status = pjsua_transport_create(PJSIP_TRANSPORT_TLS6, &transportConfig, &TLS6TransportIdentifier);
+    if (status != PJ_SUCCESS) {
+        NSLog(@"Error creating TLS6 transport");
+    }
+    self.TLS6TransportIdentifier = TLS6TransportIdentifier;
+
     // Update codecs.
     [self updateCodecs];
 
@@ -555,6 +579,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     self.UDP6TransportIdentifier = PJSUA_INVALID_ID;
     self.TCP4TransportIdentifier = PJSUA_INVALID_ID;
     self.TCP6TransportIdentifier = PJSUA_INVALID_ID;
+    self.TLS4TransportIdentifier = PJSUA_INVALID_ID;
+    self.TLS6TransportIdentifier = PJSUA_INVALID_ID;
     if (self.pool) {
         pj_pool_release(self.pool);
         self.pool = NULL;

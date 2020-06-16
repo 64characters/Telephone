@@ -226,6 +226,7 @@
 		8A61363D1CC23ABC00A087A4 /* SystemAudioDevicesChangeEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetsTests.swift */; };
 		8A61363E1CC23AFF00A087A4 /* SystemAudioDevicesChangeEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */; };
 		8A6185371EC65E0500EAA8E2 /* MatchedContact+Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6185361EC65E0500EAA8E2 /* MatchedContact+Contact.swift */; };
+		8A628949245761C100609016 /* PublicCAs.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8A628948245761C100609016 /* PublicCAs.pem */; };
 		8A62B08B20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A62B08A20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift */; };
 		8A635DD81D8C211300E2DBD0 /* MusicPlayerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A635DD71D8C211300E2DBD0 /* MusicPlayerFactory.m */; };
 		8A63ECD41CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A63ECD31CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift */; };
@@ -1129,6 +1130,7 @@
 		8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenter.swift; sourceTree = "<group>"; };
 		8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenterSpy.swift; sourceTree = "<group>"; };
 		8A6185361EC65E0500EAA8E2 /* MatchedContact+Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MatchedContact+Contact.swift"; sourceTree = "<group>"; };
+		8A628948245761C100609016 /* PublicCAs.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PublicCAs.pem; sourceTree = "<group>"; };
 		8A62B08A20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioSystemAudioDevicesFactory.swift; sourceTree = "<group>"; };
 		8A635DD61D8C211300E2DBD0 /* MusicPlayerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerFactory.h; sourceTree = "<group>"; };
 		8A635DD71D8C211300E2DBD0 /* MusicPlayerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerFactory.m; sourceTree = "<group>"; };
@@ -1980,6 +1982,7 @@
 				AA2ED9B10F05BB5D004A13C6 /* AuthenticationFailure.xib */,
 				AA2ED9AB0F05BA11004A13C6 /* AccountSetup.xib */,
 				AA53434612ADBAD200B47767 /* Sound.tiff */,
+				8A628948245761C100609016 /* PublicCAs.pem */,
 				8AE4E95B1DABBBF90003F063 /* Images.xcassets */,
 				8A70C46C1DAE832E002E8754 /* Credits.rtf */,
 			);
@@ -3789,6 +3792,7 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				AA2ED9A50F05B5C6004A13C6 /* Preferences.xib in Resources */,
 				AA2ED99C0F05B362004A13C6 /* Account.xib in Resources */,
+				8A628949245761C100609016 /* PublicCAs.pem in Resources */,
 				8AA749031D749E4D000587DC /* StoreViewController.xib in Resources */,
 				AA2ED9A00F05B3B5004A13C6 /* Call.xib in Resources */,
 				AA2ED9AC0F05BA11004A13C6 /* AccountSetup.xib in Resources */,
@@ -5556,6 +5560,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
+					"\"$(SRCROOT)/ThirdParty/LibreSSL/lib\"",
 					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
 				);
 				MARKETING_VERSION = 1.4.6;
@@ -5575,6 +5580,8 @@
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
+					"-lcrypto",
+					"-lssl",
 					"-lopus",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
@@ -5604,6 +5611,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
+					"\"$(SRCROOT)/ThirdParty/LibreSSL/lib\"",
 					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
 				);
 				MARKETING_VERSION = 1.4.6;
@@ -5623,6 +5631,8 @@
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
+					"-lcrypto",
+					"-lssl",
 					"-lopus",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
