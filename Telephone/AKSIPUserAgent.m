@@ -653,10 +653,10 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     accountConfig.reg_timeout = (unsigned)[anAccount reregistrationTime];
     
     switch (anAccount.transport) {
-        case AKSIPTransportUDP:
+        case TransportUDP:
             accountConfig.transport_id = anAccount.usesIPv6 ? self.UDP6TransportIdentifier : self.UDP4TransportIdentifier;
             break;
-        case AKSIPTransportTCP:
+        case TransportTCP:
             accountConfig.transport_id = anAccount.usesIPv6 ? self.TCP6TransportIdentifier : self.TCP4TransportIdentifier;
         default:
             break;

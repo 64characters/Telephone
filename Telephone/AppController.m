@@ -353,7 +353,7 @@ NS_ASSUME_NONNULL_END
         account.proxyHost = dict[kProxyHost];
         account.proxyPort = [dict[kProxyPort] integerValue];
     }
-    account.transport = [dict[kTransport] isEqualToString:kTransportTCP] ? AKSIPTransportTCP : AKSIPTransportUDP;
+    account.transport = [dict[kTransport] isEqualToString:kTransportTCP] ? TransportTCP : TransportUDP;
     account.usesIPv6 = [dict[kIPVersion] isEqualToString:kIPVersion6];
     account.updatesContactHeader = [dict[kUpdateContactHeader] boolValue];
     account.updatesViaHeader = [dict[kUpdateViaHeader] boolValue];

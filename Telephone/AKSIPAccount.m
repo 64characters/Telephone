@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
-const AKSIPTransport kAKSIPAccountDefaultTransport = AKSIPTransportUDP;
+const Transport kAKSIPAccountDefaultTransport = TransportUDP;
 
 @interface AKSIPCallParameters : NSObject
 

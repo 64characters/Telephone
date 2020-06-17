@@ -27,16 +27,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// SIP transports.
-typedef NS_ENUM(NSInteger, AKSIPTransport) {
-    AKSIPTransportUDP,
-    AKSIPTransportTCP
-};
-
 // SIP account defaults.
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
-extern const AKSIPTransport kAKSIPAccountDefaultTransport;
+extern const Transport kAKSIPAccountDefaultTransport;
 
 @class AKSIPCall, AKSIPURI;
 
@@ -80,7 +74,7 @@ extern const AKSIPTransport kAKSIPAccountDefaultTransport;
 @property(nonatomic) NSUInteger reregistrationTime;
 
 // SIP transport.
-@property(nonatomic) AKSIPTransport transport;
+@property(nonatomic) Transport transport;
 
 /// A Boolean value indicating if IPv6 should be used.
 @property(nonatomic) BOOL usesIPv6;
