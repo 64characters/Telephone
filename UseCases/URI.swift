@@ -22,21 +22,26 @@ public final class URI: NSObject {
     @objc public let user: String
     @objc public let address: ServiceAddress
     @objc public let displayName: String
+    @objc public let transport: Transport
 
     @objc public var host: String { return address.host }
     @objc public var port: String { return address.port }
 
     @objc public var stringValue: String {
-        let a = user.isEmpty ? "\(address)" : "\(user)@\(address)"
+        var a = user.isEmpty ? "\(address)" : "\(user)@\(address)"
+        if transport == .tcp || transport == .tls {
+            a.append(";transport=\(transport.stringValue)")
+        }
         return displayName.isEmpty ? "sip:\(a)" : "\"\(displayName)\" <sip:\(a)>"
     }
 
     public override var description: String { return stringValue }
 
-    @objc public init(user: String, address: ServiceAddress, displayName: String) {
+    @objc public init(user: String, address: ServiceAddress, displayName: String, transport: Transport = .udp) {
         self.user = user
         self.address = address
         self.displayName = displayName
+        self.transport = transport
     }
 
     @objc public convenience init(user: String, host: String, displayName: String) {
@@ -75,10 +80,28 @@ extension URI {
         hasher.combine(user)
         hasher.combine(address)
         hasher.combine(displayName)
+        hasher.combine(transport)
         return hasher.finalize()
     }
 
     private func isEqual(to uri: URI) -> Bool {
-        return user == uri.user && address == uri.address && displayName == uri.displayName
+        return user == uri.user && address == uri.address && displayName == uri.displayName && transport == uri.transport
+    }
+}
+
+@objc public enum Transport: Int {
+    @objc(TransportUDP) case udp
+    @objc(TransportTCP) case tcp
+    @objc(TransportTLS) case tls
+
+    var stringValue: String {
+        switch self {
+        case .udp:
+            return "udp"
+        case .tcp:
+            return "tcp"
+        case .tls:
+            return "tls"
+        }
     }
 }

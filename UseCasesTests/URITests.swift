@@ -20,7 +20,21 @@ import UseCases
 import XCTest
 
 final class URITests: XCTestCase {
+    func testCanCreateWithUserAndServiceAddressAndDisplayNameAndTransport() {
+        XCTAssertNotNil(
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .udp)
+        )
+    }
+
     func testEquality() {
+        XCTAssertEqual(
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .tcp),
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .tcp)
+        )
+        XCTAssertNotEqual(
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .udp),
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .tcp)
+        )
         XCTAssertEqual(
             URI(user: "any-user", host: "any-host", displayName: "any-name"),
             URI(user: "any-user", host: "any-host", displayName: "any-name")
@@ -48,6 +62,34 @@ final class URITests: XCTestCase {
         XCTAssertEqual(
             URI(user: "user", address: ServiceAddress(host: "host", port: "123"), displayName: "Name").stringValue,
             "\"Name\" <sip:user@host:123>"
+        )
+    }
+
+    func testStringValueWithUserAndHostAndPortAndDisplayNameAndTCPTransport() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host", port: "123"), displayName: "Name", transport: .tcp).stringValue,
+            "\"Name\" <sip:user@host:123;transport=tcp>"
+        )
+    }
+
+    func testStringValueDoesNotContainTransportWhenTransportIsUDP() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host"), displayName: "", transport: .udp).stringValue,
+            "sip:user@host"
+        )
+    }
+
+    func testStringValueContainsTransportTCPWhenTransportIsTCP() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host"), displayName: "", transport: .tcp).stringValue,
+            "sip:user@host;transport=tcp"
+        )
+    }
+
+    func testStringValueContainsTransportTLSWhenTransportIsTLS() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host"), displayName: "", transport: .tls).stringValue,
+            "sip:user@host;transport=tls"
         )
     }
 
