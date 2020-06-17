@@ -88,20 +88,3 @@ extension URI {
         return user == uri.user && address == uri.address && displayName == uri.displayName && transport == uri.transport
     }
 }
-
-@objc public enum Transport: Int {
-    @objc(TransportUDP) case udp
-    @objc(TransportTCP) case tcp
-    @objc(TransportTLS) case tls
-
-    var stringValue: String {
-        switch self {
-        case .udp:
-            return "udp"
-        case .tcp:
-            return "tcp"
-        case .tls:
-            return "tls"
-        }
-    }
-}
