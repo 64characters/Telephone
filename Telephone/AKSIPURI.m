@@ -136,7 +136,8 @@
     NSString *port = self.port > 0 ? @(self.port).stringValue : @"";
     return [[URI alloc] initWithUser:self.user
                              address:[[ServiceAddress alloc] initWithHost:self.host port:port]
-                         displayName:self.displayName].stringValue;
+                         displayName:self.displayName
+                           transport:TransportUDP].stringValue;
 }
 
 
