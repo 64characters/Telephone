@@ -316,7 +316,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (AccountController *)accountControllerWithDictionary:(NSDictionary *)dict {
-    AKSIPAccount *account = [self accountWithDictionary:dict];
+    AKSIPAccount *account = [[AKSIPAccount alloc] initWithDictionary:dict];
 
     NSString *description = dict[kDescription];
     if ([description length] == 0) {
@@ -337,29 +337,6 @@ NS_ASSUME_NONNULL_END
     [controller setPlusCharacterSubstitution:dict[kPlusCharacterSubstitutionString]];
 
     return controller;
-}
-
-- (AKSIPAccount *)accountWithDictionary:(NSDictionary *)dict {
-    AKSIPAccount *account = [[AKSIPAccount alloc] initWithUUID:dict[kUUID]
-                                                      fullName:dict[kFullName]
-                                                    SIPAddress:dict[kSIPAddress]
-                                                     registrar:dict[kRegistrar]
-                                                         realm:dict[kRealm]
-                                                      username:dict[kUsername]
-                                                        domain:dict[kDomain]];
-
-    account.reregistrationTime = [dict[kReregistrationTime] integerValue];
-    if ([dict[kUseProxy] boolValue]) {
-        account.proxyHost = dict[kProxyHost];
-        account.proxyPort = [dict[kProxyPort] integerValue];
-    }
-    account.transport = [dict[kTransport] isEqualToString:kTransportTCP] ? TransportTCP : TransportUDP;
-    account.usesIPv6 = [dict[kIPVersion] isEqualToString:kIPVersion6];
-    account.updatesContactHeader = [dict[kUpdateContactHeader] boolValue];
-    account.updatesViaHeader = [dict[kUpdateViaHeader] boolValue];
-    account.updatesSDP = [dict[kUpdateSDP] boolValue];
-
-    return account;
 }
 
 

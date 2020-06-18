@@ -220,19 +220,12 @@ NS_ASSUME_NONNULL_END
     return NO;
 }
 
-- (instancetype)initWithUUID:(NSString *)uuid
-                    fullName:(NSString *)fullName
-                  SIPAddress:(nullable NSString *)sipAddress
-                   registrar:(nullable NSString *)registrar
-                       realm:(NSString *)realm
-                    username:(NSString *)username
-                      domain:(NSString *)domain {
-
-    NSParameterAssert(uuid.length > 0);
-    NSParameterAssert(fullName);
-    NSParameterAssert(realm);
-    NSParameterAssert(username);
-    NSParameterAssert(domain);
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    NSParameterAssert([dict[kUUID] length] > 0);
+    NSParameterAssert(dict[kFullName]);
+    NSParameterAssert(dict[kRealm]);
+    NSParameterAssert(dict[kUsername]);
+    NSParameterAssert(dict[kDomain]);
     
     self = [super init];
     if (self == nil) {
@@ -240,24 +233,32 @@ NS_ASSUME_NONNULL_END
     }
 
     SIPAddress *address = nil;
-    if (sipAddress.length > 0) {
-        address = [[SIPAddress alloc] initWithString:sipAddress];
+    if ([dict[kSIPAddress] length] > 0) {
+        address = [[SIPAddress alloc] initWithString:dict[kSIPAddress]];
     } else {
-        address = [[SIPAddress alloc] initWithUser:username host:domain];
+        address = [[SIPAddress alloc] initWithUser:dict[kUsername] host:dict[kDomain]];
     }
 
-    _uri = [[URI alloc] initWithUser:address.user host:address.host displayName:fullName];
+    _uuid = [dict[kUUID] copy];
+    _transport = [dict[kTransport] isEqualToString:kTransportTCP] ? TransportTCP : TransportUDP;
+    _uri = [[URI alloc] initWithUser:address.user host:address.host displayName:dict[kFullName] transport:_transport];
 
-    _uuid = [uuid copy];
-    _fullName = [fullName copy];
+    _fullName = [dict[kFullName] copy];
     _SIPAddress = address.stringValue;
-    _registrar = [[ServiceAddress alloc] initWithString:(registrar.length > 0 ? registrar : domain)];
-    _realm = [realm copy];
-    _username = [username copy];
-    _domain = [domain copy];
-    self.proxyPort = kAKSIPAccountDefaultSIPProxyPort;
-    self.reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
-    _transport = kAKSIPAccountDefaultTransport;
+    _registrar = [[ServiceAddress alloc] initWithString:([dict[kRegistrar] length] > 0 ? dict[kRegistrar] : dict[kDomain])];
+    _realm = [dict[kRealm] copy];
+    _username = [dict[kUsername] copy];
+    _domain = [dict[kDomain] copy];
+    if ([dict[kUseProxy] boolValue]) {
+        _proxyHost = [dict[kProxyHost] copy];
+        self.proxyPort = [dict[kProxyPort] integerValue];
+    }
+    self.reregistrationTime = [dict[kReregistrationTime] integerValue];
+    _usesIPv6 = [dict[kIPVersion] isEqualToString:kIPVersion6];
+    _updatesContactHeader = [dict[kUpdateContactHeader] boolValue];
+    _updatesViaHeader = [dict[kUpdateViaHeader] boolValue];
+    _updatesSDP = [dict[kUpdateSDP] boolValue];
+
     _identifier = kAKSIPUserAgentInvalidIdentifier;
     
     _calls = [[NSMutableArray alloc] init];

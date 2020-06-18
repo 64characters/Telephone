@@ -210,6 +210,7 @@
 		8A57AEA61CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
 		8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
 		8A5BC803249AC5680015A461 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BC802249AC5680015A461 /* Transport.swift */; };
+		8A5BC806249BEE0E0015A461 /* AKSIPAccountKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */; };
 		8A5D17511EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */; };
 		8A5D17531EBCD40300A95FB8 /* ExtractedPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17521EBCD40300A95FB8 /* ExtractedPhoneNumber.swift */; };
 		8A5DE3E3218B73F9002A4213 /* CallHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A5DE3E5218B73F9002A4213 /* CallHistoryViewController.xib */; };
@@ -1119,6 +1120,8 @@
 		8A57AEA41CBEAF1200A36200 /* AKSIPCallNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCallNotifications.h; sourceTree = "<group>"; };
 		8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCallNotifications.m; sourceTree = "<group>"; };
 		8A5BC802249AC5680015A461 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		8A5BC804249BEE0E0015A461 /* AKSIPAccountKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSIPAccountKeys.h; sourceTree = "<group>"; };
+		8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKSIPAccountKeys.m; sourceTree = "<group>"; };
 		8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtractedPhoneNumberTests.swift; path = UseCasesTests/ExtractedPhoneNumberTests.swift; sourceTree = SOURCE_ROOT; };
 		8A5D17521EBCD40300A95FB8 /* ExtractedPhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractedPhoneNumber.swift; sourceTree = "<group>"; };
 		8A5DE3E4218B73F9002A4213 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CallHistoryViewController.xib; sourceTree = "<group>"; };
@@ -3367,6 +3370,8 @@
 				AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */,
 				AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */,
 				AA49F33B1BA7431500126A24 /* AKSIPAccountDelegate.h */,
+				8A5BC804249BEE0E0015A461 /* AKSIPAccountKeys.h */,
+				8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */,
 				AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */,
 				AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */,
 				AAE33B101BA7269600C6E48B /* AKSIPCallDelegate.h */,
@@ -4139,6 +4144,7 @@
 				AA1019951C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
 				8AA689961FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift in Sources */,
+				8A5BC806249BEE0E0015A461 /* AKSIPAccountKeys.m in Sources */,
 				8AA044E82136C3A500736EAA /* SIPResponseLocalization.m in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				8AA27AF01E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,

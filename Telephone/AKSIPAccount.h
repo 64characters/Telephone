@@ -22,6 +22,7 @@
 @import UseCases;
 
 #import "AKSIPAccountDelegate.h"
+#import "AKSIPAccountKeys.h"
 
 @class PJSUACallInfo;
 
@@ -63,37 +64,37 @@ extern const Transport kAKSIPAccountDefaultTransport;
 @property(nonatomic, readonly, copy) NSString *domain;
 
 // SIP proxy host.
-@property(nonatomic, copy) NSString *proxyHost;
+@property(nonatomic, readonly) NSString *proxyHost;
 
 // Network port to use with the SIP proxy.
 // Default: 5060.
-@property(nonatomic) NSUInteger proxyPort;
+@property(nonatomic, readonly) NSUInteger proxyPort;
 
 // SIP re-registration time.
 // Default: 300 (sec).
-@property(nonatomic) NSUInteger reregistrationTime;
+@property(nonatomic, readonly) NSUInteger reregistrationTime;
 
 // SIP transport.
-@property(nonatomic) Transport transport;
+@property(nonatomic, readonly) Transport transport;
 
 /// A Boolean value indicating if IPv6 should be used.
-@property(nonatomic) BOOL usesIPv6;
+@property(nonatomic, readonly) BOOL usesIPv6;
 
 /// A Boolean value indicating if Contact header should be automatically updated.
 ///
 /// When YES, the library will keep track of the public IP address from the response of the REGISTER request.
-@property(nonatomic) BOOL updatesContactHeader;
+@property(nonatomic, readonly) BOOL updatesContactHeader;
 
 /// A Boolean value indicating if Via header should be automatically updated.
 ///
 /// When YES, the "sent-by" field of the Via header will be overwritten for outgoing messages with the same interface
 /// address as the one in the REGISTER request.
-@property(nonatomic) BOOL updatesViaHeader;
+@property(nonatomic, readonly) BOOL updatesViaHeader;
 
 /// A Boolean value indicating if IP address in SDP should be automatically updated.
 ///
 /// When YES, and when STUN and ICE are disabled, then the IP address found in registration response will be used.
-@property(nonatomic) BOOL updatesSDP;
+@property(nonatomic, readonly) BOOL updatesSDP;
 
 // The receiver's identifier at the user agent.
 @property(nonatomic, readonly) NSInteger identifier;
@@ -124,13 +125,8 @@ extern const Transport kAKSIPAccountDefaultTransport;
 
 @property(nonatomic) NSThread *thread;
 
-- (instancetype)initWithUUID:(NSString *)uuid
-                    fullName:(NSString *)fullName
-                  SIPAddress:(nullable NSString *)SIPAddress
-                   registrar:(nullable NSString *)registrar
-                       realm:(NSString *)realm
-                    username:(NSString *)username
-                      domain:(NSString *)domain;
+// Mandatory keys: kUUID, kFullName, kRealm, kUsername, kDomain.
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 - (void)updateUsername:(NSString *)username;
 - (void)updateIdentifier:(NSInteger)identifier;
