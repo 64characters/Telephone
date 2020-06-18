@@ -44,28 +44,28 @@ public final class URI: NSObject {
         self.transport = transport
     }
 
-    @objc public convenience init(user: String, host: String, displayName: String) {
-        self.init(user: user, address: ServiceAddress(host: host), displayName: displayName)
+    @objc public convenience init(user: String, host: String, displayName: String, transport: Transport = .udp) {
+        self.init(user: user, address: ServiceAddress(host: host), displayName: displayName, transport: transport)
     }
 
-    @objc public convenience init(address: ServiceAddress) {
-        self.init(user: "", address: address, displayName: "")
+    @objc public convenience init(address: ServiceAddress, transport: Transport = .udp) {
+        self.init(user: "", address: address, displayName: "", transport: transport)
     }
 
-    @objc public convenience init(host: String, port: String) {
-        self.init(address: ServiceAddress(host: host, port: port))
+    @objc public convenience init(host: String, port: String, transport: Transport = .udp) {
+        self.init(address: ServiceAddress(host: host, port: port), transport: transport)
     }
 
-    @objc public convenience init(host: String) {
-        self.init(address: ServiceAddress(host: host))
+    @objc public convenience init(host: String, transport: Transport = .udp) {
+        self.init(address: ServiceAddress(host: host), transport: transport)
     }
 
-    @objc(URIWithHost:port:) public class func uri(host: String, port: String) -> URI {
-        return URI(host: host, port: port)
+    @objc(URIWithHost:port:transport:) public class func uri(host: String, port: String, transport: Transport) -> URI {
+        return URI(host: host, port: port, transport: transport)
     }
 
-    @objc(URIWithHost:) public class func uri(host: String) -> URI {
-        return URI(host: host)
+    @objc(URIWithHost:transport:) public class func uri(host: String, transport: Transport) -> URI {
+        return URI(host: host, transport: transport)
     }
 }
 

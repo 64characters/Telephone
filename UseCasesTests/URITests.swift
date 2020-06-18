@@ -120,15 +120,19 @@ final class URITests: XCTestCase {
         XCTAssertEqual(URI(host: "any").host, "any")
     }
 
-    func testCanCreateWithTypeMethodWithHostAndPort() {
-        let sut = URI.uri(host: "any", port: "123")
+    func testCanCreateWithTypeMethodWithHostAndPortAndTransport() {
+        let sut = URI.uri(host: "any", port: "123", transport: .tls)
 
         XCTAssertEqual(sut.host, "any")
         XCTAssertEqual(sut.port, "123")
+        XCTAssertEqual(sut.transport, .tls)
     }
 
-    func testCanCreateWithTypeMethodWithHost() {
-        XCTAssertEqual(URI.uri(host: "any").host, "any")
+    func testCanCreateWithTypeMethodWithHostAndTransport() {
+        let sut = URI.uri(host: "any", transport: .tcp)
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.transport, .tcp)
     }
 
     func testTextualRepresentationIsSameAsStringValue() {

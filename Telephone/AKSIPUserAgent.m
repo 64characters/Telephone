@@ -348,10 +348,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         userAgentConfig.outbound_proxy_cnt = 1;
         
         if ([self outboundProxyPort] == kAKSIPUserAgentDefaultOutboundProxyPort) {
-            userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost].stringValue.pjString;
+            userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost
+                                                       transport:TransportUDP].stringValue.pjString;
         } else {
             userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost
-                                                            port:@(self.outboundProxyPort).stringValue].stringValue.pjString;
+                                                            port:@(self.outboundProxyPort).stringValue
+                                                       transport:TransportUDP].stringValue.pjString;
         }
     }
 
@@ -620,8 +622,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     
     accountConfig.id = anAccount.uri.stringValue.pjString;
 
-    accountConfig.reg_uri = [[URI alloc] initWithAddress:anAccount.registrar].stringValue.pjString;
-    
+    accountConfig.reg_uri = [[URI alloc] initWithAddress:anAccount.registrar
+                                               transport:anAccount.transport].stringValue.pjString;
     accountConfig.cred_count = 1;
     if ([[anAccount realm] length] > 0) {
         accountConfig.cred_info[0].realm = [[anAccount realm] pjString];
@@ -644,9 +646,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         accountConfig.proxy_cnt = 1;
         
         if ([anAccount proxyPort] == kAKSIPAccountDefaultSIPProxyPort) {
-            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost].stringValue.pjString;
+            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost
+                                            transport:anAccount.transport].stringValue.pjString;
         } else {
-            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost port:@(anAccount.proxyPort).stringValue].stringValue.pjString;
+            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost
+                                                 port:@(anAccount.proxyPort).stringValue
+                                            transport:anAccount.transport].stringValue.pjString;
         }
     }
     
