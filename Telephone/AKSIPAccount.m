@@ -24,6 +24,8 @@
 #import "AKSIPCall.h"
 #import "PJSUACallInfo.h"
 
+#import "Telephone-Swift.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
@@ -32,11 +34,11 @@ const Transport kAKSIPAccountDefaultTransport = TransportUDP;
 
 @interface AKSIPCallParameters : NSObject
 
-@property(nonatomic, readonly) AKSIPURI *destination;
+@property(nonatomic, readonly) URI *destination;
 @property(nonatomic, readonly) pjsua_acc_id account;
 @property(nonatomic, readonly) void (^ _Nonnull completion)(BOOL, PJSUACallInfo *);
 
-- (instancetype)initWithDestination:(AKSIPURI *)destination
+- (instancetype)initWithDestination:(URI *)destination
                             account:(pjsua_acc_id)account
                          completion:(void (^ _Nonnull)(BOOL, PJSUACallInfo *))completion;
 
@@ -283,15 +285,16 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {
+    URI *uri = [[URI alloc] initWithURI:destination transport:self.transport];
     void (^onCallMakeCompletion)(BOOL, PJSUACallInfo *) = ^(BOOL success, PJSUACallInfo *call) {
         if (success) {
             completion([self addCallWithInfo:call]);
         } else {
-            NSLog(@"Error making call to %@ via account %@", destination, self);
+            NSLog(@"Error making call to %@ via account %@", uri, self);
             completion(nil);
         }
     };
-    AKSIPCallParameters *parameters = [[AKSIPCallParameters alloc] initWithDestination:destination
+    AKSIPCallParameters *parameters = [[AKSIPCallParameters alloc] initWithDestination:uri
                                                                                account:(pjsua_acc_id)self.identifier
                                                                             completion:onCallMakeCompletion];
     assert(self.thread);
@@ -299,7 +302,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)thread_makeCallWithParameters:(AKSIPCallParameters *)parameters {
-    pj_str_t uri = parameters.destination.description.pjString;
+    pj_str_t uri = parameters.destination.stringValue.pjString;
     pjsua_call_id callID = PJSUA_INVALID_ID;
     BOOL success = pjsua_call_make_call(parameters.account, &uri, 0, NULL, NULL, &callID) == PJ_SUCCESS;
     PJSUACallInfo *infoWrapper = nil;
@@ -355,7 +358,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation AKSIPCallParameters
 
-- (instancetype)initWithDestination:(AKSIPURI *)destination
+- (instancetype)initWithDestination:(URI *)destination
                             account:(pjsua_acc_id)account
                          completion:(void (^ _Nonnull)(BOOL, PJSUACallInfo *))completion {
     if ((self = [super init])) {
