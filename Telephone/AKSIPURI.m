@@ -108,18 +108,16 @@
     
     displayName = [NSString stringWithPJString:nameAddr->display];
     
-    pj_str_t *schemePJString = (pj_str_t *)pjsip_uri_get_scheme(nameAddr);
-    NSString *scheme = [NSString stringWithPJString:*schemePJString];
     NSInteger port = 0;
     
-    if ([scheme isEqualToString:@"sip"] || [scheme isEqualToString:@"sips"]) {
+    if (PJSIP_URI_SCHEME_IS_SIP(nameAddr) || PJSIP_URI_SCHEME_IS_SIPS(nameAddr)) {
         pjsip_sip_uri *uri = (pjsip_sip_uri *)pjsip_uri_get_uri(nameAddr);
         
         user = [NSString stringWithPJString:uri->user];
         host = [NSString stringWithPJString:uri->host];
         port = uri->port;
 
-    } else if ([scheme isEqualToString:@"tel"]) {
+    } else if (PJSIP_URI_SCHEME_IS_TEL(nameAddr)) {
         // TODO(eofster): we really must have some kind of AKTelURI here instead.
         pjsip_tel_uri *uri = (pjsip_tel_uri *)pjsip_uri_get_uri(nameAddr);
         
