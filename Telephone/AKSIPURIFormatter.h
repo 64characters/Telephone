@@ -18,7 +18,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class AKSIPURI;
+@class AKSIPURI, AKSIPURIParser;
 
 // Instances of AKSIPURIFormatter create string representations of AKSIPURI, and convert textual representations of SIP
 // URIs into AKSIPURI objects.
@@ -29,6 +29,9 @@
 
 // A Boolean value indicating whether the receiver's telephone number formatter splits last four digits.
 @property(nonatomic, assign) BOOL telephoneNumberFormatterSplitsLastFourDigits;
+
+- (instancetype)initWithParser:(AKSIPURIParser *)parser NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 // Wrapper for |getObjectValue:forString:errorDescription:|. Returns AKSIPURI object converted from a given string.
 - (AKSIPURI *)SIPURIFromString:(NSString *)SIPURIString;

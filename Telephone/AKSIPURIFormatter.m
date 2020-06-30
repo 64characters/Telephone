@@ -21,10 +21,25 @@
 @import UseCases;
 
 #import "AKSIPURI.h"
+#import "AKSIPURIParser.h"
 #import "AKTelephoneNumberFormatter.h"
 
 
+@interface AKSIPURIFormatter ()
+
+@property(nonatomic, readonly) AKSIPURIParser *parser;
+
+@end
+
 @implementation AKSIPURIFormatter
+
+- (instancetype)initWithParser:(AKSIPURIParser *)parser {
+    NSParameterAssert(parser);
+    if ((self = [super init])) {
+        _parser = parser;
+    }
+    return self;
+}
 
 - (NSString *)stringForObjectValue:(id)anObject {
     if (![anObject isKindOfClass:[AKSIPURI class]]) {
@@ -60,11 +75,14 @@
 
 - (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error {
     BOOL returnValue = NO;
-    AKSIPURI *theURI;
     NSString *name, *destination, *user, *host;
     NSRange delimiterRange, atSignRange;
     
-    theURI = [AKSIPURI SIPURIWithString:string];
+    AKSIPURI *theURI = [AKSIPURI SIPURIWithString:string];
+
+    if (theURI == nil) {
+        theURI = [self.parser SIPURIFromString:string];
+    }
     
     if (theURI == nil) {
         if ([[NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s\\\\(.+\\\\)'"] evaluateWithObject:string]) {
