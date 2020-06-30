@@ -300,6 +300,7 @@
 		8A7E21521CC3F6A5000D02C3 /* ServiceAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */; };
 		8A7E21541CC411F3000D02C3 /* ServiceAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */; };
 		8A837FCC249FE48500DFA3F3 /* AKSIPAccountKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */; };
+		8A837FCF24A5277300DFA3F3 /* AKSIPURIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A837FCE24A5277300DFA3F3 /* AKSIPURIParser.m */; };
 		8A8495F12433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8495F02433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift */; };
 		8A8495F22433D181000A3A90 /* KeyValueSettings+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8495F02433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift */; };
 		8A8495F4243505AD000A3A90 /* TCPTransportSettingsMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8495F3243505AD000A3A90 /* TCPTransportSettingsMigrationTests.swift */; };
@@ -1202,6 +1203,8 @@
 		8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationProduct.swift; sourceTree = "<group>"; };
 		8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceAddressTests.swift; path = UseCasesTests/ServiceAddressTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAddress.swift; sourceTree = "<group>"; };
+		8A837FCD24A5277300DFA3F3 /* AKSIPURIParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSIPURIParser.h; sourceTree = "<group>"; };
+		8A837FCE24A5277300DFA3F3 /* AKSIPURIParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKSIPURIParser.m; sourceTree = "<group>"; };
 		8A8495F02433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyValueSettings+UserDefaults.swift"; sourceTree = "<group>"; };
 		8A8495F3243505AD000A3A90 /* TCPTransportSettingsMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TCPTransportSettingsMigrationTests.swift; path = TelephoneTests/TCPTransportSettingsMigrationTests.swift; sourceTree = SOURCE_ROOT; };
 		8A8495F524350641000A3A90 /* TCPTransportSettingsMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPTransportSettingsMigration.swift; sourceTree = "<group>"; };
@@ -3382,6 +3385,8 @@
 				8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */,
 				AA0302F00EB9F347000738F7 /* AKSIPURI.h */,
 				AA0302F10EB9F347000738F7 /* AKSIPURI.m */,
+				8A837FCD24A5277300DFA3F3 /* AKSIPURIParser.h */,
+				8A837FCE24A5277300DFA3F3 /* AKSIPURIParser.m */,
 				8A9175941CA4841F00354E26 /* PJSUACallbacks.h */,
 				8A65688F2180641400DAF0F6 /* PJSUACallInfo.h */,
 				8A6568902180641400DAF0F6 /* PJSUACallInfo.m */,
@@ -4059,6 +4064,7 @@
 				8A0CBBC9205304C000FC0633 /* NSCalendarDayChangeEventSource.swift in Sources */,
 				8A9175A51CA5A10800354E26 /* PJSUAOnCallReplaced.m in Sources */,
 				8AC443BF1F90E21E00ECE463 /* OrphanLogFileRemoval.swift in Sources */,
+				8A837FCF24A5277300DFA3F3 /* AKSIPURIParser.m in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
 				8A1BCFFC1ED3462800628062 /* CNContactStoreToContactsAdapter.swift in Sources */,
 				8A125F7D1F59821D00148C99 /* AsyncCallHistoryPurchaseCheckUseCaseFactory.swift in Sources */,
