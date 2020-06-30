@@ -23,9 +23,12 @@
 
 @implementation ActiveAccountTransferViewController
 
-- (instancetype)initWithAccountController:(AccountController *)accountController {
+- (instancetype)initWithAccountController:(AccountController *)accountController parser:(AKSIPURIParser *)parser {
+    NSParameterAssert(accountController);
+    NSParameterAssert(parser);
     if ((self = [super initWithNibName:@"ActiveAccountTransferView" bundle:nil])) {
-        self.accountController = accountController;
+        _accountController = accountController;
+        _parser = parser;
     }
     return self;
 }

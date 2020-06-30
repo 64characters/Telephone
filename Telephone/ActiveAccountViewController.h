@@ -23,13 +23,16 @@
 extern NSString * const kURI;
 extern NSString * const kPhoneLabel;
 
-@class AccountController, AKSIPURI;
+@class AccountController, AKSIPURI, AKSIPURIParser;
 
 // An active account view controller.
-@interface ActiveAccountViewController : NSViewController
+@interface ActiveAccountViewController : NSViewController {
+    AccountController * __weak _accountController;
+    AKSIPURIParser *_parser;
+}
 
-// Account controller the receiver belongs to.
-@property(nonatomic, weak) AccountController *accountController;
+@property(nonatomic, readonly, weak) AccountController *accountController;
+@property(nonatomic, readonly) AKSIPURIParser *parser;
 
 // Call destination token field outlet.
 @property(nonatomic, weak) IBOutlet NSTokenField *callDestinationField;
@@ -43,8 +46,10 @@ extern NSString * const kPhoneLabel;
 @property(nonatomic, readonly) BOOL allowsCallDestinationInput;
 @property(nonatomic, readonly) NSView *keyView;
 
-// Initializes an ActiveAccountViewController object with a given account controller.
-- (instancetype)initWithAccountController:(AccountController *)accountController;
+- (instancetype)initWithAccountController:(AccountController *)accountController parser:(AKSIPURIParser *)parser NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithNibName:(NSNibName)name bundle:(NSBundle *)bundle NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 
 // Makes a call.
 - (IBAction)makeCall:(id)sender;

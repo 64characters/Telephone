@@ -20,6 +20,7 @@
 
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPCall.h"
+#import "AKSIPUserAgent.h"
 
 #import "AccountController.h"
 #import "ActiveCallTransferViewController.h"
@@ -75,7 +76,8 @@
                                   userAgent:userAgent
                                    delegate:accountController])) {
         [self setSourceCallController:callController];
-        _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController];
+        _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController
+                                                                                                               parser:userAgent.parser];
     }
     return self;
 }

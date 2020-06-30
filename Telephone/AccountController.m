@@ -201,7 +201,7 @@ static NSString * const kRussian = @"ru";
     _destinationToCall = @"";
 
     _accountViewController
-    = [[AccountViewController alloc] initWithActiveAccountViewController:[[ActiveAccountViewController alloc] initWithAccountController:self]
+    = [[AccountViewController alloc] initWithActiveAccountViewController:[[ActiveAccountViewController alloc] initWithAccountController:self parser:self.userAgent.parser]
                                                callHistoryViewController:[[CallHistoryViewController alloc] init]
                                        callHistoryViewEventTargetFactory:callHistoryViewEventTargetFactory
                                              purchaseCheckUseCaseFactory:purchaseCheckUseCaseFactory
@@ -626,7 +626,7 @@ static NSString * const kRussian = @"ru";
     [aCallController setCallActive:YES];
     [[self callControllers] addObject:aCallController];
     
-    AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
+    AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] initWithParser:self.userAgent.parser];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
     [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:

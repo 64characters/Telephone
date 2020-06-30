@@ -24,6 +24,9 @@
 // A controller that acts as an account controller inside call transfer sheet.
 @interface ActiveAccountTransferViewController : ActiveAccountViewController
 
+- (instancetype)initWithAccountController:(AccountController *)accountController parser:(AKSIPURIParser *)parser NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithNibName:(NSNibName)name bundle:(NSBundle *)bundle NS_UNAVAILABLE;
+
 // Initiates a call to the transfer destination.
 - (IBAction)makeCallToTransferDestination:(id)sender;
 
