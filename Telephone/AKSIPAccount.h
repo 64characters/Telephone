@@ -24,7 +24,7 @@
 #import "AKSIPAccountDelegate.h"
 #import "AKSIPAccountKeys.h"
 
-@class PJSUACallInfo;
+@class AKSIPURIParser, PJSUACallInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -126,7 +126,8 @@ extern const Transport kAKSIPAccountDefaultTransport;
 @property(nonatomic) NSThread *thread;
 
 // Mandatory keys: kUUID, kFullName, kRealm, kUsername, kDomain.
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithDictionary:(NSDictionary *)dict parser:(AKSIPURIParser *)parser NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 - (void)updateUsername:(NSString *)username;
 - (void)updateIdentifier:(NSInteger)identifier;

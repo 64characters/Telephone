@@ -52,6 +52,7 @@ const Transport kAKSIPAccountDefaultTransport = TransportUDP;
 @property(nonatomic) NSInteger identifier;
 
 @property(nonatomic, readonly) NSMutableArray *calls;
+@property(nonatomic, readonly) AKSIPURIParser *parser;
 
 @end
 
@@ -222,7 +223,7 @@ NS_ASSUME_NONNULL_END
     return NO;
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
+- (instancetype)initWithDictionary:(NSDictionary *)dict parser:(AKSIPURIParser *)parser {
     NSParameterAssert([dict[kUUID] length] > 0);
     NSParameterAssert(dict[kFullName]);
     NSParameterAssert(dict[kRealm]);
@@ -264,6 +265,7 @@ NS_ASSUME_NONNULL_END
     _identifier = kAKSIPUserAgentInvalidIdentifier;
     
     _calls = [[NSMutableArray alloc] init];
+    _parser = parser;
     
     return self;
 }
@@ -310,7 +312,7 @@ NS_ASSUME_NONNULL_END
         pjsua_call_info info;
         success = pjsua_call_get_info(callID, &info) == PJ_SUCCESS;
         if (success) {
-            infoWrapper = [[PJSUACallInfo alloc] initWithInfo:info];
+            infoWrapper = [[PJSUACallInfo alloc] initWithInfo:info parser:self.parser];
         }
     }
     dispatch_async(dispatch_get_main_queue(), ^{

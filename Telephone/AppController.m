@@ -316,7 +316,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (AccountController *)accountControllerWithDictionary:(NSDictionary *)dict {
-    AKSIPAccount *account = [[AKSIPAccount alloc] initWithDictionary:dict];
+    AKSIPAccount *account = [[AKSIPAccount alloc] initWithDictionary:dict parser:self.userAgent.parser];
 
     NSString *description = dict[kDescription];
     if ([description length] == 0) {
