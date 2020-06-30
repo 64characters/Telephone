@@ -80,11 +80,11 @@ void PJSUAOnCallState(pjsua_call_id callID, pjsip_event *event) {
         PJ_LOG(3, (THIS_FILE, "Call %d state changed to %s", callID, info.state_text.ptr));
     }
 
-    PJSUACallInfo *infoWrapper = [[PJSUACallInfo alloc] initWithInfo:info];
+    AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
+    PJSUACallInfo *infoWrapper = [[PJSUACallInfo alloc] initWithInfo:info parser:userAgent.parser];
     NSInteger duration = info.connect_duration.sec;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
         AKSIPCall *call = [userAgent callWithIdentifier:callID];
         if (call == nil) {
             if (infoWrapper.state == kAKSIPCallCallingState) {

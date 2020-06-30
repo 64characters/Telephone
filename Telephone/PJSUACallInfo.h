@@ -24,6 +24,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AKSIPURIParser;
+
 @interface PJSUACallInfo : NSObject
 
 @property(nonatomic, readonly) NSInteger identifier;
@@ -36,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) AKSIPURI *remoteURI;
 @property(nonatomic, readonly, getter=isIncoming) BOOL incoming;
 
-- (instancetype)initWithInfo:(pjsua_call_info)info;
-
+- (instancetype)initWithInfo:(pjsua_call_info)info parser:(AKSIPURIParser *)parser NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 
