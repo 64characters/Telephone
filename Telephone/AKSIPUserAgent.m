@@ -23,6 +23,7 @@
 #import "AKNSString+PJSUA.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
+#import "AKSIPURIParser.h"
 #import "PJSUACallbacks.h"
 
 #import "Telephone-Swift.h"
@@ -254,6 +255,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self setTLS6TransportIdentifier:PJSUA_INVALID_ID];
 
     _poolQueue = dispatch_queue_create("com.tlphn.Telephone.AKSIPUserAgent.PJSIP.pool", DISPATCH_QUEUE_SERIAL);
+    _parser = [[AKSIPURIParser alloc] initWithUserAgent:self];
 
     _thread = [[WaitingThread alloc] init];
     _thread.qualityOfService = NSQualityOfServiceUserInitiated;
