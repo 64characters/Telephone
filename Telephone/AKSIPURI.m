@@ -64,70 +64,31 @@
 }
 
 - (nullable instancetype)initWithString:(NSString *)SIPURIString {
+    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s<sip:(.+@)?.+>'"] evaluateWithObject:SIPURIString]) {
+        return nil;
+    }
+
+    NSRange delimiterRange = [SIPURIString rangeOfString:@" <"];
+    NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
+    [trimmingCharacterSet addCharactersInString:@"\""];
+    NSString *displayName = [[SIPURIString substringToIndex:delimiterRange.location] stringByTrimmingCharactersInSet:trimmingCharacterSet];
+
+    NSRange userAndHostRange = [SIPURIString rangeOfString:@"<sip:" options:NSCaseInsensitiveSearch];
+    userAndHostRange.location += 5;
+    userAndHostRange.length = [SIPURIString length] - userAndHostRange.location - 1;
+    NSString *userAndHost = [SIPURIString substringWithRange:userAndHostRange];
+
     NSString *user = @"";
     NSString *host = @"";
-    NSString *displayName = @"";
-
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s<sip:(.+@)?.+>'"];
-    if ([predicate evaluateWithObject:SIPURIString]) {
-        NSRange delimiterRange = [SIPURIString rangeOfString:@" <"];
-        
-        NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
-        [trimmingCharacterSet addCharactersInString:@"\""];
-        displayName = [[SIPURIString substringToIndex:delimiterRange.location] stringByTrimmingCharactersInSet:trimmingCharacterSet];
-        
-        NSRange userAndHostRange = [SIPURIString rangeOfString:@"<sip:" options:NSCaseInsensitiveSearch];
-        userAndHostRange.location += 5;
-        userAndHostRange.length = [SIPURIString length] - userAndHostRange.location - 1;
-        NSString *userAndHost = [SIPURIString substringWithRange:userAndHostRange];
-        
-        NSRange atSignRange = [userAndHost rangeOfString:@"@" options:NSBackwardsSearch];
-        if (atSignRange.location != NSNotFound) {
-            user = [userAndHost substringToIndex:atSignRange.location];
-            host = [userAndHost substringFromIndex:(atSignRange.location + 1)];
-        } else {
-            host = userAndHost;
-        }
-        
-        return [self initWithUser:user host:host displayName:displayName];
-    }
-    
-    if (![[AKSIPUserAgent sharedUserAgent] isStarted]) {
-        return nil;
-    }
-    
-    pjsip_name_addr * __block nameAddr;
-    dispatch_sync(AKSIPUserAgent.sharedUserAgent.poolQueue, ^{
-        nameAddr = (pjsip_name_addr *)pjsip_parse_uri([[AKSIPUserAgent sharedUserAgent] poolResettingIfNeeded],
-                                                      (char *)[SIPURIString cStringUsingEncoding:NSUTF8StringEncoding],
-                                                      [SIPURIString length], PJSIP_PARSE_URI_AS_NAMEADDR);
-    });
-    if (nameAddr == NULL) {
-        return nil;
-    }
-    
-    displayName = [NSString stringWithPJString:nameAddr->display];
-    
-    NSInteger port = 0;
-    
-    if (PJSIP_URI_SCHEME_IS_SIP(nameAddr) || PJSIP_URI_SCHEME_IS_SIPS(nameAddr)) {
-        pjsip_sip_uri *uri = (pjsip_sip_uri *)pjsip_uri_get_uri(nameAddr);
-        
-        user = [NSString stringWithPJString:uri->user];
-        host = [NSString stringWithPJString:uri->host];
-        port = uri->port;
-
-    } else if (PJSIP_URI_SCHEME_IS_TEL(nameAddr)) {
-        // TODO(eofster): we really must have some kind of AKTelURI here instead.
-        pjsip_tel_uri *uri = (pjsip_tel_uri *)pjsip_uri_get_uri(nameAddr);
-        
-        user = [NSString stringWithPJString:uri->number];
-
+    NSRange atSignRange = [userAndHost rangeOfString:@"@" options:NSBackwardsSearch];
+    if (atSignRange.location != NSNotFound) {
+        user = [userAndHost substringToIndex:atSignRange.location];
+        host = [userAndHost substringFromIndex:(atSignRange.location + 1)];
     } else {
-        return nil;
+        host = userAndHost;
     }
-    
-    return [self initWithUser:user host:host displayName:displayName port:port];
+
+    return [self initWithUser:user host:host displayName:displayName];
 }
 
 - (NSString *)description {
