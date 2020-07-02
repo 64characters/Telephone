@@ -193,6 +193,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self cantEditAccountLabel] setHidden:NO];
             [[self UDPButton] setEnabled:NO];
             [[self TCPButton] setEnabled:NO];
+            [[self TLSButton] setEnabled:NO];
             [[self IPv4Button] setEnabled:NO];
             [[self IPv6Button] setEnabled:NO];
             [[self updateIPAddressCheckBox] setEnabled:NO];
@@ -230,6 +231,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self cantEditAccountLabel] setHidden:YES];
             [[self UDPButton] setEnabled:YES];
             [[self TCPButton] setEnabled:YES];
+            [[self TLSButton] setEnabled:YES];
             [[self IPv4Button] setEnabled:YES];
             [[self IPv6Button] setEnabled:YES];
             [[self updateIPAddressCheckBox] setEnabled:YES];
@@ -330,6 +332,8 @@ static const NSUInteger kAccountsMax = 32;
         // Update SIP Transport.
         if ([accountDict[kTransport] isEqualToString:kTransportTCP]) {
             [[self TCPButton] setState:NSOnState];
+        } else if ([accountDict[kTransport] isEqualToString:kTransportTLS]) {
+            [[self TLSButton] setState:NSOnState];
         } else {
             [[self UDPButton] setState:NSOnState];
         }
@@ -371,6 +375,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self registrarField] setStringValue:@""];
         [[self UDPButton] setState:NSOffState];
         [[self TCPButton] setState:NSOffState];
+        [[self TLSButton] setState:NSOffState];
         [[self IPv4Button] setState:NSOffState];
         [[self IPv6Button] setState:NSOffState];
         [[self updateIPAddressCheckBox] setState:NSOffState];
@@ -395,6 +400,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self cantEditAccountLabel] setHidden:YES];
         [[self UDPButton] setEnabled:NO];
         [[self TCPButton] setEnabled:NO];
+        [[self TLSButton] setEnabled:NO];
         [[self IPv4Button] setEnabled:NO];
         [[self IPv6Button] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
@@ -470,7 +476,13 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[kRegistrar] = registrar;
 
-        accountDict[kTransport] = self.TCPButton.state == NSOnState ? kTransportTCP : kTransportUDP;
+        if (self.TCPButton.state == NSOnState) {
+            accountDict[kTransport] = kTransportTCP;
+        } else if (self.TLSButton.state == NSOnState) {
+            accountDict[kTransport] = kTransportTLS;
+        } else {
+            accountDict[kTransport] = kTransportUDP;
+        }
 
         accountDict[kIPVersion] = self.IPv6Button.state == NSOnState ? kIPVersion6 : kIPVersion4;
 
@@ -526,6 +538,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self cantEditAccountLabel] setHidden:NO];
         [[self UDPButton] setEnabled:NO];
         [[self TCPButton] setEnabled:NO];
+        [[self TLSButton] setEnabled:NO];
         [[self IPv4Button] setEnabled:NO];
         [[self IPv6Button] setEnabled:NO];
         [[self updateIPAddressCheckBox] setEnabled:NO];
@@ -561,6 +574,7 @@ static const NSUInteger kAccountsMax = 32;
         [[self cantEditAccountLabel] setHidden:YES];
         [[self UDPButton] setEnabled:YES];
         [[self TCPButton] setEnabled:YES];
+        [[self TLSButton] setEnabled:YES];
         [[self IPv4Button] setEnabled:YES];
         [[self IPv6Button] setEnabled:YES];
         [[self updateIPAddressCheckBox] setEnabled:YES];

@@ -33,6 +33,7 @@ extern NSString * const kProxyPort;
 extern NSString * const kTransport;
 extern NSString * const kTransportUDP;
 extern NSString * const kTransportTCP;
+extern NSString * const kTransportTLS;
 extern NSString * const kIPVersion;
 extern NSString * const kIPVersion4;
 extern NSString * const kIPVersion6;

@@ -33,6 +33,7 @@ NSString * const kProxyPort = @"ProxyPort";
 NSString * const kTransport = @"Transport";
 NSString * const kTransportUDP = @"UDP";
 NSString * const kTransportTCP = @"TCP";
+NSString * const kTransportTLS = @"TLS";
 NSString * const kIPVersion = @"IPVersion";
 NSString * const kIPVersion4 = @"4";
 NSString * const kIPVersion6 = @"6";
