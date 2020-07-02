@@ -665,6 +665,10 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
             break;
         case TransportTCP:
             accountConfig.transport_id = anAccount.usesIPv6 ? self.TCP6TransportIdentifier : self.TCP4TransportIdentifier;
+            break;
+        case TransportTLS:
+            accountConfig.transport_id = anAccount.usesIPv6 ? self.TLS6TransportIdentifier : self.TLS4TransportIdentifier;
+            break;
         default:
             break;
     }
