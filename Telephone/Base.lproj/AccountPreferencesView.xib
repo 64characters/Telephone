@@ -99,7 +99,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                                        <rect key="frame" x="14" y="232" width="111" height="18"/>
+                                        <rect key="frame" x="14" y="236" width="111" height="18"/>
                                         <buttonCell key="cell" type="check" title="Use this account" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="94">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="menu" size="11"/>
@@ -110,7 +110,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="95">
-                                        <rect key="frame" x="101" y="141" width="185" height="19"/>
+                                        <rect key="frame" x="101" y="139" width="185" height="19"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="114">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -124,7 +124,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="98">
-                                        <rect key="frame" x="101" y="83" width="185" height="19"/>
+                                        <rect key="frame" x="101" y="81" width="185" height="19"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="111">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -138,7 +138,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                                        <rect key="frame" x="36" y="143" width="60" height="14"/>
+                                        <rect key="frame" x="36" y="141" width="60" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Full Name:" id="110">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -146,7 +146,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="102">
-                                        <rect key="frame" x="30" y="85" width="66" height="14"/>
+                                        <rect key="frame" x="30" y="83" width="66" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="User Name:" id="107">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -154,7 +154,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="103">
-                                        <rect key="frame" x="38" y="56" width="58" height="14"/>
+                                        <rect key="frame" x="38" y="54" width="58" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password:" id="106">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -162,7 +162,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="104">
-                                        <rect key="frame" x="101" y="54" width="185" height="19"/>
+                                        <rect key="frame" x="101" y="52" width="185" height="19"/>
                                         <secureTextFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="105">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -176,7 +176,7 @@
                                         </connections>
                                     </secureTextField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="528">
-                                        <rect key="frame" x="101" y="112" width="185" height="19"/>
+                                        <rect key="frame" x="101" y="110" width="185" height="19"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="529">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -190,7 +190,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="530">
-                                        <rect key="frame" x="49" y="114" width="47" height="14"/>
+                                        <rect key="frame" x="49" y="112" width="47" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Domain:" id="531">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -198,7 +198,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="534">
-                                        <rect key="frame" x="101" y="180" width="185" height="19"/>
+                                        <rect key="frame" x="101" y="178" width="185" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="185" id="0P5-QA-beZ"/>
                                         </constraints>
@@ -212,7 +212,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="536">
-                                        <rect key="frame" x="28" y="182" width="68" height="14"/>
+                                        <rect key="frame" x="28" y="180" width="68" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description:" id="537">
                                             <font key="font" metaFont="menu" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -222,7 +222,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="530" firstAttribute="trailing" secondItem="102" secondAttribute="trailing" id="0zA-ra-Hpb"/>
-                                    <constraint firstItem="534" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="36" id="1C0-TX-VdZ"/>
+                                    <constraint firstItem="534" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="42" id="1C0-TX-VdZ"/>
                                     <constraint firstItem="104" firstAttribute="firstBaseline" secondItem="103" secondAttribute="firstBaseline" id="44B-8S-6lE"/>
                                     <constraint firstItem="102" firstAttribute="trailing" secondItem="103" secondAttribute="trailing" id="83K-yj-YHs"/>
                                     <constraint firstItem="93" firstAttribute="leading" secondItem="413" secondAttribute="leading" constant="17" id="8in-eP-WoJ"/>
@@ -250,7 +250,7 @@
                                     <constraint firstItem="95" firstAttribute="top" secondItem="534" secondAttribute="bottom" constant="20" id="lQa-aA-v6D"/>
                                     <constraint firstItem="528" firstAttribute="firstBaseline" secondItem="530" secondAttribute="firstBaseline" id="lVJ-cB-X5V"/>
                                     <constraint firstItem="98" firstAttribute="top" secondItem="528" secondAttribute="bottom" constant="10" id="qOe-cA-aI0"/>
-                                    <constraint firstItem="93" firstAttribute="top" secondItem="413" secondAttribute="top" constant="40" id="rvX-9Z-2g6"/>
+                                    <constraint firstItem="93" firstAttribute="top" secondItem="413" secondAttribute="top" constant="36" id="rvX-9Z-2g6"/>
                                     <constraint firstItem="104" firstAttribute="top" secondItem="98" secondAttribute="bottom" constant="10" id="scl-ka-DzA"/>
                                     <constraint firstItem="95" firstAttribute="leading" secondItem="528" secondAttribute="leading" id="uVp-M4-l1D"/>
                                 </constraints>
