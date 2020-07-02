@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern const NSInteger kAKSIPAccountDefaultSIPProxyPort;
 extern const NSInteger kAKSIPAccountDefaultReregistrationTime;
 extern const Transport kAKSIPAccountDefaultTransport;
+extern const NSInteger kAKSIPAccountRegistrationExpireTimeNotSpecified;
 
 @class AKSIPCall, AKSIPURI;
 

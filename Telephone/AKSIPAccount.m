@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 const Transport kAKSIPAccountDefaultTransport = TransportUDP;
+const NSInteger kAKSIPAccountRegistrationExpireTimeNotSpecified = PJSIP_EXPIRES_NOT_SPECIFIED;
 
 @interface AKSIPCallParameters : NSObject
 
@@ -87,7 +88,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)isRegistered {
-    return [self registrationStatus] / 100 == 2 && [self registrationExpireTime] != PJSIP_EXPIRES_NOT_SPECIFIED;
+    return [self registrationStatus] / 100 == 2 && [self registrationExpireTime] != kAKSIPAccountRegistrationExpireTimeNotSpecified;
 }
 
 - (void)setRegistered:(BOOL)value {

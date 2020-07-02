@@ -113,7 +113,7 @@ static NSString * const kRussian = @"ru";
         // Error connecting to registrar.
         if (accountAdded &&
             ![self isAccountRegistered] &&
-            [[self account] registrationExpireTime] < 0 &&
+            [[self account] registrationExpireTime] == kAKSIPAccountRegistrationExpireTimeNotSpecified &&
             [[self userAgent] isStarted]) {
             
             [self showUnavailableState];
@@ -545,10 +545,10 @@ static NSString * const kRussian = @"ru";
             [[self windowController] beginSheet:[[self authenticationFailureController] window]];
 
         } else if (([[self account] registrationStatus] / 100 != 2) &&
-                   ([[self account] registrationExpireTime] < 0)) {
+                   ([[self account] registrationExpireTime] == kAKSIPAccountRegistrationExpireTimeNotSpecified)) {
             // Raise a sheet if connection to the registrar failed. If last registration status is 2xx and expiration
-            // interval is less than zero, it is unregistration, not failure. Condition of failure is: last registration
-            // status != 2xx AND expiration interval < 0.
+            // interval is not specified, it is unregistration, not failure. Condition of failure is: last registration
+            // status != 2xx AND expiration interval is not specified.
             
             if ([[self userAgent] isStarted]) {
                 if ([self shouldPresentRegistrationError]) {

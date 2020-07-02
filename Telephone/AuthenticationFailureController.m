@@ -76,7 +76,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
         
         // Error connecting to registrar.
         if (![[self accountController] isAccountRegistered] &&
-            [[[self accountController] account] registrationExpireTime] < 0) {
+            [[[self accountController] account] registrationExpireTime] == kAKSIPAccountRegistrationExpireTimeNotSpecified) {
             
             [[self accountController] showUnavailableState];
             
