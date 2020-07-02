@@ -243,7 +243,13 @@ NS_ASSUME_NONNULL_END
     }
 
     _uuid = [dict[kUUID] copy];
-    _transport = [dict[kTransport] isEqualToString:kTransportTCP] ? TransportTCP : TransportUDP;
+    if ([dict[kTransport] isEqualToString:kTransportTCP]) {
+        _transport = TransportTCP;
+    } else if ([dict[kTransport] isEqualToString:kTransportTLS]) {
+        _transport = TransportTLS;
+    } else {
+        _transport = TransportUDP;
+    }
     _uri = [[URI alloc] initWithUser:address.user host:address.host displayName:dict[kFullName] transport:_transport];
 
     _fullName = [dict[kFullName] copy];
