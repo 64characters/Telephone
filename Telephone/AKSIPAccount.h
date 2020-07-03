@@ -68,7 +68,8 @@ extern const NSInteger kAKSIPAccountRegistrationExpireTimeNotSpecified;
 @property(nonatomic, readonly) NSString *proxyHost;
 
 // Network port to use with the SIP proxy.
-// Default: 5060.
+// When kAKSIPAccountDefaultSIPProxyPort, default port for transport will be used.
+// Default: kAKSIPAccountDefaultSIPProxyPort.
 @property(nonatomic, readonly) NSUInteger proxyPort;
 
 // SIP re-registration time.

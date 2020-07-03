@@ -28,7 +28,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
+const NSInteger kAKSIPAccountDefaultSIPProxyPort = 0;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
 const Transport kAKSIPAccountDefaultTransport = TransportUDP;
 const NSInteger kAKSIPAccountRegistrationExpireTimeNotSpecified = PJSIP_EXPIRES_NOT_SPECIFIED;
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)setProxyPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port >= 0 && port <= 65535) {
         _proxyPort = port;
     } else {
         _proxyPort = kAKSIPAccountDefaultSIPProxyPort;
