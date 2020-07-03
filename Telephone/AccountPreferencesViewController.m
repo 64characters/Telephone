@@ -337,6 +337,7 @@ static const NSUInteger kAccountsMax = 32;
         } else {
             [[self UDPButton] setState:NSOnState];
         }
+        [self updateProxyPortFieldPlaceholder];
 
         // Update IP Version.
         if ([accountDict[kIPVersion] isEqualToString:kIPVersion6]) {
@@ -600,8 +601,15 @@ static const NSUInteger kAccountsMax = 32;
     [[self proxyPortField] setEnabled:isChecked];
 }
 
+- (IBAction)changeTransport:(id)sender {
+    [self updateProxyPortFieldPlaceholder];
+}
+
+- (void)updateProxyPortFieldPlaceholder {
+    self.proxyPortField.placeholderString = self.TLSButton.state == NSOnState ? @"5061" : @"5060";
+}
+
 // Group radio buttons by providing them the same action.
-- (IBAction)changeTransport:(id)sender {}
 - (IBAction)changeIPVersion:(id)sender {}
 
 
