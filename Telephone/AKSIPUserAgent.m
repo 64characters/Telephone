@@ -169,7 +169,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)setOutboundProxyPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port > 0 && port <= 65535) {
         _outboundProxyPort = port;
     } else {
         _outboundProxyPort = kAKSIPUserAgentDefaultOutboundProxyPort;
@@ -177,7 +177,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)setSTUNServerPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port > 0 && port <= 65535) {
         _STUNServerPort = port;
     } else {
         _STUNServerPort = kAKSIPUserAgentDefaultSTUNServerPort;
@@ -195,7 +195,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)setTransportPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port >= 0 && port <= 65535) {
         _transportPort = port;
     } else {
         _transportPort = kAKSIPUserAgentDefaultTransportPort;
