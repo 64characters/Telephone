@@ -140,4 +140,38 @@ final class URITests: XCTestCase {
 
         XCTAssertEqual(String(describing: sut), sut.stringValue)
     }
+
+    // MARK: - Creation from string
+
+    func testCanCreateWithStringWithFullName() {
+        XCTAssertEqual(URI("Full Name <sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWithFullNameWithoutTrailingSpace() {
+        XCTAssertEqual(URI("Full Name<sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWhenFullNameIsInQuotes() {
+        XCTAssertEqual(URI("\"Full Name\" <sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWhenFullNameIsInQuotesWithoutTrailingSpace() {
+        XCTAssertEqual(URI("\"Full Name\"<sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWithFullNameWithoutUser() {
+        XCTAssertEqual(URI("Full Name <sip:host>"), URI(user: "", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWithoutFullName() {
+        XCTAssertEqual(URI("sip:user@host"), URI(user: "user", host: "host", displayName: ""))
+    }
+
+    func testCanCreateWithStringWithTelScheme() {
+        XCTAssertEqual(URI("tel:any"), URI(user: "any", host: "", displayName: ""))
+    }
+
+    func testCanCreateWithStringWhenSchemeIsNotLowercased() {
+        XCTAssertEqual(URI("SiP:user@host"), URI(user: "user", host: "host", displayName: ""))
+    }
 }

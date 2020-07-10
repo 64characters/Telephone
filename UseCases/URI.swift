@@ -69,6 +69,26 @@ public final class URI: NSObject {
     }
 }
 
+public extension URI {
+    @objc convenience init?(_ string: String) {
+        if let regex = try? NSRegularExpression(pattern: pattern),
+            let match = regex.firstMatch(in: string, range: NSRange(string.startIndex..<string.endIndex, in: string)) {
+            let host = substring(for: match.range(at: 4), in: string)
+            if substring(for: match.range(at: 2), in: string).lowercased() == "sip" {
+                self.init(
+                    user: substring(for: match.range(at: 3), in: string),
+                    host: host,
+                    displayName: substring(for: match.range(at: 1), in: string)
+                )
+            } else {
+                self.init(user: host, host: "", displayName: substring(for: match.range(at: 1), in: string))
+            }
+        } else {
+            return nil
+        }
+    }
+}
+
 extension URI {
     public override func isEqual(_ object: Any?) -> Bool {
         guard let uri = object as? URI else { return false }
@@ -88,3 +108,19 @@ extension URI {
         return user == uri.user && address == uri.address && displayName == uri.displayName && transport == uri.transport
     }
 }
+
+private func substring(for range: NSRange, in string: String) -> String {
+    return Range(range, in: string).map { String(string[$0]) } ?? ""
+}
+
+private let pattern = #"""
+(?x)                     # Free-spacing mode.
+^
+  "?(.*?)"?              # Optional full name with optional quotes.
+  \s?
+  <?
+    (?i)(sip|tel)(?-i):  # Case-insensitive scheme.
+    (?:(.+)@)?([^>]+)    # Optional user and non-optional host excluding the > character.
+  >?
+$
+"""#
