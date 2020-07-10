@@ -496,7 +496,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 }
 
 // Converts input text to the array of dictionaries containing AKSIPURIs and phone labels (mobile, home, etc).
-// Dictionary keys are AKURI and AKPhoneLabel. If there is no @ sign, the input is treated as a user part of the URI and
+// Dictionary keys are kURI and kPhoneLabel. If there is no @ sign, the input is treated as a user part of the URI and
 // host part will be nil.
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
