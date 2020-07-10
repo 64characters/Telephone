@@ -74,10 +74,6 @@
 }
 
 - (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error {
-    BOOL returnValue = NO;
-    NSString *name, *destination, *user, *host;
-    NSRange delimiterRange, atSignRange;
-    
     AKSIPURI *theURI = [AKSIPURI SIPURIWithString:string];
 
     if (theURI == nil) {
@@ -85,13 +81,14 @@
     }
     
     if (theURI == nil) {
+        NSString *name, *destination, *user, *host;
         if ([[NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s\\\\(.+\\\\)'"] evaluateWithObject:string]) {
             // The string is in format |Destination (Display Name)|.
             
-            delimiterRange = [string rangeOfString:@" (" options:NSBackwardsSearch];
+            NSRange delimiterRange = [string rangeOfString:@" (" options:NSBackwardsSearch];
             
             destination = [string substringToIndex:delimiterRange.location];
-            atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
+            NSRange atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
             if (atSignRange.location == NSNotFound) {
                 user = destination;
                 host = @"";
@@ -109,7 +106,7 @@
         } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s<.+>'"] evaluateWithObject:string]) {
             // The string is in format |Display Name <Destination>|.
             
-            delimiterRange = [string rangeOfString:@" <" options:NSBackwardsSearch];
+            NSRange delimiterRange = [string rangeOfString:@" <" options:NSBackwardsSearch];
             
             NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
             [trimmingCharacterSet addCharactersInString:@"\""];
@@ -120,7 +117,7 @@
                                                    [string length] - (delimiterRange.location + 2) - 1);
             destination = [string substringWithRange:destinationRange];
             
-            atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
+            NSRange atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
             if (atSignRange.location == NSNotFound) {
                 user = destination;
                 host = @"";
@@ -133,7 +130,7 @@
             
         } else {
             destination = string;
-            atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
+            NSRange atSignRange = [destination rangeOfString:@"@" options:NSBackwardsSearch];
             if (atSignRange.location == NSNotFound) {
                 user = destination;
                 host = @"";
@@ -145,19 +142,14 @@
             theURI = [AKSIPURI SIPURIWithUser:user host:host displayName:@""];
         }
     }
+
+    assert(theURI);
     
-    if (theURI != nil) {
-        returnValue = YES;
-        if (anObject != NULL) {
-            *anObject = theURI;
-        }
-    } else {
-        if (error != NULL) {
-            *error = [NSString stringWithFormat:@"Couldn't convert \"%@\" to SIP URI", string];
-        }
+    if (anObject != NULL) {
+        *anObject = theURI;
     }
-    
-    return returnValue;
+
+    return YES;
 }
 
 - (AKSIPURI *)SIPURIFromString:(NSString *)SIPURIString {
