@@ -70,7 +70,7 @@ public final class URI: NSObject {
 }
 
 public extension URI {
-    @objc convenience init?(_ string: String) {
+    @objc(initWithString:) convenience init?(_ string: String) {
         if let regex = try? NSRegularExpression(pattern: pattern),
             let match = regex.firstMatch(in: string, range: NSRange(string.startIndex..<string.endIndex, in: string)) {
             let host = substring(for: match.range(at: 4), in: string)

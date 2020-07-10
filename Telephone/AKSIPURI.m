@@ -64,31 +64,12 @@
 }
 
 - (nullable instancetype)initWithString:(NSString *)SIPURIString {
-    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES '.+\\\\s<sip:(.+@)?.+>'"] evaluateWithObject:SIPURIString]) {
+    URI *uri = [[URI alloc] initWithString:SIPURIString];
+    if (uri) {
+        return [self initWithUser:uri.user host:uri.host displayName:uri.displayName];
+    } else {
         return nil;
     }
-
-    NSRange delimiterRange = [SIPURIString rangeOfString:@" <"];
-    NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
-    [trimmingCharacterSet addCharactersInString:@"\""];
-    NSString *displayName = [[SIPURIString substringToIndex:delimiterRange.location] stringByTrimmingCharactersInSet:trimmingCharacterSet];
-
-    NSRange userAndHostRange = [SIPURIString rangeOfString:@"<sip:" options:NSCaseInsensitiveSearch];
-    userAndHostRange.location += 5;
-    userAndHostRange.length = [SIPURIString length] - userAndHostRange.location - 1;
-    NSString *userAndHost = [SIPURIString substringWithRange:userAndHostRange];
-
-    NSString *user = @"";
-    NSString *host = @"";
-    NSRange atSignRange = [userAndHost rangeOfString:@"@" options:NSBackwardsSearch];
-    if (atSignRange.location != NSNotFound) {
-        user = [userAndHost substringToIndex:atSignRange.location];
-        host = [userAndHost substringFromIndex:(atSignRange.location + 1)];
-    } else {
-        host = userAndHost;
-    }
-
-    return [self initWithUser:user host:host displayName:displayName];
 }
 
 - (NSString *)description {
