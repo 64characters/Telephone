@@ -24,7 +24,6 @@
 #import "AKABRecord+Querying.h"
 #import "AKABAddressBook+Localizing.h"
 #import "AKSIPURI.h"
-#import "AKSIPURIParser.h"
 #import "AKSIPURIFormatter.h"
 #import "AKTelephoneNumberFormatter.h"
 
@@ -62,12 +61,10 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     return self.callDestinationField;
 }
 
-- (instancetype)initWithAccountController:(AccountController *)accountController parser:(AKSIPURIParser *)parser {
+- (instancetype)initWithAccountController:(AccountController *)accountController {
     NSParameterAssert(accountController);
-    NSParameterAssert(parser);
     if ((self = [super initWithNibName:@"ActiveAccountView" bundle:nil])) {
         _accountController = accountController;
-        _parser = parser;
     }
     return self;
 }
@@ -501,7 +498,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] initWithParser:self.parser];
+    AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
     [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
     [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
      [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];

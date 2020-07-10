@@ -409,7 +409,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
             notificationTitle = [self enteredCallDestination];
         }
     } else {
-        AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] initWithParser:self.userAgent.parser];
+        AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
         [SIPURIFormatter setFormatsTelephoneNumbers:[self.defaults boolForKey:kFormatTelephoneNumbers]];
         [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
          [self.defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];

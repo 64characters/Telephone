@@ -76,8 +76,7 @@
                                   userAgent:userAgent
                                    delegate:accountController])) {
         [self setSourceCallController:callController];
-        _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController
-                                                                                                               parser:userAgent.parser];
+        _activeAccountTransferViewController = [[ActiveAccountTransferViewController alloc] initWithAccountController:accountController];
     }
     return self;
 }
