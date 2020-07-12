@@ -507,6 +507,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 
     // Add TLS transport.
     transportConfig.tls_setting.verify_server = PJ_TRUE;
+    transportConfig.tls_setting.verify_client = PJ_TRUE;
     NSURL *cert = [NSBundle.mainBundle URLForResource:@"PublicCAs" withExtension:@"pem"];
     transportConfig.tls_setting.ca_list_file = cert.path.pjString;
     transportConfig.port++;
