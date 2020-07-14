@@ -20,6 +20,16 @@ import Foundation
 import UseCases
 
 extension URI {
+    @objc(initWithURI:transport:)
+    convenience init(uri: AKSIPURI, transport: Transport) {
+        self.init(
+            user: uri.user,
+            address: ServiceAddress(host: uri.host, port: uri.port > 0 ? "\(uri.port)" : ""),
+            displayName: uri.displayName,
+            transport: transport
+        )
+    }
+
     @objc(initWithURI:)
     convenience init(_ uri: AKSIPURI) {
         self.init(user: uri.user, host: uri.host, displayName: uri.displayName)

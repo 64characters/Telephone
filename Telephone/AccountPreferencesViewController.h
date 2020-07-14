@@ -51,6 +51,7 @@
 @property(nonatomic, weak) IBOutlet NSTextField *cantEditAccountLabel;
 @property(nonatomic, weak) IBOutlet NSButton *UDPButton;
 @property(nonatomic, weak) IBOutlet NSButton *TCPButton;
+@property(nonatomic, weak) IBOutlet NSButton *TLSButton;
 @property(nonatomic, weak) IBOutlet NSButton *IPv4Button;
 @property(nonatomic, weak) IBOutlet NSButton *IPv6Button;
 @property(nonatomic, weak) IBOutlet NSButton *updateIPAddressCheckBox;

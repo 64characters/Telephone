@@ -20,10 +20,11 @@
 
 #import "AKNSString+PJSUA.h"
 #import "AKSIPURI.h"
+#import "AKSIPURIParser.h"
 
 @implementation PJSUACallInfo
 
-- (instancetype)initWithInfo:(pjsua_call_info)info {
+- (instancetype)initWithInfo:(pjsua_call_info)info parser:(AKSIPURIParser *)parser {
     if ((self = [super init])) {
         _identifier = info.id;
         _accountIdentifier = info.acc_id;
@@ -31,8 +32,8 @@
         _stateText = [NSString stringWithPJString:info.state_text];
         _lastStatus = info.last_status;
         _lastStatusText = [NSString stringWithPJString:info.last_status_text];
-        _localURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:info.local_info]];
-        _remoteURI = [AKSIPURI SIPURIWithString:[NSString stringWithPJString:info.remote_info]];
+        _localURI = [parser SIPURIFromString:[NSString stringWithPJString:info.local_info]];
+        _remoteURI = [parser SIPURIFromString:[NSString stringWithPJString:info.remote_info]];
         _incoming = info.role == PJSIP_ROLE_UAS;
     }
     return self;

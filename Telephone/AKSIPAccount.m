@@ -24,19 +24,22 @@
 #import "AKSIPCall.h"
 #import "PJSUACallInfo.h"
 
+#import "Telephone-Swift.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-const NSInteger kAKSIPAccountDefaultSIPProxyPort = 5060;
+const NSInteger kAKSIPAccountDefaultSIPProxyPort = 0;
 const NSInteger kAKSIPAccountDefaultReregistrationTime = 300;
-const AKSIPTransport kAKSIPAccountDefaultTransport = AKSIPTransportUDP;
+const Transport kAKSIPAccountDefaultTransport = TransportUDP;
+const NSInteger kAKSIPAccountRegistrationExpireTimeNotSpecified = PJSIP_EXPIRES_NOT_SPECIFIED;
 
 @interface AKSIPCallParameters : NSObject
 
-@property(nonatomic, readonly) AKSIPURI *destination;
+@property(nonatomic, readonly) URI *destination;
 @property(nonatomic, readonly) pjsua_acc_id account;
 @property(nonatomic, readonly) void (^ _Nonnull completion)(BOOL, PJSUACallInfo *);
 
-- (instancetype)initWithDestination:(AKSIPURI *)destination
+- (instancetype)initWithDestination:(URI *)destination
                             account:(pjsua_acc_id)account
                          completion:(void (^ _Nonnull)(BOOL, PJSUACallInfo *))completion;
 
@@ -50,6 +53,7 @@ const AKSIPTransport kAKSIPAccountDefaultTransport = AKSIPTransportUDP;
 @property(nonatomic) NSInteger identifier;
 
 @property(nonatomic, readonly) NSMutableArray *calls;
+@property(nonatomic, readonly) AKSIPURIParser *parser;
 
 @end
 
@@ -62,7 +66,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)setProxyPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port >= 0 && port <= 65535) {
         _proxyPort = port;
     } else {
         _proxyPort = kAKSIPAccountDefaultSIPProxyPort;
@@ -84,7 +88,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)isRegistered {
-    return [self registrationStatus] / 100 == 2 && [self registrationExpireTime] != PJSIP_EXPIRES_NOT_SPECIFIED;
+    return [self registrationStatus] / 100 == 2 && [self registrationExpireTime] != kAKSIPAccountRegistrationExpireTimeNotSpecified;
 }
 
 - (void)setRegistered:(BOOL)value {
@@ -220,19 +224,12 @@ NS_ASSUME_NONNULL_END
     return NO;
 }
 
-- (instancetype)initWithUUID:(NSString *)uuid
-                    fullName:(NSString *)fullName
-                  SIPAddress:(nullable NSString *)sipAddress
-                   registrar:(nullable NSString *)registrar
-                       realm:(NSString *)realm
-                    username:(NSString *)username
-                      domain:(NSString *)domain {
-
-    NSParameterAssert(uuid.length > 0);
-    NSParameterAssert(fullName);
-    NSParameterAssert(realm);
-    NSParameterAssert(username);
-    NSParameterAssert(domain);
+- (instancetype)initWithDictionary:(NSDictionary *)dict parser:(AKSIPURIParser *)parser {
+    NSParameterAssert([dict[kUUID] length] > 0);
+    NSParameterAssert(dict[kFullName]);
+    NSParameterAssert(dict[kRealm]);
+    NSParameterAssert(dict[kUsername]);
+    NSParameterAssert(dict[kDomain]);
     
     self = [super init];
     if (self == nil) {
@@ -240,27 +237,42 @@ NS_ASSUME_NONNULL_END
     }
 
     SIPAddress *address = nil;
-    if (sipAddress.length > 0) {
-        address = [[SIPAddress alloc] initWithString:sipAddress];
+    if ([dict[kSIPAddress] length] > 0) {
+        address = [[SIPAddress alloc] initWithString:dict[kSIPAddress]];
     } else {
-        address = [[SIPAddress alloc] initWithUser:username host:domain];
+        address = [[SIPAddress alloc] initWithUser:dict[kUsername] host:dict[kDomain]];
     }
 
-    _uri = [[URI alloc] initWithUser:address.user host:address.host displayName:fullName];
+    _uuid = [dict[kUUID] copy];
+    if ([dict[kTransport] isEqualToString:kTransportTCP]) {
+        _transport = TransportTCP;
+    } else if ([dict[kTransport] isEqualToString:kTransportTLS]) {
+        _transport = TransportTLS;
+    } else {
+        _transport = TransportUDP;
+    }
+    _uri = [[URI alloc] initWithUser:address.user host:address.host displayName:dict[kFullName] transport:_transport];
 
-    _uuid = [uuid copy];
-    _fullName = [fullName copy];
+    _fullName = [dict[kFullName] copy];
     _SIPAddress = address.stringValue;
-    _registrar = [[ServiceAddress alloc] initWithString:(registrar.length > 0 ? registrar : domain)];
-    _realm = [realm copy];
-    _username = [username copy];
-    _domain = [domain copy];
-    self.proxyPort = kAKSIPAccountDefaultSIPProxyPort;
-    self.reregistrationTime = kAKSIPAccountDefaultReregistrationTime;
-    _transport = kAKSIPAccountDefaultTransport;
+    _registrar = [[ServiceAddress alloc] initWithString:([dict[kRegistrar] length] > 0 ? dict[kRegistrar] : dict[kDomain])];
+    _realm = [dict[kRealm] copy];
+    _username = [dict[kUsername] copy];
+    _domain = [dict[kDomain] copy];
+    if ([dict[kUseProxy] boolValue]) {
+        _proxyHost = [dict[kProxyHost] copy];
+        self.proxyPort = [dict[kProxyPort] integerValue];
+    }
+    self.reregistrationTime = [dict[kReregistrationTime] integerValue];
+    _usesIPv6 = [dict[kIPVersion] isEqualToString:kIPVersion6];
+    _updatesContactHeader = [dict[kUpdateContactHeader] boolValue];
+    _updatesViaHeader = [dict[kUpdateViaHeader] boolValue];
+    _updatesSDP = [dict[kUpdateSDP] boolValue];
+
     _identifier = kAKSIPUserAgentInvalidIdentifier;
     
     _calls = [[NSMutableArray alloc] init];
+    _parser = parser;
     
     return self;
 }
@@ -282,15 +294,16 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)makeCallTo:(AKSIPURI *)destination completion:(void (^ _Nonnull)(AKSIPCall * _Nullable))completion {
+    URI *uri = [[URI alloc] initWithURI:destination transport:self.transport];
     void (^onCallMakeCompletion)(BOOL, PJSUACallInfo *) = ^(BOOL success, PJSUACallInfo *call) {
         if (success) {
             completion([self addCallWithInfo:call]);
         } else {
-            NSLog(@"Error making call to %@ via account %@", destination, self);
+            NSLog(@"Error making call to %@ via account %@", uri, self);
             completion(nil);
         }
     };
-    AKSIPCallParameters *parameters = [[AKSIPCallParameters alloc] initWithDestination:destination
+    AKSIPCallParameters *parameters = [[AKSIPCallParameters alloc] initWithDestination:uri
                                                                                account:(pjsua_acc_id)self.identifier
                                                                             completion:onCallMakeCompletion];
     assert(self.thread);
@@ -298,7 +311,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)thread_makeCallWithParameters:(AKSIPCallParameters *)parameters {
-    pj_str_t uri = parameters.destination.description.pjString;
+    pj_str_t uri = parameters.destination.stringValue.pjString;
     pjsua_call_id callID = PJSUA_INVALID_ID;
     BOOL success = pjsua_call_make_call(parameters.account, &uri, 0, NULL, NULL, &callID) == PJ_SUCCESS;
     PJSUACallInfo *infoWrapper = nil;
@@ -306,7 +319,7 @@ NS_ASSUME_NONNULL_END
         pjsua_call_info info;
         success = pjsua_call_get_info(callID, &info) == PJ_SUCCESS;
         if (success) {
-            infoWrapper = [[PJSUACallInfo alloc] initWithInfo:info];
+            infoWrapper = [[PJSUACallInfo alloc] initWithInfo:info parser:self.parser];
         }
     }
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -354,7 +367,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation AKSIPCallParameters
 
-- (instancetype)initWithDestination:(AKSIPURI *)destination
+- (instancetype)initWithDestination:(URI *)destination
                             account:(pjsua_acc_id)account
                          completion:(void (^ _Nonnull)(BOOL, PJSUACallInfo *))completion {
     if ((self = [super init])) {

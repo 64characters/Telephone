@@ -62,16 +62,15 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 }
 
 - (instancetype)initWithAccountController:(AccountController *)accountController {
-    if ((self = [self initWithNibName:@"ActiveAccountView" bundle:nil])) {
+    NSParameterAssert(accountController);
+    if ((self = [super initWithNibName:@"ActiveAccountView" bundle:nil])) {
         _accountController = accountController;
     }
     return self;
 }
 
-- (instancetype)init {
-    NSString *reason = @"Initialize ActiveAccountViewController with initWithAccountController:";
-    @throw [NSException exceptionWithName:@"AKBadInitCall" reason:reason userInfo:nil];
-    return nil;
+- (instancetype)initWithNibName:(NSNibName)name bundle:(NSBundle *)bundle {
+    return self = [super initWithNibName:name bundle:bundle];
 }
 
 - (void)awakeFromNib {
@@ -494,7 +493,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 }
 
 // Converts input text to the array of dictionaries containing AKSIPURIs and phone labels (mobile, home, etc).
-// Dictionary keys are AKURI and AKPhoneLabel. If there is no @ sign, the input is treated as a user part of the URI and
+// Dictionary keys are kURI and kPhoneLabel. If there is no @ sign, the input is treated as a user part of the URI and
 // host part will be nil.
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

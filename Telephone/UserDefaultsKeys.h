@@ -19,6 +19,8 @@
 @import Foundation;
 @import UseCases;
 
+#import "AKSIPAccountKeys.h"
+
 extern NSString * const kAccounts;
 extern NSString * const kSTUNServerHost;
 extern NSString * const kSTUNServerPort;
@@ -41,33 +43,11 @@ extern NSString * const kAutoCloseMissedCallWindow;
 extern NSString * const kKeepCallWindowOnTop;
 extern NSString * const kCallWaiting;
 extern NSString * const kUseG711Only;
+extern NSString * const kLockCodec;
 extern NSString * const kSettingsVersion;
 
 // Account keys
-extern NSString * const kUUID;
-extern NSString * const kDescription;
-extern NSString * const kFullName;
-extern NSString * const kSIPAddress;
-extern NSString * const kRegistrar;
-extern NSString * const kDomain;
-extern NSString * const kRealm;
-extern NSString * const kUsername;
 extern NSString * const kAccountIndex;
 extern NSString * const kAccountEnabled;
-extern NSString * const kReregistrationTime;
 extern NSString * const kSubstitutePlusCharacter;
 extern NSString * const kPlusCharacterSubstitutionString;
-extern NSString * const kUseProxy;
-extern NSString * const kProxyHost;
-extern NSString * const kProxyPort;
-extern NSString * const kTransport;
-extern NSString * const kTransportUDP;
-extern NSString * const kTransportTCP;
-extern NSString * const kIPVersion;
-extern NSString * const kIPVersion4;
-extern NSString * const kIPVersion6;
-extern NSString * const kUpdateContactHeader;
-extern NSString * const kUpdateViaHeader;
-extern NSString * const kUpdateSDP;
-extern NSString * const kUseIPv6Only;
-extern NSString * const kLockCodec;

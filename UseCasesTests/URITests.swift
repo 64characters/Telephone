@@ -20,7 +20,21 @@ import UseCases
 import XCTest
 
 final class URITests: XCTestCase {
+    func testCanCreateWithUserAndServiceAddressAndDisplayNameAndTransport() {
+        XCTAssertNotNil(
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .udp)
+        )
+    }
+
     func testEquality() {
+        XCTAssertEqual(
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .tcp),
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .tcp)
+        )
+        XCTAssertNotEqual(
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .udp),
+            URI(user: "any-user", address: ServiceAddress(host: "any-host"), displayName: "any-name", transport: .tcp)
+        )
         XCTAssertEqual(
             URI(user: "any-user", host: "any-host", displayName: "any-name"),
             URI(user: "any-user", host: "any-host", displayName: "any-name")
@@ -51,6 +65,34 @@ final class URITests: XCTestCase {
         )
     }
 
+    func testStringValueWithUserAndHostAndPortAndDisplayNameAndTCPTransport() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host", port: "123"), displayName: "Name", transport: .tcp).stringValue,
+            "\"Name\" <sip:user@host:123;transport=tcp>"
+        )
+    }
+
+    func testStringValueDoesNotContainTransportWhenTransportIsUDP() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host"), displayName: "", transport: .udp).stringValue,
+            "sip:user@host"
+        )
+    }
+
+    func testStringValueContainsTransportTCPWhenTransportIsTCP() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host"), displayName: "", transport: .tcp).stringValue,
+            "sip:user@host;transport=tcp"
+        )
+    }
+
+    func testStringValueContainsTransportTLSWhenTransportIsTLS() {
+        XCTAssertEqual(
+            URI(user: "user", address: ServiceAddress(host: "host"), displayName: "", transport: .tls).stringValue,
+            "sip:user@host;transport=tls"
+        )
+    }
+
     func testCanCreateWithServiceAddress() {
         let sut = URI(address: ServiceAddress("any:123"))
 
@@ -78,20 +120,58 @@ final class URITests: XCTestCase {
         XCTAssertEqual(URI(host: "any").host, "any")
     }
 
-    func testCanCreateWithTypeMethodWithHostAndPort() {
-        let sut = URI.uri(host: "any", port: "123")
+    func testCanCreateWithTypeMethodWithHostAndPortAndTransport() {
+        let sut = URI.uri(host: "any", port: "123", transport: .tls)
 
         XCTAssertEqual(sut.host, "any")
         XCTAssertEqual(sut.port, "123")
+        XCTAssertEqual(sut.transport, .tls)
     }
 
-    func testCanCreateWithTypeMethodWithHost() {
-        XCTAssertEqual(URI.uri(host: "any").host, "any")
+    func testCanCreateWithTypeMethodWithHostAndTransport() {
+        let sut = URI.uri(host: "any", transport: .tcp)
+
+        XCTAssertEqual(sut.host, "any")
+        XCTAssertEqual(sut.transport, .tcp)
     }
 
     func testTextualRepresentationIsSameAsStringValue() {
         let sut = URI(user: "user", address: ServiceAddress(host: "host", port: "123"), displayName: "Name")
 
         XCTAssertEqual(String(describing: sut), sut.stringValue)
+    }
+
+    // MARK: - Creation from string
+
+    func testCanCreateWithStringWithFullName() {
+        XCTAssertEqual(URI("Full Name <sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWithFullNameWithoutTrailingSpace() {
+        XCTAssertEqual(URI("Full Name<sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWhenFullNameIsInQuotes() {
+        XCTAssertEqual(URI("\"Full Name\" <sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWhenFullNameIsInQuotesWithoutTrailingSpace() {
+        XCTAssertEqual(URI("\"Full Name\"<sip:user@host>"), URI(user: "user", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWithFullNameWithoutUser() {
+        XCTAssertEqual(URI("Full Name <sip:host>"), URI(user: "", host: "host", displayName: "Full Name"))
+    }
+
+    func testCanCreateWithStringWithoutFullName() {
+        XCTAssertEqual(URI("sip:user@host"), URI(user: "user", host: "host", displayName: ""))
+    }
+
+    func testCanCreateWithStringWithTelScheme() {
+        XCTAssertEqual(URI("tel:any"), URI(user: "any", host: "", displayName: ""))
+    }
+
+    func testCanCreateWithStringWhenSchemeIsNotLowercased() {
+        XCTAssertEqual(URI("SiP:user@host"), URI(user: "user", host: "host", displayName: ""))
     }
 }

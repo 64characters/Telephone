@@ -53,7 +53,7 @@ typedef struct _AKSIPUserAgentCallData {
 // An invalid identifier for all sorts of identifiers.
 extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 
-@class AKSIPAccount, AKSIPCall;
+@class AKSIPAccount, AKSIPCall, AKSIPURIParser;
 
 // The AKSIPUserAgent class implements SIP User Agent functionality. You can use it to create, configure, and start user
 // agent, add and remove accounts, and set sound devices for input and output. You need to restart the user agent after
@@ -151,6 +151,8 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 @property(nonatomic, assign) BOOL locksCodec;
 
 @property(nonatomic, readonly) dispatch_queue_t poolQueue;
+
+@property(nonatomic, readonly) AKSIPURIParser *parser;
 
 // Returns the shared SIP user agent object.
 + (AKSIPUserAgent *)sharedUserAgent;

@@ -209,6 +209,8 @@
 		8A506B3D204B387A00EE3F25 /* CallEventTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A506B3C204B387A00EE3F25 /* CallEventTargets.swift */; };
 		8A57AEA61CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
 		8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */; };
+		8A5BC803249AC5680015A461 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BC802249AC5680015A461 /* Transport.swift */; };
+		8A5BC806249BEE0E0015A461 /* AKSIPAccountKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */; };
 		8A5D17511EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */; };
 		8A5D17531EBCD40300A95FB8 /* ExtractedPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D17521EBCD40300A95FB8 /* ExtractedPhoneNumber.swift */; };
 		8A5DE3E3218B73F9002A4213 /* CallHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A5DE3E5218B73F9002A4213 /* CallHistoryViewController.xib */; };
@@ -226,6 +228,7 @@
 		8A61363D1CC23ABC00A087A4 /* SystemAudioDevicesChangeEventTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB41BE28C7600A5C7E5 /* SystemAudioDevicesChangeEventTargetsTests.swift */; };
 		8A61363E1CC23AFF00A087A4 /* SystemAudioDevicesChangeEventTargetSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0FFB91BE28D2500A5C7E5 /* SystemAudioDevicesChangeEventTargetSpy.swift */; };
 		8A6185371EC65E0500EAA8E2 /* MatchedContact+Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6185361EC65E0500EAA8E2 /* MatchedContact+Contact.swift */; };
+		8A628949245761C100609016 /* PublicCAs.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8A628948245761C100609016 /* PublicCAs.pem */; };
 		8A62B08B20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A62B08A20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift */; };
 		8A635DD81D8C211300E2DBD0 /* MusicPlayerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A635DD71D8C211300E2DBD0 /* MusicPlayerFactory.m */; };
 		8A63ECD41CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A63ECD31CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift */; };
@@ -296,6 +299,8 @@
 		8A7E212D1CC23F6B000D02C3 /* UserAgentAudioDeviceUpdateUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB32A0C1BEB8A760016C8E6 /* UserAgentAudioDeviceUpdateUseCaseTests.swift */; };
 		8A7E21521CC3F6A5000D02C3 /* ServiceAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */; };
 		8A7E21541CC411F3000D02C3 /* ServiceAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */; };
+		8A837FCC249FE48500DFA3F3 /* AKSIPAccountKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */; };
+		8A837FCF24A5277300DFA3F3 /* AKSIPURIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A837FCE24A5277300DFA3F3 /* AKSIPURIParser.m */; };
 		8A8495F12433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8495F02433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift */; };
 		8A8495F22433D181000A3A90 /* KeyValueSettings+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8495F02433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift */; };
 		8A8495F4243505AD000A3A90 /* TCPTransportSettingsMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8495F3243505AD000A3A90 /* TCPTransportSettingsMigrationTests.swift */; };
@@ -1116,6 +1121,9 @@
 		8A506B3C204B387A00EE3F25 /* CallEventTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEventTargets.swift; sourceTree = "<group>"; };
 		8A57AEA41CBEAF1200A36200 /* AKSIPCallNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCallNotifications.h; sourceTree = "<group>"; };
 		8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCallNotifications.m; sourceTree = "<group>"; };
+		8A5BC802249AC5680015A461 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		8A5BC804249BEE0E0015A461 /* AKSIPAccountKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSIPAccountKeys.h; sourceTree = "<group>"; };
+		8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKSIPAccountKeys.m; sourceTree = "<group>"; };
 		8A5D17501EBCD32700A95FB8 /* ExtractedPhoneNumberTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtractedPhoneNumberTests.swift; path = UseCasesTests/ExtractedPhoneNumberTests.swift; sourceTree = SOURCE_ROOT; };
 		8A5D17521EBCD40300A95FB8 /* ExtractedPhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractedPhoneNumber.swift; sourceTree = "<group>"; };
 		8A5DE3E4218B73F9002A4213 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CallHistoryViewController.xib; sourceTree = "<group>"; };
@@ -1129,6 +1137,7 @@
 		8A5EADAF1D35508100C53415 /* StoreViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenter.swift; sourceTree = "<group>"; };
 		8A5EADB31D35517C00C53415 /* StoreViewPresenterSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewPresenterSpy.swift; sourceTree = "<group>"; };
 		8A6185361EC65E0500EAA8E2 /* MatchedContact+Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MatchedContact+Contact.swift"; sourceTree = "<group>"; };
+		8A628948245761C100609016 /* PublicCAs.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PublicCAs.pem; sourceTree = "<group>"; };
 		8A62B08A20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioSystemAudioDevicesFactory.swift; sourceTree = "<group>"; };
 		8A635DD61D8C211300E2DBD0 /* MusicPlayerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerFactory.h; sourceTree = "<group>"; };
 		8A635DD71D8C211300E2DBD0 /* MusicPlayerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerFactory.m; sourceTree = "<group>"; };
@@ -1194,6 +1203,8 @@
 		8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationProduct.swift; sourceTree = "<group>"; };
 		8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceAddressTests.swift; path = UseCasesTests/ServiceAddressTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAddress.swift; sourceTree = "<group>"; };
+		8A837FCD24A5277300DFA3F3 /* AKSIPURIParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSIPURIParser.h; sourceTree = "<group>"; };
+		8A837FCE24A5277300DFA3F3 /* AKSIPURIParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKSIPURIParser.m; sourceTree = "<group>"; };
 		8A8495F02433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyValueSettings+UserDefaults.swift"; sourceTree = "<group>"; };
 		8A8495F3243505AD000A3A90 /* TCPTransportSettingsMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TCPTransportSettingsMigrationTests.swift; path = TelephoneTests/TCPTransportSettingsMigrationTests.swift; sourceTree = SOURCE_ROOT; };
 		8A8495F524350641000A3A90 /* TCPTransportSettingsMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPTransportSettingsMigration.swift; sourceTree = "<group>"; };
@@ -1980,6 +1991,7 @@
 				AA2ED9B10F05BB5D004A13C6 /* AuthenticationFailure.xib */,
 				AA2ED9AB0F05BA11004A13C6 /* AccountSetup.xib */,
 				AA53434612ADBAD200B47767 /* Sound.tiff */,
+				8A628948245761C100609016 /* PublicCAs.pem */,
 				8AE4E95B1DABBBF90003F063 /* Images.xcassets */,
 				8A70C46C1DAE832E002E8754 /* Credits.rtf */,
 			);
@@ -2919,6 +2931,7 @@
 				8A0E8A8523E2111400FC7BC3 /* String+IPAddress.swift */,
 				8A0E8A8723E4A88100FC7BC3 /* String+IPAddressTests.swift */,
 				AA404AC91BFC8E8900D00A3E /* ThrowingUseCase.swift */,
+				8A5BC802249AC5680015A461 /* Transport.swift */,
 				8A11B3CB1DDB4640002EDA93 /* URI.swift */,
 				8A0E8A8923EB7D0C00FC7BC3 /* URITests.swift */,
 				8AB677FB1F0D1B3C001A47A2 /* URI+ContactCallHistoryRecord.swift */,
@@ -3361,6 +3374,8 @@
 				AA4BD4DC0E07C51E005A71B2 /* AKSIPAccount.h */,
 				AA4BD4DD0E07C51E005A71B2 /* AKSIPAccount.m */,
 				AA49F33B1BA7431500126A24 /* AKSIPAccountDelegate.h */,
+				8A5BC804249BEE0E0015A461 /* AKSIPAccountKeys.h */,
+				8A5BC805249BEE0E0015A461 /* AKSIPAccountKeys.m */,
 				AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */,
 				AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */,
 				AAE33B101BA7269600C6E48B /* AKSIPCallDelegate.h */,
@@ -3370,6 +3385,8 @@
 				8A57AEA51CBEAF1200A36200 /* AKSIPCallNotifications.m */,
 				AA0302F00EB9F347000738F7 /* AKSIPURI.h */,
 				AA0302F10EB9F347000738F7 /* AKSIPURI.m */,
+				8A837FCD24A5277300DFA3F3 /* AKSIPURIParser.h */,
+				8A837FCE24A5277300DFA3F3 /* AKSIPURIParser.m */,
 				8A9175941CA4841F00354E26 /* PJSUACallbacks.h */,
 				8A65688F2180641400DAF0F6 /* PJSUACallInfo.h */,
 				8A6568902180641400DAF0F6 /* PJSUACallInfo.m */,
@@ -3789,6 +3806,7 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				AA2ED9A50F05B5C6004A13C6 /* Preferences.xib in Resources */,
 				AA2ED99C0F05B362004A13C6 /* Account.xib in Resources */,
+				8A628949245761C100609016 /* PublicCAs.pem in Resources */,
 				8AA749031D749E4D000587DC /* StoreViewController.xib in Resources */,
 				AA2ED9A00F05B3B5004A13C6 /* Call.xib in Resources */,
 				AA2ED9AC0F05BA11004A13C6 /* AccountSetup.xib in Resources */,
@@ -4046,6 +4064,7 @@
 				8A0CBBC9205304C000FC0633 /* NSCalendarDayChangeEventSource.swift in Sources */,
 				8A9175A51CA5A10800354E26 /* PJSUAOnCallReplaced.m in Sources */,
 				8AC443BF1F90E21E00ECE463 /* OrphanLogFileRemoval.swift in Sources */,
+				8A837FCF24A5277300DFA3F3 /* AKSIPURIParser.m in Sources */,
 				AA16CC9E0F857009000CAFD1 /* AKNSString+Escaping.m in Sources */,
 				8A1BCFFC1ED3462800628062 /* CNContactStoreToContactsAdapter.swift in Sources */,
 				8A125F7D1F59821D00148C99 /* AsyncCallHistoryPurchaseCheckUseCaseFactory.swift in Sources */,
@@ -4132,6 +4151,7 @@
 				AA1019951C494B5700869D01 /* FoundationToUseCasesTimerAdapterFactory.swift in Sources */,
 				AA0693B0110228E4007EF898 /* ActiveAccountTransferViewController.m in Sources */,
 				8AA689961FFFED1E00BA369B /* NSWorkspace+FileBrowser.swift in Sources */,
+				8A5BC806249BEE0E0015A461 /* AKSIPAccountKeys.m in Sources */,
 				8AA044E82136C3A500736EAA /* SIPResponseLocalization.m in Sources */,
 				AAA810B41115D7F9008CA945 /* EndedCallTransferViewController.m in Sources */,
 				8AA27AF01E9D397B002A08CD /* SimplePropertyListStorageURL.swift in Sources */,
@@ -4170,6 +4190,7 @@
 				8ACF85161EE95113006E88FB /* EnqueueingCallHistoryRecordRemoveUseCaseFactory.swift in Sources */,
 				8ADA26F41C986C9E0066B224 /* SoundConfigurationLoadUseCase.swift in Sources */,
 				8AB78263217A426F002E4DFB /* UserAgentStartUseCase.swift in Sources */,
+				8A5BC803249AC5680015A461 /* Transport.swift in Sources */,
 				8A11B3CC1DDB4640002EDA93 /* URI.swift in Sources */,
 				8A00076723F733EC00963069 /* SIPAddress.swift in Sources */,
 				8A7E21541CC411F3000D02C3 /* ServiceAddress.swift in Sources */,
@@ -4422,6 +4443,7 @@
 				8ADD6A5D1CDCFEC3001EDBBA /* DefaultStoreViewEventTargetTests.swift in Sources */,
 				8A1DA8161DF07EF300F5BA40 /* WorkspaceSleepStatus.swift in Sources */,
 				8A57AEA71CBEAF1200A36200 /* AKSIPCallNotifications.m in Sources */,
+				8A837FCC249FE48500DFA3F3 /* AKSIPAccountKeys.m in Sources */,
 				8AA891DC1F83F69F0064B2EA /* SanitizedCallDestinationTests.swift in Sources */,
 				8ADA10A71DC8D6E90038E0A5 /* SettingsMigrationFactory.swift in Sources */,
 				8ABB141C1CEC86B10056CEDC /* StoreViewStateMachine.swift in Sources */,
@@ -5556,6 +5578,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
+					"\"$(SRCROOT)/ThirdParty/LibreSSL/lib\"",
 					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
 				);
 				MARKETING_VERSION = 1.4.6;
@@ -5575,6 +5598,8 @@
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
+					"-lcrypto",
+					"-lssl",
 					"-lopus",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;
@@ -5604,6 +5629,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/ThirdParty/PJSIP/lib\"",
+					"\"$(SRCROOT)/ThirdParty/LibreSSL/lib\"",
 					"\"$(SRCROOT)/ThirdParty/Opus/lib\"",
 				);
 				MARKETING_VERSION = 1.4.6;
@@ -5623,6 +5649,8 @@
 					"-lspeex-x86_64-apple-darwin",
 					"-lilbccodec-x86_64-apple-darwin",
 					"-lpj-x86_64-apple-darwin",
+					"-lcrypto",
+					"-lssl",
 					"-lopus",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone;

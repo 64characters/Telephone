@@ -34,12 +34,12 @@ void PJSUAOnCallReplaced(pjsua_call_id oldID, pjsua_call_id newID) {
                oldID, (int)oldInfo.remote_info.slen, oldInfo.remote_info.ptr,
                newID, (int)newInfo.remote_info.slen, newInfo.remote_info.ptr));
 
-    PJSUACallInfo *newInfoWrapper = [[PJSUACallInfo alloc] initWithInfo:newInfo];
+    AKSIPUserAgent *agent = [AKSIPUserAgent sharedUserAgent];
+    PJSUACallInfo *newInfoWrapper = [[PJSUACallInfo alloc] initWithInfo:newInfo parser:agent.parser];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         PJ_LOG(3, (THIS_FILE, "Creating AKSIPCall for call %d from replaced callback", newID));
-        AKSIPUserAgent *userAgent = [AKSIPUserAgent sharedUserAgent];
-        AKSIPAccount *account = [userAgent accountWithIdentifier:newInfoWrapper.accountIdentifier];
+        AKSIPAccount *account = [agent accountWithIdentifier:newInfoWrapper.accountIdentifier];
         [account addCallWithInfo:newInfoWrapper];
     });
 }

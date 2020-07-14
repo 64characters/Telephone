@@ -1,5 +1,5 @@
 //
-//  ActiveAccountTransferViewController.h
+//  Transport.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,19 @@
 //  GNU General Public License for more details.
 //
 
-#import <Cocoa/Cocoa.h>
+@objc public enum Transport: Int {
+    @objc(TransportUDP) case udp
+    @objc(TransportTCP) case tcp
+    @objc(TransportTLS) case tls
 
-#import "ActiveAccountViewController.h"
-
-
-// A controller that acts as an account controller inside call transfer sheet.
-@interface ActiveAccountTransferViewController : ActiveAccountViewController
-
-- (instancetype)initWithAccountController:(AccountController *)accountController NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithNibName:(NSNibName)name bundle:(NSBundle *)bundle NS_UNAVAILABLE;
-
-// Initiates a call to the transfer destination.
-- (IBAction)makeCallToTransferDestination:(id)sender;
-
-@end
+    var stringValue: String {
+        switch self {
+        case .udp:
+            return "udp"
+        case .tcp:
+            return "tcp"
+        case .tls:
+            return "tls"
+        }
+    }
+}

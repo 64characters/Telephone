@@ -23,6 +23,7 @@
 #import "AKNSString+PJSUA.h"
 #import "AKSIPAccount.h"
 #import "AKSIPCall.h"
+#import "AKSIPURIParser.h"
 #import "PJSUACallbacks.h"
 
 #import "Telephone-Swift.h"
@@ -80,6 +81,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 @property(nonatomic) pjsua_transport_id UDP6TransportIdentifier;
 @property(nonatomic) pjsua_transport_id TCP4TransportIdentifier;
 @property(nonatomic) pjsua_transport_id TCP6TransportIdentifier;
+@property(nonatomic) pjsua_transport_id TLS4TransportIdentifier;
+@property(nonatomic) pjsua_transport_id TLS6TransportIdentifier;
 
 @property(nonatomic, readonly) NSThread *thread;
 
@@ -166,7 +169,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)setOutboundProxyPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port > 0 && port <= 65535) {
         _outboundProxyPort = port;
     } else {
         _outboundProxyPort = kAKSIPUserAgentDefaultOutboundProxyPort;
@@ -174,7 +177,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)setSTUNServerPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port > 0 && port <= 65535) {
         _STUNServerPort = port;
     } else {
         _STUNServerPort = kAKSIPUserAgentDefaultSTUNServerPort;
@@ -192,7 +195,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
 }
 
 - (void)setTransportPort:(NSUInteger)port {
-    if (port > 0 && port < 65535) {
+    if (port >= 0 && port <= 65535) {
         _transportPort = port;
     } else {
         _transportPort = kAKSIPUserAgentDefaultTransportPort;
@@ -248,8 +251,11 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     [self setUDP6TransportIdentifier:PJSUA_INVALID_ID];
     [self setTCP4TransportIdentifier:PJSUA_INVALID_ID];
     [self setTCP6TransportIdentifier:PJSUA_INVALID_ID];
+    [self setTLS4TransportIdentifier:PJSUA_INVALID_ID];
+    [self setTLS6TransportIdentifier:PJSUA_INVALID_ID];
 
     _poolQueue = dispatch_queue_create("com.tlphn.Telephone.AKSIPUserAgent.PJSIP.pool", DISPATCH_QUEUE_SERIAL);
+    _parser = [[AKSIPURIParser alloc] initWithUserAgent:self];
 
     _thread = [[WaitingThread alloc] init];
     _thread.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -344,10 +350,12 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         userAgentConfig.outbound_proxy_cnt = 1;
         
         if ([self outboundProxyPort] == kAKSIPUserAgentDefaultOutboundProxyPort) {
-            userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost].stringValue.pjString;
+            userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost
+                                                       transport:TransportUDP].stringValue.pjString;
         } else {
             userAgentConfig.outbound_proxy[0] = [URI URIWithHost:self.outboundProxyHost
-                                                            port:@(self.outboundProxyPort).stringValue].stringValue.pjString;
+                                                            port:@(self.outboundProxyPort).stringValue
+                                                       transport:TransportUDP].stringValue.pjString;
         }
     }
 
@@ -497,6 +505,27 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     }
     self.TCP6TransportIdentifier = TCP6TransportIdentifier;
 
+    // Add TLS transport.
+    transportConfig.tls_setting.verify_server = PJ_TRUE;
+    transportConfig.tls_setting.verify_client = PJ_TRUE;
+    NSURL *cert = [NSBundle.mainBundle URLForResource:@"PublicCAs" withExtension:@"pem"];
+    transportConfig.tls_setting.ca_list_file = cert.path.pjString;
+    transportConfig.port++;
+    pjsua_transport_id TLS4TransportIdentifier = PJSUA_INVALID_ID;
+    status = pjsua_transport_create(PJSIP_TRANSPORT_TLS, &transportConfig, &TLS4TransportIdentifier);
+    if (status != PJ_SUCCESS) {
+        NSLog(@"Error creating TLS4 transport");
+    }
+    self.TLS4TransportIdentifier = TLS4TransportIdentifier;
+
+    // Add TLS6 transport.
+    pjsua_transport_id TLS6TransportIdentifier = PJSUA_INVALID_ID;
+    status = pjsua_transport_create(PJSIP_TRANSPORT_TLS6, &transportConfig, &TLS6TransportIdentifier);
+    if (status != PJ_SUCCESS) {
+        NSLog(@"Error creating TLS6 transport");
+    }
+    self.TLS6TransportIdentifier = TLS6TransportIdentifier;
+
     // Update codecs.
     [self updateCodecs];
 
@@ -555,6 +584,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     self.UDP6TransportIdentifier = PJSUA_INVALID_ID;
     self.TCP4TransportIdentifier = PJSUA_INVALID_ID;
     self.TCP6TransportIdentifier = PJSUA_INVALID_ID;
+    self.TLS4TransportIdentifier = PJSUA_INVALID_ID;
+    self.TLS6TransportIdentifier = PJSUA_INVALID_ID;
     if (self.pool) {
         pj_pool_release(self.pool);
         self.pool = NULL;
@@ -594,8 +625,8 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     
     accountConfig.id = anAccount.uri.stringValue.pjString;
 
-    accountConfig.reg_uri = [[URI alloc] initWithAddress:anAccount.registrar].stringValue.pjString;
-    
+    accountConfig.reg_uri = [[URI alloc] initWithAddress:anAccount.registrar
+                                               transport:anAccount.transport].stringValue.pjString;
     accountConfig.cred_count = 1;
     if ([[anAccount realm] length] > 0) {
         accountConfig.cred_info[0].realm = [[anAccount realm] pjString];
@@ -618,23 +649,32 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
         accountConfig.proxy_cnt = 1;
         
         if ([anAccount proxyPort] == kAKSIPAccountDefaultSIPProxyPort) {
-            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost].stringValue.pjString;
+            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost
+                                            transport:anAccount.transport].stringValue.pjString;
         } else {
-            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost port:@(anAccount.proxyPort).stringValue].stringValue.pjString;
+            accountConfig.proxy[0] = [URI URIWithHost:anAccount.proxyHost
+                                                 port:@(anAccount.proxyPort).stringValue
+                                            transport:anAccount.transport].stringValue.pjString;
         }
     }
     
     accountConfig.reg_timeout = (unsigned)[anAccount reregistrationTime];
     
     switch (anAccount.transport) {
-        case AKSIPTransportUDP:
+        case TransportUDP:
             accountConfig.transport_id = anAccount.usesIPv6 ? self.UDP6TransportIdentifier : self.UDP4TransportIdentifier;
             break;
-        case AKSIPTransportTCP:
+        case TransportTCP:
             accountConfig.transport_id = anAccount.usesIPv6 ? self.TCP6TransportIdentifier : self.TCP4TransportIdentifier;
+            break;
+        case TransportTLS:
+            accountConfig.transport_id = anAccount.usesIPv6 ? self.TLS6TransportIdentifier : self.TLS4TransportIdentifier;
+            break;
         default:
             break;
     }
+
+    accountConfig.use_srtp = anAccount.transport == TransportTLS ? PJMEDIA_SRTP_MANDATORY : PJMEDIA_SRTP_DISABLED;
 
     accountConfig.ipv6_media_use = anAccount.usesIPv6 ? PJSUA_IPV6_ENABLED : PJSUA_IPV6_DISABLED;
 

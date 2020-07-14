@@ -1,5 +1,5 @@
 //
-//  ActiveAccountTransferViewController.h
+//  AKSIPURIParser.h
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,18 +16,20 @@
 //  GNU General Public License for more details.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Foundation;
 
-#import "ActiveAccountViewController.h"
+NS_ASSUME_NONNULL_BEGIN
 
+@class AKSIPURI, AKSIPUserAgent;
 
-// A controller that acts as an account controller inside call transfer sheet.
-@interface ActiveAccountTransferViewController : ActiveAccountViewController
+@interface AKSIPURIParser : NSObject
 
-- (instancetype)initWithAccountController:(AccountController *)accountController NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithNibName:(NSNibName)name bundle:(NSBundle *)bundle NS_UNAVAILABLE;
+@property(nonatomic, readonly, weak) AKSIPUserAgent *agent;
 
-// Initiates a call to the transfer destination.
-- (IBAction)makeCallToTransferDestination:(id)sender;
+- (instancetype)initWithUserAgent:(AKSIPUserAgent *)agent;
+
+- (nullable AKSIPURI *)SIPURIFromString:(NSString *)string;
 
 @end
+
+NS_ASSUME_NONNULL_END
