@@ -20,7 +20,6 @@
 
 #import "AKNSWindow+Resizing.h"
 #import "AKSIPCall.h"
-#import "AKSIPUserAgent.h"
 
 #import "AccountController.h"
 #import "ActiveCallTransferViewController.h"
