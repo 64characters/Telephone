@@ -12,9 +12,9 @@ Opus codec is optional.
 
 Download:
 
-    $ curl -O https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
-    $ tar xzvf opus-1.2.1.tar.gz
-    $ cd opus-1.2.1
+    $ curl -O https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz
+    $ tar xzvf opus-1.3.1.tar.gz
+    $ cd opus-1.3.1
 
 Build and install:
 
