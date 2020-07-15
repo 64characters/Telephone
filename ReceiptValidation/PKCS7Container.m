@@ -62,11 +62,9 @@ NS_ASSUME_NONNULL_END
 }
 
 - (BOOL)isSignatureValidWithRootCertificate:(NSData *)certificate {
-    OpenSSL_add_all_digests();
     X509_STORE *store = CreateStoreWithCertificate(certificate);
     BOOL result = PKCS7_verify(self.pkcs7, NULL, store, NULL, NULL, 0) == 1;
     X509_STORE_free(store);
-    EVP_cleanup();
     return result;
 }
 
