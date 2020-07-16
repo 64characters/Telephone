@@ -32,11 +32,11 @@
                     </buttonCell>
                 </button>
                 <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="491">
-                    <rect key="frame" x="198" y="201" width="202" height="14"/>
+                    <rect key="frame" x="198" y="201" width="205" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="235" id="Xp1-Ue-Wsk"/>
                     </constraints>
-                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Leave empty to use any available port" id="492">
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Leave empty to use any available port." id="492">
                         <font key="font" metaFont="message" size="11"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
