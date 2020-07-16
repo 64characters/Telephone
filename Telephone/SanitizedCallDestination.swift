@@ -23,11 +23,11 @@ final class SanitizedCallDestination: NSObject {
 
     @objc(initWithString:)
     init(_ string: String) {
-        value = strippingEscapedSpaces(from: strippingSlashes(from: strippingHeaders(from: string)))
+        value = unescapingPlusCharacter(strippingEscapedSpaces(strippingSlashes(strippingHeaders(string))))
     }
 }
 
-private func strippingSlashes(from string: String) -> String {
+private func strippingSlashes(_ string: String) -> String {
     if let range = string.range(of: "sip://") {
         return string.replacingCharacters(in: range, with: "sip:")
     } else if let range = string.range(of: "tel://") {
@@ -37,7 +37,7 @@ private func strippingSlashes(from string: String) -> String {
     }
 }
 
-private func strippingHeaders(from string: String) -> String {
+private func strippingHeaders(_ string: String) -> String {
     if let range = string.range(of: "?") {
         return String(string[..<range.lowerBound])
     } else {
@@ -45,6 +45,10 @@ private func strippingHeaders(from string: String) -> String {
     }
 }
 
-private func strippingEscapedSpaces(from string: String) -> String {
+private func strippingEscapedSpaces(_ string: String) -> String {
     return string.replacingOccurrences(of: "%20", with: "")
+}
+
+private func unescapingPlusCharacter(_ string: String) -> String {
+    return string.replacingOccurrences(of: "%2B", with: "+", options: .caseInsensitive)
 }
