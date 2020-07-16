@@ -32,12 +32,9 @@
                     </buttonCell>
                 </button>
                 <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="491">
-                    <rect key="frame" x="198" y="201" width="205" height="14"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="235" id="Xp1-Ue-Wsk"/>
-                    </constraints>
+                    <rect key="frame" x="198" y="201" width="239" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Leave empty to use any available port." id="492">
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -191,6 +188,7 @@
                 <constraint firstItem="198" firstAttribute="trailing" secondItem="484" secondAttribute="trailing" id="nW1-CH-fKO"/>
                 <constraint firstItem="482" firstAttribute="leading" secondItem="260" secondAttribute="leading" constant="200" id="owd-yK-2ta"/>
                 <constraint firstItem="196" firstAttribute="leading" secondItem="482" secondAttribute="leading" id="qdG-dM-pgm"/>
+                <constraint firstItem="491" firstAttribute="trailing" secondItem="192" secondAttribute="trailing" constant="20" id="sDt-6c-QMy"/>
                 <constraint firstItem="198" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="260" secondAttribute="leading" constant="20" symbolic="YES" id="u7p-SO-Epx"/>
                 <constraint firstItem="320" firstAttribute="firstBaseline" secondItem="319" secondAttribute="firstBaseline" id="waj-wh-Wyw"/>
                 <constraint firstItem="196" firstAttribute="top" secondItem="192" secondAttribute="bottom" constant="8" id="wha-Gc-87G"/>
