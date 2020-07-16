@@ -47,7 +47,15 @@ final class SanitizedCallDestinationTests: XCTestCase {
         XCTAssertEqual(SanitizedCallDestination("tel:+1%20234%2056789").value, "tel:+123456789")
     }
 
-    func testRemovesSlashesRemovesHeadersRemovesEscapedSpaces() {
-        XCTAssertEqual(SanitizedCallDestination("tel://+1%20234%2056789?header=value").value, "tel:+123456789")
+    func testUnescapesPlusCharacterWhenEscapedUsingUpperCase() {
+        XCTAssertEqual(SanitizedCallDestination("tel:%2B12345").value, "tel:+12345")
+    }
+
+    func testUnescapesPlusCharacterWhenEscapedUsingLowerCase() {
+        XCTAssertEqual(SanitizedCallDestination("tel:%2b12345").value, "tel:+12345")
+    }
+
+    func testRemovesSlashesRemovesHeadersRemovesEscapedSpacesUnescapesPlusCharacter() {
+        XCTAssertEqual(SanitizedCallDestination("tel://%2B1%20234%2056789?header=value").value, "tel:+123456789")
     }
 }
