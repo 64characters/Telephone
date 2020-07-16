@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="STUNServerHostField" destination="192" id="507"/>
                 <outlet property="STUNServerPortField" destination="196" id="508"/>
+                <outlet property="deleteOutboundProxyButton" destination="9cR-ug-aVH" id="wVR-DO-mal"/>
                 <outlet property="outboundProxyHostField" destination="315" id="509"/>
                 <outlet property="outboundProxyPortField" destination="319" id="510"/>
                 <outlet property="transportPortField" destination="482" id="506"/>
@@ -34,7 +35,7 @@
                 <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="491">
                     <rect key="frame" x="198" y="196" width="239" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Leave empty to use any available port." id="492">
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="controlContent" size="11"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -72,13 +73,13 @@
                     <rect key="frame" x="162" y="71" width="34" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Port:" id="321">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="319">
                     <rect key="frame" x="200" y="68" width="50" height="21"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="5060" drawsBackground="YES" id="322">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="322">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -91,13 +92,13 @@
                     <rect key="frame" x="90" y="100" width="106" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Outbound Proxy:" id="318">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="315">
                     <rect key="frame" x="200" y="97" width="215" height="21"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="316">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="316">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -153,6 +154,16 @@
                         <outlet property="nextKeyView" destination="196" id="325"/>
                     </connections>
                 </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="9cR-ug-aVH">
+                    <rect key="frame" x="398" y="101" width="14" height="14"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" controlSize="small" imageScaling="proportionallyUpOrDown" inset="2" id="HfD-MN-Ug9">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="controlContent" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="deleteOutboundProxy:" target="-2" id="aGO-F9-GJ7"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="482" firstAttribute="leading" secondItem="484" secondAttribute="trailing" constant="6" id="36G-f4-Brl"/>
@@ -171,6 +182,7 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="491" secondAttribute="trailing" constant="20" symbolic="YES" id="Pva-wo-38q"/>
                 <constraint firstItem="320" firstAttribute="trailing" secondItem="484" secondAttribute="trailing" id="UnG-3t-YaU"/>
                 <constraint firstItem="482" firstAttribute="top" secondItem="260" secondAttribute="top" constant="14" id="V0j-ia-8Y6"/>
+                <constraint firstItem="9cR-ug-aVH" firstAttribute="trailing" secondItem="315" secondAttribute="trailing" constant="-3" id="WSz-Qz-lWR"/>
                 <constraint firstItem="194" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="260" secondAttribute="leading" constant="20" symbolic="YES" id="X70-cx-yst"/>
                 <constraint firstItem="319" firstAttribute="width" secondItem="482" secondAttribute="width" id="Yig-HR-XyX"/>
                 <constraint firstItem="484" firstAttribute="firstBaseline" secondItem="482" secondAttribute="firstBaseline" id="ZGF-tC-gnB"/>
@@ -196,8 +208,12 @@
                 <constraint firstItem="194" firstAttribute="firstBaseline" secondItem="192" secondAttribute="firstBaseline" id="yZh-0K-jhV"/>
                 <constraint firstItem="192" firstAttribute="top" secondItem="491" secondAttribute="bottom" constant="14" id="yqv-1k-dtG"/>
                 <constraint firstItem="317" firstAttribute="trailing" secondItem="484" secondAttribute="trailing" id="zsj-Ix-VOj"/>
+                <constraint firstItem="9cR-ug-aVH" firstAttribute="centerY" secondItem="315" secondAttribute="centerY" id="zt5-vD-YJD"/>
             </constraints>
             <point key="canvasLocation" x="139" y="154"/>
         </customView>
     </objects>
+    <resources>
+        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
+    </resources>
 </document>

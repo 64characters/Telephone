@@ -76,6 +76,21 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)viewDidAppear {
+    [super viewDidAppear];
+    [self updateDeleteOutboundProxyButtonVisibility];
+}
+
+- (IBAction)deleteOutboundProxy:(id)sender {
+    self.outboundProxyHostField.stringValue = @"";
+    self.outboundProxyPortField.stringValue = @"";
+    [self updateDeleteOutboundProxyButtonVisibility];
+}
+
+- (void)updateDeleteOutboundProxyButtonVisibility {
+    self.deleteOutboundProxyButton.hidden = self.outboundProxyHostField.stringValue.length == 0 && self.outboundProxyPortField.stringValue.length == 0;
+}
+
 - (BOOL)areNetworkSettingsChanged:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSCharacterSet *spacesSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];

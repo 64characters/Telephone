@@ -35,6 +35,7 @@
 @property(nonatomic, weak) IBOutlet NSButton *useDNSSRVCheckBox;
 @property(nonatomic, weak) IBOutlet NSTextField *outboundProxyHostField;
 @property(nonatomic, weak) IBOutlet NSTextField *outboundProxyPortField;
+@property(nonatomic, weak) IBOutlet NSButton *deleteOutboundProxyButton;
 
 - (instancetype)initWithPreferencesController:(PreferencesController *)preferencesController
                                     userAgent:(AKSIPUserAgent *)userAgent;
