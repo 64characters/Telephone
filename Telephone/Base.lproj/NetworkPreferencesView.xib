@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,26 +22,19 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="260" userLabel="Network">
-            <rect key="frame" x="0.0" y="0.0" width="508" height="253"/>
+            <rect key="frame" x="0.0" y="0.0" width="508" height="281"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="549">
-                    <rect key="frame" x="198" y="18" width="106" height="18"/>
-                    <buttonCell key="cell" type="check" title="Use DNS SRV" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="550">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
                 <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="491">
-                    <rect key="frame" x="198" y="196" width="239" height="14"/>
+                    <rect key="frame" x="198" y="224" width="239" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Leave empty to use any available port." id="492">
-                        <font key="font" metaFont="controlContent" size="11"/>
+                        <font key="font" metaFont="message" size="11"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="484">
-                    <rect key="frame" x="103" y="221" width="93" height="16"/>
+                    <rect key="frame" x="103" y="249" width="93" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Local SIP Port:" id="485">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -49,7 +42,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="482">
-                    <rect key="frame" x="200" y="218" width="50" height="21"/>
+                    <rect key="frame" x="200" y="246" width="50" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="40d-c1-bUD"/>
                     </constraints>
@@ -62,42 +55,32 @@
                         <outlet property="nextKeyView" destination="192" id="495"/>
                     </connections>
                 </textField>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="466">
-                    <rect key="frame" x="198" y="38" width="70" height="18"/>
-                    <buttonCell key="cell" type="check" title="Use ICE" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="467">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="320">
-                    <rect key="frame" x="162" y="71" width="34" height="16"/>
+                    <rect key="frame" x="162" y="45" width="34" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Port:" id="321">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="319">
-                    <rect key="frame" x="200" y="68" width="50" height="21"/>
+                    <rect key="frame" x="200" y="42" width="50" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="322">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
-                    <connections>
-                        <outlet property="nextKeyView" destination="482" id="494"/>
-                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="317">
-                    <rect key="frame" x="90" y="100" width="106" height="16"/>
+                    <rect key="frame" x="90" y="74" width="106" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Outbound Proxy:" id="318">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="315">
-                    <rect key="frame" x="200" y="97" width="215" height="21"/>
+                    <rect key="frame" x="200" y="71" width="215" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="316">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -106,12 +89,9 @@
                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                         </allowedInputSourceLocales>
                     </textFieldCell>
-                    <connections>
-                        <outlet property="nextKeyView" destination="319" id="328"/>
-                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="198">
-                    <rect key="frame" x="162" y="135" width="34" height="16"/>
+                    <rect key="frame" x="162" y="163" width="34" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Port:" id="199">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -119,18 +99,18 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="196">
-                    <rect key="frame" x="200" y="132" width="50" height="21"/>
+                    <rect key="frame" x="200" y="160" width="50" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="3478" drawsBackground="YES" id="197">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <outlet property="nextKeyView" destination="315" id="327"/>
+                        <outlet property="nextKeyView" destination="466" id="b8V-OP-RqG"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="194">
-                    <rect key="frame" x="109" y="164" width="87" height="16"/>
+                    <rect key="frame" x="109" y="192" width="87" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="STUN Server:" id="195">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -138,7 +118,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="192">
-                    <rect key="frame" x="200" y="161" width="215" height="21"/>
+                    <rect key="frame" x="200" y="189" width="215" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="215" id="Y2D-1w-uEj"/>
                     </constraints>
@@ -155,13 +135,41 @@
                     </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="9cR-ug-aVH">
-                    <rect key="frame" x="398" y="101" width="14" height="14"/>
+                    <rect key="frame" x="398" y="75" width="14" height="14"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" controlSize="small" imageScaling="proportionallyUpOrDown" inset="2" id="HfD-MN-Ug9">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="controlContent" size="11"/>
+                        <font key="font" metaFont="message" size="11"/>
                     </buttonCell>
                     <connections>
                         <action selector="deleteOutboundProxy:" target="-2" id="aGO-F9-GJ7"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="466">
+                    <rect key="frame" x="198" y="130" width="70" height="18"/>
+                    <buttonCell key="cell" type="check" title="Use ICE" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="467">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="549" id="GZQ-69-WMl"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zlz-tb-psa">
+                    <rect key="frame" x="198" y="20" width="187" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Use account proxy setting instead." id="VJj-dK-qaq">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="549">
+                    <rect key="frame" x="198" y="110" width="106" height="18"/>
+                    <buttonCell key="cell" type="check" title="Use DNS SRV" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="550">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="482" id="D2e-oc-z9l"/>
                     </connections>
                 </button>
             </subviews>
@@ -169,7 +177,6 @@
                 <constraint firstItem="482" firstAttribute="leading" secondItem="484" secondAttribute="trailing" constant="6" id="36G-f4-Brl"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="549" secondAttribute="trailing" constant="20" symbolic="YES" id="4un-0L-zfg"/>
                 <constraint firstItem="466" firstAttribute="leading" secondItem="482" secondAttribute="leading" id="5Rn-Z6-tFr"/>
-                <constraint firstAttribute="bottom" secondItem="549" secondAttribute="bottom" constant="20" id="6GD-4W-GuI"/>
                 <constraint firstItem="198" firstAttribute="firstBaseline" secondItem="196" secondAttribute="firstBaseline" id="6VS-Ri-uIw"/>
                 <constraint firstItem="315" firstAttribute="width" secondItem="192" secondAttribute="width" id="9hy-za-Gu6"/>
                 <constraint firstItem="319" firstAttribute="leading" secondItem="482" secondAttribute="leading" id="CeI-ct-4UM"/>
@@ -177,18 +184,21 @@
                 <constraint firstItem="192" firstAttribute="leading" secondItem="482" secondAttribute="leading" id="DhO-v0-Fxp"/>
                 <constraint firstItem="196" firstAttribute="width" secondItem="482" secondAttribute="width" id="FUB-jd-22y"/>
                 <constraint firstItem="317" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="260" secondAttribute="leading" constant="20" symbolic="YES" id="Gff-sr-WXV"/>
-                <constraint firstItem="466" firstAttribute="top" secondItem="319" secondAttribute="bottom" constant="14" id="JBU-Ju-GZS"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zlz-tb-psa" secondAttribute="trailing" constant="20" symbolic="YES" id="Jnq-5r-uXY"/>
                 <constraint firstItem="491" firstAttribute="top" secondItem="482" secondAttribute="bottom" constant="8" id="PMq-Db-hep"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="491" secondAttribute="trailing" constant="20" symbolic="YES" id="Pva-wo-38q"/>
                 <constraint firstItem="320" firstAttribute="trailing" secondItem="484" secondAttribute="trailing" id="UnG-3t-YaU"/>
                 <constraint firstItem="482" firstAttribute="top" secondItem="260" secondAttribute="top" constant="14" id="V0j-ia-8Y6"/>
+                <constraint firstItem="Zlz-tb-psa" firstAttribute="leading" secondItem="319" secondAttribute="leading" id="VjI-84-MN0"/>
                 <constraint firstItem="9cR-ug-aVH" firstAttribute="trailing" secondItem="315" secondAttribute="trailing" constant="-3" id="WSz-Qz-lWR"/>
                 <constraint firstItem="194" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="260" secondAttribute="leading" constant="20" symbolic="YES" id="X70-cx-yst"/>
+                <constraint firstItem="315" firstAttribute="top" secondItem="549" secondAttribute="bottom" constant="20" id="Y2q-TU-52I"/>
                 <constraint firstItem="319" firstAttribute="width" secondItem="482" secondAttribute="width" id="Yig-HR-XyX"/>
                 <constraint firstItem="484" firstAttribute="firstBaseline" secondItem="482" secondAttribute="firstBaseline" id="ZGF-tC-gnB"/>
                 <constraint firstItem="194" firstAttribute="trailing" secondItem="484" secondAttribute="trailing" id="crz-kz-RgV"/>
+                <constraint firstItem="Zlz-tb-psa" firstAttribute="top" secondItem="319" secondAttribute="bottom" constant="8" id="d0c-dz-6XZ"/>
                 <constraint firstItem="319" firstAttribute="top" secondItem="315" secondAttribute="bottom" constant="8" id="dLs-jq-MRj"/>
-                <constraint firstItem="315" firstAttribute="top" secondItem="196" secondAttribute="bottom" constant="14" id="g5y-cs-ih9"/>
+                <constraint firstItem="466" firstAttribute="top" secondItem="196" secondAttribute="bottom" constant="14" id="fye-QJ-b91"/>
                 <constraint firstItem="317" firstAttribute="firstBaseline" secondItem="315" secondAttribute="firstBaseline" id="gFl-BH-2cD"/>
                 <constraint firstItem="549" firstAttribute="top" secondItem="466" secondAttribute="bottom" constant="6" id="gb2-Bg-aAL"/>
                 <constraint firstItem="196" firstAttribute="trailing" secondItem="482" secondAttribute="trailing" id="gpy-Lj-pvX"/>
@@ -201,6 +211,7 @@
                 <constraint firstItem="482" firstAttribute="leading" secondItem="260" secondAttribute="leading" constant="200" id="owd-yK-2ta"/>
                 <constraint firstItem="196" firstAttribute="leading" secondItem="482" secondAttribute="leading" id="qdG-dM-pgm"/>
                 <constraint firstItem="491" firstAttribute="trailing" secondItem="192" secondAttribute="trailing" constant="20" id="sDt-6c-QMy"/>
+                <constraint firstAttribute="bottom" secondItem="Zlz-tb-psa" secondAttribute="bottom" constant="20" id="sJA-8G-G5m"/>
                 <constraint firstItem="198" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="260" secondAttribute="leading" constant="20" symbolic="YES" id="u7p-SO-Epx"/>
                 <constraint firstItem="320" firstAttribute="firstBaseline" secondItem="319" secondAttribute="firstBaseline" id="waj-wh-Wyw"/>
                 <constraint firstItem="196" firstAttribute="top" secondItem="192" secondAttribute="bottom" constant="8" id="wha-Gc-87G"/>
@@ -210,7 +221,7 @@
                 <constraint firstItem="317" firstAttribute="trailing" secondItem="484" secondAttribute="trailing" id="zsj-Ix-VOj"/>
                 <constraint firstItem="9cR-ug-aVH" firstAttribute="centerY" secondItem="315" secondAttribute="centerY" id="zt5-vD-YJD"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="154"/>
+            <point key="canvasLocation" x="139" y="164.5"/>
         </customView>
     </objects>
     <resources>
