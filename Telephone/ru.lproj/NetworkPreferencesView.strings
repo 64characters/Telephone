@@ -1,0 +1,30 @@
+
+/* Class = "NSTextFieldCell"; title = "STUN Server:"; ObjectID = "195"; */
+"195.title" = "STUN-сервер:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "3478"; ObjectID = "197"; */
+"197.placeholderString" = "3478";
+
+/* Class = "NSTextFieldCell"; title = "Port:"; ObjectID = "199"; */
+"199.title" = "Порт:";
+
+/* Class = "NSTextFieldCell"; title = "Outbound Proxy:"; ObjectID = "318"; */
+"318.title" = "Общий прокси:";
+
+/* Class = "NSTextFieldCell"; title = "Port:"; ObjectID = "321"; */
+"321.title" = "Порт:";
+
+/* Class = "NSButtonCell"; title = "Use ICE"; ObjectID = "467"; */
+"467.title" = "Использовать ICE";
+
+/* Class = "NSTextFieldCell"; title = "Local SIP Port:"; ObjectID = "485"; */
+"485.title" = "Локальный SIP-порт:";
+
+/* Class = "NSTextFieldCell"; title = "Leave empty to use any available port."; ObjectID = "492"; */
+"492.title" = "Для автоматического назначения порта оставьте поле пустым.";
+
+/* Class = "NSButtonCell"; title = "Use DNS SRV"; ObjectID = "550"; */
+"550.title" = "Использовать DNS SRV";
+
+/* Class = "NSTextFieldCell"; title = "Use the account proxy instead."; ObjectID = "VJj-dK-qaq"; */
+"VJj-dK-qaq.title" = "Используйте прокси-сервер аккаунта.";

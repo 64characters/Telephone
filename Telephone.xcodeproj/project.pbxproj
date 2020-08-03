@@ -1203,6 +1203,9 @@
 		8A7C4F781CD104E300EC7C1B /* PresentationProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationProduct.swift; sourceTree = "<group>"; };
 		8A7E21511CC3F6A5000D02C3 /* ServiceAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceAddressTests.swift; path = UseCasesTests/ServiceAddressTests.swift; sourceTree = SOURCE_ROOT; };
 		8A7E21531CC411F3000D02C3 /* ServiceAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAddress.swift; sourceTree = "<group>"; };
+		8A80624324C0C55200F2D71F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NetworkPreferencesView.strings; sourceTree = "<group>"; };
+		8A80624424C0C55E00F2D71F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NetworkPreferencesView.strings; sourceTree = "<group>"; };
+		8A80624524C0C56200F2D71F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NetworkPreferencesView.strings; sourceTree = "<group>"; };
 		8A837FCD24A5277300DFA3F3 /* AKSIPURIParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSIPURIParser.h; sourceTree = "<group>"; };
 		8A837FCE24A5277300DFA3F3 /* AKSIPURIParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKSIPURIParser.m; sourceTree = "<group>"; };
 		8A8495F02433CF2D000A3A90 /* KeyValueSettings+UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyValueSettings+UserDefaults.swift"; sourceTree = "<group>"; };
@@ -1735,8 +1738,6 @@
 		AAFC00351074D1700018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		AAFC00361074D17F0018C7DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AccountPreferencesView.xib; sourceTree = "<group>"; };
 		AAFC00371074D1820018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AccountPreferencesView.xib; sourceTree = "<group>"; };
-		AAFC003A1074D1980018C7DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/NetworkPreferencesView.xib; sourceTree = "<group>"; };
-		AAFC003B1074D19A0018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/NetworkPreferencesView.xib; sourceTree = "<group>"; };
 		AAFCFFBB1074BFCA0018C7DA /* AccountSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AccountSetupController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSetupController.m; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
@@ -5001,9 +5002,10 @@
 		AAFC00251074D0B50018C7DA /* NetworkPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AAFC003A1074D1980018C7DA /* ru */,
-				AAFC003B1074D19A0018C7DA /* de */,
 				8AA748D11D744FAB000587DC /* Base */,
+				8A80624324C0C55200F2D71F /* en */,
+				8A80624424C0C55E00F2D71F /* de */,
+				8A80624524C0C56200F2D71F /* ru */,
 			);
 			name = NetworkPreferencesView.xib;
 			sourceTree = "<group>";

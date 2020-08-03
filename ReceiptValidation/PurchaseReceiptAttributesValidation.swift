@@ -47,9 +47,9 @@ private func hasEarlierExpirationDate(_ lhs: ASN1PurchaseReceipt, _ rhs: ASN1Pur
 }
 
 private func isValid(_ receipt: ASN1PurchaseReceipt) -> Bool {
-    return !receipt.isCancelled && sixMonths(after: receipt.expiration) >= Date()
+    return !receipt.isCancelled && oneMonth(after: receipt.expiration) >= Date()
 }
 
-private func sixMonths(after date: Date) -> Date {
-    return date.addingTimeInterval(60 * 60 * 24 * 30 * 6)
+private func oneMonth(after date: Date) -> Date {
+    return date.addingTimeInterval(60 * 60 * 24 * 30)
 }
