@@ -14,9 +14,6 @@
 /* Class = "NSTextFieldCell"; title = "Port:"; ObjectID = "321"; */
 "321.title" = "Порт:";
 
-/* Class = "NSTextFieldCell"; placeholderString = "5060"; ObjectID = "322"; */
-"322.placeholderString" = "5060";
-
 /* Class = "NSButtonCell"; title = "Use ICE"; ObjectID = "467"; */
 "467.title" = "Использовать ICE";
 
@@ -28,3 +25,6 @@
 
 /* Class = "NSButtonCell"; title = "Use DNS SRV"; ObjectID = "550"; */
 "550.title" = "Использовать DNS SRV";
+
+/* Class = "NSTextFieldCell"; title = "Use the account proxy instead."; ObjectID = "VJj-dK-qaq"; */
+"VJj-dK-qaq.title" = "Используйте прокси-сервер аккаунта.";
