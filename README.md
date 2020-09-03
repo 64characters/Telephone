@@ -24,11 +24,20 @@ Build and install:
 
 ### LibreSSL
 
+Download:
+
     $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.1.3.tar.gz
     $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.1.3.tar.gz.asc
     $ gpg --verify libressl-3.1.3.tar.gz.asc
     $ tar xzvf libressl-3.1.3.tar.gz
     $ cd libressl-3.1.3
+
+Patch:
+
+    $ patch -p0 -i /path/to/Telephone/ThirdParty/LibreSSL/patches/check-libc.patch
+
+Build and install:
+
     $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-Os -mmacosx-version-min=10.10'
     $ make
     $ make install
