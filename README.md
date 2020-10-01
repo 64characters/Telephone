@@ -1,7 +1,7 @@
-Telephone is a VoIP program which allows you to make phone calls over
+The telephone is a VoIP program that allows you to make phone calls over
 the internet. It can be used to call regular phones via any
 appropriate SIP provider. If your office or home phone works via SIP,
-you can use that phone number on your Mac anywhere you have decent
+you can use that phone number on your Mac anywhere you have a decent
 internet connection.
 
 ## Building
@@ -77,5 +77,5 @@ Build Telephone.
 
 ## Contribution
 
-For the legal reasons, pull requests are not accepted. Please feel
+For legal reasons, pull requests are not accepted. Please feel
 free to share your thoughts and ideas by commenting on the issues.
