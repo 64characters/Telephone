@@ -150,8 +150,6 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 /// Default: YES.
 @property(nonatomic, assign) BOOL locksCodec;
 
-@property(nonatomic, readonly) dispatch_queue_t poolQueue;
-
 @property(nonatomic, readonly) AKSIPURIParser *parser;
 
 // Returns the shared SIP user agent object.
@@ -166,8 +164,6 @@ extern const NSInteger kAKSIPUserAgentInvalidIdentifier;
 // Stops user agent.
 - (void)stop;
 - (void)stopAndWait;
-
-- (pj_pool_t *)poolResettingIfNeeded;
 
 // Adds an account to the user agent.
 - (BOOL)addAccount:(AKSIPAccount *)anAccount withPassword:(NSString *)aPassword;

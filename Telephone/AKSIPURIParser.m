@@ -37,14 +37,16 @@
         return nil;
     }
 
-    pjsip_name_addr * __block nameAddr;
-    dispatch_sync(self.agent.poolQueue, ^{
-        nameAddr = (pjsip_name_addr *)pjsip_parse_uri([self.agent poolResettingIfNeeded],
-                                                      (char *)[string cStringUsingEncoding:NSUTF8StringEncoding],
-                                                      [string length],
-                                                      PJSIP_PARSE_URI_AS_NAMEADDR);
-    });
+    pj_pool_t *pool = pjsua_pool_create("AKSIPUserAgent-uri-parsing-tmp", 512, 512);
+    if (!pool) {
+        return nil;
+    }
+    pjsip_name_addr *nameAddr = (pjsip_name_addr *)pjsip_parse_uri(pool,
+                                                                   (char *)[string cStringUsingEncoding:NSUTF8StringEncoding],
+                                                                   [string length],
+                                                                   PJSIP_PARSE_URI_AS_NAMEADDR);
     if (nameAddr == NULL) {
+        pj_pool_release(pool);
         return nil;
     }
 
@@ -64,8 +66,11 @@
         pjsip_tel_uri *uri = (pjsip_tel_uri *)pjsip_uri_get_uri(nameAddr);
         user = [NSString stringWithPJString:uri->number];
     } else {
+        pj_pool_release(pool);
         return nil;
     }
+
+    pj_pool_release(pool);
 
     return [[AKSIPURI alloc] initWithUser:user host:host displayName:displayName port:port];
 }
