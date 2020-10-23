@@ -398,6 +398,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     userAgentConfig.cb.on_call_replaced = &PJSUAOnCallReplaced;
     userAgentConfig.cb.on_reg_state = &PJSUAOnAccountRegistrationState;
     userAgentConfig.cb.on_nat_detect = &PJSUAOnNATDetect;
+    userAgentConfig.cb.on_acc_find_for_incoming = &PJSUAOnAccountFindForIncoming;
 
     // Initialize PJSUA.
     status = pjsua_init(&userAgentConfig, &loggingConfig, &mediaConfig);
