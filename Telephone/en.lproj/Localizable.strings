@@ -91,7 +91,7 @@
 "End Call" = "End Call";
 
 /* Error #. */
-"Error %d" = "Error %d";
+"Error %ld" = "Error %ld";
 
 /* Failed to communicate with STUN server. */
 "Failed to communicate with STUN server." = "Failed to communicate with STUN server.";
@@ -175,7 +175,7 @@
 "Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials." = "Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials.";
 
 /* Error description. */
-"The error was: “%d %@”." = "The error was: “%1$d %2$@”.";
+"The error was: “%ld %@”." = "The error was: “%1$ld %2$@”.";
 
 /* Call history record removal alert informative text. */
 "This action cannot be undone." = "This action cannot be undone.";

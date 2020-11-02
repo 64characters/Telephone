@@ -91,7 +91,7 @@
 "End Call" = "Anruf beenden";
 
 /* Error #. */
-"Error %d" = "Fehler %d";
+"Error %ld" = "Fehler %ld";
 
 /* Failed to communicate with STUN server. */
 "Failed to communicate with STUN server." = "Kommunikationsfehler mit STUN-Server.";
@@ -175,7 +175,7 @@
 "Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials." = "Telefon wird beendet und es wird versucht, das App-Receipt zu aktualisieren. Danach wird Telefon wieder gestartet. Während dieser Zeit können Sie nach den App-Store-Anmeldedaten gefragt werden.";
 
 /* Error description. */
-"The error was: “%d %@”." = "Fehlerbeschreibung: „%1$d %2$@“.";
+"The error was: “%ld %@”." = "Fehlerbeschreibung: „%1$ld %2$@“.";
 
 /* Call history record removal alert informative text. */
 "This action cannot be undone." = "Dieser Vorgang kann nicht rückgängig gemacht werden.";

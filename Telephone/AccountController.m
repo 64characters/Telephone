@@ -142,12 +142,12 @@ static NSString * const kRussian = @"ru";
                 NSString *error;
                 if (statusText == nil) {
                     error = [NSString stringWithFormat:
-                             NSLocalizedString(@"Error %d", @"Error #."),
+                             NSLocalizedString(@"Error %ld", @"Error #."),
                              [[self account] registrationStatus]];
                     error = [error stringByAppendingString:@"."];
                 } else {
                     error = [NSString stringWithFormat:
-                             NSLocalizedString(@"The error was: “%d %@”.", @"Error description."),
+                             NSLocalizedString(@"The error was: “%ld %@”.", @"Error description."),
                              [[self account] registrationStatus], statusText];
                 }
                 
@@ -562,12 +562,12 @@ static NSString * const kRussian = @"ru";
                     
                     NSString *error;
                     if (statusText == nil) {
-                        error = [NSString stringWithFormat:NSLocalizedString(@"Error %d", @"Error #."),
+                        error = [NSString stringWithFormat:NSLocalizedString(@"Error %ld", @"Error #."),
                                  [[self account] registrationStatus]];
                         error = [error stringByAppendingString:@"."];
                     } else {
                         error = [NSString stringWithFormat:
-                                 NSLocalizedString(@"The error was: “%d %@”.", @"Error description."),
+                                 NSLocalizedString(@"The error was: “%ld %@”.", @"Error description."),
                                  [[self account] registrationStatus], statusText];
                     }
                     
