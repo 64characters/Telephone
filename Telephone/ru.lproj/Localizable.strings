@@ -91,7 +91,7 @@
 "End Call" = "Завершить звонок";
 
 /* Error #. */
-"Error %d" = "Ошибка %d";
+"Error %ld" = "Ошибка %ld";
 
 /* Failed to communicate with STUN server. */
 "Failed to communicate with STUN server." = "Невозможно связаться со STUN-сервером.";
@@ -175,7 +175,7 @@
 "Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials." = "Работа Телефона будет завершена, и система предпримет попытку обновить электронный чек приложения, после чего Телефон будет снова запущен. Во время этого система может попросить вас залогиниться в Аппстор.";
 
 /* Error description. */
-"The error was: “%d %@”." = "%2$@, ошибка %1$d.";
+"The error was: “%ld %@”." = "%2$@, ошибка %1$ld.";
 
 /* Call history record removal alert informative text. */
 "This action cannot be undone." = "Результат этого действия нельзя отменить.";

@@ -60,7 +60,7 @@ private func stringPropertyValue(forDeviceWithID deviceID: AudioObjectID, select
 
 private func propertyValue<T>(forDeviceWithID deviceID: AudioObjectID, selector: AudioObjectPropertySelector) throws -> T {
     var length = UInt32(MemoryLayout<T>.stride)
-    var result = UnsafeMutablePointer<T>.allocate(capacity: 1)
+    let result = UnsafeMutablePointer<T>.allocate(capacity: 1)
     defer { result.deallocate() }
     let audioObject = CoreAudioObject(objectID: deviceID, propertyAddress: propertyAddress(selector: selector))
     try audioObject.copyPropertyValueBytes(to: result, length: &length)
