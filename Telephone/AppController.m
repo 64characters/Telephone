@@ -279,8 +279,6 @@ NS_ASSUME_NONNULL_END
         [[[self accountSetupController] defaultButton] setAction:@selector(addAccount:)];
         [[[self accountSetupController] otherButton] setTarget:[self accountSetupController]];
         [[[self accountSetupController] otherButton] setAction:@selector(closeSheet:)];
-        
-        [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
     }
 }
 
@@ -572,6 +570,7 @@ NS_ASSUME_NONNULL_END
     self.helpMenuActionRedirect.target = self.compositionRoot.helpMenuActionTarget;
     [self configureUserAgent];
     self.accountsMenuItems = [[AccountsMenuItems alloc] initWithMenu:self.windowMenu controllers:self.accountControllers];
+    NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
     NSArray *accounts = [NSUserDefaults.standardUserDefaults arrayForKey:kAccounts];
     if (accounts.count == 0) {
         [[self preferencesMenuItem] setAction:NULL];
@@ -602,7 +601,6 @@ NS_ASSUME_NONNULL_END
     }
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
     [self.accountsMenuItems update];
-    [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
     [self setShouldPresentUserAgentLaunchError:YES];
     [NSApp setServicesProvider:self];
     [self remindAboutPurchasingAfterDelay];
