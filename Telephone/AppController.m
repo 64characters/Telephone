@@ -566,84 +566,33 @@ NS_ASSUME_NONNULL_END
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSFullScreenMenuItemEverywhere"];
 }
 
-// Application control starts here.
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
     [self optOutOfAutomaticWindowTabbing];
-
     [self.compositionRoot.settingsMigration execute];
-
     self.helpMenuActionRedirect.target = self.compositionRoot.helpMenuActionTarget;
-    
-    // Read main settings from defaults.
-    if ([defaults boolForKey:kUseDNSSRV]) {
-        [[self userAgent] setNameServers:self.nameServers.all];
-    }
-    
-    [[self userAgent] setOutboundProxyHost:[defaults stringForKey:kOutboundProxyHost]];
-    
-    [[self userAgent] setOutboundProxyPort:[defaults integerForKey:kOutboundProxyPort]];
-    
-    [[self userAgent] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
-    
-    [[self userAgent] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
-    
-    NSString *bundleName = [mainBundle infoDictionary][@"CFBundleName"];
-    NSString *bundleShortVersion = [mainBundle infoDictionary][@"CFBundleShortVersionString"];
-    
-    [[self userAgent] setUserAgentString:[NSString stringWithFormat:@"%@ %@", bundleName, bundleShortVersion]];
-    [[self userAgent] setLogFileName:self.compositionRoot.logFileURL.pathValue];
-    [[self userAgent] setLogLevel:[defaults integerForKey:kLogLevel]];
-    [[self userAgent] setConsoleLogLevel:[defaults integerForKey:kConsoleLogLevel]];
-    [[self userAgent] setDetectsVoiceActivity:[defaults boolForKey:kVoiceActivityDetection]];
-    [[self userAgent] setUsesICE:[defaults boolForKey:kUseICE]];
-    [[self userAgent] setUsesQoS:[defaults boolForKey:kUseQoS]];
-    [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
-    [[self userAgent] setUsesG711Only:[defaults boolForKey:kUseG711Only]];
-    [[self userAgent] setLocksCodec:[defaults boolForKey:kLockCodec]];
-
+    [self configureUserAgent];
     self.accountsMenuItems = [[AccountsMenuItems alloc] initWithMenu:self.windowMenu controllers:self.accountControllers];
-
-    NSArray *accounts = [defaults arrayForKey:kAccounts];
-    
-    // Setup an account on first launch.
+    NSArray *accounts = [NSUserDefaults.standardUserDefaults arrayForKey:kAccounts];
     if (accounts.count == 0) {
-        // There are no saved accounts, prompt user to add one.
-        
-        // Disable Preferences during the first account prompt.
         [[self preferencesMenuItem] setAction:NULL];
-        
-        // Subscribe to addAccountWindow close to terminate application.
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(windowWillClose:)
                                                      name:NSWindowWillCloseNotification
                                                    object:[[self accountSetupController] window]];
-        
-        // Set different targets and actions of addAccountWindow buttons to add the first account.
         [[[self accountSetupController] defaultButton] setTarget:self];
         [[[self accountSetupController] defaultButton] setAction:@selector(addAccountOnFirstLaunch:)];
         [[[self accountSetupController] otherButton] setTarget:[[self accountSetupController] window]];
         [[[self accountSetupController] otherButton] setAction:@selector(performClose:)];
-        
         [[[self accountSetupController] window] center];
         [[[self accountSetupController] window] makeKeyAndOrderFront:self];
-        
-        // Early return.
         return;
     }
-    
-    // There are saved accounts, open account windows.
     for (NSUInteger i = 0; i < accounts.count; ++i) {
         AccountController *controller = [self accountControllerWithDictionary:accounts[i]];
-
         [self.accountControllers addController:controller];
-        
         if (![controller isEnabled]) {
             continue;
         }
-        
         if (i == 0) {
             [controller showWindow];
         } else {
@@ -651,30 +600,40 @@ NS_ASSUME_NONNULL_END
             [controller orderWindow:NSWindowBelow relativeTo:previous.windowNumber];
         }
     }
-    
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
-    
     [self.accountsMenuItems update];
-    
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-
     [self setShouldPresentUserAgentLaunchError:YES];
-    
-    // Register as service provider to allow making calls from the Services
-    // menu and context menus.
     [NSApp setServicesProvider:self];
-
     [self remindAboutPurchasingAfterDelay];
-    
     [self.accountControllers registerAllAccountsWhereManualRegistrationRequired];
-
     [self makeCallAfterLaunchIfNeeded];
-
     [self.compositionRoot.orphanLogFileRemoval performSelector:@selector(execute) withObject:nil afterDelay:0];
-
     [self showAccountPreferencesIfNeeded];
-
     [self setFinishedLaunching:YES];
+}
+
+- (void)configureUserAgent {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    if ([defaults boolForKey:kUseDNSSRV]) {
+        self.userAgent.nameServers = self.nameServers.all;
+    }
+    self.userAgent.outboundProxyHost = [defaults stringForKey:kOutboundProxyHost];
+    self.userAgent.outboundProxyPort = [defaults integerForKey:kOutboundProxyPort];
+    self.userAgent.STUNServerHost = [defaults stringForKey:kSTUNServerHost];
+    self.userAgent.STUNServerPort = [defaults integerForKey:kSTUNServerPort];
+    self.userAgent.userAgentString = [NSString stringWithFormat:@"%@ %@",
+                                      NSBundle.mainBundle.infoDictionary[@"CFBundleName"],
+                                      NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"]];
+    self.userAgent.logFileName = self.compositionRoot.logFileURL.pathValue;
+    self.userAgent.logLevel = [defaults integerForKey:kLogLevel];
+    self.userAgent.consoleLogLevel = [defaults integerForKey:kConsoleLogLevel];
+    self.userAgent.detectsVoiceActivity = [defaults boolForKey:kVoiceActivityDetection];
+    self.userAgent.usesICE = [defaults boolForKey:kUseICE];
+    self.userAgent.usesQoS = [defaults boolForKey:kUseQoS];
+    self.userAgent.transportPort = [defaults integerForKey:kTransportPort];
+    self.userAgent.usesG711Only = [defaults boolForKey:kUseG711Only];
+    self.userAgent.locksCodec = [defaults boolForKey:kLockCodec];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
