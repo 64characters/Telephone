@@ -604,6 +604,8 @@ NS_ASSUME_NONNULL_END
     [[self userAgent] setUsesG711Only:[defaults boolForKey:kUseG711Only]];
     [[self userAgent] setLocksCodec:[defaults boolForKey:kLockCodec]];
 
+    self.accountsMenuItems = [[AccountsMenuItems alloc] initWithMenu:self.windowMenu controllers:self.accountControllers];
+
     NSArray *accounts = [defaults arrayForKey:kAccounts];
     
     // Setup an account on first launch.
@@ -652,7 +654,7 @@ NS_ASSUME_NONNULL_END
     
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
     
-    self.accountsMenuItems = [[AccountsMenuItems alloc] initWithMenu:self.windowMenu controllers:self.accountControllers];
+    [self.accountsMenuItems update];
     
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
 
