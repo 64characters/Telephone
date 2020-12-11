@@ -571,6 +571,7 @@ NS_ASSUME_NONNULL_END
     [self configureUserAgent];
     self.accountsMenuItems = [[AccountsMenuItems alloc] initWithMenu:self.windowMenu controllers:self.accountControllers];
     NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
+    NSApp.servicesProvider = self;
     NSArray *accounts = [NSUserDefaults.standardUserDefaults arrayForKey:kAccounts];
     if (accounts.count == 0) {
         [[self preferencesMenuItem] setAction:NULL];
@@ -602,7 +603,6 @@ NS_ASSUME_NONNULL_END
     [self.accountControllers updateCallsShouldDisplayAccountInfo];
     [self.accountsMenuItems update];
     [self setShouldPresentUserAgentLaunchError:YES];
-    [NSApp setServicesProvider:self];
     [self remindAboutPurchasingAfterDelay];
     [self.accountControllers registerAllAccountsWhereManualRegistrationRequired];
     [self makeCallAfterLaunchIfNeeded];
