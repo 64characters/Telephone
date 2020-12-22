@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,33 +22,41 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="327" width="508" height="108"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="775"/>
             <view key="contentView" id="78">
                 <rect key="frame" x="0.0" y="0.0" width="508" height="108"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="342B3ECB-4C3A-4181-A42E-E0B72AE1CD41" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="133">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="39760E8E-F8CC-425F-9A1C-3EC0D1DC1C01" label="General" paletteLabel="General" image="NSPreferencesGeneral" id="141">
                         <nil key="toolTip"/>
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="178"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="C7FA5B44-DA35-4DC9-8BAA-FCB3835F43AE" label="Accounts" paletteLabel="Accounts" tag="1" image="NSUserAccounts" id="142">
                         <nil key="toolTip"/>
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="179"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="99F5EF41-DF20-4224-ABDD-E02D3C14D734" label="Sound" paletteLabel="Sound" tag="2" image="Sound" id="250">
                         <nil key="toolTip"/>
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="252"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D23028AB-A7C7-4A3C-A8BE-FDE39A10AB8E" label="Network" paletteLabel="Network" tag="3" image="NSNetwork" id="259">
                         <nil key="toolTip"/>
+                        <size key="minSize" width="22" height="22"/>
+                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="268"/>
                         </connections>
@@ -67,12 +75,13 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="241"/>
             </connections>
+            <point key="canvasLocation" x="-34" y="88"/>
         </window>
     </objects>
     <resources>
-        <image name="NSNetwork" width="128" height="128"/>
-        <image name="NSPreferencesGeneral" width="128" height="128"/>
-        <image name="NSUserAccounts" width="128" height="128"/>
+        <image name="NSNetwork" width="32" height="32"/>
+        <image name="NSPreferencesGeneral" width="32" height="32"/>
+        <image name="NSUserAccounts" width="32" height="32"/>
         <image name="Sound" width="40" height="40"/>
     </resources>
 </document>
