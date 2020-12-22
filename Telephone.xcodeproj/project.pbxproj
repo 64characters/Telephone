@@ -1114,6 +1114,9 @@
 		8A4B65BE1EB23B6300F13654 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		8A4C2760213058E700ABE34B /* AccountControllers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountControllers.h; sourceTree = "<group>"; };
 		8A4C2761213058E700ABE34B /* AccountControllers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountControllers.m; sourceTree = "<group>"; };
+		8A4CA6BB25926E9A0011566F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preferences.strings; sourceTree = "<group>"; };
+		8A4CA6C825926F6D0011566F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Preferences.strings; sourceTree = "<group>"; };
+		8A4CA6C925926F890011566F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Preferences.strings; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateUseCaseTests.swift; path = UseCasesTests/RingtoneOutputUpdateUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneOutputUpdateUseCase.swift; sourceTree = "<group>"; };
 		8A4E382F1C5BB20100816F38 /* SettingsRingtoneSoundNameSaveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsRingtoneSoundNameSaveUseCaseTests.swift; path = UseCasesTests/SettingsRingtoneSoundNameSaveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1558,7 +1561,6 @@
 		AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDevices.swift; sourceTree = "<group>"; };
 		AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCall.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCall.m; sourceTree = "<group>"; tabWidth = 4; };
-		AA2ED9A60F05B5CE004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/Preferences.xib; sourceTree = "<group>"; };
 		AA2ED9AD0F05BA16004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA2ED9B30F05BB64004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		AA2ED9DF0F05C1E3004A13C6 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1629,7 +1631,6 @@
 		AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		AA5100010F1FE302003CE94C /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA5100020F1FE32F003CE94C /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA5100590F200E2F003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/Preferences.xib; sourceTree = "<group>"; };
 		AA51005C0F20117F003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		AA5100970F20CD11003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA53434612ADBAD200B47767 /* Sound.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Sound.tiff; sourceTree = "<group>"; };
@@ -4874,9 +4875,10 @@
 		AA2ED9A40F05B5C6004A13C6 /* Preferences.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA2ED9A60F05B5CE004A13C6 /* ru */,
-				AA5100590F200E2F003CE94C /* de */,
 				8AA748CD1D744FAA000587DC /* Base */,
+				8A4CA6BB25926E9A0011566F /* en */,
+				8A4CA6C825926F6D0011566F /* de */,
+				8A4CA6C925926F890011566F /* ru */,
 			);
 			name = Preferences.xib;
 			sourceTree = "<group>";

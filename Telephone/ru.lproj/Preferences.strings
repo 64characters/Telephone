@@ -1,0 +1,27 @@
+
+/* Class = "NSWindow"; title = "Настройки"; ObjectID = "77"; */
+"77.title" = "Настройки";
+
+/* Class = "NSToolbarItem"; label = "Основные"; ObjectID = "141"; */
+"141.label" = "Основные";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Основные"; ObjectID = "141"; */
+"141.paletteLabel" = "Основные";
+
+/* Class = "NSToolbarItem"; label = "Аккаунты"; ObjectID = "142"; */
+"142.label" = "Аккаунты";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Аккаунты"; ObjectID = "142"; */
+"142.paletteLabel" = "Аккаунты";
+
+/* Class = "NSToolbarItem"; label = "Звук"; ObjectID = "250"; */
+"250.label" = "Звук";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Звук"; ObjectID = "250"; */
+"250.paletteLabel" = "Звук";
+
+/* Class = "NSToolbarItem"; label = "Сеть"; ObjectID = "259"; */
+"259.label" = "Сеть";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Сеть"; ObjectID = "259"; */
+"259.paletteLabel" = "Сеть";
