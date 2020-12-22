@@ -29,34 +29,26 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="342B3ECB-4C3A-4181-A42E-E0B72AE1CD41" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="133">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="39760E8E-F8CC-425F-9A1C-3EC0D1DC1C01" label="General" paletteLabel="General" tag="-1" image="NSPreferencesGeneral" id="141">
+                    <toolbarItem implicitItemIdentifier="39760E8E-F8CC-425F-9A1C-3EC0D1DC1C01" label="General" paletteLabel="General" tag="-1" image="NSPreferencesGeneral" sizingBehavior="auto" id="141">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="22" height="22"/>
-                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="178"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="C7FA5B44-DA35-4DC9-8BAA-FCB3835F43AE" label="Accounts" paletteLabel="Accounts" tag="-1" image="NSUserAccounts" id="142">
+                    <toolbarItem implicitItemIdentifier="C7FA5B44-DA35-4DC9-8BAA-FCB3835F43AE" label="Accounts" paletteLabel="Accounts" tag="-1" image="NSUserAccounts" sizingBehavior="auto" id="142">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="22" height="22"/>
-                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="179"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="99F5EF41-DF20-4224-ABDD-E02D3C14D734" label="Sound" paletteLabel="Sound" tag="-1" image="Sound" id="250">
+                    <toolbarItem implicitItemIdentifier="99F5EF41-DF20-4224-ABDD-E02D3C14D734" label="Sound" paletteLabel="Sound" tag="-1" image="Sound" sizingBehavior="auto" id="250">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="22" height="22"/>
-                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="252"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="D23028AB-A7C7-4A3C-A8BE-FDE39A10AB8E" label="Network" paletteLabel="Network" tag="-1" image="NSNetwork" id="259">
+                    <toolbarItem implicitItemIdentifier="D23028AB-A7C7-4A3C-A8BE-FDE39A10AB8E" label="Network" paletteLabel="Network" tag="-1" image="NSNetwork" sizingBehavior="auto" id="259">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="22" height="22"/>
-                        <size key="maxSize" width="22" height="22"/>
                         <connections>
                             <action selector="changeView:" target="-2" id="268"/>
                         </connections>
