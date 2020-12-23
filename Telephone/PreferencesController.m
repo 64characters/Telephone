@@ -132,7 +132,7 @@
     if (@available(macOS 11, *)) {
         self.generalToolbarItem.image = [NSImage imageWithSystemSymbolName:@"gearshape" accessibilityDescription:nil];
         self.accountsToolbarItem.image = [NSImage imageWithSystemSymbolName:@"at" accessibilityDescription:nil];
-        self.soundToolbarItem.image = [NSImage imageWithSystemSymbolName:@"speaker.2" accessibilityDescription:nil];
+        self.soundToolbarItem.image = [NSImage imageWithSystemSymbolName:@"speaker.wave.2" accessibilityDescription:nil];
         self.networkToolbarItem.image = [NSImage imageWithSystemSymbolName:@"network" accessibilityDescription:nil];
     } else {
         self.generalToolbarItem.image = [NSImage imageNamed:NSImageNamePreferencesGeneral];
