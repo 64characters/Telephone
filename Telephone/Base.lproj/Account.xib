@@ -24,7 +24,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="579" width="300" height="252"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="775"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" wantsLayer="YES" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="300" height="252"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,17 +33,17 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="5B2D55D8-29B2-4DF6-B4EB-FB47643AC74A" label="Account State" paletteLabel="Account State" tag="-1" id="q93-R7-UiB" userLabel="Account State">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="73" height="16"/>
-                        <size key="maxSize" width="76" height="16"/>
-                        <box key="view" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="SHh-3W-jWp">
-                            <rect key="frame" x="3" y="14" width="76" height="16"/>
+                        <size key="minSize" width="71" height="17"/>
+                        <size key="maxSize" width="71" height="17"/>
+                        <box key="view" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" id="SHh-3W-jWp">
+                            <rect key="frame" x="5" y="14" width="72" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView" id="88u-Bi-Zq4">
-                                <rect key="frame" x="0.0" y="0.0" width="76" height="16"/>
+                                <rect key="frame" x="0.0" y="0.0" width="72" height="17"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8kv-8M-WnO">
-                                        <rect key="frame" x="2" y="-1" width="74" height="17"/>
+                                        <rect key="frame" x="2" y="0.0" width="70" height="17"/>
                                         <popUpButtonCell key="cell" type="recessed" title="Offline" bezelStyle="recessed" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="ubg-x7-fdq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -70,14 +70,14 @@
                                         </connections>
                                     </popUpButton>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XTB-Ca-zvW">
-                                        <rect key="frame" x="9" y="4" width="8" height="8"/>
+                                        <rect key="frame" x="7" y="5" width="8" height="8"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="offline-state" id="HcY-Fh-LCT"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="XTB-Ca-zvW" firstAttribute="centerY" secondItem="8kv-8M-WnO" secondAttribute="centerY" id="1sJ-nX-DvE"/>
                                     <constraint firstItem="8kv-8M-WnO" firstAttribute="centerY" secondItem="88u-Bi-Zq4" secondAttribute="centerY" id="M3h-v7-KmY"/>
-                                    <constraint firstItem="XTB-Ca-zvW" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" constant="9" id="PVF-9g-CcK"/>
+                                    <constraint firstItem="XTB-Ca-zvW" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" constant="7" id="PVF-9g-CcK"/>
                                     <constraint firstItem="8kv-8M-WnO" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" constant="2" id="RKn-Ih-doJ"/>
                                     <constraint firstAttribute="trailing" secondItem="8kv-8M-WnO" secondAttribute="trailing" id="daG-g5-b7Y"/>
                                 </constraints>

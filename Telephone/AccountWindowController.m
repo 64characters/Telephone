@@ -25,22 +25,22 @@
 // Account state toolbar item widths.
 //
 // English.
-static const CGFloat kOfflineEnglishWidth = 73.0;
-static const CGFloat kAvailableEnglishWidth = 84.0;
-static const CGFloat kUnavailableEnglishWidth = 98.0;
-static const CGFloat kConnectingEnglishWidth = 108.0;
+static const CGFloat kOfflineEnglishWidth = 71.0;
+static const CGFloat kAvailableEnglishWidth = 82.0;
+static const CGFloat kUnavailableEnglishWidth = 96.0;
+static const CGFloat kConnectingEnglishWidth = 106.0;
 //
 // Russian.
-static const CGFloat kOfflineRussianWidth = 81.0;
-static const CGFloat kAvailableRussianWidth = 90.0;
-static const CGFloat kUnavailableRussianWidth = 103.0;
-static const CGFloat kConnectingRussianWidth = 115.0;
+static const CGFloat kOfflineRussianWidth = 79.0;
+static const CGFloat kAvailableRussianWidth = 88.0;
+static const CGFloat kUnavailableRussianWidth = 101.0;
+static const CGFloat kConnectingRussianWidth = 113.0;
 //
 // German.
-static const CGFloat kOfflineGermanWidth = 73.0;
-static const CGFloat kAvailableGermanWidth = 90.0;
-static const CGFloat kUnavailableGermanWidth = 120.0;
-static const CGFloat kConnectingGermanWidth = 104.0;
+static const CGFloat kOfflineGermanWidth = 71.0;
+static const CGFloat kAvailableGermanWidth = 88.0;
+static const CGFloat kUnavailableGermanWidth = 118.0;
+static const CGFloat kConnectingGermanWidth = 102.0;
 
 static NSString * const kEnglish = @"en";
 static NSString * const kRussian = @"ru";
