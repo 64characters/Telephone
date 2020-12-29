@@ -24,28 +24,10 @@ final class CallHistoryTableRowView: NSTableRowView {
         drawSeparator(in: dirtyRect)
     }
 
-    override func drawSelection(in dirtyRect: NSRect) {
-        switch selectionHighlightStyle {
-        case .regular:
-            selectionColor.set()
-            fillRectIfNotEmpty(NSIntersectionRect(bounds, dirtyRect))
-        default:
-            super.drawSelection(in: dirtyRect)
-        }
-    }
-
     override func drawSeparator(in dirtyRect: NSRect) {
         guard !isSelected && !isNextRowSelected else  { return }
         NSColor.gridColor.set()
         fillRectIfNotEmpty(NSIntersectionRect(makeSeparatorRect(bounds: bounds), dirtyRect))
-    }
-
-    private var selectionColor: NSColor {
-        if isEmphasized {
-            return NSColor.alternateSelectedControlColor
-        } else {
-            return NSColor.secondarySelectedControlColor
-        }
     }
 }
 
