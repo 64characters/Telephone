@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,20 +20,19 @@
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="46" horizontalPageScroll="10" verticalLineScroll="46" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVS-LF-j8V">
                     <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" ambiguous="YES" id="DW2-sz-rmT">
+                    <clipView key="contentView" id="DW2-sz-rmT">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="ziE-jX-sRX">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="94"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="0.0" y="0.0" width="330" height="94"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="2" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn width="22" minWidth="22" maxWidth="22" id="Ls2-oY-D5N">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -44,7 +43,7 @@
                                         </textFieldCell>
                                         <prototypeCellViews>
                                             <tableCellView id="GQL-B4-dJ7" customClass="CallHistoryOutgoingCallCellView" customModule="Telephone" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="22" height="44"/>
+                                                <rect key="frame" x="11" y="1" width="27" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-zC-WCA">
@@ -67,7 +66,6 @@
                                     </tableColumn>
                                     <tableColumn width="152" minWidth="152" maxWidth="300" id="FfT-oG-rXB">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -79,11 +77,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="WWY-ZO-bzC" customClass="CallHistoryContactCellView" customModule="Telephone" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="1" width="152" height="44"/>
+                                                <rect key="frame" x="40" y="1" width="152" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qIw-Ai-26d" userLabel="Contact">
-                                                        <rect key="frame" x="0.0" y="23" width="128" height="17"/>
+                                                        <rect key="frame" x="0.0" y="24" width="128" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="0049 123 45678901" id="nL2-fI-0xh">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -96,7 +94,7 @@
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">
-                                                        <rect key="frame" x="0.0" y="6" width="35" height="14"/>
+                                                        <rect key="frame" x="0.0" y="7" width="35" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Home" id="fDT-3a-1hx">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -122,14 +120,13 @@
                                                 </connections>
                                             </tableCellView>
                                             <customView identifier="NSTableViewRowViewKey" id="Pf7-AS-KlV" customClass="CallHistoryTableRowView" customModule="Telephone" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="47" width="152" height="44"/>
+                                                <rect key="frame" x="40" y="47" width="152" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
                                     <tableColumn width="120" minWidth="120" maxWidth="150" id="SdP-Nc-fYr">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -141,11 +138,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="0ms-m8-Hi7" customClass="CallHistoryDateCellView" customModule="Telephone" customModuleProvider="target">
-                                                <rect key="frame" x="179" y="1" width="120" height="44"/>
+                                                <rect key="frame" x="194" y="1" width="125" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ybc-FK-BWx" userLabel="Date">
-                                                        <rect key="frame" x="0.0" y="23" width="107" height="17"/>
+                                                        <rect key="frame" x="0.0" y="24" width="107" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Yesterday, 23:59" id="UdU-YW-Y1W">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -156,7 +153,7 @@
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0oC-9Q-fGf" userLabel="Duration">
-                                                        <rect key="frame" x="0.0" y="6" width="85" height="14"/>
+                                                        <rect key="frame" x="0.0" y="7" width="85" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10 min, 15 secs" id="K9r-bz-3Ts">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -193,8 +190,8 @@
                             </tableView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="YEJ-yh-TD1">
-                        <rect key="frame" x="0.0" y="-16" width="0.0" height="16"/>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="YEJ-yh-TD1">
+                        <rect key="frame" x="0.0" y="78" width="300" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="OKe-ob-fK8">
