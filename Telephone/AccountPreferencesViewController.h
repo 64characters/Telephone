@@ -42,7 +42,6 @@
 @property(nonatomic, weak) IBOutlet NSTextField *reregistrationTimeField;
 @property(nonatomic, weak) IBOutlet NSButton *substitutePlusCharacterCheckBox;
 @property(nonatomic, weak) IBOutlet NSTextField *plusCharacterSubstitutionField;
-@property(nonatomic, weak) IBOutlet NSTextField *plusCharacterSubstitutionLabel;
 @property(nonatomic, weak) IBOutlet NSButton *useProxyCheckBox;
 @property(nonatomic, weak) IBOutlet NSTextField *proxyHostField;
 @property(nonatomic, weak) IBOutlet NSTextField *proxyPortField;

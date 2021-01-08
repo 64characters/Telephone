@@ -1,0 +1,93 @@
+
+/* Class = "NSTableColumn"; headerCell.title = "Accounts"; ObjectID = "84"; */
+"84.headerCell.title" = "Аккаунты";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "87"; */
+"87.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Enable this account"; ObjectID = "94"; */
+"94.title" = "Включить аккаунт";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "106"; */
+"106.title" = "Пароль:";
+
+/* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "107"; */
+"107.title" = "Пользователь:";
+
+/* Class = "NSTextFieldCell"; title = "Registry Server:"; ObjectID = "108"; */
+"108.title" = "Сервер регистраций:";
+
+/* Class = "NSTextFieldCell"; title = "SIP Address:"; ObjectID = "109"; */
+"109.title" = "SIP-адрес:";
+
+/* Class = "NSTextFieldCell"; title = "Full Name:"; ObjectID = "110"; */
+"110.title" = "Имя с фамилией:";
+
+/* Class = "NSTabViewItem"; label = "Account Information"; ObjectID = "410"; */
+"410.label" = "Информация";
+
+/* Class = "NSTabViewItem"; label = "Advanced"; ObjectID = "411"; */
+"411.label" = "Дополнительно";
+
+/* Class = "NSButtonCell"; title = "Replace “+” with"; ObjectID = "417"; */
+"417.title" = "Заменять «+» на";
+
+/* Class = "NSTextFieldCell"; title = "Reregister every:"; ObjectID = "498"; */
+"498.title" = "Регистрация каждые:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "300"; ObjectID = "500"; */
+"500.placeholderString" = "300";
+
+/* Class = "NSTextFieldCell"; title = "seconds"; ObjectID = "502"; */
+"502.title" = "секунд";
+
+/* Class = "NSTextFieldCell"; title = "Domain:"; ObjectID = "531"; */
+"531.title" = "Домен:";
+
+/* Class = "NSTextFieldCell"; title = "Description:"; ObjectID = "537"; */
+"537.title" = "Название:";
+
+/* Class = "NSTextFieldCell"; title = "Disable account to change settings."; ObjectID = "549"; */
+"549.title" = "Выключите аккаунт, чтобы поменять настройки.";
+
+/* Class = "NSButtonCell"; title = "IPv6"; ObjectID = "1o3-z9-WKa"; */
+"1o3-z9-WKa.title" = "IPv6";
+
+/* Class = "NSTabViewItem"; label = "Network"; ObjectID = "4sK-wA-Wvg"; */
+"4sK-wA-Wvg.label" = "Сеть";
+
+/* Class = "NSButtonCell"; title = "TLS"; ObjectID = "IzX-Uj-vdk"; */
+"IzX-Uj-vdk.title" = "TLS";
+
+/* Class = "NSButtonCell"; title = "Update IP address"; ObjectID = "JLI-nw-iSd"; */
+"JLI-nw-iSd.title" = "Обновлять IP-адрес";
+
+/* Class = "NSTextFieldCell"; title = "SIP Transport:"; ObjectID = "NLa-ky-J6j"; */
+"NLa-ky-J6j.title" = "SIP-транспорт:";
+
+/* Class = "NSTextFieldCell"; title = "Port:"; ObjectID = "Rvl-Ak-TcN"; */
+"Rvl-Ak-TcN.title" = "Порт:";
+
+/* Class = "NSButtonCell"; title = "UDP"; ObjectID = "UaG-kv-64m"; */
+"UaG-kv-64m.title" = "UDP";
+
+/* Class = "NSTextFieldCell"; title = "Server:"; ObjectID = "UdE-Fh-xcJ"; */
+"UdE-Fh-xcJ.title" = "Сервер:";
+
+/* Class = "NSButtonCell"; title = "TCP"; ObjectID = "Vt8-KJ-lWw"; */
+"Vt8-KJ-lWw.title" = "TCP";
+
+/* Class = "NSTextFieldCell"; title = "Enabling this option may solve some audio problems."; ObjectID = "b3l-l7-0RV"; */
+"b3l-l7-0RV.title" = "Может решить некоторые проблемы со звуком.";
+
+/* Class = "NSButtonCell"; title = "Connect using proxy"; ObjectID = "hz7-2i-Yb0"; */
+"hz7-2i-Yb0.title" = "Соединяться через прокси";
+
+/* Class = "NSTextFieldCell"; placeholderString = "5060"; ObjectID = "nF4-3B-Ugx"; */
+"nF4-3B-Ugx.placeholderString" = "5060";
+
+/* Class = "NSButtonCell"; title = "IPv4"; ObjectID = "s73-C1-OzC"; */
+"s73-C1-OzC.title" = "IPv4";
+
+/* Class = "NSTextFieldCell"; title = "IP Version:"; ObjectID = "z2G-4l-57d"; */
+"z2G-4l-57d.title" = "Версия IP:";
