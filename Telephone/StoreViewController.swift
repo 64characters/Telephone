@@ -196,8 +196,7 @@ private func makeReceiptRefreshAlert() -> NSAlert {
         comment: "Receipt refresh alert informative text."
     )
     result.addButton(withTitle: NSLocalizedString("Quit and Refresh", comment: "Receipt refresh alert button."))
-    result.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel button."))
-    result.buttons[1].keyEquivalent = "\u{1b}"
+    result.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel button.")).keyEquivalent = "\u{1b}"
     return result
 }
 
