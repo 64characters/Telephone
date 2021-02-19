@@ -151,7 +151,6 @@
                 <constraint firstItem="212" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="251" secondAttribute="leading" constant="20" symbolic="YES" id="sjZ-Gv-jn9"/>
                 <constraint firstItem="345" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="vHC-aS-Iqp"/>
                 <constraint firstItem="474" firstAttribute="trailing" secondItem="214" secondAttribute="trailing" id="vOm-A3-d18"/>
-                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="540" id="vcU-Eu-o7D"/>
                 <constraint firstItem="214" firstAttribute="leading" secondItem="251" secondAttribute="leading" constant="224" id="wtB-ea-8DV"/>
                 <constraint firstItem="473" firstAttribute="trailing" secondItem="212" secondAttribute="trailing" id="xQs-a8-NGc"/>
                 <constraint firstItem="275" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="251" secondAttribute="leading" constant="20" symbolic="YES" id="xzk-q5-tVX"/>
