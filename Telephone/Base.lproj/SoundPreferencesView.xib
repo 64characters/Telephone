@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,10 +19,10 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="251" userLabel="Sound">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="210"/>
+            <rect key="frame" x="0.0" y="0.0" width="573" height="210"/>
             <subviews>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="474">
-                    <rect key="frame" x="206" y="112" width="230" height="25"/>
+                    <rect key="frame" x="221" y="114" width="232" height="25"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="475">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -33,7 +33,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="473">
-                    <rect key="frame" x="96" y="118" width="108" height="17"/>
+                    <rect key="frame" x="112" y="121" width="108" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ringtone Output:" id="477">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -41,7 +41,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="345">
-                    <rect key="frame" x="206" y="54" width="191" height="14"/>
+                    <rect key="frame" x="222" y="57" width="190" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Place ringtones in ~/Library/Sounds" id="346">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -49,7 +49,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="277">
-                    <rect key="frame" x="206" y="72" width="170" height="25"/>
+                    <rect key="frame" x="221" y="75" width="172" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="165" id="ks7-8h-eYP"/>
                     </constraints>
@@ -63,7 +63,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="275">
-                    <rect key="frame" x="142" y="78" width="62" height="17"/>
+                    <rect key="frame" x="158" y="82" width="62" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ringtone:" id="276">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -71,7 +71,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="220">
-                    <rect key="frame" x="206" y="142" width="230" height="25"/>
+                    <rect key="frame" x="221" y="143" width="232" height="25"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="221">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -82,7 +82,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="214">
-                    <rect key="frame" x="206" y="172" width="230" height="25"/>
+                    <rect key="frame" x="221" y="172" width="232" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="225" id="Zgs-Ui-Mx4"/>
                     </constraints>
@@ -96,7 +96,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="212">
-                    <rect key="frame" x="111" y="148" width="93" height="17"/>
+                    <rect key="frame" x="127" y="150" width="93" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sound Output:" id="213">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -104,7 +104,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="210">
-                    <rect key="frame" x="122" y="178" width="82" height="17"/>
+                    <rect key="frame" x="138" y="179" width="82" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sound Input:" id="211">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -112,7 +112,7 @@
                     </textFieldCell>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="90O-Fe-Uz3">
-                    <rect key="frame" x="206" y="18" width="152" height="18"/>
+                    <rect key="frame" x="222" y="20" width="156" height="18"/>
                     <buttonCell key="cell" type="check" title="Use only G.711 codec" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2bR-wc-3xa">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -152,10 +152,11 @@
                 <constraint firstItem="345" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="vHC-aS-Iqp"/>
                 <constraint firstItem="474" firstAttribute="trailing" secondItem="214" secondAttribute="trailing" id="vOm-A3-d18"/>
                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="540" id="vcU-Eu-o7D"/>
-                <constraint firstItem="214" firstAttribute="leading" secondItem="251" secondAttribute="leading" constant="208" id="wtB-ea-8DV"/>
+                <constraint firstItem="214" firstAttribute="leading" secondItem="251" secondAttribute="leading" constant="224" id="wtB-ea-8DV"/>
                 <constraint firstItem="473" firstAttribute="trailing" secondItem="212" secondAttribute="trailing" id="xQs-a8-NGc"/>
                 <constraint firstItem="275" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="251" secondAttribute="leading" constant="20" symbolic="YES" id="xzk-q5-tVX"/>
             </constraints>
+            <point key="canvasLocation" x="83" y="128"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="RNC-FV-rD9"/>
     </objects>
