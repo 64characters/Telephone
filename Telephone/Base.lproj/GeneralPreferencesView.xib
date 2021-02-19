@@ -15,7 +15,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="201"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="150" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="573" height="117"/>
+            <rect key="frame" x="0.0" y="0.0" width="573" height="116"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="255">
                     <rect key="frame" x="129" y="85" width="250" height="18"/>
@@ -59,7 +59,7 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="255" firstAttribute="top" secondItem="150" secondAttribute="top" constant="15" id="2kn-hj-njc"/>
+                <constraint firstItem="255" firstAttribute="top" secondItem="150" secondAttribute="top" constant="14" id="2kn-hj-njc"/>
                 <constraint firstItem="529" firstAttribute="leading" secondItem="255" secondAttribute="leading" id="C59-j6-zmt"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="524" secondAttribute="trailing" constant="20" symbolic="YES" id="IhF-4p-AGg"/>
                 <constraint firstItem="520" firstAttribute="top" secondItem="255" secondAttribute="bottom" constant="6" symbolic="YES" id="KwA-9X-odP"/>
