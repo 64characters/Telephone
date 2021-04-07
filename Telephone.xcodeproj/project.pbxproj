@@ -1104,6 +1104,9 @@
 		8A45ABF420E2866800099031 /* NullSystemSoundIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullSystemSoundIO.swift; sourceTree = "<group>"; };
 		8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordAddUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordAddUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Analyzing.swift"; sourceTree = "<group>"; };
+		8A495CAA261E37C400CEF101 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IncomingCallView.strings; sourceTree = "<group>"; };
+		8A495CAB261E37DB00CEF101 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IncomingCallView.strings; sourceTree = "<group>"; };
+		8A495CAC261E37E800CEF101 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/IncomingCallView.strings; sourceTree = "<group>"; };
 		8A4B60092125DA3300B67357 /* CoreAudioChangeEventSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioChangeEventSource.swift; sourceTree = "<group>"; };
 		8A4B65A51EAF9F8900F13654 /* URI+AKSIPURI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URI+AKSIPURI.swift"; sourceTree = "<group>"; };
 		8A4B65A71EB0CB7B00F13654 /* ContactMatchingStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingStub.swift; sourceTree = "<group>"; };
@@ -1712,8 +1715,6 @@
 		AAD92135107A607C00F142A4 /* IncomingCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92137107A608B00F142A4 /* EndedCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = EndedCallViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92138107A608B00F142A4 /* EndedCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = EndedCallViewController.m; sourceTree = "<group>"; tabWidth = 4; };
-		AADAA2C4107E569900789F2D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/IncomingCallView.xib; sourceTree = "<group>"; };
-		AADAA2C5107E569C00789F2D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/IncomingCallView.xib; sourceTree = "<group>"; };
 		AAE33B0B1BA71E6900C6E48B /* Telephone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Telephone-Bridging-Header.h"; sourceTree = "<group>"; };
 		AAE33B0E1BA7205A00C6E48B /* PreferencesControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesControllerDelegate.h; sourceTree = "<group>"; };
 		AAE33B0F1BA7217C00C6E48B /* AKSIPUserAgentDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgentDelegate.h; sourceTree = "<group>"; };
@@ -4984,9 +4985,10 @@
 		AADAA2C2107E569200789F2D /* IncomingCallView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AADAA2C4107E569900789F2D /* ru */,
-				AADAA2C5107E569C00789F2D /* de */,
 				8AA748C61D744FAA000587DC /* Base */,
+				8A495CAA261E37C400CEF101 /* en */,
+				8A495CAB261E37DB00CEF101 /* de */,
+				8A495CAC261E37E800CEF101 /* ru */,
 			);
 			name = IncomingCallView.xib;
 			sourceTree = "<group>";
