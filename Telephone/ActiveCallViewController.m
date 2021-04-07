@@ -141,15 +141,13 @@
 }
 
 - (void)showCallProgressIndicator {
-    if (self.callProgressIndicator.superview == nil) {
-        [self.view replaceSubview:self.hangUpButton with:self.callProgressIndicator];
-    }
+    self.hangUpButton.hidden = YES;
+    self.callProgressIndicator.hidden = NO;
 }
 
 - (void)showHangUpButton {
-    if (self.hangUpButton.superview == nil) {
-        [self.view replaceSubview:self.callProgressIndicator with:self.hangUpButton];
-    }
+    self.callProgressIndicator.hidden = YES;
+    self.hangUpButton.hidden = NO;
 }
 
 - (void)addTrackingArea {
