@@ -44,8 +44,8 @@
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="24">
-                    <rect key="frame" x="219" y="6" width="62" height="23"/>
-                    <buttonCell key="cell" type="roundTextured" title="Answer" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="25">
+                    <rect key="frame" x="207" y="1" width="80" height="32"/>
+                    <buttonCell key="cell" type="push" title="Answer" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="25">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -54,8 +54,8 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                    <rect key="frame" x="151" y="6" width="62" height="23"/>
-                    <buttonCell key="cell" type="roundTextured" title="Decline" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="23">
+                    <rect key="frame" x="129" y="1" width="80" height="32"/>
+                    <buttonCell key="cell" type="push" title="Decline" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="23">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent">.</string>
@@ -75,7 +75,7 @@
                 <constraint firstItem="76" firstAttribute="leading" secondItem="19" secondAttribute="leading" constant="20" symbolic="YES" id="b4f-4o-bGT"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" symbolic="YES" id="fpB-km-VNx"/>
                 <constraint firstItem="77" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="3" id="idy-C2-rCt"/>
-                <constraint firstItem="24" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" symbolic="YES" id="qul-ua-mgc"/>
+                <constraint firstItem="24" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="12" symbolic="YES" id="qul-ua-mgc"/>
                 <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="19" secondAttribute="leading" constant="20" symbolic="YES" id="tIZ-Ut-X3O"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="77" secondAttribute="trailing" constant="20" symbolic="YES" id="vMc-vK-XSD"/>
                 <constraint firstItem="24" firstAttribute="width" secondItem="22" secondAttribute="width" id="xQV-BF-JuW"/>
