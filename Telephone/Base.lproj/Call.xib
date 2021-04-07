@@ -16,10 +16,10 @@
         <window title="Call" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" visibleAtLaunch="NO" frameAutosaveName="Call" animationBehavior="default" titlebarAppearsTransparent="YES" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="417" width="300" height="91"/>
+            <rect key="contentRect" x="196" y="417" width="300" height="90"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="91"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="90"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t3e-Me-Oz6">

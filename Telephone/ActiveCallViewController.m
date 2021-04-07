@@ -62,10 +62,6 @@
     [[self statusField] unbind:NSValueBinding];
  }
 
-- (void)awakeFromNib {
-    self.hangUpButton.frame = self.callProgressIndicator.frame;
-}
-
 - (IBAction)hangUpCall:(id)sender {
     [[self callController] hangUpCall];
 }
