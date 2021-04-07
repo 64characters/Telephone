@@ -16,16 +16,16 @@
         <window title="Call" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" visibleAtLaunch="NO" frameAutosaveName="Call" animationBehavior="default" titlebarAppearsTransparent="YES" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="417" width="300" height="90"/>
+            <rect key="contentRect" x="196" y="417" width="300" height="84"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="90"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="84"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t3e-Me-Oz6">
-                        <rect key="frame" x="18" y="3" width="60" height="11"/>
-                        <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Account Info" id="Z37-BG-iQm">
-                            <font key="font" metaFont="miniSystem"/>
+                        <rect key="frame" x="18" y="4" width="71" height="14"/>
+                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Account Info" id="Z37-BG-iQm">
+                            <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -40,12 +40,12 @@
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="t3e-Me-Oz6" secondAttribute="bottom" constant="3" id="2kz-x6-dfY"/>
+                    <constraint firstAttribute="bottom" secondItem="t3e-Me-Oz6" secondAttribute="bottom" constant="4" id="2kz-x6-dfY"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t3e-Me-Oz6" secondAttribute="trailing" constant="20" symbolic="YES" id="RCF-do-Yeh"/>
                     <constraint firstItem="t3e-Me-Oz6" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="w3p-P4-aZX"/>
                 </constraints>
             </view>
-            <contentBorderThickness minY="16"/>
+            <contentBorderThickness minY="22"/>
             <connections>
                 <outlet property="delegate" destination="-2" id="13"/>
             </connections>
