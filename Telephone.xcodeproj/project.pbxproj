@@ -1486,6 +1486,9 @@
 		8ADED1E01EFD7F85009558E0 /* ContactMatchingIndexStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingIndexStub.swift; sourceTree = "<group>"; };
 		8ADEDBF41ECF49AA00987B77 /* SimpleContactMatchingSettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleContactMatchingSettingsTests.swift; path = UseCasesTests/SimpleContactMatchingSettingsTests.swift; sourceTree = SOURCE_ROOT; };
 		8ADEDBF61ECF49FA00987B77 /* SimpleContactMatchingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleContactMatchingSettings.swift; sourceTree = "<group>"; };
+		8AE0D52B2620DB8300E129C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AccountSetup.strings; sourceTree = "<group>"; };
+		8AE0D52C2620DB8F00E129C3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AccountSetup.strings; sourceTree = "<group>"; };
+		8AE0D52D2620DB9300E129C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AccountSetup.strings; sourceTree = "<group>"; };
 		8AE348571D3FC5E0005F9981 /* NoActivePurchasesReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoActivePurchasesReceipt.swift; sourceTree = "<group>"; };
 		8AE396CB1D6B2F3800DCFB9E /* ExpectedProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpectedProducts.swift; sourceTree = "<group>"; };
 		8AE396EB1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseReminderUseCaseTests.swift; path = UseCasesTests/PurchaseReminderUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1570,7 +1573,6 @@
 		AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDevices.swift; sourceTree = "<group>"; };
 		AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCall.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCall.m; sourceTree = "<group>"; tabWidth = 4; };
-		AA2ED9AD0F05BA16004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA2ED9B30F05BB64004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		AA2ED9DF0F05C1E3004A13C6 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA30D8451BF60672002F343A /* FirstSystemSoundIOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirstSystemSoundIOTests.swift; path = DomainTests/FirstSystemSoundIOTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1641,7 +1643,6 @@
 		AA5100010F1FE302003CE94C /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA5100020F1FE32F003CE94C /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA51005C0F20117F003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
-		AA5100970F20CD11003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA53434612ADBAD200B47767 /* Sound.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Sound.tiff; sourceTree = "<group>"; };
 		AA584A690F06CFD2003C4992 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA584A6B0F06D007003C4992 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -4889,9 +4890,10 @@
 		AA2ED9AB0F05BA11004A13C6 /* AccountSetup.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA2ED9AD0F05BA16004A13C6 /* ru */,
-				AA5100970F20CD11003CE94C /* de */,
 				8AA748D31D744FAB000587DC /* Base */,
+				8AE0D52B2620DB8300E129C3 /* en */,
+				8AE0D52C2620DB8F00E129C3 /* de */,
+				8AE0D52D2620DB9300E129C3 /* ru */,
 			);
 			name = AccountSetup.xib;
 			sourceTree = "<group>";

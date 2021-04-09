@@ -1,0 +1,42 @@
+
+/* Class = "NSWindow"; title = "Account Setup"; ObjectID = "1"; */
+"1.title" = "Account einrichten";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "3"; */
+"3.title" = "Box";
+
+/* Class = "NSButtonCell"; title = "Done"; ObjectID = "5"; */
+"5.title" = "Fertig";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7"; */
+"7.title" = "Abbrechen";
+
+/* Class = "NSTextFieldCell"; title = "SIP Account Setup"; ObjectID = "9"; */
+"9.title" = "SIP-Account einrichten";
+
+/* Class = "NSTextFieldCell"; placeholderString = "John Smith"; ObjectID = "11"; */
+"11.placeholderString" = "John Smith";
+
+/* Class = "NSTextFieldCell"; title = "Full Name:"; ObjectID = "17"; */
+"17.title" = "Vollständiger Name:";
+
+/* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "26"; */
+"26.title" = "Benutzername:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "john"; ObjectID = "27"; */
+"27.placeholderString" = "john";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "30"; */
+"30.title" = "Passwort:";
+
+/* Class = "NSSecureTextFieldCell"; placeholderString = "Required"; ObjectID = "43"; */
+"43.placeholderString" = "Erforderlich";
+
+/* Class = "NSTextFieldCell"; placeholderString = "example.com"; ObjectID = "69"; */
+"69.placeholderString" = "example.com";
+
+/* Class = "NSTextFieldCell"; title = "Domain:"; ObjectID = "71"; */
+"71.title" = "Domain:";
+
+/* Class = "NSTextFieldCell"; title = "Enter account details you received from your SIP provider."; ObjectID = "103"; */
+"103.title" = "Geben Sie die Account-Daten ein, die Sie von Ihrem SIP-Provider erhalten haben. Oder die Daten des IP-Telefons einer FritzBox.";
