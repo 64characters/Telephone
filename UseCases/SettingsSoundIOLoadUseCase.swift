@@ -18,7 +18,7 @@
 
 import Domain
 
-public protocol SettingsSoundIOLoadUseCaseOutput: class {
+public protocol SettingsSoundIOLoadUseCaseOutput: AnyObject {
     func update(soundIO: SystemDefaultingSoundIO, devices: SystemAudioDevices)
 }
 

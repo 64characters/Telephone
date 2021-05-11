@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol PurchaseCheckUseCaseOutput: class {
+public protocol PurchaseCheckUseCaseOutput: AnyObject {
     func didCheckPurchase(expiration: Date)
     func didFailCheckingPurchase()
 }

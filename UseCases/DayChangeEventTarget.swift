@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol DayChangeEventTarget: class {
+public protocol DayChangeEventTarget: AnyObject {
     func dayDidChange()
 }

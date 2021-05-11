@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol UserAgentEventTarget: class {
+public protocol UserAgentEventTarget: AnyObject {
     func didFinishStarting(_ agent: UserAgent)
     func didFinishStopping(_ agent: UserAgent)
     func didDetectNAT(_ agent: UserAgent)
