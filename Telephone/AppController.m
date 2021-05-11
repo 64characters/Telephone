@@ -651,8 +651,7 @@ NS_ASSUME_NONNULL_END
     if (self.accountControllers.haveActiveCallControllers) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit button.")];
-        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
-        [[alert buttons][1] setKeyEquivalent:@"\033"];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")].keyEquivalent = @"\033";
         [alert setMessageText:NSLocalizedString(@"Are you sure you want to quit Telephone?",
                                                 @"Telephone quit confirmation.")];
         [alert setInformativeText:NSLocalizedString(@"All active calls will be disconnected.",

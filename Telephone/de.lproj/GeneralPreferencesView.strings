@@ -1,0 +1,12 @@
+
+/* Class = "NSButtonCell"; title = "Automatically format phone numbers"; ObjectID = "256"; */
+"256.title" = "Telefonnummern automatisch formatieren";
+
+/* Class = "NSButtonCell"; title = "Pause Music, iTunes, and Spotify during call"; ObjectID = "521"; */
+"521.title" = "Bei Anruf Musik, iTunes und Spotify pausieren";
+
+/* Class = "NSButtonCell"; title = "Automatically close call windows"; ObjectID = "525"; */
+"525.title" = "Anruffenster automatisch schließen";
+
+/* Class = "NSButtonCell"; title = "Call waiting"; ObjectID = "530"; */
+"530.title" = "Anklopfen";

@@ -992,6 +992,7 @@
 		8A1DA8121DF07EA700F5BA40 /* WorkspaceSleepStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceSleepStatus.swift; sourceTree = "<group>"; };
 		8A1DA8141DF07EEE00F5BA40 /* WorkspaceSleepStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkspaceSleepStatusTests.swift; path = TelephoneTests/WorkspaceSleepStatusTests.swift; sourceTree = SOURCE_ROOT; };
 		8A1F2E611E71702D00E3624C /* CallHistoryOutgoingCallCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryOutgoingCallCellView.swift; sourceTree = "<group>"; };
+		8A23299425A7AFAF00B8CC49 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AccountPreferencesView.strings; sourceTree = "<group>"; };
 		8A25C2791F00F83A00C91D55 /* ContactMatchingSettingsSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingSettingsSpy.swift; sourceTree = "<group>"; };
 		8A273C7F1E8964F500B42A82 /* CallHistoryCallMakeUseCaseFactorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryCallMakeUseCaseFactorySpy.swift; sourceTree = "<group>"; };
 		8A273C831E8967E200B42A82 /* CallHistoryCallMakeUseCaseFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryCallMakeUseCaseFactory.swift; sourceTree = "<group>"; };
@@ -1103,6 +1104,9 @@
 		8A45ABF420E2866800099031 /* NullSystemSoundIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullSystemSoundIO.swift; sourceTree = "<group>"; };
 		8A46FDBA1DD375B50022A822 /* CallHistoryRecordAddUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallHistoryRecordAddUseCaseTests.swift; path = UseCasesTests/CallHistoryRecordAddUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A46FDBC1DD4A8100022A822 /* NSString+Analyzing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Analyzing.swift"; sourceTree = "<group>"; };
+		8A495CAA261E37C400CEF101 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/IncomingCallView.strings; sourceTree = "<group>"; };
+		8A495CAB261E37DB00CEF101 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IncomingCallView.strings; sourceTree = "<group>"; };
+		8A495CAC261E37E800CEF101 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/IncomingCallView.strings; sourceTree = "<group>"; };
 		8A4B60092125DA3300B67357 /* CoreAudioChangeEventSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioChangeEventSource.swift; sourceTree = "<group>"; };
 		8A4B65A51EAF9F8900F13654 /* URI+AKSIPURI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URI+AKSIPURI.swift"; sourceTree = "<group>"; };
 		8A4B65A71EB0CB7B00F13654 /* ContactMatchingStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingStub.swift; sourceTree = "<group>"; };
@@ -1114,6 +1118,9 @@
 		8A4B65BE1EB23B6300F13654 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		8A4C2760213058E700ABE34B /* AccountControllers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountControllers.h; sourceTree = "<group>"; };
 		8A4C2761213058E700ABE34B /* AccountControllers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountControllers.m; sourceTree = "<group>"; };
+		8A4CA6BB25926E9A0011566F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preferences.strings; sourceTree = "<group>"; };
+		8A4CA6C825926F6D0011566F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Preferences.strings; sourceTree = "<group>"; };
+		8A4CA6C925926F890011566F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Preferences.strings; sourceTree = "<group>"; };
 		8A4D0AFD1C96D6A0005543A2 /* RingtoneOutputUpdateUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneOutputUpdateUseCaseTests.swift; path = UseCasesTests/RingtoneOutputUpdateUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8A4D0AFF1C96D6F8005543A2 /* RingtoneOutputUpdateUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingtoneOutputUpdateUseCase.swift; sourceTree = "<group>"; };
 		8A4E382F1C5BB20100816F38 /* SettingsRingtoneSoundNameSaveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsRingtoneSoundNameSaveUseCaseTests.swift; path = UseCasesTests/SettingsRingtoneSoundNameSaveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1142,6 +1149,9 @@
 		8A62B08A20D866C500716688 /* CoreAudioSystemAudioDevicesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioSystemAudioDevicesFactory.swift; sourceTree = "<group>"; };
 		8A635DD61D8C211300E2DBD0 /* MusicPlayerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerFactory.h; sourceTree = "<group>"; };
 		8A635DD71D8C211300E2DBD0 /* MusicPlayerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerFactory.m; sourceTree = "<group>"; };
+		8A63742F25E03F40006B306B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/GeneralPreferencesView.strings; sourceTree = "<group>"; };
+		8A63743125E03F52006B306B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/GeneralPreferencesView.strings; sourceTree = "<group>"; };
+		8A63743325E03FB1006B306B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/GeneralPreferencesView.strings; sourceTree = "<group>"; };
 		8A63ECD31CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKProductsRequestToProductsAdapter.swift; sourceTree = "<group>"; };
 		8A645FEE1E12AA6300515151 /* MatchedContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchedContact.swift; sourceTree = "<group>"; };
 		8A645FF41E12C98400515151 /* ContactCallHistoryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecord.swift; sourceTree = "<group>"; };
@@ -1384,6 +1394,8 @@
 		8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEventTarget.swift; sourceTree = "<group>"; };
 		8AC1A4421C67C35D007778A2 /* DefaultSoundPlaybackUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultSoundPlaybackUseCaseTests.swift; path = UseCasesTests/DefaultSoundPlaybackUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		8AC1A4441C67C390007778A2 /* DefaultSoundPlaybackUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSoundPlaybackUseCase.swift; sourceTree = "<group>"; };
+		8AC1B8D625A6802A00AB7930 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AccountPreferencesView.strings; sourceTree = "<group>"; };
+		8AC1B8E625A6820400AB7930 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AccountPreferencesView.strings; sourceTree = "<group>"; };
 		8AC24A5C1ED490F60094B01C /* Contact+CNContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CNContact.swift"; sourceTree = "<group>"; };
 		8AC443BE1F90E21E00ECE463 /* OrphanLogFileRemoval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrphanLogFileRemoval.swift; sourceTree = "<group>"; };
 		8AC66C9323A0159400FB64BA /* MusicApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicApp.h; sourceTree = "<group>"; };
@@ -1474,6 +1486,9 @@
 		8ADED1E01EFD7F85009558E0 /* ContactMatchingIndexStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactMatchingIndexStub.swift; sourceTree = "<group>"; };
 		8ADEDBF41ECF49AA00987B77 /* SimpleContactMatchingSettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleContactMatchingSettingsTests.swift; path = UseCasesTests/SimpleContactMatchingSettingsTests.swift; sourceTree = SOURCE_ROOT; };
 		8ADEDBF61ECF49FA00987B77 /* SimpleContactMatchingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleContactMatchingSettings.swift; sourceTree = "<group>"; };
+		8AE0D52B2620DB8300E129C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AccountSetup.strings; sourceTree = "<group>"; };
+		8AE0D52C2620DB8F00E129C3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AccountSetup.strings; sourceTree = "<group>"; };
+		8AE0D52D2620DB9300E129C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AccountSetup.strings; sourceTree = "<group>"; };
 		8AE348571D3FC5E0005F9981 /* NoActivePurchasesReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoActivePurchasesReceipt.swift; sourceTree = "<group>"; };
 		8AE396CB1D6B2F3800DCFB9E /* ExpectedProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpectedProducts.swift; sourceTree = "<group>"; };
 		8AE396EB1D6C86E000DCFB9E /* PurchaseReminderUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseReminderUseCaseTests.swift; path = UseCasesTests/PurchaseReminderUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1558,8 +1573,6 @@
 		AA2C03FB1BD7F670001D25F9 /* UserAgentAudioDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentAudioDevices.swift; sourceTree = "<group>"; };
 		AA2CCC820E2E4EEB00871057 /* AKSIPCall.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPCall.h; sourceTree = "<group>"; tabWidth = 4; };
 		AA2CCC830E2E4EEB00871057 /* AKSIPCall.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPCall.m; sourceTree = "<group>"; tabWidth = 4; };
-		AA2ED9A60F05B5CE004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/Preferences.xib; sourceTree = "<group>"; };
-		AA2ED9AD0F05BA16004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA2ED9B30F05BB64004A13C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		AA2ED9DF0F05C1E3004A13C6 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA30D8451BF60672002F343A /* FirstSystemSoundIOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirstSystemSoundIOTests.swift; path = DomainTests/FirstSystemSoundIOTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1629,9 +1642,7 @@
 		AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		AA5100010F1FE302003CE94C /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA5100020F1FE32F003CE94C /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA5100590F200E2F003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/Preferences.xib; sourceTree = "<group>"; };
 		AA51005C0F20117F003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
-		AA5100970F20CD11003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AccountSetup.xib; sourceTree = "<group>"; };
 		AA53434612ADBAD200B47767 /* Sound.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Sound.tiff; sourceTree = "<group>"; };
 		AA584A690F06CFD2003C4992 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA584A6B0F06D007003C4992 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1705,8 +1716,6 @@
 		AAD92135107A607C00F142A4 /* IncomingCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92137107A608B00F142A4 /* EndedCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = EndedCallViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAD92138107A608B00F142A4 /* EndedCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = EndedCallViewController.m; sourceTree = "<group>"; tabWidth = 4; };
-		AADAA2C4107E569900789F2D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/IncomingCallView.xib; sourceTree = "<group>"; };
-		AADAA2C5107E569C00789F2D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/IncomingCallView.xib; sourceTree = "<group>"; };
 		AAE33B0B1BA71E6900C6E48B /* Telephone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Telephone-Bridging-Header.h"; sourceTree = "<group>"; };
 		AAE33B0E1BA7205A00C6E48B /* PreferencesControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesControllerDelegate.h; sourceTree = "<group>"; };
 		AAE33B0F1BA7217C00C6E48B /* AKSIPUserAgentDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSIPUserAgentDelegate.h; sourceTree = "<group>"; };
@@ -1736,10 +1745,6 @@
 		AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKSIPURIFormatter.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAFA9C3B0EE411BA009A45CB /* AKTelephoneNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKTelephoneNumberFormatter.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKTelephoneNumberFormatter.m; sourceTree = "<group>"; tabWidth = 4; };
-		AAFC002D1074D0EB0018C7DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
-		AAFC00351074D1700018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
-		AAFC00361074D17F0018C7DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/AccountPreferencesView.xib; sourceTree = "<group>"; };
-		AAFC00371074D1820018C7DA /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AccountPreferencesView.xib; sourceTree = "<group>"; };
 		AAFCFFBB1074BFCA0018C7DA /* AccountSetupController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AccountSetupController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAFCFFBC1074BFCA0018C7DA /* AccountSetupController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSetupController.m; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
@@ -4874,9 +4879,10 @@
 		AA2ED9A40F05B5C6004A13C6 /* Preferences.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA2ED9A60F05B5CE004A13C6 /* ru */,
-				AA5100590F200E2F003CE94C /* de */,
 				8AA748CD1D744FAA000587DC /* Base */,
+				8A4CA6BB25926E9A0011566F /* en */,
+				8A4CA6C825926F6D0011566F /* de */,
+				8A4CA6C925926F890011566F /* ru */,
 			);
 			name = Preferences.xib;
 			sourceTree = "<group>";
@@ -4884,9 +4890,10 @@
 		AA2ED9AB0F05BA11004A13C6 /* AccountSetup.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA2ED9AD0F05BA16004A13C6 /* ru */,
-				AA5100970F20CD11003CE94C /* de */,
 				8AA748D31D744FAB000587DC /* Base */,
+				8AE0D52B2620DB8300E129C3 /* en */,
+				8AE0D52C2620DB8F00E129C3 /* de */,
+				8AE0D52D2620DB9300E129C3 /* ru */,
 			);
 			name = AccountSetup.xib;
 			sourceTree = "<group>";
@@ -4980,9 +4987,10 @@
 		AADAA2C2107E569200789F2D /* IncomingCallView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AADAA2C4107E569900789F2D /* ru */,
-				AADAA2C5107E569C00789F2D /* de */,
 				8AA748C61D744FAA000587DC /* Base */,
+				8A495CAA261E37C400CEF101 /* en */,
+				8A495CAB261E37DB00CEF101 /* de */,
+				8A495CAC261E37E800CEF101 /* ru */,
 			);
 			name = IncomingCallView.xib;
 			sourceTree = "<group>";
@@ -5017,9 +5025,10 @@
 		AAFC00271074D0B50018C7DA /* AccountPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AAFC00361074D17F0018C7DA /* ru */,
-				AAFC00371074D1820018C7DA /* de */,
 				8AA748CF1D744FAB000587DC /* Base */,
+				8AC1B8D625A6802A00AB7930 /* en */,
+				8AC1B8E625A6820400AB7930 /* de */,
+				8A23299425A7AFAF00B8CC49 /* ru */,
 			);
 			name = AccountPreferencesView.xib;
 			sourceTree = "<group>";
@@ -5038,9 +5047,10 @@
 		AAFC002B1074D0B50018C7DA /* GeneralPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AAFC002D1074D0EB0018C7DA /* ru */,
-				AAFC00351074D1700018C7DA /* de */,
 				8AA748CE1D744FAB000587DC /* Base */,
+				8A63742F25E03F40006B306B /* en */,
+				8A63743125E03F52006B306B /* de */,
+				8A63743325E03FB1006B306B /* ru */,
 			);
 			name = GeneralPreferencesView.xib;
 			sourceTree = "<group>";

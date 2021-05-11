@@ -470,14 +470,10 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (void)SIPCallDidConfirm:(NSNotification *)notification {
     [self setCallStartTime:[NSDate timeIntervalSinceReferenceDate]];
-
-    [self.activeCallViewController showHangUp];
-
-    [self setStatus:@"00:00"];
-    
-    [[self activeCallViewController] startCallTimer];
-    
     [self showActiveCallView];
+    [self.activeCallViewController showHangUp];
+    [self setStatus:@"00:00"];
+    [[self activeCallViewController] startCallTimer];
 }
 
 - (void)SIPCallDidDisconnect:(NSNotification *)notification {

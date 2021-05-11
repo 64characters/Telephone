@@ -110,9 +110,11 @@ static const NSUInteger kAccountsMax = 32;
                                                                          row:index];
     
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")];
-    [[alert buttons][1] setKeyEquivalent:@"\033"];
+    NSButton *delete = [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
+    if (@available(macOS 11, *)) {
+        delete.hasDestructiveAction = YES;
+    }
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")].keyEquivalent = @"\033";
     [alert setMessageText:[NSString stringWithFormat:
                            NSLocalizedString(@"Delete “%@”?", @"Account removal confirmation."),
                            selectedAccount]];
@@ -183,7 +185,6 @@ static const NSUInteger kAccountsMax = 32;
             [[self substitutePlusCharacterCheckBox] setEnabled:NO];
             [[self substitutePlusCharacterCheckBox] setState:[accountDict[kSubstitutePlusCharacter] integerValue]];
             [[self plusCharacterSubstitutionField] setEnabled:NO];
-            [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor disabledControlTextColor]];
             [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
             [[self useProxyCheckBox] setEnabled:NO];
             [[self proxyHostField] setEnabled:NO];
@@ -214,8 +215,7 @@ static const NSUInteger kAccountsMax = 32;
             } else {
                 [[self plusCharacterSubstitutionField] setEnabled:NO];
             }
-            [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor controlTextColor]];
-            
+
             [[self useProxyCheckBox] setEnabled:YES];
             [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];
             if ([[self useProxyCheckBox] state] == NSOnState) {
@@ -390,7 +390,6 @@ static const NSUInteger kAccountsMax = 32;
         [[self reregistrationTimeField] setEnabled:NO];
         [[self substitutePlusCharacterCheckBox] setEnabled:NO];
         [[self plusCharacterSubstitutionField] setEnabled:NO];
-        [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor disabledControlTextColor]];
         [[self useProxyCheckBox] setEnabled:NO];
         [[self proxyHostField] setEnabled:NO];
         [[self proxyPortField] setEnabled:NO];
@@ -530,7 +529,6 @@ static const NSUInteger kAccountsMax = 32;
         [[self reregistrationTimeField] setEnabled:NO];
         [[self substitutePlusCharacterCheckBox] setEnabled:NO];
         [[self plusCharacterSubstitutionField] setEnabled:NO];
-        [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor disabledControlTextColor]];
         [[self useProxyCheckBox] setEnabled:NO];
         [[self proxyHostField] setEnabled:NO];
         [[self proxyPortField] setEnabled:NO];
@@ -561,7 +559,6 @@ static const NSUInteger kAccountsMax = 32;
         if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
             [[self plusCharacterSubstitutionField] setEnabled:YES];
         }
-        [[self plusCharacterSubstitutionLabel] setTextColor:[NSColor controlTextColor]];
         
         [[self useProxyCheckBox] setEnabled:YES];
         [[self useProxyCheckBox] setState:[accountDict[kUseProxy] integerValue]];

@@ -128,7 +128,18 @@
 }
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
+    if (@available(macOS 11, *)) {
+        self.generalToolbarItem.image = [NSImage imageWithSystemSymbolName:@"gearshape" accessibilityDescription:nil];
+        self.accountsToolbarItem.image = [NSImage imageWithSystemSymbolName:@"at" accessibilityDescription:nil];
+        self.soundToolbarItem.image = [NSImage imageWithSystemSymbolName:@"speaker.wave.2" accessibilityDescription:nil];
+        self.networkToolbarItem.image = [NSImage imageWithSystemSymbolName:@"network" accessibilityDescription:nil];
+    } else {
+        self.generalToolbarItem.image = [NSImage imageNamed:NSImageNamePreferencesGeneral];
+        self.accountsToolbarItem.image = [NSImage imageNamed:NSImageNameUserAccounts];
+        self.soundToolbarItem.image = [NSImage imageNamed:@"Sound"];
+        self.networkToolbarItem.image = [NSImage imageNamed:NSImageNameNetwork];
+    }
 }
 
 - (void)windowDidLoad {
@@ -139,7 +150,7 @@
 
 - (IBAction)changeView:(id)sender {
     if ([self isNetworkPreferencesViewCurrent] &&
-        [sender tag] != kNetworkPreferencesTag &&
+        ![sender isEqual:self.networkToolbarItem] &&
         [self.networkPreferencesViewController areNetworkSettingsChanged:sender]) {
         return;
     }
@@ -148,34 +159,28 @@
     NSString *title;
     NSView *firstResponderView;
     
-    switch ([sender tag]) {
-        case kGeneralPreferencesTag:
-            view = [[self generalPreferencesViewController] view];
-            title = [[self generalPreferencesViewController] title];
-            firstResponderView = nil;
-            break;
-        case kAccountsPreferencesTag:
-            view = [[self accountPreferencesViewController] view];
-            title = [[self accountPreferencesViewController] title];
-            firstResponderView = [[self accountPreferencesViewController] accountsTable];
-            break;
-        case kSoundPreferencesTag:
-            view = [[self soundPreferencesViewController] view];
-            title = [[self soundPreferencesViewController] title];
-            firstResponderView = nil;
-            break;
-        case kNetworkPreferencesTag:
-            view = [[self networkPreferencesViewController] view];
-            title = [[self networkPreferencesViewController] title];
-            firstResponderView = nil;
-            break;
-        default:
-            view = nil;
-            title = NSLocalizedString(@"Telephone Preferences", @"Preferences default window title.");
-            firstResponderView = nil;
-            break;
+    if ([sender isEqual:self.generalToolbarItem]) {
+        view = [[self generalPreferencesViewController] view];
+        title = [[self generalPreferencesViewController] title];
+        firstResponderView = nil;
+    } else if ([sender isEqual:self.accountsToolbarItem]) {
+        view = [[self accountPreferencesViewController] view];
+        title = [[self accountPreferencesViewController] title];
+        firstResponderView = [[self accountPreferencesViewController] accountsTable];
+    } else if ([sender isEqual:self.soundToolbarItem]) {
+        view = [[self soundPreferencesViewController] view];
+        title = [[self soundPreferencesViewController] title];
+        firstResponderView = nil;
+    } else if ([sender isEqual:self.networkToolbarItem]) {
+        view = [[self networkPreferencesViewController] view];
+        title = [[self networkPreferencesViewController] title];
+        firstResponderView = nil;
+    } else {
+        view = nil;
+        title = NSLocalizedString(@"Telephone Preferences", @"Preferences default window title.");
+        firstResponderView = nil;
     }
-    
+
     [[self window] ak_resizeAndSwapToContentView:view animate:YES];
     [[self window] setTitle:title];
     if ([firstResponderView acceptsFirstResponder]) {

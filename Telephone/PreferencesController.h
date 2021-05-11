@@ -26,14 +26,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Preferences window toolbar items tags.
-enum {
-    kGeneralPreferencesTag  = 0,
-    kAccountsPreferencesTag = 1,
-    kSoundPreferencesTag    = 2,
-    kNetworkPreferencesTag  = 3
-};
-
 @class AKSIPUserAgent;
 @class GeneralPreferencesViewController, AccountPreferencesViewController;
 @class SoundPreferencesViewController, NetworkPreferencesViewController;

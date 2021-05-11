@@ -1,0 +1,12 @@
+
+/* Class = "NSButtonCell"; title = "Decline"; ObjectID = "23"; */
+"23.title" = "Decline";
+
+/* Class = "NSButtonCell"; title = "Answer"; ObjectID = "25"; */
+"25.title" = "Answer";
+
+/* Class = "NSTextFieldCell"; title = "Status"; ObjectID = "78"; */
+"78.title" = "Status";
+
+/* Class = "NSTextFieldCell"; title = "Display Name"; ObjectID = "79"; */
+"79.title" = "Display Name";

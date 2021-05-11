@@ -1,0 +1,27 @@
+
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "77"; */
+"77.title" = "Preferences";
+
+/* Class = "NSToolbarItem"; label = "General"; ObjectID = "141"; */
+"141.label" = "General";
+
+/* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "141"; */
+"141.paletteLabel" = "General";
+
+/* Class = "NSToolbarItem"; label = "Accounts"; ObjectID = "142"; */
+"142.label" = "Accounts";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Accounts"; ObjectID = "142"; */
+"142.paletteLabel" = "Accounts";
+
+/* Class = "NSToolbarItem"; label = "Sound"; ObjectID = "250"; */
+"250.label" = "Sound";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Sound"; ObjectID = "250"; */
+"250.paletteLabel" = "Sound";
+
+/* Class = "NSToolbarItem"; label = "Network"; ObjectID = "259"; */
+"259.label" = "Network";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Network"; ObjectID = "259"; */
+"259.paletteLabel" = "Network";
