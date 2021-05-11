@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistoryEventTarget: class {
+public protocol CallHistoryEventTarget: AnyObject {
     func didUpdate(_ history: CallHistory)
 }

@@ -18,7 +18,7 @@
 
 import Domain
 
-public protocol UserAgent: class {
+public protocol UserAgent: AnyObject {
     var isStarted: Bool { get }
     var maxCalls: Int { get set }
     func start()

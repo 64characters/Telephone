@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductsEventTarget: class {
+public protocol ProductsEventTarget: AnyObject {
     func didFetch(_ products: Products)
     func didFailFetching(_ products: Products, error: String)
 }

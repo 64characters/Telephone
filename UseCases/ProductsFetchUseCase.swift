@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ProductsFetchUseCaseOutput: class {
+public protocol ProductsFetchUseCaseOutput: AnyObject {
     func didFetch(_ products: [Product])
     func didFailFetchingProducts(error: String)
 }

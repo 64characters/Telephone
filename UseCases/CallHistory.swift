@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistory: class {
+public protocol CallHistory: AnyObject {
     var allRecords: [CallHistoryRecord] { get }
     func add(_ record: CallHistoryRecord)
     func remove(_ record: CallHistoryRecord)
