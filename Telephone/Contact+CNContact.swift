@@ -19,7 +19,6 @@
 import Contacts
 import UseCases
 
-@available(OSX 10.11, *)
 extension Contact {
     init(_ contact: CNContact) {
         self.init(
@@ -30,7 +29,6 @@ extension Contact {
     }
 }
 
-@available(OSX 10.11, *)
 extension Contact.Phone {
     init(_ phone: CNLabeledValue<CNPhoneNumber>) {
         self.init(
@@ -40,7 +38,6 @@ extension Contact.Phone {
     }
 }
 
-@available(OSX 10.11, *)
 extension Contact.Email {
     init(_ email: CNLabeledValue<NSString>) {
         self.init(
