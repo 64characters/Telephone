@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -81,9 +81,9 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qIw-Ai-26d" userLabel="Contact">
-                                                        <rect key="frame" x="0.0" y="24" width="128" height="16"/>
+                                                        <rect key="frame" x="0.0" y="24" width="131" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="0049 123 45678901" id="nL2-fI-0xh">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="systemMedium" size="13"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -114,7 +114,6 @@
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lK4-pF-OnF" secondAttribute="trailing" id="xmY-i3-UWV"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="contactField" destination="qIw-Ai-26d" id="975-lW-1p0"/>
                                                     <outlet property="labelField" destination="lK4-pF-OnF" id="EFt-oN-hGQ"/>
                                                     <outlet property="textField" destination="qIw-Ai-26d" id="ind-Ur-qcM"/>
                                                 </connections>
