@@ -590,7 +590,6 @@
 		8AEF77B11DCCC70300C73BCB /* PersistentCallHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */; };
 		8AF188A11F0FC12A003CAE8C /* ContactCallHistoryRecordGetUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF188A01F0FC12A003CAE8C /* ContactCallHistoryRecordGetUseCaseOutput.swift */; };
 		8AF3D282210B47110043D9A0 /* SimpleUserAgentAudioDevice+SystemAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9175901CA2BBF900354E26 /* SimpleUserAgentAudioDevice+SystemAudioDevice.swift */; };
-		8AF52BE11F028A50001F7784 /* ABAddressBookContactsChangeEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE01F028A50001F7784 /* ABAddressBookContactsChangeEventSource.swift */; };
 		8AF52BE31F028ACF001F7784 /* ContactsChangeEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */; };
 		8AF52BE51F028ECC001F7784 /* CNContactStoreContactsChangeEventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BE41F028ECC001F7784 /* CNContactStoreContactsChangeEventSource.swift */; };
 		8AF52BEB1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF52BEA1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift */; };
@@ -1515,7 +1514,6 @@
 		8AEF77AE1DCCC64100C73BCB /* PersistentCallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentCallHistory.swift; sourceTree = "<group>"; };
 		8AEF77B01DCCC70300C73BCB /* PersistentCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistentCallHistoryTests.swift; path = UseCasesTests/PersistentCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
 		8AF188A01F0FC12A003CAE8C /* ContactCallHistoryRecordGetUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecordGetUseCaseOutput.swift; sourceTree = "<group>"; };
-		8AF52BE01F028A50001F7784 /* ABAddressBookContactsChangeEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABAddressBookContactsChangeEventSource.swift; sourceTree = "<group>"; };
 		8AF52BE21F028ACF001F7784 /* ContactsChangeEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsChangeEventTarget.swift; sourceTree = "<group>"; };
 		8AF52BE41F028ECC001F7784 /* CNContactStoreContactsChangeEventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNContactStoreContactsChangeEventSource.swift; sourceTree = "<group>"; };
 		8AF52BEA1F02A814001F7784 /* SimpleContactMatchingIndexFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleContactMatchingIndexFactoryTests.swift; path = UseCasesTests/SimpleContactMatchingIndexFactoryTests.swift; sourceTree = SOURCE_ROOT; };
@@ -2196,7 +2194,6 @@
 		8A1BCFFA1ED3460900628062 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				8AF52BE01F028A50001F7784 /* ABAddressBookContactsChangeEventSource.swift */,
 				8AF52BE41F028ECC001F7784 /* CNContactStoreContactsChangeEventSource.swift */,
 				8A1BCFFB1ED3462800628062 /* CNContactStoreToContactsAdapter.swift */,
 				8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */,
@@ -3994,7 +3991,6 @@
 				8A42E0C81E168F4F00CE09B8 /* DurationFormatter.swift in Sources */,
 				AA2CCC840E2E4EEB00871057 /* AKSIPCall.m in Sources */,
 				8AA891DE1F83F6EA0064B2EA /* SanitizedCallDestination.swift in Sources */,
-				8AF52BE11F028A50001F7784 /* ABAddressBookContactsChangeEventSource.swift in Sources */,
 				8A8495F624350641000A3A90 /* TCPTransportSettingsMigration.swift in Sources */,
 				8AB5A0CB1D084E4F00579CE8 /* PresentationProduct.swift in Sources */,
 				8A91759F1CA59F1100354E26 /* PJSUAOnCallMediaState.m in Sources */,

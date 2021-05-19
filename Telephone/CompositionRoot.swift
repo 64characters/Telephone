@@ -242,17 +242,11 @@ final class CompositionRoot: NSObject {
                 contacts: CNContactStoreToContactsAdapter(), settings: contactMatchingSettings
             )
         )
-        let contactsChangeEventTarget = EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
 
-        if #available(macOS 10.11, *) {
-            contactsChangeEventSource = CNContactStoreContactsChangeEventSource(
-                center: NotificationCenter.default, target: contactsChangeEventTarget
-            )
-        } else {
-            contactsChangeEventSource = ABAddressBookContactsChangeEventSource(
-                center: NotificationCenter.default, target: contactsChangeEventTarget
-            )
-        }
+        contactsChangeEventSource = CNContactStoreContactsChangeEventSource(
+            center: NotificationCenter.default,
+            target: EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
+        )
 
         let dayChangeEventTargets = DayChangeEventTargets()
         dayChangeEventSource = NSCalendarDayChangeEventSource(center: NotificationCenter.default, target: dayChangeEventTargets)
