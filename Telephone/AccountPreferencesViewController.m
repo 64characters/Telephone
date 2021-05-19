@@ -123,7 +123,7 @@ static const NSUInteger kAccountsMax = 32;
       NSLocalizedString(@"This will delete your currently set up account “%@”.",
                         @"Account removal confirmation informative text."),
       selectedAccount]];
-    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert setAlertStyle:NSAlertStyleWarning];
     [alert beginSheetModalForWindow:[[self accountsTable] window] completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSAlertFirstButtonReturn) {
             [self removeAccountAtIndex:[[self accountsTable] selectedRow]];

@@ -20,7 +20,6 @@ import Contacts
 import Foundation
 import UseCases
 
-@available(OSX 10.11, *)
 final class CNContactStoreContactsChangeEventSource {
     private let center: NotificationCenter
     private let target: ContactsChangeEventTarget

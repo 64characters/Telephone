@@ -176,7 +176,6 @@ extension CallHistoryViewController: NSTableViewDelegate {
         updateSeparators()
     }
 
-    @available(OSX 10.11, *)
     func tableView(_ tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
         switch edge {
         case .trailing:
@@ -194,20 +193,16 @@ extension CallHistoryViewController: NSTableViewDelegate {
         }
     }
 
-    @available(OSX 10.11, *)
     private func makeDeleteAction() -> NSTableViewRowAction {
         let a = NSTableViewRowAction(
             style: .destructive,
             title: NSLocalizedString("Delete", comment: "Delete button."),
             handler: removeRowAndRecord
         )
-        if #available(OSX 10.12.2, *) {
-            a.image = NSImage(named: NSImage.touchBarDeleteTemplateName)
-        }
+        a.image = NSImage(named: NSImage.touchBarDeleteTemplateName)
         return a
     }
 
-    @available(OSX 10.11, *)
     private func removeRowAndRecord(action: NSTableViewRowAction, row: Int) {
         removeTableViewRow(row, andRecordWithIdentifier: records[row].identifier)
     }

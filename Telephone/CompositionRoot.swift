@@ -196,15 +196,7 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        let contacts: Contacts
-        let contactsBackground: ExecutionQueue
-        if #available(macOS 10.11, *) {
-            contacts = CNContactStoreToContactsAdapter()
-            contactsBackground = GCDExecutionQueue(queue: background)
-        } else {
-            contacts = ABAddressBookToContactsAdapter()
-            contactsBackground = ThreadExecutionQueue(thread: makeAndStartThread())
-        }
+        let contactsBackground = GCDExecutionQueue(queue: background)
 
         accountsEventSource = PreferencesControllerAccountsEventSource(
             center: NotificationCenter.default,
@@ -246,19 +238,15 @@ final class CompositionRoot: NSObject {
 
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
         let contactMatchingIndex = LazyDiscardingContactMatchingIndex(
-            factory: SimpleContactMatchingIndexFactory(contacts: contacts, settings: contactMatchingSettings)
+            factory: SimpleContactMatchingIndexFactory(
+                contacts: CNContactStoreToContactsAdapter(), settings: contactMatchingSettings
+            )
         )
-        let contactsChangeEventTarget = EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
 
-        if #available(macOS 10.11, *) {
-            contactsChangeEventSource = CNContactStoreContactsChangeEventSource(
-                center: NotificationCenter.default, target: contactsChangeEventTarget
-            )
-        } else {
-            contactsChangeEventSource = ABAddressBookContactsChangeEventSource(
-                center: NotificationCenter.default, target: contactsChangeEventTarget
-            )
-        }
+        contactsChangeEventSource = CNContactStoreContactsChangeEventSource(
+            center: NotificationCenter.default,
+            target: EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
+        )
 
         let dayChangeEventTargets = DayChangeEventTargets()
         dayChangeEventSource = NSCalendarDayChangeEventSource(center: NotificationCenter.default, target: dayChangeEventTargets)
@@ -304,11 +292,4 @@ final class CompositionRoot: NSObject {
 
         nameServers = NameServers(bundle: Bundle.main, target: nameServersChangeEventTarget)
     }
-}
-
-private func makeAndStartThread() -> Thread {
-    let thread = WaitingThread()
-    thread.qualityOfService = .userInitiated
-    thread.start()
-    return thread
 }

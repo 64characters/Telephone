@@ -19,12 +19,10 @@
 import Contacts
 import UseCases
 
-@available(OSX 10.11, *)
 final class CNContactStoreToContactsAdapter {
     private lazy var store = CNContactStore()
 }
 
-@available(OSX 10.11, *)
 extension CNContactStoreToContactsAdapter: Contacts {
     func enumerate(_ body: @escaping (Contact) -> Void) {
         do {
@@ -37,7 +35,6 @@ extension CNContactStoreToContactsAdapter: Contacts {
     }
 }
 
-@available(OSX 10.11, *)
 private let keys = [
     CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
     CNContactEmailAddressesKey as CNKeyDescriptor,

@@ -300,12 +300,6 @@ NS_ASSUME_NONNULL_END
     });
 }
 
-- (void)optOutOfAutomaticWindowTabbing {
-    if ([NSWindow respondsToSelector:@selector(allowsAutomaticWindowTabbing)]) {
-        NSWindow.allowsAutomaticWindowTabbing = NO;
-    }
-}
-
 - (void)showAccountPreferencesIfNeeded {
     if (self.accountControllers.enabled.count == 0)  {
         [self.preferencesController showWindowCentered];
@@ -565,7 +559,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [self optOutOfAutomaticWindowTabbing];
+    NSWindow.allowsAutomaticWindowTabbing = NO;
     [self.compositionRoot.settingsMigration execute];
     self.helpMenuActionRedirect.target = self.compositionRoot.helpMenuActionTarget;
     [self configureUserAgent];
@@ -819,12 +813,11 @@ NS_ASSUME_NONNULL_END
 #pragma mark Service Provider
 
 - (void)makeCallFromTextService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
-    if ([NSPasteboard instancesRespondToSelector:@selector(canReadObjectForClasses:options:)] &&
-        ![pboard canReadObjectForClasses:@[[NSString class]] options:@{}]) {
+    if ([pboard canReadObjectForClasses:@[[NSString class]] options:@{}]) {
+        [self makeCallOrRememberDestination:[pboard stringForType:NSPasteboardTypeString]];
+    } else {
         NSLog(@"Could not make call, pboard couldn't give string.");
-        return;
     }
-    [self makeCallOrRememberDestination:[pboard stringForType:NSPasteboardTypeString]];
 }
 
 #pragma mark -
