@@ -28,7 +28,7 @@ final class SettingsAccounts {
 
 extension SettingsAccounts: Accounts {
     var haveEnabled: Bool {
-        return accounts().map({ SettingsAccount(dict: $0) }).filter({ $0.isEnabled }).count > 0
+        return accounts().map({ SettingsAccount(dict: $0) }).filter(\.isEnabled).count > 0
     }
 
     private func accounts() -> [[String: Any]] {

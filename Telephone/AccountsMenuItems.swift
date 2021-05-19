@@ -71,7 +71,7 @@ private extension AccountsMenuItems {
     }
 
     func indexOfFirstSeparatorItem() -> Int {
-        guard let firstSeparator = menu.items.first(where: { $0.isSeparatorItem }) else { return 0 }
+        guard let firstSeparator = menu.items.first(where:(\.isSeparatorItem)) else { return 0 }
         return menu.index(of: firstSeparator)
     }
 }
