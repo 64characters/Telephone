@@ -261,7 +261,6 @@
 		8A7292251EDDCC9600338592 /* ExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292241EDDCC9600338592 /* ExecutionQueue.swift */; };
 		8A7292271EDDD6F600338592 /* ContactCallHistoryRecordGetAllUseCaseOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292261EDDD6F600338592 /* ContactCallHistoryRecordGetAllUseCaseOutput.swift */; };
 		8A7292331EDEE20E00338592 /* GCDExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */; };
-		8A7292371EDF22A700338592 /* ThreadExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */; };
 		8A7292391EDF2B2100338592 /* WaitingThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7292381EDF2B2100338592 /* WaitingThread.swift */; };
 		8A72923D1EE01C6800338592 /* ExecutionQueueSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72923C1EE01C6800338592 /* ExecutionQueueSpy.swift */; };
 		8A72923F1EE01F2D00338592 /* SyncExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72923E1EE01F2D00338592 /* SyncExecutionQueue.swift */; };
@@ -458,7 +457,6 @@
 		8ABB141C1CEC86B10056CEDC /* StoreViewStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB14181CEC83990056CEDC /* StoreViewStateMachine.swift */; };
 		8ABC9A6F1D522E4D004AC220 /* ReceiptAttributesValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC9A6E1D522E4D004AC220 /* ReceiptAttributesValidation.swift */; };
 		8ABD6EAA1EE93D2400D01435 /* AsyncCallHistoryViewEventTargetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABD6EA91EE93D2400D01435 /* AsyncCallHistoryViewEventTargetFactory.swift */; };
-		8ABF83241ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */; };
 		8ABF83261ED89017003051E0 /* Contact+ABMultiValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */; };
 		8AC1A43C1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */; };
 		8AC1A4411C67BFA8007778A2 /* SoundEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC1A4401C67BFA8007778A2 /* SoundEventTarget.swift */; };
@@ -1179,7 +1177,6 @@
 		8A7292241EDDCC9600338592 /* ExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7292261EDDD6F600338592 /* ContactCallHistoryRecordGetAllUseCaseOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCallHistoryRecordGetAllUseCaseOutput.swift; sourceTree = "<group>"; };
 		8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDExecutionQueue.swift; sourceTree = "<group>"; };
-		8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadExecutionQueue.swift; sourceTree = "<group>"; };
 		8A7292381EDF2B2100338592 /* WaitingThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingThread.swift; sourceTree = "<group>"; };
 		8A72923C1EE01C6800338592 /* ExecutionQueueSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionQueueSpy.swift; sourceTree = "<group>"; };
 		8A72923E1EE01F2D00338592 /* SyncExecutionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncExecutionQueue.swift; sourceTree = "<group>"; };
@@ -1387,7 +1384,6 @@
 		8ABB141A1CEC86A90056CEDC /* StoreViewStateMachineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreViewStateMachineTests.swift; path = TelephoneTests/StoreViewStateMachineTests.swift; sourceTree = SOURCE_ROOT; };
 		8ABC9A6E1D522E4D004AC220 /* ReceiptAttributesValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttributesValidation.swift; sourceTree = "<group>"; };
 		8ABD6EA91EE93D2400D01435 /* AsyncCallHistoryViewEventTargetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncCallHistoryViewEventTargetFactory.swift; sourceTree = "<group>"; };
-		8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABAddressBookToContactsAdapter.swift; sourceTree = "<group>"; };
 		8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+ABMultiValue.swift"; sourceTree = "<group>"; };
 		8AC1A43B1C679DA8007778A2 /* NSSoundToSoundAdapterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSoundToSoundAdapterFactory.swift; sourceTree = "<group>"; };
 		8AC1A43D1C67BDCC007778A2 /* NullSoundEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullSoundEventTarget.swift; sourceTree = "<group>"; };
@@ -2201,7 +2197,6 @@
 			isa = PBXGroup;
 			children = (
 				8AF52BE01F028A50001F7784 /* ABAddressBookContactsChangeEventSource.swift */,
-				8ABF83231ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift */,
 				8AF52BE41F028ECC001F7784 /* CNContactStoreContactsChangeEventSource.swift */,
 				8A1BCFFB1ED3462800628062 /* CNContactStoreToContactsAdapter.swift */,
 				8ABF83251ED89017003051E0 /* Contact+ABMultiValue.swift */,
@@ -2345,7 +2340,6 @@
 			isa = PBXGroup;
 			children = (
 				8A7292321EDEE20E00338592 /* GCDExecutionQueue.swift */,
-				8A7292361EDF22A700338592 /* ThreadExecutionQueue.swift */,
 			);
 			name = ExecutionQueue;
 			sourceTree = "<group>";
@@ -3982,7 +3976,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				8ABF83241ED5EA23003051E0 /* ABAddressBookToContactsAdapter.swift in Sources */,
 				8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */,
 				8AD9A0D21DDF76DE000BB2F2 /* SimpleApplicationDataLocations.swift in Sources */,
 				8A63ECD41CCFBEC400AEC485 /* SKProductsRequestToProductsAdapter.swift in Sources */,
@@ -4024,7 +4017,6 @@
 				8A2C042C1F16A44700C46693 /* CallHistoryTableRowView.swift in Sources */,
 				AA3FABA71BBC0A0D0064B2C3 /* CoreAudioSystemAudioDevicesChangeEventSource.swift in Sources */,
 				AAC0FFC21BE38CEE00A5C7E5 /* AKSIPUserAgentNotifications.m in Sources */,
-				8A7292371EDF22A700338592 /* ThreadExecutionQueue.swift in Sources */,
 				AA2C03FC1BD7F670001D25F9 /* UserAgentAudioDevices.swift in Sources */,
 				8A88B4F31D4ABCCB0083958C /* ValidReceipt.swift in Sources */,
 				8A69821A1F753A5800B20AFD /* StoreWindowPresenter.swift in Sources */,
