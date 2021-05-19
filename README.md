@@ -18,7 +18,7 @@ Download:
 
 Build and install:
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/Opus --disable-shared CFLAGS='-Os -mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/Opus --disable-shared CFLAGS='-Os -mmacosx-version-min=10.13'
     $ make
     $ make install
 
@@ -32,13 +32,9 @@ Download:
     $ tar xzvf libressl-3.1.3.tar.gz
     $ cd libressl-3.1.3
 
-Patch:
-
-    $ patch -p0 -i /path/to/Telephone/ThirdParty/LibreSSL/patches/check-libc.patch
-
 Build and install:
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-Os -mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-Os -mmacosx-version-min=10.13'
     $ make
     $ make install
 
@@ -68,7 +64,7 @@ Patch:
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --with-ssl=/path/to/Telephone/ThirdParty/LibreSSL --disable-video --disable-libyuv --disable-libwebrtc --host=x86_64-apple-darwin CFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.10' CXXFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.10'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --with-ssl=/path/to/Telephone/ThirdParty/LibreSSL --disable-video --disable-libyuv --disable-libwebrtc --host=x86_64-apple-darwin CFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.13' CXXFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.13'
     $ make lib
     $ make install
 
