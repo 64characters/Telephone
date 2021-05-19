@@ -813,11 +813,11 @@ NS_ASSUME_NONNULL_END
 #pragma mark Service Provider
 
 - (void)makeCallFromTextService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
-    if (![pboard canReadObjectForClasses:@[[NSString class]] options:@{}]) {
+    if ([pboard canReadObjectForClasses:@[[NSString class]] options:@{}]) {
+        [self makeCallOrRememberDestination:[pboard stringForType:NSPasteboardTypeString]];
+    } else {
         NSLog(@"Could not make call, pboard couldn't give string.");
-        return;
     }
-    [self makeCallOrRememberDestination:[pboard stringForType:NSPasteboardTypeString]];
 }
 
 #pragma mark -
