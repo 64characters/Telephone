@@ -18,7 +18,7 @@ Download:
 
 Build and install:
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/Opus --disable-shared CFLAGS='-Os -mmacosx-version-min=10.13'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/Opus --disable-shared CFLAGS='-arch arm64 -arch x86_64 -Os -mmacosx-version-min=10.13'
     $ make
     $ make install
 
@@ -34,7 +34,7 @@ Download:
 
 Build and install:
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-Os -mmacosx-version-min=10.13'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/LibreSSL --disable-shared CFLAGS='-arch arm64 -arch x86_64 -Os -mmacosx-version-min=10.13'
     $ make
     $ make install
 
@@ -64,7 +64,7 @@ Patch:
 
 Build and install (remove `--with-opus` option if you don’t need Opus):
 
-    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --with-ssl=/path/to/Telephone/ThirdParty/LibreSSL --disable-video --disable-libyuv --disable-libwebrtc --host=x86_64-apple-darwin CFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.13' CXXFLAGS='-Os -DNDEBUG -mmacosx-version-min=10.13'
+    $ ./configure --prefix=/path/to/Telephone/ThirdParty/PJSIP --with-opus=/path/to/Telephone/ThirdParty/Opus --with-ssl=/path/to/Telephone/ThirdParty/LibreSSL --disable-video --disable-libyuv --disable-libwebrtc --host=arm-apple-darwin CFLAGS='-arch arm64 -arch x86_64 -Os -DNDEBUG -mmacosx-version-min=10.13' CXXFLAGS='-arch arm64 -arch x86_64 -Os -DNDEBUG -mmacosx-version-min=10.13'
     $ make lib
     $ make install
 
