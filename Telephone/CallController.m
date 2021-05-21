@@ -203,6 +203,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 
 - (void)acceptCall {
     [[self call] answer];
+    [self removeUserNotification];
 }
 
 - (void)hangUpCall {
@@ -230,6 +231,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [[[self incomingCallViewController] acceptCallButton] setEnabled:NO];
     [[[self incomingCallViewController] declineCallButton] setEnabled:NO];
     
+    [self removeUserNotification];
+
     // Optionally close call window.
     if ([self.defaults boolForKey:kAutoCloseCallWindow] && ![self isKindOfClass:[CallTransferController class]]) {
         [self performSelector:@selector(closeCallWindow) withObject:nil afterDelay:kCallWindowAutoCloseTime];
@@ -377,11 +380,13 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     return ![self.callInfoView isEqual:viewController.view];
 }
 
-- (void)removeOrShowUserNotificationIfNeeded {
+- (void)removeOrShowUserNotificationOnDisconnectIfNeeded {
     if (![NSApp isActive]) {
         if (self.isCallUnhandled) {
+            // Missed calls are shown in call history.
             [self removeUserNotification];
         } else {
+            // Notify about an ended call when the app is not visible.
             [self showUserNotification];
         }
     }
@@ -536,7 +541,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
                                    userInfo:nil
                                     repeats:NO];
     
-    [self removeOrShowUserNotificationIfNeeded];
+    [self removeOrShowUserNotificationOnDisconnectIfNeeded];
     
     // Optionally close disconnected call window.
     BOOL shouldCloseWindow = [self.defaults boolForKey:kAutoCloseCallWindow];
