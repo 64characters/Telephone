@@ -708,7 +708,7 @@ static NSString * const kRussian = @"ru";
         // Get the significant phone suffix if the phone number length is greater
         // than we defined.
         NSString *significantPhoneSuffix;
-        if ([phoneNumberToSearch length] > significantPhoneNumberLength) {
+        if ([phoneNumberToSearch length] >= significantPhoneNumberLength) {
             significantPhoneSuffix = [phoneNumberToSearch substringFromIndex:
                                       ([phoneNumberToSearch length] - significantPhoneNumberLength)];
             
@@ -770,7 +770,7 @@ static NSString * const kRussian = @"ru";
                     NSString *scannedPhoneNumber = [telephoneNumberFormatter telephoneNumberFromString:phoneNumber];
                     if ([scannedPhoneNumber isEqualToString:phoneNumberToSearch]) {
                         recordFound = YES;
-                    } else if (([phoneNumberToSearch length] > significantPhoneNumberLength) &&
+                    } else if (([phoneNumberToSearch length] >= significantPhoneNumberLength) &&
                                [scannedPhoneNumber hasSuffix:significantPhoneSuffix]) {
                         
                         recordFound = YES;
