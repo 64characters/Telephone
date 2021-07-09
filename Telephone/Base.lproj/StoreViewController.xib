@@ -133,20 +133,20 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
             </connections>
         </arrayController>
         <scrollView autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="27z-De-ahO">
-            <rect key="frame" x="0.0" y="0.0" width="439" height="85"/>
+            <rect key="frame" x="0.0" y="0.0" width="440" height="85"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <clipView key="contentView" id="JHp-da-W11">
-                <rect key="frame" x="1" y="1" width="437" height="83"/>
+                <rect key="frame" x="1" y="1" width="438" height="83"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="eYD-l4-AFn">
-                        <rect key="frame" x="0.0" y="0.0" width="437" height="83"/>
+                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="eYD-l4-AFn">
+                        <rect key="frame" x="0.0" y="0.0" width="438" height="83"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <size key="intercellSpacing" width="3" height="2"/>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <tableColumns>
-                            <tableColumn width="425" minWidth="40" maxWidth="1000" id="uMu-fo-Etu">
+                            <tableColumn width="426" minWidth="40" maxWidth="1000" id="uMu-fo-Etu">
                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -159,7 +159,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                 <prototypeCellViews>
                                     <tableCellView id="cBD-EV-Yai">
-                                        <rect key="frame" x="1" y="1" width="434" height="40"/>
+                                        <rect key="frame" x="1" y="1" width="435" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="eH9-SG-F1U">
@@ -174,7 +174,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                                                 </connections>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zF3-9y-xfi">
-                                                <rect key="frame" x="358" y="3" width="75" height="32"/>
+                                                <rect key="frame" x="359" y="3" width="75" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wUB-pq-l64">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -207,7 +207,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                 </subviews>
             </clipView>
             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Yod-Ye-NDa">
-                <rect key="frame" x="1" y="68" width="437" height="16"/>
+                <rect key="frame" x="1" y="68" width="409" height="16"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="tpS-Ru-egb">
