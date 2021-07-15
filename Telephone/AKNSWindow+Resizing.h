@@ -16,16 +16,10 @@
 //  GNU General Public License for more details.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
-
-// A category for window resizing.
 @interface NSWindow (AKWindowResizingAdditions)
 
-// Sets |aView| content view for the receiver and resizes the receiver with optional animation.
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation;
-
-// Calls |ak_resizeAndSwapToContentView:animate:| with |performAnimation| set to NO.
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView;
+- (void)ak_resizeForContentViewSize:(NSSize)size animate:(BOOL)animate;
 
 @end

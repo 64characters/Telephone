@@ -21,7 +21,6 @@
 #import "AKNSWindow+Resizing.h"
 
 #import "AccountPreferencesViewController.h"
-#import "AppController.h"
 #import "GeneralPreferencesViewController.h"
 #import "NetworkPreferencesViewController.h"
 #import "SoundPreferencesViewController.h"
@@ -143,9 +142,10 @@
 }
 
 - (void)windowDidLoad {
-    [[self toolbar] setSelectedItemIdentifier:[[self generalToolbarItem] itemIdentifier]];
-    [[self window] ak_resizeAndSwapToContentView:[[self generalPreferencesViewController] view]];
-    [[self window] setTitle:[[self generalPreferencesViewController] title]];
+    self.toolbar.selectedItemIdentifier = self.generalToolbarItem.itemIdentifier;
+    [self.window ak_resizeForContentViewSize:self.generalPreferencesViewController.view.frame.size animate:NO];
+    self.contentViewController = self.generalPreferencesViewController;
+    self.window.title = self.generalPreferencesViewController.title;
 }
 
 - (IBAction)changeView:(id)sender {
@@ -155,36 +155,37 @@
         return;
     }
     
-    NSView *view;
+    NSViewController *controller;
     NSString *title;
-    NSView *firstResponderView;
+    NSView *firstResponder;
     
     if ([sender isEqual:self.generalToolbarItem]) {
-        view = [[self generalPreferencesViewController] view];
-        title = [[self generalPreferencesViewController] title];
-        firstResponderView = nil;
+        controller = self.generalPreferencesViewController;
+        title = self.generalPreferencesViewController.title;
+        firstResponder = nil;
     } else if ([sender isEqual:self.accountsToolbarItem]) {
-        view = [[self accountPreferencesViewController] view];
-        title = [[self accountPreferencesViewController] title];
-        firstResponderView = [[self accountPreferencesViewController] accountsTable];
+        controller = self.accountPreferencesViewController;
+        title = self.accountPreferencesViewController.title;
+        firstResponder = self.accountPreferencesViewController.accountsTable;
     } else if ([sender isEqual:self.soundToolbarItem]) {
-        view = [[self soundPreferencesViewController] view];
-        title = [[self soundPreferencesViewController] title];
-        firstResponderView = nil;
+        controller = self.soundPreferencesViewController;
+        title = self.soundPreferencesViewController.title;
+        firstResponder = nil;
     } else if ([sender isEqual:self.networkToolbarItem]) {
-        view = [[self networkPreferencesViewController] view];
-        title = [[self networkPreferencesViewController] title];
-        firstResponderView = nil;
+        controller = self.networkPreferencesViewController;
+        title = self.networkPreferencesViewController.title;
+        firstResponder = nil;
     } else {
-        view = nil;
+        controller = nil;
         title = NSLocalizedString(@"Telephone Preferences", @"Preferences default window title.");
-        firstResponderView = nil;
+        firstResponder = nil;
     }
 
-    [[self window] ak_resizeAndSwapToContentView:view animate:YES];
-    [[self window] setTitle:title];
-    if ([firstResponderView acceptsFirstResponder]) {
-        [[self window] makeFirstResponder:firstResponderView];
+    [self.window ak_resizeForContentViewSize:controller.view.frame.size animate:YES];
+    self.contentViewController = controller;
+    self.window.title = controller.title;
+    if ([firstResponder acceptsFirstResponder]) {
+        [self.window makeFirstResponder:firstResponder];
     }
 }
 

@@ -21,32 +21,15 @@
 
 @implementation NSWindow (AKWindowResizingAdditions)
 
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView animate:(BOOL)performAnimation {
-    // Compute view size delta.
-    NSSize currentSize = [[self contentView] frame].size;
-    NSSize newSize = [aView frame].size;
-    CGFloat deltaWidth = newSize.width - currentSize.width;
-    CGFloat deltaHeight = newSize.height - currentSize.height;
-    
-    // Compute new window size.
-    NSRect windowFrame = [self frame];
-    windowFrame.size.height += deltaHeight;
-    windowFrame.origin.y -= deltaHeight;
-    windowFrame.size.width += deltaWidth;
-    
-    // Show temp view while changing views.
-    NSView *tempView = [[NSView alloc] initWithFrame:[[self contentView] frame]];
-    [self setContentView:tempView];
-    
-    // Set new window frame.
-    [self setFrame:windowFrame display:YES animate:performAnimation];
-    
-    // Swap to the new view.
-    [self setContentView:aView];
-}
-
-- (void)ak_resizeAndSwapToContentView:(NSView *)aView {
-    [self ak_resizeAndSwapToContentView:aView animate:NO];
+- (void)ak_resizeForContentViewSize:(NSSize)size animate:(BOOL)animate {
+    CGFloat deltaWidth = size.width - self.contentView.frame.size.width;
+    CGFloat deltaHeight = size.height - self.contentView.frame.size.height;
+    NSRect frame = self.frame;
+    frame.size.height += deltaHeight;
+    frame.origin.y -= deltaHeight;
+    frame.size.width += deltaWidth;
+    self.contentView = [[NSView alloc] initWithFrame:self.contentView.frame];
+    [self setFrame:frame display:NO animate:animate];
 }
 
 @end
