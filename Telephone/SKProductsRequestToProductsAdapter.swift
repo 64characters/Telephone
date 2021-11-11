@@ -20,8 +20,8 @@ import StoreKit
 import UseCases
 
 final class SKProductsRequestToProductsAdapter: NSObject {
-    private var products: [String: Product] = [:]
-    private var storeKitProducts: [Product: SKProduct] = [:]
+    private var products: [String: UseCases.Product] = [:]
+    private var storeKitProducts: [UseCases.Product: SKProduct] = [:]
     private var request: SKProductsRequest?
 
     private let expected: ExpectedProducts
@@ -34,11 +34,11 @@ final class SKProductsRequestToProductsAdapter: NSObject {
 }
 
 extension SKProductsRequestToProductsAdapter: Products {
-    var all: [Product] {
+    var all: [UseCases.Product] {
         return Array(products.values)
     }
 
-    subscript(identifier: String) -> Product? {
+    subscript(identifier: String) -> UseCases.Product? {
         return products[identifier]
     }
 
@@ -51,7 +51,7 @@ extension SKProductsRequestToProductsAdapter: Products {
 }
 
 extension SKProductsRequestToProductsAdapter: StoreKitProducts {
-    subscript(product: Product) -> SKProduct? {
+    subscript(product: UseCases.Product) -> SKProduct? {
         return storeKitProducts[product]
     }
 }
@@ -64,7 +64,7 @@ extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
         }
     }
 
-    private func productMaps(with products: [SKProduct]?) -> ([String: Product], [Product: SKProduct]) {
+    private func productMaps(with products: [SKProduct]?) -> ([String: UseCases.Product], [UseCases.Product: SKProduct]) {
         if let products = products {
             return productMaps(with: products)
         } else {
@@ -72,9 +72,9 @@ extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
         }
     }
 
-    private func productMaps(with products: [SKProduct]) -> ([String: Product], [Product: SKProduct]) {
-        var idToProduct: [String: Product] = [:]
-        var productToSKProduct: [Product: SKProduct] = [:]
+    private func productMaps(with products: [SKProduct]) -> ([String: UseCases.Product], [UseCases.Product: SKProduct]) {
+        var idToProduct: [String: UseCases.Product] = [:]
+        var productToSKProduct: [UseCases.Product: SKProduct] = [:]
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         for skProduct in products {
@@ -125,8 +125,8 @@ private func descriptionOf(_ error: Error) -> String {
     }
 }
 
-private func identifierToProduct(fromProducts products: [Product]) -> [String: Product] {
-    var result: [String: Product] = [:]
+private func identifierToProduct(fromProducts products: [UseCases.Product]) -> [String: UseCases.Product] {
+    var result: [String: UseCases.Product] = [:]
     products.forEach { result[$0.identifier] = $0 }
     return result
 }
