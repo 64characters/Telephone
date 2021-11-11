@@ -17,6 +17,7 @@
 //
 
 import StoreKit
+import UseCases
 
 final class SKPaymentQueueToStoreAdapter {
     private let queue: SKPaymentQueue
@@ -29,7 +30,7 @@ final class SKPaymentQueueToStoreAdapter {
 }
 
 extension SKPaymentQueueToStoreAdapter: Store {
-    func purchase(_ product: Product) throws {
+    func purchase(_ product: UseCases.Product) throws {
         queue.add(SKPayment(product: try storeKitProduct(for: product)))
     }
 
@@ -37,7 +38,7 @@ extension SKPaymentQueueToStoreAdapter: Store {
         queue.restoreCompletedTransactions()
     }
 
-    private func storeKitProduct(for product: Product) throws -> SKProduct {
+    private func storeKitProduct(for product: UseCases.Product) throws -> SKProduct {
         if let result = products[product] {
             return result
         } else {

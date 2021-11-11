@@ -19,7 +19,7 @@
 import StoreKit
 import UseCases
 
-extension Product {
+extension UseCases.Product {
     init(product: SKProduct, name: String, formatter: NumberFormatter) {
         self.init(
             identifier: product.productIdentifier,

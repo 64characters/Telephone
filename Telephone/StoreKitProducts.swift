@@ -20,5 +20,5 @@ import StoreKit
 import UseCases
 
 protocol StoreKitProducts {
-    subscript(product: Product) -> SKProduct? { get }
+    subscript(product: UseCases.Product) -> SKProduct? { get }
 }
