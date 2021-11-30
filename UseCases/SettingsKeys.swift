@@ -16,9 +16,12 @@
 //  GNU General Public License for more details.
 //
 
-struct SettingsKeys {
-    static let soundInput = "SoundInput"
-    static let soundOutput = "SoundOutput"
-    static let ringtoneOutput = "RingtoneOutput"
-    static let ringingSound = "RingingSound"
+public enum SettingsKeys {
+    public static let soundInput = "SoundInput"
+    public static let soundOutput = "SoundOutput"
+    public static let ringtoneOutput = "RingtoneOutput"
+    public static let ringingSound = "RingingSound"
+
+    public static let pauseITunes = "PauseITunes"
+    public static let significantPhoneNumberLength = "SignificantPhoneNumberLength"
 }

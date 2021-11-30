@@ -21,14 +21,12 @@ public final class SimpleContactMatchingSettings {
 
     public init(settings: KeyValueSettings) {
         self.settings = settings
-        settings.register(defaults: [key: 9])
+        settings.register(defaults: [SettingsKeys.significantPhoneNumberLength: 9])
     }
 }
 
 extension SimpleContactMatchingSettings: ContactMatchingSettings {
     public var significantPhoneNumberLength: Int {
-        return settings.integer(forKey: key)
+        return settings.integer(forKey: SettingsKeys.significantPhoneNumberLength)
     }
 }
-
-private let key = "SignificantPhoneNumberLength"

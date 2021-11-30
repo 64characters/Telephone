@@ -24,7 +24,7 @@ final class SimpleContactMatchingSettingsTests: XCTestCase {
     func testGetsLengthFromSettingsWithExpectedKey() {
         let settings = SettingsFake()
         let length = 100
-        settings.set(length, forKey: key)
+        settings.set(length, forKey: SettingsKeys.significantPhoneNumberLength)
         let sut = SimpleContactMatchingSettings(settings: settings)
 
         XCTAssertEqual(sut.significantPhoneNumberLength, length)
@@ -34,8 +34,6 @@ final class SimpleContactMatchingSettingsTests: XCTestCase {
         let settings = SettingsFake()
         _ = SimpleContactMatchingSettings(settings: settings)
 
-        XCTAssertEqual(settings.registeredDefaults[key] as! Int, 9)
+        XCTAssertEqual(settings.registeredDefaults[SettingsKeys.significantPhoneNumberLength] as! Int, 9)
     }
 }
-
-private let key = "SignificantPhoneNumberLength"

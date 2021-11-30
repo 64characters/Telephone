@@ -21,19 +21,17 @@ public final class SimpleMusicPlayerSettings {
 
     public init(settings: KeyValueSettings) {
         self.settings = settings
-        settings.register(defaults: [key: true])
+        settings.register(defaults: [SettingsKeys.pauseITunes: true])
     }
 }
 
 extension SimpleMusicPlayerSettings: MusicPlayerSettings {
     public var shouldPause: Bool {
         get {
-            return settings.bool(forKey: key)
+            return settings.bool(forKey: SettingsKeys.pauseITunes)
         }
         set {
-            settings.set(newValue, forKey: key)
+            settings.set(newValue, forKey: SettingsKeys.pauseITunes)
         }
     }
 }
-
-private let key = "PauseITunes"

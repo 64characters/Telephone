@@ -23,7 +23,7 @@ import XCTest
 final class SimpleMusicPlayerSettingsTests: XCTestCase {
     func testGetsFromSettingsWithExpectedKey() {
         let settings = SettingsFake()
-        settings.set(true, forKey: key)
+        settings.set(true, forKey: SettingsKeys.pauseITunes)
         let sut = SimpleMusicPlayerSettings(settings: settings)
 
         XCTAssertTrue(sut.shouldPause)
@@ -35,15 +35,13 @@ final class SimpleMusicPlayerSettingsTests: XCTestCase {
 
         sut.shouldPause = true
 
-        XCTAssertTrue(settings.bool(forKey: key))
+        XCTAssertTrue(settings.bool(forKey: SettingsKeys.pauseITunes))
     }
 
     func testRegistersDefaults() {
         let settings = SettingsFake()
         _ = SimpleMusicPlayerSettings(settings: settings)
 
-        XCTAssertTrue(settings.registeredDefaults[key] as! Bool)
+        XCTAssertTrue(settings.registeredDefaults[SettingsKeys.pauseITunes] as! Bool)
     }
 }
-
-private let key = "PauseITunes"
