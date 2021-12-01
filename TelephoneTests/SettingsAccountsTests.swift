@@ -24,8 +24,12 @@ final class SettingsAccountsTests: XCTestCase {
     func testHaveEnabledIsTrueWhenAtLeastOneAccountIsEnabled() {
         let settings = SettingsFake()
         settings.set(
-            [[kAccountEnabled: false], [kAccountEnabled: true], [kAccountEnabled: false]],
-            forKey: kAccounts
+            [
+                [UserDefaultsKeys.accountEnabled: false],
+                [UserDefaultsKeys.accountEnabled: true],
+                [UserDefaultsKeys.accountEnabled: false]
+            ],
+            forKey: UserDefaultsKeys.accounts
         )
 
         let sut = SettingsAccounts(settings: settings)
@@ -36,8 +40,12 @@ final class SettingsAccountsTests: XCTestCase {
     func testHaveEnabledIsFalseWhenThereAreNoEnabledAccounts() {
         let settings = SettingsFake()
         settings.set(
-            [[kAccountEnabled: false], [kAccountEnabled: false], [kAccountEnabled: false]],
-            forKey: kAccounts
+            [
+                [UserDefaultsKeys.accountEnabled: false],
+                [UserDefaultsKeys.accountEnabled: false],
+                [UserDefaultsKeys.accountEnabled: false]
+            ],
+            forKey: UserDefaultsKeys.accounts
         )
 
         let sut = SettingsAccounts(settings: settings)

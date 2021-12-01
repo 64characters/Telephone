@@ -41,7 +41,7 @@ private func addingUUIDIfNeeded(to dict: [String: Any]) -> [String: Any] {
 }
 
 private func shouldAddUUID(to dict: [String: Any]) -> Bool {
-    if let uuid = dict[kUUID] as? String, !uuid.isEmpty {
+    if let uuid = dict[AKSIPAccountKeys.uuid] as? String, !uuid.isEmpty {
         return false
     } else {
         return true
@@ -50,6 +50,6 @@ private func shouldAddUUID(to dict: [String: Any]) -> Bool {
 
 private func addingUUID(to dict: [String: Any]) -> [String: Any] {
     var result = dict
-    result[kUUID] = UUID().uuidString
+    result[AKSIPAccountKeys.uuid] = UUID().uuidString
     return result
 }

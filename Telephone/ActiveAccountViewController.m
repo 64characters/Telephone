@@ -28,7 +28,8 @@
 #import "AKTelephoneNumberFormatter.h"
 
 #import "AccountController.h"
-#import "UserDefaultsKeys.h"
+
+#import "Telephone-Swift.h"
 
 
 NSString * const kURI = @"URI";
@@ -499,9 +500,9 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
-    [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
+    [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]];
     [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
-     [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+     [defaults boolForKey:UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits]];
     
     NSCharacterSet *whitespaceCharset = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     NSString *trimmedString = [editingString stringByTrimmingCharactersInSet:whitespaceCharset];
@@ -762,9 +763,9 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         NSAssert(([[uri user] length] > 0), @"User part of the URI must not have zero length in this context");
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([[uri user] ak_isTelephoneNumber] && [defaults boolForKey:kFormatTelephoneNumbers]) {
+        if ([[uri user] ak_isTelephoneNumber] && [defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]) {
             AKTelephoneNumberFormatter *formatter = [[AKTelephoneNumberFormatter alloc] init];
-            [formatter setSplitsLastFourDigits:[defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+            [formatter setSplitsLastFourDigits:[defaults boolForKey:UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits]];
             returnString = [formatter stringForObjectValue:[uri user]];
             
         } else {
@@ -824,7 +825,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         
         AKTelephoneNumberFormatter *formatter = [[AKTelephoneNumberFormatter alloc] init];
         [formatter setSplitsLastFourDigits:
-         [[NSUserDefaults standardUserDefaults] boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+         [[NSUserDefaults standardUserDefaults] boolForKey:UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits]];
         
         if ([[uri host] length] > 0) {
             [menuItem setTitle:[NSString stringWithFormat:@"%@: %@", phoneLabel, [uri SIPAddress]]];

@@ -35,6 +35,6 @@ final class PreferencesControllerAccountsEventSource {
     }
 
     @objc private func didRemoveAccount(_ notification: Notification) {
-        target.didRemoveAccount(withUUID: notification.userInfo![kUUID] as! String)
+        target.didRemoveAccount(withUUID: notification.userInfo![AKSIPAccountKeys.uuid] as! String)
     }
 }

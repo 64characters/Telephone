@@ -32,6 +32,6 @@ extension SettingsAccounts: Accounts {
     }
 
     private func accounts() -> [[String: Any]] {
-        return settings.array(forKey: kAccounts) as? [[String: Any]] ?? []
+        return settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]] ?? []
     }
 }

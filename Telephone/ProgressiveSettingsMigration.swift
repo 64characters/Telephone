@@ -30,14 +30,14 @@ final class ProgressiveSettingsMigration: NSObject {
 
 extension ProgressiveSettingsMigration: SettingsMigration {
     @objc func execute() {
-        if settings.integer(forKey: kSettingsVersion) == 0 {
+        if settings.integer(forKey: UserDefaultsKeys.settingsVersion) == 0 {
             factory.makeAccountUUIDMigration().execute()
-            settings.set(1, forKey: kSettingsVersion)
+            settings.set(1, forKey: UserDefaultsKeys.settingsVersion)
         }
-        if settings.integer(forKey: kSettingsVersion) == 1 {
+        if settings.integer(forKey: UserDefaultsKeys.settingsVersion) == 1 {
             factory.makeIPVersionMigration().execute()
             factory.makeTCPTransportMigration().execute()
-            settings.set(2, forKey: kSettingsVersion)
+            settings.set(2, forKey: UserDefaultsKeys.settingsVersion)
         }
     }
 }

@@ -20,7 +20,7 @@
 
 #import "AKKeychain.h"
 
-#import "UserDefaultsKeys.h"
+#import "Telephone-Swift.h"
 
 
 NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccountSetupControllerDidAddAccount";
@@ -80,28 +80,28 @@ NSString * const AKAccountSetupControllerDidAddAccountNotification = @"AKAccount
     }
     
     NSMutableDictionary *accountDict = [NSMutableDictionary dictionary];
-    accountDict[kAccountEnabled] = @YES;
-    accountDict[kUUID] = [NSUUID UUID].UUIDString;
-    accountDict[kFullName] = fullName;
-    accountDict[kDomain] = domain;
-    accountDict[kRealm] = @"*";
-    accountDict[kUsername] = username;
-    accountDict[kReregistrationTime] = @0;
-    accountDict[kSubstitutePlusCharacter] = @NO;
-    accountDict[kPlusCharacterSubstitutionString] = @"00";
-    accountDict[kUseProxy] = @NO;
-    accountDict[kProxyHost] = @"";
-    accountDict[kProxyPort] = @0;
-    accountDict[kTransport] = kTransportUDP;
-    accountDict[kIPVersion] = kIPVersion4;
-    accountDict[kUpdateContactHeader] = @YES;
-    accountDict[kUpdateViaHeader] = @YES;
-    accountDict[kUpdateSDP] = @YES;
+    accountDict[UserDefaultsKeys.accountEnabled] = @YES;
+    accountDict[AKSIPAccountKeys.uuid] = [NSUUID UUID].UUIDString;
+    accountDict[AKSIPAccountKeys.fullName] = fullName;
+    accountDict[AKSIPAccountKeys.domain] = domain;
+    accountDict[AKSIPAccountKeys.realm] = @"*";
+    accountDict[AKSIPAccountKeys.username] = username;
+    accountDict[AKSIPAccountKeys.reregistrationTime] = @0;
+    accountDict[UserDefaultsKeys.substitutePlusCharacter] = @NO;
+    accountDict[UserDefaultsKeys.plusCharacterSubstitutionString] = @"00";
+    accountDict[AKSIPAccountKeys.useProxy] = @NO;
+    accountDict[AKSIPAccountKeys.proxyHost] = @"";
+    accountDict[AKSIPAccountKeys.proxyPort] = @0;
+    accountDict[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportUDP;
+    accountDict[AKSIPAccountKeys.ipVersion] = AKSIPAccountKeys.ipVersion4;
+    accountDict[AKSIPAccountKeys.updateContactHeader] = @YES;
+    accountDict[AKSIPAccountKeys.updateViaHeader] = @YES;
+    accountDict[AKSIPAccountKeys.updateSDP] = @YES;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
+    NSMutableArray *savedAccounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:UserDefaultsKeys.accounts]];
     [savedAccounts addObject:accountDict];
-    [defaults setObject:savedAccounts forKey:kAccounts];
+    [defaults setObject:savedAccounts forKey:UserDefaultsKeys.accounts];
     
     [AKKeychain addItemWithService:[NSString stringWithFormat:@"SIP: %@", domain]
                            account:username

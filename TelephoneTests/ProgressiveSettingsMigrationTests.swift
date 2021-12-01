@@ -47,7 +47,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withAccountUUIDMigration: migration)
         let settings = SettingsFake()
-        settings.set(1, forKey: kSettingsVersion)
+        settings.set(1, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -60,7 +60,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withAccountUUIDMigration: migration)
         let settings = SettingsFake()
-        settings.set(2, forKey: kSettingsVersion)
+        settings.set(2, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -75,7 +75,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
         let settings = SettingsFake()
-        settings.set(1, forKey: kSettingsVersion)
+        settings.set(1, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -88,7 +88,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
         let settings = SettingsFake()
-        settings.set(2, forKey: kSettingsVersion)
+        settings.set(2, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -101,7 +101,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
         let settings = SettingsFake()
-        settings.set(3, forKey: kSettingsVersion)
+        settings.set(3, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -116,7 +116,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
         let settings = SettingsFake()
-        settings.set(1, forKey: kSettingsVersion)
+        settings.set(1, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -129,7 +129,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
         let settings = SettingsFake()
-        settings.set(2, forKey: kSettingsVersion)
+        settings.set(2, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -142,7 +142,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
         let settings = SettingsFake()
-        settings.set(3, forKey: kSettingsVersion)
+        settings.set(3, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()

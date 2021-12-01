@@ -22,39 +22,47 @@ import XCTest
 final class AccountUUIDSettingsMigrationTests: XCTestCase {
     func testAddsUUID() {
         let settings = SettingsFake()
-        settings.set([[kAccountEnabled: true], [kAccountEnabled: false]], forKey: kAccounts)
-        let sut = AccountUUIDSettingsMigration(settings: settings)
-
-        sut.execute()
-
-        let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
-        XCTAssertNotNil(UUID(uuidString: (accounts[0][kUUID] as! String)))
-        XCTAssertNotNil(UUID(uuidString: (accounts[1][kUUID] as! String)))
-    }
-
-    func testDoesNotChangeExistingUUID() {
-        let settings = SettingsFake()
         settings.set(
-            [[kAccountEnabled: true, kUUID: "foo"], [kAccountEnabled: false, kUUID: "bar"]],
-            forKey: kAccounts
+            [[UserDefaultsKeys.accountEnabled: true], [UserDefaultsKeys.accountEnabled: false]],
+            forKey: UserDefaultsKeys.accounts
         )
         let sut = AccountUUIDSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
-        XCTAssertEqual((accounts[0][kUUID] as! String), "foo")
-        XCTAssertEqual((accounts[1][kUUID] as! String), "bar")
+        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
+        XCTAssertNotNil(UUID(uuidString: (accounts[0][AKSIPAccountKeys.uuid] as! String)))
+        XCTAssertNotNil(UUID(uuidString: (accounts[1][AKSIPAccountKeys.uuid] as! String)))
     }
 
-    func testChangesExistingUUIDIfItIsEmpty() {
+    func testDoesNotChangeExistingUUID() {
         let settings = SettingsFake()
-        settings.set([[kAccountEnabled: true, kUUID: ""]], forKey: kAccounts)
+        settings.set(
+            [
+                [UserDefaultsKeys.accountEnabled: true, AKSIPAccountKeys.uuid: "foo"],
+                [UserDefaultsKeys.accountEnabled: false, AKSIPAccountKeys.uuid: "bar"]
+            ],
+            forKey: UserDefaultsKeys.accounts
+        )
         let sut = AccountUUIDSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: kAccounts) as! [[String: Any]]
-        XCTAssertNotNil(UUID(uuidString: (accounts[0][kUUID] as! String)))
+        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
+        XCTAssertEqual((accounts[0][AKSIPAccountKeys.uuid] as! String), "foo")
+        XCTAssertEqual((accounts[1][AKSIPAccountKeys.uuid] as! String), "bar")
+    }
+
+    func testChangesExistingUUIDIfItIsEmpty() {
+        let settings = SettingsFake()
+        settings.set(
+            [[UserDefaultsKeys.accountEnabled: true, AKSIPAccountKeys.uuid: ""]], forKey: UserDefaultsKeys.accounts
+        )
+        let sut = AccountUUIDSettingsMigration(settings: settings)
+
+        sut.execute()
+
+        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
+        XCTAssertNotNil(UUID(uuidString: (accounts[0][AKSIPAccountKeys.uuid] as! String)))
     }
 }

@@ -22,7 +22,6 @@
 @import UseCases;
 
 #import "AKSIPAccountDelegate.h"
-#import "AKSIPAccountKeys.h"
 
 @class AKSIPURIParser, PJSUACallInfo;
 
@@ -127,7 +126,8 @@ extern const NSInteger kAKSIPAccountRegistrationExpireTimeNotSpecified;
 
 @property(nonatomic) NSThread *thread;
 
-// Mandatory keys: kUUID, kFullName, kRealm, kUsername, kDomain.
+// Mandatory keys: AKSIPAccountKeys.uuid, AKSIPAccountKeys.fullName, AKSIPAccountKeys.realm, AKSIPAccountKeys.username,
+// AKSIPAccountKeys.domain.
 - (instancetype)initWithDictionary:(NSDictionary *)dict parser:(AKSIPURIParser *)parser NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 

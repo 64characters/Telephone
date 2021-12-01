@@ -23,5 +23,6 @@ NSString * const AKPreferencesControllerDidChangeAccountEnabledNotification = @"
 NSString * const AKPreferencesControllerDidSwapAccountsNotification = @"AKPreferencesControllerDidSwapAccounts";
 NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification = @"AKPreferencesControllerDidChangeNetworkSettings";
 
+NSString * const kAccountIndex = @"AccountIndex";
 NSString * const kSourceIndex = @"SourceIndex";
 NSString * const kDestinationIndex = @"DestinationIndex";

@@ -266,7 +266,7 @@ static NSString * const kRussian = @"ru";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
     [telephoneNumberFormatter setSplitsLastFourDigits:
-     [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+     [defaults boolForKey:UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits]];
     
     NSString *enteredCallDestinationString = [[destinationURI user] copy];
     
@@ -307,7 +307,7 @@ static NSString * const kRussian = @"ru";
         [aCallController setTitle:[destinationURI SIPAddress]];
         
     } else if (![enteredCallDestinationString ak_hasLetters]) {
-        if ([enteredCallDestinationString ak_isTelephoneNumber] && [defaults boolForKey:kFormatTelephoneNumbers]) {
+        if ([enteredCallDestinationString ak_isTelephoneNumber] && [defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]) {
             [aCallController setTitle:[telephoneNumberFormatter stringForObjectValue:enteredCallDestinationString]];
         } else {
             [aCallController setTitle:enteredCallDestinationString];
@@ -325,7 +325,7 @@ static NSString * const kRussian = @"ru";
             [aCallController setDisplayedName:[destinationURI SIPAddress]];
             
         } else if ([enteredCallDestinationString ak_isTelephoneNumber] &&
-                   [defaults boolForKey:kFormatTelephoneNumbers]) {
+                   [defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]) {
             
             [aCallController setDisplayedName:
              [telephoneNumberFormatter stringForObjectValue:enteredCallDestinationString]];
@@ -606,7 +606,7 @@ static NSString * const kRussian = @"ru";
         
         return;
         
-    } else if (![[NSUserDefaults standardUserDefaults] boolForKey:kCallWaiting]) {
+    } else if (![[NSUserDefaults standardUserDefaults] boolForKey:UserDefaultsKeys.callWaiting]) {
         // Reply with 486 Busy Here if needed.
         for (CallController *callController in [self callControllers]) {
             if ([callController isCallActive]) {
@@ -628,9 +628,9 @@ static NSString * const kRussian = @"ru";
     
     AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:kFormatTelephoneNumbers]];
+    [SIPURIFormatter setFormatsTelephoneNumbers:[defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]];
     [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
-     [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+     [defaults boolForKey:UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits]];
     
     // These variables will be changed during the Address Book search if the record is found.
     NSString *finalDisplayedName = [SIPURIFormatter stringForObjectValue:[aCall remoteURI]];
@@ -703,7 +703,7 @@ static NSString * const kRussian = @"ru";
             }
         }
         
-        NSUInteger significantPhoneNumberLength = [defaults integerForKey:kSignificantPhoneNumberLength];
+        NSUInteger significantPhoneNumberLength = [defaults integerForKey:UserDefaultsKeys.significantPhoneNumberLength];
         
         // Get the significant phone suffix if the phone number length is greater
         // than we defined.
@@ -808,12 +808,12 @@ static NSString * const kRussian = @"ru";
     NSString *callSource;
     AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
     [telephoneNumberFormatter setSplitsLastFourDigits:
-     [defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+     [defaults boolForKey:UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits]];
     if ([[aCallController phoneLabelFromAddressBook] length] > 0) {
         callSource = [aCallController phoneLabelFromAddressBook];
     } else if ([[[aCall remoteURI] user] length] > 0) {
         if ([[[aCall remoteURI] user] ak_isTelephoneNumber]) {
-            if ([defaults boolForKey:kFormatTelephoneNumbers]) {
+            if ([defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]) {
                 callSource = [telephoneNumberFormatter stringForObjectValue:[[aCall remoteURI] user]];
             } else {
                 callSource = [[aCall remoteURI] user];

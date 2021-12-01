@@ -41,7 +41,7 @@ private func addingIPVersionIfNeeded(to dict: [String: Any]) -> [String: Any] {
 }
 
 private func shouldAddIPVersion(to dict: [String: Any]) -> Bool {
-    if let version = dict[kIPVersion] as? String, !version.isEmpty {
+    if let version = dict[AKSIPAccountKeys.ipVersion] as? String, !version.isEmpty {
         return false
     } else {
         return true
@@ -50,16 +50,16 @@ private func shouldAddIPVersion(to dict: [String: Any]) -> Bool {
 
 private func addingIPVersion(to dict: [String: Any]) -> [String: Any] {
     var result = dict
-    if let useIPv6 = result[kUseIPv6Only] as? Bool {
-        result[kIPVersion] = useIPv6 ? kIPVersion6 : kIPVersion4
+    if let useIPv6 = result[AKSIPAccountKeys.useIPv6Only] as? Bool {
+        result[AKSIPAccountKeys.ipVersion] = useIPv6 ? AKSIPAccountKeys.ipVersion6 : AKSIPAccountKeys.ipVersion4
     } else {
-        result[kIPVersion] = kIPVersion4
+        result[AKSIPAccountKeys.ipVersion] = AKSIPAccountKeys.ipVersion4
     }
     return result
 }
 
 private func removingUseIPv6Only(from dict: [String: Any]) -> [String: Any] {
     var result = dict
-    result[kUseIPv6Only] = nil
+    result[AKSIPAccountKeys.useIPv6Only] = nil
     return result
 }

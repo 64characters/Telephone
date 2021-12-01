@@ -20,7 +20,8 @@
 
 #import "AppController.h"
 #import "PreferencesController.h"
-#import "UserDefaultsKeys.h"
+
+#import "Telephone-Swift.h"
 
 @implementation NetworkPreferencesViewController
 
@@ -48,25 +49,25 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSInteger transportPort = [defaults integerForKey:kTransportPort];
+    NSInteger transportPort = [defaults integerForKey:UserDefaultsKeys.transportPort];
     if (transportPort > 0) {
         [[self transportPortField] setStringValue:[NSString stringWithFormat:@"%ld", (long)transportPort]];
     }
     
-    [[self STUNServerHostField] setStringValue:[defaults stringForKey:kSTUNServerHost]];
+    [[self STUNServerHostField] setStringValue:[defaults stringForKey:UserDefaultsKeys.stunServerHost]];
     
-    NSInteger STUNServerPort = [defaults integerForKey:kSTUNServerPort];
+    NSInteger STUNServerPort = [defaults integerForKey:UserDefaultsKeys.stunServerPort];
     if (STUNServerPort > 0) {
         [[self STUNServerPortField] setStringValue:[NSString stringWithFormat:@"%ld", (long)STUNServerPort]];
     }
     
-    [[self useICECheckBox] setState:[defaults integerForKey:kUseICE]];
+    [[self useICECheckBox] setState:[defaults integerForKey:UserDefaultsKeys.useICE]];
     
-    [[self useDNSSRVCheckBox] setState:[defaults integerForKey:kUseDNSSRV]];
+    [[self useDNSSRVCheckBox] setState:[defaults integerForKey:UserDefaultsKeys.useDNSSRV]];
     
-    [[self outboundProxyHostField] setStringValue:[defaults stringForKey:kOutboundProxyHost]];
+    [[self outboundProxyHostField] setStringValue:[defaults stringForKey:UserDefaultsKeys.outboundProxyHost]];
     
-    NSInteger outboundProxyPort = [defaults integerForKey:kOutboundProxyPort];
+    NSInteger outboundProxyPort = [defaults integerForKey:UserDefaultsKeys.outboundProxyPort];
     if (outboundProxyPort > 0) {
         [[self outboundProxyPortField] setStringValue:[NSString stringWithFormat:@"%ld", (long)outboundProxyPort]];
     }
@@ -104,13 +105,13 @@
         = [[[self outboundProxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
     NSInteger newOutboundProxyPort = [[self outboundProxyPortField] integerValue];
     
-    if ([defaults integerForKey:kTransportPort] != newTransportPort ||
-        ![[defaults stringForKey:kSTUNServerHost] isEqualToString:newSTUNServerHost] ||
-        [defaults integerForKey:kSTUNServerPort] != newSTUNServerPort ||
-        [defaults boolForKey:kUseICE] != newUseICE ||
-        [defaults boolForKey:kUseDNSSRV] != newUseDNSSRV ||
-        ![[defaults stringForKey:kOutboundProxyHost] isEqualToString:newOutboundProxyHost] ||
-        [defaults integerForKey:kOutboundProxyPort] != newOutboundProxyPort) {
+    if ([defaults integerForKey:UserDefaultsKeys.transportPort] != newTransportPort ||
+        ![[defaults stringForKey:UserDefaultsKeys.stunServerHost] isEqualToString:newSTUNServerHost] ||
+        [defaults integerForKey:UserDefaultsKeys.stunServerPort] != newSTUNServerPort ||
+        [defaults boolForKey:UserDefaultsKeys.useICE] != newUseICE ||
+        [defaults boolForKey:UserDefaultsKeys.useDNSSRV] != newUseDNSSRV ||
+        ![[defaults stringForKey:UserDefaultsKeys.outboundProxyHost] isEqualToString:newOutboundProxyHost] ||
+        [defaults integerForKey:UserDefaultsKeys.outboundProxyPort] != newOutboundProxyPort) {
         
         // Explicitly select Network toolbar item.
         [[[self preferencesController] toolbar] setSelectedItemIdentifier:
@@ -150,53 +151,53 @@
     if (returnCode == NSAlertFirstButtonReturn) {
         [[self transportPortField] setPlaceholderString:[[self transportPortField] stringValue]];
         
-        [defaults setInteger:[[self transportPortField] integerValue] forKey:kTransportPort];
+        [defaults setInteger:[[self transportPortField] integerValue] forKey:UserDefaultsKeys.transportPort];
         
         NSString *STUNServerHost = [[[self STUNServerHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
-        [defaults setObject:STUNServerHost forKey:kSTUNServerHost];
+        [defaults setObject:STUNServerHost forKey:UserDefaultsKeys.stunServerHost];
         
-        [defaults setInteger:[[self STUNServerPortField] integerValue] forKey:kSTUNServerPort];
+        [defaults setInteger:[[self STUNServerPortField] integerValue] forKey:UserDefaultsKeys.stunServerPort];
         
         BOOL useICEFlag = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
-        [defaults setBool:useICEFlag forKey:kUseICE];
+        [defaults setBool:useICEFlag forKey:UserDefaultsKeys.useICE];
         
         BOOL newUseDNSSRVFlag = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
-        [defaults setBool:newUseDNSSRVFlag forKey:kUseDNSSRV];
+        [defaults setBool:newUseDNSSRVFlag forKey:UserDefaultsKeys.useDNSSRV];
         
         NSString *outboundProxyHost
             = [[[self outboundProxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
-        [defaults setObject:outboundProxyHost forKey:kOutboundProxyHost];
+        [defaults setObject:outboundProxyHost forKey:UserDefaultsKeys.outboundProxyHost];
         
-        [defaults setInteger:[[self outboundProxyPortField] integerValue] forKey:kOutboundProxyPort];
+        [defaults setInteger:[[self outboundProxyPortField] integerValue] forKey:UserDefaultsKeys.outboundProxyPort];
         
         [[NSNotificationCenter defaultCenter]
          postNotificationName:AKPreferencesControllerDidChangeNetworkSettingsNotification
                        object:[self preferencesController]];
         
     } else if (returnCode == NSAlertThirdButtonReturn) {
-        NSInteger transportPort = [defaults integerForKey:kTransportPort];
+        NSInteger transportPort = [defaults integerForKey:UserDefaultsKeys.transportPort];
         if (transportPort == 0) {
             [[self transportPortField] setStringValue:@""];
         } else {
             [[self transportPortField] setStringValue:[NSString stringWithFormat:@"%ld", (long)transportPort]];
         }
         
-        [[self STUNServerHostField] setStringValue:[defaults stringForKey:kSTUNServerHost]];
+        [[self STUNServerHostField] setStringValue:[defaults stringForKey:UserDefaultsKeys.stunServerHost]];
         
-        NSInteger STUNServerPort = [defaults integerForKey:kSTUNServerPort];
+        NSInteger STUNServerPort = [defaults integerForKey:UserDefaultsKeys.stunServerPort];
         if (STUNServerPort == 0) {
             [[self STUNServerPortField] setStringValue:@""];
         } else {
             [[self STUNServerPortField] setStringValue:[NSString stringWithFormat:@"%ld", (long)STUNServerPort]];
         }
         
-        [[self useICECheckBox] setState:[defaults integerForKey:kUseICE]];
+        [[self useICECheckBox] setState:[defaults integerForKey:UserDefaultsKeys.useICE]];
         
-        [[self useDNSSRVCheckBox] setState:[defaults integerForKey:kUseDNSSRV]];
+        [[self useDNSSRVCheckBox] setState:[defaults integerForKey:UserDefaultsKeys.useDNSSRV]];
         
-        [[self outboundProxyHostField] setStringValue:[defaults stringForKey:kOutboundProxyHost]];
+        [[self outboundProxyHostField] setStringValue:[defaults stringForKey:UserDefaultsKeys.outboundProxyHost]];
         
-        NSInteger outboundProxyPort = [defaults integerForKey:kOutboundProxyPort];
+        NSInteger outboundProxyPort = [defaults integerForKey:UserDefaultsKeys.outboundProxyPort];
         if (outboundProxyPort == 0) {
             [[self outboundProxyPortField] setStringValue:@""];
         } else {

@@ -35,7 +35,8 @@
 #import "EndedCallViewController.h"
 #import "IncomingCallViewController.h"
 #import "SIPResponseLocalization.h"
-#import "UserDefaultsKeys.h"
+
+#import "Telephone-Swift.h"
 
 
 // Window auto-close delay.
@@ -234,7 +235,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [self removeUserNotification];
 
     // Optionally close call window.
-    if ([self.defaults boolForKey:kAutoCloseCallWindow] && ![self isKindOfClass:[CallTransferController class]]) {
+    if ([self.defaults boolForKey:UserDefaultsKeys.autoCloseCallWindow] && ![self isKindOfClass:[CallTransferController class]]) {
         [self performSelector:@selector(closeCallWindow) withObject:nil afterDelay:kCallWindowAutoCloseTime];
     }
 }
@@ -408,16 +409,16 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
         notificationTitle = [self nameFromAddressBook];
     } else if ([[self enteredCallDestination] length] > 0) {
         AKTelephoneNumberFormatter *telephoneNumberFormatter = [[AKTelephoneNumberFormatter alloc] init];
-        if ([[self enteredCallDestination] ak_isTelephoneNumber] && [self.defaults boolForKey:kFormatTelephoneNumbers]) {
+        if ([[self enteredCallDestination] ak_isTelephoneNumber] && [self.defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]) {
             notificationTitle = [telephoneNumberFormatter stringForObjectValue:[self enteredCallDestination]];
         } else {
             notificationTitle = [self enteredCallDestination];
         }
     } else {
         AKSIPURIFormatter *SIPURIFormatter = [[AKSIPURIFormatter alloc] init];
-        [SIPURIFormatter setFormatsTelephoneNumbers:[self.defaults boolForKey:kFormatTelephoneNumbers]];
+        [SIPURIFormatter setFormatsTelephoneNumbers:[self.defaults boolForKey:UserDefaultsKeys.formatTelephoneNumbers]];
         [SIPURIFormatter setTelephoneNumberFormatterSplitsLastFourDigits:
-         [self.defaults boolForKey:kTelephoneNumberFormatterSplitsLastFourDigits]];
+         [self.defaults boolForKey:UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits]];
         notificationTitle = [SIPURIFormatter stringForObjectValue:[[self call] remoteURI]];
     }
     NSUserNotification *userNotification = [[NSUserNotification alloc] init];
@@ -544,8 +545,8 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
     [self removeOrShowUserNotificationOnDisconnectIfNeeded];
     
     // Optionally close disconnected call window.
-    BOOL shouldCloseWindow = [self.defaults boolForKey:kAutoCloseCallWindow];
-    BOOL shouldCloseMissedWindow = [self.defaults boolForKey:kAutoCloseMissedCallWindow];
+    BOOL shouldCloseWindow = [self.defaults boolForKey:UserDefaultsKeys.autoCloseCallWindow];
+    BOOL shouldCloseMissedWindow = [self.defaults boolForKey:UserDefaultsKeys.autoCloseMissedCallWindow];
     BOOL missed = [self isCallUnhandled];
     
     if (![self isKindOfClass:[CallTransferController class]]) {
@@ -588,19 +589,19 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 #pragma mark - Window floating
 
 - (void)updateWindowFloating {
-    self.window.level = [self.defaults boolForKey:kKeepCallWindowOnTop] ? NSFloatingWindowLevel : NSNormalWindowLevel;
+    self.window.level = [self.defaults boolForKey:UserDefaultsKeys.keepCallWindowOnTop] ? NSFloatingWindowLevel : NSNormalWindowLevel;
 }
 
 - (void)subscribeToWindowFloatingChanges {
-    [self.defaults addObserver:self forKeyPath:kKeepCallWindowOnTop options:0 context:NULL];
+    [self.defaults addObserver:self forKeyPath:UserDefaultsKeys.keepCallWindowOnTop options:0 context:NULL];
 }
 
 - (void)unsubscribeFromWindowFloatingChanges {
-    [self.defaults removeObserver:self forKeyPath:kKeepCallWindowOnTop];
+    [self.defaults removeObserver:self forKeyPath:UserDefaultsKeys.keepCallWindowOnTop];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (object == self.defaults && [keyPath isEqualToString:kKeepCallWindowOnTop]) {
+    if (object == self.defaults && [keyPath isEqualToString:UserDefaultsKeys.keepCallWindowOnTop]) {
         [self updateWindowFloating];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
