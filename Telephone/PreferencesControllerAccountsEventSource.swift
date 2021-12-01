@@ -17,6 +17,7 @@
 //
 
 import Foundation
+import UseCases
 
 final class PreferencesControllerAccountsEventSource {
     private let center: NotificationCenter

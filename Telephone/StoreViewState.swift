@@ -52,6 +52,8 @@
 // Refreshing               N/A                             N/A                      N/A
 
 
+import UseCases
+
 class StoreViewState {
     func shouldReloadData(machine: StoreViewStateMachine) {
         print("\(#function) is not supported for \(self)")

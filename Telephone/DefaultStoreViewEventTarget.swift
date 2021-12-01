@@ -17,6 +17,7 @@
 //
 
 import Foundation
+import UseCases
 
 final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()

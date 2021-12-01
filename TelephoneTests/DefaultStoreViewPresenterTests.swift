@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
 import XCTest
 
 final class DefaultStoreViewPresenterTests: XCTestCase {

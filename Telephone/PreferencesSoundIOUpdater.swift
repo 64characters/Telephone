@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
+
 final class PreferencesSoundIOUpdater {
     private let preferences: SoundIOPreferences
 

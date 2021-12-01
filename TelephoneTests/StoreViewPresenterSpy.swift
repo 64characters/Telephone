@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
+
 final class StoreViewPresenterSpy {
     private(set) var didCallShowPurchaseCheckProgress = false
 
