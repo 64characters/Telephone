@@ -28,7 +28,6 @@ class UserDefaultsKeys: NSObject {
     static let consoleLogLevel = "ConsoleLogLevel"
     static let voiceActivityDetection = "VoiceActivityDetection"
     static let transportPort = "TransportPort"
-    static let ringingSound = "RingingSound"
     static let formatTelephoneNumbers = "FormatTelephoneNumbers"
     static let telephoneNumberFormatterSplitsLastFourDigits = "TelephoneNumberFormatterSplitsLastFourDigits"
     static let outboundProxyHost = "OutboundProxyHost"
@@ -48,5 +47,6 @@ class UserDefaultsKeys: NSObject {
     static let substitutePlusCharacter = "SubstitutePlusCharacter"
     static let plusCharacterSubstitutionString = "PlusCharacterSubstitutionString"
 
+    static let ringingSound = SettingsKeys.ringingSound
     static let significantPhoneNumberLength = SettingsKeys.significantPhoneNumberLength
 }
