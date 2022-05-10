@@ -29,11 +29,4 @@ final class SimpleContactMatchingSettingsTests: XCTestCase {
 
         XCTAssertEqual(sut.significantPhoneNumberLength, length)
     }
-
-    func testRegistersDefaultLengthWithValueNine() {
-        let settings = SettingsFake()
-        _ = SimpleContactMatchingSettings(settings: settings)
-
-        XCTAssertEqual(settings.registeredDefaults[SettingsKeys.significantPhoneNumberLength] as! Int, 9)
-    }
 }

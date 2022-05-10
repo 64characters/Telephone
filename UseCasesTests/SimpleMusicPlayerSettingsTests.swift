@@ -37,11 +37,4 @@ final class SimpleMusicPlayerSettingsTests: XCTestCase {
 
         XCTAssertTrue(settings.bool(forKey: SettingsKeys.pauseITunes))
     }
-
-    func testRegistersDefaults() {
-        let settings = SettingsFake()
-        _ = SimpleMusicPlayerSettings(settings: settings)
-
-        XCTAssertTrue(settings.registeredDefaults[SettingsKeys.pauseITunes] as! Bool)
-    }
 }

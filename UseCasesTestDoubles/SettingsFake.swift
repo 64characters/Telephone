@@ -69,6 +69,10 @@ extension SettingsFake: KeyValueSettings {
         return dictionary[key] as? [Any]
     }
 
+    public func exists(forKey key: String) -> Bool {
+        return dictionary[key] != nil
+    }
+
     @objc public func register(defaults: [String : Any]) {
         for (key, value) in defaults {
             registered[key] = value

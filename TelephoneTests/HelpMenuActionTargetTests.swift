@@ -18,6 +18,7 @@
 
 import Foundation
 import XCTest
+import UseCasesTestDoubles
 
 final class HelpMenuActionTargetTests: XCTestCase {
     func testShowsLogFileInFileBrowserOnShowLogFile() {
@@ -28,7 +29,9 @@ final class HelpMenuActionTargetTests: XCTestCase {
             homepageURL: URL(string: "http://homepage.local")!,
             faqURL: URL(string: "http://faq.local")!,
             fileBrowser: browser,
-            webBrowser: WebBrowserSpy()
+            webBrowser: WebBrowserSpy(),
+            clipboard: ClipboardSpy(),
+            settings: makeSettingsDummy()
         )
 
         sut.showLogFile()
@@ -44,7 +47,9 @@ final class HelpMenuActionTargetTests: XCTestCase {
             homepageURL: url,
             faqURL: URL(string: "http://faq.local")!,
             fileBrowser: FileBrowserSpy(),
-            webBrowser: browser
+            webBrowser: browser,
+            clipboard: ClipboardSpy(),
+            settings: makeSettingsDummy()
         )
 
         sut.openHomepage()
@@ -60,11 +65,38 @@ final class HelpMenuActionTargetTests: XCTestCase {
             homepageURL: URL(string: "http://homepage.local")!,
             faqURL: url,
             fileBrowser: FileBrowserSpy(),
-            webBrowser: browser
+            webBrowser: browser,
+            clipboard: ClipboardSpy(),
+            settings: makeSettingsDummy()
         )
 
         sut.openFAQ()
 
         XCTAssertEqual(browser.invokedURL, url)
     }
+
+    func testCopiesSettingsToClipboardOnCopySettings() {
+        let clipboard = ClipboardSpy()
+        let settings = SettingsFake()
+        settings.set(5, forKey: UserDefaultsKeys.settingsVersion)
+        settings.set(true, forKey: UserDefaultsKeys.useICE)
+        let appSettings = AppSettings(settings: settings, defaults: [:], accountDefaults: [:])
+        let sut = HelpMenuActionTarget(
+            logFileURL: LogFileURL(locations: ApplicationDataLocationsFake(), filename: "any"),
+            homepageURL: URL(string: "http://homepage.local")!,
+            faqURL: URL(string: "http://faq.local")!,
+            fileBrowser: FileBrowserSpy(),
+            webBrowser: WebBrowserSpy(),
+            clipboard: clipboard,
+            settings: appSettings
+        )
+
+        sut.copySettings()
+
+        XCTAssertEqual(clipboard.invokedText, appSettings.stringValue)
+    }
+}
+
+private func makeSettingsDummy() -> AppSettings {
+    AppSettings(settings: SettingsFake(), defaults: [:], accountDefaults: [:])
 }

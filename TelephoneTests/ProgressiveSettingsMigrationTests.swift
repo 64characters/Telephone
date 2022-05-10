@@ -175,6 +175,7 @@ extension ProgressiveSettingsMigrationTests: KeyValueSettings {
     func integer(forKey key: String) -> Int { settings.integer(forKey: key) }
     func set(_ array: [Any], forKey key: String) { settings.set(array, forKey: key) }
     func array(forKey key: String) -> [Any]? { settings.array(forKey: key) }
+    func exists(forKey key: String) -> Bool { settings.exists(forKey: key) }
     func register(defaults: [String : Any]) { settings.register(defaults: defaults) }
 }
 

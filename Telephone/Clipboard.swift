@@ -1,5 +1,5 @@
 //
-//  SimpleMusicPlayerSettings.swift
+//  Clipboard.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,21 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-public final class SimpleMusicPlayerSettings {
-    private let settings: KeyValueSettings
+import Foundation
 
-    public init(settings: KeyValueSettings) {
-        self.settings = settings
-    }
-}
-
-extension SimpleMusicPlayerSettings: MusicPlayerSettings {
-    public var shouldPause: Bool {
-        get {
-            return settings.bool(forKey: SettingsKeys.pauseITunes)
-        }
-        set {
-            settings.set(newValue, forKey: SettingsKeys.pauseITunes)
-        }
-    }
+protocol Clipboard {
+    func copy(_ text: String)
 }

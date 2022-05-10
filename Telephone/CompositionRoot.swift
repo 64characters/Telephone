@@ -34,6 +34,7 @@ final class CompositionRoot: NSObject {
     @objc let callHistoryViewEventTargetFactory: AsyncCallHistoryViewEventTargetFactory
     @objc let callHistoryPurchaseCheckUseCaseFactory: AsyncCallHistoryPurchaseCheckUseCaseFactory
     @objc let logFileURL: LogFileURL
+    @objc let defaultAppSettings: DefaultAppSettings
     @objc let helpMenuActionTarget: HelpMenuActionTarget
     @objc let accountControllers: AccountControllers
     @objc let nameServers: NameServers
@@ -280,12 +281,22 @@ final class CompositionRoot: NSObject {
 
         logFileURL = LogFileURL(locations: applicationDataLocations, filename: "Telephone.log")
 
+        defaultAppSettings = DefaultAppSettings(
+            settings: defaults, localization: Bundle.main.preferredLocalizations.first ?? ""
+        )
+
         helpMenuActionTarget = HelpMenuActionTarget(
             logFileURL: logFileURL,
             homepageURL: URL(string: "https://www.64characters.com/telephone/")!,
             faqURL: URL(string: "https://www.64characters.com/telephone/faq/")!,
             fileBrowser: NSWorkspace.shared,
-            webBrowser: NSWorkspace.shared
+            webBrowser: NSWorkspace.shared,
+            clipboard: NSPasteboard.general,
+            settings: AppSettings(
+                settings: defaults,
+                defaults: defaultAppSettings.defaults,
+                accountDefaults: DefaultAppSettings.accountDefaults
+            )
         )
 
         accountControllers = AccountControllers()

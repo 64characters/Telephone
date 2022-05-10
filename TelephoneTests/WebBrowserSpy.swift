@@ -1,6 +1,6 @@
 //
 //  WebBrowserSpy.swift
-//  TelephoneTests
+//  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
 //  Copyright © 2016-2021 64 Characters

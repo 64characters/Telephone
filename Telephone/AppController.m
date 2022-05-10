@@ -84,55 +84,6 @@ NS_ASSUME_NONNULL_END
     return _accountSetupController;
 }
 
-+ (void)initialize {
-    // Register defaults.
-    static BOOL initialized = NO;
-    
-    if (!initialized) {
-        NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
-        
-        defaultsDict[UserDefaultsKeys.useDNSSRV] = @NO;
-        defaultsDict[UserDefaultsKeys.outboundProxyHost] = @"";
-        defaultsDict[UserDefaultsKeys.outboundProxyPort] = @0;
-        defaultsDict[UserDefaultsKeys.stunServerHost] = @"";
-        defaultsDict[UserDefaultsKeys.stunServerPort] = @0;
-        defaultsDict[UserDefaultsKeys.voiceActivityDetection] = @NO;
-        defaultsDict[UserDefaultsKeys.useICE] = @NO;
-        defaultsDict[UserDefaultsKeys.useQoS] = @YES;
-        defaultsDict[UserDefaultsKeys.logLevel] = @3;
-        defaultsDict[UserDefaultsKeys.consoleLogLevel] = @0;
-        defaultsDict[UserDefaultsKeys.transportPort] = @0;
-        defaultsDict[UserDefaultsKeys.ringingSound] = @"Purr";
-        defaultsDict[UserDefaultsKeys.significantPhoneNumberLength] = @9;
-        defaultsDict[UserDefaultsKeys.autoCloseCallWindow] = @YES;
-        defaultsDict[UserDefaultsKeys.autoCloseMissedCallWindow] = @YES;
-        defaultsDict[UserDefaultsKeys.keepCallWindowOnTop] = @YES;
-        defaultsDict[UserDefaultsKeys.callWaiting] = @YES;
-        defaultsDict[UserDefaultsKeys.useG711Only] = @NO;
-        defaultsDict[UserDefaultsKeys.lockCodec] = @NO;
-
-        NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-        
-        // Do not format phone numbers in German localization by default.
-        if ([preferredLocalization isEqualToString:@"de"]) {
-            defaultsDict[UserDefaultsKeys.formatTelephoneNumbers] = @NO;
-        } else {
-            defaultsDict[UserDefaultsKeys.formatTelephoneNumbers] = @YES;
-        }
-        
-        // Split last four digits in Russian localization by default.
-        if ([preferredLocalization isEqualToString:@"ru"]) {
-            defaultsDict[UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits] = @YES;
-        } else {
-            defaultsDict[UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits] = @NO;
-        }
-        
-        [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
-        
-        initialized = YES;
-    }
-}
-
 - (instancetype)init {
     self = [super init];
     if (self == nil) {
@@ -559,6 +510,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSWindow.allowsAutomaticWindowTabbing = NO;
+    [self.compositionRoot.defaultAppSettings registerDefaults];
     [self.compositionRoot.settingsMigration execute];
     self.helpMenuActionRedirect.target = self.compositionRoot.helpMenuActionTarget;
     [self configureUserAgent];

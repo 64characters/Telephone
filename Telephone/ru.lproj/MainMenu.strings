@@ -134,6 +134,9 @@
 /* Class = "NSMenuItem"; title = "Open FAQ…"; ObjectID = "OPj-AU-bQh"; */
 "OPj-AU-bQh.title" = "Открыть FAQ…";
 
+/* Class = "NSMenuItem"; title = "Copy Settings"; ObjectID = "koB-sa-kzQ"; */
+"koB-sa-kzQ.title" = "Копировать настройки";
+
 /* Class = "NSMenuItem"; title = "Telephone Pro…"; ObjectID = "rMu-ch-wsu"; */
 "rMu-ch-wsu.title" = "Расширенные возможности…";
 

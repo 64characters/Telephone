@@ -21,7 +21,6 @@ public final class SimpleContactMatchingSettings {
 
     public init(settings: KeyValueSettings) {
         self.settings = settings
-        settings.register(defaults: [SettingsKeys.significantPhoneNumberLength: 9])
     }
 }
 
