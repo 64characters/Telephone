@@ -19,7 +19,6 @@
 #import "SoundPreferencesViewController.h"
 
 #import "AppController.h"
-#import "UserDefaultsKeys.h"
 
 #import "Telephone-Swift.h"
 
@@ -99,7 +98,7 @@ NS_ASSUME_NONNULL_END
     }
     NSMenu *soundsMenu = MenuForSoundsAtPaths(libraryPaths);
     [[self ringtonePopUp] setMenu:soundsMenu];
-    NSString *savedSound = [[NSUserDefaults standardUserDefaults] stringForKey:kRingingSound];
+    NSString *savedSound = [[NSUserDefaults standardUserDefaults] stringForKey:UserDefaultsKeys.ringingSound];
     if ([soundsMenu itemWithTitle:savedSound] != nil) {
         [[self ringtonePopUp] selectItemWithTitle:savedSound];
     }

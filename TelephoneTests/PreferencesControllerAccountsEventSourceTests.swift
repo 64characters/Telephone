@@ -26,7 +26,13 @@ final class PreferencesControllerAccountsEventSourceTests: XCTestCase {
         let uuid = "uuid-123"
         withExtendedLifetime(PreferencesControllerAccountsEventSource(center: center, target: target)) {
 
-            center.post(Notification(name: .AKPreferencesControllerDidRemoveAccount, object: nil, userInfo: [kUUID: uuid]))
+            center.post(
+                Notification(
+                    name: .AKPreferencesControllerDidRemoveAccount,
+                    object: nil,
+                    userInfo: [AKSIPAccountKeys.uuid: uuid]
+                )
+            )
 
             XCTAssertTrue(target.didCallDidRemoveAccount)
             XCTAssertEqual(target.invokedUUID, uuid)

@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
 import UseCasesTestDoubles
 import XCTest
 
@@ -47,7 +48,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withAccountUUIDMigration: migration)
         let settings = SettingsFake()
-        settings.set(1, forKey: kSettingsVersion)
+        settings.set(1, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -60,7 +61,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withAccountUUIDMigration: migration)
         let settings = SettingsFake()
-        settings.set(2, forKey: kSettingsVersion)
+        settings.set(2, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -75,7 +76,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
         let settings = SettingsFake()
-        settings.set(1, forKey: kSettingsVersion)
+        settings.set(1, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -88,7 +89,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
         let settings = SettingsFake()
-        settings.set(2, forKey: kSettingsVersion)
+        settings.set(2, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -101,7 +102,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
         let settings = SettingsFake()
-        settings.set(3, forKey: kSettingsVersion)
+        settings.set(3, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -116,7 +117,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
         let settings = SettingsFake()
-        settings.set(1, forKey: kSettingsVersion)
+        settings.set(1, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -129,7 +130,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
         let settings = SettingsFake()
-        settings.set(2, forKey: kSettingsVersion)
+        settings.set(2, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -142,7 +143,7 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
         let settings = SettingsFake()
-        settings.set(3, forKey: kSettingsVersion)
+        settings.set(3, forKey: UserDefaultsKeys.settingsVersion)
         let sut = ProgressiveSettingsMigration(settings: settings, factory: factory)
 
         sut.execute()
@@ -174,6 +175,7 @@ extension ProgressiveSettingsMigrationTests: KeyValueSettings {
     func integer(forKey key: String) -> Int { settings.integer(forKey: key) }
     func set(_ array: [Any], forKey key: String) { settings.set(array, forKey: key) }
     func array(forKey key: String) -> [Any]? { settings.array(forKey: key) }
+    func exists(forKey key: String) -> Bool { settings.exists(forKey: key) }
     func register(defaults: [String : Any]) { settings.register(defaults: defaults) }
 }
 

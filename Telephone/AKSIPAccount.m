@@ -225,11 +225,11 @@ NS_ASSUME_NONNULL_END
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict parser:(AKSIPURIParser *)parser {
-    NSParameterAssert([dict[kUUID] length] > 0);
-    NSParameterAssert(dict[kFullName]);
-    NSParameterAssert(dict[kRealm]);
-    NSParameterAssert(dict[kUsername]);
-    NSParameterAssert(dict[kDomain]);
+    NSParameterAssert([dict[AKSIPAccountKeys.uuid] length] > 0);
+    NSParameterAssert(dict[AKSIPAccountKeys.fullName]);
+    NSParameterAssert(dict[AKSIPAccountKeys.realm]);
+    NSParameterAssert(dict[AKSIPAccountKeys.username]);
+    NSParameterAssert(dict[AKSIPAccountKeys.domain]);
     
     self = [super init];
     if (self == nil) {
@@ -237,37 +237,42 @@ NS_ASSUME_NONNULL_END
     }
 
     SIPAddress *address = nil;
-    if ([dict[kSIPAddress] length] > 0) {
-        address = [[SIPAddress alloc] initWithString:dict[kSIPAddress]];
+    if ([dict[AKSIPAccountKeys.sipAddress] length] > 0) {
+        address = [[SIPAddress alloc] initWithString:dict[AKSIPAccountKeys.sipAddress]];
     } else {
-        address = [[SIPAddress alloc] initWithUser:dict[kUsername] host:dict[kDomain]];
+        address = [[SIPAddress alloc] initWithUser:dict[AKSIPAccountKeys.username] host:dict[AKSIPAccountKeys.domain]];
     }
 
-    _uuid = [dict[kUUID] copy];
-    if ([dict[kTransport] isEqualToString:kTransportTCP]) {
+    _uuid = [dict[AKSIPAccountKeys.uuid] copy];
+    if ([dict[AKSIPAccountKeys.transport] isEqualToString:AKSIPAccountKeys.transportTCP]) {
         _transport = TransportTCP;
-    } else if ([dict[kTransport] isEqualToString:kTransportTLS]) {
+    } else if ([dict[AKSIPAccountKeys.transport] isEqualToString:AKSIPAccountKeys.transportTLS]) {
         _transport = TransportTLS;
     } else {
         _transport = TransportUDP;
     }
-    _uri = [[URI alloc] initWithUser:address.user host:address.host displayName:dict[kFullName] transport:_transport];
+    _uri = [[URI alloc] initWithUser:address.user
+                                host:address.host
+                         displayName:dict[AKSIPAccountKeys.fullName]
+                           transport:_transport];
 
-    _fullName = [dict[kFullName] copy];
+    _fullName = [dict[AKSIPAccountKeys.fullName] copy];
     _SIPAddress = address.stringValue;
-    _registrar = [[ServiceAddress alloc] initWithString:([dict[kRegistrar] length] > 0 ? dict[kRegistrar] : dict[kDomain])];
-    _realm = [dict[kRealm] copy];
-    _username = [dict[kUsername] copy];
-    _domain = [dict[kDomain] copy];
-    if ([dict[kUseProxy] boolValue]) {
-        _proxyHost = [dict[kProxyHost] copy];
-        self.proxyPort = [dict[kProxyPort] integerValue];
+    _registrar = [[ServiceAddress alloc] initWithString:([dict[AKSIPAccountKeys.registrar] length] > 0 ?
+                                                         dict[AKSIPAccountKeys.registrar] :
+                                                         dict[AKSIPAccountKeys.domain])];
+    _realm = [dict[AKSIPAccountKeys.realm] copy];
+    _username = [dict[AKSIPAccountKeys.username] copy];
+    _domain = [dict[AKSIPAccountKeys.domain] copy];
+    if ([dict[AKSIPAccountKeys.useProxy] boolValue]) {
+        _proxyHost = [dict[AKSIPAccountKeys.proxyHost] copy];
+        self.proxyPort = [dict[AKSIPAccountKeys.proxyPort] integerValue];
     }
-    self.reregistrationTime = [dict[kReregistrationTime] integerValue];
-    _usesIPv6 = [dict[kIPVersion] isEqualToString:kIPVersion6];
-    _updatesContactHeader = [dict[kUpdateContactHeader] boolValue];
-    _updatesViaHeader = [dict[kUpdateViaHeader] boolValue];
-    _updatesSDP = [dict[kUpdateSDP] boolValue];
+    self.reregistrationTime = [dict[AKSIPAccountKeys.reregistrationTime] integerValue];
+    _usesIPv6 = [dict[AKSIPAccountKeys.ipVersion] isEqualToString:AKSIPAccountKeys.ipVersion6];
+    _updatesContactHeader = [dict[AKSIPAccountKeys.updateContactHeader] boolValue];
+    _updatesViaHeader = [dict[AKSIPAccountKeys.updateViaHeader] boolValue];
+    _updatesSDP = [dict[AKSIPAccountKeys.updateSDP] boolValue];
 
     _identifier = kAKSIPUserAgentInvalidIdentifier;
     

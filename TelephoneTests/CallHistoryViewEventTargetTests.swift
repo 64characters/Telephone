@@ -16,8 +16,9 @@
 //  GNU General Public License for more details.
 //
 
-import XCTest
+import UseCases
 import UseCasesTestDoubles
+import XCTest
 
 final class CallHistoryViewEventTargetTests: XCTestCase {
 

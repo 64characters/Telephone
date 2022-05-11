@@ -18,7 +18,7 @@
 
 import Domain
 import DomainTestDoubles
-@testable import UseCases
+import UseCases
 import UseCasesTestDoubles
 import XCTest
 

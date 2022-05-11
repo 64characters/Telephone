@@ -20,6 +20,6 @@ struct SettingsAccount {
     let isEnabled: Bool
 
     init(dict: [String: Any]) {
-        isEnabled = dict[kAccountEnabled] as? Bool ?? false
+        isEnabled = dict[UserDefaultsKeys.accountEnabled] as? Bool ?? false
     }
 }

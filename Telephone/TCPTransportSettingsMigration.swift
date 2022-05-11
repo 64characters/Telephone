@@ -33,10 +33,10 @@ extension TCPTransportSettingsMigration: SettingsMigration {
 }
 
 private func settingTransportToTCPAndRemovingProxyParameterIfNeeded(in dict: [String: Any]) -> [String: Any] {
-    guard let proxy = dict[kProxyHost] as? String, proxy.contains(tcpTransportParameter) else { return dict }
+    guard let proxy = dict[AKSIPAccountKeys.proxyHost] as? String, proxy.contains(tcpTransportParameter) else { return dict }
     var result = dict
-    result[kTransport] = kTransportTCP
-    result[kProxyHost] = proxy.replacingOccurrences(of: tcpTransportParameter, with: "")
+    result[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportTCP
+    result[AKSIPAccountKeys.proxyHost] = proxy.replacingOccurrences(of: tcpTransportParameter, with: "")
     return result
 }
 

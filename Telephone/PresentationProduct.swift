@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import UseCases
+
 final class PresentationProduct: NSObject {
     let identifier: String
     @objc let name: String

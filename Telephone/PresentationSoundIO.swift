@@ -18,6 +18,7 @@
 
 import Domain
 import Foundation
+import UseCases
 
 final class PresentationSoundIO: NSObject {
     @objc let input: PresentationAudioDevice

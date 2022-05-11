@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -226,6 +226,12 @@ DQ
                 <menuItem title="Help" id="103">
                     <menu key="submenu" title="Help" id="106">
                         <items>
+                            <menuItem title="Copy Settings" id="koB-sa-kzQ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="copySettings:" target="C3A-nH-yvt" id="asT-qB-piV"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Show Log File in Finder" id="EZi-VO-4yb">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -249,6 +255,7 @@ DQ
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-86" y="135"/>
         </menu>
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="450" customClass="AppController">

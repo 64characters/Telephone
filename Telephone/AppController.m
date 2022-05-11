@@ -36,7 +36,6 @@
 #import "CallController.h"
 #import "NameServers.h"
 #import "PreferencesController.h"
-#import "UserDefaultsKeys.h"
 
 #import "Telephone-Swift.h"
 
@@ -83,55 +82,6 @@ NS_ASSUME_NONNULL_END
         _accountSetupController = [[AccountSetupController alloc] init];
     }
     return _accountSetupController;
-}
-
-+ (void)initialize {
-    // Register defaults.
-    static BOOL initialized = NO;
-    
-    if (!initialized) {
-        NSMutableDictionary *defaultsDict = [NSMutableDictionary dictionary];
-        
-        defaultsDict[kUseDNSSRV] = @NO;
-        defaultsDict[kOutboundProxyHost] = @"";
-        defaultsDict[kOutboundProxyPort] = @0;
-        defaultsDict[kSTUNServerHost] = @"";
-        defaultsDict[kSTUNServerPort] = @0;
-        defaultsDict[kVoiceActivityDetection] = @NO;
-        defaultsDict[kUseICE] = @NO;
-        defaultsDict[kUseQoS] = @YES;
-        defaultsDict[kLogLevel] = @3;
-        defaultsDict[kConsoleLogLevel] = @0;
-        defaultsDict[kTransportPort] = @0;
-        defaultsDict[kRingingSound] = @"Purr";
-        defaultsDict[kSignificantPhoneNumberLength] = @9;
-        defaultsDict[kAutoCloseCallWindow] = @YES;
-        defaultsDict[kAutoCloseMissedCallWindow] = @YES;
-        defaultsDict[kKeepCallWindowOnTop] = @YES;
-        defaultsDict[kCallWaiting] = @YES;
-        defaultsDict[kUseG711Only] = @NO;
-        defaultsDict[kLockCodec] = @NO;
-
-        NSString *preferredLocalization = [[NSBundle mainBundle] preferredLocalizations][0];
-        
-        // Do not format phone numbers in German localization by default.
-        if ([preferredLocalization isEqualToString:@"de"]) {
-            defaultsDict[kFormatTelephoneNumbers] = @NO;
-        } else {
-            defaultsDict[kFormatTelephoneNumbers] = @YES;
-        }
-        
-        // Split last four digits in Russian localization by default.
-        if ([preferredLocalization isEqualToString:@"ru"]) {
-            defaultsDict[kTelephoneNumberFormatterSplitsLastFourDigits] = @YES;
-        } else {
-            defaultsDict[kTelephoneNumberFormatterSplitsLastFourDigits] = @NO;
-        }
-        
-        [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsDict];
-        
-        initialized = YES;
-    }
 }
 
 - (instancetype)init {
@@ -310,7 +260,7 @@ NS_ASSUME_NONNULL_END
 - (AccountController *)accountControllerWithDictionary:(NSDictionary *)dict {
     AKSIPAccount *account = [[AKSIPAccount alloc] initWithDictionary:dict parser:self.userAgent.parser];
 
-    NSString *description = dict[kDescription];
+    NSString *description = dict[AKSIPAccountKeys.desc];
     if ([description length] == 0) {
         description = account.SIPAddress;
     }
@@ -324,9 +274,9 @@ NS_ASSUME_NONNULL_END
                                                       purchaseCheckUseCaseFactory:self.purchaseCheckUseCaseFactory
                                                              storeWindowPresenter:self.storeWindowPresenter];
 
-    [controller setEnabled:[dict[kAccountEnabled] boolValue]];
-    [controller setSubstitutesPlusCharacter:[dict[kSubstitutePlusCharacter] boolValue]];
-    [controller setPlusCharacterSubstitution:dict[kPlusCharacterSubstitutionString]];
+    [controller setEnabled:[dict[UserDefaultsKeys.accountEnabled] boolValue]];
+    [controller setSubstitutesPlusCharacter:[dict[UserDefaultsKeys.substitutePlusCharacter] boolValue]];
+    [controller setPlusCharacterSubstitution:dict[UserDefaultsKeys.plusCharacterSubstitutionString]];
 
     return controller;
 }
@@ -367,9 +317,9 @@ NS_ASSUME_NONNULL_END
 - (void)preferencesControllerDidChangeAccountEnabled:(NSNotification *)notification {
     NSUInteger index = [[notification userInfo][kAccountIndex] integerValue];
     
-    NSDictionary *account = [NSUserDefaults.standardUserDefaults arrayForKey:kAccounts][index];
+    NSDictionary *account = [NSUserDefaults.standardUserDefaults arrayForKey:UserDefaultsKeys.accounts][index];
 
-    if ([account[kAccountEnabled] boolValue]) {
+    if ([account[UserDefaultsKeys.accountEnabled] boolValue]) {
         AccountController *controller = [self accountControllerWithDictionary:account];
         [controller setAccountUnavailable:NO];
 
@@ -420,14 +370,14 @@ NS_ASSUME_NONNULL_END
 - (void)preferencesControllerDidChangeNetworkSettings:(NSNotification *)notification {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [[self userAgent] setTransportPort:[defaults integerForKey:kTransportPort]];
-    [[self userAgent] setSTUNServerHost:[defaults stringForKey:kSTUNServerHost]];
-    [[self userAgent] setSTUNServerPort:[defaults integerForKey:kSTUNServerPort]];
-    [[self userAgent] setUsesICE:[defaults boolForKey:kUseICE]];
-    [[self userAgent] setOutboundProxyHost:[defaults stringForKey:kOutboundProxyHost]];
-    [[self userAgent] setOutboundProxyPort:[defaults integerForKey:kOutboundProxyPort]];
+    [[self userAgent] setTransportPort:[defaults integerForKey:UserDefaultsKeys.transportPort]];
+    [[self userAgent] setSTUNServerHost:[defaults stringForKey:UserDefaultsKeys.stunServerHost]];
+    [[self userAgent] setSTUNServerPort:[defaults integerForKey:UserDefaultsKeys.stunServerPort]];
+    [[self userAgent] setUsesICE:[defaults boolForKey:UserDefaultsKeys.useICE]];
+    [[self userAgent] setOutboundProxyHost:[defaults stringForKey:UserDefaultsKeys.outboundProxyHost]];
+    [[self userAgent] setOutboundProxyPort:[defaults integerForKey:UserDefaultsKeys.outboundProxyPort]];
     
-    if ([defaults boolForKey:kUseDNSSRV]) {
+    if ([defaults boolForKey:UserDefaultsKeys.useDNSSRV]) {
         [[self userAgent] setNameServers:self.nameServers.all];
     } else {
         [[self userAgent] setNameServers:nil];
@@ -560,13 +510,14 @@ NS_ASSUME_NONNULL_END
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSWindow.allowsAutomaticWindowTabbing = NO;
+    [self.compositionRoot.defaultAppSettings registerDefaults];
     [self.compositionRoot.settingsMigration execute];
     self.helpMenuActionRedirect.target = self.compositionRoot.helpMenuActionTarget;
     [self configureUserAgent];
     self.accountsMenuItems = [[AccountsMenuItems alloc] initWithMenu:self.windowMenu controllers:self.accountControllers];
     NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
     NSApp.servicesProvider = self;
-    NSArray *accounts = [NSUserDefaults.standardUserDefaults arrayForKey:kAccounts];
+    NSArray *accounts = [NSUserDefaults.standardUserDefaults arrayForKey:UserDefaultsKeys.accounts];
     if (accounts.count == 0) {
         [[self preferencesMenuItem] setAction:NULL];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -607,25 +558,25 @@ NS_ASSUME_NONNULL_END
 
 - (void)configureUserAgent {
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    if ([defaults boolForKey:kUseDNSSRV]) {
+    if ([defaults boolForKey:UserDefaultsKeys.useDNSSRV]) {
         self.userAgent.nameServers = self.nameServers.all;
     }
-    self.userAgent.outboundProxyHost = [defaults stringForKey:kOutboundProxyHost];
-    self.userAgent.outboundProxyPort = [defaults integerForKey:kOutboundProxyPort];
-    self.userAgent.STUNServerHost = [defaults stringForKey:kSTUNServerHost];
-    self.userAgent.STUNServerPort = [defaults integerForKey:kSTUNServerPort];
+    self.userAgent.outboundProxyHost = [defaults stringForKey:UserDefaultsKeys.outboundProxyHost];
+    self.userAgent.outboundProxyPort = [defaults integerForKey:UserDefaultsKeys.outboundProxyPort];
+    self.userAgent.STUNServerHost = [defaults stringForKey:UserDefaultsKeys.stunServerHost];
+    self.userAgent.STUNServerPort = [defaults integerForKey:UserDefaultsKeys.stunServerPort];
     self.userAgent.userAgentString = [NSString stringWithFormat:@"%@ %@",
                                       NSBundle.mainBundle.infoDictionary[@"CFBundleName"],
                                       NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"]];
     self.userAgent.logFileName = self.compositionRoot.logFileURL.pathValue;
-    self.userAgent.logLevel = [defaults integerForKey:kLogLevel];
-    self.userAgent.consoleLogLevel = [defaults integerForKey:kConsoleLogLevel];
-    self.userAgent.detectsVoiceActivity = [defaults boolForKey:kVoiceActivityDetection];
-    self.userAgent.usesICE = [defaults boolForKey:kUseICE];
-    self.userAgent.usesQoS = [defaults boolForKey:kUseQoS];
-    self.userAgent.transportPort = [defaults integerForKey:kTransportPort];
-    self.userAgent.usesG711Only = [defaults boolForKey:kUseG711Only];
-    self.userAgent.locksCodec = [defaults boolForKey:kLockCodec];
+    self.userAgent.logLevel = [defaults integerForKey:UserDefaultsKeys.logLevel];
+    self.userAgent.consoleLogLevel = [defaults integerForKey:UserDefaultsKeys.consoleLogLevel];
+    self.userAgent.detectsVoiceActivity = [defaults boolForKey:UserDefaultsKeys.voiceActivityDetection];
+    self.userAgent.usesICE = [defaults boolForKey:UserDefaultsKeys.useICE];
+    self.userAgent.usesQoS = [defaults boolForKey:UserDefaultsKeys.useQoS];
+    self.userAgent.transportPort = [defaults integerForKey:UserDefaultsKeys.transportPort];
+    self.userAgent.usesG711Only = [defaults boolForKey:UserDefaultsKeys.useG711Only];
+    self.userAgent.locksCodec = [defaults boolForKey:UserDefaultsKeys.lockCodec];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
@@ -704,11 +655,11 @@ NS_ASSUME_NONNULL_END
     NSInteger index = [self.accountControllers indexOfController:controller];
     if (index != NSNotFound) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSMutableArray *accounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:kAccounts]];
+        NSMutableArray *accounts = [NSMutableArray arrayWithArray:[defaults arrayForKey:UserDefaultsKeys.accounts]];
         NSMutableDictionary *account = [NSMutableDictionary dictionaryWithDictionary:accounts[index]];
-        account[kUsername] = controller.account.username;
+        account[AKSIPAccountKeys.username] = controller.account.username;
         accounts[index] = account;
-        [defaults setObject:accounts forKey:kAccounts];
+        [defaults setObject:accounts forKey:UserDefaultsKeys.accounts];
         AccountPreferencesViewController *viewController = self.preferencesController.accountPreferencesViewController;
         if (viewController.accountsTable.selectedRow == index) {
             [viewController populateFieldsForAccountAtIndex:index];
@@ -852,7 +803,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)nameServersDidChange:(NameServers *)nameServers {
     NSArray *servers = nameServers.all;
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseDNSSRV] &&
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:UserDefaultsKeys.useDNSSRV] &&
         servers.count > 0 &&
         ![self.userAgent.nameServers isEqualToArray:servers]) {
 

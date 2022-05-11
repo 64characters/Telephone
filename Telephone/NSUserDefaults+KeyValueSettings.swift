@@ -31,4 +31,8 @@ extension UserDefaults: KeyValueSettings {
     public func set(_ array: [Any], forKey key: String) {
         set(array as Any, forKey: key)
     }
+
+    public func exists(forKey key: String) -> Bool {
+        return object(forKey: key) != nil
+    }
 }

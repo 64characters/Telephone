@@ -34,6 +34,8 @@ import Foundation
     func set(_ array: [Any], forKey key: String)
     func array(forKey key: String) -> [Any]?
 
+    func exists(forKey key: String) -> Bool
+
     @objc(registerDefaults:)
     func register(defaults: [String: Any])
 }

@@ -20,10 +20,10 @@ import UseCases
 
 extension KeyValueSettings {
     func loadAccounts() -> [[String: Any]] {
-        return self.array(forKey: kAccounts) as? [[String: Any]] ?? []
+        return self.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]] ?? []
     }
 
     func save(accounts: [[String: Any]]) {
-        self.set(accounts, forKey: kAccounts)
+        self.set(accounts, forKey: UserDefaultsKeys.accounts)
     }
 }

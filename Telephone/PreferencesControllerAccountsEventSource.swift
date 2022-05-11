@@ -17,6 +17,7 @@
 //
 
 import Foundation
+import UseCases
 
 final class PreferencesControllerAccountsEventSource {
     private let center: NotificationCenter
@@ -35,6 +36,6 @@ final class PreferencesControllerAccountsEventSource {
     }
 
     @objc private func didRemoveAccount(_ notification: Notification) {
-        target.didRemoveAccount(withUUID: notification.userInfo![kUUID] as! String)
+        target.didRemoveAccount(withUUID: notification.userInfo![AKSIPAccountKeys.uuid] as! String)
     }
 }

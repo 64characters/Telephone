@@ -32,4 +32,8 @@ final class HelpMenuActionRedirect: NSObject {
     @IBAction func openFAQ(_ sender: NSMenuItem) {
         target?.openFAQ()
     }
+
+    @IBAction func copySettings(_ sender: NSMenuItem) {
+        target?.copySettings()
+    }
 }

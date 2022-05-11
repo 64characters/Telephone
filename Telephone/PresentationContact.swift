@@ -18,6 +18,7 @@
 
 import Cocoa
 import Foundation
+import UseCases
 
 final class PresentationContact: NSObject {
     @objc let title: String

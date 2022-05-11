@@ -19,7 +19,7 @@
 @import Foundation;
 
 // Sent when preferences controller removes an accont.
-// |userInfo| dictionary keys: kAccountIndex, kUUID.
+// |userInfo| dictionary keys: kAccountIndex, AKSIPAccountKeys.uuid.
 extern NSString * const AKPreferencesControllerDidRemoveAccountNotification;
 
 // Sent when preferences controller enables or disables an account.
@@ -33,5 +33,6 @@ extern NSString * const AKPreferencesControllerDidSwapAccountsNotification;
 // Sent when preferences controller changes network settings.
 extern NSString * const AKPreferencesControllerDidChangeNetworkSettingsNotification;
 
+extern NSString * const kAccountIndex;
 extern NSString * const kSourceIndex;
 extern NSString * const kDestinationIndex;

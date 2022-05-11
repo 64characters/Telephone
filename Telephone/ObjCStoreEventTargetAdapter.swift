@@ -17,6 +17,7 @@
 //
 
 import Foundation
+import UseCases
 
 final class ObjCStoreEventTargetAdapter: NSObject {
     private let target: ObjCStoreEventTarget
