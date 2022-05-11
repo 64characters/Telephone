@@ -217,7 +217,7 @@
     BOOL returnValue = NO;
     
     NSMutableCharacterSet *phoneNumberCharacterSet
-        = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] copy];
+        = [NSMutableCharacterSet characterSetWithCharactersInString:@"0123456789"];
     NSScanner *scanner = [NSScanner scannerWithString:string];
     NSMutableString *telephoneNumber = [[NSMutableString alloc] init];
     

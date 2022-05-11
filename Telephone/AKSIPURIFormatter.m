@@ -88,7 +88,7 @@
             
             NSRange delimiterRange = [string rangeOfString:@" <" options:NSBackwardsSearch];
             
-            NSMutableCharacterSet *trimmingCharacterSet = [[NSCharacterSet whitespaceCharacterSet] mutableCopy];
+            NSMutableCharacterSet *trimmingCharacterSet = [NSMutableCharacterSet whitespaceCharacterSet];
             [trimmingCharacterSet addCharactersInString:@"\""];
             name = [[string substringToIndex:delimiterRange.location]
                     stringByTrimmingCharactersInSet:trimmingCharacterSet];
