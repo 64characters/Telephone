@@ -26,11 +26,11 @@ Build and install:
 
 Download:
 
-    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.1.3.tar.gz
-    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.1.3.tar.gz.asc
-    $ gpg --verify libressl-3.1.3.tar.gz.asc
-    $ tar xzvf libressl-3.1.3.tar.gz
-    $ cd libressl-3.1.3
+    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.1.5.tar.gz
+    $ curl -O https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.1.5.tar.gz.asc
+    $ gpg --verify libressl-3.1.5.tar.gz.asc
+    $ tar xzvf libressl-3.1.5.tar.gz
+    $ cd libressl-3.1.5
 
 Build and install:
 

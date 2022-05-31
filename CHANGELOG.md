@@ -10,3 +10,4 @@
   number was longer than that.
 - Remove user notification when incoming call is answered or declined.
 - Allow the app settings to be copied to clipboard as text.
+- LibreSSL 3.1.5.
