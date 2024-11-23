@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public protocol PurchaseReminderSettings: AnyObject {
     var date: Date { get set }
     var version: String { get set }

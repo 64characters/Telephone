@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public protocol PurchaseCheckUseCaseOutput: AnyObject {
     func didCheckPurchase(expiration: Date)
     func didFailCheckingPurchase()

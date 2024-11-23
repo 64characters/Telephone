@@ -18,7 +18,7 @@
 
 import Domain
 
-extension SystemAudioDevices: Equatable {
+extension SystemAudioDevices: @retroactive Equatable {
     public static func ==(lhs: SystemAudioDevices, rhs: SystemAudioDevices) -> Bool {
         return lhs.all == rhs.all && lhs.input == rhs.input && lhs.output == rhs.output
     }

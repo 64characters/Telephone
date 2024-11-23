@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public extension NSString {
     @objc(ak_isIPAddress)
     var isIPAddress: Bool {

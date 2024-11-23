@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 @objc public protocol UseCase {
     func execute()
 }

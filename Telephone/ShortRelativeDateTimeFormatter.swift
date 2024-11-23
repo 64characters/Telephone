@@ -18,7 +18,7 @@
 
 import Foundation
 
-final class ShortRelativeDateTimeFormatter: DateFormatter {
+final class ShortRelativeDateTimeFormatter: DateFormatter, @unchecked Sendable {
     override init() {
         super.init()
         dateStyle = .short

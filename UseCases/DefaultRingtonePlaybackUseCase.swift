@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public final class DefaultRingtonePlaybackUseCase: NSObject {
     public static let interval: Double = 4
     

@@ -18,7 +18,7 @@
 
 import Foundation
 
-final class DurationFormatter: DateComponentsFormatter {
+final class DurationFormatter: DateComponentsFormatter, @unchecked Sendable {
     override init() {
         super.init()
         unitsStyle = .short

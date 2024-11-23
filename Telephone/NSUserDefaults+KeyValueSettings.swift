@@ -18,7 +18,7 @@
 
 import UseCases
 
-extension UserDefaults: KeyValueSettings {
+extension UserDefaults: @retroactive KeyValueSettings {
     public subscript(key: String) -> String? {
         get {
             return string(forKey: key)

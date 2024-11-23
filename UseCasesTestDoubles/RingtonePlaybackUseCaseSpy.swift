@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
 import UseCases
 
 public final class RingtonePlaybackUseCaseSpy: NSObject {

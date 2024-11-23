@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 @objc public enum Transport: Int {
     @objc(TransportUDP) case udp
     @objc(TransportTCP) case tcp
