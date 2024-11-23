@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public final class ReceiptRefreshUseCase {
     public init() {}
 }

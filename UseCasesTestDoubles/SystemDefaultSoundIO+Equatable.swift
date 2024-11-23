@@ -19,13 +19,13 @@
 import DomainTestDoubles
 import UseCases
 
-extension SystemDefaultingSoundIO: Equatable {
+extension SystemDefaultingSoundIO: @retroactive Equatable {
     public static func == (lhs: SystemDefaultingSoundIO, rhs: SystemDefaultingSoundIO) -> Bool {
         return lhs.input == rhs.input && lhs.output == rhs.output && lhs.ringtoneOutput == rhs.ringtoneOutput
     }
 }
 
-extension SystemDefaultingSoundIO.Item: Equatable {
+extension SystemDefaultingSoundIO.Item: @retroactive Equatable {
     public static func ==(lhs: SystemDefaultingSoundIO.Item, rhs: SystemDefaultingSoundIO.Item) -> Bool {
         switch (lhs, rhs) {
         case (.systemDefault, .systemDefault):

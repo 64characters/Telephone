@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public final class UserAgentStartUseCase {
     private lazy var purchaseCheck: UseCase = {
         return self.factory.make(output: WeakPurchaseCheckUseCaseOutput(origin: self))

@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 public final class ServiceAddress: NSObject {
     @objc public let host: String
     @objc public let port: String

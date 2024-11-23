@@ -16,6 +16,8 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+
 final class WeakPurchaseCheckUseCaseOutput {
     private weak var origin: PurchaseCheckUseCaseOutput?
 
