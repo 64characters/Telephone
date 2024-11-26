@@ -26,7 +26,7 @@
 #import "EndedCallViewController.h"
 
 
-@interface ActiveCallViewController ()
+@interface ActiveCallViewController () <NSMenuItemValidation>
 
 @property(nonatomic, getter=isShowingProgress) BOOL showingProgress;
 @property(nonatomic) NSTrackingArea *trackingArea;
@@ -218,7 +218,7 @@
 
 
 #pragma mark -
-#pragma mark NSMenuValidation protocol
+#pragma mark NSMenuItemValidation protocol
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if ([menuItem action] == @selector(toggleMicrophoneMute:)) {
