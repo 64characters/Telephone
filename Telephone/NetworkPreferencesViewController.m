@@ -99,8 +99,8 @@
     NSInteger newTransportPort = [[self transportPortField] integerValue];
     NSString *newSTUNServerHost = [[[self STUNServerHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
     NSInteger newSTUNServerPort = [[self STUNServerPortField] integerValue];
-    BOOL newUseICE = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
-    BOOL newUseDNSSRV = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
+    BOOL newUseICE = ([[self useICECheckBox] state] == NSControlStateValueOn) ? YES : NO;
+    BOOL newUseDNSSRV = ([[self useDNSSRVCheckBox] state] == NSControlStateValueOn) ? YES : NO;
     NSString *newOutboundProxyHost
         = [[[self outboundProxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
     NSInteger newOutboundProxyPort = [[self outboundProxyPortField] integerValue];
@@ -158,10 +158,10 @@
         
         [defaults setInteger:[[self STUNServerPortField] integerValue] forKey:UserDefaultsKeys.stunServerPort];
         
-        BOOL useICEFlag = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
+        BOOL useICEFlag = ([[self useICECheckBox] state] == NSControlStateValueOn) ? YES : NO;
         [defaults setBool:useICEFlag forKey:UserDefaultsKeys.useICE];
         
-        BOOL newUseDNSSRVFlag = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
+        BOOL newUseDNSSRVFlag = ([[self useDNSSRVCheckBox] state] == NSControlStateValueOn) ? YES : NO;
         [defaults setBool:newUseDNSSRVFlag forKey:UserDefaultsKeys.useDNSSRV];
         
         NSString *outboundProxyHost

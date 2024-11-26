@@ -176,7 +176,7 @@ static const NSUInteger kAccountsMax = 32;
         
         // Conditionally enable fields and set checkboxes state.
         if ([accountDict[UserDefaultsKeys.accountEnabled] boolValue]) {
-            [[self accountEnabledCheckBox] setState:NSOnState];
+            [[self accountEnabledCheckBox] setState:NSControlStateValueOn];
             [[self accountDescriptionField] setEnabled:NO];
             [[self fullNameField] setEnabled:NO];
             [[self domainField] setEnabled:NO];
@@ -211,7 +211,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self reregistrationTimeField] setEnabled:YES];
             [[self substitutePlusCharacterCheckBox] setEnabled:YES];
             [[self substitutePlusCharacterCheckBox] setState:[accountDict[UserDefaultsKeys.substitutePlusCharacter] integerValue]];
-            if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
+            if ([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn) {
                 [[self plusCharacterSubstitutionField] setEnabled:YES];
             } else {
                 [[self plusCharacterSubstitutionField] setEnabled:NO];
@@ -219,7 +219,7 @@ static const NSUInteger kAccountsMax = 32;
 
             [[self useProxyCheckBox] setEnabled:YES];
             [[self useProxyCheckBox] setState:[accountDict[AKSIPAccountKeys.useProxy] integerValue]];
-            if ([[self useProxyCheckBox] state] == NSOnState) {
+            if ([[self useProxyCheckBox] state] == NSControlStateValueOn) {
                 [[self proxyHostField] setEnabled:YES];
                 [[self proxyPortField] setEnabled:YES];
             } else {
@@ -336,19 +336,19 @@ static const NSUInteger kAccountsMax = 32;
 
         // Update SIP Transport.
         if ([accountDict[AKSIPAccountKeys.transport] isEqualToString:AKSIPAccountKeys.transportTCP]) {
-            [[self TCPButton] setState:NSOnState];
+            [[self TCPButton] setState:NSControlStateValueOn];
         } else if ([accountDict[AKSIPAccountKeys.transport] isEqualToString:AKSIPAccountKeys.transportTLS]) {
-            [[self TLSButton] setState:NSOnState];
+            [[self TLSButton] setState:NSControlStateValueOn];
         } else {
-            [[self UDPButton] setState:NSOnState];
+            [[self UDPButton] setState:NSControlStateValueOn];
         }
         [self updateProxyPortFieldPlaceholder];
 
         // Update IP Version.
         if ([accountDict[AKSIPAccountKeys.ipVersion] isEqualToString:AKSIPAccountKeys.ipVersion6]) {
-            [[self IPv6Button] setState:NSOnState];
+            [[self IPv6Button] setState:NSControlStateValueOn];
         } else {
-            [[self IPv4Button] setState:NSOnState];
+            [[self IPv4Button] setState:NSControlStateValueOn];
         }
         
         // Update headers checkbox.
@@ -356,7 +356,7 @@ static const NSUInteger kAccountsMax = 32;
             [accountDict[AKSIPAccountKeys.updateViaHeader] boolValue] &&
             [accountDict[AKSIPAccountKeys.updateSDP] boolValue]) {
             [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
-            [[self updateIPAddressCheckBox] setState:NSOnState];
+            [[self updateIPAddressCheckBox] setState:NSControlStateValueOn];
         } else if ([accountDict[AKSIPAccountKeys.updateContactHeader] boolValue] ||
                    [accountDict[AKSIPAccountKeys.updateViaHeader] boolValue] ||
                    [accountDict[AKSIPAccountKeys.updateSDP] boolValue]) {
@@ -432,7 +432,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:savedAccounts[index]];
     
-    BOOL isChecked = [[self accountEnabledCheckBox] state] == NSOnState;
+    BOOL isChecked = [[self accountEnabledCheckBox] state] == NSControlStateValueOn;
     accountDict[UserDefaultsKeys.accountEnabled] = @(isChecked);
     
     if (isChecked) {
@@ -472,10 +472,10 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[AKSIPAccountKeys.reregistrationTime] = @([[self reregistrationTimeField] integerValue]);
         
-        accountDict[UserDefaultsKeys.substitutePlusCharacter] = @([[self substitutePlusCharacterCheckBox] state] == NSOnState);
+        accountDict[UserDefaultsKeys.substitutePlusCharacter] = @([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn);
         accountDict[UserDefaultsKeys.plusCharacterSubstitutionString] = [[self plusCharacterSubstitutionField] stringValue];
         
-        accountDict[AKSIPAccountKeys.useProxy] = @([[self useProxyCheckBox] state] == NSOnState);
+        accountDict[AKSIPAccountKeys.useProxy] = @([[self useProxyCheckBox] state] == NSControlStateValueOn);
         NSString *proxyHost = [[[self proxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         accountDict[AKSIPAccountKeys.proxyHost] = proxyHost;
         accountDict[AKSIPAccountKeys.proxyPort] = @([[self proxyPortField] integerValue]);
@@ -485,17 +485,17 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[AKSIPAccountKeys.registrar] = registrar;
 
-        if (self.TCPButton.state == NSOnState) {
+        if (self.TCPButton.state == NSControlStateValueOn) {
             accountDict[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportTCP;
-        } else if (self.TLSButton.state == NSOnState) {
+        } else if (self.TLSButton.state == NSControlStateValueOn) {
             accountDict[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportTLS;
         } else {
             accountDict[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportUDP;
         }
 
-        accountDict[AKSIPAccountKeys.ipVersion] = self.IPv6Button.state == NSOnState ? AKSIPAccountKeys.ipVersion6 : AKSIPAccountKeys.ipVersion4;
+        accountDict[AKSIPAccountKeys.ipVersion] = self.IPv6Button.state == NSControlStateValueOn ? AKSIPAccountKeys.ipVersion6 : AKSIPAccountKeys.ipVersion4;
 
-        if (self.updateIPAddressCheckBox.state == NSOnState) {
+        if (self.updateIPAddressCheckBox.state == NSControlStateValueOn) {
             accountDict[AKSIPAccountKeys.updateContactHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateViaHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateSDP] = @YES;
@@ -565,13 +565,13 @@ static const NSUInteger kAccountsMax = 32;
         [[self reregistrationTimeField] setEnabled:YES];
         [[self substitutePlusCharacterCheckBox] setEnabled:YES];
         [[self substitutePlusCharacterCheckBox] setState:[accountDict[UserDefaultsKeys.substitutePlusCharacter] integerValue]];
-        if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
+        if ([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn) {
             [[self plusCharacterSubstitutionField] setEnabled:YES];
         }
         
         [[self useProxyCheckBox] setEnabled:YES];
         [[self useProxyCheckBox] setState:[accountDict[AKSIPAccountKeys.useProxy] integerValue]];
-        if ([[self useProxyCheckBox] state] == NSOnState) {
+        if ([[self useProxyCheckBox] state] == NSControlStateValueOn) {
             [[self proxyHostField] setEnabled:YES];
             [[self proxyPortField] setEnabled:YES];
         }
@@ -598,11 +598,11 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (IBAction)changeSubstitutePlusCharacter:(id)sender {
-    [[self plusCharacterSubstitutionField] setEnabled:([[self substitutePlusCharacterCheckBox] state] == NSOnState)];
+    [[self plusCharacterSubstitutionField] setEnabled:([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn)];
 }
 
 - (IBAction)changeUseProxy:(id)sender {
-    BOOL isChecked = [[self useProxyCheckBox] state] == NSOnState;
+    BOOL isChecked = [[self useProxyCheckBox] state] == NSControlStateValueOn;
     [[self proxyHostField] setEnabled:isChecked];
     [[self proxyPortField] setEnabled:isChecked];
 }
@@ -612,7 +612,7 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (void)updateProxyPortFieldPlaceholder {
-    self.proxyPortField.placeholderString = self.TLSButton.state == NSOnState ? @"5061" : @"5060";
+    self.proxyPortField.placeholderString = self.TLSButton.state == NSControlStateValueOn ? @"5061" : @"5060";
 }
 
 // Group radio buttons by providing them the same action.

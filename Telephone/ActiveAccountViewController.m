@@ -843,7 +843,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         [tokenMenu addItem:menuItem];
     }
     
-    [[tokenMenu itemWithTag:[self callDestinationURIIndex]] setState:NSOnState];
+    [[tokenMenu itemWithTag:[self callDestinationURIIndex]] setState:NSControlStateValueOn];
     
     return tokenMenu;
 }

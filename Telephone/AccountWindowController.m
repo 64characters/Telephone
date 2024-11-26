@@ -121,7 +121,7 @@ static NSString * const kGerman = @"de";
     self.accountStatePopUp.title = NSLocalizedString(@"Available", @"Account registration Available menu item.");
     self.accountStateImageView.image = [NSImage imageNamed:@"available-state"];
 
-    self.availableStateItem.state = NSOnState;
+    self.availableStateItem.state = NSControlStateValueOn;
     self.unavailableStateItem.state = NSOffState;
 
     [self.accountViewController showActiveState];
@@ -143,7 +143,7 @@ static NSString * const kGerman = @"de";
     self.accountStateImageView.image = [NSImage imageNamed:@"unavailable-state"];
 
     self.availableStateItem.state = NSOffState;
-    self.unavailableStateItem.state = NSOnState;
+    self.unavailableStateItem.state = NSControlStateValueOn;
 
     [self.accountViewController showActiveState];
 }
