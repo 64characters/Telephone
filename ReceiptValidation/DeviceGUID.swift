@@ -51,7 +51,7 @@ private func makeGUID() -> Data {
 
 private func makeIterator() -> io_iterator_t {
     var port: mach_port_t = 0
-    var status = IOMasterPort(mach_port_t(MACH_PORT_NULL), &port)
+    var status = IOMainPort(mach_port_t(MACH_PORT_NULL), &port)
     guard status == KERN_SUCCESS else { return 0 }
     guard let match = IOBSDNameMatching(port, 0, "en0") else { return 0 }
     var iterator: io_iterator_t = 0
