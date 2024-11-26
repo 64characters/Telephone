@@ -201,7 +201,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self updateIPAddressCheckBox] setEnabled:NO];
 
         } else {
-            [[self accountEnabledCheckBox] setState:NSOffState];
+            [[self accountEnabledCheckBox] setState:NSControlStateValueOff];
             [[self accountDescriptionField] setEnabled:YES];
             [[self fullNameField] setEnabled:YES];
             [[self domainField] setEnabled:YES];
@@ -364,11 +364,11 @@ static const NSUInteger kAccountsMax = 32;
             [[self updateIPAddressCheckBox] setState:NSMixedState];
         } else {
             [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
-            [[self updateIPAddressCheckBox] setState:NSOffState];
+            [[self updateIPAddressCheckBox] setState:NSControlStateValueOff];
         }
 
     } else {  // if (index >= 0)
-        [[self accountEnabledCheckBox] setState:NSOffState];
+        [[self accountEnabledCheckBox] setState:NSControlStateValueOff];
         [[self accountDescriptionField] setStringValue:@""];
         [[self accountDescriptionField] setPlaceholderString:nil];
         [[self fullNameField] setStringValue:@""];
@@ -376,19 +376,19 @@ static const NSUInteger kAccountsMax = 32;
         [[self usernameField] setStringValue:@""];
         [[self passwordField] setStringValue:@""];
         [[self reregistrationTimeField] setStringValue:@""];
-        [[self substitutePlusCharacterCheckBox] setState:NSOffState];
+        [[self substitutePlusCharacterCheckBox] setState:NSControlStateValueOff];
         [[self plusCharacterSubstitutionField] setStringValue:@"00"];
-        [[self useProxyCheckBox] setState:NSOffState];
+        [[self useProxyCheckBox] setState:NSControlStateValueOff];
         [[self proxyHostField] setStringValue:@""];
         [[self proxyPortField] setStringValue:@""];
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
-        [[self UDPButton] setState:NSOffState];
-        [[self TCPButton] setState:NSOffState];
-        [[self TLSButton] setState:NSOffState];
-        [[self IPv4Button] setState:NSOffState];
-        [[self IPv6Button] setState:NSOffState];
-        [[self updateIPAddressCheckBox] setState:NSOffState];
+        [[self UDPButton] setState:NSControlStateValueOff];
+        [[self TCPButton] setState:NSControlStateValueOff];
+        [[self TLSButton] setState:NSControlStateValueOff];
+        [[self IPv4Button] setState:NSControlStateValueOff];
+        [[self IPv6Button] setState:NSControlStateValueOff];
+        [[self updateIPAddressCheckBox] setState:NSControlStateValueOff];
 
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];

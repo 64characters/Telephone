@@ -122,7 +122,7 @@ static NSString * const kGerman = @"de";
     self.accountStateImageView.image = [NSImage imageNamed:@"available-state"];
 
     self.availableStateItem.state = NSControlStateValueOn;
-    self.unavailableStateItem.state = NSOffState;
+    self.unavailableStateItem.state = NSControlStateValueOff;
 
     [self.accountViewController showActiveState];
 }
@@ -142,7 +142,7 @@ static NSString * const kGerman = @"de";
     self.accountStatePopUp.title = NSLocalizedString(@"Unavailable", @"Account registration Unavailable menu item.");
     self.accountStateImageView.image = [NSImage imageNamed:@"unavailable-state"];
 
-    self.availableStateItem.state = NSOffState;
+    self.availableStateItem.state = NSControlStateValueOff;
     self.unavailableStateItem.state = NSControlStateValueOn;
 
     [self.accountViewController showActiveState];
@@ -163,8 +163,8 @@ static NSString * const kGerman = @"de";
     self.accountStatePopUp.title = NSLocalizedString(@"Offline", @"Account registration Offline menu item.");
     self.accountStateImageView.image = [NSImage imageNamed:@"offline-state"];
 
-    self.availableStateItem.state = NSOffState;
-    self.unavailableStateItem.state = NSOffState;
+    self.availableStateItem.state = NSControlStateValueOff;
+    self.unavailableStateItem.state = NSControlStateValueOff;
 
     [self.accountViewController showInactiveStateAnimated:animated];
 }
