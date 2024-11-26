@@ -361,7 +361,7 @@ static const NSUInteger kAccountsMax = 32;
                    [accountDict[AKSIPAccountKeys.updateViaHeader] boolValue] ||
                    [accountDict[AKSIPAccountKeys.updateSDP] boolValue]) {
             [[self updateIPAddressCheckBox] setAllowsMixedState:YES];
-            [[self updateIPAddressCheckBox] setState:NSMixedState];
+            [[self updateIPAddressCheckBox] setState:NSControlStateValueMixed];
         } else {
             [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
             [[self updateIPAddressCheckBox] setState:NSControlStateValueOff];
@@ -499,7 +499,7 @@ static const NSUInteger kAccountsMax = 32;
             accountDict[AKSIPAccountKeys.updateContactHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateViaHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateSDP] = @YES;
-        } else if (self.updateIPAddressCheckBox.state == NSMixedState) {
+        } else if (self.updateIPAddressCheckBox.state == NSControlStateValueMixed) {
             accountDict[AKSIPAccountKeys.updateContactHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateViaHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateSDP] = @NO;
