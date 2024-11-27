@@ -659,12 +659,14 @@ static const NSUInteger kAccountsMax = 32;
         writeRowsWithIndexes:(NSIndexSet *)rowIndexes
         toPasteboard:(NSPasteboard *)pboard {
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
-    
+    NSError *error;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes requiringSecureCoding:YES error:&error];
+    if (data == nil) {
+        NSLog(@"Could not archive row indexes while dragging: %@", error);
+        return NO;
+    }
     [pboard declareTypes:@[kAKSIPAccountPboardType] owner:self];
-    
     [pboard setData:data forType:kAKSIPAccountPboardType];
-    
     return YES;
 }
 
@@ -674,15 +676,17 @@ static const NSUInteger kAccountsMax = 32;
        proposedDropOperation:(NSTableViewDropOperation)operation {
     
     NSData *data = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
-    NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSError *error;
+    NSIndexSet *indexes = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSIndexSet class] fromData:data error:&error];
+    if (indexes == nil) {
+        NSLog(@"Could not unarchive row indexes while dragging: %@", error);
+        return NSDragOperationNone;
+    }
     NSInteger draggingRow = [indexes firstIndex];
-    
     if (row == draggingRow || row == draggingRow + 1) {
         return NSDragOperationNone;
     }
-    
     [[self accountsTable] setDropRow:row dropOperation:NSTableViewDropAbove];
-    
     return NSDragOperationMove;
 }
 
@@ -692,7 +696,12 @@ static const NSUInteger kAccountsMax = 32;
     dropOperation:(NSTableViewDropOperation)operation {
     
     NSData *data = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
-    NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSError *error;
+    NSIndexSet *indexes = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSIndexSet class] fromData:data error:&error];
+    if (indexes == nil) {
+        NSLog(@"Could not unarchive row indexes while dragging: %@", error);
+        return NO;
+    }
     NSInteger draggingRow = [indexes firstIndex];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
