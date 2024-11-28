@@ -152,6 +152,7 @@ static const NSTimeInterval kRedialButtonReenableTime = 1.0;
 }
 
 - (void)awakeFromNib {
+    self.window.movableByWindowBackground = YES;
     [self updateWindowFloating];
     [self subscribeToWindowFloatingChanges];
     [self updateWindowTitle];
