@@ -40,7 +40,7 @@ private func makeCoreAudioObject(selector: AudioObjectPropertySelector) -> CoreA
     return CoreAudioObject(
         objectID: AudioObjectID(kAudioObjectSystemObject),
         propertyAddress: AudioObjectPropertyAddress(
-            mSelector: selector, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster
+            mSelector: selector, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMain
         )
     )
 }
