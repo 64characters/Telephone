@@ -77,7 +77,7 @@ private func channelCount(with objectID: AudioObjectID, scope: AudioObjectProper
 }
 
 private func propertyAddress(selector: AudioObjectPropertySelector) -> AudioObjectPropertyAddress {
-    return AudioObjectPropertyAddress(mSelector: selector, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMaster)
+    return AudioObjectPropertyAddress(mSelector: selector, mScope: kAudioObjectPropertyScopeGlobal, mElement: kAudioObjectPropertyElementMain)
 }
 
 private func audioBufferListAddress(scope: AudioObjectPropertyScope) -> AudioObjectPropertyAddress {

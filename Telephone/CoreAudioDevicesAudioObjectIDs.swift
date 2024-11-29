@@ -27,7 +27,7 @@ final class CoreAudioDevicesAudioObjectIDs {
             propertyAddress: AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDevices,
                 mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMaster
+                mElement: kAudioObjectPropertyElementMain
             )
         )
     }

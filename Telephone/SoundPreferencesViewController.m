@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (IBAction)changeUseG711Only:(id)sender {
-    self.userAgent.usesG711Only = (self.useG711OnlyCheckBox.state == NSOnState) ? YES : NO;
+    self.userAgent.usesG711Only = (self.useG711OnlyCheckBox.state == NSControlStateValueOn) ? YES : NO;
 }
 
 - (void)updateAvailableSounds {

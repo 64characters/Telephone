@@ -22,7 +22,7 @@
 #import "CallController.h"
 
 
-@interface IncomingCallViewController ()
+@interface IncomingCallViewController () <NSMenuItemValidation>
 
 @property(nonatomic, weak) IBOutlet NSTextField *displayedNameField;
 @property(nonatomic, weak) IBOutlet NSTextField *statusField;
@@ -63,7 +63,7 @@
 
 
 #pragma mark -
-#pragma mark NSMenuValidation protocol
+#pragma mark NSMenuItemValidation protocol
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if ([menuItem action] == @selector(hangUpCall:)) {

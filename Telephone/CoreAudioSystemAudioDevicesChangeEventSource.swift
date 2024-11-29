@@ -27,7 +27,7 @@ final class CoreAudioSystemAudioDevicesChangeEventSource {
             address: AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDevices,
                 mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMaster
+                mElement: kAudioObjectPropertyElementMain
             ),
             queue: queue
         ) { (_, _) in

@@ -27,16 +27,8 @@ final class CallHistoryDateCellView: NSTableCellView {
             switch backgroundStyle {
             case .normal, .raised, .lowered:
                 dateField.textColor = .secondaryLabelColor
-                if #available(macOS 10.14, *) {} else {
-                    durationField.textColor = .secondaryLabelColor
-                }
             case .emphasized:
-                if #available(macOS 10.14, *) {
-                    dateField.textColor = .labelColor
-                } else {
-                    dateField.textColor = .white
-                    durationField.textColor = .lightGray
-                }
+                dateField.textColor = .labelColor
             @unknown default:
                 break
             }

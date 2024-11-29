@@ -99,8 +99,8 @@
     NSInteger newTransportPort = [[self transportPortField] integerValue];
     NSString *newSTUNServerHost = [[[self STUNServerHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
     NSInteger newSTUNServerPort = [[self STUNServerPortField] integerValue];
-    BOOL newUseICE = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
-    BOOL newUseDNSSRV = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
+    BOOL newUseICE = ([[self useICECheckBox] state] == NSControlStateValueOn) ? YES : NO;
+    BOOL newUseDNSSRV = ([[self useDNSSRVCheckBox] state] == NSControlStateValueOn) ? YES : NO;
     NSString *newOutboundProxyHost
         = [[[self outboundProxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
     NSInteger newOutboundProxyPort = [[self outboundProxyPortField] integerValue];
@@ -121,9 +121,7 @@
         [alert addButtonWithTitle:NSLocalizedString(@"Save", @"Save button.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")].keyEquivalent = @"\033";
         NSButton *dontSave = [alert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"Don't save button.")];
-        if (@available(macOS 11, *)) {
-            dontSave.hasDestructiveAction = YES;
-        }
+        dontSave.hasDestructiveAction = YES;
         [alert setMessageText:NSLocalizedString(@"Save changes to the network settings?",
                                                 @"Network settings change confirmation.")];
         [alert setInformativeText:NSLocalizedString(@"New network settings will be applied immediately, all "
@@ -158,10 +156,10 @@
         
         [defaults setInteger:[[self STUNServerPortField] integerValue] forKey:UserDefaultsKeys.stunServerPort];
         
-        BOOL useICEFlag = ([[self useICECheckBox] state] == NSOnState) ? YES : NO;
+        BOOL useICEFlag = ([[self useICECheckBox] state] == NSControlStateValueOn) ? YES : NO;
         [defaults setBool:useICEFlag forKey:UserDefaultsKeys.useICE];
         
-        BOOL newUseDNSSRVFlag = ([[self useDNSSRVCheckBox] state] == NSOnState) ? YES : NO;
+        BOOL newUseDNSSRVFlag = ([[self useDNSSRVCheckBox] state] == NSControlStateValueOn) ? YES : NO;
         [defaults setBool:newUseDNSSRVFlag forKey:UserDefaultsKeys.useDNSSRV];
         
         NSString *outboundProxyHost

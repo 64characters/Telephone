@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,7 +10,6 @@
             <connections>
                 <outlet property="accountStateImageView" destination="XTB-Ca-zvW" id="NKe-lx-Xs1"/>
                 <outlet property="accountStatePopUp" destination="8kv-8M-WnO" id="QTV-ZO-Tni"/>
-                <outlet property="accountStateToolbarItem" destination="q93-R7-UiB" id="24v-BY-jYW"/>
                 <outlet property="availableStateItem" destination="45b-yq-Hu2" id="8c6-x7-khg"/>
                 <outlet property="offlineStateItem" destination="aEv-gV-BF6" id="aI9-oe-thS"/>
                 <outlet property="unavailableStateItem" destination="tBT-83-toA" id="y3d-XB-qX1"/>
@@ -29,19 +28,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="252"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="2C054331-BFAD-476A-99A4-B2A04C36B553" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="57">
+            <toolbar key="toolbar" implicitIdentifier="2C054331-BFAD-476A-99A4-B2A04C36B553" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="57">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="5B2D55D8-29B2-4DF6-B4EB-FB47643AC74A" label="Account State" paletteLabel="Account State" tag="-1" id="q93-R7-UiB" userLabel="Account State">
+                    <toolbarItem implicitItemIdentifier="5B2D55D8-29B2-4DF6-B4EB-FB47643AC74A" label="Account State" paletteLabel="Account State" tag="-1" sizingBehavior="auto" id="q93-R7-UiB" userLabel="Account State">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="71" height="17"/>
-                        <size key="maxSize" width="71" height="17"/>
                         <box key="view" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" id="SHh-3W-jWp">
                             <rect key="frame" x="5" y="14" width="72" height="17"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="88u-Bi-Zq4">
                                 <rect key="frame" x="0.0" y="0.0" width="72" height="17"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
+                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-PR-3Qf" userLabel="Height">
+                                        <rect key="frame" x="0.0" y="0.0" width="72" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="6sH-re-JgY"/>
+                                        </constraints>
+                                    </customView>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8kv-8M-WnO">
                                         <rect key="frame" x="2" y="0.0" width="70" height="17"/>
                                         <popUpButtonCell key="cell" type="recessed" title="Offline" bezelStyle="recessed" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="ubg-x7-fdq">
@@ -76,10 +79,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="XTB-Ca-zvW" firstAttribute="centerY" secondItem="8kv-8M-WnO" secondAttribute="centerY" id="1sJ-nX-DvE"/>
+                                    <constraint firstAttribute="bottom" secondItem="0PP-PR-3Qf" secondAttribute="bottom" id="2vz-1c-ViD"/>
                                     <constraint firstItem="8kv-8M-WnO" firstAttribute="centerY" secondItem="88u-Bi-Zq4" secondAttribute="centerY" id="M3h-v7-KmY"/>
                                     <constraint firstItem="XTB-Ca-zvW" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" constant="7" id="PVF-9g-CcK"/>
                                     <constraint firstItem="8kv-8M-WnO" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" constant="2" id="RKn-Ih-doJ"/>
+                                    <constraint firstItem="0PP-PR-3Qf" firstAttribute="leading" secondItem="88u-Bi-Zq4" secondAttribute="leading" id="Veg-iN-qqk"/>
                                     <constraint firstAttribute="trailing" secondItem="8kv-8M-WnO" secondAttribute="trailing" id="daG-g5-b7Y"/>
+                                    <constraint firstAttribute="trailing" secondItem="0PP-PR-3Qf" secondAttribute="trailing" id="nNd-dC-SyW"/>
+                                    <constraint firstItem="0PP-PR-3Qf" firstAttribute="top" secondItem="88u-Bi-Zq4" secondAttribute="top" id="nOs-MD-3eq"/>
                                 </constraints>
                             </view>
                         </box>

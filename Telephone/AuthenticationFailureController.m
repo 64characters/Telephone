@@ -103,7 +103,7 @@ NSString * const AKAuthenticationFailureControllerDidChangeUsernameAndPasswordNo
             [[self accountController] showRegistrarConnectionErrorSheetWithError:error];
         }
         
-        if ([[self mustSaveCheckBox] state] == NSOnState) {
+        if ([[self mustSaveCheckBox] state] == NSControlStateValueOn) {
             NSString *service = [NSString stringWithFormat:@"SIP: %@", [[[self accountController] account] registrar]];
             [AKKeychain addItemWithService:service account:username password:[[self passwordField] stringValue]];
         }

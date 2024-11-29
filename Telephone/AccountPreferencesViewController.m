@@ -112,9 +112,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSAlert *alert = [[NSAlert alloc] init];
     NSButton *delete = [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
-    if (@available(macOS 11, *)) {
-        delete.hasDestructiveAction = YES;
-    }
+    delete.hasDestructiveAction = YES;
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")].keyEquivalent = @"\033";
     [alert setMessageText:[NSString stringWithFormat:
                            NSLocalizedString(@"Delete “%@”?", @"Account removal confirmation."),
@@ -176,7 +174,7 @@ static const NSUInteger kAccountsMax = 32;
         
         // Conditionally enable fields and set checkboxes state.
         if ([accountDict[UserDefaultsKeys.accountEnabled] boolValue]) {
-            [[self accountEnabledCheckBox] setState:NSOnState];
+            [[self accountEnabledCheckBox] setState:NSControlStateValueOn];
             [[self accountDescriptionField] setEnabled:NO];
             [[self fullNameField] setEnabled:NO];
             [[self domainField] setEnabled:NO];
@@ -201,7 +199,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self updateIPAddressCheckBox] setEnabled:NO];
 
         } else {
-            [[self accountEnabledCheckBox] setState:NSOffState];
+            [[self accountEnabledCheckBox] setState:NSControlStateValueOff];
             [[self accountDescriptionField] setEnabled:YES];
             [[self fullNameField] setEnabled:YES];
             [[self domainField] setEnabled:YES];
@@ -211,7 +209,7 @@ static const NSUInteger kAccountsMax = 32;
             [[self reregistrationTimeField] setEnabled:YES];
             [[self substitutePlusCharacterCheckBox] setEnabled:YES];
             [[self substitutePlusCharacterCheckBox] setState:[accountDict[UserDefaultsKeys.substitutePlusCharacter] integerValue]];
-            if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
+            if ([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn) {
                 [[self plusCharacterSubstitutionField] setEnabled:YES];
             } else {
                 [[self plusCharacterSubstitutionField] setEnabled:NO];
@@ -219,7 +217,7 @@ static const NSUInteger kAccountsMax = 32;
 
             [[self useProxyCheckBox] setEnabled:YES];
             [[self useProxyCheckBox] setState:[accountDict[AKSIPAccountKeys.useProxy] integerValue]];
-            if ([[self useProxyCheckBox] state] == NSOnState) {
+            if ([[self useProxyCheckBox] state] == NSControlStateValueOn) {
                 [[self proxyHostField] setEnabled:YES];
                 [[self proxyPortField] setEnabled:YES];
             } else {
@@ -336,19 +334,19 @@ static const NSUInteger kAccountsMax = 32;
 
         // Update SIP Transport.
         if ([accountDict[AKSIPAccountKeys.transport] isEqualToString:AKSIPAccountKeys.transportTCP]) {
-            [[self TCPButton] setState:NSOnState];
+            [[self TCPButton] setState:NSControlStateValueOn];
         } else if ([accountDict[AKSIPAccountKeys.transport] isEqualToString:AKSIPAccountKeys.transportTLS]) {
-            [[self TLSButton] setState:NSOnState];
+            [[self TLSButton] setState:NSControlStateValueOn];
         } else {
-            [[self UDPButton] setState:NSOnState];
+            [[self UDPButton] setState:NSControlStateValueOn];
         }
         [self updateProxyPortFieldPlaceholder];
 
         // Update IP Version.
         if ([accountDict[AKSIPAccountKeys.ipVersion] isEqualToString:AKSIPAccountKeys.ipVersion6]) {
-            [[self IPv6Button] setState:NSOnState];
+            [[self IPv6Button] setState:NSControlStateValueOn];
         } else {
-            [[self IPv4Button] setState:NSOnState];
+            [[self IPv4Button] setState:NSControlStateValueOn];
         }
         
         // Update headers checkbox.
@@ -356,19 +354,19 @@ static const NSUInteger kAccountsMax = 32;
             [accountDict[AKSIPAccountKeys.updateViaHeader] boolValue] &&
             [accountDict[AKSIPAccountKeys.updateSDP] boolValue]) {
             [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
-            [[self updateIPAddressCheckBox] setState:NSOnState];
+            [[self updateIPAddressCheckBox] setState:NSControlStateValueOn];
         } else if ([accountDict[AKSIPAccountKeys.updateContactHeader] boolValue] ||
                    [accountDict[AKSIPAccountKeys.updateViaHeader] boolValue] ||
                    [accountDict[AKSIPAccountKeys.updateSDP] boolValue]) {
             [[self updateIPAddressCheckBox] setAllowsMixedState:YES];
-            [[self updateIPAddressCheckBox] setState:NSMixedState];
+            [[self updateIPAddressCheckBox] setState:NSControlStateValueMixed];
         } else {
             [[self updateIPAddressCheckBox] setAllowsMixedState:NO];
-            [[self updateIPAddressCheckBox] setState:NSOffState];
+            [[self updateIPAddressCheckBox] setState:NSControlStateValueOff];
         }
 
     } else {  // if (index >= 0)
-        [[self accountEnabledCheckBox] setState:NSOffState];
+        [[self accountEnabledCheckBox] setState:NSControlStateValueOff];
         [[self accountDescriptionField] setStringValue:@""];
         [[self accountDescriptionField] setPlaceholderString:nil];
         [[self fullNameField] setStringValue:@""];
@@ -376,19 +374,19 @@ static const NSUInteger kAccountsMax = 32;
         [[self usernameField] setStringValue:@""];
         [[self passwordField] setStringValue:@""];
         [[self reregistrationTimeField] setStringValue:@""];
-        [[self substitutePlusCharacterCheckBox] setState:NSOffState];
+        [[self substitutePlusCharacterCheckBox] setState:NSControlStateValueOff];
         [[self plusCharacterSubstitutionField] setStringValue:@"00"];
-        [[self useProxyCheckBox] setState:NSOffState];
+        [[self useProxyCheckBox] setState:NSControlStateValueOff];
         [[self proxyHostField] setStringValue:@""];
         [[self proxyPortField] setStringValue:@""];
         [[self SIPAddressField] setStringValue:@""];
         [[self registrarField] setStringValue:@""];
-        [[self UDPButton] setState:NSOffState];
-        [[self TCPButton] setState:NSOffState];
-        [[self TLSButton] setState:NSOffState];
-        [[self IPv4Button] setState:NSOffState];
-        [[self IPv6Button] setState:NSOffState];
-        [[self updateIPAddressCheckBox] setState:NSOffState];
+        [[self UDPButton] setState:NSControlStateValueOff];
+        [[self TCPButton] setState:NSControlStateValueOff];
+        [[self TLSButton] setState:NSControlStateValueOff];
+        [[self IPv4Button] setState:NSControlStateValueOff];
+        [[self IPv6Button] setState:NSControlStateValueOff];
+        [[self updateIPAddressCheckBox] setState:NSControlStateValueOff];
 
         [[self accountEnabledCheckBox] setEnabled:NO];
         [[self accountDescriptionField] setEnabled:NO];
@@ -432,7 +430,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSMutableDictionary *accountDict = [NSMutableDictionary dictionaryWithDictionary:savedAccounts[index]];
     
-    BOOL isChecked = [[self accountEnabledCheckBox] state] == NSOnState;
+    BOOL isChecked = [[self accountEnabledCheckBox] state] == NSControlStateValueOn;
     accountDict[UserDefaultsKeys.accountEnabled] = @(isChecked);
     
     if (isChecked) {
@@ -472,10 +470,10 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[AKSIPAccountKeys.reregistrationTime] = @([[self reregistrationTimeField] integerValue]);
         
-        accountDict[UserDefaultsKeys.substitutePlusCharacter] = @([[self substitutePlusCharacterCheckBox] state] == NSOnState);
+        accountDict[UserDefaultsKeys.substitutePlusCharacter] = @([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn);
         accountDict[UserDefaultsKeys.plusCharacterSubstitutionString] = [[self plusCharacterSubstitutionField] stringValue];
         
-        accountDict[AKSIPAccountKeys.useProxy] = @([[self useProxyCheckBox] state] == NSOnState);
+        accountDict[AKSIPAccountKeys.useProxy] = @([[self useProxyCheckBox] state] == NSControlStateValueOn);
         NSString *proxyHost = [[[self proxyHostField] stringValue] stringByTrimmingCharactersInSet:spacesSet];
         accountDict[AKSIPAccountKeys.proxyHost] = proxyHost;
         accountDict[AKSIPAccountKeys.proxyPort] = @([[self proxyPortField] integerValue]);
@@ -485,21 +483,21 @@ static const NSUInteger kAccountsMax = 32;
         
         accountDict[AKSIPAccountKeys.registrar] = registrar;
 
-        if (self.TCPButton.state == NSOnState) {
+        if (self.TCPButton.state == NSControlStateValueOn) {
             accountDict[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportTCP;
-        } else if (self.TLSButton.state == NSOnState) {
+        } else if (self.TLSButton.state == NSControlStateValueOn) {
             accountDict[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportTLS;
         } else {
             accountDict[AKSIPAccountKeys.transport] = AKSIPAccountKeys.transportUDP;
         }
 
-        accountDict[AKSIPAccountKeys.ipVersion] = self.IPv6Button.state == NSOnState ? AKSIPAccountKeys.ipVersion6 : AKSIPAccountKeys.ipVersion4;
+        accountDict[AKSIPAccountKeys.ipVersion] = self.IPv6Button.state == NSControlStateValueOn ? AKSIPAccountKeys.ipVersion6 : AKSIPAccountKeys.ipVersion4;
 
-        if (self.updateIPAddressCheckBox.state == NSOnState) {
+        if (self.updateIPAddressCheckBox.state == NSControlStateValueOn) {
             accountDict[AKSIPAccountKeys.updateContactHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateViaHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateSDP] = @YES;
-        } else if (self.updateIPAddressCheckBox.state == NSMixedState) {
+        } else if (self.updateIPAddressCheckBox.state == NSControlStateValueMixed) {
             accountDict[AKSIPAccountKeys.updateContactHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateViaHeader] = @YES;
             accountDict[AKSIPAccountKeys.updateSDP] = @NO;
@@ -565,13 +563,13 @@ static const NSUInteger kAccountsMax = 32;
         [[self reregistrationTimeField] setEnabled:YES];
         [[self substitutePlusCharacterCheckBox] setEnabled:YES];
         [[self substitutePlusCharacterCheckBox] setState:[accountDict[UserDefaultsKeys.substitutePlusCharacter] integerValue]];
-        if ([[self substitutePlusCharacterCheckBox] state] == NSOnState) {
+        if ([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn) {
             [[self plusCharacterSubstitutionField] setEnabled:YES];
         }
         
         [[self useProxyCheckBox] setEnabled:YES];
         [[self useProxyCheckBox] setState:[accountDict[AKSIPAccountKeys.useProxy] integerValue]];
-        if ([[self useProxyCheckBox] state] == NSOnState) {
+        if ([[self useProxyCheckBox] state] == NSControlStateValueOn) {
             [[self proxyHostField] setEnabled:YES];
             [[self proxyPortField] setEnabled:YES];
         }
@@ -598,11 +596,11 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (IBAction)changeSubstitutePlusCharacter:(id)sender {
-    [[self plusCharacterSubstitutionField] setEnabled:([[self substitutePlusCharacterCheckBox] state] == NSOnState)];
+    [[self plusCharacterSubstitutionField] setEnabled:([[self substitutePlusCharacterCheckBox] state] == NSControlStateValueOn)];
 }
 
 - (IBAction)changeUseProxy:(id)sender {
-    BOOL isChecked = [[self useProxyCheckBox] state] == NSOnState;
+    BOOL isChecked = [[self useProxyCheckBox] state] == NSControlStateValueOn;
     [[self proxyHostField] setEnabled:isChecked];
     [[self proxyPortField] setEnabled:isChecked];
 }
@@ -612,7 +610,7 @@ static const NSUInteger kAccountsMax = 32;
 }
 
 - (void)updateProxyPortFieldPlaceholder {
-    self.proxyPortField.placeholderString = self.TLSButton.state == NSOnState ? @"5061" : @"5060";
+    self.proxyPortField.placeholderString = self.TLSButton.state == NSControlStateValueOn ? @"5061" : @"5060";
 }
 
 // Group radio buttons by providing them the same action.
@@ -659,12 +657,14 @@ static const NSUInteger kAccountsMax = 32;
         writeRowsWithIndexes:(NSIndexSet *)rowIndexes
         toPasteboard:(NSPasteboard *)pboard {
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
-    
+    NSError *error;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes requiringSecureCoding:YES error:&error];
+    if (data == nil) {
+        NSLog(@"Could not archive row indexes while dragging: %@", error);
+        return NO;
+    }
     [pboard declareTypes:@[kAKSIPAccountPboardType] owner:self];
-    
     [pboard setData:data forType:kAKSIPAccountPboardType];
-    
     return YES;
 }
 
@@ -674,15 +674,17 @@ static const NSUInteger kAccountsMax = 32;
        proposedDropOperation:(NSTableViewDropOperation)operation {
     
     NSData *data = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
-    NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSError *error;
+    NSIndexSet *indexes = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSIndexSet class] fromData:data error:&error];
+    if (indexes == nil) {
+        NSLog(@"Could not unarchive row indexes while dragging: %@", error);
+        return NSDragOperationNone;
+    }
     NSInteger draggingRow = [indexes firstIndex];
-    
     if (row == draggingRow || row == draggingRow + 1) {
         return NSDragOperationNone;
     }
-    
     [[self accountsTable] setDropRow:row dropOperation:NSTableViewDropAbove];
-    
     return NSDragOperationMove;
 }
 
@@ -692,7 +694,12 @@ static const NSUInteger kAccountsMax = 32;
     dropOperation:(NSTableViewDropOperation)operation {
     
     NSData *data = [[info draggingPasteboard] dataForType:kAKSIPAccountPboardType];
-    NSIndexSet *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSError *error;
+    NSIndexSet *indexes = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSIndexSet class] fromData:data error:&error];
+    if (indexes == nil) {
+        NSLog(@"Could not unarchive row indexes while dragging: %@", error);
+        return NO;
+    }
     NSInteger draggingRow = [indexes firstIndex];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

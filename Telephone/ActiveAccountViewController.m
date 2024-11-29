@@ -131,7 +131,7 @@ NSString * const kPhoneLabel = @"PhoneLabel";
 // Returns completions based on the Address Book search.
 // A completion string can be in one of two formats: Display Name <1234567> for person or company name searches,
 // 1234567 (Display Name) for the phone number searches.
-// Sets tokenField sytle to NSRoundedTokenStyle if the substring is found in the Address Book; otherwise, sets
+// Sets tokenField sytle to NSTokenStyleRounded if the substring is found in the Address Book; otherwise, sets
 // tokenField sytle to NSPlainTextTokenStyle.
 - (NSArray *)tokenField:(NSTokenField *)tokenField
         completionsForSubstring:(NSString *)substring
@@ -843,13 +843,13 @@ NSString * const kPhoneLabel = @"PhoneLabel";
         [tokenMenu addItem:menuItem];
     }
     
-    [[tokenMenu itemWithTag:[self callDestinationURIIndex]] setState:NSOnState];
+    [[tokenMenu itemWithTag:[self callDestinationURIIndex]] setState:NSControlStateValueOn];
     
     return tokenMenu;
 }
 
 - (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {
-    if (index > 0 && [tokenField tokenStyle] == NSRoundedTokenStyle) {
+    if (index > 0 && [tokenField tokenStyle] == NSTokenStyleRounded) {
         return nil;
     } else {
         return tokens;

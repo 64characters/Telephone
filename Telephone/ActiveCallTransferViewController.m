@@ -23,7 +23,7 @@
 #import "CallTransferController.h"
 
 
-@interface ActiveCallTransferViewController ()
+@interface ActiveCallTransferViewController () <NSMenuItemValidation>
 
 @property(nonatomic, getter=isWaitingForHold) BOOL waitingForHold;
 
@@ -80,7 +80,7 @@
 
 
 #pragma mark -
-#pragma mark NSMenuValidation protocol
+#pragma mark NSMenuItemValidation protocol
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if ([menuItem action] == @selector(showCallTransferSheet:)) {

@@ -36,7 +36,7 @@ private func makeEventSource(selector: AudioObjectPropertySelector,
         address: AudioObjectPropertyAddress(
             mSelector: selector,
             mScope: kAudioObjectPropertyScopeGlobal,
-            mElement: kAudioObjectPropertyElementMaster
+            mElement: kAudioObjectPropertyElementMain
         ),
         queue: queue,
         callback: { (_, _) in DispatchQueue.main.async(execute: target.defaultSystemSoundIODidUpdate) }
