@@ -1,8 +1,7 @@
-Telephone is a VoIP program which allows you to make phone calls over
-the internet. It can be used to call regular phones via any
-appropriate SIP provider. If your office or home phone works via SIP,
-you can use that phone number on your Mac anywhere you have decent
-internet connection.
+Telephone is a VoIP SIP softphone for Mac. It allows you to make phone
+calls over the Internet or your company network. If your phone line
+supports SIP protocol, you can use it on your Mac instead of a
+physical phone anywhere you have a decent network connection.
 
 ## Building
 
