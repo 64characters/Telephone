@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.6
+## 1.7
+- Minimum deployment target 13.5.
+
+## 1.6 - 2022-06-29
 - macOS Big Sur.
 - Apple silicon.
 - Minimum deployment target 10.13.
