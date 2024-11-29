@@ -245,9 +245,7 @@ private func makeDeletionAlert(messageText text: String) -> NSAlert {
         "This action cannot be undone.", comment: "Call history record removal alert informative text."
     )
     let delete = a.addButton(withTitle: NSLocalizedString("Delete", comment: "Delete button."))
-    if #available(macOS 11, *) {
-        delete.hasDestructiveAction = true
-    }
+    delete.hasDestructiveAction = true
     a.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel button.")).keyEquivalent = "\u{1b}"
     return a
 }

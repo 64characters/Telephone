@@ -112,9 +112,7 @@ static const NSUInteger kAccountsMax = 32;
     
     NSAlert *alert = [[NSAlert alloc] init];
     NSButton *delete = [alert addButtonWithTitle:NSLocalizedString(@"Delete", @"Delete button.")];
-    if (@available(macOS 11, *)) {
-        delete.hasDestructiveAction = YES;
-    }
+    delete.hasDestructiveAction = YES;
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button.")].keyEquivalent = @"\033";
     [alert setMessageText:[NSString stringWithFormat:
                            NSLocalizedString(@"Delete “%@”?", @"Account removal confirmation."),

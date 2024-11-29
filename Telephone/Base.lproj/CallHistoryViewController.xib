@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,13 +43,16 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <prototypeCellViews>
-                                            <tableCellView id="GQL-B4-dJ7" customClass="CallHistoryOutgoingCallCellView" customModule="Telephone" customModuleProvider="target">
+                                            <tableCellView id="GQL-B4-dJ7">
                                                 <rect key="frame" x="11" y="1" width="27" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-zC-WCA">
-                                                        <rect key="frame" x="8" y="25" width="10" height="10"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="outgoing-call" id="7Bf-tN-avV"/>
+                                                        <rect key="frame" x="8" y="25" width="12" height="12"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="7Bf-tN-avV">
+                                                            <imageReference key="image" image="phone.arrow.up.right.fill" catalog="system" symbolScale="small"/>
+                                                        </imageCell>
+                                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                         <connections>
                                                             <binding destination="GQL-B4-dJ7" name="hidden" keyPath="objectValue.isIncoming" id="tOK-kH-icO"/>
                                                         </connections>
@@ -58,9 +62,6 @@
                                                     <constraint firstItem="cdt-zC-WCA" firstAttribute="top" secondItem="GQL-B4-dJ7" secondAttribute="top" constant="9" id="EDn-ph-8EJ"/>
                                                     <constraint firstItem="cdt-zC-WCA" firstAttribute="leading" secondItem="GQL-B4-dJ7" secondAttribute="leading" constant="8" id="SMW-Jo-2mY"/>
                                                 </constraints>
-                                                <connections>
-                                                    <outlet property="outgoingCallView" destination="cdt-zC-WCA" id="ye4-fE-mSS"/>
-                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -76,11 +77,11 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="WWY-ZO-bzC" customClass="CallHistoryContactCellView" customModule="Telephone" customModuleProvider="target">
+                                            <tableCellView id="WWY-ZO-bzC">
                                                 <rect key="frame" x="40" y="1" width="152" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qIw-Ai-26d" userLabel="Contact">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qIw-Ai-26d" userLabel="Contact">
                                                         <rect key="frame" x="0.0" y="24" width="131" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="0049 123 45678901" id="nL2-fI-0xh">
                                                             <font key="font" metaFont="systemMedium" size="13"/>
@@ -93,7 +94,7 @@
                                                             <binding destination="WWY-ZO-bzC" name="toolTip" keyPath="objectValue.contact.tooltip" id="PXL-as-zWg"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lK4-pF-OnF" userLabel="Label">
                                                         <rect key="frame" x="0.0" y="7" width="35" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Home" id="fDT-3a-1hx">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -114,7 +115,6 @@
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lK4-pF-OnF" secondAttribute="trailing" id="xmY-i3-UWV"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="labelField" destination="lK4-pF-OnF" id="EFt-oN-hGQ"/>
                                                     <outlet property="textField" destination="qIw-Ai-26d" id="ind-Ur-qcM"/>
                                                 </connections>
                                             </tableCellView>
@@ -140,7 +140,7 @@
                                                 <rect key="frame" x="194" y="1" width="125" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ybc-FK-BWx" userLabel="Date">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ybc-FK-BWx" userLabel="Date">
                                                         <rect key="frame" x="0.0" y="24" width="107" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Yesterday, 23:59" id="UdU-YW-Y1W">
                                                             <font key="font" metaFont="system"/>
@@ -151,7 +151,7 @@
                                                             <binding destination="0ms-m8-Hi7" name="value" keyPath="objectValue.date" id="IL4-rZ-m21"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0oC-9Q-fGf" userLabel="Duration">
+                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0oC-9Q-fGf" userLabel="Duration">
                                                         <rect key="frame" x="0.0" y="7" width="85" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10 min, 15 secs" id="K9r-bz-3Ts">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -233,6 +233,6 @@
         </menu>
     </objects>
     <resources>
-        <image name="outgoing-call" width="10" height="10"/>
+        <image name="phone.arrow.up.right.fill" catalog="system" width="12" height="12"/>
     </resources>
 </document>

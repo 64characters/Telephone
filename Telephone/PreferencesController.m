@@ -128,17 +128,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    if (@available(macOS 11, *)) {
-        self.generalToolbarItem.image = [NSImage imageWithSystemSymbolName:@"gearshape" accessibilityDescription:nil];
-        self.accountsToolbarItem.image = [NSImage imageWithSystemSymbolName:@"at" accessibilityDescription:nil];
-        self.soundToolbarItem.image = [NSImage imageWithSystemSymbolName:@"speaker.wave.2" accessibilityDescription:nil];
-        self.networkToolbarItem.image = [NSImage imageWithSystemSymbolName:@"network" accessibilityDescription:nil];
-    } else {
-        self.generalToolbarItem.image = [NSImage imageNamed:NSImageNamePreferencesGeneral];
-        self.accountsToolbarItem.image = [NSImage imageNamed:NSImageNameUserAccounts];
-        self.soundToolbarItem.image = [NSImage imageNamed:@"Sound"];
-        self.networkToolbarItem.image = [NSImage imageNamed:NSImageNameNetwork];
-    }
+    self.generalToolbarItem.image = [NSImage imageWithSystemSymbolName:@"gearshape" accessibilityDescription:nil];
+    self.accountsToolbarItem.image = [NSImage imageWithSystemSymbolName:@"at" accessibilityDescription:nil];
+    self.soundToolbarItem.image = [NSImage imageWithSystemSymbolName:@"speaker.wave.2" accessibilityDescription:nil];
+    self.networkToolbarItem.image = [NSImage imageWithSystemSymbolName:@"network" accessibilityDescription:nil];
 }
 
 - (void)windowDidLoad {
