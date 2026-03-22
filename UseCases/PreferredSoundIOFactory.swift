@@ -18,6 +18,7 @@
 
 import Domain
 
+@MainActor
 public final class PreferredSoundIOFactory {
     private let devicesFactory: SystemAudioDevicesFactory
     private let defaultIOFactory: SystemSoundIOFactory

@@ -16,20 +16,21 @@
 //  GNU General Public License for more details.
 //
 
+@ContactsActor
 public final class SimpleContactMatchingIndexFactory {
     private let contacts: Contacts
     private let settings: ContactMatchingSettings
 
-    public init(contacts: Contacts, settings: ContactMatchingSettings) {
+    public nonisolated init(contacts: Contacts, settings: ContactMatchingSettings) {
         self.contacts = contacts
         self.settings = settings
     }
 }
 
 extension SimpleContactMatchingIndexFactory: ContactMatchingIndexFactory {
-    public func make() -> ContactMatchingIndex {
+    public func make() async -> ContactMatchingIndex {
         return SimpleContactMatchingIndex(
-            contacts: contacts, maxPhoneNumberLength: settings.significantPhoneNumberLength
+            contacts: contacts, maxPhoneNumberLength: await settings.significantPhoneNumberLength
         )
     }
 }

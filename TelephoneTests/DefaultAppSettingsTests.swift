@@ -16,34 +16,35 @@
 //  GNU General Public License for more details.
 //
 
-import XCTest
+import Testing
 import UseCasesTestDoubles
 
-final class DefaultAppSettingsTests: XCTestCase {
-    func testRegistersDefaultSettingsOnRegister() {
+@MainActor
+struct DefaultAppSettingsTests {
+    @Test func registersDefaultSettingsOnRegister() {
         let settings = SettingsFake()
         let sut = DefaultAppSettings(settings: settings, localization: "any")
 
         sut.register()
 
-        XCTAssertFalse(settings.registeredDefaults.isEmpty)
+        #expect(!settings.registeredDefaults.isEmpty)
     }
 
-    func testFormatTelephoneNumbersIsFalseForGermanLocalization() {
+    @Test func formatTelephoneNumbersIsFalseForGermanLocalization() {
         let settings = SettingsFake()
         let sut = DefaultAppSettings(settings: settings, localization: "de")
 
         sut.register()
 
-        XCTAssertFalse(settings.registeredDefaults[UserDefaultsKeys.formatTelephoneNumbers] as! Bool)
+        #expect(!(settings.registeredDefaults[UserDefaultsKeys.formatTelephoneNumbers] as! Bool))
     }
 
-    func testTelephoneNumberFormatterSplitsLastFourDigitsIsTrueForRussian() {
+    @Test func telephoneNumberFormatterSplitsLastFourDigitsIsTrueForRussian() {
         let settings = SettingsFake()
         let sut = DefaultAppSettings(settings: settings, localization: "ru")
 
         sut.register()
 
-        XCTAssertTrue(settings.registeredDefaults[UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits] as! Bool)
+        #expect(settings.registeredDefaults[UserDefaultsKeys.telephoneNumberFormatterSplitsLastFourDigits] as! Bool)
     }
 }

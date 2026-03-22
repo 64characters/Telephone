@@ -16,19 +16,18 @@
 //  GNU General Public License for more details.
 //
 
-import XCTest
+import Testing
 import UseCases
 import UseCasesTestDoubles
 
 @ContactsActor
-final class ContactCallHistoryRecordGetAllUseCaseTests: XCTestCase {
-    func testCallsUpdateOnOutputWithRecordsConvertedUsingMatchedContactFactoryOnUpdate() async {
+struct ContactCallHistoryRecordGetAllUseCaseTests {
+    @Test func callsUpdateOnOutputWithRecordsConvertedUsingMatchedContactFactoryOnUpdate() async {
         let record1 = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let record2 = CallHistoryRecordTestFactory().makeRecord(number: 2)
         let contact1 = MatchedContact(uri: record1.uri)
         let contact2 = MatchedContact(uri: record2.uri)
-        let didUpdate = expectation(description: "Calls update on output")
-        let output = ContactCallHistoryRecordGetAllUseCaseOutputSpy(callback: didUpdate.fulfill)
+        let output = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
         let sut = ContactCallHistoryRecordGetAllUseCase(
             factory: FallingBackMatchedContactFactory(
                 matching: ContactMatchingStub([record1.uri: contact1, record2.uri: contact2])
@@ -36,15 +35,13 @@ final class ContactCallHistoryRecordGetAllUseCaseTests: XCTestCase {
             output: output
         )
 
-        sut.update(records: [record1, record2])
+        await sut.update(records: [record1, record2])
 
-        await fulfillment(of: [didUpdate], timeout: 1)
-        XCTAssertEqual(
-            output.invokedRecords,
+        #expect(
+            output.invokedRecords ==
             [
                 ContactCallHistoryRecord(origin: record1, contact: contact1),
                 ContactCallHistoryRecord(origin: record2, contact: contact2)
-
             ]
         )
     }

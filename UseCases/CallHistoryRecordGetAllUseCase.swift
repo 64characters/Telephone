@@ -17,7 +17,7 @@
 //
 
 public protocol CallHistoryRecordGetAllUseCaseOutput: Sendable {
-    func update(records: [CallHistoryRecord])
+    func update(records: [CallHistoryRecord]) async
 }
 
 public final class CallHistoryRecordGetAllUseCase: Sendable {
@@ -33,7 +33,7 @@ public final class CallHistoryRecordGetAllUseCase: Sendable {
 extension CallHistoryRecordGetAllUseCase: UseCase {
     public func execute() {
         Task {
-            output.update(records: await history.allRecords)
+            await output.update(records: await history.allRecords)
         }
     }
 }

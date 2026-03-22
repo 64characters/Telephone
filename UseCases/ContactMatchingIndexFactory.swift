@@ -18,5 +18,5 @@
 
 @ContactsActor
 public protocol ContactMatchingIndexFactory: Sendable {
-    func make() -> ContactMatchingIndex
+    func make() async -> ContactMatchingIndex
 }

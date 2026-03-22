@@ -22,6 +22,7 @@ public protocol PurchaseReminderUseCaseOutput {
     func remindAboutPurchasing()
 }
 
+@MainActor
 public final class PurchaseReminderUseCase: NSObject {
     private let accounts: Accounts
     private let receipt: Receipt

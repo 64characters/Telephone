@@ -18,6 +18,6 @@
 
 @ContactsActor
 public protocol ContactMatchingIndex: Sendable {
-    func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact?
-    func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact?
+    func contact(forPhone phone: ExtractedPhoneNumber) async -> MatchedContact?
+    func contact(forEmail email: NormalizedLowercasedString) async -> MatchedContact?
 }

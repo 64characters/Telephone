@@ -18,6 +18,7 @@
 
 import Domain
 
+@MainActor
 struct PreferredSoundIO {
     private let soundIO: SoundIO
 

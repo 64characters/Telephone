@@ -18,5 +18,5 @@
 
 @ContactsActor
 public protocol ContactMatchingSettings: Sendable {
-    var significantPhoneNumberLength: Int { get }
+    var significantPhoneNumberLength: Int { get async }
 }

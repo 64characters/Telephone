@@ -24,7 +24,7 @@ public final class FallingBackMatchedContactFactory {
         self.matching = matching
     }
 
-    public func make(uri: URI) -> MatchedContact {
-        return matching.match(for: uri) ?? MatchedContact(uri: uri)
+    public func make(uri: URI) async -> MatchedContact {
+        return await matching.match(for: uri) ?? MatchedContact(uri: uri)
     }
 }

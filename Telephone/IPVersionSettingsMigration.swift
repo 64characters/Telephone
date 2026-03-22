@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class IPVersionSettingsMigration {
     private let settings: KeyValueSettings
 

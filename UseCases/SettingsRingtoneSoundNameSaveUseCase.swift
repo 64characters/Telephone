@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+@MainActor
 public final class SettingsRingtoneSoundNameSaveUseCase {
     private let name: String
     private let settings: KeyValueSettings

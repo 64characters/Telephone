@@ -18,6 +18,7 @@
 
 import Domain
 
+@MainActor
 public final class SettingsRingtoneSoundConfigurationLoadUseCase {
     private let settings: KeyValueSettings
     private let factory: SoundIOFactory

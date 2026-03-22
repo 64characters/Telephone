@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+@MainActor
 public final class SimpleMusicPlayerSettings {
     private let settings: KeyValueSettings
 

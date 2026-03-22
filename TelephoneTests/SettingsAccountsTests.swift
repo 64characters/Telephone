@@ -16,12 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SettingsAccountsTests: XCTestCase {
-    func testHaveEnabledIsTrueWhenAtLeastOneAccountIsEnabled() {
+@MainActor
+struct SettingsAccountsTests {
+    @Test func haveEnabledIsTrueWhenAtLeastOneAccountIsEnabled() {
         let settings = SettingsFake()
         settings.set(
             [
@@ -34,10 +35,10 @@ final class SettingsAccountsTests: XCTestCase {
 
         let sut = SettingsAccounts(settings: settings)
 
-        XCTAssertTrue(sut.haveEnabled)
+        #expect(sut.haveEnabled)
     }
 
-    func testHaveEnabledIsFalseWhenThereAreNoEnabledAccounts() {
+    @Test func haveEnabledIsFalseWhenThereAreNoEnabledAccounts() {
         let settings = SettingsFake()
         settings.set(
             [
@@ -50,6 +51,6 @@ final class SettingsAccountsTests: XCTestCase {
 
         let sut = SettingsAccounts(settings: settings)
 
-        XCTAssertFalse(sut.haveEnabled)
+        #expect(!sut.haveEnabled)
     }
 }

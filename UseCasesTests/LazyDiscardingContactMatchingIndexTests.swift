@@ -16,82 +16,82 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 @testable import UseCases
 import UseCasesTestDoubles
-import XCTest
 
 @ContactsActor
-final class LazyDiscardingContactMatchingIndexTests: XCTestCase {
-    func testDoesNotCreateOriginOnCreation() {
+struct LazyDiscardingContactMatchingIndexTests {
+    @Test func doesNotCreateOriginOnCreation() {
         let factory = ContactMatchingIndexFactorySpy()
 
         _ = LazyDiscardingContactMatchingIndex(factory: factory)
 
-        XCTAssertFalse(factory.didCallMake)
+        #expect(!factory.didCallMake)
     }
 
-    func testCreatesOriginOnFirstSearchByPhone() {
+    @Test func createsOriginOnFirstSearchByPhone() async {
         let factory = ContactMatchingIndexFactorySpy()
         let sut = LazyDiscardingContactMatchingIndex(factory: factory)
 
-        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
+        _ = await sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
 
-        XCTAssertTrue(factory.didCallMake)
+        #expect(factory.didCallMake)
     }
 
-    func testCreatesOriginOnFirsthSearchByEmail() {
+    @Test func createsOriginOnFirsthSearchByEmail() async {
         let factory = ContactMatchingIndexFactorySpy()
         let sut = LazyDiscardingContactMatchingIndex(factory: factory)
 
-        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
+        _ = await sut.contact(forEmail: NormalizedLowercasedString("any"))
 
-        XCTAssertTrue(factory.didCallMake)
+        #expect(factory.didCallMake)
     }
 
-    func testCreatesOriginOnce() {
+    @Test func createsOriginOnce() async {
         let factory = ContactMatchingIndexFactorySpy()
         let sut = LazyDiscardingContactMatchingIndex(factory: factory)
 
-        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
-        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
-        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
-        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
+        _ = await sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
+        _ = await sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 10))
+        _ = await sut.contact(forEmail: NormalizedLowercasedString("any"))
+        _ = await sut.contact(forEmail: NormalizedLowercasedString("any"))
 
-        XCTAssertEqual(factory.makeCallCount, 1)
+        #expect(factory.makeCallCount == 1)
     }
 
-    func testReturnsMatchFromOriginOnSearchByPhone() {
+    @Test func returnsMatchFromOriginOnSearchByPhone() async {
         let contact = MatchedContact(name: "any-name", address: .phone(number: "any-number", label: "any-label"))
         let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(indexes: [ContactMatchingIndexStub(contact: contact)])
         )
 
-        let result = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
+        let result = await sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
 
-        XCTAssertEqual(result, contact)
+        #expect(result == contact)
     }
 
-    func testReturnsMatchFromOriginOnSearchByEmail() {
+    @Test func returnsMatchFromOriginOnSearchByEmail() async {
         let contact = MatchedContact(name: "any-name", address: .email(address: "any-address", label: "any-label"))
         let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(indexes: [ContactMatchingIndexStub(contact: contact)])
         )
 
-        let result = sut.contact(forEmail: NormalizedLowercasedString("any"))
+        let result = await sut.contact(forEmail: NormalizedLowercasedString("any"))
 
-        XCTAssertEqual(result, contact)
+        #expect(result == contact)
     }
 
-    func testDoesNotCreateOriginOnContactsDidChange() {
+    @Test func doesNotCreateOriginOnContactsDidChange() {
         let factory = ContactMatchingIndexFactorySpy()
         let sut = LazyDiscardingContactMatchingIndex(factory: factory)
 
         sut.contactsDidChange()
 
-        XCTAssertFalse(factory.didCallMake)
+        #expect(!factory.didCallMake)
     }
 
-    func testReturnsMatchFromRecreatedOriginAfterContactsChangeEventOnSearchByPhone() {
+    @Test func returnsMatchFromRecreatedOriginAfterContactsChangeEventOnSearchByPhone() async {
         let contact = MatchedContact(name: "any-name-2", address: .phone(number: "any-number-2", label: "any-label-2"))
         let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(
@@ -106,14 +106,14 @@ final class LazyDiscardingContactMatchingIndexTests: XCTestCase {
             )
         )
 
-        _ = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
+        _ = await sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
         sut.contactsDidChange()
-        let result = sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
+        let result = await sut.contact(forPhone: ExtractedPhoneNumber("any", maxLength: 0))
 
-        XCTAssertEqual(result, contact)
+        #expect(result == contact)
     }
 
-    func testReturnsMatchFromRecreatedOriginAfterContactsChangeEventOnSearchByEmail() {
+    @Test func returnsMatchFromRecreatedOriginAfterContactsChangeEventOnSearchByEmail() async {
         let contact = MatchedContact(name: "any-name-2", address: .email(address: "any-address-2", label: "any-label-2"))
         let sut = LazyDiscardingContactMatchingIndex(
             factory: ContactMatchingIndexFactoryStub(
@@ -128,10 +128,10 @@ final class LazyDiscardingContactMatchingIndexTests: XCTestCase {
             )
         )
 
-        _ = sut.contact(forEmail: NormalizedLowercasedString("any"))
+        _ = await sut.contact(forEmail: NormalizedLowercasedString("any"))
         sut.contactsDidChange()
-        let result = sut.contact(forEmail: NormalizedLowercasedString("any"))
+        let result = await sut.contact(forEmail: NormalizedLowercasedString("any"))
 
-        XCTAssertEqual(result, contact)
+        #expect(result == contact)
     }
 }

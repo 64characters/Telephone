@@ -16,13 +16,13 @@
 //  GNU General Public License for more details.
 //
 
-import XCTest
+import Testing
 import UseCases
 import UseCasesTestDoubles
 
 @ContactsActor
-final class IndexedContactMatchingTests: XCTestCase {
-    func testMatchesContactByEmail() {
+struct IndexedContactMatchingTests {
+    @Test func matchesContactByEmail() async {
         let contact = Contact(name: "John Smith", phones: [], emails: [Contact.Email(address: "user@company.com", label: "work")])
         let sut = IndexedContactMatching(
             index: SimpleContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 0),
@@ -30,12 +30,12 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        let result = sut.match(for: URI(user: "user", host: "company.com", displayName: "any-name"))
+        let result = await sut.match(for: URI(user: "user", host: "company.com", displayName: "any-name"))
 
-        XCTAssertEqual(result, MatchedContact(contact: contact, emailIndex: 0))
+        #expect(result == MatchedContact(contact: contact, emailIndex: 0))
     }
 
-    func testMatchesContactByPhoneNumber() {
+    @Test func matchesContactByPhoneNumber() async {
         let contact = Contact(name: "John Smith", phones: [Contact.Phone(number: "0123456789", label: "home")], emails: [])
         let length = 10
         let sut = IndexedContactMatching(
@@ -44,12 +44,12 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        let result = sut.match(for: URI(user: contact.phones[0].number, host: "any-host", displayName: "any-name"))
+        let result = await sut.match(for: URI(user: contact.phones[0].number, host: "any-host", displayName: "any-name"))
 
-        XCTAssertEqual(result, MatchedContact(contact: contact, phoneIndex: 0))
+        #expect(result == MatchedContact(contact: contact, phoneIndex: 0))
     }
 
-    func testMatchesContactByLastDigitsOfThePhoneNumberFromSettings() {
+    @Test func matchesContactByLastDigitsOfThePhoneNumberFromSettings() async {
         let contact = Contact(name: "John Smith", phones: [Contact.Phone(number: "0123456789", label: "home")], emails: [])
         let length = 7
         let sut = IndexedContactMatching(
@@ -58,12 +58,12 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        let result = sut.match(for: URI(user: "3456789", host: "any-host", displayName: "any-name"))
+        let result = await sut.match(for: URI(user: "3456789", host: "any-host", displayName: "any-name"))
 
-        XCTAssertEqual(result, MatchedContact(contact: contact, phoneIndex: 0))
+        #expect(result == MatchedContact(contact: contact, phoneIndex: 0))
     }
 
-    func testMatchesContactByEmailWhenBothEmailAndPhoneNumberExist() {
+    @Test func matchesContactByEmailWhenBothEmailAndPhoneNumberExist() async {
         let contact1 = Contact(name: "John Smith", phones: [], emails: [Contact.Email(address: "0123456789@company.com", label: "work")])
         let contact2 = Contact(name: "Jane Doe", phones: [Contact.Phone(number: "0123456789", label: "home")], emails: [])
         let length = 10
@@ -73,12 +73,12 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        let result = sut.match(for: URI(user: "0123456789", host: "company.com", displayName: "any"))
+        let result = await sut.match(for: URI(user: "0123456789", host: "company.com", displayName: "any"))
 
-        XCTAssertEqual(result, MatchedContact(contact: contact1, emailIndex: 0))
+        #expect(result == MatchedContact(contact: contact1, emailIndex: 0))
     }
 
-    func testMatchesContactByPhoneNumberWhenContactPhoneContainsNonDigitCharacters() {
+    @Test func matchesContactByPhoneNumberWhenContactPhoneContainsNonDigitCharacters() async {
         let contact = Contact(name: "John Smith", phones: [Contact.Phone(number: "(012) 345-6789", label: "home")], emails: [])
         let length = 10
         let sut = IndexedContactMatching(
@@ -87,12 +87,12 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        let result = sut.match(for: URI(user: "0123456789", host: "any-host", displayName: "any-name"))
+        let result = await sut.match(for: URI(user: "0123456789", host: "any-host", displayName: "any-name"))
 
-        XCTAssertEqual(result, MatchedContact(contact: contact, phoneIndex: 0))
+        #expect(result == MatchedContact(contact: contact, phoneIndex: 0))
     }
 
-    func testMatchesContactByEmailWhenContactEmailContainsUppercaseCharacters() {
+    @Test func matchesContactByEmailWhenContactEmailContainsUppercaseCharacters() async {
         let contact = Contact(name: "Jane", phones: [], emails: [Contact.Email(address: "JohnSmith@Company.com", label: "work")])
         let sut = IndexedContactMatching(
             index: SimpleContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 0),
@@ -100,12 +100,12 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        let result = sut.match(for: URI(user: "johnsmith", host: "Company.com", displayName: "any"))
+        let result = await sut.match(for: URI(user: "johnsmith", host: "Company.com", displayName: "any"))
 
-        XCTAssertEqual(result, MatchedContact(contact: contact, emailIndex: 0))
+        #expect(result == MatchedContact(contact: contact, emailIndex: 0))
     }
 
-    func testMatchesContactByEmailComposedOfURIUserAndDefaultDomainWhenURIHostIsEmpty() {
+    @Test func matchesContactByEmailComposedOfURIUserAndDefaultDomainWhenURIHostIsEmpty() async {
         let contact = Contact(name: "Foo", phones: [], emails: [Contact.Email(address: "foo@bar.com", label: "work")])
         let sut = IndexedContactMatching(
             index: SimpleContactMatchingIndex(contacts: SimpleContacts([contact]), maxPhoneNumberLength: 0),
@@ -113,12 +113,12 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: "bar.com"
         )
 
-        let result = sut.match(for: URI(user: "foo", host: "", displayName: "any"))
+        let result = await sut.match(for: URI(user: "foo", host: "", displayName: "any"))
 
-        XCTAssertEqual(result, MatchedContact(contact: contact, emailIndex: 0))
+        #expect(result == MatchedContact(contact: contact, emailIndex: 0))
     }
 
-    func testReturnsNilWhenNothingIsFound() {
+    @Test func returnsNilWhenNothingIsFound() async {
         let sut = IndexedContactMatching(
             index: SimpleContactMatchingIndex(
                 contacts: SimpleContacts(
@@ -136,8 +136,8 @@ final class IndexedContactMatchingTests: XCTestCase {
             domain: ""
         )
 
-        let result = sut.match(for: URI(user: "foo", host: "bar", displayName: ""))
+        let result = await sut.match(for: URI(user: "foo", host: "bar", displayName: ""))
 
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 }

@@ -16,12 +16,14 @@
 //  GNU General Public License for more details.
 //
 
+import Foundation
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class PurchaseReminderUseCaseTests: XCTestCase {
-    func testDoesNotRemindWhenThereAreNoEnabledAccounts() {
+@MainActor
+struct PurchaseReminderUseCaseTests {
+    @Test func doesNotRemindWhenThereAreNoEnabledAccounts() {
         let settings = SettingsFake()
         settings.date = Date.distantPast
         settings.version = "any"
@@ -37,10 +39,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(output.didCallRemind)
+        #expect(!output.didCallRemind)
     }
 
-    func testDoesNotRemindWhenReceiptIsValid() {
+    @Test func doesNotRemindWhenReceiptIsValid() {
         let settings = SettingsFake()
         settings.date = Date.distantPast
         settings.version = "any"
@@ -56,10 +58,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(output.didCallRemind)
+        #expect(!output.didCallRemind)
     }
 
-    func testRemindsWhenMoreThanThirtyDaysPassedSinceLastReminder() {
+    @Test func remindsWhenMoreThanThirtyDaysPassedSinceLastReminder() {
         let settings = SettingsFake()
         settings.date = Date.distantPast
         settings.version = "any"
@@ -75,10 +77,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertTrue(output.didCallRemind)
+        #expect(output.didCallRemind)
     }
 
-    func testDoesNotRemindWhenLessThanThirtyDaysPassedSinceLastReminder() {
+    @Test func doesNotRemindWhenLessThanThirtyDaysPassedSinceLastReminder() {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(thirtyDaysBefore(now))
@@ -95,10 +97,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(output.didCallRemind)
+        #expect(!output.didCallRemind)
     }
 
-    func testRemindsWhenExactlyThirtyDaysPassedSinceLastReminder() {
+    @Test func remindsWhenExactlyThirtyDaysPassedSinceLastReminder() {
         let now = Date()
         let settings = SettingsFake()
         settings.date = thirtyDaysBefore(now)
@@ -115,10 +117,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertTrue(output.didCallRemind)
+        #expect(output.didCallRemind)
     }
 
-    func testRemindsWhenLastReminderDateIsLaterThanNow() {
+    @Test func remindsWhenLastReminderDateIsLaterThanNow() {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(now)
@@ -135,10 +137,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertTrue(output.didCallRemind)
+        #expect(output.didCallRemind)
     }
 
-    func testDoesNotRemindWhenLastReminderDateIsExactlyNow() {
+    @Test func doesNotRemindWhenLastReminderDateIsExactlyNow() {
         let now = Date()
         let settings = SettingsFake()
         settings.date = now
@@ -155,10 +157,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(output.didCallRemind)
+        #expect(!output.didCallRemind)
     }
 
-    func testRemindsWhenLessThanThirtyDaysPassedSinceLastReminderAndLastReminderVersionDoesNotMatchCurrentVersion() {
+    @Test func remindsWhenLessThanThirtyDaysPassedSinceLastReminderAndLastReminderVersionDoesNotMatchCurrentVersion() {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(thirtyDaysBefore(now))
@@ -175,10 +177,10 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertTrue(output.didCallRemind)
+        #expect(output.didCallRemind)
     }
 
-    func testSavesCurrentDateAndVersionToSettingsWhenReminds() {
+    @Test func savesCurrentDateAndVersionToSettingsWhenReminds() {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(now)
@@ -195,8 +197,8 @@ final class PurchaseReminderUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertEqual(settings.date, now)
-        XCTAssertEqual(settings.version, "new")
+        #expect(settings.date == now)
+        #expect(settings.version == "new")
     }
 }
 

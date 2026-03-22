@@ -22,7 +22,7 @@ import XCTest
 
 @MainActor
 final class CallHistoryViewPresenterTests: XCTestCase {
-    func testShowsRecordsOnRecordsUpdate() {
+    func testShowsRecordsOnRecordsUpdate() async {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -40,18 +40,18 @@ final class CallHistoryViewPresenterTests: XCTestCase {
         let expected1 = makePresentationCallHistoryRecord(contact: contact1, record: record1)
         let expected2 = makePresentationCallHistoryRecord(contact: contact2, record: record2)
 
-        sut.update(
+        await sut.update(
             records: [
                 ContactCallHistoryRecord(origin: record1, contact: contact1),
                 ContactCallHistoryRecord(origin: record2, contact: contact2)
             ]
         )
 
-        wait(for: [didCallShow], timeout: 1)
+        await fulfillment(of: [didCallShow], timeout: 1)
         XCTAssertEqual(invokedRecords, [expected1, expected2])
     }
 
-    func testContactColorIsSystemRedForMissedCallRecords() {
+    func testContactColorIsSystemRedForMissedCallRecords() async {
         let record = CallHistoryRecord(
             uri: URI(user: "any-user", host: "any-host", displayName: "any-name"),
             date: Date(),
@@ -70,13 +70,13 @@ final class CallHistoryViewPresenterTests: XCTestCase {
             view: view, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
         )
 
-        sut.update(records: [ContactCallHistoryRecord(origin: record, contact: contact)])
+        await sut.update(records: [ContactCallHistoryRecord(origin: record, contact: contact)])
 
-        wait(for: [didCallShow], timeout: 1)
+        await fulfillment(of: [didCallShow], timeout: 1)
         XCTAssertEqual(invokedRecords!.first!.contact.color, NSColor.systemRed)
     }
 
-    func testTitleIsEmailAddressOrPhoneNumberAndTooltipIsEmptyWhenNameIsEmpty() {
+    func testTitleIsEmailAddressOrPhoneNumberAndTooltipIsEmptyWhenNameIsEmpty() async {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -94,14 +94,14 @@ final class CallHistoryViewPresenterTests: XCTestCase {
             view: view, dateFormatter: ShortRelativeDateTimeFormatter(), durationFormatter: DurationFormatter()
         )
 
-        sut.update(
+        await sut.update(
             records: [
                 ContactCallHistoryRecord(origin: record1, contact: contact1),
                 ContactCallHistoryRecord(origin: record2, contact: contact2)
             ]
         )
 
-        wait(for: [didCallShow], timeout: 1)
+        await fulfillment(of: [didCallShow], timeout: 1)
         XCTAssertEqual(invokedRecords![0].contact.title, address)
         XCTAssertTrue(invokedRecords![0].contact.tooltip.isEmpty)
         XCTAssertEqual(invokedRecords![1].contact.title, number)

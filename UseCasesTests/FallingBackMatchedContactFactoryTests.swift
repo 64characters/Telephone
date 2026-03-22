@@ -16,28 +16,24 @@
 //  GNU General Public License for more details.
 //
 
-import XCTest
+import Testing
 import UseCases
 import UseCasesTestDoubles
 
 @ContactsActor
-final class FallingBackMatchedContactFactoryTests: XCTestCase {
-    func testResultIsCreatedFromURIWhenMatchIsNotFound() {
+struct FallingBackMatchedContactFactoryTests {
+    @Test func resultIsCreatedFromURIWhenMatchIsNotFound() async {
         let sut = FallingBackMatchedContactFactory(matching: ContactMatchingStub([:]))
         let uri = URI(user: "any-user", host: "any-host", displayName: "any-name")
 
-        let result = sut.make(uri: uri)
-
-        XCTAssertEqual(result, MatchedContact(uri: uri))
+        #expect(await sut.make(uri: uri) == MatchedContact(uri: uri))
     }
 
-    func testResultIsMatchedContactWhenMatchIsFound() {
+    @Test func resultIsMatchedContactWhenMatchIsFound() async {
         let uri = URI(user: "any-user", host: "any-host", displayName: "any-name")
         let contact = MatchedContact(name: "other-name", address: .email(address: "any-address", label: "any-label"))
         let sut = FallingBackMatchedContactFactory(matching: ContactMatchingStub([uri: contact]))
 
-        let result = sut.make(uri: uri)
-
-        XCTAssertEqual(result, contact)
+        #expect(await sut.make(uri: uri) == contact)
     }
 }

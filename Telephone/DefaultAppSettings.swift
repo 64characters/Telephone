@@ -19,6 +19,7 @@
 import Foundation
 import UseCases
 
+@MainActor
 final class DefaultAppSettings: NSObject {
     let defaults: [String: Any]
 

@@ -16,25 +16,26 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SimpleMusicPlayerSettingsTests: XCTestCase {
-    func testGetsFromSettingsWithExpectedKey() {
+@MainActor
+struct SimpleMusicPlayerSettingsTests {
+    @Test func getsFromSettingsWithExpectedKey() {
         let settings = SettingsFake()
         settings.set(true, forKey: SettingsKeys.pauseITunes)
         let sut = SimpleMusicPlayerSettings(settings: settings)
 
-        XCTAssertTrue(sut.shouldPause)
+        #expect(sut.shouldPause)
     }
 
-    func testSetsToSettingsWithExpectedKey() {
+    @Test func setsToSettingsWithExpectedKey() {
         let settings = SettingsFake()
         let sut = SimpleMusicPlayerSettings(settings: settings)
 
         sut.shouldPause = true
 
-        XCTAssertTrue(settings.bool(forKey: SettingsKeys.pauseITunes))
+        #expect(settings.bool(forKey: SettingsKeys.pauseITunes))
     }
 }

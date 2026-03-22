@@ -16,11 +16,12 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCasesTestDoubles
-import XCTest
 
-final class AccountUUIDSettingsMigrationTests: XCTestCase {
-    func testAddsUUID() {
+@MainActor
+struct AccountUUIDSettingsMigrationTests {
+    @Test func addsUUID() throws {
         let settings = SettingsFake()
         settings.set(
             [[UserDefaultsKeys.accountEnabled: true], [UserDefaultsKeys.accountEnabled: false]],
@@ -30,12 +31,12 @@ final class AccountUUIDSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertNotNil(UUID(uuidString: (accounts[0][AKSIPAccountKeys.uuid] as! String)))
-        XCTAssertNotNil(UUID(uuidString: (accounts[1][AKSIPAccountKeys.uuid] as! String)))
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(UUID(uuidString: try #require(accounts[0][AKSIPAccountKeys.uuid] as? String)) != nil)
+        #expect(UUID(uuidString: try #require(accounts[1][AKSIPAccountKeys.uuid] as? String)) != nil)
     }
 
-    func testDoesNotChangeExistingUUID() {
+    @Test func doesNotChangeExistingUUID() throws {
         let settings = SettingsFake()
         settings.set(
             [
@@ -48,12 +49,12 @@ final class AccountUUIDSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual((accounts[0][AKSIPAccountKeys.uuid] as! String), "foo")
-        XCTAssertEqual((accounts[1][AKSIPAccountKeys.uuid] as! String), "bar")
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.uuid] as? String == "foo")
+        #expect(accounts[1][AKSIPAccountKeys.uuid] as? String == "bar")
     }
 
-    func testChangesExistingUUIDIfItIsEmpty() {
+    @Test func changesExistingUUIDIfItIsEmpty() throws {
         let settings = SettingsFake()
         settings.set(
             [[UserDefaultsKeys.accountEnabled: true, AKSIPAccountKeys.uuid: ""]], forKey: UserDefaultsKeys.accounts
@@ -62,7 +63,7 @@ final class AccountUUIDSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertNotNil(UUID(uuidString: (accounts[0][AKSIPAccountKeys.uuid] as! String)))
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(UUID(uuidString: try #require(accounts[0][AKSIPAccountKeys.uuid] as? String)) != nil)
     }
 }

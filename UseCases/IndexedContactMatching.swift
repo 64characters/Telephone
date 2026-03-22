@@ -30,16 +30,20 @@ public final class IndexedContactMatching {
 }
 
 extension IndexedContactMatching: ContactMatching {
-    public func match(for uri: URI) -> MatchedContact? {
-        return emailMatch(for: uri) ?? phoneNumberMatch(for: uri)
+    public func match(for uri: URI) async -> MatchedContact? {
+        if let result = await emailMatch(for: uri) {
+            return result
+        } else {
+            return await phoneNumberMatch(for: uri)
+        }
     }
 
-    private func emailMatch(for uri: URI) -> MatchedContact? {
-        return index.contact(forEmail: NormalizedLowercasedString(email(for: uri)))
+    private func emailMatch(for uri: URI) async -> MatchedContact? {
+        return await index.contact(forEmail: NormalizedLowercasedString(email(for: uri)))
     }
 
-    private func phoneNumberMatch(for uri: URI) -> MatchedContact? {
-        return index.contact(forPhone: ExtractedPhoneNumber(uri.user, maxLength: significantPhoneNumberLength))
+    private func phoneNumberMatch(for uri: URI) async -> MatchedContact? {
+        return await index.contact(forPhone: ExtractedPhoneNumber(uri.user, maxLength: significantPhoneNumberLength))
     }
 
     private func email(for uri: URI) -> String {

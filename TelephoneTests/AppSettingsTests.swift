@@ -16,44 +16,45 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class AppSettingsTests: XCTestCase {
-    func testReturnsSettingsVersion() {
+@MainActor
+struct AppSettingsTests {
+    @Test func returnsSettingsVersion() {
         let settings = SettingsFake()
         settings.set(3, forKey: UserDefaultsKeys.settingsVersion)
         let sut = AppSettings(settings: settings, defaults: [:], accountDefaults: [:])
 
-        XCTAssertEqual(sut.stringValue, "\(UserDefaultsKeys.settingsVersion): 3")
+        #expect(sut.stringValue == "\(UserDefaultsKeys.settingsVersion): 3")
     }
 
-    func testReturnsEmptyStringWhenNoValuesAreSet() {
-        XCTAssertEqual(AppSettings(settings: SettingsFake(), defaults: [:], accountDefaults: [:]).stringValue, "")
+    @Test func returnsEmptyStringWhenNoValuesAreSet() {
+        #expect(AppSettings(settings: SettingsFake(), defaults: [:], accountDefaults: [:]).stringValue == "")
     }
 
-    func testExcludesDefaultSettings() {
+    @Test func excludesDefaultSettings() {
         let settings = SettingsFake()
         settings.set(true, forKey: UserDefaultsKeys.useDNSSRV)
         let sut = AppSettings(settings: settings, defaults: [UserDefaultsKeys.useDNSSRV: true], accountDefaults: [:])
 
-        XCTAssertEqual(sut.stringValue, "")
+        #expect(sut.stringValue == "")
     }
 
-    func testReturnsValuesInAlphabeticalOrderOfTheKeys() {
+    @Test func returnsValuesInAlphabeticalOrderOfTheKeys() {
         let settings = SettingsFake()
         settings.set(true, forKey: UserDefaultsKeys.useDNSSRV)
         settings.set(4, forKey: UserDefaultsKeys.logLevel)
         settings[UserDefaultsKeys.stunServerHost] = "any"
 
-        XCTAssertEqual(
-            AppSettings(settings: settings, defaults: [:], accountDefaults: [:]).stringValue,
+        #expect(
+            AppSettings(settings: settings, defaults: [:], accountDefaults: [:]).stringValue ==
             "\(UserDefaultsKeys.logLevel): 4\n\(UserDefaultsKeys.stunServerHost): \"any\"\n\(UserDefaultsKeys.useDNSSRV): true"
         )
     }
 
-    func testReturnsAccountValuesInAlphabeticalOrderOfTheKeys() {
+    @Test func returnsAccountValuesInAlphabeticalOrderOfTheKeys() {
         let settings = SettingsFake()
         settings.set(
             [
@@ -68,8 +69,8 @@ final class AppSettingsTests: XCTestCase {
 
         let sut = AppSettings(settings: settings, defaults: [:], accountDefaults: [:])
 
-        XCTAssertEqual(
-            sut.stringValue,
+        #expect(
+            sut.stringValue ==
             "\n" +
             "\(UserDefaultsKeys.accounts): {\n" +
             "\t\(UserDefaultsKeys.accountEnabled): true\n" +
@@ -79,7 +80,7 @@ final class AppSettingsTests: XCTestCase {
         )
     }
 
-    func testReturnsMultipleAccountsInTheirOriginalOrder() {
+    @Test func returnsMultipleAccountsInTheirOriginalOrder() {
         let settings = SettingsFake()
         settings.set(
             [
@@ -99,8 +100,8 @@ final class AppSettingsTests: XCTestCase {
 
         let sut = AppSettings(settings: settings, defaults: [:], accountDefaults: [:])
 
-        XCTAssertEqual(
-            sut.stringValue,
+        #expect(
+            sut.stringValue ==
             "\n" +
             "\(UserDefaultsKeys.accounts): {\n" +
             "\t\(UserDefaultsKeys.accountEnabled): false\n" +
@@ -114,7 +115,7 @@ final class AppSettingsTests: XCTestCase {
         )
     }
 
-    func testExcludesDefaultAccountSettings() {
+    @Test func excludesDefaultAccountSettings() {
         let settings = SettingsFake()
         settings.set(
             [
@@ -148,8 +149,8 @@ final class AppSettingsTests: XCTestCase {
             ]
         )
 
-        XCTAssertEqual(
-            sut.stringValue,
+        #expect(
+            sut.stringValue ==
             "\n" +
             "\(UserDefaultsKeys.accounts): {\n" +
             "\t\(UserDefaultsKeys.accountEnabled): false\n" +

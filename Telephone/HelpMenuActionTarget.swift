@@ -18,6 +18,7 @@
 
 import Foundation
 
+@MainActor
 final class HelpMenuActionTarget: NSObject {
     private let logFileURL: LogFileURL
     private let homepageURL: URL

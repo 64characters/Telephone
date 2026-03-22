@@ -16,21 +16,22 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 @testable import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SettingsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
-    func testUpdatesSettings() {
+@MainActor
+struct SettingsRingtoneSoundNameSaveUseCaseTests {
+    @Test func updatesSettings() {
         let settings = SettingsFake()
         let sut = SettingsRingtoneSoundNameSaveUseCase(name: "sound-name", settings: settings)
 
         sut.execute()
 
-        XCTAssertEqual(settings[SettingsKeys.ringingSound], "sound-name")
+        #expect(settings[SettingsKeys.ringingSound] == "sound-name")
     }
 
-    func testDoesNotUpdateSettingsWithEmptyName() {
+    @Test func doesNotUpdateSettingsWithEmptyName() {
         let settings = SettingsFake()
         let anyValue = "any-value"
         settings[SettingsKeys.ringingSound] = anyValue
@@ -38,6 +39,6 @@ final class SettingsRingtoneSoundNameSaveUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertEqual(settings[SettingsKeys.ringingSound], anyValue)
+        #expect(settings[SettingsKeys.ringingSound] == anyValue)
     }
 }

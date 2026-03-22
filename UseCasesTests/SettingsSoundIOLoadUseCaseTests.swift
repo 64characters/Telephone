@@ -18,23 +18,26 @@
 
 import Domain
 import DomainTestDoubles
+import Testing
 @testable import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SettingsSoundIOLoadUseCaseTests: XCTestCase {
-    func testCallsOutputWithSystemDefaultSoundIOCreatedFromSettingsSoundIOAndAllAudioDevices() throws {
+@MainActor
+struct SettingsSoundIOLoadUseCaseTests {
+    @Test func callsOutputWithSystemDefaultSoundIOCreatedFromSettingsSoundIOAndAllAudioDevices() throws {
         let factory = SystemAudioDevicesTestFactory(factory: SystemAudioDeviceTestFactory())
         let output = SettingsSoundIOLoadUseCaseOutputSpy()
         let sut = SettingsSoundIOLoadUseCase(factory: factory, settings: SettingsFake(), output: output)
 
         try sut.execute()
 
-        XCTAssertTrue(
-            output.invokedSoundIO! == SystemDefaultingSoundIO(
-                SettingsSoundIO(devices: try factory.make(), settings: SettingsFake())
+        let invokedSoundIO = try #require(output.invokedSoundIO)
+        let devices = try factory.make()
+        #expect(
+            invokedSoundIO == SystemDefaultingSoundIO(
+                SettingsSoundIO(devices: devices, settings: SettingsFake())
             )
         )
-        XCTAssertEqual(output.invokedDevices, try factory.make())
+        #expect(output.invokedDevices == devices)
     }
 }

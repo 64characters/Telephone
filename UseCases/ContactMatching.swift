@@ -18,5 +18,5 @@
 
 @ContactsActor
 public protocol ContactMatching: Sendable {
-    func match(for uri: URI) -> MatchedContact?
+    func match(for uri: URI) async -> MatchedContact?
 }

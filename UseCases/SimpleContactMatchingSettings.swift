@@ -16,16 +16,19 @@
 //  GNU General Public License for more details.
 //
 
+@ContactsActor
 public final class SimpleContactMatchingSettings {
     private let settings: KeyValueSettings
 
-    public init(settings: KeyValueSettings) {
+    public nonisolated init(settings: KeyValueSettings) {
         self.settings = settings
     }
 }
 
 extension SimpleContactMatchingSettings: ContactMatchingSettings {
     public var significantPhoneNumberLength: Int {
-        return settings.integer(forKey: SettingsKeys.significantPhoneNumberLength)
+        get async {
+            await settings.integer(forKey: SettingsKeys.significantPhoneNumberLength)
+        }
     }
 }

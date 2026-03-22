@@ -17,11 +17,12 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 import UseCasesTestDoubles
 
-final class HelpMenuActionTargetTests: XCTestCase {
-    func testShowsLogFileInFileBrowserOnShowLogFile() {
+@MainActor
+struct HelpMenuActionTargetTests {
+    @Test func showsLogFileInFileBrowserOnShowLogFile() {
         let url = LogFileURL(locations: ApplicationDataLocationsFake(), filename: "any")
         let browser = FileBrowserSpy()
         let sut = HelpMenuActionTarget(
@@ -36,10 +37,10 @@ final class HelpMenuActionTargetTests: XCTestCase {
 
         sut.showLogFile()
 
-        XCTAssertEqual(browser.invokedURL, url.urlValue)
+        #expect(browser.invokedURL == url.urlValue)
     }
 
-    func testOpensHomepageInWebBrowserOnOpenHomepage() {
+    @Test func opensHomepageInWebBrowserOnOpenHomepage() {
         let url = URL(string: "http://homepage.local")!
         let browser = WebBrowserSpy()
         let sut = HelpMenuActionTarget(
@@ -54,10 +55,10 @@ final class HelpMenuActionTargetTests: XCTestCase {
 
         sut.openHomepage()
 
-        XCTAssertEqual(browser.invokedURL, url)
+        #expect(browser.invokedURL == url)
     }
 
-    func testOpensFAQInWebBrowserOnOpenFAQ() {
+    @Test func opensFAQInWebBrowserOnOpenFAQ() {
         let url = URL(string: "http://faq.local")!
         let browser = WebBrowserSpy()
         let sut = HelpMenuActionTarget(
@@ -72,10 +73,10 @@ final class HelpMenuActionTargetTests: XCTestCase {
 
         sut.openFAQ()
 
-        XCTAssertEqual(browser.invokedURL, url)
+        #expect(browser.invokedURL == url)
     }
 
-    func testCopiesSettingsToClipboardOnCopySettings() {
+    @Test func copiesSettingsToClipboardOnCopySettings() {
         let clipboard = ClipboardSpy()
         let settings = SettingsFake()
         settings.set(5, forKey: UserDefaultsKeys.settingsVersion)
@@ -93,10 +94,11 @@ final class HelpMenuActionTargetTests: XCTestCase {
 
         sut.copySettings()
 
-        XCTAssertEqual(clipboard.invokedText, appSettings.stringValue)
+        #expect(clipboard.invokedText == appSettings.stringValue)
     }
 }
 
+@MainActor
 private func makeSettingsDummy() -> AppSettings {
     AppSettings(settings: SettingsFake(), defaults: [:], accountDefaults: [:])
 }
