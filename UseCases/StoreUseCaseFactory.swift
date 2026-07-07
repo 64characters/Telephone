@@ -17,7 +17,7 @@
 //
 
 public protocol StoreUseCaseFactory {
-    func makePurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase
+    func makePurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> AsyncUseCase
     func makeProductsFetchUseCase(output: ProductsFetchUseCaseOutput) -> UseCase
     func makeProductPurchaseUseCase(identifier: String) -> ThrowingUseCase
 }

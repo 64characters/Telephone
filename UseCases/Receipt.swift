@@ -19,7 +19,7 @@
 import Foundation
 
 public protocol Receipt: Sendable {
-    func validate(completion: @escaping (ReceiptValidationResult) -> Void)
+    func validate() async -> ReceiptValidationResult
 }
 
 public enum ReceiptValidationResult: Sendable {

@@ -36,16 +36,16 @@ extension FailingStoreFake: @preconcurrency Store {
     func purchase(_ product: Product) throws {
         attempts += 1
         Task {
-            try await Task.sleep(for: .seconds(0.2))
+            try? await Task.sleep(for: .seconds(0.2))
             target.didStartPurchasingProduct(withIdentifier: product.identifier)
-            try await Task.sleep(for: .seconds(1))
+            try? await Task.sleep(for: .seconds(1))
             notifyTargetAboutPurchaseFailure()
         }
     }
 
     func restorePurchases() {
         Task {
-            try await Task.sleep(for: .seconds(1))
+            try? await Task.sleep(for: .seconds(1))
             target.didFailRestoringPurchases(error: error)
         }
     }

@@ -37,15 +37,13 @@ public final actor RecordCountingPurchaseCheckUseCase {
 }
 
 extension RecordCountingPurchaseCheckUseCase: CallHistoryRecordGetAllUseCaseOutput {
-    public nonisolated func update(records: [CallHistoryRecord]) {
-        Task {
-            await updateCountAndExecuteOrigin(records.count)
-        }
+    public func update(records: [CallHistoryRecord]) async {
+        await updateCountAndExecuteOrigin(records.count)
     }
 
-    private func updateCountAndExecuteOrigin(_ count: Int) {
+    private func updateCountAndExecuteOrigin(_ count: Int) async {
         self.count = count
-        origin.execute()
+        await origin.execute()
     }
 }
 

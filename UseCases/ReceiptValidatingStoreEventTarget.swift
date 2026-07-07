@@ -31,8 +31,8 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didStartPurchasingProduct(withIdentifier: identifier)
     }
 
-    public func didPurchase() {
-        receipt.validate(completion: notifyOriginAboutPurchase)
+    public func didPurchase() async {
+        await notifyOriginAboutPurchase(with: await receipt.validate())
     }
 
     public func didFailPurchasing(error: String) {
@@ -43,8 +43,8 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didCancelPurchasing()
     }
 
-    public func didRestorePurchases() {
-        receipt.validate(completion: notifyOriginAboutRestoration)
+    public func didRestorePurchases() async {
+        await notifyOriginAboutRestoration(with: await receipt.validate())
     }
 
     public func didFailRestoringPurchases(error: String) {
@@ -55,19 +55,19 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didCancelRestoringPurchases()
     }
 
-    private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) {
+    private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) async {
         if case .receiptIsValid = result {
-            Task { await origin.didPurchase() }
+            await origin.didPurchase()
         } else {
-            Task { await origin.didFailPurchasing(error: result.localizedDescription) }
+            await origin.didFailPurchasing(error: result.localizedDescription)
         }
     }
 
-    private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) {
+    private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) async {
         if case .receiptIsValid = result {
-            Task { await origin.didRestorePurchases() }
+            await origin.didRestorePurchases()
         } else {
-            Task { await origin.didFailRestoringPurchases(error: result.localizedDescription) }
+            await origin.didFailRestoringPurchases(error: result.localizedDescription)
         }
     }
 }

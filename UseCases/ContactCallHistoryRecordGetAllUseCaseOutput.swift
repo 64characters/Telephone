@@ -18,5 +18,5 @@
 
 @ContactsActor
 public protocol ContactCallHistoryRecordGetAllUseCaseOutput: Sendable {
-    func update(records: [ContactCallHistoryRecord])
+    func update(records: [ContactCallHistoryRecord]) async
 }

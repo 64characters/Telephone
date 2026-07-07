@@ -33,7 +33,7 @@ final class DefaultStoreUseCaseFactory {
 }
 
 extension DefaultStoreUseCaseFactory: StoreUseCaseFactory {
-    func makePurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> UseCase {
+    func makePurchaseCheckUseCase(output: PurchaseCheckUseCaseOutput) -> AsyncUseCase {
         return PurchaseCheckUseCase(receipt: receipt, output: output)
     }
 

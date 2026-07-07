@@ -45,7 +45,7 @@ extension AsyncProductsFake: @preconcurrency Products {
     func fetch() {
         attempts += 1
         Task {
-            try await Task.sleep(for: .seconds(1))
+            try? await Task.sleep(for: .seconds(1))
             notifyTarget()
         }
     }

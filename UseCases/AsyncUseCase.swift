@@ -1,5 +1,5 @@
 //
-//  LoggingReceipt.swift
+//  AsyncUseCase.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-final class LoggingReceipt {
-    private let origin: Receipt
-
-    init(origin: Receipt) {
-        self.origin = origin
-    }
-}
-
-extension LoggingReceipt: Receipt {
-    func validate() async -> ReceiptValidationResult {
-        print("Starting receipt validation")
-        let result = await origin.validate()
-        print("Receipt validation result: \(result)")
-        return result
-    }
+public protocol AsyncUseCase {
+    func execute() async
 }

@@ -28,14 +28,12 @@ public final class PurchaseCheckUseCase: Sendable {
     }
 }
 
-extension PurchaseCheckUseCase: UseCase {
-    public func execute() {
-        receipt.validate { result in
-            if case .receiptIsValid(expiration: let expiration) = result {
-                self.output.didCheckPurchase(expiration: expiration)
-            } else {
-                self.output.didFailCheckingPurchase()
-            }
+extension PurchaseCheckUseCase: AsyncUseCase {
+    public func execute() async {
+        if case .receiptIsValid(expiration: let expiration) = await receipt.validate() {
+            output.didCheckPurchase(expiration: expiration)
+        } else {
+            output.didFailCheckingPurchase()
         }
     }
 }

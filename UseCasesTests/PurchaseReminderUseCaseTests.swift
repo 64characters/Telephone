@@ -23,7 +23,7 @@ import UseCasesTestDoubles
 
 @MainActor
 struct PurchaseReminderUseCaseTests {
-    @Test func doesNotRemindWhenThereAreNoEnabledAccounts() {
+    @Test func doesNotRemindWhenThereAreNoEnabledAccounts() async {
         let settings = SettingsFake()
         settings.date = Date.distantPast
         settings.version = "any"
@@ -37,12 +37,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(!output.didCallRemind)
     }
 
-    @Test func doesNotRemindWhenReceiptIsValid() {
+    @Test func doesNotRemindWhenReceiptIsValid() async {
         let settings = SettingsFake()
         settings.date = Date.distantPast
         settings.version = "any"
@@ -56,12 +56,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(!output.didCallRemind)
     }
 
-    @Test func remindsWhenMoreThanThirtyDaysPassedSinceLastReminder() {
+    @Test func remindsWhenMoreThanThirtyDaysPassedSinceLastReminder() async {
         let settings = SettingsFake()
         settings.date = Date.distantPast
         settings.version = "any"
@@ -75,12 +75,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(output.didCallRemind)
     }
 
-    @Test func doesNotRemindWhenLessThanThirtyDaysPassedSinceLastReminder() {
+    @Test func doesNotRemindWhenLessThanThirtyDaysPassedSinceLastReminder() async {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(thirtyDaysBefore(now))
@@ -95,12 +95,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(!output.didCallRemind)
     }
 
-    @Test func remindsWhenExactlyThirtyDaysPassedSinceLastReminder() {
+    @Test func remindsWhenExactlyThirtyDaysPassedSinceLastReminder() async {
         let now = Date()
         let settings = SettingsFake()
         settings.date = thirtyDaysBefore(now)
@@ -115,12 +115,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(output.didCallRemind)
     }
 
-    @Test func remindsWhenLastReminderDateIsLaterThanNow() {
+    @Test func remindsWhenLastReminderDateIsLaterThanNow() async {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(now)
@@ -135,12 +135,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(output.didCallRemind)
     }
 
-    @Test func doesNotRemindWhenLastReminderDateIsExactlyNow() {
+    @Test func doesNotRemindWhenLastReminderDateIsExactlyNow() async {
         let now = Date()
         let settings = SettingsFake()
         settings.date = now
@@ -155,12 +155,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(!output.didCallRemind)
     }
 
-    @Test func remindsWhenLessThanThirtyDaysPassedSinceLastReminderAndLastReminderVersionDoesNotMatchCurrentVersion() {
+    @Test func remindsWhenLessThanThirtyDaysPassedSinceLastReminderAndLastReminderVersionDoesNotMatchCurrentVersion() async {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(thirtyDaysBefore(now))
@@ -175,12 +175,12 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(output.didCallRemind)
     }
 
-    @Test func savesCurrentDateAndVersionToSettingsWhenReminds() {
+    @Test func savesCurrentDateAndVersionToSettingsWhenReminds() async {
         let now = Date()
         let settings = SettingsFake()
         settings.date = oneSecondAfter(now)
@@ -195,7 +195,7 @@ struct PurchaseReminderUseCaseTests {
             output: output
         )
 
-        sut.execute()
+        await sut.execute()
 
         #expect(settings.date == now)
         #expect(settings.version == "new")

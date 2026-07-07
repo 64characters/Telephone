@@ -22,32 +22,32 @@ import UseCasesTestDoubles
 
 @ContactsActor
 struct ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutputTests {
-    @Test func callsUpdateOnOriginWithTheSameArgumentWhenReceiptIsValidOnUpdate() {
+    @Test func callsUpdateOnOriginWithTheSameArgumentWhenReceiptIsValidOnUpdate() async {
         let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
         let sut = ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, receipt: ValidReceipt())
         let records = makeFourRecords()
 
-        sut.update(records: records)
+        await sut.update(records: records)
 
         #expect(origin.invokedRecords == records)
     }
 
-    @Test func callsUpdateOnOriginWithFirstThreeRecordsWhenReceiptIsInvalid() {
+    @Test func callsUpdateOnOriginWithFirstThreeRecordsWhenReceiptIsInvalid() async {
         let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
         let sut = ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, receipt: InvalidReceipt())
         let records = makeFourRecords()
 
-        sut.update(records: records)
+        await sut.update(records: records)
 
         #expect(origin.invokedRecords == Array(records.prefix(3)))
     }
 
-    @Test func callsUpdateOnOriginWithFirstThreeRecordsWhenThereAreNoActivePurchases() {
+    @Test func callsUpdateOnOriginWithFirstThreeRecordsWhenThereAreNoActivePurchases() async {
         let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
         let sut = ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, receipt: NoActivePurchasesReceipt())
         let records = makeFourRecords()
 
-        sut.update(records: records)
+        await sut.update(records: records)
 
         #expect(origin.invokedRecords == Array(records.prefix(3)))
     }

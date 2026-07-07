@@ -20,11 +20,11 @@
 public protocol StoreEventTarget: AnyObject, Sendable {
     func didStartPurchasingProduct(withIdentifier identifier: String)
 
-    func didPurchase()
+    func didPurchase() async
     func didFailPurchasing(error: String)
     func didCancelPurchasing()
 
-    func didRestorePurchases()
+    func didRestorePurchases() async
     func didFailRestoringPurchases(error: String)
     func didCancelRestoringPurchases()
 }

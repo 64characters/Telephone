@@ -56,7 +56,7 @@ import UseCases
 
 @MainActor
 class StoreViewState {
-    func shouldReloadData(machine: StoreViewStateMachine) {
+    func shouldReloadData(machine: StoreViewStateMachine) async {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -88,7 +88,7 @@ class StoreViewState {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didPurchase(machine: StoreViewStateMachine)  {
+    func didPurchase(machine: StoreViewStateMachine) async  {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -108,7 +108,7 @@ class StoreViewState {
         print("\(#function) is not supported for \(self)")
     }
 
-    func didRestorePurchases(machine: StoreViewStateMachine)  {
+    func didRestorePurchases(machine: StoreViewStateMachine) async {
         print("\(#function) is not supported for \(self)")
     }
 
@@ -122,9 +122,9 @@ class StoreViewState {
 }
 
 final class StoreViewStateNoProducts: StoreViewState {
-    override func shouldReloadData(machine: StoreViewStateMachine) {
+    override func shouldReloadData(machine: StoreViewStateMachine) async {
         machine.changeState(StoreViewStateChecking())
-        machine.checkPurchase()
+        await machine.checkPurchase()
     }
 }
 
@@ -176,9 +176,9 @@ final class StoreViewStateFetched: StoreViewState {
 }
 
 final class StoreViewStateFetchError: StoreViewState {
-    override func shouldReloadData(machine: StoreViewStateMachine) {
+    override func shouldReloadData(machine: StoreViewStateMachine) async {
         machine.changeState(StoreViewStateChecking())
-        machine.checkPurchase()
+        await machine.checkPurchase()
     }
 
     override func didStartProductFetch(machine: StoreViewStateMachine) {
@@ -198,9 +198,9 @@ final class StoreViewStateFetchError: StoreViewState {
 }
 
 final class StoreViewStatePurchasing: StoreViewState {
-    override func didPurchase(machine: StoreViewStateMachine) {
+    override func didPurchase(machine: StoreViewStateMachine) async {
         machine.changeState(StoreViewStateCheckingAfterFetch())
-        machine.checkPurchase()
+        await machine.checkPurchase()
     }
 
     override func didFailPurchasing(error: String, machine: StoreViewStateMachine) {
@@ -213,23 +213,23 @@ final class StoreViewStatePurchasing: StoreViewState {
         machine.showCachedProducts()
     }
 
-    override func didRestorePurchases(machine: StoreViewStateMachine) {
+    override func didRestorePurchases(machine: StoreViewStateMachine) async {
         machine.changeState(StoreViewStateCheckingAfterFetch())
-        machine.checkPurchase()
+        await machine.checkPurchase()
     }
 }
 
 final class StoreViewStatePurchased: StoreViewState {
-    override func shouldReloadData(machine: StoreViewStateMachine) {
+    override func shouldReloadData(machine: StoreViewStateMachine) async {
         machine.changeState(StoreViewStateChecking())
-        machine.checkPurchase()
+        await machine.checkPurchase()
     }
 }
 
 final class StoreViewStateRestoring: StoreViewState {
-    override func didRestorePurchases(machine: StoreViewStateMachine) {
+    override func didRestorePurchases(machine: StoreViewStateMachine) async {
         machine.changeState(StoreViewStateCheckingAfterFetch())
-        machine.checkPurchase()
+        await machine.checkPurchase()
     }
 
     override func didFailRestoringPurchases(error: String, machine: StoreViewStateMachine) {
@@ -244,9 +244,9 @@ final class StoreViewStateRestoring: StoreViewState {
 }
 
 final class StoreViewStateRestoringAfterFetchError: StoreViewState {
-    override func didRestorePurchases(machine: StoreViewStateMachine) {
+    override func didRestorePurchases(machine: StoreViewStateMachine) async {
         machine.changeState(StoreViewStateChecking())
-        machine.checkPurchase()
+        await machine.checkPurchase()
     }
 
     override func didFailRestoringPurchases(error: String, machine: StoreViewStateMachine) {

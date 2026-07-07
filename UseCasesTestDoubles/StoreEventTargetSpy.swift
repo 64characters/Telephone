@@ -20,11 +20,6 @@ import UseCases
 
 @MainActor
 public final class StoreEventTargetSpy {
-    public var didPurchaseCallback: () -> Void = {}
-    public var didFailPurchasingCallback: () -> Void = {}
-    public var didRestorePurchasesCallback: () -> Void = {}
-    public var didFailRestoringPurchasesCallback: () -> Void = {}
-
     public private(set) var didCallDidStartPurchasing = false
     public private(set) var invokedIdentifier = ""
 
@@ -47,30 +42,26 @@ extension StoreEventTargetSpy: StoreEventTarget {
         invokedIdentifier = identifier
     }
 
-    public func didPurchase() {
+    public func didPurchase() async {
         didCallDidPurchase = true
-        didPurchaseCallback()
     }
 
     public func didFailPurchasing(error: String) {
         didCallDidFailPurchasing = true
         invokedError = error
-        didFailPurchasingCallback()
     }
 
     public func didCancelPurchasing() {
         didCallDidCancelPurchasing = true
     }
 
-    public func didRestorePurchases() {
+    public func didRestorePurchases() async {
         didCallDidRestore = true
-        didRestorePurchasesCallback()
     }
 
     public func didFailRestoringPurchases(error: String) {
         didCallDidFailRestoring = true
         invokedError = error
-        didFailRestoringPurchasesCallback()
     }
 
     public func didCancelRestoringPurchases() {

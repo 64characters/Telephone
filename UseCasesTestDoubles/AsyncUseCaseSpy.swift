@@ -1,5 +1,5 @@
 //
-//  LoggingReceipt.swift
+//  AsyncUseCaseSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,19 +16,16 @@
 //  GNU General Public License for more details.
 //
 
-final class LoggingReceipt {
-    private let origin: Receipt
+import UseCases
 
-    init(origin: Receipt) {
-        self.origin = origin
-    }
+public final class AsyncUseCaseSpy {
+    public private(set) var didCallExecute = false
+
+    public init() {}
 }
 
-extension LoggingReceipt: Receipt {
-    func validate() async -> ReceiptValidationResult {
-        print("Starting receipt validation")
-        let result = await origin.validate()
-        print("Receipt validation result: \(result)")
-        return result
+extension AsyncUseCaseSpy: AsyncUseCase {
+    public func execute() async {
+        didCallExecute = true
     }
 }

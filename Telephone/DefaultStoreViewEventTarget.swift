@@ -43,9 +43,9 @@ extension DefaultStoreViewEventTarget: @preconcurrency StoreViewStateMachine {
         state = newState
     }
 
-    func checkPurchase() {
+    func checkPurchase() async {
         presenter.showPurchaseCheckProgress()
-        factory.makePurchaseCheckUseCase(output: self).execute()
+        await factory.makePurchaseCheckUseCase(output: self).execute()
     }
 
     func fetchProducts() {

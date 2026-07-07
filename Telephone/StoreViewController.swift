@@ -62,7 +62,9 @@ final class StoreViewController: NSViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        target.shouldReloadData()
+        Task {
+            await target.shouldReloadData()
+        }
     }
 
     func updateTarget(_ target: StoreViewEventTarget) {

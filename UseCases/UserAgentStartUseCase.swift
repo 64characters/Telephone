@@ -31,9 +31,11 @@ public final class UserAgentStartUseCase: Sendable {
     }
 }
 
-extension UserAgentStartUseCase: @MainActor UseCase {
+extension UserAgentStartUseCase: UseCase {
     public func execute() {
-        purchaseCheck.execute()
+        Task {
+            await purchaseCheck.execute()
+        }
     }
 }
 

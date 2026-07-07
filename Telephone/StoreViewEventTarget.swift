@@ -18,7 +18,7 @@
 
 @MainActor
 protocol StoreViewEventTarget {
-    func shouldReloadData()
+    func shouldReloadData() async
     func didStartProductFetch()
     func didStartPurchasing(_ product: PresentationProduct)
     func didStartPurchaseRestoration()

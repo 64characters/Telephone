@@ -33,15 +33,17 @@ final class ReceiptXPCGateway: Sendable {
         connection.invalidate()
     }
 
-    func validateReceipt(_ receipt: Data, completion: @escaping (ReceiptValidationResult) -> Void) {
-        validation(completion: completion).validateReceipt(receipt) { result, expiration in
-            switch result {
-            case .receiptIsValid:
-                completion(.receiptIsValid(expiration: expiration))
-            case .receiptIsInvalid:
-                completion(.receiptIsInvalid)
-            case .noActivePurchases:
-                completion(.noActivePurchases)
+    func validateReceipt(_ receipt: Data) async -> ReceiptValidationResult {
+        await withCheckedContinuation { continuation in
+            validation(completion: { continuation.resume(returning: $0) }).validateReceipt(receipt) { result, expiration in
+                switch result {
+                case .receiptIsValid:
+                    continuation.resume(returning: .receiptIsValid(expiration: expiration))
+                case .receiptIsInvalid:
+                    continuation.resume(returning: .receiptIsInvalid)
+                case .noActivePurchases:
+                    continuation.resume(returning: .noActivePurchases)
+                }
             }
         }
     }
