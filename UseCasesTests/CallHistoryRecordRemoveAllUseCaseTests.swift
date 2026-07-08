@@ -22,7 +22,7 @@ import XCTest
 
 @CallHistoryActor
 final class CallHistoryRecordRemoveAllUseCaseTests: XCTestCase {
-    func testRemovesAllRecords() {
+    func testRemovesAllRecords() async {
         let factory = CallHistoryRecordTestFactory()
         let didCallRemoveAll = expectation(description: "Calls remove all on history")
         let history = CallHistorySpy(addCallback: {}, removeCallback: {}, removeAllCallback: didCallRemoveAll.fulfill)
@@ -32,7 +32,7 @@ final class CallHistoryRecordRemoveAllUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        wait(for: [didCallRemoveAll], timeout: 1)
+        await fulfillment(of: [didCallRemoveAll], timeout: 1)
         XCTAssertEqual(history.allRecords.count, 0)
     }
 }

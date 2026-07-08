@@ -16,13 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
 @CallHistoryActor
-final class PersistentCallHistoryTests: XCTestCase {
-    func testPersistsAfterAdding() {
+struct PersistentCallHistoryTests {
+    @Test func persistsAfterAdding() {
         let storage = MemoryPropertyListStorage()
         let record1 = makeRecord1()
         let record2 = makeRecord2()
@@ -32,10 +32,10 @@ final class PersistentCallHistoryTests: XCTestCase {
         sut.add(record2)
         sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
-        XCTAssertEqual(sut.allRecords, [record1, record2])
+        #expect(sut.allRecords == [record1, record2])
     }
 
-    func testPersistsAfterRemovingIndividual() {
+    @Test func persistsAfterRemovingIndividual() {
         let storage = MemoryPropertyListStorage()
         let record1 = makeRecord1()
         let record2 = makeRecord2()
@@ -46,10 +46,10 @@ final class PersistentCallHistoryTests: XCTestCase {
         sut.remove(record1)
         sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
-        XCTAssertEqual(sut.allRecords, [record2])
+        #expect(sut.allRecords == [record2])
     }
 
-    func testPersistsAfterRemovingAll() {
+    @Test func persistsAfterRemovingAll() {
         let storage = MemoryPropertyListStorage()
         let record1 = makeRecord1()
         let record2 = makeRecord2()
@@ -60,25 +60,25 @@ final class PersistentCallHistoryTests: XCTestCase {
         sut.removeAll()
         sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
-        XCTAssertEqual(sut.allRecords, [])
+        #expect(sut.allRecords == [])
     }
 
-    func testCallsDeleteOnRemoveAll() {
+    @Test func callsDeleteOnRemoveAll() {
         let storage = PropertyListStorageSpy()
         let sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
         sut.removeAll()
 
-        XCTAssertTrue(storage.didCallDelete)
+        #expect(storage.didCallDelete)
     }
 
-    func testDoesNotCallSaveOnRemoveAll() {
+    @Test func doesNotCallSaveOnRemoveAll() {
         let storage = PropertyListStorageSpy()
         let sut = PersistentCallHistory(origin: TruncatingCallHistory(), storage: storage)
 
         sut.removeAll()
 
-        XCTAssertFalse(storage.didCallSave)
+        #expect(!storage.didCallSave)
     }
 }
 

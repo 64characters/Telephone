@@ -22,7 +22,7 @@ import XCTest
 
 @CallHistoryActor
 final class CallHistoryRecordRemoveUseCaseTests: XCTestCase {
-    func testRemovesRecord() {
+    func testRemovesRecord() async {
         let record1 = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let record2 = CallHistoryRecordTestFactory().makeRecord(number: 2)
         let record3 = CallHistoryRecordTestFactory().makeRecord(number: 3)
@@ -35,7 +35,7 @@ final class CallHistoryRecordRemoveUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        wait(for: [didCallRemove], timeout: 1)
+        await fulfillment(of: [didCallRemove], timeout: 1)
         XCTAssertEqual(history.allRecords, [record2, record3])
     }
 }

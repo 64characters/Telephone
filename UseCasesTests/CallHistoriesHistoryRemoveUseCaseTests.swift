@@ -19,7 +19,7 @@ import XCTest
 
 @CallHistoryActor
 final class CallHistoriesHistoryRemoveUseCaseTests: XCTestCase {
-    func testCallsRemoveAllOnHistoryOnDidRemoveAccount() {
+    func testCallsRemoveAllOnHistoryOnDidRemoveAccount() async {
         let uuid = "any-uuid"
         let didCallRemoveAll = expectation(description: "Calls remove all on history")
         let history = CallHistorySpy(addCallback: {}, removeCallback: {}, removeAllCallback: didCallRemoveAll.fulfill)
@@ -27,10 +27,10 @@ final class CallHistoriesHistoryRemoveUseCaseTests: XCTestCase {
 
         sut.didRemoveAccount(withUUID: uuid)
 
-        wait(for: [didCallRemoveAll], timeout: 1)
+        await fulfillment(of: [didCallRemoveAll], timeout: 1)
     }
 
-    func testRemovesHistoryOnDidRemoveAccount() {
+    func testRemovesHistoryOnDidRemoveAccount() async {
         let uuid = "any-uuid"
         let didCallRemove = expectation(description: "Calls remove on histories")
         var invokedUUID: String?
@@ -45,7 +45,7 @@ final class CallHistoriesHistoryRemoveUseCaseTests: XCTestCase {
 
         sut.didRemoveAccount(withUUID: uuid)
 
-        wait(for: [didCallRemove], timeout: 1)
+        await fulfillment(of: [didCallRemove], timeout: 1)
         XCTAssertEqual(invokedUUID, uuid)
     }
 }

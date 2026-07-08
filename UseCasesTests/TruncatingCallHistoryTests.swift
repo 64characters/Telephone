@@ -16,13 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
 @CallHistoryActor
-final class TruncatingCallHistoryTests: XCTestCase {
-    func testCanAddRecords() {
+struct TruncatingCallHistoryTests {
+    @Test func canAddRecords() {
         let sut = TruncatingCallHistory()
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
@@ -31,10 +31,10 @@ final class TruncatingCallHistoryTests: XCTestCase {
         sut.add(record1)
         sut.add(record2)
 
-        XCTAssertEqual(sut.allRecords, [record1, record2])
+        #expect(sut.allRecords == [record1, record2])
     }
 
-    func testCanRemoveIndividualRecords() {
+    @Test func canRemoveIndividualRecords() {
         let sut = TruncatingCallHistory()
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
@@ -44,10 +44,10 @@ final class TruncatingCallHistoryTests: XCTestCase {
 
         sut.remove(record1)
 
-        XCTAssertEqual(sut.allRecords, [record2])
+        #expect(sut.allRecords == [record2])
     }
 
-    func testCanRemoveAllRecords() {
+    @Test func canRemoveAllRecords() {
         let sut = TruncatingCallHistory()
         let factory = CallHistoryRecordTestFactory()
         sut.add(factory.makeRecord(number: 1))
@@ -55,10 +55,10 @@ final class TruncatingCallHistoryTests: XCTestCase {
 
         sut.removeAll()
 
-        XCTAssertEqual(sut.allRecords, [])
+        #expect(sut.allRecords == [])
     }
 
-    func testKeepsLimitedNumberOfRecords() {
+    @Test func keepsLimitedNumberOfRecords() {
         let limit = 5
         let sut = TruncatingCallHistory(limit: limit)
         let factory = CallHistoryRecordTestFactory()
@@ -67,10 +67,10 @@ final class TruncatingCallHistoryTests: XCTestCase {
             sut.add(factory.makeRecord(number: n))
         }
 
-        XCTAssertEqual(sut.allRecords.count, limit)
+        #expect(sut.allRecords.count == limit)
     }
 
-    func testDropsRecordsFromTheBeginningWhenTruncating() {
+    @Test func dropsRecordsFromTheBeginningWhenTruncating() {
         let sut = TruncatingCallHistory(limit: 2)
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
@@ -83,6 +83,6 @@ final class TruncatingCallHistoryTests: XCTestCase {
         sut.add(record3)
         sut.add(record4)
 
-        XCTAssertEqual(sut.allRecords, [record3, record4])
+        #expect(sut.allRecords == [record3, record4])
     }
 }
