@@ -2,6 +2,7 @@
 
 ## 1.7
 - Minimum deployment target 13.5.
+- Swift 6.
 
 ## 1.6 - 2022-06-29
 - macOS Big Sur.
