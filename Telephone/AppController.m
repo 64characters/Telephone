@@ -20,8 +20,6 @@
 
 @import UseCases;
 
-#import "AKAddressBookPhonePlugIn.h"
-#import "AKAddressBookSIPAddressPlugIn.h"
 #import "AKNetworkReachability.h"
 #import "AKNSString+Scanning.h"
 #import "AKSIPAccount.h"
@@ -151,20 +149,6 @@ NS_ASSUME_NONNULL_END
                            selector:@selector(workspaceSessionDidBecomeActive:)
                                name:NSWorkspaceSessionDidBecomeActiveNotification
                              object:nil];
-    
-    NSDistributedNotificationCenter *distributedNotificationCenter = [NSDistributedNotificationCenter defaultCenter];
-    
-    [distributedNotificationCenter addObserver:self
-                                      selector:@selector(addressBookDidDialCallDestination:)
-                                          name:AKAddressBookDidDialPhoneNumberNotification
-                                        object:@"AddressBook"
-                            suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
-    
-    [distributedNotificationCenter addObserver:self
-                                      selector:@selector(addressBookDidDialCallDestination:)
-                                          name:AKAddressBookDidDialSIPAddressNotification
-                                        object:@"AddressBook"
-                            suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
     
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
                                                        andSelector:@selector(handleGetURLEvent:withReplyEvent:)
@@ -711,44 +695,6 @@ NS_ASSUME_NONNULL_END
 - (void)workspaceSessionDidBecomeActive:(NSNotification *)notification {
     self.userSessionActive = YES;
     [self.accountControllers registerAllAccounts];
-}
-
-
-#pragma mark -
-#pragma mark Address Book plug-in notifications
-
-// TODO(eofster): Here we receive contact's name and call destination (phone or
-// SIP address). Then we set text field string value as when the user typed in
-// the name directly and Telephone autocompleted the input. The result is that
-// Address Book is searched for the person record. As an alternative we could
-// send person and selected call destination identifiers and get another
-// destinations here (no new AB search).
-// If we change it to work with identifiers, we'll probably want to somehow
-// change ActiveAccountViewController's
-// tokenField:representedObjectForEditingString:.
-- (void)addressBookDidDialCallDestination:(NSNotification *)notification {
-    [NSApp activateIgnoringOtherApps:YES];
-    [self makeCallOrRememberDestination:[self callDestinationWithAddressBookDidDialNotification:notification]];
-}
-
-- (NSString *)callDestinationWithAddressBookDidDialNotification:(NSNotification *)notification {
-    NSString *SIPAddressOrNumber = nil;
-    if ([[notification name] isEqualToString:AKAddressBookDidDialPhoneNumberNotification]) {
-        SIPAddressOrNumber = notification.userInfo[@"AKPhoneNumber"];
-    } else if ([[notification name] isEqualToString:AKAddressBookDidDialSIPAddressNotification]) {
-        SIPAddressOrNumber = notification.userInfo[@"AKSIPAddress"];
-    }
-
-    NSString *name = notification.userInfo[@"AKFullName"];
-
-    NSString *result;
-    if ([name length] > 0) {
-        result = [NSString stringWithFormat:@"%@ <%@>", name, SIPAddressOrNumber];
-    } else {
-        result = SIPAddressOrNumber;
-    }
-
-    return result;
 }
 
 
