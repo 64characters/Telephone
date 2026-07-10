@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactCallHistoryRecordGetAllUseCaseOutput {
-    func update(records: [ContactCallHistoryRecord])
+@ContactsActor
+public protocol ContactCallHistoryRecordGetAllUseCaseOutput: Sendable {
+    func update(records: [ContactCallHistoryRecord]) async
 }

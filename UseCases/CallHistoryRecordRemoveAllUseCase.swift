@@ -26,6 +26,8 @@ public final class CallHistoryRecordRemoveAllUseCase {
 
 extension CallHistoryRecordRemoveAllUseCase: UseCase {
     public func execute() {
-        history.removeAll()
+        Task { [history] in
+            await history.removeAll()
+        }
     }
 }

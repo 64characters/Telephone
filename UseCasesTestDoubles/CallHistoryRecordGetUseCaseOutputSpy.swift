@@ -19,15 +19,15 @@
 import UseCases
 
 public final class CallHistoryRecordGetUseCaseOutputSpy {
-    public private(set) var didCallUpdate = false
-    public private(set) var invokedRecord: CallHistoryRecord?
+    private nonisolated(unsafe) let updateCallback: (CallHistoryRecord) -> Void
 
-    public init() {}
+    public init(callback: @escaping (CallHistoryRecord) -> Void) {
+        updateCallback = callback
+    }
 }
 
 extension CallHistoryRecordGetUseCaseOutputSpy: CallHistoryRecordGetUseCaseOutput {
     public func update(record: CallHistoryRecord) {
-        didCallUpdate = true
-        invokedRecord = record
+        updateCallback(record)
     }
 }

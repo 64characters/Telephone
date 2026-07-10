@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol Contacts {
+@ContactsActor
+public protocol Contacts: Sendable {
     func enumerate(_ body: @escaping (Contact) -> Void)
 }

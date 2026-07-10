@@ -23,7 +23,9 @@ public final class CallHistoryCallMakeUseCase {
 
 extension CallHistoryCallMakeUseCase: ContactCallHistoryRecordGetUseCaseOutput {
     public func update(record: ContactCallHistoryRecord) {
-        account.makeCall(to: URI(record: record), label: label(for: record.contact.address))
+        Task {
+            await account.makeCall(to: URI(record: record), label: label(for: record.contact.address))
+        }
     }
 }
 

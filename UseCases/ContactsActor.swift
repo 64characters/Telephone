@@ -1,5 +1,5 @@
 //
-//  ContactsChangeEventTargetSpy.swift
+//  Contacts.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,15 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class ContactsChangeEventTargetSpy {
-    public private(set) var didCallContactsDidChange = false
-    public init() {}
-}
-
-extension ContactsChangeEventTargetSpy: ContactsChangeEventTarget {
-    public func contactsDidChange() {
-        didCallContactsDidChange = true
-    }
+@globalActor public final actor ContactsActor: GlobalActor {
+    public static let shared = ContactsActor()
 }

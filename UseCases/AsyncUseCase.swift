@@ -1,5 +1,5 @@
 //
-//  SyncExecutionQueue.swift
+//  AsyncUseCase.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,14 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-import UseCases
-
-public final class SyncExecutionQueue {
-    public init() {}
-}
-
-extension SyncExecutionQueue: ExecutionQueue {
-    public func add(_ block: @escaping () -> Void) {
-        block()
-    }
+public protocol AsyncUseCase {
+    func execute() async
 }

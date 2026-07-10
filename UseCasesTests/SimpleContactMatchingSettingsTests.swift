@@ -16,17 +16,18 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SimpleContactMatchingSettingsTests: XCTestCase {
-    func testGetsLengthFromSettingsWithExpectedKey() {
-        let settings = SettingsFake()
+@ContactsActor
+struct SimpleContactMatchingSettingsTests {
+    @Test func getsLengthFromSettingsWithExpectedKey() async {
+        let settings = await SettingsFake()
         let length = 100
-        settings.set(length, forKey: SettingsKeys.significantPhoneNumberLength)
+        await settings.set(length, forKey: SettingsKeys.significantPhoneNumberLength)
         let sut = SimpleContactMatchingSettings(settings: settings)
 
-        XCTAssertEqual(sut.significantPhoneNumberLength, length)
+        #expect(await sut.significantPhoneNumberLength == length)
     }
 }

@@ -18,7 +18,7 @@
 
 import Foundation
 
-public protocol PurchaseCheckUseCaseOutput: AnyObject {
+public protocol PurchaseCheckUseCaseOutput: AnyObject, Sendable {
     func didCheckPurchase(expiration: Date)
     func didFailCheckingPurchase()
 }

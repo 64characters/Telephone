@@ -18,23 +18,17 @@
 
 import UseCases
 
+@MainActor
 final class AsyncCallHistoryPurchaseCheckUseCaseFactory: NSObject {
     private let origin: CallHistoryPurchaseCheckUseCaseFactory
-    private let background: ExecutionQueue
-    private let main: ExecutionQueue
 
-    init(origin: CallHistoryPurchaseCheckUseCaseFactory, background: ExecutionQueue, main: ExecutionQueue) {
+    init(origin: CallHistoryPurchaseCheckUseCaseFactory) {
         self.origin = origin
-        self.background = background
-        self.main = main
     }
 
     @objc func make(account: Account, output: RecordCountingPurchaseCheckUseCaseOutput, completion: @escaping (UseCase) -> Void) {
-        background.add {
-            let result = self.origin.make(account: account, output: output)
-            self.main.add {
-                completion(result)
-            }
+        Task {
+            completion(await origin.make(account: account, output: output))
         }
     }
 }

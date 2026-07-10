@@ -18,7 +18,7 @@
 
 import Foundation
 
-public final class ServiceAddress: NSObject {
+public final class ServiceAddress: NSObject, Sendable {
     @objc public let host: String
     @objc public let port: String
 

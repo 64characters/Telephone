@@ -18,15 +18,13 @@
 
 import Foundation
 
-@objc public protocol RecordCountingPurchaseCheckUseCaseOutput {
+@objc public protocol RecordCountingPurchaseCheckUseCaseOutput: Sendable {
     func didCheckPurchase()
     func didFailCheckingPurchase(recordCount count: Int)
 }
 
-public final class RecordCountingPurchaseCheckUseCase {
-    private lazy var origin: UseCase = {
-        return self.factory.make(output: WeakPurchaseCheckUseCaseOutput(origin: self))
-    }()
+public final actor RecordCountingPurchaseCheckUseCase {
+    private lazy var origin = factory.make(output: WeakPurchaseCheckUseCaseOutput(origin: self))
     private var count = 0
 
     private let factory: PurchaseCheckUseCaseFactory
@@ -39,18 +37,22 @@ public final class RecordCountingPurchaseCheckUseCase {
 }
 
 extension RecordCountingPurchaseCheckUseCase: CallHistoryRecordGetAllUseCaseOutput {
-    public func update(records: [CallHistoryRecord]) {
-        count = records.count
-        origin.execute()
+    public func update(records: [CallHistoryRecord]) async {
+        await updateCountAndExecuteOrigin(records.count)
+    }
+
+    private func updateCountAndExecuteOrigin(_ count: Int) async {
+        self.count = count
+        await origin.execute()
     }
 }
 
-extension RecordCountingPurchaseCheckUseCase: PurchaseCheckUseCaseOutput {
+nonisolated extension RecordCountingPurchaseCheckUseCase: PurchaseCheckUseCaseOutput {
     public func didCheckPurchase(expiration: Date) {
         output.didCheckPurchase()
     }
 
     public func didFailCheckingPurchase() {
-        output.didFailCheckingPurchase(recordCount: count)
+        Task { output.didFailCheckingPurchase(recordCount: await count) }
     }
 }

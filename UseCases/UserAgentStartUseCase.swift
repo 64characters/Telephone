@@ -18,10 +18,9 @@
 
 import Foundation
 
-public final class UserAgentStartUseCase {
-    private lazy var purchaseCheck: UseCase = {
-        return self.factory.make(output: WeakPurchaseCheckUseCaseOutput(origin: self))
-    }()
+@MainActor
+public final class UserAgentStartUseCase: Sendable {
+    private lazy var purchaseCheck = factory.make(output: WeakPurchaseCheckUseCaseOutput(origin: self))
 
     private let agent: UserAgent
     private let factory: PurchaseCheckUseCaseFactory
@@ -34,18 +33,24 @@ public final class UserAgentStartUseCase {
 
 extension UserAgentStartUseCase: UseCase {
     public func execute() {
-        purchaseCheck.execute()
+        Task {
+            await purchaseCheck.execute()
+        }
     }
 }
 
-extension UserAgentStartUseCase: PurchaseCheckUseCaseOutput {
+nonisolated extension UserAgentStartUseCase: PurchaseCheckUseCaseOutput {
     public func didCheckPurchase(expiration: Date) {
-        agent.maxCalls = 30
-        agent.start()
+        Task { @MainActor in
+            agent.maxCalls = 30
+            agent.start()
+        }
     }
 
     public func didFailCheckingPurchase() {
-        agent.maxCalls = 3
-        agent.start()
+        Task { @MainActor in
+            agent.maxCalls = 3
+            agent.start()
+        }
     }
 }

@@ -16,31 +16,32 @@
 //  GNU General Public License for more details.
 //
 
+@ContactsActor
 public final class LazyDiscardingContactMatchingIndex {
     private var origin: ContactMatchingIndex!
 
     private let factory: ContactMatchingIndexFactory
 
-    public init(factory: ContactMatchingIndexFactory) {
+    public nonisolated init(factory: ContactMatchingIndexFactory) {
         self.factory = factory
     }
 
-    private func createOriginIfNeeded() {
+    private func createOriginIfNeeded() async {
         if origin == nil {
-            origin = factory.make()
+            origin = await factory.make()
         }
     }
 }
 
 extension LazyDiscardingContactMatchingIndex: ContactMatchingIndex {
-    public func contact(forPhone phone: ExtractedPhoneNumber) -> MatchedContact? {
-        createOriginIfNeeded()
-        return origin.contact(forPhone: phone)
+    public func contact(forPhone phone: ExtractedPhoneNumber) async -> MatchedContact? {
+        await createOriginIfNeeded()
+        return await origin.contact(forPhone: phone)
     }
 
-    public func contact(forEmail email: NormalizedLowercasedString) -> MatchedContact? {
-        createOriginIfNeeded()
-        return origin.contact(forEmail: email)
+    public func contact(forEmail email: NormalizedLowercasedString) async -> MatchedContact? {
+        await createOriginIfNeeded()
+        return await origin.contact(forEmail: email)
     }
 }
 

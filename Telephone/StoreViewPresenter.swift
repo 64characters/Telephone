@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 protocol StoreViewPresenter {
     func showPurchaseCheckProgress()
 
@@ -34,6 +35,7 @@ protocol StoreViewPresenter {
     func showPurchased(until date: Date)
 }
 
+@MainActor
 protocol StoreViewPresenterOutput {
     func showPurchaseCheckProgress()
 

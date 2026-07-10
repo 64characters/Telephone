@@ -19,8 +19,8 @@
 import Foundation
 import UseCases
 
-final class SimplePropertyListStorageFactory {
-    private let manager: FileManager
+final class SimplePropertyListStorageFactory: Sendable {
+    private nonisolated(unsafe) let manager: FileManager
 
     init(manager: FileManager) {
         self.manager = manager

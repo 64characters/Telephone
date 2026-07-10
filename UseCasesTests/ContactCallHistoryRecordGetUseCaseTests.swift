@@ -20,11 +20,13 @@ import XCTest
 import UseCases
 import UseCasesTestDoubles
 
+@ContactsActor
 final class ContactCallHistoryRecordGetUseCaseTests: XCTestCase {
-    func testCallsUpdateOnOutputWithRecordConvertedUsingMatchedContactFactoryOnUpdate() {
+    func testCallsUpdateOnOutputWithRecordConvertedUsingMatchedContactFactoryOnUpdate() async {
         let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let contact = MatchedContact(uri: record.uri)
-        let output = ContactCallHistoryRecordGetUseCaseOutputSpy()
+        let didUpdate = expectation(description: "Calls update on output")
+        let output = ContactCallHistoryRecordGetUseCaseOutputSpy(callback: didUpdate.fulfill)
         let sut = ContactCallHistoryRecordGetUseCase(
             factory: FallingBackMatchedContactFactory(matching: ContactMatchingStub([record.uri: contact])),
             output: output
@@ -32,6 +34,7 @@ final class ContactCallHistoryRecordGetUseCaseTests: XCTestCase {
 
         sut.update(record: record)
 
+        await fulfillment(of: [didUpdate], timeout: 1)
         XCTAssertEqual(output.invokedRecord, ContactCallHistoryRecord(origin: record, contact: contact))
     }
 }

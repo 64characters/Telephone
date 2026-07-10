@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryCallEventTarget {
+public final class CallHistoryCallEventTarget: Sendable {
     private let histories: CallHistories
     private let factory: CallHistoryRecordAddUseCaseFactory
 
@@ -28,11 +28,13 @@ public final class CallHistoryCallEventTarget {
 
 extension CallHistoryCallEventTarget: CallEventTarget {
     public func didDisconnect(_ call: Call) {
-        factory.make(
-            history: histories.history(withUUID: call.account.uuid),
-            record: CallHistoryRecord(call: call),
-            domain: call.account.domain
-        ).execute()
+        Task {
+            factory.make(
+                history: await histories.history(withUUID: call.account.uuid),
+                record: CallHistoryRecord(call: call),
+                domain: call.account.domain
+            ).execute()
+        }
     }
 
     public func didMake(_ call: Call) {}

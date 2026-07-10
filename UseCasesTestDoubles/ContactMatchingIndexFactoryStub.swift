@@ -18,6 +18,7 @@
 
 import UseCases
 
+@ContactsActor
 public final class ContactMatchingIndexFactoryStub {
     private let indexes: [ContactMatchingIndex]
     private var callCount = 0

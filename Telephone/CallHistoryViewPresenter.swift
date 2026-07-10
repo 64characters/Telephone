@@ -19,6 +19,7 @@
 import Cocoa
 import UseCases
 
+@MainActor
 final class CallHistoryViewPresenter {
     private let view: CallHistoryView
     private let dateFormatter: DateFormatter
@@ -31,9 +32,12 @@ final class CallHistoryViewPresenter {
     }
 }
 
-extension CallHistoryViewPresenter: ContactCallHistoryRecordGetAllUseCaseOutput {
+nonisolated extension CallHistoryViewPresenter: ContactCallHistoryRecordGetAllUseCaseOutput {
     func update(records: [ContactCallHistoryRecord]) {
-        view.show(records.map(makeRecord))
+        let result = records.map(makeRecord)
+        Task { @MainActor in
+            view.show(result)
+        }
     }
 
     private func makeRecord(from record: ContactCallHistoryRecord) -> PresentationCallHistoryRecord {

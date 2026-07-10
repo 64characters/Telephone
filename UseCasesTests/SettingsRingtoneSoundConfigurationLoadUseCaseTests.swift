@@ -18,12 +18,13 @@
 
 import Domain
 import DomainTestDoubles
+import Testing
 @testable import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
-    func testResultNameIsRingingSoundFromSettingsAndDeviceUIDIsUniqueIdentifierOfRingtoneOutputFromSoundIO() throws {
+@MainActor
+struct SettingsRingtoneSoundConfigurationLoadUseCaseTests {
+    @Test func resultNameIsRingingSoundFromSettingsAndDeviceUIDIsUniqueIdentifierOfRingtoneOutputFromSoundIO() async throws {
         let sound = "any-sound"
         let output = SystemAudioDeviceTestFactory().someOutput
         let settings = SettingsFake()
@@ -40,17 +41,17 @@ final class SettingsRingtoneSoundConfigurationLoadUseCaseTests: XCTestCase {
 
         let result = try sut.execute()
 
-        XCTAssertEqual(result.name, sound)
-        XCTAssertEqual(result.deviceUID, output.uniqueIdentifier)
+        #expect(result.name == sound)
+        #expect(result.deviceUID == output.uniqueIdentifier)
     }
 
-    func testThrowsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInSettings() {
+    @Test func throwsRingtoneSoundNameNotFoundErrorWhenSoundNameCanNotBeFoundInSettings() async {
         let sut = SettingsRingtoneSoundConfigurationLoadUseCase(
             settings: SettingsFake(), factory: SoundIOFactoryStub(soundIO: NullSoundIO())
         )
 
-        XCTAssertThrowsError(try sut.execute()) { (error) in
-            XCTAssertEqual(error as? UseCasesError, .ringtoneSoundNameNotFoundError)
+        #expect(throws: UseCasesError.ringtoneSoundNameNotFoundError) {
+            try sut.execute()
         }
     }
 }

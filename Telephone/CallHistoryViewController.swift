@@ -82,9 +82,9 @@ final class CallHistoryViewController: NSViewController {
     }
 
     @IBAction func deleteAll(_ sender: Any) {
-        makeDeleteAllAlert().beginSheetModal(for: view.window!) {
-            if $0 == .alertFirstButtonReturn {
-                self.target?.shouldRemoveAllRecords()
+        Task {
+            if await makeDeleteAllAlert().beginSheetModal(for: view.window!) == .alertFirstButtonReturn {
+                target?.shouldRemoveAllRecords()
             }
         }
     }
@@ -99,9 +99,9 @@ private extension CallHistoryViewController {
     func removeRecord(at index: Int) {
         guard !records.isEmpty else { return }
         let record = records[index]
-        makeDeleteRecordAlert(recordName: record.name).beginSheetModal(for: view.window!) {
-            if $0 == .alertFirstButtonReturn {
-                self.removeTableViewRow(index, andRecordWithIdentifier: record.identifier)
+        Task {
+            if await makeDeleteRecordAlert(recordName: record.name).beginSheetModal(for: view.window!) == .alertFirstButtonReturn {
+                removeTableViewRow(index, andRecordWithIdentifier: record.identifier)
             }
         }
     }
@@ -219,6 +219,7 @@ extension CallHistoryViewController: NSMenuItemValidation {
     }
 }
 
+@MainActor
 private func makeDeleteRecordAlert(recordName name: String) -> NSAlert {
     return makeDeletionAlert(
         messageText: String(
@@ -230,6 +231,7 @@ private func makeDeleteRecordAlert(recordName name: String) -> NSAlert {
     )
 }
 
+@MainActor
 private func makeDeleteAllAlert() -> NSAlert {
     return makeDeletionAlert(
         messageText: NSLocalizedString(
@@ -238,6 +240,7 @@ private func makeDeleteAllAlert() -> NSAlert {
     )
 }
 
+@MainActor
 private func makeDeletionAlert(messageText text: String) -> NSAlert {
     let a = NSAlert()
     a.messageText = text

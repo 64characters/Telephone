@@ -18,6 +18,7 @@
 
 import CoreAudio
 
+@MainActor
 final class CoreAudioDefaultSystemSoundIOChangeEventSource {
     private let input: CoreAudioChangeEventSource
     private let output: CoreAudioChangeEventSource
@@ -28,6 +29,7 @@ final class CoreAudioDefaultSystemSoundIOChangeEventSource {
     }
 }
 
+@MainActor
 private func makeEventSource(selector: AudioObjectPropertySelector,
                              target: DefaultSystemSoundIOChangeEventTarget,
                              queue: DispatchQueue) -> CoreAudioChangeEventSource {
@@ -39,6 +41,10 @@ private func makeEventSource(selector: AudioObjectPropertySelector,
             mElement: kAudioObjectPropertyElementMain
         ),
         queue: queue,
-        callback: { (_, _) in DispatchQueue.main.async(execute: target.defaultSystemSoundIODidUpdate) }
+        callback: { (_, _) in
+            Task {
+                target.defaultSystemSoundIODidUpdate()
+            }
+        }
     )
 }

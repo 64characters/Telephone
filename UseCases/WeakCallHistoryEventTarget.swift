@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public final class WeakCallHistoryEventTarget {
+public final actor WeakCallHistoryEventTarget {
     private weak var origin: CallHistoryEventTarget?
 
     public init(origin: CallHistoryEventTarget) {
@@ -25,7 +25,9 @@ public final class WeakCallHistoryEventTarget {
 }
 
 extension WeakCallHistoryEventTarget: CallHistoryEventTarget {
-    public func didUpdate(_ history: CallHistory) {
-        origin?.didUpdate(history)
+    public nonisolated func didUpdate(_ history: CallHistory) {
+        Task {
+            await origin?.didUpdate(history)
+        }
     }
 }

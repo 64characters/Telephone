@@ -21,7 +21,7 @@ import UseCases
 
 final class SimplePropertyListStorage {
     private let url: URL
-    private let manager: FileManager
+    private nonisolated(unsafe) let manager: FileManager
 
     init(url: URL, manager: FileManager) {
         self.url = url

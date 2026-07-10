@@ -19,6 +19,7 @@
 import Foundation
 import UseCases
 
+@MainActor
 final class DefaultStoreViewEventTarget {
     private(set) var state: StoreViewState = StoreViewStateNoProducts()
     private var products: [Product] = []
@@ -37,14 +38,14 @@ final class DefaultStoreViewEventTarget {
     }
 }
 
-extension DefaultStoreViewEventTarget: StoreViewStateMachine {
+extension DefaultStoreViewEventTarget: @preconcurrency StoreViewStateMachine {
     func changeState(_ newState: StoreViewState) {
         state = newState
     }
 
-    func checkPurchase() {
+    func checkPurchase() async {
         presenter.showPurchaseCheckProgress()
-        factory.makePurchaseCheckUseCase(output: self).execute()
+        await factory.makePurchaseCheckUseCase(output: self).execute()
     }
 
     func fetchProducts() {

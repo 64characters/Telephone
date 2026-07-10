@@ -18,7 +18,7 @@
 
 import Foundation
 
-public final class URI: NSObject {
+public final class URI: NSObject, Sendable {
     @objc public let user: String
     @objc public let address: ServiceAddress
     @objc public let displayName: String

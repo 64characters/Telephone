@@ -18,14 +18,22 @@
 
 import UseCases
 
+@CallHistoryActor
 public final class CallHistoryRecordGetAllUseCaseOutputSpy {
     public private(set) var invokedRecords: [CallHistoryRecord] = []
 
-    public init() {}
+    private let updateCallback: () -> Void
+
+    public init(callback: @escaping () -> Void) {
+        updateCallback = callback
+    }
 }
 
 extension CallHistoryRecordGetAllUseCaseOutputSpy: CallHistoryRecordGetAllUseCaseOutput {
-    public func update(records: [CallHistoryRecord]) {
-        invokedRecords = records
+    public nonisolated func update(records: [CallHistoryRecord]) {
+        Task { @CallHistoryActor in
+            invokedRecords = records
+            updateCallback()
+        }
     }
 }

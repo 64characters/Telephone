@@ -17,7 +17,7 @@
 //
 
 final class ObjCStoreEventTargetSpy {
-    private(set) var didCallDidPurchase = false
+    private(set) nonisolated(unsafe) var didCallDidPurchase = false
 }
 
 extension ObjCStoreEventTargetSpy: ObjCStoreEventTarget {

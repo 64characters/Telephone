@@ -36,4 +36,3 @@ extension UseCaseFactoryFake: UseCaseFactory {
         return UseCaseSpy()
     }
 }
-

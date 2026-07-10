@@ -16,7 +16,11 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryRecordGetAllUseCase {
+public protocol CallHistoryRecordGetAllUseCaseOutput: Sendable {
+    func update(records: [CallHistoryRecord]) async
+}
+
+public final class CallHistoryRecordGetAllUseCase: Sendable {
     private let history: CallHistory
     private let output: CallHistoryRecordGetAllUseCaseOutput
 
@@ -28,6 +32,8 @@ public final class CallHistoryRecordGetAllUseCase {
 
 extension CallHistoryRecordGetAllUseCase: UseCase {
     public func execute() {
-        output.update(records: history.allRecords)
+        Task {
+            await output.update(records: await history.allRecords)
+        }
     }
 }

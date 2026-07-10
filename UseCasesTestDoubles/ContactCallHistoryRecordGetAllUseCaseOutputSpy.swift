@@ -18,6 +18,7 @@
 
 import UseCases
 
+@ContactsActor
 public final class ContactCallHistoryRecordGetAllUseCaseOutputSpy {
     public private(set) var invokedRecords: [ContactCallHistoryRecord] = []
 

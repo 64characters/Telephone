@@ -19,12 +19,12 @@
 import UseCases
 import XCTest
 
+@MainActor
 final class DefaultStoreViewPresenterTests: XCTestCase {
     private var output: StoreViewSpy!
     private var sut: DefaultStoreViewPresenter!
 
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
         output = StoreViewSpy()
         sut = DefaultStoreViewPresenter(output: output)
     }

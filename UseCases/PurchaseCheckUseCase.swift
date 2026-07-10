@@ -18,7 +18,7 @@
 
 import Foundation
 
-public final class PurchaseCheckUseCase {
+public final class PurchaseCheckUseCase: Sendable {
     private let receipt: Receipt
     private let output: PurchaseCheckUseCaseOutput
 
@@ -28,13 +28,9 @@ public final class PurchaseCheckUseCase {
     }
 }
 
-extension PurchaseCheckUseCase: UseCase {
-    public func execute() {
-        receipt.validate(completion: notifyOutput)
-    }
-
-    private func notifyOutput(with result: ReceiptValidationResult) {
-        if case .receiptIsValid(expiration: let expiration) = result {
+extension PurchaseCheckUseCase: AsyncUseCase {
+    public func execute() async {
+        if case .receiptIsValid(expiration: let expiration) = await receipt.validate() {
             output.didCheckPurchase(expiration: expiration)
         } else {
             output.didFailCheckingPurchase()

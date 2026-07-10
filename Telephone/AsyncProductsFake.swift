@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class AsyncProductsFake {
     private let products: [String: Product]
     private let target: ProductsEventTarget
@@ -32,7 +33,7 @@ final class AsyncProductsFake {
     }
 }
 
-extension AsyncProductsFake: Products {
+extension AsyncProductsFake: @preconcurrency Products {
     var all: [Product] {
         return Array(products.values)
     }
@@ -43,7 +44,10 @@ extension AsyncProductsFake: Products {
 
     func fetch() {
         attempts += 1
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: notifyTarget)
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            notifyTarget()
+        }
     }
 
     private func notifyTarget() {

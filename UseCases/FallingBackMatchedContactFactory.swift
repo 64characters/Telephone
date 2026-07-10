@@ -16,14 +16,15 @@
 //  GNU General Public License for more details.
 //
 
+@ContactsActor
 public final class FallingBackMatchedContactFactory {
     private let matching: ContactMatching
 
-    public init(matching: ContactMatching) {
+    public nonisolated init(matching: ContactMatching) {
         self.matching = matching
     }
 
-    public func make(uri: URI) -> MatchedContact {
-        return matching.match(for: uri) ?? MatchedContact(uri: uri)
+    public func make(uri: URI) async -> MatchedContact {
+        return await matching.match(for: uri) ?? MatchedContact(uri: uri)
     }
 }

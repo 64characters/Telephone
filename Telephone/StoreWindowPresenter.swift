@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+@MainActor
 final class StoreWindowPresenter: NSObject {
     private let controller: StoreWindowController
 
@@ -28,8 +29,10 @@ final class StoreWindowPresenter: NSObject {
     }
 }
 
-extension StoreWindowPresenter: PurchaseReminderUseCaseOutput {
+nonisolated extension StoreWindowPresenter: PurchaseReminderUseCaseOutput {
     func remindAboutPurchasing() {
-        present()
+        Task {
+            await present()
+        }
     }
 }

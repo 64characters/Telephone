@@ -17,25 +17,35 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
+@CallHistoryActor
 final class CallHistoriesHistoryRemoveUseCaseTests: XCTestCase {
-    func testCallsRemoveAllOnHistoryOnDidRemoveAccount() {
+    func testCallsRemoveAllOnHistoryOnDidRemoveAccount() async {
         let uuid = "any-uuid"
-        let history = CallHistorySpy()
-        let sut = CallHistoriesHistoryRemoveUseCase(histories: CallHistoriesSpy(histories: [uuid: history]))
+        let didCallRemoveAll = expectation(description: "Calls remove all on history")
+        let history = CallHistorySpy(addCallback: {}, removeCallback: {}, removeAllCallback: didCallRemoveAll.fulfill)
+        let sut = CallHistoriesHistoryRemoveUseCase(histories: CallHistoriesSpy(histories: [uuid: history], removeCallback: { _ in }))
 
         sut.didRemoveAccount(withUUID: uuid)
 
-        XCTAssertTrue(history.didCallRemoveAll)
+        await fulfillment(of: [didCallRemoveAll], timeout: 1)
     }
 
-    func testRemovesHistoryOnDidRemoveAccount() {
+    func testRemovesHistoryOnDidRemoveAccount() async {
         let uuid = "any-uuid"
-        let histories = CallHistoriesSpy(histories: [uuid: CallHistorySpy()])
+        let didCallRemove = expectation(description: "Calls remove on histories")
+        var invokedUUID: String?
+        let histories = CallHistoriesSpy(
+            histories: [uuid: CallHistorySpy(addCallback: {}, removeCallback: {}, removeAllCallback: {})],
+            removeCallback: { uuid in
+                invokedUUID = uuid
+                didCallRemove.fulfill()
+            }
+        )
         let sut = CallHistoriesHistoryRemoveUseCase(histories: histories)
 
         sut.didRemoveAccount(withUUID: uuid)
 
-        XCTAssertTrue(histories.didCallRemove)
-        XCTAssertEqual(histories.invokedUUID, uuid)
+        await fulfillment(of: [didCallRemove], timeout: 1)
+        XCTAssertEqual(invokedUUID, uuid)
     }
 }

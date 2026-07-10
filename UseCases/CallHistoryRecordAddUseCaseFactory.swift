@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistoryRecordAddUseCaseFactory {
+public protocol CallHistoryRecordAddUseCaseFactory: Sendable {
     func make(history: CallHistory, record: CallHistoryRecord, domain: String) -> UseCase
 }

@@ -19,11 +19,15 @@
 import UseCases
 
 final class CallHistoryViewSpy {
-    private(set) var invokedRecords: [PresentationCallHistoryRecord] = []
+    private let showCallback: ([PresentationCallHistoryRecord]) -> Void
+
+    init(callback: @escaping ([PresentationCallHistoryRecord]) -> Void) {
+        showCallback = callback
+    }
 }
 
 extension CallHistoryViewSpy: CallHistoryView {
     func show(_ records: [PresentationCallHistoryRecord]) {
-        invokedRecords = records
+        showCallback(records)
     }
 }

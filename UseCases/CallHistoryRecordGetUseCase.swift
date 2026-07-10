@@ -16,11 +16,11 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistoryRecordGetUseCaseOutput {
+public protocol CallHistoryRecordGetUseCaseOutput: Sendable {
     func update(record: CallHistoryRecord)
 }
 
-public final class CallHistoryRecordGetUseCase {
+public final class CallHistoryRecordGetUseCase: Sendable {
     private let identifier: String
     private let history: CallHistory
     private let output: CallHistoryRecordGetUseCaseOutput
@@ -34,8 +34,10 @@ public final class CallHistoryRecordGetUseCase {
 
 extension CallHistoryRecordGetUseCase: UseCase {
     public func execute() {
-        if let record = history.record(withIdentifier: identifier) {
-            output.update(record: record)
+        Task {
+            if let record = await history.record(withIdentifier: identifier) {
+                output.update(record: record)
+            }
         }
     }
 }

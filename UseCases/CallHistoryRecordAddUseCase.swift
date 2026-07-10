@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public final class CallHistoryRecordAddUseCase {
+public final class CallHistoryRecordAddUseCase: Sendable {
     private let history: CallHistory
     private let record: CallHistoryRecord
     private let domain: String
@@ -30,7 +30,9 @@ public final class CallHistoryRecordAddUseCase {
 
 extension CallHistoryRecordAddUseCase: UseCase {
     public func execute() {
-        history.add(recordByRemovingHostIfNeeded(from: record))
+        Task {
+            await history.add(recordByRemovingHostIfNeeded(from: record))
+        }
     }
 
     private func recordByRemovingHostIfNeeded(from record: CallHistoryRecord) -> CallHistoryRecord {

@@ -19,7 +19,7 @@
 import UseCases
 
 public final class CallHistoryFactorySpy {
-    public private(set) var invokedUUID = ""
+    public private(set) nonisolated(unsafe) var invokedUUID = ""
 
     private let history: CallHistory
 

@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class SimpleSoundFactory {
     private let load: SoundConfigurationLoadUseCase
     private let factory: NSSoundToSoundAdapterFactory

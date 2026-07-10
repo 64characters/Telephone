@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public struct MatchedContact: Equatable {
+public struct MatchedContact: Equatable, Sendable {
     public let name: String
     public let address: Address
 
@@ -25,7 +25,7 @@ public struct MatchedContact: Equatable {
         self.address = address
     }
 
-    public enum Address: Equatable {
+    public enum Address: Equatable, Sendable {
         case phone(number: String, label: String)
         case email(address: String, label: String)
     }

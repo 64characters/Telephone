@@ -18,6 +18,7 @@
 
 import UseCases
 
+@ContactsActor
 public final class SimpleContacts {
     private var contacts: [Contact]
 

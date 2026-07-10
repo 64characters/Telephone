@@ -20,12 +20,13 @@ import UseCases
 import XCTest
 import UseCasesTestDoubles
 
+@ContactsActor
 final class SimpleContactMatchingIndexFactoryTests: XCTestCase {
-    func testGetsSignificantPhoneNumberLengthFromSettingsOnMake() {
+    func testGetsSignificantPhoneNumberLengthFromSettingsOnMake() async {
         let settings = ContactMatchingSettingsSpy()
         let sut = SimpleContactMatchingIndexFactory(contacts: SimpleContacts([]), settings: settings)
 
-        _ = sut.make()
+        _ = await sut.make()
 
         XCTAssertTrue(settings.didCallSignificantPhoneNumberLength)
     }

@@ -24,7 +24,19 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
     func testCreatesUseCaseWithExpectedArgumentsOnDidDisconnect() {
         let account = SimpleAccount(uuid: "any-id", domain: "any-domain")
         let history: CallHistory = TruncatingCallHistory()
-        let factory = CallHistoryRecordAddUseCaseFactorySpy(add: UseCaseSpy())
+        let didCallMake = expectation(description: "Calls make on factory")
+        var invokedHistory: CallHistory?
+        var invokedRecord: CallHistoryRecord?
+        var invokedDomain: String?
+        let factory = CallHistoryRecordAddUseCaseFactorySpy(
+            add: UseCaseSpy(),
+            makeCallback: { history, record, domain in
+                invokedHistory = history
+                invokedRecord = record
+                invokedDomain = domain
+                didCallMake.fulfill()
+            }
+        )
         let sut = CallHistoryCallEventTarget(
             histories: DefaultCallHistories(factory: CallHistoryFactorySpy(history: history)), factory: factory
         )
@@ -32,22 +44,26 @@ final class CallHistoryCallEventTargetTests: XCTestCase {
 
         sut.didDisconnect(call)
 
-        XCTAssertTrue(factory.invokedHistory === history)
-        XCTAssertEqual(factory.invokedRecord, CallHistoryRecord(call: call))
-        XCTAssertEqual(factory.invokedDomain, account.domain)
+        wait(for: [didCallMake], timeout: 1)
+        XCTAssertTrue(invokedHistory === history)
+        XCTAssertEqual(invokedRecord, CallHistoryRecord(call: call))
+        XCTAssertEqual(invokedDomain, account.domain)
     }
 
     func testExecutesUseCaseOnDidDisconnect() {
         let histories = DefaultCallHistories(factory: CallHistoryFactorySpy(history: TruncatingCallHistory()))
-        let add = UseCaseSpy()
+        let didCallExecute = expectation(description: "Calls execute on add")
         let sut = CallHistoryCallEventTarget(
-            histories: histories, factory: CallHistoryRecordAddUseCaseFactorySpy(add: add)
+            histories: histories,
+            factory: CallHistoryRecordAddUseCaseFactorySpy(
+                add: UseCaseSpy(callBack: didCallExecute.fulfill), makeCallback: { _, _, _ in }
+            )
         )
         let call = makeCall(account: SimpleAccount(uuid: "any-id", domain: "any-domain"))
 
         sut.didDisconnect(call)
 
-        XCTAssertTrue(add.didCallExecute)
+        wait(for: [didCallExecute], timeout: 1)
     }
 }
 

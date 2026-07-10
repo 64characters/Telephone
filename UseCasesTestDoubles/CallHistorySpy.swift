@@ -18,16 +18,42 @@
 
 import UseCases
 
+@CallHistoryActor
 public final class CallHistorySpy {
-    public private(set) var didCallRemoveAll = false
+    private let addCallback: () -> Void
+    private let removeCallback: () -> Void
+    private let removeAllCallback: () -> Void
 
-    public init() {}
+    private var records = [CallHistoryRecord]()
+
+    public init(addCallback: @escaping () -> Void, removeCallback: @escaping () -> Void, removeAllCallback: @escaping () -> Void) {
+        self.addCallback = addCallback
+        self.removeCallback = removeCallback
+        self.removeAllCallback = removeAllCallback
+    }
 }
 
 extension CallHistorySpy: CallHistory {
-    public var allRecords: [CallHistoryRecord] { return [] }
-    public func add(_ record: CallHistoryRecord) {}
-    public func remove(_ record: CallHistoryRecord) {}
-    public func removeAll() { didCallRemoveAll = true }
+    public var allRecords: [CallHistoryRecord] {
+        records
+    }
+
+    public func add(_ record: CallHistoryRecord) {
+        records.append(record)
+        addCallback()
+    }
+
+    public func remove(_ record: CallHistoryRecord) {
+        if let index = records.firstIndex(of: record) {
+            records.remove(at: index)
+        }
+        removeCallback()
+    }
+
+    public func removeAll() {
+        records.removeAll()
+        removeAllCallback()
+    }
+
     public func updateTarget(_ target: CallHistoryEventTarget) {}
 }

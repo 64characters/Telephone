@@ -19,14 +19,14 @@
 import Foundation
 
 final class WeakPurchaseCheckUseCaseOutput {
-    private weak var origin: PurchaseCheckUseCaseOutput?
+    private weak let origin: PurchaseCheckUseCaseOutput?
 
     init(origin: PurchaseCheckUseCaseOutput) {
         self.origin = origin
     }
 }
 
-extension WeakPurchaseCheckUseCaseOutput: PurchaseCheckUseCaseOutput {
+nonisolated extension WeakPurchaseCheckUseCaseOutput: PurchaseCheckUseCaseOutput {
     func didCheckPurchase(expiration: Date) {
         origin?.didCheckPurchase(expiration: expiration)
     }

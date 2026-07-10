@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class SoundPreferencesViewEventTarget: NSObject {
     private let useCaseFactory: UseCaseFactory
     private let presenterFactory: PresenterFactory

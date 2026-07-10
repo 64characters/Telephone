@@ -19,7 +19,7 @@
 import Foundation
 import UseCases
 
-final class TruncatingCallHistoryFactory {
+final class TruncatingCallHistoryFactory: Sendable {
     private let limit: Int
 
     init(limit: Int) {

@@ -21,11 +21,16 @@ import UseCases
 public final class UseCaseSpy {
     public private(set) var didCallExecute = false
 
-    public init() {}
+    private let executeCallBack: () -> Void
+
+    public init(callBack: @escaping () -> Void = {}) {
+        executeCallBack = callBack
+    }
 }
 
 extension UseCaseSpy: UseCase {
     public func execute() {
         didCallExecute = true
+        executeCallBack()
     }
 }

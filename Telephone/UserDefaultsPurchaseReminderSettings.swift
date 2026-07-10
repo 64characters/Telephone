@@ -19,6 +19,7 @@
 import Foundation
 import UseCases
 
+@MainActor
 final class UserDefaultsPurchaseReminderSettings {
     private let defaults: UserDefaults
 

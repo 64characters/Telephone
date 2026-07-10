@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+@MainActor
 final class AsyncFailingProductsFake {
     let all: [Product] = []
     private let target: ProductsEventTarget
@@ -25,13 +26,16 @@ final class AsyncFailingProductsFake {
     }
 }
 
-extension AsyncFailingProductsFake: Products {
+extension AsyncFailingProductsFake: @preconcurrency Products {
     subscript(identifier: String) -> Product? {
         return nil
     }
 
     func fetch() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: notifyTarget)
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            notifyTarget()
+        }
     }
 
     private func notifyTarget() {

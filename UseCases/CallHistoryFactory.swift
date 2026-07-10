@@ -13,6 +13,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistoryFactory {
+@CallHistoryActor
+public protocol CallHistoryFactory: Sendable {
     func make(uuid: String) -> CallHistory
 }

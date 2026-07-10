@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class CallHistoryViewEventTarget: NSObject {
     private let recordsGet: UseCase
     private let purchaseCheck: UseCase
@@ -59,9 +60,11 @@ final class CallHistoryViewEventTarget: NSObject {
     }
 }
 
-extension CallHistoryViewEventTarget: CallHistoryEventTarget {
+nonisolated extension CallHistoryViewEventTarget: CallHistoryEventTarget {
     func didUpdate(_ history: CallHistory) {
-        executeRecordGetAndPurchaseCheck()
+        Task {
+            await executeRecordGetAndPurchaseCheck()
+        }
     }
 }
 
@@ -81,8 +84,10 @@ extension CallHistoryViewEventTarget: StoreEventTarget {
     func didCancelRestoringPurchases() {}
 }
 
-extension CallHistoryViewEventTarget: DayChangeEventTarget {
+nonisolated extension CallHistoryViewEventTarget: DayChangeEventTarget {
     func dayDidChange() {
-        executeRecordGetAndPurchaseCheck()
+        Task {
+            await executeRecordGetAndPurchaseCheck()
+        }
     }
 }

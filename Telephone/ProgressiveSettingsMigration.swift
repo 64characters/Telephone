@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class ProgressiveSettingsMigration: NSObject {
     private let settings: KeyValueSettings
     private let factory: SettingsMigrationFactory

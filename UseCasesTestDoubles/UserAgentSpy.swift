@@ -23,8 +23,6 @@ public final class UserAgentSpy {
     public var isStarted = false
     public var maxCalls = 0
 
-    public var didCallStart = false
-
     public private(set) var didCallAudioDevices = false
     public var audioDevicesResult = [UserAgentAudioDevice]()
 
@@ -35,12 +33,16 @@ public final class UserAgentSpy {
     public private(set) var invokedInputDeviceID: Int?
     public private(set) var invokedOutputDeviceID: Int?
 
-    public init() {}
+    private var startCallback: () -> Void
+
+    public init(startCallback: @escaping () -> Void = {}) {
+        self.startCallback = startCallback
+    }
 }
 
 extension UserAgentSpy: UserAgent {
     public func start() {
-        didCallStart = true
+        startCallback()
     }
 
     public func audioDevices() throws -> [UserAgentAudioDevice] {

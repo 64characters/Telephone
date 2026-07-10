@@ -18,12 +18,13 @@
 
 import Domain
 import DomainTestDoubles
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SettingsSoundIOSaveUseCaseTests: XCTestCase {
-    func testSavesDeviceNamesInSettingsWhenSoundIOIsNormalDevices() {
+@MainActor
+struct SettingsSoundIOSaveUseCaseTests {
+    @Test func savesDeviceNamesInSettingsWhenSoundIOIsNormalDevices() {
         let input = "any-input"
         let output = "any-output"
         let ringtoneOutput = "other-output"
@@ -39,12 +40,12 @@ final class SettingsSoundIOSaveUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertEqual(settings[SettingsKeys.soundInput], input)
-        XCTAssertEqual(settings[SettingsKeys.soundOutput], output)
-        XCTAssertEqual(settings[SettingsKeys.ringtoneOutput], ringtoneOutput)
+        #expect(settings[SettingsKeys.soundInput] == input)
+        #expect(settings[SettingsKeys.soundOutput] == output)
+        #expect(settings[SettingsKeys.ringtoneOutput] == ringtoneOutput)
     }
 
-    func testDeletesDeviceNamesFromSettingsWhenSoundIOIsSystemDefaultDevices() {
+    @Test func deletesDeviceNamesFromSettingsWhenSoundIOIsSystemDefaultDevices() {
         let settings = SettingsFake()
         settings[SettingsKeys.soundInput] = "any-value"
         settings[SettingsKeys.soundOutput] = "any-value"
@@ -58,8 +59,8 @@ final class SettingsSoundIOSaveUseCaseTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertNil(settings[SettingsKeys.soundInput])
-        XCTAssertNil(settings[SettingsKeys.soundOutput])
-        XCTAssertNil(settings[SettingsKeys.ringtoneOutput])
+        #expect(settings[SettingsKeys.soundInput] == nil)
+        #expect(settings[SettingsKeys.soundOutput] == nil)
+        #expect(settings[SettingsKeys.ringtoneOutput] == nil)
     }
 }

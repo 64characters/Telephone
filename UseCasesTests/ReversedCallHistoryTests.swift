@@ -16,12 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class ReversedCallHistoryTests: XCTestCase {
-    func testReturnsAllRecordsReversed() {
+@CallHistoryActor
+struct ReversedCallHistoryTests {
+    @Test func returnsAllRecordsReversed() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -31,10 +32,10 @@ final class ReversedCallHistoryTests: XCTestCase {
         sut.add(record2)
         sut.add(record3)
 
-        XCTAssertEqual(sut.allRecords, [record3, record2, record1])
+        #expect(sut.allRecords == [record3, record2, record1])
     }
 
-    func testAddsRecordsToOriginOnAdd() {
+    @Test func addsRecordsToOriginOnAdd() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -44,10 +45,10 @@ final class ReversedCallHistoryTests: XCTestCase {
         sut.add(record1)
         sut.add(record2)
 
-        XCTAssertEqual(origin.allRecords, [record1, record2])
+        #expect(origin.allRecords == [record1, record2])
     }
 
-    func testRemovesRecordsFromOriginOnRemove() {
+    @Test func removesRecordsFromOriginOnRemove() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -58,10 +59,10 @@ final class ReversedCallHistoryTests: XCTestCase {
 
         sut.remove(record1)
 
-        XCTAssertEqual(origin.allRecords, [record2])
+        #expect(origin.allRecords == [record2])
     }
 
-    func testRemovesAllRecordsFromOriginOnRemoveAll() {
+    @Test func removesAllRecordsFromOriginOnRemoveAll() {
         let factory = CallHistoryRecordTestFactory()
         let record1 = factory.makeRecord(number: 1)
         let record2 = factory.makeRecord(number: 2)
@@ -72,16 +73,16 @@ final class ReversedCallHistoryTests: XCTestCase {
 
         sut.removeAll()
 
-        XCTAssertTrue(origin.allRecords.isEmpty)
+        #expect(origin.allRecords.isEmpty)
     }
 
-    func testUpdatesTargetOnOriginOnUpdateTarget() {
+    @Test func updatesTargetOnOriginOnUpdateTarget() {
         let sut = ReversedCallHistory(origin: NotifyingCallHistory(origin: TruncatingCallHistory()))
         let target = CallHistoryEventTargetSpy()
 
         sut.updateTarget(target)
         sut.add(CallHistoryRecordTestFactory().makeRecord(number: 1))
 
-        XCTAssertTrue(target.didCallDidUpdate)
+        #expect(target.didCallDidUpdate)
     }
 }

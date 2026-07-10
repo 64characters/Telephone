@@ -19,20 +19,21 @@
 import UseCases
 
 public final class RecordCountingPurchaseCheckUseCaseOutputSpy {
-    public private(set) var didCallDidCheckPurchase = false
-    public private(set) var didCallDidFailCheckingPurchase = false
-    public private(set) var invokedCount: Int?
+    private nonisolated(unsafe) let didCheckPurchaseCallback: () -> Void
+    private nonisolated(unsafe) let didFailCheckingPurchaseCallback: (Int) -> Void
 
-    public init() {}
+    public init(didCheckPurchaseCallback: @escaping () -> Void, didFailCheckingPurchaseCallback: @escaping (Int) -> Void) {
+        self.didCheckPurchaseCallback = didCheckPurchaseCallback
+        self.didFailCheckingPurchaseCallback = didFailCheckingPurchaseCallback
+    }
 }
 
 extension RecordCountingPurchaseCheckUseCaseOutputSpy: RecordCountingPurchaseCheckUseCaseOutput {
     public func didCheckPurchase() {
-        didCallDidCheckPurchase = true
+        didCheckPurchaseCallback()
     }
 
     public func didFailCheckingPurchase(recordCount count: Int) {
-        didCallDidFailCheckingPurchase = true
-        invokedCount = count
+        didFailCheckingPurchaseCallback(count)
     }
 }

@@ -16,12 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class NotifyingCallHistoryTests: XCTestCase {
-    func testNotifiesTargetAfterAdding() {
+@CallHistoryActor
+struct NotifyingCallHistoryTests {
+    @Test func notifiesTargetAfterAdding() {
         let target = CallHistoryEventTargetSpy()
         let sut = NotifyingCallHistory(origin: TruncatingCallHistory())
         sut.updateTarget(target)
@@ -29,10 +30,10 @@ final class NotifyingCallHistoryTests: XCTestCase {
 
         sut.add(factory.makeRecord(number: 1))
 
-        XCTAssertTrue(target.didCallDidUpdate)
+        #expect(target.didCallDidUpdate)
     }
 
-    func testNotifiesTargetAfterRemovingIndividual() {
+    @Test func notifiesTargetAfterRemovingIndividual() {
         let target = CallHistoryEventTargetSpy()
         let sut = NotifyingCallHistory(origin: TruncatingCallHistory())
         sut.updateTarget(target)
@@ -41,10 +42,10 @@ final class NotifyingCallHistoryTests: XCTestCase {
         sut.add(record)
         sut.remove(record)
 
-        XCTAssertEqual(target.didUpdateCallCount, 2)
+        #expect(target.didUpdateCallCount == 2)
     }
 
-    func testNotifiesTargetAfterRemovingAll() {
+    @Test func notifiesTargetAfterRemovingAll() {
         let target = CallHistoryEventTargetSpy()
         let sut = NotifyingCallHistory(origin: TruncatingCallHistory())
         sut.updateTarget(target)
@@ -54,6 +55,6 @@ final class NotifyingCallHistoryTests: XCTestCase {
         sut.add(factory.makeRecord(number: 2))
         sut.removeAll()
 
-        XCTAssertEqual(target.didUpdateCallCount, 3)
+        #expect(target.didUpdateCallCount == 3)
     }
 }

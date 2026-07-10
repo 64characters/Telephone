@@ -20,29 +20,35 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
+@CallHistoryActor
 final class CallHistoryRecordAddUseCaseTests: XCTestCase {
-    func testAddsRecordToHistory() {
-        let history = TruncatingCallHistory()
+    func testAddsRecordToHistory() async {
+        let didCallAdd = expectation(description: "Calls add on history")
+        let history = CallHistorySpy(addCallback: didCallAdd.fulfill, removeCallback: {}, removeAllCallback: {})
         let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: "different")
 
         sut.execute()
 
+        await fulfillment(of: [didCallAdd], timeout: 1)
         XCTAssertEqual(history.allRecords, [record])
     }
 
-    func testAddsCopyOfRecordWithEmptyHostWhenHostMatchesDomain() {
-        let history = TruncatingCallHistory()
+    func testAddsCopyOfRecordWithEmptyHostWhenHostMatchesDomain() async {
+        let didCallAdd = expectation(description: "Calls add on history")
+        let history = CallHistorySpy(addCallback: didCallAdd.fulfill, removeCallback: {}, removeAllCallback: {})
         let record = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let sut = CallHistoryRecordAddUseCase(history: history, record: record, domain: record.uri.host)
 
         sut.execute()
 
+        await fulfillment(of: [didCallAdd], timeout: 1)
         XCTAssertEqual(history.allRecords, [record.removingHost()])
     }
 
-    func testAddsCopyOfRecordWithEmptyHostWhenUserIsATelephoneNumberLongerThanFourCharacters() {
-        let history = TruncatingCallHistory()
+    func testAddsCopyOfRecordWithEmptyHostWhenUserIsATelephoneNumberLongerThanFourCharacters() async {
+        let didCallAdd = expectation(description: "Calls add on history")
+        let history = CallHistorySpy(addCallback: didCallAdd.fulfill, removeCallback: {}, removeAllCallback: {})
         let record = CallHistoryRecord(
             uri: URI(user: "12345", host: "any-host", displayName: "any-name"),
             date: Date(),
@@ -54,11 +60,13 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
 
         sut.execute()
 
+        await fulfillment(of: [didCallAdd], timeout: 1)
         XCTAssertEqual(history.allRecords, [record.removingHost()])
     }
 
-    func testAddsOriginalRecordWhenUserIsATelephoneNumberWithLengthEqualToFourCharacters() {
-        let history = TruncatingCallHistory()
+    func testAddsOriginalRecordWhenUserIsATelephoneNumberWithLengthEqualToFourCharacters() async {
+        let didCallAdd = expectation(description: "Calls add on history")
+        let history = CallHistorySpy(addCallback: didCallAdd.fulfill, removeCallback: {}, removeAllCallback: {})
         let record = CallHistoryRecord(
             uri: URI(user: "1234", host: "any-host", displayName: "any-name"),
             date: Date(),
@@ -70,11 +78,13 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
 
         sut.execute()
 
+        await fulfillment(of: [didCallAdd], timeout: 1)
         XCTAssertEqual(history.allRecords, [record])
     }
 
-    func testAddsOriginalRecordWhenUserIsATelephoneNumberShorterThanFourCharacters() {
-        let history = TruncatingCallHistory()
+    func testAddsOriginalRecordWhenUserIsATelephoneNumberShorterThanFourCharacters() async {
+        let didCallAdd = expectation(description: "Calls add on history")
+        let history = CallHistorySpy(addCallback: didCallAdd.fulfill, removeCallback: {}, removeAllCallback: {})
         let record = CallHistoryRecord(
             uri: URI(user: "123", host: "any-host", displayName: "any-name"),
             date: Date(),
@@ -86,6 +96,7 @@ final class CallHistoryRecordAddUseCaseTests: XCTestCase {
 
         sut.execute()
 
+        await fulfillment(of: [didCallAdd], timeout: 1)
         XCTAssertEqual(history.allRecords, [record])
     }
 }

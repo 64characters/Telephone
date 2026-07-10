@@ -18,23 +18,17 @@
 
 import UseCases
 
+@MainActor
 final class AsyncCallHistoryViewEventTargetFactory: NSObject {
     private let origin: CallHistoryViewEventTargetFactory
-    private let background: ExecutionQueue
-    private let main: ExecutionQueue
 
-    init(origin: CallHistoryViewEventTargetFactory, background: ExecutionQueue, main: ExecutionQueue) {
+    init(origin: CallHistoryViewEventTargetFactory) {
         self.origin = origin
-        self.background = background
-        self.main = main
     }
 
     @objc func make(account: Account, view: CallHistoryView, purchaseCheck: UseCase, completion: @escaping (CallHistoryViewEventTarget) -> Void) {
-        background.add {
-            let result = self.origin.make(account: account, view: view, purchaseCheck: purchaseCheck)
-            self.main.add {
-                completion(result)
-            }
+        Task {
+            completion(await origin.make(account: account, view: view, purchaseCheck: purchaseCheck))
         }
     }
 }

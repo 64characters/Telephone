@@ -18,14 +18,14 @@
 
 import UseCases
 
+@CallHistoryActor
 public final class CallHistoriesSpy  {
-    public private(set) var didCallRemove = false
-    public private(set) var invokedUUID = ""
-
     private let histories: [String: CallHistory]
+    private let removeCallback: (String) -> Void
 
-    public init(histories: [String: CallHistory]) {
+    public init(histories: [String: CallHistory], removeCallback: @escaping (String) -> Void) {
         self.histories = histories
+        self.removeCallback = removeCallback
     }
 }
 
@@ -35,7 +35,6 @@ extension CallHistoriesSpy: CallHistories {
     }
 
     public func remove(withUUID uuid: String) {
-        didCallRemove = true
-        invokedUUID = uuid
+        removeCallback(uuid)
     }
 }

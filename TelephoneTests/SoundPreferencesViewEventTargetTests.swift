@@ -16,23 +16,19 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class SoundPreferencesViewEventTargetTests: XCTestCase {
-    private var factory: UseCaseFactorySpy!
-    private var userAgentSoundIOSelection: UseCaseSpy!
-    private var ringtoneOutputUpdate: ThrowingUseCaseSpy!
-    private var soundPlayback: SoundPlaybackUseCaseSpy!
-    private var sut: SoundPreferencesViewEventTarget!
+@MainActor
+struct SoundPreferencesViewEventTargetTests {
+    private let factory = UseCaseFactorySpy()
+    private let userAgentSoundIOSelection = UseCaseSpy()
+    private let ringtoneOutputUpdate = ThrowingUseCaseSpy()
+    private let soundPlayback = SoundPlaybackUseCaseSpy()
+    private let sut: SoundPreferencesViewEventTarget
 
-    override func setUp() {
-        super.setUp()
-        factory = UseCaseFactorySpy()
-        userAgentSoundIOSelection = UseCaseSpy()
-        ringtoneOutputUpdate = ThrowingUseCaseSpy()
-        soundPlayback = SoundPlaybackUseCaseSpy()
+    init() {
         sut = SoundPreferencesViewEventTarget(
             useCaseFactory: factory,
             presenterFactory: PresenterFactory(),
@@ -42,73 +38,73 @@ final class SoundPreferencesViewEventTargetTests: XCTestCase {
         )
     }
 
-    func testExecutesSettingsSoundIOLoadUseCaseOnViewDataReload() {
+    @Test func executesSettingsSoundIOLoadUseCaseOnViewDataReload() {
         let useCase = ThrowingUseCaseSpy()
         factory.stub(withSettingsSoundIOLoad: useCase)
 
         sut.shouldReloadData(in: SoundPreferencesViewSpy())
 
-        XCTAssertTrue(useCase.didCallExecute)
+        #expect(useCase.didCallExecute)
     }
 
-    func testExecutesSettingsSoundIOLoadUseCaseOnSoundIOReload() {
+    @Test func executesSettingsSoundIOLoadUseCaseOnSoundIOReload() {
         let useCase = ThrowingUseCaseSpy()
         factory.stub(withSettingsSoundIOLoad: useCase)
 
         sut.shouldReloadSoundIO(in: SoundPreferencesViewSpy())
 
-        XCTAssertTrue(useCase.didCallExecute)
+        #expect(useCase.didCallExecute)
     }
 
-    func testExecutesSettingsSoundIOSaveUseCaseWithExpectedArgumentOnSoundIOChange() {
+    @Test func executesSettingsSoundIOSaveUseCaseWithExpectedArgumentOnSoundIOChange() {
         let useCase = UseCaseSpy()
         factory.stub(withSettingsSoundIOSave: useCase)
         let soundIO = makePresentationSoundIO()
 
         sut.didChangeSoundIO(soundIO)
 
-        XCTAssertEqual(factory.invokedSoundIO, SystemDefaultingSoundIO(soundIO))
-        XCTAssertTrue(useCase.didCallExecute)
+        #expect(factory.invokedSoundIO == SystemDefaultingSoundIO(soundIO))
+        #expect(useCase.didCallExecute)
     }
 
-    func testExecutesUserAgentSoundIOSelectionUseCaseOnSoundIOChange() {
+    @Test func executesUserAgentSoundIOSelectionUseCaseOnSoundIOChange() {
         factory.stub(withSettingsSoundIOSave: UseCaseSpy())
 
         sut.didChangeSoundIO(makePresentationSoundIO())
 
-        XCTAssertTrue(userAgentSoundIOSelection.didCallExecute)
+        #expect(userAgentSoundIOSelection.didCallExecute)
     }
 
-    func testExecutesRingtoneOutputUpdateUseCaseOnSoundIOChange() {
+    @Test func executesRingtoneOutputUpdateUseCaseOnSoundIOChange() {
         factory.stub(withSettingsSoundIOSave: UseCaseSpy())
 
         sut.didChangeSoundIO(makePresentationSoundIO())
 
-        XCTAssertTrue(ringtoneOutputUpdate.didCallExecute)
+        #expect(ringtoneOutputUpdate.didCallExecute)
     }
 
-    func testExecutesSettingsRingtoneSoundNameSaveUseCaseWithExpectedArgumentsOnRingtoneNameChange() {
+    @Test func executesSettingsRingtoneSoundNameSaveUseCaseWithExpectedArgumentsOnRingtoneNameChange() {
         let useCase = UseCaseSpy()
         factory.stub(withSettingsRingtoneSoundNameSave: useCase)
 
         sut.didChangeRingtoneName("sound-name")
 
-        XCTAssertEqual(factory.invokedRingtoneSoundName, "sound-name")
-        XCTAssertTrue(useCase.didCallExecute)
+        #expect(factory.invokedRingtoneSoundName == "sound-name")
+        #expect(useCase.didCallExecute)
     }
 
-    func testPlaysRingtoneSoundOnRingtoneNameChange() {
+    @Test func playsRingtoneSoundOnRingtoneNameChange() {
         factory.stub(withSettingsRingtoneSoundNameSave: UseCaseSpy())
 
         sut.didChangeRingtoneName("any-name")
 
-        XCTAssertTrue(soundPlayback.didCallPlay)
+        #expect(soundPlayback.didCallPlay)
     }
 
-    func testStopsPlayingRingtoneSoundOnViewWillDisappear() {
+    @Test func stopsPlayingRingtoneSoundOnViewWillDisappear() {
         sut.willDisappear(SoundPreferencesViewSpy())
 
-        XCTAssertTrue(soundPlayback.didCallStop)
+        #expect(soundPlayback.didCallStop)
     }
 }
 

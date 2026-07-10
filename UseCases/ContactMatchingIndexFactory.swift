@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactMatchingIndexFactory {
-    func make() -> ContactMatchingIndex
+@ContactsActor
+public protocol ContactMatchingIndexFactory: Sendable {
+    func make() async -> ContactMatchingIndex
 }

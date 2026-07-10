@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 public final class StoreEventTargetSpy {
     public private(set) var didCallDidStartPurchasing = false
     public private(set) var invokedIdentifier = ""
@@ -41,7 +42,7 @@ extension StoreEventTargetSpy: StoreEventTarget {
         invokedIdentifier = identifier
     }
 
-    public func didPurchase() {
+    public func didPurchase() async {
         didCallDidPurchase = true
     }
 
@@ -54,7 +55,7 @@ extension StoreEventTargetSpy: StoreEventTarget {
         didCallDidCancelPurchasing = true
     }
 
-    public func didRestorePurchases() {
+    public func didRestorePurchases() async {
         didCallDidRestore = true
     }
 

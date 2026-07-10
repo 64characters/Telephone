@@ -19,6 +19,7 @@
 import Foundation
 import UseCases
 
+@MainActor
 public final class SettingsFake {
     public var date: Date = Date.distantPast
     public var version = ""

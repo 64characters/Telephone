@@ -18,6 +18,6 @@
 
 import Foundation
 
-@objc protocol ObjCStoreEventTarget {
+@objc protocol ObjCStoreEventTarget: Sendable {
     func didPurchase()
 }

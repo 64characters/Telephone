@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class SettingsAccounts {
     private let settings: KeyValueSettings
 

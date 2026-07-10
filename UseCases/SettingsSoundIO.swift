@@ -18,6 +18,7 @@
 
 import Domain
 
+@MainActor
 struct SettingsSoundIO {
     private let devices: SystemAudioDevices
     private let settings: KeyValueSettings

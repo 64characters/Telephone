@@ -18,6 +18,7 @@
 
 import Foundation
 
+@MainActor
 final class AccountViewBottomViewPresenter: NSObject {
     private let constraint: NSLayoutConstraint
     private let height: CGFloat
@@ -45,16 +46,20 @@ final class AccountViewBottomViewPresenter: NSObject {
 }
 
 extension AccountViewBottomViewPresenter: RecordCountingPurchaseCheckUseCaseOutput {
-    func didCheckPurchase() {
-        hide()
+    nonisolated func didCheckPurchase() {
+        Task { @MainActor in
+            hide()
+        }
     }
 
-    func didFailCheckingPurchase(recordCount count: Int) {
-        if count > controller.recordCount {
-            button.title = makeButtionTitleWithCounts(total: count, current: controller.recordCount)
-            show()
-        } else {
-            hide()
+    nonisolated func didFailCheckingPurchase(recordCount count: Int) {
+        Task { @MainActor in
+            if count > controller.recordCount {
+                button.title = makeButtionTitleWithCounts(total: count, current: controller.recordCount)
+                show()
+            } else {
+                hide()
+            }
         }
     }
 }

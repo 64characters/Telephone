@@ -20,30 +20,31 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
+@MainActor
 final class DefaultStoreViewEventTargetTests: XCTestCase {
 
     // MARK: - Purchase check
 
-    func testExecutesPurchaseCheckOnCheckPurchase() {
-        let check = UseCaseSpy()
+    func testExecutesPurchaseCheckOnCheckPurchase() async {
+        let check = AsyncUseCaseSpy()
         let factory = StoreUseCaseFactorySpy()
         factory.stub(withPurchaseCheck: check)
         let sut = DefaultStoreViewEventTarget(
             factory: factory, purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: StoreViewPresenterSpy()
         )
 
-        sut.checkPurchase()
+        await sut.checkPurchase()
 
         XCTAssertTrue(check.didCallExecute)
     }
 
-    func testShowsPurchaseCheckProgressOnCheckPurchase() {
+    func testShowsPurchaseCheckProgressOnCheckPurchase() async {
         let factory = StoreUseCaseFactorySpy()
-        factory.stub(withPurchaseCheck: UseCaseSpy())
+        factory.stub(withPurchaseCheck: AsyncUseCaseSpy())
         let presenter = StoreViewPresenterSpy()
         let sut = DefaultStoreViewEventTarget(factory: factory, purchaseRestoration: UseCaseSpy(), receiptRefresh: UseCaseSpy(), presenter: presenter)
 
-        sut.checkPurchase()
+        await sut.checkPurchase()
 
         XCTAssertTrue(presenter.didCallShowPurchaseCheckProgress)
     }

@@ -16,11 +16,12 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCasesTestDoubles
-import XCTest
 
-final class IPVersionSettingsMigrationTests: XCTestCase {
-    func testAddsIPVersionFromUseIPv6OnlyKey() {
+@MainActor
+struct IPVersionSettingsMigrationTests {
+    @Test func addsIPVersionFromUseIPv6OnlyKey() throws {
         let settings = SettingsFake()
         settings.set(
             [[AKSIPAccountKeys.useIPv6Only: false], [AKSIPAccountKeys.useIPv6Only: true]],
@@ -30,23 +31,23 @@ final class IPVersionSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual(accounts[0][AKSIPAccountKeys.ipVersion] as! String, AKSIPAccountKeys.ipVersion4)
-        XCTAssertEqual(accounts[1][AKSIPAccountKeys.ipVersion] as! String, AKSIPAccountKeys.ipVersion6)
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.ipVersion] as? String == AKSIPAccountKeys.ipVersion4)
+        #expect(accounts[1][AKSIPAccountKeys.ipVersion] as? String == AKSIPAccountKeys.ipVersion6)
     }
 
-    func testAddsIPVersion4WhenUseIPv6OnlyKeyDoesNotExist() {
+    @Test func addsIPVersion4WhenUseIPv6OnlyKeyDoesNotExist() throws {
         let settings = SettingsFake()
         settings.set([[:]], forKey: UserDefaultsKeys.accounts)
         let sut = IPVersionSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual(accounts[0][AKSIPAccountKeys.ipVersion] as! String, AKSIPAccountKeys.ipVersion4)
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.ipVersion] as? String == AKSIPAccountKeys.ipVersion4)
     }
 
-    func testDoesNotChangeExistingIPVersion() {
+    @Test func doesNotChangeExistingIPVersion() throws {
         let settings = SettingsFake()
         settings.set(
             [[AKSIPAccountKeys.ipVersion: "foo"], [AKSIPAccountKeys.ipVersion: "bar"]],
@@ -56,23 +57,23 @@ final class IPVersionSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual((accounts[0][AKSIPAccountKeys.ipVersion] as! String), "foo")
-        XCTAssertEqual((accounts[1][AKSIPAccountKeys.ipVersion] as! String), "bar")
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.ipVersion] as? String == "foo")
+        #expect(accounts[1][AKSIPAccountKeys.ipVersion] as? String == "bar")
     }
 
-    func testChangesExistingIPVersionTo4IfItIsEmpty() {
+    @Test func changesExistingIPVersionTo4IfItIsEmpty() throws {
         let settings = SettingsFake()
         settings.set([[AKSIPAccountKeys.ipVersion: ""]], forKey: UserDefaultsKeys.accounts)
         let sut = IPVersionSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual(accounts[0][AKSIPAccountKeys.ipVersion] as! String, AKSIPAccountKeys.ipVersion4)
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.ipVersion] as? String == AKSIPAccountKeys.ipVersion4)
     }
 
-    func testRemovesUseIPv6OnlyKey() {
+    @Test func removesUseIPv6OnlyKey() throws {
         let settings = SettingsFake()
         settings.set(
             [[AKSIPAccountKeys.useIPv6Only: false], [AKSIPAccountKeys.useIPv6Only: true]],
@@ -82,8 +83,8 @@ final class IPVersionSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertNil(accounts[0][AKSIPAccountKeys.useIPv6Only])
-        XCTAssertNil(accounts[1][AKSIPAccountKeys.useIPv6Only])
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.useIPv6Only] == nil)
+        #expect(accounts[1][AKSIPAccountKeys.useIPv6Only] == nil)
     }
 }

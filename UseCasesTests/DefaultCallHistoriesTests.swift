@@ -16,32 +16,33 @@
 //  GNU General Public License for more details.
 //
 
-import XCTest
+import Testing
 @testable import UseCases
 import UseCasesTestDoubles
 
-final class DefaultCallHistoriesTests: XCTestCase {
-    func testCreatesHistoryOnFirstGet() {
+@CallHistoryActor
+struct DefaultCallHistoriesTests {
+    @Test func createsHistoryOnFirstGet() {
         let history = TruncatingCallHistory()
         let sut = DefaultCallHistories(factory: CallHistoryFactorySpy(history: history))
 
         let result = sut.history(withUUID: "any-uuid")
 
-        XCTAssertEqual(sut.count, 1)
-        XCTAssertTrue(result === history)
+        #expect(sut.count == 1)
+        #expect(result === history)
     }
 
-    func testUsesExpectedUUIDOnHistoryCreation() {
+    @Test func usesExpectedUUIDOnHistoryCreation() {
         let factory = CallHistoryFactorySpy(history: TruncatingCallHistory())
         let sut = DefaultCallHistories(factory: factory)
         let uuid = "any-uuid"
 
         _ = sut.history(withUUID: uuid)
 
-        XCTAssertEqual(factory.invokedUUID, uuid)
+        #expect(factory.invokedUUID == uuid)
     }
 
-    func testRemovesHistoryOnRemove() {
+    @Test func removesHistoryOnRemove() {
         let sut = DefaultCallHistories(factory: CallHistoryFactorySpy(history: TruncatingCallHistory()))
         let uuid1 = "uuid1"
         let uuid2 = "uuid2"
@@ -51,6 +52,6 @@ final class DefaultCallHistoriesTests: XCTestCase {
         sut.remove(withUUID: uuid1)
         sut.remove(withUUID: uuid2)
 
-        XCTAssertEqual(sut.count, 0)
+        #expect(sut.count == 0)
     }
 }

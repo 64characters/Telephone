@@ -18,7 +18,7 @@
 
 import Foundation
 
-protocol ApplicationDataLocations {
+protocol ApplicationDataLocations: Sendable {
     func root() -> URL
     func logs() -> URL
     func callHistories() -> URL

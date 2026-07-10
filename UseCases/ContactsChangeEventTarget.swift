@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactsChangeEventTarget {
+@ContactsActor
+public protocol ContactsChangeEventTarget: Sendable {
     func contactsDidChange()
 }

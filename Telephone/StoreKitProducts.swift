@@ -19,6 +19,7 @@
 import StoreKit
 import UseCases
 
+@MainActor
 protocol StoreKitProducts {
     subscript(product: UseCases.Product) -> SKProduct? { get }
 }

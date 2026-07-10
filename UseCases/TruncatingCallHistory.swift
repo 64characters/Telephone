@@ -16,12 +16,13 @@
 //  GNU General Public License for more details.
 //
 
+@CallHistoryActor
 public final class TruncatingCallHistory {
     private var records = [CallHistoryRecord]()
 
     private let limit: Int
 
-    public init(limit: Int = 100) {
+    public nonisolated init(limit: Int = 100) {
         self.limit = limit
     }
 }

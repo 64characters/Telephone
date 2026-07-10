@@ -20,12 +20,14 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
+@CallHistoryActor
 final class CallHistoryRecordRemoveUseCaseTests: XCTestCase {
-    func testRemovesRecord() {
+    func testRemovesRecord() async {
         let record1 = CallHistoryRecordTestFactory().makeRecord(number: 1)
         let record2 = CallHistoryRecordTestFactory().makeRecord(number: 2)
         let record3 = CallHistoryRecordTestFactory().makeRecord(number: 3)
-        let history = TruncatingCallHistory()
+        let didCallRemove = expectation(description: "Calls remove on history")
+        let history = CallHistorySpy(addCallback: {}, removeCallback: didCallRemove.fulfill, removeAllCallback: {})
         history.add(record1)
         history.add(record2)
         history.add(record3)
@@ -33,6 +35,7 @@ final class CallHistoryRecordRemoveUseCaseTests: XCTestCase {
 
         sut.execute()
 
+        await fulfillment(of: [didCallRemove], timeout: 1)
         XCTAssertEqual(history.allRecords, [record2, record3])
     }
 }

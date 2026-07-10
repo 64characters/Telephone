@@ -35,6 +35,8 @@ final class CNContactStoreContactsChangeEventSource {
     }
 
     @objc private func contactsDidChange(_ notification: Notification) {
-        target.contactsDidChange()
+        Task { [target] in
+            await target.contactsDidChange()
+        }
     }
 }

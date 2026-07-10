@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactMatching {
-    func match(for uri: URI) -> MatchedContact?
+@ContactsActor
+public protocol ContactMatching: Sendable {
+    func match(for uri: URI) async -> MatchedContact?
 }

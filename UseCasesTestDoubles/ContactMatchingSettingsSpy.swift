@@ -18,6 +18,7 @@
 
 import UseCases
 
+@ContactsActor
 public final class ContactMatchingSettingsSpy {
     public private(set) var significantPhoneNumberLengthCallCount = 0
     public var didCallSignificantPhoneNumberLength: Bool { return significantPhoneNumberLengthCallCount > 0 }

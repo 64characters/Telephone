@@ -18,6 +18,7 @@
 
 import AppKit
 
+@MainActor
 final class ApplicationUserAttentionRequest {
     private var request: Int?
 
@@ -44,7 +45,7 @@ final class ApplicationUserAttentionRequest {
     }
 }
 
-extension ApplicationUserAttentionRequest: UserAttentionRequest {
+extension ApplicationUserAttentionRequest: @MainActor UserAttentionRequest {
     func start() {
         if !application.isActive && request == nil {
             request = application.requestUserAttention(.criticalRequest)

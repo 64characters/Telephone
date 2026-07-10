@@ -19,7 +19,7 @@
 import Foundation
 
 final class SimpleApplicationDataLocations {
-    private let manager: FileManager
+    private nonisolated(unsafe) let manager: FileManager
     private let bundle: Bundle
 
     init(manager: FileManager, bundle: Bundle) {

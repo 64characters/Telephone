@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class TCPTransportSettingsMigration {
     private let settings: KeyValueSettings
 

@@ -16,39 +16,40 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutputTests: XCTestCase {
-    func testCallsUpdateOnOriginWithTheSameArgumentWhenReceiptIsValidOnUpdate() {
+@ContactsActor
+struct ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutputTests {
+    @Test func callsUpdateOnOriginWithTheSameArgumentWhenReceiptIsValidOnUpdate() async {
         let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
         let sut = ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, receipt: ValidReceipt())
         let records = makeFourRecords()
 
-        sut.update(records: records)
+        await sut.update(records: records)
 
-        XCTAssertEqual(origin.invokedRecords, records)
+        #expect(origin.invokedRecords == records)
     }
 
-    func testCallsUpdateOnOriginWithFirstThreeRecordsWhenReceiptIsInvalid() {
+    @Test func callsUpdateOnOriginWithFirstThreeRecordsWhenReceiptIsInvalid() async {
         let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
         let sut = ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, receipt: InvalidReceipt())
         let records = makeFourRecords()
 
-        sut.update(records: records)
+        await sut.update(records: records)
 
-        XCTAssertEqual(origin.invokedRecords, Array(records.prefix(3)))
+        #expect(origin.invokedRecords == Array(records.prefix(3)))
     }
 
-    func testCallsUpdateOnOriginWithFirstThreeRecordsWhenThereAreNoActivePurchases() {
+    @Test func callsUpdateOnOriginWithFirstThreeRecordsWhenThereAreNoActivePurchases() async {
         let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
         let sut = ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, receipt: NoActivePurchasesReceipt())
         let records = makeFourRecords()
 
-        sut.update(records: records)
+        await sut.update(records: records)
 
-        XCTAssertEqual(origin.invokedRecords, Array(records.prefix(3)))
+        #expect(origin.invokedRecords == Array(records.prefix(3)))
     }
 }
 

@@ -20,9 +20,9 @@ import Foundation
 import UseCases
 
 public final class PurchaseCheckUseCaseOutputSpy {
-    public private(set) var didCallDidCheckPurchase = false
-    public private(set) var invokedExpiration = Date.distantPast
-    public private(set) var didCallDidFailCheckingPurchase = false
+    public private(set) nonisolated(unsafe) var didCallDidCheckPurchase = false
+    public private(set) nonisolated(unsafe) var invokedExpiration = Date.distantPast
+    public private(set) nonisolated(unsafe) var didCallDidFailCheckingPurchase = false
 
     public init() {}
 }

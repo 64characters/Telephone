@@ -20,7 +20,7 @@ import Foundation
 
 final class DirectoryCreatingApplicationDataLocations {
     private let origin: ApplicationDataLocations
-    private let manager: FileManager
+    private nonisolated(unsafe) let manager: FileManager
 
     init(origin: ApplicationDataLocations, manager: FileManager) {
         self.origin = origin

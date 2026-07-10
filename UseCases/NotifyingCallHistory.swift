@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+@CallHistoryActor
 public final class NotifyingCallHistory {
     private let origin: CallHistory
     private var target: CallHistoryEventTarget?

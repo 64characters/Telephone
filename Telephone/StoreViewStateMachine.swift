@@ -18,11 +18,12 @@
 
 import UseCases
 
+@MainActor
 protocol StoreViewStateMachine: PurchaseCheckUseCaseOutput, StoreViewEventTarget, ProductsFetchUseCaseOutput, StoreEventTarget {
     var state: StoreViewState { get }
     func changeState(_ newState: StoreViewState)
 
-    func checkPurchase()
+    func checkPurchase() async
     func fetchProducts()
     func show(_ products: [Product])
     func showProductsFetchError(_ error: String)
@@ -51,8 +52,8 @@ extension StoreViewStateMachine {
 
 // StoreViewEventTarget
 extension StoreViewStateMachine {
-    func shouldReloadData() {
-        state.shouldReloadData(machine: self)
+    func shouldReloadData() async {
+        await state.shouldReloadData(machine: self)
     }
 
     func didStartProductFetch() {
@@ -89,8 +90,8 @@ extension StoreViewStateMachine {
         state.didStartPurchasing(machine: self)
     }
 
-    func didPurchase() {
-        state.didPurchase(machine: self)
+    func didPurchase() async {
+        await state.didPurchase(machine: self)
     }
 
     func didFailPurchasing(error: String) {
@@ -101,8 +102,8 @@ extension StoreViewStateMachine {
         state.didCancelPurchasing(machine: self)
     }
 
-    func didRestorePurchases() {
-        state.didRestorePurchases(machine: self)
+    func didRestorePurchases() async {
+        await state.didRestorePurchases(machine: self)
     }
 
     func didFailRestoringPurchases(error: String) {

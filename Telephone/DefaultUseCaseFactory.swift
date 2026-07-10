@@ -19,6 +19,7 @@
 import Domain
 import UseCases
 
+@MainActor
 final class DefaultUseCaseFactory {
     private let factory: SystemAudioDevicesFactory
     private let settings: KeyValueSettings

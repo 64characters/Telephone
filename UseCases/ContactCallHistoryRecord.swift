@@ -16,7 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public struct ContactCallHistoryRecord: Equatable {
+public struct ContactCallHistoryRecord: Equatable, Sendable {
     public let origin: CallHistoryRecord
     public let contact: MatchedContact
 

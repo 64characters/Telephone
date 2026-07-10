@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
+@ContactsActor
 public struct SimpleContactMatchingIndex {
     private let index: [String: MatchedContact]
 
@@ -34,6 +35,7 @@ extension SimpleContactMatchingIndex: ContactMatchingIndex {
     }
 }
 
+@ContactsActor
 private func makeMap(from contacts: Contacts, maxPhoneNumberLength: Int) -> [String: MatchedContact] {
     var result: [String: MatchedContact] = [:]
     contacts.enumerate { contact in

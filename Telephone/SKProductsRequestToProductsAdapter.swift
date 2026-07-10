@@ -19,6 +19,7 @@
 import StoreKit
 import UseCases
 
+@MainActor
 final class SKProductsRequestToProductsAdapter: NSObject {
     private var products: [String: UseCases.Product] = [:]
     private var storeKitProducts: [UseCases.Product: SKProduct] = [:]
@@ -33,7 +34,7 @@ final class SKProductsRequestToProductsAdapter: NSObject {
     }
 }
 
-extension SKProductsRequestToProductsAdapter: Products {
+extension SKProductsRequestToProductsAdapter: @preconcurrency Products {
     var all: [UseCases.Product] {
         return Array(products.values)
     }
@@ -57,10 +58,10 @@ extension SKProductsRequestToProductsAdapter: StoreKitProducts {
 }
 
 extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        DispatchQueue.main.async {
-            (self.products, self.storeKitProducts) = self.productMaps(with: response.products)
-            self.target.didFetch(self)
+    nonisolated func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        Task { @MainActor in
+            (products, storeKitProducts) = productMaps(with: response.products)
+            target.didFetch(self)
         }
     }
 
@@ -90,28 +91,16 @@ extension SKProductsRequestToProductsAdapter: SKProductsRequestDelegate {
 }
 
 extension SKProductsRequestToProductsAdapter: SKRequestDelegate {
-    func requestDidFinish(_ request: SKRequest) {
-        DispatchQueue.main.async {
-            self.forgetProductsRequest(request)
+    nonisolated func requestDidFinish(_ request: SKRequest) {
+        Task { @MainActor in
+            self.request = nil
         }
     }
 
-    func request(_ request: SKRequest, didFailWithError error: Error) {
+    nonisolated func request(_ request: SKRequest, didFailWithError error: Error) {
         NSLog("Store request '\(request)' failed: \(error)")
-        DispatchQueue.main.async {
-            self.notifyEventTargetAboutProductFetchFailure(request: request, error: descriptionOf(error))
-            self.forgetProductsRequest(request)
-        }
-    }
-
-    private func notifyEventTargetAboutProductFetchFailure(request: SKRequest, error: String) {
-        if request === self.request {
-            self.target.didFailFetching(self, error: error)
-        }
-    }
-
-    private func forgetProductsRequest(_ request: SKRequest) {
-        if request === self.request {
+        Task { @MainActor in
+            target.didFailFetching(self, error: descriptionOf(error))
             self.request = nil
         }
     }

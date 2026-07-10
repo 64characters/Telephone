@@ -16,51 +16,52 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCasesTestDoubles
-import XCTest
 
-final class TCPTransportSettingsMigrationTests: XCTestCase {
-    func testSetsTransportToTCPIfProxyHostHasTCPTransportParameter() {
+@MainActor
+struct TCPTransportSettingsMigrationTests {
+    @Test func setsTransportToTCPIfProxyHostHasTCPTransportParameter() throws {
         let settings = SettingsFake()
         settings.set([[AKSIPAccountKeys.proxyHost: "any;transport=tcp"]], forKey: UserDefaultsKeys.accounts)
         let sut = TCPTransportSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual(accounts[0][AKSIPAccountKeys.transport] as! String, AKSIPAccountKeys.transportTCP)
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.transport] as? String == AKSIPAccountKeys.transportTCP)
     }
 
-    func testDoesNotSetTransportIfProxyHostDoesNotHaveTCPTransportParameter() {
+    @Test func doesNotSetTransportIfProxyHostDoesNotHaveTCPTransportParameter() throws {
         let settings = SettingsFake()
         settings.set([[AKSIPAccountKeys.proxyHost: "any"]], forKey: UserDefaultsKeys.accounts)
         let sut = TCPTransportSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertNil(accounts[0][AKSIPAccountKeys.transport])
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.transport] == nil)
     }
 
-    func testRemovesProxyHostTCPTransportParameterWhenItIsASuffix() {
+    @Test func removesProxyHostTCPTransportParameterWhenItIsASuffix() throws {
         let settings = SettingsFake()
         settings.set([[AKSIPAccountKeys.proxyHost: "any;transport=tcp"]], forKey: UserDefaultsKeys.accounts)
         let sut = TCPTransportSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual(accounts[0][AKSIPAccountKeys.proxyHost] as! String, "any")
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.proxyHost] as? String == "any")
     }
 
-    func testRemovesProxyHostTCPTransportParameterWhenItIsLocatedInTheMiddle() {
+    @Test func removesProxyHostTCPTransportParameterWhenItIsLocatedInTheMiddle() throws {
         let settings = SettingsFake()
         settings.set([[AKSIPAccountKeys.proxyHost: "any;transport=tcp;hide"]], forKey: UserDefaultsKeys.accounts)
         let sut = TCPTransportSettingsMigration(settings: settings)
 
         sut.execute()
 
-        let accounts = settings.array(forKey: UserDefaultsKeys.accounts) as! [[String: Any]]
-        XCTAssertEqual(accounts[0][AKSIPAccountKeys.proxyHost] as! String, "any;hide")
+        let accounts = try #require(settings.array(forKey: UserDefaultsKeys.accounts) as? [[String: Any]])
+        #expect(accounts[0][AKSIPAccountKeys.proxyHost] as? String == "any;hide")
     }
 }

@@ -18,7 +18,7 @@
 
 import Foundation
 
-public struct CallHistoryRecord {
+public struct CallHistoryRecord: Sendable {
     public let identifier: String
     public let uri: URI
     public let date: Date

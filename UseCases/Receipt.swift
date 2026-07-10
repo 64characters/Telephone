@@ -18,11 +18,11 @@
 
 import Foundation
 
-public protocol Receipt {
-    func validate(completion: @escaping (ReceiptValidationResult) -> Void)
+public protocol Receipt: Sendable {
+    func validate() async -> ReceiptValidationResult
 }
 
-public enum ReceiptValidationResult {
+public enum ReceiptValidationResult: Sendable {
     case receiptIsValid(expiration: Date)
     case receiptIsInvalid
     case noActivePurchases

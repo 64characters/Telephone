@@ -31,10 +31,8 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didStartPurchasingProduct(withIdentifier: identifier)
     }
 
-    public func didPurchase() {
-        receipt.validate { result in
-            self.notifyOriginAboutPurchase(with: result)
-        }
+    public func didPurchase() async {
+        await notifyOriginAboutPurchase(with: await receipt.validate())
     }
 
     public func didFailPurchasing(error: String) {
@@ -45,10 +43,8 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didCancelPurchasing()
     }
 
-    public func didRestorePurchases() {
-        receipt.validate { result in
-            self.notifyOriginAboutRestoration(with: result)
-        }
+    public func didRestorePurchases() async {
+        await notifyOriginAboutRestoration(with: await receipt.validate())
     }
 
     public func didFailRestoringPurchases(error: String) {
@@ -59,19 +55,19 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
         origin.didCancelRestoringPurchases()
     }
 
-    private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) {
+    private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) async {
         if case .receiptIsValid = result {
-            origin.didPurchase()
+            await origin.didPurchase()
         } else {
-            origin.didFailPurchasing(error: result.localizedDescription)
+            await origin.didFailPurchasing(error: result.localizedDescription)
         }
     }
 
-    private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) {
+    private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) async {
         if case .receiptIsValid = result {
-            origin.didRestorePurchases()
+            await origin.didRestorePurchases()
         } else {
-            origin.didFailRestoringPurchases(error: result.localizedDescription)
+            await origin.didFailRestoringPurchases(error: result.localizedDescription)
         }
     }
 }

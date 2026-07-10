@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 public final class AccountSpy {
     public let uuid = ""
     public let domain = ""
@@ -26,7 +27,11 @@ public final class AccountSpy {
     public private(set) var invokedURI: URI?
     public private(set) var invokedLabel: String?
 
-    public init() {}
+    private let makeCallCallback: () -> Void
+
+    public init(callback: @escaping () -> Void) {
+        self.makeCallCallback = callback
+    }
 }
 
 extension AccountSpy: Account {
@@ -34,5 +39,6 @@ extension AccountSpy: Account {
         didCallMakeCall = true
         invokedURI = uri
         invokedLabel = label
+        makeCallCallback()
     }
 }

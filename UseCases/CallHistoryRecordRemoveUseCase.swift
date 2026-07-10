@@ -28,8 +28,10 @@ public final class CallHistoryRecordRemoveUseCase {
 
 extension CallHistoryRecordRemoveUseCase: UseCase {
     public func execute() {
-        if let record = history.record(withIdentifier: identifier) {
-            history.remove(record)
+        Task { @CallHistoryActor [history, identifier] in
+            if let record = history.record(withIdentifier: identifier) {
+                history.remove(record)
+            }
         }
     }
 }

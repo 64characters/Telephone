@@ -1,5 +1,5 @@
 //
-//  ExecutionQueueSpy.swift
+//  AsyncUseCaseSpy.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -18,14 +18,14 @@
 
 import UseCases
 
-public final class ExecutionQueueSpy {
-    public private(set) var didCallAdd = false
+public final class AsyncUseCaseSpy {
+    public private(set) var didCallExecute = false
 
     public init() {}
 }
 
-extension ExecutionQueueSpy: ExecutionQueue {
-    public func add(_ block: @escaping () -> Void) {
-        didCallAdd = true
+extension AsyncUseCaseSpy: AsyncUseCase {
+    public func execute() async {
+        didCallExecute = true
     }
 }

@@ -18,7 +18,8 @@
 
 import Foundation
 
-@objc public protocol KeyValueSettings {
+@objc @MainActor
+public protocol KeyValueSettings: Sendable {
     subscript(key: String) -> String? { get set }
     func string(forKey key: String) -> String?
 

@@ -1,5 +1,5 @@
 //
-//  ContactCallHistoryRecordGetUseCaseOutput.swift
+//  CallHistory.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,6 +16,6 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactCallHistoryRecordGetUseCaseOutput {
-    func update(record: ContactCallHistoryRecord)
+@globalActor public final actor CallHistoryActor: GlobalActor {
+    public static let shared = CallHistoryActor()
 }

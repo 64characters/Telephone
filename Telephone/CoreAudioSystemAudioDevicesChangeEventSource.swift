@@ -18,6 +18,7 @@
 
 import CoreAudio
 
+@MainActor
 final class CoreAudioSystemAudioDevicesChangeEventSource {
     private let source: CoreAudioChangeEventSource
 
@@ -31,7 +32,9 @@ final class CoreAudioSystemAudioDevicesChangeEventSource {
             ),
             queue: queue
         ) { (_, _) in
-            DispatchQueue.main.async(execute: target.systemAudioDevicesDidUpdate)
+            Task {
+                target.systemAudioDevicesDidUpdate()
+            }
         }
     }
 }

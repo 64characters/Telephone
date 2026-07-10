@@ -18,6 +18,7 @@
 
 import Domain
 
+@MainActor
 public final class SettingsSoundIOSaveUseCase {
     private let soundIO: SystemDefaultingSoundIO
     private let settings: KeyValueSettings

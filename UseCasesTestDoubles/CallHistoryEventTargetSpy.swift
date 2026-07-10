@@ -19,9 +19,9 @@
 import UseCases
 
 public final class CallHistoryEventTargetSpy {
-    public var didUpdateCallCount = 0
+    public nonisolated(unsafe) var didUpdateCallCount = 0
     public var didCallDidUpdate: Bool { return didUpdateCallCount > 0 }
-    public private(set) var invokedHistory: CallHistory?
+    public private(set) nonisolated(unsafe) var invokedHistory: CallHistory?
 
     public init() {}
 }

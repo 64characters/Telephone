@@ -21,6 +21,7 @@ import Foundation
 import StoreKit
 import UseCases
 
+@MainActor
 final class CompositionRoot: NSObject {
     @objc let userAgent: AKSIPUserAgent
     @objc let preferencesController: PreferencesController
@@ -112,9 +113,9 @@ final class CompositionRoot: NSObject {
 
         userAgentStart = UserAgentStartUseCase(agent: userAgent, factory: PurchaseCheckUseCaseFactory(receipt: receipt))
 
-        let storeEventTargets = StoreEventTargets()
-        storeEventTargets.add(storeViewEventTarget)
-        storeEventTargets.add(ObjCStoreEventTargetAdapter(target: storeEventTarget))
+        let storeEventTargets = StoreEventTargets(
+            targets: [storeViewEventTarget, ObjCStoreEventTargetAdapter(target: storeEventTarget)]
+        )
 
         storeEventSource = SKPaymentQueueStoreEventSource(
             queue: SKPaymentQueue.default(),
@@ -197,24 +198,16 @@ final class CompositionRoot: NSObject {
             )
         )
 
-        let contactsBackground = GCDExecutionQueue(queue: background)
-
         accountsEventSource = PreferencesControllerAccountsEventSource(
-            center: NotificationCenter.default,
-            target: EnqueuingAccountsEventTarget(
-                origin: CallHistoriesHistoryRemoveUseCase(histories: callHistories), queue: contactsBackground
-            )
+            center: NotificationCenter.default, target: CallHistoriesHistoryRemoveUseCase(histories: callHistories)
         )
 
         callEventSource = AKSIPCallEventSource(
             center: NotificationCenter.default,
             target: CallEventTargets(
                 targets: [
-                    EnqueuingCallEventTarget(
-                        origin: CallHistoryCallEventTarget(
-                            histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
-                        ),
-                        queue: contactsBackground
+                    CallHistoryCallEventTarget(
+                        histories: callHistories, factory: DefaultCallHistoryRecordAddUseCaseFactory()
                     ),
                     MusicPlayerCallEventTarget(
                         player: SettingsMusicPlayer(
@@ -240,19 +233,16 @@ final class CompositionRoot: NSObject {
         let contactMatchingSettings = SimpleContactMatchingSettings(settings: defaults)
         let contactMatchingIndex = LazyDiscardingContactMatchingIndex(
             factory: SimpleContactMatchingIndexFactory(
-                contacts: CNContactStoreToContactsAdapter(), settings: contactMatchingSettings
+                contacts: CNContactStoreToContactsAdapter(store: CNContactStore()), settings: contactMatchingSettings
             )
         )
 
         contactsChangeEventSource = CNContactStoreContactsChangeEventSource(
-            center: NotificationCenter.default,
-            target: EnqueuingContactsChangeEventTarget(origin: contactMatchingIndex, queue: contactsBackground)
+            center: NotificationCenter.default, target: contactMatchingIndex
         )
 
         let dayChangeEventTargets = DayChangeEventTargets()
         dayChangeEventSource = NSCalendarDayChangeEventSource(center: NotificationCenter.default, target: dayChangeEventTargets)
-
-        let main = GCDExecutionQueue(queue: DispatchQueue.main)
 
         callHistoryViewEventTargetFactory = AsyncCallHistoryViewEventTargetFactory(
             origin: CallHistoryViewEventTargetFactory(
@@ -263,20 +253,12 @@ final class CompositionRoot: NSObject {
                 dateFormatter: ShortRelativeDateTimeFormatter(),
                 durationFormatter: DurationFormatter(),
                 storeEventTargets: storeEventTargets,
-                dayChangeEventTargets: dayChangeEventTargets,
-                background: contactsBackground,
-                main: main
-            ),
-            background: contactsBackground,
-            main: main
+                dayChangeEventTargets: dayChangeEventTargets
+            )
         )
 
         callHistoryPurchaseCheckUseCaseFactory = AsyncCallHistoryPurchaseCheckUseCaseFactory(
-            origin: CallHistoryPurchaseCheckUseCaseFactory(
-                histories: callHistories, receipt: receipt, background: contactsBackground, main: main
-            ),
-            background: contactsBackground,
-            main: main
+            origin: CallHistoryPurchaseCheckUseCaseFactory(histories: callHistories, receipt: receipt)
         )
 
         logFileURL = LogFileURL(locations: applicationDataLocations, filename: "Telephone.log")

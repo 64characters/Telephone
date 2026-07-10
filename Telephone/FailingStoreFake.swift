@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class FailingStoreFake {
     private var attempts = 0
     private var target: StoreEventTarget
@@ -31,20 +32,21 @@ final class FailingStoreFake {
     }
 }
 
-extension FailingStoreFake: Store {
+extension FailingStoreFake: @preconcurrency Store {
     func purchase(_ product: Product) throws {
         attempts += 1
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.target.didStartPurchasingProduct(withIdentifier: product.identifier)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.notifyTargetAboutPurchaseFailure()
+        Task {
+            try? await Task.sleep(for: .seconds(0.2))
+            target.didStartPurchasingProduct(withIdentifier: product.identifier)
+            try? await Task.sleep(for: .seconds(1))
+            notifyTargetAboutPurchaseFailure()
         }
     }
 
     func restorePurchases() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.target.didFailRestoringPurchases(error: error)
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            target.didFailRestoringPurchases(error: error)
         }
     }
 

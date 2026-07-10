@@ -25,11 +25,10 @@ final class LoggingReceipt {
 }
 
 extension LoggingReceipt: Receipt {
-    func validate(completion: @escaping (ReceiptValidationResult) -> Void) {
+    func validate() async -> ReceiptValidationResult {
         print("Starting receipt validation")
-        origin.validate { result in
-            print("Receipt validation result: \(result)")
-            completion(result)
-        }
+        let result = await origin.validate()
+        print("Receipt validation result: \(result)")
+        return result
     }
 }

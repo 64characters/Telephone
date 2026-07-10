@@ -16,23 +16,18 @@
 //  GNU General Public License for more details.
 //
 
+import Testing
 import UseCases
 import UseCasesTestDoubles
-import XCTest
 
-final class ProgressiveSettingsMigrationTests: XCTestCase {
-    private var settings: SettingsFake!
-    private var actions: String!
-
-    override func setUp() {
-        super.setUp()
-        settings = SettingsFake()
-        actions = ""
-    }
+@MainActor
+final class ProgressiveSettingsMigrationTests {
+    private let settings = SettingsFake()
+    private var actions = ""
 
     // MARK: - AccountUUIDSettingsMigration
 
-    func testExecutesAccountsUUIDMigrationWhenSettingsDoNotHaveVersion() {
+    @Test func executesAccountsUUIDMigrationWhenSettingsDoNotHaveVersion() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withAccountUUIDMigration: migration)
@@ -40,10 +35,10 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertTrue(migration.didCallExecute)
+        #expect(migration.didCallExecute)
     }
 
-    func testDoesNotExecuteAccountUUIDMigrationWhenSettingsVersionIsEqualToOne() {
+    @Test func doesNotExecuteAccountUUIDMigrationWhenSettingsVersionIsEqualToOne() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withAccountUUIDMigration: migration)
@@ -53,10 +48,10 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(migration.didCallExecute)
+        #expect(!migration.didCallExecute)
     }
 
-    func testDoesNotExecuteAccountUUIDMigrationWhenSettingsVersionIsGreaterThanOne() {
+    @Test func doesNotExecuteAccountUUIDMigrationWhenSettingsVersionIsGreaterThanOne() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withAccountUUIDMigration: migration)
@@ -66,12 +61,12 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(migration.didCallExecute)
+        #expect(!migration.didCallExecute)
     }
 
     // MARK: - IPVersionSettingsMigration
 
-    func testExecutesIPVersionMigrationWhenSettingsVersionIsEqualToOne() {
+    @Test func executesIPVersionMigrationWhenSettingsVersionIsEqualToOne() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
@@ -81,10 +76,10 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertTrue(migration.didCallExecute)
+        #expect(migration.didCallExecute)
     }
 
-    func testDoesNotExecuteIPVersionMigrationWhenSettingsVersionIsEqualToTwo() {
+    @Test func doesNotExecuteIPVersionMigrationWhenSettingsVersionIsEqualToTwo() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
@@ -94,10 +89,10 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(migration.didCallExecute)
+        #expect(!migration.didCallExecute)
     }
 
-    func testDoesNotExecuteIPVersionMigrationWhenSettingsVersionIsGreaterThanTwo() {
+    @Test func doesNotExecuteIPVersionMigrationWhenSettingsVersionIsGreaterThanTwo() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withIPVersionMigration: migration)
@@ -107,12 +102,12 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(migration.didCallExecute)
+        #expect(!migration.didCallExecute)
     }
 
     // MARK: - TCPTransportSettingsMigration
 
-    func testExecutesTCPTransportMigrationWhenSettingsVersionIsEqualToOne() {
+    @Test func executesTCPTransportMigrationWhenSettingsVersionIsEqualToOne() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
@@ -122,10 +117,10 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertTrue(migration.didCallExecute)
+        #expect(migration.didCallExecute)
     }
 
-    func testDoesNotExecuteTCPTransportMigrationWhenSettingsVersionIsEqualToTwo() {
+    @Test func doesNotExecuteTCPTransportMigrationWhenSettingsVersionIsEqualToTwo() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
@@ -135,10 +130,10 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(migration.didCallExecute)
+        #expect(!migration.didCallExecute)
     }
 
-    func testDoesNotExecuteTCPTransportMigrationWhenSettingsVersionIsGreaterThanTwo() {
+    @Test func doesNotExecuteTCPTransportMigrationWhenSettingsVersionIsGreaterThanTwo() {
         let migration = SettingsMigrationSpy()
         let factory = SettingsMigrationFactoryStub()
         factory.stub(withTCPTransportMigration: migration)
@@ -148,15 +143,15 @@ final class ProgressiveSettingsMigrationTests: XCTestCase {
 
         sut.execute()
 
-        XCTAssertFalse(migration.didCallExecute)
+        #expect(!migration.didCallExecute)
     }
 
     // MARK: - Migration sequence
 
-    func testMigrationSequence() {
+    @Test func migrationSequence() {
         ProgressiveSettingsMigration(settings: self, factory: self).execute()
 
-        XCTAssertEqual(actions, "MauSv1MivMttSv2")
+        #expect(actions == "MauSv1MivMttSv2")
     }
 }
 

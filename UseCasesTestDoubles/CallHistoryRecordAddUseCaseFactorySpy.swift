@@ -19,22 +19,18 @@
 import UseCases
 
 public final class CallHistoryRecordAddUseCaseFactorySpy {
-    public private(set) var invokedHistory: CallHistory!
-    public private(set) var invokedRecord: CallHistoryRecord!
-    public private(set) var invokedDomain = ""
+    private nonisolated(unsafe) let add: UseCase
+    private nonisolated(unsafe) let makeCallback: (CallHistory, CallHistoryRecord, String) -> Void
 
-    private let add: UseCase
-
-    public init(add: UseCase) {
+    public init(add: UseCase, makeCallback: @escaping (CallHistory, CallHistoryRecord, String) -> Void) {
         self.add = add
+        self.makeCallback = makeCallback
     }
 }
 
 extension CallHistoryRecordAddUseCaseFactorySpy: CallHistoryRecordAddUseCaseFactory {
     public func make(history: CallHistory, record: CallHistoryRecord, domain: String) -> UseCase {
-        invokedHistory = history
-        invokedRecord = record
-        invokedDomain = domain
+        Task { [makeCallback] in makeCallback(history, record, domain) }
         return add
     }
 }

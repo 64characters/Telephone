@@ -16,8 +16,9 @@
 //  GNU General Public License for more details.
 //
 
+@MainActor
 protocol StoreViewEventTarget {
-    func shouldReloadData()
+    func shouldReloadData() async
     func didStartProductFetch()
     func didStartPurchasing(_ product: PresentationProduct)
     func didStartPurchaseRestoration()

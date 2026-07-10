@@ -16,7 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-public protocol CallHistories {
+@CallHistoryActor
+public protocol CallHistories: Sendable {
     func history(withUUID uuid: String) -> CallHistory
     func remove(withUUID uuid: String)
 }

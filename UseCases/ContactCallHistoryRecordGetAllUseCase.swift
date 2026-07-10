@@ -16,22 +16,27 @@
 //  GNU General Public License for more details.
 //
 
+@ContactsActor
 public final class ContactCallHistoryRecordGetAllUseCase {
     private let factory: FallingBackMatchedContactFactory
     private let output: ContactCallHistoryRecordGetAllUseCaseOutput
 
-    public init(factory: FallingBackMatchedContactFactory, output: ContactCallHistoryRecordGetAllUseCaseOutput) {
+    public nonisolated init(factory: FallingBackMatchedContactFactory, output: ContactCallHistoryRecordGetAllUseCaseOutput) {
         self.factory = factory
         self.output = output
     }
 }
 
 extension ContactCallHistoryRecordGetAllUseCase: CallHistoryRecordGetAllUseCaseOutput {
-    public func update(records: [CallHistoryRecord]) {
-        output.update(records: records.map(makeContactCallHistoryRecord))
+    public func update(records: [CallHistoryRecord]) async {
+        var result = [ContactCallHistoryRecord]()
+        for record in records {
+            result.append(await makeContactCallHistoryRecord(record: record))
+        }
+        await output.update(records: result)
     }
 
-    private func makeContactCallHistoryRecord(record: CallHistoryRecord) -> ContactCallHistoryRecord {
-        return ContactCallHistoryRecord(origin: record, contact: factory.make(uri: record.uri))
+    private func makeContactCallHistoryRecord(record: CallHistoryRecord) async -> ContactCallHistoryRecord {
+        return ContactCallHistoryRecord(origin: record, contact: await factory.make(uri: record.uri))
     }
 }

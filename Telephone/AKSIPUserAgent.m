@@ -802,7 +802,7 @@ static const BOOL kAKSIPUserAgentDefaultLocksCodec = YES;
     if (self.state == AKSIPUserAgentStateStopped || self.state == AKSIPUserAgentStateStopping) {
         return;
     }
-    const unsigned kCodecInfoSize = 64;
+    enum { kCodecInfoSize = 64 };
     pjsua_codec_info codecInfo[kCodecInfoSize];
     unsigned codecCount = kCodecInfoSize;
     pj_status_t status = pjsua_enum_codecs(codecInfo, &codecCount);

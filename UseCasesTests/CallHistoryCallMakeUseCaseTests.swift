@@ -17,32 +17,37 @@ import UseCases
 import UseCasesTestDoubles
 import XCTest
 
+@MainActor
 final class CallHistoryCallMakeUseCaseTests: XCTestCase {
-    func testMakesCallToURICreatedFromRecordOnUpdate() {
+    func testMakesCallToURICreatedFromRecordOnUpdate() async {
         let record = ContactCallHistoryRecord(
             origin: CallHistoryRecordTestFactory().makeRecord(number: 1),
             contact: MatchedContact(name: "any", address: .email(address: "any", label: "any"))
         )
-        let account = AccountSpy()
+        let didCallMakeCall = expectation(description: "Calls makeCall on account")
+        let account = AccountSpy(callback: didCallMakeCall.fulfill)
         let sut = CallHistoryCallMakeUseCase(account: account)
 
         sut.update(record: record)
 
+        await fulfillment(of: [didCallMakeCall], timeout: 1)
         XCTAssertTrue(account.didCallMakeCall)
         XCTAssertEqual(account.invokedURI, URI(record: record))
     }
 
-    func testMakesCallWithLabelFromContactAddressOnUpdate() {
+    func testMakesCallWithLabelFromContactAddressOnUpdate() async {
         let label = "any-label"
         let record = ContactCallHistoryRecord(
             origin: CallHistoryRecordTestFactory().makeRecord(number: 1),
             contact: MatchedContact(name: "any", address: .email(address: "any", label: label))
         )
-        let account = AccountSpy()
+        let didCallMakeCall = expectation(description: "Calls makeCall on account")
+        let account = AccountSpy(callback: didCallMakeCall.fulfill)
         let sut = CallHistoryCallMakeUseCase(account: account)
 
         sut.update(record: record)
 
+        await fulfillment(of: [didCallMakeCall], timeout: 1)
         XCTAssertTrue(account.didCallMakeCall)
         XCTAssertEqual(account.invokedLabel, label)
     }

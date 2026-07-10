@@ -16,124 +16,125 @@
 //  GNU General Public License for more details.
 //
 
-import XCTest
+import Testing
 import UseCases
 import UseCasesTestDoubles
 
-final class ReceiptValidatingStoreEventTargetTests: XCTestCase {
+@MainActor
+struct ReceiptValidatingStoreEventTargetTests {
 
     // MARK: - Purchase start
 
-    func testCallsDidStartPurchasingOnDidStartPurchasing() {
+    @Test func callsDidStartPurchasingOnDidStartPurchasing() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
         let identifier = "any"
 
         sut.didStartPurchasingProduct(withIdentifier: identifier)
 
-        XCTAssertTrue(origin.didCallDidStartPurchasing)
-        XCTAssertEqual(origin.invokedIdentifier, identifier)
+        #expect(origin.didCallDidStartPurchasing)
+        #expect(origin.invokedIdentifier == identifier)
     }
 
     // MARK: - Purchase finish
 
-    func testCallsDidPurchaseWhenReceiptIsValidOnDidPurchase() {
+    @Test func callsDidPurchaseWhenReceiptIsValidOnDidPurchase() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
 
-        sut.didPurchase()
+        await sut.didPurchase()
 
-        XCTAssertTrue(origin.didCallDidPurchase)
+        #expect(origin.didCallDidPurchase)
     }
 
-    func testCallsDidFailPurchasingWhenReceiptIsNotValidOnDidPurchase() {
+    @Test func callsDidFailPurchasingWhenReceiptIsNotValidOnDidPurchase() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
-        sut.didPurchase()
+        await sut.didPurchase()
 
-        XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.receiptIsInvalid.localizedDescription)
+        #expect(origin.didCallDidFailPurchasing)
+        #expect(origin.invokedError == ReceiptValidationResult.receiptIsInvalid.localizedDescription)
     }
 
-    func testCallsDidFailPurchasingWhenThereAreNoActivePurchasesOnDidPurchase() {
+    @Test func callsDidFailPurchasingWhenThereAreNoActivePurchasesOnDidPurchase() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
 
-        sut.didPurchase()
+        await sut.didPurchase()
 
-        XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.noActivePurchases.localizedDescription)
+        #expect(origin.didCallDidFailPurchasing)
+        #expect(origin.invokedError == ReceiptValidationResult.noActivePurchases.localizedDescription)
     }
 
-    func testCallsDidFailPurchasingOnDidFailPurchasing() {
+    @Test func callsDidFailPurchasingOnDidFailPurchasing() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
         let error = "any"
 
         sut.didFailPurchasing(error: error)
 
-        XCTAssertTrue(origin.didCallDidFailPurchasing)
-        XCTAssertEqual(origin.invokedError, error)
+        #expect(origin.didCallDidFailPurchasing)
+        #expect(origin.invokedError == error)
     }
 
-    func testCallsDidCancelPurchasingOnDidCancelPurchasing() {
+    @Test func callsDidCancelPurchasingOnDidCancelPurchasing() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
         sut.didCancelPurchasing()
 
-        XCTAssertTrue(origin.didCallDidCancelPurchasing)
+        #expect(origin.didCallDidCancelPurchasing)
     }
 
     // MARK: - Restoration finish
 
-    func testCallsDidRestoreWhenReceiptIsValidOnDidRestore() {
+    @Test func callsDidRestoreWhenReceiptIsValidOnDidRestore() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
 
-        sut.didRestorePurchases()
+        await sut.didRestorePurchases()
 
-        XCTAssertTrue(origin.didCallDidRestore)
+        #expect(origin.didCallDidRestore)
     }
 
-    func testCallsDidFailRestoringWhenReceiptIsNotValidOnDidRestore() {
+    @Test func callsDidFailRestoringWhenReceiptIsNotValidOnDidRestore() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
-        sut.didRestorePurchases()
+        await sut.didRestorePurchases()
 
-        XCTAssertTrue(origin.didCallDidFailRestoring)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.receiptIsInvalid.localizedDescription)
+        #expect(origin.didCallDidFailRestoring)
+        #expect(origin.invokedError == ReceiptValidationResult.receiptIsInvalid.localizedDescription)
     }
 
-    func testCallsDidFailRestoringWhenThereAreNoActivePurchasesOnDidPurchase() {
+    @Test func callsDidFailRestoringWhenThereAreNoActivePurchasesOnDidPurchase() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
 
-        sut.didRestorePurchases()
+        await sut.didRestorePurchases()
 
-        XCTAssertTrue(origin.didCallDidFailRestoring)
-        XCTAssertEqual(origin.invokedError, ReceiptValidationResult.noActivePurchases.localizedDescription)
+        #expect(origin.didCallDidFailRestoring)
+        #expect(origin.invokedError == ReceiptValidationResult.noActivePurchases.localizedDescription)
     }
 
-    func testCallsDidFailRestoringOnDidFailRestoring() {
+    @Test func callsDidFailRestoringOnDidFailRestoring() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
         let error = "any"
 
         sut.didFailRestoringPurchases(error: error)
 
-        XCTAssertTrue(origin.didCallDidFailRestoring)
-        XCTAssertEqual(origin.invokedError, error)
+        #expect(origin.didCallDidFailRestoring)
+        #expect(origin.invokedError == error)
     }
 
-    func testCallsDidCancelRestoringOnDidCancelRestoring() {
+    @Test func callsDidCancelRestoringOnDidCancelRestoring() {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
         sut.didCancelRestoringPurchases()
 
-        XCTAssertTrue(origin.didCallDidCancelRestoring)
+        #expect(origin.didCallDidCancelRestoring)
     }
 }

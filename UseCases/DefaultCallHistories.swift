@@ -16,13 +16,14 @@
 //  GNU General Public License for more details.
 //
 
+@CallHistoryActor
 public final class DefaultCallHistories {
     private var histories: [String: CallHistory] = [:]
     private let factory: CallHistoryFactory
 
     var count: Int { return histories.count }
 
-    public init(factory: CallHistoryFactory) {
+    public nonisolated init(factory: CallHistoryFactory) {
         self.factory = factory
     }
 }

@@ -19,6 +19,7 @@
 import StoreKit
 import UseCases
 
+@MainActor
 final class SKPaymentQueueToStoreAdapter {
     private let queue: SKPaymentQueue
     private let products: StoreKitProducts
@@ -29,7 +30,7 @@ final class SKPaymentQueueToStoreAdapter {
     }
 }
 
-extension SKPaymentQueueToStoreAdapter: Store {
+extension SKPaymentQueueToStoreAdapter: @preconcurrency Store {
     func purchase(_ product: UseCases.Product) throws {
         queue.add(SKPayment(product: try storeKitProduct(for: product)))
     }

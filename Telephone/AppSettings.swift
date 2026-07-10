@@ -19,6 +19,7 @@
 import Foundation
 import UseCases
 
+@MainActor
 final class AppSettings {
     private let settings: KeyValueSettings
     private let defaults: [String: Any]
@@ -37,10 +38,12 @@ final class AppSettings {
     }
 }
 
+@MainActor
 private func settingsString(settings: KeyValueSettings, defaults: [String: Any]) -> String {
     string(from: dictionary(from: settingsKeys, settings: dictionary(from: settings), defaults: defaults), prefix: "")
 }
 
+@MainActor
 private func accountSettingsString(settings: KeyValueSettings, accountDefaults: [String: Any]) -> String {
     guard !(settings.array(forKey: UserDefaultsKeys.accounts) ?? []).isEmpty else { return "" }
     return "\n\(UserDefaultsKeys.accounts): \((settings.array(forKey: UserDefaultsKeys.accounts) ?? []).map({ string(from: $0, defaults: accountDefaults) }).joined(separator: " "))"
@@ -79,6 +82,7 @@ private func dictionary(from keys: [String: String], settings: [String: Any], de
     }
 }
 
+@MainActor
 private func dictionary(from settings: KeyValueSettings) -> [String: Any] {
     return settingsKeys.reduce(into: [:]) { res, kv in
         if settings.exists(forKey: kv.key) {

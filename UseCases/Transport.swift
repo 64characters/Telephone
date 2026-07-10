@@ -18,7 +18,7 @@
 
 import Foundation
 
-@objc public enum Transport: Int {
+@objc public enum Transport: Int, Sendable {
     @objc(TransportUDP) case udp
     @objc(TransportTCP) case tcp
     @objc(TransportTLS) case tls

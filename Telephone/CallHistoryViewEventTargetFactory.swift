@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class CallHistoryViewEventTargetFactory {
     private let histories: CallHistories
     private let index: ContactMatchingIndex
@@ -27,8 +28,6 @@ final class CallHistoryViewEventTargetFactory {
     private let durationFormatter: DateComponentsFormatter
     private let storeEventTargets: StoreEventTargets
     private let dayChangeEventTargets: DayChangeEventTargets
-    private let background: ExecutionQueue
-    private let main: ExecutionQueue
 
     init(
         histories: CallHistories,
@@ -39,8 +38,6 @@ final class CallHistoryViewEventTargetFactory {
         durationFormatter: DateComponentsFormatter,
         storeEventTargets: StoreEventTargets,
         dayChangeEventTargets: DayChangeEventTargets,
-        background: ExecutionQueue,
-        main: ExecutionQueue
         ) {
         self.histories = histories
         self.index = index
@@ -50,48 +47,36 @@ final class CallHistoryViewEventTargetFactory {
         self.durationFormatter = durationFormatter
         self.storeEventTargets = storeEventTargets
         self.dayChangeEventTargets = dayChangeEventTargets
-        self.background = background
-        self.main = main
     }
 
-    func make(account: Account, view: CallHistoryView, purchaseCheck: UseCase) -> CallHistoryViewEventTarget {
-        let history = histories.history(withUUID: account.uuid)
+    func make(account: Account, view: CallHistoryView, purchaseCheck: UseCase) async -> CallHistoryViewEventTarget {
+        let history = await histories.history(withUUID: account.uuid)
         let factory = FallingBackMatchedContactFactory(
-            matching: IndexedContactMatching(index: index, settings: settings, domain: account.domain)
-        )
-        let result = CallHistoryViewEventTarget(
-            recordsGet: EnqueuingUseCase(
-                origin: CallHistoryRecordGetAllUseCase(
-                    history: history,
-                    output: ContactCallHistoryRecordGetAllUseCase(
-                        factory: factory,
-                        output: EnqueuingContactCallHistoryRecordGetAllUseCaseOutput(
-                            origin: ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(
-                                origin: CallHistoryViewPresenter(
-                                    view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
-                                ),
-                                receipt: receipt
-                            ),
-                            queue: main
-                        )
-                    )
-                ),
-                queue: background
-            ),
-            purchaseCheck: purchaseCheck,
-            recordRemoveAll: EnqueuingUseCase(
-                origin: CallHistoryRecordRemoveAllUseCase(history: history), queue: background
-            ),
-            recordRemove: EnqueueingCallHistoryRecordRemoveUseCaseFactory(
-                origin: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history), queue: background
-            ),
-            callMake: EnqueuingCallHistoryCallMakeUseCaseFactory(
-                account: account, history: history, factory: factory, accountQueue: main, historyQueue: background
+            matching: IndexedContactMatching(
+                index: index,
+                significantPhoneNumberLength: await settings.significantPhoneNumberLength,
+                domain: account.domain
             )
         )
-        history.updateTarget(
-            EnqueuingCallHistoryEventTarget(origin: WeakCallHistoryEventTarget(origin: result), queue: main)
+        let result = CallHistoryViewEventTarget(
+            recordsGet: CallHistoryRecordGetAllUseCase(
+                history: history,
+                output: ContactCallHistoryRecordGetAllUseCase(
+                    factory: factory,
+                    output: ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(
+                        origin: CallHistoryViewPresenter(
+                            view: view, dateFormatter: dateFormatter, durationFormatter: durationFormatter
+                        ),
+                        receipt: receipt
+                    )
+                )
+            ),
+            purchaseCheck: purchaseCheck,
+            recordRemoveAll: CallHistoryRecordRemoveAllUseCase(history: history),
+            recordRemove: DefaultCallHistoryRecordRemoveUseCaseFactory(history: history),
+            callMake: DefaultCallHistoryCallMakeUseCaseFactory(account: account, history: history, factory: factory)
         )
+        await history.updateTarget(WeakCallHistoryEventTarget(origin: result))
         storeEventTargets.add(WeakStoreEventTarget(origin: result))
         dayChangeEventTargets.add(WeakDayChangeEventTarget(origin: result))
         return result

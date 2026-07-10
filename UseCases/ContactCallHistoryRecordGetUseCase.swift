@@ -16,6 +16,10 @@
 //  GNU General Public License for more details.
 //
 
+public protocol ContactCallHistoryRecordGetUseCaseOutput: Sendable {
+    func update(record: ContactCallHistoryRecord)
+}
+
 public final class ContactCallHistoryRecordGetUseCase {
     private let factory: FallingBackMatchedContactFactory
     private let output: ContactCallHistoryRecordGetUseCaseOutput
@@ -28,6 +32,8 @@ public final class ContactCallHistoryRecordGetUseCase {
 
 extension ContactCallHistoryRecordGetUseCase: CallHistoryRecordGetUseCaseOutput {
     public func update(record: CallHistoryRecord) {
-        output.update(record: ContactCallHistoryRecord(origin: record, contact: factory.make(uri: record.uri)))
+        Task {
+            output.update(record: ContactCallHistoryRecord(origin: record, contact: await factory.make(uri: record.uri)))
+        }
     }
 }

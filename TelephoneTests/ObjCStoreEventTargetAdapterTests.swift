@@ -18,6 +18,7 @@
 
 import XCTest
 
+@MainActor
 final class ObjCStoreEventTargetAdapterTests: XCTestCase {
     func testCallsDidPurchaseOnTargetOnDidPurchase() {
         let target = ObjCStoreEventTargetSpy()

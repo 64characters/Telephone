@@ -16,6 +16,7 @@
 //  GNU General Public License for more details.
 //
 
-public protocol ContactMatchingSettings {
-    var significantPhoneNumberLength: Int { get }
+@ContactsActor
+public protocol ContactMatchingSettings: Sendable {
+    var significantPhoneNumberLength: Int { get async }
 }

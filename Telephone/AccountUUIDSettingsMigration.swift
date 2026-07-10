@@ -18,6 +18,7 @@
 
 import UseCases
 
+@MainActor
 final class AccountUUIDSettingsMigration {
     private let settings: KeyValueSettings
 

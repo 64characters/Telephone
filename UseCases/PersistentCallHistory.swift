@@ -18,6 +18,7 @@
 
 import Foundation
 
+@CallHistoryActor
 public final class PersistentCallHistory {
     private let origin: CallHistory
     private let storage: PropertyListStorage

@@ -22,6 +22,7 @@ public protocol SettingsSoundIOLoadUseCaseOutput: AnyObject {
     func update(soundIO: SystemDefaultingSoundIO, devices: SystemAudioDevices)
 }
 
+@MainActor
 public final class SettingsSoundIOLoadUseCase {
     private let factory: SystemAudioDevicesFactory
     private let settings: KeyValueSettings
