@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25087" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,11 +27,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="298"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="302"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-yF-WhX">
-                    <rect key="frame" x="18" y="166" width="444" height="112"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-yF-WhX">
+                    <rect key="frame" x="18" y="170" width="444" height="112"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="W5b-g9-V4l">
                         <font key="font" metaFont="system"/>
                         <string key="title">Telephone Pro is a subscription that unlocks the full call history, allows 30 simultaneous calls, and supports ongoing app development.
@@ -43,13 +42,13 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     </textFieldCell>
                 </textField>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="ooq-CL-lGR" userLabel="Products Content View">
-                    <rect key="frame" x="20" y="60" width="440" height="86"/>
+                    <rect key="frame" x="20" y="64" width="440" height="86"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="86" id="70g-AI-4FR"/>
                     </constraints>
                 </customView>
                 <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bmy-eH-1mE">
-                    <rect key="frame" x="287" y="13" width="180" height="32"/>
+                    <rect key="frame" x="291" y="20" width="169" height="24"/>
                     <buttonCell key="cell" type="push" title="Manage Subscriptions…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lhf-s5-m1W">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -59,7 +58,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kYi-DK-7xw">
-                    <rect key="frame" x="309" y="13" width="158" height="32"/>
+                    <rect key="frame" x="313" y="20" width="147" height="24"/>
                     <buttonCell key="cell" type="push" title="Restore Purchases…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Au-Xg-Hs2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -69,31 +68,31 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-9Q-oFf">
-                    <rect key="frame" x="452" y="270" width="35" height="33"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="21" id="LOg-xM-wis"/>
-                        <constraint firstAttribute="height" constant="21" id="tbJ-E4-j0O"/>
-                    </constraints>
+                    <rect key="frame" x="459" y="281" width="21" height="21"/>
                     <buttonCell key="cell" type="push" bezelStyle="rounded" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="Azz-yr-SIz">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent">R</string>
                         <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="21" id="LOg-xM-wis"/>
+                        <constraint firstAttribute="height" constant="21" id="tbJ-E4-j0O"/>
+                    </constraints>
                     <connections>
                         <action selector="restorePurchases:" target="-2" id="5aV-l1-OGY"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EAX-wJ-Ga8">
-                    <rect key="frame" x="18" y="38" width="74" height="14"/>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EAX-wJ-Ga8">
+                    <rect key="frame" x="18" y="42" width="74" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Terms of Use" allowsEditingTextAttributes="YES" id="iih-o0-zci">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LIi-vu-7b3">
-                    <rect key="frame" x="18" y="19" width="77" height="14"/>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LIi-vu-7b3">
+                    <rect key="frame" x="18" y="23" width="77" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Privacy Policy" allowsEditingTextAttributes="YES" id="DU9-Ky-gjo">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -133,20 +132,20 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
             </connections>
         </arrayController>
         <scrollView autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="27z-De-ahO">
-            <rect key="frame" x="0.0" y="0.0" width="440" height="85"/>
+            <rect key="frame" x="0.0" y="0.0" width="447" height="85"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <clipView key="contentView" id="JHp-da-W11">
-                <rect key="frame" x="1" y="1" width="438" height="83"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <rect key="frame" x="1" y="1" width="445" height="83"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="eYD-l4-AFn">
-                        <rect key="frame" x="0.0" y="0.0" width="438" height="83"/>
+                        <rect key="frame" x="0.0" y="0.0" width="445" height="83"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <size key="intercellSpacing" width="3" height="2"/>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <tableColumns>
-                            <tableColumn width="426" minWidth="40" maxWidth="1000" id="uMu-fo-Etu">
+                            <tableColumn width="433" minWidth="40" maxWidth="1000" id="uMu-fo-Etu">
                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -159,10 +158,10 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                 <prototypeCellViews>
                                     <tableCellView id="cBD-EV-Yai">
-                                        <rect key="frame" x="1" y="1" width="435" height="40"/>
+                                        <rect key="frame" x="1" y="1" width="442" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="eH9-SG-F1U">
+                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="eH9-SG-F1U">
                                                 <rect key="frame" x="6" y="12" width="96" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="NEN-L8-9I9">
                                                     <font key="font" metaFont="system"/>
@@ -174,7 +173,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                                                 </connections>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zF3-9y-xfi">
-                                                <rect key="frame" x="359" y="3" width="75" height="32"/>
+                                                <rect key="frame" x="370" y="8" width="64" height="24"/>
                                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wUB-pq-l64">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -207,7 +206,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                 </subviews>
             </clipView>
             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Yod-Ye-NDa">
-                <rect key="frame" x="1" y="68" width="409" height="16"/>
+                <rect key="frame" x="1" y="67" width="438" height="17"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="tpS-Ru-egb">
@@ -226,7 +225,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="f1z-Cv-lBp" userLabel="Padded View">
                         <rect key="frame" x="10" y="16" width="418" height="53"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZAt-yQ-UK9">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZAt-yQ-UK9">
                                 <rect key="frame" x="-2" y="0.0" width="422" height="16"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Could not fetch products." id="quy-Sv-sGw">
                                     <font key="font" metaFont="system"/>
@@ -236,15 +235,15 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="gLl-QT-0MK">
                                 <rect key="frame" x="193" y="18" width="32" height="38"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshFreestandingTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KHr-bu-Uh8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gLl-QT-0MK" secondAttribute="height" multiplier="1:1" id="Bb4-0W-SC9"/>
                                     <constraint firstAttribute="height" priority="749" constant="32" id="DSe-IY-We7"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="Ksq-g6-vE6"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshFreestandingTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KHr-bu-Uh8">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
                                 <connections>
                                     <action selector="fetchProducts:" target="-2" id="OA4-Zx-1Zd"/>
                                 </connections>
@@ -303,7 +302,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="e8X-aQ-cAN">
                         <rect key="frame" x="99" y="18" width="241" height="17"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Am-ER-Ei9">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Am-ER-Ei9">
                                 <rect key="frame" x="-2" y="1" width="166" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Your subscription ends on " id="Z9K-5X-9uS">
                                     <font key="font" metaFont="system"/>
@@ -311,7 +310,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="byH-Ua-KY8">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="byH-Ua-KY8">
                                 <rect key="frame" x="160" y="1" width="83" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Dec 31, 2016" id="efh-fd-jws">
                                     <font key="font" metaFont="system"/>
@@ -328,7 +327,7 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
                             <constraint firstItem="byH-Ua-KY8" firstAttribute="firstBaseline" secondItem="9Am-ER-Ei9" secondAttribute="firstBaseline" id="aGp-AW-hfQ"/>
                         </constraints>
                     </customView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j2j-Ih-N2I">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j2j-Ih-N2I">
                         <rect key="frame" x="169" y="43" width="101" height="24"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Thank you!" id="L2v-xq-Wr7">
                             <font key="font" metaFont="system" size="20"/>
@@ -351,6 +350,6 @@ Payment will be charged to your iTunes account and auto-renews unless disabled i
         </box>
     </objects>
     <resources>
-        <image name="NSRefreshFreestandingTemplate" width="15" height="15"/>
+        <image name="NSRefreshFreestandingTemplate" width="20" height="20"/>
     </resources>
 </document>
