@@ -6,21 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = AAF99B2D14A2577D00D087DC /* Build configuration list for PBXAggregateTarget "Address Book Plug-Ins" */;
-			buildPhases = (
-			);
-			dependencies = (
-				AAF99B3114A257A800D087DC /* PBXTargetDependency */,
-				AAF99B3314A257A800D087DC /* PBXTargetDependency */,
-			);
-			name = "Address Book Plug-Ins";
-			productName = "Address Book Plug-Ins";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		8A00076523F733AB00963069 /* SIPAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A00076423F733AB00963069 /* SIPAddressTests.swift */; };
@@ -665,8 +650,6 @@
 		AA4D49071BB99DBF004D1D4B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D49061BB99DBF004D1D4B /* AudioToolbox.framework */; };
 		AA4D49091BB99DCC004D1D4B /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D49081BB99DCC004D1D4B /* AudioUnit.framework */; };
 		AA584A6A0F06CFD2003C4992 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA584A680F06CFD2003C4992 /* Localizable.strings */; };
-		AA6089D312E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
-		AA6089D412E25DD200DC44DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6089D212E25DD200DC44DC /* Localizable.strings */; };
 		AA6989A31C19AF150067BFB1 /* SoundPreferencesViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventTarget.swift */; };
 		AA6989A41C19AF1C0067BFB1 /* SoundPreferencesViewEventTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventTarget.swift */; };
 		AA6989A71C19AF310067BFB1 /* SoundPreferencesViewEventTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6989A51C19AF2E0067BFB1 /* SoundPreferencesViewEventTargetTests.swift */; };
@@ -724,10 +707,6 @@
 		AAE39A3B1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE39A3A1BDA59F100EFB7BC /* NSUserDefaults+KeyValueSettings.swift */; };
 		AAECDE8F0E70703100CEAE7B /* AKNSString+Scanning.m in Sources */ = {isa = PBXBuildFile; fileRef = AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */; };
 		AAEE7C310ECD953200A7DEB4 /* AKNSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */; };
-		AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */; };
-		AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */; };
-		AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
-		AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB5AAC10F2E7A7D00A57531 /* AKABRecord+Querying.m */; };
 		AAF6336A1056FEA600CF6C3B /* ActiveAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF633691056FEA600CF6C3B /* ActiveAccountViewController.m */; };
 		AAFA9B1D0EE1D8FC009A45CB /* AKSIPURIFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA9B1C0EE1D8FC009A45CB /* AKSIPURIFormatter.m */; };
 		AAFA9C3D0EE411BA009A45CB /* AKTelephoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA9C3C0EE411BA009A45CB /* AKTelephoneNumberFormatter.m */; };
@@ -843,20 +822,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = AAC4FF801C0214110060B186;
 			remoteInfo = DomainTestDoubles;
-		};
-		AAF99B3014A257A800D087DC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AAF2990F0F575044007B5036;
-			remoteInfo = TelephoneAddressBookPhonePlugIn;
-		};
-		AAF99B3214A257A800D087DC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AAF299960F57566B007B5036;
-			remoteInfo = TelephoneAddressBookSIPAddressPlugIn;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1604,8 +1569,6 @@
 		AA51005C0F20117F003CE94C /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/AuthenticationFailure.xib; sourceTree = "<group>"; };
 		AA584A690F06CFD2003C4992 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA584A6B0F06D007003C4992 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA6089D512E25DDD00DC44DC /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AA6089D612E25DE200DC44DC /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA6989A21C19AF150067BFB1 /* SoundPreferencesViewEventTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPreferencesViewEventTarget.swift; sourceTree = "<group>"; };
 		AA6989A51C19AF2E0067BFB1 /* SoundPreferencesViewEventTargetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundPreferencesViewEventTargetTests.swift; path = TelephoneTests/SoundPreferencesViewEventTargetTests.swift; sourceTree = SOURCE_ROOT; };
 		AA7CB52211442300004D79DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/ActiveAccountTransferView.xib; sourceTree = "<group>"; };
@@ -1683,15 +1646,6 @@
 		AAECDE8E0E70703100CEAE7B /* AKNSString+Scanning.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Scanning.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AAEE7C2F0ECD953200A7DEB4 /* AKNSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = "AKNSWindow+Resizing.h"; sourceTree = "<group>"; tabWidth = 4; };
 		AAEE7C300ECD953200A7DEB4 /* AKNSWindow+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSWindow+Resizing.m"; sourceTree = "<group>"; tabWidth = 4; };
-		AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKAddressBookPhonePlugIn.h; sourceTree = "<group>"; tabWidth = 4; };
-		AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKAddressBookPhonePlugIn.m; sourceTree = "<group>"; tabWidth = 4; };
-		AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneAddressBookPhonePlugIn.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelephoneAddressBookPhonePlugIn-Info.plist"; sourceTree = "<group>"; };
-		AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AKAddressBookSIPAddressPlugIn.m; sourceTree = "<group>"; tabWidth = 4; };
-		AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AKAddressBookSIPAddressPlugIn.h; sourceTree = "<group>"; tabWidth = 4; };
-		AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelephoneAddressBookSIPAddressPlugIn.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelephoneAddressBookSIPAddressPlugIn-Info.plist"; sourceTree = "<group>"; };
-		AAF29A430F5759F7007B5036 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AAF633681056FEA600CF6C3B /* ActiveAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ActiveAccountViewController.h; sourceTree = "<group>"; tabWidth = 4; };
 		AAF633691056FEA600CF6C3B /* ActiveAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveAccountViewController.m; sourceTree = "<group>"; tabWidth = 4; };
 		AAFA2BAC1BCD812C00066CFC /* UserAgentSoundIOSelectionUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentSoundIOSelectionUseCase.swift; sourceTree = "<group>"; };
@@ -1775,20 +1729,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF911C0215B90060B186 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AAF2990E0F575044007B5036 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AAF299950F57566B007B5036 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1884,8 +1824,6 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* Telephone.app */,
-				AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */,
-				AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */,
 				AA3FAB851BBAAE630064B2C3 /* TelephoneTests.xctest */,
 				AA9D08031BFF7E6F0000F618 /* Domain.framework */,
 				AA9D080C1BFF7E6F0000F618 /* DomainTests.xctest */,
@@ -1910,7 +1848,6 @@
 				AA9D08041BFF7E6F0000F618 /* Domain */,
 				AA9D08101BFF7E6F0000F618 /* DomainTests */,
 				AAC4FF821C0214120060B186 /* DomainTestDoubles */,
-				AAF298D70F57477C007B5036 /* AddressBookPlugIns */,
 				8AE706241D491C220060FF4F /* ReceiptValidation */,
 				8A8838FD23048B9700FB5CF0 /* ReceiptValidationTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -3238,20 +3175,6 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		AAF298D70F57477C007B5036 /* AddressBookPlugIns */ = {
-			isa = PBXGroup;
-			children = (
-				AAF298D30F574744007B5036 /* AKAddressBookPhonePlugIn.h */,
-				AAF298D40F574744007B5036 /* AKAddressBookPhonePlugIn.m */,
-				AAF2998D0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.h */,
-				AAF2998C0F575549007B5036 /* AKAddressBookSIPAddressPlugIn.m */,
-				AAF299110F575044007B5036 /* TelephoneAddressBookPhonePlugIn-Info.plist */,
-				AAF299980F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn-Info.plist */,
-				AA6089D212E25DD200DC44DC /* Localizable.strings */,
-			);
-			path = AddressBookPlugIns;
-			sourceTree = "<group>";
-		};
 		AAF9CBC60E685A2D005DD9C6 /* SIP User Agent */ = {
 			isa = PBXGroup;
 			children = (
@@ -3524,40 +3447,6 @@
 			productReference = AAC4FF951C0215B90060B186 /* UseCasesTestDoubles.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AAF299150F575045007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookPhonePlugIn" */;
-			buildPhases = (
-				AAF2990C0F575044007B5036 /* Resources */,
-				AAF2990D0F575044007B5036 /* Sources */,
-				AAF2990E0F575044007B5036 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TelephoneAddressBookPhonePlugIn;
-			productName = TelephoneAddressBookPhonePlugIn;
-			productReference = AAF299100F575044007B5036 /* TelephoneAddressBookPhonePlugIn.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
-		AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AAF2999C0F57566C007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookSIPAddressPlugIn" */;
-			buildPhases = (
-				AAF299930F57566B007B5036 /* Resources */,
-				AAF299940F57566B007B5036 /* Sources */,
-				AAF299950F57566B007B5036 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TelephoneAddressBookSIPAddressPlugIn;
-			productName = TelephoneAddressBookSIPAddressPlugIn;
-			productReference = AAF299970F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -3634,14 +3523,6 @@
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
-					AAF2990F0F575044007B5036 = {
-						DevelopmentTeam = B5WSA37RY8;
-						ProvisioningStyle = Automatic;
-					};
-					AAF299960F57566B007B5036 = {
-						DevelopmentTeam = B5WSA37RY8;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */;
@@ -3666,9 +3547,6 @@
 				AA9D08021BFF7E6F0000F618 /* Domain */,
 				AA9D080B1BFF7E6F0000F618 /* DomainTests */,
 				AAC4FF801C0214110060B186 /* DomainTestDoubles */,
-				AAF99B2C14A2577D00D087DC /* Address Book Plug-Ins */,
-				AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */,
-				AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */,
 				8AE706221D491C210060FF4F /* ReceiptValidation */,
 				8A8838FB23048B9700FB5CF0 /* ReceiptValidationTests */,
 			);
@@ -3775,22 +3653,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AAF2990C0F575044007B5036 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA6089D312E25DD200DC44DC /* Localizable.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AAF299930F57566B007B5036 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA6089D412E25DD200DC44DC /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4534,24 +4396,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AAF2990D0F575044007B5036 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAF299570F575326007B5036 /* AKAddressBookPhonePlugIn.m in Sources */,
-				AAF29B170F58107E007B5036 /* AKABRecord+Querying.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AAF299940F57566B007B5036 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAF299A00F575692007B5036 /* AKAddressBookSIPAddressPlugIn.m in Sources */,
-				AAF29B180F58107F007B5036 /* AKABRecord+Querying.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -4629,16 +4473,6 @@
 			isa = PBXTargetDependency;
 			target = AAC4FF801C0214110060B186 /* DomainTestDoubles */;
 			targetProxy = AAC4FF8E1C0215030060B186 /* PBXContainerItemProxy */;
-		};
-		AAF99B3114A257A800D087DC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AAF2990F0F575044007B5036 /* TelephoneAddressBookPhonePlugIn */;
-			targetProxy = AAF99B3014A257A800D087DC /* PBXContainerItemProxy */;
-		};
-		AAF99B3314A257A800D087DC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AAF299960F57566B007B5036 /* TelephoneAddressBookSIPAddressPlugIn */;
-			targetProxy = AAF99B3214A257A800D087DC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4803,16 +4637,6 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		AA6089D212E25DD200DC44DC /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AAF29A430F5759F7007B5036 /* en */,
-				AA6089D512E25DDD00DC44DC /* ru */,
-				AA6089D612E25DE200DC44DC /* de */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
 		AA7CB51C11442241004D79DA /* CallTransfer.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4946,7 +4770,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.ReceiptValidationTests;
@@ -4975,7 +4798,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.ReceiptValidationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5144,7 +4966,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu99 gnu++11";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5167,7 +4988,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu99 gnu++11";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.UseCasesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5189,7 +5009,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -5211,7 +5030,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.TelephoneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -5292,7 +5110,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -5312,7 +5129,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tlphn.Telephone.DomainTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -5442,91 +5258,6 @@
 				SWIFT_VERSION = 6.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		AAF299130F575045007B5036 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = B5WSA37RY8;
-				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
-				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		AAF299140F575045007B5036 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = B5WSA37RY8;
-				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookPhonePlugIn-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
-				PRODUCT_NAME = TelephoneAddressBookPhonePlugIn;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
-		AAF2999A0F57566C007B5036 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = B5WSA37RY8;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
-				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		AAF2999B0F57566C007B5036 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = B5WSA37RY8;
-				INFOPLIST_FILE = "AddressBookPlugIns/TelephoneAddressBookSIPAddressPlugIn-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tlphn.${PRODUCT_NAME:identifier}";
-				PRODUCT_NAME = TelephoneAddressBookSIPAddressPlugIn;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
-		AAF99B2E14A2577D00D087DC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		AAF99B2F14A2577D00D087DC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -5687,7 +5418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -5742,7 +5473,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -5830,33 +5561,6 @@
 			buildConfigurations = (
 				AAC4FF9B1C0215B90060B186 /* Debug */,
 				AAC4FF9C1C0215B90060B186 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AAF299150F575045007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookPhonePlugIn" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AAF299130F575045007B5036 /* Debug */,
-				AAF299140F575045007B5036 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AAF2999C0F57566C007B5036 /* Build configuration list for PBXNativeTarget "TelephoneAddressBookSIPAddressPlugIn" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AAF2999A0F57566C007B5036 /* Debug */,
-				AAF2999B0F57566C007B5036 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AAF99B2D14A2577D00D087DC /* Build configuration list for PBXAggregateTarget "Address Book Plug-Ins" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AAF99B2E14A2577D00D087DC /* Debug */,
-				AAF99B2F14A2577D00D087DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
