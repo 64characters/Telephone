@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25087" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="84"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81">
                     <rect key="frame" x="18" y="9" width="264" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="gpe-s5-Y2X"/>
@@ -34,7 +33,7 @@
                         <binding destination="-2" name="value" keyPath="callController.status" id="134"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="80">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="80">
                     <rect key="frame" x="18" y="45" width="105" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Display Name" id="83">
                         <font key="font" metaFont="systemBold" size="15"/>
@@ -47,14 +46,14 @@
                 </textField>
                 <button toolTip="Call Back" translatesAutoresizingMaskIntoConstraints="NO" id="128">
                     <rect key="frame" x="265" y="44" width="15" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="15" id="EY1-Q3-fIf"/>
-                        <constraint firstAttribute="height" constant="15" id="lna-jp-Qfd"/>
-                    </constraints>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshFreestandingTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="129">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="15" id="EY1-Q3-fIf"/>
+                        <constraint firstAttribute="height" constant="15" id="lna-jp-Qfd"/>
+                    </constraints>
                     <connections>
                         <action selector="redial:" target="-2" id="131"/>
                     </connections>
@@ -74,6 +73,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="NSRefreshFreestandingTemplate" width="15" height="15"/>
+        <image name="NSRefreshFreestandingTemplate" width="20" height="20"/>
     </resources>
 </document>

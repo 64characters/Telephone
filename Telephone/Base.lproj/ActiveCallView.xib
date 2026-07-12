@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25087" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="84"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="59">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="59">
                     <rect key="frame" x="18" y="45" width="105" height="19"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Display Name" id="60">
                         <font key="font" metaFont="systemBold" size="15"/>
@@ -32,7 +31,7 @@
                         <binding destination="-2" name="value" keyPath="callController.displayedName" id="127"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="61">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="61">
                     <rect key="frame" x="18" y="25" width="43" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Status" id="62">
                         <font key="font" metaFont="system"/>
@@ -43,19 +42,19 @@
                         <binding destination="-2" name="value" keyPath="callController.status" id="128"/>
                     </connections>
                 </textField>
-                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" minValue="16" maxValue="100" doubleValue="16" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="57">
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" minValue="16" maxValue="100" doubleValue="16" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="57">
                     <rect key="frame" x="264" y="47" width="16" height="16"/>
                 </progressIndicator>
                 <button hidden="YES" toolTip="End Call" translatesAutoresizingMaskIntoConstraints="NO" id="122" userLabel="Hang Up Button">
                     <rect key="frame" x="265" y="44" width="15" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="15" id="Kcw-oG-dKT"/>
-                        <constraint firstAttribute="height" constant="15" id="cO1-CF-Wg2"/>
-                    </constraints>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="123">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="15" id="Kcw-oG-dKT"/>
+                        <constraint firstAttribute="height" constant="15" id="cO1-CF-Wg2"/>
+                    </constraints>
                     <connections>
                         <action selector="hangUpCall:" target="-2" id="126"/>
                     </connections>
@@ -81,6 +80,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="NSStopProgressFreestandingTemplate" width="15" height="15"/>
+        <image name="NSStopProgressFreestandingTemplate" width="20" height="20"/>
     </resources>
 </document>

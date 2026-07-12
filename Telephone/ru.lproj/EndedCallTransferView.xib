@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25087" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button toolTip="Call Back" id="4">
+                <button toolTip="Call Back" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                     <rect key="frame" x="286" y="59" width="16" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSRefreshFreestandingTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="5">
@@ -28,7 +27,7 @@
                         <action selector="redial:" target="-2" id="14"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="3">
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                     <rect key="frame" x="17" y="43" width="266" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Status" id="6">
@@ -40,7 +39,7 @@
                         <binding destination="-2" name="value" keyPath="callController.status" id="13"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="2">
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2">
                     <rect key="frame" x="17" y="60" width="266" height="18"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Display Name" id="7">
@@ -52,7 +51,7 @@
                         <binding destination="-2" name="value" keyPath="callController.displayedName" id="12"/>
                     </connections>
                 </textField>
-                <button verticalHuggingPriority="750" id="9">
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                     <rect key="frame" x="90" y="12" width="108" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Отменить" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="10">
@@ -66,7 +65,7 @@ Gw
                         <action selector="showInitialState:" target="-1" id="18"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" id="15">
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15">
                     <rect key="frame" x="198" y="12" width="108" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Перевести" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="16">
@@ -75,9 +74,10 @@ Gw
                     </buttonCell>
                 </button>
             </subviews>
+            <point key="canvasLocation" x="139" y="154"/>
         </customView>
     </objects>
     <resources>
-        <image name="NSRefreshFreestandingTemplate" width="14" height="14"/>
+        <image name="NSRefreshFreestandingTemplate" width="20" height="20"/>
     </resources>
 </document>

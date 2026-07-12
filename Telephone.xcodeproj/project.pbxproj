@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 110;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -828,25 +828,21 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		8AE7062E1D491C220060FF4F /* Embed XPC Services */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
-			dstSubfolderSpec = 16;
+			dstSubfolder = Product;
 			files = (
 				8AE7062F1D491C220060FF4F /* ReceiptValidation.xpc in Embed XPC Services */,
 			);
 			name = "Embed XPC Services";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAF51C4D0EF6CF480098A372 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 				AA10198A1C491C0600869D01 /* UseCases.framework in CopyFiles */,
 				AA1019891C491BF900869D01 /* Domain.framework in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -1663,77 +1659,57 @@
 /* Begin PBXFrameworksBuildPhase section */
 		8A8838F923048B9700FB5CF0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AE706201D491C210060FF4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AA4D49091BB99DCC004D1D4B /* AudioUnit.framework in Frameworks */,
 				AA4D49071BB99DBF004D1D4B /* AudioToolbox.framework in Frameworks */,
 				8AA749321D75FF18000587DC /* StoreKit.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA078B251BFF80E20013FF8F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA078B2F1BFF80E30013FF8F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8A1563961D89B7DD00E007BA /* UseCases.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA3FAB821BBAAE630064B2C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D07FF1BFF7E6F0000F618 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D08091BFF7E6F0000F618 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF7D1C0214110060B186 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF911C0215B90060B186 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -3224,33 +3200,25 @@
 /* Begin PBXHeadersBuildPhase section */
 		AA078B261BFF80E20013FF8F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D08001BFF7E6F0000F618 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF7E1C0214110060B186 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AAC4FF841C0214120060B186 /* DomainTestDoubles.h in Headers */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF921C0215B90060B186 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AA7F6D2C1C0216640064DA3A /* UseCasesTestDoubles.h in Headers */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
@@ -3264,8 +3232,6 @@
 				8A8838FA23048B9700FB5CF0 /* Resources */,
 			);
 			buildRules = (
-			);
-			dependencies = (
 			);
 			name = ReceiptValidationTests;
 			productName = ReceiptValidationTests;
@@ -3281,8 +3247,6 @@
 				8AE706211D491C210060FF4F /* Resources */,
 			);
 			buildRules = (
-			);
-			dependencies = (
 			);
 			name = ReceiptValidation;
 			productName = ReceiptValidation;
@@ -3382,8 +3346,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = Domain;
 			productName = Domain;
 			productReference = AA9D08031BFF7E6F0000F618 /* Domain.framework */;
@@ -3455,7 +3417,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					8A8838FB23048B9700FB5CF0 = {
 						CreatedOnToolsVersion = 10.3;
@@ -3535,7 +3497,7 @@
 				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Telephone */;
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 110;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -3556,22 +3518,17 @@
 /* Begin PBXResourcesBuildPhase section */
 		8A8838FA23048B9700FB5CF0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AE706211D491C210060FF4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8A88B5A51D4BB9D20083958C /* Certificate.crt in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
@@ -3604,64 +3561,48 @@
 				8AA748FE1D749E05000587DC /* StoreWindowController.xib in Resources */,
 				AA7CB5301144242F004D79DA /* EndedCallTransferView.xib in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA078B271BFF80E20013FF8F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8AA748F71D74986A000587DC /* Localizable.strings in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA078B301BFF80E30013FF8F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA3FAB831BBAAE630064B2C3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D08011BFF7E6F0000F618 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D080A1BFF7E6F0000F618 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF7F1C0214110060B186 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF931C0215B90060B186 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8A8838F823048B9700FB5CF0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8A8839052304940300FB5CF0 /* String+ASN1Tests.swift in Sources */,
 				8A3AF42E2347AE17000019C6 /* ReceiptChecksum.swift in Sources */,
@@ -3670,11 +3611,9 @@
 				8A88390A2304982000FB5CF0 /* String+ASN1.swift in Sources */,
 				8A3AF42B23479FB0000019C6 /* SHA256Fingerprint.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AE7061F1D491C210060FF4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8A88B4E81D4A666F0083958C /* DefaultNSXPCListenerDelegate.swift in Sources */,
 				8A39A1AD1D5BE42100D703AD /* PKCS7Container.m in Sources */,
@@ -3720,11 +3659,9 @@
 				8A39A1B81D5C7F9400D703AD /* ASN1PurchaseReceipt.swift in Sources */,
 				8A2E1BF91D50CDBB0085A5EF /* ber_tlv_length.c in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */,
@@ -3921,11 +3858,9 @@
 				AA3FABB01BBC1CCE0064B2C3 /* TelephoneError.swift in Sources */,
 				8A92B7BC1E784D0000922B1E /* DefaultCallHistoryRecordRemoveUseCaseFactory.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA078B241BFF80E20013FF8F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8AD012B12126F81500619781 /* DefaultSystemSoundIOChangeEventTarget.swift in Sources */,
 				8A09E0FA1E79A29D0027A25E /* ReversedCallHistory.swift in Sources */,
@@ -4071,11 +4006,9 @@
 				8A7567351CF7220400D91C04 /* ProductPurchaseUseCase.swift in Sources */,
 				8A1B27D11F509BE2001B55A7 /* RecordCountingPurchaseCheckUseCase.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA078B2E1BFF80E30013FF8F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8AB677F11F0AABBA001A47A2 /* MatchedContactTests.swift in Sources */,
 				8ADD31CC1CC165B5008C083C /* UserAgentEventsUserAgentSoundIOSelectionUseCaseTests.swift in Sources */,
@@ -4147,11 +4080,9 @@
 				8A11B3D01DDB6D41002EDA93 /* CallHistoryCallEventTargetTests.swift in Sources */,
 				8A2C9D221DD5FAC1002367BF /* CallHistoryRecordRemoveAllUseCaseTests.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA3FAB811BBAAE630064B2C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AAC0FFBF1BE38B3800A5C7E5 /* AKSIPUserAgentEventSource.swift in Sources */,
 				8A68C9521FFE6A8C005125AF /* ApplicationDataLocationsFake.swift in Sources */,
@@ -4259,11 +4190,9 @@
 				8AA748BF1D704A44000587DC /* MusicPlayers.swift in Sources */,
 				AACC029C1C15DC7600913D7B /* SoundIOPresenterTests.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D07FE1BFF7E6F0000F618 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AA76E01E1BFF86F300CC5C07 /* FirstBuiltInSystemSoundIO.swift in Sources */,
 				AA76E0161BFF86D600CC5C07 /* SimpleSystemAudioDevice.swift in Sources */,
@@ -4284,11 +4213,9 @@
 				8A9175B01CABFCA700354E26 /* SystemAudioDevice.swift in Sources */,
 				8AAACA111CAEB9FD001930C4 /* PreferredSoundIO.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA9D08081BFF7E6F0000F618 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AA76E0201BFF86F900CC5C07 /* FirstBuiltInSystemSoundIOTests.swift in Sources */,
 				8A9175931CA2C2DC00354E26 /* UserAgentAudioDevice+SystemAudioDevice.swift in Sources */,
@@ -4300,11 +4227,9 @@
 				8AAACA071CAE9FEE001930C4 /* SimpleSoundIOTests.swift in Sources */,
 				AA76E01A1BFF86E100CC5C07 /* SystemAudioDevicesTests.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF7C1C0214110060B186 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8A97060020FF99EF00984D39 /* SoundIO+Equality.swift in Sources */,
 				8A042AE6210A26B600306472 /* NullSoundIO.swift in Sources */,
@@ -4314,11 +4239,9 @@
 				AAC4FF8B1C0214540060B186 /* SystemAudioDeviceTestFactory.swift in Sources */,
 				8A456E8B212ED1C4006F86DE /* NullSystemSoundIO.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAC4FF901C0215B90060B186 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				AA7F6D2D1C0217020064DA3A /* UseCaseSpy.swift in Sources */,
 				8A9D92331D2BF9D000491D59 /* SimpleProductsFake.swift in Sources */,
@@ -4394,7 +4317,6 @@
 				8A042AE2210A1FF800306472 /* SystemDefaultSoundIO+Equatable.swift in Sources */,
 				8A9513F01D2A77AD0034DF2C /* InvalidReceipt.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -4749,7 +4671,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		8A88390123048B9700FB5CF0 /* Debug */ = {
+		8A88390123048B9700FB5CF0 /* Debug configuration for PBXNativeTarget "ReceiptValidationTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -4781,7 +4703,7 @@
 			};
 			name = Debug;
 		};
-		8A88390223048B9700FB5CF0 /* Release */ = {
+		8A88390223048B9700FB5CF0 /* Release configuration for PBXNativeTarget "ReceiptValidationTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -4807,7 +4729,7 @@
 			};
 			name = Release;
 		};
-		8AE706311D491C220060FF4F /* Debug */ = {
+		8AE706311D491C220060FF4F /* Debug configuration for PBXNativeTarget "ReceiptValidation" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ReceiptValidation/ReceiptValidation.entitlements;
@@ -4851,7 +4773,7 @@
 			};
 			name = Debug;
 		};
-		8AE706321D491C220060FF4F /* Release */ = {
+		8AE706321D491C220060FF4F /* Release configuration for PBXNativeTarget "ReceiptValidation" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ReceiptValidation/ReceiptValidation.entitlements;
@@ -4889,7 +4811,7 @@
 			};
 			name = Release;
 		};
-		AA078B3A1BFF80E30013FF8F /* Debug */ = {
+		AA078B3A1BFF80E30013FF8F /* Debug configuration for PBXNativeTarget "UseCases" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -4921,7 +4843,7 @@
 			};
 			name = Debug;
 		};
-		AA078B3B1BFF80E30013FF8F /* Release */ = {
+		AA078B3B1BFF80E30013FF8F /* Release configuration for PBXNativeTarget "UseCases" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -4953,7 +4875,7 @@
 			};
 			name = Release;
 		};
-		AA078B3C1BFF80E30013FF8F /* Debug */ = {
+		AA078B3C1BFF80E30013FF8F /* Debug configuration for PBXNativeTarget "UseCasesTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -4975,7 +4897,7 @@
 			};
 			name = Debug;
 		};
-		AA078B3D1BFF80E30013FF8F /* Release */ = {
+		AA078B3D1BFF80E30013FF8F /* Release configuration for PBXNativeTarget "UseCasesTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -4997,7 +4919,7 @@
 			};
 			name = Release;
 		};
-		AA3FAB8D1BBAAE630064B2C3 /* Debug */ = {
+		AA3FAB8D1BBAAE630064B2C3 /* Debug configuration for PBXNativeTarget "TelephoneTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -5018,7 +4940,7 @@
 			};
 			name = Debug;
 		};
-		AA3FAB8E1BBAAE630064B2C3 /* Release */ = {
+		AA3FAB8E1BBAAE630064B2C3 /* Release configuration for PBXNativeTarget "TelephoneTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -5039,7 +4961,7 @@
 			};
 			name = Release;
 		};
-		AA9D08141BFF7E6F0000F618 /* Debug */ = {
+		AA9D08141BFF7E6F0000F618 /* Debug configuration for PBXNativeTarget "Domain" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5069,7 +4991,7 @@
 			};
 			name = Debug;
 		};
-		AA9D08151BFF7E6F0000F618 /* Release */ = {
+		AA9D08151BFF7E6F0000F618 /* Release configuration for PBXNativeTarget "Domain" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5099,7 +5021,7 @@
 			};
 			name = Release;
 		};
-		AA9D08161BFF7E6F0000F618 /* Debug */ = {
+		AA9D08161BFF7E6F0000F618 /* Debug configuration for PBXNativeTarget "DomainTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5118,7 +5040,7 @@
 			};
 			name = Debug;
 		};
-		AA9D08171BFF7E6F0000F618 /* Release */ = {
+		AA9D08171BFF7E6F0000F618 /* Release configuration for PBXNativeTarget "DomainTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5137,7 +5059,7 @@
 			};
 			name = Release;
 		};
-		AAC4FF871C0214120060B186 /* Debug */ = {
+		AAC4FF871C0214120060B186 /* Debug configuration for PBXNativeTarget "DomainTestDoubles" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5168,7 +5090,7 @@
 			};
 			name = Debug;
 		};
-		AAC4FF881C0214120060B186 /* Release */ = {
+		AAC4FF881C0214120060B186 /* Release configuration for PBXNativeTarget "DomainTestDoubles" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5199,7 +5121,7 @@
 			};
 			name = Release;
 		};
-		AAC4FF9B1C0215B90060B186 /* Debug */ = {
+		AAC4FF9B1C0215B90060B186 /* Debug configuration for PBXNativeTarget "UseCasesTestDoubles" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5230,7 +5152,7 @@
 			};
 			name = Debug;
 		};
-		AAC4FF9C1C0215B90060B186 /* Release */ = {
+		AAC4FF9C1C0215B90060B186 /* Release configuration for PBXNativeTarget "UseCasesTestDoubles" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -5261,7 +5183,7 @@
 			};
 			name = Release;
 		};
-		C01FCF4B08A954540054247B /* Debug */ = {
+		C01FCF4B08A954540054247B /* Debug configuration for PBXNativeTarget "Telephone" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -5317,7 +5239,7 @@
 			};
 			name = Debug;
 		};
-		C01FCF4C08A954540054247B /* Release */ = {
+		C01FCF4C08A954540054247B /* Release configuration for PBXNativeTarget "Telephone" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -5370,7 +5292,7 @@
 			};
 			name = Release;
 		};
-		C01FCF4F08A954540054247B /* Debug */ = {
+		C01FCF4F08A954540054247B /* Debug configuration for PBXProject "Telephone" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5422,12 +5344,13 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		C01FCF5008A954540054247B /* Release */ = {
+		C01FCF5008A954540054247B /* Release configuration for PBXProject "Telephone" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5476,6 +5399,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
@@ -5487,100 +5411,89 @@
 		8A88390323048B9700FB5CF0 /* Build configuration list for PBXNativeTarget "ReceiptValidationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8A88390123048B9700FB5CF0 /* Debug */,
-				8A88390223048B9700FB5CF0 /* Release */,
+				8A88390123048B9700FB5CF0 /* Debug configuration for PBXNativeTarget "ReceiptValidationTests" */,
+				8A88390223048B9700FB5CF0 /* Release configuration for PBXNativeTarget "ReceiptValidationTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		8AE706301D491C220060FF4F /* Build configuration list for PBXNativeTarget "ReceiptValidation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8AE706311D491C220060FF4F /* Debug */,
-				8AE706321D491C220060FF4F /* Release */,
+				8AE706311D491C220060FF4F /* Debug configuration for PBXNativeTarget "ReceiptValidation" */,
+				8AE706321D491C220060FF4F /* Release configuration for PBXNativeTarget "ReceiptValidation" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AA078B3E1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "UseCases" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AA078B3A1BFF80E30013FF8F /* Debug */,
-				AA078B3B1BFF80E30013FF8F /* Release */,
+				AA078B3A1BFF80E30013FF8F /* Debug configuration for PBXNativeTarget "UseCases" */,
+				AA078B3B1BFF80E30013FF8F /* Release configuration for PBXNativeTarget "UseCases" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AA078B3F1BFF80E30013FF8F /* Build configuration list for PBXNativeTarget "UseCasesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AA078B3C1BFF80E30013FF8F /* Debug */,
-				AA078B3D1BFF80E30013FF8F /* Release */,
+				AA078B3C1BFF80E30013FF8F /* Debug configuration for PBXNativeTarget "UseCasesTests" */,
+				AA078B3D1BFF80E30013FF8F /* Release configuration for PBXNativeTarget "UseCasesTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AA3FAB8C1BBAAE630064B2C3 /* Build configuration list for PBXNativeTarget "TelephoneTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AA3FAB8D1BBAAE630064B2C3 /* Debug */,
-				AA3FAB8E1BBAAE630064B2C3 /* Release */,
+				AA3FAB8D1BBAAE630064B2C3 /* Debug configuration for PBXNativeTarget "TelephoneTests" */,
+				AA3FAB8E1BBAAE630064B2C3 /* Release configuration for PBXNativeTarget "TelephoneTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AA9D08181BFF7E6F0000F618 /* Build configuration list for PBXNativeTarget "Domain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AA9D08141BFF7E6F0000F618 /* Debug */,
-				AA9D08151BFF7E6F0000F618 /* Release */,
+				AA9D08141BFF7E6F0000F618 /* Debug configuration for PBXNativeTarget "Domain" */,
+				AA9D08151BFF7E6F0000F618 /* Release configuration for PBXNativeTarget "Domain" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AA9D08191BFF7E6F0000F618 /* Build configuration list for PBXNativeTarget "DomainTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AA9D08161BFF7E6F0000F618 /* Debug */,
-				AA9D08171BFF7E6F0000F618 /* Release */,
+				AA9D08161BFF7E6F0000F618 /* Debug configuration for PBXNativeTarget "DomainTests" */,
+				AA9D08171BFF7E6F0000F618 /* Release configuration for PBXNativeTarget "DomainTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AAC4FF861C0214120060B186 /* Build configuration list for PBXNativeTarget "DomainTestDoubles" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AAC4FF871C0214120060B186 /* Debug */,
-				AAC4FF881C0214120060B186 /* Release */,
+				AAC4FF871C0214120060B186 /* Debug configuration for PBXNativeTarget "DomainTestDoubles" */,
+				AAC4FF881C0214120060B186 /* Release configuration for PBXNativeTarget "DomainTestDoubles" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AAC4FF9A1C0215B90060B186 /* Build configuration list for PBXNativeTarget "UseCasesTestDoubles" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AAC4FF9B1C0215B90060B186 /* Debug */,
-				AAC4FF9C1C0215B90060B186 /* Release */,
+				AAC4FF9B1C0215B90060B186 /* Debug configuration for PBXNativeTarget "UseCasesTestDoubles" */,
+				AAC4FF9C1C0215B90060B186 /* Release configuration for PBXNativeTarget "UseCasesTestDoubles" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Telephone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4B08A954540054247B /* Debug */,
-				C01FCF4C08A954540054247B /* Release */,
+				C01FCF4B08A954540054247B /* Debug configuration for PBXNativeTarget "Telephone" */,
+				C01FCF4C08A954540054247B /* Release configuration for PBXNativeTarget "Telephone" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Telephone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4F08A954540054247B /* Debug */,
-				C01FCF5008A954540054247B /* Release */,
+				C01FCF4F08A954540054247B /* Debug configuration for PBXProject "Telephone" */,
+				C01FCF5008A954540054247B /* Release configuration for PBXProject "Telephone" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
