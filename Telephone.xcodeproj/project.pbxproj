@@ -442,6 +442,8 @@
 		8ACB9C811E13F8F50081A0A5 /* PresentationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */; };
 		8ACB9C821E13F8F50081A0A5 /* PresentationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */; };
 		8ACC002A1E9D3C85005B0338 /* CallHistorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC00291E9D3C85005B0338 /* CallHistorySpy.swift */; };
+		8ACC2ABD300520BE00172E36 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 8ACC2ABC300520BE00172E36 /* Configuration.storekit */; };
+		8ACC2ABF300522F200172E36 /* StoreKitStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC2ABE300522F200172E36 /* StoreKitStoreView.swift */; };
 		8ACC4F0B27EA59140007DE65 /* DefaultAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC4F0A27EA59140007DE65 /* DefaultAppSettings.swift */; };
 		8ACC4F0D27EA5C3A0007DE65 /* DefaultAppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC4F0C27EA5C3A0007DE65 /* DefaultAppSettingsTests.swift */; };
 		8ACC4F0E27EA5C7C0007DE65 /* DefaultAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC4F0A27EA59140007DE65 /* DefaultAppSettings.swift */; };
@@ -1328,6 +1330,8 @@
 		8AC87E881D58DD8B006952F0 /* PurchaseReceiptAttributesValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseReceiptAttributesValidation.swift; sourceTree = "<group>"; };
 		8ACB9C801E13F8F50081A0A5 /* PresentationContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationContact.swift; sourceTree = "<group>"; };
 		8ACC00291E9D3C85005B0338 /* CallHistorySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistorySpy.swift; sourceTree = "<group>"; };
+		8ACC2ABC300520BE00172E36 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		8ACC2ABE300522F200172E36 /* StoreKitStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitStoreView.swift; sourceTree = "<group>"; };
 		8ACC4F0A27EA59140007DE65 /* DefaultAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppSettings.swift; sourceTree = "<group>"; };
 		8ACC4F0C27EA5C3A0007DE65 /* DefaultAppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DefaultAppSettingsTests.swift; path = TelephoneTests/DefaultAppSettingsTests.swift; sourceTree = SOURCE_ROOT; };
 		8ACD2AD51DD1F9AA00E81984 /* NotifyingCallHistoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyingCallHistoryTests.swift; path = UseCasesTests/NotifyingCallHistoryTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1874,6 +1878,7 @@
 				AA2ED9AB0F05BA11004A13C6 /* AccountSetup.xib */,
 				8A628948245761C100609016 /* PublicCAs.pem */,
 				8AE4E95B1DABBBF90003F063 /* Images.xcassets */,
+				8ACC2ABC300520BE00172E36 /* Configuration.storekit */,
 				8A70C46C1DAE832E002E8754 /* Credits.rtf */,
 			);
 			name = Resources;
@@ -2162,6 +2167,7 @@
 				8A859A071D2EC69200118A66 /* Store */,
 				8A5EAAB72191F8D500426B7C /* StoreEventTarget */,
 				8A9D92381D2D0C6500491D59 /* StoreKitProducts.swift */,
+				8ACC2ABE300522F200172E36 /* StoreKitStoreView.swift */,
 				8ADD6A631CE0C591001EDBBA /* StoreView.swift */,
 				8ADD6A7C1CE0F995001EDBBA /* StoreViewController.swift */,
 				8AA749051D749E4D000587DC /* StoreViewController.xib */,
@@ -3543,6 +3549,7 @@
 				8AE4E95C1DABBBF90003F063 /* Images.xcassets in Resources */,
 				AA167A1E0F07BF9E00AF8B71 /* SIPResponses.strings in Resources */,
 				AA3A15400F30A49C00C45739 /* AddressBookLabels.strings in Resources */,
+				8ACC2ABD300520BE00172E36 /* Configuration.storekit in Resources */,
 				AA34ACC3106E229A00FA38F7 /* ActiveAccountView.xib in Resources */,
 				AAFC002C1074D0B50018C7DA /* GeneralPreferencesView.xib in Resources */,
 				AAFC00281074D0B50018C7DA /* AccountPreferencesView.xib in Resources */,
@@ -3828,6 +3835,7 @@
 				AA86C86110FF928D00EF4E8A /* ActiveCallTransferViewController.m in Sources */,
 				8A9D92391D2D0C6500491D59 /* StoreKitProducts.swift in Sources */,
 				8A778C081E0AE98F004B00B8 /* CallHistoryViewPresenter.swift in Sources */,
+				8ACC2ABF300522F200172E36 /* StoreKitStoreView.swift in Sources */,
 				8ABD6EAA1EE93D2400D01435 /* AsyncCallHistoryViewEventTargetFactory.swift in Sources */,
 				8ADD6A641CE0C591001EDBBA /* StoreView.swift in Sources */,
 				8AD64E8B211B44AB006F4AE3 /* SystemDefaultingSoundIO+PresentationSoundIO.swift in Sources */,

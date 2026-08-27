@@ -19,6 +19,7 @@
 import Contacts
 import Foundation
 import StoreKit
+import SwiftUI
 import UseCases
 
 @MainActor
@@ -100,7 +101,7 @@ final class CompositionRoot: NSObject {
         )
         storeViewController.updateTarget(storeViewEventTarget)
 
-        storeWindowPresenter = StoreWindowPresenter(controller: StoreWindowController(contentViewController: storeViewController))
+        storeWindowPresenter = StoreWindowPresenter(controller: StoreWindowController(view: NSHostingView(rootView: StoreKitStoreView())))
 
         purchaseReminder = PurchaseReminderUseCase(
             accounts: SettingsAccounts(settings: defaults),

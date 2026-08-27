@@ -1,0 +1,176 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : "https://www.64characters.com/privacy/"
+      },
+      {
+        "locale" : "de",
+        "policyText" : "",
+        "policyURL" : "https://www.64characters.com/privacy/"
+      },
+      {
+        "locale" : "ru",
+        "policyText" : "",
+        "policyURL" : "https://www.64characters.com/privacy/"
+      }
+    ]
+  },
+  "identifier" : "02C4E2D8",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogs" : false,
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ],
+    "_timeRate" : 0
+  },
+  "subscriptionBundleGroups" : [
+
+  ],
+  "subscriptionGroups" : [
+    {
+      "id" : "CEBD888A",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "Telephone Pro",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "",
+          "displayName" : "Telefon Pro",
+          "locale" : "de"
+        },
+        {
+          "description" : "",
+          "displayName" : "Расширенные возможности",
+          "locale" : "ru"
+        }
+      ],
+      "name" : "Telephone Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "billingPlans" : [
+            {
+              "billingPlanType" : "BILLED_UPFRONT",
+              "commitmentDisplayPrice" : "3.99",
+              "displayPrice" : "3.99",
+              "internalID" : "ECC2F29D",
+              "isEnabled" : true
+            }
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "3.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "7BCA25BE",
+          "introductoryOffers" : [
+
+          ],
+          "localizations" : [
+            {
+              "description" : "Pro features and app development support",
+              "displayName" : "Telephone Pro",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "Pro-Funktionen, Unterstützung der Entwicklung",
+              "displayName" : "Telefon Pro",
+              "locale" : "de"
+            },
+            {
+              "description" : "Расширенные возможности и поддержка проекта",
+              "displayName" : "Расширенные возможности",
+              "locale" : "ru"
+            }
+          ],
+          "productID" : "com.tlphn.Telephone.iap.month",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly Pro",
+          "subscriptionGroupID" : "CEBD888A",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "billingPlans" : [
+            {
+              "billingPlanType" : "BILLED_UPFRONT",
+              "commitmentDisplayPrice" : "39.99",
+              "displayPrice" : "39.99",
+              "internalID" : "D76EC660",
+              "isEnabled" : true
+            }
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "39.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "79A13BB5",
+          "introductoryOffers" : [
+
+          ],
+          "localizations" : [
+            {
+              "description" : "Pro features and app development support",
+              "displayName" : "Telephone Pro",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "Pro-Funktionen, Unterstützung der Entwicklung",
+              "displayName" : "Telefon Pro",
+              "locale" : "de"
+            },
+            {
+              "description" : "Расширенные возможности и поддержка проекта",
+              "displayName" : "Расширенные возможности",
+              "locale" : "ru"
+            }
+          ],
+          "productID" : "com.tlphn.Telephone.iap.year",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yearly Pro",
+          "subscriptionGroupID" : "CEBD888A",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "subscriptionSuiteGroups" : [
+
+  ],
+  "version" : {
+    "major" : 6,
+    "minor" : 3
+  }
+}
