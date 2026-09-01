@@ -18,24 +18,21 @@
 
 import Cocoa
 
-@MainActor
-final class StoreWindowController {
-    private let window: NSWindow
-
-    init(view: NSView) {
-        window = NSWindow(
-            contentRect: .init(origin: .zero, size: view.fittingSize),
+final class StoreWindowController: NSWindowController {
+    convenience init(contentViewController controller: NSViewController) {
+        let window = NSWindow(
+            contentRect: .init(origin: .zero, size: controller.view.fittingSize),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
-            defer: true
+            defer: false
         )
-        window.isReleasedWhenClosed = false
         window.title = String(localized: "Subscription")
-        window.contentView = view
+        self.init(window: window)
+        contentViewController = controller
     }
 
     func showWindowCentered() {
-        window.center()
-        window.makeKeyAndOrderFront(self)
+        window?.center()
+        showWindow(self)
     }
 }

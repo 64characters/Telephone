@@ -20,6 +20,8 @@ import StoreKit
 import SwiftUI
 
 struct StoreKitStoreView: View {
+    let target: StoreEventTarget
+
     var body: some View {
         SubscriptionStoreView(productIDs: ["com.tlphn.Telephone.iap.month", "com.tlphn.Telephone.iap.year"]) {
             VStack {
@@ -34,16 +36,27 @@ struct StoreKitStoreView: View {
         .storeButton(.visible, for: .restorePurchases)
         .storeButton(.visible, for: .policies)
         .storeButton(.hidden, for: .cancellation)
-        .subscriptionStorePolicyDestination(
-            url: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!, for: .termsOfService
-        )
-        .subscriptionStorePolicyDestination(url: URL(string: "https://www.64characters.com/privacy/")!, for: .privacyPolicy)
         .subscriptionStoreControlStyle(.prominentPicker)
-        .frame(maxHeight: 600)
+        .frame(minWidth: 450, minHeight: 650)
+        .onInAppPurchaseCompletion { _, result in
+            if case .success(.success(let verification)) = result, case .verified(let transaction) = verification {
+                await transaction.finish()
+                await target.didPurchase()
+            }
+        }
     }
 }
 
 #Preview {
-    StoreKitStoreView()
-        .frame(height: 500)
+    StoreKitStoreView(target: NullStoreEventTarget())
+}
+
+private final class NullStoreEventTarget: StoreEventTarget {
+    func didStartPurchasingProduct(withIdentifier identifier: String) {}
+    func didPurchase() async {}
+    func didFailPurchasing(error: String) {}
+    func didCancelPurchasing() {}
+    func didRestorePurchases() async {}
+    func didFailRestoringPurchases(error: String) {}
+    func didCancelRestoringPurchases() {}
 }
