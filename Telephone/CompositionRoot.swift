@@ -80,30 +80,9 @@ final class CompositionRoot: NSObject {
             delegate: userAgent
         )
 
-        let productsEventTargets = ProductsEventTargets()
-
-        let storeViewController = StoreViewController(
-            target: NullStoreViewEventTarget(), workspace: NSWorkspace.shared
-        )
-        let products = SKProductsRequestToProductsAdapter(expected: ExpectedProducts(), target: productsEventTargets)
-        let store = SKPaymentQueueToStoreAdapter(queue: SKPaymentQueue.default(), products: products)
         let receipt = StoreKitTransactionReceipt()
-        let storeViewEventTarget = DefaultStoreViewEventTarget(
-            factory: DefaultStoreUseCaseFactory(
-                products: products,
-                store: store,
-                receipt: receipt,
-                targets: productsEventTargets
-            ),
-            purchaseRestoration: PurchaseRestorationUseCase(store: store),
-            receiptRefresh: ReceiptRefreshUseCase(),
-            presenter: DefaultStoreViewPresenter(output: storeViewController)
-        )
-        storeViewController.updateTarget(storeViewEventTarget)
 
-        let storeEventTargets = StoreEventTargets(
-            targets: [storeViewEventTarget, ObjCStoreEventTargetAdapter(target: storeEventTarget)]
-        )
+        let storeEventTargets = StoreEventTargets(targets: [ObjCStoreEventTargetAdapter(target: storeEventTarget)])
 
         storeWindowPresenter = StoreWindowPresenter(controller: StoreWindowController(contentViewController: NSHostingController(rootView: StoreKitStoreView(target: storeEventTargets))))
 
