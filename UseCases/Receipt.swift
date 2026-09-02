@@ -26,21 +26,4 @@ public enum ReceiptValidationResult: Sendable {
     case receiptIsValid(expiration: Date)
     case receiptIsInvalid
     case noActivePurchases
-
-    public var localizedDescription: String {
-        switch self {
-        case .receiptIsValid:
-            return NSLocalizedString("Receipt is valid.", bundle: bundle(), comment: "Receipt validation success.")
-        case .receiptIsInvalid:
-            return NSLocalizedString("Receipt is invalid.", bundle: bundle(), comment: "Receipt validation error.")
-        case .noActivePurchases:
-            return NSLocalizedString(
-                "Receipt doesn’t contain active purchases.", bundle: bundle(), comment: "No active purchase error."
-            )
-        }
-    }
-}
-
-private func bundle() -> Bundle {
-    return Bundle(identifier: "com.tlphn.Telephone.UseCases")!
 }

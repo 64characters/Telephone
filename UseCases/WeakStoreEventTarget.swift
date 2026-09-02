@@ -26,31 +26,11 @@ public final class WeakStoreEventTarget {
 }
 
 extension WeakStoreEventTarget: StoreEventTarget {
-    public func didStartPurchasingProduct(withIdentifier identifier: String) {
-        origin?.didStartPurchasingProduct(withIdentifier: identifier)
-    }
-
     public func didPurchase() async {
         await origin?.didPurchase()
     }
 
-    public func didFailPurchasing(error: String) {
-        origin?.didFailPurchasing(error: error)
-    }
-
-    public func didCancelPurchasing() {
-        origin?.didCancelPurchasing()
-    }
-
     public func didRestorePurchases() async {
         await origin?.didRestorePurchases()
-    }
-
-    public func didFailRestoringPurchases(error: String) {
-        origin?.didFailRestoringPurchases(error: error)
-    }
-
-    public func didCancelRestoringPurchases() {
-        origin?.didCancelRestoringPurchases()
     }
 }

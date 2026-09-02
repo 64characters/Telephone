@@ -27,47 +27,15 @@ public final class ReceiptValidatingStoreEventTarget {
 }
 
 extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
-    public func didStartPurchasingProduct(withIdentifier identifier: String) {
-        origin.didStartPurchasingProduct(withIdentifier: identifier)
-    }
-
     public func didPurchase() async {
-        await notifyOriginAboutPurchase(with: await receipt.validate())
-    }
-
-    public func didFailPurchasing(error: String) {
-        origin.didFailPurchasing(error: error)
-    }
-
-    public func didCancelPurchasing() {
-        origin.didCancelPurchasing()
-    }
-
-    public func didRestorePurchases() async {
-        await notifyOriginAboutRestoration(with: await receipt.validate())
-    }
-
-    public func didFailRestoringPurchases(error: String) {
-        origin.didFailRestoringPurchases(error: error)
-    }
-
-    public func didCancelRestoringPurchases() {
-        origin.didCancelRestoringPurchases()
-    }
-
-    private func notifyOriginAboutPurchase(with result: ReceiptValidationResult) async {
-        if case .receiptIsValid = result {
+        if case .receiptIsValid = await receipt.validate() {
             await origin.didPurchase()
-        } else {
-            await origin.didFailPurchasing(error: result.localizedDescription)
         }
     }
 
-    private func notifyOriginAboutRestoration(with result: ReceiptValidationResult) async {
-        if case .receiptIsValid = result {
+    public func didRestorePurchases() async {
+        if case .receiptIsValid = await receipt.validate() {
             await origin.didRestorePurchases()
-        } else {
-            await origin.didFailRestoringPurchases(error: result.localizedDescription)
         }
     }
 }

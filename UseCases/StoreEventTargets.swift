@@ -30,35 +30,15 @@ public final class StoreEventTargets {
 }
 
 extension StoreEventTargets: StoreEventTarget {
-    public func didStartPurchasingProduct(withIdentifier identifier: String) {
-        targets.forEach { $0.didStartPurchasingProduct(withIdentifier: identifier) }
-    }
-
     public func didPurchase() async {
         for target in targets {
             await target.didPurchase()
         }
     }
 
-    public func didFailPurchasing(error: String) {
-        targets.forEach { $0.didFailPurchasing(error: error) }
-    }
-
-    public func didCancelPurchasing() {
-        targets.forEach { $0.didCancelPurchasing() }
-    }
-
     public func didRestorePurchases() async {
         for target in targets {
             await target.didRestorePurchases()
         }
-    }
-
-    public func didFailRestoringPurchases(error: String) {
-        targets.forEach { $0.didFailRestoringPurchases(error: error) }
-    }
-
-    public func didCancelRestoringPurchases() {
-        targets.forEach { $0.didCancelRestoringPurchases() }
     }
 }

@@ -22,22 +22,6 @@ import UseCasesTestDoubles
 
 @MainActor
 struct ReceiptValidatingStoreEventTargetTests {
-
-    // MARK: - Purchase start
-
-    @Test func callsDidStartPurchasingOnDidStartPurchasing() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
-        let identifier = "any"
-
-        sut.didStartPurchasingProduct(withIdentifier: identifier)
-
-        #expect(origin.didCallDidStartPurchasing)
-        #expect(origin.invokedIdentifier == identifier)
-    }
-
-    // MARK: - Purchase finish
-
     @Test func callsDidPurchaseWhenReceiptIsValidOnDidPurchase() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
@@ -47,47 +31,14 @@ struct ReceiptValidatingStoreEventTargetTests {
         #expect(origin.didCallDidPurchase)
     }
 
-    @Test func callsDidFailPurchasingWhenReceiptIsNotValidOnDidPurchase() async {
+    @Test func doesNotCallDidPurchaseWhenReceiptIsNotValidOnDidPurchase() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
         await sut.didPurchase()
 
-        #expect(origin.didCallDidFailPurchasing)
-        #expect(origin.invokedError == ReceiptValidationResult.receiptIsInvalid.localizedDescription)
+        #expect(!origin.didCallDidPurchase)
     }
-
-    @Test func callsDidFailPurchasingWhenThereAreNoActivePurchasesOnDidPurchase() async {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
-
-        await sut.didPurchase()
-
-        #expect(origin.didCallDidFailPurchasing)
-        #expect(origin.invokedError == ReceiptValidationResult.noActivePurchases.localizedDescription)
-    }
-
-    @Test func callsDidFailPurchasingOnDidFailPurchasing() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
-        let error = "any"
-
-        sut.didFailPurchasing(error: error)
-
-        #expect(origin.didCallDidFailPurchasing)
-        #expect(origin.invokedError == error)
-    }
-
-    @Test func callsDidCancelPurchasingOnDidCancelPurchasing() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
-
-        sut.didCancelPurchasing()
-
-        #expect(origin.didCallDidCancelPurchasing)
-    }
-
-    // MARK: - Restoration finish
 
     @Test func callsDidRestoreWhenReceiptIsValidOnDidRestore() async {
         let origin = StoreEventTargetSpy()
@@ -98,43 +49,12 @@ struct ReceiptValidatingStoreEventTargetTests {
         #expect(origin.didCallDidRestore)
     }
 
-    @Test func callsDidFailRestoringWhenReceiptIsNotValidOnDidRestore() async {
+    @Test func doesNotCallDidRestoreWhenReceiptIsNotValidOnDidRestore() async {
         let origin = StoreEventTargetSpy()
         let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
 
         await sut.didRestorePurchases()
 
-        #expect(origin.didCallDidFailRestoring)
-        #expect(origin.invokedError == ReceiptValidationResult.receiptIsInvalid.localizedDescription)
-    }
-
-    @Test func callsDidFailRestoringWhenThereAreNoActivePurchasesOnDidPurchase() async {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: NoActivePurchasesReceipt())
-
-        await sut.didRestorePurchases()
-
-        #expect(origin.didCallDidFailRestoring)
-        #expect(origin.invokedError == ReceiptValidationResult.noActivePurchases.localizedDescription)
-    }
-
-    @Test func callsDidFailRestoringOnDidFailRestoring() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
-        let error = "any"
-
-        sut.didFailRestoringPurchases(error: error)
-
-        #expect(origin.didCallDidFailRestoring)
-        #expect(origin.invokedError == error)
-    }
-
-    @Test func callsDidCancelRestoringOnDidCancelRestoring() {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
-
-        sut.didCancelRestoringPurchases()
-
-        #expect(origin.didCallDidCancelRestoring)
+        #expect(!origin.didCallDidRestore)
     }
 }
