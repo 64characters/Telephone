@@ -19,5 +19,4 @@
 @MainActor
 public protocol StoreEventTarget: AnyObject, Sendable {
     func didPurchase() async
-    func didRestorePurchases() async
 }

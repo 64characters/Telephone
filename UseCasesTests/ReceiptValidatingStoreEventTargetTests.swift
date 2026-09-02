@@ -39,22 +39,4 @@ struct ReceiptValidatingStoreEventTargetTests {
 
         #expect(!origin.didCallDidPurchase)
     }
-
-    @Test func callsDidRestoreWhenReceiptIsValidOnDidRestore() async {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: ValidReceipt())
-
-        await sut.didRestorePurchases()
-
-        #expect(origin.didCallDidRestore)
-    }
-
-    @Test func doesNotCallDidRestoreWhenReceiptIsNotValidOnDidRestore() async {
-        let origin = StoreEventTargetSpy()
-        let sut = ReceiptValidatingStoreEventTarget(origin: origin, receipt: InvalidReceipt())
-
-        await sut.didRestorePurchases()
-
-        #expect(!origin.didCallDidRestore)
-    }
 }

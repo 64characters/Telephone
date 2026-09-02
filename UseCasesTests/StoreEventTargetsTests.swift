@@ -32,15 +32,4 @@ struct StoreEventTargetsTests {
         #expect(first.didCallDidPurchase)
         #expect(second.didCallDidPurchase)
     }
-
-    @Test func callsDidRestorePurchasesOnAllTargets() async {
-        let first = StoreEventTargetSpy()
-        let second = StoreEventTargetSpy()
-        let sut = StoreEventTargets(targets: [first, second])
-
-        await sut.didRestorePurchases()
-
-        #expect(first.didCallDidRestore)
-        #expect(second.didCallDidRestore)
-    }
 }

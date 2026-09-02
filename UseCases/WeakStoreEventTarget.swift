@@ -29,8 +29,4 @@ extension WeakStoreEventTarget: StoreEventTarget {
     public func didPurchase() async {
         await origin?.didPurchase()
     }
-
-    public func didRestorePurchases() async {
-        await origin?.didRestorePurchases()
-    }
 }

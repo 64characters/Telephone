@@ -32,10 +32,4 @@ extension ReceiptValidatingStoreEventTarget: StoreEventTarget {
             await origin.didPurchase()
         }
     }
-
-    public func didRestorePurchases() async {
-        if case .receiptIsValid = await receipt.validate() {
-            await origin.didRestorePurchases()
-        }
-    }
 }

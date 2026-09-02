@@ -35,10 +35,4 @@ extension StoreEventTargets: StoreEventTarget {
             await target.didPurchase()
         }
     }
-
-    public func didRestorePurchases() async {
-        for target in targets {
-            await target.didRestorePurchases()
-        }
-    }
 }

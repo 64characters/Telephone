@@ -52,11 +52,5 @@ struct StoreKitStoreView: View {
 }
 
 private final class NullStoreEventTarget: StoreEventTarget {
-    func didStartPurchasingProduct(withIdentifier identifier: String) {}
     func didPurchase() async {}
-    func didFailPurchasing(error: String) {}
-    func didCancelPurchasing() {}
-    func didRestorePurchases() async {}
-    func didFailRestoringPurchases(error: String) {}
-    func didCancelRestoringPurchases() {}
 }

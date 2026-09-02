@@ -20,51 +20,13 @@ import UseCases
 
 @MainActor
 public final class StoreEventTargetSpy {
-    public private(set) var didCallDidStartPurchasing = false
-    public private(set) var invokedIdentifier = ""
-
     public private(set) var didCallDidPurchase = false
-    public private(set) var didCallDidFailPurchasing = false
-    public private(set) var didCallDidCancelPurchasing = false
-
-    public private(set) var didCallDidRestore = false
-    public private(set) var didCallDidFailRestoring = false
-    public private(set) var didCallDidCancelRestoring = false
-
-    public private(set) var invokedError = ""
 
     public init() {}
 }
 
 extension StoreEventTargetSpy: StoreEventTarget {
-    public func didStartPurchasingProduct(withIdentifier identifier: String) {
-        didCallDidStartPurchasing = true
-        invokedIdentifier = identifier
-    }
-
     public func didPurchase() async {
         didCallDidPurchase = true
-    }
-
-    public func didFailPurchasing(error: String) {
-        didCallDidFailPurchasing = true
-        invokedError = error
-    }
-
-    public func didCancelPurchasing() {
-        didCallDidCancelPurchasing = true
-    }
-
-    public func didRestorePurchases() async {
-        didCallDidRestore = true
-    }
-
-    public func didFailRestoringPurchases(error: String) {
-        didCallDidFailRestoring = true
-        invokedError = error
-    }
-
-    public func didCancelRestoringPurchases() {
-        didCallDidCancelRestoring = true
     }
 }
