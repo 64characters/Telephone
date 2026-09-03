@@ -55,26 +55,6 @@ final class RecordCountingPurchaseCheckUseCaseTests: XCTestCase {
         await fulfillment(of: [didCallDidFailCheckingPurchase], timeout: 1)
         XCTAssertEqual(invokedCount, records.count)
     }
-
-    func testCallsDidFailCheckingPurchaseWithRecordCountWhenReceiptDoesNotHaveActivePurchasesOnUpdate() async {
-        let records = makeRecords(count: 6)
-        let didCallDidFailCheckingPurchase = expectation(description: "Calls did fail checking purchase on output")
-        var invokedCount: Int?
-        let output = RecordCountingPurchaseCheckUseCaseOutputSpy(
-            didCheckPurchaseCallback: {}, didFailCheckingPurchaseCallback: { count in
-                invokedCount = count
-                didCallDidFailCheckingPurchase.fulfill()
-            }
-        )
-        let sut = RecordCountingPurchaseCheckUseCase(
-            factory: PurchaseCheckUseCaseFactory(receipt: NoActivePurchasesReceipt()), output: output
-        )
-
-        await sut.update(records: records)
-
-        await fulfillment(of: [didCallDidFailCheckingPurchase], timeout: 1)
-        XCTAssertEqual(invokedCount, records.count)
-    }
 }
 
 private func makeRecords(count: Int) -> [CallHistoryRecord] {

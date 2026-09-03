@@ -30,8 +30,8 @@ public final class PurchaseCheckUseCase: Sendable {
 
 extension PurchaseCheckUseCase: AsyncUseCase {
     public func execute() async {
-        if case .receiptIsValid(expiration: let expiration) = await receipt.validate() {
-            output.didCheckPurchase(expiration: expiration)
+        if await receipt.validate() {
+            output.didCheckPurchase()
         } else {
             output.didFailCheckingPurchase()
         }

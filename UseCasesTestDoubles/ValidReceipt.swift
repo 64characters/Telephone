@@ -20,19 +20,11 @@ import Foundation
 import UseCases
 
 public struct ValidReceipt {
-    private let expiration: Date
-
-    public init(expiration: Date) {
-        self.expiration = expiration
-    }
-
-    public init() {
-        self.init(expiration: Date.distantFuture)
-    }
+    public init() {}
 }
 
 extension ValidReceipt: Receipt {
-    public func validate() async -> ReceiptValidationResult {
-        .receiptIsValid(expiration: expiration)
+    public func validate() async -> Bool {
+        true
     }
 }

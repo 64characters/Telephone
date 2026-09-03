@@ -41,16 +41,6 @@ struct ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutputTests {
 
         #expect(origin.invokedRecords == Array(records.prefix(3)))
     }
-
-    @Test func callsUpdateOnOriginWithFirstThreeRecordsWhenThereAreNoActivePurchases() async {
-        let origin = ContactCallHistoryRecordGetAllUseCaseOutputSpy()
-        let sut = ReceiptValidatingContactCallHistoryRecordGetAllUseCaseOutput(origin: origin, receipt: NoActivePurchasesReceipt())
-        let records = makeFourRecords()
-
-        await sut.update(records: records)
-
-        #expect(origin.invokedRecords == Array(records.prefix(3)))
-    }
 }
 
 private func makeFourRecords() -> [ContactCallHistoryRecord] {

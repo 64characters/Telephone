@@ -48,7 +48,7 @@ extension RecordCountingPurchaseCheckUseCase: CallHistoryRecordGetAllUseCaseOutp
 }
 
 nonisolated extension RecordCountingPurchaseCheckUseCase: PurchaseCheckUseCaseOutput {
-    public func didCheckPurchase(expiration: Date) {
+    public func didCheckPurchase() {
         output.didCheckPurchase()
     }
 

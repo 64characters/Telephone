@@ -20,21 +20,13 @@ import StoreKit
 import UseCases
 
 final class StoreKitTransactionReceipt: Receipt {
-    func validate() async -> ReceiptValidationResult {
-        if await unlocked() {
-            .receiptIsValid(expiration: .distantFuture)
-        } else {
-            .noActivePurchases
-        }
-    }
-}
-
-private func unlocked() async -> Bool {
-    await Transaction.currentEntitlements.reduce(false) { partial, result in
-        if case .verified(_) = result {
-            return true
-        } else {
-            return partial
+    func validate() async -> Bool {
+        await Transaction.currentEntitlements.reduce(false) { partial, result in
+            if case .verified(_) = result {
+                return true
+            } else {
+                return partial
+            }
         }
     }
 }

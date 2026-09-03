@@ -24,27 +24,16 @@ import UseCasesTestDoubles
 struct PurchaseCheckUseCaseTests {
     @Test func callsDidCheckPurchaseWhenReceiptIsValid() async {
         let output = PurchaseCheckUseCaseOutputSpy()
-        let expiration = Date()
-        let sut = PurchaseCheckUseCase(receipt: ValidReceipt(expiration: expiration), output: output)
+        let sut = PurchaseCheckUseCase(receipt: ValidReceipt(), output: output)
 
         await sut.execute()
 
         #expect(output.didCallDidCheckPurchase)
-        #expect(output.invokedExpiration == expiration)
     }
 
     @Test func callsDidFailCheckingPurchaseWhenReceiptIsInvalid() async {
         let output = PurchaseCheckUseCaseOutputSpy()
         let sut = PurchaseCheckUseCase(receipt: InvalidReceipt(), output: output)
-
-        await sut.execute()
-
-        #expect(output.didCallDidFailCheckingPurchase)
-    }
-
-    @Test func callsDidFailCheckingPurchaseWhenThereAreNoActivePurchases() async {
-        let output = PurchaseCheckUseCaseOutputSpy()
-        let sut = PurchaseCheckUseCase(receipt: NoActivePurchasesReceipt(), output: output)
 
         await sut.execute()
 

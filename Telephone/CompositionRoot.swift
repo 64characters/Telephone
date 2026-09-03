@@ -97,7 +97,7 @@ final class CompositionRoot: NSObject {
 
         userAgentStart = UserAgentStartUseCase(agent: userAgent, factory: PurchaseCheckUseCaseFactory(receipt: receipt))
 
-        storeEventSource = StoreKitTransactionStoreEventSource(target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt))
+        storeEventSource = StoreKitTransactionStoreEventSource(target: storeEventTargets)
 
         let userAgentEventsUserAgentSoundIOSelection = UserAgentEventsUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCase(
