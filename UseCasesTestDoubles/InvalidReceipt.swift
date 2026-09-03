@@ -23,7 +23,7 @@ public struct InvalidReceipt {
 }
 
 extension InvalidReceipt: Receipt {
-    public func validate() async -> Bool {
+    public func isValid() async -> Bool {
         false
     }
 }

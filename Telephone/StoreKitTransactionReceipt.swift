@@ -20,7 +20,7 @@ import StoreKit
 import UseCases
 
 final class StoreKitTransactionReceipt: Receipt {
-    func validate() async -> Bool {
+    func isValid() async -> Bool {
         await Transaction.currentEntitlements.reduce(false) { partial, result in
             if case .verified(_) = result {
                 return true

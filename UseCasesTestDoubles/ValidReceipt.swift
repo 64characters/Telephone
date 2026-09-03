@@ -24,7 +24,7 @@ public struct ValidReceipt {
 }
 
 extension ValidReceipt: Receipt {
-    public func validate() async -> Bool {
+    public func isValid() async -> Bool {
         true
     }
 }

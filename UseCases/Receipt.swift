@@ -19,5 +19,5 @@
 import Foundation
 
 public protocol Receipt: Sendable {
-    func validate() async -> Bool
+    func isValid() async -> Bool
 }
