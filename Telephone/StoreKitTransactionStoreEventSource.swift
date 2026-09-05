@@ -1,5 +1,5 @@
 //
-//  SHA256Fingerprint.swift
+//  StoreKitTransactionStoreEventSource.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -16,25 +16,27 @@
 //  GNU General Public License for more details.
 //
 
-import CommonCrypto
-import Foundation
+import StoreKit
 
-struct SHA256Fingerprint: Equatable {
-    private let sha256: Data
+final class StoreKitTransactionStoreEventSource {
+    private let updates: Task<Void, Never>
 
-    init(sha256: Data) {
-        self.sha256 = sha256
+    init(target: StoreEventTarget) {
+        updates = startTransactionUpdateListener(target: target)
     }
 
-    init(source: Data) {
-        self.init(sha256: digest(of: source))
+    deinit {
+        updates.cancel()
     }
 }
 
-private func digest(of source: Data) -> Data {
-    var result = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
-    source.withUnsafeBytes { ptr in
-        _ = CC_SHA256(ptr.baseAddress, CC_LONG(source.count), &result)
+private func startTransactionUpdateListener(target: StoreEventTarget) -> Task<Void, Never> {
+    Task {
+        for await verification in Transaction.updates {
+            if case .verified(let transaction) = verification {
+                await transaction.finish()
+                await target.didPurchase()
+            }
+        }
     }
-    return Data(result)
 }

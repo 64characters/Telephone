@@ -72,16 +72,6 @@ extension CallHistoryViewEventTarget: StoreEventTarget {
     func didPurchase() {
         executeRecordGetAndPurchaseCheck()
     }
-
-    func didRestorePurchases() {
-        executeRecordGetAndPurchaseCheck()
-    }
-
-    func didStartPurchasingProduct(withIdentifier identifier: String) {}
-    func didFailPurchasing(error: String) {}
-    func didCancelPurchasing() {}
-    func didFailRestoringPurchases(error: String) {}
-    func didCancelRestoringPurchases() {}
 }
 
 nonisolated extension CallHistoryViewEventTarget: DayChangeEventTarget {

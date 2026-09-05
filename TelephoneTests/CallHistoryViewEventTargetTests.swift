@@ -119,38 +119,6 @@ final class CallHistoryViewEventTargetTests: XCTestCase {
         wait(for: [didExecutePurchaseCheck], timeout: 1)
     }
 
-    // MARK: - Did restore purchases
-
-    func testExecutesCallHistoryRecordGetAllUseCaseOnDidRestorePurchases() {
-        let didExecuteRecordsGet = expectation(description: "Calls execute on records get")
-        let sut = CallHistoryViewEventTarget(
-            recordsGet: UseCaseSpy(callBack: didExecuteRecordsGet.fulfill),
-            purchaseCheck: UseCaseSpy(),
-            recordRemoveAll: UseCaseSpy(),
-            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
-            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
-        )
-
-        sut.didRestorePurchases()
-
-        wait(for: [didExecuteRecordsGet], timeout: 1)
-    }
-
-    func testExecutesPurchaseCheckUseCaseOnDidRestorePurchases() {
-        let didExecutePurchaseCheck = expectation(description: "Calls execute on purchase check")
-        let sut = CallHistoryViewEventTarget(
-            recordsGet: UseCaseSpy(),
-            purchaseCheck: UseCaseSpy(callBack: didExecutePurchaseCheck.fulfill),
-            recordRemoveAll: UseCaseSpy(),
-            recordRemove: CallHistoryRecordRemoveUseCaseFactorySpy(remove: UseCaseSpy()),
-            callMake: CallHistoryCallMakeUseCaseFactorySpy(callMake: UseCaseSpy())
-        )
-
-        sut.didRestorePurchases()
-
-        wait(for: [didExecutePurchaseCheck], timeout: 1)
-    }
-
     // MARK: - Day did change
 
     func testExecutesCallHistoryRecordGetAllUseCaseOnDayDidChange() {

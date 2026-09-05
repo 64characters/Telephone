@@ -31,11 +31,4 @@ extension ObjCStoreEventTargetAdapter: StoreEventTarget {
     func didPurchase() {
         target.didPurchase()
     }
-
-    func didStartPurchasingProduct(withIdentifier identifier: String) {}
-    func didFailPurchasing(error: String) {}
-    func didCancelPurchasing() {}
-    func didRestorePurchases() {}
-    func didFailRestoringPurchases(error: String) {}
-    func didCancelRestoringPurchases() {}
 }

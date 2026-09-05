@@ -1,5 +1,5 @@
 //
-//  Product+SKProduct.swift
+//  StoreKitTransactionReceipt.swift
 //  Telephone
 //
 //  Copyright © 2008-2016 Alexey Kuznetsov
@@ -19,21 +19,14 @@
 import StoreKit
 import UseCases
 
-extension UseCases.Product {
-    init(product: SKProduct, name: String, formatter: NumberFormatter) {
-        self.init(
-            identifier: product.productIdentifier,
-            name: name,
-            price: product.price as Decimal,
-            localizedPrice: localized(product.price, formatter: formatter)
-        )
-    }
-}
-
-private func localized(_ price: NSDecimalNumber?, formatter: NumberFormatter) -> String {
-    if let number = price, let string = formatter.string(from: number) {
-        return string
-    } else {
-        return "N/A"
+final class StoreKitTransactionReceipt: Receipt {
+    func isValid() async -> Bool {
+        await Transaction.currentEntitlements.reduce(false) { partial, result in
+            if case .verified(_) = result {
+                return true
+            } else {
+                return partial
+            }
+        }
     }
 }

@@ -22,20 +22,6 @@ import UseCasesTestDoubles
 
 @MainActor
 struct StoreEventTargetsTests {
-    @Test func callsDidStartPurchasingProductWithPassedArgumentOnAllTargets() {
-        let first = StoreEventTargetSpy()
-        let second = StoreEventTargetSpy()
-        let sut = StoreEventTargets(targets: [first, second])
-        let identifier = "any"
-
-        sut.didStartPurchasingProduct(withIdentifier: identifier)
-
-        #expect(first.didCallDidStartPurchasing)
-        #expect(first.invokedIdentifier == identifier)
-        #expect(second.didCallDidStartPurchasing)
-        #expect(second.invokedIdentifier == identifier)
-    }
-
     @Test func callsDidPurchaseOnAllTargets() async {
         let first = StoreEventTargetSpy()
         let second = StoreEventTargetSpy()
@@ -45,66 +31,5 @@ struct StoreEventTargetsTests {
 
         #expect(first.didCallDidPurchase)
         #expect(second.didCallDidPurchase)
-    }
-
-    @Test func callsDidFailPurchasingWithPassedArgumentOnAllTargets() {
-        let first = StoreEventTargetSpy()
-        let second = StoreEventTargetSpy()
-        let sut = StoreEventTargets(targets: [first, second])
-        let error = "any"
-
-        sut.didFailPurchasing(error: error)
-
-        #expect(first.didCallDidFailPurchasing)
-        #expect(first.invokedError == error)
-        #expect(second.didCallDidFailPurchasing)
-        #expect(second.invokedError == error)
-    }
-
-    @Test func callsDidCancelPurchasingOnAllTargets() {
-        let first = StoreEventTargetSpy()
-        let second = StoreEventTargetSpy()
-        let sut = StoreEventTargets(targets: [first, second])
-
-        sut.didCancelPurchasing()
-
-        #expect(first.didCallDidCancelPurchasing)
-        #expect(second.didCallDidCancelPurchasing)
-    }
-
-    @Test func callsDidRestorePurchasesOnAllTargets() async {
-        let first = StoreEventTargetSpy()
-        let second = StoreEventTargetSpy()
-        let sut = StoreEventTargets(targets: [first, second])
-
-        await sut.didRestorePurchases()
-
-        #expect(first.didCallDidRestore)
-        #expect(second.didCallDidRestore)
-    }
-
-    @Test func callsDidFailRestoringPurchasesWithPassedArgumentOnAllTargets() {
-        let first = StoreEventTargetSpy()
-        let second = StoreEventTargetSpy()
-        let sut = StoreEventTargets(targets: [first, second])
-        let error = "any"
-
-        sut.didFailRestoringPurchases(error: error)
-
-        #expect(first.didCallDidFailRestoring)
-        #expect(first.invokedError == error)
-        #expect(second.didCallDidFailRestoring)
-        #expect(second.invokedError == error)
-    }
-
-    @Test func callsDidCancelRestoringPurchasesOnAllTargets() {
-        let first = StoreEventTargetSpy()
-        let second = StoreEventTargetSpy()
-        let sut = StoreEventTargets(targets: [first, second])
-
-        sut.didCancelRestoringPurchases()
-
-        #expect(first.didCallDidCancelRestoring)
-        #expect(second.didCallDidCancelRestoring)
     }
 }

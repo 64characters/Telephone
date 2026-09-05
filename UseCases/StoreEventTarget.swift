@@ -18,13 +18,5 @@
 
 @MainActor
 public protocol StoreEventTarget: AnyObject, Sendable {
-    func didStartPurchasingProduct(withIdentifier identifier: String)
-
     func didPurchase() async
-    func didFailPurchasing(error: String)
-    func didCancelPurchasing()
-
-    func didRestorePurchases() async
-    func didFailRestoringPurchases(error: String)
-    func didCancelRestoringPurchases()
 }

@@ -141,12 +141,6 @@
 /* Quit button. */
 "Quit" = "Quit";
 
-/* Receipt refresh alert button. */
-"Quit and Refresh" = "Quit and Refresh";
-
-/* Receipt refresh alert message text. */
-"Refresh receipt?" = "Refresh receipt?";
-
 /* Resume. Call menu item. */
 "Resume" = "Resume";
 
@@ -170,9 +164,6 @@
 
 /* Registrar authentication failed. */
 "Telephone was unable to login to %@. Change user name or password and try again." = "Telephone was unable to login to %@. Change user name or password and try again.";
-
-/* Receipt refresh alert informative text. */
-"Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials." = "Telepohne will quit and the system will attempt to refresh the application receipt. After that, Telephone will be started again. You may be asked to enter your App Store credentials.";
 
 /* Error description. */
 "The error was: “%ld %@”." = "The error was: “%1$ld %2$@”.";

@@ -19,6 +19,7 @@
 import Contacts
 import Foundation
 import StoreKit
+import SwiftUI
 import UseCases
 
 @MainActor
@@ -41,7 +42,7 @@ final class CompositionRoot: NSObject {
     @objc let nameServers: NameServers
     private let defaults: UserDefaults
 
-    private let storeEventSource: SKPaymentQueueStoreEventSource
+    private let storeEventSource: StoreKitTransactionStoreEventSource
     private let userAgentEventSource: AKSIPUserAgentEventSource
     private let devicesChangeEventSource: CoreAudioSystemAudioDevicesChangeEventSource
     private let soundIOChangeEventSource: CoreAudioDefaultSystemSoundIOChangeEventSource
@@ -79,28 +80,11 @@ final class CompositionRoot: NSObject {
             delegate: userAgent
         )
 
-        let productsEventTargets = ProductsEventTargets()
+        let receipt = StoreKitTransactionReceipt()
 
-        let storeViewController = StoreViewController(
-            target: NullStoreViewEventTarget(), workspace: NSWorkspace.shared
-        )
-        let products = SKProductsRequestToProductsAdapter(expected: ExpectedProducts(), target: productsEventTargets)
-        let store = SKPaymentQueueToStoreAdapter(queue: SKPaymentQueue.default(), products: products)
-        let receipt = BundleReceipt(bundle: Bundle.main, gateway: ReceiptXPCGateway())
-        let storeViewEventTarget = DefaultStoreViewEventTarget(
-            factory: DefaultStoreUseCaseFactory(
-                products: products,
-                store: store,
-                receipt: receipt,
-                targets: productsEventTargets
-            ),
-            purchaseRestoration: PurchaseRestorationUseCase(store: store),
-            receiptRefresh: ReceiptRefreshUseCase(),
-            presenter: DefaultStoreViewPresenter(output: storeViewController)
-        )
-        storeViewController.updateTarget(storeViewEventTarget)
+        let storeEventTargets = StoreEventTargets(targets: [ObjCStoreEventTargetAdapter(target: storeEventTarget)])
 
-        storeWindowPresenter = StoreWindowPresenter(controller: StoreWindowController(contentViewController: storeViewController))
+        storeWindowPresenter = StoreWindowPresenter(controller: StoreWindowController(contentViewController: NSHostingController(rootView: StoreKitStoreView(target: storeEventTargets))))
 
         purchaseReminder = PurchaseReminderUseCase(
             accounts: SettingsAccounts(settings: defaults),
@@ -113,14 +97,7 @@ final class CompositionRoot: NSObject {
 
         userAgentStart = UserAgentStartUseCase(agent: userAgent, factory: PurchaseCheckUseCaseFactory(receipt: receipt))
 
-        let storeEventTargets = StoreEventTargets(
-            targets: [storeViewEventTarget, ObjCStoreEventTargetAdapter(target: storeEventTarget)]
-        )
-
-        storeEventSource = SKPaymentQueueStoreEventSource(
-            queue: SKPaymentQueue.default(),
-            target: ReceiptValidatingStoreEventTarget(origin: storeEventTargets, receipt: receipt)
-        )
+        storeEventSource = StoreKitTransactionStoreEventSource(target: storeEventTargets)
 
         let userAgentEventsUserAgentSoundIOSelection = UserAgentEventsUserAgentSoundIOSelectionUseCase(
             useCase: UserAgentSoundIOSelectionUseCase(

@@ -40,7 +40,7 @@ extension UserAgentStartUseCase: UseCase {
 }
 
 nonisolated extension UserAgentStartUseCase: PurchaseCheckUseCaseOutput {
-    public func didCheckPurchase(expiration: Date) {
+    public func didCheckPurchase() {
         Task { @MainActor in
             agent.maxCalls = 30
             agent.start()

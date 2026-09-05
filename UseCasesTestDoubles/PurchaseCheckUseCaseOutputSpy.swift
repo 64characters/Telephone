@@ -21,16 +21,14 @@ import UseCases
 
 public final class PurchaseCheckUseCaseOutputSpy {
     public private(set) nonisolated(unsafe) var didCallDidCheckPurchase = false
-    public private(set) nonisolated(unsafe) var invokedExpiration = Date.distantPast
     public private(set) nonisolated(unsafe) var didCallDidFailCheckingPurchase = false
 
     public init() {}
 }
 
 extension PurchaseCheckUseCaseOutputSpy: PurchaseCheckUseCaseOutput {
-    public func didCheckPurchase(expiration: Date) {
+    public func didCheckPurchase() {
         didCallDidCheckPurchase = true
-        invokedExpiration = expiration
     }
 
     public func didFailCheckingPurchase() {

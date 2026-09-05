@@ -17,11 +17,17 @@
 //
 
 import Cocoa
-import UseCases
 
 final class StoreWindowController: NSWindowController {
     convenience init(contentViewController controller: NSViewController) {
-        self.init(windowNibName: "StoreWindowController")
+        let window = NSWindow(
+            contentRect: .init(origin: .zero, size: controller.view.fittingSize),
+            styleMask: [.titled, .closable, .miniaturizable],
+            backing: .buffered,
+            defer: false
+        )
+        window.title = String(localized: "Subscription")
+        self.init(window: window)
         contentViewController = controller
     }
 

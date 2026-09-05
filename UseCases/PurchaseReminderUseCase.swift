@@ -45,7 +45,7 @@ extension PurchaseReminderUseCase: AsyncUseCase {
     @MainActor
     public func execute() async {
         if accounts.haveEnabled && shouldRemind() {
-            remindIfNotPurchased(await receipt.validate())
+            remindIfNotPurchased(await receipt.isValid())
             updateSettings()
         }
     }
@@ -54,12 +54,9 @@ extension PurchaseReminderUseCase: AsyncUseCase {
         return lastVersionDoesNotMatch() || isLastDateLaterThanNow() || haveThirtyDaysPassedSinceLastDate()
     }
 
-    private func remindIfNotPurchased(_ result: ReceiptValidationResult) {
-        switch result {
-        case .receiptIsInvalid, .noActivePurchases:
-            self.output.remindAboutPurchasing()
-        default:
-            break
+    private func remindIfNotPurchased(_ isPurchased: Bool) {
+        if !isPurchased {
+            output.remindAboutPurchasing()
         }
     }
 

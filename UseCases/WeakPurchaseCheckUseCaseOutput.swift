@@ -27,8 +27,8 @@ final class WeakPurchaseCheckUseCaseOutput {
 }
 
 nonisolated extension WeakPurchaseCheckUseCaseOutput: PurchaseCheckUseCaseOutput {
-    func didCheckPurchase(expiration: Date) {
-        origin?.didCheckPurchase(expiration: expiration)
+    func didCheckPurchase() {
+        origin?.didCheckPurchase()
     }
 
     func didFailCheckingPurchase() {
