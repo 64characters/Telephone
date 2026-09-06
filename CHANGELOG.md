@@ -4,6 +4,7 @@
 - Minimum deployment target 15.6.
 - Swift 6.
 - StoreKit 2.
+- Liquid Glass app icon.
 
 ## 1.6 - 2022-06-29
 - macOS Big Sur.
