@@ -299,7 +299,6 @@
 		8AA748851D6F0D00000587DC /* SettingsAccountsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */; };
 		8AA748861D6F10B6000587DC /* SettingsAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748801D6DECAB000587DC /* SettingsAccounts.swift */; };
 		8AA748871D6F10C6000587DC /* SettingsAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748821D6DEE61000587DC /* SettingsAccount.swift */; };
-		8AA748931D6F414E000587DC /* iTunesMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748921D6F414E000587DC /* iTunesMusicPlayer.m */; };
 		8AA748961D6F6D7C000587DC /* SpotifyMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */; };
 		8AA748A41D70220D000587DC /* SettingsMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A31D70220D000587DC /* SettingsMusicPlayer.swift */; };
 		8AA748A71D702221000587DC /* SettingsMusicPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA748A51D70221F000587DC /* SettingsMusicPlayerTests.swift */; };
@@ -1006,8 +1005,6 @@
 		8AA748801D6DECAB000587DC /* SettingsAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccounts.swift; sourceTree = "<group>"; };
 		8AA748821D6DEE61000587DC /* SettingsAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAccount.swift; sourceTree = "<group>"; };
 		8AA748841D6F0D00000587DC /* SettingsAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsAccountsTests.swift; path = TelephoneTests/SettingsAccountsTests.swift; sourceTree = SOURCE_ROOT; };
-		8AA748911D6F414E000587DC /* iTunesMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunesMusicPlayer.h; sourceTree = "<group>"; };
-		8AA748921D6F414E000587DC /* iTunesMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTunesMusicPlayer.m; sourceTree = "<group>"; };
 		8AA748941D6F6D7C000587DC /* SpotifyMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyMusicPlayer.h; sourceTree = "<group>"; };
 		8AA748951D6F6D7C000587DC /* SpotifyMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyMusicPlayer.m; sourceTree = "<group>"; };
 		8AA748A31D70220D000587DC /* SettingsMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMusicPlayer.swift; sourceTree = "<group>"; };
@@ -1211,7 +1208,6 @@
 		AA16CC9D0F857009000CAFD1 /* AKNSString+Escaping.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = "AKNSString+Escaping.m"; sourceTree = "<group>"; tabWidth = 4; };
 		AA18F5FE1C21CD2500FD8E9F /* SettingsSoundIOSaveUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsSoundIOSaveUseCaseTests.swift; path = UseCasesTests/SettingsSoundIOSaveUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		AA18F6001C21CD9600FD8E9F /* SettingsSoundIOSaveUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSoundIOSaveUseCase.swift; sourceTree = "<group>"; };
-		AA19171B0F8EA627002BA093 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		AA19CFF41BED148A00991CAA /* DefaultUseCaseFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultUseCaseFactory.swift; sourceTree = "<group>"; };
 		AA1D80121BA9A857004E0855 /* CallController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CallController+Protected.h"; sourceTree = "<group>"; };
 		AA25AB4F1BE0F7B600E677A4 /* UserAgentEventTargetsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAgentEventTargetsTests.swift; path = UseCasesTests/UserAgentEventTargetsTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1554,7 +1550,6 @@
 			children = (
 				AAE33B0B1BA71E6900C6E48B /* Telephone-Bridging-Header.h */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				AA19171B0F8EA627002BA093 /* iTunes.h */,
 				8AC66C9323A0159400FB64BA /* MusicApp.h */,
 				8AFC630C1D8C24670022470D /* Spotify.h */,
 			);
@@ -1961,8 +1956,6 @@
 			isa = PBXGroup;
 			children = (
 				8AA748C01D704B9F000587DC /* AvailableMusicPlayers.swift */,
-				8AA748911D6F414E000587DC /* iTunesMusicPlayer.h */,
-				8AA748921D6F414E000587DC /* iTunesMusicPlayer.m */,
 				8AC66C9423A0166100FB64BA /* MusicAppMusicPlayer.h */,
 				8AC66C9523A0166100FB64BA /* MusicAppMusicPlayer.m */,
 				8A635DD61D8C211300E2DBD0 /* MusicPlayerFactory.h */,
@@ -3137,7 +3130,6 @@
 				AA3FABAE1BBC19C10064B2C3 /* CoreAudioDevicesAudioObjectIDs.swift in Sources */,
 				8A6BA7AB1F3CB110001EB8C1 /* AccountWindowController.m in Sources */,
 				8ADA109A1DC8D20E0038E0A5 /* SettingsMigration.swift in Sources */,
-				8AA748931D6F414E000587DC /* iTunesMusicPlayer.m in Sources */,
 				8A769CFD282997E200BC57CB /* NSPasteboard+Clipboard.swift in Sources */,
 				AA1019901C49486500869D01 /* SimpleSoundFactory.swift in Sources */,
 				8AF2901D3045B2D30076A378 /* StoreKitTransactionStoreEventSource.swift in Sources */,

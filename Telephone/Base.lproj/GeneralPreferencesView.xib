@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25087" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25098" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25098"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,8 +27,8 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="520">
-                    <rect key="frame" x="131" y="64" width="288" height="16"/>
-                    <buttonCell key="cell" type="check" title="Pause Music, iTunes, and Spotify during call" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="521">
+                    <rect key="frame" x="131" y="64" width="238" height="16"/>
+                    <buttonCell key="cell" type="check" title="Pause Music and Spotify during call" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="521">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

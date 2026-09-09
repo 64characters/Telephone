@@ -10,10 +10,6 @@
 		<array>
 			<string>com.apple.Music.playback</string>
 		</array>
-		<key>com.apple.iTunes</key>
-		<array>
-			<string>com.apple.iTunes.playback</string>
-		</array>
 	</dict>
 	<key>com.apple.security.temporary-exception.apple-events</key>
 	<array>
