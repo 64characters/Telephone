@@ -21,9 +21,6 @@ final class AvailableMusicPlayers {
 
     init(factory: MusicPlayerFactory) {
         var players = [MusicPlayer]()
-        if let p = factory.makeiTunesMusicPlayer() {
-            players.append(p)
-        }
         if let p = factory.makeMusicAppMusicPlayer() {
             players.append(p)
         }
