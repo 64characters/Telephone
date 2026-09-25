@@ -20,11 +20,6 @@
 
 @import UseCases;
 
-#import <pjsua-lib/pjsua.h>
-
-#import "AKNSString+PJSUA.h"
-#import "AKSIPUserAgent.h"
-
 @implementation AKSIPURI
 
 - (NSString *)SIPAddress {
@@ -89,6 +84,35 @@
                                                   host:self.host
                                            displayName:self.displayName
                                                   port:self.port];
+}
+
+
+#pragma mark -
+#pragma mark Equality
+
+- (BOOL)isEqualToURI:(nullable AKSIPURI *)uri {
+    if (uri == nil) {
+        return NO;
+    }
+    if (self == uri) {
+        return YES;
+    }
+    return [self.user isEqualToString:uri.user] &&
+           [self.host isEqualToString:uri.host] &&
+           [self.displayName isEqualToString:uri.displayName] &&
+           self.port == uri.port;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[AKSIPURI class]]) {
+        return [self isEqualToURI:(AKSIPURI *)object];
+    } else {
+        return NO;
+    }
+}
+
+- (NSUInteger)hash {
+    return self.user.hash ^ self.host.hash ^ self.displayName.hash ^ self.port;
 }
 
 @end

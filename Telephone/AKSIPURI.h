@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable instancetype)initWithString:(NSString *)SIPURIString;
 
+- (BOOL)isEqualToURI:(nullable AKSIPURI *)uri;
+
 @end
 
 NS_ASSUME_NONNULL_END
