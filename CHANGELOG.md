@@ -5,6 +5,7 @@
 - Swift 6.
 - StoreKit 2.
 - Liquid Glass app icon.
+- macOS 27.
 
 ## 1.6 - 2022-06-29
 - macOS Big Sur.
