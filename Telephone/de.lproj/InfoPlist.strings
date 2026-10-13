@@ -1,7 +1,7 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName				= "Telefon";
-CFBundleDisplayName			= "Telefon";
+CFBundleName				= "SIP-Telefon";
+CFBundleDisplayName			= "SIP-Telefon";
 NSAppleEventsUsageDescription = "Das kann benutzt werden, um die Musikwiedergabe während der Telefonate zu pausieren.";
 NSContactsUsageDescription  = "Ihre Kontakte können benutzt werden, um Namen und Etiketten anzuzeigen und Telefonnummern automatisch zu vervollständigen.";
 NSMicrophoneUsageDescription = "Das Mikrofon wird für Telefongespräche benutzt.";

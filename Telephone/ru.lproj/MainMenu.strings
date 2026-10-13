@@ -15,10 +15,10 @@
 "29.title" = "AMainMenu";
 
 /* Class = "NSMenuItem"; title = "Telephone"; ObjectID = "56"; */
-"56.title" = "Телефон";
+"56.title" = "SIP-Телефон";
 
 /* Class = "NSMenu"; title = "Telephone"; ObjectID = "57"; */
-"57.title" = "Телефон";
+"57.title" = "SIP-Телефон";
 
 /* Class = "NSMenuItem"; title = "About Telephone"; ObjectID = "58"; */
 "58.title" = "О Телефоне";
