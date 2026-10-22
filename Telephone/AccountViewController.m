@@ -133,8 +133,7 @@ static NSArray<NSLayoutConstraint *> *FullSizeConstraintsForView(NSView *view);
 }
 
 - (void)makeCallToDestination:(NSString *)destination {
-    self.activeAccountViewController.callDestinationField.tokenStyle = NSTokenStyleRounded;
-    self.activeAccountViewController.callDestinationField.stringValue = destination;
+    [self.activeAccountViewController setCallDestination:destination];
     [self.activeAccountViewController makeCall:self];
 }
 

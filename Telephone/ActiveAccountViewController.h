@@ -49,6 +49,9 @@ extern NSString * const kPhoneLabel;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 
+// Replaces the call destination token with the one created from the string.
+- (void)setCallDestination:(NSString *)destination;
+
 // Makes a call.
 - (IBAction)makeCall:(id)sender;
 

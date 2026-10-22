@@ -81,6 +81,18 @@ NSString * const kPhoneLabel = @"PhoneLabel";
     [[self callDestinationField] setCompletionDelay:0.4];
 }
 
+- (void)setCallDestination:(NSString *)destination {
+    // Setting stringValue programmatically doesn't make NSTokenField ask the delegate for the represented object on
+    // newer macOS versions, so the token is created explicitly.
+    id token = [self tokenField:self.callDestinationField representedObjectForEditingString:destination];
+    self.callDestinationField.tokenStyle = NSTokenStyleRounded;
+    if (token != nil) {
+        self.callDestinationField.objectValue = @[token];
+    } else {
+        self.callDestinationField.stringValue = destination;
+    }
+}
+
 - (IBAction)makeCall:(id)sender {
     if (![self canMakeCall]) {
         return;
